@@ -11,128 +11,76 @@
           <template slot="title">
             <span class="collapse_Title">{{$t('title.PFANS1010VIEW')}}</span>
           </template>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                      style="width:20vw" @getUserids="getUserids"></user>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1010FORMVIEW_DATEOFUSE')" prop="usedate">
-                <el-date-picker
-                  :disabled="!disable"
-                  style="width:20vw"
-                  type="date"
-                  v-model="form.usedate">
-                </el-date-picker>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="30">
-              <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_USERNAME')}}</div>
-            </el-col>
-          </el-row>
-          <el-row style="padding-top:1.5rem">
-            <el-col :span="24">
-              <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" border stripe>
-                <el-table-column :label="$t('label.user_name')" align="center">
-                  <template slot-scope="scope">
-                    <user
-                      :no="scope.row"
-                      :disabled="!disable"
-                      @getUserids="getuserid"
-                      :userlist="scope.row.user"
-                      selectType="Single"
-                      style="width: 90%"
-                    ></user>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.PFANS1010FORMVIEW_JOINREASON')" align="center">
-                  <template slot-scope="scope">
-                    <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.reason">
-                    </el-input>
-                  </template>
-                </el-table-column>
-                <el-table-column :label="$t('label.operation')" width="200" align="center">
-                  <template slot-scope="scope">
-                    <el-button
-                      @click.native.prevent="deleteRow1(scope.$index, tableT)"
-                      type="danger"
-                      size="small"
-                      plain
-                      :disabled="!disable"
-                    >{{$t('button.delete')}}
-                    </el-button>
-                    <el-button
-                      @click="addRow1()"
-                      type="primary"
-                      size="small"
-                      plain
-                      :disabled="!disable"
-                    >{{$t('button.insert')}}
-                    </el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-col>
-          </el-row>
-          <el-row style="padding-top:1.5rem">
-            <el-col :span="8">
-              <el-form-item :label="$t('label.remarks')">
-                <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.remarks"></el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-          <!--            </el-collapse-item>-->
-          <!--          </el-collapse>-->
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_OPPOSITEUNIT')}}</span>
-              </template>
-
+          <el-tabs type="border-card" v-model="activeName">
+            <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_ORGIN')" name="first">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_COMPANYNAME')" prop="company">
-                    <el-input :disabled="!disable" style="width:20vw" v-model="form.company" maxlength='50'></el-input>
+                  <el-form-item :label="$t('label.center')">
+                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.group')">
+                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.team')">
+                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row style="width: 800px" align="right">
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
+                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                          style="width:20vw" @getUserids="getUserids"></user>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_DATEOFUSE')" prop="usedate">
+                    <el-date-picker
+                      :disabled="!disable"
+                      style="width:20vw"
+                      type="date"
+                      v-model="form.usedate">
+                    </el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="30">
+                  <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_USERNAME')}}</div>
+                </el-col>
+              </el-row>
+              <el-row style="padding-top:1.5rem">
                 <el-col :span="24">
-                  <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" style="width: 46vw" border stripe>
-                    <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center">
+                  <el-table :data="tableT" header-cell-class-name="sub_bg_color_blue" style="width: 72vw" border stripe>
+                    <el-table-column :label="$t('label.user_name')" align="center">
                       <template slot-scope="scope">
-                        <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.participants">
+                        <user
+                          :no="scope.row"
+                          :disabled="!disable"
+                          @getUserids="getuserid"
+                          :userlist="scope.row.user"
+                          selectType="Single"
+                          style="width: 90%"
+                        ></user>
+                      </template>
+                    </el-table-column>
+                    <el-table-column :label="$t('label.PFANS1010FORMVIEW_JOINREASON')" align="center">
+                      <template slot-scope="scope">
+                        <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.reason">
                         </el-input>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.operation')" width="200" align="center">
                       <template slot-scope="scope">
                         <el-button
-                          @click.native.prevent="deleteRow2(scope.$index, tableP)"
+                          @click.native.prevent="deleteRow1(scope.$index, tableT)"
                           type="danger"
                           size="small"
                           plain
@@ -140,7 +88,7 @@
                         >{{$t('button.delete')}}
                         </el-button>
                         <el-button
-                          @click="addRow2()"
+                          @click="addRow1()"
                           type="primary"
                           size="small"
                           plain
@@ -152,75 +100,218 @@
                   </el-table>
                 </el-col>
               </el-row>
-            </el-collapse-item>
-          </el-collapse>
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_AMOUNTUSED')}}</span>
-              </template>
+              <el-row style="padding-top:1.5rem">
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.remarks')">
+                    <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!--            </el-collapse-item>-->
+              <!--          </el-collapse>-->
+              <el-collapse>
+                <el-collapse-item>
+                  <template slot="title">
+                    <span class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_OPPOSITEUNIT')}}</span>
+                  </template>
 
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS1010FORMVIEW_COMPANYNAME')" prop="company">
+                        <el-input :disabled="!disable" style="width:20vw" v-model="form.company" maxlength='50'></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row style="width: 800px" align="right">
+                    <el-col :span="24">
+                      <el-table :data="tableP" header-cell-class-name="sub_bg_color_blue" style="width: 46vw" border stripe>
+                        <el-table-column :label="$t('label.PFANS1010FORMVIEW_PARTICIPANTS')" align="center">
+                          <template slot-scope="scope">
+                            <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.participants">
+                            </el-input>
+                          </template>
+                        </el-table-column>
+                        <el-table-column :label="$t('label.operation')" width="200" align="center">
+                          <template slot-scope="scope">
+                            <el-button
+                              @click.native.prevent="deleteRow2(scope.$index, tableP)"
+                              type="danger"
+                              size="small"
+                              plain
+                              :disabled="!disable"
+                            >{{$t('button.delete')}}
+                            </el-button>
+                            <el-button
+                              @click="addRow2()"
+                              type="primary"
+                              size="small"
+                              plain
+                              :disabled="!disable"
+                            >{{$t('button.insert')}}
+                            </el-button>
+                          </template>
+                        </el-table-column>
+                      </el-table>
+                    </el-col>
+                  </el-row>
+                </el-collapse-item>
+              </el-collapse>
+              <el-collapse>
+                <el-collapse-item>
+                  <template slot="title">
+                    <span class="collapse_Title">{{$t('label.PFANS1010FORMVIEW_AMOUNTUSED')}}</span>
+                  </template>
+
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT')" prop="moneys">
+                        <el-input-number v-model="form.moneys"
+                                         controls-position="right"
+                                         :disabled="!disable"
+                                         :min="0"
+                                         :max="1000000000"
+                                         :precision="2"
+                                         style="width:20vw"
+                        ></el-input-number>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS1010FORMVIEW_PERCAPITA')" prop="percapita">
+                        <el-input-number v-model="form.percapita"
+                                         controls-position="right"
+                                         :disabled="!disable"
+                                         :min="0"
+                                         :max="1000000000"
+                                         :precision="2"
+                                         style="width:20vw"
+                        ></el-input-number>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
+                        <!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
+                        <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
+                                   :placeholder="$t('normal.error_09')">
+                          <el-option
+                            v-for="item in options"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value"
+                            @change="changeBut">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS1010FORMVIEW_PURPOSEOFUSE')">
+                        <el-input :disabled="!disable" type="textarea" style="width:72vw"
+                                  v-model="form.objective"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                  <el-row>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS1010FORMVIEW_RECEPTIONPLACE')">
+                        <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.place"></el-input>
+                      </el-form-item>
+                    </el-col>
+                  </el-row>
+                </el-collapse-item>
+              </el-collapse>
+            </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="second">
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_SCHEDULEDAMOUNT')" prop="moneys">
-                    <el-input-number v-model="form.moneys"
-                                     controls-position="right"
-                                     :disabled="!disable"
-                                     :min="0"
-                                     :max="1000000000"
-                                     :precision="2"
-                                     style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_PERCAPITA')" prop="percapita">
-                    <el-input-number v-model="form.percapita"
-                                     controls-position="right"
-                                     :disabled="!disable"
-                                     :min="0"
-                                     :max="1000000000"
-                                     :precision="2"
-                                     style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')">
-                    <!--                <el-input :disabled="true" style="width:20vw" v-model="form.budgetunit" maxlength='50'></el-input>-->
-                    <el-select clearable style="width: 20vw" v-model="form.budgetunit" :disabled="!disable"
-                               :placeholder="$t('normal.error_09')">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.lable"
-                        :value="item.value"
-                        @change="changeBut">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                <el-table :data="tableA" border
+                          header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 952px">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_LOAN')" align="center"
+                                   prop="loanapno" width="200px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.loanapno}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1013VIEW_LOANAMOUNT')" align="center" prop="moneys"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.moneys}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
+                                   width="300px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.remarks}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.status}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-button
+                        @click.native.prevent="rowClick(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-row>
+              <div></div>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_PURPOSEOFUSE')">
-                    <el-input :disabled="!disable" type="textarea" style="width:72vw"
-                              v-model="form.objective"></el-input>
-                  </el-form-item>
-                </el-col>
+                <el-table :data="tableB" border
+                          header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 952px;margin-top: 40px">
+                  <el-table-column :label="$t('label.PFANS1013VIEW_REIMNUMBER')" align="center"
+                                   prop="invoiceno" width="200px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.invoiceno}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')" align="center" prop="moneys"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.moneys}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
+                                   width="300px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.remarks}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.status}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-button
+                        @click.native.prevent="rowClick1(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
               </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1010FORMVIEW_RECEPTIONPLACE')">
-                    <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.place"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
+
+            </el-tab-pane>
+          </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
+    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
   </div>
 </template>
 <script>
@@ -228,8 +319,9 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
   import moment from 'moment';
+  import EasyPop from '@/components/EasyPop';
 
   export default {
     name: 'PFANS1010FormView',
@@ -237,6 +329,7 @@
       EasyNormalContainer,
       dicselect,
       user,
+        EasyPop,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -249,6 +342,11 @@
         }
       };
       return {
+          urlparams: '',
+          url: '',
+          activeName: 'first',
+          tableA: [],
+          tableB: [],
         options: [],
         centerid: '',
         groupid: '',
@@ -375,6 +473,63 @@
               this.tableP = lettableP;
               this.form = response;
             }
+              //add_fjl_0806
+              //有暂借款编号绑定暂借款信息
+              if (this.form.loanapplication_id) {
+                  this.$store
+                      .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
+                      .then(response => {
+                          if (response !== null && response !== '' && response !== undefined) {
+                              let status = getStatus(response.status);
+                              this.tableA.push({
+                                  loanapno: response.loanapno,
+                                  moneys: response.moneys,
+                                  remarks: response.remarks,
+                                  status: status,
+                                  loanapplication_id: response.loanapplication_id,
+                              });
+                          }
+                          this.loading = false;
+                      })
+                      .catch(error => {
+                          Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                          });
+                          this.loading = false;
+                      });
+              }
+
+              //有精算报销编号绑定精算信息
+              if (this.form.publicexpense_id) {
+                  this.$store
+                      .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                      .then(response => {
+                          if (response !== null && response !== '' && response !== undefined) {
+                              let pub = response.publicexpense;
+                              let status = getStatus(pub.status);
+                              this.tableB.push({
+                                  invoiceno: pub.invoiceno,
+                                  moneys: pub.moneys,
+                                  remarks: pub.preparefor,
+                                  status: status,
+                                  publicexpense_id: pub.publicexpenseid,
+                              });
+                          }
+                          this.loading = false;
+                      })
+                      .catch(error => {
+                          Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                          });
+                          this.loading = false;
+                      });
+
+              }
+              //add_fjl_0806
             this.loading = false;
           })
           .catch(error => {
@@ -406,6 +561,22 @@
       }
     },
     methods: {
+        //add_fjl_0806  查看详情
+        rowClick(row) {
+            this.url = '';
+            this.urlparams = '';
+            this.url = 'PFANS1006FormView';
+            this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+            this.$refs[1].open = true;
+        },
+        rowClick1(row) {
+            this.url = '';
+            this.urlparams = '';
+            this.url = 'PFANS1012FormView';
+            this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
+            this.$refs[1].open = true;
+        },
+        //add_fjl_0806  查看详情
       getBudt(val) {
         //ADD_FJL  修改人员预算编码
         if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
