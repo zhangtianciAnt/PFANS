@@ -241,8 +241,8 @@
                   </el-col>
                   <!--add-ws-7/17-禅道116任务-->
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_POLICYCONTRACT')" prop="policycontract_id">
-                      <el-select v-model="form.policycontract_id" :disabled="!disable" style="width: 20vw" clearable
+                    <el-form-item :label="$t('label.PFANS1025VIEW_POLICYCONTRACT')">
+                      <el-select v-model="form.policycontract_id" :disabled="true" style="width: 20vw" clearable
                                  @change="getpolicycontract">
                         <el-option
                           v-for="item in optionsdata"
@@ -654,11 +654,6 @@
           rowindex: '',
         }],
         rules: {
-          policycontract_id: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_POLICYCONTRACT'),
-            trigger: 'change',
-          }],
           user_id: [{
             required: true,
             validator: checkuser,
@@ -679,9 +674,6 @@
       };
     },
     mounted() {
-      // add-ws-7/17-禅道116任务
-      this.policycontractlist();
-      // add-ws-7/17-禅道116任务
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
@@ -808,7 +800,8 @@
               this.form.claimamount = mamount;
               this.userlist = this.form.user_id;
               // add-ws-7/17-禅道116任务
-              this.getpolicycontract(this.form.policycontract_id);
+
+              this.policycontractlist();
               // add-ws-7/17-禅道116任务
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -866,9 +859,13 @@
         }
       },
       policycontractlist() {
+        let parameter = {
+          outsourcingcompany: this.form.custochinese,
+          applicationdate: this.form.draftingdate,
+        };
         this.loading = true;
         this.$store
-          .dispatch('PFANS1006Store/getpolicycontract')
+          .dispatch('PFANS1006Store/getpolicycontract', parameter)
           .then(response => {
               for (let i = 0; i < response.length; i++) {
                 this.optionsdata.push({
@@ -877,6 +874,7 @@
                   moneys: response[i].modifiedamount,
                 });
               }
+              this.getpolicycontract(this.optionsdata[0].value)
               this.loading = false;
             },
           ).catch(error => {
