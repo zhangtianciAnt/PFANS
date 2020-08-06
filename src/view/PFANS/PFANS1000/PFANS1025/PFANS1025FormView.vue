@@ -863,6 +863,7 @@
           outsourcingcompany: this.form.custochinese,
           applicationdate: this.form.dates,
         };
+
         this.loading = true;
         this.$store
           .dispatch('PFANS1006Store/getpolicycontract', parameter)
