@@ -487,7 +487,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')"  :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -1394,12 +1394,43 @@
                         });
                     }
                   } else {
-                    Message({
-                      message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                    if(this.form.policycontract_id){
+                      Message({
+                        message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    }else{
+                      if (this.$route.params._id) {     //郛冶ｾ�
+                        this.$store
+                          .dispatch('PFANS1025Store/update', this.baseInfo)
+                          .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000,
+                            });
+                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
+                            if (val === 'StartWorkflow') {
+                              this.$refs.container.$refs.workflow.startWorkflow();
+                            }else{
+                              this.paramsTitle();
+                            }
+                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          });
+                      }
+                    }
                   }
                 }).catch(error => {
                 Message({
