@@ -932,7 +932,6 @@
               } else {
                 if (this.$i18n) {
                   judname = this.$t('label.PFANS1012VIEW_PURCHASSESWC');
-                  alert(judname)
                 }
               }
               this.$router.push({

@@ -340,7 +340,7 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="second">
               <el-row>
-                <el-table :data="tableA" border
+                <el-table :data="tableZ" border
                           header-cell-class-name="sub_bg_color_blue"
                           stripe style="width: 952px">
                   <el-table-column :label="$t('label.PFANS1013FORMVIEW_LOAN')" align="center"
@@ -476,7 +476,7 @@
           urlparams: '',
           url: '',
           activeName: 'first',
-          tableA: [],
+          tableZ: [],
           tableB: [],
         centerid: '',
         groupid: '',
@@ -730,7 +730,7 @@
                       .then(response => {
                           if (response !== null && response !== '' && response !== undefined) {
                               let status = getStatus(response.status);
-                              this.tableA.push({
+                              this.tableZ.push({
                                   loanapno: response.loanapno,
                                   moneys: response.moneys,
                                   remarks: response.remarks,
@@ -749,7 +749,6 @@
                           this.loading = false;
                       });
               }
-
               //有精算报销编号绑定精算信息
               if (this.form.publicexpense_id) {
                   this.$store
