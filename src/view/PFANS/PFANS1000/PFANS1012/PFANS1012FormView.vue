@@ -4918,7 +4918,7 @@
           //upd_fjl_0807 pop显示
           this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
           this.url = 'PFANS1006FormView';
-          this.$refs[1].open = true;
+          this.$refs.PFANS1006Pop.open = true;
           // this.$store.commit('global/SET_HISTORYURL', '');
           // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
           // this.$router.push({
