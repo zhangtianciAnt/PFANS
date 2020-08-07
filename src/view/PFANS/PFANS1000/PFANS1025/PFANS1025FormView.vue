@@ -484,7 +484,7 @@
               </el-table>
             </el-tab-pane>
             <!--            //add-ws-添加上传附件功能-->
-            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')"  prop="enclosurecontent"  name="thrid">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.enclosure')" :error="errorfile">
