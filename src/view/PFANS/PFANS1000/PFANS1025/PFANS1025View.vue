@@ -148,6 +148,7 @@
             {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
+        sealstatus: '',
         row_id: 'award_id',
         pjnameflg: [],
       };
@@ -166,7 +167,9 @@
         }
       },
       selectInit(row, index) {
-        return row;
+        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          return row;
+        }
       },
       //add-ws-7/20-禅道任务342
       getPjanme() {
@@ -568,13 +571,23 @@
             });
             return;
           }
-          this.$router.push({
-            name: 'PFANS4001FormView',
-            params: {
-              _id: this.rowsealid,
-              disabled: true,
-            },
-          });
+          if (this.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL')) {
+            this.$router.push({
+              name: 'PFANS4001FormView',
+              params: {
+                _id: this.rowsealid,
+                disabled: false,
+              },
+            });
+          } else {
+            this.$router.push({
+              name: 'PFANS4001FormView',
+              params: {
+                _id: this.rowsealid,
+                disabled: true,
+              },
+            });
+          }
         }
         //add-ws-7/20-禅道任务342
           if (val === 'temLoanApp') {
