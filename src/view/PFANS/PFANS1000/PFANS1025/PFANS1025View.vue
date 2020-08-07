@@ -142,12 +142,13 @@
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
+            {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
-          {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
+            {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
             {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
+        sealstatus: '',
         row_id: 'award_id',
         pjnameflg: [],
       };
@@ -296,7 +297,8 @@
                               sealstatus: response[j].sealstatus,
                               statuspublic: response[j].statuspublic,
                               //add-ws-7/20-禅道任务342
-                                remarks: response[j].remarks
+                                remarks: response[j].remarks,
+                                loanapno: response[j].loanapno
                             });
                           }
                         }
@@ -325,7 +327,8 @@
                             sealstatus: response[m].sealstatus,
                             statuspublic: response[m].statuspublic,
                             //add-ws-7/20-禅道任务342
-                              remarks: response[m].remarks
+                              remarks: response[m].remarks,
+                              loanapno: response[m].loanapno
                           });
                         }
                       }
@@ -413,6 +416,16 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_PUBLIC3'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].sealstatus != '') {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
@@ -497,6 +510,16 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_PUBLIC4'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({
                   message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
@@ -548,13 +571,23 @@
             });
             return;
           }
-          this.$router.push({
-            name: 'PFANS4001FormView',
-            params: {
-              _id: this.rowsealid,
-              disabled: true,
-            },
-          });
+          if (this.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL')) {
+            this.$router.push({
+              name: 'PFANS4001FormView',
+              params: {
+                _id: this.rowsealid,
+                disabled: false,
+              },
+            });
+          } else {
+            this.$router.push({
+              name: 'PFANS4001FormView',
+              params: {
+                _id: this.rowsealid,
+                disabled: true,
+              },
+            });
+          }
         }
         //add-ws-7/20-禅道任务342
           if (val === 'temLoanApp') {
@@ -580,7 +613,7 @@
                   _remarks += this.selectedlist[i].remarks + '^';
                   //check是否存在暂借款
                   if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                      str += this.selectedlist[i].purnumbers + ' , ';
+                      str += this.selectedlist[i].contractnumber + ' , ';
                   }
               }
               if (str === '') {
