@@ -142,9 +142,9 @@
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+            {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
-          {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-view'},
+            {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
             {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
@@ -294,7 +294,8 @@
                               sealstatus: response[j].sealstatus,
                               statuspublic: response[j].statuspublic,
                               //add-ws-7/20-禅道任务342
-                                remarks: response[j].remarks
+                                remarks: response[j].remarks,
+                                loanapno: response[j].loanapno
                             });
                           }
                         }
@@ -323,7 +324,8 @@
                             sealstatus: response[m].sealstatus,
                             statuspublic: response[m].statuspublic,
                             //add-ws-7/20-禅道任务342
-                              remarks: response[m].remarks
+                              remarks: response[m].remarks,
+                              loanapno: response[m].loanapno
                           });
                         }
                       }
@@ -598,7 +600,7 @@
                   _remarks += this.selectedlist[i].remarks + '^';
                   //check是否存在暂借款
                   if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                      str += this.selectedlist[i].purnumbers + ' , ';
+                      str += this.selectedlist[i].contractnumber + ' , ';
                   }
               }
               if (str === '') {
