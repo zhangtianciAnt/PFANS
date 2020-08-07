@@ -568,7 +568,8 @@
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
               if (!isNaN(value)) {
-                return prev + curr;
+                //update gbb 20200807 合计值保留两位小数
+                return this.setScale2(prev + curr);
               } else {
                 return prev;
               }
@@ -577,6 +578,14 @@
         });
         this.sumTotal = sums;
         return sums;
+      },
+      //数值小数位数控制
+      setScale2(val) {
+          if (val) {
+              return Math.round(val * 100) / 100;
+          } else {
+              return 0;
+          }
       },
       changeSum(row) {
         row.amount = row.unitprice * row.numbers;

@@ -251,6 +251,9 @@
                           :value="item.value">
                         </el-option>
                       </el-select>
+                      <!--                      add-ws-7/27-禅道154任务-->
+                      <el-button @click="clickBun" size="small" type="primary">{{this.$t('button.view')}}</el-button>
+                      <!--                      add-ws-7/27-禅道154任务-->
                     </el-form-item>
                   </el-col>
                   <!--add-ws-7/17-禅道116任务-->
@@ -481,10 +484,10 @@
               </el-table>
             </el-tab-pane>
             <!--            //add-ws-添加上传附件功能-->
-            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')"  prop="enclosurecontent"  name="thrid">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -511,6 +514,7 @@
         </el-form>
       </div>
     </EasyNormalContainer>
+    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
   </div>
 </template>
 
@@ -530,10 +534,12 @@
     getUserInfo,
     uploadUrl,
   } from '@/utils/customize';
+  import EasyPop from '@/components/EasyPop';
 
   export default {
     name: 'PFANS1025FormView',
     components: {
+      EasyPop,
       EasyNormalContainer,
       user,
       org,
@@ -560,6 +566,8 @@
         }
       };
       return {
+        url: 'PFANS1045FormView',
+        urlparams: '',
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
         defaultStart: false,
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
@@ -589,6 +597,7 @@
         // add-ws-7/17-禅道116任务
         optionsdata: [],
         modifiedamount: 0,
+        numbers: '',
         // add-ws-7/17-禅道116任务
         form: {
           // add-ws-7/17-禅道116任务
@@ -801,8 +810,9 @@
               this.form.claimamount = mamount;
               this.userlist = this.form.user_id;
               // add-ws-7/17-禅道116任务
-
-              this.policycontractlist();
+              if (this.form.dates != null && this.form.dates != '') {
+                this.policycontractlist();
+              }
               // add-ws-7/17-禅道116任务
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -851,11 +861,18 @@
     },
     methods: {
       // add-ws-7/17-禅道116任务
+      clickBun() {
+        if (this.form.policycontract_id !== '' && this.form.policycontract_id !== null && this.form.policycontract_id !== undefined) {
+          this.urlparams = {'_id': this.form.policycontract_id};
+          this.$refs[1].open = true;
+        }
+      },
       getpolicycontract(val) {
         this.form.policycontract_id = val;
         for (let item of this.optionsdata) {
           if (item.value === val) {
             this.modifiedamount = item.moneys;
+            this.numbers = item.lable;
           }
         }
       },
@@ -1089,9 +1106,7 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
+              this.paramsTitle();
             }
           })
           .catch(error => {
@@ -1325,6 +1340,15 @@
                     duration: 5 * 1000,
                   });
                   this.loading = false;
+                  this.$router.push({
+                    name: 'PFANS1045View',
+                    params: {
+                      check:  this.numbers,
+                    },
+                  });
+
+
+
                   return;
                 }
               }
@@ -1365,14 +1389,11 @@
                             type: 'success',
                             duration: 5 * 1000,
                           });
-                          //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-                          if (val !== 'save' && val !== 'StartWorkflow') {
-                            if (this.$store.getters.historyUrl) {
-                              this.$router.push(this.$store.getters.historyUrl);
-                            }
-                          }
+                          //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
                           if (val === 'StartWorkflow') {
                             this.$refs.container.$refs.workflow.startWorkflow();
+                          } else {
+                            this.paramsTitle();
                           }
                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
                         })
@@ -1386,12 +1407,43 @@
                         });
                     }
                   } else {
-                    Message({
-                      message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                    if (this.form.policycontract_id) {
+                      Message({
+                        message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    } else {
+                      if (this.$route.params._id) {     //郛冶ｾ�
+                        this.$store
+                          .dispatch('PFANS1025Store/update', this.baseInfo)
+                          .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000,
+                            });
+                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
+                            if (val === 'StartWorkflow') {
+                              this.$refs.container.$refs.workflow.startWorkflow();
+                            } else {
+                              this.paramsTitle();
+                            }
+                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          });
+                      }
+                    }
                   }
                 }).catch(error => {
                 Message({

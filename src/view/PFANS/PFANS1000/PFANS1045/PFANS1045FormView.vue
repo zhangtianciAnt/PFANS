@@ -196,7 +196,7 @@
                   >
                     <template slot-scope="scope">
                       <el-input-number
-                        :disabled="!disable"
+                        :disabled="!disable2"
                         :min="0" :precision="2"
                         :max="9999999"
                         controls-position="right"
@@ -209,14 +209,14 @@
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="445">
                     <template slot-scope="scope">
-                      <el-input :disabled="!disable" style="width: 100%" v-model="scope.row.remark">
+                      <el-input :disabled="!disable2" style="width: 100%" v-model="scope.row.remark">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.operation')" align="center" width="500">
                     <template slot-scope="scope">
                       <el-button
-                        :disabled="!disable"
+                        :disabled="!disable2"
                         @click.native.prevent="deleteRow7(scope.$index, tableF)"
                         plain
                         size="small"
@@ -224,7 +224,7 @@
                       >{{$t('button.delete')}}
                       </el-button>
                       <el-button
-                        :disabled="!disable"
+                        :disabled="!disable2"
                         @click="addRow7()"
                         plain
                         size="small"
@@ -310,6 +310,8 @@
         show10: true,
         canStart: true,
         code7: 'PG019',
+        disablecheck: '',
+        disable2: false,
         multiple: false,
         disable: false,
         dialogTableVisible: false,
@@ -409,6 +411,14 @@
             } else {
               this.show10 = false;
             }
+            if(this.form.status==='4'){
+              this.disable = false;
+              if(this.disablecheck){
+                this.disable2 = true
+              }else{
+                this.disable2 = false
+              }
+            }
             this.userlist = this.form.user_id;
             this.loading = false;
           })
@@ -428,7 +438,9 @@
     },
     created() {
       this.IDname = this.$route.params._id;
+      this.disablecheck = this.$route.params.disabled;
       this.disable = this.$route.params.disabled;
+      this.disable2 = this.$route.params.disabled;
     },
     methods: {
       viewdata(row) {
