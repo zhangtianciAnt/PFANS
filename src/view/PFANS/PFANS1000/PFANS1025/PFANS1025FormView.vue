@@ -1337,18 +1337,17 @@
                   Message({
                     message: this.$t('label.PFANS1025FROMVIEW_MODIFIEDAMOUNTCHECK'),
                     type: 'error',
-                    duration: 5 * 1000,
+                    duration: 1 * 1000,
                   });
                   this.loading = false;
-                  this.$router.push({
-                    name: 'PFANS1045View',
-                    params: {
-                      check:  this.numbers,
-                    },
-                  });
-
-
-
+                  setTimeout(()=>{
+                    this.$router.push({
+                      name: 'PFANS1045View',
+                      params: {
+                        check:  this.numbers,
+                      },
+                    });
+                  },2000)
                   return;
                 }
               }
