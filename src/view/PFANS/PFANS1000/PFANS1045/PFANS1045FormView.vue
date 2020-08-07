@@ -202,6 +202,7 @@
                         controls-position="right"
                         :no="scope.row"
                         :step="1"
+                        @change="changeSum(scope.row)"
                         v-model="scope.row.money"
                         style="width: 100%">
                       </el-input-number>
@@ -458,6 +459,11 @@
           },
         });
       },
+      changeSum(row){
+        for (let i = 0; i < this.tableF.length; i++) {
+          this.form.modifiedamount = this.tableF[i].money
+        }
+      },
       getamountcase(val) {
         this.form.modifiedamount = val;
       },
@@ -485,13 +491,6 @@
                   });
                 }
               }
-              let sum = 0;
-              for (let i = 0; i < this.DataList.length; i++) {
-                if (this.DataList[i].status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-                  sum += parseFloat(this.DataList[i].claimamount);
-                }
-              }
-              this.form.newamountcase = sum;
               this.loading = false;
             },
           ).catch(error => {
@@ -550,16 +549,10 @@
             sums[index] = '--';
           }
         });
-        this.getMoney(sums);
         return sums;
-      },
-      getMoney(sums) {
-        this.form.modifiedamount = sums[1];
-        // this.form.newamountcase = this.form.modifiedamount - this.form.summonet;
       },
       getMoney2(sums) {
         this.form.summonet = sums[1];
-        // this.form.newamountcase = this.form.modifiedamount - this.form.summonet;
       },
       addRow7() {
         let b;
