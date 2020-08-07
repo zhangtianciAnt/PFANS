@@ -411,6 +411,16 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_PUBLIC3'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].sealstatus != '') {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
@@ -495,6 +505,16 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_PUBLIC4'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({
                   message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
@@ -515,17 +535,6 @@
                 duration: 2 * 1000,
               });
               return;
-            } else {
-              for (let i = 0; i < this.selectedlist.length; i++) {
-                if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME') || this.selectedlist[i].sealstatus != this.$t('label.PFANS1032FORMVIEW_ENDSEAL')) {
-                  Message({
-                    message: this.$t('label.PFANS1025VIEW_PUBLIC'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
-                }
-              }
             }
           }
           for (let i = 0; i < this.selectedlist.length; i++) {
