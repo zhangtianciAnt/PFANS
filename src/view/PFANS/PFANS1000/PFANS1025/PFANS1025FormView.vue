@@ -1102,9 +1102,7 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
+              this.paramsTitle();
             }
           })
           .catch(error => {
@@ -1378,14 +1376,11 @@
                             type: 'success',
                             duration: 5 * 1000,
                           });
-                          //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-                          if (val !== 'save' && val !== 'StartWorkflow') {
-                            if (this.$store.getters.historyUrl) {
-                              this.$router.push(this.$store.getters.historyUrl);
-                            }
-                          }
+                          //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
                           if (val === 'StartWorkflow') {
                             this.$refs.container.$refs.workflow.startWorkflow();
+                          }else{
+                            this.paramsTitle();
                           }
                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
                         })
