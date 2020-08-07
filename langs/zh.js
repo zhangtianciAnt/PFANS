@@ -1225,6 +1225,7 @@ module.exports = {
     PFANS1025VIEW_ENTRUSTPLACE: '委託元場所',
     PFANS1025VIEW_PJNAME: 'PJ名',
     PFANS1025VIEW_PUBLIC: '请选择审批状态正常结束且印章状态已完成得数据进行精算',
+    PFANS1025VIEW_PUBLIC3: '请选择审批状态正常结束得数据进行印章申请',
     PFANS1025VIEW_PUBLIC2: '请选择相同的委托元进行精算',
     PFANS1025VIEW_SEALCHECK: '印章',
     PFANS1025VIEW_SEALCHECK2: '以作成，请勿重复作成',
