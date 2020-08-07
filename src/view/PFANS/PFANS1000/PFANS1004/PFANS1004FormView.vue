@@ -510,13 +510,13 @@
                   <el-table-column :label="$t('label.PFANS1004VIEW_HISTORICALNO')" align="center"
                                    prop="historicalno" width="200px">
                     <template slot-scope="scope">
-                      <span>{{scope.row.historicalno}}</span>
+                      <span>{{scope.row.judgnumbers}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1013VIEW_LOANAMOUNT')" align="center" prop="moneys"
                                    width="150px">
                     <template slot-scope="scope">
-                      <span>{{scope.row.moneys}}</span>
+                      <span>{{scope.row.money}}</span>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
@@ -668,8 +668,8 @@
         //历史决裁
         tableF: [
           {
-            historicalno: '',
-            moneys: '',
+            judgnumbers: '',
+            money: '',
             status: '',
             judgementid: '',
           },
@@ -1093,33 +1093,6 @@
                   });
                   this.loading = false;
                 });
-            }
-            //有历史决裁绑定历史决裁信息
-            if (this.form.oldjudgementid) {
-              let oldjudgementidAnt = this.form.oldjudgementid.split(",");
-              for (let p = 0; p < oldjudgementidAnt.length; p++) {
-                this.$store
-                  .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': oldjudgementidAnt[p]})
-                  .then(response => {
-                    if (response.judgement !== null && response.judgement !== '' && response.judgement !== undefined) {
-                      let status = getStatus(response.judgement.status);
-                      this.tableF.push({
-                        historicalno: response.judgement.judgnumbers,
-                        moneys: response.judgement.money,
-                        status: status,
-                        judgementid: response.judgement.judgementid,
-                      });
-                    }
-                    this.loading = false;
-                  }).catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-              }
             }
             this.loading = false;
           })
