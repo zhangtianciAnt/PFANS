@@ -63,3 +63,13 @@ export function insertcoststatisticsdetail(data) {
 }
 //add gbb 0803 添加費用統計 end
 
+//add gbb 0807 check是否已经生成个别合同 start
+export function checkcontract(data) {
+  return request({
+    url: 'coststatistics/checkcontract',
+    method: 'post',
+    data: data,
+  });
+}
+//add gbb 0807 check是否已经生成个别合同 end
+

@@ -1,5 +1,5 @@
 import {getCostList, insertCoststatistics, downloadExcel,getCostBygroupid,
-  getcostMonthList,getcostMonth,insertcoststatisticsdetail} from './PFANS6008Api'
+  getcostMonthList,getcostMonth,insertcoststatisticsdetail,checkcontract} from './PFANS6008Api'
 import {updateDeleginformation} from "../PFANS6006/PFANS6006Api";
 const PFANS6008Store = {
   namespaced: true,
@@ -110,6 +110,22 @@ const PFANS6008Store = {
       })
     },
     //gbb add 0805 添加費用統計 end
+
+    //gbb add 0807 check是否已经生成个别合同 start
+    checkcontract({commit}, data) {
+      return new Promise((resolve, reject) => {
+        checkcontract(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //gbb add 0807 check是否已经生成个别合同 end
   }
 };
 

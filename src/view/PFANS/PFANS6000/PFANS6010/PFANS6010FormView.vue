@@ -173,18 +173,46 @@
             //生成个别合同
             createprobook(row) {
                 this.$store.commit('global/SET_HISTORYURL', '/PFANS6010View');
-                this.$router.push({
-                    name: 'PFANS1024FormView',
-                    params: {
-                        _checkindivdual: "1",
-                        supplierinfor_id:row.bpcompany,
-                        bpcostcount:row.bpcostcount,
-                        dates:this.letparams.dates,
-                        projectname:"测试项目",
-                        disabled: true,
-                        _id: '',
-                    }
-                })
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6008Store/checkcontract', {
+                        'dates': this.letparams.dates,
+                        'checkindivdual': '1',
+                        'custochinese':row.suppliername
+                    })
+                    .then(response => {
+                        this.data = response;
+                        if (this.data === 1) {
+                            Message({
+                                message: this.$t('label.PFANS6010VIEW_CONTRACT'),
+                                type: 'info',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        } else {
+                            this.loading = false;
+                            this.$router.push({
+                                name: 'PFANS1024FormView',
+                                params: {
+                                    _checkindivdual: "1",
+                                    supplierinfor_id:row.bpcompany,
+                                    bpcostcount:row.bpcostcount,
+                                    dates:this.letparams.dates,
+                                    projectname:"项目名称",
+                                    disabled: true,
+                                    _id: '',
+                                }
+                            })
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
             },
             getSummaries(param) {
                 const {columns, data} = param;
