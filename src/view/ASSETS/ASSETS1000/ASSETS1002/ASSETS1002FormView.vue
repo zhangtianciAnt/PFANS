@@ -42,7 +42,7 @@
                 <!--<el-table-column :label="$t('label.ASSETS1001VIEW_BARCODE')" align="center" prop="barcode">-->
                 <!--</el-table-column>-->
               <!--</el-table>-->
-              <EasyNormalTable :columns="columns" :data="tableD" :rowid="row_id" :buttonShow="buttonShow" :titleShow="titleShow"
+              <EasyNormalTable :columns="columns" :data="tableD" :title="title1" :rowid="row_id" :buttonShow="buttonShow" :titleShow="titleShow"
                                :showSelection="showSelection" @rowClick="rowClick" :buttonList="buttonList"
                                ref="roletable">
                 <el-select @change="changed" slot="customize" v-model="department">
@@ -132,6 +132,7 @@
         userlist: '',
         selectType: 'Single',
         title: 'title.ASSETS1002FORMVIEW',
+        title1: 'title.ASSETS1001VIEW',
         buttonList: [],
         showSelection: true,
         form: {
@@ -437,6 +438,15 @@
       buttonClick(val) {
         this.$refs['ruleForm'].validate(valid => {
           if (valid) {
+            //add gbb 20200807 创建盘点计划时选择资产数据
+            if(this.$refs.roletable.selectedList.length === 0){
+                Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 5 * 1000,
+                });
+                return;
+            }
             this.form.inventorycycle = moment(this.form.inventorycycle[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.inventorycycle[1]).format('YYYY-MM-DD');
             this.form.userid = this.userlist;
             this.baseInfo = {};
