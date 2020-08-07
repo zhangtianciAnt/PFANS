@@ -2374,7 +2374,7 @@
         }else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("update");
+        this.buttonClick("save");
       },
       //add-ws-5-20-流程恒展开
       end() {
