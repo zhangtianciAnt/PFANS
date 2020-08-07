@@ -390,7 +390,6 @@
                         <el-button
                           @click.native.prevent="rowClickLoa(scope.row)"
                           plain
-                          :disabled="!disable"
                           size="small"
                           type="primary"
                         >{{$t('button.viewdetails')}}
@@ -1225,7 +1224,6 @@
                       <el-button
                         @click.native.prevent="viewdata(scope.row)"
                         plain
-                        :disabled="!disable"
                         size="small"
                         type="primary"
                       >{{$t('button.viewdetails')}}
@@ -2766,6 +2764,10 @@
             //     disabled: false,
             //   },
             // });
+        } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1002VIEW')) {
+            this.url = 'PFANS1002FormView';
+        } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1035VIEW')) {
+            this.url = 'PFANS1035FormView';
         }
           this.urlparams = {'_id': row.judgement, 'disabled': false};
           this.$refs[1].open = true;
