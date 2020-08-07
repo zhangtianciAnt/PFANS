@@ -142,9 +142,9 @@
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
-          {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
             {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
@@ -166,7 +166,9 @@
         }
       },
       selectInit(row, index) {
-        return row;
+        if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          return row;
+        }
       },
       //add-ws-7/20-禅道任务342
       getPjanme() {
@@ -411,16 +413,6 @@
             return;
           } else {
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
-                Message({
-                  message: this.$t('label.PFANS1025VIEW_PUBLIC3'),
-                  type: 'info',
-                  duration: 2 * 1000,
-                });
-                return;
-              }
-            }
-            for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].sealstatus != '') {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
@@ -504,16 +496,6 @@
             });
             return;
           } else {
-            for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
-                Message({
-                  message: this.$t('label.PFANS1025VIEW_PUBLIC4'),
-                  type: 'info',
-                  duration: 2 * 1000,
-                });
-                return;
-              }
-            }
             for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({
