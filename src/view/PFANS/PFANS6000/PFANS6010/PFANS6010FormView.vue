@@ -172,7 +172,7 @@
         methods: {
             //生成个别合同
             createprobook(row) {
-                this.$store.commit('global/SET_HISTORYURL', '/PFANS6010View');
+                this.$store.commit('global/SET_HISTORYURL', '');
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS6008Store/checkcontract', {
@@ -194,6 +194,7 @@
                             this.$router.push({
                                 name: 'PFANS1024FormView',
                                 params: {
+                                    letparams: this.letparams,
                                     _checkindivdual: "1",
                                     supplierinfor_id:row.bpcompany,
                                     bpcostcount:row.bpcostcount,

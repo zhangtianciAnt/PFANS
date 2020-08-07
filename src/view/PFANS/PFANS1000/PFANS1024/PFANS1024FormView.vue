@@ -2564,9 +2564,24 @@
           name: 'PFANS1024View',
         });
       },
+      checkparamsTitle() {
+        let letparamslist = this.$route.params.letparams
+        this.$router.push({
+          name: 'PFANS6010FormView',
+          params: {
+            letparams:letparamslist
+          },
+        });
+      },
       buttonClick(val) {
         if (val === 'back') {
-          this.paramsTitle();
+          if (this.$route.params.letparams != null && this.$route.params.letparams != '' && this.$route.params.letparams != undefined) {
+            if (this.$route.params.letparams) {
+              this.checkparamsTitle();
+            }
+          }else{
+            this.paramsTitle();
+          }
         } else if (val === 'application') {
           this.display = true;
           this.checkeddisplay = true;
