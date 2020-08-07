@@ -1292,14 +1292,29 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1003Pop :params="urlparams" :url="url" ref="PFANS1003Pop"></PFANS1003Pop>
+    <PFANS1004Pop :params="urlparams" :url="url" ref="PFANS1004Pop"></PFANS1004Pop>
+    <PFANS1005Pop :params="urlparams" :url="url" ref="PFANS1005Pop"></PFANS1005Pop>
+    <PFANS1025Pop :params="urlparams" :url="url" ref="PFANS1025Pop"></PFANS1025Pop>
+    <PFANS3005Pop :params="urlparams" :url="url" ref="PFANS3005Pop"></PFANS3005Pop>
+    <PFANS1002Pop :params="urlparams" :url="url" ref="PFANS1002Pop"></PFANS1002Pop>
+    <PFANS1035Pop :params="urlparams" :url="url" ref="PFANS1035Pop"></PFANS1035Pop>
+    <PFANS1010Pop :params="urlparams" :url="url" ref="PFANS1010Pop"></PFANS1010Pop>
+    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
   </div>
 </template>
 
 
 <script>
-
-    import EasyPop from '@/components/EasyPop';
+    import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
+    import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+    import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
+    import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+    import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
+    import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+    import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+    import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+    import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
@@ -1319,7 +1334,15 @@
   export default {
     name: 'PFANS1012FormView',
     components: {
-        EasyPop,
+        PFANS1003Pop,
+        PFANS1004Pop,
+        PFANS1005Pop,
+        PFANS1025Pop,
+        PFANS3005Pop,
+        PFANS1002Pop,
+        PFANS1035Pop,
+        PFANS1010Pop,
+        PFANS1006Pop,
       dicselect,
       EasyNormalContainer,
       getOrgInfoByUserId,
@@ -2692,8 +2715,10 @@
           }
           this.urlparams = ''
           this.url = ''
+          this.urlparams = {'_id': row.judgement, 'disabled': false};
         if (row.judgement_name.substring(0, 2) === 'JC') {
             this.url = 'PFANS1004FormView';
+            this.$refs.PFANS1004Pop.open = true;
             // this.$router.push({
             //   name: 'PFANS1004FormView',
             //   params: {
@@ -2706,6 +2731,7 @@
             // });
         } else if (row.judgement_name.substring(0, 2) === 'QY') {
             this.url = 'PFANS1005FormView';
+            this.$refs.PFANS1005Pop.open = true;
             // this.$router.push({
             //   name: 'PFANS1005FormView',
             //   params: {
@@ -2718,6 +2744,7 @@
             // });
         } else if (row.judgement_name.substring(0, 2) === 'JJ') {
             this.url = 'PFANS1010FormView';
+            this.$refs.PFANS1010Pop.open = true;
             // this.$router.push({
             //   name: 'PFANS1010FormView',
             //   params: {
@@ -2730,6 +2757,7 @@
             // });
         } else if (dicStr !== '' && dicStr.indexOf(row.judgement_name.substring(0, 2)) != -1) {
             this.url = 'PFANS1025FormView';
+            this.$refs.PFANS1025Pop.open = true;
             // this.$router.push({
             //   name: 'PFANS1025FormView',
             //   params: {
@@ -2742,6 +2770,7 @@
             // });
         } else if (row.judgement_name.substring(0, 2) === 'CG') {
             this.url = 'PFANS3005FormView';
+            this.$refs.PFANS3005Pop.open = true;
             // this.$router.push({
             //   name: 'PFANS3005FormView',
             //   params: {
@@ -2754,6 +2783,7 @@
             // });
         } else if (row.judgement_name.substring(0, 2) === 'WC') {
             this.url = 'PFANS1003FormView';
+            this.$refs.PFANS1003Pop.open = true;
             // this.$router.push({
             //   name: 'PFANS1003FormView',
             //   params: {
@@ -2766,11 +2796,11 @@
             // });
         } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1002VIEW')) {
             this.url = 'PFANS1002FormView';
+            this.$refs.PFANS1002Pop.open = true;
         } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1035VIEW')) {
             this.url = 'PFANS1035FormView';
+            this.$refs.PFANS1035Pop.open = true;
         }
-          this.urlparams = {'_id': row.judgement, 'disabled': false};
-          this.$refs[1].open = true;
           //upd_fjl_0807 pop显示
       },
 
