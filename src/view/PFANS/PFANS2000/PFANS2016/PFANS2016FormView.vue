@@ -294,7 +294,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
+  import {getOrgInfoByUserId, getCurrentRole,getUserInfo} from '@/utils/customize';
   import moment from 'moment';
   import {downLoadUrl, getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
 
@@ -603,6 +603,9 @@
       };
       //add ccm 0720
       return {
+        //add ccm 0806 剩余年休
+        remaningAnnual:[],
+        //add ccm 0806 剩余年休
         appUserid:'',
         defaultStart: false,
         checkerrortishi: false,
@@ -814,6 +817,7 @@
         this.form.finisheddate = this.$route.params._day;
         this.appUserid = this.$route.params._user;
         this.userlist = this.$route.params._user;
+        this.form.user_id = this.$route.params._user;
         this.getUserids(this.appUserid);
       }
       //add ccm 0804
@@ -1020,7 +1024,8 @@
             this.loading = false;
           });
 
-      } else {
+      }
+      else {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016FormView');
         this.userlist = this.$store.getters.userinfo.userid;
         // this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
@@ -1079,6 +1084,11 @@
         }
         //add ccm 0804
       }
+
+      //add ccm 0806 查询申请人的剩余年休，
+      this.getremainingByuserid();
+      //add ccm 0806 查询申请人的剩余年休，
+
     },
     created() {
       this.$store.commit('global/SET_HISTORYURL', '');
@@ -1098,6 +1108,30 @@
 
     },
     methods: {
+      //add ccm 0806 查询申请人的剩余年休，
+      getremainingByuserid() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2016Store/getremainingByuserid', {'userid': this.form.user_id})
+          .then(response => {
+            this.remaningAnnual = [];
+            if (response && response.length>0)
+            {
+              this.remaningAnnual = response;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add ccm 0806 查询申请人的剩余年休，
+
       getWorktime() {
         this.loading = true;
         this.$store
@@ -2614,7 +2648,8 @@
                       return;
                     }
                   }
-                } else if (this.form.errortype === 'PR013006') {
+                }
+                else if (this.form.errortype === 'PR013006') {
                   if (this.form.restdiff === '') {
                     this.form.restdiff = 0;
                   }
@@ -2652,6 +2687,50 @@
                     }
                   }
                 }
+
+                //add ccm 0806 请事假保存时，check是否有年休，有年休，不允许保存事假，
+                if (this.form.errortype === 'PR013008')
+                {
+                  let userInfo = getUserInfo(this.form.user_id);
+                  if (userInfo)
+                  {
+                    //有剩余年休
+                    if (Number(this.remaningAnnual[0].remaining_annual_leave_thisyear) - Number(this.remaningAnnual[0].annual_leave_shenqingzhong) >0)
+                    {
+                      //试用期截止日
+                      let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
+                      //判断申请人是否在试用期
+                      if (enddateflg >= moment(new Date()).format('YYYY-MM-DD'))
+                      {
+                        if (userInfo.userinfo.resignation_date)
+                        {
+                          //离职日
+                          let resignationdate = moment(userInfo.userinfo.resignation_date).format('YYYY-MM-DD');
+                          if (Number(this.remaningAnnual[0].annual_avg_remaining) > 0)
+                          {
+                            Message({
+                              message: this.$t('label.PFANS2016FORMVIEW_REMANINGRESIGNATIONCHECK'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            return;
+                          }
+                        }
+                        else
+                        {
+                          Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_REMANINGCHECK'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          return;
+                        }
+                      }
+                    }
+                  }
+                }
+                //add ccm 0806 请事假保存时，check是否有年休，有年休，不允许保存事假，
+
   //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
   //               this.loading = true;
   //               this.$store

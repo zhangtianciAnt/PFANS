@@ -1,6 +1,6 @@
 import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
-  selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber
+  selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber,getremainingByuserid
 } from './PFANS2016Api'
 
 const PFANS2016Store = {
@@ -211,6 +211,21 @@ const PFANS2016Store = {
       })
     },
     //add_fjl_05/26 --添加代休剩余
+    //add ccm 0806 查询申请人的剩余年休，
+    getremainingByuserid({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getremainingByuserid(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add ccm 0806 查询申请人的剩余年休，
   }
 };
 

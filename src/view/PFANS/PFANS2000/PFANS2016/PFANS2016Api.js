@@ -112,3 +112,12 @@ export function getRestday(data) {
 }
 
 //add_fjl_05/26 --添加代休剩余
+//add ccm 0806 查询申请人的剩余年休，
+export function getremainingByuserid(data) {
+  return request({
+    url: 'abNormal/getremainingByuserid',
+    method: 'get',
+    params: data
+  })
+}
+//add ccm 0806 查询申请人的剩余年休，
