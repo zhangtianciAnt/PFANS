@@ -404,6 +404,9 @@
             if (response.policycontractdetails.length > 0) {
               this.tableF = response.policycontractdetails;
             }
+            if(this.form.status==='4'){
+              this.disable = false;
+            }
             if (this.disable) {
               this.show10 = true;
             } else {
