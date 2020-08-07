@@ -390,7 +390,7 @@
                         <el-button
                           @click.native.prevent="rowClickLoa(scope.row)"
                           plain
-                          :disabled="show10"
+                          :disabled="!disable"
                           size="small"
                           type="primary"
                         >{{$t('button.viewdetails')}}
@@ -1225,7 +1225,7 @@
                       <el-button
                         @click.native.prevent="viewdata(scope.row)"
                         plain
-                        :disabled="show10"
+                        :disabled="!disable"
                         size="small"
                         type="primary"
                       >{{$t('button.viewdetails')}}
@@ -1453,7 +1453,7 @@
       return {
         tableLoa:[],
         multipleSelection:[],
-          url: 'PFANS1006FormView',
+          url: '',
           urlparams: '',
         checkexpectedpaydate: false,
         DataList2: [],
@@ -2682,75 +2682,94 @@
       //add-ws-4/30-公共费用决裁已关联得精算
       //add-ws-4/28-精算中，点击决裁，跳转画面
       viewdata(row) {
-        this.$store.commit('global/SET_HISTORYURL', '');
-        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+          //upd_fjl_0807 pop显示
+          // this.$store.commit('global/SET_HISTORYURL', '');
+          // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+          let dicStr = '';
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'HT014');
+          if (dic.length > 0) {
+              for (let d of dic) {
+                  dicStr += d.value2 + ',';
+              }
+          }
+          this.urlparams = ''
+          this.url = ''
         if (row.judgement_name.substring(0, 2) === 'JC') {
-          this.$router.push({
-            name: 'PFANS1004FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.judgement,
-              disabled: false,
-            },
-          });
+            this.url = 'PFANS1004FormView';
+            // this.$router.push({
+            //   name: 'PFANS1004FormView',
+            //   params: {
+            //     _checkdisable: this.disable,
+            //     _checkid: this.IDname,
+            //     _check: true,
+            //     _id: row.judgement,
+            //     disabled: false,
+            //   },
+            // });
         } else if (row.judgement_name.substring(0, 2) === 'QY') {
-          this.$router.push({
-            name: 'PFANS1005FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.judgement,
-              disabled: false,
-            },
-          });
+            this.url = 'PFANS1005FormView';
+            // this.$router.push({
+            //   name: 'PFANS1005FormView',
+            //   params: {
+            //     _checkdisable: this.disable,
+            //     _checkid: this.IDname,
+            //     _check: true,
+            //     _id: row.judgement,
+            //     disabled: false,
+            //   },
+            // });
         } else if (row.judgement_name.substring(0, 2) === 'JJ') {
-          this.$router.push({
-            name: 'PFANS1010FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.judgement,
-              disabled: false,
-            },
-          });
-        } else if (row.judgement_name.substring(0, 1) === 'N') {
-          this.$router.push({
-            name: 'PFANS1025FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.judgement,
-              disabled: false,
-            },
-          });
+            this.url = 'PFANS1010FormView';
+            // this.$router.push({
+            //   name: 'PFANS1010FormView',
+            //   params: {
+            //     _checkdisable: this.disable,
+            //     _checkid: this.IDname,
+            //     _check: true,
+            //     _id: row.judgement,
+            //     disabled: false,
+            //   },
+            // });
+        } else if (dicStr !== '' && dicStr.indexOf(row.judgement_name.substring(0, 2)) != -1) {
+            this.url = 'PFANS1025FormView';
+            // this.$router.push({
+            //   name: 'PFANS1025FormView',
+            //   params: {
+            //     _checkdisable: this.disable,
+            //     _checkid: this.IDname,
+            //     _check: true,
+            //     _id: row.judgement,
+            //     disabled: false,
+            //   },
+            // });
         } else if (row.judgement_name.substring(0, 2) === 'CG') {
-          this.$router.push({
-            name: 'PFANS3005FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.judgement,
-              disabled: false,
-            },
-          });
+            this.url = 'PFANS3005FormView';
+            // this.$router.push({
+            //   name: 'PFANS3005FormView',
+            //   params: {
+            //     _checkdisable: this.disable,
+            //     _checkid: this.IDname,
+            //     _check: true,
+            //     _id: row.judgement,
+            //     disabled: false,
+            //   },
+            // });
         } else if (row.judgement_name.substring(0, 2) === 'WC') {
-          this.$router.push({
-            name: 'PFANS1003FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.judgement,
-              disabled: false,
-            },
-          });
+            this.url = 'PFANS1003FormView';
+            // this.$router.push({
+            //   name: 'PFANS1003FormView',
+            //   params: {
+            //     _checkdisable: this.disable,
+            //     _checkid: this.IDname,
+            //     _check: true,
+            //     _id: row.judgement,
+            //     disabled: false,
+            //   },
+            // });
         }
+          this.urlparams = {'_id': row.judgement, 'disabled': false};
+          this.$refs[1].open = true;
+          //upd_fjl_0807 pop显示
       },
 
       //add-ws-4/28-精算中，点击决裁，跳转画面
@@ -4220,12 +4239,13 @@
         this.currentRow4 = val.payeebankaccount;
       },
         //add_fjl_0724  添加暂借款的pop跳转  start
-        clickBun() {
-            if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
-                this.urlparams = {'_id': this.form.loan};
-                this.$refs[1].open = true;
-            }
-        },
+        // clickBun() {
+        //     if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+        //         this.urlparams = {'_id': this.form.loan};
+        //         this.url = 'PFANS1006FormView';
+        //         this.$refs[1].open = true;
+        //     }
+        // },
         //add_fjl_0724  添加暂借款的pop跳转  end
         //add_fjl_0722 添加【供应商/社员名称】显示  start
         // changeLoan(val) {
@@ -4863,18 +4883,23 @@
       },
       //add 0728
       rowClickLoa(row) {
-        this.$store.commit('global/SET_HISTORYURL', '');
-        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-        this.$router.push({
-            name: 'PFANS1006FormView',
-            params: {
-              _checkdisable: this.disable,
-              _checkid: this.IDname,
-              _check: true,
-              _id: row.loanapplication_id,
-              disabled: false,
-            },
-          });
+          //upd_fjl_0807 pop显示
+          this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+          this.url = 'PFANS1006FormView';
+          this.$refs[1].open = true;
+          // this.$store.commit('global/SET_HISTORYURL', '');
+          // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+          // this.$router.push({
+          //     name: 'PFANS1006FormView',
+          //     params: {
+          //       _checkdisable: this.disable,
+          //       _checkid: this.IDname,
+          //       _check: true,
+          //       _id: row.loanapplication_id,
+          //       disabled: false,
+          //     },
+          //   });
+          //upd_fjl_0807 pop显示
       },
       //add 0728
 
