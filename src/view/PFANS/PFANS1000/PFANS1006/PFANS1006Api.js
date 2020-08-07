@@ -40,6 +40,12 @@ export function getpolicycontract(data) {
     data: data
   })
 }
+export function getpolicycontract3() {
+  return request({
+    url: 'policycontract/get3',
+    method: 'get'
+  })
+}
 export function getpolicycontract2() {
   return request({
     url: 'policycontract/get2',
