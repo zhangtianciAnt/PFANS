@@ -252,7 +252,7 @@
                         </el-option>
                       </el-select>
                       <!--                      add-ws-7/27-禅道154任务-->
-                      <el-button @click="clickBun" size="small" type="primary">{{this.$t('button.view')}}</el-button>
+                      <el-button @click="clickBun" size="small" type="primary" :disabled="this.form.policycontract_id?false:true">{{this.$t('button.view')}}</el-button>
                       <!--                      add-ws-7/27-禅道154任务-->
                     </el-form-item>
                   </el-col>

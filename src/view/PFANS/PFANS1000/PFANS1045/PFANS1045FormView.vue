@@ -411,12 +411,12 @@
             } else {
               this.show10 = false;
             }
-            if(this.form.status==='4'){
+            if (this.form.status === '4') {
               this.disable = false;
-              if(this.disablecheck){
-                this.disable2 = true
-              }else{
-                this.disable2 = false
+              if (this.disablecheck) {
+                this.disable2 = true;
+              } else {
+                this.disable2 = false;
               }
             }
             this.userlist = this.form.user_id;
@@ -485,6 +485,13 @@
                   });
                 }
               }
+              let sum = 0;
+              for (let i = 0; i < this.DataList.length; i++) {
+                if (this.DataList[i].status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                  sum += parseFloat(this.DataList[i].claimamount);
+                }
+              }
+              this.form.newamountcase = sum;
               this.loading = false;
             },
           ).catch(error => {
@@ -548,11 +555,11 @@
       },
       getMoney(sums) {
         this.form.modifiedamount = sums[1];
-        this.form.newamountcase = this.form.modifiedamount - this.form.summonet;
+        // this.form.newamountcase = this.form.modifiedamount - this.form.summonet;
       },
       getMoney2(sums) {
         this.form.summonet = sums[1];
-        this.form.newamountcase = this.form.modifiedamount - this.form.summonet;
+        // this.form.newamountcase = this.form.modifiedamount - this.form.summonet;
       },
       addRow7() {
         let b;

@@ -468,7 +468,7 @@
                     this.canStart = false;
                     this.disable = false;
                     //add-ws-6/11-禅道任务082
-                    this.sysyear = true;
+                  this.sysyear = false;
                     //add-ws-6/11-禅道任务082
                     this.disableyear = false;
                     this.disablesep = false;
