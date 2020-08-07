@@ -666,7 +666,14 @@
         //精算
         tableD: [],
         //历史决裁
-        tableF: [],
+        tableF: [
+          {
+            historicalno: '',
+            moneys: '',
+            status: '',
+            judgementid: '',
+          },
+        ],
         multiple: false,
         workflowAnt: {
           menuUrl: '',
@@ -896,7 +903,20 @@
           .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.$route.params._id})
           .then(response => {
             if (response) {
+              console.log(response)
               this.form = response.judgement;
+              //历史决裁
+              this.tableF = response.judgementLoAntList;
+              if (this.tableF) {
+                for (let j = 0; j < this.tableF.length; j++) {
+                  if (this.tableF[j].status != null && this.tableF[j].status != '') {
+                    let status = getStatus(this.tableF[j].status);
+                    if (status) {
+                      this.tableF[j].status = status;
+                    }
+                  }
+                }
+              }
               if (response.judgementdetail.length > 0) {
                 this.tableA = response.judgementdetail;
                 this.showH = true;
