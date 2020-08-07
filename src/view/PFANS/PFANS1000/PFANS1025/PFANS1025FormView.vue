@@ -484,10 +484,10 @@
               </el-table>
             </el-tab-pane>
             <!--            //add-ws-添加上传附件功能-->
-            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')"  prop="enclosurecontent"  name="thrid">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -535,6 +535,7 @@
     uploadUrl,
   } from '@/utils/customize';
   import EasyPop from '@/components/EasyPop';
+
   export default {
     name: 'PFANS1025FormView',
     components: {
@@ -808,8 +809,9 @@
               this.form.claimamount = mamount;
               this.userlist = this.form.user_id;
               // add-ws-7/17-禅道116任务
-
-              this.policycontractlist();
+              if (this.form.dates != null && this.form.dates != '') {
+                this.policycontractlist();
+              }
               // add-ws-7/17-禅道116任务
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -1379,7 +1381,7 @@
                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
                           if (val === 'StartWorkflow') {
                             this.$refs.container.$refs.workflow.startWorkflow();
-                          }else{
+                          } else {
                             this.paramsTitle();
                           }
                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
@@ -1394,12 +1396,43 @@
                         });
                     }
                   } else {
-                    Message({
-                      message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                    if (this.form.policycontract_id) {
+                      Message({
+                        message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    } else {
+                      if (this.$route.params._id) {     //郛冶ｾ�
+                        this.$store
+                          .dispatch('PFANS1025Store/update', this.baseInfo)
+                          .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000,
+                            });
+                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
+                            if (val === 'StartWorkflow') {
+                              this.$refs.container.$refs.workflow.startWorkflow();
+                            } else {
+                              this.paramsTitle();
+                            }
+                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          });
+                      }
+                    }
                   }
                 }).catch(error => {
                 Message({

@@ -103,14 +103,28 @@
     },
     methods: {
       handleEdit(row) {
-        this.$router.push({
-          name: 'PFANS4001FormView',
-          params: {
-            _id: row.sealid,
-            disabled: true,
-            check1: true,
-          },
-        });
+        if(row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL'))
+        {
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: row.sealid,
+              disabled: false,
+              check1: true,
+            },
+          });
+        }
+        else if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL') )
+        {
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: row.sealid,
+              disabled: true,
+              check1: true,
+            },
+          });
+        }
       },
       selectInit(row, index) {
         if (this.$i18n) {
