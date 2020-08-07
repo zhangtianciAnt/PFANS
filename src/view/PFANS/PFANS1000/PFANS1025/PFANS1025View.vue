@@ -507,7 +507,7 @@
             for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({
-                  message: this.$t('label.PFANS1025VIEW_PUBLIC3'),
+                  message: this.$t('label.PFANS1025VIEW_PUBLIC4'),
                   type: 'info',
                   duration: 2 * 1000,
                 });
