@@ -236,7 +236,8 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1012Pop :params="urlparams" :url="url" ref="PFANS1012Pop"></PFANS1012Pop>
+    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
   </div>
 </template>
 
@@ -247,7 +248,8 @@
   import {getOrgInfoByUserId, getOrgInfo, getCurrentRole2, getStatus} from '@/utils/customize';
   import moment from 'moment';
   import org from '../../../components/org';
-  import EasyPop from '@/components/EasyPop';
+  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
+  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
 
   export default {
     name: 'PFANS1005FormView',
@@ -255,7 +257,8 @@
       EasyNormalContainer,
       user,
       org,
-        EasyPop,
+        PFANS1012Pop,
+        PFANS1006Pop,
     },
     data() {
       var groupId = (rule, value, callback) => {
@@ -487,14 +490,14 @@
             this.urlparams = '';
             this.url = 'PFANS1006FormView';
             this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-            this.$refs[1].open = true;
+            this.$refs.PFANS1006Pop.open = true;
         },
         rowClick1(row) {
             this.url = '';
             this.urlparams = '';
             this.url = 'PFANS1012FormView';
             this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-            this.$refs[1].open = true;
+            this.$refs.PFANS1012Pop.open = true;
         },
         //add_fjl_0806  查看详情
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
