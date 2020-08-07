@@ -2,7 +2,7 @@
   <el-drawer append-to-body destroy-on-close custom-class="custimize_drawer" @close="close"
              :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
-    <PFANS1012FormView ref="child" v-if="url === 'PFANS1012FormView'"></PFANS1012FormView>
+    <PFANS1012FormView ref="child" v-show="url === 'PFANS1012FormView'"></PFANS1012FormView>
   </el-drawer>
 </template>
 

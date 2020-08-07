@@ -2,18 +2,18 @@
   <el-drawer append-to-body destroy-on-close custom-class="custimize_drawer" @close="close"
              :visible.sync="open" :show-close="false" :withHeader="false"
              size="70%">
-    <PFANS1006FormView ref="child" v-show="url === 'PFANS1006FormView'"></PFANS1006FormView>
+    <PFANS1025FormView ref="child" v-show="url === 'PFANS1025FormView'"></PFANS1025FormView>
   </el-drawer>
 </template>
 
 <script>
 
-  import PFANS1006FormView from '@/view/PFANS/PFANS1000/PFANS1006/PFANS1006FormView.vue';
+  import PFANS1025FormView from '@/view/PFANS/PFANS1000/PFANS1025/PFANS1025FormView.vue';
 
   export default {
-    name: 'PFANS1006Pop',
+    name: 'PFANS1025Pop',
     components: {
-      PFANS1006FormView,
+      PFANS1025FormView,
     },
     data() {
       return {

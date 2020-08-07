@@ -185,11 +185,17 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1032Pop :params="urlparams" ref="PFANS1032Pop" :url="url"></PFANS1032Pop>
+    <PFANS1031Pop :params="urlparams" ref="PFANS1031Pop" :url="url"></PFANS1031Pop>
+    <PFANS1025Pop :params="urlparams" ref="PFANS1025Pop" :url="url"></PFANS1025Pop>
+    <PFANS1047Pop :params="urlparams" ref="PFANS1047Pop" :url="url"></PFANS1047Pop>
   </div>
 </template>
 <script>
-  import EasyPop from '@/components/EasyPop';
+  import PFANS1032Pop from '@/components/EasyPop/PFANS1032Pop';
+  import PFANS1031Pop from '@/components/EasyPop/PFANS1031Pop';
+  import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+  import PFANS1047Pop from '@/components/EasyPop/PFANS1047Pop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import PFANS4001View from '../PFANS4001/PFANS4001View.vue';
   import {Message} from 'element-ui';
@@ -201,7 +207,10 @@
   export default {
     name: 'PFANS4001FormView',
     components: {
-      EasyPop,
+      PFANS1032Pop,
+      PFANS1031Pop,
+      PFANS1025Pop,
+      PFANS1047Pop,
       EasyNormalContainer,
       PFANS4001View,
       dicselect,
@@ -422,20 +431,23 @@
         if (this.form.filetype === 'PC002004') {
           this.url = 'PFANS1032FormView';
           this.urlparams = {'_id': row.petition_id};
+          this.$refs.PFANS1032Pop.open = true;
         } else if (this.form.filetype === 'PC002005') {
           this.url = 'PFANS1031FormView';
           this.urlparams = {'_id': row.napalm_id};
+          this.$refs.PFANS1031Pop.open = true;
         } else if (this.form.filetype === 'PC002006') {
           this.url = 'PFANS1025FormView';
           this.urlparams = {'_id': row.award_id};
+          this.$refs.PFANS1025Pop.open = true;
         } else if (this.form.filetype === 'PC002001') {
           let bokid = this.form.bookid.split(',');
           if (bokid[0] === '9') {
             this.url = 'PFANS1047FormView';
             this.urlparams = {'_id': row.award_id};
+            this.$refs.PFANS1047Pop.open = true;
           }
         }
-        this.$refs[1].open = true;
       },
       selectInit(row, index) {
         return moment(row.claimdate).format('YYYY-MM') === new moment().format('YYYY-MM');
@@ -700,7 +712,7 @@
             if (this.$route.params.check4) {
               this.checkparamsTitle4();
             }
-          }else{
+          } else {
             this.paramsTitle();
           }
           //add=ws=8/6-禅道任务388

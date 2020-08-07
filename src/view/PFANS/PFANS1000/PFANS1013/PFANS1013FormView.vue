@@ -1162,12 +1162,14 @@
       </div>
     </EasyNormalContainer>
     <!--    add_ws_0724  禅道154任务-->
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1002Pop :params="urlparams" ref="PFANS1002Pop" :url="url"></PFANS1002Pop>
+    <PFANS1035Pop :params="urlparams" ref="PFANS1035Pop" :url="url"></PFANS1035Pop>
     <!--    add_ws_0724  禅道154任务-->
   </div>
 </template>
 <script>
-  import EasyPop from '@/components/EasyPop';
+  import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+  import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
@@ -1187,7 +1189,8 @@
   export default {
     name: 'PFANS1013FormView',
     components: {
-      EasyPop,
+      PFANS1002Pop,
+      PFANS1035Pop,
       dicselect,
       EasyNormalContainer,
       user,
@@ -1922,10 +1925,12 @@
           this.urlparams = {'_id': this.form.business_id};
           if (this.form.type == '0') {
             this.url = 'PFANS1035FormView';
+            this.$refs.PFANS1035Pop.open = true;
           } else {
             this.url = 'PFANS1002FormView';
+            this.$refs.PFANS1002Pop.open = true;
           }
-          this.$refs[1].open = true;
+
         }
       },
       //add_ws_0724  禅道154任务
