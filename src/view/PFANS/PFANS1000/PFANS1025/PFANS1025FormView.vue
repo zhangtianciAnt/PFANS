@@ -1331,26 +1331,6 @@
         } else {
           this.$refs['reff'].validate(valid => {
             if (valid) {
-              this.loading = true;
-              if (this.modifiedamount != 0) {
-                if (this.form.claimamount > this.modifiedamount) {
-                  Message({
-                    message: this.$t('label.PFANS1025FROMVIEW_MODIFIEDAMOUNTCHECK'),
-                    type: 'error',
-                    duration: 1 * 1000,
-                  });
-                  this.loading = false;
-                  setTimeout(()=>{
-                    this.$router.push({
-                      name: 'PFANS1045View',
-                      params: {
-                        check:  this.numbers,
-                      },
-                    });
-                  },2000)
-                  return;
-                }
-              }
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.award.award_id = this.$route.params._id;
               this.baseInfo.awardDetail = [];
@@ -1373,6 +1353,40 @@
                   });
                 }
               }
+              this.loading = true;
+              if (this.modifiedamount != 0) {
+                if (this.form.claimamount > this.modifiedamount) {
+                  this.$store
+                    .dispatch('PFANS1025Store/update', this.baseInfo)
+                    .then(response => {
+                      Message({
+                        message: this.$t('label.PFANS1025FROMVIEW_MODIFIEDAMOUNTCHECK'),
+                        type: 'error',
+                        duration: 1 * 1000,
+                      });
+                      this.loading = false;
+                      setTimeout(()=>{
+                        this.$router.push({
+                          name: 'PFANS1045View',
+                          params: {
+                            check:  this.numbers,
+                          },
+                        });
+                      },2000)
+                      return;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
+                  return;
+                }
+              }
+
               this.$store
                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
                 .then(response => {
