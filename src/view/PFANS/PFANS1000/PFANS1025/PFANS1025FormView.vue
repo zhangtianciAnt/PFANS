@@ -597,6 +597,7 @@
         // add-ws-7/17-禅道116任务
         optionsdata: [],
         modifiedamount: 0,
+        numbers: '',
         // add-ws-7/17-禅道116任务
         form: {
           // add-ws-7/17-禅道116任务
@@ -871,6 +872,7 @@
         for (let item of this.optionsdata) {
           if (item.value === val) {
             this.modifiedamount = item.moneys;
+            this.numbers = item.lable;
           }
         }
       },
@@ -1338,6 +1340,15 @@
                     duration: 5 * 1000,
                   });
                   this.loading = false;
+                  this.$router.push({
+                    name: 'PFANS1045View',
+                    params: {
+                      check:  this.numbers,
+                    },
+                  });
+
+
+
                   return;
                 }
               }
