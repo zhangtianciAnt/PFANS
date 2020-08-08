@@ -459,9 +459,9 @@
           },
         });
       },
-      changeSum(row){
+      changeSum(row) {
         for (let i = 0; i < this.tableF.length; i++) {
-          this.form.modifiedamount = this.tableF[i].money
+          this.form.modifiedamount = this.tableF[i].money;
         }
       },
       getamountcase(val) {
@@ -524,6 +524,7 @@
             sums[index] = '--';
           }
         });
+        sums[1] = Math.round(sums[1] * 100) / 100;
         this.getMoney2(sums);
         return sums;
       },
@@ -549,6 +550,7 @@
             sums[index] = '--';
           }
         });
+        sums[1] = Math.round(sums[1] * 100) / 100;
         return sums;
       },
       getMoney2(sums) {
@@ -650,6 +652,18 @@
               if (this.form.amountcase === 0) {
                 Message({
                   message: this.$t('label.PFANS1045VIEW_CHECK4'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+              let ckecksum = 0;
+              for (let i = 0; i < this.tableF.length; i++) {
+                ckecksum = this.tableF[i].money;
+              }
+              if (ckecksum < Number(this.form.modifiedamount) - (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                Message({
+                  message: this.$t('label.PFANS1045VIEW_CHECK6'),
                   type: 'error',
                   duration: 5 * 1000,
                 });

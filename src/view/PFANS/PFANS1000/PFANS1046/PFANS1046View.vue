@@ -90,6 +90,13 @@
             fix: false,
             filter: false,
           },
+          {
+            code: 'claimamount',
+            label: 'label.PFANS1025VIEW_AWARDMONEY',
+            width: 150,
+            fix: false,
+            filter: false,
+          },
         ],
         buttonList: [
           {'key': 'generate', 'name': 'button.generate', 'disabled': false, 'icon': 'el-icon-view'},
@@ -173,6 +180,7 @@
                         address: response[j].address,
                         contractnumber: response[j].contractnumber,
                         individual_id: response[j].individual_id,
+                        claimamount: response[j].claimamount,
                       });
                     }
                   }
@@ -191,6 +199,7 @@
                         address: response[m].address,
                         contractnumber: response[m].contractnumber,
                         individual_id: response[m].individual_id,
+                        claimamount: response[m].claimamount,
                       });
                     }
                   }
