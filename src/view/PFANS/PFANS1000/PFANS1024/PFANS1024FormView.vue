@@ -1403,7 +1403,6 @@
           this.checkindivdual = 1;
           if (this.$route.params.supplierinfor_id) {
             this.dates = this.$route.params.dates,
-              this.projectname = this.$route.params.projectname,
               this.dialogVisibleC = true;
             this.checknumber = true;
             this.loading = true;
@@ -1440,6 +1439,7 @@
                         response[j].protelephone = user.userinfo.customername;
                       }
                     }
+                    this.projectname = response[j].supjapanese;
                     this.form1.custojapanese = response[j].supjapanese;
                     this.formcustomer.custojapanese = response[j].supjapanese;
                     this.formcustomer.custoenglish = response[j].supenglish;
