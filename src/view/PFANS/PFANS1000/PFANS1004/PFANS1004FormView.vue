@@ -416,7 +416,7 @@
               </el-row>
             </el-tab-pane>
             <!--暂借款关联-->
-            <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="second">
+            <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="second" v-if="showTab">
               <el-row>
                 <el-table :data="tableC" border
                           header-cell-class-name="sub_bg_color_blue"
@@ -502,7 +502,7 @@
               </el-row>
             </el-tab-pane>
             <!--历史决裁-->
-            <el-tab-pane :label="$t('label.PFANS1004VIEW_HISTORICALDECISION')" name="thrid">
+            <el-tab-pane :label="$t('label.PFANS1004VIEW_HISTORICALDECISION')" name="thrid" v-if="showTab">
               <el-row>
                 <el-table :data="tableF" border
                           header-cell-class-name="sub_bg_color_blue"
@@ -656,6 +656,7 @@
         userlistAnt: [],
         loading: false,
         error: '',
+        showTab: true,
         selectType: 'Single',
         title: 'title.PFANS1004VIEW',
         buttonList: [],
@@ -903,7 +904,6 @@
           .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.$route.params._id})
           .then(response => {
             if (response) {
-              console.log(response)
               this.form = response.judgement;
               //历史决裁
               this.tableF = response.judgementLoAntList;
@@ -1105,6 +1105,7 @@
             this.loading = false;
           });
       } else {
+        this.showTab = false
         this.userlistA = this.$store.getters.userinfo.userid;
         let num = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
         if (num) {
