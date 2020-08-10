@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList" :defaultStart="defaultStart"
+                         :buttonList="buttonList" :defaultStart="defaultStart" :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end"
                          @StartWorkflow="buttonClick"
                          :enableSave="enableSave">
@@ -271,7 +271,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName, getCurrentRole} from '@/utils/customize';
   import org from '../../../components/org';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
@@ -354,6 +354,7 @@
         detailcenterid: '',
         detailgroupid: '',
         detailteamid: '',
+        workflowCode: '',
         //add-ws-7/27-禅道298任务
         baseInfo: {},
         userlist: '',
@@ -506,6 +507,11 @@
 
     mounted() {
       this.loading = true;
+      if (getCurrentRole() === '1') {
+        this.workflowCode = 'W0107';//总经理流程
+      } else {
+        this.workflowCode = 'W0028';//其他
+      }
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1021Store/selectById', {'securityid': this.$route.params._id})
