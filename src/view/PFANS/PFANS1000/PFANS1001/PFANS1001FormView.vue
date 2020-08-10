@@ -413,7 +413,7 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
+            {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         //add_fjl  end
@@ -423,6 +423,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
+            {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         //add-ws-7/7-禅道247
@@ -1046,7 +1047,22 @@
             let optionsSEL = [];
             let judname = ''
             for (let i = 0; i < this.selectedlist.length; i++) {
-
+                var vote = {};
+                vote.remarks = this.selectedlist[i].regioncity + ' ' + this.selectedlist[i].objectivetype1;
+                vote.numbers = this.selectedlist[i].business_number;
+                vote.value = this.selectedlist[i].business_id;
+                vote.label = this.selectedlist[i].business_number;
+                vote.judgements_moneys = this.selectedlist[i].loanmoney;
+                if (this.$route.params.title === 1) {
+                    if (this.$i18n) {
+                        vote.judgements_type = this.$t('title.PFANS1002VIEW');
+                    }
+                } else {
+                    if (this.$i18n) {
+                        vote.judgements_type = this.$t('title.PFANS1035VIEW');
+                    }
+                }
+                optionsSEL.push(vote);
               _judgement += this.selectedlist[i].business_id + ',';
               _judgement_name += this.selectedlist[i].business_number + ',';
               _judgements_moneys += this.selectedlist[i].loanmoney + ',';
@@ -1054,36 +1070,58 @@
               if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
                 loan += this.selectedlist[i].business_number + ' , ';
               }
+                if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
+                    str += this.selectedlist[i].business_number + ' , ';
+                }
             }
-            if (loan !== '') {
-              Message({
-                message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                type: 'info',
-                duration: 3 * 1000,
-              });
-              return;
-            }
-            if (this.$route.params.title === 1) {
-              if (this.$i18n) {
-                judname = this.$t('title.PFANS1002VIEW');
+              if (val === 'actuarial') {
+                  if (str !== '') {
+                      Message({
+                          message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                          type: 'info',
+                          duration: 3 * 1000,
+                      });
+                      return;
+                  }
+                  this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                          _name: optionsSEL,
+                          _type: 'PJ001002',
+                          disabled: true,
+                      },
+                  });
+              } else {
+                  if (loan !== '') {
+                      Message({
+                          message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                          type: 'info',
+                          duration: 3 * 1000,
+                      });
+                      return;
+                  }
+                  if (this.$route.params.title === 1) {
+                      if (this.$i18n) {
+                          judname = this.$t('title.PFANS1002VIEW');
+                      }
+                  } else {
+                      if (this.$i18n) {
+                          judname = this.$t('title.PFANS1035VIEW');
+                      }
+                  }
+                  this.$router.push({
+                      name: 'PFANS1006FormView',
+                      params: {
+                          _id: '',
+                          _judgement: _judgement,
+                          _judgement_name: _judgement_name,
+                          _judgements_moneys: _judgements_moneys,
+                          _remarks: _remarks,
+                          _judgements_type: judname,
+                          disabled: true,
+                      },
+                  });
               }
-            } else {
-              if (this.$i18n) {
-                judname = this.$t('title.PFANS1035VIEW');
-              }
-            }
-            this.$router.push({
-              name: 'PFANS1006FormView',
-              params: {
-                _id: '',
-                _judgement: _judgement,
-                _judgement_name: _judgement_name,
-                _judgements_moneys: _judgements_moneys,
-                _remarks: _remarks,
-                _judgements_type: judname,
-                disabled: true,
-              },
-            });
           }
         }
         //add_fjl_0724   添加跳转申请精算与暂借款  end
