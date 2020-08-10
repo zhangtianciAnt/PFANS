@@ -245,6 +245,7 @@
         //     }
         // ],
         url: '',
+        checkstatus: '',
         urlparams: '',
         centerid: '',
         groupid: '',
@@ -622,6 +623,7 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
+        this.checkstatus = 1;
         this.buttonClick2();
       },
       start(val) {
@@ -630,14 +632,16 @@
         } else if (val.state === '2') {
           this.form.status = '4';
         }
+        this.checkstatus = 0;
         this.buttonClick2();
       },
       end() {
         this.form.status = '0';
+        this.checkstatus = 1;
         this.buttonClick2();
       },
       buttonClick2() {
-        if (this.form.status === '4' || this.form.status === '3') {
+        if (this.checkstatus == 1) {
           if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
             let checktlist = this.form.sealtype.splice(',');
             let checktableD = '';

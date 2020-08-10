@@ -657,17 +657,19 @@
                 });
                 return;
               }
-              let ckecksum = 0;
-              for (let i = 0; i < this.tableF.length; i++) {
-                ckecksum = this.tableF[i].money;
-              }
-              if (ckecksum < Number(this.form.modifiedamount) - (Number(this.form.summonet) - Number(this.form.newamountcase))) {
-                Message({
-                  message: this.$t('label.PFANS1045VIEW_CHECK6'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
+              if (this.form.status === '4') {
+                let ckecksum = 0;
+                for (let i = 0; i < this.tableF.length; i++) {
+                  ckecksum = this.tableF[i].money;
+                }
+                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                  Message({
+                    message: this.$t('label.PFANS1045VIEW_CHECK6'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
               this.form.user_id = this.userlist;
               this.baseInfo = {};

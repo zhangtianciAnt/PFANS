@@ -514,7 +514,7 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1045Pop :params="urlparams" ref="PFANS1045Pop" :url="url"></PFANS1045Pop>
   </div>
 </template>
 
@@ -534,12 +534,12 @@
     getUserInfo,
     uploadUrl,
   } from '@/utils/customize';
-  import EasyPop from '@/components/EasyPop';
+  import PFANS1045Pop from '@/components/EasyPop/PFANS1045Pop';
 
   export default {
     name: 'PFANS1025FormView',
     components: {
-      EasyPop,
+      PFANS1045Pop,
       EasyNormalContainer,
       user,
       org,
@@ -864,7 +864,7 @@
       clickBun() {
         if (this.form.policycontract_id !== '' && this.form.policycontract_id !== null && this.form.policycontract_id !== undefined) {
           this.urlparams = {'_id': this.form.policycontract_id};
-          this.$refs[1].open = true;
+          this.$refs.PFANS1045Pop.open = true;
         }
       },
       getpolicycontract(val) {
