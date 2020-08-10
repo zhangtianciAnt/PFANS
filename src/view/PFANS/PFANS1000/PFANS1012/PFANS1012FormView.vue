@@ -1323,6 +1323,7 @@
     getOrgInfo,
     getOrgInfoByUserId,
     getUserInfo,
+    getCurrentRole,
     getStatus,
     uploadUrl,
     downLoadUrl
@@ -1865,10 +1866,14 @@
                 }
               }
 //add-ws-6/12-禅道105
-              if (this.form.moneys >= 20000) {
-                this.workflowCode = 'W0077';
+              if ((getCurrentRole() != '1')) {
+                if (this.form.moneys >= 20000) {
+                  this.workflowCode = 'W0077';
+                } else {
+                  this.workflowCode = 'W0016';
+                }
               } else {
-                this.workflowCode = 'W0016';
+                this.workflowCode = 'W0100';
               }
 //add-ws-6/12-禅道105
 //add-ws-6/16-禅道103

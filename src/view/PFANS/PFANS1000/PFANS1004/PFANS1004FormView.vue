@@ -543,8 +543,9 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1004Pop :params="urlparams" :url="url" ref="PFANS1004Pop"></PFANS1004Pop>
+    <PFANS1012Pop :params="urlparams" :url="url" ref="PFANS1012Pop"></PFANS1012Pop>
+    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
   </div>
 </template>
 
@@ -553,6 +554,9 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
+  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
+  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
   import {Message} from 'element-ui';
   import {
     downLoadUrl,
@@ -563,7 +567,6 @@
     getUserInfo,
     uploadUrl,
   } from '@/utils/customize';
-  import EasyPop from '@/components/EasyPop';
   import moment from 'moment';
   import {quillEditor} from 'vue-quill-editor';
   import 'quill/dist/quill.core.css';
@@ -575,13 +578,15 @@
   export default {
     name: 'PFANS1004FormView',
     components: {
-      EasyPop,
       EasyNormalContainer,
       getOrgInfoByUserId,
       dicselect,
       user,
       quillEditor,
       org,
+      PFANS1004Pop,
+      PFANS1012Pop,
+      PFANS1006Pop,
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -1266,21 +1271,21 @@
         this.urlparams = '';
         this.url = 'PFANS1006FormView';
         this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-        this.$refs[1].open = true;
+        this.$refs.PFANS1006Pop.open = true;
       },
       rowClick1(row) {
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1012FormView';
         this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-        this.$refs[1].open = true;
+        this.$refs.PFANS1012Pop.open = true;
       },
       rowClickHis(row) {
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1004FormView';
         this.urlparams = {'_id': row.judgementid, 'disabled': false};
-        this.$refs[1].open = true;
+        this.$refs.PFANS1004Pop.open = true;
       },
       changemusectosion(val) {
         if (val === '1') {

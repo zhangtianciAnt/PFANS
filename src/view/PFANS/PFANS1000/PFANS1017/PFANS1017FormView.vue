@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
+                         @workflowState="workflowState" v-loading="loading" :workflowCode="workflowCode"
                          :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
       <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <!--:enableSave="enableSave"-->
@@ -223,7 +223,7 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="150">
                   <template slot-scope="scope">
-<!--                    <el-input :disabled="true" style="width:20vw" v-model="scope.row.budgetunit"></el-input>-->
+                    <!--                    <el-input :disabled="true" style="width:20vw" v-model="scope.row.budgetunit"></el-input>-->
                     <el-select clearable style="width: 100%" v-model="scope.row.budgetunit" :disabled="!disable"
                                :placeholder="$t('normal.error_09')">
                       <el-option
@@ -321,462 +321,467 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import dicselect from '../../../components/dicselect.vue';
-    import {Message} from 'element-ui';
-    import user from '../../../components/user.vue';
-    import {getCurrentRole4, getOrgInfoByUserId, getOrgInfo} from '@/utils/customize';
-    import {validateEmail} from '@/utils/validate';
-    import moment from 'moment';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect.vue';
+  import {Message} from 'element-ui';
+  import user from '../../../components/user.vue';
+  import {getCurrentRole4, getOrgInfo, getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
+  import {validateEmail} from '@/utils/validate';
+  import moment from 'moment';
 
-    export default {
-        name: 'PFANS1017FormView',
-        components: {
-            EasyNormalContainer,
-            dicselect,
-            user,
+  export default {
+    name: 'PFANS1017FormView',
+    components: {
+      EasyNormalContainer,
+      dicselect,
+      user,
+    },
+    data() {
+      var validateUserid = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          callback();
+          this.error = '';
+        }
+      };
+      var checkemail = (rule, value, callback) => {
+        if (this.form.email !== null && this.form.email !== '') {
+          if (!validateEmail(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
+      return {
+        options1: [],
+        centerid: '',
+        groupid: '',
+        teamid: '',
+        workflowCode: '',
+        buttonList: [],
+        baseInfo: {},
+        multiple: false,
+        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        acceptShow: 'true',
+        enableSave: false,
+        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        loading: false,
+        selectType: 'Single',
+        error: '',
+        title: 'title.PFANS1017VIEW',
+        userlist: '',
+        tabIndex: 0,
+        form: {
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          user_id: '',
+          type: this.$t('menu.PFANS1017'),
+          subtype: '',
+          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          corresponding: '',
+          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          application: moment(new Date()).format('YYYY-MM-DD'),
+          email: '',
+          remark: '',
+          extension: '',
+          idtype: '',
         },
-        data() {
-            var validateUserid = (rule, value, callback) => {
-                if (!value || value === '' || value === 'undefined') {
-                    callback(new Error(this.$t('normal.error_08') + this.$t('label.applicant')));
-                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-                } else {
-                    callback();
-                    this.error = '';
-                }
-            };
-            var checkemail = (rule, value, callback) => {
-                if (this.form.email !== null && this.form.email !== '') {
-                    if (!validateEmail(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            };
-            return {
-                options1:[],
-                centerid: '',
-                groupid: '',
-                teamid: '',
-                buttonList: [],
-                baseInfo: {},
-                multiple: false,
-              //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-              acceptShow: 'true',
-              enableSave: false,
-              //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-                loading: false,
-                selectType: 'Single',
-                error: '',
-                title: 'title.PFANS1017VIEW',
-                userlist: '',
-                tabIndex: 0,
-                form: {
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    user_id: '',
-                    type: this.$t('menu.PFANS1017'),
-                    subtype: '',
-                  //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-                  corresponding: '',
-                  //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-                    application: moment(new Date()).format('YYYY-MM-DD'),
-                    email: '',
-                  remark: '',
-                    extension: '',
-                    idtype: '',
-                },
-                tableT: [{
-                    number: '',
-                  // usertype: '',
-                    username: '',
-                    surname: '',
-                    ming: '',
-                    account: '',
-                    transmission: '',
-                  accounttype: '',
-                    waitfortime: '',
-                    budgetunit: '',
-                    cybozu: '',
-                    expecttime: '',
-                    domainaccount: '',
-                    forwardtime: '',
-                    preparefor: '',
-                }],
-                code1: 'PJ037',
-                code2: 'PJ038',
-              // code3: 'PJ039',
-                code4: 'PJ040',
-                code5: 'PJ041',
-                code6: 'PG001',
-              // 邮箱类型
-              code7: 'PJ046',
-                disabled: false,
-                rules: {
-                    user_id: [{
-                        required: true,
-                        validator: validateUserid,
-                        trigger: 'change',
-                    }],
-                    subtype: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.subtype'),
-                        trigger: 'change',
-                    }],
-                    application: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.application'),
-                        trigger: 'change',
-                    }],
-                    email: [
-                        {validator: checkemail, trigger: 'change'}],
-                    extension: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
-                            trigger: 'change'
-                        }],
-                    idtype: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),
-                        trigger: 'change',
-                    }],
-                },
-                canStart: false,
-            };
+        tableT: [{
+          number: '',
+          // usertype: '',
+          username: '',
+          surname: '',
+          ming: '',
+          account: '',
+          transmission: '',
+          accounttype: '',
+          waitfortime: '',
+          budgetunit: '',
+          cybozu: '',
+          expecttime: '',
+          domainaccount: '',
+          forwardtime: '',
+          preparefor: '',
+        }],
+        code1: 'PJ037',
+        code2: 'PJ038',
+        // code3: 'PJ039',
+        code4: 'PJ040',
+        code5: 'PJ041',
+        code6: 'PG001',
+        // 邮箱类型
+        code7: 'PJ046',
+        disabled: false,
+        rules: {
+          user_id: [{
+            required: true,
+            validator: validateUserid,
+            trigger: 'change',
+          }],
+          subtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.subtype'),
+            trigger: 'change',
+          }],
+          application: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.application'),
+            trigger: 'change',
+          }],
+          email: [
+            {validator: checkemail, trigger: 'change'}],
+          extension: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
+              trigger: 'change'
+            }],
+          idtype: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1017FORMVIEW_IDTYPE'),
+            trigger: 'change',
+          }],
         },
-        created() {
-            this.disable = this.$route.params.disabled;
-            if (this.disable) {
-                this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ];
+        canStart: false,
+      };
+    },
+    created() {
+      this.disable = this.$route.params.disabled;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ];
+      }
+    },
+    mounted() {
+      if (getCurrentRole() === '1') {
+        this.workflowCode = 'W0103';//总经理流程
+      } else {
+        this.workflowCode = 'W0024';//其他
+      }
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1017Store/selectById', {'psdcd_id': this.$route.params._id})
+          .then(response => {
+            let rst = getOrgInfoByUserId(response.psdcd.user_id);
+            if (rst) {
+              this.centerid = rst.centerNmae;
+              this.groupid = rst.groupNmae;
+              this.teamid = rst.teamNmae;
             }
-        },
-        mounted() {
+            if (this.form.status === '2') {
+              this.disable = false;
+            }
+            this.userlist = response.user_id;
+            this.form = response.psdcd;
+            if (response.psdcddetail.length > 0) {
+              this.tableT = response.psdcddetail;
+            }
+            //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+            let role = getCurrentRole4();
+            if (role === '0') {
+              if (this.form.status === '4') {
+                this.enableSave = true;
+                if (this.disable) {
+                  this.acceptShow = false;
+                } else {
+                  this.acceptShow = true;
+                }
+              } else {
+                this.acceptShow = true;
+                this.enableSave = false;
+              }
+            }
+            //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+            this.userlist = this.form.user_id;
+            this.getBudt(this.userlist);
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          this.form.user_id = this.$store.getters.userinfo.userid;
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+          //     this.tableT[0].budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+          }
+          this.getBudt(this.form.user_id);
+        }
+      }
+    },
+    methods: {
+      getBudt(val) {
+        //ADD_FJL  修改人员预算编码
+        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === dic[i].value1) {
+                this.options1.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                })
+              }
+            }
+          }
+        }
+        //ADD_FJL  修改人员预算编码
+      },
+      // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      getcorresponding(val) {
+        this.form.corresponding = val;
+      },
+      //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      getUserids(val) {
+        this.form.user_id = val;
+        let rst = getOrgInfoByUserId(val);
+        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+        //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        // }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
+        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          this.error = '';
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      //upd 审批流程 fr
+      // start(val) {
+      //   this.form.status = '2';
+      //   this.buttonClick("update");
+      // },
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('update');
+      },
+      //upd 审批流程 to
+      end() {
+        this.form.status = '0';
+        this.buttonClick('update');
+      },
+      changesubtype(val) {
+        this.form.subtype = val;
+      },
+      changeidtype(val) {
+        this.form.idtype = val;
+      },
+      // changeusertype(val, row) {
+      //     row.usertype = val;
+      // },
+      changeaccounttype(val, row) {
+        row.accounttype = val;
+      },
+      changetransmission(val, row) {
+        row.transmission = val;
+      },
+      changecybozu(val, row) {
+        row.cybozu = val;
+      },
+      getBudgetunit(val, row) {
+        row.budgetunit = val;
+      },
+      changedomainaccount(val, row) {
+        row.domainaccount = val;
+      },
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableT = [{
+            psdcddetail_id: '',
+            psdcd_id: '',
+            // usertype: ' ',
+            username: '',
+            surname: '',
+            ming: '',
+            account: '',
+            transmission: ' ',
+            accounttype: ' ',
+            waitfortime: '',
+            budgetunit: ' ',
+            cybozu: ' ',
+            expecttime: '',
+            domainaccount: ' ',
+            forwardtime: '',
+            preparefor: '',
+          }]
+        }
+      },
+      addRow() {
+        this.tableT.push({
+          psdcddetail_id: '',
+          psdcd_id: '',
+          // usertype: '',
+          username: '',
+          surname: '',
+          ming: '',
+          account: '',
+          transmission: '',
+          accounttype: '',
+          waitfortime: '',
+          budgetunit: '',
+          cybozu: '',
+          expecttime: '',
+          domainaccount: '',
+          forwardtime: '',
+          preparefor: '',
+          rowindex: '',
+        });
+      },
+      buttonClick(val) {
+        this.$refs['refform'].validate(valid => {
+          if (valid) {
+            this.loading = true;
+            this.baseInfo = {};
+            this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+            this.baseInfo.psdcd = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.psdcddetail = [];
+            for (let i = 0; i < this.tableT.length; i++) {
+              if (this.tableT[i].number !== '' || this.tableT[i].usertype !== '' || this.tableT[i].username !== '' ||
+                this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== '' ||
+                this.tableT[i].transmission !== '' || this.tableT[i].accounttype !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
+                this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== '' ||
+                this.tableT[i].forwardtime !== '' || this.tableT[i].preparefor !== '') {
+                this.baseInfo.psdcddetail.push(
+                  {
+                    psdcddetail_id: this.tableT[i].psdcddetail_id,
+                    psdcd_id: this.tableT[i].psdcd_id,
+                    number: this.tableT[i].number,
+                    // usertype: this.tableT[i].usertype,
+                    username: this.tableT[i].username,
+                    surname: this.tableT[i].surname,
+                    ming: this.tableT[i].ming,
+                    account: this.tableT[i].account,
+                    transmission: this.tableT[i].transmission,
+                    accounttype: this.tableT[i].accounttype,
+                    waitfortime: this.tableT[i].waitfortime,
+                    budgetunit: this.tableT[i].budgetunit,
+                    cybozu: this.tableT[i].cybozu,
+                    expecttime: this.tableT[i].expecttime,
+                    domainaccount: this.tableT[i].domainaccount,
+                    forwardtime: this.tableT[i].forwardtime,
+                    preparefor: this.tableT[i].preparefor,
+                  },
+                );
+              }
+            }
             if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1017Store/selectById', {'psdcd_id': this.$route.params._id})
-                    .then(response => {
-                        let rst = getOrgInfoByUserId(response.psdcd.user_id);
-                        if (rst) {
-                            this.centerid = rst.centerNmae;
-                            this.groupid = rst.groupNmae;
-                            this.teamid = rst.teamNmae;
-                        }
-                        if (this.form.status === '2') {
-                            this.disable = false;
-                        }
-                        this.userlist = response.user_id;
-                        this.form = response.psdcd;
-                        if (response.psdcddetail.length > 0) {
-                            this.tableT = response.psdcddetail;
-                        }
-                      //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-                      let role = getCurrentRole4();
-                      if (role === '0') {
-                        if (this.form.status === '4') {
-                          this.enableSave = true;
-                          if (this.disable) {
-                            this.acceptShow = false;
-                          } else {
-                            this.acceptShow = true;
-                          }
-                        } else {
-                          this.acceptShow = true;
-                          this.enableSave = false;
-                        }
-                      }
-                      //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-                        this.userlist = this.form.user_id;
-                        this.getBudt(this.userlist);
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
+              this.form.psdcd_id = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS1017Store/update', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
                     });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
             } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    this.form.user_id = this.$store.getters.userinfo.userid;
-                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-                    //     this.tableT[0].budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                    // }
-                    if (rst) {
-                        this.centerid = rst.centerNmae;
-                        this.groupid = rst.groupNmae;
-                        this.teamid = rst.teamNmae;
-                        this.form.center_id = rst.centerId;
-                        this.form.group_id = rst.groupId;
-                        this.form.team_id = rst.teamId;
-                    }
-                    this.getBudt(this.form.user_id);
-                }
-            }
-        },
-        methods: {
-            getBudt(val){
-                //ADD_FJL  修改人员预算编码
-                if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                    let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if(dic.length > 0){
-                        for (let i = 0; i < dic.length; i++) {
-                            if(butinfo === dic[i].value1){
-                                this.options1.push({
-                                    lable: dic[i].value2 +'_'+ dic[i].value3,
-                                    value: dic[i].code,
-                                })
-                            }
-                        }
-                    }
-                }
-                //ADD_FJL  修改人员预算编码
-            },
-          // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
-          getcorresponding(val) {
-            this.form.corresponding = val;
-          },
-          //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
-            getUserids(val) {
-                this.form.user_id = val;
-                let rst = getOrgInfoByUserId(val);
-                // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-                //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                // }
-                if (rst) {
-                    this.centerid = rst.centerNmae;
-                    this.groupid = rst.groupNmae;
-                    this.teamid = rst.teamNmae;
-                    this.form.center_id = rst.centerId;
-                    this.form.group_id = rst.groupId;
-                    this.form.team_id = rst.teamId;
-                } else {
-                    this.centerid = '';
-                    this.groupid = '';
-                    this.teamid = '';
-                    this.form.center_id = '';
-                    this.form.group_id = '';
-                    this.form.team_id = '';
-                }
-                if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
-                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-                } else {
-                    this.error = '';
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick('update');
-            },
-          //upd 审批流程 fr
-          // start(val) {
-          //   this.form.status = '2';
-          //   this.buttonClick("update");
-          // },
-          start(val) {
-            if (val.state === '0') {
-              this.form.status = '2';
-            }else if (val.state === '2') {
-              this.form.status = '4';
-            }
-            this.buttonClick('update');
-          },
-          //upd 审批流程 to
-            end() {
-                this.form.status = '0';
-                this.buttonClick('update');
-            },
-            changesubtype(val) {
-                this.form.subtype = val;
-            },
-            changeidtype(val) {
-                this.form.idtype = val;
-            },
-          // changeusertype(val, row) {
-          //     row.usertype = val;
-          // },
-          changeaccounttype(val, row) {
-            row.accounttype = val;
-            },
-            changetransmission(val, row) {
-                row.transmission = val;
-            },
-            changecybozu(val, row) {
-                row.cybozu = val;
-            },
-            getBudgetunit(val, row) {
-                row.budgetunit = val;
-            },
-            changedomainaccount(val, row) {
-                row.domainaccount = val;
-            },
-            deleteRow(index, rows) {
-                if (rows.length > 1) {
-                    rows.splice(index, 1);
-                } else {
-                    this.tableT = [{
-                        psdcddetail_id: '',
-                        psdcd_id: '',
-                      // usertype: ' ',
-                        username: '',
-                        surname: '',
-                        ming: '',
-                        account: '',
-                        transmission: ' ',
-                      accounttype: ' ',
-                        waitfortime: '',
-                        budgetunit: ' ',
-                        cybozu: ' ',
-                        expecttime: '',
-                        domainaccount: ' ',
-                        forwardtime: '',
-                        preparefor: '',
-                    }]
-                }
-            },
-            addRow() {
-                this.tableT.push({
-                    psdcddetail_id: '',
-                    psdcd_id: '',
-                  // usertype: '',
-                    username: '',
-                    surname: '',
-                    ming: '',
-                    account: '',
-                    transmission: '',
-                  accounttype: '',
-                    waitfortime: '',
-                    budgetunit: '',
-                    cybozu: '',
-                    expecttime: '',
-                    domainaccount: '',
-                    forwardtime: '',
-                    preparefor: '',
-                    rowindex: '',
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS1017Store/insert', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  if (this.$store.getters.historyUrl) {
+                    this.$router.push(this.$store.getters.historyUrl);
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-            },
-            buttonClick(val) {
-                this.$refs['refform'].validate(valid => {
-                    if (valid) {
-                        this.loading = true;
-                        this.baseInfo = {};
-                        this.form.application = moment(this.form.application).format('YYYY-MM-DD');
-                        this.baseInfo.psdcd = JSON.parse(JSON.stringify(this.form));
-                        this.baseInfo.psdcddetail = [];
-                        for (let i = 0; i < this.tableT.length; i++) {
-                            if (this.tableT[i].number !== '' || this.tableT[i].usertype !== '' || this.tableT[i].username !== '' ||
-                                this.tableT[i].surname !== '' || this.tableT[i].ming !== '' || this.tableT[i].account !== '' ||
-                              this.tableT[i].transmission !== '' || this.tableT[i].accounttype !== '' || this.tableT[i].waitfortime !== '' || this.tableT[i].budgetunit !== '' ||
-                                this.tableT[i].cybozu !== '' || this.tableT[i].expecttime !== '' || this.tableT[i].domainaccount !== '' ||
-                                this.tableT[i].forwardtime !== '' || this.tableT[i].preparefor !== '') {
-                                this.baseInfo.psdcddetail.push(
-                                    {
-                                        psdcddetail_id: this.tableT[i].psdcddetail_id,
-                                        psdcd_id: this.tableT[i].psdcd_id,
-                                        number: this.tableT[i].number,
-                                      // usertype: this.tableT[i].usertype,
-                                        username: this.tableT[i].username,
-                                        surname: this.tableT[i].surname,
-                                        ming: this.tableT[i].ming,
-                                        account: this.tableT[i].account,
-                                        transmission: this.tableT[i].transmission,
-                                      accounttype: this.tableT[i].accounttype,
-                                        waitfortime: this.tableT[i].waitfortime,
-                                        budgetunit: this.tableT[i].budgetunit,
-                                        cybozu: this.tableT[i].cybozu,
-                                        expecttime: this.tableT[i].expecttime,
-                                        domainaccount: this.tableT[i].domainaccount,
-                                        forwardtime: this.tableT[i].forwardtime,
-                                        preparefor: this.tableT[i].preparefor,
-                                    },
-                                );
-                            }
-                        }
-                        if (this.$route.params._id) {
-                            this.form.psdcd_id = this.$route.params._id;
-                            this.$store
-                                .dispatch('PFANS1017Store/update', this.baseInfo)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    if (val !== 'update') {
-                                        Message({
-                                            message: this.$t('normal.success_02'),
-                                            type: 'success',
-                                            duration: 5 * 1000,
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-                        } else {
-                            this.loading = true;
-                            this.$store
-                                .dispatch('PFANS1017Store/insert', this.baseInfo)
-                                .then(response => {
-                                    this.data = response;
-                                    this.loading = false;
-                                    Message({
-                                        message: this.$t('normal.success_01'),
-                                        type: 'success',
-                                        duration: 5 * 1000,
-                                    });
-                                    if (this.$store.getters.historyUrl) {
-                                        this.$router.push(this.$store.getters.historyUrl);
-                                    }
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-                        }
-                    }
-                    else{
-                        Message({
-                            message: this.$t("normal.error_12"),
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                    }
-                });
-            },
-        },
-    };
+            }
+          } else {
+            Message({
+              message: this.$t("normal.error_12"),
+              type: 'error',
+              duration: 5 * 1000
+            });
+          }
+        });
+      },
+    },
+  };
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

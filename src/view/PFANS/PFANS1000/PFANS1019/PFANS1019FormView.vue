@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
+                         @workflowState="workflowState" v-loading="loading" :workflowCode="workflowCode"
                          :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -197,7 +197,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getCurrentRole4, getOrgInfoByUserId} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -222,6 +222,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
+        workflowCode: '',
         baseInfo: {},
         loading: false,
         multiple: false,
@@ -289,6 +290,11 @@
       }
     },
     mounted() {
+      if (getCurrentRole() === '1') {
+        this.workflowCode = 'W0105';//总经理流程
+      } else {
+        this.workflowCode = 'W0026';//其他
+      }
       if (this.$route.params._id) {
         this.loading = true;
         this.$store

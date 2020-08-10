@@ -2146,7 +2146,7 @@ module.exports = {
     PFANS1045VIEW_CHECK2: '外协公司每周期只可创建一条数据',
     PFANS1045VIEW_CHECK3: '请先填写外协公司，再输入周期',
     PFANS1045VIEW_CHECK4: '起案金额不可为0',
-    PFANS1045VIEW_CHECK6: '请求金额应大一些',
+    PFANS1045VIEW_CHECK6: '请求金额应大于等于决裁关联请求金额合计与实际核销金额的差',
     PFANS1045VIEW_CHECK5: '外注公司每周期内只能有一个方针合同，该周期的方针合同已存在，请重新选择。',
     PFANS1045VIEW_OUTSOURCINGCOMPANY: '外协公司',
     PFANS1045VIEW_AMOUNTCASE: '起案金额',

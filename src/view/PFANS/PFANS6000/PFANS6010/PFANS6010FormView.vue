@@ -98,7 +98,7 @@
                 loading: false,
                 disable: true,
                 buttonList: [
-                  //  {'key': 'save', 'name': 'button.save', 'disabled': false, 'icon': 'el-icon-view'},
+                  //{'key': 'save', 'name': 'button.save', 'disabled': false, 'icon': 'el-icon-view'},
                 ],
                 tableData: [],
                 letparams:{},
@@ -128,10 +128,9 @@
                         for (let j = 0; j < groupnamelist.length; j++) {
                             let group = getorgGroupList(groupnamelist[j]);
                             if (group) {
-                                this.groupnamelist.push(group.groupname);
+                                this.groupnamelist.push(group.companyen);
                             }
                         }
-                        let a = this.groupnamelist;
                         this.tableData = response;
                     }
                     this.loading = false;
@@ -267,6 +266,7 @@
                             bpcompany: this.coststatistics[i].bpcompany,
                             bpcostcount: this.coststatistics[i].bpcostcount,
                             groupid: this.$route.params._id.split(",")[0],
+                            groupname: getorgGroupList(this.$route.params._id.split(",")[0]).companyen,
                             dates:moment(tempDate).format('YYYY-MM')
                         },
                     );

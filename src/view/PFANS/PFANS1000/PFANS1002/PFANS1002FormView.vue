@@ -753,10 +753,98 @@
                 </el-row>
               </div>
             </el-tab-pane>
+            <el-tab-pane :label="$t('label.PFANS3005FORMVIEW_LOANAPP_ACTU')" name="seventh ">
+              <el-row>
+                <el-table :data="tableA" border
+                          header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 952px">
+                  <el-table-column :label="$t('label.PFANS1013FORMVIEW_LOAN')" align="center"
+                                   prop="loanapno" width="200px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.loanapno}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1013VIEW_LOANAMOUNT')" align="center" prop="moneys"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.moneys}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
+                                   width="300px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.remarks}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.status}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-button
+                        @click.native.prevent="rowClick(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-row>
+              <div></div>
+              <el-row>
+                <el-table :data="tableB" border
+                          header-cell-class-name="sub_bg_color_blue"
+                          stripe style="width: 952px;margin-top: 40px">
+                  <el-table-column :label="$t('label.PFANS1013VIEW_REIMNUMBER')" align="center"
+                                   prop="invoiceno" width="200px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.invoiceno}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS3005VIEW_ACTUARIALAMOUNT')" align="center" prop="moneys"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.moneys}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.remarks')" align="center" prop="remarks"
+                                   width="300px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.remarks}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS5005VIEW_STATUS')" align="center" prop="status"
+                                   width="150px">
+                    <template slot-scope="scope">
+                      <span>{{scope.row.status}}</span>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
+                    <template slot-scope="scope">
+                      <el-button
+                        @click.native.prevent="rowClick1(scope.row)"
+                        plain
+                        size="small"
+                        type="primary"
+                      >{{$t('button.viewdetails')}}
+                      </el-button>
+                    </template>
+                  </el-table-column>
+                </el-table>
+              </el-row>
+
+            </el-tab-pane>
           </el-tabs>
         </el-form>
       </div>
     </EasyNormalContainer>
+    <PFANS1012Pop :params="urlparams" :url="url" ref="PFANS1012Pop"></PFANS1012Pop>
+    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
   </div>
 </template>
 
@@ -766,10 +854,12 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole, getStatus} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
   import org from '../../../components/org';
+  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
+  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
 
   export default {
     name: 'PFANS1002FormView',
@@ -779,6 +869,8 @@
       user,
       project,
         org,
+        PFANS1012Pop,
+        PFANS1006Pop,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -870,6 +962,10 @@
         enableSave: false,
         userlist: '',
         activeName: 'first',
+          urlparams: '',
+          url: '',
+          tableA: [],
+          tableB: [],
         loading: false,
           workflowCode: '',
         disabled: false,
@@ -1331,7 +1427,7 @@
       if (this.$route.params._type === 0) {
         this.loading = true;
         this.$store
-          
+
           .dispatch('PFANS1035Store/selectById3', {'offshore_id': this.$route.params._checkid})
           .then(response => {
             this.loading = true;
@@ -1454,6 +1550,63 @@
                   }
                 }
                 //add ccm 0805
+                  //add_fjl_0806
+                  //有暂借款编号绑定暂借款信息
+                  if (this.form.loanapplication_id) {
+                      this.$store
+                          .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
+                          .then(response => {
+                              if (response !== null && response !== '' && response !== undefined) {
+                                  let status = getStatus(response.status);
+                                  this.tableA.push({
+                                      loanapno: response.loanapno,
+                                      moneys: response.moneys,
+                                      remarks: response.remarks,
+                                      status: status,
+                                      loanapplication_id: response.loanapplication_id,
+                                  });
+                              }
+                              this.loading = false;
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
+                  }
+
+                  //有精算报销编号绑定精算信息
+                  if (this.form.publicexpense_id) {
+                      this.$store
+                          .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                          .then(response => {
+                              if (response !== null && response !== '' && response !== undefined) {
+                                  let pub = response.publicexpense;
+                                  let status = getStatus(pub.status);
+                                  this.tableB.push({
+                                      invoiceno: pub.invoiceno,
+                                      moneys: pub.moneys,
+                                      remarks: pub.preparefor,
+                                      status: status,
+                                      publicexpense_id: pub.publicexpenseid,
+                                  });
+                              }
+                              this.loading = false;
+                          })
+                          .catch(error => {
+                              Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                              });
+                              this.loading = false;
+                          });
+
+                  }
+                  //add_fjl_0806
                 this.loading = false;
               })
               .catch(error => {
@@ -1612,6 +1765,63 @@
                 }
               }
               //add ccm 0805
+                //add_fjl_0806
+                //有暂借款编号绑定暂借款信息
+                if (this.form.loanapplication_id) {
+                    this.$store
+                        .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
+                        .then(response => {
+                            if (response !== null && response !== '' && response !== undefined) {
+                                let status = getStatus(response.status);
+                                this.tableA.push({
+                                    loanapno: response.loanapno,
+                                    moneys: response.moneys,
+                                    remarks: response.remarks,
+                                    status: status,
+                                    loanapplication_id: response.loanapplication_id,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                }
+
+                //有精算报销编号绑定精算信息
+                if (this.form.publicexpense_id) {
+                    this.$store
+                        .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                        .then(response => {
+                            if (response !== null && response !== '' && response !== undefined) {
+                                let pub = response.publicexpense;
+                                let status = getStatus(pub.status);
+                                this.tableB.push({
+                                    invoiceno: pub.invoiceno,
+                                    moneys: pub.moneys,
+                                    remarks: pub.preparefor,
+                                    status: status,
+                                    publicexpense_id: pub.publicexpenseid,
+                                });
+                            }
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+
+                }
+                //add_fjl_0806
               this.loading = false;
             })
             .catch(error => {
@@ -1806,6 +2016,22 @@
       //add-ws-7/7-禅道247
     },
     methods: {
+        //add_fjl_0806  查看详情
+        rowClick(row) {
+            this.url = '';
+            this.urlparams = '';
+            this.url = 'PFANS1006FormView';
+            this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+            this.$refs.PFANS1006Pop.open = true;
+        },
+        rowClick1(row) {
+            this.url = '';
+            this.urlparams = '';
+            this.url = 'PFANS1012FormView';
+            this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
+            this.$refs.PFANS1012Pop.open = true;
+        },
+        //add_fjl_0806  查看详情
         //add_fjl_0806
         getCenterid(val) {
             this.form.center_id = val;

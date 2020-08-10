@@ -183,7 +183,14 @@
     import PFANS2022View from "../PFANS2022/PFANS2022View.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui'
-    import {downLoadUrl, getDictionaryInfo, getUserInfo, getOrgInfoByUserId, uploadUrl} from '@/utils/customize';
+    import {
+      downLoadUrl,
+      getDictionaryInfo,
+      getUserInfo,
+      getOrgInfoByUserId,
+      uploadUrl,
+      getCurrentRole
+    } from '@/utils/customize';
     import moment from "moment";
 
     export default {
@@ -380,10 +387,19 @@
                             this.groupid= rst.groupNmae;
                             this.teamid= rst.teamNmae;
                         }
-                      if(this.form.twoclass === 'PR034001'){
-                        this.workcode = 'W0066';
-                      }else{
-                        this.workcode = 'W0031';
+                      let role = getCurrentRole()
+                      if (this.form.twoclass === 'PR034001') {//ztc 招聘
+                        if (role == '1') {//总经理
+                          this.workcode = 'W0099';
+                        } else {
+                          this.workcode = 'W0066';
+                        }
+                      } else {
+                        if (role == '1') {//总经理
+                          this.workcode = 'W0098';
+                        } else {
+                          this.workcode = 'W0031';
+                        }
                       }
                         this.userlist = this.form.user_id;
                         this.nomineeslist = this.form.nominees;
@@ -712,11 +728,19 @@
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
                 }
-
-              if(val === 'PR034001'){
-                this.workcode = 'W0066';
-              }else{
-                this.workcode = 'W0031';
+              let role = getCurrentRole();
+              if (this.form.twoclass === 'PR034001') {//ztc 招聘
+                if (role == '1') {//总经理
+                  this.workcode = 'W0099';
+                } else {
+                  this.workcode = 'W0066';
+                }
+              } else {
+                if (role == '1') {//总经理
+                  this.workcode = 'W0098';
+                } else {
+                  this.workcode = 'W0031';
+                }
               }
             },
             getenteringform(val) {

@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList" :defaultStart="defaultStart"
+                         :buttonList="buttonList" :defaultStart="defaultStart" :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end"
                          @StartWorkflow="buttonClick"
                          :enableSave="enableSave">
@@ -271,7 +271,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName, getCurrentRole} from '@/utils/customize';
   import org from '../../../components/org';
   import {validateEmail} from '@/utils/validate';
   import moment from 'moment';
@@ -354,6 +354,7 @@
         detailcenterid: '',
         detailgroupid: '',
         detailteamid: '',
+        workflowCode: '',
         //add-ws-7/27-禅道298任务
         baseInfo: {},
         userlist: '',
@@ -506,6 +507,11 @@
 
     mounted() {
       this.loading = true;
+      if (getCurrentRole() === '1') {
+        this.workflowCode = 'W0107';//总经理流程
+      } else {
+        this.workflowCode = 'W0028';//其他
+      }
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1021Store/selectById', {'securityid': this.$route.params._id})
@@ -781,7 +787,6 @@
         this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.securitydetail = [];
         for (let i = 0; i < this.form.tableD.length; i++) {
-          debugger
           if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
             this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
             || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
@@ -817,7 +822,6 @@
             );
           }
         }
-        console.log("aaa",this.baseInfo.securitydetail)
         this.baseInfo.securityid = this.$route.params._id;
         this.$store
           .dispatch('PFANS1021Store/update', this.baseInfo)
@@ -848,13 +852,17 @@
             this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.securitydetail = [];
             let error1 = 0;
+            let error = 0;
+            let error3 = 0;
             for (let i = 0; i < this.form.tableD.length; i++) {
-              if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
-                this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
-                || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
                 this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
                 let checktableD = '';
-
+                if (this.form.tableD[i].title == '') {
+                  error = error + 1;
+                }
+                if (this.form.tableD[i].startdate == '') {
+                  error3 = error3 + 1;
+                }
                 if (this.form.tableD[i].fabuilding != '') {
                   let checktlist = this.form.tableD[i].fabuilding.splice(',');
                   for (var m = 0; m < checktlist.length; m++) {
@@ -882,7 +890,7 @@
                     // entrymanager: this.form.tableD[i].entrymanager,
                   },
                 );
-              }
+
             }
             this.form.tableD = [];
             for (let i = 0; i < this.baseInfo.securitydetail.length; i++) {
@@ -903,24 +911,8 @@
                 },
               );
             }
-            let error = 0;
-            let error2 = 0;
-            let error3 = 0;
-            for (let i = 0; i < this.form.tableD.length; i++) {
-              if (this.form.tableD[i].title == '') {
-                error = error + 1;
-              }
-            }
-            // for (let i = 0; i < this.form.tableD.length; i++) {
-            //   if (this.form.tableD[i].entrymanager == "") {
-            //     error2 = error2 + 1;
-            //   }
-            // }
-            for (let i = 0; i < this.form.tableD.length; i++) {
-              if (this.form.tableD[i].startdate == '') {
-                error3 = error3 + 1;
-              }
-            }
+
+
             if (error != 0) {
               Message({
                 message: this.$t('normal.error_08') +
