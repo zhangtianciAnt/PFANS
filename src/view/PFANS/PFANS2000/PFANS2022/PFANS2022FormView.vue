@@ -375,7 +375,6 @@
             };
         },
         mounted() {
-          let role = getCurrentRole()
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
@@ -388,6 +387,7 @@
                             this.groupid= rst.groupNmae;
                             this.teamid= rst.teamNmae;
                         }
+                      let role = getCurrentRole()
                       if (this.form.twoclass === 'PR034001') {//ztc 招聘
                         if (role == '1') {//总经理
                           this.workcode = 'W0099';
