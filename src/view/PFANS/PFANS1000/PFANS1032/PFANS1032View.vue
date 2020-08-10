@@ -218,12 +218,20 @@
             //     });
             //     return;
             // }
+            //add_fjl_0810 添加暂存可编辑，其他不可编辑
+            let disab = '';
+            if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL')) {
+                disab = true;
+            } else {
+                disab = false;
+            }
+            //add_fjl_0810 添加暂存可编辑，其他不可编辑
             this.$router.push({
                 name: 'PFANS4001FormView',
                 params: {
                     _id: row.sealid,
                     check4: true,
-                    disabled: false,
+                    disabled: disab,
                 },
             });
         },
