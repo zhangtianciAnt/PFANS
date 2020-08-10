@@ -543,8 +543,7 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1004Pop :params="urlparams" :url="url" ref="PFANS1004Pop"></PFANS1004Pop>
   </div>
 </template>
 
@@ -553,6 +552,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
+  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
   import {Message} from 'element-ui';
   import {
     downLoadUrl,
@@ -563,7 +563,6 @@
     getUserInfo,
     uploadUrl,
   } from '@/utils/customize';
-  import EasyPop from '@/components/EasyPop';
   import moment from 'moment';
   import {quillEditor} from 'vue-quill-editor';
   import 'quill/dist/quill.core.css';
@@ -575,13 +574,13 @@
   export default {
     name: 'PFANS1004FormView',
     components: {
-      EasyPop,
       EasyNormalContainer,
       getOrgInfoByUserId,
       dicselect,
       user,
       quillEditor,
       org,
+      PFANS1004Pop,
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -1280,7 +1279,7 @@
         this.urlparams = '';
         this.url = 'PFANS1004FormView';
         this.urlparams = {'_id': row.judgementid, 'disabled': false};
-        this.$refs[1].open = true;
+        this.$refs.PFANS1004Pop.open = true;
       },
       changemusectosion(val) {
         if (val === '1') {
