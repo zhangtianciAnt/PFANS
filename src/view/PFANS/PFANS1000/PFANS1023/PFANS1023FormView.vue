@@ -186,7 +186,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getCurrentRole4, getOrgInfoByUserId} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';
 
@@ -387,7 +387,9 @@
               this.checked2 = true;
               this.disabled2 = true;
             }
-            if (this.form.machinemedia == 'PJ028001') {
+            if (getCurrentRole() === '1') {
+              this.workflowCode = 'W0101';
+            } else if (this.form.machinemedia == 'PJ028001') {
               this.workflowCode = 'W0058';
             } else {
               this.workflowCode = 'W0030';
@@ -590,15 +592,23 @@
       //   return yy + "-" + mm + "-" + dd;
       // },
       getMachinemedia(val) {
+        this.form.machinemedia = val;
         if (val == 'PJ028001') {
-          this.workflowCode = 'W0058';
+          if (getCurrentRole() === '1') {
+            this.workflowCode = 'W0101';
+          } else {
+            this.workflowCode = 'W0058';
+          }
           if (this.form.exportdate != '' && this.form.returndate != '') {
             this.checkDateSpace(this.form.exportdate, this.form.returndate);
           }
         } else {
-          this.workflowCode = 'W0030';
+          if (getCurrentRole() === '1') {
+            this.workflowCode = 'W0101';
+          } else {
+            this.workflowCode = 'W0030';
+          }
         }
-        this.form.machinemedia = val;
       },
       getReturndate(val) {
         if (this.form.machinemedia == 'PJ028001') {
