@@ -871,6 +871,7 @@
                         this.gridData = [];
                         for (let i = 0; i < response.length; i++) {
                             var vote = {};
+                          if (response[i].result != '1') {
                             this.result = response;
                             vote.name = response[i].name;
                             if (getDictionaryInfo(response[i].sex)) {
@@ -886,9 +887,10 @@
                             vote.member = response[i].member
                             vote.rn = response[i].rn
                             vote.salary = response[i].salary
-
+                            vote.result = response[i].result
 // wxl 4/8 面试官通过选人带出来 end
                             this.gridData.push(vote);
+                            }
                         }
                         this.loading = false;
                     })
