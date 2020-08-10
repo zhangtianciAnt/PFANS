@@ -97,9 +97,9 @@
                 defaultStart:false,
                 loading: false,
                 disable: true,
-                // buttonList: [
-                //     {'key': 'save', 'name': 'button.save', 'disabled': false, 'icon': 'el-icon-view'},
-                // ],
+                buttonList: [
+                  //  {'key': 'save', 'name': 'button.save', 'disabled': false, 'icon': 'el-icon-view'},
+                ],
                 tableData: [],
                 letparams:{},
                 groupnamelist:[],
