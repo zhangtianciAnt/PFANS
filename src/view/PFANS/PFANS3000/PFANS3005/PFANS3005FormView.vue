@@ -567,13 +567,14 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-
-    <EasyPop :params="urlparams" :ref="1" :url="url"></EasyPop>
+    <PFANS1012Pop :params="urlparams" :url="url" ref="PFANS1012Pop"></PFANS1012Pop>
+    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
   </div>
 </template>
 <script>
 
-  import EasyPop from '@/components/EasyPop';
+    import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
+    import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import PFANS3005View from '../PFANS3005/PFANS3005View.vue';
   import {Message} from 'element-ui';
@@ -595,7 +596,8 @@
   export default {
     name: 'PFANS3005FormView',
     components: {
-      EasyPop,
+        PFANS1012Pop,
+        PFANS1006Pop,
       EasyNormalContainer,
       PFANS3005View,
       dicselect,
@@ -1384,14 +1386,14 @@
         this.urlparams = '';
         this.url = 'PFANS1006FormView';
         this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-        this.$refs[1].open = true;
+          this.$refs.PFANS1006Pop.open = true;
       },
       rowClick1(row) {
         this.url = '';
         this.urlparams = '';
         this.url = 'PFANS1012FormView';
         this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-        this.$refs[1].open = true;
+          this.$refs.PFANS1012Pop.open = true;
       },
       //add ccm 0720
 
