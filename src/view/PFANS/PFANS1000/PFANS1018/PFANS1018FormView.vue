@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
+                         @workflowState="workflowState" v-loading="loading" :workflowCode="workflowCode"
                          :canStart="canStart" @start="start" @end="end" :enableSave="enableSave">
       <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       <!--:enableSave="enableSave"-->
@@ -198,7 +198,7 @@
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
-  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getCurrentRole} from '@/utils/customize';
   import moment from 'moment';
   import {validateEmail} from '@/utils/validate';
 
@@ -246,6 +246,7 @@
         appcenterid: '',
         appgroupid: '',
         appteamid: '',
+        workflowCode: '',
         loading: false,
         error_applicant: '',
         error_user: '',
@@ -347,6 +348,11 @@
       };
     },
     mounted() {
+      if (getCurrentRole() === '1') {
+        this.workflowCode = 'W0104';//总经理流程
+      } else {
+        this.workflowCode = 'W0025';//其他
+      }
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -358,9 +364,9 @@
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
               this.teamid = rst.teamNmae;
-              this.appcenterid = rst.centerNmae;
-              this.appgroupid = rst.groupNmae;
-              this.appteamid = rst.teamNmae;
+              this.form.appcenterid = rst.centerNmae;
+              this.form.appgroupid = rst.groupNmae;
+              this.form.appteamid = rst.teamNmae;
             }
             this.userapplicantlist = this.form.user_id;
               // ADD_FJL  财务编码
@@ -399,11 +405,11 @@
         this.userapplicantlist = this.$store.getters.userinfo.userid;
           // ADD_FJL  财务编码
           if (getUserInfo(this.$store.getters.userinfo.userid)) {
-
             this.form.financecode = getUserInfo(this.$store.getters.userinfo.userid).userinfo.personalcode;
           }
           // ADD_FJL  财务编码
-        if (this.userapplicantlist !== null && this.userapplicantlist !== '') {
+        if (this.userapplicantlist != null && this.userapplicantlist != '') {
+          this.form.user_id = this.$store.getters.userinfo.userid;
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           if (rst) {
             this.appcenterid = rst.centerNmae;
@@ -413,7 +419,6 @@
             this.form.appgroup_id = rst.groupId;
             this.form.appteam_id = rst.teamId;
           }
-          this.form.user_id = this.$store.getters.userinfo.userid;
         }
         this.loading = false;
         this.useridlist = this.$store.getters.userinfo.userid;

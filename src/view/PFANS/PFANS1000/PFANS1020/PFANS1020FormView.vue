@@ -10,6 +10,7 @@
       :canStart="canStart"
       @start="start"
       @end="end"
+      :workflowCode="workflowCode"
       :enableSave="enableSave"
     >
       <div slot="customize">
@@ -213,7 +214,7 @@ import EasyNormalContainer from "@/components/EasyNormalContainer";
 import dicselect from "../../../components/dicselect.vue";
 import user from "../../../components/user.vue";
 import { Message } from "element-ui";
-import {getDictionaryInfo, getCurrentRole4, getOrgInfoByUserId, getUserInfo} from "@/utils/customize";
+import {getDictionaryInfo, getCurrentRole4, getOrgInfoByUserId, getUserInfo, getCurrentRole} from "@/utils/customize";
 import org from "../../../components/org";
 import moment from "moment";
 
@@ -257,6 +258,7 @@ export default {
       teamid: "",
       baseInfo: {},
       userlist: "",
+      workflowCode: "",
       loading: false,
       //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
       acceptShow: 'true',
@@ -323,6 +325,11 @@ export default {
 
   mounted() {
     this.loading = true;
+    if (getCurrentRole() === '1') {
+      this.workflowCode = 'W0106';//总经理流程
+    } else {
+      this.workflowCode = 'W0027';//其他
+    }
     if (this.$route.params._id) {
       this.$store
         .dispatch("PFANS1020Store/selectById", {
