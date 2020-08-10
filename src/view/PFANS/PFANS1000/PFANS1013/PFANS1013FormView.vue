@@ -2067,7 +2067,6 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
-              debugger;
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2125,7 +2124,6 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
-              debugger;
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2999,7 +2997,6 @@
         }
       },
       changebusiness(val) {
-          debugger;
         this.form.startdate = '';
         this.form.enddate = '';
         this.form.arrivenight = '';
