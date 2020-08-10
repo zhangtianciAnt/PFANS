@@ -231,6 +231,9 @@
                             if (response[j].status !== null && response[j].status !== '') {
                               response[j].status = getStatus(response[j].status);
                             }
+                            if (response[j].remarks == null ) {
+                              response[j].remarks ="";
+                            }
                             //add-ws-7/20-禅道任务342
                             if (this.$i18n) {
                               if (response[j].sealstatus === null || response[j].sealstatus === '') {

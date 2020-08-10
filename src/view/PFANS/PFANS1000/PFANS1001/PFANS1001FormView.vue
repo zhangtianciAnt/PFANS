@@ -5,7 +5,7 @@
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
-    <EasyNormalTable :buttonList="buttonList3" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit"
+    <EasyNormalTable :buttonList="buttonList3" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit1"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable3" v-loading="loading" v-show="this.showTable===2">
     </EasyNormalTable>
@@ -449,6 +449,13 @@
         if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
             return row;
           // }
+        }
+      },
+      selectInit1(row, index) {
+        if (row.judgnumbers) {
+          if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME') && row.judgnumbers.indexOf('_') == -1) {
+            return row;
+          }
         }
       },
       getCompanyProjectList(val) {

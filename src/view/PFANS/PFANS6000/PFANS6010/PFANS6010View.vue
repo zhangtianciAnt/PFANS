@@ -88,20 +88,23 @@
                 let letRole2 = this.getCurrentRole2();
                 if(letRole2 !== '4'){
                     letRole2 = this.getCurrentRole3();
-                    if(letRole2 === '2'){
-                        //中心长
-                        groupid = this.$store.getters.userinfo.userinfo.centerid;
+                }
+                let letdates = [
+                    this.months.split('-')[0],
+                    this.months.split('-')[1]
+                ]
+                //大于系统时间时取系统时间的前月
+                if(Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format("YYYYMM"))){
+                    letdates[1] = Number(moment(new Date()).format("M")) - 1;
+                    if(letdates[1].toString().length === 1){
+                        letdates[1] = "0" + letdates[1];
                     }
                 }
-                let dates = this.months
-                if(Number(moment(this.months).format('M')) >= Number(moment(new Date()).format("M"))){
-                    var tempDate = new Date();
-                    var list = this.months.split('-');
-                    tempDate.setFullYear(list[0]);
-                    tempDate.setMonth(Number(list[1]) - 2);
-                    tempDate.setDate(1);
-                    dates = moment(tempDate).format('YYYY-MM');
+                //选择1,2,3月时按事业年度算应该年-1
+                if(Number(moment(this.months).format('M')) < 4){
+                    letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
                 }
+                let dates = letdates[0] + "-" + letdates[1];
                 this.letparams = {
                     dates: dates,
                     role: letRole2,

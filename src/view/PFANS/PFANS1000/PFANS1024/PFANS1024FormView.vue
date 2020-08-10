@@ -1439,7 +1439,6 @@
                         response[j].protelephone = user.userinfo.customername;
                       }
                     }
-                    this.projectname = response[j].supjapanese;
                     this.form1.custojapanese = response[j].supjapanese;
                     this.formcustomer.custojapanese = response[j].supjapanese;
                     this.formcustomer.custoenglish = response[j].supenglish;
@@ -2363,7 +2362,8 @@
             //add-ws-7/22-禅道341任务
             o.checkindivdual = this.checkindivdual;
             o.dates = this.dates;
-            o.projectname = this.projectname;
+
+            o.projectname = this.form.tabledata[i].conchinese;
             //add-ws-7/22-禅道341任务
           }
           // DEL_FJL  start
