@@ -13,6 +13,7 @@ const global = {
     orgList:[],
     orgCenterList:[],
     orgGroupList:[],
+    orgGroupallList:[],
     dictionaryList:[],
     days:[],
     fileToken:"",
@@ -68,6 +69,17 @@ const global = {
                         redirict:infos[i].orgs[j].orgs[x].redirict
                       });
                     }
+                  }
+                  if (infos[i].orgs[j].orgs[x].type === "2") {
+                    state.orgGroupallList.push({
+                      centerid: infos[i].orgs[j]._id,
+                      centername: infos[i].orgs[j].companyname,
+                      groupid: infos[i].orgs[j].orgs[x]._id,
+                      groupname: infos[i].orgs[j].orgs[x].companyname,
+                      companyen: infos[i].orgs[j].orgs[x].companyen,
+                      encoding: infos[i].orgs[j].orgs[x].encoding,
+                      redirict:infos[i].orgs[j].orgs[x].redirict
+                    });
                   }
                 }
               }

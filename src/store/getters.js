@@ -18,6 +18,7 @@ const getters = {
   orgId: state => state.global.orgId,
   orgCenterList: state => state.global.orgCenterList,
   orgGroupList: state => state.global.orgGroupList,
+  orgGroupallList: state => state.global.orgGroupallList,
   operateOwner: state => state.global.operateOwner,
 }
 
