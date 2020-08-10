@@ -415,7 +415,7 @@
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
-                  <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'" :rules='rules.conenglish'>
                     <el-input :disabled="!disabled" v-model="scope.row.conenglish">
                     </el-input>
                   </el-form-item>
@@ -1396,7 +1396,7 @@
           '7': ['claimdatetimeqh', 'custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
           '61': ['claimdatetimeqh', 'custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
           // 请求书作成
-          '62': ['claimdatetimeqh', 'claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
+          '62': ['claimdatetimeqh', 'conenglish','claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
         },
         rules1: {
           claimtype: [
