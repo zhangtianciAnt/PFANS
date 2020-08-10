@@ -1372,7 +1372,7 @@
                             check:  this.numbers,
                           },
                         });
-                      },2000)
+                      },1500)
                       return;
                     })
                     .catch(error => {
