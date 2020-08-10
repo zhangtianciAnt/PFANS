@@ -240,6 +240,8 @@
                           v-for="item in loans">
                         </el-option>
                       </el-select>
+                      <el-button @click="clickBunloan" size="small" type="primary">{{this.$t('button.view')}}
+                      </el-button>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1164,12 +1166,14 @@
     <!--    add_ws_0724  禅道154任务-->
     <PFANS1002Pop :params="urlparams" ref="PFANS1002Pop" :url="url"></PFANS1002Pop>
     <PFANS1035Pop :params="urlparams" ref="PFANS1035Pop" :url="url"></PFANS1035Pop>
+    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
     <!--    add_ws_0724  禅道154任务-->
   </div>
 </template>
 <script>
   import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
   import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
@@ -1191,6 +1195,7 @@
     components: {
       PFANS1002Pop,
       PFANS1035Pop,
+        PFANS1006Pop,
       dicselect,
       EasyNormalContainer,
       user,
@@ -1934,6 +1939,18 @@
         }
       },
       //add_ws_0724  禅道154任务
+        //add_fjl_0810  添加暂借款查看
+        clickBunloan() {
+            this.url = '';
+            this.urlparams = '';
+            if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+                this.urlparams = {'_id': this.form.loan};
+                this.url = 'PFANS1006FormView';
+                this.$refs.PFANS1006Pop.open = true;
+
+            }
+        },
+        //add_fjl_0810  添加暂借款查看
       //add-ws-6/18-禅道任务15
       changearrivenight(val) {
         let moneys = 0;
@@ -2050,6 +2067,7 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
+              debugger;
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2066,6 +2084,7 @@
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
                     regionname: response[i].regionname,
+                      loanapplication_id: response[i].loanapplication_id,
                   });
                 }
               } else {
@@ -2083,6 +2102,7 @@
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
                     regionname: response[i].regionname,
+                      loanapplication_id: response[i].loanapplication_id,
                   });
                 }
               }
@@ -2105,6 +2125,7 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
+              debugger;
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2122,6 +2143,7 @@
                     level: response[i].level,
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
+                      loanapplication_id: response[i].loanapplication_id,
                   });
                 }
 
@@ -2141,6 +2163,7 @@
                     level: response[i].level,
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
+                      loanapplication_id: response[i].loanapplication_id,
                   });
                 }
               }
@@ -2976,6 +2999,7 @@
         }
       },
       changebusiness(val) {
+          debugger;
         this.form.startdate = '';
         this.form.enddate = '';
         this.form.arrivenight = '';
@@ -3002,6 +3026,9 @@
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
+              //add_fjl_0810  添加出差申请自动带出暂借款
+              this.change2(this.relations[i].loanapplication_id);
+              //add_fjl_0810  添加出差申请自动带出暂借款
           }
         }
         if (this.form.startdate != '' && this.form.enddate != '' && moment(this.form.startdate).format('YYYY-MM-DD') != moment(this.form.enddate).format('YYYY-MM-DD')) {
@@ -3102,6 +3129,7 @@
       },
 
       change2(val) {
+          this.form.loan = val;
         this.form.loanamount = '';
         for (var i = 0; i < this.loans.length; i++) {
           if (this.loans[i].value === val) {

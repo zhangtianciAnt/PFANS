@@ -1047,7 +1047,12 @@
             let optionsSEL = [];
             let judname = ''
             for (let i = 0; i < this.selectedlist.length; i++) {
+                let user = getUserInfo(this.selectedlist[i].user_id);
+                if (user) {
+                    this.selectedlist[i].user_id = getUserInfo(this.selectedlist[i].user_id).userinfo.customername;
+                }
                 var vote = {};
+                vote.user_id = this.selectedlist[i].user_id;
                 vote.remarks = this.selectedlist[i].regioncity + ' ' + this.selectedlist[i].objectivetype1;
                 vote.numbers = this.selectedlist[i].business_number;
                 vote.value = this.selectedlist[i].business_id;
