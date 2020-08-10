@@ -2694,36 +2694,39 @@
                   let userInfo = getUserInfo(this.form.user_id);
                   if (userInfo)
                   {
-                    //有剩余年休
-                    if (Number(this.remaningAnnual[0].remaining_annual_leave_thisyear) - Number(this.remaningAnnual[0].annual_leave_shenqingzhong) >0)
+                    if (this.remaningAnnual.length>0)
                     {
-                      //试用期截止日
-                      let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
-                      //判断申请人是否在试用期
-                      if (enddateflg >= moment(new Date()).format('YYYY-MM-DD'))
+                      //有剩余年休
+                      if (Number(this.remaningAnnual[0].remaining_annual_leave_thisyear) - Number(this.remaningAnnual[0].annual_leave_shenqingzhong) >0)
                       {
-                        if (userInfo.userinfo.resignation_date)
+                        //试用期截止日
+                        let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
+                        //判断申请人是否在试用期
+                        if (enddateflg >= moment(new Date()).format('YYYY-MM-DD'))
                         {
-                          //离职日
-                          let resignationdate = moment(userInfo.userinfo.resignation_date).format('YYYY-MM-DD');
-                          if (Number(this.remaningAnnual[0].annual_avg_remaining) > 0)
+                          if (userInfo.userinfo.resignation_date)
+                          {
+                            //离职日
+                            let resignationdate = moment(userInfo.userinfo.resignation_date).format('YYYY-MM-DD');
+                            if (Number(this.remaningAnnual[0].annual_avg_remaining) > 0)
+                            {
+                              Message({
+                                message: this.$t('label.PFANS2016FORMVIEW_REMANINGRESIGNATIONCHECK'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                              });
+                              return;
+                            }
+                          }
+                          else
                           {
                             Message({
-                              message: this.$t('label.PFANS2016FORMVIEW_REMANINGRESIGNATIONCHECK'),
+                              message: this.$t('label.PFANS2016FORMVIEW_REMANINGCHECK'),
                               type: 'error',
                               duration: 5 * 1000,
                             });
                             return;
                           }
-                        }
-                        else
-                        {
-                          Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_REMANINGCHECK'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          return;
                         }
                       }
                     }
