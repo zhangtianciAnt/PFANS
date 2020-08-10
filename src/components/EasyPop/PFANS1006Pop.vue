@@ -8,57 +8,57 @@
 
 <script>
 
-  import PFANS1006FormView from '@/view/PFANS/PFANS1000/PFANS1006/PFANS1006FormView.vue';
+    import PFANS1006FormView from '@/view/PFANS/PFANS1000/PFANS1006/PFANS1006FormView.vue';
 
-  export default {
-    name: 'PFANS1006Pop',
-    components: {
-      PFANS1006FormView,
-    },
-    data() {
-      return {
-        open: false,
-        bkParams: {},
-      };
-    },
-    props: {
-      url: {
-        type: String,
-        default: '',
-      },
-      params: {
-        type: String,
-        default: {},
-      },
-    },
-    methods: {
-      close() {
-        for (let key in this.$route.params) {
-          this.$route.params[key] = '';
-        }
-        for (let key in this.bkParams) {
-          this.$route.params[key] = this.bkParams[key];
-        }
-        this.$refs.child.$refs.container.Pop = false;
-        this.bkParams = {};
-      },
-    },
-    watch: {
-      open(val) {
-        debugger
-        if (val) {
-          this.bkParams = [...this.$route.params];
-          for (let key in this.params) {
-            this.$route.params[key] = this.params[key];
-          }
+    export default {
+        name: 'PFANS1006Pop',
+        components: {
+            PFANS1006FormView,
+        },
+        data() {
+            return {
+                open: false,
+                bkParams: {},
+            };
+        },
+        props: {
+            url: {
+                type: String,
+                default: '',
+            },
+            params: {
+                type: String,
+                default: {},
+            },
+        },
+        methods: {
+            close() {
+                for (let key in this.$route.params) {
+                    this.$route.params[key] = '';
+                }
+                for (let key in this.bkParams) {
+                    this.$route.params[key] = this.bkParams[key];
+                }
+                this.$refs.child.$refs.container.Pop = false;
+                this.bkParams = {};
+            },
+        },
+        watch: {
+            open(val) {
+                debugger
+                if (val) {
+                    this.bkParams = [...this.$route.params];
+                    for (let key in this.params) {
+                        this.$route.params[key] = this.params[key];
+                    }
 
-          this.$nextTick(function() {
-            this.$refs.child.$refs.container.Pop = true;
-          });
-        }
-      },
-    },
-  };
+                    this.$nextTick(function () {
+                        this.$refs.child.$refs.container.Pop = true;
+                    });
+                }
+            },
+        },
+    };
 </script>
 
 <style lang='scss'>
