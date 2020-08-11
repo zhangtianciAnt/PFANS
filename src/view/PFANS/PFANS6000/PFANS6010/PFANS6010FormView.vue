@@ -45,17 +45,17 @@
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_PROSPECTS')"
                                  width="150">
                   <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')"
-                                   property="jobnumber1"
+                                   :property="`ex3manhour${index}`"
                                    width="100"></el-table-column>
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
-                                   property="cost1"
+                                   :property="`ex3cost${index}`"
                                    width="100"></el-table-column>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS6010VIEW_FREESUM')"
                                width="150">
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_PROSPECTS')"
-                                 property="prospects"
+                                 property="ex3costcount"
                                  width="150"></el-table-column>
                 <el-table-column :label="$t('label.PFANS2006VIEW_ACTUAL')"
                                  property="bpcostcount"
