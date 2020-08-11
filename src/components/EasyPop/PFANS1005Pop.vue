@@ -51,11 +51,9 @@
                     for (let key in this.params) {
                         this.$route.params[key] = this.params[key];
                     }
-                    if (this.$refs.child) {
-                        this.$nextTick(function () {
-                            this.$refs.child.$refs.container.Pop = true;
-                        });
-                    }
+                    this.$nextTick(function () {
+                        this.$refs.child.$refs.container.Pop = true;
+                    });
                 }
             },
         },
