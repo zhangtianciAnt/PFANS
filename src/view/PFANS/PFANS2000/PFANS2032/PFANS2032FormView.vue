@@ -134,136 +134,136 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body
-                         destroy-on-close custom-class="custimize_drawer">
-                <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.center')">
-                        <el-input :disabled="true" style="width:12vw" v-model="centerid"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.group')">
-                        <el-input :disabled="true" style="width:12vw" v-model="groupid"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.team')">
-                        <el-input :disabled="true" style="width:12vw" v-model="teamid"></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.user_name')" prop="user_id">
-                        <user :disabled="true" :selectType="selectType" :userlist="userlist"
-                              style="width:12vw"></user>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.sex')" prop="sex">
-                        <dicselect :code="code3"
-                                   :data="sex"
-                                   :disabled="true"
-                                   :multiple="multiple"
-                                   style="width:12vw">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')"
-                                    prop="educational_background">
-                        <dicselect :code="code2"
-                                   :data="educational_background"
-                                   :disabled="true"
-                                   :multiple="multiple"
-                                   style="width:12vw">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2026VIEW_POSITION')" prop="position">
-                        <dicselect :code="code4"
-                                   :data="position"
-                                   :disabled="true"
-                                   :multiple="multiple"
-                                   style="width:12vw">
-                        </dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2026VIEW_ENTRYTIME')" prop="entry_time">
-                        <el-date-picker :disabled="true" style="width:12vw" v-model="entry_time">
-                        </el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.application_date')" prop="application_date">
-                        <el-date-picker :disabled="true" style="width:12vw" v-model="application_date">
-                        </el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')">
-                        <dicselect
-                          :code="code"
-                          class="width"
-                          style="width:12vw"
-                          :data="starank"
-                          :disabled="true"
-                        ></dicselect>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2026VIEW_ADDRESS')">
-                        <el-input :disabled="true" maxlength="50" style="width:12vw"
-                                  v-model="address"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE')">
-                        <el-date-picker :disabled="true" style="width:12vw" v-model="hope_exit_date"
-                        >
-                        </el-date-picker>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2026VIEW_FIXEDTELEPHONE')">
-                        <el-input :disabled="true" maxlength="20" style="width:12vw"
-                                  v-model="fixed_phone"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.user_mobile')">
-                        <el-input :disabled="true" maxlength="20" style="width:12vw"
-                                  v-model="cellphone"></el-input>
-                      </el-form-item>
-                    </el-col>
-                    <el-col :span="8">
-                      <el-form-item :label="$t('label.email')">
-                        <el-input :disabled="true" maxlength="100" style="width:12vw"
-                                  v-model="email"></el-input>
-                      </el-form-item>
-                    </el-col>
-                  </el-row>
-                  <el-row>
-                    <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')">
-                      <el-input :disabled="true"
-                                :placeholder="$t('label.PFANS2026VIEW_REMARK2')"
-                                style="width: 49.5vw" type="textarea"
-                                v-model="reason">
-                      </el-input>
-                    </el-form-item>
-                  </el-row>
-                </el-form>
-              </el-drawer>
+<!--              <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body-->
+<!--                         destroy-on-close custom-class="custimize_drawer">-->
+<!--                <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">-->
+<!--                  <el-row>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.center')">-->
+<!--                        <el-input :disabled="true" style="width:12vw" v-model="centerid"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.group')">-->
+<!--                        <el-input :disabled="true" style="width:12vw" v-model="groupid"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.team')">-->
+<!--                        <el-input :disabled="true" style="width:12vw" v-model="teamid"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
+<!--                  <el-row>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.user_name')" prop="user_id">-->
+<!--                        <user :disabled="true" :selectType="selectType" :userlist="userlist"-->
+<!--                              style="width:12vw"></user>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.sex')" prop="sex">-->
+<!--                        <dicselect :code="code3"-->
+<!--                                   :data="sex"-->
+<!--                                   :disabled="true"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   style="width:12vw">-->
+<!--                        </dicselect>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')"-->
+<!--                                    prop="educational_background">-->
+<!--                        <dicselect :code="code2"-->
+<!--                                   :data="educational_background"-->
+<!--                                   :disabled="true"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   style="width:12vw">-->
+<!--                        </dicselect>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
+<!--                  <el-row>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS2026VIEW_POSITION')" prop="position">-->
+<!--                        <dicselect :code="code4"-->
+<!--                                   :data="position"-->
+<!--                                   :disabled="true"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   style="width:12vw">-->
+<!--                        </dicselect>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS2026VIEW_ENTRYTIME')" prop="entry_time">-->
+<!--                        <el-date-picker :disabled="true" style="width:12vw" v-model="entry_time">-->
+<!--                        </el-date-picker>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.application_date')" prop="application_date">-->
+<!--                        <el-date-picker :disabled="true" style="width:12vw" v-model="application_date">-->
+<!--                        </el-date-picker>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
+<!--                  <el-row>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANSUSERFORMVIEW_RANK')">-->
+<!--                        <dicselect-->
+<!--                          :code="code"-->
+<!--                          class="width"-->
+<!--                          style="width:12vw"-->
+<!--                          :data="starank"-->
+<!--                          :disabled="true"-->
+<!--                        ></dicselect>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS2026VIEW_ADDRESS')">-->
+<!--                        <el-input :disabled="true" maxlength="50" style="width:12vw"-->
+<!--                                  v-model="address"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE')">-->
+<!--                        <el-date-picker :disabled="true" style="width:12vw" v-model="hope_exit_date"-->
+<!--                        >-->
+<!--                        </el-date-picker>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
+<!--                  <el-row>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.PFANS2026VIEW_FIXEDTELEPHONE')">-->
+<!--                        <el-input :disabled="true" maxlength="20" style="width:12vw"-->
+<!--                                  v-model="fixed_phone"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.user_mobile')">-->
+<!--                        <el-input :disabled="true" maxlength="20" style="width:12vw"-->
+<!--                                  v-model="cellphone"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                    <el-col :span="8">-->
+<!--                      <el-form-item :label="$t('label.email')">-->
+<!--                        <el-input :disabled="true" maxlength="100" style="width:12vw"-->
+<!--                                  v-model="email"></el-input>-->
+<!--                      </el-form-item>-->
+<!--                    </el-col>-->
+<!--                  </el-row>-->
+<!--                  <el-row>-->
+<!--                    <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')">-->
+<!--                      <el-input :disabled="true"-->
+<!--                                :placeholder="$t('label.PFANS2026VIEW_REMARK2')"-->
+<!--                                style="width: 49.5vw" type="textarea"-->
+<!--                                v-model="reason">-->
+<!--                      </el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-row>-->
+<!--                </el-form>-->
+<!--              </el-drawer>-->
               <el-row>
                 <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')">
@@ -486,6 +486,7 @@
         </el-form>
       </div>
     </EasyNormalContainer>
+    <PFANS2026Pop :params="urlparams" ref="PFANS2026Pop" :url="url"></PFANS2026Pop>
   </div>
 </template>
 
@@ -498,7 +499,7 @@
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
-
+  import PFANS2026Pop from '@/components/EasyPop/PFANS2026Pop';
 
   export default {
     name: 'PFANS2032FormView',
@@ -506,6 +507,7 @@
       dicselect,
       EasyNormalContainer,
       user,
+      PFANS2026Pop
     },
     data() {
       var validateDay = (rule, value, callback) => {
@@ -569,6 +571,12 @@
         }
       };
       return {
+        flowData: [],
+        listsums: [],
+        status: '',
+        ID: '',
+        url: '',
+        urlparams: '',
         defaultStart: false,
         checkdisable: true,
         hope_exit_date: '',
@@ -585,7 +593,6 @@
         reason: '',
         code: '',
         code4: 'PG021',
-        diaoshu: false,
         arrSOF: [],
         centerid: '',
         groupid: '',
@@ -773,6 +780,8 @@
           .dispatch('PFANS2026Store/selectById2', {'staffexitproceid': this.$route.params._id})
           .then(response => {
             this.form = response.staffexitproce;
+            this.ID = this.$route.params._id
+            this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
             if (response.staffexitproce.checkedgm === 'true') {
               this.form.checkedgm = true;
               this.checkbox = true;
@@ -814,6 +823,7 @@
               this.disable = this.$route.params.disabled;
               this.disable1 = this.$route.params.disabled;
             }
+            this.checklist();
             this.loading = false;
           })
           .catch(error => {
@@ -865,25 +875,30 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
-      submitForm(ruleFormNew) {
+      checklist(){
         this.loading = true;
         this.$store
           .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.form.staffexitprocedure_id})
           .then(response => {
-            this.hope_exit_date = response.staffexitprocedure.hope_exit_date;
-            this.sex = response.staffexitprocedure.sex;
-            this.educational_background = response.staffexitprocedure.educational_background;
-            this.position = response.staffexitprocedure.position;
-            this.entry_time = response.staffexitprocedure.entry_time;
-            this.application_date = response.staffexitprocedure.application_date;
-            this.starank = response.staffexitprocedure.starank;
-            this.address = response.staffexitprocedure.address;
-            this.fixed_phone = response.staffexitprocedure.fixed_phone;
-            this.cellphone = response.staffexitprocedure.cellphone;
-            this.email = response.staffexitprocedure.email;
-            this.reason = response.staffexitprocedure.reason;
-            this.diaoshu = true;
-            this.loading = false;
+            this.listsums = response;
+            let status = this.listsums.staffexitprocedure.status === '4' ? 'normal.done' : (this.listsums.staffexitprocedure.status === '2' ? 'normal.doing' : 'normal.todo')
+            this.flowData= [
+              {
+                No: '1',
+                Name: '离职申请',
+                Status:status,
+                url: 'PFANS2026FormView',
+                params: {'_id':this.listsums.staffexitprocedure.staffexitprocedure_id}
+              },
+              {
+                No: '2',
+                Name: '退职者调书&离职手续',
+                Status: this.status,
+                url: 'PFANS2032FormView',
+                params: {'_id':this.ID}
+              }
+            ]
+            this.$emit('showPop',this.flowData)
           }).catch(error => {
           Message({
             message: error,
@@ -892,6 +907,14 @@
           });
           this.loading = false;
         });
+      },
+      submitForm(ruleFormNew) {
+        this.url = '';
+        this.urlparams = '';
+        this.url = 'PFANS2026FormView';
+        this.urlparams = {'_id': this.listsums.staffexitprocedure.staffexitprocedure_id, 'disabled': false};
+        this.$refs.PFANS2026Pop.open = true;
+        this.loading = false;
       },
       checkRequire() {
         this.activeName = 'second';
