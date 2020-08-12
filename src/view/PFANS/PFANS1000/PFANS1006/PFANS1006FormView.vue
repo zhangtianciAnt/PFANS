@@ -883,7 +883,7 @@
                         No:this.flowData.length + 1,
                         Name: '印章申请',
                         Status: statu,
-                        url: 'PFANS1047FormView',
+                        url: 'PFANS4001FormView',
                         params: {'_id':seal[0]}
                       })
                   }
