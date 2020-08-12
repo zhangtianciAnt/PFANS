@@ -1822,6 +1822,16 @@
               }
               this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
 
+              //add ccm 0811 事业计划金额小于总金额
+              if (this.form.careerplan === '1') {
+                if (Number(this.form.businessplanamount)<Number(this.form.totalamount))
+                {
+                  this.form.careerplan = '0';
+                  this.radiochange(this.form.careerplan);
+                }
+              }
+              //add ccm 0811 事业计划金额小于总金额
+
               if (this.$route.params._id) {
                 this.form.purchase_id = this.$route.params._id;
                 this.$store
@@ -1905,7 +1915,7 @@
                 });
               } else {
                 Message({
-                  message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + response[0] + ' ' + this.$t('label.PFANS3005VIEW_MSG1'),
+                  message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_MSG1'),
                   type: 'info',
                   duration: 3 * 1000,
                 });
