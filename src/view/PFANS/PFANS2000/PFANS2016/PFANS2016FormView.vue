@@ -1858,6 +1858,14 @@
           //add ccm 0720
           this.rules.enclosurecontent[0].required = false;
           //add ccm 0720
+          //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
+          if (this.$route.params._lengthtime && this.$route.params._day)
+          {
+            this.form.lengthtime = this.$route.params._lengthtime;
+            this.form.occurrencedate = this.$route.params._day;
+            this.form.finisheddate = this.$route.params._day;
+          }
+          //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
         } else if (val === 'PR013005') {
           this.form.vacationtype = '';
           this.checkerrortishi = false;
@@ -1896,6 +1904,14 @@
           //add ccm 0720
           this.rules.enclosurecontent[0].required = false;
           //add ccm 0720
+          //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
+          if (this.$route.params._lengthtime && this.$route.params._day)
+          {
+            this.form.lengthtime = this.$route.params._lengthtime;
+            this.form.occurrencedate = this.$route.params._day;
+            this.form.finisheddate = this.$route.params._day;
+          }
+          //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
         } else if (val === 'PR013009') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
@@ -1905,6 +1921,14 @@
           //add ccm 0720
           this.rules.enclosurecontent[0].required = true;
           //add ccm 0720
+          //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
+          if (this.$route.params._lengthtime && this.$route.params._day)
+          {
+            this.form.lengthtime = this.$route.params._lengthtime;
+            this.form.occurrencedate = this.$route.params._day;
+            this.form.finisheddate = this.$route.params._day;
+          }
+          //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
         } else if (val === 'PR013011') {
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
@@ -2016,6 +2040,7 @@
             return;
           }
         }
+
         this.$refs.ruleForm.validateField('lengthtime');
         // this.changeTime();
       },
