@@ -90,3 +90,13 @@ export function purchaseExistCheck(data) {
   })
 }
 //add ccm 0725  采购合同chongfucheck
+
+//采购业务数据流程查看详情
+export function getworkfolwPurchaseData(data) {
+  return request({
+    url: 'contractapplication/getworkfolwPurchaseData',
+    method: 'post',
+    data: data
+  })
+}
+//采购业务数据流程查看详情

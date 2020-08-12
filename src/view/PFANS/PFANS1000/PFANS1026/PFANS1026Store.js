@@ -9,8 +9,10 @@ import {
   getPe,
   purchaseExistCheck,
   getindividual,
-  generatesta
+  generatesta,
+  getworkfolwPurchaseData
   } from './PFANS1026Api';
+
 
 
 const PFANS1026Store = {
@@ -161,6 +163,21 @@ const PFANS1026Store = {
       })
     },
     //add ccm 0725  采购合同chongfucheck
+    //采购业务数据流程查看详情
+    getworkfolwPurchaseData({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getworkfolwPurchaseData(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //采购业务数据流程查看详情
   },
 };
 

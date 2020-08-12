@@ -109,3 +109,13 @@ export function exportjs(data) {
 }
 
 //add_fjl_0725  打印PDF  end
+
+//采购业务数据流程查看详情
+export function getworkfolwPurchaseData(data) {
+  return request({
+    url: 'loanapplication/getworkfolwPurchaseData',
+    method: 'post',
+    data: data
+  })
+}
+//采购业务数据流程查看详情

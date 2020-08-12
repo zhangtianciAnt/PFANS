@@ -108,3 +108,13 @@ export function selectCommunication(data) {
     data: data
   })
 }
+
+//采购业务数据流程查看详情
+export function getworkfolwPurchaseData(data) {
+  return request({
+    url: 'publicexpense/getworkfolwPurchaseData',
+    method: 'post',
+    data: data
+  })
+}
+//采购业务数据流程查看详情
