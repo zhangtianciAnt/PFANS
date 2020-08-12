@@ -17,6 +17,8 @@
     <PFANS1003FormView ref="child" v-else-if="url === 'PFANS1003FormView'"></PFANS1003FormView>
     <PFANS1005FormView ref="child" v-else-if="url === 'PFANS1005FormView'"></PFANS1005FormView>
     <PFANS1010FormView ref="child" v-else-if="url === 'PFANS1010FormView'"></PFANS1010FormView>
+    <PFANS2026FormView ref="child" v-else-if="url === 'PFANS2026FormView'"></PFANS2026FormView>
+    <PFANS2032FormView ref="child" v-else-if="url === 'PFANS2032FormView'"></PFANS2032FormView>
   </el-drawer>
 </template>
 
@@ -36,6 +38,8 @@
   import PFANS1005FormView from '@/view/PFANS/PFANS1000/PFANS1005/PFANS1005FormView.vue';
   import PFANS1003FormView from '@/view/PFANS/PFANS1000/PFANS1003/PFANS1003FormView.vue';
   import PFANS1010FormView from '@/view/PFANS/PFANS1000/PFANS1010/PFANS1010FormView.vue';
+  import PFANS2026FormView from '@/view/PFANS/PFANS2000/PFANS2026/PFANS2026FormView.vue';
+  import PFANS2032FormView from '@/view/PFANS/PFANS2000/PFANS2032/PFANS2032FormView.vue';
   export default {
     name: 'index',
     components: {
@@ -54,6 +58,8 @@
         PFANS1005FormView,
         PFANS1003FormView,
         PFANS1010FormView,
+      PFANS2026FormView,
+      PFANS2032FormView,
     },
     data() {
       return {

@@ -423,7 +423,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
-            {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         //add-ws-7/7-禅道247
@@ -783,7 +783,9 @@
           let _remarks = '';
           this.selectedlist = [];
           let loan = '';
+          let loanid = '';
           let str = '';
+          // 交际费事前决裁 ztc 精算后为冲销暂借款
           if (this.$route.params.title === 10) {
             if (this.$refs.roletable1.selectedList.length === 0) {
               Message({
@@ -821,7 +823,9 @@
               if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
                 str += this.selectedlist[i].numbercation + ' , ';
               }
-
+              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                loanid += this.selectedlist[i].loanapplication_id + ',';
+              }
             }
             if (val === 'actuarial') {
               if (str !== '') {
@@ -831,15 +835,31 @@
                   duration: 3 * 1000,
                 });
                 return;
+              } else {
+                if (loan != null && loan != '' && loan != undefined) {
+                  loan = loan.substring(0, loan.length - 1);
+                  if (loan != null && loan != '' && loan != undefined) {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        _haveLoanapp: loanid,
+                        disabled: true,
+                      },
+                    });
+                  } else {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        disabled: true,
+                      },
+                    });
+                  }
+                }
               }
-              this.$router.push({
-                name: 'PFANS1012FormView',
-                params: {
-                  _name: optionsSEL,
-                  _type: 'PJ001002',
-                  disabled: true,
-                },
-              });
             } else {
               if (loan !== '') {
                 Message({
@@ -862,7 +882,9 @@
                 },
               });
             }
-          } else if (this.$route.params.title === 3 || this.$route.params.title === 4) {
+          }
+          // 无偿设备 其他决裁 ztc 精算后为冲销暂借款
+          else if (this.$route.params.title === 3 || this.$route.params.title === 4) {
             if (this.$refs.roletable3.selectedList.length === 0) {
               Message({
                 message: this.$t('normal.info_01'),
@@ -906,6 +928,9 @@
               if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
                 str += this.selectedlist[i].judgnumbers + ' , ';
               }
+              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                loanid += this.selectedlist[i].loanapplication_id + ',';
+              }
             }
             if (val === 'actuarial') {
               if (str !== '') {
@@ -915,15 +940,31 @@
                   duration: 3 * 1000,
                 });
                 return;
+              } else {
+                if (loan != null && loan != '' && loan != undefined) {
+                  loan = loan.substring(0, loan.length - 1);
+                  if (loan != null && loan != '' && loan != undefined) {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        _haveLoanapp: loanid,
+                        disabled: true,
+                      },
+                    });
+                  } else {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        disabled: true,
+                      },
+                    });
+                  }
+                }
               }
-              this.$router.push({
-                name: 'PFANS1012FormView',
-                params: {
-                  _name: optionsSEL,
-                  _type: 'PJ001002',
-                  disabled: true,
-                },
-              });
             } else {
               if (loan !== '') {
                 Message({
@@ -955,7 +996,9 @@
                 },
               });
             }
-          } else if (this.$route.params.title === 5) {
+          }
+          // 千元以下费用申请 ztc 精算后为冲销暂借款
+          else if (this.$route.params.title === 5) {
             if (this.$refs.roletable2.selectedList.length === 0) {
               Message({
                 message: this.$t('normal.info_01'),
@@ -992,7 +1035,11 @@
               if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
                 str += this.selectedlist[i].purchasenumbers + ' , ';
               }
+              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                loanid += this.selectedlist[i].loanapplication_id + ',';
+              }
             }
+            //精算
             if (val === 'actuarial') {
               if (str !== '') {
                 Message({
@@ -1001,15 +1048,31 @@
                   duration: 3 * 1000,
                 });
                 return;
+              } else {
+                if (loan != null && loan != '' && loan != undefined) {
+                  loan = loan.substring(0, loan.length - 1);
+                  if (loan != null && loan != '' && loan != undefined) {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        _haveLoanapp: loanid,
+                        disabled: true,
+                      },
+                    });
+                  } else {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        disabled: true,
+                      },
+                    });
+                  }
+                }
               }
-              this.$router.push({
-                name: 'PFANS1012FormView',
-                params: {
-                  _name: optionsSEL,
-                  _type: 'PJ001002',
-                  disabled: true,
-                },
-              });
             } else {
               if (loan !== '') {
                 Message({
@@ -1033,8 +1096,8 @@
               });
             }
           }
-          else if (this.$route.params.title === 1 || this.$route.params.title === 2)
-          {
+          // 境内外出差申請 ztc 精算后为冲销暂借款
+          else if (this.$route.params.title === 1 || this.$route.params.title === 2) {
             if (this.$refs.roletable5.selectedList.length === 0) {
               Message({
                 message: this.$t('normal.info_01'),
@@ -1078,24 +1141,43 @@
                 if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
                     str += this.selectedlist[i].business_number + ' , ';
                 }
+              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                loanid += this.selectedlist[i].loanapplication_id + ',';
+              }
             }
               if (val === 'actuarial') {
-                  if (str !== '') {
-                      Message({
-                          message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                          type: 'info',
-                          duration: 3 * 1000,
+                if (str !== '') {
+                  Message({
+                    message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                    type: 'info',
+                    duration: 3 * 1000,
+                  });
+                  return;
+                } else {
+                  if (loan != null && loan != '' && loan != undefined) {
+                    loan = loan.substring(0, loan.length - 1);
+                    if (loan != null && loan != '' && loan != undefined) {
+                      this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
+                          _name: optionsSEL,
+                          _type: 'PJ001002',
+                          _haveLoanapp: loanid,
+                          disabled: true,
+                        },
                       });
-                      return;
-                  }
-                  this.$router.push({
-                      name: 'PFANS1012FormView',
-                      params: {
+                    } else {
+                      this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
                           _name: optionsSEL,
                           _type: 'PJ001002',
                           disabled: true,
-                      },
-                  });
+                        },
+                      });
+                    }
+                  }
+                }
               } else {
                   if (loan !== '') {
                       Message({
