@@ -79,6 +79,19 @@
                           v-model="form.causecode"></el-input>
               </el-form-item>
             </el-col>
+            <!--            人员规模-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6002VIEW_REGINDIFF')" prop="regindiff">
+                <dicselect
+                  :code="code2"
+                  :data="form.regindiff"
+                  :disabled="!disabled"
+                  :multiple="multiple"
+                  @change="changeregindiff"
+                  style="width:20vw">
+                </dicselect>
+              </el-form-item>
+            </el-col>
           </el-row>
           <!--            </el-collapse-item>-->
           <!--          </el-collapse>-->
@@ -281,6 +294,13 @@
           callback();
         }
       };
+        var checkregindiff = (rule, value, callback) => {
+            if (this.form.regindiff === null || this.form.regindiff === '' || this.form.regindiff === undefined) {
+                callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_REGINDIFF')));
+            } else {
+                callback();
+            }
+        };
       return {
         loading: false,
         selectType: 'Single',
@@ -316,6 +336,7 @@
         },
         //人员规模
         code1: 'BP007',
+          code2: 'BP028',
         disabled: true,
         rules: {
           // 中文（客户名称）
@@ -486,6 +507,14 @@
           //     trigger: 'change'
           //   },
           // ],
+            regindiff: [
+                {
+                    required: true,
+                    validator: checkregindiff,
+                    // message: this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_REGINDIFF'),
+                    trigger: 'change'
+                },
+            ],
         },
         fileList: [],
         upload: uploadUrl(),
@@ -545,6 +574,9 @@
       changeperscale(val) {
         this.form.perscale = val;
       },
+        changeregindiff(val) {
+            this.form.regindiff = val;
+        },
       fileError(err, file, fileList) {
         Message({
           message: this.$t('normal.error_04'),

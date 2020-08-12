@@ -870,10 +870,10 @@
                   if (contractapplication.length > 0) {
                     for (let n = 0; n < contractapplication.length; n++) {
                       if (contractapplication[n].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+                        //M
                         if (contractapplication[n].contracttype === 'HT008002' || contractapplication[n].contracttype === 'HT008004'
                           || contractapplication[n].contracttype === 'HT008006' || contractapplication[n].contracttype === 'HT008008') {
                           if (contractcompound.length > 0) {
-
                             if (contractnumbercount.length > 0) {
                               for (let j = 0; j < contractnumbercount.length; j++) {
                                 for (let d = 0; d < contractcompound.length; d++) {
@@ -940,6 +940,7 @@
                                             contractapplication[n].claim = '7001000001';
                                           }
                                         }
+                                        // 111
                                         this.totalcostvalue.push({
                                           varto: contractapplication[n].varto,
                                           claimdate: numbers,
@@ -975,6 +976,7 @@
                                           owner: '',
                                           outputmanager: '',
                                           outnumber: '',
+                                          group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                         });
                                       }
                                     } else if (this.month) {
@@ -1074,6 +1076,7 @@
                                           owner: '',
                                           outputmanager: '',
                                           outnumber: '',
+                                          group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                         });
                                       }
                                     } else if (this.month2) {
@@ -1173,6 +1176,7 @@
                                           owner: '',
                                           outputmanager: '',
                                           outnumber: '',
+                                          group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                         });
                                       }
                                     } else {
@@ -1271,6 +1275,7 @@
                                         owner: '',
                                         outputmanager: '',
                                         outnumber: '',
+                                        group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                       });
                                     }
                                   }
@@ -1376,6 +1381,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                               } else if (this.month) {
@@ -1473,6 +1479,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                               } else if (this.month2) {
@@ -1570,6 +1577,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                               } else {
@@ -1666,6 +1674,7 @@
                                   owner: '',
                                   outputmanager: '',
                                   outnumber: '',
+                                  group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                 });
                               }
                             }
@@ -1723,7 +1732,7 @@
                   , this.$t('label.PFANS1044VIEW_WHERE'), this.$t('label.PFANS1044VIEW_YSNUMBERS'), this.$t('label.PFANS1044VIEW_YSBMD')
                   , this.$t('label.PFANS1044VIEW_YSKM'), this.$t('label.PFANS1044VIEW_YSCPD'), this.$t('label.PFANS1044VIEW_SMNUMBER'), this.$t('label.PFANS1044VIEW_JLDW')
                   , this.$t('label.PFANS3005VIEW_QUANTITY'), this.$t('label.PFANS3005VIEW_UNITPRICE'), this.$t('label.PFANS1044VIEW_HMONEYS'), this.$t('label.PFANS1044VIEW_SRBMD'), this.$t('label.PFANS1044VIEW_SRKM')
-                  , this.$t('label.PFANS1044VIEW_SRCPD'), this.$t('label.PFANS1044VIEW_SM'), this.$t('label.PFANS1044VIEW_SMONEYS'), this.$t('label.PFANS1044VIEW_SHKMBMD'), this.$t('label.PFANS1044VIEW_SKMCHECK')
+                  , this.$t('label.PFANS1044VIEW_SRCPD'), this.$t('label.DEPARTMENT'), this.$t('label.PFANS1044VIEW_SM'), this.$t('label.PFANS1044VIEW_SMONEYS'), this.$t('label.PFANS1044VIEW_SHKMBMD'), this.$t('label.PFANS1044VIEW_SKMCHECK')
                   , this.$t('label.PFANS1044VIEW_SCPD'), this.$t('label.PFANS1044VIEW_PODH'), this.$t('label.PFANS1044VIEW_CMSHS')];
                 let csvData = [];
                 for (let i = 0; i < this.totalcostvalue3.length; i++) {
@@ -1756,19 +1765,20 @@
                     [heads[24]]: obj.productnumber,
                     [heads[25]]: obj.claim,
                     [heads[26]]: obj.placechinese,
-                    [heads[27]]: obj.periods,
-                    [heads[28]]: obj.papercontract,
-                    [heads[29]]: obj.pageSize,
-                    [heads[30]]: obj.owners,
-                    [heads[31]]: obj.owner,
-                    [heads[32]]: obj.outputmanager,
-                    [heads[33]]: obj.outnumber,
+                    [heads[27]]: obj.group_id,
+                    [heads[28]]: obj.periods,
+                    [heads[29]]: obj.papercontract,
+                    [heads[30]]: obj.pageSize,
+                    [heads[31]]: obj.owners,
+                    [heads[32]]: obj.owner,
+                    [heads[33]]: obj.outputmanager,
+                    [heads[34]]: obj.outnumber,
                   });
                 }
                 let filterVal = ['varto', '', 'applicationdate', 'start', 'currencyposition', 'type', 'theme', 'tenantid', 'temaid',
                   'supportdate', 'status', 'businesscode', 'state', 'sidegroup', 'secondjudge'
                   , 'rowindex', 'responphone', 'careeryear', 'responerglish', 'responemail', 'remarks', 'qingremarks', '', '', 'productnumber'
-                  , 'claim', 'placechinese', 'periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
+                  , 'claim', 'placechinese', 'group_id', 'periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
                 let aaa = result.replace(new RegExp('"', 'gm'), '');

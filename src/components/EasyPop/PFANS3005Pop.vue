@@ -55,6 +55,7 @@
                     this.$nextTick(function () {
                         this.$refs.child.$refs.container.Pop = true;
                     });
+
                 }
             },
         },

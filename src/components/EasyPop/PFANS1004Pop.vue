@@ -51,7 +51,6 @@
                     for (let key in this.params) {
                         this.$route.params[key] = this.params[key];
                     }
-
                     this.$nextTick(function () {
                         this.$refs.child.$refs.container.Pop = true;
                     });
