@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
+                         @workflowState="workflowState" v-loading="loading" :enableSave="enableSave"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -42,6 +42,21 @@
                                 maxlength="20"></el-input>
                     </el-form-item>
                   </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
+                  <el-col :span="8" v-if="this.role2==='0'">
+                    <el-form-item :label="$t('label.status')" >
+                      <el-select clearable style="width: 20vw" v-model="form.processingstatus" :disabled="acceptShow"
+                                 :placeholder="$t('normal.error_09')" >
+                        <el-option
+                          v-for="item in options2"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
                   <!--            <el-col :span="8">-->
                   <!--              <el-form-item :label="$t('label.judgement')" prop="judgement">-->
                   <!--                <el-select @change="change" clearable v-model="form.judgements"-->
@@ -422,7 +437,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getOrgInfo, getUserInfo, getCurrentRole2, getStatus} from '@/utils/customize';
+  import {getOrgInfoByUserId, getOrgInfo, getUserInfo, getCurrentRole2, getStatus,getCurrentRole5} from '@/utils/customize';
   import moment from 'moment';
   import png11 from '@/assets/png/11.png';
   import {validateNumber} from '@/utils/validate';
@@ -565,6 +580,21 @@
         errorsuppliername: '',
         options: [],
         options1: [],
+        // add-ws-8/12-禅道任务446
+        enableSave: false,
+        role2: '',
+        acceptShow: true,
+        options2: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS1'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS2'),
+          },
+        ],
+        // add-ws-8/12-禅道任务446
         gridData: [],
         flag: false,
         role1: '',
@@ -592,6 +622,9 @@
         tabIndex: 0,
         multiple: false,
         form: {
+          // add-ws-8/12-禅道任务446
+          processingstatus: '0',
+          // add-ws-8/12-禅道任务446
           accountpayeename: '',
           judgements: '',
           judgements_name: '',
@@ -731,17 +764,32 @@
       };
     },
     created() {
+      // add-ws-8/12-禅道任务446
+      this.role2 = getCurrentRole5();
+      // add-ws-8/12-禅道任务446
       this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+        if(this.role2 === '0' ){
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+          this.enableSave = true
+        }else{
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
       }
     },
     mounted() {
@@ -762,6 +810,11 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
+              if(this.form.status ==='4'){
+                this.acceptShow = false
+              }else{
+                this.acceptShow = true
+              }
               //决裁关联
               if (this.form.judgements != null && this.form.judgements != '' && this.form.judgements != undefined) {
                 let judgement = this.form.judgements.split(',');
