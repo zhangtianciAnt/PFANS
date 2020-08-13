@@ -244,7 +244,7 @@
                 filter: true,
               }, {
                 code: 'rnbasesalary',
-                label: 'label.PFANS2006VIEW_RNBASESALARY',
+                label: 'label.PFANS2005FORMVIEW_RANK',
                 width: 150,
                 fix: false,
                 filter: true,
@@ -296,8 +296,8 @@
                 filter: true,
               },
               {
-                code: 'supplement',
-                label: 'label.PFANS2006VIEW_REIMBURSEMENT',
+                code: 'ykbzjs',
+                label: 'label.PFANS2006VIEW_YKBZJB',
                 width: 210,
                 fix: false,
                 filter: true,
@@ -534,7 +534,7 @@
           },
           {
             code: 'realwages',
-            label: 'label.PFANS2006VIEW_ACTUAL',
+            label: 'label.PFANS2005VIEW_ACTUAL',
             width: 150,
             fix: false,
             filter: true,
@@ -792,22 +792,22 @@
                 this.$t('label.PFANS2006VIEW_CLUB'),this.$t('label.PFANS2006VIEW_LASTNAME')
               ,this.$t('label.PFANS2005FORMVIEW_YANGLAOJS'),this.$t('label.PFANS2005FORMVIEW_SHIYEJS'),this.$t('label.PFANS2005FORMVIEW_GONGSHANGJS'),this.$t('label.PFANS2005FORMVIEW_YILIAOJS'),this.$t('label.PFANS2005FORMVIEW_SHENGYUJS')
                 //this.$t('label.PFANS2006VIEW_PENSION'),this.$t('label.PFANS2006VIEW_MEDICALAA'),
-              ,this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'), this.$t('label.PFANS2006VIEW_RNBASESALARY'), this.$t('label.PFANS2006VIEW_BIRTHREST')
+              ,this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_RANK'), this.$t('label.PFANS2006VIEW_BIRTHREST')
               , this.$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY'), this.$t('label.PFANS2005FORMVIEW_GDURATIONTIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCETIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK'), this.$t('label.PFANS2006VIEW_BASICSALARY')
-              , this.$t('label.PFANS2006VIEW_REIMBURSEMENT'), this.$t('label.PFANS2006VIEW_YKBT'), this.$t('label.PFANS2006VIEW_KASUKE')
+              , this.$t('label.PFANS2006VIEW_YKBZJB'), this.$t('label.PFANS2006VIEW_YKBT'), this.$t('label.PFANS2006VIEW_KASUKE')
               , this.$t('label.PFANS2006VIEW_OTHER1'), this.$t('label.PFANS2006VIEW_SUBTOTAL1'), this.$t('label.PFANS2006VIEW_OTHER2')
               , this.$t('label.PFANS2006VIEW_MONTHLYBONUS'), this.$t('label.PFANS2006VIEW_OTHER3'), this.$t('label.PFANS2006VIEW_SUBTOTAL2'), this.$t('label.PFANS2006VIEW_INDUSTRY'), this.$t('label.PFANS2006VIEW_HEATING')
               , this.$t('label.PFANS2006VIEW_OLONECHILD'), this.$t('label.PFANS2006VIEW_SUBTOTAL3'), this.$t('label.PFANS2006VIEW_ARSENAL'), this.$t('label.PFANS2006VIEW_OLD'), this.$t('label.PFANS2006VIEW_MEDICAL')
               , this.$t('label.PFANS2006VIEW_UNEMPLOYMENT'), this.$t('label.PFANS2006VIEW_SOCIALSECURITY'), this.$t('label.PFANS2006VIEW_PUBLICMONEY'), this.$t('label.PFANS2006VIEW_SECURITYMON'), this.$t('label.PFANS2006VIEW_EXCLUSIVE')
               , this.$t('label.PFANS2006VIEW_ACCUMULATED'), this.$t('label.PFANS2006VIEW_UNACCUMULATED'), this.$t('label.PFANS2006VIEW_ANNUAL'), this.$t('label.PFANS2006VIEW_RESIDENTIALTAX'), this.$t('label.PFANS2006VIEW_COMPANYBOSS')
               , this.$t('label.PFANS2006VIEW_OTHER5'), this.$t('label.PFANS2006VIEW_RESPONSIBLE'), this.$t('label.PFANS2006VIEW_CUMULATIVE'), this.$t('label.PFANS2006VIEW_INCOME'), this.$t('label.PFANS2006VIEW_THISMONTH')
-              , this.$t('label.PFANS2006VIEW_ACTUAL'), this.$t('label.PFANS2006VIEW_OLD'), this.$t('label.PFANS2006VIEW_MEDICAL'), this.$t('label.PFANS2006VIEW_UNEMPLOYMENT'), this.$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')
+              , this.$t('label.PFANS2005VIEW_ACTUAL'), this.$t('label.PFANS2006VIEW_OLD'), this.$t('label.PFANS2006VIEW_MEDICAL'), this.$t('label.PFANS2006VIEW_UNEMPLOYMENT'), this.$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')
               , this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
               , this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY'), this.$t('label.PFANS2005FORMVIEW_TOTALWAGES'), this.$t('label.PFANS2005FORMVIEW_GAUGE'), this.$t('label.PFANS2005FORMVIEW_TOTALGAUGE'), this.$t('label.PFANS2005FORMVIEW_OTHER6')];
 
             let filterVal = ['yanglaojs','shiyejs','gongshangjs','yiliaojs','shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'thisbasic', 'thismonthduty', 'rnbasesalary'
               , 'birthrest', 'thismonthbasic', 'shortillness', 'owediligence', 'owingcontrol', 'actualamount'
-              , 'supplement', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
+              , 'ykbzjs', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
               , 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
               , 'heating', 'onlychildmoney', 'total3', 'totalwages', 'endowmentinsurance', 'medicalinsurance', 'unemploymentinsurance'
               , 'socialinsurance', 'accumulationfund', 'disciplinarycontrol', 'thismonthterm', 'thismonthadditional', 'thismonthdutyfree'
@@ -841,7 +841,7 @@
                 [heads[16]]: obj.owediligence,
                 [heads[17]]: obj.owingcontrol,
                 [heads[18]]: obj.actualamount,
-                [heads[19]]: obj.supplement,
+                [heads[19]]: obj.ykbzjs,
                 [heads[20]]: obj.ykbz,
                 [heads[21]]: obj.overtimesubsidy,
                 [heads[22]]: obj.other1,
