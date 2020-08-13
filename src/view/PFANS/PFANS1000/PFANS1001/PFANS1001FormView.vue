@@ -304,6 +304,13 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'processingstatus',
+            label: 'label.status',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
         ],
 //        add_fjl_05/27  --添加暂借款申请单列表
         //       add-ws-5/27-No.170
@@ -588,6 +595,17 @@
           if (response[j].startdate != null && response[j].startdate != '') {
             response[j].date = moment(response[j].startdate).format('YYYY-MM-DD') + '~' + moment(response[j].enddate).format('YYYY-MM-DD');
           }
+          // add-ws-8/12-禅道任务446
+          if (response[j].processingstatus != null && response[j].processingstatus != '') {
+            if (this.$i18n) {
+              if (response[j].processingstatus === '0') {
+                response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
+              } else if (response[j].processingstatus === '1') {
+                response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
+              }
+            }
+          }
+          // add-ws-8/12-禅道任务446
           if (response[j].canafver != null && response[j].canafver != '') {
             if (response[j].canafver == 1) {
               response[j].canafver = this.$t('label.PFANS1030FORMVIEW_YCANAFVER');

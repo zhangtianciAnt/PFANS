@@ -505,6 +505,20 @@ export function getCurrentRole3() {
   return "1";
 }
 //add-ws-5/7-财务部长权限添加
+//add-ws-5/7-财务担当权限添加
+export function getCurrentRole5() {
+  let roles = "";
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let role of store.getters.useraccount.roles){
+      roles = roles + role.description;
+    }
+    if(roles.toUpperCase().indexOf("财务担当")!= -1){
+      return "0";
+    }
+  }
+  return "1";
+}
+//add-ws-5/7-财务担当权限添加
 //离职考勤对比驳回权限
 export function getCurrentRolegongzijisuan() {
   let roles = "";
