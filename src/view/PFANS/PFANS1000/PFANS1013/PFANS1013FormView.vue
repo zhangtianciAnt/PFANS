@@ -1941,14 +1941,28 @@
       //add_ws_0724  禅道154任务
         //add_fjl_0810  添加暂借款查看
         clickBunloan() {
-            this.url = '';
-            this.urlparams = '';
             if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
-                this.urlparams = {'_id': this.form.loan};
-                this.url = 'PFANS1006FormView';
-                this.$refs.PFANS1006Pop.open = true;
-
+                this.$store.commit('global/SET_HISTORYURL', '');
+                this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+                this.$router.push({
+                    name: 'PFANS1006FormView',
+                    params: {
+                        _id: this.form.loan,
+                        disabled: false,
+                        _checkid: this.$route.params._id,
+                        _check: true,
+                        _fromname: 'PFANS1013FormView',
+                    },
+                });
             }
+            // this.url = '';
+            // this.urlparams = '';
+            // if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+            //     this.urlparams = {'_id': this.form.loan};
+            //     this.url = 'PFANS1006FormView';
+            //     this.$refs.PFANS1006Pop.open = true;
+            //
+            // }
         },
         //add_fjl_0810  添加暂借款查看
       //add-ws-6/18-禅道任务15
