@@ -200,7 +200,12 @@
                       width="150"
                       align="center"
                   ></plx-table-column>-->
-                  <plx-table-column prop="rnbasesalary" label="RN" width="150" align="center"></plx-table-column>
+                  <plx-table-column
+                    prop="rnbasesalary"
+                    :label="$t('label.PFANS2005FORMVIEW_RANK')"
+                    width="150"
+                    align="center">
+                  </plx-table-column>
                   <plx-table-column
                     prop="birthrest"
                     :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
@@ -787,7 +792,7 @@
                   </plx-table-column>
                   <plx-table-column
                     prop="realwages"
-                    :label="$t('label.PFANS2006VIEW_ACTUAL')"
+                    :label="$t('label.PFANS2005VIEW_ACTUAL')"
                     width="150"
                     align="center"
                   ></plx-table-column>

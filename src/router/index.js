@@ -110,6 +110,7 @@ import PFANS2010FormView from '@/view/PFANS/PFANS2000/PFANS2010/PFANS2010FormVie
 import PFANS2011View from '@/view/PFANS/PFANS2000/PFANS2011/PFANS2011View.vue'
 import PFANS2011FormView from '@/view/PFANS/PFANS2000/PFANS2011/PFANS2011FormView.vue'
 import PFANS2013View from '@/view/PFANS/PFANS2000/PFANS2013/PFANS2013View.vue'
+import PFANS2013FormView from '@/view/PFANS/PFANS2000/PFANS2013/PFANS2013FormView.vue'
 import PFANS2014View from '@/view/PFANS/PFANS2000/PFANS2014/PFANS2014View.vue'
 import PFANS2014FormView from '@/view/PFANS/PFANS2000/PFANS2014/PFANS2014FormView.vue'
 import PFANS2016View from '@/view/PFANS/PFANS2000/PFANS2016/PFANS2016View.vue'
@@ -787,6 +788,11 @@ const routes = [
         path: '/PFANS2013View',
         name: 'PFANS2013View',
         component: PFANS2013View,
+      },
+      {
+        path: '/PFANS2013FormView',
+        name: 'PFANS2013FormView',
+        component: PFANS2013FormView,
       },
       {
         path: '/PFANS2014View',
