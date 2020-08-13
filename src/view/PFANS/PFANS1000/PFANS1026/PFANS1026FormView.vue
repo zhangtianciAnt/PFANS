@@ -590,6 +590,14 @@
                   </el-form-item>
                 </template>
               </el-table-column>
+              <el-table-column v-if="false">
+                <template slot-scope="scope">
+                  <el-form-item :prop="'tabledata.' + scope.$index + '.regindiff'">
+                    <el-input :disabled="!disabled" maxlength="100" v-model="scope.row.regindiff">
+                    </el-input>
+                  </el-form-item>
+                </template>
+              </el-table-column>
             </el-table-column>
             <!--            DEL_FJL-->
             <!--            <el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center" prop="qingremarks"-->
@@ -1382,19 +1390,19 @@
         ruleSet: {
           'save': ['contractnumber', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
           'makeinto': ['contractnumber'],
-          '1': ['supportdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
+            '1': ['supportdate', 'conenglish', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           // 该非判定书
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
           // 契约书作成
           '3': ['custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
           // 决裁书作成
-          '4': ['custojapanese', 'custochinese', 'conchinese', 'conjapanese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
+            '4': ['custojapanese', 'conenglish', 'custochinese', 'conchinese', 'conjapanese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
           // 纳品书作成
-          '5': ['claimdatetimeqh', 'custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
+            '5': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
             , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
-          '6': ['claimdatetimeqh', 'conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
-          '7': ['claimdatetimeqh', 'custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-          '61': ['claimdatetimeqh', 'custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
+            '6': ['claimdatetimeqh', 'conenglish', 'conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+            '7': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
+            '61': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
           // 请求书作成
           '62': ['claimdatetimeqh', 'conenglish','claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
         },
@@ -2241,6 +2249,7 @@
         this.recordData.responphone = row.protelephone;
         this.recordData.responemail = row.protemail;
         this.recordData.businesscode = row.causecode;
+          this.recordData.regindiff = row.regindiff;
         this.dialogVisibleA = false;
         this.loading = false;
       },
@@ -2609,6 +2618,7 @@
             responerglish: '',
             responphone: '',
             responemail: '',
+              regindiff: '',
             conjapanese: '',
             conenglish: '',
             conchinese: '',
