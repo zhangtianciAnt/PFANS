@@ -95,3 +95,13 @@ export function selectAbnomaling(data) {
   })
 }
 //add ccm 0804 查询欠勤是否已经全部申请
+
+//add ccm 0812 考情管理查看当天的异常申请数据
+export function getabnormalByuseridandDate(data) {
+  return request({
+    url: 'attendance/getabnormalByuseridandDate',
+    method: 'post',
+    data: data
+  })
+}
+//add ccm 0812 考情管理查看当天的异常申请数据

@@ -28,10 +28,12 @@
         </EasyNormalTable>
       </div>
     </EasyNormalContainer>
+    <PFANS2013Pop :params="urlparams" :url="url" ref="PFANS2013Pop"></PFANS2013Pop>
   </div>
 </template>
 
 <script>
+  import PFANS2013Pop from '@/components/EasyPop/PFANS2013Pop';
   import EasyNormalTable from '@/components/EasyNormalTable/index2.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -41,11 +43,14 @@
   export default {
     name: 'PFANS2010FormView',
     components: {
+      PFANS2013Pop,
       EasyNormalTable,
       EasyNormalContainer,
     },
     data() {
       return {
+        url: '',
+        urlparams: '',
         defaultStart: false,
         showSelection: true,
         uplist: [],
@@ -214,6 +219,14 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'leaveearly',
+            label: 'label.PFANS2010VIEW_LEAVEEARLY2',
+            labelClass: 'pfans2010view_column_10',
+            width: 110,
+            fix: false,
+            filter: true,
+          },
         ],
         totalAbsenteeism: false,
         handleShow:true,
@@ -222,6 +235,7 @@
           {'key': 'recognition', 'name': 'button.recognition', 'disabled': false, 'icon': 'el-icon-check'},
           {'key': 'recognitionno', 'name': 'button.recognitionno', 'disabled': false, 'icon': 'el-icon-check'},
         ],
+        linshiid:'',
       };
     },
     methods: {
@@ -259,7 +273,7 @@
           .dispatch('PFANS8007Store/getList', {})
           .then(response => {
             for (let i = 0; i < response.length; i++) {
-              if (moment(response[i].workingdate).format('MM') === this.$route.params._id.split(',')[2]) {
+              if (moment(response[i].workingdate).format('MM') === this.linshiid.split(',')[2]) {
                 this.dateInfo.push({
                   dateflg: moment(response[i].workingdate).format('YYYY-MM-DD'),
                   type: response[i].type,
@@ -272,7 +286,6 @@
       //add-ws-考勤设置休日背景色
       rowClassName({row, rowIndex}) {
         //add-ws-考勤设置休日背景色
-
         for (let i = 0; i < this.dateInfo.length; i++) {
           if (this.dateInfo[i].type === '4') {
             if (this.dateInfo[i].dateflg === row.dates) {
@@ -289,7 +302,7 @@
         }
 
         //ccm 入职离职后考勤颜色   from
-        let userid = this.$route.params._id.split(',')[0];
+        let userid = row.user_id;
         let user = getUserInfo(userid);
         let resignationdate = '';
         let enterdate = '';
@@ -352,8 +365,8 @@
         this.updStatus1(0);
       },
       updStatus() {
-        if (this.$route.params._id !== null && this.$route.params._id !== '') {
-          let us = this.$route.params._id.split(',');
+        if (this.linshiid !== null && this.linshiid !== '') {
+          let us = this.linshiid.split(',');
           this.form.user_id = us[0];
           this.form.years = us[1];
           this.form.months = us[2];
@@ -378,8 +391,8 @@
 
       // add 0622 ccm --审批被驳回后，当月考勤数据全部变为未承认状态
       updStatus1(val) {
-        if (this.$route.params._id !== null && this.$route.params._id !== '') {
-          let us = this.$route.params._id.split(',');
+        if (this.linshiid !== null && this.linshiid !== '') {
+          let us = this.linshiid.split(',');
           this.form.user_id = us[0];
           this.form.years = us[1];
           this.form.months = us[2];
@@ -425,7 +438,7 @@
             return;
           }
           let letexitdate = '0';
-          this.exitdate = getUserInfo(this.$route.params._id.split(',')[0]).userinfo.resignation_date;
+          this.exitdate = getUserInfo(this.linshiid.split(',')[0]).userinfo.resignation_date;
           if (this.exitdate != '') {
             if (moment(this.exitdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')) {
               letexitdate = '1';
@@ -529,9 +542,9 @@
       },
       getAttendancelist() {
         let parameter = {
-          user_id: this.$route.params._id.split(',')[0],
-          years: this.$route.params._id.split(',')[1],
-          months: this.$route.params._id.split(',')[2],
+          user_id: this.linshiid.split(',')[0],
+          years: this.linshiid.split(',')[1],
+          months: this.linshiid.split(',')[2],
         };
         this.loading = true;
         this.$store
@@ -545,13 +558,31 @@
               this.disdateflg = response[0].dates;
               if (response[j].recognitionstate === '0') {
                 if (this.$i18n) {
+                  response[j].recognitionstate1 = '0';
                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION0');
                 }
               } else if (response[j].recognitionstate === '1') {
                 if (this.$i18n) {
+                  response[j].recognitionstate1 = '1';
                   response[j].recognitionstate = this.$t('label.PFANS2010VIEW_RECOGNITION1');
                 }
               }
+
+              //add ccm 0813
+              if (response[j].leaveearly === '0')
+              {
+                if (this.$i18n) {
+                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY0');
+                }
+              }
+              else if (response[j].leaveearly === '1')
+              {
+                if (this.$i18n) {
+                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY1');
+                }
+              }
+              //add ccm 0813
+
               //add ccm
               if (response[j].absenteeism === null || response[j].absenteeism === '') {
                 response[j].absenteeism = response[j].tabsenteeism;
@@ -599,7 +630,7 @@
               {
                 continue;
               }
-               let userid = this.$route.params._id.split(',')[0];
+               let userid = this.linshiid.split(',')[0];
                let user = getUserInfo(userid);
                let resignationdate = '';
                let enterdate = '';
@@ -628,7 +659,7 @@
             }
             let res = [];
             let res1 = [];
-            let yearMonth = moment(Date.parse(this.$route.params._id.split(',')[1] + '-' + this.$route.params._id.split(',')[2] + '-01'));
+            let yearMonth = moment(Date.parse(this.linshiid.split(',')[1] + '-' + this.linshiid.split(',')[2] + '-01'));
             let start = moment(yearMonth).startOf('month');
             let end = moment(yearMonth).endOf('month');
 
@@ -737,14 +768,19 @@
       },
       handleView(row)
       {
-
+        this.url = '';
+        this.urlparams = '';
+        this.url = 'PFANS2013FormView';
+        this.urlparams = {'_id': row.user_id, '_dates':moment(row.dates).format('YYYY-MM-DD'), 'disabled': false};
+        this.$refs.PFANS2013Pop.open = true;
       }
       //add ccm 0804
     },
     mounted() {
       //ADD_FJL_05/14
       if (this.$route.params._id !== null && this.$route.params._id !== '') {
-        let us = this.$route.params._id.split(',');
+        this.linshiid = this.$route.params._id;
+        let us = this.linshiid.split(',');
         let userid = us[0];
         this.loading = true;
         this.$store
@@ -874,6 +910,12 @@
   .pfans2010view_column_9 {
     height: 81px;
     background: #CCCCCC;
+    color: #ffffff;
+  }
+
+  .pfans2010view_column_10 {
+    height: 81px;
+    background: #9E9E9E;
     color: #ffffff;
   }
 </style>

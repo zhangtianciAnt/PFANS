@@ -8,7 +8,8 @@ import {
   getAttendancelistCompared,
   disclickUpdateStates,
   selectAbnomalandOvertime,
-  selectAbnomaling
+  selectAbnomaling,
+  getabnormalByuseridandDate
 } from './PFANS2010Api'
 
 const PFANS2010Store = {
@@ -170,8 +171,24 @@ const PFANS2010Store = {
           reject(error);
         })
       })
-    }
+    },
     //add ccm 0804 查询欠勤是否已经全部申请
+
+    //add ccm 0812 考情管理查看当天的异常申请数据
+    getabnormalByuseridandDate({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getabnormalByuseridandDate(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    }
+    //add ccm 0812 考情管理查看当天的异常申请数据
   }
 }
 

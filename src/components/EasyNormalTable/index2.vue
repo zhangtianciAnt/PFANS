@@ -44,7 +44,7 @@
           <el-button
             @click="handleEdit(scope.$index, scope.row)"
             plain
-            :disabled="!(scope.row.absenteeism != '' && scope.row.absenteeism !=null && scope.row.EnoughTime == false)"
+            :disabled="!(scope.row.absenteeism != '' && scope.row.absenteeism !=null && scope.row.EnoughTime == false && scope.row.recognitionstate1 ==='0')"
             v-if="scope.row.xiuributtonshow"
             size="mini"
             type="primary"
@@ -53,7 +53,7 @@
           <el-button
             @click="handleView(scope.$index, scope.row)"
             plain
-            :disabled="true"
+            :disabled="scope.row.late!='can'"
             v-if="scope.row.xiuributtonshow"
             size="mini"
             type="primary"
