@@ -333,6 +333,7 @@
           uploadfile: '',
           thecompany: '',
           causecode: '',
+            regindiff: '',
         },
         //人员规模
         code1: 'BP007',
