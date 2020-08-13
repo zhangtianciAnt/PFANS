@@ -392,6 +392,7 @@
                           plain
                           size="small"
                           type="primary"
+                          :disabled="fromViewname !== undefined ? true : false "
                         >{{$t('button.viewdetails')}}
                         </el-button>
                       </template>
@@ -1226,6 +1227,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="fromViewname !== undefined ? true : false "
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -1538,6 +1540,7 @@
         loading: false,
         disabled: false,
         disablecurr: false,
+          fromViewname: '',
         buttonList: [
           {
             key: 'save',
@@ -2610,7 +2613,7 @@
       }
     },
     created() {
-      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
+        this.fromViewname = this.$route.params._fromname;
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
@@ -4414,14 +4417,32 @@
             this.loading = false;
           });
       },
-
+        checkparams() {
+            let id = this.$route.params._checkid;
+            let fromname = this.$route.params._fromname;
+            this.$router.push({
+                name: fromname,
+                params: {
+                    disabled: true,
+                    _id: id,
+                },
+            });
+        },
       buttonClick(val) {
-        if (val === 'back') {
-          this.$router.push({
-            name: 'PFANS1012View',
-            params: {},
-          });
-        }
+          if (val === 'back') {
+              //add-fjl-0813-精算中，点击决裁，跳转画面
+              if (this.$route.params._check2 != null && this.$route.params._check2 != '' && this.$route.params._check2 != undefined) {
+                  if (this.$route.params._check2) {
+                      this.checkparams();
+                  }
+              } else {
+                  this.$router.push({
+                      name: 'PFANS1012View',
+                      params: {},
+                  });
+              }
+              //add-fjl-0813-精算中，点击决裁，跳转画面
+          }
         if (val === 'save') {
           this.$refs['reff'].validate(valid => {
             if (valid) {

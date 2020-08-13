@@ -567,8 +567,8 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <PFANS1012Pop :params="urlparams" :url="url" ref="PFANS1012Pop"></PFANS1012Pop>
-    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>
+    <!--    <PFANS1012Pop :params="urlparams" :url="url" ref="PFANS1012Pop"></PFANS1012Pop>-->
+    <!--    <PFANS1006Pop :params="urlparams" :url="url" ref="PFANS1006Pop"></PFANS1006Pop>-->
   </div>
 </template>
 <script>
@@ -596,8 +596,8 @@
   export default {
     name: 'PFANS3005FormView',
     components: {
-        PFANS1012Pop,
-        PFANS1006Pop,
+        // PFANS1012Pop,
+        // PFANS1006Pop,
       EasyNormalContainer,
       PFANS3005View,
       dicselect,
@@ -1265,7 +1265,7 @@
     },
     //add_fjl end
     created() {
-      // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
       this.disable = this.$route.params.disabled;
       // if (this.disable) {
       //   this.buttonList = [
@@ -1456,21 +1456,51 @@
           this.form.uploadfile += o.name + ',' + o.url + ';';
         }
       },
-      rowClick(row) {
-        this.url = '';
-        this.urlparams = '';
-        this.url = 'PFANS1006FormView';
-        this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-          this.$refs.PFANS1006Pop.open = true;
-      },
-      rowClick1(row) {
-        this.url = '';
-        this.urlparams = '';
-        this.url = 'PFANS1012FormView';
-        this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-          this.$refs.PFANS1012Pop.open = true;
-      },
+        // rowClick(row) {
+        //   this.url = '';
+        //   this.urlparams = '';
+        //   this.url = 'PFANS1006FormView';
+        //   this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+        //     this.$refs.PFANS1006Pop.open = true;
+        // },
+        // rowClick1(row) {
+        //   this.url = '';
+        //   this.urlparams = '';
+        //   this.url = 'PFANS1012FormView';
+        //   this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
+        //     this.$refs.PFANS1012Pop.open = true;
+        // },
       //add ccm 0720
+        //add_fjl_0813  查看详情
+        rowClick(row) {
+            this.$store.commit('global/SET_HISTORYURL', '');
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+            this.$router.push({
+                name: 'PFANS1006FormView',
+                params: {
+                    _id: row.loanapplication_id,
+                    disabled: false,
+                    _checkid: this.$route.params._id,
+                    _check: true,
+                    _fromname: 'PFANS3005FormView',
+                },
+            });
+        },
+        rowClick1(row) {
+            this.$store.commit('global/SET_HISTORYURL', '');
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
+            this.$router.push({
+                name: 'PFANS1012FormView',
+                params: {
+                    _id: row.publicexpense_id,
+                    disabled: false,
+                    _checkid: this.$route.params._id,
+                    _check2: true,
+                    _fromname: 'PFANS3005FormView',
+                },
+            });
+        },
+        //add_fjl_0813  查看详情
 
       //add-ws-6/16-禅道137
       getCompanyProjectList() {

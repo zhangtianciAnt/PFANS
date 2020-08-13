@@ -368,6 +368,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="fromViewname !== undefined ? true : false "
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -588,6 +589,7 @@
         buttonList: [],
         DataList2: [],
         show12: false,
+          fromViewname: '',
         editableTabs: [],
         tabIndex: 0,
         multiple: false,
@@ -731,7 +733,7 @@
       };
     },
     created() {
-      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+        this.fromViewname = this.$route.params._fromname;
       this.disable = this.$route.params.disabled;
       if (this.disable) {
         this.buttonList = [
@@ -1282,51 +1284,75 @@
           },
         });
       },
-      buttonClick(val) {
-        if (val === 'back') {
-          if (this.$route.params._check != null && this.$route.params._check != undefined) {
-            if (this.$route.params._check) {
-              let id = this.$route.params._checkid;
-              let disable = this.$route.params._checkdisable;
-              if (this.$route.params._sta)
-              {
-                if (this.$route.params._sta === '0')
-                {
-                  this.$router.push({
-                    name: 'PFANS1002FormView',
-                    params: {
-                      _id: id,
-                      disabled: disable,
-                    },
-                  });
-                }
-                if (this.$route.params._sta === '1')
-                {
-                  this.$router.push({
-                    name: 'PFANS1035FormView',
-                    params: {
-                      _id: id,
-                      disabled: disable,
-                    },
-                  });
-                }
-              }
-              else
-              {
-                this.$router.push({
-                  name: 'PFANS1012FormView',
-                  params: {
+        checkparams() {
+            let id = this.$route.params._checkid;
+            let fromname = this.$route.params._fromname;
+            this.$router.push({
+                name: fromname,
+                params: {
+                    disabled: true,
                     _id: id,
-                    disabled: disable,
-                  },
-                });
-              }
-            } else {
-              this.paramsTitle();
-            }
-          } else {
-            this.paramsTitle();
-          }
+                },
+            });
+        },
+        buttonClick(val) {
+            if (val === 'back') {
+                if (val === 'back') {
+                    //add-fjl-0813-精算中，点击决裁，跳转画面
+                    if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+                        if (this.$route.params._check) {
+                            this.checkparams();
+                        }
+                    } else {
+                        this.paramsTitle();
+                    }
+                }
+                //add-fjl-0813-精算中，点击决裁，跳转画面
+
+                // if (val === 'back') {
+                //   if (this.$route.params._check != null && this.$route.params._check != undefined) {
+                //     if (this.$route.params._check) {
+                //       let id = this.$route.params._checkid;
+                //       let disable = this.$route.params._checkdisable;
+                //       if (this.$route.params._sta)
+                //       {
+                //         if (this.$route.params._sta === '0')
+                //         {
+                //           this.$router.push({
+                //             name: 'PFANS1002FormView',
+                //             params: {
+                //               _id: id,
+                //               disabled: disable,
+                //             },
+                //           });
+                //         }
+                //         if (this.$route.params._sta === '1')
+                //         {
+                //           this.$router.push({
+                //             name: 'PFANS1035FormView',
+                //             params: {
+                //               _id: id,
+                //               disabled: disable,
+                //             },
+                //           });
+                //         }
+                //       }
+                //       else
+                //       {
+                //         this.$router.push({
+                //           name: 'PFANS1012FormView',
+                //           params: {
+                //             _id: id,
+                //             disabled: disable,
+                //           },
+                //         });
+                //       }
+                //     } else {
+                //       this.paramsTitle();
+                //     }
+                //   } else {
+                //     this.paramsTitle();
+                //   }
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
