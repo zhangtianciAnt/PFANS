@@ -13,7 +13,8 @@ import {
   updatepolicycontract,
   createpolicycontract,
   exportjs,
-  getworkfolwPurchaseData
+  getworkfolwPurchaseData,
+  getLoanapplicationOne2
 } from './PFANS1006Api';
 
 const PFANS1006Store = {
@@ -168,6 +169,20 @@ const PFANS1006Store = {
     getLoanapplicationOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getLoanapplicationOne(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
+    getLoanapplicationOne2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getLoanapplicationOne2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
