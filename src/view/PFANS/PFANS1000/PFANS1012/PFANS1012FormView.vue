@@ -392,7 +392,7 @@
                           plain
                           size="small"
                           type="primary"
-                          :disabled="fromViewname !== undefined ? true : false "
+                          :disabled="(fromViewname !== undefined || IDname === undefined) ? true : false "
                         >{{$t('button.viewdetails')}}
                         </el-button>
                       </template>
