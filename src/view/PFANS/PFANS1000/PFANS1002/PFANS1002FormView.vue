@@ -1554,17 +1554,20 @@
                   //有暂借款编号绑定暂借款信息
                   if (this.form.loanapplication_id) {
                       this.$store
-                          .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
+                          .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
                           .then(response => {
                               if (response !== null && response !== '' && response !== undefined) {
-                                  let status = getStatus(response.status);
+                                for (var i = 0; i < response.length; i++)
+                                {
+                                  let status = getStatus(response[i].status);
                                   this.tableA.push({
-                                      loanapno: response.loanapno,
-                                      moneys: response.moneys,
-                                      remarks: response.remarks,
-                                      status: status,
-                                      loanapplication_id: response.loanapplication_id,
+                                    loanapno: response[i].loanapno,
+                                    moneys: response[i].moneys,
+                                    remarks: response[i].remarks,
+                                    status: status,
+                                    loanapplication_id: response[i].loanapplication_id,
                                   });
+                                }
                               }
                               this.loading = false;
                           })
@@ -1581,18 +1584,21 @@
                   //有精算报销编号绑定精算信息
                   if (this.form.publicexpense_id) {
                       this.$store
-                          .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                          .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
                           .then(response => {
                               if (response !== null && response !== '' && response !== undefined) {
-                                  let pub = response.publicexpense;
-                                  let status = getStatus(pub.status);
+
+                                for (var i = 0; i < response.length; i++)
+                                {
+                                  let status = getStatus(response[i].status);
                                   this.tableB.push({
-                                      invoiceno: pub.invoiceno,
-                                      moneys: pub.moneys,
-                                      remarks: pub.preparefor,
-                                      status: status,
-                                      publicexpense_id: pub.publicexpenseid,
+                                    invoiceno: response[i].invoiceno,
+                                    moneys: response[i].moneys,
+                                    remarks: response[i].preparefor,
+                                    status: status,
+                                    publicexpense_id: response[i].publicexpenseid,
                                   });
+                                }
                               }
                               this.loading = false;
                           })
