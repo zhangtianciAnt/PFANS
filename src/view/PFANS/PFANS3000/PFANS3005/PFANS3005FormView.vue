@@ -1067,17 +1067,21 @@
             //有暂借款编号绑定暂借款信息
             if (this.form.loanapplication_id) {
               this.$store
-                .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
+                .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
                 .then(response1 => {
                   if (response1 !== null && response1 !== '' && response1 !== undefined) {
-                    let status = getStatus(response1.status);
-                    this.tableA.push({
-                      loanapno: response1.loanapno,
-                      moneys: response1.moneys,
-                      remarks: response1.remarks,
-                      status: status,
-                      loanapplication_id: response1.loanapplication_id,
-                    });
+                    for (var i = 0; i < response1.length; i++)
+                    {
+                      let status = getStatus(response1[i].status);
+                      this.tableA.push({
+                        loanapno: response1[i].loanapno,
+                        moneys: response1[i].moneys,
+                        remarks: response1[i].remarks,
+                        status: status,
+                        loanapplication_id: response1[i].loanapplication_id,
+                      });
+                    }
+
                   }
                   this.loading = false;
                 })
@@ -1094,18 +1098,20 @@
             //有精算报销编号绑定精算信息
             if (this.form.publicexpense_id) {
               this.$store
-                .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
                 .then(response2 => {
                   if (response2 !== null && response2 !== '' && response2 !== undefined) {
-                    let pub = response2.publicexpense;
-                    let status = getStatus(pub.status);
-                    this.tableB.push({
-                      invoiceno: pub.invoiceno,
-                      moneys: pub.moneys,
-                      remarks: pub.preparefor,
-                      status: status,
-                      publicexpense_id: pub.publicexpenseid,
-                    });
+                    for (var i = 0; i < response2.length; i++)
+                    {
+                      let status = getStatus(response2[i].status);
+                      this.tableB.push({
+                        invoiceno: response2[i].invoiceno,
+                        moneys: response2[i].moneys,
+                        remarks: response2[i].preparefor,
+                        status: status,
+                        publicexpense_id: response2[i].publicexpenseid,
+                      });
+                    }
                   }
                   this.loading = false;
                 })
@@ -2044,15 +2050,17 @@
         } else if (val === 'temLoanApp') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           //暂借款申请
-          //check是否存在暂借款
-          if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
-            Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              type: 'info',
-              duration: 3 * 1000,
-            });
-            return;
-          } else {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // //check是否存在暂借款
+          // if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+          //   Message({
+          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+          //     type: 'info',
+          //     duration: 3 * 1000,
+          //   });
+          //   return;
+          // } else {
+            //del ccm 0813 决裁到暂借款，精算  check去掉
             //采购ID
             let purchase_id = [];
             //采购编号
@@ -2078,17 +2086,21 @@
                 disabled: true,
               },
             });
-          }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
         } else if (val === 'actuarial') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-          if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
-            Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-              type: 'info',
-              duration: 3 * 1000,
-            });
-            return;
-          } else {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
+          //   Message({
+          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+          //     type: 'info',
+          //     duration: 3 * 1000,
+          //   });
+          //   return;
+          // } else {
+            //del ccm 0813 决裁到暂借款，精算  check去掉
             let optionsSEL = [];
             let user = getUserInfo(this.form.user_id);
             if (user) {
@@ -2127,7 +2139,9 @@
                 },
               });
             }
-          }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
         }
       },
     },

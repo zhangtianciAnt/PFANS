@@ -16,6 +16,14 @@ export function getLoanapplicationOne(data) {
   })
 }
 
+export function getLoanapplicationOne2(data) {
+  return request({
+    url: 'loanapplication/one2',
+    method: 'post',
+    data: data
+  })
+}
+
 export function updateLoanapplication(data) {
   return request({
     url: 'loanapplication/update',

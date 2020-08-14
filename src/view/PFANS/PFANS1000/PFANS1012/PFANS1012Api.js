@@ -52,6 +52,14 @@ export function selectById(data) {
   })
 }
 
+export function selectByIdone2(data) {
+  return request({
+    url: 'publicexpense/one2',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getpublicelist(data) {
   return request({
     url: 'publicexpense/getpublicelist',

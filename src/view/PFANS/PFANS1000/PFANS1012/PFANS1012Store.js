@@ -1,4 +1,4 @@
-import {exportjs,insert, get, selectById,getpublicelist, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectCommunication,gettotalcost,getLoanApplicationList,getworkfolwPurchaseData} from './PFANS1012Api'
+import {exportjs,insert, get, selectById,getpublicelist, update,getJudgement,getLoanApplication,selectJudgement,selectPurchaseApply,selectByIdone2,selectCommunication,gettotalcost,getLoanApplicationList,getworkfolwPurchaseData} from './PFANS1012Api'
 
 const PFANS1012Store = {
   namespaced: true,
@@ -82,6 +82,21 @@ const PFANS1012Store = {
         })
       })
     },
+
+    selectByIdone2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectByIdone2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     getpublicelist({commit}, data) {
       return new Promise((resolve, reject) => {
         getpublicelist(data).then(response => {
