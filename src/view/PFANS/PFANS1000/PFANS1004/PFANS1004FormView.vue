@@ -525,17 +525,17 @@
                       <span>{{scope.row.status}}</span>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="150">
-                    <template slot-scope="scope">
-                      <el-button
-                        @click.native.prevent="rowClickHis(scope.row)"
-                        plain
-                        size="small"
-                        type="primary"
-                      >{{$t('button.viewdetails')}}
-                      </el-button>
-                    </template>
-                  </el-table-column>
+                  <!--                  <el-table-column :label="$t('label.operation')" align="center" width="150">-->
+                  <!--                    <template slot-scope="scope">-->
+                  <!--                      <el-button-->
+                  <!--                        @click.native.prevent="rowClickHis(scope.row)"-->
+                  <!--                        plain-->
+                  <!--                        size="small"-->
+                  <!--                        type="primary"-->
+                  <!--                      >{{$t('button.viewdetails')}}-->
+                  <!--                      </el-button>-->
+                  <!--                    </template>-->
+                  <!--                  </el-table-column>-->
                 </el-table>
               </el-row>
             </el-tab-pane>
@@ -584,7 +584,7 @@
       user,
       quillEditor,
       org,
-      PFANS1004Pop,
+        // PFANS1004Pop,
         // PFANS1012Pop,
         // PFANS1006Pop,
     },
