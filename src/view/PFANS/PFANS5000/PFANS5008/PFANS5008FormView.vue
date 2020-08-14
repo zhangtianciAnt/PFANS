@@ -8,7 +8,7 @@
           <el-form :model="companyform" ref="companyform"
                    class="demo-ruleForm" :rules="rules">
             <el-container>
-              <el-aside style="width: 58%;height: 32rem">
+              <el-aside style="width: 58%;height: 26rem">
                 <el-row>
                   <el-col :span="12">
                     <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
