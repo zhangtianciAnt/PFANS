@@ -46,27 +46,6 @@
             filter: false
           },
           {
-            code: 'center_id',
-            label: 'label.center',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'group_id',
-            label: 'label.group',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
-            code: 'team_id',
-            label: 'label.team',
-            width: 150,
-            fix: false,
-            filter: true
-          },
-          {
             code: 'application_date',
             label: 'label.application_date',
             width: 150,
@@ -114,6 +93,28 @@
             width: 150,
             fix: false,
             filter: false
+          },
+
+          {
+            code: 'center_id',
+            label: 'label.center',
+            width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'group_id',
+            label: 'label.group',
+            width: 150,
+            fix: false,
+            filter: true
+          },
+          {
+            code: 'team_id',
+            label: 'label.team',
+            width: 150,
+            fix: false,
+            filter: true
           },
           {
             code: 'yusuanbuzu',
