@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
-                         @buttonClick="buttonClick" @disabled="setdisabled"
+                         @buttonClick="buttonClick" @disabled="setdisabled"  :enableSave="enableSave"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -260,6 +260,21 @@
                                 v-model="form.payeebankaccount"></el-input>
                     </el-form-item>
                   </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
+                  <el-col :span="8" v-if="this.role2==='0'">
+                    <el-form-item :label="$t('label.status')" >
+                      <el-select clearable style="width: 20vw" v-model="form.processingstatus" :disabled="acceptShow"
+                                 :placeholder="$t('normal.error_09')" >
+                        <el-option
+                          v-for="item in options2"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -1328,7 +1343,7 @@
     getCurrentRole,
     getStatus,
     uploadUrl,
-    downLoadUrl
+    downLoadUrl,getCurrentRole5
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -1475,6 +1490,21 @@
         }
       };
       return {
+        // add-ws-8/12-禅道任务446
+        enableSave: false,
+        role2: '',
+        acceptShow: true,
+        options2: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS1'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS2'),
+          },
+        ],
+        // add-ws-8/12-禅道任务446
         tableLoa:[],
         multipleSelection:[],
           url: '',
@@ -1541,14 +1571,7 @@
         disabled: false,
         disablecurr: false,
           fromViewname: '',
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
+        buttonList: [],
         checkCode2: '',
         tableT: [{
           publicexpenseid: '',
@@ -1634,6 +1657,9 @@
         }],
         baseInfo: {},
         form: {
+          // add-ws-8/12-禅道任务446
+          processingstatus: '0',
+          // add-ws-8/12-禅道任务446
           currency: '',
           user_name: '',
           bsexternal: '',
@@ -1858,6 +1884,11 @@
             if (response.publicexpense!=null)
             {
               this.form = response.publicexpense;
+              if(this.form.status ==='4'){
+                this.acceptShow = false
+              }else{
+                this.acceptShow = true
+              }
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                   let uploadfile = this.form.uploadfile.split(';');
                   for (var i = 0; i < uploadfile.length; i++) {
@@ -2614,12 +2645,35 @@
       }
     },
     created() {
+      // add-ws-8/12-禅道任务446
+      this.role2 = getCurrentRole5();
+      // add-ws-8/12-禅道任务446
         this.fromViewname = this.$route.params._fromname;
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
+        if(this.role2 === '0' ){
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+          this.enableSave = true
+        }else{
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
         this.checkexternal = false;
         this.checktaxes = false;
         this.checkdisable = false;
