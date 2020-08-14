@@ -1055,7 +1055,7 @@
                     for (var i = 0; i < response.length; i++)
                     {
                       let status = getStatus(response[i].status);
-                      this.tableA.push({
+                      this.tableC.push({
                         loanapno: response[i].loanapno,
                         moneys: response[i].moneys,
                         remarks: response[i].remarks,
@@ -1084,7 +1084,7 @@
                     for (var i = 0; i < response.length; i++)
                     {
                       let status = getStatus(response[i].status);
-                      this.tableB.push({
+                      this.tableD.push({
                         invoiceno: response[i].invoiceno,
                         moneys: response[i].moneys,
                         remarks: response[i].preparefor,
