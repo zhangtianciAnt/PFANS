@@ -2026,7 +2026,7 @@
                 <!--                </el-collapse-item>-->
               </el-collapse>
             </el-tab-pane>
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight" style="padding-left:0.5%">
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_EDITUSER')" name="eight" style="padding-left:0.5%" v-if = "this.roles==='0'">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
@@ -2107,7 +2107,7 @@
   import org from '@/view/components/org';
   import dicselect from '../components/dicselect';
   import moment from 'moment';
-  import {getDictionaryInfo} from '../../utils/customize';
+  import {getDictionaryInfo,getCurrentRole6} from '../../utils/customize';
 
   export default {
     name: 'usersFormViewByPerson',
@@ -2164,6 +2164,7 @@
       };
 
       return {
+        roles: '',
         age: '',
         code: '',
         code1: 'PG021',
@@ -2853,6 +2854,7 @@
       // }
     },
     mounted() {
+      this.roles = getCurrentRole6();
       this.form.staffexitprocedure;
       if (this.$route.params._org) {
         ({
