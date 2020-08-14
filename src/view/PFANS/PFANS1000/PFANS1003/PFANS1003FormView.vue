@@ -735,7 +735,7 @@
                             for (var i = 0; i < response.length; i++)
                             {
                               let status = getStatus(response[i].status);
-                              this.tableA.push({
+                              this.tableZ.push({
                                 loanapno: response[i].loanapno,
                                 moneys: response[i].moneys,
                                 remarks: response[i].remarks,
