@@ -878,6 +878,15 @@
                       },
                     });
                   }
+                } else {
+                    this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
+                            _name: optionsSEL,
+                            _type: 'PJ001002',
+                            disabled: true,
+                        },
+                    });
                 }
                 //del ccm 0813 决裁到暂借款，精算  check去掉
               // }
@@ -989,6 +998,15 @@
                       },
                     });
                   }
+                } else {
+                    this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
+                            _name: optionsSEL,
+                            _type: 'PJ001002',
+                            disabled: true,
+                        },
+                    });
                 }
                 //del ccm 0813 决裁到暂借款，精算  check去掉
               // }
@@ -1103,6 +1121,15 @@
                       },
                     });
                   }
+                } else {
+                    this.$router.push({
+                        name: 'PFANS1012FormView',
+                        params: {
+                            _name: optionsSEL,
+                            _type: 'PJ001002',
+                            disabled: true,
+                        },
+                    });
                 }
                 //del ccm 0813 决裁到暂借款，精算  check去掉
               // }
@@ -1214,6 +1241,15 @@
                         },
                       });
                     }
+                  } else {
+                      this.$router.push({
+                          name: 'PFANS1012FormView',
+                          params: {
+                              _name: optionsSEL,
+                              _type: 'PJ001002',
+                              disabled: true,
+                          },
+                      });
                   }
                   //del ccm 0813 决裁到暂借款，精算  check去掉
                 // }
