@@ -118,6 +118,13 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'processingstatus',
+            label: 'label.status',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -199,6 +206,17 @@
                   response[j].moduleid = letbudge.value1;
                 }
               }
+              // add-ws-8/12-禅道任务446
+              if (response[j].processingstatus != null && response[j].processingstatus != '') {
+                if (this.$i18n) {
+                  if (response[j].processingstatus === '0') {
+                    response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
+                  } else if (response[j].processingstatus === '1') {
+                    response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
+                  }
+                }
+              }
+              // add-ws-8/12-禅道任务446
             }
           }
           this.data = response;

@@ -7,6 +7,7 @@
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
+      :enableSave="enableSave"
       @workflowState="workflowState"
       ref="container"
       v-loading="loading"
@@ -292,6 +293,21 @@
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
+                  <el-col :span="8" v-if="this.role2==='0'">
+                    <el-form-item :label="$t('label.status')" >
+                      <el-select clearable style="width: 20vw" v-model="form.processingstatus" :disabled="acceptShow"
+                                 :placeholder="$t('normal.error_09')" >
+                        <el-option
+                          v-for="item in options2"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
                 </el-row>
                 <!--外币兑换-->
                 <el-row v-show="show2">
@@ -1184,7 +1200,7 @@
     getOrgInfo,
     getOrgInfoByUserId,
     getUserInfo,
-    uploadUrl,
+    uploadUrl,getCurrentRole5
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
@@ -1212,6 +1228,21 @@
         }
       };
       return {
+        // add-ws-8/12-禅道任务446
+        enableSave: false,
+        role2: '',
+        acceptShow: true,
+        options2: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS1'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS2'),
+          },
+        ],
+        // add-ws-8/12-禅道任务446
         //add_ws_0724  禅道154任务
         url: '',
         urlparams: '',
@@ -1262,6 +1293,9 @@
         groupId: '',
         accflg: '',
         form: {
+          // add-ws-8/12-禅道任务446
+          processingstatus: '0',
+          // add-ws-8/12-禅道任务446
           remark: '',
           arrivenight: '',
           external: '',
@@ -1295,14 +1329,7 @@
           uploadfile: '',
           regionname: '',
         },
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
+        buttonList: [],
         tableF: [{
           evectionid: '',
           invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + 1,
@@ -1497,6 +1524,11 @@
                 // this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
+            if(this.form.status ==='4'){
+              this.acceptShow = false
+            }else{
+              this.acceptShow = true
+            }
             //add-ws-6/17-禅道101
             if (this.form.userid === '5e78b2264e3b194874180f35') {
               this.workflowCode = 'W0079';
@@ -1900,11 +1932,34 @@
       }
     },
     created() {
+      // add-ws-8/12-禅道任务446
+      this.role2 = getCurrentRole5();
+      // add-ws-8/12-禅道任务446
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
+        if(this.role2 === '0' ){
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+          this.enableSave = true
+        }else{
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
         this.checktaxes = false;
         this.checkmoney = false;
       } else {
