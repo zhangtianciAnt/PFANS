@@ -846,14 +846,16 @@
               }
             }
             if (val === 'actuarial') {
-              if (str !== '') {
-                Message({
-                  message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              } else {
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+              // if (str !== '') {
+              //   Message({
+              //     message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // } else {
+                //del ccm 0813 决裁到暂借款，精算  check去掉
                 if (loan != null && loan != '' && loan != undefined) {
                   loan = loan.substring(0, loan.length - 1);
                   if (loan != null && loan != '' && loan != undefined) {
@@ -877,16 +879,20 @@
                     });
                   }
                 }
-              }
+                //del ccm 0813 决裁到暂借款，精算  check去掉
+              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
-              if (loan !== '') {
-                Message({
-                  message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+              // if (loan !== '') {
+              //   Message({
+              //     message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
               this.$router.push({
                 name: 'PFANS1006FormView',
                 params: {
@@ -951,14 +957,16 @@
               }
             }
             if (val === 'actuarial') {
-              if (str !== '') {
-                Message({
-                  message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              } else {
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+              // if (str !== '') {
+              //   Message({
+              //     message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // } else {
+                //del ccm 0813 决裁到暂借款，精算  check去掉
                 if (loan != null && loan != '' && loan != undefined) {
                   loan = loan.substring(0, loan.length - 1);
                   if (loan != null && loan != '' && loan != undefined) {
@@ -982,16 +990,20 @@
                     });
                   }
                 }
-              }
+                //del ccm 0813 决裁到暂借款，精算  check去掉
+              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
-              if (loan !== '') {
-                Message({
-                  message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+              // if (loan !== '') {
+              //   Message({
+              //     message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
               if (this.$route.params.title === 4) {
                 if (this.$i18n) {
                   judname = this.$t('title.PFANS1004VIEW');
@@ -1059,14 +1071,16 @@
             }
             //精算
             if (val === 'actuarial') {
-              if (str !== '') {
-                Message({
-                  message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              } else {
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+              // if (str !== '') {
+              //   Message({
+              //     message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // } else {
+                //del ccm 0813 决裁到暂借款，精算  check去掉
                 if (loan != null && loan != '' && loan != undefined) {
                   loan = loan.substring(0, loan.length - 1);
                   if (loan != null && loan != '' && loan != undefined) {
@@ -1090,16 +1104,20 @@
                     });
                   }
                 }
-              }
+                //del ccm 0813 决裁到暂借款，精算  check去掉
+              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
-              if (loan !== '') {
-                Message({
-                  message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+              // if (loan !== '') {
+              //   Message({
+              //     message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
               this.$router.push({
                 name: 'PFANS1006FormView',
                 params: {
@@ -1164,14 +1182,16 @@
               }
             }
               if (val === 'actuarial') {
-                if (str !== '') {
-                  Message({
-                    message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                    type: 'info',
-                    duration: 3 * 1000,
-                  });
-                  return;
-                } else {
+                //del ccm 0813 决裁到暂借款，精算  check去掉
+                // if (str !== '') {
+                //   Message({
+                //     message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+                //     type: 'info',
+                //     duration: 3 * 1000,
+                //   });
+                //   return;
+                // } else {
+                  //del ccm 0813 决裁到暂借款，精算  check去掉
                   if (loan != null && loan != '' && loan != undefined) {
                     loan = loan.substring(0, loan.length - 1);
                     if (loan != null && loan != '' && loan != undefined) {
@@ -1195,16 +1215,20 @@
                       });
                     }
                   }
-                }
+                  //del ccm 0813 决裁到暂借款，精算  check去掉
+                // }
+                //del ccm 0813 决裁到暂借款，精算  check去掉
               } else {
-                  if (loan !== '') {
-                      Message({
-                          message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                          type: 'info',
-                          duration: 3 * 1000,
-                      });
-                      return;
-                  }
+                //del ccm 0813 决裁到暂借款，精算  check去掉
+                //   if (loan !== '') {
+                //       Message({
+                //           message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                //           type: 'info',
+                //           duration: 3 * 1000,
+                //       });
+                //       return;
+                //   }
+                //del ccm 0813 决裁到暂借款，精算  check去掉
                   if (this.$route.params.title === 1) {
                       if (this.$i18n) {
                           judname = this.$t('title.PFANS1002VIEW');

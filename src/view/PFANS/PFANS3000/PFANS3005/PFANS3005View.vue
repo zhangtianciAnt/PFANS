@@ -558,13 +558,15 @@
           }
 
           if (val === 'actuarial') {
-            //是否已经精算
-            let str = '';
-            for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
-                str += this.selectedlist[i].purnumbers + ' , ';
-              }
-            }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+            // //是否已经精算
+            // let str = '';
+            // for (let i = 0; i < this.selectedlist.length; i++) {
+            //   if (this.selectedlist[i].invoiceno != null && this.selectedlist[i].invoiceno != '' && this.selectedlist[i].invoiceno != undefined) {
+            //     str += this.selectedlist[i].purnumbers + ' , ';
+            //   }
+            // }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
             //如果有暂借款，是否是相同的暂借款
             let loan = '';
             let loanmoney = '';
@@ -592,7 +594,9 @@
                 loan += this.selectedlist[i].loanapplication_id + ',';
               }
             }
-            if (str === '') {
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+            // if (str === '') {
+              //del ccm 0813 决裁到暂借款，精算  check去掉
               if (loan != null && loan != '' && loan != undefined) {
                 loan = loan.substring(0, loan.length - 1);
                 if (loan != null && loan != '' && loan != undefined) {
@@ -625,24 +629,28 @@
                   },
                 });
               }
-            } else {
-              Message({
-                message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                type: 'info',
-                duration: 3 * 1000,
-              });
-              return
-            }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+            // } else {
+            //   Message({
+            //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+            //     type: 'info',
+            //     duration: 3 * 1000,
+            //   });
+            //   return
+            // }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
           } else {
             //暂借款申请
-            //check是否存在暂借款
-            let str = '';
-            for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                str += this.selectedlist[i].purnumbers + ' , ';
-              }
-            }
-            if (str === '') {
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+            // //check是否存在暂借款
+            // let str = '';
+            // for (let i = 0; i < this.selectedlist.length; i++) {
+            //   if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+            //     str += this.selectedlist[i].purnumbers + ' , ';
+            //   }
+            // }
+            // if (str === '') {
+              //del ccm 0813 决裁到暂借款，精算  check去掉
               this.$router.push({
                 name: 'PFANS1006FormView',
                 params: {
@@ -655,14 +663,16 @@
                   disabled: true,
                 },
               });
-            } else {
-              Message({
-                message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                type: 'info',
-                duration: 3 * 1000,
-              });
-              return
-            }
+              //del ccm 0813 决裁到暂借款，精算  check去掉
+            // } else {
+            //   Message({
+            //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+            //     type: 'info',
+            //     duration: 3 * 1000,
+            //   });
+            //   return
+            // }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
           }
         }
         //add_fjl_0724   添加跳转申请精算与暂借款  end

@@ -2044,15 +2044,17 @@
         } else if (val === 'temLoanApp') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           //暂借款申请
-          //check是否存在暂借款
-          if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
-            Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              type: 'info',
-              duration: 3 * 1000,
-            });
-            return;
-          } else {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // //check是否存在暂借款
+          // if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+          //   Message({
+          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+          //     type: 'info',
+          //     duration: 3 * 1000,
+          //   });
+          //   return;
+          // } else {
+            //del ccm 0813 决裁到暂借款，精算  check去掉
             //采购ID
             let purchase_id = [];
             //采购编号
@@ -2078,17 +2080,21 @@
                 disabled: true,
               },
             });
-          }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
         } else if (val === 'actuarial') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-          if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
-            Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-              type: 'info',
-              duration: 3 * 1000,
-            });
-            return;
-          } else {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
+          //   Message({
+          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+          //     type: 'info',
+          //     duration: 3 * 1000,
+          //   });
+          //   return;
+          // } else {
+            //del ccm 0813 决裁到暂借款，精算  check去掉
             let optionsSEL = [];
             let user = getUserInfo(this.form.user_id);
             if (user) {
@@ -2127,7 +2133,9 @@
                 },
               });
             }
-          }
+            //del ccm 0813 决裁到暂借款，精算  check去掉
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
         }
       },
     },
