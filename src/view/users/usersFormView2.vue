@@ -2159,7 +2159,9 @@
       };
 
       return {
+        //ws-8/14-禅道任务450
         roles: '',
+        //ws-8/14-禅道任务450
         age: '',
         code: '',
         code1: 'PG021',
@@ -2851,7 +2853,9 @@
       // }
     },
     mounted() {
+      //ws-8/14-禅道任务450
       this.roles = getCurrentRole6();
+      //ws-8/14-禅道任务450
       this.form.staffexitprocedure;
       if (this.$route.params._org) {
         ({
