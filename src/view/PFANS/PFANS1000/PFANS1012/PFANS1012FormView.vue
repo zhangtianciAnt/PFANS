@@ -5017,21 +5017,21 @@
       //add 0728
       rowClickLoa(row) {
           //upd_fjl_0807 pop显示
-          this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-          this.url = 'PFANS1006FormView';
-          this.$refs.PFANS1006Pop.open = true;
-          // this.$store.commit('global/SET_HISTORYURL', '');
-          // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-          // this.$router.push({
-          //     name: 'PFANS1006FormView',
-          //     params: {
-          //       _checkdisable: this.disable,
-          //       _checkid: this.IDname,
-          //       _check: true,
-          //       _id: row.loanapplication_id,
-          //       disabled: false,
-          //     },
-          //   });
+          // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+          // this.url = 'PFANS1006FormView';
+          // this.$refs.PFANS1006Pop.open = true;
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+          this.$router.push({
+              name: 'PFANS1006FormView',
+              params: {
+                  _id: row.loanapplication_id,
+                  disabled: false,
+                  _checkid: this.$route.params._id,
+                  _check: true,
+                  _fromname: 'PFANS1012FormView',
+              },
+          });
           //upd_fjl_0807 pop显示
       },
       //add 0728
