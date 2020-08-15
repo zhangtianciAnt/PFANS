@@ -115,6 +115,7 @@ module.exports = {
     createdecision: '创建招聘决裁',
     supplementary: '补充决裁',
     contract: '生成合同',
+    importwages: '历史工资导入',
   },
   table: {
     detail: '一览',
@@ -2272,6 +2273,7 @@ module.exports = {
     PFANS2005VIEW_GRANTSTATUS: '发放状态',
     PFANS2005VIEW_CJZ: '创建者',
     PFANS2005VIEW_SG: '手工',
+    PFANS2005VIEW_IMPORT: '导入',
     PFANS2005VIEW_GRANTSTATUSOK: '已发放',
     PFANS2005VIEW_GRANTSTATUSNO: '未发放',
     PFANS2005VIEW_XTFW: '系统服务',
@@ -2292,6 +2294,7 @@ module.exports = {
     PFANS2005FORMVIEW_YDSY: '月度赏与',
     PFANS2005FORMVIEW_ZXKC: '专项控除',
     PFANS2005FORMVIEW_FJKC: '附加控除',
+    PFANS2005FORMVIEW_WAGES: '工资导入',
     PFANS2005FORMVIEW_MS: '免税',
     PFANS2005FORMVIEW_LJSJ: '累计税金',
     PFANS2005FORMVIEW_GRDB: '个人对比',

@@ -13,10 +13,53 @@
           </el-table-column>
         </el-table>
       </el-dialog>
+      <el-dialog :visible.sync="daoru" width="50%">
+        <div>
+          <div style="margin-top: 1rem;margin-left: 28%">
+            <el-upload
+              drag
+              ref="uploader"
+              :action="postAction"
+              :on-success="handleSuccess"
+              :before-upload="handleChange"
+              :headers="authHeader"
+              :limit="1"
+              :on-remove="this.clear"
+              multiple
+            >
+              <i class="el-icon-upload"></i>
+              <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+            </el-upload>
+          </div>
+          <el-row>
+            <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span
+              v-if="this.resultShow"
+            >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+          </el-row>
+          <span v-if="this.Message">{{this.cuowu}}</span>
+          <div v-if="this.result">
+            <el-table :data="message">
+              <el-table-column
+                :label="$t('label.PFANS2017VIEW_CUHS')"
+                align="center"
+                width="120%"
+                prop="hang"
+              ></el-table-column>
+              <el-table-column
+                :label="$t('label.PFANS2017VIEW_ERROR')"
+                align="center"
+                prop="error"
+              ></el-table-column>
+            </el-table>
+          </div>
+        </div>
+      </el-dialog>
     </EasyNormalTable>
   </div>
 </template>
 <script>
+  import { getToken } from "@/utils/auth";
   import EasyNormalTable from '@/components/EasyNormalTable';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
@@ -35,6 +78,16 @@
         title: 'title.PFANS2005VIEW',
         data: [],
         pop_download: false,
+        daoru: false,
+        successCount: 0,
+        errorCount: 0,
+        authHeader: { "x-auth-token": getToken() },
+        postAction: process.env.BASE_API + "/wages/importWages",
+        resultShow: false,
+        message: [{ hang: "", error: "" }],
+        Message: false,
+        addActionUrl: "",
+        result: false,
         Givingid:'',
         generationdate:'',
         form: {
@@ -90,6 +143,7 @@
           {'key': 'generatethismonth', 'name': 'button.generatethismonth', 'disabled': false},
           {'key': 'grantthismonth', 'name': 'button.grantthismonth', 'disabled': true},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false,icon: "el-icon-download"},
+          {'key': 'importwages', 'name': 'button.importwages', 'disabled': false,icon: "el-icon-upload2"},
         ],
         rowid: '',
         row_id: 'giving_id',
@@ -134,6 +188,11 @@
 
                   response[j].generation = this.$t('label.PFANS2005VIEW_XTFW');
                 }
+              } else if (response[j].generation === '2') {
+                  if (this.$i18n) {
+
+                      response[j].generation = this.$t('label.PFANS2005VIEW_IMPORT');
+                  }
               }
               if (response[j].createby !== null && response[j].createby !== '') {
                 let rst = getUserInfo(response[j].createby);
@@ -245,6 +304,10 @@
           if (val === 'export2') {
               this.pop_download = true;
           }
+          if (val === 'importwages') {//发放当月importwages
+              this.daoru = true;
+              this.clear(false);
+          }
       },
       //add gbb 0723 下载模板
       handleDownload(row) {
@@ -263,6 +326,59 @@
                     this.loading = false;
                 });
         },
+        handleChange(file, fileList) {
+            this.clear(true);
+        },
+        clear(safe) {
+            this.file = null;
+            this.resultShow = false;
+            this.Message = false;
+            this.result = false;
+            if (!safe) {
+                if (this.$refs.uploader != undefined) {
+                    this.$refs.uploader.clearFiles();
+                }
+            }
+        },
+        handleSuccess(response, file, fileList) {
+            if (response.code !== 0) {
+                this.cuowu = response.message;
+                this.Message = true;
+            } else {
+                let datalist = [];
+                for (let c = 0; c < response.data.length; c++) {
+                    let error = response.data[c];
+                    error = error.substring(0, 3);
+                    if (this.$i18n) {
+                        if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
+                            this.errorCount = response.data[c].substring(4);
+                            this.resultShow = true;
+                        }
+                        if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
+                            this.successCount = response.data[c].substring(4);
+                            this.resultShow = true;
+                        }
+                        if (error === this.$t("label.PFANS2017VIEW_D")) {
+                            let obj = {};
+                            var str = response.data[c];
+                            var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
+                            var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
+                            var r = str.substr(aPos + 1, bPos - aPos - 1);
+                            obj.hang = r;
+                            obj.error = response.data[c].substring(6);
+                            datalist[c] = obj;
+                        }
+                    }
+                    this.message = datalist;
+                    this.totaldata = this.message;
+                    if (this.errorCount === "0") {
+                        this.result = false;
+                    } else {
+                        this.result = true;
+                    }
+                }
+            }
+        },
     },
     computed: {
         downtypes() {
@@ -271,7 +387,8 @@
                 { name: this.$t("label.PFANS2005FORMVIEW_QT4"), type: 1 },
                 { name: this.$t("label.PFANS2005FORMVIEW_QT5"), type: 2 },
                 { name: this.$t("label.PFANS2005FORMVIEW_YDSY"), type: 3 },
-                { name: this.$t("label.PFANS2005FORMVIEW_FJKC"), type: 4 }
+                { name: this.$t("label.PFANS2005FORMVIEW_FJKC"), type: 4 },
+                { name: this.$t("label.PFANS2005FORMVIEW_WAGES"), type: 5 }
             ];
         }
     },
