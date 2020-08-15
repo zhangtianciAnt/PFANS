@@ -8,7 +8,8 @@ import {
   getRoleList,
   setRoleToUser,
   getUserTableList2,
-  download
+  download,
+  getSigninlog
 } from './usersApi'
 
 const usersStore = {
@@ -150,6 +151,20 @@ const usersStore = {
       return new Promise((resolve, reject) => {
         download(data).then(response => {
           resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // add gbb 0815 获取当前用户登陸信息（IP）
+    getSigninlog() {
+      return new Promise((resolve, reject) => {
+        getSigninlog().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
         }).catch(error => {
           reject(error);
         })

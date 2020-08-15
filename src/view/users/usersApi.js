@@ -88,3 +88,9 @@ export function download(data) {
     responseType: 'blob'
   })
 }
+export function getSigninlog() {
+  return request({
+    url: 'user/getSigninlog',
+    method: 'get',
+  });
+}
