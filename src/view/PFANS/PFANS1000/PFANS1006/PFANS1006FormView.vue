@@ -767,7 +767,11 @@
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
-      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+        //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
+        if (this.$route.params._workflowurl1012 === undefined) {
+            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+        }
+        //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
       this.disable = this.$route.params.disabled;
       if (this.disable) {
         if(this.role2 === '0' ){

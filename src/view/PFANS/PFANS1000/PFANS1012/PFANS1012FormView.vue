@@ -5085,6 +5085,7 @@
                   _checkid: this.$route.params._id,
                   _check: true,
                   _fromname: 'PFANS1012FormView',
+                  _workflowurl1012: '1',//添加跳转时，是否显示流程信息的判断
               },
           });
           //upd_fjl_0807 pop显示
