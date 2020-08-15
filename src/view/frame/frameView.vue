@@ -35,6 +35,7 @@
                   <el-dropdown-menu slot="dropdown">
                     <router-link to="/PFANS8001View"><el-dropdown-item icon="el-icon-edit">{{$t('title.PFANS8001VIEW')}}</el-dropdown-item></router-link>
                     <router-link to="/PFANS8002View"><el-dropdown-item icon="el-icon-bell">{{$t('notice.name')}}</el-dropdown-item></router-link>
+                    <router-link to="/PFANS8010View"><el-dropdown-item icon="el-icon-s-order">{{$t('logout.signinlog')}}</el-dropdown-item></router-link>
                     <!--<router-link to="/usersFormViewByPerson" v-show="Object.keys(userinfo).length > 0"><el-dropdown-item icon="el-icon-user">{{$t('help.name')}}</el-dropdown-item></router-link>-->
                     <router-link to="/"><el-dropdown-item icon="el-icon-switch-button">{{$t('logout.name')}}</el-dropdown-item></router-link>
                   </el-dropdown-menu>
