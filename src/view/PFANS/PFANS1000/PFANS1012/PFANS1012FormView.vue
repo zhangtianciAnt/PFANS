@@ -2629,7 +2629,7 @@
         } else if (this.form.type === 'PJ001002') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.getPayment();
-          this.form.paymentmethod = "PJ004005"
+          // this.form.paymentmethod = "PJ004005"
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = false;
           this.show7 = true;
