@@ -452,6 +452,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -494,6 +495,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -660,6 +662,7 @@
         userlist: [],
         userlistAnt: [],
         loading: false,
+        disableview: false,
         error: '',
         showTab: true,
         selectType: 'Single',
@@ -1146,6 +1149,7 @@
     created() {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1004FormView');
       this.disabled = this.$route.params.disabled;
+        this.disableview = this.$route.params._disableview;
       //是否可以做补充决裁
       if (this.$route.params.statuss === this.$t('label.PFANS5004VIEW_OVERTIME') && this.$route.params._supplementary != '1' && this.$route.params._judgnumberscheck == false) {
         this.buttonList = [

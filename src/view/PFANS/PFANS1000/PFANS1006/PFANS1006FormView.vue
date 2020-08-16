@@ -1492,7 +1492,7 @@
         }
         this.urlparams = '';
         this.url = '';
-        this.urlparams = {'_id': row.judgement, 'disabled': false};
+          this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
         // this.$store.commit('global/SET_HISTORYURL', '');
         // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1047FormView');
         if (row.judgement_name.substring(0, 2) === 'JC') {

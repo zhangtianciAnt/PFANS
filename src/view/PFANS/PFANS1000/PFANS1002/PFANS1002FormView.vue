@@ -789,6 +789,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -831,6 +832,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -967,6 +969,7 @@
           tableA: [],
           tableB: [],
         loading: false,
+        disableview: false,
           workflowCode: '',
         disabled: false,
         code1: 'PJ016',
@@ -1867,6 +1870,7 @@
     },
     created() {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1002FormView');
+        this.disableview = this.$route.params._disableview;
       let userid = '';
       if (this.$route.params.userid) {
         if (getUserInfoName(this.$route.params.userid) !== '-1') {

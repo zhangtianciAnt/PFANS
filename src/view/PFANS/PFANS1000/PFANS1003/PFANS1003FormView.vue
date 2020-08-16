@@ -374,6 +374,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -416,6 +417,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -490,6 +492,7 @@
         optionsdata: [],
         options: [],
         loading: false,
+          disableview: false,
         error: '',
         checked: true,
         selectType: 'Single',
@@ -827,6 +830,7 @@
     created() {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1003FormView');
       this.disabled = this.$route.params.disabled;
+        this.disableview = this.$route.params._disableview;
       if (this.disabled) {
         this.buttonList = [
           {
