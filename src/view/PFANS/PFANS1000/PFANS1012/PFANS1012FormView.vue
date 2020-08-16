@@ -4835,8 +4835,13 @@
                         }
                       }
                     }
+                      //add_fjl_0816  添加四舍五入
                     sumout = summoney + sumMoney;
-                    if (sumout != this.tableF[j].invoiceamount) {
+                      if (Number(sumout) > 0) {
+                          sumout = (summoney + sumMoney).toFixed(2);
+                      }
+                      //add_fjl_0816  添加四舍五入
+                      if (Number(sumout) != Number(this.tableF[j].invoiceamount)) {
                       error = error + 1;
                       this.activeName = 'first';
                       Message({
