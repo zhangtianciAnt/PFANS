@@ -257,6 +257,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -299,6 +300,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -364,6 +366,7 @@
         }],
         error: '',
         loading: false,
+        disableview: false,
         selectType: 'Single',
         title: 'title.PFANS1010VIEW',
         buttonList: [],
@@ -425,6 +428,7 @@
     created() {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1010FormView');
       this.disable = this.$route.params.disabled;
+      this.disableview = this.$route.params._disableview;
       if (this.disable) {
         this.buttonList = [
           {

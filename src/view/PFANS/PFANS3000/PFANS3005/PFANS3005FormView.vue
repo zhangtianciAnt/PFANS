@@ -422,6 +422,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -464,6 +465,7 @@
                         plain
                         size="small"
                         type="primary"
+                        :disabled="disableview === true ? true : false"
                       >{{$t('button.viewdetails')}}
                       </el-button>
                     </template>
@@ -669,6 +671,7 @@
         regExp: [],
         multiple: false,
         loading: false,
+        disableview: false,
         erroruser: '',
         errorcenter: '',
         errorgroup: '',
@@ -1276,11 +1279,12 @@
         },
         deep: true,
       },
-    },
+    },loading: false,
     //add_fjl end
     created() {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
       this.disable = this.$route.params.disabled;
+        this.disableview = this.$route.params._disableview;
       // if (this.disable) {
       //   this.buttonList = [
       //     {
