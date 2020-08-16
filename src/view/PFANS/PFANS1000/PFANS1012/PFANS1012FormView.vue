@@ -2853,7 +2853,7 @@
           }
           this.urlparams = ''
           this.url = ''
-          this.urlparams = {'_id': row.judgement, 'disabled': false};
+          this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
         if (row.judgement_name.substring(0, 2) === 'JC') {
             this.url = 'PFANS1004FormView';
             this.$refs.PFANS1004Pop.open = true;
