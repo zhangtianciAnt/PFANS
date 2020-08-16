@@ -2053,7 +2053,7 @@ export function menu() {
               '_id': 'PFANSDICTIONARY',
               'name': 'menu.PFANSDICTIONARY',
               'menuvisible': true,
-              'menuurl': '/PFANS8009PointView',
+              'menuurl': '/PFANS8009View',
               'menuicon': '',
               'children': [],
               'actions': [
