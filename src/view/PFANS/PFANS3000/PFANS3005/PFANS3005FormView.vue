@@ -1196,7 +1196,7 @@
                         params: {'_id':pub[0]}
                       })
                   }
-                  this.$emit('showPop',this.flowData);
+                  // this.$emit('showPop',this.flowData);
                 }
               })
             //采购业务数据流程查看详情
