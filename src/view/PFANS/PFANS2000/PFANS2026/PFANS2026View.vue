@@ -261,6 +261,7 @@
               if (response) {
                 if (response.length > 0 && response[0].status === '通过' && row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
                   this.buttonList[5].disabled = false;
+                  //工资计算担当可操作【工资对比】
                   if (getCurrentRolegongzijisuan() === '0')
                   {
                       this.buttonList[6].disabled = false;

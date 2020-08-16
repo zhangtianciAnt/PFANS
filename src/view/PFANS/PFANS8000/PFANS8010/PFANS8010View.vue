@@ -6,7 +6,6 @@
       :columns="columns"
       :data="table"
       :title="title"
-      @buttonClick="buttonClick"
       v-loading="loading"
     >
     </EasyNormalTable>
@@ -57,6 +56,9 @@
                 this.$store
                     .dispatch('usersStore/getSigninlog')
                     .then(response => {
+                        //重庆时区
+                        var moment = require('moment-timezone');
+                        moment.tz.setDefault("Asia/Chongqing");
                         for (let j = 0; j < response.length; j++) {
                             response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
                         }
