@@ -3135,6 +3135,10 @@
           dateArr.splice(0, 0, moment(this.form.startdate).format('YYYY-MM-DD'));
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
           this.Todaysum = dateArr;
+        }else{
+          var dateArr = [];
+          dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
+          this.Todaysum = dateArr;
         }
         let moneys = 0;
         if (this.form.type === '0') {

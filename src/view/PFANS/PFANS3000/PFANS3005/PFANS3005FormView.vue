@@ -583,6 +583,9 @@
     getOrgInfoByUserId,
     getOrgInfo,
     getCurrentRole2,
+    getCurrentRole4,
+    getCurrentRole3,
+    getCurrentRole5,
     getDictionaryInfo,
     uploadUrl,
     downLoadUrl,
@@ -954,7 +957,10 @@
               // }
               //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
               let role = getCurrentRole2();
-              if (role === '0') {
+              let role4 = getCurrentRole4();
+              let role5 = getCurrentRole5();
+              let role3 = getCurrentRole3();
+              if (role === '0' || role4 === '0' || role3 === '0' || role5 === '0') {
                 if (this.form.status === '4') {
                   this.enableSave = true;
                   if (this.disable) {
@@ -979,7 +985,8 @@
                     this.buttonList[4].disabled = true;
                   }
                 }
-              } else {
+              }
+              else {
                 if (this.buttonList.length > 5) {
                   this.buttonList[2].disabled = true;
                   this.buttonList[3].disabled = true;
@@ -987,6 +994,7 @@
                 }
                 this.acceptShow1 = true;
               }
+
               //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
               let rst = getOrgInfoByUserId(response.user_id);
               if (rst) {
@@ -1196,7 +1204,7 @@
                         params: {'_id':pub[0]}
                       })
                   }
-                  this.$emit('showPop',this.flowData);
+                  // this.$emit('showPop',this.flowData);
                 }
               })
             //采购业务数据流程查看详情

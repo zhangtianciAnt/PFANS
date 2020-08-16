@@ -14,7 +14,7 @@
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo,getorgGroupList} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getorgGroupList,getorgGroupallList} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
 
@@ -126,7 +126,7 @@
                         let showButton = '0';
                         for (let j = 0; j < response.length; j++) {
                             if(response[j].groupid){
-                                let group = getorgGroupList(response[j].groupid);
+                                let group = getorgGroupallList(response[j].groupid);
                                 if (group) {
                                     response[j].groupname = group.groupname;
                                 }
@@ -241,7 +241,13 @@
                     this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
                 }
                 else{
-                    this.$store.commit('global/SET_OPERATEOWNER', "");
+                    if(this.$store.getters.userinfo.userinfo.groupid === null
+                        && row.status === '0' && Number(row.cost) != 0){
+                        this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
+                    }
+                    else{
+                        this.$store.commit('global/SET_OPERATEOWNER', "");
+                    }
                 }
             },
             buttonClick(val) {

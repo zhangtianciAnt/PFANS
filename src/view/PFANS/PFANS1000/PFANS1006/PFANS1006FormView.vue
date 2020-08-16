@@ -970,7 +970,7 @@
                         params: {'_id':pub[0]}
                       })
                   }
-                  this.$emit('showPop',this.flowData);
+                  // this.$emit('showPop',this.flowData);
                 }
               })
             //采购业务数据流程查看详情
@@ -1339,51 +1339,30 @@
           },
         });
       },
+        //add-fjl-0816-暂借款中，点击决裁，跳转画面
+        checkparams() {
+            let id = this.$route.params._checkid;
+            let fromname = this.$route.params._fromname;
+            this.$router.push({
+                name: fromname,
+                params: {
+                    disabled: true,
+                    _id: id,
+                },
+            });
+        },
+        //add-fjl-0816-暂借款中，点击决裁，跳转画面
       buttonClick(val) {
         if (val === 'back') {
-          if (this.$route.params._check != null && this.$route.params._check != undefined) {
-            if (this.$route.params._check) {
-              let id = this.$route.params._checkid;
-              let disable = this.$route.params._checkdisable;
-              if (this.$route.params._sta)
-              {
-                if (this.$route.params._sta === '0')
-                {
-                  this.$router.push({
-                    name: 'PFANS1002FormView',
-                    params: {
-                      _id: id,
-                      disabled: disable,
-                    },
-                  });
+            //add-fjl-0816-暂借款中，点击决裁，跳转画面
+            if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+                if (this.$route.params._check) {
+                    this.checkparams();
                 }
-                if (this.$route.params._sta === '1')
-                {
-                  this.$router.push({
-                    name: 'PFANS1035FormView',
-                    params: {
-                      _id: id,
-                      disabled: disable,
-                    },
-                  });
-                }
-              }
-              else
-              {
-                this.$router.push({
-                  name: 'PFANS1012FormView',
-                  params: {
-                    _id: id,
-                    disabled: disable,
-                  },
-                });
-              }
             } else {
-              this.paramsTitle();
+                this.paramsTitle();
             }
-          } else {
-            this.paramsTitle();
-          }
+            //add-fjl-0816-暂借款中，点击决裁，跳转画面
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
@@ -1513,7 +1492,7 @@
         }
         this.urlparams = '';
         this.url = '';
-        this.urlparams = {'_id': row.judgement, 'disabled': false};
+          this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
         // this.$store.commit('global/SET_HISTORYURL', '');
         // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1047FormView');
         if (row.judgement_name.substring(0, 2) === 'JC') {

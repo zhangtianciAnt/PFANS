@@ -2447,7 +2447,7 @@
                         params: {'_id':pub[0]}
                       })
                   }
-                  this.$emit('showPop',this.flowData);
+                  // this.$emit('showPop',this.flowData);
                 }
               })
             //采购业务数据流程查看详情
@@ -2853,7 +2853,7 @@
           }
           this.urlparams = ''
           this.url = ''
-          this.urlparams = {'_id': row.judgement, 'disabled': false};
+          this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
         if (row.judgement_name.substring(0, 2) === 'JC') {
             this.url = 'PFANS1004FormView';
             this.$refs.PFANS1004Pop.open = true;
@@ -4835,8 +4835,13 @@
                         }
                       }
                     }
+                      //add_fjl_0816  添加四舍五入
                     sumout = summoney + sumMoney;
-                    if (sumout != this.tableF[j].invoiceamount) {
+                      if (Number(sumout) > 0) {
+                          sumout = (summoney + sumMoney).toFixed(2);
+                      }
+                      //add_fjl_0816  添加四舍五入
+                      if (Number(sumout) != Number(this.tableF[j].invoiceamount)) {
                       error = error + 1;
                       this.activeName = 'first';
                       Message({

@@ -93,7 +93,7 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_AMOUNTCASE')">
                     <el-input-number
                       :disabled="this.form.type === '1' ?true:!disable"
-                      :max="99999999"
+                      :max="999999999"
                       :min="0"
                       :precision="2"
                       :step="1"
@@ -108,7 +108,7 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_MODIFIEDAMOUNT')">
                     <el-input-number
                       :disabled="true"
-                      :max="99999999"
+                      :max="999999999"
                       :min="0"
                       :precision="2"
                       :step="1"
@@ -122,7 +122,7 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_NEWAMOUNTCASE')">
                     <el-input-number
                       :disabled="true"
-                      :max="99999999"
+                      :max="999999999"
                       :min="0"
                       :precision="2"
                       :step="1"
@@ -163,7 +163,7 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_SUMMONET')">
                     <el-input-number
                       :disabled="true"
-                      :max="99999"
+                      :max="999999999"
                       :min="0"
                       :precision="2"
                       :step="1"
@@ -198,7 +198,7 @@
                       <el-input-number
                         :disabled="!disable2"
                         :min="0" :precision="2"
-                        :max="9999999"
+                        :max="999999999"
                         controls-position="right"
                         :no="scope.row"
                         :step="1"

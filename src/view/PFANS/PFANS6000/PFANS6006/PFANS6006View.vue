@@ -801,7 +801,6 @@
               this.$store
                   .dispatch('PFANS6008Store/insertCoststatistics', params)
                   .then(response => {
-                      this.getList();
                       Message({
                           message: this.$t("normal.success_04"),
                           type: "success",
