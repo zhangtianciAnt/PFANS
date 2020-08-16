@@ -14,7 +14,7 @@
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo,getorgGroupList} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getorgGroupList,getorgGroupallList} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
 
@@ -126,7 +126,7 @@
                         let showButton = '0';
                         for (let j = 0; j < response.length; j++) {
                             if(response[j].groupid){
-                                let group = getorgGroupList(response[j].groupid);
+                                let group = getorgGroupallList(response[j].groupid);
                                 if (group) {
                                     response[j].groupname = group.groupname;
                                 }
