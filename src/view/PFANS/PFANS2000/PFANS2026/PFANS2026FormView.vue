@@ -280,7 +280,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')" prop="newreason">
+              <el-form-item :label="$t('label.PFANS2026VIEW_DEPARTUREDATE2')">
                 <el-input :disabled="!disable"
                           style="width: 46vw" type="textarea"
                           v-model="form.newreason">

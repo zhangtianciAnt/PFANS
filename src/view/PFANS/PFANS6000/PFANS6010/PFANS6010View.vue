@@ -241,7 +241,13 @@
                     this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
                 }
                 else{
-                    this.$store.commit('global/SET_OPERATEOWNER', "");
+                    if(this.$store.getters.userinfo.userinfo.groupid === null
+                        && row.status === '0' && Number(row.cost) != 0){
+                        this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
+                    }
+                    else{
+                        this.$store.commit('global/SET_OPERATEOWNER', "");
+                    }
                 }
             },
             buttonClick(val) {
