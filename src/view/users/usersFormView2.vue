@@ -2102,7 +2102,7 @@
   import org from '@/view/components/org';
   import dicselect from '../components/dicselect';
   import moment from 'moment';
-  import {getDictionaryInfo,getCurrentRole6} from "../../utils/customize";
+  import {getDictionaryInfo,getCurrentRole7} from "../../utils/customize";
 
   export default {
     name: 'usersFormView2',
@@ -2854,7 +2854,7 @@
     },
     mounted() {
       //ws-8/14-禅道任务450
-      this.roles = getCurrentRole6();
+      this.roles = getCurrentRole7();
       //ws-8/14-禅道任务450
       this.form.staffexitprocedure;
       if (this.$route.params._org) {

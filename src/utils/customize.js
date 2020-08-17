@@ -545,4 +545,16 @@ export function getCurrentRole6() {
   }
   return "1";
 }
+export function getCurrentRole7() {
+  let roles = "";
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let role of store.getters.useraccount.roles){
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf("总经理") != -1 || roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("工资计算担当") != -1|| roles.toUpperCase().indexOf("招聘担当") != -1|| roles.toUpperCase().indexOf("离职担当") != -1) {
+      return "0";
+    }
+  }
+  return "1";
+}
 //ws-8/14-禅道任务450
