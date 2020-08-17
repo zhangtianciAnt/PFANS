@@ -244,7 +244,7 @@
         //         'params': {}
         //     }
         // ],
-        checkparmers: 0,
+        checkparmers: 1,
         url: '',
         checkstatus: '',
         urlparams: '',
@@ -413,6 +413,11 @@
       }
     },
     created() {
+      if (this.$route.params._disto === "1") {
+        this.checkparmers = 0;
+      } else {
+        this.checkparmers = 1;
+      }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
@@ -731,7 +736,6 @@
         } else {
           this.$refs['ruleForm'].validate(valid => {
             if (valid) {
-              this.checkparmers = 1;
               // add-ws-印章管理下拉多选
               if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
                 let checktlist = this.form.sealtype.splice(',');
