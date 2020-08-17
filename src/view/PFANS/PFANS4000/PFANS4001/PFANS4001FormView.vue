@@ -244,6 +244,7 @@
         //         'params': {}
         //     }
         // ],
+        checkparmers: 0,
         url: '',
         checkstatus: '',
         urlparams: '',
@@ -659,7 +660,14 @@
           .then(response => {
             this.data = response;
             this.loading = false;
-            this.paramsTitle();
+            if (this.checkparmers === 0) {
+              this.$router.push({
+                name: 'PFANS8002View',
+              });
+              this.$emit('changeMenu');
+            } else if (this.checkparmers === 1) {
+              this.paramsTitle()
+            }
           })
           .catch(error => {
             Message({
@@ -723,6 +731,7 @@
         } else {
           this.$refs['ruleForm'].validate(valid => {
             if (valid) {
+              this.checkparmers = 1;
               // add-ws-印章管理下拉多选
               if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
                 let checktlist = this.form.sealtype.splice(',');
