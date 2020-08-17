@@ -2713,8 +2713,8 @@
                   }
                 }
 
-                //add ccm 0806 请事假保存时，check是否有年休，有年休，不允许保存事假，
-                if (this.form.errortype === 'PR013008')
+                //add ccm 0806 请事假超过4小时保存时，check是否有年休，有年休，不允许保存事假，
+                if (this.form.errortype === 'PR013008' && this.form.lengthtime >=4)
                 {
                   let userInfo = getUserInfo(this.form.user_id);
                   if (userInfo)
