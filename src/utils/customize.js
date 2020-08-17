@@ -539,7 +539,7 @@ export function getCurrentRole6() {
     for(let role of store.getters.useraccount.roles){
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("总经理") != -1 || roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("人事担当") != -1) {
+    if (roles.toUpperCase().indexOf("总经理") != -1 || roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("工资计算担当") != -1) {
       return "0";
     }
   }
