@@ -132,8 +132,17 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
+                  <!--                  ADD_FJL_0819  添加区分-->
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1006FORMVIEW_DISTINGUISH')">
+                      <el-radio-group @change="radioChange" v-model="form.publicradio">
+                        <el-radio label="1">{{$t('label.PFANS1006FORMVIEW_PUBLIC')}}</el-radio>
+                        <el-radio label="2">{{$t('label.PFANS1006FORMVIEW_DEDICATED')}}</el-radio>
+                      </el-radio-group>
+                    </el-form-item>
+                  </el-col>
+                  <!--                  ADD_FJL_0819  添加区分-->
                 </el-row>
-
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
@@ -653,6 +662,7 @@
           uploadfile: '',
           canafver: '0',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
+            publicradio: '2',//专用
         },
         currentRow: '',
         currentRow1: '',
@@ -1240,6 +1250,11 @@
       getmodule(val) {
         this.form.moduleid = val;
       },
+        //ADD_FJL_0819  添加区分
+        radioChange(val) {
+            this.form.publicradio = val;
+        },
+        //ADD_FJL_0819  添加区分
       changecurrencychoice(val) {
         this.form.currencychoice = val;
       },
