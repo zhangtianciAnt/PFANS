@@ -302,9 +302,13 @@
             params: {
               _id: this.rowid,
               disabled: false,
+              //add-ws-8/19-禅道458任务修正
+              _workfliw: true,
+              //add-ws-8/19-禅道458任务修正
             },
           });
-        } else if (val === 'insert') {
+        }
+        else if (val === 'insert') {
           this.$router.push({
             name: 'PFANS1012PointFormView',
             params: {
@@ -313,7 +317,8 @@
             },
           });
 
-        } else if (val === 'export') {
+        }
+        else if (val === 'export') {
           this.startoptionvalue = [];
           this.totalcostvalue = [];
           this.startoption = [];
@@ -597,6 +602,9 @@
             params: {
               _id: this.rowid,
               disabled: true,
+              //add-ws-8/19-禅道458任务修正
+              _workfliw: true,
+              //add-ws-8/19-禅道458任务修正
             },
           });
         } else if (val === 'export1') {

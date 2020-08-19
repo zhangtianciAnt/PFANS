@@ -2645,6 +2645,11 @@
       }
     },
     created() {
+      //add-ws-8/19-禅道458任务修正
+      if(this.$route.params._workfliw){
+        this.$store.commit("global/SET_WORKFLOWURL", '/PFANS1012View');
+      }
+      //add-ws-8/19-禅道458任务修正
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
