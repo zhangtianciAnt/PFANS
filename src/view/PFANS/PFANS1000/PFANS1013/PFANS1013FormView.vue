@@ -1781,6 +1781,7 @@
           });
       } else {
         this.getBusInside();
+          this.getBusOuter();
         this.checkmoney = true;
         this.checktaxes = true;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
@@ -2130,12 +2131,28 @@
             this.loading = false;
           });
       },
+        //add_fjl_0820 添加境内出差申请申请精算书联动 start
+        busInt() {
+            if (this.$route.params._name) {
+                if (this.$route.params._name[0].judgements_type === this.$t('title.PFANS1002VIEW')) {
+                    this.form.type = '1';
+                } else if (this.$route.params._name[0].judgements_type === this.$t('title.PFANS1035VIEW')) {
+                    this.form.type = '0';
+                }
+                this.form.business_id = this.$route.params._name[0].value;
+                this.$nextTick(function () {
+                    this.changebusiness(this.form.business_id);
+                });
+            }
+        },
+        //add_fjl_0820 添加境内出差申请申请精算书联动 start
       getBusInside() {
         let businesstype = {'businesstype': '1'};
         this.loading = true;
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
+              this.relations = [];
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2175,6 +2192,10 @@
                 }
               }
             }
+
+              //add_fjl_0820 添加境内出差申请申请精算书联动 start
+              this.busInt();
+              //add_fjl_0820 添加境内出差申请申请精算书联动 end
             this.business(this.form.business_id);
             this.loading = false;
           })
@@ -2193,6 +2214,7 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
+              this.relations = [];
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2216,7 +2238,7 @@
 
               } else {
                 if (response[i].status === '4') {
-                  this.relations.push({
+                    this.relations.push({
                     place: response[i].city,
                     value: response[i].business_id,
                     label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
@@ -2235,6 +2257,9 @@
                 }
               }
             }
+              //add_fjl_0820 添加境内出差申请申请精算书联动 start
+              this.busInt();
+              //add_fjl_0820 添加境内出差申请申请精算书联动 end
             this.business(this.form.business_id);
             this.loading = false;
           })

@@ -1346,30 +1346,30 @@
                     loan = loan.substring(0, loan.length - 1);
                     if (loan != null && loan != '' && loan != undefined) {
                       this.$router.push({
-                        name: 'PFANS1012FormView',
+                          name: 'PFANS1013FormView',
                         params: {
                           _name: optionsSEL,
-                          _type: 'PJ001002',
+                            // _type: 'PJ001002',
                           _haveLoanapp: loanid,
                           disabled: true,
                         },
                       });
                     } else {
                       this.$router.push({
-                        name: 'PFANS1012FormView',
+                          name: 'PFANS1013FormView',
                         params: {
                           _name: optionsSEL,
-                          _type: 'PJ001002',
+                            // _type: 'PJ001002',
                           disabled: true,
                         },
                       });
                     }
                   } else {
                       this.$router.push({
-                          name: 'PFANS1012FormView',
+                          name: 'PFANS1013FormView',
                           params: {
                               _name: optionsSEL,
-                              _type: 'PJ001002',
+                              // _type: 'PJ001002',
                               disabled: true,
                           },
                       });
