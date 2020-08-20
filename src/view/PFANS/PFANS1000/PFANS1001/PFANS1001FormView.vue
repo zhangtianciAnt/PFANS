@@ -64,6 +64,15 @@
             fix: false,
             filter: true,
           },
+          //add-ws-8/19-禅道470任务
+          {
+            code: 'loanapno',
+            label: 'label.PFANS1006FORMVIEW_LOANAPNO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-8/19-禅道470任务
           {
             code: 'remarks',
             label: 'label.PFANS1012VIEW_ABSTRACT',
@@ -117,6 +126,15 @@
             fix: false,
             filter: true,
           },
+          //add-ws-8/19-禅道470任务
+          {
+            code: 'loanapno',
+            label: 'label.PFANS1006FORMVIEW_LOANAPNO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-8/19-禅道470任务
           {
             code: 'filename',
             label: 'label.PFANS1012VIEW_ABSTRACT',
@@ -172,6 +190,15 @@
             filter: true,
           },
           // ztc 禅道No.61-增加编号（日期加序列号 end
+          //add-ws-8/19-禅道470任务
+          {
+            code: 'loanapno',
+            label: 'label.PFANS1006FORMVIEW_LOANAPNO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-8/19-禅道470任务
           {
             code: 'user_id',
             label: 'label.applicant',
@@ -227,6 +254,7 @@
 
 //        add_fjl_05/27  --添加暂借款申请单列表
         columns4: [
+          //add-ws-8/19-禅道470任务
           {
             code: 'loanapno',
             label: 'label.PFANS1006FORMVIEW_LOANAPNO',
@@ -234,6 +262,7 @@
             fix: false,
             filter: true,
           },
+          //add-ws-8/19-禅道470任务
           {
             code: 'user_id',
             label: 'label.applicant',
@@ -322,6 +351,15 @@
             fix: false,
             filter: true,
           },
+          //add-ws-8/19-禅道470任务
+          {
+            code: 'loanapno',
+            label: 'label.PFANS1006FORMVIEW_LOANAPNO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-8/19-禅道470任务
           {
             code: 'company',
             label: 'label.PFANS1010FORMVIEW_OPPOSITEUNIT',
@@ -813,6 +851,28 @@
               });
               return;
             }
+            //add-ws-8/19-禅道470任务
+            else{
+              let selectedlist = this.$refs.roletable1.selectedList
+              let n = 0;
+              let checksum = selectedlist.length
+              for (let i = 0; i < selectedlist.length; i++) {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' ) {
+                  n = n + 1
+                }
+              }
+              if(n!=checksum){
+                if(n!=0){
+                  Message({
+                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                    type: 'info',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+              }
+            }
+            //add-ws-8/19-禅道470任务
             this.selectedlist = this.$refs.roletable1.selectedList;
             let optionsSEL = [];
             for (let i = 0; i < this.selectedlist.length; i++) {
@@ -925,7 +985,28 @@
                 duration: 2 * 1000
               });
               return;
+            }//add-ws-8/19-禅道470任务
+            else{
+              let selectedlist = this.$refs.roletable3.selectedList
+              let n = 0;
+              let checksum = selectedlist.length
+              for (let i = 0; i < selectedlist.length; i++) {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' ) {
+                  n = n + 1
+                }
+              }
+              if(n!=checksum){
+                if(n!=0){
+                  Message({
+                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                    type: 'info',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+              }
             }
+            //add-ws-8/19-禅道470任务
             this.selectedlist = this.$refs.roletable3.selectedList;
             let optionsSEL = [];
             let judname = ''
@@ -1054,7 +1135,28 @@
                 duration: 2 * 1000
               });
               return;
+            }//add-ws-8/19-禅道470任务
+            else{
+              let selectedlist = this.$refs.roletable2.selectedList
+              let n = 0;
+              let checksum = selectedlist.length
+              for (let i = 0; i < selectedlist.length; i++) {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' ) {
+                  n = n + 1
+                }
+              }
+              if(n!=checksum){
+                if(n!=0){
+                  Message({
+                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                    type: 'info',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+              }
             }
+            //add-ws-8/19-禅道470任务
             this.selectedlist = this.$refs.roletable2.selectedList;
             let optionsSEL = [];
             for (let i = 0; i < this.selectedlist.length; i++) {
@@ -1168,7 +1270,28 @@
                 duration: 2 * 1000
               });
               return;
+            }//add-ws-8/19-禅道470任务
+            else{
+              let selectedlist = this.$refs.roletable5.selectedList
+              let n = 0;
+              let checksum = selectedlist.length
+              for (let i = 0; i < selectedlist.length; i++) {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' ) {
+                  n = n + 1
+                }
+              }
+              if(n!=checksum){
+                if(n!=0){
+                  Message({
+                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                    type: 'info',
+                    duration: 2 * 1000
+                  });
+                  return;
+                }
+              }
             }
+            //add-ws-8/19-禅道470任务
             this.selectedlist = this.$refs.roletable5.selectedList;
             let optionsSEL = [];
             let judname = ''

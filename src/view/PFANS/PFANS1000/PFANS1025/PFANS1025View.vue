@@ -48,6 +48,15 @@
             fix: false,
             filter: false,
           },
+          //add-ws-8/19-禅道470任务
+          {
+            code: 'loanapno',
+            label: 'label.PFANS1006FORMVIEW_LOANAPNO',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-8/19-禅道470任务
           {
             code: 'contracttype',
             label: 'label.PFANS1024VIEW_CONTRACTTYPE',
@@ -512,6 +521,23 @@
             });
             return;
           } else {
+            let n = 0;
+            let checksum =  this.selectedlist.length
+            for (let i = 0; i <  this.selectedlist.length; i++) {
+              if ( this.selectedlist[i].loanapno == null ||  this.selectedlist[i].loanapno == '' ) {
+                n = n + 1
+              }
+            }
+            if(n!=checksum){
+              if(n!=0){
+                Message({
+                  message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                  type: 'info',
+                  duration: 2 * 1000
+                });
+                return;
+              }
+            }
             for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({

@@ -604,6 +604,7 @@ module.exports = {
     INDEX_RLRC: '日历历程',
     INDEX_RILICHECK: '查看日期类型',
     PFANS1001FORMVIEW_NUMBERS: '决裁编号',
+    PFANS1001FORMVIEW_CHECKSUM: '请选择都有暂借款的决裁或是都没有暂借款的决裁进行精算!',
     PFANS1001FORMVIEW_BUSINESS_NUMBER: '出差编号',
     PFANS1002FORMVIEW_DOMESTIC: '境内出差',
     PFANS1002FORMVIEW_ABROAD: '境外出差',
