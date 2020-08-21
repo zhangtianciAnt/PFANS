@@ -3815,11 +3815,11 @@
                 let thismonthterm = Number(row.thismonthterm) + Number(row.thismonthadditional) + Number(row.thismonthdutyfree)
                 if(newdate.getFullYear() === workdate.getFullYear()){
                     //累計应纳税所得额
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1- workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
+                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 0 - workdate.getMonth() + 1 ) - thismonthterm) * 100) / 100;
                 }
                 else{
                     //累計应纳税所得额
-                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 1 ) - thismonthterm) * 100) / 100;
+                    row.shouldpaytaxes = Math.round((Number(row.shouldcumulative) - Number(row.dic_ljynssdecs) * ( newdate.getMonth() - 0 ) - thismonthterm) * 100) / 100;
                 }
                 //本月应扣缴所得税
                 if(Number(row.shouldpaytaxes) >= Number(row.dic_0je) && Number(row.shouldpaytaxes) <= Number(row.dic_1je)){
@@ -3880,6 +3880,7 @@
                 this.$store
                     .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
                     .then(response => {
+                        debugger;
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
                         let datalist = [];
