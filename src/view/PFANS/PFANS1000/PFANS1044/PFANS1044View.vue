@@ -769,9 +769,11 @@
                 if (letContracttype != null) {
                   citem.currencyposition = letContracttype.value1;
                 }
-                // if (citem.deliverydate != null) {
-                //   citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
-                // }
+                  //add_fjl_0923_纳品完了日format
+                  if (citem.deliverydate != null) {
+                      citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
+                  }
+                  //add_fjl_0923_纳品完了日format
                 //add_fjl_0803
                 // if (citem.deliveryfinshdate != null) {
                 //     citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
