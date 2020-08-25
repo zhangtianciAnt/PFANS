@@ -126,3 +126,11 @@ export function getworkfolwPurchaseData(data) {
   })
 }
 //采购业务数据流程查看详情
+// add-ws-8/20-禅道469
+export function loanapplication() {
+  return request({
+    url: 'publicexpense/loanapplication',
+    method: 'get'
+  })
+}
+// add-ws-8/20-禅道469
