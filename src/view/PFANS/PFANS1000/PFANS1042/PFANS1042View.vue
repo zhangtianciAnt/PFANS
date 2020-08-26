@@ -1592,7 +1592,7 @@
                                         if (suminhours == 0) {
                                             sumoutsourcingname = 0;
                                         } else {
-                                            sumoutsourcingname = (Number(response[j].outhours) / Number(suminhours) * outsourcingname).toFixed(2);
+                                            sumoutsourcingname = (Number(response[j].inhours) / Number(suminhours) * outsourcingname).toFixed(2);
                                         }
                                         //设员工数百分比*社员配赋费
                                         let sumemployeename = 0;
