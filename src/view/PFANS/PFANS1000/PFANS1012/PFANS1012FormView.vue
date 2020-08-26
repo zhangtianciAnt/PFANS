@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
-                         @buttonClick="buttonClick" @disabled="setdisabled"  :enableSave="enableSave"
+                         @buttonClick="buttonClick" @disabled="setdisabled" :enableSave="enableSave"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading"
                          :workflowCode="workflowCode">
       <div slot="customize">
@@ -125,8 +125,9 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8" >
-                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCY')" v-if="this.form.type === 'PJ001001'?false:true">
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCY')"
+                                  v-if="this.form.type === 'PJ001001'?false:true">
                       <el-input :disabled="true" style="width:20vw" v-model="form.currency"></el-input>
                     </el-form-item>
                   </el-col>
@@ -262,9 +263,9 @@
                   </el-col>
                   <!--add-ws-8/12-禅道任务446-->
                   <el-col :span="8" v-if="this.role2==='0'">
-                    <el-form-item :label="$t('label.status')" >
+                    <el-form-item :label="$t('label.status')">
                       <el-select clearable style="width: 20vw" v-model="form.processingstatus" :disabled="acceptShow"
-                                 :placeholder="$t('normal.error_09')" >
+                                 :placeholder="$t('normal.error_09')">
                         <el-option
                           v-for="item in options2"
                           :key="item.value"
@@ -358,30 +359,34 @@
                   </el-col>
                 </el-row>
                 <el-row>
-<!--                  <el-col :span="8">-->
-<!--                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">-->
-<!--                      <el-select :disabled="!disable" @change="changeLoan" clearable filterable style="width:20vw"-->
-<!--                                 v-model="form.loan">-->
-<!--                        <el-option-->
-<!--                          :key="item.value"-->
-<!--                          :label="item.label"-->
-<!--                          :value="item.value"-->
-<!--                          v-for="item in options">-->
-<!--                        </el-option>-->
-<!--                      </el-select>-->
-<!--                      <el-button @click="clickBun" size="small" type="primary">{{$t('button.view')}}</el-button>-->
-<!--                    </el-form-item>-->
-<!--                  </el-col>-->
-<!--                  &lt;!&ndash;                  add_fjl_0722 添加【供应商/社员名称】显示  start&ndash;&gt;-->
-<!--                  <el-col :span="8" v-if="form.loan !== ''">-->
-<!--                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCENAME')">-->
-<!--                      <el-input :disabled="true" style="width:20vw" v-model="form.accename"></el-input>-->
-<!--                    </el-form-item>-->
-<!--                  </el-col>-->
-<!--                  &lt;!&ndash;                  add_fjl_0722 添加【供应商/社员名称】显示  end&ndash;&gt;-->
-                  <el-table :data="tableLoa" border
+                  <!--                  <el-col :span="8">-->
+                  <!--                    <el-form-item :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" v-show="show4" prop="loan">-->
+                  <!--                      <el-select :disabled="!disable" @change="changeLoan" clearable filterable style="width:20vw"-->
+                  <!--                                 v-model="form.loan">-->
+                  <!--                        <el-option-->
+                  <!--                          :key="item.value"-->
+                  <!--                          :label="item.label"-->
+                  <!--                          :value="item.value"-->
+                  <!--                          v-for="item in options">-->
+                  <!--                        </el-option>-->
+                  <!--                      </el-select>-->
+                  <!--                      <el-button @click="clickBun" size="small" type="primary">{{$t('button.view')}}</el-button>-->
+                  <!--                    </el-form-item>-->
+                  <!--                  </el-col>-->
+                  <!--                  &lt;!&ndash;                  add_fjl_0722 添加【供应商/社员名称】显示  start&ndash;&gt;-->
+                  <!--                  <el-col :span="8" v-if="form.loan !== ''">-->
+                  <!--                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCENAME')">-->
+                  <!--                      <el-input :disabled="true" style="width:20vw" v-model="form.accename"></el-input>-->
+                  <!--                    </el-form-item>-->
+                  <!--                  </el-col>-->
+                  <!--                  &lt;!&ndash;                  add_fjl_0722 添加【供应商/社员名称】显示  end&ndash;&gt;-->
+                  <el-table :data="tableLoa" border ref="multipleTable"
                             v-show="show4" header-cell-class-name="sub_bg_color_blue"
-                            stripe style="width: 902px">
+                            stripe style="width: 957px" @selection-change="handleSelectionChange">
+                    <!--                    add-ws-8/20-禅道469-->
+                    <el-table-column type="selection" width="55"
+                                     :selectable="selectInit"></el-table-column>
+                    <!--                    add-ws-8/20-禅道469-->
                     <el-table-column :label="$t('label.PFANS1012VIEW_TEMPORARYLOAN')" align="center"
                                      prop="loanapno" width="200px">
                       <template slot-scope="scope">
@@ -889,7 +894,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150" >
+                                         width="150">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
@@ -1122,7 +1127,7 @@
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
-                                         width="150" >
+                                         width="150">
                           <template slot-scope="scope">
                             <el-input-number
                               :disabled="!disablecurr"
@@ -1323,15 +1328,15 @@
 
 
 <script>
-    import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
-    import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
-    import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
-    import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
-    import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
-    import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
-    import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
-    import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
-    import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
+  import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
+  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+  import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
+  import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+  import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
+  import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+  import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+  import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
@@ -1343,7 +1348,7 @@
     getCurrentRole,
     getStatus,
     uploadUrl,
-    downLoadUrl,getCurrentRole5
+    downLoadUrl, getCurrentRole5,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -1352,15 +1357,15 @@
   export default {
     name: 'PFANS1012FormView',
     components: {
-        PFANS1003Pop,
-        PFANS1004Pop,
-        PFANS1005Pop,
-        PFANS1025Pop,
-        PFANS3005Pop,
-        PFANS1002Pop,
-        PFANS1035Pop,
-        PFANS1010Pop,
-        PFANS1006Pop,
+      PFANS1003Pop,
+      PFANS1004Pop,
+      PFANS1005Pop,
+      PFANS1025Pop,
+      PFANS3005Pop,
+      PFANS1002Pop,
+      PFANS1035Pop,
+      PFANS1010Pop,
+      PFANS1006Pop,
       dicselect,
       EasyNormalContainer,
       getOrgInfoByUserId,
@@ -1505,16 +1510,16 @@
           },
         ],
         // add-ws-8/12-禅道任务446
-        tableLoa:[],
-        multipleSelection:[],
-          url: '',
-          urlparams: '',
+        tableLoa: [],
+        multipleSelection: [],
+        url: '',
+        urlparams: '',
         checkexpectedpaydate: false,
         DataList2: [],
         show12: false,
         DataList: [{
           judgement_name: '',
-            remarks: '',
+          remarks: '',
         }],
         invoicetype: '',
         checkexternal: false,
@@ -1522,7 +1527,7 @@
         checkdisable: false,
         plsummary: '',
         Codecheck: '',
-          // checkCode1: '0',
+        // checkCode1: '0',
         checkcode: '',
         checktime: false,
         centerid: '',
@@ -1566,11 +1571,11 @@
         active2: '2',
         activeName: 'first',
         disablde: true,
-          checkGro: false,
+        checkGro: false,
         loading: false,
         disabled: false,
         disablecurr: false,
-          fromViewname: '',
+        fromViewname: '',
         buttonList: [],
         checkCode2: '',
         tableT: [{
@@ -1589,7 +1594,7 @@
           annexno: '',
           rowindex: '',
           display: true,
-            RedirictT: '',
+          RedirictT: '',
         }],
         tableF: [{
           invoice_id: '',
@@ -1626,7 +1631,7 @@
           showrow2: false,
           showrow3: false,
           display: true,
-            RedirictP: '',
+          RedirictP: '',
         }],
         tableR: [{
           code16: '',
@@ -1650,9 +1655,9 @@
           taxes: '',
           annexno: '',
           rowindex: '',
-            checkCode2: '',
-            checkCode: '',
-            RedirictR: '',
+          checkCode2: '',
+          checkCode: '',
+          RedirictR: '',
           display: true,
         }],
         baseInfo: {},
@@ -1689,9 +1694,9 @@
           type: '',
           judgement: '',
           judgement_name: '',
-            remarksdetail: '',
-            judgements_moneys: '',
-            judgements_type: '',
+          remarksdetail: '',
+          judgements_moneys: '',
+          judgements_type: '',
           receivables: '',
           loan: '',
           fullname: '',
@@ -1706,7 +1711,7 @@
           otherremarks: '',
           suppliername: '',
           uploadfile: '',
-            accename: '',
+          accename: '',
         },
         rules: {
           user_id: [{
@@ -1810,7 +1815,7 @@
         showjpy: false,
         showother: false,
         canStart: false,
-        flowData:[],
+        flowData: [],
       };
     },
     mounted() {
@@ -1881,15 +1886,14 @@
         this.$store
           .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
           .then(response => {
-            if (response.publicexpense!=null)
-            {
-              this.form = response.publicexpense;
-              if(this.form.status ==='4'){
-                this.acceptShow = false
-              }else{
-                this.acceptShow = true
-              }
-            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+              if (response.publicexpense != null) {
+                this.form = response.publicexpense;
+                if (this.form.status === '4') {
+                  this.acceptShow = false;
+                } else {
+                  this.acceptShow = true;
+                }
+                if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                   let uploadfile = this.form.uploadfile.split(';');
                   for (var i = 0; i < uploadfile.length; i++) {
                     if (uploadfile[i].split(',')[0] != '') {
@@ -1898,563 +1902,553 @@
                       o.url = uploadfile[i].split(',')[1];
                       this.fileList.push(o);
                     }
+                  }
                 }
-              }
 //add-ws-6/12-禅道105
-              if ((getCurrentRole() != '1')) {
-                if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                  this.workflowCode = 'W0115';
-                } else {
+                if ((getCurrentRole() != '1')) {
                   if (this.form.moneys >= 20000) {
                     this.workflowCode = 'W0077';
                   } else {
                     this.workflowCode = 'W0016';
                   }
+                } else {
+                  this.workflowCode = 'W0100';
                 }
-              } else {
-                this.workflowCode = 'W0100';
-              }
 //add-ws-6/12-禅道105
 //add-ws-6/16-禅道103
-              if (this.disable) {
-                if (this.form.paymentmethod === 'PJ004001') {
-                  this.checkexpectedpaydate = false;
-                } else if (this.form.paymentmethod === 'PJ004002') {
-                  this.checkexpectedpaydate = false;
-                } else if (this.form.paymentmethod === 'PJ004003') {
-                  this.checkexpectedpaydate = true;
-                } else if (this.form.paymentmethod === 'PJ004004') {
-                  this.checkexpectedpaydate = true;
+                if (this.disable) {
+                  if (this.form.paymentmethod === 'PJ004001') {
+                    this.checkexpectedpaydate = false;
+                  } else if (this.form.paymentmethod === 'PJ004002') {
+                    this.checkexpectedpaydate = false;
+                  } else if (this.form.paymentmethod === 'PJ004003') {
+                    this.checkexpectedpaydate = true;
+                  } else if (this.form.paymentmethod === 'PJ004004') {
+                    this.checkexpectedpaydate = true;
+                  } else {
+                    this.checkexpectedpaydate = true;
+                  }
                 } else {
                   this.checkexpectedpaydate = true;
                 }
-              }else{
-                this.checkexpectedpaydate = true;
-              }
 //add-ws-6/16-禅道103
-              //add-ws-4/28-精算中，点击决裁，跳转画面
-              let judgement = this.form.judgement.split(',');
-              let judgementname = this.form.judgement_name.split(',');
-                  let remarks = [];
-                  let judgements_moneys = [];
-                  let judgements_type = [];
-                  if (this.form.remarksdetail !== '' && this.form.remarksdetail !== null && this.form.remarksdetail !== undefined) {
-                      remarks = this.form.remarksdetail.split('^');
-                  }
-                  if (this.form.judgements_moneys !== '' && this.form.judgements_moneys !== null && this.form.judgements_moneys !== undefined) {
-                      judgements_moneys = this.form.judgements_moneys.split('^');
-                  }
-                  if (this.form.judgements_type !== '' && this.form.judgements_type !== null && this.form.judgements_type !== undefined) {
-                      judgements_type = this.form.judgements_type.split('^');
-                  }
-              let datalist = [];
-              for (var i = 0; i < judgement.length; i++) {
-                for (var d = 0; d < judgementname.length; d++) {
-                  if (i === d) {
-                    let obj = {};
-                    obj.judgement = judgement[i];
-                    obj.judgement_name = judgementname[d];
+                //add-ws-4/28-精算中，点击决裁，跳转画面
+                let judgement = this.form.judgement.split(',');
+                let judgementname = this.form.judgement_name.split(',');
+                let remarks = [];
+                let judgements_moneys = [];
+                let judgements_type = [];
+                if (this.form.remarksdetail !== '' && this.form.remarksdetail !== null && this.form.remarksdetail !== undefined) {
+                  remarks = this.form.remarksdetail.split('^');
+                }
+                if (this.form.judgements_moneys !== '' && this.form.judgements_moneys !== null && this.form.judgements_moneys !== undefined) {
+                  judgements_moneys = this.form.judgements_moneys.split('^');
+                }
+                if (this.form.judgements_type !== '' && this.form.judgements_type !== null && this.form.judgements_type !== undefined) {
+                  judgements_type = this.form.judgements_type.split('^');
+                }
+                let datalist = [];
+                for (var i = 0; i < judgement.length; i++) {
+                  for (var d = 0; d < judgementname.length; d++) {
+                    if (i === d) {
+                      let obj = {};
+                      obj.judgement = judgement[i];
+                      obj.judgement_name = judgementname[d];
                       obj.remarks = remarks[i];
                       obj.judgements_moneys = judgements_moneys[i];
                       obj.judgements_type = judgements_type[i];
-                    datalist[i] = obj;
+                      datalist[i] = obj;
+                    }
                   }
                 }
-              }
-              this.DataList = datalist;
-              //add-ws-4/28-精算中，点击决裁，跳转画面
-              let rst = getOrgInfoByUserId(response.publicexpense.user_id);
-              //ADD-WS-4/20-交通费得时候模块修改
-              if (this.form.type === 'PJ001001') {
-                if (this.form.moduleid !== null && this.form.moduleid !== '') {
-                  let moduleidinfo = getDictionaryInfo(this.form.moduleid);
-                  if (moduleidinfo) {
-                    this.form.moduleidApp = moduleidinfo.value1;
+                this.DataList = datalist;
+                //add-ws-4/28-精算中，点击决裁，跳转画面
+                let rst = getOrgInfoByUserId(response.publicexpense.user_id);
+                //ADD-WS-4/20-交通费得时候模块修改
+                if (this.form.type === 'PJ001001') {
+                  if (this.form.moduleid !== null && this.form.moduleid !== '') {
+                    let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                    if (moduleidinfo) {
+                      this.form.moduleidApp = moduleidinfo.value1;
+                    }
+                  }
+                } else if (this.form.type === 'PJ001002') {
+                  if (this.form.moduleid !== null && this.form.moduleid !== '') {
+                    let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                    if (moduleidinfo) {
+                      this.form.moduleid = moduleidinfo.value1;
+                    }
                   }
                 }
-              } else if (this.form.type === 'PJ001002') {
-                if (this.form.moduleid !== null && this.form.moduleid !== '') {
-                  let moduleidinfo = getDictionaryInfo(this.form.moduleid);
-                  if (moduleidinfo) {
-                    this.form.moduleid = moduleidinfo.value1;
-                  }
-                }
-              }
-              //ADD-WS-4/20-交通费得时候模块修改
-              // if (this.form.moduleid == 'PJ001001') {
-              //   let moduleidinfo = getDictionaryInfo(this.form.moduleid);
-              //   if (moduleidinfo != null) {
-              //     this.form.moduleid = moduleidinfo.value1;
-              //   }
-              //   // moduleid
-              // }
-              if (rst) {
+                //ADD-WS-4/20-交通费得时候模块修改
+                // if (this.form.moduleid == 'PJ001001') {
+                //   let moduleidinfo = getDictionaryInfo(this.form.moduleid);
+                //   if (moduleidinfo != null) {
+                //     this.form.moduleid = moduleidinfo.value1;
+                //   }
+                //   // moduleid
+                // }
+                if (rst) {
                   if (rst.groupId !== null && rst.groupId !== '') {
-                      this.checkGro = true;
+                    this.checkGro = true;
                   } else {
-                      this.checkGro = false;
+                    this.checkGro = false;
                   }
                   // this.centerid = rst.centerNmae;
                   // this.groupid = rst.groupNmae;
                   // this.teamid = rst.teamNmae;
-              }
-              if (response.invoice.length > 0) {
-                this.tableF = response.invoice;
-                if (this.form.status === '2') {
-                  this.checkexternal = true;
-                  this.checktaxes = true;
-                  this.checkdisable = true;
-                  this.disablecheck = true;
                 }
-                this.checkoptionsdata();
-              }
-              if (response.trafficdetails.length > 0) {
-                this.tableT = response.trafficdetails;
-                for (var i = 0; i < this.tableT.length; i++) {
-                  this.orglist = this.tableT[i].departmentname;
-                  let group = getOrgInfo(this.orglist);
-                  if (group) {
+                if (response.invoice.length > 0) {
+                  this.tableF = response.invoice;
+                  if (this.form.status === '2') {
+                    this.checkexternal = true;
+                    this.checktaxes = true;
+                    this.checkdisable = true;
+                    this.disablecheck = true;
+                  }
+                  this.checkoptionsdata();
+                }
+                if (response.trafficdetails.length > 0) {
+                  this.tableT = response.trafficdetails;
+                  for (var i = 0; i < this.tableT.length; i++) {
+                    this.orglist = this.tableT[i].departmentname;
+                    let group = getOrgInfo(this.orglist);
+                    if (group) {
                       this.tableT[i].RedirictT = group.redirict;
-                  }
-                  if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
-                    //ADD_FJL
-                    this.tableT[i].optionsT = [];
-                    let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                      for (let j = 0; j < dic.length; j++) {
-                        if (butinfo === dic[j].value1) {
-                          this.tableT[i].optionsT.push({
-                            lable: dic[j].value2 + '_' + dic[j].value3,
-                            value: dic[j].code,
-                          });
+                    }
+                    if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
+                      //ADD_FJL
+                      this.tableT[i].optionsT = [];
+                      let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
+                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                      if (dic.length > 0) {
+                        for (let j = 0; j < dic.length; j++) {
+                          if (butinfo === dic[j].value1) {
+                            this.tableT[i].optionsT.push({
+                              lable: dic[j].value2 + '_' + dic[j].value3,
+                              value: dic[j].code,
+                            });
+                          }
                         }
                       }
+                      //ADD_FJL  修改人员预算编码
                     }
-                    //ADD_FJL  修改人员预算编码
-                  }
                     if (this.tableT[i].RedirictT == '0') {
-                    this.tableT[i].accoundoptionsdate = [];
-                    let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-                    for (let a = 0; a < dicnew.length; a++) {
-                      if (dicnew[a].code === 'PJ119004') {
-                        this.tableT[i].accoundoptionsdate.push({
-                          value: dicnew[a].code,
-                          lable: dicnew[a].value1,
-                        });
+                      this.tableT[i].accoundoptionsdate = [];
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        if (dicnew[a].code === 'PJ119004') {
+                          this.tableT[i].accoundoptionsdate.push({
+                            value: dicnew[a].code,
+                            lable: dicnew[a].value1,
+                          });
+                        }
                       }
-                    }
                     } else if (this.tableT[i].RedirictT == '1' || this.tableT[i].RedirictT == '') {
-                    this.tableT[i].accoundoptionsdate = [];
-                    let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-                    for (let a = 0; a < dicnew.length; a++) {
-                      if (dicnew[a].code === 'PJ132004') {
-                        this.tableT[i].accoundoptionsdate.push({
-                          value: dicnew[a].code,
-                          lable: dicnew[a].value1,
-                        });
+                      this.tableT[i].accoundoptionsdate = [];
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        if (dicnew[a].code === 'PJ132004') {
+                          this.tableT[i].accoundoptionsdate.push({
+                            value: dicnew[a].code,
+                            lable: dicnew[a].value1,
+                          });
+                        }
                       }
                     }
-                  }
 
+                  }
                 }
-              }
-              if (response.purchasedetails.length > 0) {
-                this.tableP = response.purchasedetails;
-                for (var i = 0; i < this.tableP.length; i++) {
-                  this.tableP[i].code17 = '';
-                  this.orglist = this.tableP[i].departmentname;
-                  let group = getOrgInfo(this.orglist);
-                  if (group) {
+                if (response.purchasedetails.length > 0) {
+                  this.tableP = response.purchasedetails;
+                  for (var i = 0; i < this.tableP.length; i++) {
+                    this.tableP[i].code17 = '';
+                    this.orglist = this.tableP[i].departmentname;
+                    let group = getOrgInfo(this.orglist);
+                    if (group) {
                       this.tableP[i].RedirictP = group.redirict;
-                  }
-                  if (this.tableP[i].departmentname !== '' && this.tableP[i].departmentname !== null && this.tableP[i].departmentname !== undefined) {
-                    //ADD_FJL
-                    this.tableP[i].optionsP = [];
-                    let butinfo = getOrgInfo(this.tableP[i].departmentname).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                      for (let j = 0; j < dic.length; j++) {
-                        if (butinfo === dic[j].value1) {
-                          this.tableP[i].optionsP.push({
-                            lable: dic[j].value2 + '_' + dic[j].value3,
-                            value: dic[j].code,
-                          });
+                    }
+                    if (this.tableP[i].departmentname !== '' && this.tableP[i].departmentname !== null && this.tableP[i].departmentname !== undefined) {
+                      //ADD_FJL
+                      this.tableP[i].optionsP = [];
+                      let butinfo = getOrgInfo(this.tableP[i].departmentname).encoding;
+                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                      if (dic.length > 0) {
+                        for (let j = 0; j < dic.length; j++) {
+                          if (butinfo === dic[j].value1) {
+                            this.tableP[i].optionsP.push({
+                              lable: dic[j].value2 + '_' + dic[j].value3,
+                              value: dic[j].code,
+                            });
+                          }
                         }
                       }
+                      //ADD_FJL  修改人员预算编码
                     }
-                    //ADD_FJL  修改人员预算编码
-                  }
-                  if (this.tableP[i].foreigncurrency > 0) {
-                    this.disa = false;
-                    this.disablecheck = false;
-                  }
+                    if (this.tableP[i].foreigncurrency > 0) {
+                      this.disa = false;
+                      this.disablecheck = false;
+                    }
                     if (this.tableP[i].RedirictP == '0') {
-                    if (this.tableP[i].plsummary === 'PJ111010') {
-                      this.tableP[i].code17 = 'PJ121';
-                      let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableP[i].accountcode = letErrortype.code;
+                      if (this.tableP[i].plsummary === 'PJ111010') {
+                        this.tableP[i].code17 = 'PJ121';
+                        let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableP[i].accountcode = letErrortype.code;
+                        }
                       }
-                    }
                     } else if (this.tableP[i].RedirictP == '1' || this.tableP[i].RedirictP == '') {
-                    if (this.tableP[i].plsummary === 'PJ111010') {
-                      this.tableP[i].code17 = 'PJ134';
-                      let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableP[i].accountcode = letErrortype.code;
-                      }
-                    }
-                  }
-                }
-              }
-              if (response.otherdetails.length > 0) {
-                this.tableR = response.otherdetails;
-                for (let i = 0; i < this.tableR.length; i++) {
-                  //add-ws-6/11-禅道090
-                  if (this.tableR[i].servicehours !== '' && this.tableR[i].servicehours !== null) {
-                    let claimdatetime = this.tableR[i].servicehours;
-                    let claimdatetim = claimdatetime.slice(0, 10);
-                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                    this.tableR[i].servicehours = [claimdatetim, claimdatetime1];
-                  }
-                  //add-ws-6/11-禅道090
-                  this.tableR[i].code16 = '';
-                  this.orglist = this.tableR[i].departmentname;
-                  let group = getOrgInfo(this.orglist);
-                  if (group) {
-                      this.tableR[i].RedirictR = group.redirict;
-                  }
-                  if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
-                    //ADD_FJL
-                    this.tableR[i].optionsR = [];
-                    let butinfo = getOrgInfo(this.tableR[i].departmentname).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                      for (let j = 0; j < dic.length; j++) {
-                        if (butinfo === dic[j].value1) {
-                          this.tableR[i].optionsR.push({
-                            lable: dic[j].value2 + '_' + dic[j].value3,
-                            value: dic[j].code,
-                          });
+                      if (this.tableP[i].plsummary === 'PJ111010') {
+                        this.tableP[i].code17 = 'PJ134';
+                        let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableP[i].accountcode = letErrortype.code;
                         }
                       }
                     }
-                    //ADD_FJL  修改人员预算编码
                   }
-                  if (this.tableR[i].foreigncurrency > 0) {
-                    this.disa = false;
-                    this.disablecheck = false;
-                  }
+                }
+                if (response.otherdetails.length > 0) {
+                  this.tableR = response.otherdetails;
+                  for (let i = 0; i < this.tableR.length; i++) {
+                    //add-ws-6/11-禅道090
+                    if (this.tableR[i].servicehours !== '' && this.tableR[i].servicehours !== null) {
+                      let claimdatetime = this.tableR[i].servicehours;
+                      let claimdatetim = claimdatetime.slice(0, 10);
+                      let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                      this.tableR[i].servicehours = [claimdatetim, claimdatetime1];
+                    }
+                    //add-ws-6/11-禅道090
+                    this.tableR[i].code16 = '';
+                    this.orglist = this.tableR[i].departmentname;
+                    let group = getOrgInfo(this.orglist);
+                    if (group) {
+                      this.tableR[i].RedirictR = group.redirict;
+                    }
+                    if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
+                      //ADD_FJL
+                      this.tableR[i].optionsR = [];
+                      let butinfo = getOrgInfo(this.tableR[i].departmentname).encoding;
+                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                      if (dic.length > 0) {
+                        for (let j = 0; j < dic.length; j++) {
+                          if (butinfo === dic[j].value1) {
+                            this.tableR[i].optionsR.push({
+                              lable: dic[j].value2 + '_' + dic[j].value3,
+                              value: dic[j].code,
+                            });
+                          }
+                        }
+                      }
+                      //ADD_FJL  修改人员预算编码
+                    }
+                    if (this.tableR[i].foreigncurrency > 0) {
+                      this.disa = false;
+                      this.disablecheck = false;
+                    }
                     if (this.tableR[i].RedirictR == '0') {
-                    if (this.tableR[i].plsummary == 'PJ111001') {
-                      this.tableR[i].code16 = 'PJ112';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
+                      if (this.tableR[i].plsummary == 'PJ111001') {
+                        this.tableR[i].code16 = 'PJ112';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111002') {
+                        this.tableR[i].code16 = 'PJ113';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111003') {
+                        this.tableR[i].code16 = 'PJ114';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111004') {
+                        this.tableR[i].code16 = '';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111005') {
+                        this.tableR[i].code16 = 'PJ116';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111006') {
+                        this.tableR[i].code16 = 'PJ117';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111007') {
+                        this.tableR[i].code16 = 'PJ118';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111008') {
+                        this.tableR[i].code16 = 'PJ119';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111009') {
+                        this.tableR[i].code16 = 'PJ120';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111010') {
+                        this.tableR[i].code16 = 'PJ121';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111011') {
+                        this.tableR[i].code16 = 'PJ122';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111012') {
+                        this.tableR[i].code16 = 'PJ123';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111013') {
+                        this.tableR[i].code16 = '';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111014') {
+                        this.tableR[i].code16 = 'PJ125';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111015') {
+                        this.tableR[i].code16 = 'PJ138';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
                       }
-                    } else if (this.tableR[i].plsummary === 'PJ111002') {
-                      this.tableR[i].code16 = 'PJ113';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111003') {
-                      this.tableR[i].code16 = 'PJ114';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111004') {
-                      this.tableR[i].code16 = '';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111005') {
-                      this.tableR[i].code16 = 'PJ116';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111006') {
-                      this.tableR[i].code16 = 'PJ117';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111007') {
-                      this.tableR[i].code16 = 'PJ118';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111008') {
-                      this.tableR[i].code16 = 'PJ119';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111009') {
-                      this.tableR[i].code16 = 'PJ120';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111010') {
-                      this.tableR[i].code16 = 'PJ121';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111011') {
-                      this.tableR[i].code16 = 'PJ122';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111012') {
-                      this.tableR[i].code16 = 'PJ123';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111013') {
-                      this.tableR[i].code16 = '';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111014') {
-                      this.tableR[i].code16 = 'PJ125';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111015') {
-                      this.tableR[i].code16 = 'PJ138';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    }
                     } else if (this.tableR[i].RedirictR == '1' || this.tableR[i].RedirictR == '') {
-                    if (this.tableR[i].plsummary == 'PJ111001') {
-                      this.tableR[i].code16 = 'PJ127';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111002') {
-                      this.tableR[i].code16 = 'PJ128';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111003') {
-                      this.tableR[i].code16 = 'PJ129';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111004') {
-                      this.tableR[i].code16 = 'PJ115';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111005') {
-                      this.tableR[i].code16 = 'PJ130';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111006') {
-                      this.tableR[i].code16 = '';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111007') {
-                      this.tableR[i].code16 = 'PJ131';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111008') {
-                      this.tableR[i].code16 = 'PJ132';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111009') {
-                      this.tableR[i].code16 = 'PJ133';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111010') {
-                      this.tableR[i].code16 = 'PJ134';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111011') {
-                      this.tableR[i].code16 = 'PJ135';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111012') {
-                      this.tableR[i].code16 = 'PJ136';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111013') {
-                      this.tableR[i].code16 = 'PJ124';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111014') {
-                      this.tableR[i].code16 = 'PJ137';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
-                      }
-                    } else if (this.tableR[i].plsummary === 'PJ111015') {
-                      this.tableR[i].code16 = 'PJ139';
-                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letErrortype != null) {
-                        this.tableR[i].accountcode = letErrortype.code;
+                      if (this.tableR[i].plsummary == 'PJ111001') {
+                        this.tableR[i].code16 = 'PJ127';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111002') {
+                        this.tableR[i].code16 = 'PJ128';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111003') {
+                        this.tableR[i].code16 = 'PJ129';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111004') {
+                        this.tableR[i].code16 = 'PJ115';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111005') {
+                        this.tableR[i].code16 = 'PJ130';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111006') {
+                        this.tableR[i].code16 = '';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111007') {
+                        this.tableR[i].code16 = 'PJ131';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111008') {
+                        this.tableR[i].code16 = 'PJ132';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111009') {
+                        this.tableR[i].code16 = 'PJ133';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111010') {
+                        this.tableR[i].code16 = 'PJ134';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111011') {
+                        this.tableR[i].code16 = 'PJ135';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111012') {
+                        this.tableR[i].code16 = 'PJ136';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111013') {
+                        this.tableR[i].code16 = 'PJ124';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111014') {
+                        this.tableR[i].code16 = 'PJ137';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
+                      } else if (this.tableR[i].plsummary === 'PJ111015') {
+                        this.tableR[i].code16 = 'PJ139';
+                        let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letErrortype != null) {
+                          this.tableR[i].accountcode = letErrortype.code;
+                        }
                       }
                     }
-                  }
-                  if (this.tableR[i].subjectnumber == '0504-00-0000') {
-                    this.checktime = true;
-                    if (this.tableR[i].servicehours == null || this.tableR[i].servicehours == '') {
-                      this.checkdisable = false;
-                    } else {
-                      this.checkdisable = true;
+                    if (this.tableR[i].subjectnumber == '0504-00-0000') {
+                      this.checktime = true;
+                      if (this.tableR[i].servicehours == null || this.tableR[i].servicehours == '') {
+                        this.checkdisable = false;
+                      } else {
+                        this.checkdisable = true;
+                      }
                     }
                   }
                 }
-              }
 
-              this.userlist = this.form.user_id;
-              this.namelist = this.form.user_name;
-              this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
-              this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
-              this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
-              if (this.form.paymentmethod === 'PJ004001') {
-                this.show1 = true;
-              } else if (this.form.paymentmethod === 'PJ004002') {
-                this.show2 = true;
-              } else if (this.form.paymentmethod === 'PJ004003') {
-                this.show3 = true;
-              } else if (this.form.paymentmethod === 'PJ004004') {
-                this.show4 = true;
-              } else if (this.form.paymentmethod === 'PJ004005') {
-                this.show5 = true;
-              }
-              // 111
-              if (this.form.type === 'PJ001001') {
-                this.show9 = true;
-                this.show6 = false;
-                this.show7 = false;
-                this.show10 = true;
-              } else if (this.form.type === 'PJ001002') {
-                this.show9 = false;
-                this.show6 = true;
-                this.show7 = true;
-                if (this.disable) {
+                this.userlist = this.form.user_id;
+                this.namelist = this.form.user_name;
+                this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
+                this.baseInfo.purchasedetails = JSON.parse(JSON.stringify(this.tableP));
+                this.baseInfo.otherdetails = JSON.parse(JSON.stringify(this.tableR));
+                if (this.form.paymentmethod === 'PJ004001') {
+                  this.show1 = true;
+                } else if (this.form.paymentmethod === 'PJ004002') {
+                  this.show2 = true;
+                } else if (this.form.paymentmethod === 'PJ004003') {
+                  this.show3 = true;
+                } else if (this.form.paymentmethod === 'PJ004004') {
+                  this.show4 = true;
+                } else if (this.form.paymentmethod === 'PJ004005') {
+                  this.show5 = true;
+                }
+                // 111
+                if (this.form.type === 'PJ001001') {
+                  this.show9 = true;
+                  this.show6 = false;
+                  this.show7 = false;
                   this.show10 = true;
-                } else {
-                  this.show10 = false;
+                } else if (this.form.type === 'PJ001002') {
+                  this.show9 = false;
+                  this.show6 = true;
+                  this.show7 = true;
+                  if (this.disable) {
+                    this.show10 = true;
+                  } else {
+                    this.show10 = false;
+                  }
+                }
+                if (this.form.loan != null && this.form.loan != '') {
+                  this.getPayment('PJ004004');
+                  this.getLoanApplication();
                 }
               }
-              if (this.form.loan !=null && this.form.loan!='')
-              {
-                this.getPayment('PJ004004');
-                this.getLoanApplication();
-              }
-            }
-            //采购业务数据流程查看详情
-            this.$store
-              .dispatch('PFANS1012Store/getworkfolwPurchaseData', {'publicexpenseid': this.$route.params._id})
-              .then(response3 => {
-                if (response3 !== null && response3 !== '' && response3 !== undefined) {
-                  if (response3["purchase"]!=undefined)
-                  {
-                    let pur = response3["purchase"].split(',');
-                    let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '采购决裁',
-                        Status: statu,
-                        url: 'PFANS3005FormView',
-                        params: {'_id':pur[0]}
-                      })
+              //采购业务数据流程查看详情
+              this.$store
+                .dispatch('PFANS1012Store/getworkfolwPurchaseData', {'publicexpenseid': this.$route.params._id})
+                .then(response3 => {
+                  if (response3 !== null && response3 !== '' && response3 !== undefined) {
+                    if (response3['purchase'] != undefined) {
+                      let pur = response3['purchase'].split(',');
+                      let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo');
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '采购决裁',
+                          Status: statu,
+                          url: 'PFANS3005FormView',
+                          params: {'_id': pur[0]},
+                        });
+                    }
+                    if (response3['award'] != undefined) {
+                      let aw = response3['award'].split(',');
+                      let statu = aw[1] === '4' ? 'normal.done' : (aw[1] === '2' ? 'normal.doing' : 'normal.todo');
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '合同决裁',
+                          Status: statu,
+                          url: 'PFANS1047FormView',
+                          params: {'_id': aw[0]},
+                        });
+                    }
+                    if (response3['seal'] != undefined) {
+                      let seal = response3['seal'].split(',');
+                      let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo');
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '印章申请',
+                          Status: statu,
+                          url: 'PFANS4001FormView',
+                          params: {'_id': seal[0]},
+                        });
+                    }
+                    if (response3['loanApplication'] != undefined) {
+                      let loanapp = response3['loanApplication'].split(',');
+                      let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo');
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '暂借款申请',
+                          Status: statu,
+                          url: 'PFANS1006FormView',
+                          params: {'_id': loanapp[0]},
+                        });
+                    }
+                    if (response3['publicExpense'] != undefined) {
+                      let pub = response3['publicExpense'].split(',');
+                      let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo');
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '公共费用精算',
+                          Status: statu,
+                          url: 'PFANS1012FormView',
+                          params: {'_id': pub[0]},
+                        });
+                    }
+                    // this.$emit('showPop',this.flowData);
                   }
-                  if (response3["award"]!=undefined)
-                  {
-                    let aw = response3["award"].split(',');
-                    let statu = aw[1] === '4' ? 'normal.done' : (aw[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '合同决裁',
-                        Status: statu,
-                        url: 'PFANS1047FormView',
-                        params: {'_id':aw[0]}
-                      })
-                  }
-                  if (response3["seal"]!=undefined)
-                  {
-                    let seal = response3["seal"].split(',');
-                    let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '印章申请',
-                        Status: statu,
-                        url: 'PFANS4001FormView',
-                        params: {'_id':seal[0]}
-                      })
-                  }
-                  if (response3["loanApplication"]!=undefined)
-                  {
-                    let loanapp = response3["loanApplication"].split(',');
-                    let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '暂借款申请',
-                        Status: statu,
-                        url: 'PFANS1006FormView',
-                        params: {'_id':loanapp[0]}
-                      })
-                  }
-                  if (response3["publicExpense"]!=undefined)
-                  {
-                    let pub = response3["publicExpense"].split(',');
-                    let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '公共费用精算',
-                        Status: statu,
-                        url: 'PFANS1012FormView',
-                        params: {'_id':pub[0]}
-                      })
-                  }
-                  // this.$emit('showPop',this.flowData);
-                }
-              })
-            //采购业务数据流程查看详情
+                });
+              //采购业务数据流程查看详情
               this.loading = false;
             },
           )
@@ -2467,15 +2461,15 @@
             this.loading = false;
           });
       } else {
-          if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-              this.tableT[0].RedirictT = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-              this.tableP[0].RedirictP = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-          }
-          this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
+        if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+          this.tableT[0].RedirictT = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+          this.tableP[0].RedirictP = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+        }
+        this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
         this.show10 = true;
         //ADD-WS-直接部门或间接部门赋值变更
         this.tableT[0].accoundoptionsdate = [];
-          if (this.tableT[0].RedirictT == '0') {
+        if (this.tableT[0].RedirictT == '0') {
           let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
           for (let i = 0; i < dicnew.length; i++) {
             if (dicnew[i].code === 'PJ119004') {
@@ -2485,7 +2479,7 @@
               });
             }
           }
-          } else if (this.tableT[0].RedirictT == '1' || this.tableT[0].RedirictT == '') {
+        } else if (this.tableT[0].RedirictT == '1' || this.tableT[0].RedirictT == '') {
           let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
           for (let i = 0; i < dicnew.length; i++) {
             if (dicnew[i].code === 'PJ132004') {
@@ -2566,14 +2560,14 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.centerid = rst.centerId;
-              // this.form.groupid = rst.groupId;
+            // this.form.groupid = rst.groupId;
             this.form.teamid = rst.teamId;
-              if (rst.groupId !== null && rst.groupId !== '') {
-                  this.form.groupid = rst.groupId;
-                  this.checkGro = true;
-              } else {
-                  this.checkGro = false;
-              }
+            if (rst.groupId !== null && rst.groupId !== '') {
+              this.form.groupid = rst.groupId;
+              this.checkGro = true;
+            } else {
+              this.checkGro = false;
+            }
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
           this.form.user_name = this.$store.getters.userinfo.userid;
@@ -2582,21 +2576,21 @@
         for (var i = 0; i < this.jude.length; i++) {
           this.form.judgement += this.jude[i].value + ',';
           this.form.judgement_name += this.jude[i].label + ',';
-            this.form.remarksdetail += this.jude[i].remarks + '^';
-            this.form.judgements_moneys += this.jude[i].judgements_moneys + '^';
-            this.form.judgements_type += this.jude[i].judgements_type + '^';
+          this.form.remarksdetail += this.jude[i].remarks + '^';
+          this.form.judgements_moneys += this.jude[i].judgements_moneys + '^';
+          this.form.judgements_type += this.jude[i].judgements_type + '^';
         }
         //add-ws-4/28-精算中，点击决裁，跳转画面
         let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
         let judgementnamenew = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
-          let remarksnew = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
-          let judgements_moneysnew = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
-          let judgements_typenew = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
+        let remarksnew = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
+        let judgements_moneysnew = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
+        let judgements_typenew = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
         let judgement = judgementnew.split(',');
         let judgementname = judgementnamenew.split(',');
-          let remarks = remarksnew.split('^');
-          let judgements_moneys = judgements_moneysnew.split('^');
-          let judgements_type = judgements_typenew.split('^');
+        let remarks = remarksnew.split('^');
+        let judgements_moneys = judgements_moneysnew.split('^');
+        let judgements_type = judgements_typenew.split('^');
         let datalist = [];
         for (var i = 0; i < judgement.length; i++) {
           for (var d = 0; d < judgementname.length; d++) {
@@ -2604,9 +2598,9 @@
               let obj = {};
               obj.judgement = judgement[i];
               obj.judgement_name = judgementname[d];
-                obj.remarks = remarks[i];
-                obj.judgements_moneys = judgements_moneys[i];
-                obj.judgements_type = judgements_type[i];
+              obj.remarks = remarks[i];
+              obj.judgements_moneys = judgements_moneys[i];
+              obj.judgements_type = judgements_type[i];
               datalist[i] = obj;
             }
           }
@@ -2615,13 +2609,14 @@
         //add-ws-4/28-精算中，点击决裁，跳转画面
         this.form.judgement = this.form.judgement.substring(0, this.form.judgement.length - 1);
         this.form.judgement_name = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
-          this.form.remarksdetail = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
-          this.form.judgements_moneys = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
-          this.form.judgements_type = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
+        this.form.remarksdetail = this.form.remarksdetail.substring(0, this.form.remarksdetail.length - 1);
+        this.form.judgements_moneys = this.form.judgements_moneys.substring(0, this.form.judgements_moneys.length - 1);
+        this.form.judgements_type = this.form.judgements_type.substring(0, this.form.judgements_type.length - 1);
         this.form.type = this.$route.params._type;
-          //ADD_FJL_0715 模块默认值AP START
-          this.form.moduleid = 'PJ002001';
-          //ADD_FJL_0715 模块默认值AP END
+        //ADD_FJL_0715 模块默认值AP START
+        this.form.moduleid = 'PJ002001';
+        //ADD_FJL_0715 模块默认值AP END
+        //add ccm 存在暂借款，选中暂借款
         if (this.form.type === 'PJ001001') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.getPayment('PJ004002');
@@ -2632,38 +2627,39 @@
           this.form.moduleidApp = getDictionaryInfo(this.form.moduleid).value1;
         } else if (this.form.type === 'PJ001002') {
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
-          this.getPayment();
-          // this.form.paymentmethod = "PJ004005"
+          if (this.$route.params._haveLoanapp) {
+            this.form.loan = this.$route.params._haveLoanapp;
+            this.getPayment('PJ004004');
+            this.getLoanApplication();
+          } else {
+            //add-ws-8/24-禅道任务469
+            this.getPayment('PJ004004');
+            this.LoanApplication();
+            //add-ws-8/24-禅道任务469
+          }
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = false;
           this.show7 = true;
           this.show6 = true;
         }
-        //add ccm 存在暂借款，选中暂借款
-        if (this.$route.params._haveLoanapp)
-        {
-          this.form.loan = this.$route.params._haveLoanapp;
-          this.getPayment('PJ004004');
-          this.getLoanApplication();
-        }
       }
     },
     created() {
       //add-ws-8/19-禅道458任务修正
-      if(this.$route.params._workfliw){
-        this.$store.commit("global/SET_WORKFLOWURL", '/PFANS1012View');
+      if (this.$route.params._workfliw) {
+        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
       }
       //add-ws-8/19-禅道458任务修正
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
-        this.fromViewname = this.$route.params._fromname;
+      this.fromViewname = this.$route.params._fromname;
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        if(this.role2 === '0' ){
+        if (this.role2 === '0') {
           this.buttonList = [
             {
               key: 'save',
@@ -2672,8 +2668,8 @@
               icon: 'el-icon-check',
             },
           ];
-          this.enableSave = true
-        }else{
+          this.enableSave = true;
+        } else {
           this.buttonList = [
             {
               key: 'save',
@@ -2705,15 +2701,68 @@
       },
     },
     methods: {
-        getCenterid(val) {
-            this.form.centerid = val;
-        },
-        getGroupId(val) {
-            this.form.groupid = val;
-        },
-        getTeamid(val) {
-            this.form.teamid = val;
-        },
+      // add-ws-8/20-禅道469
+      // toggleSelection(rows) {
+      //   if (rows) {
+      //     rows.forEach(row => {
+      //       this.$refs.multipleTable.toggleRowSelection(row);
+      //     });
+      //   } else {
+      //     this.$refs.multipleTable.clearSelection();
+      //   }
+      // },
+      LoanApplication() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1012Store/loanapplication', {})
+          .then(response => {
+            if (response != undefined && response != null) {
+              this.tableLoa = [];
+              for (let i = 0; i < response.length; i++) {
+                var vote = {};
+                if (response[i].paymentmethod === 'PJ015001' || response[i].paymentmethod === 'PJ015003') {
+                  vote.accename = response[i].accountpayeename;
+                } else if (response[i].paymentmethod === 'PJ015002') {
+                  if (response[i].user_name !== '' && response[i].user_name !== null) {
+                    vote.accename = getUserInfo(response[i].user_name).userinfo.customername;
+                  }
+                }
+                vote.moneys = response[i].moneys;
+                vote.loanapno = response[i].loanapno;
+                vote.loanapplication_id = response[i].loanapplication_id;
+                this.tableLoa.push(vote);
+              }
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      selectInit(row, index) {
+        if (!this.$route.params._haveLoanapp) {
+          if (this.$route.params._statuss != this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL') || this.$route.params._statuss != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            return row;
+          }
+        }
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
+      // add-ws-8/20-禅道469
+      getCenterid(val) {
+        this.form.centerid = val;
+      },
+      getGroupId(val) {
+        this.form.groupid = val;
+      },
+      getTeamid(val) {
+        this.form.teamid = val;
+      },
       fileError(err, file, fileList) {
         Message({
           message: this.$t('normal.error_04'),
@@ -2739,7 +2788,7 @@
         }
       },
       fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
+        if (response.data == 'upload_success') {
           this.fileList = [];
           this.form.uploadfile = '';
           for (var item of fileList) {
@@ -2759,7 +2808,7 @@
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile =''
+          this.form.uploadfile = '';
           this.$refs.upload.clearFiles();
         }
       },
@@ -2767,12 +2816,10 @@
       getLoanApplication() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1012Store/getLoanApplicationList', {"loanapno": this.form.loan})
+          .dispatch('PFANS1012Store/getLoanApplicationList', {'loanapno': this.form.loan})
           .then(response => {
-            if(response!=undefined && response!=null)
-            {
-              for (let i = 0; i < response.length; i++)
-              {
+            if (response != undefined && response != null) {
+              for (let i = 0; i < response.length; i++) {
                 var vote = {};
                 if (response[i].paymentmethod === 'PJ015001' || response[i].paymentmethod === 'PJ015003') {
                   vote.accename = response[i].accountpayeename;
@@ -2785,6 +2832,11 @@
                 vote.loanapno = response[i].loanapno;
                 vote.loanapplication_id = response[i].loanapplication_id;
                 this.tableLoa.push(vote);
+                //add-ws-8/20-禅道469任务
+                this.tableLoa.forEach(item => {
+                  this.$refs.multipleTable.toggleRowSelection(item, true);
+                });
+                //add-ws-8/20-禅道469任务
               }
             }
             // for (let i = 0; i < response.length; i++) {
@@ -2850,105 +2902,105 @@
       //add-ws-4/30-公共费用决裁已关联得精算
       //add-ws-4/28-精算中，点击决裁，跳转画面
       viewdata(row) {
-          //upd_fjl_0807 pop显示
-          // this.$store.commit('global/SET_HISTORYURL', '');
-          // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-          let dicStr = '';
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'HT014');
-          if (dic.length > 0) {
-              for (let d of dic) {
-                  dicStr += d.value2 + ',';
-              }
+        //upd_fjl_0807 pop显示
+        // this.$store.commit('global/SET_HISTORYURL', '');
+        // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+        let dicStr = '';
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'HT014');
+        if (dic.length > 0) {
+          for (let d of dic) {
+            dicStr += d.value2 + ',';
           }
-          this.urlparams = ''
-          this.url = ''
-          this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
-        if (row.judgement_name.substring(0, 2) === 'JC') {
-            this.url = 'PFANS1004FormView';
-            this.$refs.PFANS1004Pop.open = true;
-            // this.$router.push({
-            //   name: 'PFANS1004FormView',
-            //   params: {
-            //     _checkdisable: this.disable,
-            //     _checkid: this.IDname,
-            //     _check: true,
-            //     _id: row.judgement,
-            //     disabled: false,
-            //   },
-            // });
-        } else if (row.judgement_name.substring(0, 2) === 'QY') {
-            this.url = 'PFANS1005FormView';
-            this.$refs.PFANS1005Pop.open = true;
-            // this.$router.push({
-            //   name: 'PFANS1005FormView',
-            //   params: {
-            //     _checkdisable: this.disable,
-            //     _checkid: this.IDname,
-            //     _check: true,
-            //     _id: row.judgement,
-            //     disabled: false,
-            //   },
-            // });
-        } else if (row.judgement_name.substring(0, 2) === 'JJ') {
-            this.url = 'PFANS1010FormView';
-            this.$refs.PFANS1010Pop.open = true;
-            // this.$router.push({
-            //   name: 'PFANS1010FormView',
-            //   params: {
-            //     _checkdisable: this.disable,
-            //     _checkid: this.IDname,
-            //     _check: true,
-            //     _id: row.judgement,
-            //     disabled: false,
-            //   },
-            // });
-        } else if (dicStr !== '' && dicStr.indexOf(row.judgement_name.substring(0, 2)) != -1) {
-            this.url = 'PFANS1025FormView';
-            this.$refs.PFANS1025Pop.open = true;
-            // this.$router.push({
-            //   name: 'PFANS1025FormView',
-            //   params: {
-            //     _checkdisable: this.disable,
-            //     _checkid: this.IDname,
-            //     _check: true,
-            //     _id: row.judgement,
-            //     disabled: false,
-            //   },
-            // });
-        } else if (row.judgement_name.substring(0, 2) === 'CG') {
-            this.url = 'PFANS3005FormView';
-            this.$refs.PFANS3005Pop.open = true;
-            // this.$router.push({
-            //   name: 'PFANS3005FormView',
-            //   params: {
-            //     _checkdisable: this.disable,
-            //     _checkid: this.IDname,
-            //     _check: true,
-            //     _id: row.judgement,
-            //     disabled: false,
-            //   },
-            // });
-        } else if (row.judgement_name.substring(0, 2) === 'WC') {
-            this.url = 'PFANS1003FormView';
-            this.$refs.PFANS1003Pop.open = true;
-            // this.$router.push({
-            //   name: 'PFANS1003FormView',
-            //   params: {
-            //     _checkdisable: this.disable,
-            //     _checkid: this.IDname,
-            //     _check: true,
-            //     _id: row.judgement,
-            //     disabled: false,
-            //   },
-            // });
-        } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1002VIEW')) {
-            this.url = 'PFANS1002FormView';
-            this.$refs.PFANS1002Pop.open = true;
-        } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1035VIEW')) {
-            this.url = 'PFANS1035FormView';
-            this.$refs.PFANS1035Pop.open = true;
         }
-          //upd_fjl_0807 pop显示
+        this.urlparams = '';
+        this.url = '';
+        this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
+        if (row.judgement_name.substring(0, 2) === 'JC') {
+          this.url = 'PFANS1004FormView';
+          this.$refs.PFANS1004Pop.open = true;
+          // this.$router.push({
+          //   name: 'PFANS1004FormView',
+          //   params: {
+          //     _checkdisable: this.disable,
+          //     _checkid: this.IDname,
+          //     _check: true,
+          //     _id: row.judgement,
+          //     disabled: false,
+          //   },
+          // });
+        } else if (row.judgement_name.substring(0, 2) === 'QY') {
+          this.url = 'PFANS1005FormView';
+          this.$refs.PFANS1005Pop.open = true;
+          // this.$router.push({
+          //   name: 'PFANS1005FormView',
+          //   params: {
+          //     _checkdisable: this.disable,
+          //     _checkid: this.IDname,
+          //     _check: true,
+          //     _id: row.judgement,
+          //     disabled: false,
+          //   },
+          // });
+        } else if (row.judgement_name.substring(0, 2) === 'JJ') {
+          this.url = 'PFANS1010FormView';
+          this.$refs.PFANS1010Pop.open = true;
+          // this.$router.push({
+          //   name: 'PFANS1010FormView',
+          //   params: {
+          //     _checkdisable: this.disable,
+          //     _checkid: this.IDname,
+          //     _check: true,
+          //     _id: row.judgement,
+          //     disabled: false,
+          //   },
+          // });
+        } else if (dicStr !== '' && dicStr.indexOf(row.judgement_name.substring(0, 2)) != -1) {
+          this.url = 'PFANS1025FormView';
+          this.$refs.PFANS1025Pop.open = true;
+          // this.$router.push({
+          //   name: 'PFANS1025FormView',
+          //   params: {
+          //     _checkdisable: this.disable,
+          //     _checkid: this.IDname,
+          //     _check: true,
+          //     _id: row.judgement,
+          //     disabled: false,
+          //   },
+          // });
+        } else if (row.judgement_name.substring(0, 2) === 'CG') {
+          this.url = 'PFANS3005FormView';
+          this.$refs.PFANS3005Pop.open = true;
+          // this.$router.push({
+          //   name: 'PFANS3005FormView',
+          //   params: {
+          //     _checkdisable: this.disable,
+          //     _checkid: this.IDname,
+          //     _check: true,
+          //     _id: row.judgement,
+          //     disabled: false,
+          //   },
+          // });
+        } else if (row.judgement_name.substring(0, 2) === 'WC') {
+          this.url = 'PFANS1003FormView';
+          this.$refs.PFANS1003Pop.open = true;
+          // this.$router.push({
+          //   name: 'PFANS1003FormView',
+          //   params: {
+          //     _checkdisable: this.disable,
+          //     _checkid: this.IDname,
+          //     _check: true,
+          //     _id: row.judgement,
+          //     disabled: false,
+          //   },
+          // });
+        } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1002VIEW')) {
+          this.url = 'PFANS1002FormView';
+          this.$refs.PFANS1002Pop.open = true;
+        } else if (row.judgement_name.substring(0, 1) === 'C' && row.judgements_type === this.$t('title.PFANS1035VIEW')) {
+          this.url = 'PFANS1035FormView';
+          this.$refs.PFANS1035Pop.open = true;
+        }
+        //upd_fjl_0807 pop显示
       },
 
       //add-ws-4/28-精算中，点击决裁，跳转画面
@@ -3108,14 +3160,14 @@
         if (orglist == '') {
           row.budgetcoding = '';
         }
-          row.RedirictT = '',
+        row.RedirictT = '',
           row.departmentname = orglist;
         //ADD_FJL
         row.optionsT = [];
         row.budgetcoding = '';
-          row.accountcode = '';
-          row.accoundoptionsdate = [];
-          row.subjectnumber = '';
+        row.accountcode = '';
+        row.accoundoptionsdate = [];
+        row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -3132,8 +3184,8 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.companyen = group.companyen;
-            row.RedirictT = group.redirict;
-            if (row.RedirictT == '0') {
+          row.RedirictT = group.redirict;
+          if (row.RedirictT == '0') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
             for (let i = 0; i < dicnew.length; i++) {
@@ -3144,7 +3196,7 @@
                 });
               }
             }
-            } else if (row.RedirictT == '1' || row.RedirictT == '') {
+          } else if (row.RedirictT == '1' || row.RedirictT == '') {
             row.accoundoptionsdate = [];
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let i = 0; i < dicnew.length; i++) {
@@ -3162,18 +3214,18 @@
         if (orglist == '') {
           row.budgetcoding = '';
         }
-          row.RedirictR = '',
+        row.RedirictR = '',
           row.departmentname = orglist;
         //ADD_FJL
         row.optionsR = [];
         row.budgetcoding = '';
-          row.ploptionsdate = [];
-          row.plsummary = '';
-          row.code16 = [];
-          row.accountcode = '';
-          row.subjectnumber = '';
-          row.checkCode2 = '';
-          row.checkCode = '';
+        row.ploptionsdate = [];
+        row.plsummary = '';
+        row.code16 = [];
+        row.accountcode = '';
+        row.subjectnumber = '';
+        row.checkCode2 = '';
+        row.checkCode = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -3190,10 +3242,10 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.companyen = group.companyen;
-            row.RedirictR = group.redirict;
+          row.RedirictR = group.redirict;
           // row.budgetcoding = group.encoding;
-            row.code17 = row.RedirictR == '0' ? 'PJ121' : 'PJ134';
-            if (row.RedirictR == '0') {
+          row.code17 = row.RedirictR == '0' ? 'PJ121' : 'PJ134';
+          if (row.RedirictR == '0') {
             if (row.plsummary == 'PJ111001') {
               row.accountcode = '',
                 row.code16 = 'PJ112';
@@ -3255,7 +3307,7 @@
                 row.code16 = 'PJ138';
 
             }
-            } else if (row.RedirictR == '1' || row.RedirictR == '') {
+          } else if (row.RedirictR == '1' || row.RedirictR == '') {
             if (row.plsummary == 'PJ111001') {
               row.accountcode = '',
                 row.code16 = 'PJ127';
@@ -3318,45 +3370,45 @@
 
             }
           }
-            // if (this.Redirict == '0') {
-            //   row.accoundoptionsdate = [];
-            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-            //   for (let i = 0; i < dicnew.length; i++) {
-            //     if (dicnew[i].code === 'PJ119004') {
-            //       row.accoundoptionsdate.push({
-            //         value: dicnew[i].code,
-            //         lable: dicnew[i].value1,
-            //       });
-            //     }
-            //   }
-            // } else if (this.Redirict == '1' || this.Redirict == '') {
-            //   row.accoundoptionsdate = [];
-            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-            //   for (let i = 0; i < dicnew.length; i++) {
-            //     if (dicnew[i].code === 'PJ132004') {
-            //       row.accoundoptionsdate.push({
-            //         value: dicnew[i].code,
-            //         lable: dicnew[i].value1,
-            //       });
-            //     }
-            //   }
-            // }
+          // if (this.Redirict == '0') {
+          //   row.accoundoptionsdate = [];
+          //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+          //   for (let i = 0; i < dicnew.length; i++) {
+          //     if (dicnew[i].code === 'PJ119004') {
+          //       row.accoundoptionsdate.push({
+          //         value: dicnew[i].code,
+          //         lable: dicnew[i].value1,
+          //       });
+          //     }
+          //   }
+          // } else if (this.Redirict == '1' || this.Redirict == '') {
+          //   row.accoundoptionsdate = [];
+          //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+          //   for (let i = 0; i < dicnew.length; i++) {
+          //     if (dicnew[i].code === 'PJ132004') {
+          //       row.accoundoptionsdate.push({
+          //         value: dicnew[i].code,
+          //         lable: dicnew[i].value1,
+          //       });
+          //     }
+          //   }
+          // }
         }
       },
       getGroupIdP(orglist, row) {
         if (orglist == '') {
           row.budgetcoding = '';
         }
-          row.RedirictP = '',
+        row.RedirictP = '',
           row.departmentname = orglist;
         //ADD_FJL
         row.optionsP = [];
         row.budgetcoding = '';
-          row.ploptionsdata = [];
-          row.plsummary = '';
-          row.code17 = [];
-          row.accountcode = '';
-          row.subjectnumber = '';
+        row.ploptionsdata = [];
+        row.plsummary = '';
+        row.code17 = [];
+        row.accountcode = '';
+        row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -3373,9 +3425,9 @@
         let group = getOrgInfo(orglist);
         if (group) {
           this.companyen = group.companyen;
-            row.RedirictP = group.redirict;
+          row.RedirictP = group.redirict;
           // row.budgetcoding = group.encoding;
-            row.code17 = row.RedirictP == '0' ? 'PJ121' : 'PJ134';
+          row.code17 = row.RedirictP == '0' ? 'PJ121' : 'PJ134';
           // if (this.Redirict == '0') {
           //     if (row.plsummary == 'PJ111001') {
           //         row.accountcode = '',
@@ -3494,35 +3546,35 @@
           //
           //     }
           // }
-            // if (this.Redirict == '0') {
-            //   row.accoundoptionsdate = [];
-            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-            //   for (let i = 0; i < dicnew.length; i++) {
-            //     if (dicnew[i].code === 'PJ119004') {
-            //       row.accoundoptionsdate.push({
-            //         value: dicnew[i].code,
-            //         lable: dicnew[i].value1,
-            //       });
-            //     }
-            //   }
-            // } else if (this.Redirict == '1' || this.Redirict == '') {
-            //   row.accoundoptionsdate = [];
-            //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-            //   for (let i = 0; i < dicnew.length; i++) {
-            //     if (dicnew[i].code === 'PJ132004') {
-            //       row.accoundoptionsdate.push({
-            //         value: dicnew[i].code,
-            //         lable: dicnew[i].value1,
-            //       });
-            //     }
-            //   }
-            // }
+          // if (this.Redirict == '0') {
+          //   row.accoundoptionsdate = [];
+          //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+          //   for (let i = 0; i < dicnew.length; i++) {
+          //     if (dicnew[i].code === 'PJ119004') {
+          //       row.accoundoptionsdate.push({
+          //         value: dicnew[i].code,
+          //         lable: dicnew[i].value1,
+          //       });
+          //     }
+          //   }
+          // } else if (this.Redirict == '1' || this.Redirict == '') {
+          //   row.accoundoptionsdate = [];
+          //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+          //   for (let i = 0; i < dicnew.length; i++) {
+          //     if (dicnew[i].code === 'PJ132004') {
+          //       row.accoundoptionsdate.push({
+          //         value: dicnew[i].code,
+          //         lable: dicnew[i].value1,
+          //       });
+          //     }
+          //   }
+          // }
         }
       },
       getplsummary(row) {
         row.accountcode = '',
           row.plsummary = row.plsummary;
-          if (row.RedirictR == '0' || row.RedirictP == '0') {
+        if (row.RedirictR == '0' || row.RedirictP == '0') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ112';
@@ -3584,7 +3636,7 @@
               row.code16 = 'PJ138';
             row.code17 = 'PJ138';
           }
-          } else if (row.RedirictR == '1' || row.RedirictR == '' || row.RedirictP == '1' || row.RedirictP == '') {
+        } else if (row.RedirictR == '1' || row.RedirictR == '' || row.RedirictP == '1' || row.RedirictP == '') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ127';
@@ -3651,9 +3703,9 @@
       },
       clickdata(row) {
         if (row.servicehours == null) {
-            row.subjectnumber = row.checkCode2;
+          row.subjectnumber = row.checkCode2;
         } else {
-            row.subjectnumber = row.checkcode;
+          row.subjectnumber = row.checkcode;
         }
       },
       getaccoundcode(row) {
@@ -3680,15 +3732,15 @@
         let dic = getDictionaryInfo(val);
         if (row.accountcode == 'PJ116008' || row.accountcode == 'PJ130010') {
           this.checktime = true;
-            row.checkcode = dic.value2;
+          row.checkcode = dic.value2;
         } else {
           this.checktime = false;
           row.servicehours = '';
         }
         if (dic) {
           row.subjectnumber = dic.value2;
-            row.checkCode2 = dic.value2;
-            // this.checkCode1 = dic.value3;
+          row.checkCode2 = dic.value2;
+          // this.checkCode1 = dic.value3;
         }
       },
       //add-ws-6/11-禅道090
@@ -3697,8 +3749,8 @@
         let dic = getDictionaryInfo(val);
         if (dic) {
           row.subjectnumber = dic.value2;
-            //   this.checkCode2 = dic.value2;
-            //   this.checkCode1 = dic.value3;
+          //   this.checkCode2 = dic.value2;
+          //   this.checkCode1 = dic.value3;
         }
       },
       changesummoney(row) {
@@ -4111,8 +4163,8 @@
             rmb: '',
             foreigncurrency: '',
             annexno: '',
-              checkCode2: '',
-              checkCode: '',
+            checkCode2: '',
+            checkCode: '',
           }];
         }
       },
@@ -4218,8 +4270,8 @@
           taxes: '',
           annexno: '',
           rowindex: '',
-            checkCode2: '',
-            checkCode: '',
+          checkCode2: '',
+          checkCode: '',
           display: true,
         });
       },
@@ -4417,29 +4469,29 @@
         this.currentRow3 = val.payeebankaccountnumber;
         this.currentRow4 = val.payeebankaccount;
       },
-        //add_fjl_0724  添加暂借款的pop跳转  start
-        // clickBun() {
-        //     if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
-        //         this.urlparams = {'_id': this.form.loan};
-        //         this.url = 'PFANS1006FormView';
-        //         this.$refs[1].open = true;
-        //     }
-        // },
-        //add_fjl_0724  添加暂借款的pop跳转  end
-        //add_fjl_0722 添加【供应商/社员名称】显示  start
-        // changeLoan(val) {
-        //     let opt = this.options.filter(item => item.value === val);
-        //     if (opt.length > 0) {
-        //         if (opt[0].paymentmethod === 'PJ015001' || opt[0].paymentmethod === 'PJ015003') {
-        //             this.form.accename = opt[0].accountpayeename;
-        //         } else if (this.options[0].paymentmethod === 'PJ015002') {
-        //             if (opt[0].user_name !== '' && opt[0].user_name !== null) {
-        //                 this.form.accename = getUserInfo(opt[0].user_name).userinfo.customername;
-        //             }
-        //         }
-        //     }
-        // },
-        //add_fjl_0722 添加【供应商/社员名称】显示  end
+      //add_fjl_0724  添加暂借款的pop跳转  start
+      // clickBun() {
+      //     if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+      //         this.urlparams = {'_id': this.form.loan};
+      //         this.url = 'PFANS1006FormView';
+      //         this.$refs[1].open = true;
+      //     }
+      // },
+      //add_fjl_0724  添加暂借款的pop跳转  end
+      //add_fjl_0722 添加【供应商/社员名称】显示  start
+      // changeLoan(val) {
+      //     let opt = this.options.filter(item => item.value === val);
+      //     if (opt.length > 0) {
+      //         if (opt[0].paymentmethod === 'PJ015001' || opt[0].paymentmethod === 'PJ015003') {
+      //             this.form.accename = opt[0].accountpayeename;
+      //         } else if (this.options[0].paymentmethod === 'PJ015002') {
+      //             if (opt[0].user_name !== '' && opt[0].user_name !== null) {
+      //                 this.form.accename = getUserInfo(opt[0].user_name).userinfo.customername;
+      //             }
+      //         }
+      //     }
+      // },
+      //add_fjl_0722 添加【供应商/社员名称】显示  end
       submit() {
         let val = this.currentRow;
         let val1 = this.currentRow1;
@@ -4481,60 +4533,70 @@
             this.loading = false;
           });
       },
-        checkparams() {
-            let id = this.$route.params._checkid;
-            let fromname = this.$route.params._fromname;
-            this.$router.push({
-                name: fromname,
-                params: {
-                    disabled: true,
-                    _id: id,
-                },
-            });
-        },
+      checkparams() {
+        let id = this.$route.params._checkid;
+        let fromname = this.$route.params._fromname;
+        this.$router.push({
+          name: fromname,
+          params: {
+            disabled: true,
+            _id: id,
+          },
+        });
+      },
       buttonClick(val) {
-          if (val === 'back') {
-              //add-fjl-0813-精算中，点击决裁，跳转画面
-              if (this.$route.params._check2 != null && this.$route.params._check2 != '' && this.$route.params._check2 != undefined) {
-                  if (this.$route.params._check2) {
-                      this.checkparams();
-                  }
-              } else {
-                  this.$router.push({
-                      name: 'PFANS1012View',
-                      params: {},
-                  });
-              }
-              //add-fjl-0813-精算中，点击决裁，跳转画面
+        if (val === 'back') {
+          //add-fjl-0813-精算中，点击决裁，跳转画面
+          if (this.$route.params._check2 != null && this.$route.params._check2 != '' && this.$route.params._check2 != undefined) {
+            if (this.$route.params._check2) {
+              this.checkparams();
+            }
+          } else {
+            this.$router.push({
+              name: 'PFANS1012View',
+              params: {},
+            });
           }
+          //add-fjl-0813-精算中，点击决裁，跳转画面
+        }
         if (val === 'save') {
           this.$refs['reff'].validate(valid => {
-            if (valid) {
-              this.baseInfo = {};
-              this.baseInfo.publicexpense = [];
-              this.baseInfo.trafficdetails = [];
-              this.baseInfo.purchasedetails = [];
-              this.baseInfo.otherdetails = [];
-              this.baseInfo.invoice = [];
-              this.form.user_id = this.userlist;
-              this.form.user_name = this.namelist;
-              if (this.form.tormb === undefined) {
-                this.form.tormb = '';
-              }
-              this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
-              this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
-              //add-ws-4/27-BS科目根据收款方编码值，赋01
-              if (this.form.payeecode != '' && this.form.payeecode != null) {
-                if (this.form.payeecode === '00027358') {
-                  this.form.bsexternal = '1';
-                } else {
-                  this.form.bsexternal = '0';
+              if (valid) {
+                this.baseInfo = {};
+                this.baseInfo.publicexpense = [];
+                this.baseInfo.trafficdetails = [];
+                this.baseInfo.purchasedetails = [];
+                this.baseInfo.otherdetails = [];
+                this.baseInfo.invoice = [];
+                this.form.user_id = this.userlist;
+                this.form.user_name = this.namelist;
+                if (this.form.tormb === undefined) {
+                  this.form.tormb = '';
                 }
-              }
-              //add-ws-4/27-BS科目根据收款方编码值，赋01
-              this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
-              let sum = 0;
-              for (let i = 0; i < this.tableF.length; i++) {
+// add-ws-8/20-禅道469
+                let checktableD = '';
+                let checktlist = this.multipleSelection.splice(',');
+                for (let m = 0; m < checktlist.length; m++) {
+                  if (checktlist[m].loanapplication_id != '' && checktlist[m].loanapplication_id != null && checktlist[m].loanapplication_id != undefined) {
+                    checktableD = checktableD + checktlist[m].loanapplication_id + ',';
+                    this.form.loan = checktableD.substring(0, checktableD.length - 1);
+                  }
+                }
+// add-ws-8/20-禅道469
+                this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
+                this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
+                //add-ws-4/27-BS科目根据收款方编码值，赋01
+                if (this.form.payeecode != '' && this.form.payeecode != null) {
+                  if (this.form.payeecode === '00027358') {
+                    this.form.bsexternal = '1';
+                  } else {
+                    this.form.bsexternal = '0';
+                  }
+                }
+                //add-ws-4/27-BS科目根据收款方编码值，赋01
+                this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
+                let sum = 0;
+                for (let i = 0; i < this.tableF.length; i++) {
                   //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  start
                   let sumtaxesT = 0;
                   let sumtaxesA = 0;
@@ -4543,173 +4605,173 @@
                   let taxesm = 0;
                   let taxesn = 0;
                   for (let m = 0; m < this.tableP.length; m++) {
-                      if (this.tableP[m].invoicenumber == this.tableF[i].invoicenumber) {
-                          if (this.tableP[m].taxes != '0') {
-                              taxesm = m;
-                              sumtaxesT += this.tableP[m].taxes;
-                          }
+                    if (this.tableP[m].invoicenumber == this.tableF[i].invoicenumber) {
+                      if (this.tableP[m].taxes != '0') {
+                        taxesm = m;
+                        sumtaxesT += this.tableP[m].taxes;
                       }
+                    }
                   }
                   for (let n = 0; n < this.tableR.length; n++) {
-                      if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
-                          if (this.tableR[n].taxes != '0') {
-                              taxesn = n;
-                              sumtaxesA += this.tableR[n].taxes;
-                          }
+                    if (this.tableR[n].invoicenumber == this.tableF[i].invoicenumber) {
+                      if (this.tableR[n].taxes != '0') {
+                        taxesn = n;
+                        sumtaxesA += this.tableR[n].taxes;
                       }
+                    }
                   }
                   sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
                   sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
                   if (sumtaxes < 0) {
-                      if (taxesm === 0) {
-                          this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
-                      } else {
-                          this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
-                      }
+                    if (taxesm === 0) {
+                      this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                    } else {
+                      this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                    }
                   } else if (sumtaxes > 0) {
-                      if (taxesm === 0) {
-                          this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
-                      } else {
-                          this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
-                      }
+                    if (taxesm === 0) {
+                      this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
+                    } else {
+                      this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
+                    }
                   }
                   //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  end
                   sum += this.tableF[i].invoiceamount;
                   if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
-                      || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
-                      this.baseInfo.invoice.push(
-                          {
-                              invoice_id: this.tableF[i].invoice_id,
-                              publicexpenseid: this.tableF[i].publicexpenseid,
-                              invoicenumber: this.tableF[i].invoicenumber,
-                              invoicetype: this.tableF[i].invoicetype,
-                              invoiceamount: this.tableF[i].invoiceamount,
-                              taxrate: this.tableF[i].taxrate,
-                              excludingtax: this.tableF[i].excludingtax,
-                              facetax: this.tableF[i].facetax,
-                          },
+                    || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                    this.baseInfo.invoice.push(
+                      {
+                        invoice_id: this.tableF[i].invoice_id,
+                        publicexpenseid: this.tableF[i].publicexpenseid,
+                        invoicenumber: this.tableF[i].invoicenumber,
+                        invoicetype: this.tableF[i].invoicetype,
+                        invoiceamount: this.tableF[i].invoiceamount,
+                        taxrate: this.tableF[i].taxrate,
+                        excludingtax: this.tableF[i].excludingtax,
+                        facetax: this.tableF[i].facetax,
+                      },
+                    );
+                  }
+                }
+                this.invoiceamountsum = sum;
+                if (this.form.type === 'PJ001001') {
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
+                      || this.tableT[i].rmb > 0 || this.tableT[i].annexno !== '') {
+                      this.baseInfo.trafficdetails.push(
+                        {
+                          trafficdetails_id: this.tableT[i].trafficdetails_id,
+                          publicexpenseid: this.tableT[i].publicexpenseid,
+                          trafficdate: this.tableT[i].trafficdate,
+                          accountcode: this.tableT[i].accountcode,
+                          plsummary: this.tableT[i].plsummary,
+                          departmentname: this.tableT[i].departmentname,
+                          budgetcoding: this.tableT[i].budgetcoding,
+                          subjectnumber: this.tableT[i].subjectnumber,
+                          region: this.tableT[i].region,
+                          vehicle: this.tableT[i].vehicle,
+                          startingpoint: this.tableT[i].startingpoint,
+                          rmb: this.tableT[i].rmb,
+                          annexno: this.tableT[i].annexno,
+                        },
                       );
-                  }
-              }
-              this.invoiceamountsum = sum;
-              if (this.form.type === 'PJ001001') {
-                for (let i = 0; i < this.tableT.length; i++) {
-                  if (this.tableT[i].trafficdate !== '' || this.tableT[i].subjectnumber !== '' || this.tableT[i].departmentname !== '' || this.tableT[i].budgetcoding !== '' || this.tableT[i].region !== '' || this.tableT[i].vehicle !== '' || this.tableT[i].startingpoint !== ''
-                    || this.tableT[i].rmb > 0 || this.tableT[i].annexno !== '') {
-                    this.baseInfo.trafficdetails.push(
-                      {
-                        trafficdetails_id: this.tableT[i].trafficdetails_id,
-                        publicexpenseid: this.tableT[i].publicexpenseid,
-                        trafficdate: this.tableT[i].trafficdate,
-                        accountcode: this.tableT[i].accountcode,
-                        plsummary: this.tableT[i].plsummary,
-                        departmentname: this.tableT[i].departmentname,
-                        budgetcoding: this.tableT[i].budgetcoding,
-                        subjectnumber: this.tableT[i].subjectnumber,
-                        region: this.tableT[i].region,
-                        vehicle: this.tableT[i].vehicle,
-                        startingpoint: this.tableT[i].startingpoint,
-                        rmb: this.tableT[i].rmb,
-                        annexno: this.tableT[i].annexno,
-                      },
-                    );
-                  }
-                }
-              } else if (this.form.type === 'PJ001002') {
-                for (let i = 0; i < this.tableP.length; i++) {
-                  if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== ''
-                    || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
-                    if (this.tableP[i].procurementdetails === ' ') {
-                      this.tableP[i].procurementdetails = '';
                     }
-                    if (this.tableP[i].accountcode == 'PJ121012' || this.tableP[i].accountcode == 'PJ134013') {
-                      let letbudge = getDictionaryInfo(this.tableP[i].accountcode);
-                      if (letbudge) {
-                        this.tableP[i].budgetcoding = letbudge.value4;
+                  }
+                } else if (this.form.type === 'PJ001002') {
+                  for (let i = 0; i < this.tableP.length; i++) {
+                    if (this.tableP[i].purchasedetailsdate !== '' || this.tableP[i].procurementdetails !== '' || this.tableP[i].invoicenumber !== '' || this.tableP[i].departmentname !== '' || this.tableP[i].budgetcoding !== ''
+                      || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
+                      if (this.tableP[i].procurementdetails === ' ') {
+                        this.tableP[i].procurementdetails = '';
                       }
-                    }
-                    this.baseInfo.purchasedetails.push(
-                      {
-                        purchasedetails_id: this.tableP[i].purchasedetails_id,
-                        publicexpenseid: this.tableP[i].publicexpenseid,
-                        invoicenumber: this.tableP[i].invoicenumber,
-                        departmentname: this.tableP[i].departmentname,
-                        budgetcoding: this.tableP[i].budgetcoding,
-                        plsummary: this.tableP[i].plsummary,
-                        accountcode: this.tableP[i].accountcode,
-                        currency: this.tableP[i].currency,
-                        currencyrate: this.tableP[i].currencyrate,
-                        tormb: this.tableP[i].tormb,
-                        purchasedetailsdate: this.tableP[i].purchasedetailsdate,
-                        procurementdetails: this.tableP[i].procurementdetails,
-                        subjectnumber: this.tableP[i].subjectnumber,
-                        rmb: this.tableP[i].rmb,
-                        foreigncurrency: this.tableP[i].foreigncurrency,
-                        taxes: this.tableP[i].taxes,
-                        annexno: this.tableP[i].annexno,
-                      },
-                    );
-                  }
-                }
-                for (let i = 0; i < this.tableR.length; i++) {
-                  if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
-                    || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
-                    if (this.tableR[i].accountcode == 'PJ116008' || this.tableR[i].accountcode == 'PJ130010') {
-                      let letbudge = getDictionaryInfo(this.tableR[i].accountcode);
-                      if (letbudge) {
-                        this.tableR[i].budgetcoding = letbudge.value4;
+                      if (this.tableP[i].accountcode == 'PJ121012' || this.tableP[i].accountcode == 'PJ134013') {
+                        let letbudge = getDictionaryInfo(this.tableP[i].accountcode);
+                        if (letbudge) {
+                          this.tableP[i].budgetcoding = letbudge.value4;
+                        }
                       }
+                      this.baseInfo.purchasedetails.push(
+                        {
+                          purchasedetails_id: this.tableP[i].purchasedetails_id,
+                          publicexpenseid: this.tableP[i].publicexpenseid,
+                          invoicenumber: this.tableP[i].invoicenumber,
+                          departmentname: this.tableP[i].departmentname,
+                          budgetcoding: this.tableP[i].budgetcoding,
+                          plsummary: this.tableP[i].plsummary,
+                          accountcode: this.tableP[i].accountcode,
+                          currency: this.tableP[i].currency,
+                          currencyrate: this.tableP[i].currencyrate,
+                          tormb: this.tableP[i].tormb,
+                          purchasedetailsdate: this.tableP[i].purchasedetailsdate,
+                          procurementdetails: this.tableP[i].procurementdetails,
+                          subjectnumber: this.tableP[i].subjectnumber,
+                          rmb: this.tableP[i].rmb,
+                          foreigncurrency: this.tableP[i].foreigncurrency,
+                          taxes: this.tableP[i].taxes,
+                          annexno: this.tableP[i].annexno,
+                        },
+                      );
                     }
-                    this.baseInfo.otherdetails.push(
-                      {
-                        otherdetails_id: this.tableR[i].otherdetails_id,
-                        publicexpenseid: this.tableR[i].publicexpenseid,
-                        otherdetailsdate: this.tableR[i].otherdetailsdate,
-                        invoicenumber: this.tableR[i].invoicenumber,
-                        costitem: this.tableR[i].costitem,
-                        departmentname: this.tableR[i].departmentname,
-                        accountcode: this.tableR[i].accountcode,
-                        plsummary: this.tableR[i].plsummary,
-                        servicehours: this.tableR[i].servicehours,
-                        currency: this.tableR[i].currency,
-                        currencyrate: this.tableR[i].currencyrate,
-                        tormb: this.tableR[i].tormb,
-                        subjectnumber: this.tableR[i].subjectnumber,
-                        budgetcoding: this.tableR[i].budgetcoding,
-                        remarks: this.tableR[i].remarks,
-                        rmb: this.tableR[i].rmb,
-                        foreigncurrency: this.tableR[i].foreigncurrency,
-                        taxes: this.tableR[i].taxes,
-                        annexno: this.tableR[i].annexno,
-                      },
-                    );
+                  }
+                  for (let i = 0; i < this.tableR.length; i++) {
+                    if (this.tableR[i].otherdetailsdate !== '' || this.tableR[i].invoicenumber !== '' || this.tableR[i].costitem !== '' || this.tableR[i].departmentname !== '' || this.tableR[i].accountcode !== '' || this.tableR[i].subjectnumber !== '' || this.tableR[i].budgetcoding !== '' || this.tableR[i].remarks !== ''
+                      || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
+                      if (this.tableR[i].accountcode == 'PJ116008' || this.tableR[i].accountcode == 'PJ130010') {
+                        let letbudge = getDictionaryInfo(this.tableR[i].accountcode);
+                        if (letbudge) {
+                          this.tableR[i].budgetcoding = letbudge.value4;
+                        }
+                      }
+                      this.baseInfo.otherdetails.push(
+                        {
+                          otherdetails_id: this.tableR[i].otherdetails_id,
+                          publicexpenseid: this.tableR[i].publicexpenseid,
+                          otherdetailsdate: this.tableR[i].otherdetailsdate,
+                          invoicenumber: this.tableR[i].invoicenumber,
+                          costitem: this.tableR[i].costitem,
+                          departmentname: this.tableR[i].departmentname,
+                          accountcode: this.tableR[i].accountcode,
+                          plsummary: this.tableR[i].plsummary,
+                          servicehours: this.tableR[i].servicehours,
+                          currency: this.tableR[i].currency,
+                          currencyrate: this.tableR[i].currencyrate,
+                          tormb: this.tableR[i].tormb,
+                          subjectnumber: this.tableR[i].subjectnumber,
+                          budgetcoding: this.tableR[i].budgetcoding,
+                          remarks: this.tableR[i].remarks,
+                          rmb: this.tableR[i].rmb,
+                          foreigncurrency: this.tableR[i].foreigncurrency,
+                          taxes: this.tableR[i].taxes,
+                          annexno: this.tableR[i].annexno,
+                        },
+                      );
+                    }
                   }
                 }
-              }
-              let error = 0;
-              //add-ws-6/16-禅道103
-              if (!this.checkexpectedpaydate) {
-                if (this.form.expectedpaydate === null||this.form.expectedpaydate === '') {
-                  error = error + 1;
-                  this.activeName = 'first';
-                  Message({
-                    message: this.$t('label.PFANS1012VIEW_CHECKEXPECTEDPAYDATE'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                } else {
-                  if (moment(this.form.expectedpaydate).format('DD') != 15 && moment(this.form.expectedpaydate).format('DD') != 25) {
+                let error = 0;
+                //add-ws-6/16-禅道103
+                if (!this.checkexpectedpaydate) {
+                  if (this.form.expectedpaydate === null || this.form.expectedpaydate === '') {
+                    error = error + 1;
                     this.activeName = 'first';
                     Message({
-                      message: this.$t('label.PFANS1012VIEW_CHECKEXPECTEDPAYDATE1'),
+                      message: this.$t('label.PFANS1012VIEW_CHECKEXPECTEDPAYDATE'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
                     return;
+                  } else {
+                    if (moment(this.form.expectedpaydate).format('DD') != 15 && moment(this.form.expectedpaydate).format('DD') != 25) {
+                      this.activeName = 'first';
+                      Message({
+                        message: this.$t('label.PFANS1012VIEW_CHECKEXPECTEDPAYDATE1'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
                   }
                 }
-              }
                 //add-ws-6/16-禅道103
                 //ADD-WS-增加公共费用精算书check
                 if (this.form.type === 'PJ001001') {
@@ -4750,30 +4812,30 @@
                         });
                         break;
                       }
-                        //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
-                        if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                            if (this.tableR[i].subjectnumber === '') {
-                                this.activeName = 'third';
-                                error = error + 1;
-                                Message({
-                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                break;
-                            }
-                            if (this.tableR[i].plsummary === '') {
-                                this.activeName = 'third';
-                                error = error + 1;
-                                Message({
-                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                break;
-                            }
+                      //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
+                      if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
+                        if (this.tableR[i].subjectnumber === '') {
+                          this.activeName = 'third';
+                          error = error + 1;
+                          Message({
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          break;
                         }
-                        //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） end
+                        if (this.tableR[i].plsummary === '') {
+                          this.activeName = 'third';
+                          error = error + 1;
+                          Message({
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          break;
+                        }
+                      }
+                      //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） end
                     }
                   }
                   for (let i = 0; i < this.tableP.length; i++) {
@@ -4788,30 +4850,30 @@
                         });
                         break;
                       }
-                        //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
-                        if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                            if (this.tableP[i].subjectnumber === '') {
-                                this.activeName = 'third';
-                                error = error + 1;
-                                Message({
-                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                break;
-                            }
-                            if (this.tableP[i].plsummary === '') {
-                                this.activeName = 'third';
-                                error = error + 1;
-                                Message({
-                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                break;
-                            }
+                      //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
+                      if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
+                        if (this.tableP[i].subjectnumber === '') {
+                          this.activeName = 'third';
+                          error = error + 1;
+                          Message({
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          break;
                         }
-                        //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） end
+                        if (this.tableP[i].plsummary === '') {
+                          this.activeName = 'third';
+                          error = error + 1;
+                          Message({
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          break;
+                        }
+                      }
+                      //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） end
                     }
                   }
                 }
@@ -4844,13 +4906,13 @@
                         }
                       }
                     }
-                      //add_fjl_0816  添加四舍五入
+                    //add_fjl_0816  添加四舍五入
                     sumout = summoney + sumMoney;
-                      if (Number(sumout) > 0) {
-                          sumout = (summoney + sumMoney).toFixed(2);
-                      }
-                      //add_fjl_0816  添加四舍五入
-                      if (Number(sumout) != Number(this.tableF[j].invoiceamount)) {
+                    if (Number(sumout) > 0) {
+                      sumout = (summoney + sumMoney).toFixed(2);
+                    }
+                    //add_fjl_0816  添加四舍五入
+                    if (Number(sumout) != Number(this.tableF[j].invoiceamount)) {
                       error = error + 1;
                       this.activeName = 'first';
                       Message({
@@ -4930,7 +4992,7 @@
                 });
               }
 
-            }
+            },
           );
         }
       },
@@ -5085,24 +5147,24 @@
       },
       //add 0728
       rowClickLoa(row) {
-          //upd_fjl_0807 pop显示
-          // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-          // this.url = 'PFANS1006FormView';
-          // this.$refs.PFANS1006Pop.open = true;
-          this.$store.commit('global/SET_HISTORYURL', '');
-          this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
-          this.$router.push({
-              name: 'PFANS1006FormView',
-              params: {
-                  _id: row.loanapplication_id,
-                  disabled: false,
-                  _checkid: this.$route.params._id,
-                  _check: true,
-                  _fromname: 'PFANS1012FormView',
-                  _workflowurl1012: '1',//添加跳转时，是否显示流程信息的判断
-              },
-          });
-          //upd_fjl_0807 pop显示
+        //upd_fjl_0807 pop显示
+        // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+        // this.url = 'PFANS1006FormView';
+        // this.$refs.PFANS1006Pop.open = true;
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            _id: row.loanapplication_id,
+            disabled: false,
+            _checkid: this.$route.params._id,
+            _check: true,
+            _fromname: 'PFANS1012FormView',
+            _workflowurl1012: '1',//添加跳转时，是否显示流程信息的判断
+          },
+        });
+        //upd_fjl_0807 pop显示
       },
       //add 0728
 

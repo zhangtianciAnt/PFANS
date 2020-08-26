@@ -1351,8 +1351,8 @@
                                         response[i].emhours = this.numFormat(response[i].emhours);
                                         response[i].outhours = this.numFormat(response[i].outhours);
                                         response[i].inhours = this.numFormat(response[i].inhours);
-                                        response[0].unworktimeei = this.numFormat(response[0].unworktimeei);
-                                        response[0].unworktimeex = this.numFormat(response[0].unworktimeex);
+                                        // response[0].unworktimeei = this.numFormat(response[0].unworktimeei);
+                                        // response[0].unworktimeex = this.numFormat(response[0].unworktimeex);
                                         response[i].outsourcingpjhours = this.numFormat(response[i].outsourcingpjhours);
                                         response[i].callcost = this.numFormat(response[i].callcost);
                                         response[i].yuanqincost = this.numFormat(response[i].yuanqincost);
@@ -1369,7 +1369,7 @@
                                         suminhours += Number(response[i].inhours);
                                         //add-ws-5/6-配赋费计算添加
                                         //add-ws-5/6-外注工数累加
-                                        response[i].outsourcingpjhours = ((Number(response[i].inhours) + Number(response[i].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
+                                        response[i].outsourcingpjhours = ((Number(response[i].inhours) + Number(response[i].outhours)) / Number(numFlg)).toFixed(2);
                                         sumoutsourcingpjhours += Number(response[i].outsourcingpjhours);
                                         //add-ws-5/6-外注工数累加
                                         //add-fjl-06/09  start -- 添加（原動費，通信費，消耗品費，会議費/交際費/研修費，共同事務費，ブランド使用料，その他経費）的累计，按分使用
@@ -1471,7 +1471,7 @@
                                             - (Number(response[j].outst2) / (1 + Number(date1)) * Number(date1) + Number(response[j].outst3) / (1 + Number(date2)) * Number(date2))).toFixed(2);
                                         //ADD_FJL  end
                                         //外注（構外∔構内）PJ工数
-                                        response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours) + Number(response[0].unworktimeei) + Number(response[0].unworktimeex)) / Number(numFlg)).toFixed(2);
+                                        response[j].outsourcingpjhours = ((Number(response[j].inhours) + Number(response[j].outhours)) / Number(numFlg)).toFixed(2);
                                         if (sum == 0) {
                                             response[j].twocost = '0.00';
                                             response[j].peocost = '0.00';

@@ -146,6 +146,9 @@
         rowid: '',
         row_id: 'publicexpenseid',
         isShow: true,
+        // add-ws-8/20-禅道469
+        statuss: '',
+        // add-ws-8/20-禅道469
       };
     },
     mounted() {
@@ -240,6 +243,9 @@
       },
       //ADD_FJL
       rowClick(row) {
+        // add-ws-8/20-禅道469
+        this.statuss = row.status;
+        // add-ws-8/20-禅道469
         this.rowid = row.publicexpenseid;
       },
       MyBrowserIsIE() {
@@ -602,6 +608,9 @@
             params: {
               _id: this.rowid,
               disabled: true,
+              // add-ws-8/20-禅道469
+              _statuss:this.statuss,
+              // add-ws-8/20-禅道469
               //add-ws-8/19-禅道458任务修正
               _workfliw: true,
               //add-ws-8/19-禅道458任务修正
