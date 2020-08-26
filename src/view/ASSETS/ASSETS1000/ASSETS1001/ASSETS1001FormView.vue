@@ -84,7 +84,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_REALPRICE')">
-                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
                                      controls-position="right" style="width:20vw"
                                      v-model="form.realprice"></el-input-number>
                   </el-form-item>
@@ -116,7 +116,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
-                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
                                      controls-position="right" style="width:20vw"
                                      v-model="form.price"></el-input-number>
                   </el-form-item>
@@ -159,7 +159,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_ORIPRICE')" prop="price">
-                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
                                      controls-position="right" style="width:20vw"
                                      v-model="form.price"></el-input-number>
                   </el-form-item>
@@ -253,7 +253,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
-                    <el-input-number :max="9999" :min="0" :precision="2" :step="1"
+                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
                                      controls-position="right" style="width:20vw"
                                      v-model="form.price"></el-input-number>
                   </el-form-item>
