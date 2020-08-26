@@ -507,16 +507,21 @@
 
     mounted() {
       this.loading = true;
-      if (getCurrentRole() === '1') {
-        this.workflowCode = 'W0107';//总经理流程
-      } else {
-        this.workflowCode = 'W0028';//其他
-      }
+
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1021Store/selectById', {'securityid': this.$route.params._id})
           .then(response => {
             this.form = response.security;
+            if (getCurrentRole() === '1') {
+              this.workflowCode = 'W0107';//总经理流程
+            } else {
+              if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0124';
+              } else {
+                this.workflowCode = 'W0028';//其他
+              }
+            }
             let rst = getOrgInfoByUserId(response.security.user_id);
             if (rst) {
               this.center_id = rst.centerNmae;

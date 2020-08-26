@@ -348,17 +348,22 @@
       };
     },
     mounted() {
-      if (getCurrentRole() === '1') {
-        this.workflowCode = 'W0104';//总经理流程
-      } else {
-        this.workflowCode = 'W0025';//其他
-      }
+
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
           .dispatch('PFANS1018Store/getglobalApplyOne', {'global_id': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if (getCurrentRole() === '1') {
+              this.workflowCode = 'W0104';//总经理流程
+            } else {
+              if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0121';
+              } else {
+                this.workflowCode = 'W0025';//其他
+              }
+            }
             let rst = getOrgInfoByUserId(response.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;

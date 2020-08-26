@@ -1260,7 +1260,9 @@
         handler: function() {
           //totalamount --总金额
           // add_fjl_06/15 --添加审批流程 start
-          if (this.form.careerplan === '1') {
+          if (this.form.user_id === '5e78b2264e3b194874180f35') {
+            this.workflowCode = 'W0114';
+          } else if (this.form.careerplan === '1') {
             if (Number(this.form.totalamount) <= 1000) {
               //最后节点到GM  事业计划内 1000以下
               this.workflowCode = 'W0082';

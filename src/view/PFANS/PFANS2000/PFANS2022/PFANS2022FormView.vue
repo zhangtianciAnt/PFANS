@@ -392,13 +392,21 @@
                         if (role == '1') {//总经理
                           this.workcode = 'W0099';
                         } else {
-                          this.workcode = 'W0066';
+                          if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                            this.workcode = 'W0111';
+                          } else {
+                            this.workcode = 'W0066';
+                          }
                         }
                       } else {
                         if (role == '1') {//总经理
                           this.workcode = 'W0098';
                         } else {
-                          this.workcode = 'W0031';
+                          if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                            this.workcode = 'W0110';
+                          } else {
+                            this.workcode = 'W0031';
+                          }
                         }
                       }
                         this.userlist = this.form.user_id;
@@ -733,13 +741,22 @@
                 if (role == '1') {//总经理
                   this.workcode = 'W0099';
                 } else {
-                  this.workcode = 'W0066';
+                  if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                    this.workcode = 'W0111';
+                  } else {
+                    this.workcode = 'W0066';
+                  }
                 }
               } else {
-                if (role == '1') {//总经理
+                //总经理
+                if (role == '1') {
                   this.workcode = 'W0098';
                 } else {
-                  this.workcode = 'W0031';
+                  if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                    this.workcode = 'W0110';
+                  } else {
+                    this.workcode = 'W0031';
+                  }
                 }
               }
             },

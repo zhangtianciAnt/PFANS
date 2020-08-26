@@ -1902,10 +1902,14 @@
               }
 //add-ws-6/12-禅道105
               if ((getCurrentRole() != '1')) {
-                if (this.form.moneys >= 20000) {
-                  this.workflowCode = 'W0077';
+                if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                  this.workflowCode = 'W0115';
                 } else {
-                  this.workflowCode = 'W0016';
+                  if (this.form.moneys >= 20000) {
+                    this.workflowCode = 'W0077';
+                  } else {
+                    this.workflowCode = 'W0016';
+                  }
                 }
               } else {
                 this.workflowCode = 'W0100';

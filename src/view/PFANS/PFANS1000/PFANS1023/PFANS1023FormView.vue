@@ -388,11 +388,20 @@
               this.disabled2 = true;
             }
             if (getCurrentRole() === '1') {
+              //总经理
               this.workflowCode = 'W0101';
             } else if (this.form.machinemedia == 'PJ028001') {
-              this.workflowCode = 'W0058';
+              if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0118';
+              } else {
+                this.workflowCode = 'W0058';
+              }
             } else {
-              this.workflowCode = 'W0030';
+              if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0118';
+              } else {
+                this.workflowCode = 'W0030';
+              }
             }
             if (this.form.information === '') {
               this.checked3 = false;
@@ -593,11 +602,16 @@
       // },
       getMachinemedia(val) {
         this.form.machinemedia = val;
+        //持出PC
         if (val == 'PJ028001') {
           if (getCurrentRole() === '1') {
             this.workflowCode = 'W0101';
           } else {
-            this.workflowCode = 'W0058';
+            if (this.form.user_id === '5e78b2264e3b194874180f35') {
+              this.workflowCode = 'W0118';
+            } else {
+              this.workflowCode = 'W0058';
+            }
           }
           if (this.form.exportdate != '' && this.form.returndate != '') {
             this.checkDateSpace(this.form.exportdate, this.form.returndate);
@@ -606,7 +620,11 @@
           if (getCurrentRole() === '1') {
             this.workflowCode = 'W0101';
           } else {
-            this.workflowCode = 'W0030';
+            if (this.form.user_id === '5e78b2264e3b194874180f35') {
+              this.workflowCode = 'W0118';
+            } else {
+              this.workflowCode = 'W0030';
+            }
           }
         }
       },

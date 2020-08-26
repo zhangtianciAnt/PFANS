@@ -964,14 +964,18 @@
               this.loading = false;
               return;
             }
+            this.form = response.business;
               //add_fjl_0806  添加总经理审批流程
               if (getCurrentRole() === '1') {
                   this.workflowCode = 'W0096';//总经理流程
               } else {
+                if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                  this.workflowCode = 'W0112';
+                } else {
                   this.workflowCode = 'W0049';//其他
+                }
               }
               //add_fjl_0806  添加总经理审批流程
-            this.form = response.business;
             if (this.form.checkch != '1') {
               if (this.$route.params._type === 3) {
                 this.form.checkch = '1';

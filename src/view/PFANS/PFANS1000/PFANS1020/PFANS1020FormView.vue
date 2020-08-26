@@ -325,11 +325,6 @@ export default {
 
   mounted() {
     this.loading = true;
-    if (getCurrentRole() === '1') {
-      this.workflowCode = 'W0106';//总经理流程
-    } else {
-      this.workflowCode = 'W0027';//其他
-    }
     if (this.$route.params._id) {
       this.$store
         .dispatch("PFANS1020Store/selectById", {
@@ -337,6 +332,15 @@ export default {
         })
         .then(response => {
           this.form = response.outside;
+          if (getCurrentRole() === '1') {
+            this.workflowCode = 'W0106';//总经理流程
+          } else {
+            if (this.form.user_id === '5e78b2264e3b194874180f35') {
+              this.workflowCode = 'W0123';
+            } else {
+              this.workflowCode = 'W0027';//其他
+            }
+          }
           let rst = getOrgInfoByUserId(response.outside.user_id);
           if (rst) {
             this.centerid = rst.centerNmae;

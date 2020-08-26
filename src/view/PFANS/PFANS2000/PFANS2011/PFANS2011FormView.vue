@@ -549,9 +549,14 @@
               } else {
                 this.workflowCode = 'W0001';
               }
+              //总经理预计
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
               {
                 this.workflowCode = 'W0072';
+              }
+              //王磊预计 禅道362
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0108';
               }
 
               this.canStart = true;
@@ -573,7 +578,9 @@
               {
                 this.workflowCode = 'W0073';
               }
-
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0109';
+              }
               this.canStart = true;
               if (!this.disable || this.form.overtimetype === 'PR001005') {
                 this.disactualovertime = false;
@@ -593,6 +600,10 @@
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
               {
                 this.workflowCode = 'W0073';
+              }
+              //王磊实际 禅道362
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0109';
               }
               this.canStart = false;
               this.disable = false;
@@ -896,15 +907,15 @@
       },
       workflowState(val) {
         if (val.state === '1') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108') {
             this.form.status = '3';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109') {
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108') {
             this.form.status = '4';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109') {
             this.form.status = '7';
             this.canStart = false;
           }
@@ -1024,6 +1035,8 @@
         if (this.form.userid ==='5e78fefff1560b363cdd6db7')
         {
           this.workflowCode = 'W0072';
+        } else if (this.form.userid === '5e78b2264e3b194874180f35') {
+          this.workflowCode = 'W0108';
         }
 
         this.showovertimetype = false;
