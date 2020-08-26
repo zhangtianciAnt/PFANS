@@ -477,16 +477,28 @@
     },
     data() {
       var validatePayeecode = (rule, value, callback) => {
-        this.regExp = /^[A-Za-z0-9]+$/;
-        if (this.form.payeecode !== null && this.form.payeecode !== '') {
-          if (!this.regExp.test((value))) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')));
-          } else {
+        //upd-ws-8/26-禅道bug65
+        // debugger
+        // this.regExp = /^[A-Za-z0-9]+$/;
+        // if (this.form.payeecode !== null && this.form.payeecode !== '') {
+        //   if (!this.regExp.test((value))) {
+        //     callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')));
+        //   } else {
+        //     callback();
+        //   }
+        // } else {
+        //   callback();
+        // }
+        if (this.show7) {
+          if (value) {
             callback();
+          } else {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')));
           }
         } else {
           callback();
         }
+        //upd-ws-8/26-禅道bug65
       };
       // var validatePayeebankaccountnumber = (rule, value, callback) => {
       //   if (!value || value === '' || value === 'undefined') {
