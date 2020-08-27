@@ -85,7 +85,7 @@
             label: 'label.PFANS3005VIEW_ACTUARIALDATE',
             width: 150,
             fix: false,
-            filter: false,
+              filter: true,
           },
           {
             code: 'actuarialamount',
