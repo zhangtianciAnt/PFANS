@@ -787,12 +787,13 @@
     },
     created() {
       // add-ws-8/12-禅道任务446
+        alert(1 + this.$store.getters.workflowUrl)
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
         //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
-        if (this.$route.params._workflowurl1012 === undefined) {
-            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
-        }
+        // if (this.$route.params._workflowurl1012 === undefined) {
+        //     this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+        // }
         //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
       this.disable = this.$route.params.disabled;
       if (this.disable) {
@@ -819,6 +820,7 @@
       }
     },
     mounted() {
+        alert(2 + this.$store.getters.workflowUrl)
       //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
       this.role1 = getCurrentRole2();
       //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
@@ -1370,6 +1372,15 @@
         checkparams() {
             let id = this.$route.params._checkid;
             let fromname = this.$route.params._fromname;
+            //add_fjl_0828  流程信息查不到横展开
+            if (fromname === 'PFANS3005FormView') {
+                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+            } else if (fromname === 'PFANS1013FormView') {
+                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
+            } else {
+                this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
+            }
+            //add_fjl_0828  流程信息查不到横展开
             this.$router.push({
                 name: fromname,
                 params: {

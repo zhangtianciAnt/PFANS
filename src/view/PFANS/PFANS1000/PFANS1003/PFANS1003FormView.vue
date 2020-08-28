@@ -829,7 +829,7 @@
       }
     },
     created() {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1003FormView');
+        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1003FormView');
       this.disabled = this.$route.params.disabled;
         this.disableview = this.$route.params._disableview;
       if (this.disabled) {

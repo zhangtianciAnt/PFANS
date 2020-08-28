@@ -1152,7 +1152,7 @@
       }
     },
     created() {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1035FormView');
+        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1035FormView');
         this.disableview = this.$route.params._disableview;
       let userid = '';
       if (this.$route.params.userid) {

@@ -1282,7 +1282,7 @@
     },loading: false,
     //add_fjl end
     created() {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
       this.disable = this.$route.params.disabled;
         this.disableview = this.$route.params._disableview;
       // if (this.disable) {

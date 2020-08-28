@@ -4536,6 +4536,13 @@
       checkparams() {
         let id = this.$route.params._checkid;
         let fromname = this.$route.params._fromname;
+          //add_fjl_0828  流程信息查不到横展开
+          if (fromname === 'PFANS3005FormView') {
+              this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+          } else {
+              this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
+          }
+          //add_fjl_0828  流程信息查不到横展开
         this.$router.push({
           name: fromname,
           params: {

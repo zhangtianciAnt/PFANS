@@ -1147,7 +1147,7 @@
       },
     },
     created() {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1004FormView');
+        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1004FormView');
       this.disabled = this.$route.params.disabled;
         this.disableview = this.$route.params._disableview;
       //是否可以做补充决裁
