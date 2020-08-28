@@ -1260,16 +1260,51 @@
         handler: function() {
           //totalamount --总金额
           // add_fjl_06/15 --添加审批流程 start
-          if (this.form.careerplan === '1') {
+          // 王磊
+          if (this.form.user_id === '5e78b2264e3b194874180f35') {
+            // 电脑相关
+            if (this.form.procurementproject === 'PJ005005' ||
+              this.form.procurementproject === 'PJ005006' ||
+              this.form.procurementproject === 'PJ005007' ||
+              this.form.procurementproject === 'PJ005018') {
+              this.workflowCode = 'W0125';
+            } else {
+              this.workflowCode = 'W0114';
+            }
+          } else if (this.form.careerplan === '1') {
             if (Number(this.form.totalamount) <= 1000) {
-              //最后节点到GM  事业计划内 1000以下
-              this.workflowCode = 'W0082';
+              if (this.form.procurementproject === 'PJ005005' ||
+                this.form.procurementproject === 'PJ005006' ||
+                this.form.procurementproject === 'PJ005007' ||
+                this.form.procurementproject === 'PJ005018') {
+                //电脑相关，1000元以下
+                this.workflowCode = 'W0126';
+              } else {
+                //最后节点到GM  事业计划内 1000以下
+                this.workflowCode = 'W0082';
+              }
             } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
-              //最后节点到center长  事业计划内  1000到20000之间
-              this.workflowCode = 'W0022';
+              if (this.form.procurementproject === 'PJ005005' ||
+                this.form.procurementproject === 'PJ005006' ||
+                this.form.procurementproject === 'PJ005007' ||
+                this.form.procurementproject === 'PJ005018') {
+                //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
+                this.workflowCode = 'W0127';
+              } else {
+                //最后节点到center长  事业计划内  1000到20000之间
+                this.workflowCode = 'W0022';
+              }
             } else if (Number(this.form.totalamount) > 20000) {
-              //最后节点到总经理   事业计划外
-              this.workflowCode = 'W0075';
+              if (this.form.procurementproject === 'PJ005005' ||
+                this.form.procurementproject === 'PJ005006' ||
+                this.form.procurementproject === 'PJ005007' ||
+                this.form.procurementproject === 'PJ005018') {
+                //电脑相关，最后节点到总经理   事业计划外
+                this.workflowCode = 'W0128';
+              } else {
+                //最后节点到总经理   事业计划外
+                this.workflowCode = 'W0075';
+              }
             }
           } else if (this.form.careerplan === '0') {
             //最后节点到总经理   事业计划外

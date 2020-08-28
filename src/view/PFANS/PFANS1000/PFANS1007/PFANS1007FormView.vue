@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList"
+                         :buttonList="buttonList" :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -400,6 +400,7 @@
         groupid: '',
         teamid: '',
         userlist: '',
+        workflowCode: '',
         error: '',
         selectedList: [],
         assetsList: [],
@@ -538,6 +539,11 @@
           .dispatch('PFANS1007Store/selectById', {'assetinformationid': this.$route.params._id})
           .then(response => {
             this.form = response.assetinformation;
+            if (this.form.user_id === '5e78b2264e3b194874180f35') {
+              this.workflowCode = 'W0116';
+            } else {
+              this.workflowCode = 'W0017';//其他
+            }
             let rst = getOrgInfoByUserId(response.assetinformation.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;

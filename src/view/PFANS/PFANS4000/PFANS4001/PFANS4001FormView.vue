@@ -2,6 +2,7 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
+                         :workflowCode="workflowCode"
                          :defaultStart="defaultStart" :enableSave="enableSave" @StartWorkflow="buttonClick"
                          @disabled="setdisabled">
       <div slot="customize">
@@ -253,6 +254,7 @@
         teamid: '',
         awardable: true,
         error: '',
+        workflowCode: '',
         tableD: [],
         chgesal: [],
         multipleSelection: [],
@@ -352,6 +354,11 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0117';
+              } else {
+                this.workflowCode = 'W0074';//其他
+              }
               // add-ws-印章管理下拉多选
               if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
                 let letstaff = this.form.sealtype.split(',');
