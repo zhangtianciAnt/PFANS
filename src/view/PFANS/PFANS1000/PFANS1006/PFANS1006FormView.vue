@@ -1377,6 +1377,8 @@
                 this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
             } else if (fromname === 'PFANS1013FormView') {
                 this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
+            } else if (fromname === 'PFANS1012FormView') {
+                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
             } else {
                 this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
             }
