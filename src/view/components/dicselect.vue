@@ -79,8 +79,9 @@
         //       duration: 5 * 1000
         //     })
         //   })
+      }else{
+        this.options=[]
       }
-
     },
     methods: {
       change(val) {
@@ -102,6 +103,8 @@
           for(let item of dic){
             this.options.push(item);
           }
+        }else{
+          this.options=[];
         }
       }
     }
