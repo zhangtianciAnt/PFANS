@@ -804,7 +804,6 @@
       };
     },
     mounted() {
-      this.getRestday();
       this.getAbNormalParent();
       this.getSickleave();
       // this.getAttendance();
@@ -828,6 +827,8 @@
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            this.userlist = this.form.user_id;
+            // this.getRestday(this.userlist);
             if (parseInt(this.form.status) <= 4) {
               this.checklength3 = response.lengthtime;
             } else {
@@ -847,7 +848,7 @@
                 // }
               }
             }
-            this.getonRest(this.form.errortype);
+
             if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013022') {
@@ -872,7 +873,7 @@
               this.groupid = rst.groupNmae;
               this.teamid = rst.teamNmae;
             }
-            this.userlist = this.form.user_id;
+            this.getonRest(this.form.errortype);
             // this.relation = this.form.relation;
             // if (this.form.status == '4' || this.form.status == '5' || this.form.status == '6' || this.form.status == '7') {
             //   this.checkfinisheddate = false;
@@ -1028,6 +1029,7 @@
       else {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016FormView');
         this.userlist = this.$store.getters.userinfo.userid;
+        // this.getRestday(this.userlist);
         // this.enterday = moment(this.$store.getters.userinfo.userinfo.enterday).format('YYYY-MM-DD');
         this.marryday = moment(this.$store.getters.userinfo.userinfo.marryday).format('YYYY-MM-DD');
         if (this.userlist !== null && this.userlist !== '') {
@@ -1362,29 +1364,29 @@
           });
       },
       //add_fjl_05/26 --添加代休剩余
-      getRestday() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2016Store/getRestday', {'userid': this.$store.getters.userinfo.userid})
-          .then(response => {
-            this.optionRest = [];
-            for (let i = 0; i < response.length; i++) {
-              var ro = {};
-              ro.typecode = response[i].codetype,
-                ro.sumday = response[i].sumDay,
-                this.optionRest.push(ro);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
+      // getRestday(val) {
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS2016Store/getRestday', {'userid': val})
+      //     .then(response => {
+      //       this.optionRest = [];
+      //       for (let i = 0; i < response.length; i++) {
+      //         var ro = {};
+      //         ro.typecode = response[i].codetype,
+      //           ro.sumday = response[i].sumDay,
+      //           this.optionRest.push(ro);
+      //       }
+      //       this.loading = false;
+      //     })
+      //     .catch(error => {
+      //       Message({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       this.loading = false;
+      //     });
+      // },
       //add_fjl_05/26 --添加代休剩余
       getAbNormalParent() {
         this.loading = true;
@@ -1801,17 +1803,35 @@
         this.restdiff3 = '';
         //add-ws-6/8-禅道035
         this.$store
-          .dispatch('PFANS2016Store/getFpans2016List2', {})
+          .dispatch('PFANS2016Store/getFpans2016List2', {'user_id': this.userlist})
           .then(response => {
-            if (this.optionRest.length > 0) {
-              for (let i = 0; i < this.optionRest.length; i++) {
-                if (this.optionRest[i].typecode === val) {
-                  if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
-                    this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
+            this.$store
+              .dispatch('PFANS2016Store/getRestday', {'userid': this.userlist})
+              .then(response => {
+                this.optionRest = [];
+                for (let i = 0; i < response.length; i++) {
+                  var ro = {};
+                  ro.typecode = response[i].codetype,
+                    ro.sumday = response[i].sumDay,
+                    this.optionRest.push(ro);
+                }
+                if (this.optionRest.length > 0) {
+                  for (let i = 0; i < this.optionRest.length; i++) {
+                    if (this.optionRest[i].typecode === val) {
+                      if (this.optionRest[i].sumday !== null && this.optionRest[i].sumday !== '') {
+                        this.form.restdiff = (Number(this.optionRest[i].sumday) * 8).toFixed(2);
+                      }
+                    }
                   }
                 }
-              }
-            }
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              });
             let restdiff2 = 0;
             let restdiff = 0;
             for (let a = 0; a < response.length; a++) {

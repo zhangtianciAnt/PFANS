@@ -113,9 +113,9 @@ const PFANS2016Store = {
       })
     },
     //add-ws-6/8-禅道035
-    getFpans2016List2({commit}) {
+    getFpans2016List2({ commit },data) {
       return new Promise((resolve, reject) => {
-        getFpans2016List2().then(response => {
+        getFpans2016List2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

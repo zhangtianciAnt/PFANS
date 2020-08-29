@@ -38,10 +38,11 @@ export function getFpans2016List(data) {
   })
 }
 //add-ws-6/8-禅道035
-export function getFpans2016List2() {
+export function getFpans2016List2(data) {
   return request({
     url: 'abNormal/list2',
-    method: 'post'
+    method: 'post',
+    data: data
   })
 }
 //add-ws-6/8-禅道035
