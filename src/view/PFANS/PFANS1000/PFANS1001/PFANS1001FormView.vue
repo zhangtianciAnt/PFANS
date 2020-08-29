@@ -37,7 +37,14 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getDepartmentById} from '@/utils/customize';
+  import {
+    getDictionaryInfo,
+    getOrgInfoByUserId,
+    getStatus,
+    getUserInfo,
+    getDepartmentById,
+    getUserInfoName,
+  } from '@/utils/customize';
   import moment from 'moment';
 
   export default {
@@ -1332,6 +1339,34 @@
               }
             }
             if (val === 'actuarial') {
+              //add-ws-8/29-禅道bug066
+              if (this.selectedlist.length > 1) {
+                Message({
+                  message: this.$t('label.PFANS1001FORMVIEW_CHECKERROR'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              } else {
+                if (getUserInfoName(this.selectedlist[0].user_id) !== '-1') {
+                  let userid = getUserInfoName(this.selectedlist[0].user_id).userid;
+                  if (userid != this.$store.getters.userinfo.userid) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKERROR1'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
+                }
+              }
+              let type ="";
+              if (this.$route.params.title === 1) {
+                type = true
+              } else if(this.$route.params.title === 2){
+                type = false
+              }
+              //add-ws-8/29-禅道bug066
               //del ccm 0813 决裁到暂借款，精算  check去掉
               // if (str !== '') {
               //   Message({
@@ -1346,30 +1381,30 @@
                 loan = loan.substring(0, loan.length - 1);
                 if (loan != null && loan != '' && loan != undefined) {
                   this.$router.push({
-                      name: 'PFANS1013FormView',
+                    name: 'PFANS1013FormView',
                     params: {
                       _name: optionsSEL,
-                        // _type: 'PJ001002',
+                      _typecheck: type,
                       _haveLoanapp: loanid,
                       disabled: true,
                     },
                   });
                 } else {
                   this.$router.push({
-                      name: 'PFANS1013FormView',
+                    name: 'PFANS1013FormView',
                     params: {
                       _name: optionsSEL,
-                        // _type: 'PJ001002',
+                      _typecheck: type,
                       disabled: true,
                     },
                   });
                 }
               } else {
                 this.$router.push({
-                    name: 'PFANS1013FormView',
+                  name: 'PFANS1013FormView',
                   params: {
                     _name: optionsSEL,
-                      // _type: 'PJ001002',
+                    _typecheck: type,
                     disabled: true,
                   },
                 });

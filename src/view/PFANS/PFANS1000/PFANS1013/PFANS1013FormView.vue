@@ -3580,6 +3580,25 @@
         }
       },
       buttonClick(val) {
+        //add-ws-8/29-禅道bug066
+        if (val === 'back') {
+            if (this.$route.params._typecheck) {
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: 1,
+                },
+              });
+            }else {
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: 2,
+                },
+              });
+            }
+        }
+        //add-ws-8/29-禅道bug066
         if (val === 'save') {
           this.$refs['refform'].validate(valid => {
               if (valid) {
