@@ -202,72 +202,98 @@
               .dispatch('PFANS1026Store/getworkfolwPurchaseData', {'award_id': this.$route.params._id})
               .then(response3 => {
                 if (response3 !== null && response3 !== '' && response3 !== undefined) {
+
                   if (response3["purchase"]!=undefined)
                   {
-                    let pur = response3["purchase"].split(',');
-                    let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '采购决裁',
-                        Status: statu,
-                        url: 'PFANS3005FormView',
-                        params: {'_id':pur[0]}
-                      })
+                    let purlist = response3["purchase"].split(';');
+                    let setpurlist = new Set(purlist);
+                    for (let i of setpurlist)
+                    {
+                      let pur = i.split(',');
+                      let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No:this.flowData.length + 1,
+                          Name: '采购决裁',
+                          Status: statu,
+                          url: 'PFANS3005FormView',
+                          params: {'_id':pur[0]}
+                        })
+                    }
                   }
                   if (response3["award"]!=undefined)
                   {
-                    let aw = response3["award"].split(',');
-                    let statu = aw[1] === '4' ? 'normal.done' : (aw[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '合同决裁',
-                        Status: statu,
-                        url: 'PFANS1047FormView',
-                        params: {'_id':aw[0]}
-                      })
+                    let awlist = response3["award"].split(';');
+                    let setawlist = new Set(awlist);
+                    for (let i of setawlist)
+                    {
+                      let aw = i.split(',');
+                      let statu = aw[1] === '4' ? 'normal.done' : (aw[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No:this.flowData.length + 1,
+                          Name: '合同决裁',
+                          Status: statu,
+                          url: 'PFANS1047FormView',
+                          params: {'_id':aw[0]}
+                        })
+                    }
                   }
                   if (response3["seal"]!=undefined)
                   {
-                    let seal = response3["seal"].split(',');
-                    let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '印章申请',
-                        Status: statu,
-                        url: 'PFANS4001FormView',
-                        params: {'_id':seal[0]}
-                      })
+                    let seallist = response3["seal"].split(';');
+                    let setseallist = new Set(seallist);
+                    for (let i of setseallist)
+                    {
+                      let seal = i.split(',');
+                      let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No:this.flowData.length + 1,
+                          Name: '印章申请',
+                          Status: statu,
+                          url: 'PFANS4001FormView',
+                          params: {'_id':seal[0]}
+                        })
+                    }
                   }
-                  if (response3["loanApplication"]!=undefined)
-                  {
-                    let loanapp = response3["loanApplication"].split(',');
-                    let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '暂借款申请',
-                        Status: statu,
-                        url: 'PFANS1006FormView',
-                        params: {'_id':loanapp[0]}
-                      })
-                  }
-                  if (response3["publicExpense"]!=undefined)
-                  {
-                    let pub = response3["publicExpense"].split(',');
-                    let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo')
-                    this.flowData.push(
-                      {
-                        No:this.flowData.length + 1,
-                        Name: '公共费用精算',
-                        Status: statu,
-                        url: 'PFANS1012FormView',
-                        params: {'_id':pub[0]}
-                      })
-                  }
-                  // this.$emit('showPop',this.flowData);
+                  // if (response3["loanApplication"]!=undefined)
+                  // {
+                  //   let loanapplist = response3["loanApplication"].split(';');
+                  //   let setloanapplist = new Set(loanapplist);
+                  //   for (let i of setloanapplist)
+                  //   {
+                  //     let loanapp = i.split(',');
+                  //     let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo')
+                  //     this.flowData.push(
+                  //       {
+                  //         No:this.flowData.length + 1,
+                  //         Name: '暂借款申请',
+                  //         Status: statu,
+                  //         url: 'PFANS1006FormView',
+                  //         params: {'_id':loanapp[0]}
+                  //       })
+                  //   }
+                  // }
+                  // if (response3["publicExpense"]!=undefined)
+                  // {
+                  //   let publist = response3["publicExpense"].split(';');
+                  //   let setpublist = new Set(publist);
+                  //   for (let i of setpublist)
+                  //   {
+                  //     let pub = i.split(',');
+                  //     let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo')
+                  //     this.flowData.push(
+                  //       {
+                  //         No:this.flowData.length + 1,
+                  //         Name: '公共费用精算',
+                  //         Status: statu,
+                  //         url: 'PFANS1012FormView',
+                  //         params: {'_id':pub[0]}
+                  //       })
+                  //   }
+                  // }
+                  this.$emit('showPop',this.flowData);
                 }
               })
             //采购业务数据流程查看详情
