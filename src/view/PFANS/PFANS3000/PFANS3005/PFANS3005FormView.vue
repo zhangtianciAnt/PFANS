@@ -104,7 +104,7 @@
                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                       :start-placeholder="$t('label.startdate')"
                       :end-placeholder="$t('label.enddate')"
-                      style="width: 20rem">
+                      style="width: 20vw">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -284,9 +284,12 @@
                     <el-input :disabled="!disable" style="width:20vw" maxlength='20' v-model="form.model"></el-input>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <!--111-->
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_EQUIPMENTURL')">
-                    <el-input :disabled="!disable" style="width:20vw" maxlength='50'
+                    <el-input :disabled="!disable" style="width:72vw" type='textarea'
                               v-model="form.equipmenturl"></el-input>
                   </el-form-item>
                 </el-col>
