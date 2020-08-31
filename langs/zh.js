@@ -603,6 +603,8 @@ module.exports = {
     INDEX_GD: '更多',
     INDEX_RLRC: '日历历程',
     INDEX_RILICHECK: '查看日期类型',
+    PFANS1001FORMVIEW_CHECKERROR: '请选择单条数据进行出差精算',
+    PFANS1001FORMVIEW_CHECKERROR1: '请选择当前登录人进行精算',
     PFANS1001FORMVIEW_NUMBERS: '决裁编号',
     PFANS1001FORMVIEW_CHECKSUM: '请选择都有暂借款的决裁或是都没有暂借款的决裁进行精算!',
     PFANS1001FORMVIEW_BUSINESS_NUMBER: '出差编号',
