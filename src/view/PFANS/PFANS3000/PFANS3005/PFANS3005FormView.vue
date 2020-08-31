@@ -208,7 +208,7 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005VIEW_BUSINESSPLANAMOUNT')" prop="businessplanamount">
+                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_CAREERPLANAMOUNT')" prop="businessplanamount">
                     <el-input-number v-model="form.businessplanamount"
                                      controls-position="right"
                                      :disabled="!disable"
@@ -879,7 +879,7 @@
           businessplanamount: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_BUSINESSPLANAMOUNT'),
+                message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_CAREERPLANAMOUNT'),
               trigger: 'change',
             },
           ],

@@ -176,7 +176,7 @@
           },
           {
             code: 'businessplanamount',
-            label: 'label.PFANS3005VIEW_BUSINESSPLANAMOUNT',
+              label: 'label.PFANS3005FORMVIEW_CAREERPLANAMOUNT',
             width: 150,
             fix: false,
             filter: false,
