@@ -293,9 +293,9 @@
                     for (let role of this.$store.getters.useraccount.roles) {
                         roles = roles + role.description;
                     }
-                    if (roles.toUpperCase().indexOf('外注管理担当') != -1 || roles.toUpperCase().indexOf('总经理') != -1|| roles.toUpperCase().indexOf('管理员') != -1) {
-                        return '4';
-                    }
+                  if (roles.toUpperCase().indexOf('外注管理担当') != -1 || roles.toUpperCase().indexOf('财务部长') != -1 || roles.toUpperCase().indexOf('企划部长') != -1 || roles.toUpperCase().indexOf('合同担当') != -1 || roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('管理员') != -1) {
+                    return '4';
+                  }
                     else{
                         return '0';
                     }
