@@ -60,6 +60,13 @@
             filter: true,
           },
           {
+            code: 'procurementdetails',
+            label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME',
+            width: 150,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'storagedate',
             label: 'label.PFANS3005VIEW_STORAGEDATE',
             width: 150,
@@ -191,13 +198,6 @@
           {
             code: 'procurementproject',
             label: 'label.PFANS3005VIEW_PROCUREMENTPROJECT',
-            width: 150,
-            fix: false,
-            filter: false,
-          },
-          {
-            code: 'procurementdetails',
-            label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME',
             width: 150,
             fix: false,
             filter: false,
