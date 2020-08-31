@@ -1330,8 +1330,15 @@
               }
             }
           } else if (this.form.careerplan === '0') {
-            //最后节点到总经理   事业计划外
-            this.workflowCode = 'W0075';
+            if (this.form.procurementproject === 'PJ005005' ||
+              this.form.procurementproject === 'PJ005006' ||
+              this.form.procurementproject === 'PJ005007' ||
+              this.form.procurementproject === 'PJ005018') {
+              //最后节点到总经理   事业计划外
+              this.workflowCode = 'W0129';
+            } else {
+              this.workflowCode = 'W0075';
+            }
           }
           // add_fjl_06/15 --添加审批流程 end
         },
