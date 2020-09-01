@@ -416,6 +416,7 @@
                 'user_id': this.form.user_id,
                 errortype: this.form.errortype,
                 relengthtime: this.form.relengthtime,
+                lengthtime: this.form.lengthtime,
                 abnormalid: this.$route.params._id,
                 status: this.form.status,
               })
@@ -437,7 +438,7 @@
                   } else {
                     valflg = 0.5;
                   }
-                  if (Number(valflg) > Number(response.checkdat)) {
+                  if (Number(valflg) < Number(response.checkdat)) {
                     callback(this.$t('normal.error_norestdays'));
                   } else {
                     callback();
@@ -1835,15 +1836,12 @@
             let restdiff2 = 0;
             let restdiff = 0;
             for (let a = 0; a < response.length; a++) {
-              if (response[a].status === '0' || response[a].status === '2' || response[a].status === '3') {
+              if (response[a].status === '2' ) {
                 if (response[a].errortype === this.form.errortype) {
                   restdiff2 += Number(response[a].lengthtime);
                 }
               }
-              if (response[a].status === '4' || response[a].status === '5' || response[a].status === '6') {
-                if (response[a].status === '4') {
-                  response[a].relengthtime = response[a].lengthtime;
-                }
+              if (response[a].status === '5' ) {
                 if (response[a].errortype === this.form.errortype) {
                   restdiff += Number(response[a].relengthtime);
                 }
@@ -2205,7 +2203,7 @@
                 }
                 if (this.form.errortype === 'PR013007') {
                   if (this.form.status) {
-                    if (parseInt(this.form.status) <= 4) {
+                    if (parseInt(this.form.status) < 4) {
                       if (this.form.restdiff < this.form.lengthtime) {
                         Message({
                           message: this.$t('normal.error_norestdays'),
@@ -2214,7 +2212,7 @@
                         });
                         return;
                       }
-                    } else {
+                    } else if (parseInt(this.form.status) > 4) {
                       if (this.form.restdiff < this.form.relengthtime) {
                         Message({
                           message: this.$t('normal.error_norestdays'),
