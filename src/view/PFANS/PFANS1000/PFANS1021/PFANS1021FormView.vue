@@ -101,16 +101,16 @@
                                type="index"></el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200">
                 <template slot-scope="scope">
-                  <user
-                    :disabled="!disabled"
-                    :no="scope.row"
-                    :userlist="scope.row.title"
-                    @getUserids="getInterviewerids"
-                    selectType="Single"
-                    style="width:90%"
-                  ></user>
-                  <!--                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"-->
-                  <!--                            style="width: 10rem"></el-input>-->
+                  <!--<user-->
+                  <!--:disabled="!disabled"-->
+                  <!--:no="scope.row"-->
+                  <!--:userlist="scope.row.title"-->
+                  <!--@getUserids="getInterviewerids"-->
+                  <!--selectType="Single"-->
+                  <!--style="width:90%"-->
+                  <!--&gt;</user>-->
+                  <el-input v-model="scope.row.title" :no="scope.row"
+                            style="width: 10rem"></el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS3005VIEW_COMPANY')" align="center" prop="title" width="200"
@@ -137,36 +137,36 @@
                   </el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200">
-                <template slot-scope="scope">
-                  <org :orglist="scope.row.detailcenter_id"
-                       orgtype="1"
-                       :disabled="!disabled"
-                       style="width: 100%"
-                       :no="scope.row"
-                       @getOrgids="getGroupId"></org>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="200">
-                <template slot-scope="scope">
-                  <org :orglist="scope.row.detailgroup_id"
-                       orgtype="2"
-                       :disabled="!disabled"
-                       style="width: 100%"
-                       :no="scope.row"
-                       @getOrgids="getGroupId1"></org>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="200">
-                <template slot-scope="scope">
-                  <org :orglist="scope.row.detailteam_id"
-                       orgtype="3"
-                       :disabled="!disabled"
-                       style="width: 100%"
-                       :no="scope.row"
-                       @getOrgids="getGroupId2"></org>
-                </template>
-              </el-table-column>
+              <!--<el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200">-->
+              <!--<template slot-scope="scope">-->
+              <!--<org :orglist="scope.row.detailcenter_id"-->
+              <!--orgtype="1"-->
+              <!--:disabled="!disabled"-->
+              <!--style="width: 100%"-->
+              <!--:no="scope.row"-->
+              <!--@getOrgids="getGroupId"></org>-->
+              <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="200">-->
+              <!--<template slot-scope="scope">-->
+              <!--<org :orglist="scope.row.detailgroup_id"-->
+              <!--orgtype="2"-->
+              <!--:disabled="!disabled"-->
+              <!--style="width: 100%"-->
+              <!--:no="scope.row"-->
+              <!--@getOrgids="getGroupId1"></org>-->
+              <!--</template>-->
+              <!--</el-table-column>-->
+              <!--<el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="200">-->
+              <!--<template slot-scope="scope">-->
+              <!--<org :orglist="scope.row.detailteam_id"-->
+              <!--orgtype="3"-->
+              <!--:disabled="!disabled"-->
+              <!--style="width: 100%"-->
+              <!--:no="scope.row"-->
+              <!--@getOrgids="getGroupId2"></org>-->
+              <!--</template>-->
+              <!--</el-table-column>-->
               <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
               <!--                               width="200">-->
               <!--                <template slot-scope="scope">-->
@@ -367,7 +367,7 @@
         buttonList: [],
         timea: '',
         //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-        acceptShow: 'true',
+        acceptShow: true,
         enableSave: false,
         //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         multiple: false,
@@ -756,12 +756,12 @@
       getGroupId(orglist, row) {
         row.detailcenter_id = orglist;
       },
-      getGroupId1(orglist, row) {
-        row.detailgroup_id = orglist;
-      },
-      getGroupId2(orglist, row) {
-        row.detailteam_id = orglist;
-      },
+      // getGroupId1(orglist, row) {
+      //   row.detailgroup_id = orglist;
+      // },
+      // getGroupId2(orglist, row) {
+      //   row.detailteam_id = orglist;
+      // },
       addRow() {
         this.form.tableD.push({
           securitydetailid: '',
