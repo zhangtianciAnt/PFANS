@@ -776,7 +776,11 @@
           },
           {
             value: '1',
-            label: this.$t('label.PFANS3006VIEW_NOCARRYOUT'),
+            label: this.$t('label.PFANS3006VIEW_DUIYINGZHONG'),
+          },
+          {
+            value: '2',
+            label: this.$t('label.PFANS3006VIEW_WEIDUIYING'),
           },
         ],
         acceptShow: true,
@@ -962,7 +966,7 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
-              if (this.form.acceptstatus === '1') {
+              if (this.form.acceptstatus === '0') {
                 this.refuseShow = true;
               } else {
                 this.refuseShow = false;
@@ -989,7 +993,9 @@
                 if (this.form.status === '4') {
                   this.enableSave = true;
                   if (this.disable) {
-                    this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                    if (this.form.findate == null || this.form.findate == "") {
+                      this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                    }
                     this.acceptShow = false;
                   } else {
                     this.acceptShow = true;
@@ -1697,8 +1703,10 @@
       changeAcc(val) {
         this.form.acceptstatus = val;
         if (val === '0') {
+          this.form.findate = moment(new Date()).format('YYYY-MM-DD');
           this.refuseShow = true;
         } else {
+          this.form.findate = null;
           this.refuseShow = false;
         }
       },

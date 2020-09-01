@@ -362,7 +362,9 @@
                 if (response[j].acceptstatus === '0') {
                   response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
                 } else if (response[j].acceptstatus === '1') {
-                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_NOCARRYOUT');
+                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_DUIYINGZHONG');
+                } else if (response[j].acceptstatus === '2') {
+                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_WEIDUIYING');
                 }
               }
             }
