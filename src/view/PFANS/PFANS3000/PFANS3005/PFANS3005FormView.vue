@@ -11,6 +11,28 @@
             <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_ORGIN')" name="first">
               <el-row>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3001FORMVIEW_CHULISTATUS')">
+                    <el-select clearable style="width: 20vw" v-model="form.acceptstatus" :disabled="acceptShow"
+                               :placeholder="$t('normal.error_09')"
+                               @change="changeAcc">
+                      <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
+                    <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                    v-model="form.findate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
                     <org :disabled="!disabled" :orglist="form.team_id" @getOrgids="getTeamId" orgtype="3"
                          style="width:20vw"></org>
@@ -667,6 +689,7 @@
         multipleSelection: [],
         multipleSelection1: [],
         url: '',
+        findateShow: false,
         urlparams: '',
         centerid: '',
         groupid: '',
@@ -749,15 +772,11 @@
         options: [
           {
             value: '0',
-            label: this.$t('label.PFANS3006VIEW_ACCEPT'),
+            label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
           },
           {
             value: '1',
-            label: this.$t('label.PFANS3006VIEW_REFUSE'),
-          },
-          {
-            value: '2',
-            label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
+            label: this.$t('label.PFANS3006VIEW_NOCARRYOUT'),
           },
         ],
         acceptShow: true,
@@ -1677,7 +1696,7 @@
       //change受理状态  add_fjl
       changeAcc(val) {
         this.form.acceptstatus = val;
-        if (val === '1') {
+        if (val === '0') {
           this.refuseShow = true;
         } else {
           this.refuseShow = false;
