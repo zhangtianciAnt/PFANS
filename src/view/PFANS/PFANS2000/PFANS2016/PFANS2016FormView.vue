@@ -2170,6 +2170,9 @@
         {
           if (this.$route.params._day)
           {
+              //add_fjl_0901  添加返回时的流程URL
+              this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2010View');
+              //add_fjl_0901  添加返回时的流程URL
             this.$router.push({
               name: 'PFANS2010FormView',
               params: {
