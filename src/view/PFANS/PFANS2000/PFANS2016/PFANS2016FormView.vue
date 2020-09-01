@@ -438,7 +438,7 @@
                   } else {
                     valflg = 0.5;
                   }
-                  if (Number(valflg) < Number(response.checkdat)) {
+                  if (Number(valflg) > Number(response.checkdat)) {
                     callback(this.$t('normal.error_norestdays'));
                   } else {
                     callback();
