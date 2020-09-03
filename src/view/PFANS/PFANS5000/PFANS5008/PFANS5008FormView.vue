@@ -806,6 +806,12 @@
               }
             }
             this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
+            //add ccm 小于0时等于0 from
+            if(this.checkdata < 0)
+            {
+              this.checkdata = '0.00';
+            }
+            //add ccm 小于0时等于0 to
             this.checktime = sumoutgoinghours;
           });
       },

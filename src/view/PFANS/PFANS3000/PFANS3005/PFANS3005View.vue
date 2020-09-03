@@ -39,6 +39,20 @@
             filter: true,
           },
           {
+            code: 'acceptstatus',
+            label: 'label.PFANS3001FORMVIEW_CHULISTATUS',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'findate',
+            label: 'label.PFANS1016FORMVIEW_COMPLETEDATE',
+            width: 150,
+            fix: false,
+            filter: true,
+          },
+          {
             code: 'loanapno',
             label: 'label.PFANS1012VIEW_TEMPORARYLOAN',
             width: 150,
@@ -343,21 +357,21 @@
               }
             }
             // ADD_FJL   (受理状态)
-            // if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
-            //     if (this.$i18n) {
-            //         if (response[j].acceptstatus === '0') {
-            //             response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-            //         } else if (response[j].acceptstatus === '1') {
-            //             response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-            //         } else if (response[j].acceptstatus === '2') {
-            //             response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-            //         }
-            //     }
-            // }
+            if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+              if (this.$i18n) {
+                if (response[j].acceptstatus === '0') {
+                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                } else if (response[j].acceptstatus === '1') {
+                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_DUIYINGZHONG');
+                } else if (response[j].acceptstatus === '2') {
+                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_WEIDUIYING');
+                }
+              }
+            }
             // ADD_FJL   (受理时间)
-            // if (response[j].findate !== null && response[j].findate !== "") {
-            //     response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-            // }
+            if (response[j].findate !== null && response[j].findate !== "") {
+              response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+            }
           }
           this.data = response;
           this.loading = false;

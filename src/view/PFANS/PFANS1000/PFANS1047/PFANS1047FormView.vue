@@ -3,7 +3,6 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          :enableSave="enableSave"
-                         :canStart="canStart"
                          @StartWorkflow="buttonClick"
                          :defaultStart="defaultStart"
                          @buttonClick="buttonClick"
@@ -113,7 +112,6 @@
       return {
         defaultStart: false,
         enableSave: false,
-        canStart:true,
         moneysum: '',
         disable: false,
         error: '',
