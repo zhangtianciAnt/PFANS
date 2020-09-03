@@ -61,7 +61,6 @@
           <el-table-column :label="$t('label.operation')" align="center" width="93">
             <template slot-scope="scope">
               <el-button
-                :disabled = false
                 @click.native.prevent="viewBook(scope.row)"
                 plain
                 size="small"
