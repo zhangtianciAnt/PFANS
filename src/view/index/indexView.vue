@@ -162,26 +162,22 @@
       <div style="margin-top: 1rem;margin-left: 2rem">
         <el-row>
           <el-col :span="4">
-            <el-tag effect="dark" type="danger" style="width: 7rem;margin-top: 3rem">{{$t('label.PFANS8007VIEW_FD')}}
-            </el-tag>
+            <el-tag effect="dark" type="danger" style="width: 7rem;background-color:#df4848;border-color:#df4848;margin-top: 3rem">{{$t('label.PFANS8007VIEW_FD')}}</el-tag>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="4">
-            <el-tag effect="dark" type="info" style="width: 7rem;margin-top: 3rem">{{$t('label.PFANS8007VIEW_GX')}}
-            </el-tag>
+            <el-tag effect="dark" type="info" style="width: 7rem;background-color:#999;border-color:#999;margin-top: 3rem">{{$t('label.PFANS8007VIEW_GX')}}</el-tag>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="4">
-            <el-tag effect="dark" style="width: 7rem;margin-top: 3rem">{{$t('label.PFANS8007VIEW_ZT')}}</el-tag>
+            <el-tag effect="dark" style="width: 7rem;background-color:#005baa;border-color:#005baa;margin-top: 3rem">{{$t('label.PFANS8007VIEW_ZT')}}</el-tag>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="4">
-            <el-tag effect="dark" type="warning" style="width: 7rem;margin-top: 3rem">
-              {{$t('label.PFANS8007VIEW_ZTC')}}
-            </el-tag>
+            <el-tag effect="dark" type="warning" style="width: 7rem;;background-color:#f9e30e;border-color:#f9e30e;margin-top: 3rem">{{$t('label.PFANS8007VIEW_ZTC')}}</el-tag>
           </el-col>
         </el-row>
         <el-row>

@@ -172,7 +172,6 @@
               <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
-                    :disabled="!disable"
                     @click.native.prevent="viewBook(scope.row)"
                     plain
                     size="small"
@@ -418,6 +417,7 @@
           }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
+        //upd-ws-9/3-禅道任务493
         if(this.$route.params._crePe)
         {
           let crePe = this.$route.params._crePe;
@@ -440,6 +440,7 @@
             }
           }
         }
+        //upd-ws-9/3-禅道任务493
       }
     },
     created() {
@@ -478,12 +479,12 @@
           this.urlparams = {'_id': row.award_id};
           this.$refs.PFANS1025Pop.open = true;
         } else if (this.form.filetype === 'PC002001') {
-          let bokid = this.form.bookid.split(',');
-          if (bokid[0] === '9') {
+          // let bokid = this.form.bookid.split(',');
+          // if (bokid[0] === '9') {
             this.url = 'PFANS1047FormView';
             this.urlparams = {'_id': row.award_id};
             this.$refs.PFANS1047Pop.open = true;
-          }
+          // }
         }
       },
       selectInit(row, index) {
