@@ -29,10 +29,10 @@
     },
     data() {
       return {
-          handleShow: true,
+        handleShow: true,
         checkdata: [],
         loading: false,
-          isShow: true,
+        isShow: true,
         title: 'title.PFANS1032VIEW',
         data: [],
         columns: [
@@ -93,15 +93,15 @@
           //   filter: true
           // },
           {
-              code: 'claimdate',
-              label: 'label.PFANS1024VIEW_CLAIMDATE',
-              width: 150,
-              fix: false,
-              filter: true,
+            code: 'claimdate',
+            label: 'label.PFANS1024VIEW_CLAIMDATE',
+            width: 150,
+            fix: false,
+            filter: true,
           },
-            {
-                code: 'sealstatus',
-                label: 'label.PFANS1024VIEW_SEALSTATUS',
+          {
+            code: 'sealstatus',
+            label: 'label.PFANS1024VIEW_SEALSTATUS',
             width: 150,
             fix: false,
             filter: true,
@@ -109,9 +109,9 @@
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-            {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
         ],
-          selectedlist: [],
+        selectedlist: [],
         rowid: '',
         row_id: 'petition_id',
       };
@@ -143,30 +143,30 @@
                         response[j].contracttype = letContracttype.value1;
                       }
                     }
-                      if (response[j].claimdate !== null && response[j].claimdate !== '') {
-                          response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
+                    if (response[j].claimdate !== null && response[j].claimdate !== '') {
+                      response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
+                    }
+                    if (this.$i18n) {
+                      if (response[j].sealstatus === null || response[j].sealstatus === '') {
+                        response[j].sealstatus = '';
+                      } else if (response[j].sealstatus === '1') {
+                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                      } else if (response[j].sealstatus === '2') {
+                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                      } else if (response[j].sealstatus === '3') {
+                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
                       }
-                      if (this.$i18n) {
-                          if (response[j].sealstatus === null || response[j].sealstatus === '') {
-                              response[j].sealstatus = '';
-                          } else if (response[j].sealstatus === '1') {
-                              response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                          } else if (response[j].sealstatus === '2') {
-                              response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                          } else if (response[j].sealstatus === '3') {
-                              response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                          }
-                      }
+                    }
                     datated.push({
                       contracttype: response[j].contracttype,
                       custochinese: response[j].custochinese,
                       businesscode: response[j].businesscode,
                       pjnamejapanese: response[j].pjnamejapanese,
                       claimnumber: response[j].claimnumber,
-                        claimdate: response[j].claimdate,
+                      claimdate: response[j].claimdate,
                       contractnumber: response[j].contractnumber,
-                        sealstatus: response[j].sealstatus,
-                        sealid: response[j].sealid,
+                      sealstatus: response[j].sealstatus,
+                      sealid: response[j].sealid,
                       petition_id: response[j].petition_id,
                     });
                   }
@@ -203,39 +203,39 @@
         });
     },
     methods: {
-        //add_fjl_添加合同回款相关  start
-        selectInit(row, index) {
-            if (this.$i18n) {
-                return (moment(row.claimdate).format("YYYY-MM") <= new moment().format("YYYY-MM") && row.sealstatus === '');
-            }
-        },
-        handleEdit(row) {
-            // if (row.sealid === '' || row.sealid === null) {
-            //     Message({
-            //         message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
-            //         type: 'info',
-            //         duration: 2 * 1000,
-            //     });
-            //     return;
-            // }
-            //add_fjl_0810 添加暂存可编辑，其他不可编辑
-            let disab = '';
-            if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL')) {
-                disab = true;
-            } else {
-                disab = false;
-            }
-            //add_fjl_0810 添加暂存可编辑，其他不可编辑
-            this.$router.push({
-                name: 'PFANS4001FormView',
-                params: {
-                    _id: row.sealid,
-                    check4: true,
-                    disabled: disab,
-                },
-            });
-        },
-        //add_fjl_添加合同回款相关  end
+      //add_fjl_添加合同回款相关  start
+      selectInit(row, index) {
+        if (this.$i18n) {
+          return (moment(row.claimdate).format("YYYY-MM") <= new moment().format("YYYY-MM") && row.sealstatus === '');
+        }
+      },
+      handleEdit(row) {
+        // if (row.sealid === '' || row.sealid === null) {
+        //     Message({
+        //         message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
+        //         type: 'info',
+        //         duration: 2 * 1000,
+        //     });
+        //     return;
+        // }
+        //add_fjl_0810 添加暂存可编辑，其他不可编辑
+        let disab = '';
+        if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL')) {
+          disab = true;
+        } else {
+          disab = false;
+        }
+        //add_fjl_0810 添加暂存可编辑，其他不可编辑
+        this.$router.push({
+          name: 'PFANS4001FormView',
+          params: {
+            _id: row.sealid,
+            check4: true,
+            disabled: disab,
+          },
+        });
+      },
+      //add_fjl_添加合同回款相关  end
       rowClick(row) {
         this.rowid = row.petition_id;
       },
@@ -274,73 +274,73 @@
             },
           });
         } else if (val === "sealapp") {
-            //add_fjl_添加合同回款相关  start
-            this.selectedlist = this.$refs.roletable.selectedList;
-            if (this.$refs.roletable.selectedList.length === 0) {
-                Message({
-                    message: this.$t('normal.info_01'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                });
-                return;
+          //add_fjl_添加合同回款相关  start
+          this.selectedlist = this.$refs.roletable.selectedList;
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          let ppid = "";
+          let bookid = "";
+          if (this.selectedlist.length > 0) {
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              ppid += this.selectedlist[i].petition_id + ",";
             }
-            let ppid = "";
-            let bookid = "";
-            if (this.selectedlist.length > 0) {
-                for (let i = 0; i < this.selectedlist.length; i++) {
-                    ppid += this.selectedlist[i].petition_id + ",";
-                }
-                if (ppid && ppid.length > 0) {
-                    bookid = "6," + ppid.substr(0, ppid.length - 1);
-                }
+            if (ppid && ppid.length > 0) {
+              bookid = "6," + ppid.substr(0, ppid.length - 1);
             }
-            let crePe = {};
-            let centerid = "";
-            let groupid = "";
-            let teamid = "";
-            let userid = "";
-            let filetype = 'PC002004';//请求书
-            if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
-                let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                if (rst) {
-                    centerid = rst.centerId;
-                    groupid = rst.groupId;
-                    teamid = rst.teamId;
-                }
-                userid = this.$store.getters.userinfo.userid;
+          }
+          let crePe = {};
+          let centerid = "";
+          let groupid = "";
+          let teamid = "";
+          let userid = "";
+          let filetype = 'PC002004';//请求书
+          if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
+            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+            if (rst) {
+              centerid = rst.centerId;
+              groupid = rst.groupId;
+              teamid = rst.teamId;
             }
-            crePe.userid = userid;
-            crePe.centerid = centerid;
-            crePe.groupid = groupid;
-            crePe.teamid = teamid;
-            crePe.filetype = filetype;
-            crePe.bookid = bookid;
-            crePe.application_date = moment(new Date()).format("YYYY-MM-DD");
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS4001Store/createbook', crePe)
-                .then(response => {
-                    let peid = response.sealid;
-                    this.$store.commit('global/SET_OPERATEID', peid);
-                    this.$router.push({
-                        name: 'PFANS4001FormView',
-                        params: {
-                            _id: peid,
-                            disabled: true,
-                            // petdata: this.selectedlist,
-                        },
-                    });
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-            //add_fjl_添加合同回款相关  end
+            userid = this.$store.getters.userinfo.userid;
+          }
+          crePe.userid = userid;
+          crePe.centerid = centerid;
+          crePe.groupid = groupid;
+          crePe.teamid = teamid;
+          crePe.filetype = filetype;
+          crePe.bookid = bookid;
+          crePe.application_date = moment(new Date()).format("YYYY-MM-DD");
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS4001Store/createbook', crePe)
+            .then(response => {
+              let peid = response.sealid;
+              this.$store.commit('global/SET_OPERATEID', peid);
+              this.$router.push({
+                name: 'PFANS4001FormView',
+                params: {
+                  _id: peid,
+                  disabled: true,
+                  // petdata: this.selectedlist,
+                },
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+          //add_fjl_添加合同回款相关  end
         }
       },
     },

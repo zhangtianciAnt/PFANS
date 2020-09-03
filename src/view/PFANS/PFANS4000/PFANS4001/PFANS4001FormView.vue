@@ -172,7 +172,6 @@
               <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
-                    :disabled="!disable"
                     @click.native.prevent="viewBook(scope.row)"
                     plain
                     size="small"
@@ -403,8 +402,7 @@
             });
             this.loading = false;
           });
-      }
-      else {
+      } else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -417,28 +415,6 @@
             this.form.teamid = rst.teamId;
           }
           this.form.userid = this.$store.getters.userinfo.userid;
-        }
-        if(this.$route.params._crePe)
-        {
-          let crePe = this.$route.params._crePe;
-          this.form.filetype = crePe.filetype;
-          this.form.application_date = moment(new Date()).format("YYYY-MM-DD");
-          this.form.bookid = crePe.bookid;
-          if (this.form.bookid !== null && this.form.bookid !== '') {
-            let bokid = this.form.bookid.split(',');
-            for (let i = 1; i < bokid.length; i++) {
-              if (bokid[0] === '6') {
-                this.pedata(bokid[i]);
-              } else if (bokid[0] === '5') {
-                this.npdata(bokid[i]);
-              } else if (bokid[0] === '7') {
-                this.award(bokid[i]);
-              } else if (bokid[0] === '9') {
-                this.awardable = false;
-                this.award3(bokid[i]);
-              }
-            }
-          }
         }
       }
     },

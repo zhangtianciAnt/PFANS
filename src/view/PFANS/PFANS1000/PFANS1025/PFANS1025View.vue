@@ -151,10 +151,10 @@
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-            {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
-            {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
-            {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
         sealstatus: '',
@@ -309,8 +309,8 @@
                               sealstatus: response[j].sealstatus,
                               statuspublic: response[j].statuspublic,
                               //add-ws-7/20-禅道任务342
-                                remarks: response[j].remarks,
-                                loanapno: response[j].loanapno
+                              remarks: response[j].remarks,
+                              loanapno: response[j].loanapno
                             });
                           }
                         }
@@ -339,8 +339,8 @@
                             sealstatus: response[m].sealstatus,
                             statuspublic: response[m].statuspublic,
                             //add-ws-7/20-禅道任务342
-                              remarks: response[m].remarks,
-                              loanapno: response[m].loanapno
+                            remarks: response[m].remarks,
+                            loanapno: response[m].loanapno
                           });
                         }
                       }
@@ -575,11 +575,11 @@
             var vote = {};
             vote.value = this.selectedlist[i].award_id;
             vote.label = this.selectedlist[i].contractnumber;
-              vote.remarks = this.selectedlist[i].remarks;
-              vote.judgements_moneys = this.selectedlist[i].claimamount;
-              if (this.$i18n) {
-                  vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
-              }
+            vote.remarks = this.selectedlist[i].remarks;
+            vote.judgements_moneys = this.selectedlist[i].claimamount;
+            if (this.$i18n) {
+              vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
+            }
             this.listjudgement.push(vote);
           }
           this.$router.push({
@@ -619,58 +619,58 @@
           }
         }
         //add-ws-7/20-禅道任务342
-          if (val === 'temLoanApp') {
-              if (this.$refs.roletable.selectedList.length === 0) {
-                  Message({
-                      message: this.$t('normal.info_01'),
-                      type: 'info',
-                      duration: 2 * 1000
-                  });
-                  return;
-              }
-              this.selectedlist = [];
-              this.selectedlist = this.$refs.roletable.selectedList;
-              let _judgement = '';
-              let _judgement_name = '';
-              let _judgements_moneys = '';
-              let _remarks = '';
-              let str = '';
-              for (let i = 0; i < this.selectedlist.length; i++) {
-                  _judgement += this.selectedlist[i].award_id + ',';
-                  _judgement_name += this.selectedlist[i].contractnumber + ',';
-                  _judgements_moneys += this.selectedlist[i].claimamount + ',';
-                  _remarks += this.selectedlist[i].remarks + '^';
-                  //check是否存在暂借款
-                  if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                      str += this.selectedlist[i].contractnumber + ' , ';
-                  }
-              }
-            //del ccm 0813 决裁到暂借款，精算  check去掉
-            //   if (str === '') {
-                //del ccm 0813 决裁到暂借款，精算  check去掉
-                  this.$router.push({
-                      name: 'PFANS1006FormView',
-                      params: {
-                          _id: '',
-                          _judgement: _judgement,
-                          _judgement_name: _judgement_name,
-                          _judgements_moneys: _judgements_moneys,
-                          _remarks: _remarks,
-                          _judgements_type: this.$t('label.PFANS1012VIEW_CHECKLIST'),
-                          disabled: true,
-                      },
-                  });
-                //del ccm 0813 决裁到暂借款，精算  check去掉
-              // } else {
-              //     Message({
-              //         message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              //         type: 'info',
-              //         duration: 3 * 1000,
-              //     });
-              //     return;
-              // }
-            //del ccm 0813 决裁到暂借款，精算  check去掉
+        if (val === 'temLoanApp') {
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
           }
+          this.selectedlist = [];
+          this.selectedlist = this.$refs.roletable.selectedList;
+          let _judgement = '';
+          let _judgement_name = '';
+          let _judgements_moneys = '';
+          let _remarks = '';
+          let str = '';
+          for (let i = 0; i < this.selectedlist.length; i++) {
+            _judgement += this.selectedlist[i].award_id + ',';
+            _judgement_name += this.selectedlist[i].contractnumber + ',';
+            _judgements_moneys += this.selectedlist[i].claimamount + ',';
+            _remarks += this.selectedlist[i].remarks + '^';
+            //check是否存在暂借款
+            if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+              str += this.selectedlist[i].contractnumber + ' , ';
+            }
+          }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          //   if (str === '') {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          this.$router.push({
+            name: 'PFANS1006FormView',
+            params: {
+              _id: '',
+              _judgement: _judgement,
+              _judgement_name: _judgement_name,
+              _judgements_moneys: _judgements_moneys,
+              _remarks: _remarks,
+              _judgements_type: this.$t('label.PFANS1012VIEW_CHECKLIST'),
+              disabled: true,
+            },
+          });
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // } else {
+          //     Message({
+          //         message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+          //         type: 'info',
+          //         duration: 3 * 1000,
+          //     });
+          //     return;
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+        }
       },
     },
   };
