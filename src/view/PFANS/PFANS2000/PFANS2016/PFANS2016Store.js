@@ -1,4 +1,5 @@
-import {createPfans2016, getFpans2016List, updatePfans2016,getPfans2016One,
+import {
+  createPfans2016, getFpans2016List, updatePfans2016, deletePfans2016, getPfans2016One,
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
   selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber,getremainingByuserid
 } from './PFANS2016Api'
@@ -98,7 +99,21 @@ const PFANS2016Store = {
         })
       })
     },
-
+    //ADD_FJL_0904  添加删除data
+    deletePfans2016({commit}, data) {
+      return new Promise((resolve, reject) => {
+        deletePfans2016(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //ADD_FJL_0904  添加删除data
     getFpans2016List({commit},data) {
       return new Promise((resolve, reject) => {
         getFpans2016List(data).then(response => {

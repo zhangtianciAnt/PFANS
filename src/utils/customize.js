@@ -416,7 +416,29 @@ export function getStatus(status) {
   }
   return info
 }
+//add-ws-9/4-加班申请与考勤用
+export function getStatusNum(status) {
+  let info = null;
 
+  if (status === '0') {
+    info = '未开始'
+  } else if (status === '2') {
+    info = '一次进行中'
+  } else if (status === '3') {
+    info = '一次驳回'
+  } else if (status === '4') {
+    info = '一次正常结束'
+  } else if (status === '5') {
+    info = '二次进行中'
+  } else if (status === '6') {
+    info = '二次驳回'
+  } else if (status === '7') {
+    info = '二次正常结束'
+  }
+  return info
+}
+//add-ws-9/4-加班申请与考勤用
+//获取数据状态
 export function uploadUrl() {
   let url = process.env.UPLOAD_URL
   if(store.getters.fileToken){

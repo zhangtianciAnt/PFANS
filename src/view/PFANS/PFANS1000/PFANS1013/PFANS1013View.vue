@@ -143,12 +143,12 @@
             disabled: false,
             icon: 'el-icon-view',
           },
-          {
-            key: 'insert',
-            name: 'button.insert',
-            disabled: false,
-            icon: 'el-icon-plus',
-          },
+            // {
+            //   key: 'insert',
+            //   name: 'button.insert',
+            //   disabled: false,
+            //   icon: 'el-icon-plus',
+            // },
           {
             key: 'update',
             name: 'button.update',

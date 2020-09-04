@@ -16,9 +16,19 @@ export function getOvertimelist(data) {
   })
 }
 
+//ADD_FJL_0904  添加删除data
 export function updatePfans2016(data) {
   return request({
     url: 'abNormal/updateInfo',
+    method: 'post',
+    data: data
+  })
+}
+
+//ADD_FJL_0904  添加删除data
+export function deletePfans2016(data) {
+  return request({
+    url: 'abNormal/deleteInfo',
     method: 'post',
     data: data
   })
