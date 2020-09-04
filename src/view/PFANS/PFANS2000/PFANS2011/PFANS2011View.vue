@@ -17,7 +17,7 @@
   import {Message} from 'element-ui';
   import {
     getDictionaryInfo,
-    setStatus,
+      getStatusNum,
     getUserInfo,
     getOrgInfoByUserId,
   } from '../../../../utils/customize';
@@ -169,7 +169,7 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].status !== null && response[j].status !== '') {
-                response[j].status = setStatus(response[j].status);
+                  response[j].status = getStatusNum(response[j].status);
               }
               if (response[j].applicationdate !== null && response[j].applicationdate !== '') {
                 response[j].applicationdate = moment(response[j].applicationdate).format('YYYY-MM-DD');

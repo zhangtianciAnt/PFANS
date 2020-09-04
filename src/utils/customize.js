@@ -417,7 +417,7 @@ export function getStatus(status) {
   return info
 }
 //add-ws-9/4-加班申请与考勤用
-export function setStatus(status) {
+export function getStatusNum(status) {
   let info = null;
 
   if (status === '0') {

@@ -29,7 +29,7 @@
     import moment from "moment";
     import {
         getDictionaryInfo,
-        setStatus,
+        getStatusNum,
         getUserInfo,
         getOrgInfoByUserId
     } from "@/utils/customize";
@@ -151,10 +151,17 @@
                         name: "button.export",
                         disabled: false,
                         icon: "el-icon-download"
+                    },
+                    {
+                        key: "delete",
+                        name: "button.delete",
+                        disabled: true,
+                        icon: "el-icon-delete"
                     }
                 ],
                 rowid: "",
-                row_id: "abnormalid"
+                row_id: "abnormalid",
+                rowdata: {}
             };
         },
         mounted() {
@@ -181,6 +188,14 @@
             },
             rowClick(row) {
                 this.rowid = row.abnormalid;
+                //add_fjl_0904_添加逻辑删除data  start
+                if (this.$store.getters.userinfo.userid === row.user_id && row.status.indexOf(this.$t("normal.todo")) !== -1) {
+                    this.buttonList[4].disabled = false;
+                } else {
+                    this.buttonList[4].disabled = true;
+                }
+                this.rowdata = row;
+                //add_fjl_0904_添加逻辑删除data  end
             },
             getAbnormalList(){
                 this.loading = true;
@@ -274,7 +289,7 @@
                                 }
                             }
                             if (response[j].status !== null && response[j].status !== "") {
-                                response[j].status = setStatus(response[j].status);
+                                response[j].status = getStatusNum(response[j].status);
                             }
                             if (response[j].errortype !== null && response[j].errortype !== "") {
                                 let letErrortype = getDictionaryInfo(response[j].errortype);
@@ -295,6 +310,44 @@
                         this.loading = false;
                     });
             },
+            //ADD_FJL_0904  添加删除data
+            deleteData() {
+                this.loading = true;
+                this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                    confirmButtonText: this.$t('button.confirm'),
+                    cancelButtonText: this.$t('button.cancel'),
+                    type: 'warning',
+                    center: true,
+                }).then(() => {
+                    this.$store
+                        .dispatch('PFANS2016Store/deletePfans2016', this.rowdata)
+                        .then(response => {
+                            this.getAbnormalList();
+                            this.$store.commit('global/SET_OPERATEID', '');
+                            Message({
+                                message: this.$t('normal.info_03'),
+                                type: 'success',
+                                duration: 2 * 1000,
+                            });
+                            this.loading = false;
+                        })
+                        .catch(error => {
+                            Message({
+                                message: error,
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: this.$t('normal.info_04'),
+                    });
+                    this.loading = false;
+                });
+            },
+            //ADD_FJL_0904  添加删除data
             buttonClick(val) {
                 this.$store.commit("global/SET_HISTORYURL", this.$route.path);
                 if (val === "view") {
@@ -323,6 +376,11 @@
                         }
                     });
                 }
+                //ADD_FJL_0904  添加删除data
+                if (val === "delete") {
+                    this.deleteData();
+                }
+                //ADD_FJL_0904  添加删除data
                 if (val === "edit") {
                     if (this.rowid === "") {
                         Message({
