@@ -49,6 +49,8 @@
     },
     data() {
       return {
+        centerDialogVisible:false,
+        centerDialogVisible1:false,
         url: '',
         urlparams: '',
         defaultStart: false,
@@ -219,14 +221,24 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'leaveearly',
-            label: 'label.PFANS2010VIEW_LEAVEEARLY2',
-            labelClass: 'pfans2010view_column_10',
-            width: 110,
-            fix: false,
-            filter: true,
-          },
+          // {
+          //   code: 'tleaveearly',
+          //   label: 'label.PFANS2010VIEW_LEAVEEARLY7',
+          //   labelClass: 'pfans2010view_column_10',
+          //   width: 110,
+          //   fix: false,
+          //   filter: true,
+          //   type:'tags',
+          // },
+          // {
+          //   code: 'leaveearly',
+          //   label: 'label.PFANS2010VIEW_LEAVEEARLY2',
+          //   labelClass: 'pfans2010view_column_10',
+          //   width: 110,
+          //   fix: false,
+          //   filter: true,
+          //   type:'tags',
+          // },
         ],
         totalAbsenteeism: false,
         handleShow:true,
@@ -471,38 +483,75 @@
           this.loading = true;
           this.uplist = this.$refs.table.selectedList;
           //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
-          this.$store
-            .dispatch('PFANS2010Store/selectAbnomalandOvertime', {attendance: this.uplist})
-            .then(response => {
-              if (response!=null && response !='' && response!=undefined)
-              {
-                let date ='';
-                for(let i =0;i<response.length;i++)
-                {
-                  date += moment(response[i]).format('YYYY-MM-DD')+',';
-                }
-                Message({
-                  message: this.$t('label.date') +' : ' + date + this.$t('normal.info_15'),
-                  type: 'info',
-                  duration: 5 * 1000,
-                });
-              }
-              else
-              {
-                this.update();
-              }
-              this.getAttendancelist();
-              this.loading = false;
-              this.$refs.table.$refs.eltable.clearSelection();
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
+          // this.$store
+          //   .dispatch('PFANS2010Store/selectAbnomalandOvertime', {attendance: this.uplist})
+          //   .then(response => {
+          //     if (response!=null && response !='' && response!=undefined)
+          //     {
+          //       // let date ='';
+          //       // for(let i =0;i<response.length;i++)
+          //       // {
+          //       //   date += moment(response[i]).format('YYYY-MM-DD')+',';
+          //       // }
+          //       Message({
+          //         //message: this.$t('label.date') +' : ' + date + this.$t('normal.info_15'),
+          //         message: this.$t('normal.info_15'),
+          //         type: 'info',
+          //         duration: 5 * 1000,
+          //       });
+          //     }
+          //     else
+          //     {
+          //       this.update();
+          //     }
+          //     this.getAttendancelist();
+          //     this.loading = false;
+          //     this.$refs.table.$refs.eltable.clearSelection();
+          //   })
+          //   .catch(error => {
+          //     Message({
+          //       message: error,
+          //       type: 'error',
+          //       duration: 5 * 1000,
+          //     });
+          //     this.loading = false;
+          //   });
+          let le = [];
+          le = this.uplist.filter(item => (item.leaveearly == this.$t('label.PFANS2010VIEW_LEAVEEARLY3') || item.leaveearly == this.$t('label.PFANS2010VIEW_LEAVEEARLY4')));
+          if (le.length > 0)
+          {
+            //弹窗警告
+            Message({
+              message: this.$t('label.PFANS3006VIEW_CARRYOUT5'),
+              type: 'error',
+              duration: 5 * 1000,
             });
+            this.loading = false;
+          }
+          else
+          {
+            le = this.uplist.filter(item => (item.leaveearly == this.$t('label.PFANS2010VIEW_LEAVEEARLY5')));
+            if (le.length>0)
+            {
+              //弹窗选择是否继续操作
+              this.$confirm(this.$t('label.PFANS3006VIEW_CARRYOUT4'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+              }).then(() => {
+                this.loading = true;
+                this.update();
+                this.getAttendancelist();
+                this.loading = false;
+              }).catch(() => {
+                this.loading = false;
+                this.$message({
+                  type: 'info',
+                  message: this.$t('label.PFANS1026FORMVIEW_tipis1'),
+                });
+              });
+            }
+          }
           //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
 
         } else if (val === 'recognitionno') {
@@ -572,16 +621,55 @@
               if (response[j].leaveearly === '0')
               {
                 if (this.$i18n) {
-                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY0');
+                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY3');
                 }
               }
               else if (response[j].leaveearly === '1')
               {
                 if (this.$i18n) {
-                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY1');
+                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY4');
+                }
+              }
+              else if (response[j].leaveearly === '2')
+              {
+                if (this.$i18n) {
+                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY5');
+                }
+              }
+              else if (response[j].leaveearly === '3')
+              {
+                if (this.$i18n) {
+                  response[j].leaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY6');
                 }
               }
               //add ccm 0813
+
+              //add ccm 0904 加班审批状态显示
+              if (response[j].tleaveearly === '0')
+              {
+                if (this.$i18n) {
+                  response[j].tleaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY3');
+                }
+              }
+              else if (response[j].tleaveearly === '1')
+              {
+                if (this.$i18n) {
+                  response[j].tleaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY4');
+                }
+              }
+              else if (response[j].tleaveearly === '2')
+              {
+                if (this.$i18n) {
+                  response[j].tleaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY5');
+                }
+              }
+              else if (response[j].tleaveearly === '3')
+              {
+                if (this.$i18n) {
+                  response[j].tleaveearly = this.$t('label.PFANS2010VIEW_LEAVEEARLY6');
+                }
+              }
+              //add ccm 0904 加班审批状态显示
 
               //add ccm
               if (response[j].absenteeism === null || response[j].absenteeism === '') {
@@ -731,7 +819,6 @@
               res1.push(res[k]);
             }
             //add CCM 合计行--end
-
             this.data = res1;
             this.loading = false;
           })
@@ -828,6 +915,7 @@
       //add-ws-考勤设置休日背景色
       this.getAttendancelist();
       // this.$store.commit('global/SET_OPERATEID', '');
+
     },
     watch: {
       data: {

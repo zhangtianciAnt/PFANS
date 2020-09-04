@@ -37,9 +37,21 @@
                        :prop="item.code"
                        align="left" show-overflow-tooltip sortable="custom"
                        v-else/>
-
       <!--        add ccm 考勤管理详细画面专用-->
-      <el-table-column :label="$t('label.operation')" text-align="left" v-if="handleShow" width="173vw">
+      <el-table-column :label="$t('label.PFANS2010VIEW_LEAVEEARLY7')" width="105" align="center">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.tleaveearly!=null && scope.row.tleaveearly!='' && scope.row.tleaveearly !=undefined"
+                  :type="scope.row.tleaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY3') || scope.row.tleaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY4') ? 'danger' : (scope.row.tleaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY5') ? 'warning' : (scope.row.tleaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY6') ?'success':'info'))" align="center">{{ scope.row.tleaveearly }}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('label.PFANS2010VIEW_LEAVEEARLY2')" width="105" align="center">
+        <template slot-scope="scope">
+         <el-tag v-if="scope.row.leaveearly!=null && scope.row.leaveearly!='' && scope.row.leaveearly !=undefined"
+                 :type="scope.row.leaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY3') || scope.row.leaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY4') ? 'danger' : (scope.row.leaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY5') ? 'warning' : (scope.row.leaveearly===$t('label.PFANS2010VIEW_LEAVEEARLY6') ?'success':'info'))" align="center">{{ scope.row.leaveearly }}</el-tag>
+        </template>
+      </el-table-column>
+      <!--        add ccm 考勤管理详细画面专用-->
+      <el-table-column :label="$t('label.operation1')" text-align="left" v-if="handleShow" width="173vw">
         <template slot-scope="scope">
           <el-button
             @click="handleEdit(scope.$index, scope.row)"
