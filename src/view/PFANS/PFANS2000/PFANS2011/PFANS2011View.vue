@@ -152,7 +152,6 @@
     methods: {
       rowClick(row) {
         //add-ws-9/4-加班申请可删除任务
-        debugger
         this.buttonList[3].disabled = true;
         if (row.userid === this.$store.getters.userinfo.userid ) {
          if(row.status === this.$t('label.PFANS1026VIEW_WSTATUS')){
