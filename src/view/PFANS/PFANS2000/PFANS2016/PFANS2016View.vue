@@ -29,7 +29,7 @@
     import moment from "moment";
     import {
         getDictionaryInfo,
-        getStatus,
+        setStatus,
         getUserInfo,
         getOrgInfoByUserId
     } from "@/utils/customize";
@@ -274,7 +274,7 @@
                                 }
                             }
                             if (response[j].status !== null && response[j].status !== "") {
-                                response[j].status = getStatus(response[j].status);
+                                response[j].status = setStatus(response[j].status);
                             }
                             if (response[j].errortype !== null && response[j].errortype !== "") {
                                 let letErrortype = getDictionaryInfo(response[j].errortype);
