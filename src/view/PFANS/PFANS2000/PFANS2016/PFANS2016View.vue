@@ -320,7 +320,7 @@
                     center: true,
                 }).then(() => {
                     this.$store
-                        .dispatch('PFANS2016Store/deletePfans2016', this.rowdata)
+                        .dispatch('PFANS2016Store/deletePfans2016', {abnormalid: this.rowid})
                         .then(response => {
                             this.getAbnormalList();
                             this.$store.commit('global/SET_OPERATEID', '');
