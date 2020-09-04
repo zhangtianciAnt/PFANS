@@ -1286,7 +1286,7 @@
                 }
               }
               //平日加班，周末加班，法定加班一天只能申请一次的check
-              if (this.form.overtimetype === 'PR001001' || this.form.overtimetype === 'PR001002' || this.form.overtimetype === 'PR001003') {
+              if (this.form.overtimetype === 'PR001001' || this.form.overtimetype === 'PR001002' || this.form.overtimetype === 'PR001003' || this.form.overtimetype === 'PR001004' || this.form.overtimetype === 'PR001005') {
                 //获取一天的（平时，周末，法定加班次数）
                 this.loading = true;
                 let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
