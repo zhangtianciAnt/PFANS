@@ -58,8 +58,14 @@ export function getOvertimeOneday(data) {
   })
 }
 
-
-
-
+//add-ws-9/4-加班申请可删除任务
+export function deleteLog(data) {
+  return request({
+    url: 'overtime/deleteLog',
+    method: 'post',
+    data: data,
+  });
+}
+//add-ws-9/4-加班申请可删除任务
 
 
