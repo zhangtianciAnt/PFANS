@@ -449,6 +449,7 @@
             });
             return;
           }
+          debugger;
           let letexitdate = '0';
           this.exitdate = getUserInfo(this.linshiid.split(',')[0]).userinfo.resignation_date;
           if (this.exitdate != '') {
@@ -550,6 +551,13 @@
                   message: this.$t('label.PFANS1026FORMVIEW_tipis1'),
                 });
               });
+            }
+            else
+            {
+              this.loading = true;
+              this.update();
+              this.getAttendancelist();
+              this.loading = false;
             }
           }
           //add ccm 2020729 考勤异常加班审批中的日期，考勤不允许承认
