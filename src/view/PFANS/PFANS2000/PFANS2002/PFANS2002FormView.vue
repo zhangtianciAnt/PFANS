@@ -1009,7 +1009,7 @@
                         if (response) {
                             this.form = response[0];
                           if (this.form.group_id != null && this.form.group_id != '') {
-                            if (this.form.status == '0') {
+                            if (this.form.status == '0' || this.form.status == '3') {
                               let groupInfo = getOrgInfo(this.form.group_id);
                               if (groupInfo) {
                                 this.userlist.push(groupInfo.user);
