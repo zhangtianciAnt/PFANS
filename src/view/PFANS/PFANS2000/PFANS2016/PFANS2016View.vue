@@ -350,6 +350,9 @@
             //ADD_FJL_0904  添加删除data
             buttonClick(val) {
                 this.$store.commit("global/SET_HISTORYURL", this.$route.path);
+                //ADD_FJL_0906  添加workfolwurl start
+                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016View');
+                //ADD_FJL_0906  添加workfolwurl end
                 if (val === "view") {
                     if (this.rowid === "") {
                         Message({
