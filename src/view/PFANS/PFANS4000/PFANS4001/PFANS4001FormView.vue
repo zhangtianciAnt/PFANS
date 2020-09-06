@@ -444,6 +444,7 @@
       }
     },
     created() {
+      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
       if (this.$route.params._disto === "1") {
         this.checkparmers = 0;
       } else {
@@ -451,7 +452,6 @@
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
         this.buttonList = [
           {
             key: 'save',
