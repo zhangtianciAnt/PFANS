@@ -1,6 +1,6 @@
 <template>
   <div
-    style="width: 25%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;height: 60%;text-align: center"
+    style="width: 25%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;height: 400px;text-align: center"
   >
     <el-form
       autocomplete="off"
@@ -14,10 +14,10 @@
     >
       <div>
         <el-row :gutter="24" style="text-align: center">
-          <el-col :span="24" style="margin: 0 auto"><img :src="logo" style="height: 60px;width: auto;padding-top: 30px"/></el-col>
+          <el-col :span="24" style="margin: 0 auto"><img  style="height: 60px;width: auto;padding-top: 30px"/></el-col>
         </el-row>
         <el-row :gutter="24" style="text-align: center">
-          <el-col :span="24" style="margin: 0 auto"><img :src="pfans" style="height: 30px;width: 80%"/></el-col>
+          <el-col :span="24" style="margin: 0 auto"><img  style="height: 30px;width: 80%"/></el-col>
         </el-row>
       </div>
       <el-form-item prop="account" style="padding-top: 15px;width: 80%;margin: 0 auto">

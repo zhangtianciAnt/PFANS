@@ -3,7 +3,7 @@
     <el-container>
       <el-header class="main_bg_color" style="padding: 0">
         <el-col :span="4">
-          <EasyLogo :logo="basselogo" maxheight="4rem" title @ToIndex="ToIndex"></EasyLogo>
+          <EasyLogo  maxheight="4rem" title @ToIndex="ToIndex"></EasyLogo>
         </el-col>
         <el-col :span="20">
           <EasyHeader maxheight="4rem">
