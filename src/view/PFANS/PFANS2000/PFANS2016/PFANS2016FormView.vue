@@ -822,7 +822,7 @@
       }
       //add ccm 0804
       if (this.$route.params._id) {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016View');
+          // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016View');
         this.loading = true;
         this.$store
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})

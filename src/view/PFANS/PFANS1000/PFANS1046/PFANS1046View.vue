@@ -26,6 +26,7 @@
     },
     data() {
       return {
+        checkdata: [],
         search: '',
         loading: false,
         title: 'title.PFANS1046VIEW',

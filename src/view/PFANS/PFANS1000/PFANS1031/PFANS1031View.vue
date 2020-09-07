@@ -305,34 +305,29 @@
       //add_fjl_添加合同回款相关  start
       selectInit(row, index) {
         if (this.$i18n) {
-          return (moment(row.deliverydate).format("YYYY-MM") <= new moment().format("YYYY-MM") && row.sealstatus === '');
+          return (moment(row.deliverydate).format('YYYY-MM') <= new moment().format('YYYY-MM') && row.sealstatus === '');
         }
       },
       handleEdit(row) {
-        // if (row.sealid === '' || row.sealid === null) {
-        //     Message({
-        //         message: this.$t('label.PFANS1032FORMVIEW_SEALVIEW'),
-        //         type: 'info',
-        //         duration: 2 * 1000,
-        //     });
-        //     return;
-        // }
-        //add_fjl_0810 添加暂存可编辑，其他不可编辑
-        let disab = '';
-        if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL')) {
-          disab = true;
-        } else {
-          disab = false;
+        if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: row.sealid,
+              disabled: false,
+              check1: true,
+            },
+          });
+        } else if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL')) {
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: row.sealid,
+              disabled: true,
+              check1: true,
+            },
+          });
         }
-        //add_fjl_0810 添加暂存可编辑，其他不可编辑
-        this.$router.push({
-          name: 'PFANS4001FormView',
-          params: {
-            _id: row.sealid,
-            check3: true,
-            disabled: disab,
-          },
-        });
       },
       //add_fjl_添加合同回款相关  end
       rowClick(row) {
@@ -375,7 +370,7 @@
           });
         }
         //add_fjl_添加合同回款相关  start
-        if (val === "sealapp") {
+        if (val === 'sealapp') {
           this.selectedlist = this.$refs.roletable.selectedList;
           if (this.$refs.roletable.selectedList.length === 0) {
             Message({
@@ -385,6 +380,63 @@
             });
             return;
           }
+          //upd-ws-9/3-禅道任务493
+          // let ppid = '';
+          // let bookid = '';
+          // if (this.selectedlist.length > 0) {
+          //   for (let i = 0; i < this.selectedlist.length; i++) {
+          //     ppid += this.selectedlist[i].napalm_id + ',';
+          //   }
+          //   if (ppid && ppid.length > 0) {
+          //     bookid = '5,' + ppid.substr(0, ppid.length - 1);
+          //   }
+          // }
+          // let crePe = {};
+          // let centerid = '';
+          // let groupid = '';
+          // let teamid = '';
+          // let userid = '';
+          // let filetype = 'PC002005';//纳品书
+          // if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
+          //   let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          //   if (rst) {
+          //     centerid = rst.centerId;
+          //     groupid = rst.groupId;
+          //     teamid = rst.teamId;
+          //   }
+          //   userid = this.$store.getters.userinfo.userid;
+          // }
+          // crePe.userid = userid;
+          // crePe.centerid = centerid;
+          // crePe.groupid = groupid;
+          // crePe.teamid = teamid;
+          // crePe.filetype = filetype;
+          // crePe.bookid = bookid;
+          // crePe.application_date = moment(new Date()).format('YYYY-MM-DD');
+          // this.loading = true;
+          // this.$store
+          //   .dispatch('PFANS4001Store/createbook', crePe)
+          //   .then(response => {
+          //     let peid = response.sealid;
+          //     this.$store.commit('global/SET_OPERATEID', peid);
+          //     this.$router.push({
+          //       name: 'PFANS4001FormView',
+          //       params: {
+          //         _id: peid,
+          //         disabled: true,
+          //         // petdata: this.selectedlist,
+          //       },
+          //     });
+          //     this.loading = false;
+          //   })
+          //   .catch(error => {
+          //     Message({
+          //       message: error,
+          //       type: 'error',
+          //       duration: 5 * 1000,
+          //     });
+          //     this.loading = false;
+          //   });
           let ppid = "";
           let bookid = "";
           if (this.selectedlist.length > 0) {
@@ -396,52 +448,19 @@
             }
           }
           let crePe = {};
-          let centerid = "";
-          let groupid = "";
-          let teamid = "";
-          let userid = "";
-          let filetype = 'PC002005';//纳品书
-          if (this.$store.getters.userinfo.userid !== null && this.$store.getters.userinfo.userid !== '') {
-            let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-            if (rst) {
-              centerid = rst.centerId;
-              groupid = rst.groupId;
-              teamid = rst.teamId;
-            }
-            userid = this.$store.getters.userinfo.userid;
-          }
-          crePe.userid = userid;
-          crePe.centerid = centerid;
-          crePe.groupid = groupid;
-          crePe.teamid = teamid;
+          let filetype = 'PC002005';//合同
           crePe.filetype = filetype;
           crePe.bookid = bookid;
-          crePe.application_date = moment(new Date()).format("YYYY-MM-DD");
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS4001Store/createbook', crePe)
-            .then(response => {
-              let peid = response.sealid;
-              this.$store.commit('global/SET_OPERATEID', peid);
-              this.$router.push({
-                name: 'PFANS4001FormView',
-                params: {
-                  _id: peid,
-                  disabled: true,
-                  // petdata: this.selectedlist,
-                },
-              });
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: '',
+              _crePe:crePe,
+              disabled: true,
+            },
+          });
         }
+        //upd-ws-9/3-禅道任务493
         //add_fjl_添加合同回款相关  end
       },
     },

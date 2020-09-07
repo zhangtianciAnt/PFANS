@@ -402,7 +402,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -416,9 +417,34 @@
           }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
+        //upd-ws-9/3-禅道任务493
+        if(this.$route.params._crePe)
+        {
+          let crePe = this.$route.params._crePe;
+          this.form.filetype = crePe.filetype;
+          this.form.application_date = moment(new Date()).format("YYYY-MM-DD");
+          this.form.bookid = crePe.bookid;
+          if (this.form.bookid !== null && this.form.bookid !== '') {
+            let bokid = this.form.bookid.split(',');
+            for (let i = 1; i < bokid.length; i++) {
+              if (bokid[0] === '6') {
+                this.pedata(bokid[i]);
+              } else if (bokid[0] === '5') {
+                this.npdata(bokid[i]);
+              } else if (bokid[0] === '7') {
+                this.award(bokid[i]);
+              } else if (bokid[0] === '9') {
+                this.awardable = false;
+                this.award3(bokid[i]);
+              }
+            }
+          }
+        }
+        //upd-ws-9/3-禅道任务493
       }
     },
     created() {
+      this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
       if (this.$route.params._disto === "1") {
         this.checkparmers = 0;
       } else {
@@ -426,7 +452,6 @@
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
         this.buttonList = [
           {
             key: 'save',
@@ -454,12 +479,12 @@
           this.urlparams = {'_id': row.award_id};
           this.$refs.PFANS1025Pop.open = true;
         } else if (this.form.filetype === 'PC002001') {
-          let bokid = this.form.bookid.split(',');
-          if (bokid[0] === '9') {
-            this.url = 'PFANS1047FormView';
-            this.urlparams = {'_id': row.award_id};
-            this.$refs.PFANS1047Pop.open = true;
-          }
+          // let bokid = this.form.bookid.split(',');
+          // if (bokid[0] === '9') {
+          this.url = 'PFANS1047FormView';
+          this.urlparams = {'_id': row.award_id};
+          this.$refs.PFANS1047Pop.open = true;
+          // }
         }
       },
       selectInit(row, index) {

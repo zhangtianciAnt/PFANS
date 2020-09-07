@@ -6,6 +6,7 @@
     :canStart="canStart"
     @end="end"
     @start="start"
+    :userlist="userlist"
     @workflowState="workflowState"
     ref="container"
     @disabled="setdisabled"
@@ -626,7 +627,7 @@
     import user from '../../../components/user';
     import org from '../../../components/org';
     import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
-    import {getDictionaryInfo} from '../../../../utils/customize';
+    import {getDictionaryInfo, getOrgInfo} from '../../../../utils/customize';
     import moment from 'moment';
     import {Message} from 'element-ui';
 
@@ -672,6 +673,7 @@
                 show2: false,
                 code_sex: 'PR019',
                 gridData: [],
+              userlist: [],
                 num: 0,
                 activeName: 'first',
                 tableData: [
@@ -1006,6 +1008,19 @@
                     .then(response => {
                         if (response) {
                             this.form = response[0];
+                          if (this.form.group_id != null && this.form.group_id != '') {
+                            if (this.form.status == '0' || this.form.status == '3') {
+                              let groupInfo = getOrgInfo(this.form.group_id);
+                              if (groupInfo) {
+                                this.userlist.push(groupInfo.user);
+                              }
+                            } else {
+                              let centerInfo = getOrgInfo(this.form.center_id);
+                              if (centerInfo) {
+                                this.userlist.push(centerInfo.user);
+                              }
+                            }
+                          }
                             this.changeOption(this.form, 'view');
                             this.tableData = this.form.interview;
                             this.tableData3[0].education = response[0].education1;

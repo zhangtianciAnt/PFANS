@@ -264,6 +264,14 @@
             if (user) {
               response[j].user_id = user.userinfo.customername;
             }
+            // 禅道494 ztc
+            if (response[j].budgetnumber !== null && response[j].budgetnumber !== "") {
+              let procurement = getDictionaryInfo(response[j].budgetnumber);
+              if (procurement != null) {
+                response[j].budgetnumber = procurement.value2 + '_' + procurement.value3;
+              }
+            }
+            // 禅道494 ztc
             // ADD_FJL   (受理状态)
             if (response[j].acceptstatus !== null && response[j].acceptstatus !== '') {
               if (this.$i18n) {

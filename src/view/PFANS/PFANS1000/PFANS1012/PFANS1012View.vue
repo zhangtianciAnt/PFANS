@@ -294,6 +294,9 @@
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', '');
+          //ADD_FJL_0906  添加workfolwurl start
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
+          //ADD_FJL_0906  添加workfolwurl end
         if (val === 'view') {
           if (this.rowid === '') {
             Message({

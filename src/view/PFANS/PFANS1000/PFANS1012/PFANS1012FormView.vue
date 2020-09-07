@@ -2756,11 +2756,11 @@
           });
       },
       selectInit(row, index) {
-        if (!this.$route.params._haveLoanapp) {
+        // if (!this.$route.params._haveLoanapp) {
           if (this.$route.params._statuss != this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL') || this.$route.params._statuss != this.$t('label.PFANS5004VIEW_OVERTIME')) {
             return row;
           }
-        }
+        // }
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
@@ -3929,6 +3929,7 @@
           this.form.loan = '';
           this.form.fullname = '';
           this.checkexpectedpaydate = false;
+          this.multipleSelection='';
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
@@ -3947,6 +3948,7 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = false;
+          this.multipleSelection='';
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
@@ -3964,6 +3966,7 @@
           this.form.loan = '';
           this.form.fullname = '';
           this.checkexpectedpaydate = true;
+          this.multipleSelection='';
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
@@ -3998,6 +4001,7 @@
           this.form.receivables = '';
           this.form.loan = '';
           this.checkexpectedpaydate = true;
+          this.multipleSelection='';
         }
       },
       getmodule(val) {
@@ -4594,11 +4598,14 @@
                 }
 // add-ws-8/20-禅道469
                 let checktableD = '';
-                let checktlist = this.multipleSelection.splice(',');
-                for (let m = 0; m < checktlist.length; m++) {
-                  if (checktlist[m].loanapplication_id != '' && checktlist[m].loanapplication_id != null && checktlist[m].loanapplication_id != undefined) {
-                    checktableD = checktableD + checktlist[m].loanapplication_id + ',';
-                    this.form.loan = checktableD.substring(0, checktableD.length - 1);
+                if (this.multipleSelection)
+                {
+                  let checktlist = this.multipleSelection.splice(',');
+                  for (let m = 0; m < checktlist.length; m++) {
+                    if (checktlist[m].loanapplication_id != '' && checktlist[m].loanapplication_id != null && checktlist[m].loanapplication_id != undefined) {
+                      checktableD = checktableD + checktlist[m].loanapplication_id + ',';
+                      this.form.loan = checktableD.substring(0, checktableD.length - 1);
+                    }
                   }
                 }
 // add-ws-8/20-禅道469
