@@ -1,6 +1,6 @@
 <template>
   <div
-    style="width: 25%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;height: 60%;text-align: center"
+    style="width: 25%;position: absolute;top: 0;bottom: 0;left: 0;right: 0;margin: auto;height: 400px;text-align: center"
   >
     <el-form
       autocomplete="off"
