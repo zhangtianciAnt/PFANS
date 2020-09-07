@@ -95,11 +95,14 @@
               <div class="sub_color_blue">{{$t('label.PFANS1021FORMVIEW_DETAIL')}}</div>
             </el-col>
           </el-row>
+
+          <!--明细表-->
           <el-row>
             <el-table :data="form.tableD" stripe border header-cell-class-name="sub_bg_color_blue">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200">
+              <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200"
+                               v-if="show3">
                 <template slot-scope="scope">
                   <user
                     :disabled="!disabled"
@@ -109,10 +112,17 @@
                     selectType="Single"
                     style="width:90%"
                   ></user>
-                  <!--                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"-->
-                  <!--                            style="width: 10rem"></el-input>-->
                 </template>
               </el-table-column>
+              <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200"
+                               v-if="show">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"
+                            style="width: 10rem">
+                  </el-input>
+                </template>
+              </el-table-column>
+              <!--所属公司-->
               <el-table-column :label="$t('label.PFANS3005VIEW_COMPANY')" align="center" prop="title" width="200"
                                v-if="show">
                 <template slot-scope="scope">
@@ -137,7 +147,7 @@
                   </el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200">
+              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200" v-if="show3">
                 <template slot-scope="scope">
                   <org :orglist="scope.row.detailcenter_id"
                        orgtype="1"
@@ -147,7 +157,7 @@
                        @getOrgids="getGroupId"></org>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="200">
+              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="200" v-if="show3">
                 <template slot-scope="scope">
                   <org :orglist="scope.row.detailgroup_id"
                        orgtype="2"
@@ -157,7 +167,7 @@
                        @getOrgids="getGroupId1"></org>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="200">
+              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="200" v-if="show3">
                 <template slot-scope="scope">
                   <org :orglist="scope.row.detailteam_id"
                        orgtype="3"
@@ -409,6 +419,7 @@
         code: 'PJ029',
         code1: 'PJ030',
         show: false,
+        show3: true,
         disabled: false,
         disabled1: false,
         menuList: [],
@@ -543,10 +554,13 @@
                 }
               }
             }
-            if (this.form.subtype == 'PJ029003' || this.form.subtype == 'PJ029004') {
+            //111
+            if (this.form.subtype == 'PJ029003' || this.form.subtype == 'PJ029004' || this.form.subtype == 'PJ029005') {
               this.show = true;
+              this.show3 = false;
             } else {
               this.show = false;
+              this.show3 = true;
               this.form.tableD.company = '';
               this.form.tableD.timea = '';
             }
@@ -696,12 +710,53 @@
       getFabuilding(val, row) {
         row.fabuilding = val;
       },
+      //ztc 依照子分类 更改相应的明细表
       getSubtype(val) {
         this.form.subtype = val;
-        if (val == 'PJ029003' || val == 'PJ029004') {
+        if (val == 'PJ029003' || val == 'PJ029004' || val == 'PJ029005') {
           this.show = true;
+          this.show3 = false;
+          this.form.tableD = [
+            {
+              securitydetailid: '',
+              securityid: '',
+              title: '',
+              detailcenter_id: '',
+              detailgroup_id: '',
+              detailteam_id: '',
+              phonenumber: '',
+              emaildetail: '',
+              startdate: '',
+              company: '',
+              timea: '',
+              fabuilding: '',
+              // fbbuilding: ' ',
+              // showroom: ' ',
+              // entrymanager: '',
+            },
+          ];
         } else {
           this.show = false;
+          this.show3 = true;
+          this.form.tableD = [
+            {
+              securitydetailid: '',
+              securityid: '',
+              title: '',
+              detailcenter_id: '',
+              detailgroup_id: '',
+              detailteam_id: '',
+              phonenumber: '',
+              emaildetail: '',
+              startdate: '',
+              company: '',
+              timea: '',
+              fabuilding: '',
+              // fbbuilding: ' ',
+              // showroom: ' ',
+              // entrymanager: '',
+            },
+          ];
           this.form.tableD.company = '';
           this.form.tableD.timea = '';
         }
