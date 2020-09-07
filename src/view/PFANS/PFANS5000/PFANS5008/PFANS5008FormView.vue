@@ -7,6 +7,9 @@
         <el-form ref="form" label-width="8vw" label-position="top" style="padding: 2vw">
           <el-form :model="companyform" ref="companyform"
                    class="demo-ruleForm" :rules="rules">
+            <el-row>
+              <div class="sub_color_red">请于每个月第二个工作日24时之前把上一个月的日志填写完成</div>
+            </el-row>
             <el-container>
               <el-aside style="width: 58%;height: 32rem">
                 <el-row>
