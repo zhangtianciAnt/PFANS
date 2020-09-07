@@ -81,9 +81,9 @@ service.interceptors.response.use(
           name: 'error403'
         })
       }else {
-        if(response.data.code === 0){
-          response.data.data = JSON.parse(Decrypt(response.data.data));
-        }
+        // if(response.data.code === 0){
+        //   response.data.data = JSON.parse(Decrypt(response.data.data));
+        // }
         return response.data;
       }
     } else {
