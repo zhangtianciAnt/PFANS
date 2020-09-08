@@ -2212,7 +2212,7 @@
             this.gridData3 = [];
             this.compounddata = [];
             for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].claimdatetime !== '' && response.contractapplication[i].claimdatetime !== null) {
+              if (response.contractapplication[i].claimdatetime !== '' && response.contractapplication[i].claimdatetime !== null && response.contractapplication[i].claimdatetime !== undefined) {
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
