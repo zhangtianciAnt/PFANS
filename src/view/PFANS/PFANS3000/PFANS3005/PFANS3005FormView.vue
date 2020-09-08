@@ -159,6 +159,14 @@
                     </dicselect>
                   </el-form-item>
                 </el-col>
+                <!--//add_fjl_0908 添加供应商名称-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_SUPPLIERNAME')">
+                    <el-input :disabled="!disabled" style="width: 20vw;" maxlength="50"
+                              v-model="form.suppliername"></el-input>
+                  </el-form-item>
+                </el-col>
+                <!--//add_fjl_0908 添加供应商名称-->
               </el-row>
               <el-row>
                 <el-col :span="24">
@@ -757,6 +765,9 @@
           acceptstatus: '',
           findate: '',
           refusereason: '',
+          //add_fjl_0908 添加供应商名称
+          suppliername: '',
+          //add_fjl_0908 添加供应商名称
           //add ccm 0720
           salequotation: '',
           reasonsforquotation: '',
