@@ -1743,6 +1743,20 @@ export function menu() {
               ]
             },
             {
+              '_id': 'PFANS4002',
+              'name': 'menu.PFANS4002',
+              'menuvisible': true,
+              'menuurl': '/PFANS4002View',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {"_id": "PFANS4002_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "PFANS4002_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "PFANS4002_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "PFANS4002_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+              ]
+            },
+            {
               '_id': 'PFANS20060',
               'name': 'menu.PFANS2006',
               'menuvisible': true,
