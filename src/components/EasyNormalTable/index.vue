@@ -239,7 +239,7 @@
         this.getList()
       },
         getRowKey(row) {
-            return row._id;
+            return row.id;
         },
         // 表格筛选
       tableFilter(filters) {
