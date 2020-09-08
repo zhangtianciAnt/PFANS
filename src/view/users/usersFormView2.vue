@@ -810,16 +810,18 @@
                     <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
-                    <el-input
-                      class="width"
-                      v-model="form.caiwupersonalcode"
-                      maxlength="10"
-                      style="width:20vw"
-                    ></el-input>
-                  </el-form-item>
-                </el-col>
+                <!--                add-ws-9/7-禅道505任务-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">-->
+<!--                    <el-input-->
+<!--                      class="width"-->
+<!--                      v-model="form.caiwupersonalcode"-->
+<!--                      maxlength="10"-->
+<!--                      style="width:20vw"-->
+<!--                    ></el-input>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+                <!--                add-ws-9/7-禅道505任务-->
               </el-row>
               <el-row>
                 <el-col :span="8">
