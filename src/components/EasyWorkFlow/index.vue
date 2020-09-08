@@ -109,6 +109,13 @@
       },
       //是否可以发起审批
       isStartWorkflow() {
+        //add_fjl_0908  添加没有组织结构的人员不能发起审批  start
+        if (!this.$store.getters.userinfo.userinfo.centerid) {
+          this.canStartWorkflow = false;
+          this.$emit('canStartWorkflow', false);
+          return;
+        }
+        //add_fjl_0908  添加没有组织结构的人员不能发起审批  end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
