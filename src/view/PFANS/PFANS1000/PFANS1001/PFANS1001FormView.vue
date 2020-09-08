@@ -482,7 +482,7 @@
         rowid: '',
         statuss: '',
         check: false,
-        row: '',
+        row: '_id',
         url: '',
       };
     },
