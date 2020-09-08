@@ -23,7 +23,7 @@
       <slot name="search"></slot>
       <el-table :cell-class-name="rowheight" :data="pagedate" :default-sort='defaultSort'
                 :element-loading-text="$t('normal.waiting')"
-                :row-key="getRowKey" :span-method="SpanMethod" @filter-change="tableFilter"
+                :row-key="rowid" :span-method="SpanMethod" @filter-change="tableFilter"
                 @row-click="rowClick" @row-dblclick="dbrowClick" :show-summary="showSummary" :summary-method="summaryMethod"
                 @selection-change="handleSelectionChange" @sort-change="sortChange" border
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" height="calc(100vh - 60px - 15rem)"
