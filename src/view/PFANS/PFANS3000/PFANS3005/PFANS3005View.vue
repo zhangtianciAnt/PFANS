@@ -769,7 +769,7 @@
               } else {
                 let jmsg = '';
                 for (let j = 0; j < response.length; j++) {
-                  jmsg += response.get(j).purnumbers + ' , ';
+                  jmsg += response[j].purnumbers + ' , ';
                 }
                 Message({
                   message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + jmsg + ' ' + this.$t('label.PFANS3005VIEW_MSG1'),
