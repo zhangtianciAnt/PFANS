@@ -20,12 +20,18 @@ export function orderBy(array, sortKey, reverse) {
   };
   var compare = function compare(a, b) {
     for (var i = 0, len = a.key.length; i < len; i++) {
-      if (a.key[i] < b.key[i]) {
+      //add_fjl_0909  添加sort时NULL数据的处理  start
+      if (a.key[i] === null) {
         return -1;
+      } else {
+        if (a.key[i] < b.key[i]) {
+          return -1;
+        }
+        if (a.key[i] > b.key[i]) {
+          return 1;
+        }
       }
-      if (a.key[i] > b.key[i]) {
-        return 1;
-      }
+      //add_fjl_0909  添加sort时NULL数据的处理  end
     }
     return 0;
   };
