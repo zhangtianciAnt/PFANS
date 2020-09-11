@@ -3091,14 +3091,21 @@
         }
       },
       changebusiness(val) {
-        this.form.startdate = '';
-        this.form.enddate = '';
-        this.form.arrivenight = '';
+          //del_fjl_0911  添加初始化值 start
+          // this.form.startdate = '';
+          // this.form.enddate = '';
+          // this.form.arrivenight = '';
+          //del_fjl_0911  添加初始化值 end
         this.Todaysum = [];
         this.tableA = [];
         this.form.business_id = val;
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
+              //add_fjl_0911  添加初始化值 start
+              this.form.startdate = '';
+              this.form.enddate = '';
+              this.form.arrivenight = '';
+              //add_fjl_0911  添加初始化值 start
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
               this.form.place = cityinfo.value1;
@@ -3221,6 +3228,7 @@
             this.tableA[0].subsidies = parseFloat(moneys);
           }
         }
+          alert(this.form.startdate)
       },
 
       change2(val) {
