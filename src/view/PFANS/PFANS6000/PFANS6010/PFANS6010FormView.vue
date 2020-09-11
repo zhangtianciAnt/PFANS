@@ -147,8 +147,11 @@
         created() {
             if(this.$route.params.letparams != undefined){
                 this.letparams = this.$route.params.letparams;
+              if(this.$route.params.letparams != undefined){
+                this.letstatus = this.$route.params.letstatus;
+              }
                 //外驻管理担当
-                if(this.letparams.role === '4'){
+                if(this.letparams.role === '4' && this.$route.params._contr === '0' && this.letstatus === '4'){
                     this.disable = false;
                 }
             }

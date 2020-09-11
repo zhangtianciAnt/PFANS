@@ -116,6 +116,7 @@ module.exports = {
     createdecision: '创建招聘决裁',
     supplementary: '补充决裁',
     contract: '生成合同',
+    contract1: '全组织',
     importwages: '历史工资导入',
   },
   table: {
