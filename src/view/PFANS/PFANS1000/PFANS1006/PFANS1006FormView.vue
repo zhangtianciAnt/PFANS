@@ -831,10 +831,10 @@
         this.flag = true;
       }
       this.IDname = this.$route.params._id;
-      if (this.$route.params._id) {
+        if (this.IDname) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.$route.params._id})
+            .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.IDname})
           .then(response => {
             if (response !== undefined) {
               this.form = response;
@@ -926,7 +926,7 @@
 
             //采购业务数据流程查看详情
             this.$store
-              .dispatch('PFANS1006Store/getworkfolwPurchaseData', {'loanapplication_id': this.$route.params._id})
+                .dispatch('PFANS1006Store/getworkfolwPurchaseData', {'loanapplication_id': this.IDname})
               .then(response3 => {
 
                 if (response3 !== null && response3 !== '' && response3 !== undefined) {
@@ -1462,8 +1462,8 @@
                 this.loading = false;
               }
               if (error === 0) {
-                if (this.$route.params._id) {
-                  this.form.loanapplication_id = this.$route.params._id;
+                  if (this.IDname) {
+                      this.form.loanapplication_id = this.IDname;
                   this.$store
                     .dispatch('PFANS1006Store/updateLoanapplication', this.form)
                     .then(response => {

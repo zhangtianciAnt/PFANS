@@ -14,7 +14,7 @@
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo,getorgGroupList,getorgGroupallList} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getorgGroupList,getorgGroupallList,getCurrentRole8} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
 
@@ -35,7 +35,7 @@
                 groupid:'',
                 buttonListinitial:[
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'contract', 'name': 'button.contract', 'disabled': false, 'icon': 'el-icon-tickets'}
+                    {'key': 'contract', 'name': 'button.contract1', 'disabled': false, 'icon': 'el-icon-view'}
                 ],
                 // 列属性
                 columns: [
@@ -88,6 +88,10 @@
                 let letRole2 = this.getCurrentRole2();
                 if(letRole2 !== '4'){
                     letRole2 = this.getCurrentRole3();
+                  if (letRole2 === '2')
+                  {
+                    groupid = this.$store.getters.userinfo.userinfo.centerid;
+                  }
                 }
                 let letdates = [
                     this.months.split('-')[0],
@@ -114,6 +118,8 @@
                 this.$store
                     .dispatch('PFANS6008Store/getcostMonthList', this.letparams)
                     .then(response => {
+
+                       response = response.sort((a,b)=>a.status-b.status).reverse();
                         let dates = moment(this.months).format('M');
                         if(Number(dates) >= Number(moment(new Date()).format("M"))){
                             var tempDate = new Date();
@@ -151,8 +157,9 @@
                             response[j].status = response[j].letstatus;
                             //判断是否有审批未通过的数据
                             if(response[j].letstatus != '4'){
-                                showButton = '1';
+                                // showButton = '1';
                             }
+                            this.letstatus = response[j].letstatus;
                             //数据状态
                             response[j].letstatus = getStatus(response[j].status);
 
@@ -282,6 +289,7 @@
                             _id: this.rowid,
                             letparams:this.letparams,
                             letstatus:this.letstatus,
+                            _contr:getCurrentRole8(),
                             disabled: false
                         }
                     })

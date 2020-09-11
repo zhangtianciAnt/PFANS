@@ -771,16 +771,19 @@
           }],
         },
         canStart: false,
+        //add-ws-9/11-禅道任务515
+        params_id: '',
+        //add-ws-9/11-禅道任务515
       };
     },
     mounted() {
       this.loading = true;
-      if (this.$route.params._id) {
+      if (this.params_id) {
         this.$store
-          .dispatch('PFANS2026Store/selectById2', {'staffexitproceid': this.$route.params._id})
+          .dispatch('PFANS2026Store/selectById2', {'staffexitproceid': this.params_id})
           .then(response => {
             this.form = response.staffexitproce;
-            this.ID = this.$route.params._id
+            this.ID = this.params_id
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
             if (response.staffexitproce.checkedgm === 'true') {
               this.form.checkedgm = true;
@@ -863,6 +866,9 @@
       }
     },
     created() {
+      //add-ws-9/11-禅道任务515
+      this.params_id = this.$route.params._id;
+      //add-ws-9/11-禅道任务515
       this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2032View');
       if (this.$route.params._checkdisabled) {
         this.checkdisable = true;
@@ -1185,8 +1191,8 @@
                 );
               }
             }
-            if (this.$route.params._id) {
-              // this.baseInfo.staffexitproce.staffexitproce_id = this.$route.params._id;
+            if (this.params_id) {
+              // this.baseInfo.staffexitproce.staffexitproce_id = this.params_id;
               this.$store
                 .dispatch('PFANS2026Store/update2', this.baseInfo)
                 .then(response => {

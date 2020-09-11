@@ -101,6 +101,9 @@
     },
     data() {
       return {
+        //add-ws-9/11-禅道任务515
+        params_id: '',
+        //add-ws-9/11-禅道任务515
         loading: false,
         title: 'title.PFANS2016VIEW',
         tableA:[],
@@ -119,11 +122,13 @@
       }
     },
     mounted() {
-      debugger;
-      if (this.$route.params._id) {
+      //add-ws-9/11-禅道任务515
+      this.params_id = this.$route.params._id;
+      //add-ws-9/11-禅道任务515
+      if (this.params_id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2010Store/getabnormalByuseridandDate', {'user_id': this.$route.params._id,'dates':this.$route.params._dates})
+          .dispatch('PFANS2010Store/getabnormalByuseridandDate', {'user_id': this.params_id,'dates':this.$route.params._dates})
           .then(response => {
             if (response !== undefined) {
               for (let j = 0; j < response.length; j++) {
