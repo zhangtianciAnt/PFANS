@@ -556,7 +556,11 @@
               }
               //王磊预计 禅道362
               if (this.form.userid === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0108';
+                if (this.form.overtimetype >= 'PR001004') {
+                  this.workflowCode = 'W0067';
+                } else {
+                  this.workflowCode = 'W0108';
+                }
               }
 
               this.canStart = true;
@@ -579,7 +583,11 @@
                 this.workflowCode = 'W0073';
               }
               if (this.form.userid === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0109';
+                if (this.form.overtimetype >= 'PR001004') {
+                  this.workflowCode = 'W0068';
+                } else {
+                  this.workflowCode = 'W0109';
+                }
               }
               this.canStart = true;
               if (!this.disable || this.form.overtimetype === 'PR001005') {
@@ -603,7 +611,11 @@
               }
               //王磊实际 禅道362
               if (this.form.userid === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0109';
+                if (this.form.overtimetype >= 'PR001004') {
+                  this.workflowCode = 'W0068';
+                } else {
+                  this.workflowCode = 'W0109';
+                }
               }
               this.canStart = false;
               this.disable = false;
@@ -1036,7 +1048,15 @@
         {
           this.workflowCode = 'W0072';
         } else if (this.form.userid === '5e78b2264e3b194874180f35') {
-          this.workflowCode = 'W0108';
+          if (val >= 'PR001004') {
+            if (this.form.status === '0') {
+              this.workflowCode = 'W0067';
+            }
+          } else {
+            if (this.form.status === '0') {
+              this.workflowCode = 'W0108';
+            }
+          }
         }
 
         this.showovertimetype = false;
