@@ -1478,6 +1478,9 @@
         plsummaryflg1: '',
         plsummaryflg: '',
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
+          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+          params_id: ''
+          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
     mounted() {
@@ -1507,10 +1510,10 @@
       this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
-      if (this.$route.params._id) {
+        if (this.params_id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1013Store/selectById', {'evectionid': this.$route.params._id})
+            .dispatch('PFANS1013Store/selectById', {'evectionid': this.params_id})
           .then(response => {
             let lst = getOrgInfoByUserId(response.evection.userid);
             if (lst) {
@@ -1933,6 +1936,9 @@
       }
     },
     created() {
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        this.params_id = this.$route.params._id;
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
@@ -2005,7 +2011,7 @@
                     params: {
                         _id: this.form.loan,
                         disabled: false,
-                        _checkid: this.$route.params._id,
+                        _checkid: this.params_id,
                         _check: true,
                         _fromname: 'PFANS1013FormView',
                     },
@@ -4272,8 +4278,8 @@
                 }
                 if (errorFLG == '0' && this.accomflg === 0) {
                   this.loading = true;
-                  if (this.$route.params._id) {
-                    this.baseInfo.evection.evectionid = this.$route.params._id;
+                    if (this.params_id) {
+                        this.baseInfo.evection.evectionid = this.params_id;
                     this.$store
                       .dispatch('PFANS1013Store/update', this.baseInfo)
                       .then(response => {

@@ -484,6 +484,9 @@
         flowData: [],
         status: '',
         ID: '',
+          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+          params_id: '',
+          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
     created() {
@@ -543,12 +546,15 @@
     mounted() {
       this.checklist();
       this.loading = true;
-      if (this.$route.params._id) {
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        this.params_id = this.$route.params._id;
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        if (this.params_id) {
         this.$store
-          .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.$route.params._id})
+            .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.params_id})
           .then(response => {
             this.form = response.staffexitprocedure;
-            this.ID = this.$route.params._id
+              this.ID = this.params_id
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
             if (this.form.status === '4') {
               this.enableSave = true;
@@ -651,7 +657,7 @@
           .dispatch('PFANS2026Store/getList2', {'user_id': this.$store.getters.userinfo.userid})
           .then(response => {
             if (response.length > 0) {
-              if (this.$route.params._id) {
+                if (this.params_id) {
                 this.listsum = 0;
               } else {
                 this.listsum = 1;
@@ -670,7 +676,7 @@
       buttontrue() {
         this.button = false;
         this.$store
-          .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.$route.params._id})
+            .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
           .then(response => {
             if (response.length > 0) {
               this.listbutton = response;
@@ -823,7 +829,7 @@
         if (val === 'generate') {
           this.baseInfo2 = {};
           this.baseInfo2.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
-          this.baseInfo2.staffexitprocedure.staffexitprocedure_id = this.$route.params._id;
+            this.baseInfo2.staffexitprocedure.staffexitprocedure_id = this.params_id;
           this.loading = true;
           this.$store
             .dispatch('PFANS2026Store/generatesta', this.baseInfo2)
@@ -840,7 +846,7 @@
             });
         } else if (val === 'insertsta') {
           this.$store
-            .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.$route.params._id})
+              .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
             .then(response => {
               if (response.length > 0) {
                 Message({
@@ -849,7 +855,7 @@
                   duration: 5 * 1000,
                 });
               } else {
-                let checkid = this.$route.params._id;
+                  let checkid = this.params_id;
                 this.$router.push({
                   name: 'PFANS2032FormView',
                   params: {
@@ -889,8 +895,8 @@
               this.form.delivery_sheet_date = moment(this.form.delivery_sheet_date).format('YYYY-MM-DD');
               this.form.report_date = moment(this.form.report_date).format('YYYY-MM-DD');
               this.baseInfo.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
-              if (this.$route.params._id) {
-                this.baseInfo.staffexitprocedure.staffexitprocedure_id = this.$route.params._id;
+                if (this.params_id) {
+                    this.baseInfo.staffexitprocedure.staffexitprocedure_id = this.params_id;
                 this.$store
                   .dispatch('PFANS2026Store/update', this.baseInfo)
                   .then(response => {

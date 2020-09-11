@@ -681,13 +681,19 @@
           // }],
         },
         buttonList: [],
+          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+          params_id: ''
+          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
     mounted() {
       this.loading = true;
-      if (this.$route.params._id) {
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        this.params_id = this.$route.params._id;
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        if (this.params_id) {
         this.$store
-          .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
+            .dispatch('PFANS1025Store/selectById', {'award_id': this.params_id})
           .then(response => {
             if (response.award != null) {
               this.form = response.award;
@@ -1094,7 +1100,7 @@
             });
           }
         }
-        this.baseInfo.award.award_id = this.$route.params._id;
+          this.baseInfo.award.award_id = this.params_id;
         this.$store
           .dispatch('PFANS1025Store/update', this.baseInfo)
           .then(response => {
@@ -1332,7 +1338,7 @@
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.award.award_id = this.$route.params._id;
+                this.baseInfo.award.award_id = this.params_id;
               this.baseInfo.awardDetail = [];
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
@@ -1391,7 +1397,7 @@
                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
                 .then(response => {
                   if (response.length == 1) {
-                    if (this.$route.params._id) {     //郛冶ｾ�
+                      if (this.params_id) {     //郛冶ｾ�
                       this.$store
                         .dispatch('PFANS1025Store/update', this.baseInfo)
                         .then(response => {
@@ -1428,7 +1434,7 @@
                       });
                       this.loading = false;
                     } else {
-                      if (this.$route.params._id) {     //郛冶ｾ�
+                        if (this.params_id) {     //郛冶ｾ�
                         this.$store
                           .dispatch('PFANS1025Store/update', this.baseInfo)
                           .then(response => {
