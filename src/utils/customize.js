@@ -24,12 +24,22 @@ export function orderBy(array, sortKey, reverse) {
       if (a.key[i] === null) {
         return -1;
       } else {
-        if (a.key[i] < b.key[i]) {
-          return -1;
+        if(valfloat(a.key[i])){
+          if (Number(a.key[i]) < Number(b.key[i])) {
+            return -1;
+          }
+          if (Number(a.key[i]) > Number(b.key[i])) {
+            return 1;
+          }
+        }else{
+          if (a.key[i] < b.key[i]) {
+            return -1;
+          }
+          if (a.key[i] > b.key[i]) {
+            return 1;
+          }
         }
-        if (a.key[i] > b.key[i]) {
-          return 1;
-        }
+
       }
       //add_fjl_0909  添加sort时NULL数据的处理  end
     }
@@ -51,6 +61,11 @@ export function orderBy(array, sortKey, reverse) {
   }).map(function (item) {
     return item.value;
   });
+}
+
+export function valfloat(str){
+  const reg = /^(\-|\+)?\d+(\.\d+)?$/
+  return reg.test(str)
 }
 
 export function getDepartmentById(id){
