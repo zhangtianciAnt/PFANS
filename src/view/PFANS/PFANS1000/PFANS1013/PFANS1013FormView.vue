@@ -2485,8 +2485,9 @@
       },
       getGroupIdA(orglist, row) {
         row.departmentname = orglist;
-        //ADD_FJL
-        row.optionsA = [];
+          row.plsummary = this.plsummaryflg,
+              //ADD_FJL
+              row.optionsA = [];
         row.budgetcoding = '';
         row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
