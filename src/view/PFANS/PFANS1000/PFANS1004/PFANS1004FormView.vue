@@ -645,6 +645,9 @@
         }
       };
       return {
+        //add-ws-9/11-禅道任务515
+        params_id: '',
+        //add-ws-9/11-禅道任务515
         checkgroup: false,
         activeName: 'first',
         errorgroup: '',
@@ -906,10 +909,10 @@
         this.checkgroup = false;
       }
       //add-ws-4/23-总务担当可用选择部门带出预算编码
-      if (this.$route.params._id) {
+      if (this.params_id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.$route.params._id})
+          .dispatch('PFANS1004Store/getJudgementOne', {'judgementid': this.params_id})
           .then(response => {
             if (response) {
               this.form = response.judgement;
@@ -1147,6 +1150,9 @@
       },
     },
     created() {
+      //add-ws-9/11-禅道任务515
+      this.params_id = this.$route.params._id;
+      //add-ws-9/11-禅道任务515
         // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1004FormView');
       this.disabled = this.$route.params.disabled;
         this.disableview = this.$route.params._disableview;
@@ -1285,7 +1291,7 @@
                 params: {
                     _id: row.loanapplication_id,
                     disabled: false,
-                    _checkid: this.$route.params._id,
+                    _checkid: this.params_id,
                     _check: true,
                     _fromname: 'PFANS1004FormView',
                 },
@@ -1304,7 +1310,7 @@
                 params: {
                     _id: row.publicexpense_id,
                     disabled: false,
-                    _checkid: this.$route.params._id,
+                    _checkid: this.params_id,
                     _check2: true,
                     _fromname: 'PFANS1004FormView',
                 },
@@ -2024,8 +2030,8 @@
                 }
                 //add-ws-4/22-实施计划金额不能大于事业计划余额check
                 if (error === 0) {
-                  if (this.$route.params._id) {
-                    this.form.judgementid = this.$route.params._id;
+                  if (this.params_id) {
+                    this.form.judgementid = this.params_id;
                     this.$store
                       .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
                       .then(response => {
@@ -2196,8 +2202,8 @@
                       amounttobegivenM: this.tableA[i].amounttobegivenM,
                     });
                   }
-                  if (this.$route.params._id) {
-                    this.baseInfo.judgement.judgementid = this.$route.params._id;
+                  if (this.params_id) {
+                    this.baseInfo.judgement.judgementid = this.params_id;
                     this.$store
                       .dispatch('PFANS1004Store/updateJudgementDetail', this.baseInfo)
                       .then(response => {

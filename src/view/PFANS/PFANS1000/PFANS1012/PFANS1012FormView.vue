@@ -1884,7 +1884,7 @@
         this.disablecheck = true;
         this.loading = true;
         this.$store
-          .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.$route.params._id})
+          .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.IDname})
           .then(response => {
               if (response.publicexpense != null) {
                 this.form = response.publicexpense;
@@ -2382,7 +2382,7 @@
               }
               //采购业务数据流程查看详情
               this.$store
-                .dispatch('PFANS1012Store/getworkfolwPurchaseData', {'publicexpenseid': this.$route.params._id})
+                .dispatch('PFANS1012Store/getworkfolwPurchaseData', {'publicexpenseid': this.IDname})
                 .then(response3 => {
 
                   if (response3 !== null && response3 !== '' && response3 !== undefined) {
@@ -4956,9 +4956,9 @@
                     this.baseInfo.otherdetails[i].servicehours = this.getworkinghours(this.baseInfo.otherdetails[i].servicehours);
                   }
                   //add-ws-6/11-禅道任务090
-                  if (this.$route.params._id) {
+                  if (this.IDname) {
                     this.loading = true;
-                    this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
+                    this.baseInfo.publicexpense.publicexpenseid = this.IDname;
                     this.$store
                       .dispatch('PFANS1012Store/update', this.baseInfo)
                       .then(response => {
@@ -5145,7 +5145,7 @@
         }
         //add-ws-6/11-禅道任务090
         this.loading = true;
-        this.baseInfo.publicexpense.publicexpenseid = this.$route.params._id;
+        this.baseInfo.publicexpense.publicexpenseid = this.IDname;
         this.$store
           .dispatch('PFANS1012Store/update', this.baseInfo)
           .then(response => {
@@ -5184,7 +5184,7 @@
           params: {
             _id: row.loanapplication_id,
             disabled: false,
-            _checkid: this.$route.params._id,
+            _checkid: this.IDname,
             _check: true,
             _fromname: 'PFANS1012FormView',
             _workflowurl1012: '1',//添加跳转时，是否显示流程信息的判断

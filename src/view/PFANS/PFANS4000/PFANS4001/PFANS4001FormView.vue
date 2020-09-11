@@ -244,6 +244,9 @@
         //         'params': {}
         //     }
         // ],
+        //add-ws-9/11-禅道任务515
+        params_id: '',
+        //add-ws-9/11-禅道任务515
         checkparmers: 1,
         url: '',
         checkstatus: '',
@@ -346,10 +349,10 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
+      if (this.params_id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.$route.params._id})
+          .dispatch('PFANS4001Store/getPfans4001One', {'sealid': this.params_id})
           .then(response => {
             if (response !== undefined) {
               this.form = response;
@@ -444,6 +447,9 @@
       }
     },
     created() {
+      //add-ws-9/11-禅道任务515
+      this.params_id = this.$route.params._id;
+      //add-ws-9/11-禅道任务515
       this.$store.commit('global/SET_WORKFLOWURL', '/PFANS4001View');
       if (this.$route.params._disto === "1") {
         this.checkparmers = 0;
@@ -689,7 +695,7 @@
           }
         }
         this.form.userid = this.userlist;
-        this.form.sealid = this.$route.params._id;
+        this.form.sealid = this.params_id;
         this.loading = true;
         this.$store
           .dispatch('PFANS4001Store/updatePfans4001', this.form)
@@ -777,10 +783,10 @@
                 this.form.sealtype = checktableD.substring(0, checktableD.length - 1);
               }
               // add-ws-印章管理下拉多选
-              if (this.$route.params._id) {
+              if (this.params_id) {
                 this.loading = true;
                 this.form.userid = this.userlist;
-                this.form.sealid = this.$route.params._id;
+                this.form.sealid = this.params_id;
                 this.$store
                   .dispatch('PFANS4001Store/updatePfans4001', this.form)
                   .then(response => {
