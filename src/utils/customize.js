@@ -585,6 +585,18 @@ export function getCurrentRole7() {
   }
   return "1";
 }
+export function getCurrentRole8() {
+  let roles = "";
+  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
+    for(let role of store.getters.useraccount.roles){
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf("合同担当") != -1 ) {
+      return "0";
+    }
+  }
+  return "1";
+}
 //ws-8/14-禅道任务450
 
 import CryptoJS from 'crypto-js/crypto-js'
