@@ -3229,7 +3229,6 @@
             this.tableA[0].subsidies = parseFloat(moneys);
           }
         }
-          alert(this.form.startdate)
       },
 
       change2(val) {
