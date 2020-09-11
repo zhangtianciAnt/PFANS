@@ -173,7 +173,7 @@
                 this.getAbnormalList();
             },
             selectInit(row, index) {
-                return row.status === this.$t("label.PFANS5004VIEW_OVERTIME");
+              return row.status.indexOf('结束') !== -1;
             },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v =>
