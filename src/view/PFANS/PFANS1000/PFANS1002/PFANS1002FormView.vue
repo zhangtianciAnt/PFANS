@@ -1671,7 +1671,7 @@
                 if (getCurrentRole() === '1') {
                     this.workflowCode = 'W0097';//总经理流程
                 } else {
-                  if (this.form.user_id === '5e78b2264e3b194874180f35') {
+                  if (this.form.user_id === '5e78b2264e3b194874180f35' || getCurrentRole() === '2') {
                     this.workflowCode = 'W0113';
                   } else {
                     this.workflowCode = 'W0048';//其他
