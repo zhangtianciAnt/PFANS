@@ -1375,12 +1375,8 @@
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
                   this.workflowCode = 'W0133';
                 } else {
-                  if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                    this.workflowCode = 'W0134';
-                  } else {
                     //电脑相关，最后节点到总经理   两万以上
                     this.workflowCode = 'W0128';
-                  }
                 }
               } else {
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
