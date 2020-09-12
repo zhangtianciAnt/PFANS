@@ -547,7 +547,11 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0067';
               } else {
-                this.workflowCode = 'W0001';
+                if (getCurrentRole() === '2') {
+                  this.workflowCode = 'W0134';
+                } else {
+                  this.workflowCode = 'W0001';
+                }
               }
               //总经理预计
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -576,12 +580,18 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                this.workflowCode = 'W0040';
+                if (getCurrentRole() === '2') {
+                  this.workflowCode = 'W0135';
+                } else {
+                  this.workflowCode = 'W0040';
+                }
               }
+              //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
               {
                 this.workflowCode = 'W0073';
               }
+              //王磊
               if (this.form.userid === '5e78b2264e3b194874180f35') {
                 if (this.form.overtimetype >= 'PR001004') {
                   this.workflowCode = 'W0068';
@@ -603,19 +613,20 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                this.workflowCode = 'W0040';
+                if (getCurrentRole() === '2') {
+                  this.workflowCode = 'W0135';
+                } else {
+                  this.workflowCode = 'W0040';
+                }
               }
+              //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
               {
                 this.workflowCode = 'W0073';
               }
               //王磊实际 禅道362
               if (this.form.userid === '5e78b2264e3b194874180f35') {
-                if (this.form.overtimetype >= 'PR001004') {
-                  this.workflowCode = 'W0068';
-                } else {
-                  this.workflowCode = 'W0109';
-                }
+                this.workflowCode = 'W0109';
               }
               this.canStart = false;
               this.disable = false;
@@ -919,15 +930,15 @@
       },
       workflowState(val) {
         if (val.state === '1') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108' || val.workflowCode === 'W0134') {
             this.form.status = '3';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109' || val.workflowCode === 'W0135') {
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108' || val.workflowCode === 'W0134') {
             this.form.status = '4';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109' || val.workflowCode === 'W0135') {
             this.form.status = '7';
             this.canStart = false;
           }
@@ -1041,7 +1052,11 @@
           }
         } else {
           if (this.form.status === '0') {
-            this.workflowCode = 'W0001';
+            if (getCurrentRole() === '2') {
+              this.workflowCode = 'W0134';
+            } else {
+              this.workflowCode = 'W0001';
+            }
           }
         }
         if (this.form.userid ==='5e78fefff1560b363cdd6db7')
