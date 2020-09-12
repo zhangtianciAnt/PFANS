@@ -27,6 +27,16 @@ export function getUserTableList2(params) {
   })
 }
 
+//add-ws-9/12-财务人员编码处理
+export function getUserTableList3(params) {
+  return request({
+    url: 'user/getAccountCustomer3',
+    method: 'get',
+    params: params
+  })
+}
+//add-ws-9/12-财务人员编码处理
+
 // 根据userid获取该用户的详细信息
 export function getById(params) {
   return request({

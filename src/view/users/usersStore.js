@@ -8,6 +8,7 @@ import {
   getRoleList,
   setRoleToUser,
   getUserTableList2,
+  getUserTableList3,
   download,
   getSigninlog
 } from './usersApi'
@@ -64,6 +65,22 @@ const usersStore = {
         })
       })
     },
+//add-ws-9/12-财务人员编码处理
+    getUserTableList3({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getUserTableList3(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-9/12-财务人员编码处理
+
     // 根据userid获取该用户的详细信息
     getById({ commit }, params) {
       return new Promise((resolve, reject) => {
