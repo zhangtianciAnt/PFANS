@@ -1341,10 +1341,18 @@
                 this.form.procurementproject === 'PJ005007' ||
                 this.form.procurementproject === 'PJ005018') {
                 //电脑相关，1000元以下
-                this.workflowCode = 'W0126';
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0136';
+                } else {
+                  this.workflowCode = 'W0126';
+                }
               } else {
-                //最后节点到GM  事业计划内 1000以下
-                this.workflowCode = 'W0082';
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0137';
+                } else {
+                  //最后节点到GM  事业计划内 1000以下
+                  this.workflowCode = 'W0082';
+                }
               }
             } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
               if (this.form.procurementproject === 'PJ005005' ||
