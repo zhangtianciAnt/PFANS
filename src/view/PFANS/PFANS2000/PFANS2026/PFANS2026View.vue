@@ -170,7 +170,7 @@
           this.endTime = this.working.substring(13, 23);
           if (this.starttime != '' || this.endTime != '') {
             this.data = this.data.filter(item => {
-              return this.starttime <= item.hope_exit_date && item.hope_exit_date <= this.endTime;
+              return this.starttime <= moment(item.hope_exit_date).format('YYYY-MM-DD') && moment(item.hope_exit_date).format('YYYY-MM-DD') <= this.endTime;
             });
           }
         }

@@ -2814,7 +2814,7 @@
             let serdate1 = repair.slice(repair.length - 10);
             this.form.claimdatetime = [serdate, serdate1];
             this.grouporglist = this.form.deployment;
-            if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null) {
+            if (this.form.limitcommunt !== '' && this.form.limitcommunt !== null && this.form.limitcommunt !== undefined) {
               for (let i = 0; i < JSON.parse(response.limitcommunt).length; i++) {
                 let aa = JSON.parse(response.limitcommunt)[i];
                 this.tableCommun[i].judgment1 = aa.jud1;
@@ -2822,7 +2822,7 @@
               }
             }
 
-            if (this.form.limitdelivery !== '' && this.form.limitdelivery !== null) {
+            if (this.form.limitdelivery !== '' && this.form.limitdelivery !== null  && this.form.limitdelivery !== undefined) {
               for (let i = 0; i < JSON.parse(response.limitdelivery).length; i++) {
                 let aa = JSON.parse(response.limitdelivery)[i];
                 this.tableDelivery[i].judgment1 = aa.jud1;
@@ -2830,7 +2830,7 @@
               }
             }
 
-            if (this.form.limitcomputers !== '' && this.form.limitcomputers !== null) {
+            if (this.form.limitcomputers !== '' && this.form.limitcomputers !== null && this.form.limitcomputers !== undefined) {
               for (let i = 0; i < JSON.parse(response.limitcomputers).length; i++) {
                 let aa = JSON.parse(response.limitcomputers)[i];
                 this.tableComputers[i].judgment1 = aa.jud1;
@@ -2838,7 +2838,7 @@
               }
             }
 
-            if (this.form.limitjasoftware !== '' && this.form.limitjasoftware !== null) {
+            if (this.form.limitjasoftware !== '' && this.form.limitjasoftware !== null && this.form.limitjasoftware !== undefined) {
               for (let i = 0; i < JSON.parse(response.limitjasoftware).length; i++) {
                 let aa = JSON.parse(response.limitjasoftware)[i];
                 this.tableJasoftware[i].judgment1 = aa.jud1;
@@ -2846,7 +2846,7 @@
               }
             }
 
-            if (this.form.limittechnology !== '' && this.form.limittechnology !== null) {
+            if (this.form.limittechnology !== '' && this.form.limittechnology !== null && this.form.limittechnology !== undefined) {
               for (let i = 0; i < JSON.parse(response.limittechnology).length; i++) {
                 let aa = JSON.parse(response.limittechnology)[i];
                 this.tableGatetechnology[i].judgment1 = aa.jud1;
@@ -2854,7 +2854,7 @@
               }
             }
 
-            if (this.form.supplieindustrial !== '' && this.form.supplieindustrial !== null) {
+            if (this.form.supplieindustrial !== '' && this.form.supplieindustrial !== null  && this.form.supplieindustrial !== undefined) {
               for (let i = 0; i < JSON.parse(response.supplieindustrial).length; i++) {
                 let aa = JSON.parse(response.supplieindustrial)[i];
                 this.tableIndustrial[i].judgment1 = aa.jud1;
@@ -2862,7 +2862,7 @@
               }
             }
 
-            if (this.form.supplielectronic !== '' && this.form.supplielectronic !== null) {
+            if (this.form.supplielectronic !== '' && this.form.supplielectronic !== null && this.form.supplielectronic !== undefined) {
               for (let i = 0; i < JSON.parse(response.supplielectronic).length; i++) {
                 let aa = JSON.parse(response.supplielectronic)[i];
                 this.tableElectronic[i].judgment1 = aa.jud1;
@@ -2870,7 +2870,7 @@
               }
             }
 
-            if (this.form.suppliecom !== '' && this.form.suppliecom !== null) {
+            if (this.form.suppliecom !== '' && this.form.suppliecom !== null && this.form.suppliecom !== undefined) {
               for (let i = 0; i < JSON.parse(response.suppliecom).length; i++) {
                 let aa = JSON.parse(response.suppliecom)[i];
                 this.tableCon[i].judgment1 = aa.jud1;
@@ -2878,7 +2878,7 @@
               }
             }
 
-            if (this.form.suppliesof !== '' && this.form.suppliesof !== null) {
+            if (this.form.suppliesof !== '' && this.form.suppliesof !== null  && this.form.suppliesof !== undefined) {
               for (let i = 0; i < JSON.parse(response.suppliesof).length; i++) {
                 let aa = JSON.parse(response.suppliesof)[i];
                 this.tableSof[i].judgment1 = aa.jud1;

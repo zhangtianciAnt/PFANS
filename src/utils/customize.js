@@ -76,7 +76,7 @@ export function getDepartmentById(id){
     if(arr.includes(org._id)){
       departmentName.push(org.title);
     }
-    if(org.orgs !== null){
+    if(org.orgs !== null && org.orgs !== undefined){
       departmentId(org.orgs,arr);
     }
   }
@@ -88,7 +88,7 @@ function departmentId(orgs,arr){
     if(arr.includes(org._id)){
       departmentName.push(org.title);
     }
-    if(org.orgs !== null){
+    if(org.orgs !== null && org.orgs !== undefined){
       departmentId(org.orgs,arr);
     }
   }

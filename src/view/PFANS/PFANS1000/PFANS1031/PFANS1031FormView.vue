@@ -270,7 +270,7 @@
               if (response !== undefined) {
                   this.form = response;
                   this.userlist = this.form.loadingjudge;
-                  if (this.form.claimdatetime !== null && this.form.claimdatetime !== '') {
+                  if (this.form.claimdatetime !== '' && this.form.claimdatetime !== null && this.form.claimdatetime !== undefined ) {
                       this.form.openingdate = this.form.claimdatetime.slice(0, 10);
                       this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
                   }

@@ -411,7 +411,7 @@
           this.endTime = this.working.substring(13, 23);
           if (this.starttime != '' || this.endTime != '') {
             this.data = this.data.filter(item => {
-              return this.starttime <= item.punchcardrecord_date && item.punchcardrecord_date <= this.endTime;
+              return this.starttime <= moment(item.punchcardrecord_date).format('YYYY-MM-DD') && moment(item.punchcardrecord_date).format('YYYY-MM-DD') <= this.endTime;
             });
           }
         }

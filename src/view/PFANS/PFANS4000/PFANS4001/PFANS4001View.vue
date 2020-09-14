@@ -110,7 +110,7 @@
             }
             //add-ws-4/22-多个印章时出现问题修改
             let checktableD = '';
-            if (response[j].sealtype !== null && response[j].sealtype !== '') {
+            if (response[j].sealtype !== '' && response[j].sealtype !== null &&  response[j].sealtype !== undefined ) {
               let letstaff = response[j].sealtype.split(',');
               for (let a = 0; a < letstaff.length; a++) {
                 let letErrortype = getDictionaryInfo(letstaff[a]);

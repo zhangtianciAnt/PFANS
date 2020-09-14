@@ -334,7 +334,6 @@ export default {
     //ADD-LXX
     filterInfo() {
       this.tableList = this.TABLEList.slice(0);
-
       if (this.TABLEList.length > 0) {
         //进行在职离职筛选
         if (this.enterOrleave !== "") {
@@ -347,32 +346,33 @@ export default {
                 this.endTime = this.working.substring(13, 23);
                 if (this.starttime != "" || this.endTime != "") {
                   this.tableList = this.tableList.filter(item => {
-                    return (this.starttime <= item.resignation_date && item.resignation_date <= this.endTime && item.resignation_date<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
+                    return ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD') &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
                   });
                 }
               }
               else
               {
                 this.tableList = this.tableList.filter(item => {
-                  return item.resignation_date !== null && item.resignation_date !== "" && item.resignation_date<moment(new Date()).format('YYYY-MM-DD')
+                  return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD')
                 });
               }
           } else {
             if (this.workinghours)
             {
+
               this.working = this.getworkinghours(this.workinghours);
               this.starttime = this.working.substring(0, 10),
                 this.endTime = this.working.substring(13, 23);
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
-                  return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date === null || item.resignation_date === "")
+                  return ( moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD') && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD'))
                 });
               }
             }
             else
             {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date === null || item.resignation_date === ""||item.resignation_date>=moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
@@ -1142,7 +1142,7 @@ export default {
           this.tableList = _tableList;
           this.TABLEList = _tableList;
             // add_fjl --默认在职的筛选
-            this.filterInfo();
+             this.filterInfo();
             // add_fjl
           this.loading = false;
         })
