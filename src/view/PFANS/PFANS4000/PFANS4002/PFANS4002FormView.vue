@@ -961,20 +961,13 @@
         this.$store
           .dispatch('usersStore/getById', params)
           .then(response => {
+            debugger
             this.form = response.customerInfo.userinfo;
             //add-ws-7/10-禅道141问提修改
-            if (response.customerInfo.userinfo.resignation_date != null && response.customerInfo.userinfo.resignation_date != '') {
-              this.form.resignation_date = moment(response.customerInfo.userinfo.resignation_date).format('YYYY-MM-DD');
+            if(response.customerInfo.userinfo.resignation_date!=null&&response.customerInfo.userinfo.resignation_date!=""){
+              this.form.resignation_date =  moment(response.customerInfo.userinfo.resignation_date).format("YYYY-MM-DD");
             }
             //add-ws-7/10-禅道141问提修改
-            if (!this.form.otherorgs) {
-              this.form.otherorgs = [];
-            }
-            this.form.otherorgs.push({
-              centerid: '',
-              groupid: '',
-              teamid: '',
-            });
             if (response.customerInfo.userinfo.birthday != '' && response.customerInfo.userinfo.birthday != null) {
               let birthdays = new Date(
                 response.customerInfo.userinfo.birthday.replace(/-/g, '/'),
@@ -1071,10 +1064,14 @@
                 },
               ];
             }
+            // this.gridData = this.userInfo.customerInfo.userinfo.gridData;
+            // this.oldageData = this.userInfo.customerInfo.userinfo.oldageData;
+            // this.houseData = this.userInfo.customerInfo.userinfo.houseData;
+            // this.medicalData = this.userInfo.customerInfo.userinfo.medicalData;
             // add_fjl_05/21   --添加履历的处理
             //给料履历
             let letgridData = this.userInfo.customerInfo.userinfo.gridData;
-            if (letgridData !== null && letgridData !== '') {
+            if (letgridData !== null && letgridData !== '' && letgridData !== undefined) {
               this.gridData = [];
               for (let g = 0; g < letgridData.length; g++) {
                 //最后一次的变更日期
@@ -1086,7 +1083,7 @@
                     gridData.basic = letgridData[g].basic;
                     gridData.duty = letgridData[g].duty;
                     if (letgridData[g].date.length != 10) {
-                      gridData.date = moment(letgridData[g].date).format('YYYY-MM-DD');
+                      gridData.date = moment(letgridData[g].date).format("YYYY-MM-DD");
                     } else {
                       gridData.date = letgridData[g].date;
                     }
@@ -1097,7 +1094,7 @@
             }
             //养老保险基数履历
             let oldageData = this.userInfo.customerInfo.userinfo.oldageData;
-            if (oldageData !== null && oldageData !== '') {
+            if (oldageData !== null && oldageData !== ''  && oldageData !== undefined) {
               this.oldageData = [];
               for (let g = 0; g < oldageData.length; g++) {
                 if (oldageData[g].date !== null && oldageData[g].date !== '' &&
@@ -1105,7 +1102,7 @@
                   let letoldageData = {};
                   letoldageData.basic = oldageData[g].basic;
                   if (oldageData[g].date.length != 10) {
-                    letoldageData.date = moment(oldageData[g].date).format('YYYY-MM-DD');
+                    letoldageData.date = moment(oldageData[g].date).format("YYYY-MM-DD");
                   } else {
                     letoldageData.date = oldageData[g].date;
                   }
@@ -1115,7 +1112,7 @@
             }
             //住房保险基数履历
             let houseData = this.userInfo.customerInfo.userinfo.houseData;
-            if (houseData !== null && houseData !== '') {
+            if (houseData !== null && houseData !== '' && houseData !== undefined) {
               this.houseData = [];
               for (let g = 0; g < houseData.length; g++) {
                 if (houseData[g].date !== null && houseData[g].date !== '' &&
@@ -1123,7 +1120,7 @@
                   let lethouseData = {};
                   lethouseData.basic = houseData[g].basic;
                   if (houseData[g].date.length != 10) {
-                    lethouseData.date = moment(houseData[g].date).format('YYYY-MM-DD');
+                    lethouseData.date = moment(houseData[g].date).format("YYYY-MM-DD");
                   } else {
                     lethouseData.date = houseData[g].date;
                   }
@@ -1133,7 +1130,7 @@
             }
             //医疗保险基数履历
             let medicalData = this.userInfo.customerInfo.userinfo.medicalData;
-            if (medicalData !== null && medicalData !== '') {
+            if (medicalData !== null && medicalData !== '' && medicalData !== undefined) {
               this.medicalData = [];
               for (let g = 0; g < medicalData.length; g++) {
                 if (medicalData[g].date !== null && medicalData[g].date !== '' &&
@@ -1141,7 +1138,7 @@
                   let letmedicalData = {};
                   letmedicalData.basic = medicalData[g].basic;
                   if (medicalData[g].date.length != 10) {
-                    letmedicalData.date = moment(medicalData[g].date).format('YYYY-MM-DD');
+                    letmedicalData.date = moment(medicalData[g].date).format("YYYY-MM-DD");
                   } else {
                     letmedicalData.date = medicalData[g].date;
                   }
@@ -1151,7 +1148,7 @@
             }
             //失业保险基数履历
             let syeData = this.userInfo.customerInfo.userinfo.syeData;
-            if (syeData !== null && syeData !== '') {
+            if (syeData !== null && syeData !== '' && syeData !== undefined) {
               this.syeData = [];
               for (let g = 0; g < syeData.length; g++) {
                 if (syeData[g].date !== null && syeData[g].date !== '' &&
@@ -1159,7 +1156,7 @@
                   let letsyeData = {};
                   letsyeData.basic = syeData[g].basic;
                   if (syeData[g].date.length != 10) {
-                    letsyeData.date = moment(syeData[g].date).format('YYYY-MM-DD');
+                    letsyeData.date = moment(syeData[g].date).format("YYYY-MM-DD");
                   } else {
                     letsyeData.date = syeData[g].date;
                   }
@@ -1169,7 +1166,7 @@
             }
             //生育保险基数履历
             let syuData = this.userInfo.customerInfo.userinfo.syuData;
-            if (syuData !== null && syuData !== '') {
+            if (syuData !== null && syuData !== '' && syuData !== undefined) {
               this.syuData = [];
               for (let g = 0; g < syuData.length; g++) {
                 if (syuData[g].date !== null && syuData[g].date !== '' &&
@@ -1177,7 +1174,7 @@
                   let letsyuData = {};
                   letsyuData.basic = syuData[g].basic;
                   if (syuData[g].date.length != 10) {
-                    letsyuData.date = moment(syuData[g].date).format('YYYY-MM-DD');
+                    letsyuData.date = moment(syuData[g].date).format("YYYY-MM-DD");
                   } else {
                     letsyuData.date = syuData[g].date;
                   }
@@ -1187,7 +1184,7 @@
             }
             //工伤保险基数履历
             let gsData = this.userInfo.customerInfo.userinfo.gsData;
-            if (gsData !== null && gsData !== '') {
+            if (gsData !== null && gsData !== ''&& gsData !== undefined) {
               this.gsData = [];
               for (let g = 0; g < gsData.length; g++) {
                 if (gsData[g].date !== null && gsData[g].date !== '' &&
@@ -1195,7 +1192,7 @@
                   let letgsData = {};
                   letgsData.basic = gsData[g].basic;
                   if (gsData[g].date.length != 10) {
-                    letgsData.date = moment(gsData[g].date).format('YYYY-MM-DD');
+                    letgsData.date = moment(gsData[g].date).format("YYYY-MM-DD");
                   } else {
                     letgsData.date = gsData[g].date;
                   }
@@ -1205,7 +1202,7 @@
             }
             //rank
             let rankData = this.userInfo.customerInfo.userinfo.rankData;
-            if (rankData !== null && rankData !== '') {
+            if (rankData !== null && rankData !== '' && rankData !== undefined) {
               this.rankData = [];
               for (let g = 0; g < rankData.length; g++) {
                 if (rankData[g].date !== null && rankData[g].date !== '' &&
@@ -1217,7 +1214,7 @@
                     letrankData.basic = rankData[g].basic;
                   }
                   if (rankData[g].date.length != 10) {
-                    letrankData.date = moment(rankData[g].date).format('YYYY-MM-DD');
+                    letrankData.date = moment(rankData[g].date).format("YYYY-MM-DD");
                   } else {
                     letrankData.date = rankData[g].date;
                   }
@@ -1227,7 +1224,7 @@
             }
             //职务
             let postData = this.userInfo.customerInfo.userinfo.postData;
-            if (postData !== null && postData !== '') {
+            if (postData !== null && postData !== '' && postData !== undefined) {
               this.postData = [];
               for (let g = 0; g < postData.length; g++) {
                 if (postData[g].date !== null && postData[g].date !== '' &&
@@ -1239,7 +1236,7 @@
                     letpostData.basic = postData[g].basic;
                   }
                   if (postData[g].date.length != 10) {
-                    letpostData.date = moment(postData[g].date).format('YYYY-MM-DD');
+                    letpostData.date = moment(postData[g].date).format("YYYY-MM-DD");
                   } else {
                     letpostData.date = postData[g].date;
                   }
