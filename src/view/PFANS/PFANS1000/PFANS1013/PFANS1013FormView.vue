@@ -34,7 +34,7 @@
               </el-radio>
             </el-col>
           </el-row>
-          <el-tabs type="border-card" v-model="activeName">
+          <el-tabs type="border-card" v-model="activeName" @tab-click="balenceClick">
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TOTAL')" name="first">
               <div>
                 <el-row>
@@ -2916,6 +2916,11 @@
             this.optionsdata.push(vote);
         }
       },
+      balenceClick(tab, event) {
+        if (tab.name == 'first') {
+          this.form.balance = this.form.loanamount - this.form.totalpay;
+        }
+      },
       fileError(err, file, fileList) {
         Message({
           message: this.$t('normal.error_04'),
@@ -3413,7 +3418,6 @@
         if (this.form.type === '0') {
           // this.form.totalpay = sums[10] + this.tableAValue[11] + this.tableRValue[9];
           this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12];
-          this.form.balance = this.form.loanamount - this.form.totalpay;
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
           this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
@@ -3614,6 +3618,7 @@
         }
         //add-ws-8/29-禅道bug066
         if (val === 'save') {
+          this.form.balance = this.form.loanamount - this.form.totalpay;
           this.$refs['refform'].validate(valid => {
               if (valid) {
                 this.baseInfo = {};
@@ -3726,7 +3731,6 @@
                       }
                     }
                   }
-
                 }
                 //add-ws-5/12-分录传票的发票税金需要与后面明细同种发票的税金和相同
                 if (this.form.type === '0') {
