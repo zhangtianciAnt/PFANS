@@ -17,15 +17,15 @@
         type="month"
         v-model="months">
       </el-date-picker>
-<!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-<!--                      :start-placeholder="$t('label.startdate')"-->
-<!--                      @change="clickdata"-->
-<!--                      class="bigWidth"-->
-<!--                      slot="customize"-->
-<!--                      type="daterange"-->
-<!--                      unlink-panels-->
-<!--                      v-model="workinghours"-->
-<!--      ></el-date-picker>-->
+      <!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
+      <!--                      :start-placeholder="$t('label.startdate')"-->
+      <!--                      @change="clickdata"-->
+      <!--                      class="bigWidth"-->
+      <!--                      slot="customize"-->
+      <!--                      type="daterange"-->
+      <!--                      unlink-panels-->
+      <!--                      v-model="workinghours"-->
+      <!--      ></el-date-picker>-->
     </EasyNormalTable>
 
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="datatada" :showSelection="isShow"
@@ -43,15 +43,15 @@
         type="month"
         v-model="months">
       </el-date-picker>
-<!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
-<!--                      :start-placeholder="$t('label.startdate')"-->
-<!--                      @change="clickdata"-->
-<!--                      class="bigWidth"-->
-<!--                      slot="customize"-->
-<!--                      type="daterange"-->
-<!--                      unlink-panels-->
-<!--                      v-model="workinghours"-->
-<!--      ></el-date-picker>-->
+      <!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
+      <!--                      :start-placeholder="$t('label.startdate')"-->
+      <!--                      @change="clickdata"-->
+      <!--                      class="bigWidth"-->
+      <!--                      slot="customize"-->
+      <!--                      type="daterange"-->
+      <!--                      unlink-panels-->
+      <!--                      v-model="workinghours"-->
+      <!--      ></el-date-picker>-->
     </EasyNormalTable>
 
   </div>
@@ -60,7 +60,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import moment from 'moment';
-  import {Message} from "element-ui";
+  import {Message} from 'element-ui';
   import {getDepartmentById, getUserInfo} from '@/utils/customize';
   import json2csv from 'json2csv';
 
@@ -72,7 +72,7 @@
     data() {
       return {
         isShow: true,
-        months: moment(new Date()).format("YYYY-MM"),
+        months: moment(new Date()).format('YYYY-MM'),
         selectedList: [],
         selectedlist: [],
         Taxestotal: '',
@@ -90,7 +90,7 @@
         datatada: [],
         DATATADA: [],
         activeName: '',
-        buttonList: [{'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},],
+        buttonList: [{'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'}],
         showTable1: true,
         num: '',
         //工资详细
@@ -175,42 +175,42 @@
                 width: 150,
                 fix: false,
                 filter: true,
-              },{
+              }, {
                 code: 'shiyejs',
                 label: 'label.PFANS2005FORMVIEW_SHIYEJS',
                 width: 150,
                 fix: false,
                 filter: true,
-              },{
+              }, {
                 code: 'gongshangjs',
                 label: 'label.PFANS2005FORMVIEW_GONGSHANGJS',
                 width: 150,
                 fix: false,
                 filter: true,
-              },{
+              }, {
                 code: 'yiliaojs',
                 label: 'label.PFANS2005FORMVIEW_YILIAOJS',
                 width: 150,
                 fix: false,
                 filter: true,
-              },{
+              }, {
                 code: 'shengyujs',
                 label: 'label.PFANS2005FORMVIEW_SHENGYUJS',
                 width: 150,
                 fix: false,
                 filter: true,
-              // }, {
-              //   code: 'pension',
-              //   label: 'label.PFANS2006VIEW_PENSION',
-              //   width: 230,
-              //   fix: false,
-              //   filter: true,
-              // }, {
-              //   code: 'medical',
-              //   label: 'label.PFANS2006VIEW_MEDICALAA',
-              //   width: 200,
-              //   fix: false,
-              //   filter: true,
+                // }, {
+                //   code: 'pension',
+                //   label: 'label.PFANS2006VIEW_PENSION',
+                //   width: 230,
+                //   fix: false,
+                //   filter: true,
+                // }, {
+                //   code: 'medical',
+                //   label: 'label.PFANS2006VIEW_MEDICALAA',
+                //   width: 200,
+                //   fix: false,
+                //   filter: true,
               }, {
                 code: 'accumulation',
                 label: 'label.PFANS2005FORMVIEW_HOUSINGFUNDBASE',
@@ -738,30 +738,30 @@
       this.Taxestotal = 1;
       if (this.$i18n) {
 
-        this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany')
+        this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany');
       }
       this.getTaxestotal();
     },
     methods: {
-       changeddate(val) {
-          this.months = moment(val).format('YYYY-MM');
-         if (this.region === '2') {
-             this.getBonus();
-         } else if (this.region === '1') {
-             this.getTaxestotal();
-         }
+      changeddate(val) {
+        this.months = moment(val).format('YYYY-MM');
+        if (this.region === '2') {
+          this.getBonus();
+        } else if (this.region === '1') {
+          this.getTaxestotal();
+        }
 
       },
       MyBrowserIsIE() {
         let isIE = false;
         if (
-          navigator.userAgent.indexOf("compatible") > -1 &&
-          navigator.userAgent.indexOf("MSIE") > -1
+          navigator.userAgent.indexOf('compatible') > -1 &&
+          navigator.userAgent.indexOf('MSIE') > -1
         ) {
           // ie浏览器
           isIE = true;
         }
-        if (navigator.userAgent.indexOf("Trident") > -1) {
+        if (navigator.userAgent.indexOf('Trident') > -1) {
           // edge 浏览器
           isIE = true;
         }
@@ -770,11 +770,11 @@
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
           if (j === 'timestamp') {
-            return parseTime(v[j])
+            return parseTime(v[j]);
           } else {
-            return v[j]
+            return v[j];
           }
-        }))
+        }));
       },
       buttonClick(val) {
         if (val === 'export') {
@@ -783,16 +783,16 @@
               Message({
                 message: this.$t('normal.info_01'),
                 type: 'info',
-                duration: 2 * 1000
+                duration: 2 * 1000,
               });
               return;
             }
             this.selectedlist = this.$refs.roletable.selectedList;
             let heads = [
-                this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),this.$t('label.PFANS2006VIEW_CLUB'),this.$t('label.PFANS2006VIEW_LASTNAME')
-              ,this.$t('label.PFANS2005FORMVIEW_YANGLAOJS'),this.$t('label.PFANS2005FORMVIEW_SHIYEJS'),this.$t('label.PFANS2005FORMVIEW_GONGSHANGJS'),this.$t('label.PFANS2005FORMVIEW_YILIAOJS'),this.$t('label.PFANS2005FORMVIEW_SHENGYUJS')
-                //this.$t('label.PFANS2006VIEW_PENSION'),this.$t('label.PFANS2006VIEW_MEDICALAA'),
-              ,this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_RANK'), this.$t('label.PFANS2006VIEW_BIRTHREST')
+              this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'), this.$t('label.PFANS2006VIEW_CLUB'), this.$t('label.PFANS2006VIEW_LASTNAME')
+              , this.$t('label.PFANS2005FORMVIEW_YANGLAOJS'), this.$t('label.PFANS2005FORMVIEW_SHIYEJS'), this.$t('label.PFANS2005FORMVIEW_GONGSHANGJS'), this.$t('label.PFANS2005FORMVIEW_YILIAOJS'), this.$t('label.PFANS2005FORMVIEW_SHENGYUJS')
+              //this.$t('label.PFANS2006VIEW_PENSION'),this.$t('label.PFANS2006VIEW_MEDICALAA'),
+              , this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_RANK'), this.$t('label.PFANS2006VIEW_BIRTHREST')
               , this.$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY'), this.$t('label.PFANS2005FORMVIEW_GDURATIONTIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCETIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK'), this.$t('label.PFANS2006VIEW_BASICSALARY')
               , this.$t('label.PFANS2006VIEW_YKBZJB'), this.$t('label.PFANS2006VIEW_YKBT'), this.$t('label.PFANS2006VIEW_KASUKE')
               , this.$t('label.PFANS2006VIEW_OTHER1'), this.$t('label.PFANS2006VIEW_SUBTOTAL1'), this.$t('label.PFANS2006VIEW_OTHER2')
@@ -805,7 +805,7 @@
               , this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
               , this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY'), this.$t('label.PFANS2005FORMVIEW_TOTALWAGES'), this.$t('label.PFANS2005FORMVIEW_GAUGE'), this.$t('label.PFANS2005FORMVIEW_TOTALGAUGE'), this.$t('label.PFANS2005FORMVIEW_OTHER6')];
 
-            let filterVal = ['yanglaojs','shiyejs','gongshangjs','yiliaojs','shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'thisbasic', 'thismonthduty', 'rnbasesalary'
+            let filterVal = ['yanglaojs', 'shiyejs', 'gongshangjs', 'yiliaojs', 'shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'thisbasic', 'thismonthduty', 'rnbasesalary'
               , 'birthrest', 'thismonthbasic', 'shortillness', 'owediligence', 'owingcontrol', 'actualamount'
               , 'ykbzjs', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
               , 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
@@ -831,62 +831,62 @@
                 [heads[6]]: obj.yiliaojs,
                 [heads[7]]: obj.shengyujs,
                 [heads[8]]: obj.accumulation,
-                [heads[9]]: obj.lastmonthbasic,
-                [heads[10]]: obj.lastmonthduty,
-                [heads[11]]: obj.thisbasic,
-                [heads[12]]: obj.thismonthduty,
+                [heads[9]]:  parseFloat(obj.lastmonthbasic).toFixed(2),
+                [heads[10]]: parseFloat(obj.lastmonthduty).toFixed(2),
+                [heads[11]]:  parseFloat(obj.thisbasic).toFixed(2),
+                [heads[12]]: parseFloat(obj.thismonthduty).toFixed(2),
                 [heads[13]]: obj.rnbasesalary,
                 [heads[14]]: obj.birthrest,
                 [heads[15]]: obj.thismonthbasic,
                 [heads[16]]: obj.shortillness,
-                [heads[17]]: obj.owediligence,
-                [heads[18]]: obj.owingcontrol,
-                [heads[19]]: obj.actualamount,
+                [heads[17]]: parseFloat(obj.owediligence).toFixed(2),
+                [heads[18]]: parseFloat(obj.owingcontrol).toFixed(2),
+                [heads[19]]: parseFloat(obj.actualamount).toFixed(2),
                 [heads[20]]: obj.ykbzjs,
-                [heads[21]]: obj.ykbz,
-                [heads[22]]: obj.overtimesubsidy,
+                [heads[21]]: parseFloat(obj.ykbz).toFixed(2),
+                [heads[22]]:parseFloat(obj.overtimesubsidy).toFixed(2),
                 [heads[23]]: obj.other1,
-                [heads[24]]: obj.total1,
+                [heads[24]]: parseFloat(obj.total1).toFixed(2),
                 [heads[25]]: obj.other2,
                 [heads[26]]: obj.appreciation,
                 [heads[27]]: obj.other3,
                 [heads[28]]: obj.total2,
-                [heads[29]]: obj.taxestotal,
+                [heads[29]]:  parseFloat(obj.taxestotal).toFixed(2),
                 [heads[30]]: obj.heating,
                 [heads[31]]: obj.onlychildmoney,
                 [heads[32]]: obj.total3,
-                [heads[33]]: obj.totalwages,
-                [heads[34]]: obj.endowmentinsurance,
-                [heads[35]]: obj.medicalinsurance,
-                [heads[36]]: obj.unemploymentinsurance,
-                [heads[37]]: obj.socialinsurance,
-                [heads[38]]: obj.accumulationfund,
-                [heads[39]]: obj.disciplinarycontrol,
-                [heads[40]]: obj.thismonthterm,
+                [heads[33]]: parseFloat(obj.totalwages).toFixed(2),
+                [heads[34]]: parseFloat(obj.endowmentinsurance).toFixed(2),
+                [heads[35]]: parseFloat(obj.medicalinsurance).toFixed(2),
+                [heads[36]]: parseFloat(obj.unemploymentinsurance).toFixed(2),
+                [heads[37]]: parseFloat(obj.socialinsurance).toFixed(2),
+                [heads[38]]: parseFloat(obj.accumulationfund).toFixed(2),
+                [heads[39]]: parseFloat(obj.disciplinarycontrol).toFixed(2),
+                [heads[40]]: parseFloat(obj.thismonthterm).toFixed(2),
                 [heads[41]]: obj.thismonthadditional,
                 [heads[42]]: obj.thismonthdutyfree,
-                [heads[43]]: obj.lastdutyfree,
-                [heads[44]]: obj.housingmoneys,
-                [heads[45]]: obj.other4,
-                [heads[46]]: obj.other5,
-                [heads[47]]: obj.shouldwages,
-                [heads[48]]: obj.shouldcumulative,
-                [heads[49]]: obj.shouldpaytaxes,
-                [heads[50]]: obj.thismonthadjustment,
-                [heads[51]]: obj.realwages,
-                [heads[52]]: obj.comendowmentinsurance,
-                [heads[53]]: obj.commedicalinsurance,
-                [heads[54]]: obj.comunemploymentinsurance,
-                [heads[55]]: obj.cominjuryinsurance,
-                [heads[56]]: obj.combirthinsurance,
-                [heads[57]]: obj.comheating,
-                [heads[58]]: obj.comaccumulationfund,
-                [heads[59]]: obj.total,
-                [heads[60]]: obj.labourunionbase,
-                [heads[61]]: obj.labourunionfunds,
-                [heads[62]]: obj.comtotalwages,
-                [heads[63]]: obj.bonusmoney,
-                [heads[64]]: obj.totalbonus,
+                [heads[43]]:parseFloat(obj.lastdutyfree).toFixed(2),
+                [heads[44]]: parseFloat(obj.housingmoneys).toFixed(2),
+                [heads[45]]: parseFloat(obj.other4).toFixed(2),
+                [heads[46]]: parseFloat(obj.other5).toFixed(2),
+                [heads[47]]: parseFloat(obj.shouldwages).toFixed(2),
+                [heads[48]]:parseFloat(obj.shouldcumulative).toFixed(2) ,
+                [heads[49]]: parseFloat(obj.shouldpaytaxes).toFixed(2),
+                [heads[50]]: parseFloat(obj.thismonthadjustment).toFixed(2),
+                [heads[51]]:  parseFloat(obj.realwages).toFixed(2),
+                [heads[52]]:  parseFloat(obj.comendowmentinsurance).toFixed(2),
+                [heads[53]]:  parseFloat(obj.commedicalinsurance).toFixed(2),
+                [heads[54]]:  parseFloat(obj.comunemploymentinsurance).toFixed(2),
+                [heads[55]]:  parseFloat(obj.cominjuryinsurance).toFixed(2),
+                [heads[56]]: parseFloat(obj.combirthinsurance).toFixed(2) ,
+                [heads[57]]:  parseFloat(obj.comheating).toFixed(2),
+                [heads[58]]:  parseFloat(obj.comaccumulationfund).toFixed(2),
+                [heads[59]]: parseFloat(obj.total).toFixed(2) ,
+                [heads[60]]:  parseFloat(obj.labourunionbase).toFixed(2),
+                [heads[61]]:  parseFloat(obj.labourunionfunds).toFixed(2),
+                [heads[62]]:  parseFloat(obj.comtotalwages).toFixed(2),
+                [heads[63]]:  parseFloat(obj.bonusmoney).toFixed(2),
+                [heads[64]]:  parseFloat(obj.totalbonus).toFixed(2),
                 [heads[65]]: obj.other6,
               });
             }
@@ -906,7 +906,7 @@
               Message({
                 message: this.$t('normal.info_01'),
                 type: 'info',
-                duration: 2 * 1000
+                duration: 2 * 1000,
               });
               return;
             }
@@ -921,18 +921,17 @@
               csvData.push({
                 [heads[0]]: obj.years,
                 [heads[1]]: obj.user_id,
-                [heads[2]]: obj.totalbonus1,
+                [heads[2]]: parseFloat(obj.totalbonus1).toFixed(2),
                 [heads[3]]: obj.method,
-                [heads[4]]: obj.taxable,
-                [heads[5]]: obj.amount,
-                [heads[6]]: obj.payable,
-                [heads[7]]: obj.income,
+                [heads[4]]: parseFloat(obj.taxable).toFixed(2),
+                [heads[5]]: parseFloat(obj.amount).toFixed(2),
+                [heads[6]]: parseFloat(obj.payable).toFixed(2),
+                [heads[7]]: parseFloat(obj.income).toFixed(2),
                 [heads[8]]: obj.taxrate,
-                [heads[9]]: obj.deductions,
-                [heads[10]]: obj.bonustax,
-                [heads[11]]: obj.received,
+                [heads[9]]: parseFloat(obj.deductions).toFixed(2),
+                [heads[10]]: parseFloat(obj.bonustax).toFixed(2),
+                [heads[11]]: parseFloat(obj.received).toFixed(2),
                 [heads[12]]: obj.remarks,
-
               });
             }
             const result = json2csv.parse(csvData, {
@@ -955,10 +954,10 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
-              if (response[j].giving_id !== null && response[j].giving_id !== "") {
-                response[j].giving_id = response[j].giving_id.substring(0, 4) + '-' + response[j].giving_id.substring(4, 6)
+              if (response[j].giving_id !== null && response[j].giving_id !== '') {
+                response[j].giving_id = response[j].giving_id.substring(0, 4) + '-' + response[j].giving_id.substring(4, 6);
               }
-              if (response[j].department_id !== null && response[j].department_id !== "") {
+              if (response[j].department_id !== null && response[j].department_id !== '') {
                 let user = getDepartmentById(response[j].department_id);
                 if (user) {
                   response[j].department_id = user.coopername;
@@ -977,19 +976,19 @@
                 response[j].shortillness = Number(response[j].shortillness) + response[j].longillness;
               }
               if (this.$i18n) {
-                  response[j].sex = response[j].sex === "PR019001" ? this.$t("label.PFANS2002FORMVIEW_BOY") : this.$t("label.PFANS2002FORMVIEW_GRIL");
-                  response[j].onlychild = response[j].onlychild === "1" ? this.$t("label.yes") : "-";
-                  response[j].type =
-                      response[j].type === "1"
-                          ? "入職"
-                          : response[j].type === "2"
-                          ? "女産休"
-                          : response[j].type === "4"
-                              ? "退職"
-                              : "-";
-                  response[j].bonus = response[j].bonus === "2" ? this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF") : this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF");
-                  response[j].sociology = response[j].sociology === "1" ? this.$t("label.yes") : "-";
-                  response[j].registered = response[j].registered === "1" ? this.$t("label.yes") : "-";
+                response[j].sex = response[j].sex === 'PR019001' ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
+                response[j].onlychild = response[j].onlychild === '1' ? this.$t('label.yes') : '-';
+                response[j].type =
+                  response[j].type === '1'
+                    ? '入職'
+                    : response[j].type === '2'
+                    ? '女産休'
+                    : response[j].type === '4'
+                      ? '退職'
+                      : '-';
+                response[j].bonus = response[j].bonus === '2' ? this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF') : this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+                response[j].sociology = response[j].sociology === '1' ? this.$t('label.yes') : '-';
+                response[j].registered = response[j].registered === '1' ? this.$t('label.yes') : '-';
               }
             }
             this.data = response;
@@ -1000,10 +999,10 @@
             Message({
               message: error,
               type: 'error',
-              duration: 5 * 1000
+              duration: 5 * 1000,
             });
-            this.loading = false
-          })
+            this.loading = false;
+          });
       },
       getBonus() {
         this.loading = true;
@@ -1026,10 +1025,10 @@
             Message({
               message: error,
               type: 'error',
-              duration: 5 * 1000
+              duration: 5 * 1000,
             });
-            this.loading = false
-          })
+            this.loading = false;
+          });
       },
       changed() {
         this.workinghours = '';
