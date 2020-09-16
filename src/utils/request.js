@@ -82,7 +82,9 @@ service.interceptors.response.use(
         })
       }else {
         if(response.data.code === 0){
-          response.data.data = JSON.parse(Decrypt(response.data.data));
+          if(response.config.url.indexOf('file/getToken') == -1){
+            response.data.data = JSON.parse(Decrypt(response.data.data));
+          }
         }
         return response.data;
       }
