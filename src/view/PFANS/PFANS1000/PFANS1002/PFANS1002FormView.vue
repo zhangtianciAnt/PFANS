@@ -53,7 +53,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
+                    <el-form-item :error="error" :label="$t('label.applicant')"  prop="user_id">
                       <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                             @getUserids="getUserids" style="width: 20vw"></user>
                     </el-form-item>
@@ -876,7 +876,7 @@
     },
     data() {
       var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
           callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
@@ -1463,7 +1463,7 @@
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
                   //upd_fjl_0806
-                  if (rst.groupId !== null && rst.groupId !== '') {
+                  if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
                     this.checkGro = true;
                   } else {
                     this.checkGro = false;
@@ -1632,15 +1632,16 @@
               });
           });
 
-      } else if (this.$route.params._type === 1) {
+      }
+      else if (this.$route.params._type === 1) {
         this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
+        if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
 
           if (rst) {
               //upd_fjl_0806
-              if (rst.groupId !== null && rst.groupId !== '') {
+              if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
                   this.checkGro = true;
               } else {
                   this.checkGro = false;
@@ -1688,7 +1689,7 @@
               let rst = getOrgInfoByUserId(response.business.user_id);
               if (rst) {
                   //upd_fjl_0806
-                  if (rst.groupId !== null && rst.groupId !== '') {
+                  if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
                       this.checkGro = true;
                   } else {
                       this.checkGro = false;
@@ -1851,9 +1852,8 @@
             });
         } else {
           this.userlist = this.$store.getters.userinfo.userid;
-          if (this.userlist !== null && this.userlist !== '') {
+          if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
             let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-
             if (rst) {
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
@@ -1862,7 +1862,7 @@
                 // this.form.group_id = rst.groupId;
               this.form.team_id = rst.teamId;
                 //add_fjl_0806
-                if (rst.groupId !== null && rst.groupId !== '') {
+                if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
                     this.form.group_id = rst.groupId;
                     this.getBudt(this.form.group_id);
                     this.checkGro = true;

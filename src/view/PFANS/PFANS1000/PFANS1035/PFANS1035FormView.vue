@@ -611,7 +611,7 @@
     },
     data() {
       var validateUserid = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
           callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
@@ -986,7 +986,7 @@
             let rst = getOrgInfoByUserId(response.business.user_id);
             if (rst) {
                 //upd_fjl_0806
-                if (rst.groupId !== null && rst.groupId !== '') {
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
                     this.checkGro = true;
                 } else {
                     this.checkGro = false;
@@ -1130,7 +1130,7 @@
           });
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== '') {
+        if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
           //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
@@ -1142,7 +1142,7 @@
             this.form.center_id = rst.centerId;
               // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
-              if (rst.groupId !== null && rst.groupId !== '') {
+              if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined){
                   this.form.group_id = rst.groupId;
                   this.getBudt(this.form.group_id);
                   this.checkGro = true;
