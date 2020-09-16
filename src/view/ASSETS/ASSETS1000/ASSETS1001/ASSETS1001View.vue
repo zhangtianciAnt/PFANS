@@ -142,7 +142,7 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, getOrgInfo,Decrypt } from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
@@ -504,6 +504,7 @@
           this.cuowu = response.message;
           this.Message = true;
         } else {
+          response.data = JSON.parse(Decrypt(response.data));
           let datalist = [];
           for (let c = 0; c < response.data.length; c++) {
             let error = response.data[c];

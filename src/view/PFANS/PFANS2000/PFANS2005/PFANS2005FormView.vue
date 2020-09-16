@@ -3219,7 +3219,7 @@
     import PFANS2005View from "../PFANS2005/PFANS2005View.vue";
     import {getToken} from "@/utils/auth";
     import {Message} from "element-ui";
-    import {getDictionaryInfo, getUserInfo} from "@/utils/customize";
+    import {getDictionaryInfo, getUserInfo,Decrypt} from "@/utils/customize";
     import moment from "moment";
 
     export default {
@@ -5253,6 +5253,7 @@
                         this.Messagefjkc = true;
                     }
                 } else {
+                    response.data = JSON.parse(Decrypt(response.data));
                     let datalist = [];
                     for (let c = 0; c < response.data.length; c++) {
                         let error = response.data[c];

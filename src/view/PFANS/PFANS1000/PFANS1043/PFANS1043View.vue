@@ -52,6 +52,7 @@
     import {getToken} from '@/utils/auth'
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui';
+    import {Decrypt} from "@/utils/customize";
     let moment = require("moment");
     export default {
         name: 'PFANS1043View',
@@ -168,6 +169,7 @@
                     this.cuowu = response.message;
                     this.Message1 = true;
                 } else {
+                    response.data = JSON.parse(Decrypt(response.data));
                     let datalist = [];
                     for (let c = 0; c < response.data.length; c++) {
                         let error = response.data[c];

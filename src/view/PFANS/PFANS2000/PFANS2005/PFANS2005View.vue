@@ -64,7 +64,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getStatus, getUserInfo} from '@/utils/customize';
+  import {getStatus, getUserInfo,Decrypt} from '@/utils/customize';
 
   export default {
     name: 'PFANS2005View',
@@ -345,6 +345,7 @@
                 this.cuowu = response.message;
                 this.Message = true;
             } else {
+                response.data = JSON.parse(Decrypt(response.data));
                 let datalist = [];
                 for (let c = 0; c < response.data.length; c++) {
                     let error = response.data[c];

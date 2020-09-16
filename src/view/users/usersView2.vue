@@ -118,7 +118,7 @@ import {getToken} from '@/utils/auth'
 import EasyTree from "@/components/EasyTree";
 import EasyButtonBar from "@/components/EasyButtonBar";
 import EasyNormalTable from "@/components/EasyNormalTable";
-import { parseTime, getDictionaryInfo } from "@/utils/customize";
+import { parseTime, getDictionaryInfo,Decrypt } from "@/utils/customize";
 import { Message } from "element-ui";
 import moment from "moment";
 
@@ -482,6 +482,7 @@ export default {
         this.cuowu = response.message;
         this.Message = true;
       } else {
+        response.data = JSON.parse(Decrypt(response.data));
         let datalist = [];
         for (let c = 0; c < response.data.length; c++) {
           let error = response.data[c];

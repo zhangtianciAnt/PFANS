@@ -64,7 +64,7 @@
     import EasyNormalTable from "@/components/EasyBigDataTable";
     import {Message} from 'element-ui';
     import moment from "moment";
-    import {getUserInfo,getCooperinterviewListByAccount,getorgGroupList} from '@/utils/customize';
+    import {getUserInfo,getCooperinterviewListByAccount,getorgGroupList,Decrypt} from '@/utils/customize';
 
     export default {
         name: 'PFANS2029View',
@@ -276,6 +276,7 @@
                     this.cuowu = response.message;
                     this.Message = true;
                 } else {
+                    response.data = JSON.parse(Decrypt(response.data));
                     let datalist = [];
                     for (let c = 0; c < response.data.length; c++) {
                         let error = response.data[c];

@@ -124,6 +124,7 @@
     getCooperinterviewListByAccount,
     getDictionaryInfo,
     getOrgInfo,
+    Decrypt
   } from '../../../../utils/customize';
 
   let moment = require('moment');
@@ -389,6 +390,7 @@
           this.cuowu = response.message;
           this.Message1 = true;
         } else {
+          response.data = JSON.parse(Decrypt(response.data));
           let datalist = [];
           for (let c = 0; c < response.data.length; c++) {
             let error = response.data[c];

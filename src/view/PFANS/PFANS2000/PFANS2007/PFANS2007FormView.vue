@@ -183,7 +183,7 @@
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui'
     import moment from "moment";
-
+    import {Decrypt } from "@/utils/customize";
     export default {
         name: 'PFANS2007FormView',
         components: {
@@ -357,6 +357,7 @@
               this.cuowu = response.message;
               this.Message = true;
             } else {
+              response.data = JSON.parse(Decrypt(response.data));
               let datalist = [];
               for (let c = 0; c < response.data.length; c++) {
                 let error = response.data[c];
