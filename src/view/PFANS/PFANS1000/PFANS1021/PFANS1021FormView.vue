@@ -377,7 +377,7 @@
         buttonList: [],
         timea: '',
         //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-        acceptShow: 'true',
+        acceptShow: true,
         enableSave: false,
         //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         multiple: false,
@@ -416,6 +416,25 @@
             },
           ],
         },
+        tableT: [
+          {
+            securitydetailid: '',
+            securityid: '',
+            title: '',
+            detailcenter_id: '',
+            detailgroup_id: '',
+            detailteam_id: '',
+            phonenumber: '',
+            emaildetail: '',
+            startdate: '',
+            company: '',
+            timea: [],
+            fabuilding: '',
+            // fbbuilding: ' ',
+            // showroom: ' ',
+            // entrymanager: '',
+          },
+        ],
         code: 'PJ029',
         code1: 'PJ030',
         show: false,
@@ -518,7 +537,6 @@
 
     mounted() {
       this.loading = true;
-
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1021Store/selectById', {'securityid': this.$route.params._id})
@@ -843,26 +861,24 @@
       },
       buttonClick2() {
         this.baseInfo = {};
-        this.form.application = moment(this.form.application).format('YYYY-MM-DD');
-        this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.securitydetail = [];
         for (let i = 0; i < this.form.tableD.length; i++) {
           if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
             this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
             || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
-            this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
+            this.form.tableD[i].timea = moment(this.form.tableT[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableT[i].timea[1]).format('YYYY-MM-DD');
             let checktableD = '';
             let checktable = '';
             if (this.form.status === '4' || this.form.status === '3') {
-              if (this.form.tableD[i].fabuilding != '') {
-                let checktlist = this.form.tableD[i].fabuilding.splice(',');
+              if (this.form.tableT[i].fabuilding != '') {
+                let checktlist = this.form.tableT[i].fabuilding.splice(',');
                 for (var m = 0; m < checktlist.length; m++) {
                   checktableD = checktableD + checktlist[m] + ',';
                 }
               }
               checktable = checktableD.substring(0, checktableD.length - 1);
             } else {
-              checktable = this.form.tableD[i].fabuilding;
+              checktable = this.form.tableT[i].fabuilding;
             }
             this.baseInfo.securitydetail.push(
               {
@@ -882,6 +898,8 @@
             );
           }
         }
+        this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+        this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.securityid = this.$route.params._id;
         this.$store
           .dispatch('PFANS1021Store/update', this.baseInfo)
@@ -914,7 +932,9 @@
             let error1 = 0;
             let error = 0;
             let error3 = 0;
+            let timeaAnt = [];
             for (let i = 0; i < this.form.tableD.length; i++) {
+              timeaAnt.push(this.form.tableD[i].timea);
                 this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
                 let checktableD = '';
                 if (this.form.tableD[i].title == '') {
@@ -950,8 +970,8 @@
                     // entrymanager: this.form.tableD[i].entrymanager,
                   },
                 );
-
             }
+            this.tableT = this.form.tableD;
             this.form.tableD = [];
             for (let i = 0; i < this.baseInfo.securitydetail.length; i++) {
               this.form.tableD.push(
@@ -966,13 +986,11 @@
                   emaildetail: this.baseInfo.securitydetail[i].emaildetail,
                   startdate: this.baseInfo.securitydetail[i].startdate,
                   company: this.baseInfo.securitydetail[i].company,
-                  timea: this.baseInfo.securitydetail[i].timea,
+                  timea: timeaAnt[i],
                   fabuilding: this.baseInfo.securitydetail[i].fabuilding,
                 },
               );
             }
-
-
             if (error != 0) {
               Message({
                 message: this.$t('normal.error_08') +
