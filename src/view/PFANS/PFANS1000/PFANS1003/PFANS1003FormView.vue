@@ -125,9 +125,11 @@
               <el-row>
                 <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
                   <el-switch
-                    v-model="value1"
+                    v-model="form.value1"
                     :active-text='$t("label.PFANS1004FORMVIEW_FREEBORROWING")'
                     :inactive-text='$t("label.PFANS1004FORMVIEW_FREEOFCHARGE")'
+                    active-value="1"
+                    inactive-value="0"
                     @change="value1change"
                     :disabled="!disabled"
                     v-show="show4">
@@ -478,15 +480,14 @@
         }
       };
       return {
-          urlparams: '',
-          url: '',
-          activeName: 'first',
-          tableZ: [],
-          tableB: [],
+        urlparams: '',
+        url: '',
+        activeName: 'first',
+        tableZ: [],
+        tableB: [],
         centerid: '',
         groupid: '',
         teamid: '',
-        value1: true,
         radio1: 1,
         userlist: '',
         optionsdata: [],
@@ -508,6 +509,7 @@
           user_id: '',
           investigator: '',
           filename: '',
+          value1: 0,
           scheduleddate: moment(new Date()).format('YYYY-MM-DD'),
           careerplan: true,
           freedevice: '',
@@ -801,7 +803,7 @@
             this.loading = false;
           });
       } else {
-        if (this.value1 === true) {
+        if (this.form.value1 === '1') {
           this.form.gist = this.$t('label.PFANS1004VIEW_FREEOFCHARGEGIST');
         } else {
           this.form.gist = this.$t('label.PFANS1004VIEW_FREEBORROWINGGIST');
@@ -1013,10 +1015,13 @@
         this.form.salequotation = val;
         if (val === 'PJ013002') {
           this.show2 = false;
+          this.form.reasonsforquotation = '';
         } else if (val === 'PJ013001') {
           this.show2 = true;
+          this.form.reasonsforquotation = '';
         } else if (val === 'PJ013003') {
           this.show2 = true;
+          this.form.reasonsforquotation = '';
         }
       },
       radiochange(val) {
@@ -1052,7 +1057,7 @@
         }
       },
       value1change(val) {
-        if (val) {
+        if (val == '1') {
           this.form.gist = this.$t('label.PFANS1004VIEW_FREEOFCHARGEGIST');
           this.value = false;
         } else {
@@ -1191,10 +1196,7 @@
                 this.form.classificationtype = '';
                 this.rules.businessplantype[0].required = false;
               }
-              if (this.form.salequotation === 'PJ013001') {
-                this.form.reasonsforquotation = '';
-              }
-              if (this.form.salequotation === 'PJ013003') {
+              if (this.form.salequotation === 'PJ013002') {
                 this.form.reasonsforquotation = '';
               }
               this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
