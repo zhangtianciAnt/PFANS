@@ -64,7 +64,7 @@
             <el-button
               @click="handleEdit(scope.$index, scope.row)"
               plain
-              :disabled="scope.row.sealstatus === ''"
+              :disabled="scope.row.sealstatus === undefined"
               size="mini"
               type="primary"
             >{{$t('button.view')}}

@@ -438,7 +438,7 @@
               }
             }
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].sealstatus != '') {
+              if (this.selectedlist[i].sealstatus != ''&&this.selectedlist[i].sealstatus != null&&this.selectedlist[i].sealstatus != undefined) {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
                 checktableD = checktableD + sealtypeList + ',';
@@ -548,7 +548,7 @@
             let n = 0;
             let checksum =  this.selectedlist.length
             for (let i = 0; i <  this.selectedlist.length; i++) {
-              if ( this.selectedlist[i].loanapno == null ||  this.selectedlist[i].loanapno == '' ) {
+              if ( this.selectedlist[i].loanapno == null ||  this.selectedlist[i].loanapno == ''||  this.selectedlist[i].loanapno == undefined ) {
                 n = n + 1
               }
             }

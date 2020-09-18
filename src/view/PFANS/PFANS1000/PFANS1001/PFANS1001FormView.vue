@@ -867,7 +867,7 @@
               let n = 0;
               let checksum = selectedlist.length;
               for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
                   n = n + 1;
                 }
               }
@@ -1001,7 +1001,7 @@
               let n = 0;
               let checksum = selectedlist.length;
               for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
                   n = n + 1;
                 }
               }
@@ -1151,7 +1151,7 @@
               let n = 0;
               let checksum = selectedlist.length;
               for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
                   n = n + 1;
                 }
               }
@@ -1286,7 +1286,7 @@
               let n = 0;
               let checksum = selectedlist.length;
               for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
+                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
                   n = n + 1;
                 }
               }
