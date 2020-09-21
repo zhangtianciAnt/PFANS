@@ -78,7 +78,7 @@
             label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME',
             width: 150,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'storagedate',
@@ -113,7 +113,7 @@
             label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
             width: 150,
             fix: false,
-            filter: false,
+            filter: true,
           },
 
           {
