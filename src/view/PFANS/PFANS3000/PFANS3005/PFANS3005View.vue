@@ -394,7 +394,7 @@
         if (row.acceptstatus === this.$t('label.PFANS3006VIEW_REFUSE') || row.status === this.$t('label.node_step2')) {
           return 'sub_bg_color_lightgray';
         }
-        if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT')) {
+        if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT') || row.actuarialdate != null) {
           return 'sub_bg_color_lightblue';
         }
       },
