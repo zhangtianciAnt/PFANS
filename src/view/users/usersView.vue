@@ -794,11 +794,19 @@ export default {
                             list[h].before = '';
                         }
                         // add_fjl_05/25  -- 添加工资履历的长度赋值
-                        list[h].basic = list[h].gridData[0].basic;
-                        list[h].duty = list[h].gridData[0].duty;
-                        list[h].date = list[h].gridData[0].date;
+                        //del_fjl_0922
+                        // list[h].basic = list[h].gridData[0].basic;
+                        // list[h].duty = list[h].gridData[0].duty;
+                        // list[h].date = list[h].gridData[0].date;
+                        //del_fjl_0922
                     }
                 }
+                //add_fjl_0922
+                //給料変更日
+                if (list[h].date !== '' && list[h].date !== null && list[h].date !== undefined) {
+                    list[h].date = moment(list[h].date).format('YYYY-MM-DD');
+                }
+                //add_fjl_0922
                 //去年年休数(残)
                 for (let t = 0; t < this._tableList.length; t++) {
                     if(list[h].userid === this._tableList[t].user_id){
