@@ -78,7 +78,7 @@
             label: 'label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME',
             width: 150,
             fix: false,
-            filter: false,
+            filter: true,
           },
           {
             code: 'storagedate',
@@ -113,7 +113,7 @@
             label: 'label.PFANS3005VIEW_ACTUARIALAMOUNT',
             width: 150,
             fix: false,
-            filter: false,
+            filter: true,
           },
 
           {
@@ -394,7 +394,7 @@
         if (row.acceptstatus === this.$t('label.PFANS3006VIEW_REFUSE') || row.status === this.$t('label.node_step2')) {
           return 'sub_bg_color_lightgray';
         }
-        if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT')) {
+        if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT') || row.actuarialdate != null) {
           return 'sub_bg_color_lightblue';
         }
       },

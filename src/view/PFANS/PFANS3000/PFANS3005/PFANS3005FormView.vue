@@ -161,7 +161,7 @@
                 </el-col>
                 <!--//add_fjl_0908 添加供应商名称-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_SUPPLIERNAME')">
+                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_SUPPLIERNAME')" prop="suppliername">
                     <el-input :disabled="!disabled" style="width: 20vw;" maxlength="50"
                               v-model="form.suppliername"></el-input>
                   </el-form-item>
@@ -728,7 +728,7 @@
         refuseShow: false,
         form: {
           project_id: '',
-          careerplan: '0',
+          careerplan: '1',
           businessplantype: '',
           classificationtype: '',
           businessplanbalance: '',
@@ -821,6 +821,14 @@
             {
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_SALEQUOTATION'),
+              trigger: 'change',
+            },
+          ],
+          //add ccm 0720
+          suppliername: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_SUPPLIERNAME'),
               trigger: 'change',
             },
           ],

@@ -2863,7 +2863,7 @@ module.exports = {
     PFANS2026FORMVIEW_DATA2: '确认同意',
     PFANS2026FORMVIEW_DATA3: '确认同意',
     PFANS2026FORMVIEW_DATA4: '工会相关物品返还（例:书籍等）',
-    PFANS2026FORMVIEW_DATA5: '清偿债务、固定资产、软件转出、薄外资产',
+    PFANS2026FORMVIEW_DATA5: '清偿债务、资产异动（请在资产管理模块把自己名下的资产进行管理者变更）',
     PFANS2026FORMVIEW_DATA6: '担当起案业务合同交接确认',
     PFANS2026FORMVIEW_DATA7: '徽章、入门卡贴片（两张）、工作服、更衣箱钥匙等',
     PFANS2026FORMVIEW_DATA8: '清算工资 /  提交勤怠管理表',
