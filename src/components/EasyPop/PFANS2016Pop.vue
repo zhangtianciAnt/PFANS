@@ -64,6 +64,6 @@
 <style lang='scss'>
   .custimize_drawer {
     -webkit-box-sizing: border-box;
-    overflow: auto;
+    overflow: auto !important;
   }
 </style>

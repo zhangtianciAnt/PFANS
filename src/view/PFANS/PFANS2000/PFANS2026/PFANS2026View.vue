@@ -20,7 +20,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId,getCurrentRolegongzijisuan} from '@/utils/customize';
+  import {getStatus, getUserInfo, getDictionaryInfo,getUserInfoName, getOrgInfoByUserId,getCurrentRolegongzijisuan} from '@/utils/customize';
 
   export default {
     name: 'PFANS2026View',
@@ -128,6 +128,9 @@
           // add-ccm 7/20 离职工资对比 to
         ],
         userid: '',
+        //add-ws-9/23-禅道任务548
+        userids: '',
+        //add-ws-9/23-禅道任务548
         rowid: '',
         status: '',
         row_id: 'staffexitprocedure_id',
@@ -238,6 +241,11 @@
           });
       },
       rowClick(row) {
+        //add-ws-9/23-禅道任务548
+        if (getUserInfoName(row.user_id) !== '-1') {
+          this.userids = getUserInfoName(row.user_id).userid;
+        }
+        //add-ws-9/23-禅道任务548
         if (this.$store.getters.userinfo) {
           let rst = getUserInfo(this.$store.getters.userinfo.userid);
           if (rst) {
@@ -323,6 +331,9 @@
             name: 'PFANS2026FormView',
             params: {
               _ckeck: false,
+              //add-ws-9/23-禅道任务548
+              _userid: this.userids,
+              //add-ws-9/23-禅道任务548
               _status: this.status,
               _type: this.checktype,
               _type2: 0,
@@ -353,6 +364,9 @@
           this.$router.push({
             name: 'PFANS2026FormView',
             params: {
+              //add-ws-9/23-禅道任务548
+              _userid: this.userids,
+              //add-ws-9/23-禅道任务548
               _ckeck: false,
               _status: this.status,
               _type: 0,
