@@ -41,46 +41,18 @@
         data: [],
         columns: [
           {
-            code: 'applicant',
-            label: 'label.applicant',
-            width: 100,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'centername',
-            label: 'label.center',
-            width: 130,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'groupname',
-            label: 'label.group',
-            width: 130,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'teamname',
-            label: 'label.team',
-            width: 130,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'type',
-            label: 'label.PFANS1013VIEW_TYPE',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
             code: 'invoiceno',
             label: 'label.PFANS1013VIEW_REIMNUMBER',
             width: 130,
             fix: false,
             filter: false,
+          },
+          {
+            code: 'applicant',
+            label: 'label.applicant',
+            width: 100,
+            fix: false,
+            filter: true,
           },
           //add-ws-5/11-支出总额添加
           {
@@ -107,13 +79,6 @@
             filter: true,
 
           },
-          // {
-          //   code: 'balance',
-          //   label: 'label.PFANS1013VIEW_BALANCE',
-          //   width: 100,
-          //   fix: false,
-          //   filter: true
-          // },
           {
             code: 'status',
             label: 'label.approval_status',
@@ -135,6 +100,42 @@
             fix: false,
             filter: true,
           },
+          {
+            code: 'type',
+            label: 'label.PFANS1013VIEW_TYPE',
+            width: 120,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'centername',
+            label: 'label.center',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'groupname',
+            label: 'label.group',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          {
+            code: 'teamname',
+            label: 'label.team',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          // {
+          //   code: 'balance',
+          //   label: 'label.PFANS1013VIEW_BALANCE',
+          //   width: 100,
+          //   fix: false,
+          //   filter: true
+          // },
+
         ],
         buttonList: [
           {
