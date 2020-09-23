@@ -110,14 +110,14 @@
                         label: "label.PFANS2016VIEW_OCCURRENCEDATE",
                         width: 100,
                         fix: false,
-                        filter: false
+                        filter: true
                     },
                     {
                         code: "finisheddate",
                         label: "label.PFANS2016VIEW_FINISHEDDATE",
                         width: 100,
                         fix: false,
-                        filter: false
+                        filter: true
                     },
                     {
                         code: "status",
