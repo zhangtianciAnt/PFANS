@@ -134,133 +134,133 @@
               </el-form-item>
             </el-col>
           </el-row>
-<!--          <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body-->
-<!--                     destroy-on-close custom-class="custimize_drawer">-->
-<!--            <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">-->
-<!--              <el-row>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.center')">-->
-<!--                    <el-input :disabled="true" style="width:12vw" v-model="centerid"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.group')">-->
-<!--                    <el-input :disabled="true" style="width:12vw" v-model="groupid"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.team')">-->
-<!--                    <el-input :disabled="true" style="width:12vw" v-model="teamid"></el-input>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGN')" prop="user_id">-->
-<!--                    <user :disabled="true" :selectType="selectType" :userlist="userlist"-->
-<!--                          style="width:12vw"></user>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')"-->
-<!--                                prop="educational_background">-->
-<!--                    <dicselect :code="code2"-->
-<!--                               :data="educational_background"-->
-<!--                               :disabled="true"-->
-<!--                               :multiple="multiple"-->
-<!--                               style="width:12vw">-->
-<!--                    </dicselect>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">-->
-<!--                    <el-date-picker :disabled="true" style="width:12vw" v-model="resignation_date">-->
-<!--                    </el-date-picker>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS2026VIEW_REPORTER')">-->
-<!--                    <user :disabled="true" :selectType="selectType" :userlist="reporterlist"-->
-<!--                          style="width:12vw"></user>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--                <el-col :span="8">-->
-<!--                  <el-form-item :label="$t('label.PFANS2026VIEW_REPORTDATE')">-->
-<!--                    <el-date-picker :disabled="true" style="width:12vw" v-model="report_date">-->
-<!--                    </el-date-picker>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-col :span="24">-->
-<!--                  <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')">-->
-<!--                    <dicselect :code="code1"-->
-<!--                               :data="social_evaluation"-->
-<!--                               :disabled="!disable"-->
-<!--                               :multiple="multiple"-->
-<!--                               style="width: 41vw;">-->
-<!--                    </dicselect>-->
-<!--                  </el-form-item>-->
-<!--                </el-col>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')">-->
-<!--                  <el-input :disabled="true" style="width: 41vw;" type="textarea"-->
-<!--                            v-model="external_evaluation">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')">-->
-<!--                  <el-input :disabled="true" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')"-->
-<!--                            style="width: 41vw;"-->
-<!--                            type="textarea" v-model="reason2">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')">-->
-<!--                  <el-input :disabled="true" style="width: 41vw;" type="textarea"-->
-<!--                            v-model="impact_resignation_external">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')">-->
-<!--                  <el-input :disabled="true" style="width: 41vw;" type="textarea"-->
-<!--                            v-model="impact_resignation_internal">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026VIEW_INFLUENCEINFORMATIONSECURITY')">-->
-<!--                  <el-input :disabled="true" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')" :rows="3"-->
-<!--                            style="width: 41vw;"-->
-<!--                            type="textarea"-->
-<!--                            v-model="influence_information_security">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026VIEW_RETIREMENTSTRATEGY')">-->
-<!--                  <el-input :disabled="true" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER3')"-->
-<!--                            style="width: 41vw;"-->
-<!--                            type="textarea"-->
-<!--                            v-model="retirement_strategy">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--              <el-row>-->
-<!--                <el-form-item :label="$t('label.PFANS2026FORMVIEW_DATA1')">-->
-<!--                  <el-input :disabled="true" :rows="2" style="width: 41vw;" type="textarea"-->
-<!--                            v-model="jpwork_delivery">-->
-<!--                  </el-input>-->
-<!--                </el-form-item>-->
-<!--              </el-row>-->
-<!--            </el-form>-->
-<!--          </el-drawer>-->
+          <!--          <el-drawer :visible.sync="diaoshu" size="60%" :show-close="false" :withHeader="false" append-to-body-->
+          <!--                     destroy-on-close custom-class="custimize_drawer">-->
+          <!--            <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">-->
+          <!--              <el-row>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.center')">-->
+          <!--                    <el-input :disabled="true" style="width:12vw" v-model="centerid"></el-input>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.group')">-->
+          <!--                    <el-input :disabled="true" style="width:12vw" v-model="groupid"></el-input>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.team')">-->
+          <!--                    <el-input :disabled="true" style="width:12vw" v-model="teamid"></el-input>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGN')" prop="user_id">-->
+          <!--                    <user :disabled="true" :selectType="selectType" :userlist="userlist"-->
+          <!--                          style="width:12vw"></user>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND')"-->
+          <!--                                prop="educational_background">-->
+          <!--                    <dicselect :code="code2"-->
+          <!--                               :data="educational_background"-->
+          <!--                               :disabled="true"-->
+          <!--                               :multiple="multiple"-->
+          <!--                               style="width:12vw">-->
+          <!--                    </dicselect>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">-->
+          <!--                    <el-date-picker :disabled="true" style="width:12vw" v-model="resignation_date">-->
+          <!--                    </el-date-picker>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.PFANS2026VIEW_REPORTER')">-->
+          <!--                    <user :disabled="true" :selectType="selectType" :userlist="reporterlist"-->
+          <!--                          style="width:12vw"></user>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--                <el-col :span="8">-->
+          <!--                  <el-form-item :label="$t('label.PFANS2026VIEW_REPORTDATE')">-->
+          <!--                    <el-date-picker :disabled="true" style="width:12vw" v-model="report_date">-->
+          <!--                    </el-date-picker>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-col :span="24">-->
+          <!--                  <el-form-item :label="$t('label.PFANS2026VIEW_SOCIALEVALUATION')">-->
+          <!--                    <dicselect :code="code1"-->
+          <!--                               :data="social_evaluation"-->
+          <!--                               :disabled="!disable"-->
+          <!--                               :multiple="multiple"-->
+          <!--                               style="width: 41vw;">-->
+          <!--                    </dicselect>-->
+          <!--                  </el-form-item>-->
+          <!--                </el-col>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026VIEW_EXTERNALEVALUATION')">-->
+          <!--                  <el-input :disabled="true" style="width: 41vw;" type="textarea"-->
+          <!--                            v-model="external_evaluation">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026VIEW_REASON2')">-->
+          <!--                  <el-input :disabled="true" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER1')"-->
+          <!--                            style="width: 41vw;"-->
+          <!--                            type="textarea" v-model="reason2">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONEXTERNAL')">-->
+          <!--                  <el-input :disabled="true" style="width: 41vw;" type="textarea"-->
+          <!--                            v-model="impact_resignation_external">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026VIEW_IMPACTRESIGNATIONINTERNAL')">-->
+          <!--                  <el-input :disabled="true" style="width: 41vw;" type="textarea"-->
+          <!--                            v-model="impact_resignation_internal">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026VIEW_INFLUENCEINFORMATIONSECURITY')">-->
+          <!--                  <el-input :disabled="true" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER2')" :rows="3"-->
+          <!--                            style="width: 41vw;"-->
+          <!--                            type="textarea"-->
+          <!--                            v-model="influence_information_security">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026VIEW_RETIREMENTSTRATEGY')">-->
+          <!--                  <el-input :disabled="true" :placeholder="$t('label.PFANS2026FORMVIEW_PLACEHOLDER3')"-->
+          <!--                            style="width: 41vw;"-->
+          <!--                            type="textarea"-->
+          <!--                            v-model="retirement_strategy">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--              <el-row>-->
+          <!--                <el-form-item :label="$t('label.PFANS2026FORMVIEW_DATA1')">-->
+          <!--                  <el-input :disabled="true" :rows="2" style="width: 41vw;" type="textarea"-->
+          <!--                            v-model="jpwork_delivery">-->
+          <!--                  </el-input>-->
+          <!--                </el-form-item>-->
+          <!--              </el-row>-->
+          <!--            </el-form>-->
+          <!--          </el-drawer>-->
           <el-row>
             <el-form-item :label="$t('label.PFANS2026VIEW_CAUSE')" prop="reason">
               <el-input :disabled="this.checktype===1?true:!disable"
@@ -330,6 +330,7 @@
   import dicselect from '../../../components/dicselect';
   import {getDictionaryInfo} from '../../../../utils/customize';
   import PFANS2032Pop from '@/components/EasyPop/PFANS2032Pop';
+
   export default {
     name: 'PFANS2026FormVIEW',
     components: {
@@ -484,9 +485,9 @@
         flowData: [],
         status: '',
         ID: '',
-          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-          params_id: '',
-          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        params_id: '',
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
     created() {
@@ -494,18 +495,33 @@
       // if(this.checktype = 1){
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4) {
-          this.buttonList = [
-            {
-              key: 'generate',
-              name: 'button.insertgenerate',
-              disabled: false,
-            },
-            {
-              key: 'insertsta',
-              name: 'button.insertsta',
-              disabled: false,
-            },
-          ];
+          if (this.$route.params._userid === this.$store.getters.userinfo.userid) {
+            this.buttonList = [
+              {
+                key: 'generate',
+                name: 'button.insertgenerate',
+                disabled: false,
+              },
+              {
+                key: 'insertsta',
+                name: 'button.insertsta',
+                disabled: true,
+              },
+            ];
+          } else {
+            this.buttonList = [
+              {
+                key: 'generate',
+                name: 'button.insertgenerate',
+                disabled: false,
+              },
+              {
+                key: 'insertsta',
+                name: 'button.insertsta',
+                disabled: false,
+              },
+            ];
+          }
         } else {
           this.buttonList = [
             {
@@ -546,16 +562,16 @@
     mounted() {
       this.checklist();
       this.loading = true;
-        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-        this.params_id = this.$route.params._id;
-        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-        if (this.params_id) {
+      //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      this.params_id = this.$route.params._id;
+      //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      if (this.params_id) {
         this.$store
-            .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.params_id})
+          .dispatch('PFANS2026Store/selectById', {'staffexitprocedureid': this.params_id})
           .then(response => {
             this.form = response.staffexitprocedure;
-              this.ID = this.params_id
-            this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
+            this.ID = this.params_id;
+            this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo');
             if (this.form.status === '4') {
               this.enableSave = true;
             } else {
@@ -657,7 +673,7 @@
           .dispatch('PFANS2026Store/getList2', {'user_id': this.$store.getters.userinfo.userid})
           .then(response => {
             if (response.length > 0) {
-                if (this.params_id) {
+              if (this.params_id) {
                 this.listsum = 0;
               } else {
                 this.listsum = 1;
@@ -676,41 +692,41 @@
       buttontrue() {
         this.button = false;
         this.$store
-            .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
+          .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
           .then(response => {
             if (response.length > 0) {
               this.listbutton = response;
-              let status = this.listbutton[0].status === '4' ? 'normal.done' : (this.listbutton[0].status === '2' ? 'normal.doing' : 'normal.todo')
-              this.flowData= [
+              let status = this.listbutton[0].status === '4' ? 'normal.done' : (this.listbutton[0].status === '2' ? 'normal.doing' : 'normal.todo');
+              this.flowData = [
                 {
                   No: '1',
                   Name: '离职申请',
                   Status: this.status,
                   url: 'PFANS2026FormView',
-                  params: {'_id':this.ID}
+                  params: {'_id': this.ID},
                 },
                 {
                   No: '2',
                   Name: '退职者调书&离职手续',
                   Status: status,
                   url: 'PFANS2032FormView',
-                  params: {'_id':this.listbutton[0].staffexitproce_id}
-                }
-              ]
+                  params: {'_id': this.listbutton[0].staffexitproce_id},
+                },
+              ];
               // c901aa6a-3744-4b52-93aa-1ff2cc778178
-              this.$emit('showPop',this.flowData)
+              this.$emit('showPop', this.flowData);
               this.button = true;
             } else {
-              this.flowData= [
+              this.flowData = [
                 {
                   No: '1',
                   Name: '离职申请',
                   Status: this.status,
                   url: 'PFANS2026FormView',
-                  params: {'_id':this.ID}
+                  params: {'_id': this.ID},
                 },
-              ]
-              this.$emit('showPop',this.flowData)
+              ];
+              this.$emit('showPop', this.flowData);
               this.button = false;
             }
           }).catch(error => {
@@ -829,7 +845,7 @@
         if (val === 'generate') {
           this.baseInfo2 = {};
           this.baseInfo2.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
-            this.baseInfo2.staffexitprocedure.staffexitprocedure_id = this.params_id;
+          this.baseInfo2.staffexitprocedure.staffexitprocedure_id = this.params_id;
           this.loading = true;
           this.$store
             .dispatch('PFANS2026Store/generatesta', this.baseInfo2)
@@ -846,7 +862,7 @@
             });
         } else if (val === 'insertsta') {
           this.$store
-              .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
+            .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
             .then(response => {
               if (response.length > 0) {
                 Message({
@@ -855,7 +871,7 @@
                   duration: 5 * 1000,
                 });
               } else {
-                  let checkid = this.params_id;
+                let checkid = this.params_id;
                 this.$router.push({
                   name: 'PFANS2032FormView',
                   params: {
@@ -895,8 +911,8 @@
               this.form.delivery_sheet_date = moment(this.form.delivery_sheet_date).format('YYYY-MM-DD');
               this.form.report_date = moment(this.form.report_date).format('YYYY-MM-DD');
               this.baseInfo.staffexitprocedure = JSON.parse(JSON.stringify(this.form));
-                if (this.params_id) {
-                    this.baseInfo.staffexitprocedure.staffexitprocedure_id = this.params_id;
+              if (this.params_id) {
+                this.baseInfo.staffexitprocedure.staffexitprocedure_id = this.params_id;
                 this.$store
                   .dispatch('PFANS2026Store/update', this.baseInfo)
                   .then(response => {
