@@ -810,7 +810,7 @@
                           <template slot-scope="scope">
                             <el-select v-model="scope.row.plsummary" :disabled="checktaxes" style="width: 100%"
                                        clearable
-                                       @change="getplsummary(scope.row)">
+                                       @change="getplsummaryP(scope.row)">
                               <el-option
                                 v-for="item in ploptionsdata"
                                 :key="item.value"
@@ -821,17 +821,34 @@
                           </template>
 
                         </el-table-column>
+                        <!--                        upd-ws-9/23-禅道任务555-->
+                        <!--                        <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">-->
+                        <!--                          <template slot-scope="scope">-->
+                        <!--                            <dicselect :code="scope.row.code17"-->
+                        <!--                                       :disabled="checktaxes"-->
+                        <!--                                       :data="scope.row.accountcode"-->
+                        <!--                                       :multiple="multiple"-->
+                        <!--                                       :no="scope.row"-->
+                        <!--                                       @change="getcode" style="width: 100%">-->
+                        <!--                            </dicselect>-->
+                        <!--                          </template>-->
+                        <!--                        </el-table-column>-->
+
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_ACCOUNT')" align="center" width="250">
                           <template slot-scope="scope">
-                            <dicselect :code="scope.row.code17"
-                                       :disabled="checktaxes"
-                                       :data="scope.row.accountcode"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getcode" style="width: 100%">
-                            </dicselect>
+                            <el-select v-model="scope.row.accountcode" style="width: 100%" :disabled="!disable"
+                                       @change="getaccoundcodeP(scope.row)">
+                              <el-option
+                                v-for="item in scope.row.accoundoptionsdateP"
+                                :key="item.value"
+                                :label="item.lable"
+                                :value="item.value">
+                              </el-option>
+                            </el-select>
                           </template>
                         </el-table-column>
+
+                        <!--                        upd-ws-9/23-禅道任务555-->
                         <el-table-column :label="$t('label.PFANS1012VIEW_PROCUREMENTDETAILS')" align="center"
                                          width="150">
                           <template slot-scope="scope">
@@ -1607,7 +1624,7 @@
           facetax: '',
         }],
         tableP: [{
-          code17: '',
+          // code17: '',
           publicexpenseid: '',
           purchasedetails_id: '',
           invoicenumber: '',
@@ -1840,7 +1857,7 @@
       }
       let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
       for (let i = 0; i < PLdicnew.length; i++) {
-        if (PLdicnew[i].code === 'PJ111010') {
+        if (PLdicnew[i].code === 'PJ111010' || PLdicnew[i].code === 'PJ111008') {
           this.ploptionsdata.push({
             value: PLdicnew[i].code,
             lable: PLdicnew[i].value1,
@@ -2062,7 +2079,7 @@
                 if (response.purchasedetails.length > 0) {
                   this.tableP = response.purchasedetails;
                   for (var i = 0; i < this.tableP.length; i++) {
-                    this.tableP[i].code17 = '';
+                    //this.tableP[i].code17 = '';
                     this.orglist = this.tableP[i].departmentname;
                     let group = getOrgInfo(this.orglist);
                     if (group) {
@@ -2089,23 +2106,69 @@
                       this.disa = false;
                       this.disablecheck = false;
                     }
+                    //upd-ws-9/23-禅道任务555
+                    // if (this.tableP[i].RedirictP == '0') {
+                    //   if (this.tableP[i].plsummary === 'PJ111010') {
+                    //     // this.tableP[i].code17 = 'PJ121';
+                    //     let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
+                    //     if (letErrortype != null) {
+                    //       this.tableP[i].accountcode = letErrortype.code;
+                    //     }
+                    //   }
+                    // } else if (this.tableP[i].RedirictP == '1' || this.tableP[i].RedirictP == '') {
+                    //   if (this.tableP[i].plsummary === 'PJ111010') {
+                    //     // this.tableP[i].code17 = 'PJ134';
+                    //     let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
+                    //     if (letErrortype != null) {
+                    //       this.tableP[i].accountcode = letErrortype.code;
+                    //     }
+                    //   }
+                    // }
+
                     if (this.tableP[i].RedirictP == '0') {
-                      if (this.tableP[i].plsummary === 'PJ111010') {
-                        this.tableP[i].code17 = 'PJ121';
-                        let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
-                        if (letErrortype != null) {
-                          this.tableP[i].accountcode = letErrortype.code;
+                      this.tableP[i].accoundoptionsdateP = [];
+                      if (this.tableP[i].plsummary === 'PJ111008') {
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+                        for (let a = 0; a < dicnew.length; a++) {
+                          if (dicnew[a].code === 'PJ119003') {
+                            this.tableP[i].accoundoptionsdateP.push({
+                              value: dicnew[a].code,
+                              lable: dicnew[a].value1,
+                            });
+                          }
+                        }
+                      } else if (this.tableP[i].plsummary === 'PJ111010') {
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ121');
+                        for (let a = 0; a < dicnew.length; a++) {
+                          this.tableP[i].accoundoptionsdateP.push({
+                            value: dicnew[a].code,
+                            lable: dicnew[a].value1,
+                          });
                         }
                       }
                     } else if (this.tableP[i].RedirictP == '1' || this.tableP[i].RedirictP == '') {
-                      if (this.tableP[i].plsummary === 'PJ111010') {
-                        this.tableP[i].code17 = 'PJ134';
-                        let letErrortype = getDictionaryInfo(this.tableP[i].accountcode);
-                        if (letErrortype != null) {
-                          this.tableP[i].accountcode = letErrortype.code;
+                      this.tableP[i].accoundoptionsdateP = [];
+                      if (this.tableP[i].plsummary === 'PJ111008') {
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+                        for (let a = 0; a < dicnew.length; a++) {
+                          if (dicnew[a].code === 'PJ132003') {
+                            this.tableP[i].accoundoptionsdateP.push({
+                              value: dicnew[a].code,
+                              lable: dicnew[a].value1,
+                            });
+                          }
+                        }
+                      } else if (this.tableP[i].plsummary === 'PJ111010') {
+                        let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ134');
+                        for (let a = 0; a < dicnew.length; a++) {
+                          this.tableP[i].accoundoptionsdateP.push({
+                            value: dicnew[a].code,
+                            lable: dicnew[a].value1,
+                          });
                         }
                       }
                     }
+                    //upd-ws-9/23-禅道任务555
                   }
                 }
                 if (response.otherdetails.length > 0) {
@@ -2387,10 +2450,9 @@
 
                   if (response3 !== null && response3 !== '' && response3 !== undefined) {
                     if (response3['purchase'] != undefined) {
-                      let purlist = response3["purchase"].split(';');
+                      let purlist = response3['purchase'].split(';');
                       let setpurlist = new Set(purlist);
-                      for (let i of setpurlist)
-                      {
+                      for (let i of setpurlist) {
                         let pur = i.split(',');
                         let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo');
                         this.flowData.push(
@@ -2441,10 +2503,9 @@
                     // }
 
                     if (response3['publicExpense'] != undefined) {
-                      let publist = response3["publicExpense"].split(';');
+                      let publist = response3['publicExpense'].split(';');
                       let setpublist = new Set(publist);
-                      for (let i of setpublist)
-                      {
+                      for (let i of setpublist) {
                         let pub = i.split(',');
                         let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo');
                         this.flowData.push(
@@ -2457,7 +2518,7 @@
                           });
                       }
                     }
-                    this.$emit('showPop',this.flowData);
+                    this.$emit('showPop', this.flowData);
                   }
                 });
               //采购业务数据流程查看详情
@@ -2477,7 +2538,7 @@
           this.tableT[0].RedirictT = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
           this.tableP[0].RedirictP = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
         }
-        this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
+        // this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
         this.show10 = true;
         //ADD-WS-直接部门或间接部门赋值变更
         this.tableT[0].accoundoptionsdate = [];
@@ -2757,9 +2818,9 @@
       },
       selectInit(row, index) {
         // if (!this.$route.params._haveLoanapp) {
-          if (this.$route.params._statuss != this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL') || this.$route.params._statuss != this.$t('label.PFANS5004VIEW_OVERTIME')) {
-            return row;
-          }
+        if (this.$route.params._statuss != this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL') || this.$route.params._statuss != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          return row;
+        }
         // }
       },
       handleSelectionChange(val) {
@@ -3256,7 +3317,7 @@
           this.companyen = group.companyen;
           row.RedirictR = group.redirict;
           // row.budgetcoding = group.encoding;
-          row.code17 = row.RedirictR == '0' ? 'PJ121' : 'PJ134';
+          //row.code17 = row.RedirictR == '0' ? 'PJ121' : 'PJ134';
           if (row.RedirictR == '0') {
             if (row.plsummary == 'PJ111001') {
               row.accountcode = '',
@@ -3418,7 +3479,7 @@
         row.budgetcoding = '';
         row.ploptionsdata = [];
         row.plsummary = '';
-        row.code17 = [];
+        row.accoundoptionsdateP = [];
         row.accountcode = '';
         row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
@@ -3438,277 +3499,184 @@
         if (group) {
           this.companyen = group.companyen;
           row.RedirictP = group.redirict;
-          // row.budgetcoding = group.encoding;
-          row.code17 = row.RedirictP == '0' ? 'PJ121' : 'PJ134';
-          // if (this.Redirict == '0') {
-          //     if (row.plsummary == 'PJ111001') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ112';
-          //
-          //     } else if (row.plsummary == 'PJ111002') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ113';
-          //
-          //     } else if (row.plsummary == 'PJ111003') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ114';
-          //
-          //     } else if (row.plsummary == 'PJ111004') {
-          //         row.accountcode = '',
-          //           row.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111005') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ116';
-          //
-          //     } else if (row.plsummary == 'PJ111006') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ117';
-          //
-          //     } else if (row.plsummary == 'PJ111007') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ118';
-          //
-          //     } else if (row.plsummary == 'PJ111008') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ119';
-          //
-          //     } else if (row.plsummary == 'PJ111009') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ120';
-          //
-          //     } else if (row.plsummary == 'PJ111010') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ121';
-          //
-          //     } else if (row.plsummary == 'PJ111011') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ122';
-          //
-          //     } else if (row.plsummary == 'PJ111012') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ123';
-          //
-          //     } else if (row.plsummary == 'PJ111013') {
-          //         row.accountcode = '',
-          //           row.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111014') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ125';
-          //
-          //     }
-          // }
-          // else if (this.Redirict == '1' || this.Redirict == '') {
-          //     if (row.plsummary == 'PJ111001') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ127';
-          //
-          //     } else if (row.plsummary == 'PJ111002') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ128';
-          //
-          //     } else if (row.plsummary == 'PJ111003') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ129';
-          //
-          //     } else if (row.plsummary == 'PJ111004') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ115';
-          //
-          //     } else if (row.plsummary == 'PJ111005') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ130';
-          //
-          //     } else if (row.plsummary == 'PJ111006') {
-          //         row.accountcode = '',
-          //           row.code16 = '';
-          //
-          //     } else if (row.plsummary == 'PJ111007') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ131';
-          //
-          //     } else if (row.plsummary == 'PJ111008') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ132';
-          //
-          //     } else if (row.plsummary == 'PJ111009') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ133';
-          //
-          //     } else if (row.plsummary == 'PJ111010') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ134';
-          //
-          //     } else if (row.plsummary == 'PJ111011') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ135';
-          //
-          //     } else if (row.plsummary == 'PJ111012') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ136';
-          //
-          //     } else if (row.plsummary == 'PJ111013') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ124';
-          //
-          //     } else if (row.plsummary == 'PJ111014') {
-          //         row.accountcode = '',
-          //           row.code16 = 'PJ137';
-          //
-          //     }
-          // }
-          // if (this.Redirict == '0') {
-          //   row.accoundoptionsdate = [];
-          //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
-          //   for (let i = 0; i < dicnew.length; i++) {
-          //     if (dicnew[i].code === 'PJ119004') {
-          //       row.accoundoptionsdate.push({
-          //         value: dicnew[i].code,
-          //         lable: dicnew[i].value1,
-          //       });
-          //     }
-          //   }
-          // } else if (this.Redirict == '1' || this.Redirict == '') {
-          //   row.accoundoptionsdate = [];
-          //   let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
-          //   for (let i = 0; i < dicnew.length; i++) {
-          //     if (dicnew[i].code === 'PJ132004') {
-          //       row.accoundoptionsdate.push({
-          //         value: dicnew[i].code,
-          //         lable: dicnew[i].value1,
-          //       });
-          //     }
-          //   }
-          // }
+
         }
       },
+      //add-ws-9/23-禅道任务555
+      getplsummaryP(row) {
+        row.accountcode = '';
+        row.accoundoptionsdateP = [];
+        if (row.RedirictP == '0') {
+          if (row.plsummary === 'PJ111008') {
+            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ119');
+            for (let a = 0; a < dicnew.length; a++) {
+              if (dicnew[a].code === 'PJ119003') {
+                row.accoundoptionsdateP.push({
+                  value: dicnew[a].code,
+                  lable: dicnew[a].value1,
+                });
+              }
+            }
+          } else if (row.plsummary === 'PJ111010') {
+            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ121');
+            for (let a = 0; a < dicnew.length; a++) {
+              row.accoundoptionsdateP.push({
+                value: dicnew[a].code,
+                lable: dicnew[a].value1,
+              });
+            }
+          }
+
+        } else if (row.RedirictP == '1' || row.RedirictP == '') {
+          row.accoundoptionsdateP = [];
+          if (row.plsummary === 'PJ111008') {
+            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
+            for (let a = 0; a < dicnew.length; a++) {
+              if (dicnew[a].code === 'PJ132003') {
+                row.accoundoptionsdateP.push({
+                  value: dicnew[a].code,
+                  lable: dicnew[a].value1,
+                });
+              }
+            }
+          } else if (row.plsummary === 'PJ111010') {
+            let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ134');
+            for (let a = 0; a < dicnew.length; a++) {
+              row.accoundoptionsdateP.push({
+                value: dicnew[a].code,
+                lable: dicnew[a].value1,
+              });
+            }
+          }
+        }
+      },
+      //add-ws-9/23-禅道任务555
       getplsummary(row) {
         row.accountcode = '',
           row.plsummary = row.plsummary;
-        if (row.RedirictR == '0' || row.RedirictP == '0') {
+        if (row.RedirictR == '0') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ112';
-            row.code17 = 'PJ112';
+            //row.code17 = 'PJ112';
           } else if (row.plsummary == 'PJ111002') {
             row.accountcode = '',
               row.code16 = 'PJ113';
-            row.code17 = 'PJ113';
+            // row.code17 = 'PJ113';
           } else if (row.plsummary == 'PJ111003') {
             row.accountcode = '',
               row.code16 = 'PJ114';
-            row.code17 = 'PJ114';
+            // row.code17 = 'PJ114';
           } else if (row.plsummary == 'PJ111004') {
             row.accountcode = '',
               row.code16 = '';
-            row.code17 = '';
+            //   row.code17 = '';
           } else if (row.plsummary == 'PJ111005') {
             row.accountcode = '',
               row.code16 = 'PJ116';
-            row.code17 = 'PJ116';
+            //   row.code17 = 'PJ116';
           } else if (row.plsummary == 'PJ111006') {
             row.accountcode = '',
               row.code16 = 'PJ117';
-            row.code17 = 'PJ117';
+            //  row.code17 = 'PJ117';
           } else if (row.plsummary == 'PJ111007') {
             row.accountcode = '',
               row.code16 = 'PJ118';
-            row.code17 = 'PJ118';
+            // row.code17 = 'PJ118';
           } else if (row.plsummary == 'PJ111008') {
             row.accountcode = '',
               row.code16 = 'PJ119';
-            row.code17 = 'PJ119';
+            // row.code17 = 'PJ119';
           } else if (row.plsummary == 'PJ111009') {
             row.accountcode = '',
               row.code16 = 'PJ120';
-            row.code17 = 'PJ120';
+            //   row.code17 = 'PJ120';
           } else if (row.plsummary == 'PJ111010') {
             row.accountcode = '',
               row.code16 = 'PJ121';
-            row.code17 = 'PJ121';
+            //  row.code17 = 'PJ121';
           } else if (row.plsummary == 'PJ111011') {
             row.accountcode = '',
               row.code16 = 'PJ122';
-            row.code17 = 'PJ122';
+            // row.code17 = 'PJ122';
           } else if (row.plsummary == 'PJ111012') {
             row.accountcode = '',
               row.code16 = 'PJ123';
-            row.code17 = 'PJ123';
+            // row.code17 = 'PJ123';
           } else if (row.plsummary == 'PJ111013') {
             row.accountcode = '',
               row.code16 = '';
-            row.code17 = '';
+            // row.code17 = '';
           } else if (row.plsummary == 'PJ111014') {
             row.accountcode = '',
               row.code16 = 'PJ125';
-            row.code17 = 'PJ125';
+            // row.code17 = 'PJ125';
           } else if (row.plsummary == 'PJ111015') {
             row.accountcode = '',
               row.code16 = 'PJ138';
-            row.code17 = 'PJ138';
+            //  row.code17 = 'PJ138';
           }
-        } else if (row.RedirictR == '1' || row.RedirictR == '' || row.RedirictP == '1' || row.RedirictP == '') {
+        } else if (row.RedirictR == '1' || row.RedirictR == '') {
           if (row.plsummary == 'PJ111001') {
             row.accountcode = '',
               row.code16 = 'PJ127';
-            row.code17 = 'PJ127';
+            // row.code17 = 'PJ127';
           } else if (row.plsummary == 'PJ111002') {
             row.accountcode = '',
               row.code16 = 'PJ128';
-            row.code17 = 'PJ128';
+            // row.code17 = 'PJ128';
           } else if (row.plsummary == 'PJ111003') {
             row.accountcode = '',
               row.code16 = 'PJ129';
-            row.code17 = 'PJ129';
+            //   row.code17 = 'PJ129';
           } else if (row.plsummary == 'PJ111004') {
             row.accountcode = '',
               row.code16 = 'PJ115';
-            row.code17 = 'PJ115';
+            //  row.code17 = 'PJ115';
           } else if (row.plsummary == 'PJ111005') {
             row.accountcode = '',
               row.code16 = 'PJ130';
-            row.code17 = 'PJ130';
+            // row.code17 = 'PJ130';
           } else if (row.plsummary == 'PJ111006') {
             row.accountcode = '',
               row.code16 = '';
-            row.code17 = '';
+            // row.code17 = '';
           } else if (row.plsummary == 'PJ111007') {
             row.accountcode = '',
               row.code16 = 'PJ131';
-            row.code17 = 'PJ131';
+            // row.code17 = 'PJ131';
           } else if (row.plsummary == 'PJ111008') {
             row.accountcode = '',
               row.code16 = 'PJ132';
-            row.code17 = 'PJ132';
+            // row.code17 = 'PJ132';
           } else if (row.plsummary == 'PJ111009') {
             row.accountcode = '',
               row.code16 = 'PJ133';
-            row.code17 = 'PJ133';
+            // row.code17 = 'PJ133';
           } else if (row.plsummary == 'PJ111010') {
             row.accountcode = '',
               row.code16 = 'PJ134';
-            row.code17 = 'PJ134';
+            //  row.code17 = 'PJ134';
           } else if (row.plsummary == 'PJ111011') {
             row.accountcode = '',
               row.code16 = 'PJ135';
-            row.code17 = 'PJ135';
+            // row.code17 = 'PJ135';
           } else if (row.plsummary == 'PJ111012') {
             row.accountcode = '',
               row.code16 = 'PJ136';
-            row.code17 = 'PJ136';
+            // row.code17 = 'PJ136';
           } else if (row.plsummary == 'PJ111013') {
             row.accountcode = '',
               row.code16 = 'PJ124';
-            row.code17 = 'PJ124';
+            //  row.code17 = 'PJ124';
           } else if (row.plsummary == 'PJ111014') {
             row.accountcode = '',
               row.code16 = 'PJ137';
-            row.code17 = 'PJ137';
+            // row.code17 = 'PJ137';
           } else if (row.plsummary == 'PJ111015') {
             row.accountcode = '',
               row.code16 = 'PJ139';
-            row.code17 = 'PJ139';
+            //row.code17 = 'PJ139';
           }
         }
 
@@ -3726,6 +3694,14 @@
           row.subjectnumber = dic.value2;
         }
       },
+      //add-ws-9/23-禅道任务555
+      getaccoundcodeP(row) {
+        let dic = getDictionaryInfo(row.accountcode);
+        if (dic) {
+          row.subjectnumber = dic.value2;
+        }
+      },
+      //add-ws-9/23-禅道任务555
       //add-ws-6/11-禅道090
       getworkinghours(workinghours) {
         if (workinghours != null) {
@@ -3929,7 +3905,7 @@
           this.form.loan = '';
           this.form.fullname = '';
           this.checkexpectedpaydate = false;
-          this.multipleSelection='';
+          this.multipleSelection = '';
         } else if (val === 'PJ004002') {
           this.show1 = false;
           this.show2 = true;
@@ -3948,7 +3924,7 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = false;
-          this.multipleSelection='';
+          this.multipleSelection = '';
         } else if (val === 'PJ004003') {
           this.show1 = false;
           this.show2 = false;
@@ -3966,7 +3942,7 @@
           this.form.loan = '';
           this.form.fullname = '';
           this.checkexpectedpaydate = true;
-          this.multipleSelection='';
+          this.multipleSelection = '';
         } else if (val === 'PJ004004') {
           this.show1 = false;
           this.show2 = false;
@@ -4001,7 +3977,7 @@
           this.form.receivables = '';
           this.form.loan = '';
           this.checkexpectedpaydate = true;
-          this.multipleSelection='';
+          this.multipleSelection = '';
         }
       },
       getmodule(val) {
@@ -4552,13 +4528,13 @@
       checkparams() {
         let id = this.$route.params._checkid;
         let fromname = this.$route.params._fromname;
-          //add_fjl_0828  流程信息查不到横展开
-          if (fromname === 'PFANS3005FormView') {
-              this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
-          } else {
-              this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
-          }
-          //add_fjl_0828  流程信息查不到横展开
+        //add_fjl_0828  流程信息查不到横展开
+        if (fromname === 'PFANS3005FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+        } else {
+          this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
+        }
+        //add_fjl_0828  流程信息查不到横展开
         this.$router.push({
           name: fromname,
           params: {
@@ -4598,8 +4574,7 @@
                 }
 // add-ws-8/20-禅道469
                 let checktableD = '';
-                if (this.multipleSelection)
-                {
+                if (this.multipleSelection) {
                   let checktlist = this.multipleSelection.splice(',');
                   for (let m = 0; m < checktlist.length; m++) {
                     if (checktlist[m].loanapplication_id != '' && checktlist[m].loanapplication_id != null && checktlist[m].loanapplication_id != undefined) {
