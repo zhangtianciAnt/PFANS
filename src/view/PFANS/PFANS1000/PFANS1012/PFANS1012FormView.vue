@@ -4543,6 +4543,20 @@
           },
         });
       },
+      //add-ws-9/25-禅道任务567
+      checkbackcheck(){
+        let id = this.$route.params._paramsid;
+        let disable = this.$route.params.backcheck;
+        this.$router.push({
+          name: 'PFANS1025FormView',
+          params: {
+            _status: this.$t('label.PFANS5004VIEW_OVERTIME'),
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
+      //add-ws-9/25-禅道任务567
       buttonClick(val) {
         if (val === 'back') {
           //add-fjl-0813-精算中，点击决裁，跳转画面
@@ -4550,7 +4564,13 @@
             if (this.$route.params._check2) {
               this.checkparams();
             }
+            //add-ws-9/25-禅道任务567
+          }else  if (this.$route.params.backcheck != null && this.$route.params.backcheck != '' && this.$route.params.backcheck != undefined) {
+            if (this.$route.params.backcheck) {
+              this.checkbackcheck();
+            }
           } else {
+            //add-ws-9/25-禅道任务567
             this.$router.push({
               name: 'PFANS1012View',
               params: {},
