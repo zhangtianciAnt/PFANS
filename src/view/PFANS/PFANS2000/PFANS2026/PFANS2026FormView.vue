@@ -495,6 +495,7 @@
       // if(this.checktype = 1){
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4) {
+          this.enableSave = true;
           if (this.$route.params._userid === this.$store.getters.userinfo.userid) {
             this.buttonList = [
               {
@@ -523,6 +524,7 @@
             ];
           }
         } else {
+          this.enableSave = false;
           this.buttonList = [
             {
               key: 'generate',
@@ -572,11 +574,6 @@
             this.form = response.staffexitprocedure;
             this.ID = this.params_id;
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo');
-            if (this.form.status === '4') {
-              this.enableSave = true;
-            } else {
-              this.enableSave = false;
-            }
             // if(this.checktype = 1){
             if (this.form.status === '4') {
               if (this.$route.params._type2 === 1) {
