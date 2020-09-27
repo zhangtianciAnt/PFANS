@@ -123,7 +123,12 @@
               </div>
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 80vw"
+                            @selection-change="handleSelectionChange">
+                    <!--                    add-ws-9/25-禅道567-->
+                    <el-table-column type="selection" width="55"
+                                     :selectable="selectInit"></el-table-column>
+                    <!--                    add-ws-9/25-禅道567-->
                     <el-table-column :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150">
                       <template slot-scope="scope">
                         <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.claimtype">
@@ -252,7 +257,9 @@
                         </el-option>
                       </el-select>
                       <!--                      add-ws-7/27-禅道154任务-->
-                      <el-button @click="clickBun" size="small" type="primary" :disabled="this.form.policycontract_id?false:true">{{this.$t('button.view')}}</el-button>
+                      <el-button @click="clickBun" size="small" type="primary"
+                                 :disabled="this.form.policycontract_id?false:true">{{this.$t('button.view')}}
+                      </el-button>
                       <!--                      add-ws-7/27-禅道154任务-->
                     </el-form-item>
                   </el-col>
@@ -484,7 +491,7 @@
               </el-table>
             </el-tab-pane>
             <!--            //add-ws-添加上传附件功能-->
-            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')"  prop="enclosurecontent"  name="thrid">
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" prop="enclosurecontent" name="thrid">
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.enclosure')" :error="errorfile">
@@ -566,12 +573,16 @@
         }
       };
       return {
+        //add-ws-9/25-禅道567
+        listjudgement: [],
+        multipleSelection: '',
+        //add-ws-9/25-禅道567
         url: 'PFANS1045FormView',
         urlparams: '',
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
         defaultStart: false,
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        enableSave: false,
+        enableSave: true,
         //add-ws-添加上传附件功能-
         fileList: [],
         upload: uploadUrl(),
@@ -681,27 +692,22 @@
           // }],
         },
         buttonList: [],
-          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-          params_id: ''
-          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        params_id: '',
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
     mounted() {
       this.loading = true;
-        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-        this.params_id = this.$route.params._id;
-        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-        if (this.params_id) {
+      //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      this.params_id = this.$route.params._id;
+      //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      if (this.params_id) {
         this.$store
-            .dispatch('PFANS1025Store/selectById', {'award_id': this.params_id})
+          .dispatch('PFANS1025Store/selectById', {'award_id': this.params_id})
           .then(response => {
             if (response.award != null) {
               this.form = response.award;
-              if (this.form.status === '4' || this.form.status === '2') {
-                this.enableSave = false;
-              } else {
-                this.enableSave = true;
-              }
               //add-ws-契约种类value1值处理
               // if (this.form.contracttype !== null && this.form.contracttype !== '') {
               //   let letContracttype = getDictionaryInfo(this.form.contracttype);
@@ -845,27 +851,102 @@
       // }
     },
     created() {
+      //upd-ws-9/25-禅道567
       if (!this.$route.params.disabled) {
-        this.buttonList = [
-          {
-            key: 'generate',
-            name: 'button.generate',
-            disabled: true,
-          },
-        ];
+        if (this.$route.params._status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          this.buttonList = [
+            {
+              key: 'generate',
+              name: 'button.generate',
+              disabled: true,
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: false,
+            },
+          ];
+        } else if (this.$route.params._status === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
+          this.buttonList = [
+            {
+              key: 'generate',
+              name: 'button.generate',
+              disabled: true,
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: true,
+            },
+          ];
+        } else {
+          this.buttonList = [
+            {
+              key: 'generate',
+              name: 'button.generate',
+              disabled: false,
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: true,
+            },
+          ];
+        }
       } else {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
+        if (this.$route.params._status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: true,
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: false,
+            },
+          ];
+        } else if (this.$route.params._status === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: true,
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: true,
+            },
+          ];
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: true,
+            },
+          ];
+        }
       }
+      //upd-ws-9/25-禅道567
       this.disable = this.$route.params.disabled;
     },
     methods: {
+//add-ws-9/25-禅道567
+      selectInit(row, index) {
+        return row;
+      },
+      handleSelectionChange(val) {
+        this.multipleSelection = val;
+      },
+//add-ws-9/25-禅道567
       // add-ws-7/17-禅道116任务
       clickBun() {
         if (this.form.policycontract_id !== '' && this.form.policycontract_id !== null && this.form.policycontract_id !== undefined) {
@@ -1100,7 +1181,7 @@
             });
           }
         }
-          this.baseInfo.award.award_id = this.params_id;
+        this.baseInfo.award.award_id = this.params_id;
         this.$store
           .dispatch('PFANS1025Store/update', this.baseInfo)
           .then(response => {
@@ -1334,11 +1415,76 @@
               });
               this.loading = false;
             });
+          //add-ws-9/25-禅道567
+        } else if (val === 'actuarial') {
+          if (this.multipleSelection.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          let checktableD = '';
+          this.listjudgement = [];
+          for (let i = 0; i < this.multipleSelection.length; i++) {
+            let sealtypeList = this.form.contractnumber + this.multipleSelection[i].claimtype;
+            checktableD = checktableD + sealtypeList + ',';
+            var vote = {};
+            vote.value = this.params_id;
+            vote.label = this.form.contractnumber + this.multipleSelection[i].claimtype;
+            vote.remarks = this.multipleSelection[i].remarksqh;
+            if (this.multipleSelection[i].remarksqh == '' || this.multipleSelection[i].remarksqh == null) {
+              vote.remarks = '';
+            } else {
+              vote.remarks = this.multipleSelection[i].remarksqh;
+            }
+            vote.judgements_moneys = this.multipleSelection[i].claimamount;
+            if (this.$i18n) {
+              vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
+            }
+            this.listjudgement.push(vote);
+          }
+          let img = checktableD.substring(0, checktableD.length - 1);
+          if (this.form.statuspublic !== null && this.form.statuspublic !== '') {
+            let public1 = img.split(',');
+            let public2 = this.form.statuspublic.split(',');
+            let check = 0;
+            for (let i = 0; i < public1.length; i++) {
+              for (let a = 0; a < public2.length; a++) {
+                if (public1[i] === public2[a]) {
+                  check = check + 1;
+                  break;
+                }
+              }
+              break;
+            }
+            if (check != 0) {
+              Message({
+                message: this.form.statuspublic + this.$t('label.PFANS1025VIEW_SEALCHECK3'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.$router.push({
+            name: 'PFANS1012FormView',
+            params: {
+              _name: this.listjudgement,
+              _type: 'PJ001002',
+              disabled: true,
+              backcheck: true,
+              _paramsid: this.params_id,
+            },
+          });
         } else {
+          //add-ws-9/25-禅道567
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-                this.baseInfo.award.award_id = this.params_id;
+              this.baseInfo.award.award_id = this.params_id;
               this.baseInfo.awardDetail = [];
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
@@ -1371,14 +1517,14 @@
                         duration: 1 * 1000,
                       });
                       this.loading = false;
-                      setTimeout(()=>{
+                      setTimeout(() => {
                         this.$router.push({
                           name: 'PFANS1045View',
                           params: {
-                            check:  this.numbers,
+                            check: this.numbers,
                           },
                         });
-                      },1500)
+                      }, 1500);
                       return;
                     })
                     .catch(error => {
@@ -1397,7 +1543,7 @@
                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
                 .then(response => {
                   if (response.length == 1) {
-                      if (this.params_id) {     //郛冶ｾ�
+                    if (this.params_id) {     //郛冶ｾ�
                       this.$store
                         .dispatch('PFANS1025Store/update', this.baseInfo)
                         .then(response => {
@@ -1434,7 +1580,7 @@
                       });
                       this.loading = false;
                     } else {
-                        if (this.params_id) {     //郛冶ｾ�
+                      if (this.params_id) {     //郛冶ｾ�
                         this.$store
                           .dispatch('PFANS1025Store/update', this.baseInfo)
                           .then(response => {
@@ -1485,7 +1631,8 @@
         }
       },
     },
-  };
+  }
+  ;
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
