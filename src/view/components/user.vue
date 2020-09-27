@@ -264,6 +264,9 @@
         }
 
         this.$emit("getUserids", this.userids,this.no);
+          //add_fjl_0927
+          this.$emit("close", this.userids, this.no);
+          //add_fjl_0927
 
       },
       getInitData () {
@@ -386,6 +389,9 @@
         }
 
         this.$emit("getUserids", this.userids,this.no);
+          //add_fjl_0927
+          this.$emit("close", this.userids, this.no);
+          //add_fjl_0927
       },
       handleSelectionChange(val) {
         this.multipleSelection = val;
