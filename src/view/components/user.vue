@@ -242,6 +242,9 @@
         }
 
         this.$emit("getUserids", this.userids,this.no);
+          //add_fjl_0927
+          this.$emit("close", this.userids, this.no);
+          //add_fjl_0927
 
         this.inputVisible = false;
         this.inputValue = '';
