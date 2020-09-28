@@ -16,20 +16,32 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                    <org :disabled="true"
+                         :orglist="form.center_id"
+                         @getOrgids="getCenterid"
+                         orgtype="1"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                    <org :disabled="checkGro"
+                         :orglist="form.group_id"
+                         @getOrgids="getGroupId"
+                         orgtype="2"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
-                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                    <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+                    <org :disabled="true"
+                         :orglist="form.team_id"
+                         @getOrgids="getTeamid"
+                         orgtype="3"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -318,20 +330,21 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import dicselect from '../../../components/dicselect.vue';
-  import {Message} from 'element-ui';
-  import user from '../../../components/user.vue';
-  import {getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
-  import moment from 'moment';
-  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
-  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
-  export default {
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import dicselect from '../../../components/dicselect.vue';
+    import {Message} from 'element-ui';
+    import user from '../../../components/user.vue';
+    import {getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
+    import moment from 'moment';
+    import org from '../../../components/org';
+
+    export default {
     name: 'PFANS1010FormView',
     components: {
       EasyNormalContainer,
       dicselect,
       user,
+        org
         // PFANS1012Pop,
         // PFANS1006Pop
     },
@@ -374,6 +387,7 @@
         editableTabs: [],
         tabIndex: 0,
         multiple: false,
+          checkGro: false,
         userlist: '',
         form: {
           center_id: '',
@@ -450,12 +464,19 @@
               this.form = response;
               let rst = getOrgInfoByUserId(response.user_id);
               if (rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
+                  //upd_fjl_0927
+                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                      this.checkGro = true;
+                  } else {
+                      this.checkGro = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
+                  //upd_fjl_0927
               }
               this.userlist = this.form.user_id;
-              this.getBudt(this.userlist);
+                this.getBudt(this.form.group_id);
               let lettableT = [];
               let letreason = response.reason.split(';');
               if (letreason.length > 0) {
@@ -562,10 +583,18 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
-            this.form.team_id = rst.teamId;
+              // this.form.group_id = rst.groupId;
+              this.form.team_id = rst.teamId;
+              //add_fjl_0927
+              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.form.group_id = rst.groupId;
+                  this.getBudt(this.form.group_id);
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              //add_fjl_0927
           }
-          this.getBudt(this.form.user_id);
           // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
           //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
           // }
@@ -573,6 +602,19 @@
       }
     },
     methods: {
+        //add_fjl_0927
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0927
         //add_fjl_0806  查看详情
         rowClick(row) {
             this.$store.commit('global/SET_HISTORYURL', '');
@@ -614,9 +656,13 @@
         },
         //add_fjl_0806  查看详情
       getBudt(val) {
+          this.options = [];
+          if (val === '' || val === null) {
+              return;
+          }
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -628,7 +674,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       changeBut(val) {

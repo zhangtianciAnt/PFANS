@@ -11,32 +11,32 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                    <el-input v-show='false' v-model="form.center_id" :disabled="true" style="width:20vw"></el-input>
+                    <org :disabled="true"
+                         :orglist="form.center_id"
+                         @getOrgids="getCenterid"
+                         orgtype="1"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                    <el-input v-show='false' v-model="form.group_id" :disabled="true" style="width:20vw"></el-input>
+                    <org :disabled="checkGro"
+                         :orglist="form.group_id"
+                         @getOrgids="getGroupId"
+                         orgtype="2"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.team')" prop="team_id">
-                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                    <el-input v-show='false' v-model="form.team_id" :disabled="true" style="width:20vw"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
-                    <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
-                          @getUserids="getUserids" style="width: 20vw"></user>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1012VIEW_TELEPHONE')" prop="investigator">
-                    <el-input v-model="form.investigator" :disabled="!disabled" style="width:20vw"
-                              maxlength='20'></el-input>
+                  <el-form-item :label="$t('label.team')">
+                    <org :disabled="true"
+                         :orglist="form.team_id"
+                         @getOrgids="getTeamid"
+                         orgtype="3"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -438,22 +438,22 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
-  import {Message} from 'element-ui';
-  import {downLoadUrl, getOrgInfo, getOrgInfoByUserId, getUserInfo, uploadUrl, getStatus} from '@/utils/customize';
-  import moment from 'moment';
-  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
-  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import dicselect from '../../../components/dicselect.vue';
+    import user from '../../../components/user.vue';
+    import {Message} from 'element-ui';
+    import {downLoadUrl, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfo, uploadUrl} from '@/utils/customize';
+    import moment from 'moment';
+    import org from '../../../components/org';
 
-  export default {
+    export default {
     name: 'PFANS1003FormView',
     components: {
       EasyNormalContainer,
       getOrgInfoByUserId,
       dicselect,
       user,
+        org
         // PFANS1012Pop,
         // PFANS1006Pop,
     },
@@ -658,6 +658,7 @@
         show3: false,
         show4: true,
         canStart: false,
+          checkGro: false,
         fileList: [],
         upload: uploadUrl(),
       };
@@ -671,13 +672,20 @@
             this.form = response.judgement;
             let rst = getOrgInfoByUserId(response.judgement.user_id);
             if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
+                //upd_fjl_0927
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                    this.checkGro = true;
+                } else {
+                    this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0927
               // this.form.thisproject = rst.personalcode;
             }
             this.userlist = this.form.user_id;
-            this.getBudt(this.userlist);
+              this.getBudt(this.form.group_id);
             if (response.unusedevice.length > 0) {
               this.tableA = response.unusedevice;
             }
@@ -820,12 +828,20 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
+              // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
+              //add_fjl_0927
+              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.form.group_id = rst.groupId;
+                  this.getBudt(this.form.group_id);
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              //add_fjl_0927
             // this.form.thisproject = rst.personalcode;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
         }
         this.loading = false;
       }
@@ -846,6 +862,19 @@
       }
     },
     methods: {
+        //add_fjl_0927
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0927
         //add_fjl_0806  查看详情
         rowClick(row) {
             this.$store.commit('global/SET_HISTORYURL', '');
@@ -888,9 +917,13 @@
         //add_fjl_0806  查看详情
         //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getBudt(val) {
+          this.options = [];
+          if (val === '' || val === null) {
+              return;
+          }
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -902,7 +935,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       changeSum(row) {

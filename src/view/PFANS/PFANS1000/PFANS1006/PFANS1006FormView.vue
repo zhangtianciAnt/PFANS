@@ -12,23 +12,55 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>
+                      <org :disabled="true"
+                           :orglist="form.center_id"
+                           @getOrgids="getCenterid"
+                           orgtype="1"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>
+                      <org :disabled="checkGro"
+                           :orglist="form.group_id"
+                           @getOrgids="getGroupId"
+                           orgtype="2"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.team')">
-                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>
+                      <org :disabled="true"
+                           :orglist="form.team_id"
+                           @getOrgids="getTeamid"
+                           orgtype="3"
+                           style="width: 20vw"
+                      ></org>
                     </el-form-item>
                   </el-col>
                 </el-row>
+                <!--                <el-row>-->
+                <!--                  <el-col :span="8">-->
+                <!--                    <el-form-item :label="$t('label.center')">-->
+                <!--                      <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>-->
+                <!--                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.center_id"></el-input>-->
+                <!--                    </el-form-item>-->
+                <!--                  </el-col>-->
+                <!--                  <el-col :span="8">-->
+                <!--                    <el-form-item :label="$t('label.group')">-->
+                <!--                      <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>-->
+                <!--                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.group_id"></el-input>-->
+                <!--                    </el-form-item>-->
+                <!--                  </el-col>-->
+                <!--                  <el-col :span="8">-->
+                <!--                    <el-form-item :label="$t('label.team')">-->
+                <!--                      <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>-->
+                <!--                      <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.team_id"></el-input>-->
+                <!--                    </el-form-item>-->
+                <!--                  </el-col>-->
+                <!--                </el-row>-->
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
@@ -442,30 +474,38 @@
   </div>
 </template>
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import dicselect from '../../../components/dicselect.vue';
-  import {Message} from 'element-ui';
-  import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getOrgInfo, getUserInfo, getCurrentRole2, getStatus,getCurrentRole5} from '@/utils/customize';
-  import moment from 'moment';
-  import png11 from '@/assets/png/11.png';
-  import {validateNumber} from '@/utils/validate';
-  import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
-  import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
-  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
-  import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
-  import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
-  import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
-  import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
-  import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
-  import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import dicselect from '../../../components/dicselect.vue';
+    import {Message} from 'element-ui';
+    import user from '../../../components/user.vue';
+    import {
+        getCurrentRole2,
+        getCurrentRole5,
+        getOrgInfo,
+        getOrgInfoByUserId,
+        getStatus,
+        getUserInfo
+    } from '@/utils/customize';
+    import moment from 'moment';
+    import png11 from '@/assets/png/11.png';
+    import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
+    import org from '../../../components/org';
+    import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
+    import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+    import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
+    import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+    import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
+    import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+    import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+    import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
 
-  export default {
+    export default {
     name: 'PFANS1006FormView',
     components: {
       EasyNormalContainer,
       dicselect,
       user,
+        org,
       PFANS1003Pop,
       PFANS1004Pop,
       PFANS1005Pop,
@@ -581,6 +621,7 @@
         active: '1',
         activeName: 'first',
         showtab: true,
+          checkGro: false,
         show10: true,
         show11: false,
         DataList: [{
@@ -884,9 +925,16 @@
               this.namelist = this.form.user_name;
               let rst = getOrgInfoByUserId(response.user_id);
               if (rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
+                  //upd_fjl_0927
+                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                      this.checkGro = true;
+                  } else {
+                      this.checkGro = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
+                  //upd_fjl_0927
               }
               this.userlist = this.form.user_id;
               if (this.form.paymentmethod === 'PJ015001') {
@@ -905,7 +953,7 @@
                 this.show3 = true;
                 this.show7 = true;
               }
-              this.getBudt(this.userlist);
+                this.getBudt(this.form.group_id);
               if (this.form.uploadfile != '' && this.form.uploadfile != null && this.form.uploadfile != undefined) {
                 let uploadfile = this.form.uploadfile.split(';');
                 for (var i = 0; i < uploadfile.length; i++) {
@@ -1057,10 +1105,18 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
+              // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
+              //add_fjl_0927
+              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.form.group_id = rst.groupId;
+                  this.getBudt(this.form.group_id);
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              //add_fjl_0927
           }
-          this.getBudt(this.form.user_id);
 
           if (this.$route.params._judgement != null && this.$route.params._judgement != '' && this.$route.params._judgement != undefined) {
             let _judgement = this.$route.params._judgement.substring(0, this.$route.params._judgement.length - 1);
@@ -1120,6 +1176,19 @@
       }
     },
     methods: {
+        //add_fjl_0927
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0927
       //add-ws-5/18-No70-增加收款人
       getUsernames(val) {
         if (val === '') {
@@ -1138,9 +1207,13 @@
       },
 //add-ws-5/18-No70-增加收款人
       getBudt(val) {
+          this.options1 = [];
+          if (val === '' || val === null) {
+              return;
+          }
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -1152,7 +1225,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       changeBut(val) {

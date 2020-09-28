@@ -199,6 +199,7 @@ module.exports = {
     error_pfans50011: '社内员工的进组或退出时间不能为空',
     error_tipis:'之前作成的书类要被替换,是否继续？',
     info_14: '生成当前事业年度所有员工的人才育成计划数据,是否继续？',
+    error_priceset: 'group修改后,会在新设定的group下重新生成单价, 是否继续？',
   },
   menu: {
     homePageManagement: '首页',
@@ -1248,6 +1249,7 @@ module.exports = {
     PFANS1025VIEW_PUBLIC2: '请选择相同的委托元进行精算',
     PFANS1025VIEW_SEALCHECK: '印章',
     PFANS1025VIEW_SEALCHECK2: '以作成，请勿重复作成',
+    PFANS1025VIEW_SEALCHECK3: '以精算，请勿重复精算',
     PFANS1025VIEW_OPENINGDATE: '开发开始日',
     PFANS1025VIEW_ENDDATE: '开发完了日',
     PFANS1025VIEW_FIRSTDETAILS: '基本情报1',

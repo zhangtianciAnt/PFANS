@@ -10,24 +10,56 @@
             <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_ORGIN')" name="first">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.center')" prop="centerid">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.center_id"></el-input>
+                  <el-form-item :label="$t('label.center')">
+                    <org :disabled="true"
+                         :orglist="form.center_id"
+                         @getOrgids="getCenterid"
+                         orgtype="1"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.group')" prop="groupid">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.group_id"></el-input>
+                  <el-form-item :label="$t('label.group')">
+                    <org :disabled="checkGro"
+                         :orglist="form.group_id"
+                         @getOrgids="getGroupId1"
+                         orgtype="2"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.team')" prop="teamid">
-                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.team_id"></el-input>
+                  <el-form-item :label="$t('label.team')">
+                    <org :disabled="true"
+                         :orglist="form.team_id"
+                         @getOrgids="getTeamid"
+                         orgtype="3"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
               </el-row>
+              <!--              <el-row>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.center')" prop="centerid">-->
+              <!--                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>-->
+              <!--                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.center_id"></el-input>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.group')" prop="groupid">-->
+              <!--                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>-->
+              <!--                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.group_id"></el-input>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--                <el-col :span="8">-->
+              <!--                  <el-form-item :label="$t('label.team')" prop="teamid">-->
+              <!--                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>-->
+              <!--                    <el-input v-show='false' :disabled="false" style="width:20vw" v-model="form.team_id"></el-input>-->
+              <!--                  </el-form-item>-->
+              <!--                </el-col>-->
+              <!--              </el-row>-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
@@ -244,16 +276,14 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user';
-  import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getOrgInfo, getCurrentRole2, getStatus} from '@/utils/customize';
-  import moment from 'moment';
-  import org from '../../../components/org';
-  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
-  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user';
+    import {Message} from 'element-ui';
+    import {getCurrentRole2, getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
+    import moment from 'moment';
+    import org from '../../../components/org';
 
-  export default {
+    export default {
     name: 'PFANS1005FormView',
     components: {
       EasyNormalContainer,
@@ -302,6 +332,7 @@
         title: 'title.PFANS1005VIEW',
         loading: false,
         disableview: false,
+          checkGro: false,
         baseInfo: {},
           activeName: 'first',
           tableA: [],
@@ -388,17 +419,22 @@
             //add-ws-4/23-总务担当可用选择部门带出预算编码
             let rst = getOrgInfoByUserId(response.purchaseApply.user_id);
             if (rst) {
-              this.centerid = rst.centerNmae;
-              this.groupid = rst.groupNmae;
-              this.teamid = rst.teamNmae;
+                //upd_fjl_0927
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                    this.checkGro = true;
+                } else {
+                    this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0927
             }
             if (response.shoppingDetailed.length > 0) {
               this.tableD = response.shoppingDetailed;
             }
             this.userlist = this.form.user_id;
-            if (this.form.group_name == '' || this.form.group_name == null) {
-              this.getBudt(this.userlist);
-            }
+              this.getBudt(this.form.group_id);
               //add_fjl_0806
               //有暂借款编号绑定暂借款信息
               if (this.form.loanapplication_id) {
@@ -480,11 +516,19 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
+              // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
+              //add_fjl_0927
+              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.form.group_id = rst.groupId;
+                  this.getBudt(this.form.group_id);
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              //add_fjl_0927
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
         }
       }
       this.$store
@@ -494,6 +538,19 @@
         });
     },
     methods: {
+        //add_fjl_0927
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId1(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0927
         //add_fjl_0806  查看详情
         rowClick(row) {
             this.$store.commit('global/SET_HISTORYURL', '');
@@ -564,9 +621,12 @@
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getBudt(val) {
         this.options1 = [];
+          if (val === '' || val === null) {
+              return;
+          }
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -578,7 +638,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       changeBut(val) {
