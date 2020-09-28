@@ -4320,9 +4320,15 @@
                           type: 'success',
                           duration: 5 * 1000,
                         });
-                        if (this.$store.getters.historyUrl) {
-                          this.$router.push(this.$store.getters.historyUrl);
-                        }
+                          //upd_fjl_0928  返回一览画面
+                          // if (this.$store.getters.historyUrl) {
+                          //   this.$router.push(this.$store.getters.historyUrl);
+                          // }
+                          this.$router.push({
+                              name: 'PFANS1013View',
+                              params: {},
+                          });
+                          //upd_fjl_0928  返回一览画面
                       })
                       .catch(error => {
                         Message({
