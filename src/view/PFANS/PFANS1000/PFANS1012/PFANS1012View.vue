@@ -171,6 +171,11 @@
                             if (rst) {
                                 response[j].user_id = rst.userinfo.customername;
                             }
+                            //add_fjl_0928  添加外币的场合 币种+外币金额 start
+                            if (response[j].currency !== null && response[j].currency !== '') {
+                                response[j].moneys = response[j].currency + response[j].foreigncurrency;
+                            }
+                            //add_fjl_0928  添加外币的场合 币种+外币金额 end
                             //ADD-WS-4/27-精算类型添加
                             if (response[j].type !== null && response[j].type !== '') {
                                 if (response[j].type === 'PJ001001') {
