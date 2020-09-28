@@ -267,7 +267,7 @@
                     },
                   {
                     code: 'trashreason',
-                    label: 'label.PFANS3006VIEW_TRASHREASON',
+                    label: 'label.PFANS3005VIEW_TRASHREASON',
                     width: 150,
                     fix: false,
                     filter: false,
