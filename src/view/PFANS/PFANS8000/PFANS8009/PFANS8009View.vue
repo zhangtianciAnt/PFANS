@@ -90,7 +90,7 @@
                 let letname = 'PFANS8009FormView';
                 if (val === 'back') {
                     this.$router.push({
-                        name: 'PFANS8009PointView',
+                        name: 'PFANS8009View',
                     });
                 }
                 if (val === 'update') {
