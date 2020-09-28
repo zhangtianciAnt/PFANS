@@ -265,7 +265,13 @@
                         fix: false,
                         filter: false,
                     },
-
+                  {
+                    code: 'trashreason',
+                    label: 'label.PFANS3006VIEW_TRASHREASON',
+                    width: 150,
+                    fix: false,
+                    filter: false,
+                  },
                 ],
                 buttonList: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -398,7 +404,7 @@
             },
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClassName({row, rowIndex}) {
-                if (row.acceptstatus === this.$t('label.PFANS3006VIEW_REFUSE') || row.status === this.$t('label.node_step2')) {
+              if (row.acceptstatus === this.$t('label.PFANS3006VIEW_REFUSE') || row.status === this.$t('label.node_step2') || (row.trashreason != '' && row.trashreason != null)) {
                     return 'sub_bg_color_lightgray';
                 }
                 if (row.acceptstatus === this.$t('label.PFANS3006VIEW_CARRYOUT') || row.actuarialdate != null) {
