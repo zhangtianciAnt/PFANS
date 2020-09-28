@@ -79,16 +79,16 @@
             </el-col>
             <!--            技术分类-->
             <!--<el-col :span="8">-->
-              <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
-                <!--<dicselect-->
-                  <!--:code="code5"-->
-                  <!--:data="form.technology"-->
-                  <!--:disabled="true"-->
-                  <!--:multiple="multiple"-->
-                  <!--@change="changetechnology"-->
-                  <!--style="width:20vw">-->
-                <!--</dicselect>-->
-              <!--</el-form-item>-->
+            <!--<el-form-item :label="$t('label.PFANS2003VIEW_TECHNOLOGY')" prop="technology">-->
+            <!--<dicselect-->
+            <!--:code="code5"-->
+            <!--:data="form.technology"-->
+            <!--:disabled="true"-->
+            <!--:multiple="multiple"-->
+            <!--@change="changetechnology"-->
+            <!--style="width:20vw">-->
+            <!--</dicselect>-->
+            <!--</el-form-item>-->
             <!--</el-col>-->
             <!--            Rn-->
             <el-col :span="8">
@@ -283,14 +283,14 @@
                 <!--            所有技术-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-if="show">
-<!--                    <dicselect-->
-<!--                      :code="code7"-->
-<!--                      :data="form.alltechnology"-->
-<!--                      :disabled="!disabled"-->
-<!--                      :multiple="multiple"-->
-<!--                      @change="changealltechnology"-->
-<!--                      style="width:20vw">-->
-<!--                    </dicselect>-->
+                    <!--                    <dicselect-->
+                    <!--                      :code="code7"-->
+                    <!--                      :data="form.alltechnology"-->
+                    <!--                      :disabled="!disabled"-->
+                    <!--                      :multiple="multiple"-->
+                    <!--                      @change="changealltechnology"-->
+                    <!--                      style="width:20vw">-->
+                    <!--                    </dicselect>-->
                     <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                               v-model="form.alltechnology"></el-input>
 
@@ -330,14 +330,14 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')" prop="countermeasure"
                                 v-if="show">
-<!--                    <dicselect-->
-<!--                      :code="code9"-->
-<!--                      :data="form.countermeasure"-->
-<!--                      :disabled="!disabled"-->
-<!--                      :multiple="multiple"-->
-<!--                      @change="changecountermeasure"-->
-<!--                      style="width:20vw">-->
-<!--                    </dicselect>-->
+                    <!--                    <dicselect-->
+                    <!--                      :code="code9"-->
+                    <!--                      :data="form.countermeasure"-->
+                    <!--                      :disabled="!disabled"-->
+                    <!--                      :multiple="multiple"-->
+                    <!--                      @change="changecountermeasure"-->
+                    <!--                      style="width:20vw">-->
+                    <!--                    </dicselect>-->
                     <el-input :disabled="!disabled" style="width:20vw" maxlength="100"
                               v-model="form.countermeasure"></el-input>
                   </el-form-item>
@@ -405,670 +405,708 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import PFANS6004View from '../PFANS6004/PFANS6004View.vue';
-  import dicselect from '../../../components/dicselect.vue';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {
-    getDictionaryInfo,
-    getUserInfo,
-    getorgGroupList
-  } from '../../../../utils/customize';
-  import org from '../../../components/org';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import PFANS6004View from '../PFANS6004/PFANS6004View.vue';
+    import dicselect from '../../../components/dicselect.vue';
+    import {Message} from 'element-ui';
+    import moment from 'moment';
+    import {getDictionaryInfo, getorgGroupList, getUserInfo} from '../../../../utils/customize';
+    import org from '../../../components/org';
 
-  export default {
-    name: 'PFANS6004FormView',
-    components: {
-      EasyNormalContainer,
-      PFANS6004View,
-      dicselect,
-      org,
-    },
-    data() {
-      var checkexpname = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorexpname = this.$t('normal.error_09') + this.$t('label.user_name');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
-        } else {
-          this.errorexpname = '';
-          return callback();
-        }
-      };
-
-      var checkgraduateschool = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorgraduateschool = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL')));
-        } else {
-          this.errorgraduateschool = '';
-          return callback();
-        }
-      };
-
-      var checkgroup = (rule, value, callback) => {
-        if (!value || value === '') {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-        } else {
-          this.errorgroup = '';
-          return callback();
-        }
-      };
-      var checksuppliername = (rule, value, callback) => {
-        if (!value || value === '' || value === 'undefined') {
-          this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
-          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
-        } else {
-          this.errorsuppliername = '';
-          return callback();
-        }
-      };
-      var valadmissiontime = (rule, value, callback) => {
-        if (this.form.exits == '0') {
-          if (this.form.exitime !== null && this.form.exitime !== '') {
-            if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
-              callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
-              this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
-            } else {
-              callback();
-              this.erroradmissiontime = '';
-              this.errorexitime = '';
-            }
-          }
-        } else {
-          callback();
-          this.erroradmissiontime = '';
-        }
-      };
-      var valexitime = (rule, value, callback) => {
-        if (this.form.exitime !== null && this.form.exitime !== '') {
-          if (moment(value).format('YYYY-MM-DD') < moment(this.form.admissiontime).format('YYYY-MM-DD')) {
-            callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')));
-            this.errorexitime = this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
-          } else {
-            callback();
-            this.erroradmissiontime = '';
-            this.errorexitime = '';
-          }
-        } else {
-          callback();
-          this.errorexitime = '';
-        }
-      };
-      return {
-        age: '',
-        loading: false,
-        selectType: 'Single',
-        title: 'title.PFANS6004VIEW',
-        errorexpname: '',
-        errorsuppliername: '',
-        erroradmissiontime: '',
-        grouporglist: '',
-        errorexitime: '',
-        errorgroup: '',
-        errorgraduateschool: '',
-        expData: null,
-        dialogTableVisible9: false,
-        disabled: false,
-        buttonList: [],
-        multiple: false,
-        search: '',
-        gridData1: [],
-        form: {
-          expatriatesinfor_id: '',
-          accountname:'',
-          expname: '',
-          cooperuserid: '',
-          sex: '',
-          group_id: '',
-          number: '',
-          post: '',
-          contactinformation: '',
-          suppliername: '',
-          suppliernameid: '',
-          graduateschool: '',
-          education: '',
-          graduation_year: '',
-          technology: '',
-          email: '',
-          rn: '',
-          operationform: '',
-          jobclassification: '',
-          admissiontime: moment(new Date()).format('YYYY-MM-DD'),
-          exitime: moment(new Date()).format('YYYY-MM-DD'),
-          exitreason: '',
-          alltechnology: '',
-          sitevaluation: '',
-          businessimpact: '',
-          whetherentry: '',
-          countermeasure: '',
-          exits: '1',
+    export default {
+        name: 'PFANS6004FormView',
+        components: {
+            EasyNormalContainer,
+            PFANS6004View,
+            dicselect,
+            org,
         },
-        tableData: [{
-          group_id: '',
-          project_name: '',
-          projecttype: '',
-          exittime: '',
-          admissiontime: '',
-        }],
-        //性别
-        code1: 'PR019',
-        //学历
-        code2: 'PR022',
-        // 面试结果
-        code3: 'BP003',
-        //Rn
-        code4: 'PR021',
-        //技术分类
-        code5: 'BP005',
-        //退场理由
-        code6: 'BP012',
-        //所有技术
-        code7: 'BP008',
-        //现场评价
-        code8: 'BP009',
-        //対策
-        code9: 'BP011',
-        //業務影響
-        code10: 'BP010',
-        code15: 'PG021',
-        //作业形态
-        code20: 'BP024',
-        //作业分类
-        code21: 'BP025',
-        result1: "",
-        disabled: true,
-        rules: {
-          //AD域账号
-          accountname: [
-            {
-              required: true,
-              message:
-                this.$t('normal.error_08') +
-                this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),
-              trigger: 'blur',
-            },
-          ],
-          // 姓名
-          expname: [
-            {
-              required: true,
-              validator: checkexpname,
-              trigger: 'change',
-            }],
-          // 性别
-          sex: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.sex'),
-              trigger: 'change',
-            },
-          ],
-          //所属部门
-          group_id: [
-            {
-              required: true,
-              validator: checkgroup,
-              trigger: 'change',
-            },
-          ],
-          // 编号
-          number: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
-              trigger: 'blur',
-            },
-          ],
-          // 供应商名称
-          suppliername: [
-            {
-              required: true,
-              validator: checksuppliername,
-              trigger: 'change',
-            },
-          ],
-          // 毕业院校
-          graduateschool: [
-            {
-              required: true,
-              validator: checkgraduateschool,
-              trigger: 'change',
-            }],
-          // 学历
-          education: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
-              trigger: 'change',
-            },
-          ],
-          //毕业年
-          graduation_year: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
-              trigger: 'change',
-            },
-          ],
-          // 作业形态
-          operationform: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
-              trigger: 'change',
-            },
-          ],
-          // 作业分类
-          jobclassification: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
-              trigger: 'change',
-            },
-          ],
-          // 入场时间
-          admissiontime: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
-              trigger: 'change',
-            },
-            {validator: valadmissiontime, trigger: 'change'},
-          ],
-          // 技术分类
-          technology: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
-              trigger: 'change',
-            },
-          ],
-          // Rn
-          rn: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RN'),
-              trigger: 'change',
-            },
-          ],
-          // 退场时间
-          exitime: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_EXITIME'),
-              trigger: 'change',
-            },
-            {validator: valexitime, trigger: 'change'},
-          ],
-          // 退场理由
-          exitreason: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_EXITREASON'),
-              trigger: 'change',
-            },
-          ],
-          // 所有技术
-          // alltechnology: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY'),
-          //     trigger: 'change',
-          //   },
-          // ],
-          // 現場評価
-          sitevaluation: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_SITEVALUATION'),
-              trigger: 'change',
-            },
-          ],
-          // 業務影響
-          businessimpact: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT'),
-              trigger: 'change',
-            },
-          ],
-          // 対策
-          // countermeasure: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
-          //     trigger: 'change',
-          //   },
-          // ],
+        data() {
+            var checkexpname = (rule, value, callback) => {
+                if (!value || value === '') {
+                    this.errorexpname = this.$t('normal.error_09') + this.$t('label.user_name');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
+                } else {
+                    this.errorexpname = '';
+                    return callback();
+                }
+            };
+
+            var checkgraduateschool = (rule, value, callback) => {
+                if (!value || value === '') {
+                    this.errorgraduateschool = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_GRADUATESCHOOL')));
+                } else {
+                    this.errorgraduateschool = '';
+                    return callback();
+                }
+            };
+
+            var checkgroup = (rule, value, callback) => {
+                if (!value || value === '') {
+                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+                } else {
+                    this.errorgroup = '';
+                    return callback();
+                }
+            };
+            var checksuppliername = (rule, value, callback) => {
+                if (!value || value === '' || value === 'undefined') {
+                    this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
+                } else {
+                    this.errorsuppliername = '';
+                    return callback();
+                }
+            };
+            var valadmissiontime = (rule, value, callback) => {
+                if (this.form.exits == '0') {
+                    if (this.form.exitime !== null && this.form.exitime !== '') {
+                        if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
+                            callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
+                            this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
+                        } else {
+                            callback();
+                            this.erroradmissiontime = '';
+                            this.errorexitime = '';
+                        }
+                    }
+                } else {
+                    callback();
+                    this.erroradmissiontime = '';
+                }
+            };
+            var valexitime = (rule, value, callback) => {
+                if (this.form.exitime !== null && this.form.exitime !== '') {
+                    if (moment(value).format('YYYY-MM-DD') < moment(this.form.admissiontime).format('YYYY-MM-DD')) {
+                        callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')));
+                        this.errorexitime = this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
+                    } else {
+                        callback();
+                        this.erroradmissiontime = '';
+                        this.errorexitime = '';
+                    }
+                } else {
+                    callback();
+                    this.errorexitime = '';
+                }
+            };
+            return {
+                age: '',
+                loading: false,
+                selectType: 'Single',
+                title: 'title.PFANS6004VIEW',
+                errorexpname: '',
+                errorsuppliername: '',
+                erroradmissiontime: '',
+                grouporglist: '',
+                grouporglistflg: '',
+                errorexitime: '',
+                errorgroup: '',
+                errorgraduateschool: '',
+                expData: null,
+                dialogTableVisible9: false,
+                disabled: false,
+                buttonList: [],
+                multiple: false,
+                search: '',
+                gridData1: [],
+                form: {
+                    expatriatesinfor_id: '',
+                    accountname: '',
+                    expname: '',
+                    cooperuserid: '',
+                    sex: '',
+                    group_id: '',
+                    number: '',
+                    post: '',
+                    contactinformation: '',
+                    suppliername: '',
+                    suppliernameid: '',
+                    graduateschool: '',
+                    education: '',
+                    graduation_year: '',
+                    technology: '',
+                    email: '',
+                    rn: '',
+                    operationform: '',
+                    jobclassification: '',
+                    admissiontime: moment(new Date()).format('YYYY-MM-DD'),
+                    exitime: moment(new Date()).format('YYYY-MM-DD'),
+                    exitreason: '',
+                    alltechnology: '',
+                    sitevaluation: '',
+                    businessimpact: '',
+                    whetherentry: '',
+                    countermeasure: '',
+                    exits: '1',
+                },
+                tableData: [{
+                    group_id: '',
+                    project_name: '',
+                    projecttype: '',
+                    exittime: '',
+                    admissiontime: '',
+                }],
+                //性别
+                code1: 'PR019',
+                //学历
+                code2: 'PR022',
+                // 面试结果
+                code3: 'BP003',
+                //Rn
+                code4: 'PR021',
+                //技术分类
+                code5: 'BP005',
+                //退场理由
+                code6: 'BP012',
+                //所有技术
+                code7: 'BP008',
+                //现场评价
+                code8: 'BP009',
+                //対策
+                code9: 'BP011',
+                //業務影響
+                code10: 'BP010',
+                code15: 'PG021',
+                //作业形态
+                code20: 'BP024',
+                //作业分类
+                code21: 'BP025',
+                result1: "",
+                disabled: true,
+                rules: {
+                    //AD域账号
+                    accountname: [
+                        {
+                            required: true,
+                            message:
+                                this.$t('normal.error_08') +
+                                this.$t('label.PFANSUSERFORMVIEW_ADFIELD'),
+                            trigger: 'blur',
+                        },
+                    ],
+                    // 姓名
+                    expname: [
+                        {
+                            required: true,
+                            validator: checkexpname,
+                            trigger: 'change',
+                        }],
+                    // 性别
+                    sex: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.sex'),
+                            trigger: 'change',
+                        },
+                    ],
+                    //所属部门
+                    group_id: [
+                        {
+                            required: true,
+                            validator: checkgroup,
+                            trigger: 'change',
+                        },
+                    ],
+                    // 编号
+                    number: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
+                            trigger: 'blur',
+                        },
+                    ],
+                    // 供应商名称
+                    suppliername: [
+                        {
+                            required: true,
+                            validator: checksuppliername,
+                            trigger: 'change',
+                        },
+                    ],
+                    // 毕业院校
+                    graduateschool: [
+                        {
+                            required: true,
+                            validator: checkgraduateschool,
+                            trigger: 'change',
+                        }],
+                    // 学历
+                    education: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS2026VIEW_EDUCATIONALBACKGROUND'),
+                            trigger: 'change',
+                        },
+                    ],
+                    //毕业年
+                    graduation_year: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS2024VIEW_GRADUATIONYEAR'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 作业形态
+                    operationform: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 作业分类
+                    jobclassification: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 入场时间
+                    admissiontime: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME'),
+                            trigger: 'change',
+                        },
+                        {validator: valadmissiontime, trigger: 'change'},
+                    ],
+                    // 技术分类
+                    technology: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003VIEW_TECHNOLOGY'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // Rn
+                    rn: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS2003FORMVIEW_RN'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 退场时间
+                    exitime: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_EXITIME'),
+                            trigger: 'change',
+                        },
+                        {validator: valexitime, trigger: 'change'},
+                    ],
+                    // 退场理由
+                    exitreason: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_EXITREASON'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 所有技术
+                    // alltechnology: [
+                    //   {
+                    //     required: true,
+                    //     message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY'),
+                    //     trigger: 'change',
+                    //   },
+                    // ],
+                    // 現場評価
+                    sitevaluation: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_SITEVALUATION'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 業務影響
+                    businessimpact: [
+                        {
+                            required: true,
+                            message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT'),
+                            trigger: 'change',
+                        },
+                    ],
+                    // 対策
+                    // countermeasure: [
+                    //   {
+                    //     required: true,
+                    //     message: this.$t('normal.error_09') + this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
+                    //     trigger: 'change',
+                    //   },
+                    // ],
+                },
+                show: false,
+            };
         },
-        show: false,
-      };
-    },
-    mounted() {
-      if (this.$route.params._account) {
-        this.selectById();
-      }
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
-          .then(response => {
-            this.form = response;
-            //账号
-            // if(this.form.account != null){
-            //     let letaccount = this.form.account.split("K");
-            //     if(letaccount.length === 1){
-            //         this.form.account = "";
-            //     }
-            // }
-
-            //ccm add
-            this.$store
-              .dispatch('PFANS6004Store/getGroupexpDetail', {'expatriatesinfor_id': this.$route.params._id})
-              .then(response => {
-                this.expData = [];
-
-                for (let g = 0; g < response.length; g++) {
-                  let letexpData = {};
-                  if (response[g].exdatestr !== null && response[g].exdatestr !== '')
-                  {
-                    letexpData.exdatestr = moment(response[g].exdatestr).format("YYYY-MM-DD");
-                  }
-                  letexpData.group_id = response[g].group_id;
-                  let group = getorgGroupList(response[g].group_id);
-                  if (group) {
-                    letexpData.groupname = group.groupname;
-                  }
-                  this.expData.push(letexpData);
-                }
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
-
-            //ccm add
-
-            if(this.form.birth!='') {
-              let birthdays = new Date(this.form.birth);
-              let d = new Date();
-              let age = 0;
-              let agenew = 0;
-              age = d.getFullYear() - birthdays.getFullYear();
-              agenew = d.getFullYear() - birthdays.getFullYear();
-              if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-                agenew = age;
-              } else {
-                agenew = age - 1;
-              }
-              this.age = agenew;
-            }else{
-              this.age = 0;
-            }
-            // this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
-            this.grouporglist = this.form.group_id;
-            this.loading = false;
-            if (this.form.exits === '1') {
-              this.show = false;
-            } else {
-              this.show = true;
-            }
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      }
-    },
-    created() {
-      this.disabled = this.$route.params.disabled;
-      if (this.disabled) {
-        this.buttonList = [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ];
-      }
-      if (this.form.exits === '1') {
-        this.show = false;
-        this.rules.exitime[0].required = false;
-        this.rules.exitreason[0].required = false;
-        //this.rules.alltechnology[0].required = false;
-        this.rules.sitevaluation[0].required = false;
-        this.rules.businessimpact[0].required = false;
-        //this.rules.countermeasure[0].required = false;
-      } else {
-        this.show = true;
-        this.rules.exitime[0].required = true;
-        this.rules.exitreason[0].required = true;
-        //this.rules.alltechnology[0].required = true;
-        this.rules.sitevaluation[0].required = true;
-        this.rules.businessimpact[0].required = true;
-        //this.rules.countermeasure[0].required = true;
-      }
-    },
-    methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
-          this.disabled = val;
-        }
-      },
-      changesex(val) {
-        this.form.sex = val;
-      },
-      changeeducation(val) {
-        this.form.education = val;
-      },
-      changeoperationform(val) {
-        this.form.operationform = val;
-        if(val === 'BP024002'){
-          this.form.number = '00000'
-        }else{
-          this.form.number = ''
-        }
-      },
-      changetechnology(val) {
-        this.form.technology = val;
-      },
-      changejobclassification(val) {
-        this.form.jobclassification = val;
-      },
-      changern(val) {
-        this.form.rn = val;
-      },
-      changealltechnology(val) {
-        this.form.alltechnology = val;
-      },
-      changesitevaluation(val) {
-        this.form.sitevaluation = val;
-      },
-      changebusinessimpact(val) {
-        this.form.businessimpact = val;
-      },
-      changecountermeasure(val) {
-        this.form.countermeasure = val;
-      },
-      changeexitreason(val) {
-        this.form.exitreason = val;
-      },
-      getGroupId(val) {
-        this.form.group_id = val;
-        this.grouporglist = val;
-        if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
-          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-        } else {
-          this.errorgroup = '';
-        }
-      },
-      changeexits(val) {
-
-        this.form.exits = val;
-        if (val === '1') {
-          this.show = false;
-          this.rules.exitime[0].required = false;
-          this.rules.exitreason[0].required = false;
-          //this.rules.alltechnology[0].required = false;
-          this.rules.sitevaluation[0].required = false;
-          this.rules.businessimpact[0].required = false;
-          //this.rules.countermeasure[0].required = false;
-          this.erroradmissiontime = '';
-          this.errorexitime = '';
-        } else {
-          this.show = true;
-          this.form.exitime = null;
-          this.form.exitreason = null;
-          this.form.alltechnology = null;
-          this.form.sitevaluation = null;
-          this.form.businessimpact = null;
-          this.form.countermeasure = null;
-          this.rules.exitime[0].required = true;
-          this.rules.exitreason[0].required = true;
-          //this.rules.alltechnology[0].required = true;
-          this.rules.sitevaluation[0].required = true;
-          this.rules.businessimpact[0].required = true;
-          //this.rules.countermeasure[0].required = true;
-        }
-      },
-      selectById(val) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._account})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].group_id !== null && response[j].group_id !== '') {
-                let group = getorgGroupList(response[j].group_id);
-                if (group) {
-                  response[j].group_id = group.groupname;
-                }
-              }
-              if (response[j].project_name !== null && response[j].project_name !== "") {
-                let project_name = getUserInfo(response[j].project_name);
-                if (project_name) {
-                  response[j].project_name = user.userinfo.customername;
-                }
-              }
-              if (response[j].admissiontime !== null && response[j].admissiontime !== "") {
-                response[j].admissiontime = moment(response[j].admissiontime).format("YYYY-MM-DD");
-              }
-              if (response[j].exittime !== null && response[j].exittime !== "") {
-                response[j].exittime = moment(response[j].exittime).format("YYYY-MM-DD");
-              }
-              if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                let checkvalue1 = getDictionaryInfo(response[j].projecttype);
-                if (checkvalue1) {
-                  response[j].projecttype = checkvalue1.value1;
-                }
-
-              }
-            }
-            this.tableData = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          })
-      },
-      buttonClick(val) {
-        this.$refs['refform'].validate(valid => {
-          if (valid) {
-            this.form.expatriatesinfor_id = this.$route.params._id;
-            this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-            this.loading = true;
-            if (this.form.exits === '1') {
-              this.form.exitime = '';
-              this.form.exitreason = '';
-              this.form.alltechnology = '';
-              this.form.sitevaluation = '';
-              this.form.businessimpact = '';
-              this.form.countermeasure = '';
-              this.rules.exitime[0].required = false;
-              this.rules.exitreason[0].required = false;
-              //this.rules.alltechnology[0].required = false;
-              this.rules.sitevaluation[0].required = false;
-              this.rules.businessimpact[0].required = false;
-              //this.rules.countermeasure[0].required = false;
+        mounted() {
+            if (this.$route.params._account) {
+                this.selectById();
             }
             if (this.$route.params._id) {
-              this.$store
-                .dispatch('PFANS6004Store/updateexpatriatesinfor', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  if (val !== 'update') {
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000,
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6004Store/getexpatriatesinforApplyOne', {'expatriatesinfor_id': this.$route.params._id})
+                    .then(response => {
+                        this.form = response;
+                        //账号
+                        // if(this.form.account != null){
+                        //     let letaccount = this.form.account.split("K");
+                        //     if(letaccount.length === 1){
+                        //         this.form.account = "";
+                        //     }
+                        // }
+
+                        //ccm add
+                        this.$store
+                            .dispatch('PFANS6004Store/getGroupexpDetail', {'expatriatesinfor_id': this.$route.params._id})
+                            .then(response => {
+                                this.expData = [];
+
+                                for (let g = 0; g < response.length; g++) {
+                                    let letexpData = {};
+                                    if (response[g].exdatestr !== null && response[g].exdatestr !== '') {
+                                        letexpData.exdatestr = moment(response[g].exdatestr).format("YYYY-MM-DD");
+                                    }
+                                    letexpData.group_id = response[g].group_id;
+                                    let group = getorgGroupList(response[g].group_id);
+                                    if (group) {
+                                        letexpData.groupname = group.groupname;
+                                    }
+                                    this.expData.push(letexpData);
+                                }
+                            })
+                            .catch(error => {
+                                Message({
+                                    message: error,
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                this.loading = false;
+                            });
+
+                        //ccm add
+
+                        if (this.form.birth != '') {
+                            let birthdays = new Date(this.form.birth);
+                            let d = new Date();
+                            let age = 0;
+                            let agenew = 0;
+                            age = d.getFullYear() - birthdays.getFullYear();
+                            agenew = d.getFullYear() - birthdays.getFullYear();
+                            if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+                                agenew = age;
+                            } else {
+                                agenew = age - 1;
+                            }
+                            this.age = agenew;
+                        } else {
+                            this.age = 0;
+                        }
+                        // this.form.admissiontime = moment(new Date()).format('YYYY-MM-DD');
+                        this.grouporglist = this.form.group_id;
+                        this.grouporglistflg = this.form.group_id;
+                        this.loading = false;
+                        if (this.form.exits === '1') {
+                            this.show = false;
+                        } else {
+                            this.show = true;
+                        }
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
                     });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-            } else {
-              this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
-              this.loading = true;
-              this.$store
-                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
-                .then(response => {
-                  this.data = response;
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_01'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  if (this.$store.getters.historyUrl) {
-                    this.$router.push(this.$store.getters.historyUrl);
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
             }
-          }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
-          }
-        });
-      },
-    }
-  };
+        },
+        created() {
+            this.disabled = this.$route.params.disabled;
+            if (this.disabled) {
+                this.buttonList = [
+                    {
+                        key: 'save',
+                        name: 'button.save',
+                        disabled: false,
+                        icon: 'el-icon-check',
+                    },
+                ];
+            }
+            if (this.form.exits === '1') {
+                this.show = false;
+                this.rules.exitime[0].required = false;
+                this.rules.exitreason[0].required = false;
+                //this.rules.alltechnology[0].required = false;
+                this.rules.sitevaluation[0].required = false;
+                this.rules.businessimpact[0].required = false;
+                //this.rules.countermeasure[0].required = false;
+            } else {
+                this.show = true;
+                this.rules.exitime[0].required = true;
+                this.rules.exitreason[0].required = true;
+                //this.rules.alltechnology[0].required = true;
+                this.rules.sitevaluation[0].required = true;
+                this.rules.businessimpact[0].required = true;
+                //this.rules.countermeasure[0].required = true;
+            }
+        },
+        methods: {
+            setdisabled(val) {
+                if (this.$route.params.disabled) {
+                    this.disabled = val;
+                }
+            },
+            changesex(val) {
+                this.form.sex = val;
+            },
+            changeeducation(val) {
+                this.form.education = val;
+            },
+            changeoperationform(val) {
+                this.form.operationform = val;
+                if (val === 'BP024002') {
+                    this.form.number = '00000'
+                } else {
+                    this.form.number = ''
+                }
+            },
+            changetechnology(val) {
+                this.form.technology = val;
+            },
+            changejobclassification(val) {
+                this.form.jobclassification = val;
+            },
+            changern(val) {
+                this.form.rn = val;
+            },
+            changealltechnology(val) {
+                this.form.alltechnology = val;
+            },
+            changesitevaluation(val) {
+                this.form.sitevaluation = val;
+            },
+            changebusinessimpact(val) {
+                this.form.businessimpact = val;
+            },
+            changecountermeasure(val) {
+                this.form.countermeasure = val;
+            },
+            changeexitreason(val) {
+                this.form.exitreason = val;
+            },
+            getGroupId(val) {
+                this.form.group_id = val;
+                this.grouporglist = val;
+                if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
+                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+                } else {
+                    this.errorgroup = '';
+                }
+            },
+            changeexits(val) {
+
+                this.form.exits = val;
+                if (val === '1') {
+                    this.show = false;
+                    this.rules.exitime[0].required = false;
+                    this.rules.exitreason[0].required = false;
+                    //this.rules.alltechnology[0].required = false;
+                    this.rules.sitevaluation[0].required = false;
+                    this.rules.businessimpact[0].required = false;
+                    //this.rules.countermeasure[0].required = false;
+                    this.erroradmissiontime = '';
+                    this.errorexitime = '';
+                } else {
+                    this.show = true;
+                    this.form.exitime = null;
+                    this.form.exitreason = null;
+                    this.form.alltechnology = null;
+                    this.form.sitevaluation = null;
+                    this.form.businessimpact = null;
+                    this.form.countermeasure = null;
+                    this.rules.exitime[0].required = true;
+                    this.rules.exitreason[0].required = true;
+                    //this.rules.alltechnology[0].required = true;
+                    this.rules.sitevaluation[0].required = true;
+                    this.rules.businessimpact[0].required = true;
+                    //this.rules.countermeasure[0].required = true;
+                }
+            },
+            selectById(val) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6004Store/getCompanyProject', {"SyspName": this.$route.params._account})
+                    .then(response => {
+                        for (let j = 0; j < response.length; j++) {
+                            if (response[j].group_id !== null && response[j].group_id !== '') {
+                                let group = getorgGroupList(response[j].group_id);
+                                if (group) {
+                                    response[j].group_id = group.groupname;
+                                }
+                            }
+                            if (response[j].project_name !== null && response[j].project_name !== "") {
+                                let project_name = getUserInfo(response[j].project_name);
+                                if (project_name) {
+                                    response[j].project_name = user.userinfo.customername;
+                                }
+                            }
+                            if (response[j].admissiontime !== null && response[j].admissiontime !== "") {
+                                response[j].admissiontime = moment(response[j].admissiontime).format("YYYY-MM-DD");
+                            }
+                            if (response[j].exittime !== null && response[j].exittime !== "") {
+                                response[j].exittime = moment(response[j].exittime).format("YYYY-MM-DD");
+                            }
+                            if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                                let checkvalue1 = getDictionaryInfo(response[j].projecttype);
+                                if (checkvalue1) {
+                                    response[j].projecttype = checkvalue1.value1;
+                                }
+
+                            }
+                        }
+                        this.tableData = response;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                        this.loading = false;
+                    })
+            },
+            buttonClick(val) {
+                this.$refs['refform'].validate(valid => {
+                    if (valid) {
+                        this.form.expatriatesinfor_id = this.$route.params._id;
+                        this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+                        if (this.form.exits === '1') {
+                            this.form.exitime = '';
+                            this.form.exitreason = '';
+                            this.form.alltechnology = '';
+                            this.form.sitevaluation = '';
+                            this.form.businessimpact = '';
+                            this.form.countermeasure = '';
+                            this.rules.exitime[0].required = false;
+                            this.rules.exitreason[0].required = false;
+                            //this.rules.alltechnology[0].required = false;
+                            this.rules.sitevaluation[0].required = false;
+                            this.rules.businessimpact[0].required = false;
+                            //this.rules.countermeasure[0].required = false;
+                        }
+                        if (this.$route.params._id) {
+                            //upd_fjl_0928  添加group修改后的确认框  start
+                            if (this.grouporglistflg != null && this.grouporglistflg != '' &&
+                                this.grouporglistflg != undefined && this.grouporglistflg != this.grouporglist) {
+                                this.$confirm(this.$t('normal.error_priceset'), this.$t('normal.info'), {
+                                    confirmButtonText: this.$t('button.confirm'),
+                                    cancelButtonText: this.$t('button.cancel'),
+                                    type: 'warning',
+                                }).then(() => {
+                                    this.loading = true;
+                                    this.$store
+                                        .dispatch('PFANS6004Store/updateexpatriatesinfor', this.form)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            if (val !== 'update') {
+                                                Message({
+                                                    message: this.$t('normal.success_02'),
+                                                    type: 'success',
+                                                    duration: 5 * 1000,
+                                                });
+                                                if (this.$store.getters.historyUrl) {
+                                                    this.$router.push(this.$store.getters.historyUrl);
+                                                }
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.loading = false;
+                                        });
+                                }).catch(() => {
+                                    this.$message({
+                                        type: 'info',
+                                        message: this.$t('label.PFANS1026FORMVIEW_tipis'),
+                                    });
+                                });
+                            } else {
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS6004Store/updateexpatriatesinfor', this.form)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        if (val !== 'update') {
+                                            Message({
+                                                message: this.$t('normal.success_02'),
+                                                type: 'success',
+                                                duration: 5 * 1000,
+                                            });
+                                            if (this.$store.getters.historyUrl) {
+                                                this.$router.push(this.$store.getters.historyUrl);
+                                            }
+                                        }
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        this.loading = false;
+                                    });
+                            }
+                            //upd_fjl_0928  添加group修改后的确认框  end
+                        } else {
+                            this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+                            this.loading = true;
+                            this.$store
+                                .dispatch('PFANS6004Store/createexpatriatesinforApply', this.form)
+                                .then(response => {
+                                    this.data = response;
+                                    this.loading = false;
+                                    Message({
+                                        message: this.$t('normal.success_01'),
+                                        type: 'success',
+                                        duration: 5 * 1000,
+                                    });
+                                    if (this.$store.getters.historyUrl) {
+                                        this.$router.push(this.$store.getters.historyUrl);
+                                    }
+                                })
+                                .catch(error => {
+                                    Message({
+                                        message: error,
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    this.loading = false;
+                                });
+                        }
+                    } else {
+                        Message({
+                            message: this.$t("normal.error_12"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
+                    }
+                });
+            },
+        }
+    };
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

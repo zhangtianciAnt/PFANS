@@ -199,6 +199,7 @@ module.exports = {
     error_pfans50011: '社内员工的进组或退出时间不能为空',
     error_tipis:'之前作成的书类要被替换,是否继续？',
     info_14: '生成当前事业年度所有员工的人才育成计划数据,是否继续？',
+    error_priceset: 'group修改后,会在新设定的group下重新生成单价, 是否继续？',
   },
   menu: {
     homePageManagement: '首页',
