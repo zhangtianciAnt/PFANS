@@ -1426,10 +1426,13 @@
             return;
           }
           let checktableD = '';
+          let checktable = '';
           this.listjudgement = [];
           for (let i = 0; i < this.multipleSelection.length; i++) {
             let sealtypeList = this.form.contractnumber + this.multipleSelection[i].claimtype;
+            let sealtype = this.multipleSelection[i].claimtype;
             checktableD = checktableD + sealtypeList + ',';
+            checktable = checktable + sealtype + ',';
             var vote = {};
             vote.value = this.params_id;
             vote.label = this.form.contractnumber + this.multipleSelection[i].claimtype;
@@ -1446,6 +1449,7 @@
             this.listjudgement.push(vote);
           }
           let img = checktableD.substring(0, checktableD.length - 1);
+          let imgs = checktable.substring(0, checktable.length - 1);
           if (this.form.statuspublic !== null && this.form.statuspublic !== '') {
             let public1 = img.split(',');
             let public2 = this.form.statuspublic.split(',');
@@ -1457,13 +1461,12 @@
                   break;
                 }
               }
-              break;
             }
             if (check != 0) {
               Message({
-                message: this.form.statuspublic + this.$t('label.PFANS1025VIEW_SEALCHECK3'),
+                message:this.form.statuspublic + this.$t('label.PFANS1025VIEW_SEALCHECK3'),
                 type: 'info',
-                duration: 2 * 1000,
+                duration: 5 * 1000,
               });
               return;
             }
