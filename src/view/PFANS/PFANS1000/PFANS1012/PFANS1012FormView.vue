@@ -2705,10 +2705,10 @@
             this.getPayment('PJ004004');
             this.getLoanApplication();
           } else {
-            //add-ws-8/24-禅道任务469
-            this.getPayment('PJ004004');
-            this.LoanApplication();
-            //add-ws-8/24-禅道任务469
+            //add-ws-8/24-禅道任务544
+            this.getPayment('PJ004001');
+            // this.LoanApplication();
+            //add-ws-8/24-禅道任务544
           }
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           this.show9 = false;
@@ -2784,38 +2784,38 @@
       //     this.$refs.multipleTable.clearSelection();
       //   }
       // },
-      LoanApplication() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1012Store/loanapplication', {})
-          .then(response => {
-            if (response != undefined && response != null) {
-              this.tableLoa = [];
-              for (let i = 0; i < response.length; i++) {
-                var vote = {};
-                if (response[i].paymentmethod === 'PJ015001' || response[i].paymentmethod === 'PJ015003') {
-                  vote.accename = response[i].accountpayeename;
-                } else if (response[i].paymentmethod === 'PJ015002') {
-                  if (response[i].user_name !== '' && response[i].user_name !== null) {
-                    vote.accename = getUserInfo(response[i].user_name).userinfo.customername;
-                  }
-                }
-                vote.moneys = response[i].moneys;
-                vote.loanapno = response[i].loanapno;
-                vote.loanapplication_id = response[i].loanapplication_id;
-                this.tableLoa.push(vote);
-              }
-            }
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
+      // LoanApplication() {
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS1012Store/loanapplication', {})
+      //     .then(response => {
+      //       if (response != undefined && response != null) {
+      //         this.tableLoa = [];
+      //         for (let i = 0; i < response.length; i++) {
+      //           var vote = {};
+      //           if (response[i].paymentmethod === 'PJ015001' || response[i].paymentmethod === 'PJ015003') {
+      //             vote.accename = response[i].accountpayeename;
+      //           } else if (response[i].paymentmethod === 'PJ015002') {
+      //             if (response[i].user_name !== '' && response[i].user_name !== null) {
+      //               vote.accename = getUserInfo(response[i].user_name).userinfo.customername;
+      //             }
+      //           }
+      //           vote.moneys = response[i].moneys;
+      //           vote.loanapno = response[i].loanapno;
+      //           vote.loanapplication_id = response[i].loanapplication_id;
+      //           this.tableLoa.push(vote);
+      //         }
+      //       }
+      //     })
+      //     .catch(error => {
+      //       Message({
+      //         message: error,
+      //         type: 'error',
+      //         duration: 5 * 1000,
+      //       });
+      //       this.loading = false;
+      //     });
+      // },
       selectInit(row, index) {
         // if (!this.$route.params._haveLoanapp) {
         if (this.$route.params._statuss != this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL') || this.$route.params._statuss != this.$t('label.PFANS5004VIEW_OVERTIME')) {
