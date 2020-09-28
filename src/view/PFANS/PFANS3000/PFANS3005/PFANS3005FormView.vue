@@ -5,6 +5,24 @@
                          :enableSave="enableSave"
                          :canStart="canStart" @start="start" @end="end" :workflowCode="workflowCode">
       <div slot="customize">
+        <el-form :model="form1" :rules="rules1" label-position="top" label-width="8vw" ref="refform1">
+          <el-dialog :title="$t('label.PFANS3005VIEW_TRASHREASON')" :visible.sync="dialogFormVisible">
+            <el-form-item :label="$t('label.PFANS3005VIEW_TRASHREASON')" :error="errortrashreason" prop="trashreason">
+              <el-input :disabled="disabled" type="textarea" style="width:46vw" :autosize="{ minRows: 3, maxRows: 4}"
+                        v-model="form1.trashreason"></el-input>
+            </el-form-item>
+            <div class="dialog-footer" align="center">
+              <el-button @click="saves">
+                  <span style="margin-right: 66%;">{{$t('button.save')}}
+                  </span>
+              </el-button>
+              <el-button slot="reference" @click="cancels">
+                  <span style="margin-right: 66%;">{{$t('button.cancel')}}
+                  </span>
+              </el-button>
+            </div>
+          </el-dialog>
+        </el-form>
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding:3vw">
           <el-tabs v-model="activeName" type="border-card">
@@ -700,6 +718,7 @@
                 }
             };
             return {
+              dialogFormVisible: false,
                 optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
                 options1: [],
                 tableA: [],
@@ -726,6 +745,7 @@
                 selectType: 'Single',
                 userlist: '',
                 controllerlist: '',
+              errortrashreason: '',
                 usernamelist: '',
                 recipientslist: '',
                 title: 'title.PFANS3005VIEW',
@@ -736,6 +756,9 @@
                 editableTabs: [],
                 tabIndex: 0,
                 refuseShow: false,
+              form1: {
+                trashreason: '',
+              },
                 form: {
                     project_id: '',
                   careerplan: '0',
@@ -788,6 +811,7 @@
                     loanapno: '',
                     invoiceno: '',
                     publicexpense_id: '',
+                  trashreason: '',
                     //add ccm 0720
 
                 },
@@ -982,6 +1006,17 @@
                         },
                     ],
                 },
+              rules1: {
+                trashreason: [
+                  {
+                    required: true,
+                    message:
+                      this.$t('normal.error_08') +
+                      this.$t('label.PFANS3006VIEW_TRASHREASON'),
+                    trigger: 'change',
+                  },
+                ]
+              },
                 canStart: false,
                 buttonList: [],
                 flowData: [],
@@ -1595,6 +1630,24 @@
                 this.form.team_id = val;
             },
             //add_fjl_0927
+          saves() {
+            this.$refs['refform1'].validate(valid => {
+              if (valid) {
+                this.dialogFormVisible = false;
+                this.form.trashreason = this.form1.trashreason;
+                this.buttonClick('save');
+              } else {
+                Message({
+                  message: this.$t('normal.error_12'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            });
+          },
+          cancels() {
+            this.dialogFormVisible = false;
+          },
             //add ccm 0720
             getSalequotation(val) {
                 this.form.salequotation = val;
@@ -2076,34 +2129,35 @@
                     }
                     //add-ws-4/28-精算中，点击决裁，跳转画面
                 } else if (val === 'trash') {
+                  this.dialogFormVisible = true;
                     //this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                    this.loading = true;
-                    this.form.status = '1';
-                    this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
-                    this.$store
-                        .dispatch('PFANS3005Store/updatePurchase', this.form)
-                        .then(response => {
-                            this.data = response;
-                            this.loading = false;
-                            if (val !== 'update') {
-                                Message({
-                                    message: this.$t('normal.success_02'),
-                                    type: 'success',
-                                    duration: 5 * 1000,
-                                });
-                                if (this.$store.getters.historyUrl) {
-                                    this.$router.push(this.$store.getters.historyUrl);
-                                }
-                            }
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
+                  // this.loading = true;
+                  // this.form.status = '1';
+                  // this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
+                  // this.$store
+                  //     .dispatch('PFANS3005Store/updatePurchase', this.form)
+                  //     .then(response => {
+                  //         this.data = response;
+                  //         this.loading = false;
+                  //         if (val !== 'update') {
+                  //             Message({
+                  //                 message: this.$t('normal.success_02'),
+                  //                 type: 'success',
+                  //                 duration: 5 * 1000,
+                  //             });
+                  //             if (this.$store.getters.historyUrl) {
+                  //                 this.$router.push(this.$store.getters.historyUrl);
+                  //             }
+                  //         }
+                  //     })
+                  //     .catch(error => {
+                  //         Message({
+                  //             message: error,
+                  //             type: 'error',
+                  //             duration: 5 * 1000,
+                  //         });
+                  //         this.loading = false;
+                  //     });
                 } else if (val === 'save') {
                     this.$refs['refform'].validate(valid => {
                         if (valid) {
