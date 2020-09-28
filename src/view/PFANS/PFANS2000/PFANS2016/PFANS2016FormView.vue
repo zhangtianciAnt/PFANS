@@ -438,11 +438,17 @@
                   } else {
                     valflg = 0.5;
                   }
-                  if (Number(valflg) > Number(response.checkdat)) {
-                    callback(this.$t('normal.error_norestdays'));
-                  } else {
-                    callback();
+                  //upd ccm 0928 客户提出的bug代休填写实际被check，
+                  if (this.form.status==='4' || this.form.status==='6')
+                  {
+                    if (Number(valflg) > Number(response.checkdat) + Number(this.form.lengthtime)) {
+                      callback(this.$t('normal.error_norestdays'));
+                    } else {
+                      callback();
+                    }
                   }
+                  //upd ccm 0928 客户提出的bug代休填写实际被check，
+
                 }
               })
               .catch(error => {
@@ -2215,7 +2221,7 @@
                         });
                         return;
                       }
-                    } else if (parseInt(this.form.status) > 4) {
+                    } else if (this.form.status ==='5' || this.form.status ==='7') {
                       if (this.form.restdiff < this.form.relengthtime) {
                         Message({
                           message: this.$t('normal.error_norestdays'),
@@ -2224,6 +2230,17 @@
                         });
                         return;
                       }
+                    } else {
+                      //add ccm 0928 客户提出的bug代休填写实际被check，
+                      if (Number(this.form.restdiff) + Number(this.form.lengthtime) < this.form.relengthtime) {
+                        Message({
+                          message: this.$t('normal.error_norestdays'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        return;
+                      }
+                      //add ccm 0928 客户提出的bug代休填写实际被check，
                     }
                   } else {
                     if (this.form.restdiff < this.form.lengthtime) {
