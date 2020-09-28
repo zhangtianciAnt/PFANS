@@ -738,7 +738,7 @@
                 refuseShow: false,
                 form: {
                     project_id: '',
-                    careerplan: '1',
+                  careerplan: '0',
                     businessplantype: '',
                     classificationtype: '',
                     businessplanbalance: '',
