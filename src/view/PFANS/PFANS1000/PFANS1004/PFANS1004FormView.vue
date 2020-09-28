@@ -14,20 +14,32 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
-                    <el-input :disabled="true" maxlength='36' v-model="form.center_id" v-show='false'></el-input>
+                    <org :disabled="true"
+                         :orglist="form.center_id"
+                         @getOrgids="getCenterid"
+                         orgtype="1"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
-                    <el-input :disabled="true" maxlength='36' v-model="form.group_id" v-show='false'></el-input>
+                    <org :disabled="checkGro"
+                         :orglist="form.group_id"
+                         @getOrgids="getGroupId1"
+                         orgtype="2"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.team')" prop="team_id">
-                    <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
-                    <el-input :disabled="true" maxlength='36' v-model="form.team_id" v-show='false'></el-input>
+                  <el-form-item :label="$t('label.team')">
+                    <org :disabled="true"
+                         :orglist="form.team_id"
+                         @getOrgids="getTeamid"
+                         orgtype="3"
+                         style="width: 20vw"
+                    ></org>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -553,31 +565,28 @@
 
 <script>
 
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
-  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
-  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
-  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
-  import {Message} from 'element-ui';
-  import {
-    downLoadUrl,
-    getCurrentRole2,
-    getDictionaryInfo,
-    getOrgInfo,
-    getOrgInfoByUserId,
-    getUserInfo,
-    uploadUrl,
-  } from '@/utils/customize';
-  import moment from 'moment';
-  import {quillEditor} from 'vue-quill-editor';
-  import 'quill/dist/quill.core.css';
-  import 'quill/dist/quill.snow.css';
-  import 'quill/dist/quill.bubble.css';
-  import org from '../../../components/org';
-  import {getStatus} from '../../../../utils/customize';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import dicselect from '../../../components/dicselect.vue';
+    import user from '../../../components/user.vue';
+    import {Message} from 'element-ui';
+    import {
+        downLoadUrl,
+        getCurrentRole2,
+        getDictionaryInfo,
+        getOrgInfo,
+        getOrgInfoByUserId,
+        getUserInfo,
+        uploadUrl,
+    } from '@/utils/customize';
+    import moment from 'moment';
+    import {quillEditor} from 'vue-quill-editor';
+    import 'quill/dist/quill.core.css';
+    import 'quill/dist/quill.snow.css';
+    import 'quill/dist/quill.bubble.css';
+    import org from '../../../components/org';
+    import {getStatus} from '../../../../utils/customize';
 
-  export default {
+    export default {
     name: 'PFANS1004FormView',
     components: {
       EasyNormalContainer,
@@ -665,6 +674,7 @@
         userlist: [],
         userlistAnt: [],
         loading: false,
+          checkGro: false,
         disableview: false,
         error: '',
         showTab: true,
@@ -1001,15 +1011,20 @@
               }
               let rst = getOrgInfoByUserId(response.judgement.user_id);
               if (rst) {
-                this.centerid = rst.centerNmae;
-                this.groupid = rst.groupNmae;
-                this.teamid = rst.teamNmae;
+                  //upd_fjl_0927
+                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                      this.checkGro = true;
+                  } else {
+                      this.checkGro = false;
+                  }
+                  // this.centerid = rst.centerNmae;
+                  // this.groupid = rst.groupNmae;
+                  // this.teamid = rst.teamNmae;
+                  //upd_fjl_0927
                 // this.form.thisproject = rst.personalcode;
               }
               this.userlistA = this.form.user_id;
-              if (this.form.group_name == '' || this.form.group_name == null) {
-                this.getBudt(this.userlistA);
-              }
+                this.getBudt(this.form.group_id);
               this.getDecisive(this.form.decisive);
               this.getBusinessplantype(this.form.businessplantype);
               if (this.form.careerplan === '1') {
@@ -1134,12 +1149,20 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            this.form.group_id = rst.groupId;
+              // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
             // this.form.thisproject = rst.personalcode;
+              //add_fjl_0927
+              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.form.group_id = rst.groupId;
+                  this.getBudt(this.form.group_id);
+                  this.checkGro = true;
+              } else {
+                  this.checkGro = false;
+              }
+              //add_fjl_0927
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getBudt(this.form.user_id);
         }
         // this.loading = false;
       }
@@ -1235,6 +1258,19 @@
       }
     },
     methods: {
+        //add_fjl_0927
+        getCenterid(val) {
+            this.form.center_id = val;
+        },
+        getGroupId1(val) {
+            this.form.group_id = val;
+            this.form.budgetunit = '';
+            this.getBudt(val);
+        },
+        getTeamid(val) {
+            this.form.team_id = val;
+        },
+        //add_fjl_0927
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getGroupId(orglist) {
         this.getchangeGroup(orglist);
@@ -1430,9 +1466,12 @@
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getBudt(val) {
         this.options = [];
+          if (val === '' || val === null) {
+              return;
+          }
         //ADD_FJL  修改人员预算编码
-        if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+          let butinfo = getOrgInfo(val).encoding;
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
@@ -1444,7 +1483,7 @@
               }
             }
           }
-        }
+          // }
         //ADD_FJL  修改人员预算编码
       },
       setdisabled(val) {

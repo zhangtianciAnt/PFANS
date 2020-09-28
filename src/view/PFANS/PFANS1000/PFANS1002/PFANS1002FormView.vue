@@ -851,19 +851,17 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import project from '../../../components/project.vue';
-  import {Message} from 'element-ui';
-  import moment from 'moment';
-  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName, getCurrentRole, getStatus} from '@/utils/customize';
-  import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo} from '../../../../utils/customize';
-  import org from '../../../components/org';
-  import PFANS1012Pop from '@/components/EasyPop/PFANS1012Pop';
-  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user.vue';
+    import project from '../../../components/project.vue';
+    import {Message} from 'element-ui';
+    import moment from 'moment';
+    import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName} from '@/utils/customize';
+    import dicselect from '../../../components/dicselect';
+    import {getDictionaryInfo} from '../../../../utils/customize';
+    import org from '../../../components/org';
 
-  export default {
+    export default {
     name: 'PFANS1002FormView',
     components: {
       dicselect,
@@ -2204,10 +2202,10 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
+          this.options = [];
           if (val === '' || val === null) {
               return;
           }
-          this.options = [];
         //ADD_FJL  修改人员预算编码
           // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
           let butinfo = getOrgInfo(val).encoding;

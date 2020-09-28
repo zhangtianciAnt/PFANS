@@ -52,21 +52,33 @@
           <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.center')" prop="centerid">
-                <el-input :disabled="disable2" style="width:20vw" v-model="centerid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
+              <el-form-item :label="$t('label.center')">
+                <org :disabled="true"
+                     :orglist="form.centerid"
+                     @getOrgids="getCenterid"
+                     orgtype="1"
+                     style="width: 20vw"
+                ></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.group')" prop="groupid">
-                <el-input :disabled="disable2" style="width:20vw" v-model="groupid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
+              <el-form-item :label="$t('label.group')">
+                <org :disabled="checkGro"
+                     :orglist="form.groupid"
+                     @getOrgids="getGroupId"
+                     orgtype="2"
+                     style="width: 20vw"
+                ></org>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.team')" prop="teamid">
-                <el-input :disabled="disable2" style="width:20vw" v-model="teamid"></el-input>
-                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
+              <el-form-item :label="$t('label.team')">
+                <org :disabled="true"
+                     :orglist="form.teamid"
+                     @getOrgids="getTeamid"
+                     orgtype="3"
+                     style="width: 20vw"
+                ></org>
               </el-form-item>
             </el-col>
           </el-row>
@@ -149,7 +161,7 @@
                 <el-table-column :label="$t('label.PFANS1012VIEW_TELEPHONE')" align="center"
                                  width="250">
                   <template slot-scope="scope">
-                      <el-input v-model="scope.row.investigator" :disabled="!disable" maxlength='20'></el-input>
+                    <el-input :disabled="!disable" maxlength='20' v-model="scope.row.investigator"></el-input>
                   </template>
                 </el-table-column>
 
@@ -225,8 +237,9 @@
     import dicselect from "../../../components/dicselect.vue";
     import moment from "moment";
     import {Message} from 'element-ui';
+    import org from '../../../components/org';
     import user from "../../../components/user.vue";
-    import {getOrgInfoByUserId, getOrgInfo, getCurrentRole2} from '@/utils/customize'
+    import {getCurrentRole2, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize'
 
     export default {
         name: "PFANS3004FormView",
@@ -235,7 +248,8 @@
             PFANS3004View,
             getOrgInfoByUserId,
             dicselect,
-            user
+            user,
+            org
         },
 
         data() {
@@ -277,14 +291,14 @@
                 ],
                 acceptShow: true,
                 refuseShow: false,
-              refuseShow1: false,
+                refuseShow1: false,
                 enableSave: false,
                 tableD: [
                     {
                         stationerytype: '',
                         footname: '',
                         numbers: '',
-                        investigator:'',
+                        investigator: '',
                     },
                 ],
                 form: {
@@ -302,9 +316,9 @@
                     accept: '0',
                     acceptstatus: '',
                     findate: '',
-                  finshtime: '',
+                    finshtime: '',
                     refusereason: '',
-                    investigator:'',
+                    investigator: '',
                 },
                 rules: {
                     userid: [{
@@ -338,7 +352,7 @@
                 code3: 'PR004',
                 multiple: false,
                 disable: false,
-                disable2: true,
+                checkGro: false,
                 arrD: [],
             };
         },
@@ -379,40 +393,47 @@
                         if (this.form.acceptstatus === '1') {
                             this.refuseShow = true;
                         } else if (this.form.acceptstatus === '2') {
-                          this.refuseShow = false;
-                          this.refuseShow1 = true;
+                            this.refuseShow = false;
+                            this.refuseShow1 = true;
                         } else {
-                          this.refuseShow = false;
-                          this.refuseShow1 = false;
+                            this.refuseShow = false;
+                            this.refuseShow1 = false;
                         }
                         let rst = getOrgInfoByUserId(response.userid);
                         if (rst) {
-                            this.centerid = rst.centerNmae;
-                            this.groupid = rst.groupNmae;
-                            this.teamid = rst.teamNmae;
+                            //upd_fjl_0927
+                            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                                this.checkGro = true;
+                            } else {
+                                this.checkGro = false;
+                            }
+                            // this.centerid = rst.centerNmae;
+                            // this.groupid = rst.groupNmae;
+                            // this.teamid = rst.teamNmae;
+                            //upd_fjl_0927
                         }
                         this.userlist = this.form.userid;
-                        this.getBudt(this.userlist);
+                        this.getBudt(this.form.groupid);
                         if (this.form.status === '2') {
                             this.disable = false;
                         }
-                      //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-                      let role = getCurrentRole2();
-                      if (role === '0') {
-                        if (this.form.status === '4') {
-                          this.enableSave = true;
-                          if (this.disable) {
-                            this.form.findate = moment(new Date()).format("YYYY-MM-DD")
-                            this.acceptShow = false;
-                          } else {
-                            this.acceptShow = true;
-                          }
-                        } else {
-                          this.acceptShow = true;
-                          this.enableSave = false;
+                        //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                        let role = getCurrentRole2();
+                        if (role === '0') {
+                            if (this.form.status === '4') {
+                                this.enableSave = true;
+                                if (this.disable) {
+                                    this.form.findate = moment(new Date()).format("YYYY-MM-DD")
+                                    this.acceptShow = false;
+                                } else {
+                                    this.acceptShow = true;
+                                }
+                            } else {
+                                this.acceptShow = true;
+                                this.enableSave = false;
+                            }
                         }
-                      }
-                      //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                        //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
                         this.loading = false;
                     })
                     .catch(error => {
@@ -435,11 +456,19 @@
                         this.groupid = rst.groupNmae;
                         this.teamid = rst.teamNmae;
                         this.form.centerid = rst.centerId;
-                        this.form.groupid = rst.groupId;
+                        // this.form.groupid = rst.groupId;
                         this.form.teamid = rst.teamId;
+                        //add_fjl_0927
+                        if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                            this.form.groupid = rst.groupId;
+                            this.getBudt(this.form.groupid);
+                            this.checkGro = true;
+                        } else {
+                            this.checkGro = false;
+                        }
+                        //add_fjl_0927
                     }
                     this.form.userid = this.$store.getters.userinfo.userid;
-                    this.getBudt(this.form.userid);
                 }
             }
         },
@@ -457,46 +486,63 @@
             }
         },
         methods: {
+            //add_fjl_0927
+            getCenterid(val) {
+                this.form.centerid = val;
+            },
+            getGroupId(val) {
+                this.form.groupid = val;
+                this.form.company = '';
+                this.getBudt(val);
+            },
+            getTeamid(val) {
+                this.form.teamid = val;
+            },
+            //add_fjl_0927
             //change受理状态  add_fjl
             changeAcc(val) {
                 this.form.acceptstatus = val;
-              // if (val === '1') {
-              //     this.refuseShow = true;
-              // } else {
-              //     this.refuseShow = false;
-              // }
-              if (val === '1') {
-                this.refuseShow = true;
-                this.refuseShow1 = false;
-                this.form.finshtime = null;
-              } else if (val === '2') {
-                this.refuseShow = false;
-                this.refuseShow1 = true;
-                this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
-                this.form.refusereason = null;
-              } else {
-                this.refuseShow = false;
-                this.refuseShow1 = false;
-                this.form.refusereason = null;
-                this.form.finshtime = null;
-              }
+                // if (val === '1') {
+                //     this.refuseShow = true;
+                // } else {
+                //     this.refuseShow = false;
+                // }
+                if (val === '1') {
+                    this.refuseShow = true;
+                    this.refuseShow1 = false;
+                    this.form.finshtime = null;
+                } else if (val === '2') {
+                    this.refuseShow = false;
+                    this.refuseShow1 = true;
+                    this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
+                    this.form.refusereason = null;
+                } else {
+                    this.refuseShow = false;
+                    this.refuseShow1 = false;
+                    this.form.refusereason = null;
+                    this.form.finshtime = null;
+                }
             },
             getBudt(val) {
+                this.options1 = [];
+                if (val === '' || val === null) {
+                    return;
+                }
                 //ADD_FJL  修改人员预算编码
-                if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                    let butinfo = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                        for (let i = 0; i < dic.length; i++) {
-                            if (butinfo === dic[i].value1) {
-                                this.options1.push({
-                                    lable: dic[i].value2 + '_' + dic[i].value3,
-                                    value: dic[i].code,
-                                })
-                            }
+                // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+                let butinfo = getOrgInfo(val).encoding;
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if (dic.length > 0) {
+                    for (let i = 0; i < dic.length; i++) {
+                        if (butinfo === dic[i].value1) {
+                            this.options1.push({
+                                lable: dic[i].value2 + '_' + dic[i].value3,
+                                value: dic[i].code,
+                            })
                         }
                     }
                 }
+                // }
                 //ADD_FJL  修改人员预算编码
             },
             getBudgetunit(val) {
@@ -565,7 +611,7 @@
                         stationerytype: '',
                         footname: '',
                         numbers: '',
-                        investigator:'',
+                        investigator: '',
                     }];
                 }
             },
@@ -574,7 +620,7 @@
                     stationerytype: '',
                     footname: '',
                     numbers: '',
-                    investigator:'',
+                    investigator: '',
                 });
             },
             //add_fjl
@@ -627,81 +673,79 @@
             buttonClick(val) {
                 this.$refs["refform"].validate(valid => {
                     if (valid) {
-                      this.loading = true;
-                      let sumchek = 0;
-                      for (let i = 0; i < this.tableD.length; i++)
-                      {
-                        if (this.tableD[i].investigator === '' || !this.tableD[i].investigator || this.tableD[i].investigator === "undefined") {
-                           sumchek=sumchek+1;
-                          Message({
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
-                            type: 'error',
-                            duration: 5 * 1000
-                          });
-                          this.loading = false;
-                          break;
+                        this.loading = true;
+                        let sumchek = 0;
+                        for (let i = 0; i < this.tableD.length; i++) {
+                            if (this.tableD[i].investigator === '' || !this.tableD[i].investigator || this.tableD[i].investigator === "undefined") {
+                                sumchek = sumchek + 1;
+                                Message({
+                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_TELEPHONE'),
+                                    type: 'error',
+                                    duration: 5 * 1000
+                                });
+                                this.loading = false;
+                                break;
+                            }
                         }
-                      }
                         //add_fjl 类型的明细
                         this.form.stationerytype = JSON.stringify(this.tableD);
                         //add_fjl 类型的明细
 
                         this.form.userid = this.userlist;
-                        if (sumchek===0){
-                          if (this.$route.params._id) {
-                            this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
-                            this.loading = true;
-                            this.$store
-                              .dispatch('PFANS3004Store/updateStationery', this.form)
-                              .then(response => {
-                                this.data = response;
-                                this.loading = false;
-                                if (val !== "update") {
-                                  Message({
-                                    message: this.$t("normal.success_02"),
-                                    type: 'success',
-                                    duration: 5 * 1000
-                                  });
-                                  if (this.$store.getters.historyUrl) {
-                                    this.$router.push(this.$store.getters.historyUrl);
-                                  }
-                                }
-                              })
-                              .catch(error => {
-                                Message({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000
-                                })
-                                this.loading = false;
-                              })
-                          }
-                          else {
-                            this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
-                            this.loading = true;
-                            this.$store
-                              .dispatch('PFANS3004Store/createStationery', this.form)
-                              .then(response => {
-                                this.data = response;
-                                this.loading = false;
-                                Message({
-                                  message: this.$t("normal.success_01"),
-                                  type: 'success',
-                                  duration: 5 * 1000
-                                });
-                                if (this.$store.getters.historyUrl) {
-                                  this.$router.push(this.$store.getters.historyUrl);
-                                }
-                              })
-                              .catch(error => {
-                                Message({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000
-                                });
-                                this.loading = false;
-                              })
-                          }
+                        if (sumchek === 0) {
+                            if (this.$route.params._id) {
+                                this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS3004Store/updateStationery', this.form)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        if (val !== "update") {
+                                            Message({
+                                                message: this.$t("normal.success_02"),
+                                                type: 'success',
+                                                duration: 5 * 1000
+                                            });
+                                            if (this.$store.getters.historyUrl) {
+                                                this.$router.push(this.$store.getters.historyUrl);
+                                            }
+                                        }
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        })
+                                        this.loading = false;
+                                    })
+                            } else {
+                                this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
+                                this.loading = true;
+                                this.$store
+                                    .dispatch('PFANS3004Store/createStationery', this.form)
+                                    .then(response => {
+                                        this.data = response;
+                                        this.loading = false;
+                                        Message({
+                                            message: this.$t("normal.success_01"),
+                                            type: 'success',
+                                            duration: 5 * 1000
+                                        });
+                                        if (this.$store.getters.historyUrl) {
+                                            this.$router.push(this.$store.getters.historyUrl);
+                                        }
+                                    })
+                                    .catch(error => {
+                                        Message({
+                                            message: error,
+                                            type: 'error',
+                                            duration: 5 * 1000
+                                        });
+                                        this.loading = false;
+                                    })
+                            }
                         }
 
                     } else {
