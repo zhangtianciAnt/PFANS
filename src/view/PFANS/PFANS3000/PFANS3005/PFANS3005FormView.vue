@@ -8,7 +8,7 @@
         <el-form :model="form1" :rules="rules1" label-position="top" label-width="8vw" ref="refform1">
           <el-dialog :title="$t('label.PFANS3005VIEW_TRASHREASON')" :visible.sync="dialogFormVisible">
             <el-form-item :label="$t('label.PFANS3005VIEW_TRASHREASON')" :error="errortrashreason" prop="trashreason">
-              <el-input :disabled="disabled" type="textarea" style="width:46vw" :autosize="{ minRows: 3, maxRows: 4}"
+              <el-input type="textarea" style="width:46vw" :autosize="{ minRows: 3, maxRows: 4}"
                         v-model="form1.trashreason"></el-input>
             </el-form-item>
             <div class="dialog-footer" align="center">
@@ -1012,7 +1012,7 @@
                     required: true,
                     message:
                       this.$t('normal.error_08') +
-                      this.$t('label.PFANS3006VIEW_TRASHREASON'),
+                      this.$t('label.PFANS3005VIEW_TRASHREASON'),
                     trigger: 'change',
                   },
                 ]

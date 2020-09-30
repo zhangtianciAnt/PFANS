@@ -91,7 +91,7 @@
                           :label-width="formLabelWidth" prop="custojapanese">
               <div class="" style="width: 20vw">
                 <el-input class="content bg"
-                          v-model="form1.custojapanese" :disabled="!disabled2">
+                          v-model="form1.custojapanese" :disabled="true">
                   <el-button :disabled="!disabled2" size="small" slot="append" icon="el-icon-search"
                              @click="handleClickE()"></el-button>
                 </el-input>

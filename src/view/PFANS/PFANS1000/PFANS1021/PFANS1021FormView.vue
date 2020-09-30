@@ -396,6 +396,7 @@
           extension: '',
           email: '',
           reason: '',
+          antcheck: '',
           tableD: [
             {
               securitydetailid: '',
@@ -786,6 +787,7 @@
       //     row.showroom = val;
       // },
       workflowState(val) {
+        this.antcheck = '1';
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
@@ -860,25 +862,35 @@
         });
       },
       buttonClick2() {
+        this.tableT = this.form.tableD;
         this.baseInfo = {};
         this.baseInfo.securitydetail = [];
         for (let i = 0; i < this.form.tableD.length; i++) {
           if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
             this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
             || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
-            this.form.tableD[i].timea = moment(this.form.tableT[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableT[i].timea[1]).format('YYYY-MM-DD');
+            this.form.tableD[i].timea = moment(this.tableT[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tableT[i].timea[1]).format('YYYY-MM-DD');
+            debugger
             let checktableD = '';
             let checktable = '';
             if (this.form.status === '4' || this.form.status === '3') {
-              if (this.form.tableT[i].fabuilding != '') {
-                let checktlist = this.form.tableT[i].fabuilding.splice(',');
+              if (this.tableT[i].fabuilding != '') {
+                let checktlist = this.tableT[i].fabuilding.splice(',');
                 for (var m = 0; m < checktlist.length; m++) {
                   checktableD = checktableD + checktlist[m] + ',';
                 }
               }
               checktable = checktableD.substring(0, checktableD.length - 1);
             } else {
-              checktable = this.form.tableT[i].fabuilding;
+              if (this.form.status != '2' || this.antcheck === '1') {
+                let checktlist = this.tableT[i].fabuilding.splice(',');
+                for (var m = 0; m < checktlist.length; m++) {
+                  checktableD = checktableD + checktlist[m] + ',';
+                }
+                checktable = checktableD.substring(0, checktableD.length - 1);
+              } else {
+                checktable = this.tableT[i].fabuilding;
+              }
             }
             this.baseInfo.securitydetail.push(
               {
@@ -898,6 +910,7 @@
             );
           }
         }
+        console.log(this.baseInfo.securitydetail)
         this.form.application = moment(this.form.application).format('YYYY-MM-DD');
         this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.securityid = this.$route.params._id;

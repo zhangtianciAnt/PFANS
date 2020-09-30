@@ -281,6 +281,29 @@
               </el-row>
             </el-tab-pane>
 
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.enclosure')">
+                    <el-upload
+                      :action="upload"
+                      :file-list="fileList"
+                      :on-error="fileError"
+                      :on-preview="fileDownload"
+                      :on-remove="fileRemove"
+                      :on-success="fileSuccess"
+                      class="upload-demo"
+                      drag
+                      ref="upload"
+                      v-model="form.uploadfile">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
+                    </el-upload>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
           </el-tabs>
         </el-form>
       </div>
@@ -294,7 +317,11 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getStatus} from '@/utils/customize';
+  import {
+    downLoadUrl,
+    getStatus,
+    uploadUrl
+  } from '@/utils/customize';
 
   export default {
     name: 'PFANS1045FormView',
@@ -312,6 +339,8 @@
         canStart: true,
         code7: 'PG019',
         disablecheck: '',
+        upload: uploadUrl(),
+        fileList: [],
         disable2: false,
         multiple: false,
         disable: false,
@@ -364,6 +393,7 @@
           outsourcingcompany: '',
           currency: 'PG019003',
           policynumbers: '',
+          uploadfile: '',
           type: '0',
         },
         buttonList: [
@@ -411,6 +441,17 @@
               this.show10 = true;
             } else {
               this.show10 = false;
+            }
+            if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
+                }
+              }
             }
             if (this.form.status === '4') {
               this.disable = false;
@@ -470,6 +511,46 @@
       setdisabled(val) {
         if (this.$route.params.disabled) {
           this.disable = val;
+        }
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
         }
       },
       getaward() {
