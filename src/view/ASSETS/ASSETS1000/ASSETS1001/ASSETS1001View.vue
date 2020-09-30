@@ -142,7 +142,7 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo, getOrgInfo,Decrypt } from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, getOrgInfo,Decrypt,getUserInfoName } from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
@@ -153,6 +153,7 @@
     },
     data() {
       return {
+        userids: '',
         department: '',
         options: [],
         totaldata: [],
@@ -284,7 +285,7 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
-          {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': true, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
         row_id: 'assets_id',
@@ -474,7 +475,17 @@
           });
       },
       rowClick(row) {
+        //add-ws-9/30-禅道任务564
+        this.buttonList[7].disabled = true;
+        if (getUserInfoName(row.principal) !== '-1') {
+          this.userids = getUserInfoName(row.principal).userid;
+        }
+        if(this.userids === this.$store.getters.userinfo.userid){
+          this.buttonList[7].disabled = false;
+        }
+//add-ws-9/30-禅道任务564
         this.rowid = row.assets_id;
+
       },
       handleSizeChange(val) {
         this.listQuery.limit = val;
