@@ -14,7 +14,8 @@ import {
   createpolicycontract,
   exportjs,
   getworkfolwPurchaseData,
-  getLoanapplicationOne2
+  getLoanapplicationOne2,
+  getpublice,
 } from './PFANS1006Api';
 
 const PFANS1006Store = {
@@ -236,6 +237,19 @@ const PFANS1006Store = {
       })
     },
     //采购业务数据流程查看详情
+    getpublice({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getpublice(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
 
   },
 };

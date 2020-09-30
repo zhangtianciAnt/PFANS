@@ -127,3 +127,10 @@ export function getworkfolwPurchaseData(data) {
   })
 }
 //采购业务数据流程查看详情
+export function getpublice(data) {
+  return request({
+    url: 'loanapplication/getpublice',
+    method: 'post',
+    data: data
+  })
+}

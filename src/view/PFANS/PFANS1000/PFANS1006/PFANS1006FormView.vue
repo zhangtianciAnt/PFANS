@@ -74,21 +74,17 @@
                                 maxlength="20"></el-input>
                     </el-form-item>
                   </el-col>
-                  <!--add-ws-8/12-禅道任务446-->
-                  <el-col :span="8" v-if="this.role2==='0'">
-                    <el-form-item :label="$t('label.status')" >
-                      <el-select clearable style="width: 20vw" v-model="form.processingstatus" :disabled="acceptShow"
-                                 :placeholder="$t('normal.error_09')" >
-                        <el-option
-                          v-for="item in options2"
-                          :key="item.value"
-                          :label="item.label"
-                          :value="item.value">
-                        </el-option>
-                      </el-select>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
+                      <dicselect :code="code2"
+                                 :data="form.moduleid"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getmodule"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
-                  <!--add-ws-8/12-禅道任务446-->
                   <!--            <el-col :span="8">-->
                   <!--              <el-form-item :label="$t('label.judgement')" prop="judgement">-->
                   <!--                <el-select @change="change" clearable v-model="form.judgements"-->
@@ -177,22 +173,35 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')" v-show=flag>
-                      <dicselect :code="code2"
-                                 :data="form.moduleid"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getmodule"
-                                 style="width:20vw">
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>
                       <el-input :disabled="!disable" maxlength="20" style="width:20vw"
                                 v-model="form.accountnumber"></el-input>
                     </el-form-item>
                   </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
+                  <el-col :span="8" v-if="this.role2==='0'">
+                    <el-form-item :label="$t('label.status')">
+                      <el-select :disabled="acceptShow" :placeholder="$t('normal.error_09')" @change="prostatusChange"
+                                 clearable
+                                 style="width: 20vw" v-model="form.processingstatus">
+                        <el-option
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                          v-for="item in options2">
+                        </el-option>
+                      </el-select>
+                    </el-form-item>
+                  </el-col>
+                  <!--add-ws-8/12-禅道任务446-->
+                  <!--add-fjl-0928-作废原因-->
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1006FORMVIEW_REASONVOID')" prop="reasonvoid" v-show="showvoid">
+                      <el-input :disabled="acceptShow" style="width:20vw"
+                                v-model="form.reasonvoid"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <!--add-fjl-0928-作废原因-->
                 </el-row>
 
                 <el-row>
@@ -646,6 +655,7 @@
         enableSave: false,
         role2: '',
         acceptShow: true,
+          showvoid: false,
         options2: [
           {
             value: '0',
@@ -655,6 +665,10 @@
             value: '1',
             label: this.$t('label.PFANS1006FORMVIEW_OPTIONS2'),
           },
+            {
+                value: '2',
+                label: this.$t('label.PFANS1006FORMVIEW_OPTIONS3'),
+            },
         ],
         // add-ws-8/12-禅道任务446
         gridData: [],
@@ -667,6 +681,7 @@
         regExp: [],
         png11: png11,
         loading: false,
+          pubLoan: '0',
         warning: this.$t('label.PFANS1006FORMVIEW_WARNING'),
         warning1: this.$t('label.PFANS1006FORMVIEW_WARNING1'),
         warning2: this.$t('label.PFANS1006FORMVIEW_WARNING2'),
@@ -687,6 +702,7 @@
           // add-ws-8/12-禅道任务446
           processingstatus: '0',
           // add-ws-8/12-禅道任务446
+            reasonvoid: '',
           accountpayeename: '',
           judgements: '',
           judgements_name: '',
@@ -821,6 +837,13 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_REASONFORDELAY'),
             trigger: 'change',
           }],
+            //add_fjl_0929  报废原因
+            reasonvoid: [{
+                required: false,
+                message: this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_REASONVOID'),
+                trigger: 'change',
+            }],
+            //add_fjl_0929  报废原因
         },
         canStart: false,
         flowData:[],
@@ -872,6 +895,9 @@
         this.flag = true;
       }
       this.IDname = this.$route.params._id;
+        //add_fjl_0929  查询公共费用中的暂借款 start
+        this.getpublice();
+        //add_fjl_0929  查询公共费用中的暂借款 end
         if (this.IDname) {
         this.loading = true;
         this.$store
@@ -879,11 +905,17 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
-              if(this.form.status ==='4'){
+                if (this.disable && this.form.status === '4') {
                 this.acceptShow = false
               }else{
                 this.acceptShow = true
               }
+                //add_fjl_0929  报废原因
+                if (this.role2 === '0' && this.form.processingstatus === '2') {
+                    this.showvoid = true;
+                    this.rules.reasonvoid[0].required = true;
+                }
+                //add_fjl_0929  报废原因
               //决裁关联
               if (this.form.judgements != null && this.form.judgements != '' && this.form.judgements != undefined) {
                 let judgement = this.form.judgements.split(',');
@@ -1326,6 +1358,25 @@
             this.loading = false;
           });
       },
+        //add_fjl_0929  添加公共费用中暂借款查询 start
+        getpublice() {
+            this.loading = true;
+            this.$store
+                .dispatch('PFANS1006Store/getpublice', {'loanapplication_id': this.IDname})
+                .then(response => {
+                    this.pubLoan = response.length;
+                    this.loading = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        },
+        //add_fjl_0929  添加公共费用中暂借款查询 end
       getUserids(val) {
         this.form.user_id = val;
         if (val === '') {
@@ -1371,6 +1422,18 @@
       changecurrencychoice(val) {
         this.form.currencychoice = val;
       },
+        //add_fjl_0929  处理状态
+        prostatusChange(val) {
+            this.rules.reasonvoid[0].required = false;
+            this.showvoid = false;
+            this.form.processingstatus = val;
+            this.form.reasonvoid = '';
+            if (val === '2') {
+                this.showvoid = true;
+                this.rules.reasonvoid[0].required = true;
+            }
+        },
+        //add_fjl_0929  处理状态
       getPayment(val) {
         this.form.paymentmethod = val;
         if (val === 'PJ015001') {
@@ -1505,7 +1568,16 @@
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
-              this.loading = true;
+                //add_fjl_0929  暂借款在公共费用中使用，不可作废 start
+                if (this.showvoid && this.pubLoan !== '0') {
+                    Message({
+                        message: this.$t('label.PFANS1006FORMVIEW_VOIDERROR'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    return;
+                }
+                //add_fjl_0929  暂借款在公共费用中使用，不可作废 end
               // if (this.form.paymentmethod === 'PJ015001') {
               //   this.form.name = '';
               // } else if (this.form.paymentmethod === 'PJ015002') {
@@ -1536,6 +1608,7 @@
               }
               if (error === 0) {
                   if (this.IDname) {
+                      this.loading = true;
                       this.form.loanapplication_id = this.IDname;
                   this.$store
                     .dispatch('PFANS1006Store/updateLoanapplication', this.form)
