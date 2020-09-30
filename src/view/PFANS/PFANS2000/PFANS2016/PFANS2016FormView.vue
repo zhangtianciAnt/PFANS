@@ -2147,6 +2147,7 @@
 
       },
       fileSuccess(response, file, fileList) {
+        debugger
         if (response.data == "upload_success") {
           this.fileList = [];
           this.form.uploadfile = '';

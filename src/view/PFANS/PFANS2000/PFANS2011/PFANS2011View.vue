@@ -9,6 +9,20 @@
     @rowClick="rowClick"
     v-loading="loading"
   >
+    <!--    add-ws-9/29-禅道任务547-->
+    <el-date-picker
+      unlink-panels
+      class="bigWidth"
+      v-model="workinghours"
+      style="margin-right:1vw"
+      slot="customize"
+      type="daterange"
+      :end-placeholder="$t('label.enddate')"
+      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+      :start-placeholder="$t('label.startdate')"
+      @change="filterInfo"
+    ></el-date-picker>
+    <!--    add-ws-9/29-禅道任务547-->
   </EasyNormalTable>
 </template>
 
@@ -17,7 +31,7 @@
   import {Message} from 'element-ui';
   import {
     getDictionaryInfo,
-      getStatusNum,
+    getStatusNum,
     getUserInfo,
     getOrgInfoByUserId,
   } from '../../../../utils/customize';
@@ -33,6 +47,13 @@
     },
     data() {
       return {
+        // add-ws-9/29-禅道任务547
+        workinghours: '',
+        tableList: [],
+        working: '',
+        starttime: '',
+        endTime: '',
+        // add-ws-9/29-禅道任务547
         loading: false,
         title: 'title.PFANS2011VIEW',
         data: [],
@@ -150,13 +171,44 @@
       this.getovertime();
     },
     methods: {
+      // add-ws-9/29-禅道任务547
+      filterInfo() {
+        this.data = this.tableList.slice(0);
+        if (this.tableList.length > 0) {
+          //进行时间筛选
+          this.working = this.getworkinghours(this.workinghours);
+          this.starttime = this.working.substring(0, 10);
+          this.endTime = this.working.substring(13, 23);
+          if (this.starttime != '' || this.endTime != '') {
+            this.data = this.data.filter(item => {
+              return this.starttime <= moment(item.reserveovertimedate).format('YYYY-MM-DD') && moment(item.reserveovertimedate).format('YYYY-MM-DD') <= this.endTime;
+            });
+          }
+        }
+      },
+      getworkinghours(workinghours) {
+        if (workinghours != null) {
+          if (workinghours.length > 0) {
+            return (
+              moment(workinghours[0]).format('YYYY-MM-DD') +
+              ' ~ ' +
+              moment(workinghours[1]).format('YYYY-MM-DD')
+            );
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      },
+      // add-ws-9/29-禅道任务547
       rowClick(row) {
         //add-ws-9/4-加班申请可删除任务
         this.buttonList[3].disabled = true;
-        if (row.userid === this.$store.getters.userinfo.userid ) {
-         if(row.status === this.$t('label.PFANS1026VIEW_WSTATUS')){
-           this.buttonList[3].disabled = false;
-         }
+        if (row.userid === this.$store.getters.userinfo.userid) {
+          if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS')) {
+            this.buttonList[3].disabled = false;
+          }
         }
         //add-ws-9/4-加班申请可删除任务
         this.rowid = row.overtimeid;
@@ -169,7 +221,7 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].status !== null && response[j].status !== '') {
-                  response[j].status = getStatusNum(response[j].status);
+                response[j].status = getStatusNum(response[j].status);
               }
               if (response[j].applicationdate !== null && response[j].applicationdate !== '') {
                 response[j].applicationdate = moment(response[j].applicationdate).format('YYYY-MM-DD');
@@ -201,6 +253,7 @@
               }
             }
             this.data = response;
+            this.tableList = response;
             this.loading = false;
           })
           .catch(error => {

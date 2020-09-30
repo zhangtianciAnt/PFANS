@@ -3,6 +3,7 @@ import {
         getOvertimelist,getReplacerest,cklength,updateNewUser,getSickleave,getFpans2016List2,
   selectAbNormalParent, updateOvertime, getRestday, getLeaveNumber,getremainingByuserid
 } from './PFANS2016Api'
+import {getAttendancelist} from '../PFANS2010/PFANS2010Api';
 
 const PFANS2016Store = {
   namespaced: true,

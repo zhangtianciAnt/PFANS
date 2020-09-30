@@ -43,8 +43,8 @@ export function updateNewUser(data) {
 export function getFpans2016List(data) {
   return request({
     url: 'abNormal/list',
-    method: 'get',
-    params: data
+    method: 'post',
+    data: data
   })
 }
 //add-ws-6/8-禅道035
