@@ -318,6 +318,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
   import {
+    downLoadUrl,
     getStatus,
     uploadUrl
   } from '@/utils/customize';
