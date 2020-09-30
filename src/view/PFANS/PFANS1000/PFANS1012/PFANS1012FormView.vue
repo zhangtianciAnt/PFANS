@@ -1512,6 +1512,7 @@
         }
       };
       return {
+        tableTgroupId: '',
         // add-ws-8/12-禅道任务446
         enableSave: false,
         role2: '',
@@ -2565,6 +2566,7 @@
         }
         //ADD-WS-直接部门或间接部门赋值变更
         if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
+          this.tableTgroupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableP[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
@@ -4177,12 +4179,13 @@
       },
       addRow() {
         this.tableT.push({
+          optionsT: this.tableT[0].optionsT,
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
           accountcode: '',
-          departmentname: '',
-          budgetcoding: '',
+          departmentname: this.tableT[0].departmentname,
+          budgetcoding: this.tableT[0].budgetcoding,
           subjectnumber: '',
           plsummary: 'PJ111008',
           region: '',
