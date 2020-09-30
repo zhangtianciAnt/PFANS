@@ -2523,7 +2523,7 @@
             let contractnumbercount = response.contractnumbercount;
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {
-                if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null) {
+                  if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
                   let claimdatetime = contractnumbercount[i].claimdatetimeqh;
                   let claimdatetim = claimdatetime.slice(0, 10);
                   let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
