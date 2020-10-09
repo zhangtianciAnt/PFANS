@@ -527,7 +527,6 @@
     data() {
       var validatePayeecode = (rule, value, callback) => {
         //upd-ws-8/26-禅道bug65
-        // debugger
         // this.regExp = /^[A-Za-z0-9]+$/;
         // if (this.form.payeecode !== null && this.form.payeecode !== '') {
         //   if (!this.regExp.test((value))) {
@@ -681,7 +680,7 @@
         regExp: [],
         png11: png11,
         loading: false,
-          pubLoan: '0',
+        pubLoan: 0,
         warning: this.$t('label.PFANS1006FORMVIEW_WARNING'),
         warning1: this.$t('label.PFANS1006FORMVIEW_WARNING1'),
         warning2: this.$t('label.PFANS1006FORMVIEW_WARNING2'),
@@ -1575,7 +1574,7 @@
           this.$refs['refform'].validate(valid => {
             if (valid) {
                 //add_fjl_0929  暂借款在公共费用中使用，不可作废 start
-                if (this.showvoid && this.pubLoan !== '0') {
+                if (this.showvoid && this.pubLoan !== 0) {
                     Message({
                         message: this.$t('label.PFANS1006FORMVIEW_VOIDERROR'),
                         type: 'error',

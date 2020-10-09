@@ -648,6 +648,8 @@
                 response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
               } else if (response[j].processingstatus === '1') {
                 response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
+              }else if (response[j].processingstatus === '2') {
+                  response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS3');
               }
             }
           }
