@@ -256,6 +256,12 @@
             },
             fileDownload(varurl) {
                 if (varurl) {
+                    file.url = file.url.replace("#","%23");
+                    file.url = file.url.replace("&","%26");
+                    file.url = file.url.replace("+","%2B");
+                    file.url = file.url.replace("%","%25");
+                    file.url = file.url.replace("=","%3D");
+                    file.url = file.url.replace("?","%3F");
                     var url = downLoadUrl(varurl);
                     window.open(url);
                 }
