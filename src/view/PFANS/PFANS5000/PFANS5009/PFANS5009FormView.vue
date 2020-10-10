@@ -797,13 +797,13 @@
                   style="width: 90vw"
                   v-show="form.toolstype === '0' || !form.toolstype"
                 >
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center"  width="200%">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center" width="260%">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:20vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="scope.row.type === '0' ? true : false" style="min-width: 40%;width: 40%"></input>
+                                   :disabled="true" style="min-width: 40%;width: 40%"></input>
                             <el-button
                               :disabled="scope.row.type === '0' ? true : false"
                               icon="el-icon-search"

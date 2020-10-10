@@ -646,8 +646,8 @@
     created() {
       this.left = (this.clientW - this.itemWidth - 10)
       this.top = (this.clientH/2 - this.itemHeight/2)
-      this.messageconnect();
-      this.loginconnect();
+      // this.messageconnect();
+      // this.loginconnect();
     },
     watch: {
       appdata(val) {
