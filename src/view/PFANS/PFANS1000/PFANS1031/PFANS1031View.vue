@@ -304,9 +304,7 @@
     methods: {
       //add_fjl_添加合同回款相关  start
       selectInit(row, index) {
-        if (this.$i18n) {
-          return (moment(row.deliverydate).format('YYYY-MM') <= new moment().format('YYYY-MM') && row.sealstatus === undefined);
-        }
+        return (moment(row.deliverydate).format('YYYY-MM') <= new moment().format('YYYY-MM') && row.sealstatus === '');
       },
       handleEdit(row) {
         if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
