@@ -58,7 +58,7 @@
       return {
         // add-ws-9/29-禅道任务547
         tableList: [],
-        workinghours: '',
+        workinghours: [moment(new Date()).startOf('month').format("YYYY-MM-DD"), moment(new Date()).endOf('month').format("YYYY-MM-DD")],
         working: '',
         starttime:  moment(new Date()).startOf('month').format("YYYY-MM-DD"),
         endTime:  moment(new Date()).endOf('month').format("YYYY-MM-DD"),
