@@ -58,9 +58,9 @@
       return {
         // add-ws-9/29-禅道任务547
         tableList: [],
-        workinghours: [moment(new Date()).startOf('month').format("YYYY-MM-DD"), moment(new Date()).endOf('month').format("YYYY-MM-DD")],
+        workinghours: [moment(moment().month(moment().month() - 1).startOf('month').valueOf()).format("YYYY-MM-DD"), moment(new Date()).endOf('month').format("YYYY-MM-DD")],
         working: '',
-        starttime:  moment(new Date()).startOf('month').format("YYYY-MM-DD"),
+        starttime:  moment(moment().month(moment().month() - 1).startOf('month').valueOf()).format("YYYY-MM-DD"),
         endTime:  moment(new Date()).endOf('month').format("YYYY-MM-DD"),
         // add-ws-9/29-禅道任务547
         loading: false,
