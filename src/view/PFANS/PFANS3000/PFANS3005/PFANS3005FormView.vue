@@ -637,1767 +637,1773 @@
 </template>
 <script>
 
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import PFANS3005View from '../PFANS3005/PFANS3005View.vue';
-    import {Message} from 'element-ui';
-    import user from '../../../components/user.vue';
-    import {
-        downLoadUrl,
-        getCurrentRole,
-        getCurrentRole2,
-        getCurrentRole3,
-        getCurrentRole4,
-        getCurrentRole5,
-        getDictionaryInfo,
-        getOrgInfo,
-        getOrgInfoByUserId,
-        getUserInfo,
-        uploadUrl,
-    } from '@/utils/customize';
-    import moment from 'moment';
-    import dicselect from '../../../components/dicselect.vue';
-    import org from '../../../components/org';
-    import {getStatus} from '../../../../utils/customize';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import PFANS3005View from '../PFANS3005/PFANS3005View.vue';
+  import {Message} from 'element-ui';
+  import user from '../../../components/user.vue';
+  import {
+    downLoadUrl,
+    getCurrentRole,
+    getCurrentRole2,
+    getCurrentRole3,
+    getCurrentRole4,
+    getCurrentRole5,
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getUserInfo,
+    uploadUrl,
+  } from '@/utils/customize';
+  import moment from 'moment';
+  import dicselect from '../../../components/dicselect.vue';
+  import org from '../../../components/org';
+  import {getStatus} from '../../../../utils/customize';
 
-    export default {
-        name: 'PFANS3005FormView',
-        components: {
-            // PFANS1012Pop,
-            // PFANS1006Pop,
-            EasyNormalContainer,
-            PFANS3005View,
-            dicselect,
-            getOrgInfoByUserId,
-            user,
-            org,
+  export default {
+    name: 'PFANS3005FormView',
+    components: {
+      // PFANS1012Pop,
+      // PFANS1006Pop,
+      EasyNormalContainer,
+      PFANS3005View,
+      dicselect,
+      getOrgInfoByUserId,
+      user,
+      org,
+    },
+    data() {
+      var checkuser = (rule, value, callback) => {
+        if (!value || value === '' || value === undefined) {
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+        } else {
+          this.erroruser = '';
+          return callback();
+        }
+      };
+      var checkcontroller = (rule, value, callback) => {
+        if (!value || value === '' || value === undefined) {
+          this.errorcontroller = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER')));
+        } else {
+          this.errorcontroller = '';
+          return callback();
+        }
+      };
+      var checkusername = (rule, value, callback) => {
+        if (!value || value === '' || value === undefined) {
+          this.errorusername = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER')));
+        } else {
+          this.errorusername = '';
+          return callback();
+        }
+      };
+      var centerIds = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+        } else {
+          this.errorcenter = '';
+          return callback();
+        }
+      };
+      var groupIds = (rule, value, callback) => {
+        if (!value || value === '' || value === 'undefined') {
+          this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+        } else {
+          this.errorgroup = '';
+          return callback();
+        }
+      };
+      return {
+        dialogFormVisible: false,
+        optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
+        options1: [],
+        tableA: [],
+        tableB: [],
+        multipleSelection: [],
+        multipleSelection1: [],
+        url: '',
+        findateShow: false,
+        urlparams: '',
+        centerid: '',
+        groupid: '',
+        teamid: '',
+        regExp: [],
+        multiple: false,
+        loading: false,
+        checkGro: false,
+        disableview: false,
+        erroruser: '',
+        errorcenter: '',
+        errorgroup: '',
+        errorusername: '',
+        errorcontroller: '',
+        errorrecipients: '',
+        selectType: 'Single',
+        userlist: '',
+        controllerlist: '',
+        errortrashreason: '',
+        usernamelist: '',
+        recipientslist: '',
+        title: 'title.PFANS3005VIEW',
+        enableSave: false,
+        workflowCode: '',
+
+        editableTabsValue: '0',
+        editableTabs: [],
+        tabIndex: 0,
+        refuseShow: false,
+        form1: {
+          trashreason: '',
         },
-        data() {
-            var checkuser = (rule, value, callback) => {
-                if (!value || value === '' || value === undefined) {
-                    this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-                } else {
-                    this.erroruser = '';
-                    return callback();
-                }
-            };
-            var checkcontroller = (rule, value, callback) => {
-                if (!value || value === '' || value === undefined) {
-                    this.errorcontroller = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER')));
-                } else {
-                    this.errorcontroller = '';
-                    return callback();
-                }
-            };
-            var checkusername = (rule, value, callback) => {
-                if (!value || value === '' || value === undefined) {
-                    this.errorusername = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER')));
-                } else {
-                    this.errorusername = '';
-                    return callback();
-                }
-            };
-            var centerIds = (rule, value, callback) => {
-                if (!value || value === '' || value === 'undefined') {
-                    this.errorcenter = this.$t('normal.error_09') + this.$t('label.center');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
-                } else {
-                    this.errorcenter = '';
-                    return callback();
-                }
-            };
-            var groupIds = (rule, value, callback) => {
-                if (!value || value === '' || value === 'undefined') {
-                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
-                } else {
-                    this.errorgroup = '';
-                    return callback();
-                }
-            };
-            return {
-              dialogFormVisible: false,
-                optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
-                options1: [],
-                tableA: [],
-                tableB: [],
-                multipleSelection: [],
-                multipleSelection1: [],
-                url: '',
-                findateShow: false,
-                urlparams: '',
-                centerid: '',
-                groupid: '',
-                teamid: '',
-                regExp: [],
-                multiple: false,
-                loading: false,
-                checkGro: false,
-                disableview: false,
-                erroruser: '',
-                errorcenter: '',
-                errorgroup: '',
-                errorusername: '',
-                errorcontroller: '',
-                errorrecipients: '',
-                selectType: 'Single',
-                userlist: '',
-                controllerlist: '',
-              errortrashreason: '',
-                usernamelist: '',
-                recipientslist: '',
-                title: 'title.PFANS3005VIEW',
-                enableSave: false,
-                workflowCode: '',
+        form: {
+          project_id: '',
+          careerplan: '1',
+          businessplantype: '',
+          classificationtype: '',
+          businessplanbalance: '',
+          procurementproject: '',
+          user_id: '',
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          setplace: '',
+          linenumber: '',
+          controller: '',
+          username: '',
+          usertime: '',
+          user: '',
+          budgetnumber: '',
+          businessplanamount: '',
+          purchasepurpose: '',
+          fixedassetsno: '',
+          outassetsno: '',
+          procurementdetails: '',
+          brandname: '',
+          model: '',
+          equipmenturl: '',
+          quantity: '',
+          unitprice: '',
+          totalamount: '',
+          storagedate: '',
+          collectionday: '',
+          recipients: '',
+          actuarialdate: '',
+          actuarialamount: '',
+          application_date: moment(new Date()).format('YYYY-MM-DD'),
+          nodeList: [],
+          accept: '0',
+          acceptstatus: '',
+          findate: '',
+          refusereason: '',
+          //add_fjl_0908 添加供应商名称
+          suppliername: '',
+          //add_fjl_0908 添加供应商名称
+          //add ccm 0720
+          salequotation: '',
+          reasonsforquotation: '',
+          uploadfile: '',
+          yusuanbuzu: '',
+          loanapplication_id: '',
+          loanapno: '',
+          invoiceno: '',
+          publicexpense_id: '',
+          trashreason: '',
+          //add ccm 0720
 
-                editableTabsValue: '0',
-                editableTabs: [],
-                tabIndex: 0,
-                refuseShow: false,
-              form1: {
-                trashreason: '',
-              },
-                form: {
-                    project_id: '',
-                  careerplan: '0',
-                    businessplantype: '',
-                    classificationtype: '',
-                    businessplanbalance: '',
-                    procurementproject: '',
-                    user_id: '',
-                    center_id: '',
-                    group_id: '',
-                    team_id: '',
-                    setplace: '',
-                    linenumber: '',
-                    controller: '',
-                    username: '',
-                    usertime: '',
-                    user: '',
-                    budgetnumber: '',
-                    businessplanamount: '',
-                    purchasepurpose: '',
-                    fixedassetsno: '',
-                    outassetsno: '',
-                    procurementdetails: '',
-                    brandname: '',
-                    model: '',
-                    equipmenturl: '',
-                    quantity: '',
-                    unitprice: '',
-                    totalamount: '',
-                    storagedate: '',
-                    collectionday: '',
-                    recipients: '',
-                    actuarialdate: '',
-                    actuarialamount: '',
-                    application_date: moment(new Date()).format('YYYY-MM-DD'),
-                    nodeList: [],
-                    accept: '0',
-                    acceptstatus: '',
-                    findate: '',
-                    refusereason: '',
-                    //add_fjl_0908 添加供应商名称
-                    suppliername: '',
-                    //add_fjl_0908 添加供应商名称
-                    //add ccm 0720
-                    salequotation: '',
-                    reasonsforquotation: '',
-                    uploadfile: '',
-                    yusuanbuzu: '',
-                    loanapplication_id: '',
-                    loanapno: '',
-                    invoiceno: '',
-                    publicexpense_id: '',
-                  trashreason: '',
-                    //add ccm 0720
-
-                },
-                options: [
-                    {
-                        value: '0',
-                        label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
-                    },
-                    {
-                        value: '1',
-                        label: this.$t('label.PFANS3006VIEW_DUIYINGZHONG'),
-                    },
-                    {
-                        value: '2',
-                        label: this.$t('label.PFANS3006VIEW_WEIDUIYING'),
-                    },
-                ],
-                acceptShow: true,
-                acceptShow1: true,
-                code1: 'PR002',
-                code2: 'PR003',
-                code3: 'PJ005',
-                //add ccm 0720
-                code4: 'PJ013',
-                show6: false,
-                upload: uploadUrl(),
-                fileList: [],
-                activeName: 'first',
-                caigouhetongTable: [],
-                //add ccm 0720
-                show1: true,
-                show2: false,
-                show3: true,
-                show4: false,
-                show5: true,
-                menuList: [],
-                disabled: false,
-                rules: {
-                    //add ccm 0720
-                    salequotation: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_SALEQUOTATION'),
-                            trigger: 'change',
-                        },
-                    ],
-                    //add ccm 0720
-                    suppliername: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_SUPPLIERNAME'),
-                            trigger: 'change',
-                        },
-                    ],
-                    //add ccm 0720
-                    user_id: [{
-                        required: true,
-                        validator: checkuser,
-                        trigger: 'change',
-                    }],
-                    application_date: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.application_date'),
-                            trigger: 'change',
-                        },
-                    ],
-                    linenumber: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3005VIEW_LINENUMBER'),
-                            trigger: 'change',
-                        }],
-                    center_id: [
-                        {
-                            required: true,
-                            validator: centerIds,
-                            trigger: 'change',
-                        },
-                    ],
-                    group_id: [
-                        {
-                            required: true,
-                            validator: groupIds,
-                            trigger: 'change',
-                        },
-                    ],
-                    setplace: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_SETPLACE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    controller: [
-                        {
-                            required: true,
-                            validator: checkcontroller,
-                            trigger: 'change',
-                        },
-                    ],
-                    username: [
-                        {
-                            required: true,
-                            validator: checkusername,
-                            trigger: 'change',
-                        },
-                    ],
-                    usertime: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_TIME'),
-                            trigger: 'change',
-                        },
-                    ],
-                    budgetnumber: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.group') + this.$t('label.hou') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                            trigger: 'change',
-                        },
-                    ],
-
-                    businessplantype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANTYPE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    businessplanbalance: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    classificationtype: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3003FORMVIEW_CLASSIFICATION'),
-                            trigger: 'change',
-                        },
-                    ],
-                    businessplanamount: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_CAREERPLANAMOUNT'),
-                            trigger: 'change',
-                        },
-                    ],
-                    purchasepurpose: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PURCHASEPURPOSE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    procurementproject: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
-                            trigger: 'change',
-                        },
-                    ],
-                    procurementdetails: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME'),
-                            trigger: 'change',
-                        },
-                    ],
-                    quantity: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_QUANTITY'),
-                            trigger: 'change',
-                        },
-                    ],
-                    unitprice: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_UNITPRICE'),
-                            trigger: 'change',
-                        },
-                    ],
-                    totalamount: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
-                            trigger: 'change',
-                        },
-                    ],
-                },
-              rules1: {
-                trashreason: [
-                  {
-                    required: true,
-                    message:
-                      this.$t('normal.error_08') +
-                      this.$t('label.PFANS3005VIEW_TRASHREASON'),
-                    trigger: 'change',
-                  },
-                ]
-              },
-                canStart: false,
-                buttonList: [],
-                flowData: [],
-            };
         },
-        mounted() {
-            this.getCompanyProjectList();
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS3005Store/getPurchaseOne', {'purchase_id': this.$route.params._id})
-                    .then(response => {
-                        if (response !== undefined) {
-                            this.form = response;
-                            if (this.form.acceptstatus === '0') {
-                                this.refuseShow = true;
-                            } else {
-                                this.refuseShow = false;
-                            }
-                            if (this.form.budgetnumber !== null && this.form.budgetnumber !== '') {
-                                let procurement = getDictionaryInfo(this.form.budgetnumber);
-                                if (procurement != null) {
-                                    this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
-                                }
-                            }
-                            // if (this.form.group_name != '' && this.form.group_name != null) {
-                            //   this.orglist = this.form.group_name;
-                            //   this.getchangeGroup(this.form.group_name)
-                            // }
-                            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-                            let role = getCurrentRole2();
-                            let role4 = getCurrentRole4();
-                            let role5 = getCurrentRole5();
-                            let role3 = getCurrentRole3();
-                            if (role === '0' || role4 === '0' || role3 === '0' || role5 === '0') {
-                                if (this.form.status === '4') {
-                                    this.enableSave = true;
-                                    if (this.disable) {
-                                        if (this.form.findate == null || this.form.findate == "") {
-                                          if(this.form.acceptstatus === '0'){
-                                            this.form.findate = moment(new Date()).format('YYYY-MM-DD');
-                                          }
-                                        }
-                                        this.acceptShow = false;
-                                    } else {
-                                        this.acceptShow = true;
-                                    }
-                                    this.acceptShow1 = false;
-                                    if (this.buttonList.length > 5) {
-                                        this.buttonList[2].disabled = false;
-                                        this.buttonList[3].disabled = false;
-                                        this.buttonList[4].disabled = false;
-                                    }
-                                } else {
-                                    this.acceptShow = true;
-                                    this.enableSave = false;
-                                    this.acceptShow1 = true;
-                                    if (this.buttonList.length > 5) {
-                                        this.buttonList[2].disabled = true;
-                                        this.buttonList[3].disabled = true;
-                                        this.buttonList[4].disabled = true;
-                                    }
-                                }
-                            } else {
-                                if (this.buttonList.length > 5) {
-                                    this.buttonList[2].disabled = true;
-                                    this.buttonList[3].disabled = true;
-                                    this.buttonList[4].disabled = true;
-                                }
-                                this.acceptShow1 = true;
-                            }
-
-                            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-                            let rst = getOrgInfoByUserId(response.user_id);
-                            if (rst) {
-                                //upd_fjl_0927
-                                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                                    this.checkGro = true;
-                                } else {
-                                    this.checkGro = false;
-                                }
-                                // this.centerid = rst.centerNmae;
-                                // this.groupid = rst.groupNmae;
-                                // this.teamid = rst.teamNmae;
-                                //upd_fjl_0927
-                            }
-                            this.getBudt(this.form.group_id);
-                            if (this.form.careerplan === '1') {
-                                this.show3 = true;
-                                this.show1 = true;
-                                this.rules.businessplantype[0].required = true;
-                                this.rules.businessplanbalance[0].required = true;
-                            } else {
-                                this.show3 = false;
-                                this.show2 = false;
-                                this.show1 = false;
-                                this.rules.businessplantype[0].required = false;
-                                this.rules.businessplanbalance[0].required = false;
-                                this.rules.classificationtype[0].required = false;
-                            }
-                            if (this.form.businessplantype === 'PR002006') {
-                                this.show2 = true;
-                            } else if (this.form.businessplantype === 'PR002001') {
-                                this.show2 = false;
-                            } else if (this.form.businessplantype === 'PR002002') {
-                                this.show2 = false;
-                            } else if (this.form.businessplantype === 'PR002003') {
-                                this.show2 = false;
-                            } else if (this.form.businessplantype === 'PR002004') {
-                                this.show2 = false;
-                            }
-                            if (this.form.procurementproject === 'PJ005001') {
-                                this.show5 = true;
-                                this.show4 = false;
-                            } else if (this.form.procurementproject === 'PJ005002') {
-                                this.show4 = true;
-                                this.show5 = false;
-                            } else if (this.form.procurementproject === 'PJ005003') {
-                                this.show4 = true;
-                                this.show5 = false;
-                            } else if (this.form.procurementproject === 'PJ005004') {
-                                this.show4 = true;
-                                this.show5 = false;
-                            } else if (this.form.procurementproject === 'PJ005005') {
-                                this.show4 = true;
-                                this.show5 = false;
-                            } else if (this.form.procurementproject === 'PJ005006') {
-                                this.show4 = true;
-                                this.show5 = false;
-                            }
-                            //add ccm 0720
-                            if (this.form.salequotation === 'PJ013001' || this.form.salequotation === 'PJ013003') {
-                                this.show6 = true;
-                            }
-                            if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
-                                let uploadfile = this.form.uploadfile.split(';');
-                                for (var i = 0; i < uploadfile.length; i++) {
-                                    if (uploadfile[i].split(',')[0] != '') {
-                                        let o = {};
-                                        o.name = uploadfile[i].split(',')[0];
-                                        o.url = uploadfile[i].split(',')[1];
-                                        this.fileList.push(o);
-                                    }
-                                }
-                            }
-                            //add ccm 0720
-
-                            this.userlist = this.form.user_id;
-                            this.controllerlist = this.form.controller;
-                            this.usernamelist = this.form.username;
-                            this.recipientslist = this.form.recipients;
-                            let timea = this.form.usertime;
-                            let serdate = timea.slice(0, 10);
-                            let serdate1 = timea.slice(timea.length - 10);
-                            this.form.usertime = [serdate, serdate1];
-                            // this.getBudt(this.userlist);
-                        }
-                        //有暂借款编号绑定暂借款信息
-                        if (this.form.loanapplication_id) {
-                            this.$store
-                                .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
-                                .then(response1 => {
-                                    if (response1 !== null && response1 !== '' && response1 !== undefined) {
-                                        for (var i = 0; i < response1.length; i++) {
-                                            let status = getStatus(response1[i].status);
-                                            this.tableA.push({
-                                                loanapno: response1[i].loanapno,
-                                                moneys: response1[i].moneys,
-                                                remarks: response1[i].remarks,
-                                                status: status,
-                                                loanapplication_id: response1[i].loanapplication_id,
-                                            });
-                                        }
-
-                                    }
-                                    this.loading = false;
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-                        }
-
-                        //有精算报销编号绑定精算信息
-                        if (this.form.publicexpense_id) {
-                            this.$store
-                                .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
-                                .then(response2 => {
-                                    if (response2 !== null && response2 !== '' && response2 !== undefined) {
-                                        for (var i = 0; i < response2.length; i++) {
-                                            let status = getStatus(response2[i].status);
-                                            this.tableB.push({
-                                                invoiceno: response2[i].invoiceno,
-                                                moneys: response2[i].moneys,
-                                                remarks: response2[i].preparefor,
-                                                status: status,
-                                                publicexpense_id: response2[i].publicexpenseid,
-                                            });
-                                        }
-                                    }
-                                    this.loading = false;
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-
-                        }
-
-                        //采购业务数据流程查看详情
-                        this.$store
-                            .dispatch('PFANS3005Store/getworkfolwPurchaseData', {'purchase_id': this.$route.params._id})
-                            .then(response3 => {
-                                if (response3 !== null && response3 !== '' && response3 !== undefined) {
-                                    if (response3["purchase"] != undefined) {
-                                        let purlist = response3["purchase"].split(';');
-                                        for (let i = 0; i < purlist.length; i++) {
-                                            let pur = purlist[i].split(',');
-                                            let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo')
-                                            this.flowData.push(
-                                                {
-                                                    No: this.flowData.length + 1,
-                                                    Name: '采购决裁',
-                                                    Status: statu,
-                                                    url: 'PFANS3005FormView',
-                                                    params: {'_id': pur[0]}
-                                                })
-                                        }
-                                    }
-                                    if (response3["award"] != undefined) {
-                                        let awlist = response3["award"].split(';');
-                                        for (let i = 0; i < awlist.length; i++) {
-                                            let aw = awlist[i].split(',');
-                                            let statu = aw[1] === '4' ? 'normal.done' : (aw[1] === '2' ? 'normal.doing' : 'normal.todo')
-                                            this.flowData.push(
-                                                {
-                                                    No: this.flowData.length + 1,
-                                                    Name: '合同决裁',
-                                                    Status: statu,
-                                                    url: 'PFANS1047FormView',
-                                                    params: {'_id': aw[0]}
-                                                })
-                                        }
-                                    }
-                                    if (response3["seal"] != undefined) {
-                                        let seallist = response3["seal"].split(';');
-                                        for (let i = 0; i < seallist.length; i++) {
-                                            let seal = seallist[i].split(',');
-                                            let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
-                                            this.flowData.push(
-                                                {
-
-                                                    No: this.flowData.length + 1,
-                                                    Name: '印章申请',
-                                                    Status: statu,
-                                                    url: 'PFANS4001FormView',
-                                                    params: {'_id': seal[0]}
-                                                })
-                                        }
-                                    }
-                                    if (response3["loanApplication"] != undefined) {
-                                        let loanapplist = response3["loanApplication"].split(';');
-                                        let setloanapplist = new Set(loanapplist);
-                                        for (let i of setloanapplist) {
-                                            let loanapp = i.split(',');
-                                            let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo')
-                                            this.flowData.push(
-                                                {
-                                                    No: this.flowData.length + 1,
-                                                    Name: '暂借款申请',
-                                                    Status: statu,
-                                                    url: 'PFANS1006FormView',
-                                                    params: {'_id': loanapp[0]}
-                                                })
-                                        }
-                                    }
-                                    if (response3["publicExpense"] != undefined) {
-                                        let publist = response3["publicExpense"].split(';');
-                                        let setpublist = new Set(publist);
-                                        for (let i of setpublist) {
-                                            let pub = i.split(',');
-                                            let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo')
-                                            this.flowData.push(
-                                                {
-                                                    No: this.flowData.length + 1,
-                                                    Name: '公共费用精算',
-                                                    Status: statu,
-                                                    url: 'PFANS1012FormView',
-                                                    params: {'_id': pub[0]}
-                                                })
-                                        }
-                                    }
-                                    this.$emit('showPop', this.flowData);
-                                }
-                            })
-                        //采购业务数据流程查看详情
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            } else {
-                this.userlist = this.$store.getters.userinfo.userid;
-                if (this.userlist !== null && this.userlist !== '') {
-                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-                    //     this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-                    // }
-                    if (rst) {
-                        this.centerid = rst.centerNmae;
-                        this.groupid = rst.groupNmae;
-                        this.teamid = rst.teamNmae;
-                        this.form.center_id = rst.centerId;
-                        // this.form.group_id = rst.groupId;
-                        this.form.team_id = rst.teamId;
-                        //add_fjl_0927
-                        if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                            this.form.group_id = rst.groupId;
-                            this.getBudt(this.form.group_id);
-                            this.checkGro = true;
-                        } else {
-                            this.checkGro = false;
-                        }
-                        //add_fjl_0927
-                    }
-                    // if (this.form.group_id) {
-                    //   this.getchangeGroup(this.form.group_id);
-                    // }
-                    this.form.user_id = this.$store.getters.userinfo.userid;
-                    // this.buttonList = [];
-                    // this.buttonList = [
-                    //   {
-                    //     key: 'save',
-                    //     name: 'button.save',
-                    //     disabled: false,
-                    //     icon: 'el-icon-check',
-                    //   },
-                    // ];
-                    //this.buttonList[1].disabled = true;
-                    // this.getBudt(this.form.user_id);
-                }
-            }
-        },
-        //add_fjl start
-        watch: {
-            form: {
-                handler: function () {
-                    //totalamount --总金额
-                    // add_fjl_06/15 --添加审批流程 start
-                    // 王磊
-                    if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                        // 电脑相关
-                        if (this.form.procurementproject === 'PJ005005' ||
-                            this.form.procurementproject === 'PJ005006' ||
-                            this.form.procurementproject === 'PJ005007' ||
-                            this.form.procurementproject === 'PJ005018') {
-                            this.workflowCode = 'W0125';
-                        } else {
-                            this.workflowCode = 'W0114';
-                        }
-                    } else if (this.form.careerplan === '1') {
-                        if (Number(this.form.totalamount) <= 1000) {
-                            if (this.form.procurementproject === 'PJ005005' ||
-                                this.form.procurementproject === 'PJ005006' ||
-                                this.form.procurementproject === 'PJ005007' ||
-                                this.form.procurementproject === 'PJ005018') {
-                                //电脑相关，1000元以下
-                                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                    this.workflowCode = 'W0136';
-                                } else {
-                                    this.workflowCode = 'W0126';
-                                }
-                            } else {
-                                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                    this.workflowCode = 'W0137';
-                                } else {
-                                    //最后节点到GM  事业计划内 1000以下
-                                    this.workflowCode = 'W0082';
-                                }
-                            }
-                        } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
-                            if (this.form.procurementproject === 'PJ005005' ||
-                                this.form.procurementproject === 'PJ005006' ||
-                                this.form.procurementproject === 'PJ005007' ||
-                                this.form.procurementproject === 'PJ005018') {
-                                //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
-                                // Center GM
-                                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                    this.workflowCode = 'W0131';
-                                } else {
-                                    this.workflowCode = 'W0127';
-                                }
-                            } else {
-                                // Center GM
-                                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                    this.workflowCode = 'W0130';
-                                } else {
-                                    //最后节点到center长  事业计划内  1000到20000之间
-                                    this.workflowCode = 'W0022';
-                                }
-                            }
-                        } else if (Number(this.form.totalamount) > 20000) {
-                            if (this.form.procurementproject === 'PJ005005' ||
-                                this.form.procurementproject === 'PJ005006' ||
-                                this.form.procurementproject === 'PJ005007' ||
-                                this.form.procurementproject === 'PJ005018') {
-                                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                    this.workflowCode = 'W0133';
-                                } else {
-                                    //电脑相关，最后节点到总经理   两万以上
-                                    this.workflowCode = 'W0128';
-                                }
-                            } else {
-                                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                    this.workflowCode = 'W0132';
-                                } else {
-                                    //最后节点到总经理   两万以上
-                                    this.workflowCode = 'W0075';
-                                }
-                            }
-                        }
-                    } else if (this.form.careerplan === '0') {
-                        if (this.form.procurementproject === 'PJ005005' ||
-                            this.form.procurementproject === 'PJ005006' ||
-                            this.form.procurementproject === 'PJ005007' ||
-                            this.form.procurementproject === 'PJ005018') {
-                            //最后节点到总经理   电脑相关 事业计划外
-                            if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                this.workflowCode = 'W0133';
-                            } else {
-                                this.workflowCode = 'W0128';
-                            }
-                        } else {
-                            if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                                this.workflowCode = 'W0132';
-                            } else {
-                                //最后节点到总经理   事业计划外
-                                this.workflowCode = 'W0075';
-                            }
-                        }
-                    }
-                    // add_fjl_06/15 --添加审批流程 end
-                },
-                deep: true,
+        options: [
+          {
+            value: '0',
+            label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
+          },
+          {
+            value: '1',
+            label: this.$t('label.PFANS3006VIEW_DUIYINGZHONG'),
+          },
+          {
+            value: '2',
+            label: this.$t('label.PFANS3006VIEW_WEIDUIYING'),
+          },
+        ],
+        acceptShow: true,
+        acceptShow1: true,
+        code1: 'PR002',
+        code2: 'PR003',
+        code3: 'PJ005',
+        //add ccm 0720
+        code4: 'PJ013',
+        show6: false,
+        upload: uploadUrl(),
+        fileList: [],
+        activeName: 'first',
+        caigouhetongTable: [],
+        //add ccm 0720
+        show1: true,
+        show2: false,
+        show3: true,
+        show4: false,
+        show5: true,
+        menuList: [],
+        disabled: false,
+        rules: {
+          //add ccm 0720
+          salequotation: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_SALEQUOTATION'),
+              trigger: 'change',
             },
-        }, loading: false,
-        //add_fjl end
-        created() {
-            // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
-            this.disable = this.$route.params.disabled;
-            this.disableview = this.$route.params._disableview;
-            // if (this.disable) {
-            //   this.buttonList = [
-            //     {
-            //       key: 'save',
-            //       name: 'button.save',
-            //       disabled: false,
-            //       icon: 'el-icon-check',
-            //     },
-            //     {
-            //       key: 'trash',
-            //       name: 'button.trash',
-            //       disabled: false,
-            //       icon: 'el-icon-close',
-            //     },
-            //   ];
-            // }
-            //新建
-            if (!this.$route.params._id) {
-                this.buttonList = [];
-                this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                    {
-                        key: 'trash',
-                        name: 'button.trash',
-                        disabled: false,
-                        icon: 'el-icon-close',
-                    },
-                ];
-            } else {
-                //查看
-                if (!this.disable) {
-                    let role = getCurrentRole2();
-                    if (role === '0') {
-                        this.buttonList = [
-                            {
-                                key: 'save',
-                                name: 'button.save',
-                                disabled: false,
-                                icon: 'el-icon-check',
-                            },
-                            {
-                                key: 'trash',
-                                name: 'button.trash',
-                                disabled: false,
-                                icon: 'el-icon-close',
-                            },
-                            {
-                                key: 'conapp',
-                                name: 'button.conapp',
-                                disabled: true,
-                                icon: 'el-icon-plus',
-                            },
-                            {
-                                key: 'temLoanApp',
-                                name: 'button.temLoanApp',
-                                disabled: true,
-                                icon: 'el-icon-plus',
-                            },
-                            {
-                                key: 'actuarial',
-                                name: 'button.actuarial',
-                                disabled: true,
-                                icon: 'el-icon-edit-outline',
-                            },
-                        ];
-                    } else {
-                        this.buttonList = [
-                            // {
-                            //   key: 'save',
-                            //   name: 'button.save',
-                            //   disabled: false,
-                            //   icon: 'el-icon-check',
-                            // },
-                            // {
-                            //   key: 'trash',
-                            //   name: 'button.trash',
-                            //   disabled: false,
-                            //   icon: 'el-icon-close',
-                            // },
-                        ];
-                    }
-                } else {
-                    //修改
-                    this.buttonList = [
-                        {
-                            key: 'save',
-                            name: 'button.save',
-                            disabled: false,
-                            icon: 'el-icon-check',
-                        },
-                        {
-                            key: 'trash',
-                            name: 'button.trash',
-                            disabled: false,
-                            icon: 'el-icon-close',
-                        },
-                        {
-                            key: 'conapp',
-                            name: 'button.conapp',
-                            disabled: true,
-                            icon: 'el-icon-plus',
-                        },
-                        {
-                            key: 'temLoanApp',
-                            name: 'button.temLoanApp',
-                            disabled: true,
-                            icon: 'el-icon-plus',
-                        },
-                        {
-                            key: 'actuarial',
-                            name: 'button.actuarial',
-                            disabled: true,
-                            icon: 'el-icon-edit-outline',
-                        },
-                    ];
+          ],
+          //add ccm 0720
+          suppliername: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_SUPPLIERNAME'),
+              trigger: 'change',
+            },
+          ],
+          //add ccm 0720
+          user_id: [{
+            required: true,
+            validator: checkuser,
+            trigger: 'change',
+          }],
+          application_date: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.application_date'),
+              trigger: 'change',
+            },
+          ],
+          linenumber: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3005VIEW_LINENUMBER'),
+              trigger: 'change',
+            }],
+          center_id: [
+            {
+              required: true,
+              validator: centerIds,
+              trigger: 'change',
+            },
+          ],
+          group_id: [
+            {
+              required: true,
+              validator: groupIds,
+              trigger: 'change',
+            },
+          ],
+          setplace: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_SETPLACE'),
+              trigger: 'change',
+            },
+          ],
+          controller: [
+            {
+              required: true,
+              validator: checkcontroller,
+              trigger: 'change',
+            },
+          ],
+          username: [
+            {
+              required: true,
+              validator: checkusername,
+              trigger: 'change',
+            },
+          ],
+          usertime: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_TIME'),
+              trigger: 'change',
+            },
+          ],
+          budgetnumber: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.group') + this.$t('label.hou') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+              trigger: 'change',
+            },
+          ],
+
+          businessplantype: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANTYPE'),
+              trigger: 'change',
+            },
+          ],
+          businessplanbalance: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE'),
+              trigger: 'change',
+            },
+          ],
+          classificationtype: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3003FORMVIEW_CLASSIFICATION'),
+              trigger: 'change',
+            },
+          ],
+          businessplanamount: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_CAREERPLANAMOUNT'),
+              trigger: 'change',
+            },
+          ],
+          purchasepurpose: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PURCHASEPURPOSE'),
+              trigger: 'change',
+            },
+          ],
+          procurementproject: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PROCUREMENTPROJECT'),
+              trigger: 'change',
+            },
+          ],
+          procurementdetails: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_PROCUREMENTDETAILS_NAME'),
+              trigger: 'change',
+            },
+          ],
+          quantity: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_QUANTITY'),
+              trigger: 'change',
+            },
+          ],
+          unitprice: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_UNITPRICE'),
+              trigger: 'change',
+            },
+          ],
+          totalamount: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_TOTALAMOUNT'),
+              trigger: 'change',
+            },
+          ],
+        },
+        rules1: {
+          trashreason: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_08') +
+                this.$t('label.PFANS3005VIEW_TRASHREASON'),
+              trigger: 'change',
+            },
+          ]
+        },
+        canStart: false,
+        buttonList: [],
+        flowData: [],
+      };
+    },
+    mounted() {
+      this.getCompanyProjectList();
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS3005Store/getPurchaseOne', {'purchase_id': this.$route.params._id})
+          .then(response => {
+            if (response !== undefined) {
+              this.form = response;
+              console.log(this.form)
+              if (this.form.acceptstatus === '0') {
+                this.refuseShow = true;
+              } else {
+                this.refuseShow = false;
+              }
+              if (this.form.budgetnumber !== null && this.form.budgetnumber !== '') {
+                let procurement = getDictionaryInfo(this.form.budgetnumber);
+                if (procurement != null) {
+                  this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
                 }
-            }
+              }
+              // if (this.form.group_name != '' && this.form.group_name != null) {
+              //   this.orglist = this.form.group_name;
+              //   this.getchangeGroup(this.form.group_name)
+              // }
+              //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let role = getCurrentRole2();
+              let role4 = getCurrentRole4();
+              let role5 = getCurrentRole5();
+              let role3 = getCurrentRole3();
+              if (role === '0' || role4 === '0' || role3 === '0' || role5 === '0') {
+                if (this.form.status === '4') {
+                  this.enableSave = true;
+                  if (this.disable) {
+                    if (this.form.findate == null || this.form.findate == "") {
+                      if (this.form.acceptstatus === '0') {
+                        this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                      }
+                    }
+                    this.acceptShow = false;
+                  } else {
+                    this.acceptShow = true;
+                  }
+                  this.acceptShow1 = false;
+                  if (this.buttonList.length > 5) {
+                    this.buttonList[2].disabled = false;
+                    this.buttonList[3].disabled = false;
+                    this.buttonList[4].disabled = false;
+                  }
+                } else {
+                  this.acceptShow = true;
+                  this.enableSave = false;
+                  this.acceptShow1 = true;
+                  if (this.buttonList.length > 5) {
+                    this.buttonList[2].disabled = true;
+                    this.buttonList[3].disabled = true;
+                    this.buttonList[4].disabled = true;
+                  }
+                }
+              } else {
+                if (this.buttonList.length > 5) {
+                  this.buttonList[2].disabled = true;
+                  this.buttonList[3].disabled = true;
+                  this.buttonList[4].disabled = true;
+                }
+                this.acceptShow1 = true;
+              }
 
-
-            if (this.form.careerplan === '1') {
+              //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+              let rst = getOrgInfoByUserId(response.user_id);
+              if (rst) {
+                //upd_fjl_0927
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.checkGro = true;
+                } else {
+                  this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0927
+              }
+              this.getBudt(this.form.group_id);
+              if (this.form.careerplan === '1') {
                 this.show3 = true;
                 this.show1 = true;
                 this.rules.businessplantype[0].required = true;
                 this.rules.businessplanbalance[0].required = true;
-            } else {
+                this.rules.classificationtype[0].required = false;
+              } else {
                 this.show3 = false;
+                this.show2 = false;
                 this.show1 = false;
                 this.rules.businessplantype[0].required = false;
                 this.rules.businessplanbalance[0].required = false;
                 this.rules.classificationtype[0].required = false;
-            }
-        },
-        methods: {
-            //add_fjl_0927
-            getCenterid(val) {
-                this.form.center_id = val;
-            },
-            getGroupId1(val) {
-                this.form.group_id = val;
-                this.form.budgetnumber = '';
-                this.getBudt(val);
-            },
-            getTeamid(val) {
-                this.form.team_id = val;
-            },
-            //add_fjl_0927
-          saves() {
-            this.$refs['refform1'].validate(valid => {
-              if (valid) {
-                this.dialogFormVisible = false;
-                this.form.trashreason = this.form1.trashreason;
-                this.buttonClick('save');
-              } else {
-                Message({
-                  message: this.$t('normal.error_12'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
               }
-            });
-          },
-          cancels() {
-            this.dialogFormVisible = false;
-          },
-            //add ccm 0720
-            getSalequotation(val) {
-                this.form.salequotation = val;
-                if (val === 'PJ013002') {
-                    this.show6 = false;
-                } else if (val === 'PJ013001') {
-                    this.show6 = true;
-                } else if (val === 'PJ013003') {
-                    this.show6 = true;
+              if (this.form.businessplantype === 'PR002006') {
+                this.show2 = true;
+              } else if (this.form.businessplantype === 'PR002001') {
+                this.show2 = false;
+              } else if (this.form.businessplantype === 'PR002002') {
+                this.show2 = false;
+              } else if (this.form.businessplantype === 'PR002003') {
+                this.show2 = false;
+              } else if (this.form.businessplantype === 'PR002004') {
+                this.show2 = false;
+              }
+              if (this.form.procurementproject === 'PJ005001') {
+                this.show5 = true;
+                this.show4 = false;
+              } else if (this.form.procurementproject === 'PJ005002') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005003') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005004') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005005') {
+                this.show4 = true;
+                this.show5 = false;
+              } else if (this.form.procurementproject === 'PJ005006') {
+                this.show4 = true;
+                this.show5 = false;
+              }
+              //add ccm 0720
+              if (this.form.salequotation === 'PJ013001' || this.form.salequotation === 'PJ013003') {
+                this.show6 = true;
+              }
+              if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
+                let uploadfile = this.form.uploadfile.split(';');
+                for (var i = 0; i < uploadfile.length; i++) {
+                  if (uploadfile[i].split(',')[0] != '') {
+                    let o = {};
+                    o.name = uploadfile[i].split(',')[0];
+                    o.url = uploadfile[i].split(',')[1];
+                    this.fileList.push(o);
+                  }
                 }
-            },
-            fileError(err, file, fileList) {
-                Message({
-                    message: this.$t('normal.error_04'),
+              }
+              //add ccm 0720
+
+              this.userlist = this.form.user_id;
+              this.controllerlist = this.form.controller;
+              this.usernamelist = this.form.username;
+              this.recipientslist = this.form.recipients;
+              let timea = this.form.usertime;
+              let serdate = timea.slice(0, 10);
+              let serdate1 = timea.slice(timea.length - 10);
+              this.form.usertime = [serdate, serdate1];
+              // this.getBudt(this.userlist);
+            }
+            //有暂借款编号绑定暂借款信息
+            if (this.form.loanapplication_id) {
+              this.$store
+                .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
+                .then(response1 => {
+                  if (response1 !== null && response1 !== '' && response1 !== undefined) {
+                    for (var i = 0; i < response1.length; i++) {
+                      let status = getStatus(response1[i].status);
+                      this.tableA.push({
+                        loanapno: response1[i].loanapno,
+                        moneys: response1[i].moneys,
+                        remarks: response1[i].remarks,
+                        status: status,
+                        loanapplication_id: response1[i].loanapplication_id,
+                      });
+                    }
+
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
                     type: 'error',
                     duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = '';
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.form.uploadfile += item.name + ',' + item.url + ';';
-                }
-            },
-            fileDownload(file) {
-                if (file.url) {
-                    file.url = file.url.replace("#","%23");
-                    file.url = file.url.replace("&","%26");
-                    file.url = file.url.replace("+","%2B");
-                    file.url = file.url.replace("%","%25");
-                    file.url = file.url.replace("=","%3D");
-                    file.url = file.url.replace("?","%3F");
-                    var url = downLoadUrl(file.url);
-                    window.open(url);
-                }
+            }
 
-            },
-            fileSuccess(response, file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = '';
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
+            //有精算报销编号绑定精算信息
+            if (this.form.publicexpense_id) {
+              this.$store
+                .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
+                .then(response2 => {
+                  if (response2 !== null && response2 !== '' && response2 !== undefined) {
+                    for (var i = 0; i < response2.length; i++) {
+                      let status = getStatus(response2[i].status);
+                      this.tableB.push({
+                        invoiceno: response2[i].invoiceno,
+                        moneys: response2[i].moneys,
+                        remarks: response2[i].preparefor,
+                        status: status,
+                        publicexpense_id: response2[i].publicexpenseid,
+                      });
                     }
-                    this.fileList.push(o);
-                    this.form.uploadfile += o.name + ',' + o.url + ';';
-                }
-            },
-            // rowClick(row) {
-            //   this.url = '';
-            //   this.urlparams = '';
-            //   this.url = 'PFANS1006FormView';
-            //   this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-            //     this.$refs.PFANS1006Pop.open = true;
-            // },
-            // rowClick1(row) {
-            //   this.url = '';
-            //   this.urlparams = '';
-            //   this.url = 'PFANS1012FormView';
-            //   this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-            //     this.$refs.PFANS1012Pop.open = true;
-            // },
-            //add ccm 0720
-            //add_fjl_0813  查看详情
-            rowClick(row) {
-                this.$store.commit('global/SET_HISTORYURL', '');
-                this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
-                this.$router.push({
-                    name: 'PFANS1006FormView',
-                    params: {
-                        _id: row.loanapplication_id,
-                        disabled: false,
-                        _checkid: this.$route.params._id,
-                        _check: true,
-                        _fromname: 'PFANS3005FormView',
-                    },
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-            },
-            rowClick1(row) {
-                this.$store.commit('global/SET_HISTORYURL', '');
-                this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
-                this.$router.push({
-                    name: 'PFANS1012FormView',
-                    params: {
-                        _id: row.publicexpense_id,
-                        disabled: false,
-                        _checkid: this.$route.params._id,
-                        _check2: true,
-                        _fromname: 'PFANS3005FormView',
-                    },
-                });
-            },
-            //add_fjl_0813  查看详情
 
-            //add-ws-6/16-禅道137
-            getCompanyProjectList() {
-                if (this.disable) {
-                    this.loading = true;
-                    this.$store
-                        .dispatch('PFANS5009Store/getSiteList5', {})
-                        .then(response => {
-                            for (let i = 0; i < response.length; i++) {
-                                this.optionsdate.push({
-                                    value: response[i].companyprojects_id,
-                                    lable: response[i].numbers + '_' + response[i].project_name,
-                                });
-                            }
-                            this.$store
-                                .dispatch('PFANS5013Store/getMyConProject', {})
-                                .then(response => {
-                                    for (let i = 0; i < response.length; i++) {
-                                        this.optionsdate.push({
-                                            value: response[i].comproject_id,
-                                            lable: response[i].numbers + '_' + response[i].project_name,
-                                        });
-                                    }
-                                    this.loading = false;
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-                            this.loading = false;
+            }
+
+            //采购业务数据流程查看详情
+            this.$store
+              .dispatch('PFANS3005Store/getworkfolwPurchaseData', {'purchase_id': this.$route.params._id})
+              .then(response3 => {
+                if (response3 !== null && response3 !== '' && response3 !== undefined) {
+                  if (response3["purchase"] != undefined) {
+                    let purlist = response3["purchase"].split(';');
+                    for (let i = 0; i < purlist.length; i++) {
+                      let pur = purlist[i].split(',');
+                      let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '采购决裁',
+                          Status: statu,
+                          url: 'PFANS3005FormView',
+                          params: {'_id': pur[0]}
                         })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
-                } else {
-                    this.loading = true;
-                    this.$store
-                        .dispatch('PFANS5013Store/Listproject2', {})
-                        .then(response => {
-                            for (let i = 0; i < response.length; i++) {
-                                this.optionsdate.push({
-                                    value: response[i].companyprojects_id,
-                                    lable: response[i].numbers + '_' + response[i].project_name,
-                                });
-                            }
-                            this.$store
-                                .dispatch('PFANS5013Store/Listproject', {})
-                                .then(response => {
-                                    for (let i = 0; i < response.length; i++) {
-                                        this.optionsdate.push({
-                                            value: response[i].comproject_id,
-                                            lable: response[i].numbers + '_' + response[i].project_name,
-                                        });
-                                    }
-                                    this.loading = false;
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    this.loading = false;
-                                });
-
-                            this.loading = false;
+                    }
+                  }
+                  if (response3["award"] != undefined) {
+                    let awlist = response3["award"].split(';');
+                    for (let i = 0; i < awlist.length; i++) {
+                      let aw = awlist[i].split(',');
+                      let statu = aw[1] === '4' ? 'normal.done' : (aw[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '合同决裁',
+                          Status: statu,
+                          url: 'PFANS1047FormView',
+                          params: {'_id': aw[0]}
                         })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
-                }
-            },
-            //add-ws-6/16-禅道137
-            //change受理状态  add_fjl
-            changeAcc(val) {
-                this.form.acceptstatus = val;
-                if (val === '0') {
-                    this.form.findate = moment(new Date()).format('YYYY-MM-DD');
-                    this.refuseShow = true;
-                } else {
-                    this.form.findate = null;
-                    this.refuseShow = false;
-                }
-            },
-            getBudt(val) {
-                this.options1 = [];
-                if (val === '' || val === null) {
-                    return;
-                }
-                //ADD_FJL  修改人员预算编码
-                // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(val).encoding;
-                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                if (dic.length > 0) {
-                    for (let i = 0; i < dic.length; i++) {
-                        if (butinfo === dic[i].value1) {
-                            this.options1.push({
-                                lable: dic[i].value2 + '_' + dic[i].value3,
-                                value: dic[i].code,
-                            });
-                        }
                     }
-                }
-                // }
-                //ADD_FJL  修改人员预算编码
-            },
-            getBudgetunit(val) {
-                this.form.budgetnumber = val;
-            },
-            setdisabled(val) {
-                if (this.$route.params.disabled) {
-                    //fjl --与总务下其他几本同步
-                    this.disabled = val;
-                }
-            },
-            changeSum() {
-                this.form.totalamount = this.form.quantity * this.form.unitprice;
-            },
-            getUserids(val) {
-                this.form.user_id = val;
-                this.userlist = val;
-                let rst = getOrgInfoByUserId(val);
-                // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-                //     this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-                // }
-                if (rst) {
-                    this.centerid = rst.centerNmae;
-                    this.groupid = rst.groupNmae;
-                    this.teamid = rst.teamNmae;
-                    this.form.center_id = rst.centerId;
-                    this.form.group_id = rst.groupId;
-                    this.form.team_id = rst.teamId;
-                } else {
-                    this.centerid = '';
-                    this.groupid = '';
-                    this.teamid = '';
-                    this.form.center_id = '';
-                    this.form.group_id = '';
-                    this.form.team_id = '';
-                }
-                if (!this.form.user_id || this.form.user_id === '' || val === undefined) {
-                    this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
-                } else {
-                    this.erroruser = '';
-                }
-            },
-            getController(val) {
-                this.form.controller = val;
-                this.controllerlist = val;
-                if (!this.form.controller || this.form.controller === '' || val === undefined) {
-                    this.errorcontroller = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER');
-                } else {
-                    this.errorcontroller = '';
-                }
-            },
-            radiochange(val) {
-                this.form.careerplan = val;
-                if (val === '1') {
-                    this.show1 = true;
-                    this.show3 = true;
-                    if (this.form.businessplantype === 'PR002006') {
-                        this.show2 = true;
-                        this.rules.classificationtype[0].required = true;
-                    }
-                    this.rules.businessplantype[0].required = true;
-                    this.rules.businessplanbalance[0].required = true;
-                } else {
-                    this.show1 = false;
-                    this.show2 = false;
-                    this.show3 = false;
-                    this.rules.businessplantype[0].required = false;
-                    this.rules.businessplanbalance[0].required = false;
-                    this.rules.classificationtype[0].required = false;
-                }
-            },
-            getBusinessplantype(val) {
-                this.form.businessplantype = val;
-                if (val === 'PR002006') {
-                    this.show2 = true;
-                    this.rules.classificationtype[0].required = true;
-                }
-                // else if (val === 'PR002001') {
-                //   this.show2 = false;
-                //   this.rules.classificationtype[0].required = false;
-                // } else if (val === 'PR002002') {
-                //   this.show2 = false;
-                //   this.rules.classificationtype[0].required = false;
-                // } else if (val === 'PR002003') {
-                //   this.show2 = false;
-                //   this.rules.classificationtype[0].required = false;
-                // } else if (val === 'PR002004') {
-                //   this.show2 = false;
-                //   this.rules.classificationtype[0].required = false;
-                // }
-                else {
-                    this.show2 = false;
-                    this.rules.classificationtype[0].required = false;
-                }
-            },
-            // getCenterId(val) {
-            //   this.getOrgInformation(val);
-            //   if (!val || this.form.center_id === '') {
-            //     this.errorcenter = this.$t('normal.error_09') + 'center';
-            //   } else {
-            //     this.errorcenter = '';
-            //   }
-            // },
-            // getGroupId(orglist) {
-            //   this.getchangeGroup(orglist);
-            //   this.form.group_name = orglist;
-            //   if (!this.form.group_name || this.form.group_name === '') {
-            //     this.errorgroup = this.$t('normal.error_09') + 'group';
-            //   } else {
-            //     this.errorgroup = '';
-            //   }
-            // },
-            // getTeamId(val) {
-            //   this.getOrgInformation(val);
-            //   if (this.form.group_id === '') {
-            //     this.errorgroup = this.$t('normal.error_08') + 'group';
-            //   } else {
-            //     this.errorgroup = '';
-            //   }
-            //   if (this.form.center_id === '') {
-            //     this.errorcenter = this.$t('normal.error_08') + 'center';
-            //   } else {
-            //     this.errorcenter = '';
-            //   }
-            // },
-            // getOrgInformation(id) {
-            //   let org = {};
-            //   let treeCom = this.$store.getters.orgs;
-            //   if (id && treeCom.getNode(id)) {
-            //     let node = id;
-            //     let type = treeCom.getNode(id).data.type || 0;
-            //     for (let index = parseInt(type); index >= 1; index--) {
-            //       if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-            //         org.teamname = treeCom.getNode(node).data.departmentname;
-            //         org.team_id = treeCom.getNode(node).data._id;
-            //       }
-            //       if (index === 2) {
-            //         org.groupname = treeCom.getNode(node).data.departmentname;
-            //         org.group_id = treeCom.getNode(node).data._id;
-            //       }
-            //       if (index === 1) {
-            //         org.centername = treeCom.getNode(node).data.companyname;
-            //         org.center_id = treeCom.getNode(node).data._id;
-            //       }
-            //       node = treeCom.getNode(node).parent.data._id;
-            //     }
-            //     ({
-            //       centername: this.form.centername,
-            //       groupname: this.form.groupname,
-            //       teamname: this.form.teamname,
-            //       center_id: this.form.center_id,
-            //       group_id: this.form.group_id,
-            //       team_id: this.form.team_id,
-            //     } = org);
-            //     this.getchangeGroup(this.form.group_id);
-            //   }
-            // },
-            getClassificationtype(val) {
-                this.form.classificationtype = val;
-            },
-            getprocurementproject(val) {
-                this.form.procurementproject = val;
-                if (val === 'PJ005001') {
-                    this.show5 = true;
-                    this.show4 = false;
-                } else if (val === 'PJ005002') {
-                    this.show4 = true;
-                    this.show5 = false;
-                } else if (val === 'PJ005003') {
-                    this.show4 = true;
-                    this.show5 = false;
-                } else if (val === 'PJ005004') {
-                    this.show4 = true;
-                    this.show5 = false;
-                } else if (val === 'PJ005005') {
-                    this.show4 = true;
-                    this.show5 = false;
-                } else if (val === 'PJ005006') {
-                    this.show4 = true;
-                    this.show5 = false;
-                }
-            },
-            getUsername(val) {
-                this.form.username = val;
-                this.usernamelist = val;
-                if (!this.form.username || this.form.username === '' || val === undefined) {
-                    this.errorusername = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
-                } else {
-                    this.errorusername = '';
-                }
-            },
-            getRecipientslist(val) {
-                this.form.recipients = val;
-                this.recipientslist = val;
-                if (!this.form.recipients || this.form.recipients === '' || val === undefined) {
-                    this.errorrecipients = this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_RECIPIENTS');
-                } else {
-                    this.errorrecipients = '';
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick('save');
-            },
-            start(val) {
-                if (val.state === '0') {
-                    this.form.status = '2';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                // this.form.status = '2';
-                this.buttonClick('save');
-            },
-            end() {
-                this.form.status = '0';
-                this.buttonClick('save');
-            },
-            //add-ws-4/28-精算中，点击决裁，跳转画面
-            checkparamsTitle() {
-                let id = this.$route.params._checkid;
-                let disable = this.$route.params._checkdisable;
-                this.$router.push({
-                    name: 'PFANS1012FormView',
-                    params: {
-                        _id: id,
-                        disabled: disable,
-                    },
-                });
-            },
+                  }
+                  if (response3["seal"] != undefined) {
+                    let seallist = response3["seal"].split(';');
+                    for (let i = 0; i < seallist.length; i++) {
+                      let seal = seallist[i].split(',');
+                      let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
 
-            paramsTitle() {
-                this.$router.push({
-                    name: 'PFANS3005View',
-                });
-            },
-            checkparams() {
-                let id = this.$route.params._checkid;
-                let disable = this.$route.params._checkdisable;
-                this.$router.push({
-                    name: 'PFANS1006FormView',
-                    params: {
-                        disabled: disable,
-                        _id: id,
-                    },
-                });
-            },
-            //add-ws-4/28-精算中，点击决裁，跳转画面
-            buttonClick(val) {
-                if (val === 'back') {
-                    //add-ws-4/28-精算中，点击决裁，跳转画面
-                    if (this.$route.params._check != null && this.$route.params._check != undefined) {
-                        if (this.$route.params._check) {
-                            this.checkparamsTitle();
-                        }
-                    } else if (this.$route.params._check5 != null && this.$route.params._check5 != undefined) {
-                        if (this.$route.params._check5) {
-                            this.checkparams();
-                        }
-                    } else {
-                        this.paramsTitle();
-                    }
-                    //add-ws-4/28-精算中，点击决裁，跳转画面
-                } else if (val === 'trash') {
-                  this.dialogFormVisible = true;
-                    //this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                  // this.loading = true;
-                  // this.form.status = '1';
-                  // this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
-                  // this.$store
-                  //     .dispatch('PFANS3005Store/updatePurchase', this.form)
-                  //     .then(response => {
-                  //         this.data = response;
-                  //         this.loading = false;
-                  //         if (val !== 'update') {
-                  //             Message({
-                  //                 message: this.$t('normal.success_02'),
-                  //                 type: 'success',
-                  //                 duration: 5 * 1000,
-                  //             });
-                  //             if (this.$store.getters.historyUrl) {
-                  //                 this.$router.push(this.$store.getters.historyUrl);
-                  //             }
-                  //         }
-                  //     })
-                  //     .catch(error => {
-                  //         Message({
-                  //             message: error,
-                  //             type: 'error',
-                  //             duration: 5 * 1000,
-                  //         });
-                  //         this.loading = false;
-                  //     });
-                } else if (val === 'save') {
-                    this.$refs['refform'].validate(valid => {
-                        if (valid) {
-                            this.loading = true;
-                            if (this.form.careerplan === '0') {
-                                this.form.businessplantype = '';
-                                this.form.businessplanbalance = '';
-                                this.form.classificationtype = '';
-                            }
-                            if (this.form.businessplantype === 'PR002001') {
-                                this.form.classificationtype = '';
-                            } else if (this.form.businessplantype === 'PR002002') {
-                                this.form.classificationtype = '';
-                            } else if (this.form.businessplantype === 'PR002003') {
-                                this.form.classificationtype = '';
-                            } else if (this.form.businessplantype === 'PR002004') {
-                                this.form.classificationtype = '';
-                            }
-                            this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
-
-                            //add ccm 0811 事业计划金额小于总金额
-                            if (this.form.careerplan === '1') {
-                                if (Number(this.form.businessplanamount) < Number(this.form.totalamount)) {
-                                    this.form.careerplan = '0';
-                                    this.radiochange(this.form.careerplan);
-                                }
-                            }
-                            //add ccm 0811 事业计划金额小于总金额
-
-                            if (this.$route.params._id) {
-                                this.form.purchase_id = this.$route.params._id;
-                                this.$store
-                                    .dispatch('PFANS3005Store/updatePurchase', this.form)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        if (val !== 'update') {
-                                            Message({
-                                                message: this.$t('normal.success_02'),
-                                                type: 'success',
-                                                duration: 5 * 1000,
-                                            });
-                                            if (this.$store.getters.historyUrl) {
-                                                this.$router.push(this.$store.getters.historyUrl);
-                                            }
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.loading = false;
-                                    });
-                            } else {
-                                this.$store
-                                    .dispatch('PFANS3005Store/createPurchase', this.form)
-                                    .then(response => {
-                                        this.data = response;
-                                        this.loading = false;
-                                        Message({
-                                            message: this.$t('normal.success_01'),
-                                            type: 'success',
-                                            duration: 5 * 1000,
-                                        });
-                                        if (this.$store.getters.historyUrl) {
-                                            this.$router.push(this.$store.getters.historyUrl);
-                                        }
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000,
-                                        });
-                                        this.loading = false;
-                                    });
-                            }
-                        } else {
-                            Message({
-                                message: this.$t('normal.error_12'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                        }
-                    });
-                } else if (val === 'conapp') {
-                    this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                    //合同号申请
-                    let o = {};
-                    o.totalamount = this.form.totalamount;
-                    o.purnumbers = this.form.purnumbers;
-                    this.caigouhetongTable.push(o);
-
-                    //采购合同重复check
-                    this.$store
-                        .dispatch('PFANS1026Store/purchaseExistCheck', {'purnumbers': this.form.purnumbers})
-                        .then(response => {
-                            if (response.length === 0) {
-                                //合同号申请
-                                this.$router.push({
-                                    name: 'PFANS1033FormView',
-                                    params: {
-                                        _id: '',
-                                        _applicantdeptcode: this.form.group_id,
-                                        _caigouhetongTable: this.caigouhetongTable,
-                                        disabled: true,
-                                    },
-                                });
-                            } else {
-                                Message({
-                                    message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_MSG1'),
-                                    type: 'info',
-                                    duration: 3 * 1000,
-                                });
-                                return;
-                            }
-                            // if (this.$store.getters.historyUrl) {
-                            //   this.$router.push(this.$store.getters.historyUrl);
-                            // }
-                            this.loading = false;
+                          No: this.flowData.length + 1,
+                          Name: '印章申请',
+                          Status: statu,
+                          url: 'PFANS4001FormView',
+                          params: {'_id': seal[0]}
                         })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
-                    //采购合同重复check
-
-                } else if (val === 'temLoanApp') {
-                    this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                    //暂借款申请
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                    // //check是否存在暂借款
-                    // if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
-                    //   Message({
-                    //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                    //     type: 'info',
-                    //     duration: 3 * 1000,
-                    //   });
-                    //   return;
-                    // } else {
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                    //采购ID
-                    let purchase_id = [];
-                    //采购编号
-                    let purnumbers = [];
-                    //采购金额
-                    let moneys = [];
-                    //采购摘要
-                    let remarks = [];
-                    purnumbers = this.form.purnumbers + ',';
-                    purchase_id = this.form.purchase_id + ',';
-                    moneys = this.form.totalamount + ',';
-                    remarks = (this.form.remarks === null ? '' : this.form.remarks) + ',';
-                    //暂借款申请
-                    this.$router.push({
-                        name: 'PFANS1006FormView',
-                        params: {
-                            _id: '',
-                            _judgement: purchase_id,
-                            _judgement_name: purnumbers,
-                            _judgements_moneys: moneys,
-                            _remarks: remarks,
-                            _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
-                            disabled: true,
-                        },
-                    });
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                    // }
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                } else if (val === 'actuarial') {
-                    this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                    // if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
-                    //   Message({
-                    //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                    //     type: 'info',
-                    //     duration: 3 * 1000,
-                    //   });
-                    //   return;
-                    // } else {
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                    let optionsSEL = [];
-                    let user = getUserInfo(this.form.user_id);
-                    if (user) {
-                        this.form.user_id = getUserInfo(this.form.user_id).userinfo.customername;
                     }
-                    var vote = {};
-                    vote.user_id = this.form.user_id;
-                    vote.remarks = this.form.purchasepurpose;
-                    vote.numbers = this.form.purnumbers;
-                    vote.value = this.form.purchase_id;
-                    vote.label = this.form.purnumbers;
-                    vote.judgements_moneys = this.form.totalamount;
-                    if (this.$i18n) {
-                        vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSES');
+                  }
+                  if (response3["loanApplication"] != undefined) {
+                    let loanapplist = response3["loanApplication"].split(';');
+                    let setloanapplist = new Set(loanapplist);
+                    for (let i of setloanapplist) {
+                      let loanapp = i.split(',');
+                      let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '暂借款申请',
+                          Status: statu,
+                          url: 'PFANS1006FormView',
+                          params: {'_id': loanapp[0]}
+                        })
                     }
-                    optionsSEL.push(vote);
-                    if (this.form.loanapno === null || this.form.loanapno === '' || this.form.loanapno === undefined) {
-                        //精算 没有暂借款
-                        this.$router.push({
-                            name: 'PFANS1012FormView',
-                            params: {
-                                _name: optionsSEL,
-                                _type: 'PJ001002',
-                                disabled: true,
-                            },
-                        });
-                    } else {
-                        //精算  带暂借款
-                        this.$router.push({
-                            name: 'PFANS1012FormView',
-                            params: {
-                                _name: optionsSEL,
-                                _type: 'PJ001002',
-                                _haveLoanapp: this.form.loanapplication_id,
-                                disabled: true,
-                            },
-                        });
+                  }
+                  if (response3["publicExpense"] != undefined) {
+                    let publist = response3["publicExpense"].split(';');
+                    let setpublist = new Set(publist);
+                    for (let i of setpublist) {
+                      let pub = i.split(',');
+                      let statu = pub[1] === '4' ? 'normal.done' : (pub[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      this.flowData.push(
+                        {
+                          No: this.flowData.length + 1,
+                          Name: '公共费用精算',
+                          Status: statu,
+                          url: 'PFANS1012FormView',
+                          params: {'_id': pub[0]}
+                        })
                     }
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
-                    // }
-                    //del ccm 0813 决裁到暂借款，精算  check去掉
+                  }
+                  this.$emit('showPop', this.flowData);
                 }
-            },
+              })
+            //采购业务数据流程查看详情
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        if (this.userlist !== null && this.userlist !== '') {
+          let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+          //     this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
+          if (rst) {
+            this.centerid = rst.centerNmae;
+            this.groupid = rst.groupNmae;
+            this.teamid = rst.teamNmae;
+            this.form.center_id = rst.centerId;
+            // this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+            //add_fjl_0927
+            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              this.form.group_id = rst.groupId;
+              this.getBudt(this.form.group_id);
+              this.checkGro = true;
+            } else {
+              this.checkGro = false;
+            }
+            //add_fjl_0927
+          }
+          // if (this.form.group_id) {
+          //   this.getchangeGroup(this.form.group_id);
+          // }
+          this.form.user_id = this.$store.getters.userinfo.userid;
+          // this.buttonList = [];
+          // this.buttonList = [
+          //   {
+          //     key: 'save',
+          //     name: 'button.save',
+          //     disabled: false,
+          //     icon: 'el-icon-check',
+          //   },
+          // ];
+          //this.buttonList[1].disabled = true;
+          // this.getBudt(this.form.user_id);
+        }
+      }
+    },
+    //add_fjl start
+    watch: {
+      form: {
+        handler: function () {
+          //totalamount --总金额
+          // add_fjl_06/15 --添加审批流程 start
+          // 王磊
+          if (this.form.user_id === '5e78b2264e3b194874180f35') {
+            // 电脑相关
+            if (this.form.procurementproject === 'PJ005005' ||
+              this.form.procurementproject === 'PJ005006' ||
+              this.form.procurementproject === 'PJ005007' ||
+              this.form.procurementproject === 'PJ005018') {
+              this.workflowCode = 'W0125';
+            } else {
+              this.workflowCode = 'W0114';
+            }
+          } else if (this.form.careerplan === '1') {
+            if (Number(this.form.totalamount) <= 1000) {
+              if (this.form.procurementproject === 'PJ005005' ||
+                this.form.procurementproject === 'PJ005006' ||
+                this.form.procurementproject === 'PJ005007' ||
+                this.form.procurementproject === 'PJ005018') {
+                //电脑相关，1000元以下
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0136';
+                } else {
+                  this.workflowCode = 'W0126';
+                }
+              } else {
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0137';
+                } else {
+                  //最后节点到GM  事业计划内 1000以下
+                  this.workflowCode = 'W0082';
+                }
+              }
+            } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
+              if (this.form.procurementproject === 'PJ005005' ||
+                this.form.procurementproject === 'PJ005006' ||
+                this.form.procurementproject === 'PJ005007' ||
+                this.form.procurementproject === 'PJ005018') {
+                //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
+                // Center GM
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0131';
+                } else {
+                  this.workflowCode = 'W0127';
+                }
+              } else {
+                // Center GM
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0130';
+                } else {
+                  //最后节点到center长  事业计划内  1000到20000之间
+                  this.workflowCode = 'W0022';
+                }
+              }
+            } else if (Number(this.form.totalamount) > 20000) {
+              if (this.form.procurementproject === 'PJ005005' ||
+                this.form.procurementproject === 'PJ005006' ||
+                this.form.procurementproject === 'PJ005007' ||
+                this.form.procurementproject === 'PJ005018') {
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0133';
+                } else {
+                  //电脑相关，最后节点到总经理   两万以上
+                  this.workflowCode = 'W0128';
+                }
+              } else {
+                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                  this.workflowCode = 'W0132';
+                } else {
+                  //最后节点到总经理   两万以上
+                  this.workflowCode = 'W0075';
+                }
+              }
+            }
+          } else if (this.form.careerplan === '0') {
+            if (this.form.procurementproject === 'PJ005005' ||
+              this.form.procurementproject === 'PJ005006' ||
+              this.form.procurementproject === 'PJ005007' ||
+              this.form.procurementproject === 'PJ005018') {
+              //最后节点到总经理   电脑相关 事业计划外
+              if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                this.workflowCode = 'W0133';
+              } else {
+                this.workflowCode = 'W0128';
+              }
+            } else {
+              if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                this.workflowCode = 'W0132';
+              } else {
+                //最后节点到总经理   事业计划外
+                this.workflowCode = 'W0075';
+              }
+            }
+          }
+          // add_fjl_06/15 --添加审批流程 end
         },
-    };
+        deep: true,
+      },
+    }, loading: false,
+    //add_fjl end
+    created() {
+      // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+      this.disable = this.$route.params.disabled;
+      this.disableview = this.$route.params._disableview;
+      // if (this.disable) {
+      //   this.buttonList = [
+      //     {
+      //       key: 'save',
+      //       name: 'button.save',
+      //       disabled: false,
+      //       icon: 'el-icon-check',
+      //     },
+      //     {
+      //       key: 'trash',
+      //       name: 'button.trash',
+      //       disabled: false,
+      //       icon: 'el-icon-close',
+      //     },
+      //   ];
+      // }
+      //新建
+      if (!this.$route.params._id) {
+        this.buttonList = [];
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+          {
+            key: 'trash',
+            name: 'button.trash',
+            disabled: false,
+            icon: 'el-icon-close',
+          },
+        ];
+      } else {
+        //查看
+        if (!this.disable) {
+          let role = getCurrentRole2();
+          if (role === '0') {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+              {
+                key: 'trash',
+                name: 'button.trash',
+                disabled: false,
+                icon: 'el-icon-close',
+              },
+              {
+                key: 'conapp',
+                name: 'button.conapp',
+                disabled: true,
+                icon: 'el-icon-plus',
+              },
+              {
+                key: 'temLoanApp',
+                name: 'button.temLoanApp',
+                disabled: true,
+                icon: 'el-icon-plus',
+              },
+              {
+                key: 'actuarial',
+                name: 'button.actuarial',
+                disabled: true,
+                icon: 'el-icon-edit-outline',
+              },
+            ];
+          } else {
+            this.buttonList = [
+              // {
+              //   key: 'save',
+              //   name: 'button.save',
+              //   disabled: false,
+              //   icon: 'el-icon-check',
+              // },
+              // {
+              //   key: 'trash',
+              //   name: 'button.trash',
+              //   disabled: false,
+              //   icon: 'el-icon-close',
+              // },
+            ];
+          }
+        } else {
+          //修改
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+            {
+              key: 'trash',
+              name: 'button.trash',
+              disabled: false,
+              icon: 'el-icon-close',
+            },
+            {
+              key: 'conapp',
+              name: 'button.conapp',
+              disabled: true,
+              icon: 'el-icon-plus',
+            },
+            {
+              key: 'temLoanApp',
+              name: 'button.temLoanApp',
+              disabled: true,
+              icon: 'el-icon-plus',
+            },
+            {
+              key: 'actuarial',
+              name: 'button.actuarial',
+              disabled: true,
+              icon: 'el-icon-edit-outline',
+            },
+          ];
+        }
+      }
+
+
+      if (this.form.careerplan === '1') {
+        this.show3 = true;
+        this.show1 = true;
+        this.rules.businessplantype[0].required = true;
+        this.rules.businessplanbalance[0].required = true;
+        this.rules.classificationtype[0].required = false;
+      } else {
+        this.show3 = false;
+        this.show1 = false;
+        this.rules.businessplantype[0].required = false;
+        this.rules.businessplanbalance[0].required = false;
+        this.rules.classificationtype[0].required = false;
+      }
+    },
+    methods: {
+      //add_fjl_0927
+      getCenterid(val) {
+        this.form.center_id = val;
+      },
+      getGroupId1(val) {
+        this.form.group_id = val;
+        this.form.budgetnumber = '';
+        this.getBudt(val);
+      },
+      getTeamid(val) {
+        this.form.team_id = val;
+      },
+      //add_fjl_0927
+      saves() {
+        this.$refs['refform1'].validate(valid => {
+          if (valid) {
+            this.dialogFormVisible = false;
+            this.form.trashreason = this.form1.trashreason;
+            this.buttonClick('save');
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+      },
+      cancels() {
+        this.dialogFormVisible = false;
+      },
+      //add ccm 0720
+      getSalequotation(val) {
+        this.form.salequotation = val;
+        if (val === 'PJ013002') {
+          this.show6 = false;
+        } else if (val === 'PJ013001') {
+          this.show6 = true;
+        } else if (val === 'PJ013003') {
+          this.show6 = true;
+        }
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          file.url = file.url.replace("#", "%23");
+          file.url = file.url.replace("&", "%26");
+          file.url = file.url.replace("+", "%2B");
+          file.url = file.url.replace("%", "%25");
+          file.url = file.url.replace("=", "%3D");
+          file.url = file.url.replace("?", "%3F");
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
+        }
+      },
+      // rowClick(row) {
+      //   this.url = '';
+      //   this.urlparams = '';
+      //   this.url = 'PFANS1006FormView';
+      //   this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+      //     this.$refs.PFANS1006Pop.open = true;
+      // },
+      // rowClick1(row) {
+      //   this.url = '';
+      //   this.urlparams = '';
+      //   this.url = 'PFANS1012FormView';
+      //   this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
+      //     this.$refs.PFANS1012Pop.open = true;
+      // },
+      //add ccm 0720
+      //add_fjl_0813  查看详情
+      rowClick(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            _id: row.loanapplication_id,
+            disabled: false,
+            _checkid: this.$route.params._id,
+            _check: true,
+            _fromname: 'PFANS3005FormView',
+          },
+        });
+      },
+      rowClick1(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
+        this.$router.push({
+          name: 'PFANS1012FormView',
+          params: {
+            _id: row.publicexpense_id,
+            disabled: false,
+            _checkid: this.$route.params._id,
+            _check2: true,
+            _fromname: 'PFANS3005FormView',
+          },
+        });
+      },
+      //add_fjl_0813  查看详情
+
+      //add-ws-6/16-禅道137
+      getCompanyProjectList() {
+        if (this.disable) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5009Store/getSiteList5', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+              }
+              this.$store
+                .dispatch('PFANS5013Store/getMyConProject', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5013Store/Listproject2', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdate.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+              }
+              this.$store
+                .dispatch('PFANS5013Store/Listproject', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdate.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      //add-ws-6/16-禅道137
+      //change受理状态  add_fjl
+      changeAcc(val) {
+        this.form.acceptstatus = val;
+        if (val === '0') {
+          this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+          this.refuseShow = true;
+        } else {
+          this.form.findate = null;
+          this.refuseShow = false;
+        }
+      },
+      getBudt(val) {
+        this.options1 = [];
+        if (val === '' || val === null) {
+          return;
+        }
+        //ADD_FJL  修改人员预算编码
+        // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+        let butinfo = getOrgInfo(val).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              this.options1.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
+            }
+          }
+        }
+        // }
+        //ADD_FJL  修改人员预算编码
+      },
+      getBudgetunit(val) {
+        this.form.budgetnumber = val;
+      },
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          //fjl --与总务下其他几本同步
+          this.disabled = val;
+        }
+      },
+      changeSum() {
+        this.form.totalamount = this.form.quantity * this.form.unitprice;
+      },
+      getUserids(val) {
+        this.form.user_id = val;
+        this.userlist = val;
+        let rst = getOrgInfoByUserId(val);
+        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+        //     this.form.budgetnumber = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        // }
+        if (rst) {
+          this.centerid = rst.centerNmae;
+          this.groupid = rst.groupNmae;
+          this.teamid = rst.teamNmae;
+          this.form.center_id = rst.centerId;
+          this.form.group_id = rst.groupId;
+          this.form.team_id = rst.teamId;
+        } else {
+          this.centerid = '';
+          this.groupid = '';
+          this.teamid = '';
+          this.form.center_id = '';
+          this.form.group_id = '';
+          this.form.team_id = '';
+        }
+        if (!this.form.user_id || this.form.user_id === '' || val === undefined) {
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
+        } else {
+          this.erroruser = '';
+        }
+      },
+      getController(val) {
+        this.form.controller = val;
+        this.controllerlist = val;
+        if (!this.form.controller || this.form.controller === '' || val === undefined) {
+          this.errorcontroller = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_CONTROLLER');
+        } else {
+          this.errorcontroller = '';
+        }
+      },
+      radiochange(val) {
+        this.form.careerplan = val;
+        if (val === '1') {
+          this.show1 = true;
+          this.show3 = true;
+          if (this.form.businessplantype === 'PR002006') {
+            this.show2 = true;
+            this.rules.classificationtype[0].required = true;
+          }
+          this.rules.businessplantype[0].required = true;
+          this.rules.businessplanbalance[0].required = true;
+        } else {
+          this.show1 = false;
+          this.show2 = false;
+          this.show3 = false;
+          this.rules.businessplantype[0].required = false;
+          this.rules.businessplanbalance[0].required = false;
+          this.rules.classificationtype[0].required = false;
+          this.form.businessplantype = '';
+          this.form.businessplanbalance = '';
+          this.form.classificationtype = '';
+        }
+      },
+      getBusinessplantype(val) {
+        this.form.businessplantype = val;
+        if (val === 'PR002006') {
+          this.show2 = true;
+          this.rules.classificationtype[0].required = true;
+        }
+        // else if (val === 'PR002001') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002002') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002003') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // } else if (val === 'PR002004') {
+        //   this.show2 = false;
+        //   this.rules.classificationtype[0].required = false;
+        // }
+        else {
+          this.show2 = false;
+          this.rules.classificationtype[0].required = false;
+        }
+      },
+      // getCenterId(val) {
+      //   this.getOrgInformation(val);
+      //   if (!val || this.form.center_id === '') {
+      //     this.errorcenter = this.$t('normal.error_09') + 'center';
+      //   } else {
+      //     this.errorcenter = '';
+      //   }
+      // },
+      // getGroupId(orglist) {
+      //   this.getchangeGroup(orglist);
+      //   this.form.group_name = orglist;
+      //   if (!this.form.group_name || this.form.group_name === '') {
+      //     this.errorgroup = this.$t('normal.error_09') + 'group';
+      //   } else {
+      //     this.errorgroup = '';
+      //   }
+      // },
+      // getTeamId(val) {
+      //   this.getOrgInformation(val);
+      //   if (this.form.group_id === '') {
+      //     this.errorgroup = this.$t('normal.error_08') + 'group';
+      //   } else {
+      //     this.errorgroup = '';
+      //   }
+      //   if (this.form.center_id === '') {
+      //     this.errorcenter = this.$t('normal.error_08') + 'center';
+      //   } else {
+      //     this.errorcenter = '';
+      //   }
+      // },
+      // getOrgInformation(id) {
+      //   let org = {};
+      //   let treeCom = this.$store.getters.orgs;
+      //   if (id && treeCom.getNode(id)) {
+      //     let node = id;
+      //     let type = treeCom.getNode(id).data.type || 0;
+      //     for (let index = parseInt(type); index >= 1; index--) {
+      //       if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+      //         org.teamname = treeCom.getNode(node).data.departmentname;
+      //         org.team_id = treeCom.getNode(node).data._id;
+      //       }
+      //       if (index === 2) {
+      //         org.groupname = treeCom.getNode(node).data.departmentname;
+      //         org.group_id = treeCom.getNode(node).data._id;
+      //       }
+      //       if (index === 1) {
+      //         org.centername = treeCom.getNode(node).data.companyname;
+      //         org.center_id = treeCom.getNode(node).data._id;
+      //       }
+      //       node = treeCom.getNode(node).parent.data._id;
+      //     }
+      //     ({
+      //       centername: this.form.centername,
+      //       groupname: this.form.groupname,
+      //       teamname: this.form.teamname,
+      //       center_id: this.form.center_id,
+      //       group_id: this.form.group_id,
+      //       team_id: this.form.team_id,
+      //     } = org);
+      //     this.getchangeGroup(this.form.group_id);
+      //   }
+      // },
+      getClassificationtype(val) {
+        this.form.classificationtype = val;
+      },
+      getprocurementproject(val) {
+        this.form.procurementproject = val;
+        if (val === 'PJ005001') {
+          this.show5 = true;
+          this.show4 = false;
+        } else if (val === 'PJ005002') {
+          this.show4 = true;
+          this.show5 = false;
+        } else if (val === 'PJ005003') {
+          this.show4 = true;
+          this.show5 = false;
+        } else if (val === 'PJ005004') {
+          this.show4 = true;
+          this.show5 = false;
+        } else if (val === 'PJ005005') {
+          this.show4 = true;
+          this.show5 = false;
+        } else if (val === 'PJ005006') {
+          this.show4 = true;
+          this.show5 = false;
+        }
+      },
+      getUsername(val) {
+        this.form.username = val;
+        this.usernamelist = val;
+        if (!this.form.username || this.form.username === '' || val === undefined) {
+          this.errorusername = this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER');
+        } else {
+          this.errorusername = '';
+        }
+      },
+      getRecipientslist(val) {
+        this.form.recipients = val;
+        this.recipientslist = val;
+        if (!this.form.recipients || this.form.recipients === '' || val === undefined) {
+          this.errorrecipients = this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_RECIPIENTS');
+        } else {
+          this.errorrecipients = '';
+        }
+      },
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        this.buttonClick('save');
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        // this.form.status = '2';
+        this.buttonClick('save');
+      },
+      end() {
+        this.form.status = '0';
+        this.buttonClick('save');
+      },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
+      checkparamsTitle() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1012FormView',
+          params: {
+            _id: id,
+            disabled: disable,
+          },
+        });
+      },
+
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS3005View',
+        });
+      },
+      checkparams() {
+        let id = this.$route.params._checkid;
+        let disable = this.$route.params._checkdisable;
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            disabled: disable,
+            _id: id,
+          },
+        });
+      },
+      //add-ws-4/28-精算中，点击决裁，跳转画面
+      buttonClick(val) {
+        if (val === 'back') {
+          //add-ws-4/28-精算中，点击决裁，跳转画面
+          if (this.$route.params._check != null && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparamsTitle();
+            }
+          } else if (this.$route.params._check5 != null && this.$route.params._check5 != undefined) {
+            if (this.$route.params._check5) {
+              this.checkparams();
+            }
+          } else {
+            this.paramsTitle();
+          }
+          //add-ws-4/28-精算中，点击决裁，跳转画面
+        } else if (val === 'trash') {
+          this.dialogFormVisible = true;
+          //this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+          // this.loading = true;
+          // this.form.status = '1';
+          // this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
+          // this.$store
+          //     .dispatch('PFANS3005Store/updatePurchase', this.form)
+          //     .then(response => {
+          //         this.data = response;
+          //         this.loading = false;
+          //         if (val !== 'update') {
+          //             Message({
+          //                 message: this.$t('normal.success_02'),
+          //                 type: 'success',
+          //                 duration: 5 * 1000,
+          //             });
+          //             if (this.$store.getters.historyUrl) {
+          //                 this.$router.push(this.$store.getters.historyUrl);
+          //             }
+          //         }
+          //     })
+          //     .catch(error => {
+          //         Message({
+          //             message: error,
+          //             type: 'error',
+          //             duration: 5 * 1000,
+          //         });
+          //         this.loading = false;
+          //     });
+        } else if (val === 'save') {
+          this.$refs['refform'].validate(valid => {
+            if (valid) {
+              this.loading = true;
+              if (this.form.careerplan === '0') {
+                this.form.businessplantype = '';
+                this.form.businessplanbalance = '';
+                this.form.classificationtype = '';
+              }
+              if (this.form.businessplantype === 'PR002001') {
+                this.form.classificationtype = '';
+              } else if (this.form.businessplantype === 'PR002002') {
+                this.form.classificationtype = '';
+              } else if (this.form.businessplantype === 'PR002003') {
+                this.form.classificationtype = '';
+              } else if (this.form.businessplantype === 'PR002004') {
+                this.form.classificationtype = '';
+              }
+              this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
+
+              //add ccm 0811 事业计划金额小于总金额
+              if (this.form.careerplan === '1') {
+                if (Number(this.form.businessplanamount) < Number(this.form.totalamount)) {
+                  this.form.careerplan = '0';
+                  this.radiochange(this.form.careerplan);
+                }
+              }
+              //add ccm 0811 事业计划金额小于总金额
+
+              if (this.$route.params._id) {
+                this.form.purchase_id = this.$route.params._id;
+                this.$store
+                  .dispatch('PFANS3005Store/updatePurchase', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    if (val !== 'update') {
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              } else {
+                this.$store
+                  .dispatch('PFANS3005Store/createPurchase', this.form)
+                  .then(response => {
+                    this.data = response;
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.success_01'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    if (this.$store.getters.historyUrl) {
+                      this.$router.push(this.$store.getters.historyUrl);
+                    }
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          });
+        } else if (val === 'conapp') {
+          this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+          //合同号申请
+          let o = {};
+          o.totalamount = this.form.totalamount;
+          o.purnumbers = this.form.purnumbers;
+          this.caigouhetongTable.push(o);
+
+          //采购合同重复check
+          this.$store
+            .dispatch('PFANS1026Store/purchaseExistCheck', {'purnumbers': this.form.purnumbers})
+            .then(response => {
+              if (response.length === 0) {
+                //合同号申请
+                this.$router.push({
+                  name: 'PFANS1033FormView',
+                  params: {
+                    _id: '',
+                    _applicantdeptcode: this.form.group_id,
+                    _caigouhetongTable: this.caigouhetongTable,
+                    disabled: true,
+                  },
+                });
+              } else {
+                Message({
+                  message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_MSG1'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
+              }
+              // if (this.$store.getters.historyUrl) {
+              //   this.$router.push(this.$store.getters.historyUrl);
+              // }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+          //采购合同重复check
+
+        } else if (val === 'temLoanApp') {
+          this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+          //暂借款申请
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // //check是否存在暂借款
+          // if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+          //   Message({
+          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+          //     type: 'info',
+          //     duration: 3 * 1000,
+          //   });
+          //   return;
+          // } else {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          //采购ID
+          let purchase_id = [];
+          //采购编号
+          let purnumbers = [];
+          //采购金额
+          let moneys = [];
+          //采购摘要
+          let remarks = [];
+          purnumbers = this.form.purnumbers + ',';
+          purchase_id = this.form.purchase_id + ',';
+          moneys = this.form.totalamount + ',';
+          remarks = (this.form.remarks === null ? '' : this.form.remarks) + ',';
+          //暂借款申请
+          this.$router.push({
+            name: 'PFANS1006FormView',
+            params: {
+              _id: '',
+              _judgement: purchase_id,
+              _judgement_name: purnumbers,
+              _judgements_moneys: moneys,
+              _remarks: remarks,
+              _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+              disabled: true,
+            },
+          });
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+        } else if (val === 'actuarial') {
+          this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
+          //   Message({
+          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+          //     type: 'info',
+          //     duration: 3 * 1000,
+          //   });
+          //   return;
+          // } else {
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          let optionsSEL = [];
+          let user = getUserInfo(this.form.user_id);
+          if (user) {
+            this.form.user_id = getUserInfo(this.form.user_id).userinfo.customername;
+          }
+          var vote = {};
+          vote.user_id = this.form.user_id;
+          vote.remarks = this.form.purchasepurpose;
+          vote.numbers = this.form.purnumbers;
+          vote.value = this.form.purchase_id;
+          vote.label = this.form.purnumbers;
+          vote.judgements_moneys = this.form.totalamount;
+          if (this.$i18n) {
+            vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSES');
+          }
+          optionsSEL.push(vote);
+          if (this.form.loanapno === null || this.form.loanapno === '' || this.form.loanapno === undefined) {
+            //精算 没有暂借款
+            this.$router.push({
+              name: 'PFANS1012FormView',
+              params: {
+                _name: optionsSEL,
+                _type: 'PJ001002',
+                disabled: true,
+              },
+            });
+          } else {
+            //精算  带暂借款
+            this.$router.push({
+              name: 'PFANS1012FormView',
+              params: {
+                _name: optionsSEL,
+                _type: 'PJ001002',
+                _haveLoanapp: this.form.loanapplication_id,
+                disabled: true,
+              },
+            });
+          }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+          // }
+          //del ccm 0813 决裁到暂借款，精算  check去掉
+        }
+      },
+    },
+  };
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
