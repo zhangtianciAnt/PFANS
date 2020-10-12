@@ -2771,7 +2771,7 @@
                         //试用期截止日
                         let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
                         //判断申请人是否在试用期
-                        if (enddateflg >= moment(new Date()).format('YYYY-MM-DD'))
+                        if (enddateflg < moment(new Date()).format('YYYY-MM-DD'))
                         {
                           if (userInfo.userinfo.resignation_date)
                           {
