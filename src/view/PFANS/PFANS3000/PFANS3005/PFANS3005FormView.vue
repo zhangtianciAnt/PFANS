@@ -1056,7 +1056,9 @@
                                     this.enableSave = true;
                                     if (this.disable) {
                                         if (this.form.findate == null || this.form.findate == "") {
+                                          if(this.form.acceptstatus === '0'){
                                             this.form.findate = moment(new Date()).format('YYYY-MM-DD');
+                                          }
                                         }
                                         this.acceptShow = false;
                                     } else {
