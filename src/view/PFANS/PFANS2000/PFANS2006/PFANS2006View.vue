@@ -973,7 +973,7 @@
                 response[j].workdate = moment(response[j].workdate).format('YYYY-MM-DD');
               }
               if (response[j].shortillness !== null || response[j].longillness !== '') {
-                response[j].shortillness = Number(response[j].shortillness) + response[j].longillness;
+                response[j].shortillness = Number(response[j].shortillness) + Number(response[j].longillness);
               }
               if (this.$i18n) {
                 response[j].sex = response[j].sex === 'PR019001' ? this.$t('label.PFANS2002FORMVIEW_BOY') : this.$t('label.PFANS2002FORMVIEW_GRIL');
