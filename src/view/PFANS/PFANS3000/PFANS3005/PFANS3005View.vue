@@ -414,6 +414,11 @@
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClick(row) {
                 this.rowid = row.purchase_id;
+              if(row.trashreason != "" && row.trashreason != null){
+                this.buttonList[2].disabled = true;
+              }else{
+                this.buttonList[2].disabled = false;
+              }
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
