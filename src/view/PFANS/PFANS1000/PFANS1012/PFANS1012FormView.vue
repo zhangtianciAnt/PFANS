@@ -3969,6 +3969,7 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = true;
+          this.getLoanApplication();
         } else {
           this.show1 = false;
           this.show2 = false;
