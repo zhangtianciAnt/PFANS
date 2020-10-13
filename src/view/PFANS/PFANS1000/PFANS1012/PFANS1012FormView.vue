@@ -1811,6 +1811,7 @@
         code13: 'PJ071',
         code14: 'PJ083',
         invoicenumber: '',
+        formloan: '',
         errorgroup: '',
         orglist: '',
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), lable: ''}],
@@ -2704,6 +2705,7 @@
           //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
           if (this.$route.params._haveLoanapp) {
             this.form.loan = this.$route.params._haveLoanapp;
+            this.formloan = this.$route.params._haveLoanapp;
             this.getPayment('PJ004004');
             this.getLoanApplication();
           } else {
@@ -2812,7 +2814,7 @@
       //     .catch(error => {
       //       Message({
       //         message: error,
-      //         type: 'error',
+      //         type: 'error',f
       //         duration: 5 * 1000,
       //       });
       //       this.loading = false;
@@ -2897,7 +2899,7 @@
       getLoanApplication() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1012Store/getLoanApplicationList', {'loanapno': this.form.loan})
+          .dispatch('PFANS1012Store/getLoanApplicationList', {'loanapno': this.formloan})
           .then(response => {
             if (response != undefined && response != null) {
               for (let i = 0; i < response.length; i++) {
@@ -3897,6 +3899,7 @@
         // this.buttonClick('save');
       },
       getPayment(val) {
+        this.tableLoa = [];
         this.form.paymentmethod = val;
         if (val === 'PJ004001') {
           this.show1 = true;
@@ -3969,7 +3972,9 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = true;
-          this.getLoanApplication();
+          if(this.form.loan === ""){
+            this.getLoanApplication();
+          }
         } else {
           this.show1 = false;
           this.show2 = false;
