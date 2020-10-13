@@ -306,7 +306,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005FORMVIEW_OUTASSETSNO')" v-show="show4" prop="outassetsno">
-                    <el-input :disabled="!disable" style="width:20vw" maxlength='20'
+                    <el-input :disabled="fixedisable" style="width:20vw" maxlength='20'
                               v-model="form.fixedassetsno"></el-input>
                   </el-form-item>
                 </el-col>
