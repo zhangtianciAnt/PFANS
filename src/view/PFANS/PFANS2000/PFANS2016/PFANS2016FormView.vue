@@ -2141,10 +2141,10 @@
       },
       fileDownload(file) {
         if (file.url) {
+          file.url = file.url.replace("%","%25");
           file.url = file.url.replace("#","%23");
           file.url = file.url.replace("&","%26");
           file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("%","%25");
           file.url = file.url.replace("=","%3D");
           file.url = file.url.replace("?","%3F");
           var url = downLoadUrl(file.url);
@@ -2771,7 +2771,7 @@
                         //试用期截止日
                         let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
                         //判断申请人是否在试用期
-                        if (enddateflg >= moment(new Date()).format('YYYY-MM-DD'))
+                        if (enddateflg < moment(new Date()).format('YYYY-MM-DD'))
                         {
                           if (userInfo.userinfo.resignation_date)
                           {
