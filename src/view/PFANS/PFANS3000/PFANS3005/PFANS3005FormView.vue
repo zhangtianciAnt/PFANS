@@ -300,7 +300,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005FORMVIEW_FIXEDASSETSNO')" v-show="show5"
                                 prop="fixedassetsno">
-                    <el-input :disabled="!disable" style="width:20vw" maxlength='20'
+                    <el-input :disabled="fixedisable" style="width:20vw" maxlength='20'
                               v-model="form.fixedassetsno"></el-input>
                   </el-form-item>
                 </el-col>
@@ -751,7 +751,7 @@
         title: 'title.PFANS3005VIEW',
         enableSave: false,
         workflowCode: '',
-
+        fixedisable: true,
         editableTabsValue: '0',
         editableTabs: [],
         tabIndex: 0,
@@ -1031,7 +1031,6 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
-              console.log(this.form)
               if (this.form.acceptstatus === '0') {
                 this.refuseShow = true;
               } else {
@@ -1501,6 +1500,7 @@
       // }
       //新建
       if (!this.$route.params._id) {
+        this.fixedisable = false;
         this.buttonList = [];
         this.buttonList = [
           {
@@ -1520,7 +1520,10 @@
         //查看
         if (!this.disable) {
           let role = getCurrentRole2();
+          let role4 = getCurrentRole4();
+          let role5 = getCurrentRole5();
           if (role === '0') {
+            this.fixedisable = true;
             this.buttonList = [
               {
                 key: 'save',
@@ -1553,23 +1556,24 @@
                 icon: 'el-icon-edit-outline',
               },
             ];
-          } else {
+          } else if(role4 === '0' || role5 === '0'){
+            // this.disable = !this.$route.params.disabled;
+            this.fixedisable = false;
             this.buttonList = [
-              // {
-              //   key: 'save',
-              //   name: 'button.save',
-              //   disabled: false,
-              //   icon: 'el-icon-check',
-              // },
-              // {
-              //   key: 'trash',
-              //   name: 'button.trash',
-              //   disabled: false,
-              //   icon: 'el-icon-close',
-              // },
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }else{
+            this.buttonList = [
+
             ];
           }
         } else {
+          this.fixedisable = false;
           //修改
           this.buttonList = [
             {
