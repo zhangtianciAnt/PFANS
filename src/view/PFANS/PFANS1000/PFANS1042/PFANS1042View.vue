@@ -119,7 +119,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTST')"
               align="center"
-              width="180"
+              width="150"
               prop="outst1">
               <template slot-scope="scope">
                 <span>{{scope.row.outst1}}</span>
@@ -141,7 +141,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXYW')"
               align="center"
-              width="110"
+              width="78"
               prop="outst2">
               <template slot-scope="scope">
                 <span>{{scope.row.outst2}}</span>
@@ -151,7 +151,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TAXSA')"
               align="center"
-              width="110"
+              width="78"
               prop="outst3">
               <template slot-scope="scope">
                 <span>{{scope.row.outst3}}</span>
@@ -161,7 +161,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INST')"
               align="center"
-              width="110"
+              width="78"
               prop="inst">
               <template slot-scope="scope">
                 <span>{{scope.row.inst}}</span>
@@ -172,7 +172,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_CENTERINTOTAL')"
               align="center"
-              width="110"
+              width="108"
               prop="centerintotal">
               <template slot-scope="scope">
                 <span>{{scope.row.centerintotal}}</span>
@@ -182,7 +182,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTOTAL')"
               align="center"
-              width="110"
+              width="78"
               prop="intotal">
               <template slot-scope="scope">
                 <span>{{scope.row.intotal}}</span>
@@ -198,7 +198,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOST')"
               align="center"
-              width="110"
+              width="64"
               prop="peocost">
               <template slot-scope="scope">
                 <span>{{scope.row.peocost}}</span>
@@ -208,7 +208,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TWOCOST')"
               align="center"
-              width="110"
+              width="64"
               prop="twocost">
               <template slot-scope="scope">
                 <span>{{scope.row.twocost}}</span>
@@ -218,7 +218,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PEOCOSTSUM')"
               align="center"
-              width="110"
+              width="92"
               prop="peocostsum">
               <template slot-scope="scope">
                 <span>{{scope.row.peocostsum}}</span>
@@ -228,7 +228,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONSOFT')"
               align="center"
-              width="180"
+              width="148"
               prop="depreciationsoft">
               <template slot-scope="scope">
                 <el-input-number
@@ -249,7 +249,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPRECIATIONEQUIPMENT')"
               align="center"
-              width="180"
+              width="162"
               prop="depreciationequipment">
               <template slot-scope="scope">
                 <el-input-number
@@ -270,7 +270,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RENT')"
               align="center"
-              width="110"
+              width="108"
               prop="rent">
               <template slot-scope="scope">
                 <span>{{scope.row.rent}}</span>
@@ -280,7 +280,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_LEASECOST')"
               align="center"
-              width="110"
+              width="78"
               prop="leasecost">
               <template slot-scope="scope">
                 <span>{{scope.row.leasecost}}</span>
@@ -290,7 +290,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TEMPORARYRENT')"
               align="center"
-              width="110"
+              width="108"
               prop="temporaryrent">
               <template slot-scope="scope">
                 <span>{{scope.row.temporaryrent}}</span>
@@ -300,7 +300,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHER')"
               align="center"
-              width="150"
+              width="116"
               prop="other">
               <template slot-scope="scope">
                 <span>{{scope.row.other}}</span>
@@ -310,7 +310,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTSUBTOTAL')"
               align="center"
-              width="150"
+              width="134"
               prop="costsubtotal">
               <template slot-scope="scope">
                 <span>{{scope.row.costsubtotal}}</span>
@@ -320,7 +320,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_RESEARCHCOST')"
               align="center"
-              width="110"
+              width="92"
               prop="researchcost">
               <template slot-scope="scope">
                 <span>{{scope.row.researchcost}}</span>
@@ -330,7 +330,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_SURVEYFEE')"
               align="center"
-              width="110"
+              width="64"
               prop="surveyfee">
               <template slot-scope="scope">
                 <span>{{scope.row.surveyfee}}</span>
@@ -340,7 +340,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INWEITUO')"
               align="center"
-              width="110"
+              width="108"
               prop="inwetuo">
               <template slot-scope="scope">
                 <span>{{scope.row.inwetuo}}</span>
@@ -350,7 +350,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTCOST')"
               align="center"
-              width="110"
+              width="64"
               prop="outcost">
               <template slot-scope="scope">
                 <span>{{scope.row.outcost}}</span>
@@ -361,7 +361,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERSOFTWAREFREE')"
               align="center"
-              width="150"
+              width="130"
               prop="othersoftwarefree">
               <template slot-scope="scope">
                 <span>{{scope.row.othersoftwarefree}}</span>
@@ -371,7 +371,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXPENSESSUBTOTAL')"
               align="center"
-              width="220"
+              width="204"
               prop="departmenttotal">
               <template slot-scope="scope">
                 <span>{{scope.row.departmenttotal}}</span>
@@ -381,7 +381,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MANCOMMONDEPT')"
               align="center"
-              width="180"
+              width="148"
               prop="expensessubtotal">
               <template slot-scope="scope">
                 <span>{{scope.row.expensessubtotal}}</span>
@@ -391,7 +391,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERONE')"
               align="center"
-              width="110"
+              width="64"
               prop="transferone">
               <template slot-scope="scope">
                 <span>{{scope.row.transferone}}</span>
@@ -401,7 +401,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRANSFERTWO')"
               align="center"
-              width="110"
+              width="64"
               prop="transfertwo">
               <template slot-scope="scope">
                 <span>{{scope.row.transfertwo}}</span>
@@ -411,7 +411,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_ALLOCATIONSUM')"
               align="center"
-              width="150"
+              width="120"
               prop="allocationsum">
               <template slot-scope="scope">
                 <span>{{scope.row.allocationsum}}</span>
@@ -440,7 +440,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TRAVALCOST')"
               align="center"
-              width="110"
+              width="50"
               prop="travalcost">
               <template slot-scope="scope">
                 <span>{{scope.row.travalcost}}</span>
@@ -513,7 +513,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_TOTALPRO')"
               align="center"
-              width="110"
+              width="92"
               prop="totalpro">
               <template slot-scope="scope">
                 <span>{{scope.row.totalpro}}</span>
@@ -525,7 +525,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_PRO')"
               align="center"
-              width="110"
+              width="64"
               prop="process">
               <template slot-scope="scope">
                 <span>{{scope.row.process}}</span>
@@ -536,7 +536,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHERINCOME')"
               align="center"
-              width="200"
+              width="140"
               prop="otherincome">
               <template slot-scope="scope">
                 <el-input-number
@@ -557,7 +557,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OTHEREXPENTOTAL')"
               align="center"
-              width="200"
+              width="150"
               prop="otherexpentotal">
               <template slot-scope="scope">
                 <span>{{scope.row.otherexpentotal}}</span>
@@ -567,7 +567,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_DEPARTMENTCOST')"
               align="center"
-              width="110"
+              width="108"
               prop="departmentcom">
               <template slot-scope="scope">
                 <span>{{scope.row.departmentcom}}</span>
@@ -586,7 +586,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_COSTTOTAL')"
               align="center"
-              width="110"
+              width="50"
               prop="costtotal">
               <template slot-scope="scope">
                 <span>{{scope.row.costtotal}}</span>
@@ -597,7 +597,7 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_BENEFITRATE')"
             align="center"
-            width="110"
+            width="92"
             prop="benefitrate">
             <template slot-scope="scope">
               <span>{{scope.row.benefitrate}}%</span>
@@ -607,7 +607,7 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATION')"
             align="center"
-            width="110"
+            width="78"
             prop="Operating">
             <template slot-scope="scope">
               <span>{{scope.row.Operating}}</span>
@@ -621,7 +621,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_INTERESTRATE')"
               align="center"
-              width="200"
+              width="120"
               prop="interestrate">
               <template slot-scope="scope">
                 <el-input-number
@@ -641,7 +641,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXCHANGE')"
               align="center"
-              width="200"
+              width="120"
               prop="exchanges">
               <template slot-scope="scope">
                 <el-input-number
@@ -661,7 +661,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OPERATINGPROFIT')"
               align="center"
-              width="110"
+              width="92"
               prop="operatingprofit">
               <template slot-scope="scope">
                 <span>{{scope.row.operatingprofit}}</span>
@@ -672,7 +672,7 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_PRETAXPROFIT')"
             align="center"
-            width="110"
+            width="92"
             prop="pretaxprofit">
             <template slot-scope="scope">
               <span>{{scope.row.pretaxprofit}}</span>
@@ -682,7 +682,7 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_TAXALLOWANCE')"
             align="center"
-            width="200"
+            width="120"
             prop="taxallowance">
             <template slot-scope="scope">
               <el-input-number
@@ -702,7 +702,7 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_POSTTAXBENEFIT')"
             align="center"
-            width="110"
+            width="92"
             prop="posttaxbenefit">
             <template slot-scope="scope">
               <span>{{scope.row.posttaxbenefit}}</span>
@@ -712,7 +712,7 @@
           <pl-table-column
             :label="$t('label.PFANS1042FORMVIEW_OPERATINGMARGIN')"
             align="center"
-            width="110"
+            width="92"
             prop="operatingmargin">
             <template slot-scope="scope">
               <span>{{scope.row.operatingmargin}}%</span>
@@ -747,7 +747,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGHOURS')"
               align="center"
-              width="110"
+              width="108"
               prop="outsourcinghours">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcinghours}}</span>
@@ -757,7 +757,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGNAME')"
               align="center"
-              width="130"
+              width="124"
               prop="outsourcingname">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingname}}</span>
@@ -767,7 +767,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEENAME')"
               align="center"
-              width="110"
+              width="92"
               prop="employeename">
               <template slot-scope="scope">
                 <span>{{scope.row.employeename}}</span>
@@ -782,7 +782,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCINGPJHOURS')"
               align="center"
-              width="180"
+              width="104"
               prop="outsourcingpjhours">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcingpjhours}}</span>
@@ -792,7 +792,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_OUTSOURCING')"
               align="center"
-              width="180"
+              width="108"
               prop="outsourcing">
               <template slot-scope="scope">
                 <span>{{scope.row.outsourcing}}</span>
@@ -802,7 +802,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEPJHOURS')"
               align="center"
-              width="130"
+              width="104"
               prop="emhours">
               <template slot-scope="scope">
                 <!--                <span>{{scope.row.employeepjhours}}</span>-->
@@ -813,7 +813,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EMPLOYEEUPTIME')"
               align="center"
-              width="110"
+              width="108"
               prop="employeeuptime">
               <template slot-scope="scope">
                 <span>{{scope.row.employeeuptime}}</span>
@@ -838,7 +838,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_EXTERNALINJECTIONRATE')"
               align="center"
-              width="110"
+              width="92"
               prop="externalinjectionrate">
               <template slot-scope="scope">
                 <span>{{scope.row.externalinjectionrate}}%</span>
@@ -858,7 +858,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_MEMBERSHIPRATE')"
               align="center"
-              width="110"
+              width="92"
               prop="membershiprate">
               <template slot-scope="scope">
                 <span>{{scope.row.membershiprate}}%</span>
@@ -878,7 +878,7 @@
             <pl-table-column
               :label="$t('label.PFANS1042FORMVIEW_STAFFINGRATE')"
               align="center"
-              width="110"
+              width="92"
               prop="staffingrate">
               <template slot-scope="scope">
                 <span>{{scope.row.staffingrate}}%</span>
