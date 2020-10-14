@@ -93,6 +93,14 @@ export function getLoanApplicationList(data) {
   })
 }
 
+export function getLoanApplicationList2(data) {
+  return request({
+    url: 'publicexpense/getLoanApplicationList2',
+    method: 'get',
+    params: data
+  })
+}
+
 export function selectJudgement(data) {
   return request({
     url: 'judgement/selectJudgement',

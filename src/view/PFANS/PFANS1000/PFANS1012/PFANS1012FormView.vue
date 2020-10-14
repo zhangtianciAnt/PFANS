@@ -1358,14 +1358,15 @@
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
   import {
+    downLoadUrl,
+    getCurrentRole,
+    getCurrentRole5,
     getDictionaryInfo,
     getOrgInfo,
     getOrgInfoByUserId,
-    getUserInfo,
-    getCurrentRole,
     getStatus,
+    getUserInfo,
     uploadUrl,
-    downLoadUrl, getCurrentRole5,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -1840,7 +1841,7 @@
     mounted() {
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.plsummary = getDictionaryInfo('PJ111008').value1;
-      //this.getLoanApplication();
+      //this.getLoanApplicationList();
       this.getsupplierinfor();
       this.getCompanyProjectList();
       this.checkoptionsdata();
@@ -2442,7 +2443,7 @@
                 }
                 if (this.form.loan != null && this.form.loan != '') {
                   this.getPayment('PJ004004');
-                  this.getLoanApplication();
+                  this.getLoanApplicationList2();
                 }
               }
               //采购业务数据流程查看详情
@@ -2707,7 +2708,7 @@
             this.form.loan = this.$route.params._haveLoanapp;
             this.formloan = this.$route.params._haveLoanapp;
             this.getPayment('PJ004004');
-            this.getLoanApplication();
+            this.getLoanApplicationList();
           } else {
             //add-ws-8/24-禅道任务544
             this.getPayment('PJ004001');
@@ -2860,12 +2861,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace("%", "%25");
+          file.url = file.url.replace("#", "%23");
+          file.url = file.url.replace("&", "%26");
+          file.url = file.url.replace("+", "%2B");
+          file.url = file.url.replace("=", "%3D");
+          file.url = file.url.replace("?", "%3F");
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -2895,8 +2896,37 @@
           this.$refs.upload.clearFiles();
         }
       },
+      getLoanApplicationList2() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1012Store/getLoanApplicationList2', {'loanapno': this.form.loan})
+          .then(response => {
+            if (response != undefined && response != null) {
+              for (let i = 0; i < response.length; i++) {
+                var vote = {};
+                if (response[i].paymentmethod === 'PJ015001' || response[i].paymentmethod === 'PJ015003') {
+                  vote.accename = response[i].accountpayeename;
+                } else if (response[i].paymentmethod === 'PJ015002') {
+                  if (response[i].user_name !== '' && response[i].user_name !== null) {
+                    vote.accename = getUserInfo(response[i].user_name).userinfo.customername;
+                  }
+                }
+                vote.moneys = response[i].moneys;
+                vote.loanapno = response[i].loanapno;
+                vote.loanapplication_id = response[i].loanapplication_id;
+                this.tableLoa.push(vote);
+                //add-ws-8/20-禅道469任务
+                this.tableLoa.forEach(item => {
+                  this.$refs.multipleTable.toggleRowSelection(item, true);
+                });
+                //add-ws-8/20-禅道469任务
+              }
+            }
+            this.loading = false;
+          });
+      },
       //add-ws-5/26-No.208问题延申咱借款申请编号问题修改
-      getLoanApplication() {
+      getLoanApplicationList() {
         this.loading = true;
         this.$store
           .dispatch('PFANS1012Store/getLoanApplicationList', {'loanapno': this.formloan})
@@ -2918,6 +2948,7 @@
                 //add-ws-8/20-禅道469任务
                 this.tableLoa.forEach(item => {
                   this.$refs.multipleTable.toggleRowSelection(item, true);
+
                 });
                 //add-ws-8/20-禅道469任务
               }
@@ -3972,8 +4003,8 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = true;
-          if(this.form.loan === ""){
-            this.getLoanApplication();
+          if (this.form.loan === "") {
+            this.getLoanApplicationList();
           }
         } else {
           this.show1 = false;
@@ -4559,7 +4590,7 @@
         });
       },
       //add-ws-9/25-禅道任务567
-      checkbackcheck(){
+      checkbackcheck() {
         let id = this.$route.params._paramsid;
         let disable = this.$route.params.backcheck;
         this.$router.push({
@@ -4580,7 +4611,7 @@
               this.checkparams();
             }
             //add-ws-9/25-禅道任务567
-          }else  if (this.$route.params.backcheck != null && this.$route.params.backcheck != '' && this.$route.params.backcheck != undefined) {
+          } else if (this.$route.params.backcheck != null && this.$route.params.backcheck != '' && this.$route.params.backcheck != undefined) {
             if (this.$route.params.backcheck) {
               this.checkbackcheck();
             }
