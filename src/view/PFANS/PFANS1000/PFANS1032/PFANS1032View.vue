@@ -206,7 +206,7 @@
       //add_fjl_添加合同回款相关  start
       selectInit(row, index) {
         if (this.$i18n) {
-          return (moment(row.claimdate).format('YYYY-MM') <= new moment().format('YYYY-MM') && row.sealstatus === undefined);
+          return (moment(row.claimdate).format('YYYY-MM') <= new moment().format('YYYY-MM') && row.sealstatus === '');
         }
       },
       handleEdit(row) {
