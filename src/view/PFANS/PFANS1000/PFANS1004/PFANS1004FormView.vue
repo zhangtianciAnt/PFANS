@@ -1188,12 +1188,12 @@
             disabled: true,
             icon: 'el-icon-check',
           },
-          {
-            key: 'supplementary',
-            name: 'button.supplementary',
-            disabled: false,
-            icon: 'el-icon-plus',
-          },
+          // {
+          //   key: 'supplementary',
+          //   name: 'button.supplementary',
+          //   disabled: false,
+          //   icon: 'el-icon-plus',
+          // },
         ];
         this.enableSave = true;
       } else {
@@ -1204,12 +1204,12 @@
             disabled: false,
             icon: 'el-icon-check',
           },
-          {
-            key: 'supplementary',
-            name: 'button.supplementary',
-            disabled: true,
-            icon: 'el-icon-plus',
-          },
+          // {
+          //   key: 'supplementary',
+          //   name: 'button.supplementary',
+          //   disabled: true,
+          //   icon: 'el-icon-plus',
+          // },
         ];
       }
       if (this.form.careerplan === '1') {
