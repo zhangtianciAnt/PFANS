@@ -28,6 +28,7 @@
   import {Message} from 'element-ui';
   import moment from "moment";
   import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRole,getDownOrgInfo} from '@/utils/customize';
+  import {getCurrentRole9} from "../../../../utils/customize";
   export default {
     name: 'PFANS6008View',
     components: {
@@ -897,11 +898,12 @@
           }
         }
         const vote1 = [];
+        let role9 = getCurrentRole9();
         if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
           || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
           || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
           || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
-          || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+          || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d' || role9 ==='0')
         {
           let centerId = '5e7858a08f4316308435112c';
           let orgs = getDownOrgInfo(centerId);

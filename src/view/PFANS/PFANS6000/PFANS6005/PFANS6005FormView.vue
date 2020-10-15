@@ -445,7 +445,7 @@ import dicselect from "../../../components/dicselect.vue";
 import { Message } from "element-ui";
 import { getDictionaryInfo, getOrgInfoByUserId } from "@/utils/customize";
 import moment from "moment";
-import {getCurrentRole, getDownOrgInfo, getUserInfo,getCooperinterviewList} from "../../../../utils/customize";
+import {getCurrentRole, getDownOrgInfo,getCurrentRole9, getUserInfo,getCooperinterviewList} from "../../../../utils/customize";
 
 export default {
   name: "PFANS6005FormView",
@@ -571,11 +571,12 @@ export default {
         }
       }
       const vote1 = [];
+      let role9 = getCurrentRole9();
       if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
         || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
         || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
         || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
-        || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+        || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d' || role9 ==='0')
       {
         let centerId = '5e7858a08f4316308435112c';
         let orgs = getDownOrgInfo(centerId);
