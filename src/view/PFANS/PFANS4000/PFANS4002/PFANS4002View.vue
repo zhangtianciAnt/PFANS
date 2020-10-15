@@ -422,7 +422,7 @@
           };
         }
         this.$store
-          .dispatch("usersStore/getUserTableList", params)
+          .dispatch("usersStore/getUserTableList3", params)
           .then(response => {
             let _tableList = [];
             if (response.length > 0) {
@@ -542,7 +542,7 @@
           orgtype: ""
         };
         this.$store
-          .dispatch("usersStore/getUserTableList", params)
+          .dispatch("usersStore/getUserTableList3", params)
           .then(response => {
             let _tableList = [];
             if (response.length > 0) {
