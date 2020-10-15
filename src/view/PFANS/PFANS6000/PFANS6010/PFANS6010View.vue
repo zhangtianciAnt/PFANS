@@ -31,6 +31,7 @@
                 // 表格数据源
                 data: [],
                 letparams:{},
+                showButton:'0',
                 status:'',
                 groupid:'',
                 buttonListinitial:[
@@ -129,7 +130,6 @@
                             tempDate.setDate(1);
                             dates = moment(tempDate).format('M');
                         }
-                        let showButton = '0';
                         for (let j = 0; j < response.length; j++) {
                             if(response[j].groupid){
                                 let group = getorgGroupallList(response[j].groupid);
@@ -157,7 +157,7 @@
                             response[j].status = response[j].letstatus;
                             //判断是否有审批未通过的数据
                             if(response[j].letstatus != '4'){
-                                // showButton = '1';
+                                 this.showButton = '1';
                             }
                             this.letstatus = response[j].letstatus;
                             //数据状态
@@ -219,7 +219,7 @@
                             //endregion 部门费用合计
                         }
                         //外驻管理人员可操作【生成合同】
-                        if(letRole2 == '4' && showButton === '0'){
+                        if(letRole2 == '4' ){
                             this.buttonList = this.buttonListinitial;
                         }
                         else{
@@ -275,7 +275,7 @@
                         params: {
                             _id: this.rowid,
                             letparams:this.letparams,
-                            letstatus:this.letstatus,
+                            letstatus:this.showButton,
                             disabled: false
                         }
                     })
@@ -288,7 +288,7 @@
                         params: {
                             _id: this.rowid,
                             letparams:this.letparams,
-                            letstatus:this.letstatus,
+                            letstatus:this.showButton,
                             _contr:getCurrentRole8(),
                             disabled: false
                         }
