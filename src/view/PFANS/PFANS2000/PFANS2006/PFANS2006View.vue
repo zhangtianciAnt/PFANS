@@ -972,6 +972,9 @@
               if (response[j].workdate !== null && response[j].workdate !== '') {
                 response[j].workdate = moment(response[j].workdate).format('YYYY-MM-DD');
               }
+              if (response[j].thismonth !== null && response[j].thismonth !== '') {
+                  response[j].thismonth = Math.round(response[j].thismonth * 100 / 100);
+              }
               if (response[j].shortillness !== null || response[j].longillness !== '') {
                 response[j].shortillness = Number(response[j].shortillness) + Number(response[j].longillness);
               }
