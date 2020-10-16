@@ -37,30 +37,32 @@
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_NAME')"
                   prop="userName"
-                  width="120"
+                  fixed="left"
+                  width="70"
                 ></plx-table-column>
-                <plx-table-column :label="$t('label.PFANS2027VIEW_RN')" prop="rnName" width="120"></plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_RN')" prop="rnName" width="60">
+                </plx-table-column>
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_DATE')"
                   prop="enterdayFormat"
-                  width="120"
+                  width="90"
                 ></plx-table-column>
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_GROUP2')"
                   prop="groupName"
-                  width="120"
+                  width="140"
                 ></plx-table-column>
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_TEAM')"
                   prop="teamName"
-                  width="120"
+                  width="170"
                 ></plx-table-column>
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_FORM')"
                   prop="differenceName"
-                  width="120"
+                  width="74"
                 ></plx-table-column>
-                <plx-table-column :label="$t('label.PFANS2027VIEW_GIVE')" prop="salary" width="150"></plx-table-column>
+                <plx-table-column :label="$t('label.PFANS2027VIEW_GIVE')" prop="salary" width="130"></plx-table-column>
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_ATTENDANCE')"
                   prop="workrate"
@@ -81,7 +83,7 @@
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_2018YEAR')"
                   prop="bonussign"
-                  width="80"
+                  width="100"
                 >
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" size="mini" v-model="scope.row.bonussign"></el-input>
@@ -90,7 +92,7 @@
                 <plx-table-column
                   :label="$t('label.PFANS2027VIEW_LASTMONTHS')"
                   prop="lastsymbol"
-                  width="80"
+                  width="100"
                 >
                   <template slot-scope="scope">
                     <el-input :disabled="!disabled" size="mini" v-model="scope.row.lastsymbol"></el-input>
@@ -313,46 +315,48 @@
                   <plx-table-column
                     :label="$t('label.PFANS2027VIEW_COMPOSITESCORES')"
                     prop="overallscore"
-                    width="120"
+                    width="70"
                   ></plx-table-column>
                   <plx-table-column
                     :label="$t('label.PFANS2027VIEW_ONE')"
                     :prop="data.evaluatenum === 'PJ104001'?'commentaryresult':''"
-                    width="120"
+                    width="70"
                   ></plx-table-column>
                   <plx-table-column
                     :label="$t('label.PFANS2027VIEW_TOW')"
                     :prop="data.evaluatenum === 'PJ104002'?'commentaryresult':''"
-                    width="120"
+                    width="70"
                   ></plx-table-column>
                   <plx-table-column
                     :label="$t('label.PFANS2027VIEW_RESULTEVALUATION')"
                     :prop="data.evaluatenum === 'PJ104003'?'commentaryresult':''"
-                    width="120"
+                    width="70"
                   ></plx-table-column>
                 </plx-table-column>
                 <plx-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE1')">
                   <plx-table-column
                     :label="$t('label.PFANS2027VIEW_COMPOSITEEVALUATION')"
-                    width="120"
+                    width="400"
                   >
                     <template slot-scope="scope">
                       <el-input
                         :disabled="!disabled"
                         size="mini"
                         type="textarea"
+                        :autosize="{ minRows: 1, maxRows: 2}"
                         v-model="scope.row.comprehensiveone"
                       ></el-input>
                     </template>
                   </plx-table-column>
                 </plx-table-column>
                 <plx-table-column :label="$t('label.PFANS2027VIEW_COMPOSITE2')">
-                  <plx-table-column :label="$t('label.PFANS2027VIEW_FIRSTEVALUATION')" width="120">
+                  <plx-table-column :label="$t('label.PFANS2027VIEW_FIRSTEVALUATION')" width="400">
                     <template slot-scope="scope">
                       <el-input
                         :disabled="!disabled"
                         size="mini"
                         type="textarea"
+                        :autosize="{ minRows: 1, maxRows: 2}"
                         v-model="scope.row.comprehensivetwo"
                       ></el-input>
                     </template>
@@ -406,12 +410,12 @@
               <el-table-column
                 :label="$t('label.PFANS1027FORMVIEW_COL1')"
                 prop="title1"
-                width="120"
+                width="60"
               ></el-table-column>
               <el-table-column
                 :label="$t('label.PFANS1027FORMVIEW_COL2')"
                 prop="title2"
-                width="120"
+                width="76"
               ></el-table-column>
               <el-table-column
                 :formatter="formatter"
