@@ -81,11 +81,11 @@ service.interceptors.response.use(
           name: 'error403'
         })
       }else {
-        // if(response.data.code === 0){
-        //   if(response.config.url.indexOf('file/getToken') == -1){
-        //     response.data.data = JSON.parse(Decrypt(response.data.data));
-        //   }
-        // }
+        if(response.data.code === 0){
+          if(response.config.url.indexOf('file/getToken') == -1){
+            response.data.data = JSON.parse(Decrypt(response.data.data));
+          }
+        }
         return response.data;
       }
     } else {
