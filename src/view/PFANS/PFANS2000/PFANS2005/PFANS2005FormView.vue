@@ -57,57 +57,57 @@
                   <plx-table-column
                     prop="department_id"
                     :label="$t('label.PFANS2006VIEW_CLUB')"
-                    width="120"
+                    width="70"
                     align="center"
                     fixed="left"
                   ></plx-table-column>
                   <plx-table-column
                     prop="user_name"
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="120"
+                    width="90"
                     align="center"
                     fixed="left"
                   ></plx-table-column>
                   <plx-table-column
                     prop="workdate"
                     :label="$t('label.PFANS2006VIEW_JOINED')"
-                    width="120"
+                    width="110"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="sexshow"
                     :label="$t('label.PFANS2006VIEW_SEX')"
-                    width="70"
+                    width="50"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="onlychildshow"
                     :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
-                    width="120"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="typeshow"
                     :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
-                    width="130"
+                    width="110"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="bonusshow"
                     :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="sociologyshow"
                     :label="$t('label.PFANS2006VIEW_SOCIETY')"
-                    width="160"
+                    width="120"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="registeredshow"
                     :label="$t('label.PFANS2006VIEW_REGISTER')"
-                    width="100"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <!-- </plx-table-column> -->
@@ -131,61 +131,61 @@
                   <plx-table-column
                     prop="yanglaojs"
                     :label="$t('label.PFANS2005FORMVIEW_YANGLAOJS')"
-                    width="220"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="shiyejs"
                     :label="$t('label.PFANS2005FORMVIEW_SHIYEJS')"
-                    width="220"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="gongshangjs"
                     :label="$t('label.PFANS2005FORMVIEW_GONGSHANGJS')"
-                    width="220"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="yiliaojs"
                     :label="$t('label.PFANS2005FORMVIEW_YILIAOJS')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="shengyujs"
                     :label="$t('label.PFANS2005FORMVIEW_SHENGYUJS')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="accumulation"
                     :label="$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE')"
-                    width="150"
+                    width="112"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="lastmonthbasic"
                     :label="$t('label.PFANS2005FORMVIEW_LASTMONTHBASIC')"
-                    width="150"
+                    width="112"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="lastmonthduty"
                     :label="$t('label.PFANS2005FORMVIEW_LASTMONTHDUTY')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="basethismonthbasic"
                     :label="$t('label.PFANS2005FORMVIEW_BASETHISMONTHBASIC')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="thismonthduty"
                     :label="$t('label.PFANS2005FORMVIEW_THISMONTHDUTY')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <!-- <plx-table-column
@@ -203,49 +203,49 @@
                   <plx-table-column
                     prop="rnbasesalary"
                     :label="$t('label.PFANS2005FORMVIEW_RANK')"
-                    width="150"
+                    width="110"
                     align="center">
                   </plx-table-column>
                   <plx-table-column
                     prop="birthrest"
                     :label="$t('label.PFANS2005FORMVIEW_BIRTHDAYREST')"
-                    width="200"
+                    width="190"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="thismonthbasicbasic"
                     :label="$t('label.PFANS2006VIEW_THISMONTHBASICBASIC')"
-                    width="200"
+                    width="176"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="thismonthbasic"
                     :label="$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')"
-                    width="200"
+                    width="170"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="shortillness"
                     :label="$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME')"
-                    width="150"
+                    width="90"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="longillness"
                     :label="$t('label.PFANS2005FORMVIEW_LONGDURATIONTIME')"
-                    width="150"
+                    width="90"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="owediligence"
                     :label="$t('label.PFANS2005FORMVIEW_ABSENCETIME')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="owingcontrol"
                     :label="$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK')"
-                    width="150"
+                    width="106"
                     align="center"
                   ></plx-table-column>
                   <!-- </plx-table-column> -->
@@ -260,13 +260,13 @@
                   <plx-table-column
                     prop="thismonthbasicgei"
                     :label="$t('label.PFANS2006VIEW_THISMONTHBASICGEI')"
-                    width="150"
+                    width="90"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="thismonthdutygei"
                     :label="$t('label.PFANS2006VIEW_THISMONTHDUTYGEI')"
-                    width="150"
+                    width="90"
                     align="center"
                   ></plx-table-column>
                   <!-- <plx-table-column
@@ -297,27 +297,27 @@
                   <plx-table-column
                     prop="ykbzjs"
                     :label="$t('label.PFANS2006VIEW_YKBZJB')"
-                    width="150"
+                    width="112"
                     align="center"
                   ></plx-table-column>
                   <!-- 一括补助 -->
                   <plx-table-column
                     prop="ykbz"
                     :label="$t('label.PFANS2006VIEW_YKBZ')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="overtimesubsidy"
                     :label="$t('label.PFANS2006VIEW_KASUKE')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <!-- 小计1(基本給+补助) -->
                   <plx-table-column
                     prop="total1"
                     :label="$t('label.PFANS2006VIEW_SUBTOTAL1')"
-                    width="150"
+                    width="140"
                     align="center"
                   ></plx-table-column>
                   <!-- <plx-table-column
@@ -343,19 +343,19 @@
                   <plx-table-column
                     prop="other2"
                     :label="$t('label.PFANS2006VIEW_OTHER2')"
-                    width="150"
+                    width="60"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="appreciation"
                     :label="$t('label.PFANS2006VIEW_MONTHLYBONUS')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="other3"
                     :label="$t('label.PFANS2006VIEW_OTHER3')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- zqu start -->
@@ -374,7 +374,7 @@
                   <plx-table-column
                     prop="total2"
                     :label="$t('label.PFANS2006VIEW_SUBTOTAL2')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -395,7 +395,7 @@
                   <plx-table-column
                     prop="taxestotal"
                     :label="$t('label.PFANS2006VIEW_INDUSTRY')"
-                    width="150"
+                    width="200"
                     align="center"
                   ></plx-table-column>
 
@@ -403,19 +403,19 @@
                   <plx-table-column
                     prop="heating"
                     :label="$t('label.PFANS2006VIEW_HEATING')"
-                    width="150"
+                    width="70"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="onlychildmoney"
                     :label="$t('label.PFANS2006VIEW_OLONECHILD')"
-                    width="150"
+                    width="90"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="total3"
                     :label="$t('label.PFANS2006VIEW_SUBTOTAL3')"
-                    width="150"
+                    width="70"
                     align="center"
                   ></plx-table-column>
                   <!-- </plx-table-column> -->
@@ -423,7 +423,7 @@
                   <plx-table-column
                     prop="totalwages"
                     :label="$t('label.PFANS2006VIEW_ARSENAL')"
-                    width="150"
+                    width="140"
                     align="center"
                   ></plx-table-column>
 
@@ -431,7 +431,7 @@
                   <plx-table-column
                     prop="endowmentinsurance"
                     :label="$t('label.PFANS2006VIEW_OLD')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -450,7 +450,7 @@
                   <plx-table-column
                     prop="medicalinsurance"
                     :label="$t('label.PFANS2006VIEW_MEDICAL')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -469,7 +469,7 @@
                   <plx-table-column
                     prop="unemploymentinsurance"
                     :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -490,7 +490,7 @@
                   <plx-table-column
                     prop="socialinsurance"
                     :label="$t('label.PFANS2006VIEW_SOCIALSECURITY')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -526,7 +526,7 @@
                   <plx-table-column
                     prop="accumulationfund"
                     :label="$t('label.PFANS2006VIEW_PUBLICMONEY')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -710,13 +710,13 @@
                   <plx-table-column
                     prop="housingmoneys"
                     :label="$t('label.PFANS2006VIEW_RESIDENTIALTAX')"
-                    width="150"
+                    width="126"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="other4"
                     :label="$t('label.PFANS2006VIEW_COMPANYBOSS')"
-                    width="230"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -735,7 +735,7 @@
                   <plx-table-column
                     prop="other5"
                     :label="$t('label.PFANS2006VIEW_OTHER5')"
-                    width="150"
+                    width="130"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -756,25 +756,25 @@
                   <plx-table-column
                     prop="shouldwages"
                     :label="$t('label.PFANS2006VIEW_RESPONSIBLE')"
-                    width="150"
+                    width="200"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="shouldcumulative"
                     :label="$t('label.PFANS2006VIEW_CUMULATIVE')"
-                    width="150"
+                    width="160"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="shouldpaytaxes"
                     :label="$t('label.PFANS2006VIEW_INCOME')"
-                    width="150"
+                    width="140"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="thismonthadjustment"
                     :label="$t('label.PFANS2006VIEW_THISMONTH')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -793,7 +793,7 @@
                   <plx-table-column
                     prop="realwages"
                     :label="$t('label.PFANS2005VIEW_ACTUAL')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
 
@@ -804,7 +804,7 @@
                   <plx-table-column
                     prop="comendowmentinsurance"
                     :label="$t('label.PFANS2006VIEW_OLD')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -823,7 +823,7 @@
                   <plx-table-column
                     prop="commedicalinsurance"
                     :label="$t('label.PFANS2006VIEW_MEDICAL')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -842,7 +842,7 @@
                   <plx-table-column
                     prop="comunemploymentinsurance"
                     :label="$t('label.PFANS2006VIEW_UNEMPLOYMENT')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -861,7 +861,7 @@
                   <plx-table-column
                     prop="cominjuryinsurance"
                     :label="$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCE')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -880,7 +880,7 @@
                   <plx-table-column
                     prop="combirthinsurance"
                     :label="$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -899,13 +899,13 @@
                   <plx-table-column
                     prop="comheating"
                     :label="$t('label.PFANS2005FORMVIEW_HEATINGCOST')"
-                    width="150"
+                    width="70"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="comaccumulationfund"
                     :label="$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -924,7 +924,7 @@
                   <plx-table-column
                     prop="total"
                     :label="$t('label.PFANS2005FORMVIEW_TOTAL')"
-                    width="150"
+                    width="120"
                     align="center"
                   >
                     <!-- gbb 0720 工资计算画面调整项目添加 start -->
@@ -962,37 +962,37 @@
                   <plx-table-column
                     prop="labourunionbase"
                     :label="$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')"
-                    width="150"
+                    width="100"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="labourunionfunds"
                     :label="$t('label.PFANS2009VIEW_INDUSTRIALPARTY')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="comtotalwages"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALWAGES')"
-                    width="150"
+                    width="180"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="njjy"
                     :label="$t('label.PFANS2005FORMVIEW_NJJY')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="bonusmoney"
                     :label="$t('label.PFANS2005FORMVIEW_GAUGE')"
-                    width="150"
+                    width="80"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
                     prop="totalbonus"
                     :label="$t('label.PFANS2005FORMVIEW_TOTALGAUGE')"
-                    width="150"
+                    width="114"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
@@ -1038,12 +1038,12 @@
                   :label="$t('label.PFANS2006VIEW_CLUB')"
                   align="center"
                   prop="department_id"
-                  width="120"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="120"
+                  width="90"
                   align="center"
                   prop="user_name"
                   fixed="left"
@@ -1052,122 +1052,122 @@
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
                   align="center"
                   prop="rnname"
-                  width="110%"
+                  width="50"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_SEX')"
                   align="center"
                   prop="sex"
-                  width="110%"
+                  width="50"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_SINGLECHILD')"
                   align="center"
                   prop="onlychild"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_ENTRYTYPE')"
                   align="center"
                   prop="type"
-                  width="110%"
+                  width="110"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
                   align="center"
                   prop="bonus"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_SOCIETY')"
                   align="center"
                   prop="sociology"
-                  width="120%"
+                  width="120"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_REGISTER')"
                   align="center"
                   prop="registered"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="this.YEARLAST"
                   align="center"
                   prop="lastmonth"
-                  width="110%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
                   align="center"
                   prop="lastmonthbasic"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
                   align="center"
                   prop="lastmonthduty"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column :label="this.YEARNOW" align="center" prop="thismonth" width="110%"></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
                   align="center"
                   prop="thismonthbasic"
-                  width="110%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
                   align="center"
                   prop="thismonthduty"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_YANGLAO')"
                   align="center"
                   prop="yanglaojs"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_SHIYE')"
                   align="center"
                   prop="shiyejs"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_GONGSHANG')"
                   align="center"
                   prop="gongshangjs"
-                  width="110%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_YILIAO')"
                   align="center"
                   prop="yiliaojs"
-                  width="120%"
+                  width="80"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_SHENGYU')"
                   align="center"
                   prop="shengyujs"
-                  width="120%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_ACCUMULATION')"
                   align="center"
                   prop="accumulation"
-                  width="120%"
+                  width="90"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_HEATING')"
                   align="center"
                   prop="heating"
-                  width="120%"
+                  width="70"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
                   align="center"
                   prop="workdate"
-                  width="120%"
+                  width="126"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -1742,7 +1742,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="120"
+                  width="90"
                   align="center"
                   prop="user_name"
                   fixed="left"
@@ -1751,54 +1751,55 @@
                   :label="this.yearOfThisMonth + $t('label.PFANS2005FORMVIEW_YEAR') + this.monthOfThisMonth + $t('label.PFANS2005FORMVIEW_MONTH')"
                   align="center"
                   prop="thismonth"
-                  width="150%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="this.yearOfLastMonth + $t('label.PFANS2005FORMVIEW_YEAR') + this.monthOfLastMonth + $t('label.PFANS2005FORMVIEW_MONTH')"
                   align="center"
                   prop="lastmonth"
-                  width="150%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
                   align="center"
                   prop="worddate"
-                  width="150%"
+                  width="110"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_NEWSTART')"
                   align="center"
                   prop="startdate"
-                  width="150%"
+                  width="110"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_LASTMOUTHATTENDANCE')"
                   align="center"
                   prop="attendance"
-                  width="150%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_THISMOUTHATTENDANCE')"
                   align="center"
                   prop="trial"
-                  width="150%"
+                  width="150"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_SALARY')"
                   align="center"
                   prop="give"
-                  width="150%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="150%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
                   align="center"
                   prop="remarks"
+                  width="180"
                 >
                   <template slot-scope="scope">
                     <el-input v-model="scope.row.remarks"></el-input>
@@ -1842,7 +1843,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="120"
+                  width="90"
                   align="center"
                   prop="user_name"
                   fixed="left"
@@ -1851,25 +1852,25 @@
                   :label="$t('label.PFANS2005FORMVIEW_RETIREMENTDATE')"
                   align="center"
                   prop="retiredate"
-                  width="250%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_ATTENDANCE')"
                   align="center"
                   prop="attendance"
-                  width="250%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_SALARY')"
                   align="center"
                   prop="give"
-                  width="250%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_SUBSIDIZE')"
                   align="center"
                   prop="lunch"
-                  width="250%"
+                  width="100"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS3007VIEW_REMARKS')"
@@ -1918,7 +1919,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="120"
+                  width="90"
                   align="center"
                   prop="user_name"
                   fixed="left"
@@ -1930,7 +1931,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_QQSYH')"
                     align="center"
                     prop="lastdiligencetry"
-                    width="150%"
+                    width="116"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠-试用（H）-->
@@ -1938,7 +1939,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DBQSYH')"
                     align="center"
                     prop="lastshortdeficiencytry"
-                    width="150%"
+                    width="116"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 长病欠-试用（H）-->
@@ -1946,7 +1947,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_CBQSYH')"
                     align="center"
                     prop="lastchronicdeficiencytry"
-                    width="150%"
+                    width="116"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 欠勤-正式（H）-->
@@ -1954,7 +1955,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_QQZSH')"
                     align="center"
                     prop="lastdiligenceformal"
-                    width="150%"
+                    width="116"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠-正式（H）-->
@@ -1962,7 +1963,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DBQZSH')"
                     align="center"
                     prop="lastshortdeficiencyformal"
-                    width="150%"
+                    width="116"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 长病欠-正式（H）-->
@@ -1970,7 +1971,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_CBQZSH')"
                     align="center"
                     prop="lastchronicdeficiencyformal"
-                    width="150%"
+                    width="116"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 欠勤（H）-->
@@ -1978,7 +1979,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_QQH')"
                     align="center"
                     prop="lastdiligencetry"
-                    width="150%"
+                    width="90"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠（H）-->
@@ -1986,7 +1987,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DBQH')"
                     align="center"
                     prop="lastshortdeficiency"
-                    width="150%"
+                    width="80"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 长病欠（H）-->
@@ -1994,7 +1995,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_CBQH')"
                     align="center"
                     prop="lastchronicdeficiency"
-                    width="150%"
+                    width="80"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 合计（元）-->
@@ -2002,7 +2003,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
                     prop="lasttotal"
-                    width="150%"
+                    width="100"
                   ></el-table-column>
                   <!--                  endregion-->
                 </el-table-column>
@@ -2014,7 +2015,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_QQSYH')"
                     align="center"
                     prop="thisdiligencetry"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2033,7 +2034,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DBQSYH')"
                     align="center"
                     prop="thisshortdeficiencytry"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2052,7 +2053,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_CBQSYH')"
                     align="center"
                     prop="thischronicdeficiencytry"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2071,7 +2072,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_QQZSH')"
                     align="center"
                     prop="thisdiligenceformal"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2090,7 +2091,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DBQZSH')"
                     align="center"
                     prop="thisshortdeficiencyformal"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2109,7 +2110,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_CBQZSH')"
                     align="center"
                     prop="thischronicdeficiencyformal"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2128,7 +2129,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_QQH')"
                     align="center"
                     prop="thisdiligence"
-                    width="150%"
+                    width="90"
                   ></el-table-column>
                   <!--                  endregion-->
                   <!--                  region 短病欠（H）-->
@@ -2136,7 +2137,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DBQH')"
                     align="center"
                     prop="thisshortdeficiency"
-                    width="150%"
+                    width="80"
                   >
                     <template slot-scope="scope">
                       {{setScale2(parseFloat(scope.row.thisshortdeficiencytry) +
@@ -2149,7 +2150,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_CBQH')"
                     align="center"
                     prop="thischronicdeficiency"
-                    width="150%"
+                    width="80"
                   >
                     <template slot-scope="scope">
                       {{setScale2(parseFloat(scope.row.thischronicdeficiencytry) +
@@ -2162,7 +2163,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
                     prop="thistotal"
-                    width="150%"
+                    width="100"
                   ></el-table-column>
                   <!--                  endregion-->
                 </el-table-column>
@@ -2217,7 +2218,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="120"
+                  width="90"
                   align="center"
                   prop="user_name"
                   fixed="left"
@@ -2226,44 +2227,44 @@
                   :label="$t('label.PFANS2003FORMVIEW_RN')"
                   align="center"
                   prop="rn"
-                  width="160%"
+                  width="50"
                 ></el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_XYCY')" align="center">
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_PRJB')"
                     align="center"
                     prop="lastweekdays"
-                    width="150%"
+                    width="140"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_XRJB')"
                     align="center"
                     prop="lastrestDay"
-                    width="150%"
+                    width="140"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_FDJB')"
                     align="center"
                     prop="lastlegal"
-                    width="150%"
+                    width="140"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_DX')"
                     align="center"
                     prop="lastreplace"
-                    width="150%"
+                    width="110"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJH')"
                     align="center"
                     prop="lasttotalh"
-                    width="110%"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
                     prop="lasttotaly"
-                    width="110%"
+                    width="90"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JYCY')" align="center">
@@ -2271,7 +2272,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_PRJB')"
                     align="center"
                     prop="thisweekdays"
-                    width="150%"
+                    width="140"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2288,7 +2289,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_XRJB')"
                     align="center"
                     prop="thisrestDay"
-                    width="150%"
+                    width="140"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2305,7 +2306,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_FDJB')"
                     align="center"
                     prop="thislegal"
-                    width="150%"
+                    width="140"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2322,7 +2323,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DX')"
                     align="center"
                     prop="thisreplace"
-                    width="150%"
+                    width="130"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2339,7 +2340,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_DXN')"
                     align="center"
                     prop="thisreplace3"
-                    width="150%"
+                    width="140"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -2356,7 +2357,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_HJH')"
                     align="center"
                     prop="thistotalh"
-                    width="110%"
+                    width="90"
                   >
                     <template slot-scope="scope">
                       {{setScale2(parseFloat(scope.row.thisweekdays) + parseFloat(scope.row.thisrestDay) +
@@ -2368,7 +2369,7 @@
                     :label="$t('label.PFANS2005FORMVIEW_HJY')"
                     align="center"
                     prop="thistotaly"
-                    width="110%"
+                    width="90"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2026FORMVIEW_REMARKS')"
@@ -2566,7 +2567,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                  width="120"
+                  width="80"
                   align="center"
                   prop="user_name"
                   fixed="left"
@@ -2574,20 +2575,20 @@
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_NDSY')"
                   align="center"
-                  width="150"
+                  width="144"
                   prop="totalbonus1"
                 ></el-table-column>
                 <el-table-column :label="this.YEAR1" align="center" width="110%" prop="january">
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month1wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month1appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2595,13 +2596,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month2wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month2appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2609,13 +2610,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month3wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month3appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2623,13 +2624,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month4wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month4appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2637,13 +2638,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month5wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month5appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2651,13 +2652,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month6wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month6appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2665,13 +2666,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month7wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month7appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2679,13 +2680,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month8wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month8appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2693,13 +2694,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month9wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month9appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2707,13 +2708,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month10wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month10appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2721,13 +2722,13 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month11wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month11appreciation"
                   ></el-table-column>
                 </el-table-column>
@@ -2735,29 +2736,32 @@
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YFGZ')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month12wages"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANSUSERFORMVIEW_YDSY')"
                     align="center"
-                    width="110%"
+                    width="90"
                     prop="month12appreciation"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_LJNDSY')"
                   align="center"
+                  width="110"
                   prop="appreciationtotal"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_LJNJSR')"
                   align="center"
+                  width="180"
                   prop="totalwithout12"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANSUSERFORMVIEW_LJN')"
                   align="center"
+                  width="110"
                   prop="totalwithin12"
                 ></el-table-column>
               </el-table>
@@ -2798,30 +2802,30 @@
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="120"
+                    width="90"
                     align="center"
                     prop="user_name"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LYZXKC')" align="center">
-                  <el-table-column :label="this.YEAR1" align="center" prop="january" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR2" align="center" prop="february" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR3" align="center" prop="march" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR4" align="center" prop="april" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR5" align="center" prop="may" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR6" align="center" prop="june" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR7" align="center" prop="july" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR8" align="center" prop="august" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR9" align="center" prop="september" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR10" align="center" prop="october" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR11" align="center" prop="november" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR12" align="center" prop="december" width="110%"></el-table-column>
+                  <el-table-column :label="this.YEAR1" align="center" prop="january" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR2" align="center" prop="february" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR3" align="center" prop="march" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR4" align="center" prop="april" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR5" align="center" prop="may" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR6" align="center" prop="june" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR7" align="center" prop="july" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR8" align="center" prop="august" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR9" align="center" prop="september" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR10" align="center" prop="october" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR11" align="center" prop="november" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR12" align="center" prop="december" width="90"></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_LJNDKC')"
                   align="center"
                   prop="total"
-                  width="120%"
+                  width="100"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -3009,28 +3013,29 @@
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="120"
+                    width="90"
                     align="center"
                     prop="user_name"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LYMSRE')" align="center">
-                  <el-table-column :label="this.YEAR1" align="center" width="110%" prop="january"></el-table-column>
-                  <el-table-column :label="this.YEAR2" align="center" width="110%" prop="february"></el-table-column>
-                  <el-table-column :label="this.YEAR3" align="center" width="110%" prop="march"></el-table-column>
-                  <el-table-column :label="this.YEAR4" align="center" width="110%" prop="april"></el-table-column>
-                  <el-table-column :label="this.YEAR5" align="center" width="110%" prop="may"></el-table-column>
-                  <el-table-column :label="this.YEAR6" align="center" width="110%" prop="june"></el-table-column>
-                  <el-table-column :label="this.YEAR7" align="center" width="110%" prop="july"></el-table-column>
-                  <el-table-column :label="this.YEAR8" align="center" width="110%" prop="august"></el-table-column>
-                  <el-table-column :label="this.YEAR9" align="center" width="110%" prop="september"></el-table-column>
-                  <el-table-column :label="this.YEAR10" align="center" width="110%" prop="october"></el-table-column>
-                  <el-table-column :label="this.YEAR11" align="center" width="110%" prop="november"></el-table-column>
-                  <el-table-column :label="this.YEAR12" align="center" width="110%" prop="december"></el-table-column>
+                  <el-table-column :label="this.YEAR1" align="center" width="90" prop="january"></el-table-column>
+                  <el-table-column :label="this.YEAR2" align="center" width="90" prop="february"></el-table-column>
+                  <el-table-column :label="this.YEAR3" align="center" width="90" prop="march"></el-table-column>
+                  <el-table-column :label="this.YEAR4" align="center" width="90" prop="april"></el-table-column>
+                  <el-table-column :label="this.YEAR5" align="center" width="90" prop="may"></el-table-column>
+                  <el-table-column :label="this.YEAR6" align="center" width="90" prop="june"></el-table-column>
+                  <el-table-column :label="this.YEAR7" align="center" width="90" prop="july"></el-table-column>
+                  <el-table-column :label="this.YEAR8" align="center" width="90" prop="august"></el-table-column>
+                  <el-table-column :label="this.YEAR9" align="center" width="90" prop="september"></el-table-column>
+                  <el-table-column :label="this.YEAR10" align="center" width="90" prop="october"></el-table-column>
+                  <el-table-column :label="this.YEAR11" align="center" width="90" prop="november"></el-table-column>
+                  <el-table-column :label="this.YEAR12" align="center" width="90" prop="december"></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_LJNDKC')"
                   align="center"
+                  width="120"
                   prop="total"
                 ></el-table-column>
               </el-table>
@@ -3071,48 +3076,48 @@
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
-                    width="120"
+                    width="90"
                     align="center"
                     prop="user_name"
                   ></el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_LJNF')" align="center">
-                  <el-table-column :label="this.YEAR1" align="center" prop="january" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR2" align="center" prop="february" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR3" align="center" prop="march" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR4" align="center" prop="april" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR5" align="center" prop="may" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR6" align="center" prop="june" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR7" align="center" prop="july" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR8" align="center" prop="august" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR9" align="center" prop="september" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR10" align="center" prop="october" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR11" align="center" prop="november" width="110%"></el-table-column>
-                  <el-table-column :label="this.YEAR12" align="center" prop="december" width="110%"></el-table-column>
+                  <el-table-column :label="this.YEAR1" align="center" prop="january" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR2" align="center" prop="february" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR3" align="center" prop="march" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR4" align="center" prop="april" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR5" align="center" prop="may" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR6" align="center" prop="june" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR7" align="center" prop="july" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR8" align="center" prop="august" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR9" align="center" prop="september" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR10" align="center" prop="october" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR11" align="center" prop="november" width="90"></el-table-column>
+                  <el-table-column :label="this.YEAR12" align="center" prop="december" width="90"></el-table-column>
                 </el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_NJLJSJ')"
                   align="center"
                   prop="sumThis"
-                  width="120%"
+                  width="120"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_NDYDNS')"
                   align="center"
                   prop="shouldwages"
-                  width="120%"
+                  width="120"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_NDYDSJ')"
                   align="center"
                   prop="shouldwages"
-                  width="120%"
+                  width="120"
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_HFCE')"
                   align="center"
                   prop="balance"
-                  width="120%"
+                  width="120"
                 ></el-table-column>
               </el-table>
               <div class="pagination-container" style="padding-top: 2rem">
@@ -5253,7 +5258,7 @@
                         this.Messagefjkc = true;
                     }
                 } else {
-                    //response.data = JSON.parse(Decrypt(response.data));
+                    // response.data = JSON.parse(Decrypt(response.data));
                     let datalist = [];
                     for (let c = 0; c < response.data.length; c++) {
                         let error = response.data[c];
