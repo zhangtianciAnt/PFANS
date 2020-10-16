@@ -74,84 +74,84 @@
           {
             code: 'department_id',
             label: 'label.department',
-            width: 100,
+            width: 90,
             fix: true,
             filter: true
           },
           {
             code: 'user_id',
             label: 'label.PFANS2009VIEW_NUMBER',
-            width: 100,
+            width: 90,
             fix: false,
             filter: true
           },
           {
             code: 'totalwages',
             label: 'label.PFANS2009VIEW_KONJIKI',
-            width: 130,
+            width: 110,
             fix: false,
             filter: true
           },
           {
             code: 'taxestotal',
             label: 'label.PFANS2009VIEW_TAXENGINEERING',
-            width: 150,
+            width: 136,
             fix: false,
             filter: true
           },
           {
             code: 'total3',
             label: 'label.PFANS2009VIEW_TAXWORKS',
-            width: 150,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'pension',
             label: 'label.PFANS2009VIEW_KAIHO',
-            width: 140,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'comendowmentinsurance',
             label: 'label.PFANS2030VIEW_COMENDOWMENTINSURANCE',
-            width: 140,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'commedicalinsurance',
             label: 'label.PFANS2030VIEW_COMMEDICALINSURANCE',
-            width: 140,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'comunemploymentinsurance',
             label: 'label.PFANS2030VIEW_COMUNEMPLOYMENTINSURANCE',
-            width: 140,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'cominjuryinsurance',
             label: 'label.PFANS2030VIEW_COMINJURYINSURANCE',
-            width: 140,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'combirthinsurance',
             label: 'label.PFANS2030VIEW_COMBIRTHINSURANCE',
-            width: 140,
+            width: 134,
             fix: false,
             filter: true
           },
           {
             code: 'comheating',
             label: 'label.PFANS2030VIEW_COMHEATING',
-            width: 140,
+            width: 110,
             fix: false,
             filter: true
           },
@@ -165,7 +165,7 @@
           {
             code: 'bonusmoney',
             label: 'label.PFANS2009VIEW_STOCK',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
@@ -179,49 +179,49 @@
           {
             code: 'labourunionfunds',
             label: 'label.PFANS2009VIEW_INDUSTRIALPARTY',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'other4',
             label: 'label.PFANS2009VIEW_DEPARTMENT',
-            width: 140,
+            width: 130,
             fix: false,
             filter: true
           },
           {
             code: 'other5',
             label: 'label.PFANS2009VIEW_FUKUTOSHI',
-            width: 140,
+            width: 90,
             fix: false,
             filter: true
           },
           {
             code: 'total',
             label: 'label.PFANS2009VIEW_COSTLABOR',
-            width: 140,
+            width: 130,
             fix: false,
             filter: true
           },
           {
             code: 'overtimesubsidy',
             label: 'label.PFANS2009VIEW_OVERTIME',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'thismonthadjustment',
             label: 'label.PFANS2009VIEW_INCOMETAX',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'socialinsurance',
             label: 'label.PFANS2030VIEW_SOCIALINSURANCE',
-            width: 140,
+            width: 136,
             fix: false,
             filter: true
           },
@@ -235,14 +235,14 @@
           {
             code: 'realwages',
             label: 'label.PFANS2009VIEW_ACHIEVEMENTS',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
           {
             code: 'shouldcumulative',
             label: 'label.PFANS2009VIEW_SHAKONORIHIRO',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true
           },
