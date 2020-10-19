@@ -1596,7 +1596,6 @@
             if (response.accommodationdetails.length > 0) {
               this.tableA = response.accommodationdetails;
               for (let i = 0; i < this.tableA.length; i++) {
-
                 let acinfo = getDictionaryInfo(this.tableA[i].accountcode);
                 if (acinfo) {
                   this.tableA[i].accountcode = acinfo.value1;
@@ -1622,6 +1621,8 @@
                 let group = getOrgInfo(this.tableA[i].departmentname);
                 if (group) {
                   this.tableA[i].Redirict = group.redirict;
+                  // 111
+                  alert(this.tableA[i].Redirict)
                 }
                 // if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
                 //   if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
@@ -1845,6 +1846,9 @@
             // this.tableA[1].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+          }else if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId)){
+            // 禅道591 ztc 1019
+            this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId).redirict;
           }
           //add-ws-5/14-其他费用明细添加
         }
@@ -1926,6 +1930,7 @@
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
           }
+          alert(this.subjectnumberflg)
         }
         // add_fjl --获取住宿费的科目代码
         let accountinf0 = getDictionaryInfo(this.newaccountcodeflg1);
@@ -2426,7 +2431,7 @@
           row.Redirict = group.redirict;
           let codeinfo = '';
           if (row.Redirict === '0') {
-            codeinfo = 'PJ119002';
+              codeinfo = 'PJ119002';
           } else if (row.Redirict == '1' || row.Redirict == '') {
             codeinfo = 'PJ132002';
           }
