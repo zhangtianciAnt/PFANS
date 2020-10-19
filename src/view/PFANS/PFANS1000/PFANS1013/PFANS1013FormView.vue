@@ -1846,9 +1846,11 @@
             // this.tableA[1].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-          }else if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId)){
+          }else if(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId == '' || getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId == null){
             // 禅道591 ztc 1019
-            this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId).redirict;
+            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId)){
+              this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId).redirict;
+            }
           }
           //add-ws-5/14-其他费用明细添加
         }
