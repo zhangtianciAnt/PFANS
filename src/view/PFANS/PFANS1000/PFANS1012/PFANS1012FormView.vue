@@ -896,7 +896,7 @@
                             ></el-input-number>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
+                        <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center" prop="currency"
                                          width="150">
                           <template slot-scope="scope">
                             <dicselect :code="code4"
@@ -4043,6 +4043,9 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  // 禅道581-ztc-币种不同时清空当前选择的值-start
+                  row.currency = '';
+                  // 禅道581-ztc-币种不同时清空当前选择的值-end
                   break;
                 }
                 continue;
@@ -4062,6 +4065,9 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
+                      // 禅道581-ztc-币种不同时清空当前选择的值-start
+                      row.currency = '';
+                      // 禅道581-ztc-币种不同时清空当前选择的值-end
                       break;
                     }
                   }
@@ -4082,6 +4088,9 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
+                      // 禅道581-ztc-币种不同时清空当前选择的值-start
+                      row.currency = '';
+                      // 禅道581-ztc-币种不同时清空当前选择的值-end
                       break;
                     }
                   }
@@ -4101,6 +4110,9 @@
                       type: 'error',
                       duration: 5 * 1000,
                     });
+                    // 禅道581-ztc-币种不同时清空当前选择的值-start
+                    row.currency = '';
+                    // 禅道581-ztc-币种不同时清空当前选择的值-end
                     break;
                   }
                   continue;
@@ -4840,6 +4852,36 @@
                   }
                 }
                 //add-ws-6/16-禅道103
+                //add-ztc-10-19-禅道581 tableP采购费明细-start、
+                for (let p = 0; p < this.tableP.length; p++) {
+                  if (this.tableP[p].foreigncurrency > 0) {
+                    if (this.tableP[p].currency === '') {
+                      this.activeName = 'third';
+                      error = error + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_CURRENCY'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+                for (let r = 0; r < this.tableR.length; r++) {
+                  if (this.tableR[r].foreigncurrency > 0) {
+                    if (this.tableR[r].currency === '') {
+                      this.activeName = 'third';
+                      error = error + 1;
+                      Message({
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012VIEW_CURRENCY'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+                //add-ztc-10-19-禅道581 tableP采购费明细-end、
                 //ADD-WS-增加公共费用精算书check
                 if (this.form.type === 'PJ001001') {
                   for (let i = 0; i < this.tableT.length; i++) {
