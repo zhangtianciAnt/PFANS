@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick" :enableSave="enableSave"
+                         @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick" :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -438,6 +438,7 @@
         disable: true,
         disable1: true,
         multiple: false,
+        defaultStart: false,
         listsum: '',
         rules: {
           user_id: [{
@@ -810,8 +811,6 @@
         }
         this.buttonClick('save');
       },
-
-
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
@@ -837,6 +836,33 @@
       end() {
         this.form.status = '0';
         this.buttonClick('save');
+      },
+      checkbuttonClick(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2026Store/get3', {'userid': this.userlist})
+          .then(response => {
+            if (response.length > 0) {
+              Message({
+                message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            } else {
+              if (val === 'StartWorkflow') {
+                this.$refs.container.$refs.workflow.startWorkflow();
+              }
+              this.loading = false;
+            }
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
       },
       buttonClick(val) {
         if (val === 'generate') {

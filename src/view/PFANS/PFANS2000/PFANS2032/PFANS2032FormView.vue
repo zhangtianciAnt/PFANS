@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick" @StartWorkflow="checkbuttonClick" :defaultStart="defaultStart"
+                         @buttonClick="buttonClick" @StartWorkflow="checkbuttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -1124,34 +1124,7 @@
           remarks: '',
         });
       },
-      checkbuttonClick(val) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS2026Store/get3', {'userid': this.userlist})
-          .then(response => {
-            if (response.length > 0) {
-              Message({
-                message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            } else {
-              if (val === 'StartWorkflow') {
-                this.$refs.container.$refs.workflow.startWorkflow();
-              }
-              this.loading = false;
-            }
-          }).catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
 
-      },
       buttonClick(val) {
         this.checkRequire();
         this.$refs['reff'].validate(valid => {
