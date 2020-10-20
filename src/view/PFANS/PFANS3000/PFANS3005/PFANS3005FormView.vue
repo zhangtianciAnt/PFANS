@@ -2198,7 +2198,7 @@
 
               //add ccm 0811 事业计划金额小于总金额
               if (this.form.careerplan === '1') {
-                if (Number(this.form.businessplanamount) < Number(this.form.totalamount)) {
+                if (Number(this.form.businessplanbalance) < Number(this.form.totalamount)) {
                   this.form.careerplan = '0';
                   this.radiochange(this.form.careerplan);
                 }
