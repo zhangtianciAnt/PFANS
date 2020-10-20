@@ -1223,6 +1223,8 @@
               <el-row>
                 <el-table
                   :data="DataList"
+                  :summary-method="getSummaries"
+                  show-summary
                   style="width: 978px"
                   header-cell-class-name="sub_bg_color_blue" stripe border
                 >
@@ -3873,7 +3875,34 @@
           this.errorname = '';
         }
       },
-
+      // 禅道597 ztc 决裁精算金额合计-start
+      getSummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] = Math.round((sums[index]) * 100) / 100;
+          } else {
+            sums[index] = '--';
+            sums[3] = '--';
+          }
+        });
+        return sums;
+      },
+      // 禅道597 ztc 决裁精算金额合计-end
       getUserids(val) {
         this.form.telephone = '';
         this.userlist = val;
@@ -3904,7 +3933,6 @@
           this.error = '';
         }
       },
-
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
