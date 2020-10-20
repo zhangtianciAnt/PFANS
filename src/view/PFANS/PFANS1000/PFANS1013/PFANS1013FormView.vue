@@ -1621,8 +1621,6 @@
                 let group = getOrgInfo(this.tableA[i].departmentname);
                 if (group) {
                   this.tableA[i].Redirict = group.redirict;
-                  // 111
-                  alert(this.tableA[i].Redirict)
                 }
                 // if (getOrgInfoByUserId(this.$store.getters.userinfo.userid)) {
                 //   if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
@@ -1932,7 +1930,6 @@
             this.accountcodeflg1 = accinfo.code;
             this.subjectnumberflg = accinfo.value2;
           }
-          alert(this.subjectnumberflg)
         }
         // add_fjl --获取住宿费的科目代码
         let accountinf0 = getDictionaryInfo(this.newaccountcodeflg1);
