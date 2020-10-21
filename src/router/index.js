@@ -1348,11 +1348,11 @@ router.beforeEach((to, from, next) => {
   else if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
     next()
   } else {
-    Message({
-      message: i18n.t('normal.error_05'),
-      type: 'error',
-      duration: 5 * 1000
-    });
+    // Message({
+    //   message: i18n.t('normal.error_05'),
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // });
     next('/')
   }
 });

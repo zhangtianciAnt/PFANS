@@ -71,7 +71,7 @@ service.interceptors.response.use(
             query: { redirect: router.currentRoute.fullPath }
           })
 
-          return Promise.reject(i18n.t('normal.error_05'))
+          // return Promise.reject(i18n.t('normal.error_05'))
         // }else {
         //   return false;
         // }
