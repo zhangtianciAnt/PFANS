@@ -503,6 +503,9 @@
               {
                 response[j].longsickleave = response[j].tlongsickleave;
               }
+              if (response[j].compassionateleave === null || response[j].compassionateleave === '') {
+                response[j].compassionateleave = response[j].tcompassionateleave;
+              }
               if(response[j].tenantid === '0')
               {
                 if (this.$i18n)

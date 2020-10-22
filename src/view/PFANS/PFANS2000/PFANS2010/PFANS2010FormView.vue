@@ -705,6 +705,9 @@
               if (response[j].longsickleave === null || response[j].longsickleave === '') {
                 response[j].longsickleave = response[j].tlongsickleave;
               }
+              if (response[j].compassionateleave === null || response[j].compassionateleave === '') {
+                response[j].compassionateleave = response[j].tcompassionateleave;
+              }
               //add ccm 0803  按钮分情况显示
               response[j].xiuributtonshow = true;
               let k = 0;
