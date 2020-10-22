@@ -1550,6 +1550,7 @@
         Codecheck: '',
         // checkCode1: '0',
         checkcode: '',
+        error_currency: '',
         checktime: false,
         centerid: '',
         groupid: '',
@@ -4071,9 +4072,6 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
-                  // 禅道581-ztc-币种不同时清空当前选择的值-start
-                  row.currency = '';
-                  // 禅道581-ztc-币种不同时清空当前选择的值-end
                   break;
                 }
                 continue;
@@ -4093,9 +4091,7 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
-                      // 禅道581-ztc-币种不同时清空当前选择的值-start
-                      row.currency = '';
-                      // 禅道581-ztc-币种不同时清空当前选择的值-end
+
                       break;
                     }
                   }
@@ -4116,9 +4112,6 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
-                      // 禅道581-ztc-币种不同时清空当前选择的值-start
-                      row.currency = '';
-                      // 禅道581-ztc-币种不同时清空当前选择的值-end
                       break;
                     }
                   }
@@ -4138,9 +4131,6 @@
                       type: 'error',
                       duration: 5 * 1000,
                     });
-                    // 禅道581-ztc-币种不同时清空当前选择的值-start
-                    row.currency = '';
-                    // 禅道581-ztc-币种不同时清空当前选择的值-end
                     break;
                   }
                   continue;
@@ -4169,6 +4159,7 @@
           this.form.tormb = this.tormbT;
           this.form.currency = getDictionaryInfo(val).value1;
         }
+        this.error_currency = error;
       },
       getCurrencyrate(row) {
         row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
@@ -4854,6 +4845,15 @@
                       );
                     }
                   }
+                }
+                if(this.error_currency != 0){
+                  this.activeName = 'third';
+                  Message({
+                    message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return
                 }
                 let error = 0;
                 //add-ws-6/16-禅道103
