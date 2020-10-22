@@ -2956,7 +2956,7 @@ module.exports = {
     PFANS2030FROMVIEW_WAGESESTIMATE: '预计发生额',
     PFANS2030FROMVIEW_WAGESACTUAL: '实际发生额',
     PFANS2030FROMVIEW_WAGESDIFF: '差异额',
-    PFANS2032FROMVIEW_CHECKERROR: '该离职者发起的审批有未完结的，无法进行调书&离职手续确认的审批流程。',
+    PFANS2032FROMVIEW_CHECKERROR: '系统中存在您发起的审批流程状态进行中的数据，故您无法发起离职申请。',
     PFANS2032FROMVIEW_USERDATA: '数据权限交接担当',
     PFANS2032FROMVIEW_USERWORKFOLW: '审批权限交接担当',
     PFANS2032FROMVIEW_REMARKDATA: '数据权限交接备注',
