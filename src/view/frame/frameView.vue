@@ -108,7 +108,7 @@
               <b>{{flow.Name}}</b>
               <el-tag  style="margin-left: 10px" :type="flow.Status === 'normal.done'?'success':flow.Status === 'normal.doing'?'warning':'info'">{{$t(flow.Status)}}</el-tag>
             <!--</div>-->
-            <el-button icon="el-icon-search" v-show="flow.Status === 'normal.done'" size="mini"
+            <el-button icon="el-icon-search" size="mini"
                        @click="openPop(flow)" style="float: right" type="primary" plain>查看</el-button>
           </el-card>
           <EasyPop :url="flow.url" :params="flow.params" :ref="flow.No"></EasyPop>

@@ -411,6 +411,7 @@
       // }
     },
     created(){
+      this.$parent.$emit('showPop',[])
       let Content = helpContent().filter(item=> item.id == this.$router.currentRoute.name);
       if(Content.length > 0){
         let text = Content[0].help;

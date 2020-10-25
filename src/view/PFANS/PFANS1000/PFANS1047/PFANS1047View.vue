@@ -128,7 +128,7 @@
       },
       selectInit(row, index) {
         if (this.$i18n) {
-          return (row.status === this.$t("label.PFANS5004VIEW_OVERTIME") && row.sealstatus === undefined);
+          return (row.status === this.$t("label.PFANS5004VIEW_OVERTIME") && row.sealstatus === '');
         }
       },
       getPjanme() {

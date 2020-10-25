@@ -244,15 +244,18 @@
                     for (let i of setseallist)
                     {
                       let seal = i.split(',');
-                      let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
-                      this.flowData.push(
-                        {
-                          No:this.flowData.length + 1,
-                          Name: '印章申请',
-                          Status: statu,
-                          url: 'PFANS4001FormView',
-                          params: {'_id':seal[0]}
-                        })
+                      if (seal[0]!='undefined' && seal[0]!='null' && seal[0]!='')
+                      {
+                        let statu = seal[1] === '3' ? 'normal.done' : (seal[1] === '2' ? 'normal.doing' : 'normal.todo')
+                        this.flowData.push(
+                          {
+                            No:this.flowData.length + 1,
+                            Name: '印章申请',
+                            Status: statu,
+                            url: 'PFANS4001FormView',
+                            params: {'_id':seal[0]}
+                          })
+                      }
                     }
                   }
                   // if (response3["loanApplication"]!=undefined)
