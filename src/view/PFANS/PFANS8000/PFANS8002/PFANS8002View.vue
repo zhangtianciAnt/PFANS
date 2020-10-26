@@ -100,11 +100,11 @@
             this.$store.commit("global/SET_CURRENTURL", "/PFANS8002View");
             this.$store.commit("global/SET_WORKFLOWURL", "/PFANS8002View");
             this.getStatus('0');
-            this.getStatus('1');
+            // this.getStatus('1');
         },
         methods: {
             getStatus(val) {
-                this.loading = true;
+              this.loading = true;
                 this.$store
                     .dispatch('indexStore/getStatus', {status: val})
                     .then(response => {
@@ -152,8 +152,7 @@
                                 }
                             }
                         }
-
-                        this.loading = false;
+                      this.loading = false;
                     })
                     .catch(err => {
                         this.loading = false;
