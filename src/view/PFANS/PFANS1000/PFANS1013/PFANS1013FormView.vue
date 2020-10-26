@@ -92,7 +92,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1013VIEW_RELATION')" prop="business_id">
-                      <el-select :disabled="!disable" clearable @change="changebusiness" style="width:20vw"
+                      <el-select :disabled="true" clearable @change="changebusiness" style="width:20vw"
                                  v-model="form.business_id">
                         <el-option
                           :key="item.value"
