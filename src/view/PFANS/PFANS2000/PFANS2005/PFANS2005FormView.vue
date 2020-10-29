@@ -1294,6 +1294,109 @@
                     </div>
                   </el-collapse-item>
                 </el-collapse>
+                <el-collapse value="women">
+                  <el-collapse-item name="man">
+                    <template slot="title">
+                      <span class="collapse_Title">{{$t('label.PFANS2005FORMVIEW_MALELEAVE')}}</span>
+                    </template>
+                    <el-table
+                      :data="tableQT1Man"
+                      stripe
+                      border
+                      header-cell-class-name="sub_bg_color_blue"
+                      height='calc(100vh - 230px - 2rem)'
+                    >
+                      <el-table-column
+                        :label="$t('label.PFANS2006VIEW_NO')"
+                        width="50"
+                        align="center"
+                        prop="rowindex"
+                        fixed="left"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2006VIEW_CLUB')"
+                        width="120"
+                        align="center"
+                        prop="department_id"
+                        fixed="left"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2006VIEW_LASTNAME')"
+                        width="120"
+                        align="center"
+                        prop="user_name"
+                        fixed="left"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2006VIEW_SEX')"
+                        align="center"
+                        prop="sex"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                        align="center"
+                        prop="workdate"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2005FORMVIEW_RESTSTART')"
+                        align="center"
+                        prop="reststart"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2005FORMVIEW_RESTEND')"
+                        align="center"
+                        prop="restend"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2005FORMVIEW_ATTENDANCE')"
+                        align="center"
+                        prop="attendance"
+                      ></el-table-column>
+                      <!-- <el-table-column
+                        :label="$t('label.PFANS2005FORMVIEW_QT1')"
+                        align="center"
+                        prop="other1"
+                      ></el-table-column>
+                      <el-table-column
+                        :label="$t('label.PFANS2005FORMVIEW_BASE')"
+                        align="center"
+                        prop="basedata"
+                      >
+                        <template slot-scope="scope">
+                          <el-select
+                            v-model="scope.row.basedata"
+                            @change="otherOneBaseChange(scope.row)"
+                          >
+                            <el-option
+                              v-for="item in menuList"
+                              :key="item.value"
+                              :label="item.label"
+                              :value="item.value"
+                            ></el-option>
+                          </el-select>
+                        </template>
+                      </el-table-column>-->
+                    </el-table>
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination
+                        :current-page.sync="listQueryListQT1Woman.page"
+                        :page-size="listQueryListQT1Woman.limit"
+                        :page-sizes="[5,10,20,30,50]"
+                        :total="totalOtherOne"
+                        @current-change="handleCurrentChangeQT1Woman"
+                        @size-change="handleSizeChangeQT1Woman"
+                        layout="slot,sizes, ->,prev, pager, next, jumper"
+                      >
+                        <slot>
+                          <span
+                            class="front Content_front"
+                            style="padding-right: 0.5rem;font-weight: 400"
+                          >{{$t('table.pagesize')}}</span>
+                        </slot>
+                      </el-pagination>
+                    </div>
+                  </el-collapse-item>
+                </el-collapse>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT2')" name="fourth">
@@ -3880,7 +3983,6 @@
                 this.$store
                     .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
                     .then(response => {
-                        debugger;
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
                         let datalist = [];
@@ -3908,6 +4010,8 @@
                                 ? "入職"
                                 : item.type === "2"
                                 ? "女産休"
+                                  : item.type === "3"
+                                      ? "男看护"
                                 : item.type === "4"
                                   ? "退職"
                                   : "-";
@@ -4128,6 +4232,7 @@
                         }
                         // endregion
                         for (let j = 0; j < response.otherOne.length; j++) {
+                            debugger;
                             if (response.otherOne[j].basedata === "1") {
                                 this.menuList.value = "1";
                                 this.menuList.label = 1;
@@ -4402,7 +4507,7 @@
                             ) {
                                 response.entryVo[j].startdate = moment(
                                     response.entryVo[j].startdate
-                                ).format("YYYY-MM-DD");
+                                ).add(1, 'days').format("YYYY-MM-DD");
                             }
                             this.tableRZ = response.entryVo;
                             this.totaldataRZ = response.entryVo;

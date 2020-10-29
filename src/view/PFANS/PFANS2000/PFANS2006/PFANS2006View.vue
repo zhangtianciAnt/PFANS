@@ -986,9 +986,11 @@
                     ? '入職'
                     : response[j].type === '2'
                     ? '女産休'
+                    : response[j].type === '3'
+                    ? '男看护'
                     : response[j].type === '4'
-                      ? '退職'
-                      : '-';
+                    ? '退職'
+                    : '-';
                 response[j].bonus = response[j].bonus === '2' ? this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF') : this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
                 response[j].sociology = response[j].sociology === '1' ? this.$t('label.yes') : '-';
                 response[j].registered = response[j].registered === '1' ? this.$t('label.yes') : '-';
