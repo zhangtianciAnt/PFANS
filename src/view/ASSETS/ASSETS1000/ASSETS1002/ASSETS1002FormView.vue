@@ -276,7 +276,9 @@
       },
       changed() {
         if(this.$route.params._id){
-
+          if(this.department == '全部'){
+            this.department = ''
+          }
           if(this.department){
             this.tableD = this.zichanlist.filter(item => item.usedepartment == this.department)
           }else{
@@ -343,6 +345,11 @@
               }
               return item
             }, [])
+            for(let i = 0; i < filtersrst.length; i ++){
+              if(filtersrst[i].code == ''){
+                filtersrst[i].code = '全部'
+              }
+            }
             this.options = filtersrst
             this.loading = false;
           })
