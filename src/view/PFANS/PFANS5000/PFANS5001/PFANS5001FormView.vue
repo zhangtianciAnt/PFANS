@@ -1952,10 +1952,12 @@
                     },
                 ];
             }*/
+            //项目合同
             if (response.projectcontract.length > 0) {
               let tabled = [];
               for (let i = 0; i < response.projectcontract.length; i++) {
                 tabled.push({
+                  contractnumbercount_id: response.projectcontract[i].contractnumbercount_id,
                   contractamount: response.projectcontract[i].contractamount,
                   theme: response.projectcontract[i].theme,
                 });
@@ -2467,6 +2469,7 @@
             if (table[a].contract != row.contract) {
               checktable1 = checktable1 + 1
               check.push({
+                contractnumbercount_id: table[a].contractnumbercount_id,
                 deliveryfinshdate: table[a].deliveryfinshdate,
                 claimtype: table[a].claimtype,
                 contract: table[a].contract,

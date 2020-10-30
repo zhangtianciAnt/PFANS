@@ -1374,6 +1374,7 @@
         //合同
         tableD: [
           {
+            contractnumbercount_id: '',
             //add-ws-6/9-禅道任务080
             deliveryfinshdate: '',
             claimtype: '',
@@ -1394,6 +1395,7 @@
         //合同分配金额
         tablecompound: [],
         data: [],
+        tableAnt: [],
         gridData3: [],
         compounddata: [],
         displaycompound: false,
@@ -1567,7 +1569,6 @@
             //项目合同
             if (response.projectcontract.length > 0) {
               let tabled = [];
-              let compound = [];
               for (var i = 0; i < response.projectcontract.length; i++) {
                 if (
                   response.projectcontract[i].workinghours !== '' &&
@@ -1583,47 +1584,21 @@
                     claimdatetime1,
                   ];
                 }
-                //region复合合同金额分配
-                // if (this.compounddata.length > 0) {
-                //     let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
-                //         && item.group_id === this.form.group_id);
-                //
-                //     let claimamount = 0;
-                //     for (let dtem of dic) {
-                //         //add-ws-合同关联项目，分配金额
-                //         claimamount = claimamount + Number(dtem.contractrequestamount);
-                //         compound.push({
-                //             contractnumber: dtem.contractnumber,
-                //             claimtype: dtem.claimtype,
-                //             claimamount: dtem.claimamount,
-                //             contractrequestamount: dtem.contractrequestamount,
-                //         });
-                //     }
-                //     if (compound.length > 0) {
-                //         response.projectcontract[i].contractrequestamount = claimamount;
-                //         this.displaycompound = true;
-                //     }
-                // }
-                //endregion
 
                 tabled.push({
-                  //add-ws-6/9-禅道任务080
-                  deliveryfinshdate: response.projectcontract[i].deliveryfinshdate,
-                  claimtype: response.projectcontract[i].claimtype,
-                  //add-ws-6/9-禅道任务080
-                  //add-ws-合同关联项目，分配金额
-                  contractrequestamount: response.projectcontract[i].contractrequestamount,
+                  contractnumbercount_id: response.projectcontract[i].contractnumbercount_id,
                   contractamount: response.projectcontract[i].contractamount,
-                  //add-ws-合同关联项目，分配金额
-                  contract: response.projectcontract[i].contract,
                   theme: response.projectcontract[i].theme,
-                  workinghours: response.projectcontract[i].workinghours,
                   type: '0',
                 });
               }
               this.tableD = tabled;
-              //合同分配金额
-              this.tablecompound = compound;
+            }
+            if (response.projectcontract.length > 0) {
+              for (let p = 0; p < response.projectcontract.length; p++) {
+                this.tableAnt.push(response.projectcontract[p].contractnumbercount_id)
+              }
+              this.getContractNumber();
             }
             //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
             if (response.contractnumbercount.length > 0) {
@@ -1741,6 +1716,27 @@
       }
     },
     methods: {
+      getContractNumber() {
+        for(let h = 0 ; h < this.tableAnt.length; h ++){
+          this.$store
+            .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
+            .then(response => {
+              if (response.claimdatetimeqh !== '' && response.claimdatetimeqh !== null) {
+                let claimdatetime = response.claimdatetimeqh;
+                let claimdatetim = claimdatetime.slice(0, 10);
+                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                response.claimdatetimeqh = [claimdatetim, claimdatetime1];
+              }
+
+              this.tableD[h].deliveryfinshdate = response.deliveryfinshdate,
+                this.tableD[h].claimtype = response.claimtype,
+                this.tableD[h].contractrequestamount = response.claimamount,
+                this.tableD[h].contract = response.contractnumber,
+                this.tableD[h].workinghours = response.claimdatetimeqh
+
+            });
+        }
+      },
       //ADD-WS-合同分配金额不能大于合同分配金额
       changeRMB(row){
         this.checkmessage = 0;
@@ -1840,6 +1836,7 @@
       // },
       addRow3() {
         this.tableD.push({
+          contractnumbercount_id: '',
           //add-ws-6/9-禅道任务080
           deliveryfinshdate: '',
           claimtype: '',
@@ -1870,6 +1867,7 @@
           this.displaycompound = false;
           this.tableD = [
             {
+              contractnumbercount_id: '',
               //add-ws-6/9-禅道任务080
               deliveryfinshdate: '',
               claimtype: '',
@@ -1987,6 +1985,7 @@
             if (table[a].contract != row.contract) {
               checktable1 = checktable1+1
               check.push({
+                contractnumbercount_id: table[a].contractnumbercount_id,
                 deliveryfinshdate: table[a].deliveryfinshdate,
                 claimtype: table[a].claimtype,
                 contract: table[a].contract,
@@ -2002,6 +2001,7 @@
         }
         if (checktable === this.tableD.length) {
           this.tableD = [{
+            contractnumbercount_id: '',
             deliveryfinshdate: '',
             claimtype: '',
             projectcontract_id: '',
@@ -2038,6 +2038,7 @@
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
                 }
                 table.push({
+                  contractnumbercount_id: contractnumbercount[i].contractnumbercount_id,
                   deliveryfinshdate: contractnumbercount[i].deliverydate,
                   claimtype: contractnumbercount[i].claimtype,
                   contract: this.currentRow,
@@ -2355,6 +2356,7 @@
                 this.tableD[i].workinghours !== ''
               ) {
                 this.baseInfo.projectcontract.push({
+                  contractnumbercount_id: this.tableD[i].contractnumbercount_id,
                   //add-ws-6/9-禅道任务080
                   deliveryfinshdate: this.tableD[i].deliveryfinshdate,
                   claimtype: this.tableD[i].claimtype,
