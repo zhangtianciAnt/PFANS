@@ -276,10 +276,7 @@
       },
       changed() {
         if(this.$route.params._id){
-          if(this.department == '全部'){
-            this.department = ''
-          }
-          if(this.department){
+          if(this.department && this.department != '全部'){
             this.tableD = this.zichanlist.filter(item => item.usedepartment == this.department)
           }else{
             this.tableD = this.zichanlist;
