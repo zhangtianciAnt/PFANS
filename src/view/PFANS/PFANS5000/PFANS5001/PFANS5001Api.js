@@ -119,3 +119,13 @@ export function updateTimestart(data) {
   })
 }
 
+//1029 获取合同明细表
+export function selectConnumList(data) {
+  return request({
+    url: 'companyprojects/selectConnumList',
+    method: 'get',
+    params: data
+  })
+}
+
+

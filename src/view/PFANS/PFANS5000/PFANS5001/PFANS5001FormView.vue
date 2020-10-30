@@ -621,11 +621,11 @@
                             width="290">
                             <template slot-scope="scope">
                               <!--<el-input v-show="true" :disabled="!disabled" v-model="scope.row.nameN"-->
-                                        <!--@change="changeInt(scope.row)"-->
-                                        <!--:no="scope.row" style="width:15.7vw;margin-left: -4vw" size="small"></el-input>-->
+                              <!--@change="changeInt(scope.row)"-->
+                              <!--:no="scope.row" style="width:15.7vw;margin-left: -4vw" size="small"></el-input>-->
                               <!--<el-input v-show="false" :disabled="!disabled" v-model="scope.row.name"-->
-                                        <!--@change="changeInt(scope.row)"-->
-                                        <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
+                              <!--@change="changeInt(scope.row)"-->
+                              <!--:no="scope.row" style="width:14vw" size="small"></el-input>-->
                               <user
                                 v-if="scope.$index == 0"
                                 :disabled="!disable"
@@ -1338,7 +1338,7 @@
         errorLeader: '',
         errorManager: '',
         selectType: 'Single',
-          selectType1: 'mult',
+        selectType1: 'mult',
         userlist: '',
         userlist1: '',
         activeName: 'first',
@@ -1394,7 +1394,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
-              // nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
+            // nameN: getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername,
           }, {
             projectsystem_id: '',
             companyprojects_id: '',
@@ -1406,7 +1406,7 @@
             admissiontime: '',
             exittime: '',
             rowindex: '',
-                // nameN: '',
+            // nameN: '',
           },
         ],
         //项目体制(外协)
@@ -1428,6 +1428,7 @@
         //合同
         tableD: [
           {
+            contractnumbercount_id: '',
             //add-ws-6/9-禅道任务080
             deliveryfinshdate: '',
             claimtype: '',
@@ -1444,6 +1445,7 @@
             rowindex: '',
           },
         ],
+        tableAnt: [],
         //合同分配金额
         tablecompound: [],
         optionsdata: [],
@@ -1873,7 +1875,7 @@
                     number: response.projectsystem[i].number,
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
-                      // nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
+                    // nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
@@ -1950,58 +1952,23 @@
                     },
                 ];
             }*/
-            //项目合同
             if (response.projectcontract.length > 0) {
               let tabled = [];
-              let compound = [];
               for (let i = 0; i < response.projectcontract.length; i++) {
-                if (response.projectcontract[i].workinghours !== '' && response.projectcontract[i].workinghours !== null) {
-                  let claimdatetime = response.projectcontract[i].workinghours;
-                  let claimdatetim = claimdatetime.slice(0, 10);
-                  let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                  response.projectcontract[i].workinghours = [claimdatetim, claimdatetime1];
-                }
-                //region复合合同金额分配
-                // if (this.compounddata.length > 0) {
-                //   let dic = this.compounddata.filter(item => item.contractnumber === response.projectcontract[i].contract
-                //     && item.group_id === this.form.group_id);
-                //
-                //   let claimamount = 0;
-                //   for (let dtem of dic) {
-                //     //add-ws-合同关联项目，分配金额
-                //     claimamount = claimamount + Number(dtem.contractrequestamount);
-                //     compound.push({
-                //       contractnumber: dtem.contractnumber,
-                //       claimtype: dtem.claimtype,
-                //       claimamount: dtem.claimamount,
-                //       contractrequestamount: dtem.contractrequestamount,
-                //     });
-                //   }
-                //   if (compound.length > 0) {
-                //     response.projectcontract[i].contractrequestamount = claimamount;
-                //     this.displaycompound = true;
-                //   }
-                // }
-                //endregion
-
                 tabled.push({
-                  //add-ws-6/9-禅道任务080
-                  deliveryfinshdate: response.projectcontract[i].deliveryfinshdate,
-                  claimtype: response.projectcontract[i].claimtype,
-                  //add-ws-6/9-禅道任务080
-                  //add-ws-合同关联项目，分配金额
-                  contractrequestamount: response.projectcontract[i].contractrequestamount,
                   contractamount: response.projectcontract[i].contractamount,
-                  //add-ws-合同关联项目，分配金额
-                  contract: response.projectcontract[i].contract,
                   theme: response.projectcontract[i].theme,
-                  workinghours: response.projectcontract[i].workinghours,
                 });
               }
               this.tableD = tabled;
-              //合同分配金额
-              this.tablecompound = compound;
             }
+            if (response.projectcontract.length > 0) {
+              for (let p = 0; p < response.projectcontract.length; p++) {
+                this.tableAnt.push(response.projectcontract[p].contractnumbercount_id)
+              }
+              this.getContractNumber();
+            }
+
             //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额
             if (response.contractnumbercount.length > 0) {
               this.tableclaimtype = response.contractnumbercount;
@@ -2086,6 +2053,27 @@
       }
     },
     methods: {
+      getContractNumber() {
+        for(let h = 0 ; h < this.tableAnt.length; h ++){
+          this.$store
+            .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
+            .then(response => {
+              if (response.claimdatetimeqh !== '' && response.claimdatetimeqh !== null) {
+                let claimdatetime = response.claimdatetimeqh;
+                let claimdatetim = claimdatetime.slice(0, 10);
+                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                response.claimdatetimeqh = [claimdatetim, claimdatetime1];
+              }
+
+                this.tableD[h].deliveryfinshdate = response.deliveryfinshdate,
+                this.tableD[h].claimtype = response.claimtype,
+                this.tableD[h].contractrequestamount = response.claimamount,
+                this.tableD[h].contract = response.contractnumber,
+                this.tableD[h].workinghours = response.claimdatetimeqh
+
+            });
+        }
+      },
       // add-ws-No.50-内采时，增加委托元项目
       Listprojectids() {
         this.optionsdata = [];
@@ -2345,39 +2333,39 @@
         }
       },
       getCitationUserid(userlist, row) {
-          // add_fjl_05/29  --添加人员多选
-          let us = userlist.split(',');
-          if (us.length > 1) {
-              let na = "";
-              for (let nameid of this.tableB) {
-                  if (us[0] === nameid.name) {
-                      nameid.name = '';
-                  } else {
-                      na = na + nameid.name;
-                  }
-              }
-              for (let i = 0; i < us.length; i++) {
-                  //去除单次选择时，重复的数据
-                  if (na.indexOf(us[i]) == -1) {
-                      this.tableB.push({
-                          name: us[i],
-                          position: '',
-                          admissiontime: '',
-                          exittime: '',
-                          number: '',
-                          type: '0',
-                          company: '',
-                      });
-                  }
-              }
-              //保留人名不为空的数据
-              this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '')
-          } else {
-              row.name = userlist;
+        // add_fjl_05/29  --添加人员多选
+        let us = userlist.split(',');
+        if (us.length > 1) {
+          let na = "";
+          for (let nameid of this.tableB) {
+            if (us[0] === nameid.name) {
+              nameid.name = '';
+            } else {
+              na = na + nameid.name;
+            }
           }
+          for (let i = 0; i < us.length; i++) {
+            //去除单次选择时，重复的数据
+            if (na.indexOf(us[i]) == -1) {
+              this.tableB.push({
+                name: us[i],
+                position: '',
+                admissiontime: '',
+                exittime: '',
+                number: '',
+                type: '0',
+                company: '',
+              });
+            }
+          }
+          //保留人名不为空的数据
+          this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '')
+        } else {
+          row.name = userlist;
+        }
 
-          // add_fjl_05/29  --添加人员多选
-          // row.name = userlist;
+        // add_fjl_05/29  --添加人员多选
+        // row.name = userlist;
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
           // row.position = lst.userinfo.post;
@@ -2386,9 +2374,9 @@
           row.company = lst1.groupNmae;
         }
       },
-        getUseridsInput(val, row) {
-            row.name = val;
-        },
+      getUseridsInput(val, row) {
+        row.name = val;
+      },
       getUserids(val) {
         this.tableB[0].name = val;
         this.userlist = val;
@@ -2477,7 +2465,7 @@
         for (let a = 0; a < table.length; a++) {
           if (row.contract != '') {
             if (table[a].contract != row.contract) {
-              checktable1 = checktable1+1
+              checktable1 = checktable1 + 1
               check.push({
                 deliveryfinshdate: table[a].deliveryfinshdate,
                 claimtype: table[a].claimtype,
@@ -2494,6 +2482,7 @@
         }
         if (checktable === this.tableD.length) {
           this.tableD = [{
+            contractnumbercount_id: '',
             deliveryfinshdate: '',
             claimtype: '',
             projectcontract_id: '',
@@ -2505,8 +2494,8 @@
             contractamount: '',
             rowindex: '',
           }];
-        }else{
-          if(checktable1!=0){
+        } else {
+          if (checktable1 != 0) {
             this.tableD = check
           }
         }
@@ -2520,16 +2509,18 @@
         this.$store
           .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
           .then(response => {
+            debugger
             let contractnumbercount = response.contractnumbercount;
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {
-                  if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
+                if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
                   let claimdatetime = contractnumbercount[i].claimdatetimeqh;
                   let claimdatetim = claimdatetime.slice(0, 10);
                   let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
                 }
                 table.push({
+                  contractnumbercount_id: contractnumbercount[i].contractnumbercount_id,
                   deliveryfinshdate: contractnumbercount[i].deliverydate,
                   claimtype: contractnumbercount[i].claimtype,
                   contract: this.currentRow,
@@ -2688,12 +2679,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace("%", "%25");
+          file.url = file.url.replace("#", "%23");
+          file.url = file.url.replace("&", "%26");
+          file.url = file.url.replace("+", "%2B");
+          file.url = file.url.replace("=", "%3D");
+          file.url = file.url.replace("?", "%3F");
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -2719,7 +2710,7 @@
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile =''
+          this.form.uploadfile = ''
           this.$refs.upload.clearFiles();
         }
       },
@@ -2780,7 +2771,7 @@
           number: '',
           company: '',
           name: '',
-            // nameN: '',
+          // nameN: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2790,7 +2781,7 @@
       deleteRow1(index, rows) {
         if (index === 1) {
           rows[1].name = '';
-            // rows[1].nameN = '';
+          // rows[1].nameN = '';
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
@@ -2837,6 +2828,7 @@
       //合同
       addRow3() {
         this.tableD.push({
+          contractnumbercount_id: '',
           //add-ws-6/9-禅道任务080
           deliveryfinshdate: '',
           claimtype: '',
@@ -2866,6 +2858,7 @@
           this.tablecompound = [];
           this.displaycompound = false;
           this.tableD = [{
+            contractnumbercount_id: '',
             //add-ws-6/9-禅道任务080
             deliveryfinshdate: '',
             claimtype: '',
@@ -3004,12 +2997,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace("%", "%25");
+          file.url = file.url.replace("#", "%23");
+          file.url = file.url.replace("&", "%26");
+          file.url = file.url.replace("+", "%2B");
+          file.url = file.url.replace("=", "%3D");
+          file.url = file.url.replace("?", "%3F");
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -3063,6 +3056,7 @@
               this.form.behalf = ' ';
               this.form.intelligence = ' ';
               this.tableD = [{
+                contractnumbercount_id: '',
                 //add-ws-6/9-禅道任务080
                 deliveryfinshdate: '',
                 claimtype: '',
@@ -3123,25 +3117,25 @@
               }
             }
             for (let i = 0; i < this.tableB.length; i++) {
-                //add_fjl 体制人员重复check start
-                let num = 0;
-                for (let j = 0; j < this.tableB.length; j++) {
-                    if (this.tableB[i].name === this.tableB[j].name) {
-                        num++;
-                        if (num > 1) {
-                            Message({
-                                message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
-                                    + this.$t("label.PFANS5001FORMVIEW_CHECKDOUBLE"),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.activeName = 'fourth';
-                            this.loading = false;
-                            return;
-                        }
-                    }
+              //add_fjl 体制人员重复check start
+              let num = 0;
+              for (let j = 0; j < this.tableB.length; j++) {
+                if (this.tableB[i].name === this.tableB[j].name) {
+                  num++;
+                  if (num > 1) {
+                    Message({
+                      message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+                        + this.$t("label.PFANS5001FORMVIEW_CHECKDOUBLE"),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.activeName = 'fourth';
+                    this.loading = false;
+                    return;
+                  }
                 }
-                //add_fjl 体制人员重复check end
+              }
+              //add_fjl 体制人员重复check end
               // this.changeInt(this.tableB[i]);
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {
@@ -3209,7 +3203,7 @@
             let Listcheck = this.tableD;
             for (let list of Listcheck) {
               listsum = this.tableD.filter(item => item.contract == list.contract && item.claimtype == list.claimtype);
-              if(listsum.length>1){
+              if (listsum.length > 1) {
                 error14 = error14 + 1;
               }
             }
@@ -3234,6 +3228,7 @@
 
                   this.baseInfo.projectcontract.push({
                     //add-ws-6/9-禅道任务080
+                    contractnumbercount_id: this.tableD[i].contractnumbercount_id,
                     deliveryfinshdate: this.tableD[i].deliveryfinshdate,
                     claimtype: this.tableD[i].claimtype,
                     //add-ws-6/9-禅道任务080
