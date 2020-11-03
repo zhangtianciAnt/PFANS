@@ -124,7 +124,7 @@
       return {
         department: '',
         options: [],
-        newArr: [],
+        idBack: '',
         buttonShow:false,
         titleShow:false,
         loading: false,
@@ -214,14 +214,7 @@
       };
     },
     mounted() {
-      if (this.$route.params._id) {
-        alert(this.$route.params._id)
         this.getSelectById();
-      } else {
-        this.userlist = this.$store.getters.userinfo.userid;
-        this.form.userid = this.$store.getters.userinfo.userid;
-        this.getDepartmentData();
-      }
     },
     created() {
       this.disable = this.$route.params.disabled;
@@ -502,10 +495,12 @@
               strAnt.push(this.$refs.roletable.selectedList[i].inventoryplan_id);
               this.selectedList.push(strAnt)
             }
+            this.idBack = this.$refs.roletable.selectedList[0].inventoryplan_id;
             this.$router.push({
               name: 'ASSETS1002ExportFormView',
               params: {
                 _id:this.selectedList,
+                _idBack:this.idBack,
               },
             });
           }

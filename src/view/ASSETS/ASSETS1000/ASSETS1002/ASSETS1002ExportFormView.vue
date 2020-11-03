@@ -26,7 +26,7 @@
     },
     data() {
       return {
-        department: null,
+        department: [],
         options:[],
         loading: false,
         title: 'title.ASSETS1002EXPORTFORMVIEW',
@@ -91,7 +91,7 @@
     },
     methods: {
       changed() {
-        if(this.department){
+        if(this.department  && this.department != '全部'){
           this.data = this.tablelist.filter(item => item.usedepartment == this.department)
         }else{
           this.data = this.tablelist;
@@ -99,62 +99,68 @@
       },
       getListData() {
         this.loading = true;
-        this.$store
-          .dispatch('ASSETS1002Store/selectByResult', {'inventoryresultsid': this.$route.params._id})
-          .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              let user = getUserInfo(response[j].principal);
-              if (user) {
-                response[j].principal = user.userinfo.customername;
+          this.$store
+            .dispatch('ASSETS1002Store/selectByResult', this.$route.params._id)
+            .then(response => {
+              for (let j = 0; j < response.length; j++) {
+                let user = getUserInfo(response[j].principal);
+                if (user) {
+                  response[j].principal = user.userinfo.customername;
 //                response[j].usedepartment = user.userinfo.centername;
-              }
-              if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
-                response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
-              }
-              if (response[j].result !== null && response[j].result !== '') {
-                if (response[j].result === '1') {
-                  response[j].result = this.$t('✘');
-                } else if (response[j].result === '2') {
-                  response[j].result = this.$t('✔');
+                }
+                if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
+                  response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
+                }
+                if (response[j].result !== null && response[j].result !== '') {
+                  if (response[j].result === '1') {
+                    response[j].result = this.$t('✘');
+                  } else if (response[j].result === '2') {
+                    response[j].result = this.$t('✔');
+                  }
+                }
+                if (response[j].bartype !== null && response[j].bartype !== '') {
+                  let letbartype1 = getDictionaryInfo(response[j].bartype);
+                  if (letbartype1 != null) {
+                    response[j].bartypeName = letbartype1.value1;
+                  }
                 }
               }
-              if (response[j].bartype !== null && response[j].bartype !== '') {
-                let letbartype1 = getDictionaryInfo(response[j].bartype);
-                if (letbartype1 != null) {
-                  response[j].bartypeName = letbartype1.value1;
+              let filters = new Set()
+              for (let item of response) {
+                let i = {};
+                if (item) {
+                  i.code = item.usedepartment;
+                }
+                filters.add(i);
+              }
+              let filtersrst = [...new Set(filters)]
+              var hash = {}
+              filtersrst = filtersrst.reduce(function (item, next) {
+                if (hash[next.code]) {
+                  ''
+                } else {
+                  hash[next.code] = true && item.push(next)
+                }
+                return item
+              }, [])
+              for(let i = 0; i < filtersrst.length; i ++){
+                if(filtersrst[i].code == ''){
+                  filtersrst[i].code = '全部'
                 }
               }
-            }
-            let filters = new Set()
-            for (let item of response) {
-              let i = {};
-              if (item) {
-                i.code = item.usedepartment;
-              }
-              filters.add(i);
-            }
-            let filtersrst = [...new Set(filters)]
-            var hash = {}
-            filtersrst = filtersrst.reduce(function (item, next) {
-              if (hash[next.code]) {
-                ''
-              } else {
-                hash[next.code] = true && item.push(next)
-              }
-              return item
-            }, [])
-            this.options = filtersrst
-            this.tablelist = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
+              this.options = filtersrst
+              this.tablelist = response;
+              this.data = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
             });
-            this.loading = false;
-          });
       },
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
@@ -170,10 +176,10 @@
       },
       buttonClick(val) {
         if (val === 'back') {
-          this.$router.push({
+            this.$router.push({
             name: 'ASSETS1002FormView',
             params: {
-              _id: this.$route.params._id,
+              _id: this.$route.params._idBack,
             },
           });
         }
