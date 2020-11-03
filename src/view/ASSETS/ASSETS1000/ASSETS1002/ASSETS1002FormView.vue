@@ -124,6 +124,7 @@
       return {
         department: '',
         options: [],
+        newArr: [],
         buttonShow:false,
         titleShow:false,
         loading: false,
@@ -188,6 +189,7 @@
         ],
         buttonList:[],
         zichanlist:[],
+        selectedList:[],
         multipleSelection: [],
         baseInfo: {},
         rules: {
@@ -213,6 +215,7 @@
     },
     mounted() {
       if (this.$route.params._id) {
+        alert(this.$route.params._id)
         this.getSelectById();
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
@@ -484,10 +487,25 @@
             }
           }
           if (val === 'vResult') {
+            if(this.$refs.roletable.selectedList.length === 0){
+              Message({
+                message: this.$t('normal.info_01'),
+                type: 'info',
+                duration: 5 * 1000,
+              });
+              return;
+            }
+
+            for(let i = 0; i < this.$refs.roletable.selectedList.length; i ++){
+              let strAnt = [];
+              strAnt.push(this.$refs.roletable.selectedList[i].barcode);
+              strAnt.push(this.$refs.roletable.selectedList[i].inventoryplan_id);
+              this.selectedList.push(strAnt)
+            }
             this.$router.push({
               name: 'ASSETS1002ExportFormView',
               params: {
-                _id: this.$route.params._id,
+                _id:this.selectedList,
               },
             });
           }
