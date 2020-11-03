@@ -91,7 +91,6 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <!--                    111-->
                     <el-form-item :label="$t('label.PFANS1002VIEW_REGION')" prop="city">
                       <dicselect
                         :code="code7"
@@ -106,7 +105,7 @@
                   </el-col>
                   <!--                  add_fjl_0721 添加地域名称显示 start-->
                   <el-col :span="8" v-if="form.city === 'PJ036005'">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_REGIONNAME')">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REGIONNAME')" prop="regionname">
                       <el-input :disabled="!disable" maxlength="50" style="width:20vw"
                                 v-model="form.regionname"></el-input>
                     </el-form-item>
@@ -798,7 +797,14 @@
           city: [
             {
               required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_CITY2'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CITY2'),
+              trigger: 'change',
+            },
+          ],
+          regionname: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REGIONNAME'),
               trigger: 'change',
             },
           ],
@@ -1445,6 +1451,7 @@
           !this.form.city ||
           !this.form.startdate ||
           !this.form.companyprojectsname ||
+          !this.form.regionname ||
           !this.form.enddate
         ) {
           this.activeName = 'first';
@@ -1516,6 +1523,12 @@
       },
       getCity(val) {
         this.form.city = val;
+        if(this.form.city == 'PJ036005'){
+          this.rules.regionname[0].required = true;
+        }else{
+          this.rules.regionname[0].required = false;
+          this.form.regionname = '';
+        }
       },
       getplan1(val) {
         this.form.plan = val;
