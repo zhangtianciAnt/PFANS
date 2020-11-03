@@ -51,8 +51,8 @@ export function selectById(data) {
 export function selectByResult(data) {
   return request({
     url: 'inventoryplan/selectByResult',
-    method: 'get',
-    params: data,
+    method: 'post',
+    data: data,
   });
 }
 
