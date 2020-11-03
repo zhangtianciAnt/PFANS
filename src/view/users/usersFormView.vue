@@ -1017,7 +1017,7 @@
 
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENDDATE')">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENDDATE')" prop="enddate">
                     <el-date-picker
                       v-model="form.enddate"
                       type="date"
@@ -2501,6 +2501,15 @@
                             message:
                                 this.$t('normal.error_08') +
                                 this.$t('label.PFANSUSERFORMVIEW_ENTERDAY'),
+                            trigger: 'blur',
+                        },
+                    ],
+                  enddate: [
+                        {
+                            required: true,
+                            message:
+                                this.$t('normal.error_08') +
+                                this.$t('label.PFANSUSERFORMVIEW_ENDDATE'),
                             trigger: 'blur',
                         },
                     ],
