@@ -252,7 +252,7 @@
       rowClick(row) {
         this.rowid = row.abnormalid;
         //add_fjl_0904_添加逻辑删除data  start
-        if (this.$store.getters.userinfo.userid === row.user_id && row.status.indexOf(this.$t('normal.todo')) !== -1) {
+        if (this.$store.getters.userinfo.userid === row.user_id && ((row.status.indexOf(this.$t('normal.todo')) !== -1) || row.status.indexOf(this.$t('label.onenode_step2')) !== -1)) {
           this.buttonList[4].disabled = false;
         } else {
           this.buttonList[4].disabled = true;

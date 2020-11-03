@@ -206,7 +206,7 @@
         //add-ws-9/4-加班申请可删除任务
         this.buttonList[3].disabled = true;
         if (row.userid === this.$store.getters.userinfo.userid) {
-          if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS')) {
+          if (row.status === this.$t('label.PFANS1026VIEW_WSTATUS') || row.status.indexOf(this.$t('label.onenode_step2')) !== -1) {
             this.buttonList[3].disabled = false;
           }
         }
