@@ -2543,6 +2543,9 @@
         if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
           this.tableT[0].RedirictT = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
           this.tableP[0].RedirictP = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+          // 禅道611 其他费用明细 是否为直接部门没有判定 start ztc
+          this.tableR[0].RedirictR = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
+          // 禅道611 其他费用明细 是否为直接部门没有判定 end ztc
         }
         // this.tableP[0].code17 = this.tableP[0].RedirictP == '0' ? 'PJ121' : 'PJ134';
         this.show10 = true;
