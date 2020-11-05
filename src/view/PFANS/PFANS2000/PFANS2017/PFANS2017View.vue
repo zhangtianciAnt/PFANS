@@ -16,6 +16,58 @@
         @change="filterInfo"
       ></el-date-picker>
     </EasyNormalTable>
+    <!--历史考勤维护-->
+    <el-container>
+      <el-dialog :title="$t('label.PFANS2017VIEW_HISTORY')" :visible.sync="dialogTableVisible_h" center
+                 size="50%"
+                 top="8vh" lock-scroll
+                 append-to-body>
+        <div style="text-align: center">
+          <el-row>
+            <el-col :span="24">
+              <el-date-picker
+                v-model="perioDate"
+                class="bigWidth"
+                :disabled="false"
+                type="daterange"
+                unlink-panels
+                style="width:20vw"
+                :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                :start-placeholder="$t('label.startdate')"
+                :end-placeholder="$t('label.enddate')"
+              >
+              </el-date-picker>
+            </el-col>
+          </el-row>
+          <span slot="footer" class="dialog-footer">
+          <el-button type="primary" @click="submit2()">{{$t('button.confirm')}}</el-button>
+          </span>
+        </div>
+      </el-dialog>
+    </el-container>
+    <!--导入-->
+    <el-dialog :visible.sync="daoru" width="50%">
+      <div>
+        <span v-if="this.Message">{{this.cuowu}}</span>
+        <div v-if="this.result">
+          <el-table :data="message">
+            <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
+            </el-table-column>
+            <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
+            </el-table-column>
+          </el-table>
+          <div class="pagination-container" style="padding-top: 2rem">
+            <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
+                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
+                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
+              <slot><span class="front Content_front"
+                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+            </el-pagination>
+          </div>
+        </div>
+      </div>
+    </el-dialog>
+
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
@@ -65,7 +117,7 @@
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getUserInfo, parseTime,Decrypt} from '@/utils/customize';
+  import {Decrypt, getUserInfo, parseTime} from '@/utils/customize';
 
   export default {
     name: 'PFANS2017View',
@@ -91,13 +143,16 @@
         successCount: 0,
         errorCount: 0,
         selectedlist: [],
+        selectedlistJob: [],
         Message: false,
         cuowu: '',
+        perioDate: '',
         downloadLoading: false,
         punchcardrecord_date: '',
         jobnumber: '',
         user_id: '',
         loading: false,
+        dialogTableVisible_h: false,
         title: 'title.PFANS2017VIEW',
         data: [],
         workinghours: '',
@@ -184,6 +239,7 @@
           // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
           {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'},
           {'key': 'today', 'name': 'button.today', 'disabled': false, icon: 'el-icon-s-grid'},
+          {'key': 'history', 'name': 'button.history', 'disabled': false, icon: 'el-icon-s-grid'},
         ],
         isShow: true,
         rowid: 'punchcardrecord_id',
@@ -274,6 +330,64 @@
       handleChange(file, fileList) {
         this.clear(true);
       },
+      submit2() {
+        if (this.perioDate === '' || this.perioDate === null || this.perioDate === undefined) {
+          Message({
+            message: this.$t('label.PFANS2017VIEW_WARNING'),
+            type: 'warning',
+            duration: 5 * 1000,
+          });
+        } else {
+          var jobnumberAnt = '';
+          if (this.$refs.roletable.selectedList.length > 1) {
+            for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+              this.selectedlistJob.push(this.$refs.roletable.selectedList[i].jobnumber);
+            }
+            //去重
+            var newArr = [];
+            for (var i = 0; i < this.selectedlistJob.length; i++) {
+              if (newArr.indexOf(this.selectedlistJob[i]) < 0) {
+                newArr.push(this.selectedlistJob[i]);
+              }
+            }
+            for (let i = 0; i < newArr.length; i++) {
+              if(i == newArr.length - 1){
+                jobnumberAnt += newArr[i]
+              }else{
+                jobnumberAnt += newArr[i] + ','
+              }
+            }
+          } else {
+            jobnumberAnt = this.$refs.roletable.selectedList[0].jobnumber
+          }
+          let params = {
+            strStartDate: moment(this.perioDate[0]).format('YYYY-MM-DD'),
+            strendDate: moment(this.perioDate[1]).format('YYYY-MM-DD'),
+            strFlg: '1',
+            strJobnumber: jobnumberAnt,
+          }
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1002Store/getHistPunDetaillist', this.params)
+            .then(response => {
+              Message({
+                message: this.$t('label.PFANS2017VIEW_ERRORCHECK1'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            }).catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+          this.dialogTableVisible_h = false;
+          this.getFpans2017List();
+        }
+      },
       handleSuccess(response, file, fileList) {
         if (response.code !== 0) {
           this.cuowu = response.message;
@@ -340,6 +454,18 @@
         //     this.daoru = true;
         //     this.clear(false);
         // } else
+        if (val === 'history') {
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }else{
+            this.dialogTableVisible_h = true;
+          }
+        }
         if (val === 'export') {
           if (this.$refs.roletable.selectedList.length === 0) {
             Message({
@@ -377,14 +503,14 @@
           });
         }
         if (val === 'today') {
-            this.$router.push({
-                name: 'PFANS2017FormView',
-                params: {
-                    jobnumber: '',
-                    user_id: this.user_id,
-                    punchcardrecord_date: this.punchcardrecord_date,
-                },
-            });
+          this.$router.push({
+            name: 'PFANS2017FormView',
+            params: {
+              jobnumber: '',
+              user_id: this.user_id,
+              punchcardrecord_date: this.punchcardrecord_date,
+            },
+          });
         }
         //   else if('export2' === val){
         //   this.loading = true;

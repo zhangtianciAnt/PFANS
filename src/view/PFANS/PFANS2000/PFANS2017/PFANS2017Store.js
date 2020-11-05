@@ -1,4 +1,4 @@
-import {getFpans2017List, download,getPunDetail,getFpans2017Listowner,getTodayPunDetaillist} from './PFANS2017Api'
+import {getFpans2017List, download,getPunDetail,getFpans2017Listowner,getTodayPunDetaillistgetHistPunDetaillist} from './PFANS2017Api'
 
 const PFANS2017Store = {
   namespaced: true,
@@ -70,8 +70,23 @@ const PFANS2017Store = {
           reject(error);
         })
       })
+    },
+    //获取当日考勤
+    getHistPunDetaillist({commit}) {
+      return new Promise((resolve, reject) => {
+        getHistPunDetaillist().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
     }
-  }
+  },
+
 };
 
 export default PFANS2017Store;
