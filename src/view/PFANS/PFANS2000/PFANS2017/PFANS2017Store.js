@@ -1,4 +1,4 @@
-import {getFpans2017List, download,getPunDetail,getFpans2017Listowner,getTodayPunDetaillistgetHistPunDetaillist} from './PFANS2017Api'
+import {getFpans2017List, download,getPunDetail,getFpans2017Listowner,getTodayPunDetaillist,insertHistoricalCard} from './PFANS2017Api'
 
 const PFANS2017Store = {
   namespaced: true,
@@ -72,9 +72,9 @@ const PFANS2017Store = {
       })
     },
     //获取当日考勤
-    getHistPunDetaillist({commit}) {
+    insertHistoricalCard({commit}) {
       return new Promise((resolve, reject) => {
-        getHistPunDetaillist().then(response => {
+        insertHistoricalCard().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

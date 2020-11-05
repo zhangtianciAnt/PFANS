@@ -343,7 +343,7 @@
           }
           this.loading = true;
           this.$store
-            .dispatch('PFANS1002Store/getHistPunDetaillist', this.params)
+            .dispatch('PFANS1002Store/insertHistoricalCard', this.params)
             .then(response => {
               Message({
                 message: this.$t('label.PFANS2017VIEW_ERRORCHECK1'),

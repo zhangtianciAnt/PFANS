@@ -40,9 +40,9 @@ export function getTodayPunDetaillist() {
   })
 }
 //获取历史考勤
-export function getHistPunDetaillist() {
+export function insertHistoricalCard() {
   return request({
-    url: 'punchcardrecord/getHistPunDetaillist',
+    url: 'punchcardrecord/insertHistoricalCard',
     method: 'post',
   })
 }
