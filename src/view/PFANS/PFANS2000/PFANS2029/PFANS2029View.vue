@@ -339,11 +339,11 @@
             strStartDate: moment(this.perioDate[0]).format('YYYY-MM-DD'),
             strendDate: moment(this.perioDate[1]).format('YYYY-MM-DD'),
             strFlg: '2',
-            strJobnumber: jobnumberAnt,
+            staffNo: jobnumberAnt,
           }
           this.loading = true;
           this.$store
-            .dispatch('PFANS1002Store/insertHistoricalCard', this.params)
+            .dispatch('PFANS2017Store/insertHistoricalCard', params)
             .then(response => {
               Message({
                 message: this.$t('label.PFANS2017VIEW_ERRORCHECK1'),

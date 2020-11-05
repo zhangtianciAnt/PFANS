@@ -72,9 +72,9 @@ const PFANS2017Store = {
       })
     },
     //获取当日考勤
-    insertHistoricalCard({commit}) {
+    insertHistoricalCard({commit}, params) {
       return new Promise((resolve, reject) => {
-        insertHistoricalCard().then(response => {
+        insertHistoricalCard(params).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
