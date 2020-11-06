@@ -1017,12 +1017,13 @@
 
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENDDATE')" prop="enddate">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OFFICIALDATE')" prop="varenddate">
                     <el-date-picker
-                      v-model="form.enddate"
-                      type="date"
+                      @change="changeenddate"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
+                      type="date"
+                      v-model="varenddate"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -2151,6 +2152,7 @@
                         label: this.$t('label.PFANSUSERFORMVIEW_NO'),
                     },
                 ],
+                varenddate: '',
                 form: {
                   //        ws-6/28-禅道141任务
                   wheretoleave: '',
@@ -2504,13 +2506,12 @@
                             trigger: 'blur',
                         },
                     ],
-                  enddate: [
+                    varenddate: [
                         {
+                            type: 'date',
                             required: true,
-                            message:
-                                this.$t('normal.error_08') +
-                                this.$t('label.PFANSUSERFORMVIEW_ENDDATE'),
-                            trigger: 'blur',
+                            message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_OFFICIALDATE'),
+                            trigger: 'change',
                         },
                     ],
                     // annualyear: [
@@ -2756,6 +2757,20 @@
             }
         },
         methods: {
+
+          //试用期截止日转换转正日
+          changeenddate(value){
+              if(value === null){
+                  this.varenddate = "";
+                  this.userInfo.customerInfo.userinfo.enddate = "";
+                  this.rules.varenddate[0].required = true;
+              }
+              else{
+                  this.rules.varenddate[0].required = false;
+                  this.varenddate = moment(value).format("YYYY-MM-DD");
+                  this.userInfo.customerInfo.userinfo.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
+              }
+          },
           //        ws-6/28-禅道141任务
           changeclassification (val) {
             this.form.classification = val;
@@ -3081,6 +3096,13 @@
                             groupid: '',
                             teamid: '',
                         });
+                        if (response.customerInfo.userinfo.enddate != '' && response.customerInfo.userinfo.enddate != null) {
+                            this.varenddate = moment(response.customerInfo.userinfo.enddate).add(1,'days').format("YYYY-MM-DD");
+                            this.rules.varenddate[0].required = false;
+                        }
+                        else{
+                            this.rules.varenddate[0].required = true;
+                        }
                         if (response.customerInfo.userinfo.birthday != '' && response.customerInfo.userinfo.birthday != null) {
                             let birthdays = new Date(
                                 response.customerInfo.userinfo.birthday.replace(/-/g, '/'),
@@ -3683,7 +3705,7 @@
                 const firstTab = ["customername","sex","adfield","birthday","nationality","nation","register","idnumber"];
                 const secondTab = ["graduation", "degree","educational","specialty","graduationday"];
                 const fourthTab = ["workday"];
-                const fiveTab = ["jobnumber","type","rank","occupationtype","centerid","post","enterday"
+                const fiveTab = ["jobnumber","type","rank","occupationtype","centerid","post","enterday","varenddate"
                     ,"seatnumber","duty","basic","houseinsurance","yanglaoinsurance","yiliaoinsurance","shiyeinsurance"
                     ,"gongshanginsurance","shengyuinsurance"];
                 //  ADD      zy-7/6-禅道202任务 end
@@ -3702,7 +3724,7 @@
                             })
                         }
                         // add_fjl_05/22  --去除间接部门空的数据
-                        this.userInfo.customerInfo.userinfo = this.form;
+                        this.userInfo.customerInfo.userinfo = JSON.parse(JSON.stringify(this.form));
                         this.Personal();
                         this.userInfo.customerInfo.userinfo.educationTable = this.educationTable;
                         this.userInfo.customerInfo.userinfo.skillTable = this.skillTable;
