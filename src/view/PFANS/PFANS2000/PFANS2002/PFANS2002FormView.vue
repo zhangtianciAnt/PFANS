@@ -1271,7 +1271,7 @@
             fileSuccess(response, file, fileList) {
                 if (response.data == "upload_success") {
                     this.fileList = [];
-                    this.form.uploadfile = '';
+                    this.form.entry_enclosure = '';
                     for (var item of fileList) {
                         let o = {};
                         o.name = item.name;
@@ -1281,7 +1281,7 @@
                             o.url = item.url;
                         }
                         this.fileList.push(o);
-                        this.form.uploadfile += o.name + ',' + o.url + ';';
+                        this.form.entry_enclosure += o.name + ',' + o.url + ';';
                     }
                 } else {
                     Message({
@@ -1289,7 +1289,7 @@
                         type: 'error',
                         duration: 5 * 1000,
                     });
-                    this.form.uploadfile = ''
+                    this.form.entry_enclosure = ''
                     this.$refs.upload.clearFiles();
                 }
             },
