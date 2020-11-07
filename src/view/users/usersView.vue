@@ -613,7 +613,7 @@ export default {
                   this.$t("label.PFANSUSERVIEW_POST"),//职务
                   this.$t("label.PFANSUSERVIEW_RANK"),//RANK
                   this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
-                  this.$t("label.PFANSUSERFORMVIEW_ENDDATE"),//试用期截止日
+                  this.$t("label.PFANSUSERFORMVIEW_OFFICIALDATE"),//试用期截止日(转正日)
                   this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
                   this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),//毕业年月日
                   this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),//最终毕业学校
@@ -674,7 +674,7 @@ export default {
                   "post",//职务
                   "rank",//RANK
                   "workday",//仕事开始年月日
-                  "enddate",//仕事开始年月日
+                  "enddate",//试用期截止日（转正日）
                   "experience",//是否有工作经验
                   "graduationday",//毕业年月日
                   "graduation",//最终毕业学校
@@ -1048,7 +1048,7 @@ export default {
             this.departmentData = {};
             this.buildDepartmentData(this.data);
           }
-          this.loading = false;
+          //this.loading = false;
         })
         .catch(error => {
           Message({
@@ -1130,9 +1130,9 @@ export default {
                 _tableList[j].workday = moment(_tableList[j].workday).format(
                   "YYYY-MM-DD"
                 );
-              //试用期截止日
+              //试用期截止日(转正日)
               if (_tableList[j].enddate)
-                _tableList[j].enddate = moment(_tableList[j].enddate).format(
+                _tableList[j].enddate = moment(_tableList[j].enddate).add(1,'days').format(
                   "YYYY-MM-DD"
                 );
               //ccm 课题票143 to

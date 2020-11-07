@@ -214,7 +214,13 @@
       };
     },
     mounted() {
+      if (this.$route.params._id) {
         this.getSelectById();
+      } else {
+        this.userlist = this.$store.getters.userinfo.userid;
+        this.form.userid = this.$store.getters.userinfo.userid;
+        this.getDepartmentData();
+      }
     },
     created() {
       this.disable = this.$route.params.disabled;
