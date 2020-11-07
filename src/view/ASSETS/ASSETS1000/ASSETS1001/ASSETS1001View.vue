@@ -212,6 +212,12 @@
         },
         columns: [
           {
+            code: 'typeassets',
+            label: 'label.ASSETS1001VIEW_TYPEASSETS',
+            width: 120,
+            fix: false,
+            filter: false,
+          },{
             code: 'filename',
             label: 'label.ASSETS1001VIEW_FILENAME',
             width: 120,
@@ -219,8 +225,24 @@
             filter: false,
           },
           {
-            code: 'typeassets',
-            label: 'label.ASSETS1001VIEW_TYPEASSETS',
+            code: 'barcode',
+            label: 'label.ASSETS1001VIEW_BARCODE',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add ccm 20201102 需求对应
+          {
+            code: 'pcno',
+            label: 'label.ASSETS1001VIEW_PCNO',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add ccm 20201102 需求对应
+          {
+            code: 'usedepartment',
+            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
             width: 120,
             fix: false,
             filter: false,
@@ -228,13 +250,6 @@
           {
             code: 'principal',
             label: 'label.ASSETS1001VIEW_PRINCIPAL',
-            width: 120,
-            fix: false,
-            filter: false,
-          },
-          {
-            code: 'barcode',
-            label: 'label.ASSETS1001VIEW_BARCODE',
             width: 120,
             fix: false,
             filter: false,
@@ -260,13 +275,7 @@
             fix: false,
             filter: false,
           },
-          {
-            code: 'usedepartment',
-            label: 'label.ASSETS1001VIEW_USEDEPARTMENT',
-            width: 120,
-            fix: false,
-            filter: false,
-          },
+
           //add-ws-No.58-启用日期画面添加
           {
             code: 'activitiondate',
@@ -276,6 +285,22 @@
             filter: false,
           },
           //add-ws-No.58-启用日期画面添加
+          //add ccm 20201102 需求对应
+          {
+            code: 'price',
+            label: 'label.ASSETS1001VIEW_PRICE',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'realprice',
+            label: 'label.ASSETS1001VIEW_REALPRICE',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add ccm 20201102 需求对应
         ],
         buttonList: [
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -296,6 +321,8 @@
       downtypes() {
         return [
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_GUDING'), type: 2},
+          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_WUXING'), type: 3},
+          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_BUWAI1'), type: 4},
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_BUWAI'), type: 1},
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_QITA'), type: 0}
         ]
@@ -426,7 +453,7 @@
               if (user) {
                 response[j].principal = user.userinfo.customername;
                 response[j].jobnumber = user.userinfo.jobnumber;
-//                response[j].usedepartment = user.userinfo.centername;
+                response[j].caiwupersonalcode = user.userinfo.caiwupersonalcode;
               }
               if (response[j].purchasetime !== null && response[j].purchasetime !== '') {
                 response[j].purchasetime = moment(response[j].purchasetime).format('YYYY-MM-DD');
@@ -646,9 +673,13 @@
       export(selectedList) {
         let tHeader = "";
         let filterVal = "";
-        let arr1 = ["PA001001", "PA001009"];
-        let arr2 = ["PA001002", "PA001003", "PA001004"];
-        let arr3 = ["PA001005", "PA001006", "PA001007", "PA001008"];
+        //固定资产 //簿外资产 //无形资产
+        let arr1 = ["PA001001","PA001002", "PA001003", "PA001004","PA001009"];
+        //借入资产
+        let arr2 = ["PA001008"];
+        //对外资产
+        let arr3 = ["PA001005", "PA001006"];
+
         if (selectedList.every(list => {
           return arr1.includes(list.typeassets1)
         })) {
@@ -657,24 +688,51 @@
               if (list.purchasetime) {
                 list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
               }
+              if (list.activitiondate) {
+                list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+              }
+              if (list.psdcdperiod) {
+                list.psdcdperiod = moment(list.psdcdperiod).format("YYYY/MM/DD");
+              }
+              if (list.psdcdreturndate) {
+                list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
+              }
+              if (list.psdcdshijidate) {
+                list.psdcdshijidate = moment(list.psdcdshijidate).format("YYYY/MM/DD");
+              }
             });
-          tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
-            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-            this.$t('label.user_name'),
-            this.$t('label.ASSETS1001VIEW_BARCODE'),
-            this.$t('label.ASSETS1001VIEW_BARTYPE'),
-            this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
-            this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
-            this.$t('label.ASSETS1001VIEW_PCNO'),
-            this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
-            this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
-            this.$t('label.ASSETS1001VIEW_PURCHASETIME'),
-            this.$t('label.ASSETS1001VIEW_PRICE'),
-            this.$t('label.ASSETS1001VIEW_REALPRICE'),
-            this.$t('label.ASSETS1001VIEW_MODEL'),
-            this.$t('label.ASSETS1001VIEW_REMARKS')
+          tHeader = [
+            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),//资产类型
+            this.$t('label.ASSETS1001VIEW_FILENAME'),//名称
+            this.$t('label.ASSETS1001VIEW_BARCODE'),//资产编号
+            this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),//使用部门
+            this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),//部门代码
+            this.$t('label.ASSETS1001VIEW_PRINCIPAL'),//管理者
+            this.$t('label.ASSETS1001VIEW_BARTYPE'),//条码类型
+            this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),//资产状态
+            this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),//在库状态
+            this.$t('label.ASSETS1001VIEW_PCNO'),//PC管理号
+            this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),//启用日期
+            this.$t('label.ASSETS1001VIEW_PRICE'),//原值
+            this.$t('label.ASSETS1001VIEW_REALPRICE'),//帐面净值
+            this.$t('label.ASSETS1001VIEW_MODEL'),//型号
+            this.$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION'),//借还情况
+            this.$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON'),//带出理由
+            this.$t('label.ASSETS1001VIEW_ADDRESS'),//带出地点
+            this.$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE'),//带出地点联系人
+            this.$t('label.ASSETS1001VIEW_PSDCDPHONE'),//联系电话
+            this.$t('label.ASSETS1001VIEW_PSDCDPERIOD'),//带出开始日
+            this.$t('label.ASSETS1001VIEW_PSDCDRETURNDATE'),//预计归还日
+            this.$t('label.ASSETS1001VIEW_PSDCDSHIJIDATE'),//实际归还日
+            this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
+            this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
+
           ];
-          filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus', 'stockstatus', 'pcno', 'usedepartment', 'departmentcode', 'purchasetime', 'price', 'realprice', 'model', 'remarks'];
+          filterVal = ['typeassets','filename', 'barcode','usedepartment', 'departmentcode','caiwupersonalcode'
+                      ,'bartypeName','assetstatus', 'stockstatus','pcno','activitiondate','price', 'realprice','model'
+                      ,'psdcddebitsituation','psdcdbringoutreason','address','psdcdresponsible','psdcdphone'
+                      ,'psdcdperiod','psdcdreturndate','psdcdshijidate','remarks','remarks1'];
+
         } else if (selectedList.every(list => {
           return arr2.includes(list.typeassets1)
         })) {
@@ -690,34 +748,30 @@
                 list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
               }
             });
-          tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
-            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-            this.$t('label.user_name'),
-            this.$t('label.ASSETS1001VIEW_BARCODE'),
-            this.$t('label.ASSETS1001VIEW_BARTYPE'),
-            this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
-            this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
-            this.$t('label.ASSETS1001VIEW_REMARKS1'),
-            this.$t('label.ASSETS1001VIEW_NO'),
-            this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),
-            this.$t('label.ASSETS1001VIEW_ORIPRICE'),
-            this.$t('label.ASSETS1001VIEW_LABELNUMBER'),
-            this.$t('label.ASSETS1001VIEW_MODEL'),
-            this.$t('label.ASSETS1001VIEW_ADDRESS'),
-            this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),
-            this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),
-            this.$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION'),
-            this.$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON'),
-            this.$t('label.ASSETS1001VIEW_PSDCDPERIOD'),
-            this.$t('label.ASSETS1001VIEW_PSDCDRETURNDATE'),
-            this.$t('label.ASSETS1001VIEW_PSDCDISOVERDUE'),
-            this.$t('label.ASSETS1001VIEW_PSDCDCOUNTERPARTY'),
-            this.$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE'),
-            this.$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')
+          tHeader = [
+            this.$t('label.ASSETS1001VIEW_TYPEASSETS'),//资产类型
+            this.$t('label.ASSETS1001VIEW_FILENAME'),//名称
+            this.$t('label.ASSETS1001VIEW_BARCODE'),//资产编号
+            this.$t('label.ASSETS1001VIEW_USEDEPARTMENT'),//使用部门
+            this.$t('label.ASSETS1001VIEW_DEPARTMENTCODE'),//部门代码
+            this.$t('label.ASSETS1001VIEW_PRINCIPAL'),//管理者
+            this.$t('label.ASSETS1001VIEW_BARTYPE'),//条码类型
+            this.$t('label.ASSETS1001VIEW_MODEL'),//型号
+            this.$t('label.ASSETS1001VIEW_JIECHUDANWEI'),//借出单位
+            this.$t('label.ASSETS1001VIEW_JIECHUDANWEIREN'),//借出单位联系人
+            this.$t('label.ASSETS1001VIEW_PSDCDPHONE'),//联系电话
+            this.$t('label.ASSETS1001VIEW_LOANCONTRACT'),//借用合同
+            this.$t('label.ASSETS1001VIEW_LOANCONTRACTNO'),//借用合同编号
+            this.$t('label.ASSETS1001VIEW_LOANCONTRACTDATE'),//借用开始日
+            this.$t('label.ASSETS1001VIEW_PSDCDRETURNDATE'),//预计归还日
+            this.$t('label.ASSETS1001VIEW_PSDCDSHIJIDATE'),//实际归还日
+            this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
+            this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
+            this.$t('label.ASSETS1001VIEW_REMARKS2'),//备注1
           ];
-          filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus', 'stockstatus',
-            'remarks', 'no', 'activitiondate', 'price', 'assetnumber', 'model', 'address', 'usedepartment', 'departmentcode', 'psdcddebitsituation', 'psdcdbringoutreason'
-            , 'psdcdperiod', 'psdcdreturndate', 'psdcdisoverdue', 'psdcdcounterparty', 'psdcdresponsible', 'psdcdreturnconfirmation'];
+          filterVal = ['typeassets','filename', 'barcode','usedepartment', 'departmentcode','caiwupersonalcode'
+            ,'bartypeName','model','address','psdcdresponsible','psdcdphone','loancontract','loancontractno'
+            ,'activitiondate','psdcdreturndate','psdcdshijidate','remarks1','remarks','remarks2'];
 
         } else if (selectedList.every(list => {
           return arr3.includes(list.typeassets1)
@@ -778,8 +832,8 @@
           )
           tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
             this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
-            this.$t('label.user_name'),
             this.$t('label.ASSETS1001VIEW_BARCODE'),
+            this.$t('label.user_name'),
             this.$t('label.ASSETS1001VIEW_BARTYPE'),
             this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),
             this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),
@@ -818,7 +872,7 @@
             this.$t('label.department')
 
           ];
-          filterVal = ['filename', 'typeassets', 'principal', 'barcode', 'bartypeName', 'assetstatus', 'stockstatus',
+          filterVal = ['filename', 'typeassets', 'barcode','principal',  'bartypeName', 'assetstatus', 'stockstatus',
             'pcno', 'model', 'price', 'no', 'purchasetime', 'activitiondate', 'remarks', 'customer', 'controlno', 'machinename',
             'inparams1', 'inparams2',
             'inparams3', 'inparams4', 'inparams5', 'owner',

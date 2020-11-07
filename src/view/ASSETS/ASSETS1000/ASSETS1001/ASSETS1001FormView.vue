@@ -71,15 +71,32 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-collapse v-show="form.typeassets">
-            <el-collapse-item v-show="form.typeassets === 'PA001001'">
-              <template slot="title">
-                <span class="collapse_Title">{{collapseName}}</span>
-              </template>
+          <el-row>
+            <el-form-item v-show="form.typeassets === 'PA001001' || form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004' || form.typeassets === 'PA001009'">
               <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENTJIANCHENG')">
+                    <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_DEPARTMENTCODE')">
+                    <el-input style="width:20vw" v-model="form.departmentcode"></el-input>
+                  </el-form-item>
+                </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PCNO')">
                     <el-input style="width:20vw" v-model="form.pcno"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
+                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
+                                     controls-position="right" style="width:20vw"
+                                     v-model="form.price"></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -103,140 +120,21 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')">
-                    <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_DEPARTMENTCODE')">
-                    <el-input style="width:20vw" v-model="form.departmentcode"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PRICE')" prop="price">
-                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
-                                     controls-position="right" style="width:20vw"
-                                     v-model="form.price"></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
-                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-            <el-collapse-item
-              v-show="form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004'">
-              <template slot="title">
-                <span class="collapse_Title">{{collapseName}}</span>
-              </template>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS1')">
-                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_NO')">
-                    <el-input style="width:20vw" v-model="form.no"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_ACTIVITIONDATE')">
                     <el-date-picker style="width:20vw" type="date"
                                     v-model="form.activitiondate"></el-date-picker>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_ASSETNUMBER')">
-                    <el-input style="width:20vw" v-model="form.assetnumber"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_ORIPRICE')" prop="price">
-                    <el-input-number :max="99999999999999999999" :min="0" :precision="2" :step="1"
-                                     controls-position="right" style="width:20vw"
-                                     v-model="form.price"></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_MODEL')">
-                    <el-input style="width:20vw" v-model="form.model"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_ADDRESS')">
-                    <el-input style="width:20vw" v-model="form.address"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENT')">
-                    <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_DEPARTMENTCODE')">
-                    <el-input style="width:20vw" v-model="form.departmentcode"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDDEBITSITUATION')">
                     <el-input style="width:20vw" v-model="form.psdcddebitsituation"></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON')">
-                    <el-input style="width:20vw" v-model="form.psdcdbringoutreason"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDPERIOD')">
-                    <el-input style="width:20vw" v-model="form.psdcdperiod"></el-input>
-                  </el-form-item>
-                </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNDATE')">
-                    <el-input style="width:20vw" v-model="form.psdcdreturndate"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDISOVERDUE')">
-                    <el-switch active-value="1" inactive-value="0" style="width:20vw"
-                               v-model="form.psdcdisoverdue"></el-switch>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDCOUNTERPARTY')">
-                    <el-input style="width:20vw" v-model="form.psdcdcounterparty"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE')">
-                    <el-input style="width:20vw" v-model="form.psdcdresponsible"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNCONFIRMATION')">
-                    <el-input style="width:20vw" v-model="form.psdcdreturnconfirmation"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-            <el-collapse-item
-              v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006' || form.typeassets === 'PA001007' || form.typeassets === 'PA001008'">
+            </el-form-item>
+          </el-row>
+          <el-collapse v-show="form.typeassets">
+            <el-collapse-item v-show="form.typeassets === 'PA001005' || form.typeassets === 'PA001006'">
               <template slot="title">
                 <span class="collapse_Title">{{collapseName}}</span>
               </template>
@@ -464,6 +362,158 @@
                 </el-collapse>
               </el-row>
             </el-collapse-item>
+            <el-collapse-item v-show="form.typeassets === 'PA001008'">
+              <template slot="title">
+                <span class="collapse_Title">{{collapseName}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENTJIANCHENG')">
+                    <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_DEPARTMENTCODE')">
+                    <el-input style="width:20vw" v-model="form.departmentcode"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_MODEL')">
+                    <el-input style="width:20vw" v-model="form.model"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_JIECHUDANWEI')">
+                    <el-input style="width:20vw" v-model="form.address"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_JIECHUDANWEIREN')">
+                    <el-input style="width:20vw" v-model="form.psdcdresponsible"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <!--                  TODO联系电话-->
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDPHONE')">
+                    <el-input style="width:20vw" v-model="form.psdcdphone"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+<!--                借用合同-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_LOANCONTRACT')">
+                    <el-input style="width:20vw" v-model="form.loancontract"></el-input>
+                  </el-form-item>
+                </el-col>
+<!--                借用合同编号-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_LOANCONTRACTNO')">
+                    <el-input style="width:20vw" v-model="form.loancontractno"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_LOANCONTRACTDATE')">
+                    <el-date-picker style="width:20vw" type="date"
+                                    v-model="form.activitiondate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNDATE')">
+                    <el-input style="width:20vw" v-model="form.psdcdreturndate"></el-input>
+                  </el-form-item>
+                </el-col>
+                <!--                TODO实际归还日-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDSHIJIDATE')">
+                    <el-input style="width:20vw" v-model="form.psdcdshijidate"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS1')">
+                    <el-input style="width:20vw" v-model="form.remarks1"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
+                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+<!--                备注1-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS2')">
+                    <el-input style="width:20vw" v-model="form.remarks2"></el-input>
+                  </el-form-item>
+                </el-col>
+
+              </el-row>
+            </el-collapse-item>
+            <el-collapse-item v-show="form.typeassets === 'PA001001' || form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004' || form.typeassets === 'PA001009'">
+              <template slot="title">
+                <span class="collapse_Title">{{collapseName}}</span>
+              </template>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDBRINGOUTREASON')">
+                    <el-input style="width:20vw" v-model="form.psdcdbringoutreason"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_ADDRESS')">
+                    <el-input style="width:20vw" v-model="form.address"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRESPONSIBLE')">
+                    <el-input style="width:20vw" v-model="form.psdcdresponsible"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <!--                  TODO联系电话-->
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDPHONE')">
+                    <el-input style="width:20vw" v-model="form.psdcdphone"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDPERIOD')">
+                    <el-input style="width:20vw" v-model="form.psdcdperiod"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDRETURNDATE')">
+                    <el-input style="width:20vw" v-model="form.psdcdreturndate"></el-input>
+                  </el-form-item>
+                </el-col>
+<!--                TODO实际归还日-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_PSDCDSHIJIDATE')">
+                    <el-input style="width:20vw" v-model="form.psdcdshijidate"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS')">
+                    <el-input style="width:20vw" v-model="form.remarks"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_REMARKS1')">
+                    <el-input style="width:20vw" v-model="form.remarks1"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse-item>
           </el-collapse>
         </el-form>
       </div>
@@ -477,7 +527,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo,getOrgInfo} from '@/utils/customize';
   import ElRow from "element-ui/packages/row/src/row";
 
   export default {
@@ -654,7 +704,18 @@
         this.userlist = val;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(val);
-          this.form.usedepartment = lst.centerNmae;
+          if (lst)
+          {
+            if (lst.groupId!=null && lst.groupId!=undefined)
+            {
+              let group = getOrgInfo(lst.groupId);
+              if (group)
+              {
+                this.form.usedepartment = group.companyen;
+                this.form.departmentcode = group.encoding;
+              }
+            }
+          }
         }
         if (!this.form.principal || this.form.principal === '' || val === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_PRINCIPAL');
