@@ -103,7 +103,7 @@ module.exports = {
     crAccount2: "创建外协员工账号",
     detailed: "详细记录",
     today: '当日考勤',
-    history: '历史考勤维护',
+    history: '历史打卡记录维护',
     viewlogmement: '查看日志',
     conapp: '合同号申请',
     actuarial: '精算',
