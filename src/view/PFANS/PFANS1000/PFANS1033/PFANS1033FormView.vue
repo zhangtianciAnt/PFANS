@@ -854,6 +854,7 @@
                               this.form.applicationdate = contractapplication[i].careeryear;
                               //上下期
                               this.form.entrycondition = contractapplication[i].periods;
+                  this.form1.entrycondition = contractapplication[i].periods;
                               //グループ
                               this.getGroupId(contractapplication[i].group_id);
                               //契約種類

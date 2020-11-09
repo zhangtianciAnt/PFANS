@@ -1701,6 +1701,7 @@
                 this.form1.contractnumber = contractapplication[i].contractnumber;
                 this.form1.contracttype = contractapplication[i].contracttype;
                 this.form1.applicationdate = contractapplication[i].careeryear;
+                this.form1.entrycondition = contractapplication[i].periods;
                 this.form1.custojapanese = contractapplication[i].custojapanese;
                 //契約書番号
                 this.letcontractnumber = contractapplication[i].contractnumber;
