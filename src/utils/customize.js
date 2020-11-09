@@ -627,6 +627,20 @@ export function getCurrentRole9() {
   return "1";
 }
 
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole10() {
+  let roles = "";
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("工资计算担当") != -1) {
+      return "0";
+    }
+  }
+  return "1";
+}
+
 import CryptoJS from 'crypto-js/crypto-js'
 
 
