@@ -117,7 +117,7 @@
   import EasyNormalTable from '@/components/EasyBigDataTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {Decrypt, getUserInfo, parseTime} from '@/utils/customize';
+  import {Decrypt, getUserInfo, parseTimem, getCurrentRole10} from '@/utils/customize';
 
   export default {
     name: 'PFANS2017View',
@@ -146,6 +146,7 @@
         selectedlistJob: [],
         Message: false,
         cuowu: '',
+        roles: '',
         perioDate: '',
         downloadLoading: false,
         punchcardrecord_date: '',
@@ -234,18 +235,27 @@
           // ADD-LXX
         ],
         buttonList: [
-          // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
-          // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
           {'key': 'detail', 'name': 'button.detailed', 'disabled': false, icon: 'el-icon-s-grid'},
           {'key': 'today', 'name': 'button.today', 'disabled': false, icon: 'el-icon-s-grid'},
-          {'key': 'history', 'name': 'button.history', 'disabled': false, icon: 'el-icon-s-grid'},
+          {
+            'key': 'history',
+            'name': 'button.history',
+            'disabled': false,
+            icon: 'el-icon-s-grid'
+          },
         ],
         isShow: true,
         rowid: 'punchcardrecord_id',
       };
     },
     mounted() {
+      this.roles = getCurrentRole10();
+      if (this.roles === '0') {
+        this.buttonList[3].disabled = false;
+      } else {
+        this.buttonList[3].disabled = true;
+      }
       this.getFpans2017List();
     },
     methods: {
@@ -351,9 +361,9 @@
               }
             }
             for (let i = 0; i < newArr.length; i++) {
-              if(i == newArr.length - 1){
+              if (i == newArr.length - 1) {
                 jobnumberAnt += newArr[i]
-              }else{
+              } else {
                 jobnumberAnt += newArr[i] + ','
               }
             }
@@ -462,7 +472,7 @@
               duration: 2 * 1000,
             });
             return;
-          }else{
+          } else {
             this.dialogTableVisible_h = true;
           }
         }
