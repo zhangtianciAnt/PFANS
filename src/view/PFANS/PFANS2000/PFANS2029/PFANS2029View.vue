@@ -94,7 +94,13 @@
   import EasyNormalTable from "@/components/EasyBigDataTable";
   import {Message} from 'element-ui';
   import moment from "moment";
-  import {Decrypt, getCooperinterviewListByAccount, getorgGroupList, getUserInfo} from '@/utils/customize';
+  import {
+    Decrypt,
+    getCooperinterviewListByAccount,
+    getorgGroupList,
+    getUserInfo,
+    getCurrentRole11
+  } from '@/utils/customize';
 
   export default {
     name: 'PFANS2029View',
@@ -215,6 +221,12 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRole11();
+      if (this.roles === '0') {
+        this.buttonList[3].disabled = false;
+      } else {
+        this.buttonList[3].disabled = true;
+      }
       this.getFpans2029List();
     },
     methods: {
