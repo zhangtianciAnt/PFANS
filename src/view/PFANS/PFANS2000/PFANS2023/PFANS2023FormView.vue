@@ -333,7 +333,8 @@
                     business_results_mar: '',
                     interview_results_mar: '',
                     // ADD_FJL_05/21   --年度可修改
-                    years: moment(new Date()).format("YYYY"),
+                    // years: moment(new Date()).format("YYYY"),
+                  years:moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
                     // ADD_FJL_05/21   --年度可修改
                 },
                 // code: 'PR015',
