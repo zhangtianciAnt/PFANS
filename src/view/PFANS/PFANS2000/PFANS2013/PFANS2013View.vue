@@ -13,6 +13,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
   import {Message} from 'element-ui';
+  import moment from "moment";
 
   export default {
     name: 'PFANS2013View',
@@ -38,21 +39,42 @@
           {
             code: 'center_name',
             label: 'label.center',
-            width: 120,
+            width: 90,
             fix: false,
             filter: false,
           },
           {
             code: 'group_name',
             label: 'label.group',
-            width: 120,
+            width: 90,
             fix: false,
             filter: false,
           },
           {
             code: 'team_name',
             label: 'label.team',
-            width: 100,
+            width: 90,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'enterday',
+            label: 'label.PFANS2013VIEW_ENTERDAY',
+            width: 90,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'workday',
+            label: 'label.PFANS2013VIEW_WORKDAY',
+            width: 105,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'enddate',
+            label: 'label.PFANS2013VIEW_ENTRYDAY',
+            width: 90,
             fix: false,
             filter: false,
           },
@@ -89,7 +111,7 @@
                     filter: false,
                   },
                 ],
-                width: 60,
+                width: 65,
                 fix: false,
                 filter: false,
               },
@@ -143,7 +165,7 @@
                     code: 'annual_leave_thisyear',
                     label: 'label.PFANS2013VIEW_BEGINNING',
                     labelClass: 'pfans2013view_column_11',
-                    width: 60,
+                    width: 50,
                     fix: false,
                     filter: false,
                   },
@@ -151,7 +173,7 @@
                     code: 'deduct_annual_leave_thisyear',
                     label: 'label.PFANS2013VIEW_DEDUCT',
                     labelClass: 'pfans2013view_column_11',
-                    width: 60,
+                    width: 50,
                     fix: false,
                     filter: false,
                   },
@@ -159,7 +181,7 @@
                     code: 'remaining_annual_leave_thisyear',
                     label: 'label.PFANS2013VIEW_REMAINING',
                     labelClass: 'pfans2013view_column_11',
-                    width: 60,
+                    width: 50,
                     fix: false,
                     filter: false,
                   },
@@ -245,6 +267,16 @@
                   _tableList[j].center_name = lst2.centerNmae;
                   _tableList[j].group_name = lst2.groupNmae;
                   _tableList[j].team_name = lst2.teamNmae;
+                }
+
+                if (_tableList[j].enterday !== null && _tableList[j].enterday !== "") {
+                  _tableList[j].enterday = moment(_tableList[j].enterday).format("YYYY-MM-DD");
+                }
+                if (_tableList[j].workday !== null && _tableList[j].workday !== "") {
+                  _tableList[j].workday = moment(_tableList[j].workday).format("YYYY-MM-DD");
+                }
+                if (_tableList[j].enddate !== null && _tableList[j].enddate !== "") {
+                  _tableList[j].enddate = moment(_tableList[j].enddate).format("YYYY-MM-DD");
                 }
                 //剩余数据处理
                 // _tableList[j].remaining_annual_leave_lastyear =
