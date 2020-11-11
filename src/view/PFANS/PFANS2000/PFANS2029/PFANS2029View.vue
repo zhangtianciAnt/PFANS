@@ -223,9 +223,9 @@
     mounted() {
       this.roles = getCurrentRole11();
       if (this.roles === '0') {
-        this.buttonList[3].disabled = false;
+        this.buttonList[2].disabled = false;
       } else {
-        this.buttonList[3].disabled = true;
+        this.buttonList[2].disabled = true;
       }
       this.getFpans2029List();
     },
