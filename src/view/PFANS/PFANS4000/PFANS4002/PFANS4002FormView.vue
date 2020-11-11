@@ -422,7 +422,7 @@
         rewardTable: [
           {
             programme: '',
-            _time: '',
+            rewardTime: '',
             notes: '',
           },
         ],
@@ -961,7 +961,6 @@
         this.$store
           .dispatch('usersStore/getById', params)
           .then(response => {
-            debugger
             this.form = response.customerInfo.userinfo;
             //add-ws-7/10-禅道141问提修改
             if(response.customerInfo.userinfo.resignation_date!=null&&response.customerInfo.userinfo.resignation_date!=""){
@@ -1059,7 +1058,7 @@
               this.rewardTable = [
                 {
                   programme: '',
-                  _time: '',
+                  rewardTime: '',
                   notes: '',
                 },
               ];

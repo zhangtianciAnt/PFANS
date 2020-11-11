@@ -1987,7 +1987,7 @@
                       >
                         <template slot-scope="scope">
                           <el-date-picker
-                            v-model="scope.row._time"
+                            v-model="scope.row.rewardTime"
                             type="date" disabled
                             :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                             style="width: 100%"
@@ -2247,7 +2247,7 @@
         rewardTable: [
           {
             programme: '',
-            _time: '',
+            rewardTime: '',
             notes: '',
           },
         ],
@@ -3010,7 +3010,7 @@
         } else if (val === 'reward') {
           this.rewardTable.push({
             programme: '',
-            _time: '',
+            rewardTime: '',
             notes: '',
           });
         }
@@ -3313,7 +3313,7 @@
               this.rewardTable = [
                 {
                   programme: '',
-                  _time: '',
+                  rewardTime: '',
                   notes: '',
                 },
               ];
