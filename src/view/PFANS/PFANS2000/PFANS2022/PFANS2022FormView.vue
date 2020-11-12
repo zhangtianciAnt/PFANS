@@ -391,6 +391,8 @@
                       let roles = '';
                       let numz = 0;// 总经理
                       let numc = 0;//center
+                      let numg = 0;//group
+                      let redirictG = getOrgInfo(this.form.group_id).redirict;//0-制造部门 1-管理部门
                       if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
                         for (let role of response.userAccount.roles) {
                           roles = roles + role.description;
@@ -400,6 +402,8 @@
                             numz++;
                           } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
                             numc++;
+                          } else if (roles.toUpperCase().indexOf('GM') != -1) {
+                            numg++;
                           }
                         }
                       }
@@ -408,6 +412,8 @@
                           this.workcode = 'W0099';
                         } else if(numc === 1 || this.form.user_id === '5e78b2264e3b194874180f35'){
                           this.workcode = 'W0111';
+                        }else if(numg === 1 && redirictG == '1'){
+                            this.workcode = 'W0138';
                         }else{
                           this.workcode = 'W0066';
                         }
@@ -416,6 +422,8 @@
                           this.workcode = 'W0098';
                         } else if(numc === 1 || this.form.user_id === '5e78b2264e3b194874180f35'){
                           this.workcode = 'W0110';
+                        }else if(numg === 1 && redirictG == '1'){
+                          this.workcode = 'W0139';
                         }else{
                           this.workcode = 'W0031';
                         }
