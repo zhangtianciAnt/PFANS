@@ -873,7 +873,7 @@
                     ],
                     unemployedreason: [
                       {
-                        required: true,
+                        required: false,
                         message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_UNEMPLOYEDREASON'),
                         trigger: 'change',
                       }
