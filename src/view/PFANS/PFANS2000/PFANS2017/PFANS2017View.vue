@@ -4,17 +4,13 @@
                      :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow"
                      :rowid="rowid">
       <el-date-picker
-        unlink-panels
-        class="bigWidth"
-        v-model="workinghours"
-        style="margin-right:1vw"
+        :placeholder="$t('normal.error_09')"
+        @change="changeddate"
         slot="customize"
-        type="daterange"
-        :end-placeholder="$t('label.enddate')"
-        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-        :start-placeholder="$t('label.startdate')"
-        @change="filterInfo"
-      ></el-date-picker>
+        style="margin-right:1vw;width:11vw"
+        type="month"
+        v-model="months">
+      </el-date-picker>
     </EasyNormalTable>
     <!--历史考勤维护-->
     <el-container>
@@ -35,12 +31,13 @@
                 :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                 :start-placeholder="$t('label.startdate')"
                 :end-placeholder="$t('label.enddate')"
+                :picker-options="pickerOptions"
               >
               </el-date-picker>
             </el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submit2()">{{$t('button.confirm')}}</el-button>
+          <el-button style="width:20vw" type="primary" @click="submit2()">{{$t('button.confirm')}}</el-button>
           </span>
         </div>
       </el-dialog>
@@ -126,6 +123,13 @@
     },
     data() {
       return {
+          //获取打卡记录时间范围
+        pickerOptions: {
+            disabledDate(time) {
+                return time.getTime() > Date.now() - 8.64e7;
+            },
+        },
+        months: moment(new Date()).format('YYYY-MM'),
         totaldata: [],
         listQuery: {
           page: 1,
@@ -156,10 +160,8 @@
         dialogTableVisible_h: false,
         title: 'title.PFANS2017VIEW',
         data: [],
-        workinghours: '',
         tableList: [],
         working: '',
-        starttime: '',
         columns: [
           {
             code: 'user_id',
@@ -267,7 +269,7 @@
       getFpans2017List() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017List', {})
+          .dispatch('PFANS2017Store/getFpans2017List', {dates: this.months})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].user_id);
@@ -397,6 +399,10 @@
           this.dialogTableVisible_h = false;
           this.getFpans2017List();
         }
+      },
+      changeddate(val) {
+          this.months = moment(val).format('YYYY-MM');
+          this.getFpans2017List();
       },
       handleSuccess(response, file, fileList) {
         if (response.code !== 0) {
