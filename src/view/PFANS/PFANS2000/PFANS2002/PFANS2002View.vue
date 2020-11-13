@@ -107,9 +107,16 @@
                         fix: false,
                         filter: false
                     },
+                  {
+                    code: "entrydivision",
+                    label: "label.PFANS2002FORMVIEW_ENTRYDIVISION",
+                    width: 150,
+                    fix: false,
+                    filter: false
+                  },
                     {
                         code: "status",
-                        label: "label.PFANS2001VIEW_ADOPTIONDECISION",
+                        label: "label.approval_status",
                         width: 150,
                         fix: false,
                         filter: true
@@ -136,6 +143,12 @@
                                 response[j].education1 = letStage.value1;
                             }
                         }
+                      if (response[j].entrydivision !== null && response[j].entrydivision !== "") {
+                        let letStage = getDictionaryInfo(response[j].entrydivision);
+                        if (letStage != null) {
+                          response[j].entrydivision = letStage.value1;
+                        }
+                      }
                         if (this.data[j].interview !== null && this.data[j].interview !== "" && this.data[j].interview !== undefined) {
                             for (var val of JSON.parse(this.data[j].interview)) {
                                 if (val.interviewer) {
