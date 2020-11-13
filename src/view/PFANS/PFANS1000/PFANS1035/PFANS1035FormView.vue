@@ -408,8 +408,9 @@
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_OTHERS2')" name="fifth">
               <div>
                 <el-row>
-                  <el-col :span="8">
+                  <el-col>
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSENGERS2')" prop="passengers">
+                        <div class="sub_color_red">{{$t('label.PFANS1002VIEW_PCREMARKS')}}</div>
                       <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
                         :disabled="!disable"

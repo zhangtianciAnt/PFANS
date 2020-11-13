@@ -686,6 +686,7 @@ module.exports = {
     PFANS1002VIEW_JUDGMENTNO: '该非判定No.',
     PFANS1002VIEW_PASSENGERS1: '手持物品',
     PFANS1002VIEW_PASSENGERS2: 'PC持出',
+    PFANS1002VIEW_PCREMARKS: '此处不代表PC持出申请被许可，需在如下路径申请带出PC以及存储信息等位置：资产管理->IT&ISM相关申请->机密信息・记忆媒体持出申请一览',
     PFANS1002VIEW_QXCCLY: '取消出差理由',
     PFANS1002VIEW_FIXEDASSETSNO1: '固定资产编码',
     PFANS1002VIEW_FIXEDASSETSNO2: '固定资产编号',
