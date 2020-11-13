@@ -382,22 +382,7 @@
           </el-tab-pane>
           <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_INTERVIEW')" name="third" style="padding-top:10px">
             <el-row>
-              <el-col :span="8">
-                <el-form-item
-                  :label="$t('label.PFANS2002FORMVIEW_INTIME')"
-                  prop="intime"
-                >
-                  <el-date-picker
-                    :disabled="disabled"
-                    :placeholder="$t('normal.error_09')"
-                    class="width"
-                    type="date"
-                    style="width:20vw"
-                    v-model="form.intime"
-                  ></el-date-picker>
-                </el-form-item>
-              </el-col>
-              <el-col :span="8">
+              <el-col :span="3">
                 <el-form-item
                   :label="$t('label.PFANS2002FORMVIEW_EXPECTEDTIME')" prop="expectedtime">
                   <el-date-picker
@@ -405,23 +390,72 @@
                     :placeholder="$t('normal.error_09')"
                     class="width"
                     type="date"
-                    style="width:20vw"
+                    style="width:8vw"
                     v-model="form.expectedtime"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
-              <el-col :span="8">
+              <el-col :span="3">
                 <el-form-item
-                  :label="$t('label.PFANS2026VIEW_ENTRYTIME')" prop="entrytime">
+                  :label="$t('label.PFANS2002FORMVIEW_INTERCIEWTIME')"
+                  prop="interviewtime"
+                >
                   <el-date-picker
-                    :disabled="disEntrytime"
+                    :disabled="disabled"
                     :placeholder="$t('normal.error_09')"
                     class="width"
                     type="date"
-                    style="width:20vw"
-                    v-model="form.entrytime"
+                    style="width:8vw"
+                    v-model="form.interviewtime"
                   ></el-date-picker>
                 </el-form-item>
+              </el-col>
+              <el-col :span="3">
+                <el-form-item
+                  :label="$t('label.PFANS2002FORMVIEW_INTIME')"
+                >
+                  <el-date-picker
+                    :disabled="disabled"
+                    :placeholder="$t('normal.error_09')"
+                    class="width"
+                    type="date"
+                    style="width:8vw"
+                    v-model="form.intime"
+                  ></el-date-picker>
+                </el-form-item>
+              </el-col>
+              <el-col :span="3">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_ENTRYDIVISION')">
+                  <dicselect
+                    :data="form.entrydivision"
+                    :disabled="disEntrydivision"
+                    @change="changeentrydivision"
+                    class="width"
+                    code="PR065"
+                    style="width:8vw"
+                  ></dicselect>
+                </el-form-item>
+              </el-col>
+              <el-col :span="12">
+                <span v-show="form.entrydivision ==='PR065003'">
+                  <el-form-item
+                    :label="$t('label.PFANS2002FORMVIEW_UNEMPLOYEDREASON')" prop="unemployedreason">
+                    <el-input type="textarea" v-model="form.unemployedreason" :disabled="false"></el-input>
+                  </el-form-item>
+                </span>
+                <span v-show ="form.entrydivision !='PR065003'">
+                  <el-form-item
+                    :label="$t('label.PFANS2002FORMVIEW_REALINTIME')" prop="entrytime">
+                    <el-date-picker
+                      :disabled="disEntrytime"
+                      :placeholder="$t('normal.error_09')"
+                      class="width"
+                      type="date"
+                      style="width:8vw"
+                      v-model="form.entrytime"
+                    ></el-date-picker>
+                  </el-form-item>
+                </span>
               </el-col>
             </el-row>
 
@@ -653,6 +687,38 @@
                     return callback();
                 }
             };
+            var entrydivision = (rule, value, callback) => {
+              if (this.form.entrydivision!=null && this.form.entrydivision!='')
+              {
+                if (this.form.entrydivision ==='PR065001')
+                {
+                  callback();
+                  this.clearValidate(['entrytime']);
+                }
+                else if (this.form.entrydivision ==='PR065003')
+                {
+                  callback();
+                  this.clearValidate(['entrytime']);
+                }
+                else if (this.form.entrydivision ==='PR065002')
+                {
+                  if (!value || value === '' || value === undefined)
+                  {
+                    return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_REALINTIME')));
+                  }
+                  else
+                  {
+                    callback();
+                    this.clearValidate(['entrytime']);
+                  }
+                }
+              }
+              else
+              {
+                callback();
+                this.clearValidate(['entrytime']);
+              }
+            };
 
             return {
                 errorcenter: '',
@@ -755,10 +821,16 @@
                     others: '',
                     status: '0',
                     interviewrecord_id: '',
+                  //区分，面试合格时间,未入职理由
+                  entrydivision:'',
+                  interviewtime:'',
+                  unemployedreason:'',
+                  //区分，面试合格时间,未入职理由
                 },
                 enableSave: false,
                 disable: false,
                 disEntrytime: false,
+                disEntrydivision: false,
                 canStart: false,
                 buttonList: [],
                 fileList: [],
@@ -770,22 +842,43 @@
                     // education: [{required: true, message: this.$t('normal.error_08')}],
                     // specialty: [{required: true, message: this.$t('normal.error_08')}],
                     // quityear: [{required: true, message: this.$t('normal.error_08')}],
-                    // expectedtime: [{required: true, validator: validexpected, trigger: 'change'}],
-                    intime: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_INTIME'),
-                            trigger: 'change',
-                        },
+                    expectedtime: [{required: true, message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_EXPECTEDTIME'), trigger: 'change'}],
+                    // intime: [
+                    //     {
+                    //         required: true,
+                    //         message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_INTIME'),
+                    //         trigger: 'change',
+                    //     },
                         // {
                         //   validator: validexpected,trigger:'change'
                         // },
                         // {
                         //   validator: validentrytime,trigger:'change'
                         // }
-                    ],
+                    // ],
                     center_id: [{required: true, validator: centerId, trigger: "blur"}],
-                    // entrytime: [{required: true, validator: validentrytime,trigger:'change'}],
+                  // add ccm 11/13
+                    entrytime: [
+                        { required: false,
+                          validator: entrydivision,
+                          trigger: 'change',
+                        }
+                    ],
+                    interviewtime: [
+                      {
+                        required: true,
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_INTERCIEWTIME'),
+                        trigger: 'change',
+                      }
+                    ],
+                    unemployedreason: [
+                      {
+                        required: true,
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS2002FORMVIEW_UNEMPLOYEDREASON'),
+                        trigger: 'change',
+                      }
+                    ],
+                  // add ccm 11/13
                 },
             };
         },
@@ -830,6 +923,13 @@
         },
 
         methods: {
+          clearValidate(prop) {
+            this.$refs['form'].fields.forEach((e) => {
+              if (prop.includes(e.prop)) {
+                e.clearValidate();
+              }
+            });
+          },
             // <!--技术1备注 ADD 4/16 ztc-->
             changeOther1(val) {
                 if (val === '1') {
@@ -1077,6 +1177,7 @@
                         if (this.form.entrytime !== null && this.form.entrytime !== '' && this.form.status === '4') {
                             this.enableSave = false;
                             this.disEntrytime = true;
+                            this.disEntrydivision = true;
                         } else {
                             this.enableSave = true;
                         }
@@ -1195,6 +1296,30 @@
             },
             changeLevel(val) {
                 this.form.level = val;
+            },
+            changeentrydivision(val) {
+              this.form.entrydivision = val;
+              if (val === 'PR065002') {
+                this.disEntrytime = false;
+                this.rules.entrytime[0].required = true;
+                this.rules.unemployedreason[0].required = false;
+                this.clearValidate(['unemployedreason']);
+                this.form.unemployedreason = "";
+              } else if (val === 'PR065003'){
+                this.disEntrytime = true;
+                this.rules.entrytime[0].required = false;
+                this.rules.unemployedreason[0].required = true;
+                this.clearValidate(['entrytime']);
+                this.form.entrytime = "";
+              } else if (val === 'PR065001'){
+                this.disEntrytime = false;
+                this.rules.entrytime[0].required = false;
+                this.rules.unemployedreason[0].required = false;
+                this.clearValidate(['entrytime']);
+                this.clearValidate(['unemployedreason']);
+                this.form.entrytime = "";
+                this.form.unemployedreason = "";
+              }
             },
             getAverage(param) {
                 this.form.interview = JSON.stringify(this.tableData);
