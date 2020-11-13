@@ -4,17 +4,13 @@
                      :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow"
                      :rowid="rowid">
       <el-date-picker
-        unlink-panels
-        class="bigWidth"
-        v-model="workinghours"
-        style="margin-right:1vw"
+        :placeholder="$t('normal.error_09')"
+        @change="changeddate"
         slot="customize"
-        type="daterange"
-        :end-placeholder="$t('label.enddate')"
-        :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
-        :start-placeholder="$t('label.startdate')"
-        @change="filterInfo"
-      ></el-date-picker>
+        style="margin-right:1vw;width:11vw"
+        type="month"
+        v-model="months">
+      </el-date-picker>
     </EasyNormalTable>
     <!--历史考勤维护-->
     <el-container>
@@ -35,6 +31,7 @@
                 :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                 :start-placeholder="$t('label.startdate')"
                 :end-placeholder="$t('label.enddate')"
+                :picker-options="pickerOptions"
               >
               </el-date-picker>
             </el-col>
@@ -109,6 +106,13 @@
     },
     data() {
       return {
+        //获取打卡记录时间范围
+        pickerOptions: {
+            disabledDate(time) {
+                return time.getTime() > Date.now() - 8.64e7;
+            },
+        },
+        months: moment(new Date()).format('YYYY-MM'),
         totaldata: [],
         listQuery: {
           page: 1,
@@ -138,7 +142,6 @@
         dialogTableVisible_h: false,
         title: "title.PFANS2017VIEW",
         data: [],
-        workinghours: "",
         tableList: [],
         working: "",
         starttime: "",
@@ -238,7 +241,7 @@
       getFpans2029List() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2029Store/getFpans2029List', {})
+          .dispatch('PFANS2029Store/getFpans2029List', {dates: this.months})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let supplierInfor = getCooperinterviewListByAccount(response[j].user_id);
@@ -375,6 +378,10 @@
           this.getFpans2029List();
         }
       },
+      changeddate(val) {
+          this.months = moment(val).format('YYYY-MM');
+          this.getFpans2029List();
+      },
       handleSuccess(response, file, fileList) {
         if (response.code !== 0) {
           this.cuowu = response.message;
@@ -506,35 +513,6 @@
         //       this.loading = false;
         //     })
         // }
-      },
-      filterInfo() {
-        this.data = this.tableList.slice(0);
-        if (this.tableList.length > 0) {
-          //进行时间筛选
-          this.working = this.getworkinghours(this.workinghours);
-          this.starttime = this.working.substring(0, 10);
-          this.endTime = this.working.substring(13, 23);
-          if (this.starttime != "" || this.endTime != "") {
-            this.data = this.data.filter(item => {
-              return this.starttime <= item.punchcardrecord_date && item.punchcardrecord_date <= this.endTime
-            });
-          }
-        }
-      },
-      getworkinghours(workinghours) {
-        if (workinghours != null) {
-          if (workinghours.length > 0) {
-            return (
-              moment(workinghours[0]).format("YYYY-MM-DD") +
-              " ~ " +
-              moment(workinghours[1]).format("YYYY-MM-DD")
-            );
-          } else {
-            return "";
-          }
-        } else {
-          return "";
-        }
       },
     }
   }

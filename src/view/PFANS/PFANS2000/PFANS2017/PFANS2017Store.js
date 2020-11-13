@@ -7,9 +7,9 @@ const PFANS2017Store = {
   actions: {
 
     //获取异常申请列表信息
-    getFpans2017List({commit}) {
+    getFpans2017List({commit},data) {
       return new Promise((resolve, reject) => {
-        getFpans2017List().then(response => {
+        getFpans2017List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
