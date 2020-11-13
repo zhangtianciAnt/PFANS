@@ -655,6 +655,20 @@ export function getCurrentRole11() {
   return "1";
 }
 
+// 离职担当 设置为新建调书
+export function getCurrentRole12() {
+  let roles = "";
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf("离职担当") != -1) {
+      return "0";
+    }
+  }
+  return "1";
+}
+
 import CryptoJS from 'crypto-js/crypto-js'
 
 

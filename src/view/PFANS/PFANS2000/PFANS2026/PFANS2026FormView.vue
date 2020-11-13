@@ -328,7 +328,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo,getCurrentRole12} from '../../../../utils/customize';
   import PFANS2032Pop from '@/components/EasyPop/PFANS2032Pop';
 
   export default {
@@ -494,10 +494,12 @@
     created() {
       this.checktype = this.$route.params._type;
       // if(this.checktype = 1){
+      let role12 = getCurrentRole12();
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4) {
           this.enableSave = true;
-          if (this.$route.params._userid === this.$store.getters.userinfo.userid) {
+          // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
+          if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
             this.buttonList = [
               {
                 key: 'generate',
@@ -524,7 +526,7 @@
               },
             ];
           }
-        } else {
+        } else { //离职申请未结束不能生成调书
           this.enableSave = false;
           this.buttonList = [
             {
@@ -553,11 +555,12 @@
           ];
         }
       }
+
       if (this.$route.params._type2 === 1) {
-        this.right = 'W0080';
+        this.right = 'W0080';//离职日变更
         this.canStart = true;
       } else {
-        this.right = 'W0033';
+        this.right = 'W0033';//离职申请
         this.canStart = false;
       }
       this.disable = this.$route.params.disabled;

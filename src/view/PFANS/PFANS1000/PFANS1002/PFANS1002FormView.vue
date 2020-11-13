@@ -676,8 +676,9 @@
                   </el-col>
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
+                  <el-col>
                     <el-form-item :label="$t('label.PFANS1002VIEW_PASSENGERS1')" prop="passengers">
+                      <div class="sub_color_red">{{$t('label.PFANS1002VIEW_PCREMARKS')}}</div>
                       <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
                         :disabled="!disable"

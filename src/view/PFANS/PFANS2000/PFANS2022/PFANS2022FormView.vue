@@ -387,26 +387,45 @@
                             this.groupid= rst.groupNmae;
                             this.teamid= rst.teamNmae;
                         }
-                      let role = getCurrentRole()
-                      if (this.form.twoclass === 'PR034001') {//ztc 招聘
-                        if (role == '1') {//总经理
-                          this.workcode = 'W0099';
-                        } else {
-                          if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                            this.workcode = 'W0111';
-                          } else {
-                            this.workcode = 'W0066';
+                        // 角色判断 总经理 center group team 普通员工
+                      let roles = '';
+                      let numz = 0;// 总经理
+                      let numc = 0;//center
+                      let numg = 0;//group
+                      let redirictG = getOrgInfo(this.form.group_id).redirict;//0-制造部门 1-管理部门
+                      if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
+                        for (let role of response.userAccount.roles) {
+                          roles = roles + role.description;
+                        }
+                        if (this.$i18n) {
+                          if (roles.indexOf('总经理') != -1) {
+                            numz++;
+                          } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+                            numc++;
+                          } else if (roles.toUpperCase().indexOf('GM') != -1) {
+                            numg++;
                           }
                         }
+                      }
+                      if (this.form.twoclass === 'PR034001') {//ztc 招聘
+                        if (numz === 1 ) {//总经理
+                          this.workcode = 'W0099';
+                        } else if(numc === 1 || this.form.user_id === '5e78b2264e3b194874180f35'){
+                          this.workcode = 'W0111';
+                        }else if(numg === 1 && redirictG == '1'){
+                            this.workcode = 'W0138';
+                        }else{
+                          this.workcode = 'W0066';
+                        }
                       } else {
-                        if (role == '1') {//总经理
+                        if (numz === 1 ) {//总经理
                           this.workcode = 'W0098';
-                        } else {
-                          if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                            this.workcode = 'W0110';
-                          } else {
-                            this.workcode = 'W0031';
-                          }
+                        } else if(numc === 1 || this.form.user_id === '5e78b2264e3b194874180f35'){
+                          this.workcode = 'W0110';
+                        }else if(numg === 1 && redirictG == '1'){
+                          this.workcode = 'W0139';
+                        }else{
+                          this.workcode = 'W0031';
                         }
                       }
                         this.userlist = this.form.user_id;
@@ -736,27 +755,44 @@
                     this.rules.weddingday[0].required = false;
                     this.rules.spousename[0].required = false;
                 }
-              let role = getCurrentRole();
-              if (this.form.twoclass === 'PR034001') {//ztc 招聘
-                if (role == '1') {//总经理
-                  this.workcode = 'W0099';
-                } else {
-                  if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                    this.workcode = 'W0111';
-                  } else {
-                    this.workcode = 'W0066';
+              let roles = '';
+              let numz = 0;// 总经理
+              let numc = 0;//center
+              let numg = 0;//group
+              let redirictG = getOrgInfo(this.form.group_id).redirict;//0-制造部门 1-管理部门
+              if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
+                for (let role of response.userAccount.roles) {
+                  roles = roles + role.description;
+                }
+                if (this.$i18n) {
+                  if (roles.indexOf('总经理') != -1) {
+                    numz++;
+                  } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+                    numc++;
+                  } else if (roles.toUpperCase().indexOf('GM') != -1) {
+                    numg++;
                   }
                 }
+              }
+              if (this.form.twoclass === 'PR034001') {//ztc 招聘
+                if (numz === 1 ) {//总经理
+                  this.workcode = 'W0099';
+                } else if(numc === 1 || this.form.user_id === '5e78b2264e3b194874180f35'){
+                  this.workcode = 'W0111';
+                }else if(numg === 1 && redirictG == '1'){
+                  this.workcode = 'W0138';
+                }else{
+                  this.workcode = 'W0066';
+                }
               } else {
-                //总经理
-                if (role == '1') {
+                if (numz === 1 ) {//总经理
                   this.workcode = 'W0098';
-                } else {
-                  if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                    this.workcode = 'W0110';
-                  } else {
-                    this.workcode = 'W0031';
-                  }
+                } else if(numc === 1 || this.form.user_id === '5e78b2264e3b194874180f35'){
+                  this.workcode = 'W0110';
+                }else if(numg === 1 && redirictG == '1'){
+                  this.workcode = 'W0139';
+                }else{
+                  this.workcode = 'W0031';
                 }
               }
             },

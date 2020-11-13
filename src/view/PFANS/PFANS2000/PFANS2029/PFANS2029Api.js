@@ -2,10 +2,11 @@ import request from "../../../../utils/request"
 import requestDownload from '../../../../utils/requestDownload'
 
 
-export function getFpans2029List() {
+export function getFpans2029List(data) {
   return request({
     url: 'punchcardrecordbp/list',
-    method: 'post'
+    method: 'get',
+    params: data
   })
 }
 
