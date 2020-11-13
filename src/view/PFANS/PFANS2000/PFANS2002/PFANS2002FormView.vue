@@ -415,7 +415,7 @@
                   :label="$t('label.PFANS2002FORMVIEW_INTIME')"
                 >
                   <el-date-picker
-                    :disabled="disabled"
+                    :disabled="disEntrydivision"
                     :placeholder="$t('normal.error_09')"
                     class="width"
                     type="date"
@@ -1173,6 +1173,11 @@
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
                             this.disabled = true;
+                            if(this.form.status === '2')
+                            {
+                              this.disEntrytime = true;
+                              this.disEntrydivision = true;
+                            }
                         }
                         if (this.form.entrytime !== null && this.form.entrytime !== '' && this.form.status === '4') {
                             this.enableSave = false;
@@ -1264,7 +1269,7 @@
                 } else if (val.state === '2') {
                     this.form.status = '4';
                 }
-                this.buttonClick('update');
+                this.buttonClick('save');
             },
             //add-ws-5-20-流程恒展开
             start(val) {
@@ -1273,12 +1278,12 @@
                 } else if (val.state === '2') {
                     this.form.status = '4';
                 }
-                this.buttonClick("update");
+                this.buttonClick("save");
             },
             //add-ws-5-20-流程恒展开
             end() {
                 this.form.status = '0';
-                this.buttonClick('update');
+                this.buttonClick('save');
             },
             changeUsing(val) {
                 if (val === 'PR051004') {
@@ -1301,18 +1306,21 @@
               this.form.entrydivision = val;
               if (val === 'PR065002') {
                 this.disEntrytime = false;
+                this.disEntrydivision = false;
                 this.rules.entrytime[0].required = true;
                 this.rules.unemployedreason[0].required = false;
                 this.clearValidate(['unemployedreason']);
                 this.form.unemployedreason = "";
               } else if (val === 'PR065003'){
                 this.disEntrytime = true;
+                this.disEntrydivision = false;
                 this.rules.entrytime[0].required = false;
                 this.rules.unemployedreason[0].required = true;
                 this.clearValidate(['entrytime']);
                 this.form.entrytime = "";
               } else if (val === 'PR065001'){
                 this.disEntrytime = false;
+                this.disEntrydivision = false;
                 this.rules.entrytime[0].required = false;
                 this.rules.unemployedreason[0].required = false;
                 this.clearValidate(['entrytime']);
