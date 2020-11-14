@@ -547,7 +547,7 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0067';
               } else {
-                if (getCurrentRole() === '2' || this.form.userid === '5e78b2264e3b194874180f35') {
+                if (getCurrentRole() === '2') {
                   this.workflowCode = 'W0134';
                 } else {
                   this.workflowCode = 'W0001';
@@ -559,13 +559,13 @@
                 this.workflowCode = 'W0072';
               }
               //王磊预计 禅道362
-              // if (this.form.userid === '5e78b2264e3b194874180f35') {
-              //   if (this.form.overtimetype >= 'PR001004') {
-              //     this.workflowCode = 'W0067';
-              //   } else {
-              //     this.workflowCode = 'W0108';
-              //   }
-              // }
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                if (this.form.overtimetype >= 'PR001004') {
+                  this.workflowCode = 'W0067';
+                } else {
+                  this.workflowCode = 'W0108';
+                }
+              }
 
               this.canStart = true;
               this.disactualovertime = false;
@@ -580,7 +580,7 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                if (getCurrentRole() === '2' || this.form.userid === '5e78b2264e3b194874180f35') {
+                if (getCurrentRole() === '2') {
                   this.workflowCode = 'W0135';
                 } else {
                   this.workflowCode = 'W0040';
@@ -592,13 +592,13 @@
                 this.workflowCode = 'W0073';
               }
               //王磊
-              // if (this.form.userid === '5e78b2264e3b194874180f35') {
-              //   if (this.form.overtimetype >= 'PR001004') {
-              //     this.workflowCode = 'W0068';
-              //   } else {
-              //     this.workflowCode = 'W0109';
-              //   }
-              // }
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                if (this.form.overtimetype >= 'PR001004') {
+                  this.workflowCode = 'W0068';
+                } else {
+                  this.workflowCode = 'W0109';
+                }
+              }
               this.canStart = true;
               if (!this.disable || this.form.overtimetype === 'PR001005') {
                 this.disactualovertime = false;
@@ -625,9 +625,9 @@
                 this.workflowCode = 'W0073';
               }
               //王磊实际 禅道362
-              // if (this.form.userid === '5e78b2264e3b194874180f35') {
-              //   this.workflowCode = 'W0109';
-              // }
+              if (this.form.userid === '5e78b2264e3b194874180f35') {
+                this.workflowCode = 'W0109';
+              }
               this.canStart = false;
               this.disable = false;
               this.disactualovertime = false;
@@ -1052,7 +1052,7 @@
           }
         } else {
           if (this.form.status === '0') {
-            if (getCurrentRole() === '2' || this.form.userid === '5e78b2264e3b194874180f35') {
+            if (getCurrentRole() === '2') {
               this.workflowCode = 'W0134';
             } else {
               this.workflowCode = 'W0001';
@@ -1062,18 +1062,17 @@
         if (this.form.userid ==='5e78fefff1560b363cdd6db7')
         {
           this.workflowCode = 'W0072';
+        } else if (this.form.userid === '5e78b2264e3b194874180f35') {
+          if (val >= 'PR001004') {
+            if (this.form.status === '0') {
+              this.workflowCode = 'W0067';
+            }
+          } else {
+            if (this.form.status === '0') {
+              this.workflowCode = 'W0108';
+            }
+          }
         }
-        // else if (this.form.userid === '5e78b2264e3b194874180f35') {
-        //   if (val >= 'PR001004') {
-        //     if (this.form.status === '0') {
-        //       this.workflowCode = 'W0067';
-        //     }
-        //   } else {
-        //     if (this.form.status === '0') {
-        //       this.workflowCode = 'W0108';
-        //     }
-        //   }
-        // }
 
         this.showovertimetype = false;
         this.showovertimelength = false;
