@@ -496,10 +496,10 @@
             }
 
             for(let i = 0; i < this.$refs.roletable.selectedList.length; i ++){
-              let strAnt = [];
-              strAnt.push(this.$refs.roletable.selectedList[i].barcode);
-              strAnt.push(this.$refs.roletable.selectedList[i].inventoryplan_id);
-              this.selectedList.push(strAnt)
+              let jsonAnt = {};
+              jsonAnt.barcode = this.$refs.roletable.selectedList[i].barcode;
+              jsonAnt.inventoryplan_id = this.$refs.roletable.selectedList[i].inventoryplan_id;
+              this.selectedList.push(jsonAnt)
             }
             this.idBack = this.$refs.roletable.selectedList[0].inventoryplan_id;
             this.$router.push({
