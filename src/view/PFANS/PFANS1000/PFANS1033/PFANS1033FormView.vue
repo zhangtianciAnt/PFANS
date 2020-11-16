@@ -1801,6 +1801,7 @@
           }
         },
         handleIndexDisabled() {
+          //11
           if (this.letcontractnumber == null || this.letcontractnumber == undefined || this.letcontractnumber == '') {
             Message({
               message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),
