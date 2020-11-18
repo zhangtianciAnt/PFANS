@@ -16,6 +16,9 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
+          <el-row>
+            <div class="sub_color_red">出差申请审批通过后，无需再申请考勤异常</div>
+          </el-row>
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1002FORMVIEW_INFORMATION')" name="first">
               <div>
