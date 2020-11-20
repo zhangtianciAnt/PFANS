@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable
-      ref="dataTable"
+      ref="dataTable1"
       :buttonList="buttonList"
       :columns="columns"
       v-show="this.showTable===1"
@@ -15,7 +15,7 @@
       :selectable="selectInit"
     ></EasyNormalTable>
     <EasyNormalTable
-      ref="dataTable"
+      ref="dataTable2"
       :buttonList="buttonList"
       :columns="columns1"
       v-show="this.showTable===2"
@@ -29,7 +29,7 @@
       :selectable="selectInit"
     ></EasyNormalTable>
     <EasyNormalTable
-      ref="dataTable"
+      ref="dataTable3"
       :buttonList="buttonList"
       :columns="columns2"
       v-show="this.showTable===3"
@@ -288,6 +288,7 @@
         rowid: '',
         row: '',
         url: '',
+
         // row_id: ""
       };
     },
@@ -452,7 +453,20 @@
         }
         if (val === "export") {
           this.comIdList = [];
-          if (this.$refs.dataTable.selectedList.length === 0) {
+          this.selectedlist =[];
+          if (this.$route.params.title === 7)
+          {
+            this.selectedlist = this.$refs.dataTable1.selectedList;
+          }
+          else if (this.$route.params.title === 8)
+          {
+            this.selectedlist = this.$refs.dataTable2.selectedList;
+          }
+          else if (this.$route.params.title === 9)
+          {
+            this.selectedlist = this.$refs.dataTable3.selectedList;
+          }
+          if (this.selectedlist.length === 0) {
             Message({
               message: this.$t("normal.info_01"),
               type: "info",
@@ -461,7 +475,6 @@
             return;
           }
           this.loading = true;
-          this.selectedlist = this.$refs.dataTable.selectedList;
 
           if (this.$route.params.title === 7) {
             this.export1(0);
@@ -475,10 +488,10 @@
       export1(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1007Store/downLoad', {assetinformationId: this.$refs.dataTable.selectedList[val].assetinformationid})
+          .dispatch('PFANS1007Store/downLoad', {assetinformationId: this.selectedlist[val].assetinformationid})
           .then(response => {
             this.loading = false;
-            if (val < this.$refs.dataTable.selectedList.length - 1) {
+            if (val < this.selectedlist.length - 1) {
               val = val + 1;
               this.export1(val);
             }
@@ -495,10 +508,10 @@
       export2(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1008Store/downLoad', {softwaretransfer_id: this.$refs.dataTable.selectedList[val].softwaretransfer_id})
+          .dispatch('PFANS1008Store/downLoad', {softwaretransferId: this.selectedlist[val].softwaretransfer_id})
           .then(response => {
             this.loading = false;
-            if (val < this.$refs.dataTable.selectedList.length - 1) {
+            if (val < this.selectedlist.length - 1) {
               val = val + 1;
               this.export2(val);
             }
@@ -515,10 +528,10 @@
       export3(val) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS1009Store/downLoad', {fixedassetsId: this.$refs.dataTable.selectedList[val].fixedassets_id})
+          .dispatch('PFANS1009Store/downLoad', {fixedassetsId: this.selectedlist[val].fixedassets_id})
           .then(response => {
             this.loading = false;
-            if (val < this.$refs.dataTable.selectedList.length - 1) {
+            if (val < this.selectedlist.length - 1) {
               val = val + 1;
               this.export3(val);
             }
