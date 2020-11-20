@@ -709,7 +709,7 @@
             {
               key: 'makeinto',
               name: 'button.makeinto',
-              disabled: true,
+              disabled: false,
             },
           ],
             form1: {
@@ -1572,7 +1572,6 @@
           },
           //保存
           handleSave(tabledatabook){
-
             let baseInfo = {};
             baseInfo.contractapplication = [];
             baseInfo.contractnumbercount = [];
