@@ -7,6 +7,7 @@
     >
       <div slot="customize">
         <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataestimate" :title="titlewagesestimate"
+                         @buttonClick="buttonClick"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"
@@ -20,6 +21,7 @@
       </div>
       <div slot="customize">
         <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="dataactual" :title="titlewagesactual"
+                         @buttonClick="buttonClick1"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"
@@ -32,7 +34,7 @@
         </EasyNormalTable>
       </div>
       <div slot="customize">
-        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="datadiff" :title="titlewagesdiff"
+        <EasyNormalTable :columns="columns" :data="datadiff" :title="titlewagesdiff"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"
@@ -52,7 +54,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import moment from 'moment';
-
+  import json2csv from 'json2csv';
   export default {
     name: 'PFANS2030View',
     components: {
@@ -262,7 +264,7 @@
           },
         ],
         buttonList: [
-          //{'key': 'handle', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'}
         ],
         rowid: '',
         row_id: 'department_id'
@@ -276,7 +278,7 @@
         this.months = moment(val).format('YYYY-MM');
         this.getWages();
       },
-      getWages() {
+        getWages() {
         this.loading = true;
         this.$store
           .dispatch('PFANS2005Store/getWagesdepartment', {dates: this.months})
@@ -295,19 +297,85 @@
             this.loading = false;
           });
     },
-      buttonClick(val) {
-        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'handle') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000
+        buttonClick(val) {
+            if (this.dataestimate.length === 0) {
+                Message({
+                    message: this.$t('normal.info_16'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                });
+                return;
+            }
+            this.exportdata(this.dataestimate);
+        },
+        buttonClick1(val) {
+            if (this.dataactual.length === 0) {
+                Message({
+                    message: this.$t('normal.info_16'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                });
+                return;
+            }
+            this.exportdata(this.dataactual);
+        },
+        //导出
+        exportdata(vardata) {
+            let heads = [
+                this.$t('label.department'), this.$t('label.PFANS2009VIEW_NUMBER'), this.$t('label.PFANS2009VIEW_KONJIKI'),this.$t('label.PFANS2009VIEW_TAXENGINEERING')
+                ,this.$t('label.PFANS2009VIEW_TAXWORKS'), this.$t('label.PFANS2009VIEW_KAIHO'), this.$t('label.PFANS2030VIEW_COMENDOWMENTINSURANCE')
+                ,this.$t('label.PFANS2030VIEW_COMMEDICALINSURANCE'), this.$t('label.PFANS2030VIEW_COMUNEMPLOYMENTINSURANCE'), this.$t('label.PFANS2030VIEW_COMINJURYINSURANCE')
+                ,this.$t('label.PFANS2030VIEW_COMBIRTHINSURANCE'),this.$t('label.PFANS2030VIEW_COMHEATING'), this.$t('label.PFANS2009VIEW_KOKIN')
+                ,this.$t('label.PFANS2009VIEW_STOCK'), this.$t('label.PFANS2009VIEW_MONTHLYTAX'), this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY')
+                ,this.$t('label.PFANS2009VIEW_DEPARTMENT'),this.$t('label.PFANS2009VIEW_FUKUTOSHI'), this.$t('label.PFANS2009VIEW_COSTLABOR')
+                ,this.$t('label.PFANS2009VIEW_OVERTIME'), this.$t('label.PFANS2009VIEW_INCOMETAX'), this.$t('label.PFANS2030VIEW_SOCIALINSURANCE')
+                ,this.$t('label.PFANS2030VIEW_ACCUMULATIONFUND'),this.$t('label.PFANS2009VIEW_ACHIEVEMENTS'), this.$t('label.PFANS2009VIEW_SHAKONORIHIRO')
+                ,this.$t('label.PFANS2009VIEW_KOJIKIN'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')];
+            let csvData = [];
+            for (let i = 0; i < vardata.length; i++) {
+                let obj = vardata[i];
+                csvData.push({
+                    [heads[0]]: obj.department_id,
+                    [heads[1]]: obj.user_id,
+                    [heads[2]]: parseFloat(obj.totalwages).toFixed(2),
+                    [heads[3]]: parseFloat(obj.taxestotal).toFixed(2),
+                    [heads[4]]: parseFloat(obj.total3).toFixed(2),
+                    [heads[5]]: parseFloat(obj.pension).toFixed(2),
+                    [heads[6]]: parseFloat(obj.comendowmentinsurance).toFixed(2),
+                    [heads[7]]: parseFloat(obj.commedicalinsurance).toFixed(2),
+                    [heads[8]]: parseFloat(obj.comunemploymentinsurance).toFixed(2),
+                    [heads[9]]: parseFloat(obj.cominjuryinsurance).toFixed(2),
+                    [heads[10]]: parseFloat(obj.combirthinsurance).toFixed(2),
+                    [heads[11]]: parseFloat(obj.comheating).toFixed(2),
+                    [heads[12]]: parseFloat(obj.comaccumulationfund).toFixed(2),
+                    [heads[13]]: parseFloat(obj.bonusmoney).toFixed(2),
+                    [heads[14]]: parseFloat(obj.appreciation).toFixed(2),
+                    [heads[15]]: parseFloat(obj.labourunionfunds).toFixed(2),
+                    [heads[16]]: parseFloat(obj.other4).toFixed(2),
+                    [heads[17]]: parseFloat(obj.other5).toFixed(2),
+                    [heads[18]]: parseFloat(obj.total).toFixed(2),
+                    [heads[19]]: parseFloat(obj.overtimesubsidy).toFixed(2),
+                    [heads[20]]: parseFloat(obj.thismonthadjustment).toFixed(2),
+                    [heads[21]]: parseFloat(obj.socialinsurance).toFixed(2),
+                    [heads[22]]: parseFloat(obj.accumulationfund).toFixed(2),
+                    [heads[23]]: parseFloat(obj.realwages).toFixed(2),
+                    [heads[24]]: parseFloat(obj.shouldcumulative).toFixed(2),
+                    [heads[25]]: parseFloat(obj.other6).toFixed(2),
+                    [heads[26]]: parseFloat(obj.labourunionbase).toFixed(2),
+                });
+            }
+            const result = json2csv.parse(csvData, {
+                excelStrings: true,
             });
-            return;
-          }
-        }
-      },
+            let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
+            const link = document.createElement('a');
+            link.href = csvContent;
+            var myDate = new Date;
+            link.download = myDate.getFullYear() + this.$t('label.year') +  myDate.getMonth() + this.$t('label.month') + this.$t('title.PFANS2030VIEW') + '.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        },
       summaryMethod(param) {
       const { columns, data } = param;
       const sums = [];
