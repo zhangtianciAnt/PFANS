@@ -60,7 +60,7 @@
               </div>
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
+                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe style="width: 61vw" border>
                     <el-table-column
                       prop="claimtype"
                       :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150"/>
@@ -75,9 +75,9 @@
                     <el-table-column
                       prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" width="150"/>
                     <el-table-column
-                      prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" width="150"/>
+                      prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" />
                     <el-table-column
-                      prop="purnumbers" :label="$t('label.PFANS3005VIEW_NUMBERS')" align="center" width="150"/>
+                      prop="purnumbers" :label="$t('label.PFANS3005VIEW_NUMBERS')" align="center"  v-if="showCG"/>
 
                   </el-table>
                 </el-col>
@@ -110,6 +110,7 @@
     },
     data() {
       return {
+        showCG:false,
         defaultStart: false,
         enableSave: false,
         moneysum: '',
@@ -191,6 +192,13 @@
                 }
               }
               this.form.claimamount = aa;
+              if (response.numbercounts[0].purnumbers === '' || response.numbercounts[0].purnumbers === null)
+              {
+                this.showCG = false;
+              }
+              else {
+                this.showCG = true;
+              }
               this.tableS = response.numbercounts;
               this.userlist = this.form.user_id;
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
