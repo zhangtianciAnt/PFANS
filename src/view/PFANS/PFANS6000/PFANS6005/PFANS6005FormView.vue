@@ -675,8 +675,12 @@ export default {
     },
     getpriceset(val) {
       this.loading = true;
+      let params = {
+            pddate: moment(this.form.main.pd_date).format("YYYY-MM"),
+            groupid: this.form.main.group_id,
+          }
       this.$store
-        .dispatch("PFANS6005Store/getpriceset",{pd_date:moment(this.form.main.pd_date).format("YYYY-MM")})
+        .dispatch("PFANS6005Store/getpriceset",params)
         .then(response => {
           this.form = response[0];
           if(response[0].detail){

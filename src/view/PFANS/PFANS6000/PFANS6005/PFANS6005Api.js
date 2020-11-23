@@ -1,10 +1,10 @@
 import request from '../../../../utils/request'
 
-export function getpriceset(data) {
+export function getpriceset(params) {
   return request({
     url: 'priceset/list',
-    method: 'post',
-    data: data
+    method: 'get',
+    params: params
   })
 }
 
