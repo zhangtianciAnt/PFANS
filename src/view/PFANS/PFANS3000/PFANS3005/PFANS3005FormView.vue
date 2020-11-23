@@ -1036,16 +1036,20 @@
               } else {
                 this.refuseShow = false;
               }
-              if (this.form.budgetnumber !== null && this.form.budgetnumber !== '') {
-                let procurement = getDictionaryInfo(this.form.budgetnumber);
-                if (procurement != null) {
-                  this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
-                }
-              }
+
+              //禅道 610 去除数据字典不统一 ztc range
+              // if (this.form.budgetnumber !== null && this.form.budgetnumber !== '') {
+              //   let procurement = getDictionaryInfo(this.form.budgetnumber);
+              //   if (procurement != null) {
+              //     this.form.budgetnumber = procurement.value2 + '_' + procurement.value3;
+              //   }
+              // }
               // if (this.form.group_name != '' && this.form.group_name != null) {
               //   this.orglist = this.form.group_name;
               //   this.getchangeGroup(this.form.group_name)
               // }
+              //禅道 610 去除数据字典不统一 ztc range
+
               //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
               let role = getCurrentRole2();
               let role4 = getCurrentRole4();

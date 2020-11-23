@@ -951,9 +951,11 @@
                       this.userlist.push(groupInfo.user);
                     }
                   }
-                  if (letThisprojectM != null) {
-                    this.tableA[i].thisprojectM = letThisprojectM.value2 + '_' + letThisprojectM.value3;
-                  }
+                  //禅道 610 去除数据字典不统一 ztc range
+                  // if (letThisprojectM != null) {
+                  //   this.tableA[i].thisprojectM = letThisprojectM.value2 + '_' + letThisprojectM.value3;
+                  // }
+                  //禅道 610 去除数据字典不统一 ztc range
                   if (this.tableA[i].group_nameM !== '' && this.tableA[i].group_nameM !== null && this.tableA[i].group_nameM !== undefined) {
                     //ADD_FJL
                     this.tableA[i].optionsM = [];
