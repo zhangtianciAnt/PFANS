@@ -411,6 +411,37 @@
                     return 'sub_bg_color_lightblue';
                 }
             },
+          accAdd(arg1, arg2) {
+            var r1, r2, m, c;
+            try {
+              r1 = arg1.toString().split(".")[1].length;
+            }
+            catch (e) {
+              r1 = 0;
+            }
+            try {
+              r2 = arg2.toString().split(".")[1].length;
+            }
+            catch (e) {
+              r2 = 0;
+            }
+            c = Math.abs(r1 - r2);
+            m = Math.pow(10, Math.max(r1, r2));
+            if (c > 0) {
+              var cm = Math.pow(10, c);
+              if (r1 > r2) {
+                arg1 = Number(arg1.toString().replace(".", ""));
+                arg2 = Number(arg2.toString().replace(".", "")) * cm;
+              } else {
+                arg1 = Number(arg1.toString().replace(".", "")) * cm;
+                arg2 = Number(arg2.toString().replace(".", ""));
+              }
+            } else {
+              arg1 = Number(arg1.toString().replace(".", ""));
+              arg2 = Number(arg2.toString().replace(".", ""));
+            }
+            return (arg1 + arg2) / m;
+          },
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClick(row) {
                 this.rowid = row.purchase_id;
@@ -612,6 +643,31 @@
                     }
 
                     if (val === 'actuarial') {
+                      //暂借款剩余可报销金额
+                      let selectedlistAnt = this.$refs.roletable.selectedList;
+                      let warnlist = '';
+                      let _surpubilcmoney = 0;
+                      for(let o = 0 ; o < selectedlistAnt.length; o ++) {
+                        if(selectedlistAnt[o].surpubilcmoney != '' && selectedlistAnt[o].surpubilcmoney != null){
+                          if (selectedlistAnt[o].surpubilcmoney <= 0) {
+                            if (warnlist == '') {
+                              warnlist = selectedlistAnt[o].purnumbers;
+                            } else {
+                              warnlist += ',' + selectedlistAnt[o].purnumbers
+                            }
+                          }else{
+                            _surpubilcmoney = this.accAdd(_surpubilcmoney,parseFloat(selectedlistAnt[o].surpubilcmoney));
+                          }
+                        }
+                      }
+                      if(warnlist != ''){
+                        Message({
+                          message: warnlist + this.$t('normal.info_17'),
+                          type: 'info',
+                          duration: 2 * 1000,
+                        });
+                        return;
+                      }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //是否已经精算
                         // let str = '';
@@ -660,6 +716,7 @@
                                         _name: optionsSEL,
                                         _type: 'PJ001002',
                                         _haveLoanapp: loan,
+                                        _surpubilcmoney: _surpubilcmoney,
                                         disabled: true,
                                     },
                                 });
@@ -669,6 +726,7 @@
                                     params: {
                                         _name: optionsSEL,
                                         _type: 'PJ001002',
+                                        _surpubilcmoney: _surpubilcmoney,
                                         disabled: true,
                                     },
                                 });
@@ -694,6 +752,33 @@
                         // }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                     } else {
+                      //暂借款剩余可借金额
+                      let selectedlistAnt = this.$refs.roletable.selectedList;
+                      let warnlist = '';
+                      let _surloappmoney = 0;
+                      for(let o = 0 ; o < selectedlistAnt.length; o ++) {
+                        if(selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
+                          if (selectedlistAnt[o].surloappmoney <= 0) {
+                            if (warnlist == '') {
+                              warnlist = selectedlistAnt[o].purnumbers;
+                            } else {
+                              warnlist += ',' + selectedlistAnt[o].purnumbers
+                            }
+                          } else {
+                            _surloappmoney = this.accAdd(_surloappmoney, parseFloat(selectedlistAnt[o].surloappmoney));
+                          }
+                        }
+                      }
+                      if(warnlist != ''){
+                        Message({
+                          message: warnlist + this.$t('normal.info_16'),
+                          type: 'info',
+                          duration: 2 * 1000,
+                        });
+                        return;
+                      }else{
+
+                      }
                         //暂借款申请
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //check是否存在暂借款
@@ -712,6 +797,7 @@
                                 _judgement: _judgement,
                                 _judgement_name: _judgement_name,
                                 _judgements_moneys: _judgements_moneys,
+                                _surloappmoney: _surloappmoney,
                                 _remarks: _remarks,
                                 _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
                                 disabled: true,

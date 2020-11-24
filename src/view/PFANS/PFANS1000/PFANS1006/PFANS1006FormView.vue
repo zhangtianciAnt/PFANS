@@ -154,7 +154,7 @@
                                        controls-position="right"
                                        :disabled="!disable"
                                        :min="0"
-                                       :max="1000000000"
+                                       :max="maxcontrol"
                                        :precision="2"
                                        style="width:20vw"
                       ></el-input-number>
@@ -654,6 +654,7 @@
         enableSave: false,
         role2: '',
         acceptShow: true,
+        maxcontrol: 100000000,
           showvoid: false,
         options2: [
           {
@@ -697,6 +698,7 @@
         editableTabs: [],
         tabIndex: 0,
         multiple: false,
+        surloappmoney: 0,
         form: {
           // add-ws-8/12-禅道任务446
           processingstatus: '0',
@@ -730,7 +732,7 @@
           uploadfile: '',
           canafver: '0',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
-            publicradio: '2',//专用
+          publicradio: '2',//专用
         },
         currentRow: '',
         currentRow1: '',
@@ -1175,9 +1177,9 @@
               judgements_moneys = _judgements_moneys.toString().split(',');
               this.form.judgements_moneys = _judgements_moneys;
             }
-
             this.form.judgements = _judgement;
             this.form.judgements_name = _judgement_name;
+            this.surloappmoney = this.$route.params._surloappmoney;
             this.form.judgements_type = this.$route.params._judgements_type;
             let datalist = [];
             for (var i = 0; i < judgement.length; i++) {
@@ -1199,6 +1201,9 @@
               muchmoneys = (muchmoneys - 0) + (judgements_moneys[m] - 0);
             }
             this.form.moneys = muchmoneys;
+            if(this.surloappmoney != 0){
+              this.maxcontrol = this.surloappmoney
+            }
             this.form.remarks = remarks[0];
           } else {
             this.showtab = false;
@@ -1422,6 +1427,16 @@
         //ADD_FJL_0819  添加区分
         radioChange(val) {
             this.form.publicradio = val;
+            if(val == '1'){
+              this.maxcontrol = 100000000
+            }else{
+              if(this.surloappmoney != 0){
+                this.maxcontrol = this.surloappmoney
+                if(this.form.moneys > this.surloappmoney){
+                  this.form.moneys = this.maxcontrol
+                }
+              }
+            }
         },
         //ADD_FJL_0819  添加区分
       changecurrencychoice(val) {

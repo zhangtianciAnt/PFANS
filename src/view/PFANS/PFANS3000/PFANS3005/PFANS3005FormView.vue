@@ -2191,6 +2191,7 @@
                 this.form.businessplanbalance = '';
                 this.form.classificationtype = '';
               }
+              this.form.surloappmoney = this.form.totalamount;
               if (this.form.businessplantype === 'PR002001') {
                 this.form.classificationtype = '';
               } else if (this.form.businessplantype === 'PR002002') {
