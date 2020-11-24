@@ -70,7 +70,7 @@
         name: '',
         examinationobjects: [],
         form: {
-          evaluationday: new Date(),
+          evaluationday: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y') : moment(new Date()),
           evaluatenum: '',
           subjectmon: '',
           subject: '',
