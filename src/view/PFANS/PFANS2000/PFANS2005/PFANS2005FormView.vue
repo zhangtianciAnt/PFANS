@@ -4232,7 +4232,6 @@
                         }
                         // endregion
                         for (let j = 0; j < response.otherOne.length; j++) {
-                            debugger;
                             if (response.otherOne[j].basedata === "1") {
                                 this.menuList.value = "1";
                                 this.menuList.label = 1;
@@ -5492,6 +5491,7 @@
             buttonClick(val) {
                 // zqu start 导入按钮点击事件
                 if (val === "import") {
+                    //其他2
                     if (this.tab === "3") {
                         this.OTherTwo.giving_id = this.Giving;
                         this.OTherTwo.type = "1";
@@ -5504,39 +5504,21 @@
                                 this.daoruothertwo = true;
                             });
                     }
+                    //其他4
                     if (this.tab === "4") {
-                        this.$store
-                            .dispatch("PFANS2005Store/deleteotherfour", {
-                                giving_id: this.Giving
-                            })
-                            .then(response => {
-                                this.daoruotherfour = true;
-                            });
+                        this.daoruotherfour = true;
                     }
+                    //其他5
                     if (this.tab === "5") {
-                        this.$store
-                            .dispatch("PFANS2005Store/deleteFive", {giving_id: this.Giving})
-                            .then(response => {
-                                this.daoruotherfive = true;
-                            });
+                        this.daoruotherfive = true;
                     }
+                    //月度赏与
                     if (this.tab === "10") {
-                        this.$store
-                            .dispatch("PFANS2005Store/deleteteappreciation", {
-                                giving_id: this.Giving
-                            })
-                            .then(response => {
-                                this.daoruappreciation = true;
-                            });
+                        this.daoruappreciation = true;
                     }
+                    //附加控除
                     if (this.tab === "13") {
-                        this.$store
-                            .dispatch("PFANS2005Store/deleteadditional", {
-                                giving_id: this.Giving
-                            })
-                            .then(response => {
-                                this.daorufjkc = true;
-                            });
+                        this.daorufjkc = true;
                     }
                 } else if (val === "save") {
                     this.responseDataInit[0].status = this.status;

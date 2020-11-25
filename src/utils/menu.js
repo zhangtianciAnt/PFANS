@@ -132,6 +132,20 @@ export function menu() {
                     {"_id": "PFANS1042_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
                   ]
                 },
+                {
+                  '_id': 'PFANS1043',
+                  'name': 'menu.PFANS1043',
+                  'menuvisible': false,
+                  'menuurl': '/PFANS1043View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {"_id": "PFANS1043_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                    {"_id": "PFANS1043_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                    {"_id": "PFANS1043_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                    {"_id": "PFANS1043_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+                  ]
+                },
               ]
             },
             // {
