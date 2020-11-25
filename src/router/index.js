@@ -142,6 +142,8 @@ import PFANS2032FormView from '@/view/PFANS/PFANS2000/PFANS2032/PFANS2032FormVie
 import PFANS2033View from '@/view/PFANS/PFANS2000/PFANS2033/PFANS2033View.vue'
 import PFANS2034View from '@/view/PFANS/PFANS2000/PFANS2034/PFANS2034View.vue'
 import PFANS2035View from '@/view/PFANS/PFANS2000/PFANS2035/PFANS2035View.vue'
+import PFANS2036View from '@/view/PFANS/PFANS2000/PFANS2036/PFANS2036View.vue'
+import PFANS2036FormView from '@/view/PFANS/PFANS2000/PFANS2036/PFANS2036FormView'
 import PFANS3001View from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001View'
 import PFANS3001FormView from '@/view/PFANS/PFANS3000/PFANS3001/PFANS3001FormView'
 import PFANS3002View from '@/view/PFANS/PFANS3000/PFANS3002/PFANS3002View.vue'
@@ -945,6 +947,16 @@ const routes = [
         component: PFANS2035View,
       },
       {
+        path: '/PFANS2036View',
+        name: 'PFANS2036View',
+        component: PFANS2036View,
+      },
+      {
+        path: '/PFANS2036FormView',
+        name: 'PFANS2036FormView',
+        component: PFANS2036FormView
+      },
+      {
         path: '/PFANS2032View',
         name: 'PFANS2032View',
         component: PFANS2032View
@@ -1360,11 +1372,11 @@ router.beforeEach((to, from, next) => {
   else if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
     next()
   } else {
-    Message({
-      message: i18n.t('normal.error_05'),
-      type: 'error',
-      duration: 5 * 1000
-    });
+    // Message({
+    //   message: i18n.t('normal.error_05'),
+    //   type: 'error',
+    //   duration: 5 * 1000
+    // });
     next('/')
   }
 });
