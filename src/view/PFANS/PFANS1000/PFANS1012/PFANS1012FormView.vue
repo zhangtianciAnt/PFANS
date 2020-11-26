@@ -2039,10 +2039,12 @@
                     if (group) {
                       this.tableT[i].RedirictT = group.redirict;
                     }
-                    if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
+                    if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null
+                      && this.tableT[i].departmentname !== undefined) {
                       //ADD_FJL
                       this.tableT[i].optionsT = [];
                       let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
+                      //213
                       let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                       if (dic.length > 0) {
                         for (let j = 0; j < dic.length; j++) {
@@ -4257,13 +4259,18 @@
       addRow() {
         this.tableT.push({
           optionsT: this.tableT[0].optionsT,
+          //禅道653 ztc
+          accoundoptionsdate:this.tableT[0].accoundoptionsdate,
+          //禅道653 ztc
           trafficdetails_id: '',
           publicexpenseid: '',
           trafficdate: '',
-          accountcode: '',
+          accountcode: this.tableT[0].accountcode,
           departmentname: this.tableT[0].departmentname,
           budgetcoding: this.tableT[0].budgetcoding,
-          subjectnumber: '',
+          //禅道653 ztc
+          subjectnumber: this.tableT[0].subjectnumber,
+          //禅道653 ztc
           plsummary: 'PJ111008',
           region: '',
           vehicle: '',
@@ -4929,6 +4936,7 @@
                       }
                       if (this.tableT[i].subjectnumber === '') {
                         this.activeName = 'second';
+                        alert(111)
                         error = error + 1;
                         Message({
                           message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),

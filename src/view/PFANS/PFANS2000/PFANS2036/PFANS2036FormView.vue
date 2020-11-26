@@ -258,7 +258,6 @@
       },
       buttonClick(val) {
         if (val === "save") {
-          alert(111)
           this.loading = true;
           console.log(this.tableData)
           this.$store
