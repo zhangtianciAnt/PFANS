@@ -906,6 +906,20 @@ export function menu() {
               ]
             },
             {
+              '_id': 'PFANS2036',
+              'name': 'menu.PFANS2036',
+              'menuvisible': true,
+              'menuurl': '/PFANS2036View',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {"_id": "PFANS2036_read", "actiontype": "0", "name": 'button.view', "auth": 4},
+                {"_id": "PFANS2036_new", "actiontype": "new", "name": 'button.insert', "auth": 4},
+                {"_id": "PFANS2036_edit", "actiontype": "edit", "name": 'button.update', "auth": 4},
+                {"_id": "PFANS2036_del", "actiontype": "del", "name": 'button.delete', "auth": 4}
+              ]
+            },
+            {
               '_id': 'PERSONNEL',
               'name': 'menu.PERSONNELINOUT',
               'menuvisible': true,
