@@ -54,6 +54,13 @@
                         filter: false,
                     },
                     {
+                      code: 'foreigncurrencytemp',
+                      label: 'label.PFANS1013VIEW_CURRENCY',
+                      width: 110,
+                      fix: false,
+                      filter: false,
+                    },
+                    {
                         code: 'remark',
                         label: 'label.PFANS1012VIEW_ABSTRACT',
                         width: 330,
@@ -173,7 +180,12 @@
                             }
                             //add_fjl_0928  添加外币的场合 币种+外币金额 start
                             if (response[j].currency !== null && response[j].currency !== '') {
-                                response[j].moneys = response[j].currency + response[j].foreigncurrency;
+                              response[j].foreigncurrencytemp = response[j].currency;
+                              response[j].moneys = response[j].foreigncurrency;
+                            }
+                            else
+                            {
+                              response[j].foreigncurrencytemp = this.$t('label.PFANS1012VIEW_RMB');
                             }
                             //add_fjl_0928  添加外币的场合 币种+外币金额 end
                             //ADD-WS-4/27-精算类型添加
