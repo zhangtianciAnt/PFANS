@@ -10,6 +10,7 @@
                          @workflowState="workflowState"
                          @disabled="setdisabled"
                          ref="container"
+                         :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw">
@@ -879,6 +880,7 @@
         title: 'title.PFANS1030VIEW',
         multiple: false,
         orglist: '',
+        workflowCode: '',
         baseInfo: {},
         arrAttf: [],
         groupN: '',
@@ -1139,6 +1141,12 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            let roleLC = getCurrentRole();
+            if(roleLC == '2' || roleLC == '3') { //GM Center
+              this.workflowCode = 'W0005'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0057'
+            }
             if (this.form.status === '4' || this.form.status === '2') {
               this.enableSave = false;
             } else {

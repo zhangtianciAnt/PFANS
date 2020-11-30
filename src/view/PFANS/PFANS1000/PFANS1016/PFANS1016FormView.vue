@@ -466,14 +466,13 @@
               this.teamid = rst.teamNmae;
             }
             this.form = response.routing;
-            if (getCurrentRole() === '1') {
+            let roleLC = getCurrentRole();
+            if (roleLC == '1') {
               this.workflowCode = 'W0102';//总经理流程
-            } else {
-              if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0119';
-              } else {
-                this.workflowCode = 'W0023';//其他
-              }
+            } else if(roleLC == '2' || roleLC == '3') { //GM Center
+              this.workflowCode = 'W0119'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0023'
             }
             let duringdate = response.routing.duringdate;
             let serdate = duringdate.slice(0, 10);

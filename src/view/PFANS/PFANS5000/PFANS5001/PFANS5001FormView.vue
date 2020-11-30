@@ -59,8 +59,8 @@
                         prop="project_name"
                       >
                         <el-input
+                          maxlength="255"
                           :disabled="!disable"
-                          maxlength="50"
                           style="width: 20vw"
                           v-model="form.project_name"
                         ></el-input>
@@ -73,8 +73,8 @@
                         prop="project_namejp"
                       >
                         <el-input
+                          maxlength="255"
                           :disabled="!disable"
-                          maxlength="50"
                           style="width: 20vw"
                           v-model="form.project_namejp"
                         ></el-input>
