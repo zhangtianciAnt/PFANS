@@ -113,7 +113,7 @@
                   <template
                     slot="dateCell"
                     slot-scope="{date, data}">
-                    <p @click='changedate(data.day)'>
+                    <p>
                       {{ data.day.split('-').slice(2).join('-') }}
                     </p>
                   </template>
@@ -1049,6 +1049,19 @@
       },
       riqi() {
         this.getAttendancelist();
+        this.$route.params._id = '';
+        this.row = '';
+        this.companyform.logmanagement_id = '';
+        this.companyform.time_start = '';
+        this.companyform.wbs_id = '';
+        this.companyform.behavior_breakdown = '';
+        this.companyform.work_phase = '';
+        this.companyform.work_memo = '';
+        if (this.companyform.log_date == null) {
+          this.Riqickeck = false;
+        } else {
+          this.Riqickeck = true;
+        }
         this.divfalse = false;
         this.xsTable = false;
         this.loading = true;
