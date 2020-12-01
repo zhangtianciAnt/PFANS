@@ -371,7 +371,7 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custojapanese'" :rules='rules.custojapanese'>
                     <div class="">
-                      <el-input :disabled="!disabled" v-model="scope.row.custojapanese">
+                      <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custojapanese">
                       </el-input>
                     </div>
                   </el-form-item>
@@ -381,7 +381,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoenglish'" :rules='rules.custoenglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.custoenglish">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custoenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -391,7 +391,7 @@
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custoabbreviation'"
                                 :rules='rules.custoabbreviation'>
-                    <el-input :disabled="!disabled" v-model="scope.row.custoabbreviation">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custoabbreviation">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -400,7 +400,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.custochinese'" :rules="rules.custochinese">
-                    <el-input :disabled="!disabled" v-model="scope.row.custochinese">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.custochinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -412,7 +412,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placejapanese">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -421,7 +421,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placeenglish">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -430,7 +430,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input :disabled="!disabled" v-model="scope.row.placechinese">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -441,7 +441,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responjapanese">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -450,7 +450,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input :disabled="!disabled" v-model="scope.row.responerglish">
+                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -458,7 +458,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input :disabled="!disabled" v-model="scope.row.responphone">
+                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -466,7 +466,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input :disabled="!disabled" v-model="scope.row.responemail" maxlength="100">
+                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -477,7 +477,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
-                    <el-input v-model="scope.row.conjapanese" :disabled="!disabled">
+                    <el-input maxlength="255" v-model="scope.row.conjapanese" :disabled="!disabled">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -485,7 +485,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'">
-                    <el-input v-model="scope.row.conenglish" :disabled="!disabled">
+                    <el-input maxlength="255" v-model="scope.row.conenglish" :disabled="!disabled">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -497,7 +497,7 @@
                     <!--                             v-model="scope.row.conchinese"-->
                     <!--                             @change="changePro" :disabled="!disabled">-->
                     <!--                    </project>-->
-                    <el-input v-model="scope.row.conchinese" :disabled="!disabled">
+                    <el-input maxlength="255" v-model="scope.row.conchinese" :disabled="!disabled">
                     </el-input>
                   </el-form-item>
                 </template>

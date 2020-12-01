@@ -65,8 +65,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
                     <el-input
+                      maxlength="255"
                       :disabled="true"
-                      maxlength="20"
                       style="width:20vw"
                       v-model="form.project_name"
                     ></el-input>
@@ -75,8 +75,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
                     <el-input
+                      maxlength="255"
                       :disabled="true"
-                      maxlength="5"
                       style="width:20vw"
                       v-model="form.project_namejp"
                     ></el-input>
