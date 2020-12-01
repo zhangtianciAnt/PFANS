@@ -3243,6 +3243,7 @@
         this.makeintoBaseInfo = {};
         this.makeintoBaseInfo = baseInfo;
         if (value === 'makeinto') {
+          alert(888)
           this.handleIndexDisabled();
         } else {
           this.handleSaveContract(value, baseInfo);

@@ -498,7 +498,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo} from '../../../../utils/customize';
+  import {getCurrentRole,getCurrentRole12} from '../../../../utils/customize';
   import PFANS2026Pop from '@/components/EasyPop/PFANS2026Pop';
 
   export default {
@@ -664,7 +664,7 @@
             person: '',
           },
         ],
-        right: 'W0081',
+        right: '',
         d1: false,
         d2: true,
         d3: true,
@@ -785,6 +785,14 @@
             this.form = response.staffexitproce;
             this.ID = this.params_id
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
+
+            let role = getCurrentRole();
+            if(role == '2' || role == '3') { //GM Center
+              this.right = 'W0139'//新流程
+            }else { //TL 正式员工
+              this.right = 'W0081'
+            }
+
             if (response.staffexitproce.checkedgm === 'true') {
               this.form.checkedgm = true;
               this.checkbox = true;

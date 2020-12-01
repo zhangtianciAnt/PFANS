@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList"
+                         :buttonList="buttonList" :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
@@ -328,6 +328,7 @@
         assetsList: [],
         centerid: '',
         groupid: '',
+        workflowCode: 'W0019',
         teamid: '',
         baseInfo: {},
         // ferrycenterorglist: '',

@@ -387,20 +387,21 @@
               this.checked2 = true;
               this.disabled2 = true;
             }
-            if (getCurrentRole() === '1') {
+            let roleLC = getCurrentRole();
+            if (roleLC == '1') {
               //总经理
               this.workflowCode = 'W0101';
-            } else if (this.form.machinemedia == 'PJ028001') {
-              if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0118';
-              } else {
-                this.workflowCode = 'W0058';
+            } else if (this.form.machinemedia == 'PJ028001') {//增加财务部长节点
+              if(roleLC == '2' || roleLC == '3') { //GM Center
+                this.workflowCode = 'W0118'//新流程
+              }else { //TL 正式员工
+                this.workflowCode = 'W0058'
               }
             } else {
-              if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0118';
-              } else {
-                this.workflowCode = 'W0030';
+              if(roleLC == '2' || roleLC == '3') { //GM Center
+                this.workflowCode = 'W0118'//新流程
+              }else { //TL 正式员工
+                this.workflowCode = 'W0030'
               }
             }
             if (this.form.information === '') {
@@ -602,28 +603,31 @@
       // },
       getMachinemedia(val) {
         this.form.machinemedia = val;
+        let roleLC = getCurrentRole();
         //持出PC
         if (val == 'PJ028001') {
-          if (getCurrentRole() === '1') {
+          if (roleLC == '1') {
+            //总经理
             this.workflowCode = 'W0101';
           } else {
-            if (this.form.user_id === '5e78b2264e3b194874180f35') {
-              this.workflowCode = 'W0118';
-            } else {
-              this.workflowCode = 'W0058';
+            if(roleLC == '2' || roleLC == '3') { //GM Center
+              this.workflowCode = 'W0118'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0058'
             }
           }
           if (this.form.exportdate != '' && this.form.returndate != '') {
             this.checkDateSpace(this.form.exportdate, this.form.returndate);
           }
         } else {
-          if (getCurrentRole() === '1') {
+          if (roleLC == '1') {
+            //总经理
             this.workflowCode = 'W0101';
           } else {
-            if (this.form.user_id === '5e78b2264e3b194874180f35') {
-              this.workflowCode = 'W0118';
-            } else {
-              this.workflowCode = 'W0030';
+            if(roleLC == '2' || roleLC == '3') { //GM Center
+              this.workflowCode = 'W0118'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0030'
             }
           }
         }

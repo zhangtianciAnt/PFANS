@@ -539,15 +539,12 @@
           .dispatch('PFANS1007Store/selectById', {'assetinformationid': this.$route.params._id})
           .then(response => {
             this.form = response.assetinformation;
-            if (this.form.user_id === '5e78b2264e3b194874180f35') {
-              this.workflowCode = 'W0116';
-            } else {
-              if (getCurrentRole() == '2') {
-                this.workflowCode = 'W0129';//Center
-              } else {
-                this.workflowCode = 'W0017';//其他
+            let role = getCurrentRole()
+              if(role == '2' || role == '3') { //GM Center
+                this.workcode = 'W0129'//新流程
+              }else { //TL 正式员工
+                this.workcode = 'W0017'
               }
-            }
             let rst = getOrgInfoByUserId(response.assetinformation.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;

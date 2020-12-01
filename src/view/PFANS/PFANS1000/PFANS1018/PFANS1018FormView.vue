@@ -355,14 +355,13 @@
           .dispatch('PFANS1018Store/getglobalApplyOne', {'global_id': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (getCurrentRole() === '1') {
+            let roleLC = getCurrentRole();
+            if (roleLC == '1') {
               this.workflowCode = 'W0104';//总经理流程
-            } else {
-              if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0121';
-              } else {
-                this.workflowCode = 'W0025';//其他
-              }
+            } else if(roleLC == '2' || roleLC == '3') { //GM Center
+              this.workflowCode = 'W0121'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0025'
             }
             let rst = getOrgInfoByUserId(response.user_id);
             if (rst) {

@@ -1927,18 +1927,23 @@
                     }
                   }
                 }
-//add-ws-6/12-禅道105
-                if ((getCurrentRole() != '1')) {
-                  if (this.form.moneys >= 20000) {
-                    this.workflowCode = 'W0077';
-                  } else {
-                    this.workflowCode = 'W0016';
-                  }
-                } else {
+                let role = getCurrentRole()
+                if (role == '1') {//总经理
                   this.workflowCode = 'W0100';
                 }
-//add-ws-6/12-禅道105
-//add-ws-6/16-禅道103
+                if (this.form.moneys >= 20000) {
+                   if (role == '2' || role == '3') { //GM Center
+                    this.workflowCode = 'W0115'//新流程
+                  } else { //TL 正式员工
+                    this.workflowCode = 'W0077'
+                  }
+                }else{
+                  if (role == '2' || role == '3') { //GM Center
+                    this.workflowCode = 'W0141'//新流程
+                  } else { //TL 正式员工
+                    this.workflowCode = 'W0066'
+                  }
+                }
                 if (this.disable) {
                   if (this.form.paymentmethod === 'PJ004001') {
                     this.checkexpectedpaydate = false;

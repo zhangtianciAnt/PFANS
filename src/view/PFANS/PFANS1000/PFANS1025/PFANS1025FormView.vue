@@ -10,6 +10,7 @@
                          @workflowState="workflowState"
                          @disabled="setdisabled"
                          ref="container"
+                         :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw">
@@ -530,6 +531,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
+  import {getCurrentRole} from '@/utils/customize';
   import moment from 'moment';
   import org from '../../../components/org';
   import project from '../../../components/project';
@@ -604,6 +606,7 @@
         title: 'title.PFANS1025VIEW',
         multiple: false,
         orglist: '',
+        workflowCode: '',
         baseInfo: {},
         // add-ws-7/17-禅道116任务
         optionsdata: [],
@@ -716,6 +719,12 @@
               //   }
               // }
               //add-ws-契约种类value1值处理
+              let roleLC = getCurrentRole();
+               if(roleLC == '2' || roleLC == '3') { //GM Center
+                this.workflowCode = 'W0004'//新流程
+              }else { //TL 正式员工
+                this.workflowCode = 'W0056'
+              }
               if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
                 this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
               }

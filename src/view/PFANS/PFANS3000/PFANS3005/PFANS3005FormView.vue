@@ -1386,18 +1386,7 @@
         handler: function () {
           //totalamount --总金额
           // add_fjl_06/15 --添加审批流程 start
-          // 王磊
-          if (this.form.user_id === '5e78b2264e3b194874180f35') {
-            // 电脑相关
-            if (this.form.procurementproject === 'PJ005005' ||
-              this.form.procurementproject === 'PJ005006' ||
-              this.form.procurementproject === 'PJ005007' ||
-              this.form.procurementproject === 'PJ005018') {
-              this.workflowCode = 'W0125';
-            } else {
-              this.workflowCode = 'W0114';
-            }
-          } else if (this.form.careerplan === '1') {
+           if (this.form.careerplan === '1') {
             if (Number(this.form.totalamount) <= 1000) {
               if (this.form.procurementproject === 'PJ005005' ||
                 this.form.procurementproject === 'PJ005006' ||
@@ -1411,7 +1400,7 @@
                 }
               } else {
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0137';
+                  this.workflowCode = 'W0140';
                 } else {
                   //最后节点到GM  事业计划内 1000以下
                   this.workflowCode = 'W0082';
@@ -1444,10 +1433,10 @@
                 this.form.procurementproject === 'PJ005007' ||
                 this.form.procurementproject === 'PJ005018') {
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0133';
+                  this.workflowCode = 'W0125';
                 } else {
                   //电脑相关，最后节点到总经理   两万以上
-                  this.workflowCode = 'W0128';
+                  this.workflowCode = 'W0114';
                 }
               } else {
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
