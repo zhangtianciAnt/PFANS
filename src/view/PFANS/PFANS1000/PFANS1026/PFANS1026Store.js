@@ -5,6 +5,8 @@ import {
   insert,
   insertBook,
   existCheck,
+  existN,
+  existQ,
   getList,
   getPe,
   purchaseExistCheck,
@@ -125,6 +127,32 @@ const PFANS1026Store = {
     existCheck({commit}, data) {
       return new Promise((resolve, reject) => {
         existCheck(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    existN({commit}, data) {
+      return new Promise((resolve, reject) => {
+        existN(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    existQ({commit}, data) {
+      return new Promise((resolve, reject) => {
+        existQ(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
