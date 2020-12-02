@@ -363,11 +363,11 @@
           .then(response => {
             this.form = response;
             this.userlist = response.user_id;
-            if (this.form.contract == 'PJ142001' || this.form.contract == 'PJ142002' || this.form.contract == 'PJ142003' || this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
+            if (this.form.contract == 'PJ142001' || this.form.contract == 'PJ142002' || this.form.contract == 'PJ142003') {
               this.show1 = true;
             } else if (this.form.contract == 'PJ142006' || this.form.contract == 'PJ142007') {
               this.show2 = true;
-            } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009') {
+            } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009'|| this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
               this.show3 = true;
             }
             if (this.$route.params.type) {
@@ -608,7 +608,7 @@
       },
       getcontract(val) {
         this.form.contract = val;
-        if (this.form.contract == 'PJ142001' || this.form.contract == 'PJ142002' || this.form.contract == 'PJ142003' || this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
+        if (this.form.contract == 'PJ142001' || this.form.contract == 'PJ142002' || this.form.contract == 'PJ142003' ) {
           this.show1 = true;
           this.show2 = false;
           this.show3 = false;
@@ -618,7 +618,7 @@
           this.show2 = true;
           this.show3 = false;
           this.form.toolsorgs = '';
-        } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009') {
+        } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009'|| this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
           this.show1 = false;
           this.show2 = false;
           this.show3 = true;
