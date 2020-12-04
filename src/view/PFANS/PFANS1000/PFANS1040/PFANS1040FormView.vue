@@ -385,8 +385,15 @@
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
               >
                 <template slot-scope="scope">
-                  <el-input :disabled="true" maxlength="100" style="width: 100%"
-                            v-model="scope.row.assignor"></el-input>
+                  <div>
+                    <el-input
+                      :disabled="true"
+                      v-if="scope.row.show"
+                      v-model="scope.row.assignor">
+                    </el-input>
+                    <org v-else :disabled="true" :no="scope.row" :orglist="scope.row.assignor"
+                         orgtype="2"></org>
+                  </div>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.remarks')" align="center" width="230">
@@ -1023,6 +1030,7 @@
         wnewentry: [],
         tableDataA: [
           {
+            show: true,
             customerinfor_id: '',
             rowid: '0',
             themeplantype: this.$t('label.PFANS1039FORMVIEW_PROSPECTS'),
@@ -1110,6 +1118,13 @@
               this.refform.year = this.tableDataA[0].year;
               this.refform.group_id = this.tableDataA[0].group_id;
               this.refform.center_id = this.tableDataA[0].center_id;
+              for (let i = 0; i < this.tableDataA.length; i++) {
+                if (this.tableDataA[i].contracttype == 'PJ142001' || this.tableDataA[i].contracttype == 'PJ142002'|| this.tableDataA[i].contracttype == 'PJ142003') {
+                  this.tableDataA[i].show = true;
+                } else if (this.tableDataA[i].contracttype == 'PJ142004' || this.tableDataA[i].contracttype == 'PJ142005') {
+                  this.tableDataA[i].show = false;
+                }
+              }
             }
             this.$nextTick(() => {
               this.groupdata(this.refform.group_id);
@@ -1293,6 +1308,11 @@
         this.dialogTableVisible = true;
       },
       handleClickChange(val) {
+        if (val.contract == 'PJ142001' || val.contract == 'PJ142002'|| val.contract == 'PJ142003') {
+          this.tableDataA[this.index].show = true;
+        } else if (val.contract == 'PJ142004' || val.contract == 'PJ142005') {
+          this.tableDataA[this.index].show = false;
+        }
         this.tableDataA[this.index].themename = val.themename;
         this.tableDataA[this.index].month = val.data;
         this.tableDataA[this.index].branch = val.divide;
@@ -1305,10 +1325,14 @@
       },
       getlisttheme() {
         this.loading = true;
+        let parameters = {
+          year: moment(new Date()).add(1, 'y').format('YYYY'),
+          contract: 0,
+        };
         this.$store
-          .dispatch('PFANS1043Store/getFpans1043List', {})
+          .dispatch('PFANS1043Store/getlisttheme', parameters)
           .then(response => {
-            response = response.filter(item => (item.contract == 'PJ142001' || item.contract == 'PJ142002' || item.contract == 'PJ142003' || item.contract == 'PJ142004' || item.contract == 'PJ142005') && (item.year = this.refform.year));
+            // response = response.filter(item => (item.contract == 'PJ142001' || item.contract == 'PJ142002' || item.contract == 'PJ142003' || item.contract == 'PJ142004' || item.contract == 'PJ142005') && (item.year = this.refform.year));
             for (let j = 0; j < response.length; j++) {
               if (response[j].divide != '' && response[j].divide != null) {
                 let letErrortype = getDictionaryInfo(response[j].divide);
@@ -1757,6 +1781,7 @@
         } else {
           this.tableDataA = [
             {
+              show: true,
               rowid: (this.tableDataAcount).toString(),
               themeplantype: this.$t('label.PFANS1039FORMVIEW_PLAN'),
               themeplan_id: '',
@@ -1830,6 +1855,7 @@
       addRowtableDataA() {
         this.tableDataA.push(
           {
+            show: true,
             rowid: (this.tableDataAcount).toString(),
             themeplantype: this.$t('label.PFANS1039FORMVIEW_PLAN'),
             themeplan_id: '',

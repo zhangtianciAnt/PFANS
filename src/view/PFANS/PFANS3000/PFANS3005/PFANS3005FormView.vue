@@ -1391,7 +1391,9 @@
               if (this.form.procurementproject === 'PJ005005' ||
                 this.form.procurementproject === 'PJ005006' ||
                 this.form.procurementproject === 'PJ005007' ||
-                this.form.procurementproject === 'PJ005018') {
+                this.form.procurementproject === 'PJ005018' ||
+                this.form.procurementproject === 'PJ005019' ||
+                this.form.procurementproject === 'PJ005020') {
                 //电脑相关，1000元以下
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
                   this.workflowCode = 'W0136';
@@ -1410,7 +1412,9 @@
               if (this.form.procurementproject === 'PJ005005' ||
                 this.form.procurementproject === 'PJ005006' ||
                 this.form.procurementproject === 'PJ005007' ||
-                this.form.procurementproject === 'PJ005018') {
+                this.form.procurementproject === 'PJ005018'||
+              this.form.procurementproject === 'PJ005019' ||
+              this.form.procurementproject === 'PJ005020'){
                 //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
                 // Center GM
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
@@ -1431,7 +1435,9 @@
               if (this.form.procurementproject === 'PJ005005' ||
                 this.form.procurementproject === 'PJ005006' ||
                 this.form.procurementproject === 'PJ005007' ||
-                this.form.procurementproject === 'PJ005018') {
+                this.form.procurementproject === 'PJ005018' ||
+                this.form.procurementproject === 'PJ005019' ||
+                this.form.procurementproject === 'PJ005020') {
                 if (getCurrentRole() === '2' || getCurrentRole() === '3') {
                   this.workflowCode = 'W0125';
                 } else {
@@ -1451,7 +1457,9 @@
             if (this.form.procurementproject === 'PJ005005' ||
               this.form.procurementproject === 'PJ005006' ||
               this.form.procurementproject === 'PJ005007' ||
-              this.form.procurementproject === 'PJ005018') {
+              this.form.procurementproject === 'PJ005018'||
+              this.form.procurementproject === 'PJ005019' ||
+              this.form.procurementproject === 'PJ005020') {
               //最后节点到总经理   电脑相关 事业计划外
               if (getCurrentRole() === '2' || getCurrentRole() === '3') {
                 this.workflowCode = 'W0133';
