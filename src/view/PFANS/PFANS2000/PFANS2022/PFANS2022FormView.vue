@@ -738,27 +738,22 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
         }
-        let role = getCurrentRole();
+        let role = getCurrentRole()
         if (this.form.twoclass === 'PR034001') {//ztc 招聘
           if (role == '1') {//总经理
             this.workcode = 'W0099';
-          } else {
-            if (this.form.user_id === '5e78b2264e3b194874180f35') {
-              this.workcode = 'W0111';
-            } else {
-              this.workcode = 'W0066';
-            }
+          } else if(role == '2' || role == '3') { //GM Center
+            this.workcode = 'W0111'//新流程
+          }else { //TL 正式员工
+            this.workcode = 'W0066'
           }
         } else {
-          //总经理
-          if (role == '1') {
+          if (role == '1') {//总经理
             this.workcode = 'W0098';
-          } else {
-            if (this.form.user_id === '5e78b2264e3b194874180f35') {
-              this.workcode = 'W0110';
-            } else {
-              this.workcode = 'W0031';
-            }
+          } else if(role == '2' || role == '3') { //GM Center
+            this.workcode = 'W0110'//新流程
+          }else { //TL 正式员工
+            this.workcode = 'W0031'
           }
         }
       },
