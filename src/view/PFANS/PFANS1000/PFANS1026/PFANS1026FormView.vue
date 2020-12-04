@@ -3039,7 +3039,11 @@
                 //   type: 'error',
                 //   duration: 5 * 1000,
                 // });
+              } else{
+                var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
               }
+
               this.loading = false;
               this.dialogBook = false;
             })
