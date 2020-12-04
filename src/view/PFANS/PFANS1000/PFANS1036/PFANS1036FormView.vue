@@ -853,7 +853,7 @@
                     <TrustA1Component :disabled="!disable" :tableTrustA1="groupA1" @sum="getSumA1"></TrustA1Component>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A2')" name="seventh">
-                    <TrustComponent :disabled="!disable" :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
+                    <TrustComponent :disabled="true" :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
                     <TrustComponent :tableTrust="groupB1" @sum="getSumB1" :disabled="true"></TrustComponent>
@@ -862,10 +862,10 @@
                     <TrustComponent :tableTrust="groupB2" @sum="getSumB2" :disabled="true"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
-                    <TrustComponent :disabled="!disable" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
+                    <TrustComponent :disabled="true" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B4')" name="fifth">
-                    <TrustComponent :disabled="!disable" :tableTrust="groupC" @sum="getSumC"></TrustComponent>
+                    <TrustComponent :disabled="false" :tableTrust="groupC" @sum="getSumC"></TrustComponent>
                   </el-tab-pane>
                 </el-tabs>
               </div>
@@ -879,7 +879,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -1111,7 +1111,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -1343,7 +1343,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -1575,7 +1575,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -2097,7 +2097,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getDictionaryInfo, getOrgInfo} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import AssetsComponent from './AssetsComponent';
   import TrustComponent from './TrustComponent';
@@ -2135,7 +2135,14 @@
         groupB3: [],
         groupB1: [],
         groupB2: [],
-        groupC: [{groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088002'}],
+        groupC: [
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088002').value1}],
         sumA1: [],
         sumA2: [],
         sumB1: [],
@@ -2150,7 +2157,7 @@
         assets1: [],
         assets2: [],
         travel: [],
-        business: [{assetstype: '0'}, {assetstype: '0'},  {assetstype: '0'}, {assetstype: '0'}],
+        business: [{assetstype: '0'}, {assetstype: '0'}, {assetstype: '0'}, {assetstype: '0'}],
         equipment_newyear: [{assetstype: '0'}],
         equipment_lastyear: [{assetstype: '0'}],
         assets_newyear: [{assetstype: '0'}],
@@ -2289,18 +2296,6 @@
       } else {
         this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if (this.$store.getters.orgGroupList.length > 0) {
-          this.groupA2 = this.$store.getters.orgGroupList.map(
-            group => {
-              return {groupid: group.groupid, groupname: group.companyen};
-            },
-          );
-          this.groupB3 = this.$store.getters.orgGroupList.map(
-            group => {
-              return {groupid: group.groupid, groupname: group.companyen};
-            },
-          );
-        }
         this.form.center_id = rst.centerId || '';
         this.form.group_id = rst.groupId || '';
         this.form.user_id = this.$store.getters.userinfo.userid;
@@ -2313,9 +2308,18 @@
             }
           }
         }
-        if (this.form.group_id) this.getGroupB1(this.form.group_id);
-        if (this.form.group_id) this.getPersonTable(rst.groupId, this.form.year);
+        if (this.form.group_id) {
+          this.getgroupA1(this.form.group_id);
+        }
+        this.getgroupA2();
+        this.getgroupB1();
+        this.getgroupB2();
+        this.getgroupB3();
+        if (this.form.group_id) {
+          this.getPersonTable(rst.groupId, this.form.year);
+        }
       }
+
     },
     computed: {
       tableSZTotal: function() {
@@ -2371,10 +2375,10 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("save");
+        this.buttonClick('save');
       },
       //add-ws-5-20-流程恒展开
       end() {
@@ -2916,115 +2920,87 @@
           }
         }
       },
-      getGroupB1(id) {
+      getgroupA2() {
+        let parameter = {
+          year: this.form.year,
+          type: 1,
+        };
         this.$store
-          .dispatch('PFANS1036Store/getPlan', {'years': this.form.year, 'groupid': id})
+          .dispatch('PFANS1036Store/getgroup', parameter)
           .then(response => {
-            if (response.length > 0) {
-              let arr = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
-              let count1 = 0;
-              let count2 = 0;
-              let count = 0;
-              let supplierinfoList = this.$store.getters.supplierinforList.map(list => {
-                return {'supplierinfor_id': list.supplierinfor_id, 'groupname': list.supchinese};
-              });
-              let supplierinfoList2 = this.$store.getters.supplierinforList.map(list => {
-                return {'supplierinfor_id': list.supplierinfor_id, 'groupname': list.supchinese};
-              });
-              let outside = response.filter(res => res.type === 1);
-              let employed = JSON.parse(outside[0].employed);
-              let newentry = JSON.parse(outside[0].newentry);
-              let inside = response.filter(res => res.type === 0);
-              let inemployed = JSON.parse(inside[0].employed);
-              let innewentry = JSON.parse(inside[0].newentry);
-              if (newentry.length > 0) {
-                newentry.forEach(
-                  val => {
-                    if (val.name) {
-                      count1 += 1;
-                    }
-                  },
-                );
-              }
-              if (innewentry.length > 0) {
-                innewentry.forEach(
-                  val => {
-                    if (val.name) {
-                      count2 += 1;
-                    }
-                  },
-                );
-              }
-              count = employed.length + inemployed.length + count1 + count2;
-              let money = (Number(getDictionaryInfo('PJ087001').value1) * count / 12).toFixed(3);
-              this.groupA1 = [{
-                money1: money,
-                money2: money,
-                money3: money,
-                money4: money,
-                money5: money,
-                money6: money,
-                money7: money,
-                money8: money,
-                money9: money,
-                money10: money,
-                money11: money,
-                money12: money,
-                name1: 'PJ086001',
-                name2: 'PJ086001',
-              },
-                {name1: 'PJ086002', name2: 'PJ086002'}, {name1: 'PJ086003', name2: 'PJ086003'}];
-              supplierinfoList.forEach(
-                list => {
-                  employed.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.suppliernameid && em.entermouth !== 'BP025004') {
-                        for (let i = 1; i <= 12; i++) {
-                          list['number' + i] = (list['number' + i] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                  newentry.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.supchinese && em.isoutside === false) {
-                        let index = arr.indexOf(Number(moment(em.entermouth).month()) === 12 ? 1 : Number(moment(em.entermouth).month()) + 1);
-                        for (let i = index; i < arr.length; i++) {
-                          list['number' + arr[i]] = (list['number' + arr[i]] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                },
-              );
-              supplierinfoList2.forEach(
-                list => {
-                  employed.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.suppliernameid && em.entermouth === 'BP025004') {
-                        for (let i = 1; i <= 12; i++) {
-                          list['number' + i] = (list['number' + i] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                  newentry.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.supchinese && em.isoutside === true) {
-                        let index = arr.indexOf(Number(moment(em.entermouth).month()) === 12 ? 1 : Number(moment(em.entermouth).month()) + 1);
-                        for (let i = index; i < arr.length; i++) {
-                          list['number' + arr[i]] = (list['number' + arr[i]] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                },
-              );
-
-              this.groupB1 = supplierinfoList;
-              this.groupB2 = supplierinfoList2;
-            }
-
+            this.groupA2 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupB1() {
+        let parameter = {
+          year: this.form.year,
+          type: 2,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroup', parameter)
+          .then(response => {
+            this.groupB1 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupB2() {
+        let parameter = {
+          year: this.form.year,
+          type: 3,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroup', parameter)
+          .then(response => {
+            this.groupB2 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupB3() {
+        let parameter = {
+          year: this.form.year,
+          type: 4,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroup', parameter)
+          .then(response => {
+            this.groupB3 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupA1(id) {
+        let parameter = {
+          year: this.form.year,
+          groupid: id,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroupA1', parameter)
+          .then(response => {
+            this.groupA1 = response;
           })
           .catch(error => {
             Message({
