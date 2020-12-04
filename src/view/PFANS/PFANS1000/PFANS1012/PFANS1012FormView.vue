@@ -1928,20 +1928,22 @@
                   }
                 }
                 let role = getCurrentRole()
-                if (role == '1') {//总经理
+                if (role == '1') {
+                  //总经理
                   this.workflowCode = 'W0100';
-                }
-                if (this.form.moneys >= 20000) {
-                   if (role == '2' || role == '3') { //GM Center
-                    this.workflowCode = 'W0115'//新流程
-                  } else { //TL 正式员工
-                    this.workflowCode = 'W0077'
-                  }
                 }else{
-                  if (role == '2' || role == '3') { //GM Center
-                    this.workflowCode = 'W0141'//新流程
-                  } else { //TL 正式员工
-                    this.workflowCode = 'W0066'
+                  if (this.form.moneys >= 20000) {
+                    if (role == '2' || role == '3') { //GM Center
+                      this.workflowCode = 'W0115'//新流程
+                    } else { //TL 正式员工
+                      this.workflowCode = 'W0077'
+                    }
+                  }else{
+                    if (role == '2' || role == '3') { //GM Center
+                      this.workflowCode = 'W0141'//新流程
+                    } else { //TL 正式员工
+                      this.workflowCode = 'W0016'
+                    }
                   }
                 }
                 if (this.disable) {
