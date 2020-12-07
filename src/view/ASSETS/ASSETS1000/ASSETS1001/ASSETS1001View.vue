@@ -806,7 +806,7 @@
             this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
             this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
             this.$t('label.ASSETS1001VIEW_REMARKS2'),//备注1
-            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点
+            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点.
           ];
           filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
              ,'bartypeName', 'model', 'address', 'psdcdresponsible', 'psdcdphone', 'loancontract', 'loancontractno'
