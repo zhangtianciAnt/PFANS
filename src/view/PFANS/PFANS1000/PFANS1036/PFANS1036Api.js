@@ -61,4 +61,12 @@ export function getgroup(data) {
   })
 }
 
+export function getgroupcompanyen(data) {
+  return request({
+    url: 'businessplan/getgroupcompanyen',
+    method: 'get',
+    params: data,
+  })
+}
+
 

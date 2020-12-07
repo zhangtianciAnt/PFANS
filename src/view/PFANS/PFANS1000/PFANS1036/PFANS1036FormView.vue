@@ -770,13 +770,15 @@
                          name="second">
               <div>
                 <AssetsComponent :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear"
+                                 :tableLodYear="assets_lodyear"
                                  @assets="Assets"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" style="margin-top: 2%" name="third">
               <div>
                 <AssetsComponent :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear"
-                                 @assets="Assets1"></AssetsComponent>
+                                 :tableLodYear="equipment_lodyear"
+                                 @assets="Assetss"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
@@ -2160,10 +2162,11 @@
         business: [{assetstype: '0'}, {assetstype: '0'}, {assetstype: '0'}, {assetstype: '0'}],
         equipment_newyear: [{assetstype: '0'}],
         equipment_lastyear: [{assetstype: '0'}],
+        equipment_lodyear: [],
         assets_newyear: [{assetstype: '0'}],
         assets_lastyear: [{assetstype: '0'}],
+        assets_lodyear: [],
         error: '',
-        options: [],
         selectType: 'Single',
         title: 'title.PFANS1036VIEW',
         userlist: '',
@@ -2173,7 +2176,6 @@
         activeName7: 'first',
         loading: false,
         disable: false,
-        disablecurr: false,
         buttonList: [
           {
             key: 'save',
@@ -2182,6 +2184,7 @@
             icon: 'el-icon-check',
           },
         ],
+        orgtree: [],
         tableA: [], //1
         tableB: [],//2
         tableC: [],//3
@@ -2235,8 +2238,6 @@
         },
         multiple: false,
         canStart: false,
-        sumC: [],
-        sumD: [],
         checkList: [],
       };
     },
@@ -2253,18 +2254,17 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (this.$store.getters.orgGroupList) {
-              this.checkList = this.$store.getters.orgGroupList;
-              for (let i = 0; i < this.checkList.length; i++) {
-                if (this.checkList[i].groupid === this.form.group_id) {
-                  this.org = this.checkList[i];
-                }
-              }
+            let group = getOrgInfo(this.form.group_id);
+            if (group) {
+              this.org.redirict = group.redirict;
+              this.org.companyen = group.companyen;
             }
             this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
             this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
+            this.equipment_lodyear = JSON.parse(this.form.equipment_lodyear);
             this.assets_newyear = JSON.parse(this.form.assets_newyear);
             this.assets_lastyear = JSON.parse(this.form.assets_lastyear);
+            this.assets_lodyear = JSON.parse(this.form.assets_lodyear);
             let table_p = JSON.parse(this.form.tableP);
             this.business = JSON.parse(this.form.business);
             this.groupA1 = JSON.parse(this.form.groupA1);
@@ -2299,15 +2299,55 @@
         this.form.center_id = rst.centerId || '';
         this.form.group_id = rst.groupId || '';
         this.form.user_id = this.$store.getters.userinfo.userid;
-
-        if (this.$store.getters.orgGroupList) {
-          this.checkList = this.$store.getters.orgGroupList;
-          for (let i = 0; i < this.checkList.length; i++) {
-            if (this.checkList[i].groupid === this.form.group_id) {
-              this.org = this.checkList[i];
+        let parameter = {
+          year: this.form.year,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1036Store/getgroupcompanyen', parameter)
+          .then(response => {
+            if (response) {
+              this.orgtree = response;
+              if (this.orgtree) {
+                this.checkList = this.orgtree;
+                for (let i = 0; i < this.checkList.length; i++) {
+                  if (this.checkList[i].id === this.form.group_id) {
+                    this.org = this.checkList[i];
+                  }
+                }
+              }
+              if (this.orgtree[0].type === "1") {
+                let data1 = JSON.parse(this.orgtree[0].equipment_lodyear);
+                let data2 = JSON.parse(this.orgtree[0].assets_lodyear);
+                let data3 = data1.filter(item => (item.companyen == this.org.companyen));
+                let data4 = data2.filter(item => (item.companyen == this.org.companyen));
+                this.equipment_lodyear = data3;
+                this.assets_lodyear = data4;
+              } else {
+                if (this.orgtree.length > 0) {
+                  for (let i = 0; i < this.orgtree.length; i++) {
+                    this.equipment_lodyear.push({
+                      companyen: this.orgtree[i].companyen,
+                    });
+                    this.assets_lodyear.push({
+                      companyen: this.orgtree[i].companyen,
+                    });
+                  }
+                }
+              }
             }
-          }
-        }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+
+
         if (this.form.group_id) {
           this.getgroupA1(this.form.group_id);
         }
@@ -2821,7 +2861,7 @@
       getSumC(val) {
         this.sumC1 = val;
       },
-      Assets1(val) {
+      Assetss(val) {
         this.assets2 = val;
       },
       Assets(val) {
@@ -3195,8 +3235,10 @@
         if (val === 'save') {
           this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
           this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
+          this.form.equipment_lodyear = JSON.stringify(this.equipment_lodyear);
           this.form.assets_newyear = JSON.stringify(this.assets_newyear);
           this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
+          this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
           this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
           this.form.business = JSON.stringify(this.business);
           this.form.groupA1 = JSON.stringify(this.groupA1);
