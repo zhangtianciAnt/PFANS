@@ -1107,7 +1107,7 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036VIEW_USING')" name="second">
+                  <el-tab-pane :label="$t('label.PFANS1036VIEW_USING')" name="second" v-if="this.role === '0'">
                     <el-table :data="tableO2" :summary-method="(val) => getSummaries(val,'o2')" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
@@ -1339,7 +1339,7 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036VIEW_TRAINING')" name="third">
+                  <el-tab-pane :label="$t('label.PFANS1036VIEW_TRAINING')" name="third" v-if="this.role === '0'">
                     <el-table :data="tableO3" :summary-method="(val) => getSummaries(val,'o3')" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
@@ -2099,7 +2099,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getDictionaryInfo, getOrgInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getDictionaryInfo, getOrgInfo, getCurrentRole14} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import AssetsComponent from './AssetsComponent';
   import TrustComponent from './TrustComponent';
@@ -2129,6 +2129,7 @@
         }
       };
       return {
+        role: '',
         org: [],
         month: '',
         arr: [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3],
@@ -2248,6 +2249,12 @@
       this.disable = this.$route.params.disabled;
     },
     mounted() {
+      this.role = getCurrentRole14();
+      // if (this.roles === '0') {
+      //   this.checkdisabled = false;
+      // } else {
+      //   this.checkdisabled = true;
+      // }
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
@@ -2316,7 +2323,7 @@
                   }
                 }
               }
-              if (this.orgtree[0].type === "1") {
+              if (this.orgtree[0].type === '1') {
                 let data1 = JSON.parse(this.orgtree[0].equipment_lodyear);
                 let data2 = JSON.parse(this.orgtree[0].assets_lodyear);
                 let data3 = data1.filter(item => (item.companyen == this.org.companyen));
@@ -2476,11 +2483,11 @@
                 } else if (val.code === 'neibuhetong') {
                   Object.assign(this.tableP[24], val);
                 } else if (val.code === 'worktime') {
-                  Object.assign(this.tableP[51], val);
-                } else if (val.code === 'worktime0') {
                   Object.assign(this.tableP[52], val);
-                } else if (val.code === 'worktime1') {
+                } else if (val.code === 'worktime0') {
                   Object.assign(this.tableP[53], val);
+                } else if (val.code === 'worktime1') {
+                  Object.assign(this.tableP[54], val);
                 }
               },
             );
@@ -2609,27 +2616,27 @@
             }
           });
         for (let i = 0; i < this.arr.length; i++) {
-          this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
           if (this.sumB2.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
+          this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
           if (this.sumB1.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
           if (this.tableA.length > 0) {
-            this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
           } else {
-            this.$set(this.tableP[53], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[0], 'actual' + this.arr[i], this.tableP[0]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[1], 'actual' + this.arr[i], this.tableP[1]['actual' + this.arr[i]] || '0.00');
@@ -2744,8 +2751,8 @@
           this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
@@ -2782,36 +2789,36 @@
               this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
 
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[58], val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
-              } else {
-                this.$set(this.tableP[58], val + this.arr[i], '0%');
-              }
-
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[59], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[60], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[61], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[62], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[62], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[63], val + this.arr[i], '0%');
+              }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+              } else {
+                this.$set(this.tableP[64], val + this.arr[i], '0%');
               }
             },
           );
@@ -2872,7 +2879,7 @@
       },
       rowClass({row, rowIndex}) {
         if ([4, 5, 13, 20, 26, 30, 41].includes(rowIndex)) {
-          return 'row1';
+          return '3';
         } else if ([42].includes(rowIndex)) {
           return 'row2';
         }
@@ -2889,7 +2896,7 @@
               rowspan: 37,
               colspan: 1,
             };
-          } else if ([43, 47, 48, 49, 50].includes(rowIndex)) {
+          } else if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
             return {
               rowspan: 1,
               colspan: 2,
@@ -2899,17 +2906,17 @@
               rowspan: 1,
               colspan: 1,
             };
-          } else if (rowIndex === 51) {
+          } else if (rowIndex === 52) {
             return {
               rowspan: 3,
               colspan: 1,
             };
-          } else if (rowIndex === 54) {
+          } else if (rowIndex === 55) {
             return {
               rowspan: 4,
               colspan: 1,
             };
-          } else if (rowIndex === 58) {
+          } else if (rowIndex === 59) {
             return {
               rowspan: 6,
               colspan: 1,
@@ -2921,7 +2928,7 @@
             };
           }
         } else if (columnIndex === 1) {
-          if ([43, 47, 48, 49, 50].includes(rowIndex)) {
+          if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
             return {
               rowspan: 0,
               colspan: 0,
@@ -2946,10 +2953,12 @@
           } else if (index === 50) {
             return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
           } else if (index === 51) {
+            return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
+          } else if (index === 52) {
             return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-          } else if (index === 54) {
+          } else if (index === 55) {
             return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
-          } else if (index === 58) {
+          } else if (index === 59) {
             return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
           }
         } else if (column.property === 'name1') {

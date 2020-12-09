@@ -924,7 +924,7 @@
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         let group_id = rst.groupId || '';
         let grouplist = this.$store.getters.orgGroupList.filter(item => item.groupid === group_id);
-        let filtable = table.filter(item => item.companyen === grouplist[0].companyen);
+        let filtable = table.filter(item => item.companyen === grouplist.companyen);
         if (filtable.length > 0) {
           let totalExpect = {};
           totalExpect.money1 = filtable[0].money1 === undefined ? 0 : filtable[0].money1;
