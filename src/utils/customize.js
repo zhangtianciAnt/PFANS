@@ -711,6 +711,36 @@ export function getCurrentRole14() {
   return '1';
 }
 
+//财务担当
+export function getCurrentRole15() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('财务担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//工资计算担当
+export function getCurrentRole16() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+
+
 import CryptoJS from 'crypto-js/crypto-js';
 
 
