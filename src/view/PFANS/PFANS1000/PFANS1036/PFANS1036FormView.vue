@@ -2616,27 +2616,27 @@
             }
           });
         for (let i = 0; i < this.arr.length; i++) {
-          this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
           if (this.sumB2.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
+          this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
           if (this.sumB1.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
           if (this.tableA.length > 0) {
-            this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
           } else {
-            this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[53], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[0], 'actual' + this.arr[i], this.tableP[0]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[1], 'actual' + this.arr[i], this.tableP[1]['actual' + this.arr[i]] || '0.00');
@@ -2751,8 +2751,8 @@
           this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
@@ -2789,36 +2789,36 @@
               this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
 
-              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[58], val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              } else {
+                this.$set(this.tableP[58], val + this.arr[i], '0%');
+              }
+
+              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[59], val + this.arr[i], '0%');
               }
-
-              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[60], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
+              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[61], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
+              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[62], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[62], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[63], val + this.arr[i], '0%');
-              }
-              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
-              } else {
-                this.$set(this.tableP[64], val + this.arr[i], '0%');
               }
             },
           );
@@ -2850,6 +2850,354 @@
         this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
 
       },
+      // computedSum() {
+      //   let tableOTotal = {};
+      //   let tableOTotal1 = {};
+      //   let tableOTotal2 = {};
+      //   let tableOTotal3 = {};
+      //   let tableOTotal4 = {};
+      //   let tableOtotal5 = {};
+      //   let tableOtotal6 = {};
+      //   let tableOtotal7 = {}; //消耗品费
+      //   let _tableO3 = {}; //交通费
+      //   let _tableO2 = {};
+      //   let _tableO1 = {};
+      //   let _travel = {};
+      //   this.tableO3.forEach(
+      //     val => {
+      //       if (val.type === 'PJ108001') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _tableO3['money' + i] = Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //     },
+      //   );
+      //   this.tableO1.forEach(
+      //     val => {
+      //       if (val.type === 'PJ106001') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _tableO1['money' + i] = Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //     },
+      //   );
+      //   if (this.travel.length > 0) {
+      //     for (let i = 1; i <= 12; i++) {
+      //       _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(this.travel[0]['money' + i] || 0);
+      //     }
+      //   }
+      //   this.tableO2.forEach(
+      //     val => {
+      //       if (val.type === 'PJ107001') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ107002') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _tableO2['money' + i] = Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //     },
+      //   );
+      //   this.tableO.forEach(
+      //     val => {
+      //       if (val.type === 'PJ111012') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOTotal['money' + i] = Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111008') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOTotal1['money' + i] = Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111006') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOTotal2['money' + i] = Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111003') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOTotal3['money' + i] = Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111007') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOTotal4['money' + i] = Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111009') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOtotal5['money' + i] = Number(tableOtotal5['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111010') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOtotal6['money' + i] = Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111001') { //消耗品费
+      //         for (let i = 1; i <= 12; i++) {
+      //           tableOtotal7['money' + i] = Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111011') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _tableO1['money' + i] = Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111005') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _tableO3['money' + i] = Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111002') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //       if (val.type === 'PJ111004') {
+      //         for (let i = 1; i <= 12; i++) {
+      //           _tableO2['money' + i] = Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0);
+      //         }
+      //       }
+      //     });
+      //   for (let i = 0; i < this.arr.length; i++) {
+      //     this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
+      //     if (this.sumB2.length > 0) {
+      //       if (i <= 5) {
+      //         this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+      //       } else {
+      //         this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+      //       }
+      //     }
+      //     this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
+      //     if (this.sumB1.length > 0) {
+      //       if (i <= 5) {
+      //         this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+      //       } else {
+      //         this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+      //       }
+      //     }
+      //     this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
+      //     if (this.tableA.length > 0) {
+      //       this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+      //     } else {
+      //       this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[0], 'actual' + this.arr[i], this.tableP[0]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[1], 'actual' + this.arr[i], this.tableP[1]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[2], 'actual' + this.arr[i], this.tableP[2]['actual' + this.arr[i]] || '0.00');
+      //     if (this.groupA1.length > 0) {
+      //       this.$set(this.tableP[0], 'money' + this.arr[i], Number(this.groupA1[0]['money' + this.arr[i]] || 0).toFixed(2));
+      //       this.$set(this.tableP[1], 'money' + this.arr[i], Number(this.groupA1[1]['money' + this.arr[i]] || 0).toFixed(2));
+      //       this.$set(this.tableP[2], 'money' + this.arr[i], Number(this.groupA1[2]['money' + this.arr[i]] || 0).toFixed(2));
+      //     } else {
+      //       this.$set(this.tableP[0], 'money' + this.arr[i], '0.00');
+      //       this.$set(this.tableP[1], 'money' + this.arr[i], '0.00');
+      //       this.$set(this.tableP[2], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[3], 'actual' + this.arr[i], this.tableP[3]['actual' + this.arr[i]] || '0.00');
+      //     if (this.sumA2.length > 0) {
+      //       if (i <= 5) {
+      //         this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[3 + 2 * i] || 0).toFixed(2));
+      //       } else {
+      //         this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[5 + 2 * i] || 0).toFixed(2));
+      //       }
+      //     } else {
+      //       this.$set(this.tableP[3], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[4], 'money' + this.arr[i], (Number(this.tableP[0]['money' + this.arr[i]]) + Number(this.tableP[1]['money' + this.arr[i]]) + Number(this.tableP[2]['money' + this.arr[i]]) + Number(this.tableP[3]['money' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[4], 'actual' + this.arr[i], (Number(this.tableP[0]['actual' + this.arr[i]]) + Number(this.tableP[1]['actual' + this.arr[i]]) + Number(this.tableP[2]['actual' + this.arr[i]]) + Number(this.tableP[3]['actual' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[5], 'money' + this.arr[i], (Number(this.tableP[4]['money' + this.arr[i]]) - (Number(this.tableP[1]['money' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['money' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
+      //     this.$set(this.tableP[5], 'actual' + this.arr[i], (Number(this.tableP[4]['actual' + this.arr[i]]) - (Number(this.tableP[1]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
+      //
+      //     this.$set(this.tableP[6], 'actual' + this.arr[i], this.tableP[6]['actual' + this.arr[i]] || '0.00');
+      //     if (this.tableB.length > 0) {
+      //       this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableB[0]['pay' + this.arr[i]]) + Number(this.tableB[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
+      //     } else {
+      //       this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[7], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[7], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[8], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[8], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[9], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[9], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[10], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[10], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[11], 'actual' + this.arr[i], '0.00');
+      //     if (i === 0) {
+      //       this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
+      //     } else {
+      //       if (i === 4) {
+      //         this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+      //       } else {
+      //         this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
+      //       }
+      //     }
+      //     this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[12], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[13], 'actual' + this.arr[i], (Number(this.tableP[6]['actual' + this.arr[i]]) + Number(this.tableP[11]['actual' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[13], 'money' + this.arr[i], (Number(this.tableP[6]['money' + this.arr[i]]) + Number(this.tableP[11]['money' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[14], 'actual' + this.arr[i], this.tableP[14]['actual' + this.arr[i]] || '0.00');
+      //     if (this.assets1.length > 0) {
+      //       this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
+      //     } else {
+      //       this.$set(this.tableP[14], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[15], 'actual' + this.arr[i], this.tableP[15]['actual' + this.arr[i]] || '0.00');
+      //     if (this.assets2.length > 0) {
+      //       this.$set(this.tableP[15], 'money' + this.arr[i], (Number(this.assets2[0]['money' + this.arr[i]] || 0)).toFixed(2));
+      //     } else {
+      //       this.$set(this.tableP[15], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[16], 'actual' + this.arr[i], this.tableP[16]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[16], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[17], 'actual' + this.arr[i], this.tableP[17]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[17], 'money' + this.arr[i], Number(tableOTotal1['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[18], 'actual' + this.arr[i], this.tableP[18]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[18], 'money' + this.arr[i], Number(tableOTotal2['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[19], 'actual' + this.arr[i], this.tableP[19]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[19], 'money' + this.arr[i], Number(tableOTotal3['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[20], 'actual' + this.arr[i], (Number(this.tableP[14]['actual' + this.arr[i]]) + Number(this.tableP[15]['actual' + this.arr[i]]) + Number(this.tableP[16]['actual' + this.arr[i]]) + Number(this.tableP[17]['actual' + this.arr[i]]) + Number(this.tableP[18]['actual' + this.arr[i]]) + Number(this.tableP[19]['actual' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[21], 'actual' + this.arr[i], this.tableP[21]['actual' + this.arr[i]] || '0.00');
+      //     if (this.sumC1.length > 0) {
+      //       if (i <= 5) {
+      //         this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[3 + 2 * i] || 0).toFixed(2));
+      //       } else {
+      //         this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[5 + 2 * i] || 0).toFixed(2));
+      //       }
+      //     } else {
+      //       this.$set(this.tableP[21], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[22], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[23], 'actual' + this.arr[i], this.tableP[23]['actual' + this.arr[i]] || '0.00');
+      //     if (this.sumB3.length > 0) {
+      //       if (i <= 5) {
+      //         this.$set(this.tableP[23], 'money' + this.arr[i], Number(this.sumB3[3 + 2 * i] || 0).toFixed(2));
+      //       } else {
+      //         this.$set(this.tableP[23], 'money' + this.arr[i], Number(this.sumB3[5 + 2 * i] || 0).toFixed(2));
+      //       }
+      //     } else {
+      //       this.$set(this.tableP[23], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[24], 'actual' + this.arr[i], this.tableP[24]['actual' + this.arr[i]] || '0.00');
+      //     if (this.sumB1.length > 0 && this.sumB2.length > 0) {
+      //       if (i <= 5) {
+      //         this.$set(this.tableP[24], 'money' + this.arr[i], (Number(this.sumB1[3 + 2 * i] || 0) + Number(this.sumB2[3 + 2 * i] || 0)).toFixed(2));
+      //       } else {
+      //         this.$set(this.tableP[24], 'money' + this.arr[i], (Number(this.sumB1[5 + 2 * i] || 0) + Number(this.sumB2[5 + 2 * i] || 0)).toFixed(2));
+      //       }
+      //     } else {
+      //       this.$set(this.tableP[24], 'money' + this.arr[i], '0.00');
+      //     }
+      //     this.$set(this.tableP[25], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
+      //     this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[29], 'actual' + this.arr[i], '0.00');
+      //     this.$set(this.tableP[30], 'money' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
+      //     this.$set(this.tableP[30], 'actual' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
+      //     this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[31], 'actual' + this.arr[i], this.tableP[31]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[32], 'actual' + this.arr[i], this.tableP[32]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[33], 'actual' + this.arr[i], this.tableP[33]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal7['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[34], 'actual' + this.arr[i], this.tableP[34]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[35], 'actual' + this.arr[i], this.tableP[35]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOtotal5['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[36], 'actual' + this.arr[i], this.tableP[36]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[37], 'actual' + this.arr[i], this.tableP[37]['actual' + this.arr[i]] || '0.00');
+      //     this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
+      //     this.$set(this.tableP[38], 'actual' + this.arr[i], this.tableP[38]['actual' + this.arr[i]] || '0.00');
+      //     ['money', 'actual'].forEach(
+      //       val => {
+      //         this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
+      //           Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[5][val + this.arr[i]]) * 0.75).toFixed(2));
+      //
+      //         this.$set(this.tableP[41], val + this.arr[i], (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
+      //           Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[39][val + this.arr[i]]) + Number(this.tableP[40][val + this.arr[i]] || 0)).toFixed(2));
+      //         this.$set(this.tableP[42], val + this.arr[i], (Number(this.tableP[13][val + this.arr[i]]) + Number(this.tableP[20][val + this.arr[i]]) + Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[30][val + this.arr[i]]) + Number(this.tableP[41][val + this.arr[i]])).toFixed(2)); //合计
+      //
+      //         this.$set(this.tableP[43], val + this.arr[i], (Number(this.tableP[5][val + this.arr[i]]) - Number(this.tableP[42][val + this.arr[i]])).toFixed(2));
+      //         this.$set(this.tableP[46], val + this.arr[i], (Number(this.tableP[44][val + this.arr[i]] || 0) + Number(this.tableP[45][val + this.arr[i]] || 0)).toFixed(2));
+      //         this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
+      //         this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
+      //
+      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+      //           this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+      //         } else {
+      //           this.$set(this.tableP[59], val + this.arr[i], '0%');
+      //         }
+      //
+      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+      //           this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+      //         } else {
+      //           this.$set(this.tableP[60], val + this.arr[i], '0%');
+      //         }
+      //         if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+      //           this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
+      //         } else {
+      //           this.$set(this.tableP[61], val + this.arr[i], '0%');
+      //         }
+      //         if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+      //           this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
+      //         } else {
+      //           this.$set(this.tableP[62], val + this.arr[i], '0%');
+      //         }
+      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+      //           this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+      //         } else {
+      //           this.$set(this.tableP[63], val + this.arr[i], '0%');
+      //         }
+      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+      //           this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+      //         } else {
+      //           this.$set(this.tableP[64], val + this.arr[i], '0%');
+      //         }
+      //       },
+      //     );
+      //   }
+      //   if ((Number(this.tableP[5]['actual4']) + Number(this.tableP[5]['actual5']) + Number(this.tableP[5]['actual6'])) !== 0) {
+      //     this.$set(this.tableP[50], 'actual6', ((Number(this.tableP[43]['actual4']) + Number(this.tableP[43]['actual5']) + Number(this.tableP[43]['actual6'])) / (Number(this.tableP[5]['actual4']) + Number(this.tableP[5]['actual5']) + Number(this.tableP[5]['actual6']))).toFixed(2));
+      //   } else {
+      //     this.$set(this.tableP[50], 'actual6', '0.00');
+      //   }
+      //   if ((Number(this.tableP[5]['actual7']) + Number(this.tableP[5]['actual8']) + Number(this.tableP[5]['actual9'])) !== 0) {
+      //     this.$set(this.tableP[50], 'actual9', ((Number(this.tableP[43]['actual7']) + Number(this.tableP[43]['actual8']) + Number(this.tableP[43]['actual9'])) / (Number(this.tableP[5]['actual7']) + Number(this.tableP[5]['actual8']) + Number(this.tableP[5]['actual9']))).toFixed(2));
+      //   } else {
+      //     this.$set(this.tableP[50], 'actual9', '0.00');
+      //   }
+      //   if ((Number(this.tableP[5]['actual10']) + Number(this.tableP[5]['actual11']) + Number(this.tableP[5]['actual12'])) !== 0) {
+      //     this.$set(this.tableP[50], 'actual12', ((Number(this.tableP[43]['actual10']) + Number(this.tableP[43]['actual11']) + Number(this.tableP[43]['actual12'])) / (Number(this.tableP[5]['actual10']) + Number(this.tableP[5]['actual11']) + Number(this.tableP[5]['actual12']))).toFixed(2));
+      //   } else {
+      //     this.$set(this.tableP[50], 'actual12', '0.00');
+      //   }
+      //   if ((Number(this.tableP[5]['actual1']) + Number(this.tableP[5]['actual2']) + Number(this.tableP[5]['actual3'])) !== 0) {
+      //     this.$set(this.tableP[50], 'actual3', ((Number(this.tableP[43]['actual1']) + Number(this.tableP[43]['actual2']) + Number(this.tableP[43]['actual3'])) / (Number(this.tableP[5]['actual1']) + Number(this.tableP[5]['actual2']) + Number(this.tableP[5]['actual3']))).toFixed(2));
+      //   } else {
+      //     this.$set(this.tableP[50], 'actual3', '0.00');
+      //   }
+      //
+      //   this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
+      //   this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
+      //   this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
+      //   this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
+      //
+      // },
       getTravel(val) {
         this.travel = val;
       },
@@ -2896,7 +3244,7 @@
               rowspan: 37,
               colspan: 1,
             };
-          } else if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
+          } else if ([43, 47, 48, 49, 50].includes(rowIndex)) {
             return {
               rowspan: 1,
               colspan: 2,
@@ -2906,17 +3254,17 @@
               rowspan: 1,
               colspan: 1,
             };
-          } else if (rowIndex === 52) {
+          } else if (rowIndex === 51) {
             return {
               rowspan: 3,
               colspan: 1,
             };
-          } else if (rowIndex === 55) {
+          } else if (rowIndex === 54) {
             return {
               rowspan: 4,
               colspan: 1,
             };
-          } else if (rowIndex === 59) {
+          } else if (rowIndex === 58) {
             return {
               rowspan: 6,
               colspan: 1,
@@ -2928,7 +3276,7 @@
             };
           }
         } else if (columnIndex === 1) {
-          if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
+          if ([43, 47, 48, 49, 50].includes(rowIndex)) {
             return {
               rowspan: 0,
               colspan: 0,
@@ -2953,12 +3301,10 @@
           } else if (index === 50) {
             return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
           } else if (index === 51) {
-            return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
-          } else if (index === 52) {
             return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-          } else if (index === 55) {
+          } else if (index === 54) {
             return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
-          } else if (index === 59) {
+          } else if (index === 58) {
             return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
           }
         } else if (column.property === 'name1') {
@@ -2969,6 +3315,91 @@
           }
         }
       },
+      // objectSpanMethod({row, column, rowIndex, columnIndex}) {
+      //   if (columnIndex === 0) {
+      //     if (rowIndex === 0) {
+      //       return {
+      //         rowspan: 6,
+      //         colspan: 1,
+      //       };
+      //     } else if (rowIndex === 6) {
+      //       return {
+      //         rowspan: 37,
+      //         colspan: 1,
+      //       };
+      //     } else if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
+      //       return {
+      //         rowspan: 1,
+      //         colspan: 2,
+      //       };
+      //     } else if ([44, 45, 46].includes(rowIndex)) {
+      //       return {
+      //         rowspan: 1,
+      //         colspan: 1,
+      //       };
+      //     } else if (rowIndex === 52) {
+      //       return {
+      //         rowspan: 3,
+      //         colspan: 1,
+      //       };
+      //     } else if (rowIndex === 55) {
+      //       return {
+      //         rowspan: 4,
+      //         colspan: 1,
+      //       };
+      //     } else if (rowIndex === 59) {
+      //       return {
+      //         rowspan: 6,
+      //         colspan: 1,
+      //       };
+      //     } else {
+      //       return {
+      //         rowspan: 0,
+      //         colspan: 0,
+      //       };
+      //     }
+      //   } else if (columnIndex === 1) {
+      //     if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
+      //       return {
+      //         rowspan: 0,
+      //         colspan: 0,
+      //       };
+      //     }
+      //   }
+      // },
+      // formatterDir(row, column, cellValue, index) {
+      //   if (column.property === 'name') {
+      //     if ([0, 1, 2, 3, 4, 5].includes(index)) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
+      //     } else if (index === 6) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB2VALUE1');
+      //     } else if (index === 43) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB3VALUE1');
+      //     } else if (index === 47) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB4VALUE1');
+      //     } else if (index === 48) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB5VALUE1');
+      //     } else if (index === 49) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB6VALUE1');
+      //     } else if (index === 50) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
+      //     } else if (index === 51) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
+      //     } else if (index === 52) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
+      //     } else if (index === 55) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
+      //     } else if (index === 59) {
+      //       return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
+      //     }
+      //   } else if (column.property === 'name1') {
+      //     if (getDictionaryInfo(row[column.property])) {
+      //       return getDictionaryInfo(row[column.property]).value1;
+      //     } else {
+      //       return row[column.property];
+      //     }
+      //   }
+      // },
       getgroupA2() {
         let parameter = {
           year: this.form.year,
