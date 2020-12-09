@@ -57,7 +57,7 @@
                                          prop="giving4">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour4">-->
+                        <!--prop="workinghour4">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.May')" align="center" width="110">
@@ -68,7 +68,7 @@
                                          prop="giving5">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour5">-->
+                        <!--prop="workinghour5">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.June')" align="center" width="110">
@@ -79,7 +79,7 @@
                                          prop="giving6">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour6">-->
+                        <!--prop="workinghour6">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.July')" align="center" width="110">
@@ -90,7 +90,7 @@
                                          prop="giving7">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour7">-->
+                        <!--prop="workinghour7">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.August')" align="center" width="110">
@@ -101,7 +101,7 @@
                                          prop="giving8">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour8">-->
+                        <!--prop="workinghour8">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.September')" align="center" width="110">
@@ -112,7 +112,7 @@
                                          prop="giving9">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour9">-->
+                        <!--prop="workinghour9">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
@@ -123,7 +123,7 @@
                                          prop="givingfirst">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghourfirst">-->
+                        <!--prop="workinghourfirst">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.October')" align="center" width="110">
@@ -134,7 +134,7 @@
                                          prop="giving10">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour10">-->
+                        <!--prop="workinghour10">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.November')" align="center" width="110">
@@ -145,7 +145,7 @@
                                          prop="giving11">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour11">-->
+                        <!--prop="workinghour11">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.December')" align="center" width="110">
@@ -156,7 +156,7 @@
                                          prop="giving12">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour12">-->
+                        <!--prop="workinghour12">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.January')" align="center" width="110">
@@ -167,7 +167,7 @@
                                          prop="giving1">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour1">-->
+                        <!--prop="workinghour1">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.February')" align="center" width="110">
@@ -178,7 +178,7 @@
                                          prop="giving2">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour2">-->
+                        <!--prop="workinghour2">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.March')" align="center" width="110">
@@ -189,7 +189,7 @@
                                          prop="giving3">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour3">-->
+                        <!--prop="workinghour3">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
@@ -200,7 +200,7 @@
                                          prop="givingsecond">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghoursecond">-->
+                        <!--prop="workinghoursecond">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
@@ -211,137 +211,137 @@
                                          prop="givingtotal">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghourtotal">-->
+                        <!--prop="workinghourtotal">-->
                         <!--</el-table-column>-->
                       </el-table-column>
                     </el-table>
                     <!--<el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" :summary-method="getPrecent"-->
-                              <!--show-summary style="padding-top: 4%" stripe>-->
-                      <!--<el-table-column>-->
-                        <!--<el-table-column align="center" width="120" prop="total1" :formatter="formatterColumn"-->
-                                         <!--:label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.April')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay4">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving4">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.May')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay5">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving5">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.June')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay6">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving6">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.July')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay7">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving7">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.August')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay8">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving8">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.September')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay9">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving9">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="payfirst">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="givingfirst">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.October')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay10">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving10">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.November')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay11">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving11">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.December')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay12">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving12">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.January')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay1">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving1">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.February')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay2">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving2">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.March')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay3">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="giving3">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="paysecond">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="givingsecond">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="paytotal">-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
-                                         <!--prop="givingtotal">-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
+                    <!--show-summary style="padding-top: 4%" stripe>-->
+                    <!--<el-table-column>-->
+                    <!--<el-table-column align="center" width="120" prop="total1" :formatter="formatterColumn"-->
+                    <!--:label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.April')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay4">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving4">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.May')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay5">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving5">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.June')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay6">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving6">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.July')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay7">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving7">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.August')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay8">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving8">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.September')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay9">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving9">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="payfirst">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="givingfirst">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.October')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay10">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving10">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.November')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay11">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving11">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.December')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay12">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving12">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.January')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay1">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving1">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.February')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay2">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving2">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.March')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay3">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving3">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="paysecond">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="givingsecond">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="paytotal">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="givingtotal">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
                     <!--</el-table>-->
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
@@ -369,10 +369,10 @@
                                          prop="amount4">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour4">-->
+                        <!--prop="workinghour4">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay4">-->
+                        <!--prop="pay4">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving4">
@@ -383,10 +383,10 @@
                                          prop="amount5">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour5">-->
+                        <!--prop="workinghour5">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay5">-->
+                        <!--prop="pay5">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving5">
@@ -397,10 +397,10 @@
                                          prop="amount6">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour6">-->
+                        <!--prop="workinghour6">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay6">-->
+                        <!--prop="pay6">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving6">
@@ -411,10 +411,10 @@
                                          prop="amount7">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour7">-->
+                        <!--prop="workinghour7">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay7">-->
+                        <!--prop="pay7">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving7">
@@ -425,10 +425,10 @@
                                          prop="amount8">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour8">-->
+                        <!--prop="workinghour8">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay8">-->
+                        <!--prop="pay8">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving8">
@@ -439,10 +439,10 @@
                                          prop="amount9">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour9">-->
+                        <!--prop="workinghour9">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay9">-->
+                        <!--prop="pay9">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving9">
@@ -453,10 +453,10 @@
                                          prop="amountfirst">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghourfirst">-->
+                        <!--prop="workinghourfirst">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="payfirst">-->
+                        <!--prop="payfirst">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingfirst">
@@ -467,10 +467,10 @@
                                          prop="amount10">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour10">-->
+                        <!--prop="workinghour10">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay10">-->
+                        <!--prop="pay10">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving10">
@@ -481,10 +481,10 @@
                                          prop="amount11">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour11">-->
+                        <!--prop="workinghour11">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay11">-->
+                        <!--prop="pay11">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving11">
@@ -495,10 +495,10 @@
                                          prop="amount12">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour12">-->
+                        <!--prop="workinghour12">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay12">-->
+                        <!--prop="pay12">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving12">
@@ -509,10 +509,10 @@
                                          prop="amount1">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour1">-->
+                        <!--prop="workinghour1">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay1">-->
+                        <!--prop="pay1">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving1">
@@ -523,10 +523,10 @@
                                          prop="amount2">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour2">-->
+                        <!--prop="workinghour2">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay2">-->
+                        <!--prop="pay2">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving2">
@@ -537,10 +537,10 @@
                                          prop="amount3">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour3">-->
+                        <!--prop="workinghour3">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay3">-->
+                        <!--prop="pay3">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving3">
@@ -551,10 +551,10 @@
                                          prop="amountsecond">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghoursecond">-->
+                        <!--prop="workinghoursecond">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="paysecond">-->
+                        <!--prop="paysecond">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingsecond">
@@ -565,10 +565,10 @@
                                          prop="amounttotal">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghourtotal">-->
+                        <!--prop="workinghourtotal">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="paytotal">-->
+                        <!--prop="paytotal">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingtotal">
@@ -601,10 +601,10 @@
                                          prop="amount4">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour4">-->
+                        <!--prop="workinghour4">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay4">-->
+                        <!--prop="pay4">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving4">
@@ -615,10 +615,10 @@
                                          prop="amount5">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour5">-->
+                        <!--prop="workinghour5">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay5">-->
+                        <!--prop="pay5">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving5">
@@ -629,10 +629,10 @@
                                          prop="amount6">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour6">-->
+                        <!--prop="workinghour6">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay6">-->
+                        <!--prop="pay6">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving6">
@@ -643,10 +643,10 @@
                                          prop="amount7">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour7">-->
+                        <!--prop="workinghour7">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay7">-->
+                        <!--prop="pay7">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving7">
@@ -657,10 +657,10 @@
                                          prop="amount8">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour8">-->
+                        <!--prop="workinghour8">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay8">-->
+                        <!--prop="pay8">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving8">
@@ -671,10 +671,10 @@
                                          prop="amount9">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour9">-->
+                        <!--prop="workinghour9">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay9">-->
+                        <!--prop="pay9">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving9">
@@ -685,10 +685,10 @@
                                          prop="amountfirst">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghourfirst">-->
+                        <!--prop="workinghourfirst">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="payfirst">-->
+                        <!--prop="payfirst">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingfirst">
@@ -699,10 +699,10 @@
                                          prop="amount10">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour10">-->
+                        <!--prop="workinghour10">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay10">-->
+                        <!--prop="pay10">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving10">
@@ -713,10 +713,10 @@
                                          prop="amount11">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour11">-->
+                        <!--prop="workinghour11">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay11">-->
+                        <!--prop="pay11">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving11">
@@ -727,10 +727,10 @@
                                          prop="amount12">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour12">-->
+                        <!--prop="workinghour12">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay12">-->
+                        <!--prop="pay12">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving12">
@@ -741,10 +741,10 @@
                                          prop="amount1">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour1">-->
+                        <!--prop="workinghour1">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay1">-->
+                        <!--prop="pay1">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving1">
@@ -755,10 +755,10 @@
                                          prop="amount2">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour2">-->
+                        <!--prop="workinghour2">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay2">-->
+                        <!--prop="pay2">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving2">
@@ -769,10 +769,10 @@
                                          prop="amount3">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghour3">-->
+                        <!--prop="workinghour3">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="pay3">-->
+                        <!--prop="pay3">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving3">
@@ -783,10 +783,10 @@
                                          prop="amountsecond">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghoursecond">-->
+                        <!--prop="workinghoursecond">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="paysecond">-->
+                        <!--prop="paysecond">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingsecond">
@@ -797,10 +797,10 @@
                                          prop="amounttotal">
                         </el-table-column>
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
-                                         <!--prop="workinghourtotal">-->
+                        <!--prop="workinghourtotal">-->
                         <!--</el-table-column>-->
                         <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
-                                         <!--prop="paytotal">-->
+                        <!--prop="paytotal">-->
                         <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingtotal">
@@ -2240,33 +2240,54 @@
         tableO2: [{}],
         tableO3: [{}],
         tableO: [{}],
-        tableP: [{name1: 'PJ086001'}, {name1: 'PJ086002'}, {name1: 'PJ086003'}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE3')}
-          , {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE4')}, {name1: 'PJ073001'}, {name1: '-'}, {name1: '-'}, {name1: '-'}, {name1: '-'}, {name1: 'PJ073002'}, {name1: '-'}, {name1: 'PJ073'}, {name1: 'PJ074001'}, {name1: 'PJ074002'}, {name1: 'PJ074003'},
-          {name1: 'PJ074004'}, {name1: 'PJ074005'}, {name1: 'PJ074006'}, {name1: 'PJ074'}, {name1: 'PJ075001'}, {name1: 'PJ075002'}, {name1: 'PJ075003'}, {name1: 'PJ075004'}, {name1: 'PJ075005'},
-          {name1: 'PJ075'}, {name1: 'PJ076001'}, {name1: 'PJ076002'}, {name1: 'PJ076003'}, {name1: 'PJ076'}, {name1: 'PJ077001'}, {name1: 'PJ077002'}, {name1: 'PJ077003'}, {name1: 'PJ077004'}, {name1: 'PJ077005'},
-          {name1: 'PJ077006'}, {name1: 'PJ077007'}, {name1: 'PJ077008'}, {name1: 'PJ077009'}, {
+        tableP: [{name1: 'PJ086001'}, {name1: 'PJ086002'}, {name1: 'PJ086003'},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE3')}
+          , {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE4')}, {name1: 'PJ073001'},
+          {name1: '-'}, {name1: '-'}, {name1: '-'}, {name1: '-'},
+          {name1: 'PJ073002'}, {name1: '-'}, {name1: 'PJ073'}, {name1: 'PJ074001'}, {name1: 'PJ074002'}, {name1: 'PJ074003'},
+          {name1: 'PJ074004'}, {name1: 'PJ074005'}, {name1: 'PJ074006'},
+          {name1: 'PJ074'}, {name1: 'PJ075001'}, {name1: 'PJ075002'}, {name1: 'PJ075003'}, {name1: 'PJ075004'}, {name1: 'PJ075005'},
+          {name1: 'PJ075'}, {name1: 'PJ076001'},
+          {name1: 'PJ076002'}, {name1: 'PJ076003'}, {name1: 'PJ076'}, {name1: 'PJ077001'},
+          {name1: 'PJ077002'}, {name1: 'PJ077003'}, {name1: 'PJ077004'}, {name1: 'PJ077005'},
+          {name1: 'PJ077006'}, {name1: 'PJ077007'}, {name1: 'PJ077008'}, {name1: 'PJ077009'},
+          {
             name1: 'PJ077010',
             type: 40,
-          }, {name1: 'PJ077'}, {name1: this.$t('label.PFANS2005FORMVIEW_TOTAL')}, {}, {
+          },
+          {name1: 'PJ077'}, {name1: this.$t('label.PFANS2005FORMVIEW_TOTAL')}, {},
+          {
             name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE2'),
             type: 44,
-          }
-          , {
+          },
+          {
             name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE3'),
             type: 45,
-          }, {name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE4')}, {}, {type: 48}, {}, {}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
-          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE3')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE4')},
+          },
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE4')}, {}, {type: 48}, {}, {},
+          {name1: this.$t('label.PFANS1042FORMVIEW_BENEFITRATE')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE3')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE4')},
           {
             name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE2'),
-            type: 54,
-          }, {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),
             type: 55,
-          }, {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),
+          },
+          {
+            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),
             type: 56,
-          }, {name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'), type: 57},
-          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE3')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE4')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE5')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE6')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE9')},
+          },
+          {
+            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),
+            type: 57,
+          },
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'), type: 58},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE2')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE3')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE4')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE5')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE6')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE9')},
         ],
         baseInfo: {},
         form: {
@@ -2528,11 +2549,14 @@
                 } else if (val.code === 'neibuhetong') {
                   Object.assign(this.tableP[24], val);
                 } else if (val.code === 'worktime') {
-                  Object.assign(this.tableP[52], val);
-                } else if (val.code === 'worktime0') {
                   Object.assign(this.tableP[53], val);
-                } else if (val.code === 'worktime1') {
+                  // Object.assign(this.tableP[52], val);
+                } else if (val.code === 'worktime0') {
                   Object.assign(this.tableP[54], val);
+                  //   Object.assign(this.tableP[53], val);
+                } else if (val.code === 'worktime1') {
+                  Object.assign(this.tableP[55], val);
+                  // Object.assign(this.tableP[54], val);
                 }
               },
             );
@@ -2560,6 +2584,7 @@
         let _tableO2 = {};
         let _tableO1 = {};
         let _travel = {};
+        //研修
         this.tableO3.forEach(
           val => {
             if (val.type === 'PJ108001') {
@@ -2569,6 +2594,7 @@
             }
           },
         );
+        //通信
         this.tableO1.forEach(
           val => {
             if (val.type === 'PJ106001') {
@@ -2578,11 +2604,13 @@
             }
           },
         );
+        //旅费交通费下方合计
         if (this.travel.length > 0) {
           for (let i = 1; i <= 12; i++) {
             _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(this.travel[0]['money' + i] || 0);
           }
         }
+        // 採用
         this.tableO2.forEach(
           val => {
             if (val.type === 'PJ107001') {
@@ -2597,6 +2625,7 @@
             }
           },
         );
+        //各种经费
         this.tableO.forEach(
           val => {
             if (val.type === 'PJ111012') {
@@ -2659,35 +2688,55 @@
                 _tableO2['money' + i] = Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0);
               }
             }
-          });
+          },
+        );
+
         for (let i = 0; i < this.arr.length; i++) {
-          this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
+          // this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
+          //项目计划得支出 - 構外委託（B2）最下方合计
           if (this.sumB2.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+              // this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+              // this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
+          this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
+          //this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
+          //项目计划得支出 - 構内委託（B1）最下方合计
           if (this.sumB1.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+              // this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+              // this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
+          // this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
+          //人员计划合计上半个
           if (this.tableA.length > 0) {
-            this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
             this.$set(this.tableP[6], 'money' + this.arr[i], (Number(this.tableB[0]['giving' + this.arr[i]]) / 1000).toFixed(2));
           } else {
-            this.$set(this.tableP[53], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
             this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
           }
+          // if (this.tableA.length > 0) {
+          //   this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+          //   // this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+          // } else {
+          //   this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
+          //   // this.$set(this.tableP[53], 'money' + this.arr[i], '0.00');
+          // }
           this.$set(this.tableP[0], 'actual' + this.arr[i], this.tableP[0]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[1], 'actual' + this.arr[i], this.tableP[1]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[2], 'actual' + this.arr[i], this.tableP[2]['actual' + this.arr[i]] || '0.00');
+          //项目计划収入－外部受託（A1）表
           if (this.groupA1.length > 0) {
             this.$set(this.tableP[0], 'money' + this.arr[i], Number(this.groupA1[0]['money' + this.arr[i]] || 0).toFixed(2));
             this.$set(this.tableP[1], 'money' + this.arr[i], Number(this.groupA1[1]['money' + this.arr[i]] || 0).toFixed(2));
@@ -2698,6 +2747,7 @@
             this.$set(this.tableP[2], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[3], 'actual' + this.arr[i], this.tableP[3]['actual' + this.arr[i]] || '0.00');
+          //项目计划収入－内部受託（A2）合计
           if (this.sumA2.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[3 + 2 * i] || 0).toFixed(2));
@@ -2713,6 +2763,7 @@
           this.$set(this.tableP[5], 'actual' + this.arr[i], (Number(this.tableP[4]['actual' + this.arr[i]]) - (Number(this.tableP[1]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
 
           this.$set(this.tableP[6], 'actual' + this.arr[i], this.tableP[6]['actual' + this.arr[i]] || '0.00');
+          //人员计划合计下半个
           // if (this.tableB.length > 0) {
           //   this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableB[0]['pay' + this.arr[i]]) + Number(this.tableB[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
           // } else {
@@ -2728,12 +2779,15 @@
           this.$set(this.tableP[10], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[11], 'actual' + this.arr[i], '0.00');
           if (i === 0) {
-            this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
+            this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2);
+            // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
           } else {
             if (i === 4) {
-              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]])) + Number(this.tableP[54]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+              // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
             } else {
-              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
+              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]]))).toFixed(2);
+              // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
             }
           }
           this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
@@ -2741,12 +2795,14 @@
           this.$set(this.tableP[13], 'actual' + this.arr[i], (Number(this.tableP[6]['actual' + this.arr[i]]) + Number(this.tableP[11]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[13], 'money' + this.arr[i], (Number(this.tableP[6]['money' + this.arr[i]]) + Number(this.tableP[11]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[14], 'actual' + this.arr[i], this.tableP[14]['actual' + this.arr[i]] || '0.00');
+          //设备投资赏却合计
           if (this.assets1.length > 0) {
             this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
           } else {
             this.$set(this.tableP[14], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[15], 'actual' + this.arr[i], this.tableP[15]['actual' + this.arr[i]] || '0.00');
+          //软件资产赏却合计
           if (this.assets2.length > 0) {
             this.$set(this.tableP[15], 'money' + this.arr[i], (Number(this.assets2[0]['money' + this.arr[i]] || 0)).toFixed(2));
           } else {
@@ -2763,6 +2819,7 @@
           this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[20], 'actual' + this.arr[i], (Number(this.tableP[14]['actual' + this.arr[i]]) + Number(this.tableP[15]['actual' + this.arr[i]]) + Number(this.tableP[16]['actual' + this.arr[i]]) + Number(this.tableP[17]['actual' + this.arr[i]]) + Number(this.tableP[18]['actual' + this.arr[i]]) + Number(this.tableP[19]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[21], 'actual' + this.arr[i], this.tableP[21]['actual' + this.arr[i]] || '0.00');
+          //项目计划支出 - 特别经费（C)  (千元）合计
           if (this.sumC1.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[3 + 2 * i] || 0).toFixed(2));
@@ -2775,6 +2832,7 @@
           this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[22], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[23], 'actual' + this.arr[i], this.tableP[23]['actual' + this.arr[i]] || '0.00');
+          //项目计划支出 - 構内委託（B3）合计
           if (this.sumB3.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[23], 'money' + this.arr[i], Number(this.sumB3[3 + 2 * i] || 0).toFixed(2));
@@ -2798,8 +2856,10 @@
           this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
+          // this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
+          // this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
@@ -2822,6 +2882,7 @@
           this.$set(this.tableP[37], 'actual' + this.arr[i], this.tableP[37]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[38], 'actual' + this.arr[i], this.tableP[38]['actual' + this.arr[i]] || '0.00');
+
           ['money', 'actual'].forEach(
             val => {
               this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
@@ -2835,38 +2896,73 @@
               this.$set(this.tableP[46], val + this.arr[i], (Number(this.tableP[44][val + this.arr[i]] || 0) + Number(this.tableP[45][val + this.arr[i]] || 0)).toFixed(2));
               this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
-
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[58], val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              //add
+              if (Number(this.tableP[5][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[5], val + this.arr[i], ((Number(this.tableP[5][val + this.arr[i]] || 0) - Number(this.tableP[13][val + this.arr[i]] || 0) - Number(this.tableP[24][val + this.arr[i]] || 0) - Number(this.tableP[32][val + this.arr[i]] || 0) - Number(this.tableP[21][val + this.arr[i]] || 0)) / (Number(this.tableP[5][val + this.arr[i]] || 0))).toFixed(2));
               } else {
-                this.$set(this.tableP[58], val + this.arr[i], '0%');
+                this.$set(this.tableP[51], val + this.arr[i], '0.00');
               }
-
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              //add
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[59], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[58], val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[58], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[60], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[59], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[61], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[62], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
+              //   this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[60], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[62], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
+              //   this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[61], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[63], val + this.arr[i], '0%');
               }
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[62], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[62], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+              } else {
+                this.$set(this.tableP[64], val + this.arr[i], '0%');
+              }
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[63], val + this.arr[i], '0%');
+              // }
             },
           );
         }
@@ -2890,361 +2986,32 @@
         } else {
           this.$set(this.tableP[50], 'actual3', '0.00');
         }
-
-        this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
-        this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
-        this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
-        this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
+        if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
+          this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money6', '0.00');
+        }
+        if ((Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9'])) !== 0) {
+          this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money9', '0.00');
+        }
+        if ((Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12'])) !== 0) {
+          this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money12', '0.00');
+        }
+        if ((Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3'])) !== 0) {
+          this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money3', '0.00');
+        }
+        // this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
+        // this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
+        // this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
+        // this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
 
       },
-      // computedSum() {
-      //   let tableOTotal = {};
-      //   let tableOTotal1 = {};
-      //   let tableOTotal2 = {};
-      //   let tableOTotal3 = {};
-      //   let tableOTotal4 = {};
-      //   let tableOtotal5 = {};
-      //   let tableOtotal6 = {};
-      //   let tableOtotal7 = {}; //消耗品费
-      //   let _tableO3 = {}; //交通费
-      //   let _tableO2 = {};
-      //   let _tableO1 = {};
-      //   let _travel = {};
-      //   this.tableO3.forEach(
-      //     val => {
-      //       if (val.type === 'PJ108001') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _tableO3['money' + i] = Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //     },
-      //   );
-      //   this.tableO1.forEach(
-      //     val => {
-      //       if (val.type === 'PJ106001') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _tableO1['money' + i] = Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //     },
-      //   );
-      //   if (this.travel.length > 0) {
-      //     for (let i = 1; i <= 12; i++) {
-      //       _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(this.travel[0]['money' + i] || 0);
-      //     }
-      //   }
-      //   this.tableO2.forEach(
-      //     val => {
-      //       if (val.type === 'PJ107001') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ107002') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _tableO2['money' + i] = Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //     },
-      //   );
-      //   this.tableO.forEach(
-      //     val => {
-      //       if (val.type === 'PJ111012') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOTotal['money' + i] = Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111008') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOTotal1['money' + i] = Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111006') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOTotal2['money' + i] = Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111003') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOTotal3['money' + i] = Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111007') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOTotal4['money' + i] = Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111009') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOtotal5['money' + i] = Number(tableOtotal5['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111010') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOtotal6['money' + i] = Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111001') { //消耗品费
-      //         for (let i = 1; i <= 12; i++) {
-      //           tableOtotal7['money' + i] = Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111011') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _tableO1['money' + i] = Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111005') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _tableO3['money' + i] = Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111002') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //       if (val.type === 'PJ111004') {
-      //         for (let i = 1; i <= 12; i++) {
-      //           _tableO2['money' + i] = Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0);
-      //         }
-      //       }
-      //     });
-      //   for (let i = 0; i < this.arr.length; i++) {
-      //     this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
-      //     if (this.sumB2.length > 0) {
-      //       if (i <= 5) {
-      //         this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
-      //       } else {
-      //         this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
-      //       }
-      //     }
-      //     this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
-      //     if (this.sumB1.length > 0) {
-      //       if (i <= 5) {
-      //         this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
-      //       } else {
-      //         this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
-      //       }
-      //     }
-      //     this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
-      //     if (this.tableA.length > 0) {
-      //       this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
-      //     } else {
-      //       this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[0], 'actual' + this.arr[i], this.tableP[0]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[1], 'actual' + this.arr[i], this.tableP[1]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[2], 'actual' + this.arr[i], this.tableP[2]['actual' + this.arr[i]] || '0.00');
-      //     if (this.groupA1.length > 0) {
-      //       this.$set(this.tableP[0], 'money' + this.arr[i], Number(this.groupA1[0]['money' + this.arr[i]] || 0).toFixed(2));
-      //       this.$set(this.tableP[1], 'money' + this.arr[i], Number(this.groupA1[1]['money' + this.arr[i]] || 0).toFixed(2));
-      //       this.$set(this.tableP[2], 'money' + this.arr[i], Number(this.groupA1[2]['money' + this.arr[i]] || 0).toFixed(2));
-      //     } else {
-      //       this.$set(this.tableP[0], 'money' + this.arr[i], '0.00');
-      //       this.$set(this.tableP[1], 'money' + this.arr[i], '0.00');
-      //       this.$set(this.tableP[2], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[3], 'actual' + this.arr[i], this.tableP[3]['actual' + this.arr[i]] || '0.00');
-      //     if (this.sumA2.length > 0) {
-      //       if (i <= 5) {
-      //         this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[3 + 2 * i] || 0).toFixed(2));
-      //       } else {
-      //         this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[5 + 2 * i] || 0).toFixed(2));
-      //       }
-      //     } else {
-      //       this.$set(this.tableP[3], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[4], 'money' + this.arr[i], (Number(this.tableP[0]['money' + this.arr[i]]) + Number(this.tableP[1]['money' + this.arr[i]]) + Number(this.tableP[2]['money' + this.arr[i]]) + Number(this.tableP[3]['money' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[4], 'actual' + this.arr[i], (Number(this.tableP[0]['actual' + this.arr[i]]) + Number(this.tableP[1]['actual' + this.arr[i]]) + Number(this.tableP[2]['actual' + this.arr[i]]) + Number(this.tableP[3]['actual' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[5], 'money' + this.arr[i], (Number(this.tableP[4]['money' + this.arr[i]]) - (Number(this.tableP[1]['money' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['money' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
-      //     this.$set(this.tableP[5], 'actual' + this.arr[i], (Number(this.tableP[4]['actual' + this.arr[i]]) - (Number(this.tableP[1]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
-      //
-      //     this.$set(this.tableP[6], 'actual' + this.arr[i], this.tableP[6]['actual' + this.arr[i]] || '0.00');
-      //     if (this.tableB.length > 0) {
-      //       this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableB[0]['pay' + this.arr[i]]) + Number(this.tableB[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
-      //     } else {
-      //       this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[7], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[7], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[8], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[8], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[9], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[9], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[10], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[10], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[11], 'actual' + this.arr[i], '0.00');
-      //     if (i === 0) {
-      //       this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
-      //     } else {
-      //       if (i === 4) {
-      //         this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
-      //       } else {
-      //         this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
-      //       }
-      //     }
-      //     this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[12], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[13], 'actual' + this.arr[i], (Number(this.tableP[6]['actual' + this.arr[i]]) + Number(this.tableP[11]['actual' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[13], 'money' + this.arr[i], (Number(this.tableP[6]['money' + this.arr[i]]) + Number(this.tableP[11]['money' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[14], 'actual' + this.arr[i], this.tableP[14]['actual' + this.arr[i]] || '0.00');
-      //     if (this.assets1.length > 0) {
-      //       this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
-      //     } else {
-      //       this.$set(this.tableP[14], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[15], 'actual' + this.arr[i], this.tableP[15]['actual' + this.arr[i]] || '0.00');
-      //     if (this.assets2.length > 0) {
-      //       this.$set(this.tableP[15], 'money' + this.arr[i], (Number(this.assets2[0]['money' + this.arr[i]] || 0)).toFixed(2));
-      //     } else {
-      //       this.$set(this.tableP[15], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[16], 'actual' + this.arr[i], this.tableP[16]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[16], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[17], 'actual' + this.arr[i], this.tableP[17]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[17], 'money' + this.arr[i], Number(tableOTotal1['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[18], 'actual' + this.arr[i], this.tableP[18]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[18], 'money' + this.arr[i], Number(tableOTotal2['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[19], 'actual' + this.arr[i], this.tableP[19]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[19], 'money' + this.arr[i], Number(tableOTotal3['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[20], 'actual' + this.arr[i], (Number(this.tableP[14]['actual' + this.arr[i]]) + Number(this.tableP[15]['actual' + this.arr[i]]) + Number(this.tableP[16]['actual' + this.arr[i]]) + Number(this.tableP[17]['actual' + this.arr[i]]) + Number(this.tableP[18]['actual' + this.arr[i]]) + Number(this.tableP[19]['actual' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[21], 'actual' + this.arr[i], this.tableP[21]['actual' + this.arr[i]] || '0.00');
-      //     if (this.sumC1.length > 0) {
-      //       if (i <= 5) {
-      //         this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[3 + 2 * i] || 0).toFixed(2));
-      //       } else {
-      //         this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[5 + 2 * i] || 0).toFixed(2));
-      //       }
-      //     } else {
-      //       this.$set(this.tableP[21], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[22], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[23], 'actual' + this.arr[i], this.tableP[23]['actual' + this.arr[i]] || '0.00');
-      //     if (this.sumB3.length > 0) {
-      //       if (i <= 5) {
-      //         this.$set(this.tableP[23], 'money' + this.arr[i], Number(this.sumB3[3 + 2 * i] || 0).toFixed(2));
-      //       } else {
-      //         this.$set(this.tableP[23], 'money' + this.arr[i], Number(this.sumB3[5 + 2 * i] || 0).toFixed(2));
-      //       }
-      //     } else {
-      //       this.$set(this.tableP[23], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[24], 'actual' + this.arr[i], this.tableP[24]['actual' + this.arr[i]] || '0.00');
-      //     if (this.sumB1.length > 0 && this.sumB2.length > 0) {
-      //       if (i <= 5) {
-      //         this.$set(this.tableP[24], 'money' + this.arr[i], (Number(this.sumB1[3 + 2 * i] || 0) + Number(this.sumB2[3 + 2 * i] || 0)).toFixed(2));
-      //       } else {
-      //         this.$set(this.tableP[24], 'money' + this.arr[i], (Number(this.sumB1[5 + 2 * i] || 0) + Number(this.sumB2[5 + 2 * i] || 0)).toFixed(2));
-      //       }
-      //     } else {
-      //       this.$set(this.tableP[24], 'money' + this.arr[i], '0.00');
-      //     }
-      //     this.$set(this.tableP[25], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
-      //     this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[29], 'actual' + this.arr[i], '0.00');
-      //     this.$set(this.tableP[30], 'money' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
-      //     this.$set(this.tableP[30], 'actual' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
-      //     this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[31], 'actual' + this.arr[i], this.tableP[31]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[32], 'actual' + this.arr[i], this.tableP[32]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[33], 'actual' + this.arr[i], this.tableP[33]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal7['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[34], 'actual' + this.arr[i], this.tableP[34]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[35], 'actual' + this.arr[i], this.tableP[35]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOtotal5['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[36], 'actual' + this.arr[i], this.tableP[36]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[37], 'actual' + this.arr[i], this.tableP[37]['actual' + this.arr[i]] || '0.00');
-      //     this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
-      //     this.$set(this.tableP[38], 'actual' + this.arr[i], this.tableP[38]['actual' + this.arr[i]] || '0.00');
-      //     ['money', 'actual'].forEach(
-      //       val => {
-      //         this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
-      //           Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[5][val + this.arr[i]]) * 0.75).toFixed(2));
-      //
-      //         this.$set(this.tableP[41], val + this.arr[i], (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
-      //           Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[39][val + this.arr[i]]) + Number(this.tableP[40][val + this.arr[i]] || 0)).toFixed(2));
-      //         this.$set(this.tableP[42], val + this.arr[i], (Number(this.tableP[13][val + this.arr[i]]) + Number(this.tableP[20][val + this.arr[i]]) + Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[30][val + this.arr[i]]) + Number(this.tableP[41][val + this.arr[i]])).toFixed(2)); //合计
-      //
-      //         this.$set(this.tableP[43], val + this.arr[i], (Number(this.tableP[5][val + this.arr[i]]) - Number(this.tableP[42][val + this.arr[i]])).toFixed(2));
-      //         this.$set(this.tableP[46], val + this.arr[i], (Number(this.tableP[44][val + this.arr[i]] || 0) + Number(this.tableP[45][val + this.arr[i]] || 0)).toFixed(2));
-      //         this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
-      //         this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
-      //
-      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-      //           this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
-      //         } else {
-      //           this.$set(this.tableP[59], val + this.arr[i], '0%');
-      //         }
-      //
-      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-      //           this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
-      //         } else {
-      //           this.$set(this.tableP[60], val + this.arr[i], '0%');
-      //         }
-      //         if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
-      //           this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
-      //         } else {
-      //           this.$set(this.tableP[61], val + this.arr[i], '0%');
-      //         }
-      //         if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
-      //           this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
-      //         } else {
-      //           this.$set(this.tableP[62], val + this.arr[i], '0%');
-      //         }
-      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
-      //           this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
-      //         } else {
-      //           this.$set(this.tableP[63], val + this.arr[i], '0%');
-      //         }
-      //         if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
-      //           this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
-      //         } else {
-      //           this.$set(this.tableP[64], val + this.arr[i], '0%');
-      //         }
-      //       },
-      //     );
-      //   }
-      //   if ((Number(this.tableP[5]['actual4']) + Number(this.tableP[5]['actual5']) + Number(this.tableP[5]['actual6'])) !== 0) {
-      //     this.$set(this.tableP[50], 'actual6', ((Number(this.tableP[43]['actual4']) + Number(this.tableP[43]['actual5']) + Number(this.tableP[43]['actual6'])) / (Number(this.tableP[5]['actual4']) + Number(this.tableP[5]['actual5']) + Number(this.tableP[5]['actual6']))).toFixed(2));
-      //   } else {
-      //     this.$set(this.tableP[50], 'actual6', '0.00');
-      //   }
-      //   if ((Number(this.tableP[5]['actual7']) + Number(this.tableP[5]['actual8']) + Number(this.tableP[5]['actual9'])) !== 0) {
-      //     this.$set(this.tableP[50], 'actual9', ((Number(this.tableP[43]['actual7']) + Number(this.tableP[43]['actual8']) + Number(this.tableP[43]['actual9'])) / (Number(this.tableP[5]['actual7']) + Number(this.tableP[5]['actual8']) + Number(this.tableP[5]['actual9']))).toFixed(2));
-      //   } else {
-      //     this.$set(this.tableP[50], 'actual9', '0.00');
-      //   }
-      //   if ((Number(this.tableP[5]['actual10']) + Number(this.tableP[5]['actual11']) + Number(this.tableP[5]['actual12'])) !== 0) {
-      //     this.$set(this.tableP[50], 'actual12', ((Number(this.tableP[43]['actual10']) + Number(this.tableP[43]['actual11']) + Number(this.tableP[43]['actual12'])) / (Number(this.tableP[5]['actual10']) + Number(this.tableP[5]['actual11']) + Number(this.tableP[5]['actual12']))).toFixed(2));
-      //   } else {
-      //     this.$set(this.tableP[50], 'actual12', '0.00');
-      //   }
-      //   if ((Number(this.tableP[5]['actual1']) + Number(this.tableP[5]['actual2']) + Number(this.tableP[5]['actual3'])) !== 0) {
-      //     this.$set(this.tableP[50], 'actual3', ((Number(this.tableP[43]['actual1']) + Number(this.tableP[43]['actual2']) + Number(this.tableP[43]['actual3'])) / (Number(this.tableP[5]['actual1']) + Number(this.tableP[5]['actual2']) + Number(this.tableP[5]['actual3']))).toFixed(2));
-      //   } else {
-      //     this.$set(this.tableP[50], 'actual3', '0.00');
-      //   }
-      //
-      //   this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
-      //   this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
-      //   this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
-      //   this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
-      //
-      // },
       getTravel(val) {
         this.travel = val;
       },
@@ -3291,7 +3058,7 @@
               rowspan: 37,
               colspan: 1,
             };
-          } else if ([43, 47, 48, 49, 50].includes(rowIndex)) {
+          } else if ([43, 47, 48, 49, 50, 51].includes(rowIndex)) {
             return {
               rowspan: 1,
               colspan: 2,
@@ -3301,17 +3068,17 @@
               rowspan: 1,
               colspan: 1,
             };
-          } else if (rowIndex === 51) {
+          } else if (rowIndex === 52) {
             return {
               rowspan: 3,
               colspan: 1,
             };
-          } else if (rowIndex === 54) {
+          } else if (rowIndex === 55) {
             return {
               rowspan: 4,
               colspan: 1,
             };
-          } else if (rowIndex === 58) {
+          } else if (rowIndex === 59) {
             return {
               rowspan: 6,
               colspan: 1,
@@ -3323,7 +3090,7 @@
             };
           }
         } else if (columnIndex === 1) {
-          if ([43, 47, 48, 49, 50].includes(rowIndex)) {
+          if ([43, 47, 48, 49, 50, 51].includes(rowIndex)) {
             return {
               rowspan: 0,
               colspan: 0,
@@ -3348,10 +3115,12 @@
           } else if (index === 50) {
             return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
           } else if (index === 51) {
+            return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
+          } else if (index === 52) {
             return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-          } else if (index === 54) {
+          } else if (index === 55) {
             return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
-          } else if (index === 58) {
+          } else if (index === 59) {
             return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
           }
         } else if (column.property === 'name1') {
@@ -3362,91 +3131,6 @@
           }
         }
       },
-      // objectSpanMethod({row, column, rowIndex, columnIndex}) {
-      //   if (columnIndex === 0) {
-      //     if (rowIndex === 0) {
-      //       return {
-      //         rowspan: 6,
-      //         colspan: 1,
-      //       };
-      //     } else if (rowIndex === 6) {
-      //       return {
-      //         rowspan: 37,
-      //         colspan: 1,
-      //       };
-      //     } else if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
-      //       return {
-      //         rowspan: 1,
-      //         colspan: 2,
-      //       };
-      //     } else if ([44, 45, 46].includes(rowIndex)) {
-      //       return {
-      //         rowspan: 1,
-      //         colspan: 1,
-      //       };
-      //     } else if (rowIndex === 52) {
-      //       return {
-      //         rowspan: 3,
-      //         colspan: 1,
-      //       };
-      //     } else if (rowIndex === 55) {
-      //       return {
-      //         rowspan: 4,
-      //         colspan: 1,
-      //       };
-      //     } else if (rowIndex === 59) {
-      //       return {
-      //         rowspan: 6,
-      //         colspan: 1,
-      //       };
-      //     } else {
-      //       return {
-      //         rowspan: 0,
-      //         colspan: 0,
-      //       };
-      //     }
-      //   } else if (columnIndex === 1) {
-      //     if ([43, 47, 48, 49, 50,51].includes(rowIndex)) {
-      //       return {
-      //         rowspan: 0,
-      //         colspan: 0,
-      //       };
-      //     }
-      //   }
-      // },
-      // formatterDir(row, column, cellValue, index) {
-      //   if (column.property === 'name') {
-      //     if ([0, 1, 2, 3, 4, 5].includes(index)) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB1VALUE1');
-      //     } else if (index === 6) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB2VALUE1');
-      //     } else if (index === 43) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB3VALUE1');
-      //     } else if (index === 47) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB4VALUE1');
-      //     } else if (index === 48) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB5VALUE1');
-      //     } else if (index === 49) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB6VALUE1');
-      //     } else if (index === 50) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
-      //     } else if (index === 51) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
-      //     } else if (index === 52) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-      //     } else if (index === 55) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
-      //     } else if (index === 59) {
-      //       return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
-      //     }
-      //   } else if (column.property === 'name1') {
-      //     if (getDictionaryInfo(row[column.property])) {
-      //       return getDictionaryInfo(row[column.property]).value1;
-      //     } else {
-      //       return row[column.property];
-      //     }
-      //   }
-      // },
       getgroupA2() {
         let parameter = {
           year: this.form.year,
@@ -3726,7 +3410,8 @@
           this.form.assets_newyear = JSON.stringify(this.assets_newyear);
           this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
           this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
-          this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
+          this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[55], this.tableP[56], this.tableP[57], this.tableP[58]]);
+          // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
           this.form.business = JSON.stringify(this.business);
           this.form.groupA1 = JSON.stringify(this.groupA1);
           this.form.groupA2 = JSON.stringify(this.groupA2);
