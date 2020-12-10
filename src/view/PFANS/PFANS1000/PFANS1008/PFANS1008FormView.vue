@@ -559,6 +559,7 @@
           //     this.form.ferrybudgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
           // }
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          console.log(rst)
           if (rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
@@ -566,6 +567,9 @@
             this.form.center_id = rst.centerId;
             this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
+            this.form.ferrycenter_id = rst.centerId;
+            this.form.ferrygroup_id = rst.groupId;
+            this.form.ferryteam_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
@@ -736,13 +740,14 @@
       },
       //移管部門
       getGroupId2(val) {
+        this.form.tubegroup_id = val;
         if (val === "" || val === null) {
           this.form.tubebudgetunit = '';
           this.options1 = [];
         }
         this.getOrgInformation1(val);
-        if (this.form.tubecenter_id === "") {
-          this.errortubegroup = this.$t("normal.error_08") + "center";
+        if (this.form.tubegroup_id == "" || this.form.tubegroup_id == null) {
+          this.errortubegroup = this.$t("normal.error_08") + "group";
         } else {
           this.errortubegroup = "";
         }
@@ -791,8 +796,6 @@
           for (let index = parseInt(type); index >= 1; index--) {
             if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
               org.tubecentername = treeCom.getNode(node).data.departmentname;
-
-
               org.tubeteam_id = treeCom.getNode(node).data._id;
             }
             if (index === 2) {
