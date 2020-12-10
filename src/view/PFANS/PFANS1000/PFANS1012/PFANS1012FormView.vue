@@ -490,8 +490,8 @@
                   </el-form-item>
                 </el-row>
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
-                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACTTEXT')" prop="remark">
+                    <el-input :disabled="!disable" style="width: 70vw" type="textarea" maxlength="60"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
