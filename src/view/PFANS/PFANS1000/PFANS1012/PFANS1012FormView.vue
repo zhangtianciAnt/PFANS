@@ -490,8 +490,8 @@
                   </el-form-item>
                 </el-row>
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
-                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACTTEXT')" prop="remark">
+                    <el-input :disabled="!disable" style="width: 70vw" type="textarea" maxlength="60"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
@@ -1927,18 +1927,25 @@
                     }
                   }
                 }
-//add-ws-6/12-禅道105
-                if ((getCurrentRole() != '1')) {
-                  if (this.form.moneys >= 20000) {
-                    this.workflowCode = 'W0077';
-                  } else {
-                    this.workflowCode = 'W0016';
-                  }
-                } else {
+                let role = getCurrentRole()
+                if (role == '1') {
+                  //总经理
                   this.workflowCode = 'W0100';
+                }else{
+                  if (this.form.moneys >= 20000) {
+                    if (role == '2' || role == '3') { //GM Center
+                      this.workflowCode = 'W0115'//新流程
+                    } else { //TL 正式员工
+                      this.workflowCode = 'W0077'
+                    }
+                  }else{
+                    if (role == '2' || role == '3') { //GM Center
+                      this.workflowCode = 'W0141'//新流程
+                    } else { //TL 正式员工
+                      this.workflowCode = 'W0016'
+                    }
+                  }
                 }
-//add-ws-6/12-禅道105
-//add-ws-6/16-禅道103
                 if (this.disable) {
                   if (this.form.paymentmethod === 'PJ004001') {
                     this.checkexpectedpaydate = false;

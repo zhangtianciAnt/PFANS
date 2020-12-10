@@ -332,14 +332,13 @@ export default {
         })
         .then(response => {
           this.form = response.outside;
-          if (getCurrentRole() === '1') {
+          let roleLC = getCurrentRole();
+          if (roleLC == '1') {
             this.workflowCode = 'W0106';//总经理流程
-          } else {
-            if (this.form.user_id === '5e78b2264e3b194874180f35') {
-              this.workflowCode = 'W0123';
-            } else {
-              this.workflowCode = 'W0027';//其他
-            }
+          } else if(roleLC == '2' || roleLC == '3') { //GM Center
+            this.workflowCode = 'W0123'//新流程
+          }else { //TL 正式员工
+            this.workflowCode = 'W0027'
           }
           let rst = getOrgInfoByUserId(response.outside.user_id);
           if (rst) {

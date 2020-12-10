@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="workflowCode"
                          @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick" :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
@@ -328,7 +328,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo,getCurrentRole12} from '../../../../utils/customize';
+  import {getDictionaryInfo,getCurrentRole,getCurrentRole12} from '../../../../utils/customize';
   import PFANS2032Pop from '@/components/EasyPop/PFANS2032Pop';
 
   export default {
@@ -381,6 +381,7 @@
         groupid: '',
         teamid: '',
         right: '',
+        workflowCode: '',
         error: '',
         selectType: 'Single',
         title: 'title.PFANS2026FROMVIEW',
@@ -557,10 +558,10 @@
       }
 
       if (this.$route.params._type2 === 1) {
-        this.right = 'W0080';//离职日变更
+        this.right = '1';//离职日变更
         this.canStart = true;
       } else {
-        this.right = 'W0033';//离职申请
+        this.right = '2';//离职申请
         this.canStart = false;
       }
       this.disable = this.$route.params.disabled;
@@ -587,6 +588,22 @@
               }
             }
             // }
+            let role = getCurrentRole();
+            if(this.right === 1){//离职日变更
+              if(role == '2' || role == '3') { //GM Center
+                this.workflowCode = 'W0138'//新流程
+              }else { //TL 正式员工
+                this.workflowCode = 'W0033'
+              }
+            }else{//离职申请
+              if(role == '2' || role == '3') { //GM Center
+                this.workflowCode = 'W0137'//新流程
+              }else { //TL 正式员工
+                this.workflowCode = 'W0080'
+              }
+            }
+
+
             if (this.form.status != '0') {
               if (this.form.stage == '0') {
                 this.checktype = 1;

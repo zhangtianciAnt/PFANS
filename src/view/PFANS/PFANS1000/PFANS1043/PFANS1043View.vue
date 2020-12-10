@@ -54,6 +54,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
         row: '',
+        themename: '',
         rowid: 'themeinfor_id',
       };
     },
@@ -89,6 +90,7 @@
       },
       rowClick(row) {
         this.row = row.themeinfor_id;
+        this.themename = row.themename;
         this.year = row.year;
       },
       buttonClick(val) {
@@ -102,14 +104,48 @@
             });
             return;
           }
-          this.$router.push({
-            name: 'PFANS1043FormView',
-            params: {
-              _id: this.row,
-              type: false,
-              disabled: true,
-            },
-          });
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1043Store/getthemename', {'themename': this.themename})
+            .then(response => {
+              if (response.length > 0) {
+                this.$confirm(this.$t('label.PFANS1043FORMVIEW_UODATAMESSAGE'), this.$t('normal.info'),
+                  {
+                    confirmButtonText: this.$t('button.confirm'),
+                    cancelButtonText: this.$t('button.cancel'),
+                    type: 'warning',
+                    center: true,
+                  },
+                ).then(() => {
+                  this.$router.push({
+                    name: 'PFANS1043FormView',
+                    params: {
+                      _id: this.row,
+                      type: false,
+                      disabled: true,
+                    },
+                  });
+                }).catch(() => {
+                  this.$router.push({
+                    name: 'PFANS1043FormView',
+                    params: {
+                      _id: this.row,
+                      disabled: false,
+                    },
+                  });
+                  this.loading = false;
+                });
+              }
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         } else if (val === 'view') {
           if (this.row === '') {
             Message({

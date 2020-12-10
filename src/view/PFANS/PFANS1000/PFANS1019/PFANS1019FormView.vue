@@ -303,14 +303,13 @@
                   this.teamid= rst.teamNmae;
               }
             this.form = response.trialsoft;
-            if (getCurrentRole() === '1') {
+            let roleLC = getCurrentRole();
+            if (roleLC == '1') {
               this.workflowCode = 'W0105';//总经理流程
-            } else {
-              if (this.form.user_id === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0122';
-              } else {
-                this.workflowCode = 'W0026';//其他
-              }
+            } else if(roleLC == '2' || roleLC == '3') { //GM Center
+              this.workflowCode = 'W0122'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0026'
             }
             this.userlist = this.form.user_id;
             //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09

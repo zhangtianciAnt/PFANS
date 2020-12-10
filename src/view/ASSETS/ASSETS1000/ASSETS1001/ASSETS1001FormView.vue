@@ -70,6 +70,11 @@
                 <el-input style="width:20vw" v-model="form.barcode"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.ASSETS1001VIEW_STORAGELOCATION')">
+                <el-input style="width:20vw" v-model="form.storagelocation"></el-input>
+              </el-form-item>
+            </el-col>
           </el-row>
           <el-row>
             <el-form-item v-show="form.typeassets === 'PA001001' || form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004' || form.typeassets === 'PA001009'">
@@ -549,6 +554,7 @@
         buttonList: [],
         form: {
           typeassets: '',
+          storagelocation: '',
           bartype: ''
         },
         code1: 'PA001',

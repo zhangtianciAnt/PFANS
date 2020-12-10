@@ -64,6 +64,23 @@ export function existCheck(data) {
     params: data
   })
 }
+
+export function existN(data) {
+  return request({
+    url: 'contractapplication/existN',
+    method: 'post',
+    data: data
+  })
+}
+
+export function existQ(data) {
+  return request({
+    url: 'contractapplication/existQ',
+    method: 'post',
+    data: data
+  })
+}
+
 //add-ws-7/22-禅道341任务
 export function getindividual() {
   return request({

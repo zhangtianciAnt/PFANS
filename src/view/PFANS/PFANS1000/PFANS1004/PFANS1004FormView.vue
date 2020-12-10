@@ -87,6 +87,20 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
+                <!--决裁类型-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1004FORMVIEW_DECISIVELC')" prop="decision">
+                    <dicselect
+                      :code="code6"
+                      :data="form.decision"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="getDecision"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--多部门决裁-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012FORMVIEW_MUSECTOSION')" porp="musectosion">
                     <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
@@ -565,28 +579,30 @@
 
 <script>
 
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import dicselect from '../../../components/dicselect.vue';
-    import user from '../../../components/user.vue';
-    import {Message} from 'element-ui';
-    import {
-        downLoadUrl,
-        getCurrentRole2,
-        getDictionaryInfo,
-        getOrgInfo,
-        getOrgInfoByUserId,
-        getUserInfo,
-        uploadUrl,
-    } from '@/utils/customize';
-    import moment from 'moment';
-    import {quillEditor} from 'vue-quill-editor';
-    import 'quill/dist/quill.core.css';
-    import 'quill/dist/quill.snow.css';
-    import 'quill/dist/quill.bubble.css';
-    import org from '../../../components/org';
-    import {getStatus} from '../../../../utils/customize';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect.vue';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import {
+    downLoadUrl,
+    getCurrentRole2,
+    getCurrentRole15,
+    getCurrentRole16,
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getUserInfo,
+    uploadUrl,
+  } from '@/utils/customize';
+  import moment from 'moment';
+  import {quillEditor} from 'vue-quill-editor';
+  import 'quill/dist/quill.core.css';
+  import 'quill/dist/quill.snow.css';
+  import 'quill/dist/quill.bubble.css';
+  import org from '../../../components/org';
+  import {getStatus} from '../../../../utils/customize';
 
-    export default {
+  export default {
     name: 'PFANS1004FormView',
     components: {
       EasyNormalContainer,
@@ -595,9 +611,9 @@
       user,
       quillEditor,
       org,
-        // PFANS1004Pop,
-        // PFANS1012Pop,
-        // PFANS1006Pop,
+      // PFANS1004Pop,
+      // PFANS1012Pop,
+      // PFANS1006Pop,
     },
     data() {
       var checkuser = (rule, value, callback) => {
@@ -661,6 +677,8 @@
         activeName: 'first',
         errorgroup: '',
         urlparams: '',
+        role15: '',
+        role16: '',
         url: '',
         editorOption: {},
         options: [],
@@ -674,7 +692,7 @@
         userlist: [],
         userlistAnt: [],
         loading: false,
-          checkGro: false,
+        checkGro: false,
         disableview: false,
         error: '',
         showTab: true,
@@ -710,6 +728,7 @@
           user_id: '',
           investigator: '',
           filename: '',
+          decision: '',
           scheduleddate: moment(new Date()).format('YYYY-MM-DD'),
           careerplan: true,
           businessplantype: '',
@@ -758,6 +777,7 @@
         code3: 'PJ013',
         code4: 'PJ011',
         code5: 'PJ030',
+        code6: 'PJ146',
         disabled: true,
         enableSave: false,
         menuList: [],
@@ -836,6 +856,13 @@
             {
               required: false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_BUSINESSPLANTYPE'),
+              trigger: 'change',
+            },
+          ],
+          decision: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1004FORMVIEW_DECISIVELC'),
               trigger: 'change',
             },
           ],
@@ -918,6 +945,10 @@
       } else {
         this.checkgroup = false;
       }
+      //财务担当
+      this.role15 = getCurrentRole15();
+      //工资计算担当
+      this.role16 = getCurrentRole16();
       //add-ws-4/23-总务担当可用选择部门带出预算编码
       if (this.params_id) {
         this.loading = true;
@@ -1004,29 +1035,45 @@
                 this.getchangeGroup(this.form.group_name);
               }
               //add-ws-4/23-总务担当可用选择部门带出预算编码
-              if (response.judgement.businessplanbalance > 20000) {
-                this.workcode = 'W0063';
-              } else if (response.judgement.musectosion == '1') {
+              if (response.judgement.musectosion == '1') {//多部门决裁
                 this.workcode = 'W0091';
-              } else {
-                this.workcode = 'W0011';
+              } else if (response.judgement.decision == 'PJ146001') {//决裁类型（其他）
+                this.workcode = 'W0006';
+              } else if (response.judgement.decision == 'PJ146002') {//各种对外发表对应
+                this.workcode = 'W0007';
+              } else if (response.judgement.decision == 'PJ146003') {//无偿进口设备相关
+                this.workcode = 'W0013';
+              } else if (response.judgement.decision == 'PJ146004') {//采购服务合同相关
+                this.workcode = 'W0020';
+              } else if (response.judgement.decision == 'PJ146005') {//基本合同相关
+                this.workcode = 'W0021';
+              } else if (response.judgement.decision == 'PJ146006') {//银行税务相关
+                this.workcode = 'W0034';
+              } else if (response.judgement.decision == 'PJ146007') {//经费支出
+                this.workcode = 'W0035';
+              } else if (response.judgement.decision == 'PJ146008') {//各种疾病，传染病等
+                this.workcode = 'W0042';
+              } else if (response.judgement.decision == 'PJ146009') {//各种体制变更，人员移动等
+                this.workcode = 'W0044';
+              } else{//全社统一表彰，惩处等决裁、各种晋升、各种培训、制度变更
+                this.workcode = 'W0051';
               }
               let rst = getOrgInfoByUserId(response.judgement.user_id);
               if (rst) {
-                  //upd_fjl_0927
-                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                      this.checkGro = true;
-                  } else {
-                      this.checkGro = false;
-                  }
-                  // this.centerid = rst.centerNmae;
-                  // this.groupid = rst.groupNmae;
-                  // this.teamid = rst.teamNmae;
-                  //upd_fjl_0927
+                //upd_fjl_0927
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.checkGro = true;
+                } else {
+                  this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0927
                 // this.form.thisproject = rst.personalcode;
               }
               this.userlistA = this.form.user_id;
-                this.getBudt(this.form.group_id);
+              this.getBudt(this.form.group_id);
               this.getDecisive(this.form.decisive);
               this.getBusinessplantype(this.form.businessplantype);
               if (this.form.careerplan === '1') {
@@ -1075,8 +1122,7 @@
                 .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
                 .then(response => {
                   if (response !== null && response !== '' && response !== undefined) {
-                    for (var i = 0; i < response.length; i++)
-                    {
+                    for (var i = 0; i < response.length; i++) {
                       let status = getStatus(response[i].status);
                       this.tableC.push({
                         loanapno: response[i].loanapno,
@@ -1104,8 +1150,7 @@
                 .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
                 .then(response => {
                   if (response !== null && response !== '' && response !== undefined) {
-                    for (var i = 0; i < response.length; i++)
-                    {
+                    for (var i = 0; i < response.length; i++) {
                       let status = getStatus(response[i].status);
                       this.tableD.push({
                         invoiceno: response[i].invoiceno,
@@ -1151,18 +1196,18 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-              // this.form.group_id = rst.groupId;
+            // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
             // this.form.thisproject = rst.personalcode;
-              //add_fjl_0927
-              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                  this.form.group_id = rst.groupId;
-                  this.getBudt(this.form.group_id);
-                  this.checkGro = true;
-              } else {
-                  this.checkGro = false;
-              }
-              //add_fjl_0927
+            //add_fjl_0927
+            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              this.form.group_id = rst.groupId;
+              this.getBudt(this.form.group_id);
+              this.checkGro = true;
+            } else {
+              this.checkGro = false;
+            }
+            //add_fjl_0927
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
         }
@@ -1178,9 +1223,9 @@
       //add-ws-9/11-禅道任务515
       this.params_id = this.$route.params._id;
       //add-ws-9/11-禅道任务515
-        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1004FormView');
+      // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1004FormView');
       this.disabled = this.$route.params.disabled;
-        this.disableview = this.$route.params._disableview;
+      this.disableview = this.$route.params._disableview;
       //是否可以做补充决裁
       if (this.$route.params.statuss === this.$t('label.PFANS5004VIEW_OVERTIME') && this.$route.params._supplementary != '1' && this.$route.params._judgnumberscheck == false) {
         this.buttonList = [
@@ -1260,19 +1305,19 @@
       }
     },
     methods: {
-        //add_fjl_0927
-        getCenterid(val) {
-            this.form.center_id = val;
-        },
-        getGroupId1(val) {
-            this.form.group_id = val;
-            this.form.budgetunit = '';
-            this.getBudt(val);
-        },
-        getTeamid(val) {
-            this.form.team_id = val;
-        },
-        //add_fjl_0927
+      //add_fjl_0927
+      getCenterid(val) {
+        this.form.center_id = val;
+      },
+      getGroupId1(val) {
+        this.form.group_id = val;
+        this.form.budgetunit = '';
+        this.getBudt(val);
+      },
+      getTeamid(val) {
+        this.form.team_id = val;
+      },
+      //add_fjl_0927
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getGroupId(orglist) {
         this.getchangeGroup(orglist);
@@ -1320,46 +1365,46 @@
           amounttobegivenM: '',
         });
       },
-        //add_fjl_0806  查看详情
-        rowClick(row) {
-            this.$store.commit('global/SET_HISTORYURL', '');
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
-            this.$router.push({
-                name: 'PFANS1006FormView',
-                params: {
-                    _id: row.loanapplication_id,
-                    disabled: false,
-                    _checkid: this.params_id,
-                    _check: true,
-                    _fromname: 'PFANS1004FormView',
-                },
-            });
-            // this.url = '';
-            // this.urlparams = '';
-            // this.url = 'PFANS1006FormView';
-            // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-            // this.$refs.PFANS1006Pop.open = true;
-        },
-        rowClick1(row) {
-            this.$store.commit('global/SET_HISTORYURL', '');
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
-            this.$router.push({
-                name: 'PFANS1012FormView',
-                params: {
-                    _id: row.publicexpense_id,
-                    disabled: false,
-                    _checkid: this.params_id,
-                    _check2: true,
-                    _fromname: 'PFANS1004FormView',
-                },
-            });
-            // this.url = '';
-            // this.urlparams = '';
-            // this.url = 'PFANS1012FormView';
-            // this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-            // this.$refs.PFANS1012Pop.open = true;
-        },
-        //add_fjl_0806  查看详情
+      //add_fjl_0806  查看详情
+      rowClick(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            _id: row.loanapplication_id,
+            disabled: false,
+            _checkid: this.params_id,
+            _check: true,
+            _fromname: 'PFANS1004FormView',
+          },
+        });
+        // this.url = '';
+        // this.urlparams = '';
+        // this.url = 'PFANS1006FormView';
+        // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+        // this.$refs.PFANS1006Pop.open = true;
+      },
+      rowClick1(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
+        this.$router.push({
+          name: 'PFANS1012FormView',
+          params: {
+            _id: row.publicexpense_id,
+            disabled: false,
+            _checkid: this.params_id,
+            _check2: true,
+            _fromname: 'PFANS1004FormView',
+          },
+        });
+        // this.url = '';
+        // this.urlparams = '';
+        // this.url = 'PFANS1012FormView';
+        // this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
+        // this.$refs.PFANS1012Pop.open = true;
+      },
+      //add_fjl_0806  查看详情
       rowClickHis(row) {
         this.url = '';
         this.urlparams = '';
@@ -1468,24 +1513,24 @@
       //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
       getBudt(val) {
         this.options = [];
-          if (val === '' || val === null) {
-              return;
-          }
+        if (val === '' || val === null) {
+          return;
+        }
         //ADD_FJL  修改人员预算编码
-          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(val).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
-                this.options.push({
-                  lable: dic[i].value2 + '_' + dic[i].value3,
-                  value: dic[i].code,
-                });
-              }
+        // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+        let butinfo = getOrgInfo(val).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              this.options.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
             }
           }
-          // }
+        }
+        // }
         //ADD_FJL  修改人员预算编码
       },
       setdisabled(val) {
@@ -1560,6 +1605,34 @@
         } else {
           this.show1 = false;
           this.rules.classificationtype[0].required = false;
+        }
+      },
+      getDecision(val) {
+        if(val == 'PJ146006'){
+          if(this.role15 == '0'){
+            this.form.decision = val;
+          }else{
+            Message({
+              message: this.$t('normal.error_21'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            this.form.decision = null;
+          }
+        }else if(val == 'PJ146008' || val == 'PJ146009' || val == 'PJ146010'
+          || val == 'PJ146011' || val == 'PJ146012' || val == 'PJ146013'){
+          if(this.role16 == '0'){
+            this.form.decision = val;
+          }else{
+            Message({
+              message: this.$t('normal.error_22'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            this.form.decision = null;
+          }
+        }else{
+          this.form.decision = val;
         }
       },
       getAddbook(val) {
@@ -1697,12 +1770,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace("%", "%25");
+          file.url = file.url.replace("#", "%23");
+          file.url = file.url.replace("&", "%26");
+          file.url = file.url.replace("+", "%2B");
+          file.url = file.url.replace("=", "%3D");
+          file.url = file.url.replace("?", "%3F");
           var url = downLoadUrl(file.url);
           window.open(url);
         }

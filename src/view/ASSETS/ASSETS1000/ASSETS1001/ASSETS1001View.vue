@@ -142,7 +142,7 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo, getOrgInfo,Decrypt,getUserInfoName } from '@/utils/customize';
+  import {Decrypt, getDictionaryInfo, getOrgInfo, getUserInfo, getUserInfoName} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
@@ -217,7 +217,7 @@
             width: 120,
             fix: false,
             filter: false,
-          },{
+          }, {
             code: 'filename',
             label: 'label.ASSETS1001VIEW_FILENAME',
             width: 120,
@@ -275,7 +275,15 @@
             fix: false,
             filter: false,
           },
-
+          //add-ztc-No.664-存放地点
+          {
+            code: 'storagelocation',
+            label: 'label.ASSETS1001VIEW_STORAGELOCATION',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add-ztc-No.664-存放地点
           //add-ws-No.58-启用日期画面添加
           {
             code: 'activitiondate',
@@ -415,13 +423,38 @@
           .dispatch('ASSETS1001Store/getDepartment')
           .then(response => {
               this.loading = false;
+              let filters = new Set();
               for (let item of response) {
                 let i = {};
                 if (item) {
                   i.code = item;
                 }
-                this.options.push(i);
+                filters.add(i);
               }
+              let filtersrst = [...new Set(filters)]
+              var hash = {}
+              filtersrst = filtersrst.reduce(function (item, next) {
+                if (hash[next.code]) {
+                  ''
+                } else {
+                  hash[next.code] = true && item.push(next)
+                }
+                return item
+              }, [])
+              for (let i = 0; i < filtersrst.length; i++) {
+                if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
+                  filtersrst[i].code = '全部'
+                }
+              }
+              this.options = filtersrst
+
+              // for (let item of response) {
+              //   let i = {};
+              //   if (item) {
+              //     i.code = item;
+              //   }
+              //   this.options.push(i);
+              // }
             }
           ).catch(error => {
           Message({
@@ -437,6 +470,9 @@
       },
       getListData() {
         this.loading = true;
+        if(this.department == '全部'){
+          this.department = undefined
+        }
         this.$store
           .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
           .then(response => {
@@ -489,6 +525,7 @@
                 }
               }
             }
+
             this.data = response;
             this.loading = false;
           })
@@ -507,7 +544,7 @@
         if (getUserInfoName(row.principal) !== '-1') {
           this.userids = getUserInfoName(row.principal).userid;
         }
-        if(this.userids === this.$store.getters.userinfo.userid){
+        if (this.userids === this.$store.getters.userinfo.userid) {
           this.buttonList[7].disabled = false;
         }
 //add-ws-9/30-禅道任务564
@@ -674,7 +711,7 @@
         let tHeader = "";
         let filterVal = "";
         //固定资产 //簿外资产 //无形资产
-        let arr1 = ["PA001001","PA001002", "PA001003", "PA001004","PA001009"];
+        let arr1 = ["PA001001", "PA001002", "PA001003", "PA001004", "PA001009"];
         //借入资产
         let arr2 = ["PA001008"];
         //对外资产
@@ -726,12 +763,13 @@
             this.$t('label.ASSETS1001VIEW_PSDCDSHIJIDATE'),//实际归还日
             this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
             this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
+            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点
 
           ];
-          filterVal = ['typeassets','filename', 'barcode','usedepartment', 'departmentcode','caiwupersonalcode'
-                      ,'bartypeName','assetstatus', 'stockstatus','pcno','activitiondate','price', 'realprice','model'
-                      ,'psdcddebitsituation','psdcdbringoutreason','address','psdcdresponsible','psdcdphone'
-                      ,'psdcdperiod','psdcdreturndate','psdcdshijidate','remarks','remarks1'];
+          filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
+            , 'bartypeName', 'assetstatus', 'stockstatus', 'pcno','activitiondate', 'price', 'realprice', 'model'
+            , 'psdcddebitsituation', 'psdcdbringoutreason', 'address', 'psdcdresponsible', 'psdcdphone'
+            , 'psdcdperiod', 'psdcdreturndate', 'psdcdshijidate', 'remarks', 'remarks1', 'storagelocation'];
 
         } else if (selectedList.every(list => {
           return arr2.includes(list.typeassets1)
@@ -768,10 +806,11 @@
             this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
             this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
             this.$t('label.ASSETS1001VIEW_REMARKS2'),//备注1
+            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点.
           ];
-          filterVal = ['typeassets','filename', 'barcode','usedepartment', 'departmentcode','caiwupersonalcode'
-            ,'bartypeName','model','address','psdcdresponsible','psdcdphone','loancontract','loancontractno'
-            ,'activitiondate','psdcdreturndate','psdcdshijidate','remarks1','remarks','remarks2'];
+          filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
+             ,'bartypeName', 'model', 'address', 'psdcdresponsible', 'psdcdphone', 'loancontract', 'loancontractno'
+            , 'activitiondate', 'psdcdreturndate', 'psdcdshijidate', 'remarks1', 'remarks', 'remarks2','storagelocation'];
 
         } else if (selectedList.every(list => {
           return arr3.includes(list.typeassets1)
@@ -869,16 +908,17 @@
             this.$t('label.ASSETS1001VIEW_PARAM14'),
             this.$t('label.ASSETS1001VIEW_PARAM4'),
             this.$t('label.ASSETS1001VIEW_PARAM7'),
-            this.$t('label.department')
+            this.$t('label.department'),
+            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点
 
           ];
-          filterVal = ['filename', 'typeassets', 'barcode','principal',  'bartypeName', 'assetstatus', 'stockstatus',
-            'pcno', 'model', 'price', 'no', 'purchasetime', 'activitiondate', 'remarks', 'customer', 'controlno', 'machinename',
+          filterVal = ['filename', 'typeassets', 'barcode', 'principal', 'bartypeName', 'assetstatus', 'stockstatus',
+            'pcno', 'model','price', 'no', 'purchasetime', 'activitiondate', 'remarks', 'customer', 'controlno', 'machinename',
             'inparams1', 'inparams2',
             'inparams3', 'inparams4', 'inparams5', 'owner',
             'inparams7', 'inparams8', 'outparams1',
             'outparams2', 'outparams3', 'outparams4', 'outparams5', 'outparams6', 'outparams7', 'outparams8', 'outparams9',
-            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', "usedepartment"];
+            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', "usedepartment",'storagelocation' ];
         } else {
           Message({
             message: this.$t("label.ASSETS1001VIEW_ERROR"),

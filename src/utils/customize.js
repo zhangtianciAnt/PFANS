@@ -1,7 +1,8 @@
-import {getValueByPath} from 'element-ui/src/utils/util'
-import store from '../store'
+import {getValueByPath} from 'element-ui/src/utils/util';
+import store from '../store';
 
-var departmentName = []
+var departmentName = [];
+
 //table sort all
 export function orderBy(array, sortKey, reverse) {
   if (!sortKey) {
@@ -12,7 +13,7 @@ export function orderBy(array, sortKey, reverse) {
   } else {
     reverse = reverse && reverse < 0 ? -1 : 1;
   }
-  var getKey = function (value, index) {
+  var getKey = function(value, index) {
     if (sortKey !== '$key') {
       if (isObject(value) && '$value' in value) value = value.$value;
     }
@@ -24,14 +25,14 @@ export function orderBy(array, sortKey, reverse) {
       if (a.key[i] === null) {
         return -1;
       } else {
-        if(valfloat(a.key[i])){
+        if (valfloat(a.key[i])) {
           if (Number(a.key[i]) < Number(b.key[i])) {
             return -1;
           }
           if (Number(a.key[i]) > Number(b.key[i])) {
             return 1;
           }
-        }else{
+        } else {
           if (a.key[i] < b.key[i]) {
             return -1;
           }
@@ -45,65 +46,66 @@ export function orderBy(array, sortKey, reverse) {
     }
     return 0;
   };
-  return array.map(function (value, index) {
+  return array.map(function(value, index) {
     return {
       value: value,
       index: index,
-      key: getKey ? getKey(value, index) : null
+      key: getKey ? getKey(value, index) : null,
     };
-  }).sort(function (a, b) {
+  }).sort(function(a, b) {
     var order = compare(a, b);
     if (!order) {
       // make stable https://en.wikipedia.org/wiki/Sorting_algorithm#Stability
       order = a.index - b.index;
     }
     return order * reverse;
-  }).map(function (item) {
+  }).map(function(item) {
     return item.value;
   });
 }
 
-export function valfloat(str){
-  const reg = /^(\-|\+)?\d+(\.\d+)?$/
-  return reg.test(str)
+export function valfloat(str) {
+  const reg = /^(\-|\+)?\d+(\.\d+)?$/;
+  return reg.test(str);
 }
 
-export function getDepartmentById(id){
-  departmentName = [];
-  if(id){
-    let arr = id.split(",");
-    let org  = store.getters.orgList[0]
-    if(arr.includes(org._id)){
+export function getDepartmentById(id) {
+  departmentName = [];
+  if (id) {
+    let arr = id.split(',');
+    let org = store.getters.orgList[0];
+    if (arr.includes(org._id)) {
       departmentName.push(org.title);
     }
-    if(org.orgs !== null && org.orgs !== undefined){
-      departmentId(org.orgs,arr);
+    if (org.orgs !== null && org.orgs !== undefined) {
+      departmentId(org.orgs, arr);
     }
   }
-  return departmentName.join();
+  return departmentName.join();
 }
 
-function departmentId(orgs,arr){
-  for(let org of orgs){
-    if(arr.includes(org._id)){
+function departmentId(orgs, arr) {
+  for (let org of orgs) {
+    if (arr.includes(org._id)) {
       departmentName.push(org.title);
     }
-    if(org.orgs !== null && org.orgs !== undefined){
-      departmentId(org.orgs,arr);
+    if (org.orgs !== null && org.orgs !== undefined) {
+      departmentId(org.orgs, arr);
     }
   }
 }
+
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
-    return null
+    return null;
   }
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}';
   let date;
   if (typeof time === 'object') {
-    date = time
+    date = time;
   } else {
     if (('' + time).length === 10) time = parseInt(time) * 1000;
-    date = new Date(time)
+    date = new Date(time);
   }
   const formatObj = {
     y: date.getFullYear(),
@@ -112,23 +114,23 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay()
+    a: date.getDay(),
   };
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key];
     if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1];
     if (result.length > 0 && value < 10) {
-      value = '0' + value
+      value = '0' + value;
     }
-    return value || 0
+    return value || 0;
   });
-  return time_str
+  return time_str;
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+var _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function(obj) {
   return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+} : function(obj) {
+  return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
 };
 
 var isObject = function isObject(obj) {
@@ -212,11 +214,11 @@ export function getUserInfo(userid) {
     for (let user of store.getters.userList) {
       if (user._id === userid || user.userid === userid) {
         info = user;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
 export function getUserInfoName(custmname) {
@@ -226,14 +228,14 @@ export function getUserInfoName(custmname) {
     for (let user of store.getters.userList) {
       if (user.userinfo.customername === custmname) {
         info = user;
-        break
+        break;
       }
     }
   }
   if (info !== null) {
-    return info
+    return info;
   } else {
-    return "-1"
+    return '-1';
   }
 }
 
@@ -246,7 +248,7 @@ export function getOrgInfo(orgid, data) {
   if (list && list.length > 0) {
     for (let org of list) {
       if (org._id === orgid) {
-        return org
+        return org;
       } else if (org.orgs && org.orgs.length > 0) {
         var rst = getOrgInfo(orgid, org.orgs);
 
@@ -279,6 +281,7 @@ export function getUpOrgInfo(orgid, data, dataUp) {
     }
   }
 }
+
 //add by lin end
 
 export function getDownOrgInfo(orgid, data) {
@@ -290,7 +293,7 @@ export function getDownOrgInfo(orgid, data) {
   if (list && list.length > 0) {
     for (let org of list) {
       if (org._id === orgid) {
-        return org.orgs
+        return org.orgs;
       } else if (org.orgs && org.orgs.length > 0) {
         var rst = getDownOrgInfo(orgid, org.orgs);
 
@@ -305,12 +308,12 @@ export function getDownOrgInfo(orgid, data) {
 export function getOrgInfoByUserId(userid) {
   var orgs = {};
   let userinfo = getUserInfo(userid);
-  orgs.centerNmae = "";
-  orgs.centerId = "";
-  orgs.groupNmae = "";
-  orgs.groupId = "";
-  orgs.teamNmae = "";
-  orgs.teamId = "";
+  orgs.centerNmae = '';
+  orgs.centerId = '';
+  orgs.groupNmae = '';
+  orgs.groupId = '';
+  orgs.teamNmae = '';
+  orgs.teamId = '';
   if (userinfo) {
     orgs.centerNmae = userinfo.userinfo.centername;
     orgs.centerId = userinfo.userinfo.centerid;
@@ -330,36 +333,37 @@ export function getDictionaryInfo(code) {
     for (let dictionary of store.getters.dictionaryList) {
       if (dictionary.code === code) {
         info = dictionary;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
-export function getDictionaryInfode(value1,value2,value3) {
+export function getDictionaryInfode(value1, value2, value3) {
   let info = null;
   if (store.getters.dictionaryList && store.getters.dictionaryList.length > 0) {
     for (let dictionary of store.getters.dictionaryList) {
-        if (dictionary.value1 === value1 && dictionary.value2 === value2 && dictionary.value3 === value3) {
-          info = dictionary;
-          break
-        }
+      if (dictionary.value1 === value1 && dictionary.value2 === value2 && dictionary.value3 === value3) {
+        info = dictionary;
+        break;
+      }
     }
   }
-  return info
+  return info;
 }
+
 export function getCooperinterviewList(cooperuserid) {
   let info = null;
   if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
     for (let cooperinterview of store.getters.cooperinterviewList) {
       if (cooperinterview.expatriatesinfor_id === cooperuserid) {
         info = cooperinterview;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
 export function getCooperinterviewListByAccount(accountid) {
@@ -368,11 +372,11 @@ export function getCooperinterviewListByAccount(accountid) {
     for (let cooperinterview of store.getters.cooperinterviewList) {
       if (cooperinterview.account === accountid) {
         info = cooperinterview;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
 //无team的部门
@@ -382,11 +386,11 @@ export function getorgGroupList(groupid) {
     for (let cooperinterview of store.getters.orgGroupList) {
       if (cooperinterview.groupid === groupid) {
         info = cooperinterview;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
 //所有部門取得 add gbb 0810
@@ -396,11 +400,11 @@ export function getorgGroupallList(groupid) {
     for (let cooperinterview of store.getters.orgGroupallList) {
       if (cooperinterview.groupid === groupid) {
         info = cooperinterview;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
 export function getSupplierinfor(id) {
@@ -409,11 +413,11 @@ export function getSupplierinfor(id) {
     for (let cooperinterview of store.getters.supplierinforList) {
       if (cooperinterview.supplierinfor_id === id) {
         info = cooperinterview;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
 }
 
 //获取数据状态
@@ -421,265 +425,333 @@ export function getStatus(status) {
   let info = null;
 
   if (status === '0') {
-    info = '未开始'
+    info = '未开始';
   } else if (status === '2') {
-    info = '进行中'
+    info = '进行中';
   } else if (status === '3') {
-    info = '驳回'
+    info = '驳回';
   } else if (status === '4') {
-    info = '正常结束'
+    info = '正常结束';
   } else if (status === '5') {
-    info = '进行中'
+    info = '进行中';
   } else if (status === '6') {
-    info = '驳回'
+    info = '驳回';
   } else if (status === '7') {
-    info = '正常结束'
+    info = '正常结束';
   }
-  return info
+  return info;
 }
+
 //add-ws-9/4-加班申请与考勤用
 export function getStatusNum(status) {
   let info = null;
 
   if (status === '0') {
-    info = '未开始'
+    info = '未开始';
   } else if (status === '2') {
-    info = '一次进行中'
+    info = '一次进行中';
   } else if (status === '3') {
-    info = '一次驳回'
+    info = '一次驳回';
   } else if (status === '4') {
-    info = '一次正常结束'
+    info = '一次正常结束';
   } else if (status === '5') {
-    info = '二次进行中'
+    info = '二次进行中';
   } else if (status === '6') {
-    info = '二次驳回'
+    info = '二次驳回';
   } else if (status === '7') {
-    info = '二次正常结束'
+    info = '二次正常结束';
   }
-  return info
+  return info;
 }
+
 //add-ws-9/4-加班申请与考勤用
 //获取数据状态
 export function uploadUrl() {
-  let url = process.env.UPLOAD_URL
-  if(store.getters.fileToken){
-    url = url.replace("{1}",store.getters.fileToken)
+  let url = process.env.UPLOAD_URL;
+  if (store.getters.fileToken) {
+    url = url.replace('{1}', store.getters.fileToken);
   }
   return url;
 }
 
 export function downLoadUrl(url) {
-  let rst = process.env.DOWN_URL
-  if(store.getters.fileToken){
-    rst = rst.replace("{1}",store.getters.fileToken)
+  let rst = process.env.DOWN_URL;
+  if (store.getters.fileToken) {
+    rst = rst.replace('{1}', store.getters.fileToken);
   }
-  return rst + "&path=" + url;
+  return rst + '&path=' + url;
 }
 
 export function getCurrentRole() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
 
-    if(roles.indexOf("总经理")!= -1){
-      return "1";
-    }else if(roles.toUpperCase().indexOf("CENTER")!= -1){
-      return "2";
-    }else if(roles.toUpperCase().indexOf("GM")!= -1){
-      return "3";
-    }else if(roles.toUpperCase().indexOf("TL")!= -1){
-      return "4";
+    if (roles.indexOf('总经理') != -1) {
+      return '1';
+    } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+      return '2';
+    } else if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '3';
+    } else if (roles.toUpperCase().indexOf('TL') != -1) {
+      return '4';
     }
   }
-  return "5";
+  return '5';
 }
 
 export function getCurrentRole2() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("总务担当") != -1 || roles.toUpperCase().indexOf("前台总务") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('总务担当') != -1 || roles.toUpperCase().indexOf('前台总务') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
 
 // ztc 0509 IT担当
 export function getCurrentRole4() {
-  let roles = "";
+  let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
     for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("IT担当") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('IT担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 export function getCurrentRoleCar() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if(roles.toUpperCase().indexOf("司机")!= -1){
-      return "0";
+    if (roles.toUpperCase().indexOf('司机') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 //add-ws-5/7-财务部长权限添加
 export function getCurrentRole3() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if(roles.toUpperCase().indexOf("财务部长")!= -1){
-      return "0";
+    if (roles.toUpperCase().indexOf('财务部长') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 //add-ws-5/7-财务部长权限添加
 //add-ws-5/7-财务担当权限添加
 export function getCurrentRole5() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if(roles.toUpperCase().indexOf("财务担当")!= -1){
-      return "0";
+    if (roles.toUpperCase().indexOf('财务担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 //add-ws-5/7-财务担当权限添加
 //离职考勤对比驳回权限
 export function getCurrentRolegongzijisuan() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if(roles.toUpperCase().indexOf("工资计算担当")!= -1){
-      return "0";
+    if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 //ws-8/14-禅道任务450
 export function getCurrentRole6() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("总经理") != -1 || roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("工资计算担当") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 export function getCurrentRole7() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("总经理") != -1 || roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("工资计算担当") != -1|| roles.toUpperCase().indexOf("招聘担当") != -1|| roles.toUpperCase().indexOf("离职担当") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1 || roles.toUpperCase().indexOf('招聘担当') != -1 || roles.toUpperCase().indexOf('离职担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 export function getCurrentRole8() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("合同担当") != -1 ) {
-      return "0";
+    if (roles.toUpperCase().indexOf('合同担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
+
 //ws-8/14-禅道任务450
 
 export function getCurrentRole9() {
-  let roles = "";
-  if(store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0){
-    for(let role of store.getters.useraccount.roles){
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("外注管理担当") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('外注管理担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
 
 // 人事总务部长 薪资担当 打卡记录历史数据维护
 export function getCurrentRole10() {
-  let roles = "";
+  let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
     for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("人事总务部长") != -1 || roles.toUpperCase().indexOf("工资计算担当") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
 
 // 人事总务部长 薪资担当 打卡记录历史数据维护
 export function getCurrentRole11() {
-  let roles = "";
+  let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
     for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("军权_合同，PJ所有") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('军权_合同，PJ所有') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
 
 // 离职担当 设置为新建调书
 export function getCurrentRole12() {
-  let roles = "";
+  let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
     for (let role of store.getters.useraccount.roles) {
       roles = roles + role.description;
     }
-    if (roles.toUpperCase().indexOf("离职担当") != -1) {
-      return "0";
+    if (roles.toUpperCase().indexOf('离职担当') != -1) {
+      return '0';
     }
   }
-  return "1";
+  return '1';
 }
 
-import CryptoJS from 'crypto-js/crypto-js'
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole13() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('财务部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole14() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('人事总务部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//财务担当
+export function getCurrentRole15() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('财务担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//工资计算担当
+export function getCurrentRole16() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+
+
+import CryptoJS from 'crypto-js/crypto-js';
 
 
 // 默认的 KEY 与 iv ，可以和后端商议好，只要统一的给16位字符串即可
-const KEY = CryptoJS.enc.Utf8.parse("1234567890123456");
+const KEY = CryptoJS.enc.Utf8.parse('1234567890123456');
 const IV = CryptoJS.enc.Utf8.parse('1234567890123456');
 
 // AES加密
 export function Encrypt(word, keyStr, ivStr) {
-  let key = KEY
-  let iv = IV
+  let key = KEY;
+  let iv = IV;
   if (keyStr) {
     key = CryptoJS.enc.Utf8.parse(keyStr);
     iv = CryptoJS.enc.Utf8.parse(ivStr);
@@ -688,15 +760,15 @@ export function Encrypt(word, keyStr, ivStr) {
   var encrypted = CryptoJS.AES.encrypt(srcs, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7
+    padding: CryptoJS.pad.Pkcs7,
   });
   return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
 }
 
 // AES 解密
 export function Decrypt(word, keyStr, ivStr) {
-  let key  = KEY
-  let iv = IV
+  let key = KEY;
+  let iv = IV;
   if (keyStr) {
     key = CryptoJS.enc.Utf8.parse(keyStr);
     iv = CryptoJS.enc.Utf8.parse(ivStr);
@@ -706,7 +778,7 @@ export function Decrypt(word, keyStr, ivStr) {
   var decrypt = CryptoJS.AES.decrypt(src, key, {
     iv: iv,
     mode: CryptoJS.mode.CBC,
-    padding: CryptoJS.pad.Pkcs7
+    padding: CryptoJS.pad.Pkcs7,
   });
   var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
   return decryptedStr.toString();

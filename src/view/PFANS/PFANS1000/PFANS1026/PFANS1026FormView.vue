@@ -1336,7 +1336,6 @@
           6: false,
           7: false,
         },
-        disabledCount7: false,
         existFlg: true,
         checked: false,
         checkeddisplay: true,
@@ -3008,124 +3007,181 @@
           this.dialogBook = false;
           return;
         }
-//        else if (this.form.loadingjudge == ''
-//          || this.form.currencyposition == ''
-//          || this.form.claimdatetime.length == 0
-//          || this.form.custojapanese == ''
-//          || this.form.custochinese == ''
-//          || this.form.placejapanese == ''
-//          || this.form.placechinese == '') {
-//          Message({
-//            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTR'),
-//            type: 'error',
-//            duration: 5 * 1000,
-//          });
-//          this.loading = false;
-//          this.dialogBook = false;
-//          return;
-//        }
-        this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
-          .then(response => {
-            let s = 'count' + index;
-            if (response[s] > 0 && s == 'count1') {
-              this.tipMes(contractNumber, index);
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
-              //   type: 'error',
-              //   duration: 5 * 1000,
-              // });
-            } else if (response[s] > 0 && s === 'count2') {
-              this.tipMes(contractNumber, index);
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS1'),
-              //   type: 'error',
-              //   duration: 5 * 1000,
-              // });
-            } else if (response[s] > 0 && s === 'count3') {
-              this.tipMes(contractNumber, index);
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS2'),
-              //   type: 'error',
-              //   duration: 5 * 1000,
-              // });
-            } else if (response[s] > 0 && s === 'count4') {
-              this.tipMes(contractNumber, index);
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS3'),
-              //   type: 'error',
-              //   duration: 5 * 1000,
-              // });
-            } else if (response[s] > 0 && s === 'count5') {
-              this.tipMes(contractNumber, index);
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS4'),
-              //   type: 'error',
-              //   duration: 5 * 1000,
-              // });
-            } else if (response[s] > 0 && s === 'count6') {
-              this.tipMes(contractNumber, index);
-              // Message({
-              //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS5'),
-              //   type: 'error',
-              //   duration: 5 * 1000,
-              // });
-            } else {
-              //first save contractapplication
-              // add_fjl_0604 --添加请求书和纳品书的选择生成
-              if (index === 5 || index === 6) {
-                let countNumber = '';
-                if (this.multipleSelection.length === 0) {
-                  Message({
-                    message: this.$t('normal.info_01'),
-                    type: 'info',
-                    duration: 2 * 1000
-                  });
-                  this.dialogBook = false;
-                  this.loading = false;
-                  return;
-                }
-                if (this.multipleSelection.length > 0) {
-                  for (let i = 0; i < this.multipleSelection.length; i++) {
-                      if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
-                      countNumber = this.multipleSelection[i].contractnumber + '-1';
-                    }
-                      if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
-                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
-                    }
-                      if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
-                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
-                    }
-                      if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
-                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
-                    }
-                  }
-                  var tabledata = {
-                    'contractnumber': contractNumber,
-                    'rowindex': index,
-                    'countNumber': countNumber
-                  };
-                }
-              } else {
+        if(index < 5){
+          this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
+            .then(response => {
+              let s = 'count' + index;
+              if (response[s] > 0 && s == 'count1') {
+                this.tipMes(contractNumber, index);
+                // Message({
+                //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS'),
+                //   type: 'error',
+                //   duration: 5 * 1000,
+                // });
+              } else if (response[s] > 0 && s === 'count2') {
+                this.tipMes(contractNumber, index);
+                // Message({
+                //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS1'),
+                //   type: 'error',
+                //   duration: 5 * 1000,
+                // });
+              } else if (response[s] > 0 && s === 'count3') {
+                this.tipMes(contractNumber, index);
+                // Message({
+                //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS2'),
+                //   type: 'error',
+                //   duration: 5 * 1000,
+                // });
+              } else if (response[s] > 0 && s === 'count4') {
+                this.tipMes(contractNumber, index);
+                // Message({
+                //   message: this.$t('label.PFANS1026FORMVIEW_QXSCZQSCDQYS3'),
+                //   type: 'error',
+                //   duration: 5 * 1000,
+                // });
+              } else{
                 var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
               }
-              // add_fjl_0604 --添加请求书和纳品书的选择生成
-              this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
 
-//                    this.$refs["refform"].validate(valid => {
-
-            }
-            this.loading = false;
-            this.dialogBook = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
+              this.loading = false;
+              this.dialogBook = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              this.dialogBook = false;
             });
-            this.loading = false;
-            this.dialogBook = false;
-          });
+        }else{
+          let NapinList = [];
+          for(let i = 0; i < this.multipleSelection.length; i++){
+            NapinList.push(this.multipleSelection[i].claimnumber);
+          };
+          let s = 'count' + index;
+          if(s === 'count5'){
+            // 纳品书
+            this.$store.dispatch('PFANS1026Store/existN', NapinList)
+              .then(response => {
+                if (response[s] > 0 && s === 'count5') {
+                  this.tipMes(contractNumber, index);
+                }else {
+                    let countNumber = '';
+                    if (this.multipleSelection.length === 0) {
+                      Message({
+                        message: this.$t('normal.info_01'),
+                        type: 'info',
+                        duration: 2 * 1000
+                      });
+                      this.dialogBook = false;
+                      this.loading = false;
+                      return;
+                    }
+                    if (this.multipleSelection.length > 0) {
+                      for (let i = 0; i < this.multipleSelection.length; i++) {
+                        if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
+                          countNumber = this.multipleSelection[i].contractnumber + '-1';
+                        }
+                        if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
+                          countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                        }
+                        if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
+                          countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                        }
+                        if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
+                          countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                        }
+                      }
+                      var tabledata = {
+                        'contractnumber': contractNumber,
+                        'rowindex': index,
+                        'countNumber': countNumber
+                      };
+                    }else {
+                    var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                  }
+                  // add_fjl_0604 --添加请求书和纳品书的选择生成
+                  this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+                }
+                this.loading = false;
+                this.dialogBook = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+                this.dialogBook = false;
+              });
+          }else{
+            let QingqiuList = [];
+            for(let i = 0; i < this.multipleSelection.length; i++){
+              QingqiuList.push(this.multipleSelection[i].claimnumber);
+            };
+            // 请求书
+            this.$store.dispatch('PFANS1026Store/existQ', QingqiuList)
+              .then(response => {
+                if (response[s] > 0 && s === 'count6') {
+                  this.tipMes(contractNumber, index);
+                } else {
+                    let countNumber = '';
+                    if (this.multipleSelection.length === 0) {
+                      Message({
+                        message: this.$t('normal.info_01'),
+                        type: 'info',
+                        duration: 2 * 1000
+                      });
+                      this.dialogBook = false;
+                      this.loading = false;
+                      return;
+                    }
+                    if (this.multipleSelection.length > 0) {
+                      for (let i = 0; i < this.multipleSelection.length; i++) {
+                        if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
+                          countNumber = this.multipleSelection[i].contractnumber + '-1';
+                        }
+                        if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
+                          countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                        }
+                        if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
+                          countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                        }
+                        if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
+                          countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                        }
+                      }
+                      var tabledata = {
+                        'contractnumber': contractNumber,
+                        'rowindex': index,
+                        'countNumber': countNumber
+                      };
+                    }else {
+                    var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
+                  }
+                  // add_fjl_0604 --添加请求书和纳品书的选择生成
+                  this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
+                }
+                this.loading = false;
+                this.dialogBook = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+                this.dialogBook = false;
+              });
+          }
+
+        }
+
       },
       //書類作成
       clickData(val) {
@@ -3246,7 +3302,6 @@
           this.handleIndexDisabled();
         } else {
           this.handleSaveContract(value, baseInfo);
-
         }
       },
       // add_fjl_0604 --添加请求书和纳品书的选择生成
@@ -3602,66 +3657,9 @@
             duration: 5 * 1000,
           });
           return;
+        }else{
+          this.dialogBook = true;
         }
-        this.loading = true;
-        this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: this.letcontractnumber})
-          .then(response => {
-            this.dialogBook = true;
-//                  let index = 0;
-//                  for ( var i=1; i<=7; i++) {
-//                    if ( response["count"+i] === 0 ) {
-//                      index = i;
-//                      break;
-//                    }
-//                  }
-//                  for ( var i=1; i<=7; i++ ) {
-//                    this.$set(this, "disabledCount"+i, i>index);
-//                  }
-            if (response.count1 === 0) {
-
-              this.disabledCount7 = true;
-              this.loading = false;
-
-            } else if (response.count1 > 0 && response.count2 === 0) {
-
-              this.disabledCount7 = true;
-              this.loading = false;
-
-            } else if (response.count1 > 0 && response.count2 > 0 && response.count3 === 0) {
-
-              this.disabledCount7 = true;
-              this.loading = false;
-
-            } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 === 0) {
-
-              this.disabledCount7 = true;
-              this.loading = false;
-
-            } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 === 0) {
-
-              this.disabledCount7 = true;
-              this.loading = false;
-
-            } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 === 0) {
-
-              this.disabledCount7 = true;
-              this.loading = false;
-
-            } else if (response.count1 > 0 && response.count2 > 0 && response.count3 > 0 && response.count4 > 0 && response.count5 > 0 && response.count6 > 0 && response.count7 === 0) {
-
-              this.disabledCount7 = false;
-              this.loading = false;
-
-            }
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
       },
 
       buttonClick(val) {

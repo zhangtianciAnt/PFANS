@@ -51,13 +51,6 @@
             fix: false,
             filter: true,
           },
-          {
-              code: 'status',
-              label: 'label.approval_status',
-              width: 120,
-              fix: false,
-              filter: true,
-          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -88,29 +81,10 @@
               if (userInfo) {
                 response[i].user_id = userInfo.userinfo.customername;
               }
-              if (response[i].status !== null && response[i].status !== '') {
-                response[i].status = getStatus(response[i].status);
-              }
+
             }
           }
           this.data = response;
-          // //画面按钮制御：总经理和Center长不可新建theme
-          // let role = getCurrentRole();
-          // if (role === '1' || role === '2') {
-          //   this.buttonList = [
-          //     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          //     {'key': 'insert', 'name': 'button.insert', 'disabled': true, 'icon': 'el-icon-plus'},
-          //     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          //   ];
-          // }
-          //管理员不可新建
-          if (!this.$store.getters.userinfo.userinfo) {
-            this.buttonList = [
-                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                {'key': 'insert', 'name': 'button.insert', 'disabled': true, 'icon': 'el-icon-plus'},
-                {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-              ];
-          }
           this.loading = false;
         })
         .catch(error => {
@@ -145,7 +119,6 @@
               year: this.row_info.year,
               group_id: this.row_info.group_id,
               center_id: this.row_info.center_id,
-              status: this.row_info.status,
               plancount: this.row_info.plancount,
               disabled: false,
             },
@@ -167,7 +140,6 @@
               year: this.row_info.year,
               group_id: this.row_info.group_id,
               center_id: this.row_info.center_id,
-              status: this.row_info.status,
               disabled: true,
             },
           });
