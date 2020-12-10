@@ -1042,6 +1042,12 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8"></el-col>
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_TAXES')">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                    <el-switch v-model="form.taxes" active-value="1" inactive-value="0"
+                               ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                  </el-form-item>
               </el-row>
               <!--del_fjl_05/20   &#45;&#45;式样变更，功能修改-->
               <!--              <el-row>-->
@@ -2224,6 +2230,7 @@
                     welfareyear: '',
                     welfarelastyear: '',
                     restyear: '',
+                    taxes: '',
                     restlastyear: '',
                     seatnumber: '',
                     salary: '',
