@@ -117,3 +117,11 @@ export function getworkfolwPurchaseData(data) {
   })
 }
 //采购业务数据流程查看详情
+
+export function getNapinQinqiu(data) {
+  return request({
+    url: 'contractapplication/getNapinQinqiu',
+    method: 'post',
+    data: data
+  })
+}

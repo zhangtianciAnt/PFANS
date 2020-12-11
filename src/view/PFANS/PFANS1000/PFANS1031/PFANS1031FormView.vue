@@ -87,12 +87,13 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1032FORMVIEW_CLAIMTYPE')">
-                <dicselect :code="code2"
-                           :data="form.claimtype"
-                           :disabled="disable"
-                           :multiple="multiple"
-                           style="width:20vw">
-                </dicselect>
+<!--                <dicselect :code="code2"-->
+<!--                           :data="form.claimtype"-->
+<!--                           :disabled="disable"-->
+<!--                           :multiple="multiple"-->
+<!--                           style="width:20vw">-->
+<!--                </dicselect>-->
+                <el-input :disabled="disable" maxlength="20" style="width:20vw" v-model="form.claimtype"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -275,10 +276,11 @@
                       this.form.enddate = this.form.claimdatetime.slice(this.form.claimdatetime.length - 10);
                   }
                   if (this.form.claimtype !== null && this.form.claimtype !== '') {
-                      let checkclaimtype = getDictionaryInfo(this.form.claimtype);
-                      if (checkclaimtype != null || checkclaimtype != '') {
-                          this.form.claimtype = checkclaimtype.value1;
-                      }
+                      // let checkclaimtype = getDictionaryInfo(this.form.claimtype);
+                      // if (checkclaimtype != null || checkclaimtype != '') {
+                      //     this.form.claimtype = checkclaimtype.value1;
+                      // }
+                    this.form.claimtype = this.$t('label.PFANS1026FORMVIEW_HE')+this.form.claimtype+this.$t('label.PFANS1026FORMVIEW_HUI');
                   }
 
                   if (response.depositjapanese !== null && response.depositjapanese !== '') {

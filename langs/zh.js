@@ -208,6 +208,8 @@ module.exports = {
     error_tipis:'之前作成的书类要被替换,是否继续？',
     info_14: '生成当前事业年度所有员工的人才育成计划数据,是否继续？',
     error_priceset: 'group修改后,会在新设定的group下重新生成单价, 是否继续？',
+    error_napalmpetition: '该纳品回数的书类已经在印章中或已经有项目使用该合同，不能删除！',
+    error_judgement: '该合同的决裁书已经进行中或是审批完成，不能删除！',
   },
   menu: {
     homePageManagement: '首页',
@@ -1389,6 +1391,8 @@ module.exports = {
     PFANS1026FORMVIEW_RECOVERYOFF: '未回收',
     PFANS1026FORMVIEW_RECOVERYON: '已回收',
     PFANS1026FORMVIEW_CLAIMAMOUNT: '合同金额',
+    PFANS1026FORMVIEW_HE: '合计',
+    PFANS1026FORMVIEW_HUI: '回',
     PFANS1027VIEW_DETAILS: '报价详细',
     PFANS1027VIEW_SYSTEM: '開発体制',
     PFANS1027VIEW_ESTIMATION: '見積根拠',
