@@ -749,6 +749,7 @@
             this.$t('label.ASSETS1001VIEW_ASSETSTATUS'),//资产状态
             this.$t('label.ASSETS1001VIEW_STOCKSTATUS'),//在库状态
             this.$t('label.ASSETS1001VIEW_PCNO'),//PC管理号
+            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点
             this.$t('label.ASSETS1001VIEW_ACTIVITIONDATE'),//启用日期
             this.$t('label.ASSETS1001VIEW_PRICE'),//原值
             this.$t('label.ASSETS1001VIEW_REALPRICE'),//帐面净值
@@ -763,13 +764,12 @@
             this.$t('label.ASSETS1001VIEW_PSDCDSHIJIDATE'),//实际归还日
             this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
             this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
-            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点
 
           ];
           filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
-            , 'bartypeName', 'assetstatus', 'stockstatus', 'pcno','activitiondate', 'price', 'realprice', 'model'
+            , 'bartypeName', 'assetstatus', 'stockstatus', 'pcno','storagelocation','activitiondate', 'price', 'realprice', 'model'
             , 'psdcddebitsituation', 'psdcdbringoutreason', 'address', 'psdcdresponsible', 'psdcdphone'
-            , 'psdcdperiod', 'psdcdreturndate', 'psdcdshijidate', 'remarks', 'remarks1', 'storagelocation'];
+            , 'psdcdperiod', 'psdcdreturndate', 'psdcdshijidate', 'remarks', 'remarks1', ];
 
         } else if (selectedList.every(list => {
           return arr2.includes(list.typeassets1)
@@ -806,11 +806,10 @@
             this.$t('label.ASSETS1001VIEW_REMARKS1'),//资产说明
             this.$t('label.ASSETS1001VIEW_REMARKS'),//备注
             this.$t('label.ASSETS1001VIEW_REMARKS2'),//备注1
-            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点.
           ];
           filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
              ,'bartypeName', 'model', 'address', 'psdcdresponsible', 'psdcdphone', 'loancontract', 'loancontractno'
-            , 'activitiondate', 'psdcdreturndate', 'psdcdshijidate', 'remarks1', 'remarks', 'remarks2','storagelocation'];
+            , 'activitiondate', 'psdcdreturndate', 'psdcdshijidate', 'remarks1', 'remarks', 'remarks2'];
 
         } else if (selectedList.every(list => {
           return arr3.includes(list.typeassets1)
@@ -909,7 +908,6 @@
             this.$t('label.ASSETS1001VIEW_PARAM4'),
             this.$t('label.ASSETS1001VIEW_PARAM7'),
             this.$t('label.department'),
-            this.$t('label.ASSETS1001VIEW_STORAGELOCATION'),//存放地点
 
           ];
           filterVal = ['filename', 'typeassets', 'barcode', 'principal', 'bartypeName', 'assetstatus', 'stockstatus',
@@ -918,7 +916,7 @@
             'inparams3', 'inparams4', 'inparams5', 'owner',
             'inparams7', 'inparams8', 'outparams1',
             'outparams2', 'outparams3', 'outparams4', 'outparams5', 'outparams6', 'outparams7', 'outparams8', 'outparams9',
-            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', "usedepartment",'storagelocation' ];
+            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', "usedepartment" ];
         } else {
           Message({
             message: this.$t("label.ASSETS1001VIEW_ERROR"),
