@@ -738,6 +738,8 @@
       getBartype(val) {
         this.form.bartype = val;
       },
+
+
       getTypeassets(val) {
         this.form.typeassets = val;
         let letErrortype = getDictionaryInfo(val);
