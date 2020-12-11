@@ -107,6 +107,11 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.ASSETS1001VIEW_STORAGELOCATION')">
+                    <el-input style="width:20vw" v-model="form.storagelocation"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_MODEL')">
                     <el-input style="width:20vw" v-model="form.model"></el-input>
                   </el-form-item>
@@ -549,6 +554,7 @@
         buttonList: [],
         form: {
           typeassets: '',
+          storagelocation: '',
           bartype: ''
         },
         code1: 'PA001',
@@ -732,6 +738,8 @@
       getBartype(val) {
         this.form.bartype = val;
       },
+
+
       getTypeassets(val) {
         this.form.typeassets = val;
         let letErrortype = getDictionaryInfo(val);

@@ -53,251 +53,296 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour4">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving4">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour4">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.May')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour5">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving5">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour5">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.June')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour6">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving6">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour6">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.July')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour7">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving7">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour7">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.August')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour8">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving8">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour8">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.September')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour9">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving9">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour9">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amountfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghourfirst">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="givingfirst">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghourfirst">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.October')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour10">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving10">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour10">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.November')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour11">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving11">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour11">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.December')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour12">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving12">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour12">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.January')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour1">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving1">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour1">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.February')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour2">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving2">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour2">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.March')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour3">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="giving3">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour3">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amountsecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghoursecond">
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                                         prop="givingsecond">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghoursecond">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amounttotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghourtotal">
-                        </el-table-column>
-                      </el-table-column>
-                    </el-table>
-                    <el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" :summary-method="getPrecent"
-                              show-summary style="padding-top: 4%" stripe>
-                      <el-table-column>
-                        <el-table-column align="center" width="120" prop="total1" :formatter="formatterColumn"
-                                         :label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.April')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay4">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving4">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.May')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay5">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving5">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.June')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay6">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving6">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.July')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay7">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving7">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.August')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay8">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving8">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.September')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay9">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving9">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="payfirst">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="givingfirst">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.October')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay10">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving10">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.November')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay11">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving11">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.December')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay12">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving12">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.January')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay1">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving1">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.February')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay2">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving2">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.March')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay3">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="giving3">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="paysecond">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
-                                         prop="givingsecond">
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="paytotal">
-                        </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingtotal">
                         </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghourtotal">-->
+                        <!--</el-table-column>-->
                       </el-table-column>
                     </el-table>
+                    <!--<el-table :data="tableB" header-cell-class-name="sub_bg_color_blue" :summary-method="getPrecent"-->
+                    <!--show-summary style="padding-top: 4%" stripe>-->
+                    <!--<el-table-column>-->
+                    <!--<el-table-column align="center" width="120" prop="total1" :formatter="formatterColumn"-->
+                    <!--:label="$t('label.PFANS1036FORMVIEW_TOTALPLAN')">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.April')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay4">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving4">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.May')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay5">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving5">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.June')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay6">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving6">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.July')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay7">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving7">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.August')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay8">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving8">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.September')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay9">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving9">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="payfirst">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="givingfirst">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.October')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay10">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving10">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.November')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay11">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving11">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.December')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay12">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving12">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.January')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay1">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving1">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.February')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay2">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving2">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.March')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="pay3">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="giving3">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="paysecond">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="givingsecond">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                    <!--prop="paytotal">-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"-->
+                    <!--prop="givingtotal">-->
+                    <!--</el-table-column>-->
+                    <!--</el-table-column>-->
+                    <!--</el-table>-->
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_CURRENTPERSONNEL')" name="second">
                     <el-table :data="tableC" :summary-method="val => getSummaries(val,'C')" show-summary stripe
@@ -323,12 +368,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour4">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay4">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour4">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay4">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving4">
                         </el-table-column>
@@ -337,12 +382,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour5">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay5">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour5">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay5">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving5">
                         </el-table-column>
@@ -351,12 +396,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour6">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay6">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour6">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay6">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving6">
                         </el-table-column>
@@ -365,12 +410,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour7">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay7">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour7">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay7">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving7">
                         </el-table-column>
@@ -379,12 +424,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour8">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay8">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour8">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay8">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving8">
                         </el-table-column>
@@ -393,12 +438,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour9">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay9">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour9">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay9">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving9">
                         </el-table-column>
@@ -407,12 +452,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amountfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghourfirst">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="payfirst">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghourfirst">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="payfirst">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingfirst">
                         </el-table-column>
@@ -421,12 +466,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour10">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay10">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour10">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay10">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving10">
                         </el-table-column>
@@ -435,12 +480,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour11">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay11">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour11">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay11">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving11">
                         </el-table-column>
@@ -449,12 +494,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour12">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay12">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour12">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay12">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving12">
                         </el-table-column>
@@ -463,12 +508,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour1">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay1">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour1">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay1">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving1">
                         </el-table-column>
@@ -477,12 +522,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour2">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay2">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour2">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay2">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving2">
                         </el-table-column>
@@ -491,12 +536,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour3">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay3">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour3">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay3">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving3">
                         </el-table-column>
@@ -505,12 +550,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amountsecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghoursecond">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="paysecond">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghoursecond">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="paysecond">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingsecond">
                         </el-table-column>
@@ -519,12 +564,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amounttotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghourtotal">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="paytotal">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghourtotal">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="paytotal">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingtotal">
                         </el-table-column>
@@ -555,12 +600,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour4">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay4">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour4">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay4">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving4">
                         </el-table-column>
@@ -569,12 +614,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour5">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay5">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour5">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay5">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving5">
                         </el-table-column>
@@ -583,12 +628,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour6">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay6">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour6">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay6">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving6">
                         </el-table-column>
@@ -597,12 +642,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour7">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay7">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour7">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay7">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving7">
                         </el-table-column>
@@ -611,12 +656,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour8">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay8">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour8">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay8">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving8">
                         </el-table-column>
@@ -625,12 +670,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour9">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay9">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour9">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay9">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving9">
                         </el-table-column>
@@ -639,12 +684,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amountfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghourfirst">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="payfirst">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghourfirst">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="payfirst">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingfirst">
                         </el-table-column>
@@ -653,12 +698,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour10">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay10">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour10">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay10">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving10">
                         </el-table-column>
@@ -667,12 +712,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour11">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay11">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour11">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay11">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving11">
                         </el-table-column>
@@ -681,12 +726,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour12">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay12">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour12">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay12">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving12">
                         </el-table-column>
@@ -695,12 +740,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour1">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay1">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour1">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay1">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving1">
                         </el-table-column>
@@ -709,12 +754,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour2">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay2">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour2">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay2">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving2">
                         </el-table-column>
@@ -723,12 +768,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amount3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghour3">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="pay3">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghour3">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="pay3">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="giving3">
                         </el-table-column>
@@ -737,12 +782,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amountsecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghoursecond">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="paysecond">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghoursecond">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="paysecond">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingsecond">
                         </el-table-column>
@@ -751,12 +796,12 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="110"
                                          prop="amounttotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
-                                         prop="workinghourtotal">
-                        </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
-                                         prop="paytotal">
-                        </el-table-column>
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"-->
+                        <!--prop="workinghourtotal">-->
+                        <!--</el-table-column>-->
+                        <!--<el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"-->
+                        <!--prop="paytotal">-->
+                        <!--</el-table-column>-->
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
                                          prop="givingtotal">
                         </el-table-column>
@@ -770,13 +815,15 @@
                          name="second">
               <div>
                 <AssetsComponent :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear"
+                                 :tableLodYear="assets_lodyear"
                                  @assets="Assets"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" style="margin-top: 2%" name="third">
               <div>
                 <AssetsComponent :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear"
-                                 @assets="Assets1"></AssetsComponent>
+                                 :tableLodYear="equipment_lodyear"
+                                 @assets="Assetss"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
@@ -853,7 +900,7 @@
                     <TrustA1Component :disabled="!disable" :tableTrustA1="groupA1" @sum="getSumA1"></TrustA1Component>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_A2')" name="seventh">
-                    <TrustComponent :disabled="!disable" :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
+                    <TrustComponent :disabled="true" :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
                     <TrustComponent :tableTrust="groupB1" @sum="getSumB1" :disabled="true"></TrustComponent>
@@ -862,10 +909,10 @@
                     <TrustComponent :tableTrust="groupB2" @sum="getSumB2" :disabled="true"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
-                    <TrustComponent :disabled="!disable" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
+                    <TrustComponent :disabled="true" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B4')" name="fifth">
-                    <TrustComponent :disabled="!disable" :tableTrust="groupC" @sum="getSumC"></TrustComponent>
+                    <TrustComponent :disabled="false" :tableTrust="groupC" @sum="getSumC"></TrustComponent>
                   </el-tab-pane>
                 </el-tabs>
               </div>
@@ -879,7 +926,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -1105,13 +1152,13 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036VIEW_USING')" name="second">
+                  <el-tab-pane :label="$t('label.PFANS1036VIEW_USING')" name="second" v-if="this.role === '0'">
                     <el-table :data="tableO2" :summary-method="(val) => getSummaries(val,'o2')" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -1337,13 +1384,13 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036VIEW_TRAINING')" name="third">
+                  <el-tab-pane :label="$t('label.PFANS1036VIEW_TRAINING')" name="third" v-if="this.role === '0'">
                     <el-table :data="tableO3" :summary-method="(val) => getSummaries(val,'o3')" show-summary stripe
                               header-cell-class-name="sub_bg_color_blue">
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -1575,7 +1622,7 @@
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
                                        fixed>
                       </el-table-column>
-                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_CONTENTTHOUSAND')" align="center"
+                      <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
                                        prop="programme">
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
@@ -2097,7 +2144,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getDictionaryInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getDictionaryInfo, getOrgInfo, getCurrentRole14} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import AssetsComponent from './AssetsComponent';
   import TrustComponent from './TrustComponent';
@@ -2127,6 +2174,7 @@
         }
       };
       return {
+        role: '',
         org: [],
         month: '',
         arr: [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3],
@@ -2135,7 +2183,14 @@
         groupB3: [],
         groupB1: [],
         groupB2: [],
-        groupC: [{groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088001'}, {groupname: 'PJ088002'}],
+        groupC: [
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088001').value1},
+          {groupname: getDictionaryInfo('PJ088002').value1}],
         sumA1: [],
         sumA2: [],
         sumB1: [],
@@ -2150,13 +2205,14 @@
         assets1: [],
         assets2: [],
         travel: [],
-        business: [{assetstype: '0'}, {assetstype: '0'},  {assetstype: '0'}, {assetstype: '0'}],
+        business: [{assetstype: '0'}, {assetstype: '0'}, {assetstype: '0'}, {assetstype: '0'}],
         equipment_newyear: [{assetstype: '0'}],
         equipment_lastyear: [{assetstype: '0'}],
+        equipment_lodyear: [],
         assets_newyear: [{assetstype: '0'}],
         assets_lastyear: [{assetstype: '0'}],
+        assets_lodyear: [],
         error: '',
-        options: [],
         selectType: 'Single',
         title: 'title.PFANS1036VIEW',
         userlist: '',
@@ -2166,7 +2222,6 @@
         activeName7: 'first',
         loading: false,
         disable: false,
-        disablecurr: false,
         buttonList: [
           {
             key: 'save',
@@ -2175,8 +2230,9 @@
             icon: 'el-icon-check',
           },
         ],
+        orgtree: [],
         tableA: [], //1
-        tableB: [],//2
+        // tableB: [],//2
         tableC: [],//3
         tableD: [],//4
         tableK: [{}, {}, {}, {}, {}, {}],
@@ -2184,33 +2240,54 @@
         tableO2: [{}],
         tableO3: [{}],
         tableO: [{}],
-        tableP: [{name1: 'PJ086001'}, {name1: 'PJ086002'}, {name1: 'PJ086003'}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE3')}
-          , {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE4')}, {name1: 'PJ073001'}, {name1: '-'}, {name1: '-'}, {name1: '-'}, {name1: '-'}, {name1: 'PJ073002'}, {name1: '-'}, {name1: 'PJ073'}, {name1: 'PJ074001'}, {name1: 'PJ074002'}, {name1: 'PJ074003'},
-          {name1: 'PJ074004'}, {name1: 'PJ074005'}, {name1: 'PJ074006'}, {name1: 'PJ074'}, {name1: 'PJ075001'}, {name1: 'PJ075002'}, {name1: 'PJ075003'}, {name1: 'PJ075004'}, {name1: 'PJ075005'},
-          {name1: 'PJ075'}, {name1: 'PJ076001'}, {name1: 'PJ076002'}, {name1: 'PJ076003'}, {name1: 'PJ076'}, {name1: 'PJ077001'}, {name1: 'PJ077002'}, {name1: 'PJ077003'}, {name1: 'PJ077004'}, {name1: 'PJ077005'},
-          {name1: 'PJ077006'}, {name1: 'PJ077007'}, {name1: 'PJ077008'}, {name1: 'PJ077009'}, {
+        tableP: [{name1: 'PJ086001'}, {name1: 'PJ086002'}, {name1: 'PJ086003'},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE3')}
+          , {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE4')}, {name1: 'PJ073001'},
+          {name1: '-'}, {name1: '-'}, {name1: '-'}, {name1: '-'},
+          {name1: 'PJ073002'}, {name1: '-'}, {name1: 'PJ073'}, {name1: 'PJ074001'}, {name1: 'PJ074002'}, {name1: 'PJ074003'},
+          {name1: 'PJ074004'}, {name1: 'PJ074005'}, {name1: 'PJ074006'},
+          {name1: 'PJ074'}, {name1: 'PJ075001'}, {name1: 'PJ075002'}, {name1: 'PJ075003'}, {name1: 'PJ075004'}, {name1: 'PJ075005'},
+          {name1: 'PJ075'}, {name1: 'PJ076001'},
+          {name1: 'PJ076002'}, {name1: 'PJ076003'}, {name1: 'PJ076'}, {name1: 'PJ077001'},
+          {name1: 'PJ077002'}, {name1: 'PJ077003'}, {name1: 'PJ077004'}, {name1: 'PJ077005'},
+          {name1: 'PJ077006'}, {name1: 'PJ077007'}, {name1: 'PJ077008'}, {name1: 'PJ077009'},
+          {
             name1: 'PJ077010',
             type: 40,
-          }, {name1: 'PJ077'}, {name1: this.$t('label.PFANS2005FORMVIEW_TOTAL')}, {}, {
+          },
+          {name1: 'PJ077'}, {name1: this.$t('label.PFANS2005FORMVIEW_TOTAL')}, {},
+          {
             name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE2'),
             type: 44,
-          }
-          , {
+          },
+          {
             name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE3'),
             type: 45,
-          }, {name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE4')}, {}, {type: 48}, {}, {}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
-          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE3')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE4')},
+          },
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB3VALUE4')}, {}, {type: 48}, {}, {},
+          {name1: this.$t('label.PFANS1042FORMVIEW_BENEFITRATE')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE3')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE4')},
           {
             name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE2'),
-            type: 54,
-          }, {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),
             type: 55,
-          }, {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),
+          },
+          {
+            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),
             type: 56,
-          }, {name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'), type: 57},
-          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE3')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE4')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE5')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE6')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE9')},
+          },
+          {
+            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),
+            type: 57,
+          },
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'), type: 58},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE2')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE3')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE4')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE5')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE6')},
+          {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE9')},
         ],
         baseInfo: {},
         form: {
@@ -2228,8 +2305,6 @@
         },
         multiple: false,
         canStart: false,
-        sumC: [],
-        sumD: [],
         checkList: [],
       };
     },
@@ -2240,24 +2315,29 @@
       this.disable = this.$route.params.disabled;
     },
     mounted() {
+      this.role = getCurrentRole14();
+      // if (this.roles === '0') {
+      //   this.checkdisabled = false;
+      // } else {
+      //   this.checkdisabled = true;
+      // }
       this.loading = true;
       if (this.$route.params._id) {
         this.$store
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
-            if (this.$store.getters.orgGroupList) {
-              this.checkList = this.$store.getters.orgGroupList;
-              for (let i = 0; i < this.checkList.length; i++) {
-                if (this.checkList[i].groupid === this.form.group_id) {
-                  this.org = this.checkList[i];
-                }
-              }
+            let group = getOrgInfo(this.form.group_id);
+            if (group) {
+              this.org.redirict = group.redirict;
+              this.org.companyen = group.companyen;
             }
             this.equipment_newyear = JSON.parse(this.form.equipment_newyear);
             this.equipment_lastyear = JSON.parse(this.form.equipment_lastyear);
+            this.equipment_lodyear = JSON.parse(this.form.equipment_lodyear);
             this.assets_newyear = JSON.parse(this.form.assets_newyear);
             this.assets_lastyear = JSON.parse(this.form.assets_lastyear);
+            this.assets_lodyear = JSON.parse(this.form.assets_lodyear);
             let table_p = JSON.parse(this.form.tableP);
             this.business = JSON.parse(this.form.business);
             this.groupA1 = JSON.parse(this.form.groupA1);
@@ -2289,33 +2369,70 @@
       } else {
         this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if (this.$store.getters.orgGroupList.length > 0) {
-          this.groupA2 = this.$store.getters.orgGroupList.map(
-            group => {
-              return {groupid: group.groupid, groupname: group.companyen};
-            },
-          );
-          this.groupB3 = this.$store.getters.orgGroupList.map(
-            group => {
-              return {groupid: group.groupid, groupname: group.companyen};
-            },
-          );
-        }
         this.form.center_id = rst.centerId || '';
         this.form.group_id = rst.groupId || '';
         this.form.user_id = this.$store.getters.userinfo.userid;
-
-        if (this.$store.getters.orgGroupList) {
-          this.checkList = this.$store.getters.orgGroupList;
-          for (let i = 0; i < this.checkList.length; i++) {
-            if (this.checkList[i].groupid === this.form.group_id) {
-              this.org = this.checkList[i];
+        let parameter = {
+          year: this.form.year,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1036Store/getgroupcompanyen', parameter)
+          .then(response => {
+            if (response) {
+              this.orgtree = response;
+              if (this.orgtree) {
+                this.checkList = this.orgtree;
+                for (let i = 0; i < this.checkList.length; i++) {
+                  if (this.checkList[i].id === this.form.group_id) {
+                    this.org = this.checkList[i];
+                  }
+                }
+              }
+              if (this.orgtree[0].type === '1') {
+                let data1 = JSON.parse(this.orgtree[0].equipment_lodyear);
+                let data2 = JSON.parse(this.orgtree[0].assets_lodyear);
+                let data3 = data1.filter(item => (item.companyen == this.org.companyen));
+                let data4 = data2.filter(item => (item.companyen == this.org.companyen));
+                this.equipment_lodyear = data3;
+                this.assets_lodyear = data4;
+              } else {
+                if (this.orgtree.length > 0) {
+                  for (let i = 0; i < this.orgtree.length; i++) {
+                    this.equipment_lodyear.push({
+                      companyen: this.orgtree[i].companyen,
+                    });
+                    this.assets_lodyear.push({
+                      companyen: this.orgtree[i].companyen,
+                    });
+                  }
+                }
+              }
             }
-          }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+
+
+        if (this.form.group_id) {
+          this.getgroupA1(this.form.group_id);
         }
-        if (this.form.group_id) this.getGroupB1(this.form.group_id);
-        if (this.form.group_id) this.getPersonTable(rst.groupId, this.form.year);
+        this.getgroupA2();
+        this.getgroupB1();
+        this.getgroupB2();
+        this.getgroupB3();
+        if (this.form.group_id) {
+          this.getPersonTable(rst.groupId, this.form.year);
+        }
       }
+
     },
     computed: {
       tableSZTotal: function() {
@@ -2371,10 +2488,10 @@
       start(val) {
         if (val.state === '0') {
           this.form.status = '2';
-        }else if (val.state === '2') {
+        } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("save");
+        this.buttonClick('save');
       },
       //add-ws-5-20-流程恒展开
       end() {
@@ -2388,7 +2505,7 @@
             if (response[0]) this.tableC = JSON.parse(response[0]);
             if (response[1]) this.tableD = JSON.parse(response[1]);
             if (response[2]) this.tableA = [JSON.parse(response[2])];
-            if (response[2]) this.tableB = [JSON.parse(response[2])];
+            // if (response[2]) this.tableB = [JSON.parse(response[2])];
             let actual = JSON.parse(response[3]);
             actual.forEach(
               val => {
@@ -2432,11 +2549,14 @@
                 } else if (val.code === 'neibuhetong') {
                   Object.assign(this.tableP[24], val);
                 } else if (val.code === 'worktime') {
-                  Object.assign(this.tableP[51], val);
-                } else if (val.code === 'worktime0') {
-                  Object.assign(this.tableP[52], val);
-                } else if (val.code === 'worktime1') {
                   Object.assign(this.tableP[53], val);
+                  // Object.assign(this.tableP[52], val);
+                } else if (val.code === 'worktime0') {
+                  Object.assign(this.tableP[54], val);
+                  //   Object.assign(this.tableP[53], val);
+                } else if (val.code === 'worktime1') {
+                  Object.assign(this.tableP[55], val);
+                  // Object.assign(this.tableP[54], val);
                 }
               },
             );
@@ -2464,6 +2584,7 @@
         let _tableO2 = {};
         let _tableO1 = {};
         let _travel = {};
+        //研修
         this.tableO3.forEach(
           val => {
             if (val.type === 'PJ108001') {
@@ -2473,6 +2594,7 @@
             }
           },
         );
+        //通信
         this.tableO1.forEach(
           val => {
             if (val.type === 'PJ106001') {
@@ -2482,11 +2604,13 @@
             }
           },
         );
+        //旅费交通费下方合计
         if (this.travel.length > 0) {
           for (let i = 1; i <= 12; i++) {
             _travel['money' + i] = Number(_travel['money' + i] || 0) + Number(this.travel[0]['money' + i] || 0);
           }
         }
+        // 採用
         this.tableO2.forEach(
           val => {
             if (val.type === 'PJ107001') {
@@ -2501,6 +2625,7 @@
             }
           },
         );
+        //各种经费
         this.tableO.forEach(
           val => {
             if (val.type === 'PJ111012') {
@@ -2563,33 +2688,55 @@
                 _tableO2['money' + i] = Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0);
               }
             }
-          });
+          },
+        );
+
         for (let i = 0; i < this.arr.length; i++) {
-          this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
+          // this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
+          //项目计划得支出 - 構外委託（B2）最下方合计
           if (this.sumB2.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
+              // this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
+              // this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
+          this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
+          //this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
+          //项目计划得支出 - 構内委託（B1）最下方合计
           if (this.sumB1.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
+              // this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 2] || 0).toFixed(2));
             } else {
-              this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+              this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
+              // this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
             }
           }
-          this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
+          this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
+          // this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
+          //人员计划合计上半个
           if (this.tableA.length > 0) {
-            this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[6], 'money' + this.arr[i], (Number(this.tableB[0]['giving' + this.arr[i]]) / 1000).toFixed(2));
           } else {
-            this.$set(this.tableP[53], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
           }
+          // if (this.tableA.length > 0) {
+          //   this.$set(this.tableP[54], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+          //   // this.$set(this.tableP[53], 'money' + this.arr[i], Number(this.tableA[0]['amount' + this.arr[i]] || 0).toFixed(2));
+          // } else {
+          //   this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
+          //   // this.$set(this.tableP[53], 'money' + this.arr[i], '0.00');
+          // }
           this.$set(this.tableP[0], 'actual' + this.arr[i], this.tableP[0]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[1], 'actual' + this.arr[i], this.tableP[1]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[2], 'actual' + this.arr[i], this.tableP[2]['actual' + this.arr[i]] || '0.00');
+          //项目计划収入－外部受託（A1）表
           if (this.groupA1.length > 0) {
             this.$set(this.tableP[0], 'money' + this.arr[i], Number(this.groupA1[0]['money' + this.arr[i]] || 0).toFixed(2));
             this.$set(this.tableP[1], 'money' + this.arr[i], Number(this.groupA1[1]['money' + this.arr[i]] || 0).toFixed(2));
@@ -2600,6 +2747,7 @@
             this.$set(this.tableP[2], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[3], 'actual' + this.arr[i], this.tableP[3]['actual' + this.arr[i]] || '0.00');
+          //项目计划収入－内部受託（A2）合计
           if (this.sumA2.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[3 + 2 * i] || 0).toFixed(2));
@@ -2615,11 +2763,12 @@
           this.$set(this.tableP[5], 'actual' + this.arr[i], (Number(this.tableP[4]['actual' + this.arr[i]]) - (Number(this.tableP[1]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['actual' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
 
           this.$set(this.tableP[6], 'actual' + this.arr[i], this.tableP[6]['actual' + this.arr[i]] || '0.00');
-          if (this.tableB.length > 0) {
-            this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableB[0]['pay' + this.arr[i]]) + Number(this.tableB[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
-          } else {
-            this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
-          }
+          //人员计划合计下半个
+          // if (this.tableB.length > 0) {
+          //   this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableB[0]['pay' + this.arr[i]]) + Number(this.tableB[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
+          // } else {
+          //   this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
+          // }
           this.$set(this.tableP[7], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[7], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[8], 'actual' + this.arr[i], '0.00');
@@ -2630,12 +2779,15 @@
           this.$set(this.tableP[10], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[11], 'actual' + this.arr[i], '0.00');
           if (i === 0) {
-            this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
+            this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2);
+            // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
           } else {
             if (i === 4) {
-              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]])) + Number(this.tableP[54]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+              // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
             } else {
-              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
+              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]]))).toFixed(2);
+              // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
             }
           }
           this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
@@ -2643,12 +2795,14 @@
           this.$set(this.tableP[13], 'actual' + this.arr[i], (Number(this.tableP[6]['actual' + this.arr[i]]) + Number(this.tableP[11]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[13], 'money' + this.arr[i], (Number(this.tableP[6]['money' + this.arr[i]]) + Number(this.tableP[11]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[14], 'actual' + this.arr[i], this.tableP[14]['actual' + this.arr[i]] || '0.00');
+          //设备投资赏却合计
           if (this.assets1.length > 0) {
             this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
           } else {
             this.$set(this.tableP[14], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[15], 'actual' + this.arr[i], this.tableP[15]['actual' + this.arr[i]] || '0.00');
+          //软件资产赏却合计
           if (this.assets2.length > 0) {
             this.$set(this.tableP[15], 'money' + this.arr[i], (Number(this.assets2[0]['money' + this.arr[i]] || 0)).toFixed(2));
           } else {
@@ -2665,6 +2819,7 @@
           this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[20], 'actual' + this.arr[i], (Number(this.tableP[14]['actual' + this.arr[i]]) + Number(this.tableP[15]['actual' + this.arr[i]]) + Number(this.tableP[16]['actual' + this.arr[i]]) + Number(this.tableP[17]['actual' + this.arr[i]]) + Number(this.tableP[18]['actual' + this.arr[i]]) + Number(this.tableP[19]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[21], 'actual' + this.arr[i], this.tableP[21]['actual' + this.arr[i]] || '0.00');
+          //项目计划支出 - 特别经费（C)  (千元）合计
           if (this.sumC1.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[3 + 2 * i] || 0).toFixed(2));
@@ -2677,6 +2832,7 @@
           this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[22], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[23], 'actual' + this.arr[i], this.tableP[23]['actual' + this.arr[i]] || '0.00');
+          //项目计划支出 - 構内委託（B3）合计
           if (this.sumB3.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[23], 'money' + this.arr[i], Number(this.sumB3[3 + 2 * i] || 0).toFixed(2));
@@ -2700,8 +2856,10 @@
           this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
+          this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
+          // this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
+          // this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
@@ -2724,6 +2882,7 @@
           this.$set(this.tableP[37], 'actual' + this.arr[i], this.tableP[37]['actual' + this.arr[i]] || '0.00');
           this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[38], 'actual' + this.arr[i], this.tableP[38]['actual' + this.arr[i]] || '0.00');
+
           ['money', 'actual'].forEach(
             val => {
               this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
@@ -2737,38 +2896,73 @@
               this.$set(this.tableP[46], val + this.arr[i], (Number(this.tableP[44][val + this.arr[i]] || 0) + Number(this.tableP[45][val + this.arr[i]] || 0)).toFixed(2));
               this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
-
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[58], val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              //add
+              if (Number(this.tableP[5][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[5], val + this.arr[i], ((Number(this.tableP[5][val + this.arr[i]] || 0) - Number(this.tableP[13][val + this.arr[i]] || 0) - Number(this.tableP[24][val + this.arr[i]] || 0) - Number(this.tableP[32][val + this.arr[i]] || 0) - Number(this.tableP[21][val + this.arr[i]] || 0)) / (Number(this.tableP[5][val + this.arr[i]] || 0))).toFixed(2));
               } else {
-                this.$set(this.tableP[58], val + this.arr[i], '0%');
+                this.$set(this.tableP[51], val + this.arr[i], '0.00');
               }
-
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              //add
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[59], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[58], val + this.arr[i], Math.round(Number(this.tableP[54][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[58], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[60], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[59], val + this.arr[i], Math.round(Number(this.tableP[55][val + this.arr[i]] || 0) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[59], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[61], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[62], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
+              //   this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[60], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
+                this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
               } else {
                 this.$set(this.tableP[62], val + this.arr[i], '0%');
               }
-              if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // if (Number(this.tableP[53][val + this.arr[i]]) > 0) {
+              //   this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[53][val + this.arr[i]]) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[61], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[63], val + this.arr[i], '0%');
               }
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[62], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[62], val + this.arr[i], '0%');
+              // }
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+              } else {
+                this.$set(this.tableP[64], val + this.arr[i], '0%');
+              }
+              // if (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
+              //   this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[57][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+              // } else {
+              //   this.$set(this.tableP[63], val + this.arr[i], '0%');
+              // }
             },
           );
         }
@@ -2792,11 +2986,30 @@
         } else {
           this.$set(this.tableP[50], 'actual3', '0.00');
         }
-
-        this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
-        this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
-        this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
-        this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
+        if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
+          this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money6', '0.00');
+        }
+        if ((Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9'])) !== 0) {
+          this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money9', '0.00');
+        }
+        if ((Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12'])) !== 0) {
+          this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money12', '0.00');
+        }
+        if ((Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3'])) !== 0) {
+          this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
+        } else {
+          this.$set(this.tableP[50], 'money3', '0.00');
+        }
+        // this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
+        // this.$set(this.tableP[50], 'money9', ((Number(this.tableP[43]['money7']) + Number(this.tableP[43]['money8']) + Number(this.tableP[43]['money9'])) / (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']))).toFixed(2));
+        // this.$set(this.tableP[50], 'money12', ((Number(this.tableP[43]['money10']) + Number(this.tableP[43]['money11']) + Number(this.tableP[43]['money12'])) / (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']))).toFixed(2));
+        // this.$set(this.tableP[50], 'money3', ((Number(this.tableP[43]['money1']) + Number(this.tableP[43]['money2']) + Number(this.tableP[43]['money3'])) / (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']))).toFixed(2));
 
       },
       getTravel(val) {
@@ -2817,7 +3030,7 @@
       getSumC(val) {
         this.sumC1 = val;
       },
-      Assets1(val) {
+      Assetss(val) {
         this.assets2 = val;
       },
       Assets(val) {
@@ -2828,7 +3041,7 @@
       },
       rowClass({row, rowIndex}) {
         if ([4, 5, 13, 20, 26, 30, 41].includes(rowIndex)) {
-          return 'row1';
+          return '3';
         } else if ([42].includes(rowIndex)) {
           return 'row2';
         }
@@ -2845,7 +3058,7 @@
               rowspan: 37,
               colspan: 1,
             };
-          } else if ([43, 47, 48, 49, 50].includes(rowIndex)) {
+          } else if ([43, 47, 48, 49, 50, 51].includes(rowIndex)) {
             return {
               rowspan: 1,
               colspan: 2,
@@ -2855,17 +3068,17 @@
               rowspan: 1,
               colspan: 1,
             };
-          } else if (rowIndex === 51) {
+          } else if (rowIndex === 52) {
             return {
               rowspan: 3,
               colspan: 1,
             };
-          } else if (rowIndex === 54) {
+          } else if (rowIndex === 55) {
             return {
               rowspan: 4,
               colspan: 1,
             };
-          } else if (rowIndex === 58) {
+          } else if (rowIndex === 59) {
             return {
               rowspan: 6,
               colspan: 1,
@@ -2877,7 +3090,7 @@
             };
           }
         } else if (columnIndex === 1) {
-          if ([43, 47, 48, 49, 50].includes(rowIndex)) {
+          if ([43, 47, 48, 49, 50, 51].includes(rowIndex)) {
             return {
               rowspan: 0,
               colspan: 0,
@@ -2902,10 +3115,12 @@
           } else if (index === 50) {
             return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE1');
           } else if (index === 51) {
+            return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
+          } else if (index === 52) {
             return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-          } else if (index === 54) {
+          } else if (index === 55) {
             return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
-          } else if (index === 58) {
+          } else if (index === 59) {
             return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
           }
         } else if (column.property === 'name1') {
@@ -2916,115 +3131,87 @@
           }
         }
       },
-      getGroupB1(id) {
+      getgroupA2() {
+        let parameter = {
+          year: this.form.year,
+          type: 1,
+        };
         this.$store
-          .dispatch('PFANS1036Store/getPlan', {'years': this.form.year, 'groupid': id})
+          .dispatch('PFANS1036Store/getgroup', parameter)
           .then(response => {
-            if (response.length > 0) {
-              let arr = [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3];
-              let count1 = 0;
-              let count2 = 0;
-              let count = 0;
-              let supplierinfoList = this.$store.getters.supplierinforList.map(list => {
-                return {'supplierinfor_id': list.supplierinfor_id, 'groupname': list.supchinese};
-              });
-              let supplierinfoList2 = this.$store.getters.supplierinforList.map(list => {
-                return {'supplierinfor_id': list.supplierinfor_id, 'groupname': list.supchinese};
-              });
-              let outside = response.filter(res => res.type === 1);
-              let employed = JSON.parse(outside[0].employed);
-              let newentry = JSON.parse(outside[0].newentry);
-              let inside = response.filter(res => res.type === 0);
-              let inemployed = JSON.parse(inside[0].employed);
-              let innewentry = JSON.parse(inside[0].newentry);
-              if (newentry.length > 0) {
-                newentry.forEach(
-                  val => {
-                    if (val.name) {
-                      count1 += 1;
-                    }
-                  },
-                );
-              }
-              if (innewentry.length > 0) {
-                innewentry.forEach(
-                  val => {
-                    if (val.name) {
-                      count2 += 1;
-                    }
-                  },
-                );
-              }
-              count = employed.length + inemployed.length + count1 + count2;
-              let money = (Number(getDictionaryInfo('PJ087001').value1) * count / 12).toFixed(3);
-              this.groupA1 = [{
-                money1: money,
-                money2: money,
-                money3: money,
-                money4: money,
-                money5: money,
-                money6: money,
-                money7: money,
-                money8: money,
-                money9: money,
-                money10: money,
-                money11: money,
-                money12: money,
-                name1: 'PJ086001',
-                name2: 'PJ086001',
-              },
-                {name1: 'PJ086002', name2: 'PJ086002'}, {name1: 'PJ086003', name2: 'PJ086003'}];
-              supplierinfoList.forEach(
-                list => {
-                  employed.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.suppliernameid && em.entermouth !== 'BP025004') {
-                        for (let i = 1; i <= 12; i++) {
-                          list['number' + i] = (list['number' + i] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                  newentry.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.supchinese && em.isoutside === false) {
-                        let index = arr.indexOf(Number(moment(em.entermouth).month()) === 12 ? 1 : Number(moment(em.entermouth).month()) + 1);
-                        for (let i = index; i < arr.length; i++) {
-                          list['number' + arr[i]] = (list['number' + arr[i]] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                },
-              );
-              supplierinfoList2.forEach(
-                list => {
-                  employed.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.suppliernameid && em.entermouth === 'BP025004') {
-                        for (let i = 1; i <= 12; i++) {
-                          list['number' + i] = (list['number' + i] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                  newentry.forEach(
-                    em => {
-                      if (list.supplierinfor_id === em.supchinese && em.isoutside === true) {
-                        let index = arr.indexOf(Number(moment(em.entermouth).month()) === 12 ? 1 : Number(moment(em.entermouth).month()) + 1);
-                        for (let i = index; i < arr.length; i++) {
-                          list['number' + arr[i]] = (list['number' + arr[i]] || 0) + 1;
-                        }
-                      }
-                    },
-                  );
-                },
-              );
-
-              this.groupB1 = supplierinfoList;
-              this.groupB2 = supplierinfoList2;
-            }
-
+            this.groupA2 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupB1() {
+        let parameter = {
+          year: this.form.year,
+          type: 2,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroup', parameter)
+          .then(response => {
+            this.groupB1 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupB2() {
+        let parameter = {
+          year: this.form.year,
+          type: 3,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroup', parameter)
+          .then(response => {
+            this.groupB2 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupB3() {
+        let parameter = {
+          year: this.form.year,
+          type: 4,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroup', parameter)
+          .then(response => {
+            this.groupB3 = response;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          });
+      },
+      getgroupA1(id) {
+        let parameter = {
+          year: this.form.year,
+          groupid: id,
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroupA1', parameter)
+          .then(response => {
+            this.groupA1 = response;
           })
           .catch(error => {
             Message({
@@ -3219,9 +3406,12 @@
         if (val === 'save') {
           this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
           this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
+          this.form.equipment_lodyear = JSON.stringify(this.equipment_lodyear);
           this.form.assets_newyear = JSON.stringify(this.assets_newyear);
           this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
-          this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
+          this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
+          this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[55], this.tableP[56], this.tableP[57], this.tableP[58]]);
+          // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
           this.form.business = JSON.stringify(this.business);
           this.form.groupA1 = JSON.stringify(this.groupA1);
           this.form.groupA2 = JSON.stringify(this.groupA2);
@@ -3322,12 +3512,12 @@
         },
         deep: true,
       },
-      tableB: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
+      // tableB: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
       tableC: {
         handler(newValue, oldValue) {
           this.computedSum();

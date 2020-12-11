@@ -399,7 +399,7 @@
               }
             } else {
               if(roleLC == '2' || roleLC == '3') { //GM Center
-                this.workflowCode = 'W0118'//新流程
+                this.workflowCode = 'W0108'//新流程
               }else { //TL 正式员工
                 this.workflowCode = 'W0030'
               }
@@ -625,7 +625,7 @@
             this.workflowCode = 'W0101';
           } else {
             if(roleLC == '2' || roleLC == '3') { //GM Center
-              this.workflowCode = 'W0118'//新流程
+              this.workflowCode = 'W0108'//新流程
             }else { //TL 正式员工
               this.workflowCode = 'W0030'
             }

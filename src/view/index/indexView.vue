@@ -187,13 +187,6 @@
             </el-tag>
           </el-col>
         </el-row>
-        <el-row>
-          <el-col :span="4">
-            <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green;margin-top: 3rem">
-              {{$t('label.PFANS8007VIEW_YQ')}}
-            </el-tag>
-          </el-col>
-        </el-row>
 <!--        add-ws-7/7-禅道任务253-->
         <el-row>
           <el-col :span="4">

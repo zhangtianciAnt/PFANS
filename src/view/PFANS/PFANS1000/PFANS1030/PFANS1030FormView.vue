@@ -665,7 +665,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole} from '@/utils/customize';
 
   import project from '../../../components/project';
 

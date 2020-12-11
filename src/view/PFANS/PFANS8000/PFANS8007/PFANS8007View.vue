@@ -155,13 +155,13 @@
               </el-col>
             </el-row>
             <div>&nbsp;</div>
-            <el-row>
-              <el-col :span="2">
-                <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green">
-                  {{$t('label.PFANS8007VIEW_YQ')}}
-                </el-tag>
-              </el-col>
-            </el-row>
+<!--            <el-row>-->
+<!--              <el-col :span="2">-->
+<!--                <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green">-->
+<!--                  {{$t('label.PFANS8007VIEW_YQ')}}-->
+<!--                </el-tag>-->
+<!--              </el-col>-->
+<!--            </el-row>-->
           </el-main>
         </el-container>
         <el-dialog :visible.sync="tanchang" width="40rem">
@@ -196,12 +196,12 @@
                         v-model="radio1">{{$t('label.PFANS8007VIEW_HS')}}
               </el-radio>
             </tr>
-            <tr>
-              <el-radio @change="setClick('6')" border label="6"
-                        style="width: 8rem;background-color:green;color: white"
-                        v-model="radio1">{{$t('label.PFANS8007VIEW_YQ')}}
-              </el-radio>
-            </tr>
+<!--            <tr>-->
+<!--              <el-radio @change="setClick('6')" border label="6"-->
+<!--                        style="width: 8rem;background-color:green;color: white"-->
+<!--                        v-model="radio1">{{$t('label.PFANS8007VIEW_YQ')}}-->
+<!--              </el-radio>-->
+<!--            </tr>-->
           </table>
           <div style="margin-top: 1rem;margin-left: 13rem">
             <el-button @click="submitForm('ruleFormNew')" type="primary">
@@ -331,11 +331,11 @@
                 info.el.bgColor = 'magenta';
               }
             }
-            if (response[c].type == 6) {
-              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                info.el.bgColor = 'green';
-              }
-            }
+            // if (response[c].type == 6) {
+            //   if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+            //     info.el.bgColor = 'green';
+            //   }
+            // }
           }
           this.loading = false;
         }
@@ -375,9 +375,9 @@
                     if (this.params.type == '5') {
                       this.data.style.backgroundColor = 'magenta';
                     }
-                    if (this.params.type == '6') {
-                      this.data.style.backgroundColor = 'green';
-                    }
+                    // if (this.params.type == '6') {
+                    //   this.data.style.backgroundColor = 'green';
+                    // }
                     Message({
                       message: this.$t('normal.success_01'),
                       type: 'success',
@@ -423,9 +423,9 @@
             if (this.params.type == '5') {
               this.data.style.backgroundColor = ' rgb(255, 255, 204)';
             }
-            if (this.params.type == '6') {
-              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
-            }
+            // if (this.params.type == '6') {
+            //   this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            // }
             Message({
               message: this.$t('normal.info_03'),
               type: 'success',
@@ -498,10 +498,10 @@
                     this.radio1 = '5';
                     this.checkradio = '1';
                   }
-                  if (this.list1[a].type == 6) {
-                    this.radio1 = '6';
-                    this.checkradio = '1';
-                  }
+                  // if (this.list1[a].type == 6) {
+                  //   this.radio1 = '6';
+                  //   this.checkradio = '1';
+                  // }
                 }
               }
             }
