@@ -2237,7 +2237,7 @@
                 //   if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
                 //       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                 // }
-                let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','');
+                let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','').replace('覚書','');;
                 countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-'+ huishu;
               }
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
@@ -2729,10 +2729,18 @@
       },
       //add ccm 20201203
       addRowclaimtype1(rows) {
+        let letclaimtype ='';
+        if (this.form.tableclaimtype!=null && this.form.tableclaimtype.length>0)
+        {
+          if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS'))!=-1)
+          {
+            letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
+          }
+        }
           this.form.tableclaimtype.push({
             contractnumbercount_id: '',
             contractnumber: this.letcontractnumber,
-            claimtype: this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H'),
+            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H'),
             deliverydate: '',
             bookStatus:false,
             completiondate: '',
@@ -2784,12 +2792,20 @@
                       this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i+1)+ this.$t('label.PFANS1026FORMVIEW_H');
                     }
                   } else {
+                    let letclaimtype ='';
+                    if (this.form.tableclaimtype!=null && this.form.tableclaimtype.length>0)
+                    {
+                      if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS'))!=-1)
+                      {
+                        letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
+                      }
+                    }
                     this.form.tableclaimtype = [
                       {
                         contractnumbercount_id: '',
                         bookStatus:false,
                         contractnumber: '',
-                        claimtype: this.$t('label.PFANS1026FORMVIEW_D') + (1)+ this.$t('label.PFANS1026FORMVIEW_H'),
+                        claimtype: letclaimtype+this.$t('label.PFANS1026FORMVIEW_D') + (1)+ this.$t('label.PFANS1026FORMVIEW_H'),
                         deliverydate: '',
                         completiondate: '',
                         deliveryfinshdate: '',
@@ -3292,7 +3308,7 @@
                         // if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
                         //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                         // }
-                        let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','');
+                        let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','').replace('覚書','');
                         countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-'+ huishu;
                       }
                       var tabledata = {
@@ -3354,7 +3370,7 @@
                         // if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
                         //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                         // }
-                        let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','');
+                        let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','').replace('覚書','');;
                         countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-'+ huishu;
                       }
                       var tabledata = {
@@ -3677,7 +3693,7 @@
               {
                 if (n>0)
                 {
-                  if (mon!=0 && Number(mon).toFixed(2) != Number(letone[n-1].claimamount).toFixed(2))
+                  if (mon!=0 && Number(mon).toFixed(2) != Number(letone[n].claimamount).toFixed(2))
                   {
                     Message({
                       message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
