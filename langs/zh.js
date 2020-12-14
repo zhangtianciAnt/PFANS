@@ -49,6 +49,8 @@ module.exports = {
     cancel: '取消',
     save: '保存',
     open: '跳转',
+    open1: '开放',
+    close1: '关闭',
     usedetails: '使用明细',
     complete: '完成',
     read: '已读',

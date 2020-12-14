@@ -92,7 +92,8 @@
     },
     mounted() {
       this.loading = true;
-
+      //gbb 禅道 609 2.0-目标管理增加按钮控制是都可填写 20201211
+      this.getCurrentRole2();
       this.$store
         .dispatch('PFANS2023Store/getFpans2023List', {})
         .then(response => {
@@ -200,7 +201,97 @@
             }
           })
         }
+        if (val === 'open') {
+            let formdis = {
+                code : 'PR066001',
+                value1  : '1'
+            };
+            this.loading = true;
+            this.$store
+                .dispatch('dictionaryStore/updateDictionary', formdis)
+                .then(response => {
+                    this.loading = false;
+                    this.buttonList[2].disabled = false;
+                    this.buttonList[3].disabled = true;
+                    this.buttonList[4].disabled = false;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        }
+        if (val === 'close') {
+            let formdis = {
+                code : 'PR066001',
+                value1  : '0'
+            };
+            this.loading = true;
+            this.$store
+                .dispatch('dictionaryStore/updateDictionary', formdis)
+                .then(response => {
+                    this.loading = false;
+                    this.buttonList[2].disabled = true;
+                    this.buttonList[3].disabled = false;
+                    this.buttonList[4].disabled = true;
+                })
+                .catch(error => {
+                    Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                });
+        }
       },
+      //获取角色
+      getCurrentRole2() {
+            let letStage = getDictionaryInfo("PR066001");
+            if(letStage != null){
+                letStage = letStage.value1;
+                if(letStage == '0'){
+                    this.buttonList[2].disabled = true;
+                }
+                else{
+                    this.buttonList[2].disabled = false;
+                }
+            }
+            let roles = '';
+            if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
+                for (let role of this.$store.getters.useraccount.roles) {
+                    roles = roles + role.description;
+                }
+                if (roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
+                    // 目标管理开放
+                    let letStage = getDictionaryInfo("PR066001");
+                    if(letStage != null){
+                        letStage = letStage.value1;
+                        if(letStage == '0'){
+                            this.buttonList = [
+                                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                                {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                                {'key': 'edit', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
+                                {'key': 'open', 'name': 'button.open1', 'disabled': false,},
+                                {'key': 'close', 'name': 'button.close1', 'disabled': true,},
+                            ]
+                        }
+                        else{
+                            this.buttonList = [
+                                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                                {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                                {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                                {'key': 'open', 'name': 'button.open1', 'disabled': true,},
+                                {'key': 'close', 'name': 'button.close1', 'disabled': false,},
+                            ]
+                        }
+                    }
+                }
+            }
+        },
     }
   }
 </script>
