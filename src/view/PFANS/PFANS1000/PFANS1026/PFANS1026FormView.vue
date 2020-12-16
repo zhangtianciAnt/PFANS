@@ -1344,6 +1344,7 @@
         search: '',
         checkGroupId: false,
         makeintoBaseInfo: {},
+        tableclaimtypeAnt: [],
         titleType: '',
         titleType1: this.$t('label.PFANS1026VIEW_OVERSEAS'),
         titleType2: this.$t('label.PFANS1026VIEW_TECHNICAL'),
@@ -2729,6 +2730,7 @@
       },
       //add ccm 20201203
       addRowclaimtype1(rows) {
+        debugger
         let letclaimtype ='';
         if (this.form.tableclaimtype!=null && this.form.tableclaimtype.length>0)
         {
@@ -2737,31 +2739,46 @@
             letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
           }
         }
-          this.form.tableclaimtype.push({
-            contractnumbercount_id: '',
-            contractnumber: this.letcontractnumber,
-            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H'),
-            deliverydate: '',
-            bookStatus:false,
-            completiondate: '',
-            deliveryfinshdate: '',
-            loadingjudge: '',
-            claimdate: moment(new Date()).format('YYYY-MM-DD'),
-            claimamount: '',
-            supportdate: '',
-            type: '1',
-            maketype: '',
-            rowindex: '',
-            claimdatetimeqh: '',
-            deliveryconditionqh: 'HT009001',
-            deliveryqh: '',
-            claimconditionqh: 'HT011001',
-            claimqh: '',
-            qingremarksqh: '',
-            remarksqh: '',
-            recoverystatus: '0',
-            recoverydate: '',
-          });
+        let flag = 0
+        let con = rows.length + 1;
+        let cla = 0
+        for(let h = 0; h < this.tableclaimtypeAnt.length; h++){
+          if(this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1){
+            flag++
+            cla = h
+          }
+        }
+         if(flag == 0){
+           this.form.tableclaimtype.push({
+             contractnumbercount_id: '',
+             contractnumber: this.letcontractnumber,
+             claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H'),
+             deliverydate: '',
+             bookStatus:false,
+             completiondate: '',
+             deliveryfinshdate: '',
+             loadingjudge: '',
+             claimdate: moment(new Date()).format('YYYY-MM-DD'),
+             claimamount: '',
+             supportdate: '',
+             type: '1',
+             maketype: '',
+             rowindex: '',
+             claimdatetimeqh: '',
+             deliveryconditionqh: 'HT009001',
+             deliveryqh: '',
+             claimconditionqh: 'HT011001',
+             claimqh: '',
+             qingremarksqh: '',
+             remarksqh: '',
+             recoverystatus: '0',
+             recoverydate: '',
+           });
+          }else{
+           this.tableclaimtypeAnt[cla].claimtype = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H');
+           this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
+          }
+
       },
       deleteRowclaimtype1(index, rows) {
           let datainfo = {};
@@ -2950,8 +2967,16 @@
       },
       //契約番号做成
       click() {
+        this.tableclaimtypeAnt=[];
         this.$refs['refform1'].validate(valid => {
           if (valid) {
+            if(this.form.tableclaimtype.length != 0){
+              for(let i = 0; i < this.form.tableclaimtype.length; i++){
+                if(this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003'){
+                  this.tableclaimtypeAnt.push(this.form.tableclaimtype[i])
+                }
+              }
+            }
             this.form.claimtype = this.form1.claimtype;
             this.form.contractnumber = this.form1.contractnumber;
             this.form.contracttype = this.form1.contracttype;
