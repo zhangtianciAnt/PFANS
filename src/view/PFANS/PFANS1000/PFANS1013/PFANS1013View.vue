@@ -473,7 +473,7 @@
                       vendorcode: response[m].vendorcode,
                       paymentmethod: this.$t('label.PFANS1012VIEW_OFFICE'),
                       currency: response[m].currency,
-                      invoiceamount: invoiceamountvalue.toFixed(2),
+                      invoiceamount: response[m].invoiceamount,
                       lineamount: parseFloat(response[m].lineamount).toFixed(2),
                       currencyrate: response[m].exchangerate,
                       companysegment: '01',
