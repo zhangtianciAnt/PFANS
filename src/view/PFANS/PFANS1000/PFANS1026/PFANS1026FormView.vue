@@ -2730,7 +2730,6 @@
       },
       //add ccm 20201203
       addRowclaimtype1(rows) {
-        debugger
         let letclaimtype ='';
         if (this.form.tableclaimtype!=null && this.form.tableclaimtype.length>0)
         {
@@ -2739,12 +2738,12 @@
             letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
           }
         }
-        let flag = 0
+        let flag = 0;
         let con = rows.length + 1;
-        let cla = 0
+        let cla = 0;
         for(let h = 0; h < this.tableclaimtypeAnt.length; h++){
           if(this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1){
-            flag++
+            flag++;
             cla = h
           }
         }
@@ -2776,6 +2775,8 @@
            });
           }else{
            this.tableclaimtypeAnt[cla].claimtype = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H');
+           this.tableclaimtypeAnt[cla].contractnumbercount_id = '';
+           this.tableclaimtypeAnt[cla].contractnumber = this.letcontractnumber;
            this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
           }
 
@@ -2941,10 +2942,12 @@
         datamount = this.tempMountList.filter(item => item.claimtype == val.claimtype)
         if (datamount.length>0)
         {
+          //编辑
           val.claimamount = datamount[0].claimamount;
         }
         else
         {
+          //新建
           datamount = this.form.tableclaimtype.filter(item => item.claimtype == val.claimtype)
           if (datamount.length>0)
           {
@@ -3547,6 +3550,10 @@
           this.handleSaveContract(value, baseInfo);
         }
       },
+
+
+
+
       // add_fjl_0604 --添加请求书和纳品书的选择生成
       handleSelectionChange(val) {
         this.multipleSelection = val;
@@ -3682,28 +3689,38 @@
               return a.claimtype > b.claimtype;
             });
             let cl = '';
-            let gr = '';
+            let gr = [];
+            let grAnt = [];
             let mon = 0;
+            let datamountMap = new Map();
+            for(let t = 0 ; t < this.form.tableclaimtype.length;t ++){
+              datamountMap.set(this.form.tableclaimtype[t].claimtype,this.form.tableclaimtype[t].claimamount)
+            }
             for (let n = 0; n < letone.length; n++)
             {
-              if (letone[n].claimtype === cl)
-              {
-                if (letone[n].group_id === gr)
-                {
-                  Message({
+              if(n == 0){ //初始化cl
+                cl = letone[n].claimtype
+              }
+              //回数相同
+              if(letone[n].claimtype === cl && n != 0){
+                for(let i = 0; i < grAnt.length; i ++){
+                    if(grAnt.indexOf(letone[n].group_id) != -1){
+                      Message({
                         message: letone[n].claimtype + this.$t('label.PFANS1026FORMVIEW_GROUP'),
                         type: 'error',
                         duration: 5 * 1000,
                       });
-                  return;
+                      return;
+                    }else{
+                      gr.push(letone[n].group_id); //D z zk
+                      mon += Number(letone[n].contractrequestamount); //66250 132500 66250
+                    }
                 }
-                else
-                {
-                  mon = mon + Number(letone[n].contractrequestamount);
-                }
-                if (n==letone.length-1)
-                {
-                  if (mon!=0 && Number(mon).toFixed(2) != Number(letone[n].claimamount).toFixed(2))
+              }else{
+                if(n != 0){
+                  let claimtype = letone[n - 1].claimtype;
+                  let cla =  datamountMap.get(claimtype)
+                  if (mon!=0 && Number(mon).toFixed(2) != Number(cla).toFixed(2))
                   {
                     Message({
                       message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
@@ -3712,72 +3729,16 @@
                     });
                     return;
                   }
+                  gr = [];
+                  grAnt = [];
                 }
+                gr.push(letone[n].group_id);
+                grAnt.push(letone[n].group_id);
+                cl = letone[n].claimtype;
+                mon = Number(letone[n].contractrequestamount);
               }
-              else
-              {
-                if (n>0)
-                {
-                  if (mon!=0 && Number(mon).toFixed(2) != Number(letone[n].claimamount).toFixed(2))
-                  {
-                    Message({
-                      message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                }
-                mon =  Number(letone[n].contractrequestamount);
-              }
-              cl = letone[n].claimtype;
-              gr = letone[n].group_id;
-
             }
-            // if ((one != 0 && Number(one).toFixed(2) != Number(this.claimamount1).toFixed(2))
-            //   || (two != 0 && Number(two).toFixed(2) != Number(this.claimamount2).toFixed(2))
-            //   || (three != 0 && Number(three).toFixed(2) != Number(this.claimamount3).toFixed(2))
-            //   || (four != 0 && Number(four).toFixed(2) != Number(this.claimamount4).toFixed(2))) {
-            //
-            //   Message({
-            //     message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            //   return;
-            // }
-            // if (refrain(letone).length > 0) {
-            //   Message({
-            //     message: this.$t('label.PFANS1026FORMVIEW_ONE') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            //   return;
-            // }
-            // if (refrain(lettwo).length > 0) {
-            //   Message({
-            //     message: this.$t('label.PFANS1026FORMVIEW_TWO') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            //   return;
-            // }
-            // if (refrain(letthree).length > 0) {
-            //   Message({
-            //     message: this.$t('label.PFANS1026FORMVIEW_THREE') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            //   return;
-            // }
-            // if (refrain(letfour).length > 0) {
-            //   Message({
-            //     message: this.$t('label.PFANS1026FORMVIEW_FOUR') + this.$t('label.PFANS1026FORMVIEW_GROUP'),
-            //     type: 'error',
-            //     duration: 5 * 1000,
-            //   });
-            //   return;
-            // }
+
 
             function refrain(arr) {
               var tmp = [];
