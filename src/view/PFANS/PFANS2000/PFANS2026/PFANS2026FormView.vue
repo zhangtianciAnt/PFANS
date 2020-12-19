@@ -497,7 +497,7 @@
       // if(this.checktype = 1){
       let role12 = getCurrentRole12();
       if (!this.$route.params.disabled) {
-        if (this.$route.params._status === 4 || this.$route.params._disto === '1' ) {
+        if (this.$route.params._status === 4) {
           this.enableSave = true;
           // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
           if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
@@ -527,8 +527,7 @@
               },
             ];
           }
-        }
-        else { //离职申请未结束不能生成调书
+        } else { //离职申请未结束不能生成调书
           this.enableSave = false;
           this.buttonList = [
             {
@@ -904,7 +903,7 @@
               });
               this.loading = false;
             });
-        }else if (val === 'insertsta') {
+        } else if (val === 'insertsta') {
           this.$store
             .dispatch('PFANS2026Store/getList', {'staffexitprocedure_id': this.params_id})
             .then(response => {
@@ -915,7 +914,6 @@
                   duration: 5 * 1000,
                 });
               } else {
-
                 let checkid = this.params_id;
                 this.$router.push({
                   name: 'PFANS2032FormView',
