@@ -289,7 +289,7 @@
                         >
                           <template slot-scope="scope">
                             <el-date-picker
-                              style="width:100%" disabled
+                              style="width:100%"
                               v-model="scope.row.time"
                               type="daterange"
                               :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
@@ -306,13 +306,13 @@
                         >
                           <template slot-scope="scope">
                             <el-input class="width" v-model="scope.row.school" maxlength="20" style="width:100%"
-                                      disabled></el-input>
+                                      ></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                           <template slot-scope="scope">
                             <el-input class="width" v-model="scope.row.notes" maxlength="50" style="width:100%"
-                                      disabled></el-input>
+                                      ></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -321,14 +321,14 @@
                               @click.native.prevent="deleteRow(scope.$index, educationTable)"
                               type="danger"
                               size="small"
-                              plain disabled
+                              plain
                             >{{$t('button.delete')}}
                             </el-button>
                             <el-button
                               @click="addRow('education')"
                               type="primary"
                               size="small"
-                              plain disabled
+                              plain
                             >{{$t('button.insert')}}
                             </el-button>
                           </template>
@@ -490,7 +490,7 @@
                           <template slot-scope="scope">
                             <el-date-picker
                               v-model="scope.row.time"
-                              type="daterange" disabled
+                              type="daterange"
                               :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                               :start-placeholder="$t('label.startdate')"
                               :end-placeholder="$t('label.enddate')"
@@ -506,7 +506,7 @@
                         >
                           <template slot-scope="scope">
                             <el-input v-model="scope.row.company" maxlength="20" style="width: 100%"
-                                      disabled></el-input>
+                                      ></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column
@@ -516,12 +516,12 @@
                         >
                           <template slot-scope="scope">
                             <el-input v-model="scope.row.postion" maxlength="20" style="width: 100%"
-                                      disabled></el-input>
+                                      ></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column prop="notes" :label="$t('label.remarks')" align="center">
                           <template slot-scope="scope">
-                            <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%" disabled></el-input>
+                            <el-input v-model="scope.row.notes" maxlength="50" style="width: 100%" ></el-input>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.operation')" width="200" align="center">
@@ -530,14 +530,14 @@
                               @click.native.prevent="deleteRow(scope.$index, beforeWorkTable)"
                               type="danger"
                               size="small"
-                              plain disabled
+                              plain
                             >{{$t('button.delete')}}
                             </el-button>
                             <el-button
                               @click="addRow('beforeWork')"
                               type="primary"
                               size="small"
-                              plain disabled
+                              plain
                             >{{$t('button.insert')}}
                             </el-button>
                           </template>
