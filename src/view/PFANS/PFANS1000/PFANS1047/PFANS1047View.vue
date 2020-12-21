@@ -19,7 +19,7 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus,getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus,getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   let moment = require('moment');
 
@@ -151,9 +151,9 @@
               }
               //通货形式
               if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
-                let letCurrencyposition = getDictionaryInfo(response[i].currencyposition);
+                let letCurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
                 if (letCurrencyposition != null) {
-                  response[i].currencyposition = letCurrencyposition.value1;
+                  response[i].currencyposition = letCurrencyposition.currencyname;
                 }
               }
               //印章状态

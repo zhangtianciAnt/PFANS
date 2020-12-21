@@ -320,14 +320,24 @@
                                 border header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw">
                         <el-table-column :label="$t('label.PFANS1002VIEW_CURRENCY')" align="center" width="180">
                           <template slot-scope="scope">
-                            <dicselect :code="code3"
-                                       :data="scope.row.currency"
-                                       :disabled="!disable"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       @change="getcurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+<!--                            <dicselect :code="code3"-->
+<!--                                       :data="scope.row.currency"-->
+<!--                                       :disabled="!disable"-->
+<!--                                       :multiple="multiple"-->
+<!--                                       :no="scope.row"-->
+<!--                                       @change="getcurrency"-->
+<!--                                       style="width: 100%">-->
+<!--                            </dicselect>-->
+                            <monthlyrate :month="month3"
+                                         :data="scope.row.currency"
+                                         :disabled="!disable"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         @change="getcurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1013FORMVIEW_CURRENCYEXCHANGERATE')" align="center"
@@ -656,13 +666,22 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
-                        <dicselect :code="code3"
-                                   :data="scope.row.currency"
-                                   :disabled="checktaxes"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="changeAcc">
-                        </dicselect>
+                        <!--                      add-ws-12/10-汇率字典-->
+<!--                        <dicselect :code="code3"-->
+<!--                                   :data="scope.row.currency"-->
+<!--                                   :disabled="checktaxes"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   :no="scope.row"-->
+<!--                                   @change="changeAcc">-->
+<!--                        </dicselect>-->
+                        <monthlyrate :month="month3"
+                                     :data="scope.row.currency"
+                                     :disabled="checktaxes"
+                                     :multiple="multiple"
+                                     :no="scope.row"
+                                     @change="changeAcc">
+                        </monthlyrate>
+                        <!--                      add-ws-12/10-汇率字典-->
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
@@ -863,22 +882,40 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
-                        <dicselect :code="code3"
-                                   v-if="checktaxes"
-                                   :data="scope.row.currency"
-                                   :disabled="true"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getAccommodation">
-                        </dicselect>
-                        <dicselect :code="code3"
-                                   v-else
-                                   :data="scope.row.currency"
-                                   :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="getAccommodation">
-                        </dicselect>
+                        <!--                      add-ws-12/10-汇率字典-->
+<!--                        <dicselect :code="code3"-->
+<!--                                   v-if="checktaxes"-->
+<!--                                   :data="scope.row.currency"-->
+<!--                                   :disabled="true"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   :no="scope.row"-->
+<!--                                   @change="getAccommodation">-->
+<!--                        </dicselect>-->
+<!--                        <dicselect :code="code3"-->
+<!--                                   v-else-->
+<!--                                   :data="scope.row.currency"-->
+<!--                                   :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   :no="scope.row"-->
+<!--                                   @change="getAccommodation">-->
+<!--                        </dicselect>-->
+                        <monthlyrate :month="month3"
+                                     v-if="checktaxes"
+                                     :data="scope.row.currency"
+                                     :disabled="true"
+                                     :multiple="multiple"
+                                     :no="scope.row"
+                                     @change="getAccommodation">
+                        </monthlyrate>
+                        <monthlyrate :month="month3"
+                                     v-else
+                                     :data="scope.row.currency"
+                                     :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"
+                                     :multiple="multiple"
+                                     :no="scope.row"
+                                     @change="getAccommodation">
+                        </monthlyrate>
+                        <!--                      add-ws-12/10-汇率字典-->
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE1')" align="center"
@@ -1091,13 +1128,22 @@
                     <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
-                        <dicselect :code="code3"
-                                   :data="scope.row.currency"
-                                   :disabled="checktaxes"
-                                   :multiple="multiple"
-                                   :no="scope.row"
-                                   @change="changeAcc">
-                        </dicselect>
+                        <!--                      add-ws-12/10-汇率字典-->
+<!--                        <dicselect :code="code3"-->
+<!--                                   :data="scope.row.currency"-->
+<!--                                   :disabled="checktaxes"-->
+<!--                                   :multiple="multiple"-->
+<!--                                   :no="scope.row"-->
+<!--                                   @change="changeAcc">-->
+<!--                        </dicselect>-->
+                        <monthlyrate :month="month3"
+                                     :data="scope.row.currency"
+                                     :disabled="checktaxes"
+                                     :multiple="multiple"
+                                     :no="scope.row"
+                                     @change="changeAcc">
+                        </monthlyrate>
+                        <!--                      add-ws-12/10-汇率字典-->
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
@@ -1194,6 +1240,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import {
+    getMonthlyrateInfo,
     downLoadUrl,
     getCurrentRole,
     getCurrentRole5,
@@ -1206,10 +1253,11 @@
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
-
+  import monthlyrate from '../../../components/monthlyrate';
   export default {
     name: 'PFANS1013FormView',
     components: {
+      monthlyrate,
       PFANS1002Pop,
       PFANS1035Pop,
       PFANS1006Pop,
@@ -1324,7 +1372,7 @@
           jpyfxrate: '',
           dollarfxrate: '',
           otherfxrate: '',
-          usexchangerate: getDictionaryInfo('PG019001').value2,
+          usexchangerate: getMonthlyrateInfo('PG019001').exchangerate,
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
           personalcode: '',
           uploadfile: '',
@@ -1447,7 +1495,10 @@
         },
         code1: 'PG002',
         code2: 'PJ036',
-        code3: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code4: 'PJ024',
         code9: 'PJ017',
         code10: 'PJ035',
@@ -3403,9 +3454,9 @@
           var accfig;
           var firstBusinessflg;
           var firstBusiNum;
-          let accinfo = getDictionaryInfo(row.currency);
+          let accinfo = getMonthlyrateInfo(row.currency);
           if (accinfo) {
-            accfig = accinfo.value2;
+            accfig = accinfo.exchangerate;
           }
           let firstBusiness = getDictionaryInfo('PR062001');
           if (firstBusiness) {
@@ -3580,17 +3631,17 @@
         } else {
           this.checkmoney = true;
         }
-        let curinfo = getDictionaryInfo(val);
+        let curinfo = getMonthlyrateInfo(val);
         if (curinfo) {
-          row.currencyexchangerate = curinfo.value2;
+          row.currencyexchangerate = curinfo.exchangerate;
         }
         this.changebalance();
       },
       changeAcc(val, row) {
         row.currency = val;
-        let accinfo = getDictionaryInfo(val);
+        let accinfo = getMonthlyrateInfo(val);
         if (accinfo) {
-          row.rmb = (row.foreigncurrency * accinfo.value2).toFixed(2);
+          row.rmb = (row.foreigncurrency * accinfo.exchangerate).toFixed(2);
         }
       },
       getAccommodation(val, row) {
@@ -3599,10 +3650,10 @@
       },
       changefore(val, row) {
         // val.rmb = '';
-        let accinfo = getDictionaryInfo(val.currency);
+        let accinfo = getMonthlyrateInfo(val.currency);
         if (accinfo) {
           val.taxes = '';
-          val.rmb = (val.foreigncurrency * accinfo.value2).toFixed(2);
+          val.rmb = (val.foreigncurrency * accinfo.exchangerate).toFixed(2);
         }
       },
       buttonClick(val) {

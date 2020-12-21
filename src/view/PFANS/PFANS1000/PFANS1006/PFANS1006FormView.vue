@@ -139,13 +139,22 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1006FORMVIEW_CURRENCYCHOICE')" prop="currencychoice">
-                      <dicselect :code="code3"
-                                 :data="form.currencychoice"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="changecurrencychoice"
-                                 style="width:20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典-->
+<!--                      <dicselect :code="code3"-->
+<!--                                 :data="form.currencychoice"-->
+<!--                                 :disabled="!disable"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="changecurrencychoice"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
+                      <monthlyrate :month="month3"
+                                   :data="form.currencychoice"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   @change="changecurrencychoice"
+                                   style="width:20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -507,10 +516,11 @@
     import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
     import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
     import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
-
+    import monthlyrate from '../../../components/monthlyrate';
     export default {
     name: 'PFANS1006FormView',
     components: {
+      monthlyrate,
       EasyNormalContainer,
       dicselect,
       user,
@@ -742,7 +752,10 @@
         Codecheck: '',
         code1: 'PG001',
         code2: 'PJ002',
-        code3: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code4: 'PJ015',
         show2: false,
         show3: false,

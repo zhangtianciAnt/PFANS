@@ -899,15 +899,26 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center" prop="currency"
                                          width="150">
                           <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       clearable
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+<!--                            <dicselect :code="code4"-->
+<!--                                       clearable-->
+<!--                                       :data="scope.row.currency"-->
+<!--                                       :multiple="multiple"-->
+<!--                                       :no="scope.row"-->
+<!--                                       :disabled="disa"-->
+<!--                                       @change="getCurrency"-->
+<!--                                       style="width: 100%">-->
+<!--                            </dicselect>-->
+                            <monthlyrate :month="month4"
+                                         clearable
+                                         :data="scope.row.currency"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         :disabled="disa"
+                                         @change="getCurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
@@ -1133,14 +1144,24 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
                                          width="150">
                           <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+<!--                            <dicselect :code="code4"-->
+<!--                                       :data="scope.row.currency"-->
+<!--                                       :multiple="multiple"-->
+<!--                                       :no="scope.row"-->
+<!--                                       :disabled="disa"-->
+<!--                                       @change="getCurrency"-->
+<!--                                       style="width: 100%">-->
+<!--                            </dicselect>-->
+                            <monthlyrate :month="month4"
+                                         :data="scope.row.currency"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         :disabled="disa"
+                                         @change="getCurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
@@ -1359,7 +1380,9 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
+  import monthlyrate from '../../../components/monthlyrate';
   import {
+    getMonthlyrateInfo,
     downLoadUrl,
     getCurrentRole,
     getCurrentRole5,
@@ -1377,6 +1400,7 @@
   export default {
     name: 'PFANS1012FormView',
     components: {
+      monthlyrate,
       PFANS1003Pop,
       PFANS1004Pop,
       PFANS1005Pop,
@@ -1810,6 +1834,10 @@
         code2: 'PJ002',
         code3: 'PJ004',
         code4: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code4: 'PG019',
+        month4: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code5: 'PJ005',
         code11: '',
         code13: 'PJ071',
@@ -4155,21 +4183,21 @@
         if (error == '0') {
           if (val === 'PG019001') {
             this.disablecurr = false;
-            let dictionaryInfo = getDictionaryInfo(val);
+            let dictionaryInfo = getMonthlyrateInfo(val);
             if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.value2;
+              row.currencyrate = dictionaryInfo.exchangerate;
             }
           } else if (val === 'PG019002') {
             this.disablecurr = false;
-            let dictionaryInfo = getDictionaryInfo(val);
+            let dictionaryInfo = getMonthlyrateInfo(val);
             if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.value2;
+              row.currencyrate = dictionaryInfo.exchangerate;
             }
           }
           row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
           this.tormbT = Number(this.tormbT) + row.tormb;
           this.form.tormb = this.tormbT;
-          this.form.currency = getDictionaryInfo(val).value1;
+          this.form.currency = getMonthlyrateInfo(val).currencyname;
         }
         this.error_currency = error;
       },
@@ -4533,15 +4561,15 @@
         }
         if (newValue.currency === 'PG019001') {
           this.disablecurr = false;
-          let dictionaryInfo = getDictionaryInfo(newValue.currency);
+          let dictionaryInfo = getMonthlyrateInfo(newValue.currency);
           if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.value2;
+            newValue.currencyrate = dictionaryInfo.exchangerate;
           }
         } else if (newValue.currency === 'PG019002') {
           this.disablecurr = false;
-          let dictionaryInfo = getDictionaryInfo(newValue.currency);
+          let dictionaryInfo = getMonthlyrateInfo(newValue.currency);
           if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.value2;
+            newValue.currencyrate = dictionaryInfo.exchangerate;
           }
         }
         newValue.tormb = Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100;

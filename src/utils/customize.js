@@ -783,3 +783,17 @@ export function Decrypt(word, keyStr, ivStr) {
   var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
   return decryptedStr.toString();
 }
+//add-ws-12/10-汇率字典
+export function getMonthlyrateInfo(code) {
+  let info = null;
+  if (store.getters.monthlyrate && store.getters.monthlyrate.length > 0) {
+    for (let dictionary of store.getters.monthlyrate) {
+      if (dictionary.currency === code) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+//add-ws-12/10-汇率字典

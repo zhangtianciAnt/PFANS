@@ -282,15 +282,24 @@
                 <!-- 111111!-->
                 <el-table-column :label="$t('label.PFANS1024VIEW_CURRENCYPOSITION')" align="center" prop="currencyposition"  width="200">
                   <template slot-scope="scope">
-                    <dicselect
-                      :code="code9"
-                      :data="scope.row.currencyposition"
-                      :no="scope.row"
-                      :multiple="multiple"
-                      @change="getCurrencyposition"
-                      style="width: 11rem"
-                      :disabled="!disabled">
-                    </dicselect>
+<!--                    <dicselect-->
+<!--                      :code="code9"-->
+<!--                      :data="scope.row.currencyposition"-->
+<!--                      :no="scope.row"-->
+<!--                      :multiple="multiple"-->
+<!--                      @change="getCurrencyposition"-->
+<!--                      style="width: 11rem"-->
+<!--                      :disabled="!disabled">-->
+<!--                    </dicselect>-->
+                    <monthlyrate :month="month9"
+                                 :data="scope.row.currencyposition"
+                                 :no="scope.row"
+                                 :multiple="multiple"
+                                 @change="getCurrencyposition"
+                                 style="width: 11rem"
+                                 :disabled="!disabled">>
+                    </monthlyrate>
+                    <!--                      add-ws-12/10-汇率字典-->
                     <!--<el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">-->
                       <!--<el-option v-for="(item,index) in options" :key="index" v-model="item.value">-->
                         <!--{{item.value}}-->
@@ -561,10 +570,11 @@
   import org from "../../../components/org";
   import moment from "moment";
   import project from '../../../components/project';
-
+  import monthlyrate from '../../../components/monthlyrate';
     export default {
         name: "PFANS1024View",
        components: {
+         monthlyrate,
          EasyNormalContainer,
          dicselect,
          user,
@@ -759,7 +769,11 @@
             code6: 'HT009',
             code7: 'HT010',
             code8: 'HT011',
-            code9: 'PG019',
+
+          //add-ws-12/10-汇率字典
+          //  code9: 'PG019',
+          month9: moment(new Date()).format('YYYY-MM'),
+          //add-ws-12/10-汇率字典
             show1: true,
             show2: false,
           tableB:[],

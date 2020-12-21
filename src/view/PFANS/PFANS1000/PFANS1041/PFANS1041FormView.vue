@@ -162,12 +162,19 @@
               <!--通貨種別-->
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                 <template slot-scope="scope">
-                  <dicselect
-                    :disabled="true"
-                    :code="code5"
-                    :data="scope.row.currencytype"
-                    :no="scope.row"
-                  ></dicselect>
+                  <!--                      add-ws-12/10-汇率字典-->
+<!--                  <dicselect-->
+<!--                    :disabled="true"-->
+<!--                    :code="code5"-->
+<!--                    :data="scope.row.currencytype"-->
+<!--                    :no="scope.row"-->
+<!--                  ></dicselect>-->
+                  <monthlyrate :month="month5"
+                               :data="scope.row.currencytype"
+                               :no="scope.row"
+                               :disabled="true">
+                  </monthlyrate>
+                  <!--                      add-ws-12/10-汇率字典-->
                 </template>
               </el-table-column>
               <!--委託元-->
@@ -753,10 +760,11 @@
   } from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';
-
+  import monthlyrate from '../../../components/monthlyrate';
   export default {
     name: 'PFANS1041FormView',
     components: {
+      monthlyrate,
       EasyNormalContainer,
       EasyWorkFlow,
       dicselect,
@@ -818,7 +826,10 @@
         code2: 'PJ064',
         code3: 'PJ063',
         code4: 'PJ142',
-        code5: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code5: 'PG019',
+        month5: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         tableDataAcount: 1,
         tableDataA: [
           {

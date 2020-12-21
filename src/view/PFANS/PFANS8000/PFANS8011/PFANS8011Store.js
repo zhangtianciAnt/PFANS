@@ -2,7 +2,8 @@ import {
   update,
   create,
   list,
-  slectlist
+  slectlist,
+  slectlist2
 } from './PFANS8011Api'
 
 const PFANS8011Store = {
@@ -37,6 +38,19 @@ const PFANS8011Store = {
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    slectlist2({commit}) {
+      return new Promise((resolve, reject) => {
+        slectlist2().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
