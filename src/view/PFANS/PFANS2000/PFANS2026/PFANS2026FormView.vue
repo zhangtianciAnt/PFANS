@@ -316,6 +316,19 @@
             </div>
           </el-row>
         </el-form>
+        <el-drawer :visible.sync="checkworkflow" size="40%" :show-close="false" :withHeader="false" append-to-body>
+          <el-table
+            :data="tableworkflow"
+            style="width: 100%" :header-cell-style="tableHeaderColor">
+
+            <el-table-column :label="$t('label.PFANS2032FROMVIEW_CHECKERROR2')"
+            >
+              <template slot-scope="scope">
+                <span>{{scope.row.workflowname}}</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-drawer>
       </div>
     </EasyNormalContainer>
     <PFANS2032Pop :params="urlparams" ref="PFANS2032Pop" :url="url"></PFANS2032Pop>
@@ -373,6 +386,8 @@
         }
       };
       return {
+        tableworkflow: [],
+        checkworkflow: false,
         url: '',
         urlparams: '',
         code1: 'PR012',
@@ -663,6 +678,15 @@
       }
     },
     methods: {
+      tableHeaderColor({row, column, rowIndex, columnIndex}) {
+        if (rowIndex === 0) {
+          return {
+            color: 'red',
+            'border-bottom': '1px solid #99CCFF',
+            'border-right': '1px solid #73B9FF',
+          };
+        }
+      },
       submitForm(ruleFormNew) {
         this.url = '';
         this.urlparams = '';
@@ -847,20 +871,15 @@
           .dispatch('PFANS2026Store/get3', {'userid': this.userlist})
           .then(response => {
             if (response.length > 0) {
-              let data = response.filter(item =>(moment(new Date).subtract(2, 'month').format('YYYY-MM-DD') <= moment(item.createon).format('YYYY-MM-DD') && moment(item.createon).format('YYYY-MM-DD') <= moment(new Date).format('YYYY-MM-DD')));
+              let data = response.filter(item => (moment(new Date).subtract(2, 'month').format('YYYY-MM-DD') <= moment(item.createon).format('YYYY-MM-DD') && moment(item.createon).format('YYYY-MM-DD') <= moment(new Date).format('YYYY-MM-DD')));
               if (data.length > 0) {
-                let checktableD = '';
-                for (let i = 0; i < data.length; i++) {
-                  checktableD += data[i].workflowname + ',';
-                }
-                if (checktableD != '') {
-                  let img = checktableD.substring(0, checktableD.length - 1);
-                  Message({
-                    message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR2') + img + this.$t('label.PFANS2032FROMVIEW_CHECKERROR3'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                }
+                this.checkworkflow = true;
+                this.tableworkflow = data;
+                // Message({
+                //   message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
+                //   type: 'error',
+                //   duration: 5 * 1000,
+                // });
                 this.loading = false;
               } else {
                 if (val === 'StartWorkflow') {
