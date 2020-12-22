@@ -1,21 +1,58 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
+                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     :handle="handle" @handleacceptstate="handleacceptstate" :handles="handles"
+    >
+    </EasyNormalTable>
+<!--    add-ws-12/21-印章盖印-->
+    <el-drawer :visible.sync="insertnamedialog" size="40%" :show-close="false" :withHeader="false" append-to-body>
+      <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+        <el-row>
+          <el-form-item :error="error" :label="$t('label.PFANS4001FORMVIEW_SEALDETAILNAME')">
+            <user :disabled="false" :error="error" :selectType="selectType" :userlist="userlist"
+                  @getUserids="getUserids" style="width:20vw"></user>
+          </el-form-item>
+        </el-row>
+        <div></div>
+        <el-row>
+          <el-form-item :label="$t('label.PFANS4001FORMVIEW_SEALDETAILDATE')">
+            <el-date-picker
+              v-model="sealdetaildate"
+              type="daterange"
+              :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+              :start-placeholder="$t('label.startdate')"
+              :end-placeholder="$t('label.enddate')">
+            </el-date-picker>
+          </el-form-item>
+        </el-row>
+      </el-form>
+    </el-drawer>
+<!--    add-ws-12/21-印章盖印-->
+  </div>
 </template>
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId, getCurrentRole17} from '@/utils/customize';
+  import user from '../../../components/user.vue';
 
   export default {
     name: 'PFANS4001View',
     components: {
+      user,
       EasyNormalTable,
     },
     data() {
       return {
+        handles: false,
+        handle: false,
+        userlist: '',
+        error: '',
+        selectType: 'Single',
+        sealdetaildate: '',
+        insertnamedialog: false,
         loading: false,
         title: 'title.PFANS4001VIEW',
         data: [],
@@ -76,66 +113,195 @@
             fix: false,
             filter: true,
           },
+          //add-ws-12/21-印章盖印
+          {
+            code: 'acceptor',
+            label: 'label.PFANS4001FORMVIEW_ACCEPTOR',
+            width: 130,
+            fix: false,
+            filter: true,
+          },
+          //add-ws-12/21-印章盖印
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          //add-ws-12/21-印章盖印
+          {'key': 'insertname', 'name': 'button.insertname', 'disabled': true, 'icon': 'el-icon-plus'},
+          {'key': 'recognition', 'name': 'button.recognition', 'disabled': true, 'icon': 'el-icon-check'},
+          //add-ws-12/21-印章盖印
         ],
         rowid: '',
         row_id: 'sealid',
+        handlsealid: '',
       };
     },
+    //add-ws-12/21-印章盖印
+    watch: {
+      insertnamedialog: {
+        handler(newValue, oldValue) {
+          this.insertnamedialogs();
+        },
+        deep: true,
+      },
+    },
+    //add-ws-12/21-印章盖印
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS4001Store/getFpans4001List', {})
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            let user = getUserInfo(response[j].userid);
-            let nameflg = getOrgInfoByUserId(response[j].userid);
-            if (nameflg) {
-              response[j].centername = nameflg.centerNmae;
-              response[j].groupname = nameflg.groupNmae;
-              response[j].teamname = nameflg.teamNmae;
-            }
-            if (user) {
-              response[j].username = user.userinfo.customername;
-            }
-            if (response[j].status !== null && response[j].status !== '') {
-              response[j].status = getStatus(response[j].status);
-            }
-            if (response[j].usedate !== null && response[j].usedate !== '') {
-              response[j].usedate = moment(response[j].usedate).format('YYYY-MM-DD');
-            }
-            //add-ws-4/22-多个印章时出现问题修改
-            let checktableD = '';
-            if (response[j].sealtype !== '' && response[j].sealtype !== null &&  response[j].sealtype !== undefined ) {
-              let letstaff = response[j].sealtype.split(',');
-              for (let a = 0; a < letstaff.length; a++) {
-                let letErrortype = getDictionaryInfo(letstaff[a]);
-                if (letErrortype != null) {
-                  let sealtypeList = letErrortype.value1;
-                  checktableD = checktableD + sealtypeList + ',';
+      this.getList();
+    },
+    methods: {
+      //add-ws-12/21-印章盖印
+      getList(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS4001Store/getFpans4001List', {})
+          .then(response => {
+            //add-ws-12/21-印章盖印
+            let roles = getCurrentRole17();
+            if (response.sealdetail.length > 0) {
+              this.userlist = response.sealdetail[0].sealdetailname;
+              if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
+                let claimdatetime = response.sealdetail[0].sealdetaildate;
+                let claimdatetim = claimdatetime.slice(0, 10);
+                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                this.sealdetaildate = [claimdatetim, claimdatetime1];
+                if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
+                  this.userlist = this.$store.getters.userinfo.userid;
+                  let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
+                  let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
+                  let claimdatetime2 = claimdatetime1 + '-03-31';
+                  this.sealdetaildate = [claimdatetim, claimdatetime2];
                 }
               }
             }
-            response[j].sealtype = checktableD.substring(0, checktableD.length - 1);
-            //add-ws-4/22-多个印章时出现问题修改
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
+            if (this.userlist === this.$store.getters.userinfo.userid) {
+              this.buttonList[4].disabled = false;
+              this.handle = false;
+              this.handles = true;
+            }
+            if (roles === '0') {
+              this.buttonList[3].disabled = false;
+              this.buttonList[4].disabled = false;
+              this.handle = true;
+              this.handles = true;
+            }
+            //add-ws-12/21-印章盖印
+            for (let j = 0; j < response.seal.length; j++) {
+              let user = getUserInfo(response.seal[j].userid);
+              let nameflg = getOrgInfoByUserId(response.seal[j].userid);
+              if (nameflg) {
+                response.seal[j].centername = nameflg.centerNmae;
+                response.seal[j].groupname = nameflg.groupNmae;
+                response.seal[j].teamname = nameflg.teamNmae;
+              }
+              if (user) {
+                response.seal[j].username = user.userinfo.customername;
+              }
+              if (response.seal[j].status !== null && response.seal[j].status !== '') {
+                response.seal[j].status = getStatus(response.seal[j].status);
+              }
+              if (response.seal[j].usedate !== null && response.seal[j].usedate !== '') {
+                response.seal[j].usedate = moment(response.seal[j].usedate).format('YYYY-MM-DD');
+              }
+              //add-ws-4/22-多个印章时出现问题修改
+              let checktableD = '';
+              if (response.seal[j].sealtype !== '' && response.seal[j].sealtype !== null && response.seal[j].sealtype !== undefined) {
+                let letstaff = response.seal[j].sealtype.split(',');
+                for (let a = 0; a < letstaff.length; a++) {
+                  let letErrortype = getDictionaryInfo(letstaff[a]);
+                  if (letErrortype != null) {
+                    let sealtypeList = letErrortype.value1;
+                    checktableD = checktableD + sealtypeList + ',';
+                  }
+                }
+              }
+              response.seal[j].sealtype = checktableD.substring(0, checktableD.length - 1);
+              //add-ws-4/22-多个印章时出现问题修改
+              //add-ws-12/21-印章盖印
+              if (response.seal[j].acceptor != null && response.seal[j].acceptor !== '') {
+                response.seal[j].acceptor = getUserInfo(response.seal[j].acceptor).userinfo.customername;
+              }
+              if (response.seal[j].regulator != null && response.seal[j].regulator !== '') {
+                response.seal[j].regulator = getUserInfo(response.seal[j].regulator).userinfo.customername;
+              }
+
+              if (response.seal[j].acceptstate === 'true') {
+                response.seal[j].acceptstate = true;
+              }
+              if (response.seal[j].regulatorstate === 'true') {
+                response.seal[j].regulatorstate = true;
+              }
+              //add-ws-12/21-印章盖印
+            }
+            this.data = response.seal;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
-          this.loading = false;
-        });
-    },
-    methods: {
+      },
+      handleacceptstate(row) {
+        if (this.handlsealid != '') {
+          this.handlsealid = this.handlsealid + ',' + row.sealid;
+        } else {
+          this.handlsealid = row.sealid;
+        }
+      },
+      getsealdetaildate(sealdetaildate) {
+        if (sealdetaildate != null) {
+          if (sealdetaildate.length > 0) {
+            return moment(sealdetaildate[0]).format('YYYY-MM-DD') + ' ~ ' + moment(sealdetaildate[1]).format('YYYY-MM-DD');
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      },
+      insertnamedialogs() {
+        if (!this.insertnamedialog) {
+          let sealdetaildate = this.getsealdetaildate(this.sealdetaildate);
+          let parameter = {
+            sealdetaildate: sealdetaildate,
+            sealdetailname: this.userlist,
+          };
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS4001Store/insertnamedialog', parameter)
+            .then(response => {
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      getUserids(val) {
+        this.sealdetailname = val;
+        this.userlist = val;
+        if (!this.sealdetailname || this.sealdetailname === '' || val === 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          this.error = '';
+        }
+      },
+      //add-ws-12/21-印章盖印
       rowClick(row) {
         this.rowid = row.sealid;
       },
@@ -183,6 +349,32 @@
               disabled: true,
             },
           });
+        }
+        if (val === 'insertname') {
+          this.insertnamedialog = true;
+        }
+        if (val === 'recognition') {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS4001Store/insertrecognition', {'sealid': this.handlsealid})
+            .then(response => {
+              this.getList();
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+
         }
       },
     },

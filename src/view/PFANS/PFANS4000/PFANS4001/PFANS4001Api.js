@@ -17,6 +17,13 @@ export function createbook(data) {
   })
 }
 
+export function insertnamedialog(data) {
+  return request({
+    url: 'seal/insertnamedialog',
+    method: 'get',
+    params: data,
+  })
+}
 
 
 
@@ -40,6 +47,14 @@ export function getFpans4001List() {
 export function getPfans4001One(data) {
   return request({
     url: 'seal/oneInfo',
+    method: 'post',
+    data: data
+  })
+}
+
+export function insertrecognition(data) {
+  return request({
+    url: 'seal/insertrecognition',
     method: 'post',
     data: data
   })

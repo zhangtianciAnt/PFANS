@@ -1,7 +1,8 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
-                         @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick" :defaultStart="defaultStart"
+                         @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick"
+                         :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -328,7 +329,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo,getCurrentRole,getCurrentRole12} from '../../../../utils/customize';
+  import {getDictionaryInfo, getCurrentRole, getCurrentRole12} from '../../../../utils/customize';
   import PFANS2032Pop from '@/components/EasyPop/PFANS2032Pop';
 
   export default {
@@ -846,12 +847,27 @@
           .dispatch('PFANS2026Store/get3', {'userid': this.userlist})
           .then(response => {
             if (response.length > 0) {
-              Message({
-                message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
+              let data = response.filter(item =>(moment(new Date).subtract(2, 'month').format('YYYY-MM-DD') <= moment(item.createon).format('YYYY-MM-DD') && moment(item.createon).format('YYYY-MM-DD') <= moment(new Date).format('YYYY-MM-DD')));
+              if (data.length > 0) {
+                let checktableD = '';
+                for (let i = 0; i < data.length; i++) {
+                  checktableD += data[i].workflowname + ',';
+                }
+                if (checktableD != '') {
+                  let img = checktableD.substring(0, checktableD.length - 1);
+                  Message({
+                    message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR2') + img + this.$t('label.PFANS2032FROMVIEW_CHECKERROR3'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
+                this.loading = false;
+              } else {
+                if (val === 'StartWorkflow') {
+                  this.$refs.container.$refs.workflow.startWorkflow();
+                }
+                this.loading = false;
+              }
             } else {
               if (val === 'StartWorkflow') {
                 this.$refs.container.$refs.workflow.startWorkflow();
