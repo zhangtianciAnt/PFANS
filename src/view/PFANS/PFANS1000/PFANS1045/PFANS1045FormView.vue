@@ -331,6 +331,7 @@
     uploadUrl
   } from '@/utils/customize';
   import monthlyrate from '../../../components/monthlyrate';
+  import moment from 'moment';
   export default {
     name: 'PFANS1045FormView',
     components: {
@@ -461,6 +462,7 @@
                   let o = {};
                   o.name = uploadfile[i].split(',')[0];
                   o.url = uploadfile[i].split(',')[1];
+                  console.log(o)
                   this.fileList.push(o);
                 }
               }
