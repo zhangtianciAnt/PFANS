@@ -368,7 +368,7 @@
 <!--                    style="width: 11rem"-->
 <!--                    :disabled="!disabled">-->
 <!--                  </dicselect>-->
-                  <monthlyrate :month="month7"
+                  <monthlyrate :month="month9"
                                :data="scope.row.currencyposition"
                                :no="scope.row"
                                :multiple="multiple"
