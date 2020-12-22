@@ -289,7 +289,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate">
+                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate"
+                                      @change="changeereimbursementdate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -321,14 +322,14 @@
                         <el-table-column :label="$t('label.PFANS1002VIEW_CURRENCY')" align="center" width="180">
                           <template slot-scope="scope">
                             <!--                      add-ws-12/10-汇率字典-->
-<!--                            <dicselect :code="code3"-->
-<!--                                       :data="scope.row.currency"-->
-<!--                                       :disabled="!disable"-->
-<!--                                       :multiple="multiple"-->
-<!--                                       :no="scope.row"-->
-<!--                                       @change="getcurrency"-->
-<!--                                       style="width: 100%">-->
-<!--                            </dicselect>-->
+                            <!--                            <dicselect :code="code3"-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :disabled="!disable"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       @change="getcurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
                             <monthlyrate :month="month3"
                                          :data="scope.row.currency"
                                          :disabled="!disable"
@@ -667,13 +668,13 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <!--                      add-ws-12/10-汇率字典-->
-<!--                        <dicselect :code="code3"-->
-<!--                                   :data="scope.row.currency"-->
-<!--                                   :disabled="checktaxes"-->
-<!--                                   :multiple="multiple"-->
-<!--                                   :no="scope.row"-->
-<!--                                   @change="changeAcc">-->
-<!--                        </dicselect>-->
+                        <!--                        <dicselect :code="code3"-->
+                        <!--                                   :data="scope.row.currency"-->
+                        <!--                                   :disabled="checktaxes"-->
+                        <!--                                   :multiple="multiple"-->
+                        <!--                                   :no="scope.row"-->
+                        <!--                                   @change="changeAcc">-->
+                        <!--                        </dicselect>-->
                         <monthlyrate :month="month3"
                                      :data="scope.row.currency"
                                      :disabled="checktaxes"
@@ -883,22 +884,22 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <!--                      add-ws-12/10-汇率字典-->
-<!--                        <dicselect :code="code3"-->
-<!--                                   v-if="checktaxes"-->
-<!--                                   :data="scope.row.currency"-->
-<!--                                   :disabled="true"-->
-<!--                                   :multiple="multiple"-->
-<!--                                   :no="scope.row"-->
-<!--                                   @change="getAccommodation">-->
-<!--                        </dicselect>-->
-<!--                        <dicselect :code="code3"-->
-<!--                                   v-else-->
-<!--                                   :data="scope.row.currency"-->
-<!--                                   :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"-->
-<!--                                   :multiple="multiple"-->
-<!--                                   :no="scope.row"-->
-<!--                                   @change="getAccommodation">-->
-<!--                        </dicselect>-->
+                        <!--                        <dicselect :code="code3"-->
+                        <!--                                   v-if="checktaxes"-->
+                        <!--                                   :data="scope.row.currency"-->
+                        <!--                                   :disabled="true"-->
+                        <!--                                   :multiple="multiple"-->
+                        <!--                                   :no="scope.row"-->
+                        <!--                                   @change="getAccommodation">-->
+                        <!--                        </dicselect>-->
+                        <!--                        <dicselect :code="code3"-->
+                        <!--                                   v-else-->
+                        <!--                                   :data="scope.row.currency"-->
+                        <!--                                   :disabled="(scope.row.accountcode !== 'PJ132005' && scope.row.accountcode !== 'PJ132006') && (scope.row.accountcode !== 'PJ119005' && scope.row.accountcode !== 'PJ119006') ? false : true"-->
+                        <!--                                   :multiple="multiple"-->
+                        <!--                                   :no="scope.row"-->
+                        <!--                                   @change="getAccommodation">-->
+                        <!--                        </dicselect>-->
                         <monthlyrate :month="month3"
                                      v-if="checktaxes"
                                      :data="scope.row.currency"
@@ -1129,13 +1130,13 @@
                                      v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <!--                      add-ws-12/10-汇率字典-->
-<!--                        <dicselect :code="code3"-->
-<!--                                   :data="scope.row.currency"-->
-<!--                                   :disabled="checktaxes"-->
-<!--                                   :multiple="multiple"-->
-<!--                                   :no="scope.row"-->
-<!--                                   @change="changeAcc">-->
-<!--                        </dicselect>-->
+                        <!--                        <dicselect :code="code3"-->
+                        <!--                                   :data="scope.row.currency"-->
+                        <!--                                   :disabled="checktaxes"-->
+                        <!--                                   :multiple="multiple"-->
+                        <!--                                   :no="scope.row"-->
+                        <!--                                   @change="changeAcc">-->
+                        <!--                        </dicselect>-->
                         <monthlyrate :month="month3"
                                      :data="scope.row.currency"
                                      :disabled="checktaxes"
@@ -1240,7 +1241,7 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import {
-    getMonthlyrateInfo,
+    getMonthlyrateInfo2,
     downLoadUrl,
     getCurrentRole,
     getCurrentRole5,
@@ -1248,12 +1249,13 @@
     getOrgInfo,
     getOrgInfoByUserId,
     getUserInfo,
-    uploadUrl
+    uploadUrl,
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
+
   export default {
     name: 'PFANS1013FormView',
     components: {
@@ -1277,6 +1279,10 @@
         }
       };
       return {
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         // add-ws-8/12-禅道任务446
         enableSave: false,
         role2: '',
@@ -1372,7 +1378,7 @@
           jpyfxrate: '',
           dollarfxrate: '',
           otherfxrate: '',
-          usexchangerate: getMonthlyrateInfo('PG019001').exchangerate,
+          usexchangerate: getMonthlyrateInfo2('PG019001', this.month3).exchangerate,
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
           personalcode: '',
           uploadfile: '',
@@ -1495,10 +1501,6 @@
         },
         code1: 'PG002',
         code2: 'PJ036',
-        //add-ws-12/10-汇率字典
-        // code3: 'PG019',
-        month3: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
         code4: 'PJ024',
         code9: 'PJ017',
         code10: 'PJ035',
@@ -1531,7 +1533,7 @@
         plsummaryflg: '',
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
         //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-        params_id: ''
+        params_id: '',
         //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
@@ -1580,17 +1582,17 @@
             }
             this.form = response.evection;
             if (this.form.status === '4') {
-              this.acceptShow = false
+              this.acceptShow = false;
             } else {
-              this.acceptShow = true
+              this.acceptShow = true;
             }
-            let role = getCurrentRole()
+            let role = getCurrentRole();
             if (role == '1') {//总经理
               this.workflowCode = 'W0084';
             } else if (role == '2' || role == '3') { //GM Center
-              this.workflowCode = 'W0079'//新流程
+              this.workflowCode = 'W0079';//新流程
             } else { //TL 正式员工
-              this.workflowCode = 'W0014'
+              this.workflowCode = 'W0014';
             }
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
               let uploadfile = this.form.uploadfile.split(';');
@@ -2009,7 +2011,7 @@
               icon: 'el-icon-check',
             },
           ];
-          this.enableSave = true
+          this.enableSave = true;
         } else {
           this.buttonList = [
             {
@@ -2028,6 +2030,11 @@
       }
     },
     methods: {
+      changeereimbursementdate(value) {
+        if (value) {
+          this.month3 = moment(value).format('YYYY-MM');
+        }
+      },
       getCenterid(val) {
         this.form.centerid = val;
       },
@@ -2199,7 +2206,7 @@
             this.form.type = '0';
           }
           this.form.business_id = this.$route.params._name[0].value;
-          this.$nextTick(function () {
+          this.$nextTick(function() {
             this.changebusiness(this.form.business_id);
           });
         }
@@ -2994,12 +3001,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%", "%25");
-          file.url = file.url.replace("#", "%23");
-          file.url = file.url.replace("&", "%26");
-          file.url = file.url.replace("+", "%2B");
-          file.url = file.url.replace("=", "%3D");
-          file.url = file.url.replace("?", "%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -3201,7 +3208,7 @@
           }
         }
         if (this.form.startdate != '' && this.form.enddate != '' && moment(this.form.startdate).format('YYYY-MM-DD') != moment(this.form.enddate).format('YYYY-MM-DD')) {
-          var getDate = function (str) {
+          var getDate = function(str) {
             var tempDate = new Date();
             var list = str.split('-');
             tempDate.setFullYear(list[0]);
@@ -3454,7 +3461,7 @@
           var accfig;
           var firstBusinessflg;
           var firstBusiNum;
-          let accinfo = getMonthlyrateInfo(row.currency);
+          let accinfo = getMonthlyrateInfo2(row.currency, this.month3);
           if (accinfo) {
             accfig = accinfo.exchangerate;
           }
@@ -3631,7 +3638,7 @@
         } else {
           this.checkmoney = true;
         }
-        let curinfo = getMonthlyrateInfo(val);
+        let curinfo = getMonthlyrateInfo2(val, this.month3);
         if (curinfo) {
           row.currencyexchangerate = curinfo.exchangerate;
         }
@@ -3639,7 +3646,7 @@
       },
       changeAcc(val, row) {
         row.currency = val;
-        let accinfo = getMonthlyrateInfo(val);
+        let accinfo = getMonthlyrateInfo2(val, this.month3);
         if (accinfo) {
           row.rmb = (row.foreigncurrency * accinfo.exchangerate).toFixed(2);
         }
@@ -3650,7 +3657,7 @@
       },
       changefore(val, row) {
         // val.rmb = '';
-        let accinfo = getMonthlyrateInfo(val.currency);
+        let accinfo = getMonthlyrateInfo2(val.currency, this.month3);
         if (accinfo) {
           val.taxes = '';
           val.rmb = (val.foreigncurrency * accinfo.exchangerate).toFixed(2);

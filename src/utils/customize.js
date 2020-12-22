@@ -739,7 +739,18 @@ export function getCurrentRole16() {
   return '1';
 }
 
-
+export function getCurrentRole17() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
 
 import CryptoJS from 'crypto-js/crypto-js';
 
@@ -788,6 +799,19 @@ export function getMonthlyrateInfo(code) {
   let info = null;
   if (store.getters.monthlyrate && store.getters.monthlyrate.length > 0) {
     for (let dictionary of store.getters.monthlyrate) {
+      if (dictionary.currency === code) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+export function getMonthlyrateInfo2(code, month) {
+  let dic = store.getters.monthlyrate.filter(item => item.month === month);
+  let info = null;
+  if (dic && dic.length > 0) {
+    for (let dictionary of dic) {
       if (dictionary.currency === code) {
         info = dictionary;
         break;

@@ -54,7 +54,6 @@
       }
     },
     mounted() {
-      debugger
       if (this.data) {
         this.value = this.data;
       }

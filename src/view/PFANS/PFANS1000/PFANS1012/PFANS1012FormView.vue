@@ -56,7 +56,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
-                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.reimbursementdate">
+                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.reimbursementdate"
+                                      @change="changeereimbursementdate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -900,15 +901,15 @@
                                          width="150">
                           <template slot-scope="scope">
                             <!--                      add-ws-12/10-汇率字典-->
-<!--                            <dicselect :code="code4"-->
-<!--                                       clearable-->
-<!--                                       :data="scope.row.currency"-->
-<!--                                       :multiple="multiple"-->
-<!--                                       :no="scope.row"-->
-<!--                                       :disabled="disa"-->
-<!--                                       @change="getCurrency"-->
-<!--                                       style="width: 100%">-->
-<!--                            </dicselect>-->
+                            <!--                            <dicselect :code="code4"-->
+                            <!--                                       clearable-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       :disabled="disa"-->
+                            <!--                                       @change="getCurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
                             <monthlyrate :month="month4"
                                          clearable
                                          :data="scope.row.currency"
@@ -1145,14 +1146,14 @@
                                          width="150">
                           <template slot-scope="scope">
                             <!--                      add-ws-12/10-汇率字典-->
-<!--                            <dicselect :code="code4"-->
-<!--                                       :data="scope.row.currency"-->
-<!--                                       :multiple="multiple"-->
-<!--                                       :no="scope.row"-->
-<!--                                       :disabled="disa"-->
-<!--                                       @change="getCurrency"-->
-<!--                                       style="width: 100%">-->
-<!--                            </dicselect>-->
+                            <!--                            <dicselect :code="code4"-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       :disabled="disa"-->
+                            <!--                                       @change="getCurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
                             <monthlyrate :month="month4"
                                          :data="scope.row.currency"
                                          :multiple="multiple"
@@ -1382,7 +1383,7 @@
   import dicselect from '../../../components/dicselect';
   import monthlyrate from '../../../components/monthlyrate';
   import {
-    getMonthlyrateInfo,
+    getMonthlyrateInfo2,
     downLoadUrl,
     getCurrentRole,
     getCurrentRole5,
@@ -1833,7 +1834,6 @@
         IDname: '',
         code2: 'PJ002',
         code3: 'PJ004',
-        code4: 'PG019',
         //add-ws-12/10-汇率字典
         // code4: 'PG019',
         month4: moment(new Date()).format('YYYY-MM'),
@@ -1955,22 +1955,22 @@
                     }
                   }
                 }
-                let role = getCurrentRole()
+                let role = getCurrentRole();
                 if (role == '1') {
                   //总经理
                   this.workflowCode = 'W0100';
-                }else{
+                } else {
                   if (this.form.moneys >= 20000) {
                     if (role == '2' || role == '3') { //GM Center
-                      this.workflowCode = 'W0115'//新流程
+                      this.workflowCode = 'W0115';//新流程
                     } else { //TL 正式员工
-                      this.workflowCode = 'W0077'
+                      this.workflowCode = 'W0077';
                     }
-                  }else{
+                  } else {
                     if (role == '2' || role == '3') { //GM Center
-                      this.workflowCode = 'W0141'//新流程
+                      this.workflowCode = 'W0141';//新流程
                     } else { //TL 正式员工
-                      this.workflowCode = 'W0016'
+                      this.workflowCode = 'W0016';
                     }
                   }
                 }
@@ -2822,6 +2822,11 @@
       },
     },
     methods: {
+      changeereimbursementdate(value) {
+        if (value) {
+          this.month4 = moment(value).format('YYYY-MM');
+        }
+      },
       // add-ws-8/20-禅道469
       // toggleSelection(rows) {
       //   if (rows) {
@@ -2904,12 +2909,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%", "%25");
-          file.url = file.url.replace("#", "%23");
-          file.url = file.url.replace("&", "%26");
-          file.url = file.url.replace("+", "%2B");
-          file.url = file.url.replace("=", "%3D");
-          file.url = file.url.replace("?", "%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -4072,7 +4077,7 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = true;
-          if (this.form.loan === "") {
+          if (this.form.loan === '') {
             this.getLoanApplicationList();
           }
         } else {
@@ -4183,13 +4188,14 @@
         if (error == '0') {
           if (val === 'PG019001') {
             this.disablecurr = false;
-            let dictionaryInfo = getMonthlyrateInfo(val);
+            let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
             if (dictionaryInfo) {
               row.currencyrate = dictionaryInfo.exchangerate;
             }
+            3;
           } else if (val === 'PG019002') {
             this.disablecurr = false;
-            let dictionaryInfo = getMonthlyrateInfo(val);
+            let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
             if (dictionaryInfo) {
               row.currencyrate = dictionaryInfo.exchangerate;
             }
@@ -4197,7 +4203,7 @@
           row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
           this.tormbT = Number(this.tormbT) + row.tormb;
           this.form.tormb = this.tormbT;
-          this.form.currency = getMonthlyrateInfo(val).currencyname;
+          this.form.currency = getMonthlyrateInfo2(val, this.month4).currencyname;
         }
         this.error_currency = error;
       },
@@ -4295,7 +4301,7 @@
         this.tableT.push({
           optionsT: this.tableT[0].optionsT,
           //禅道653 ztc
-          accoundoptionsdate:this.tableT[0].accoundoptionsdate,
+          accoundoptionsdate: this.tableT[0].accoundoptionsdate,
           //禅道653 ztc
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -4561,13 +4567,13 @@
         }
         if (newValue.currency === 'PG019001') {
           this.disablecurr = false;
-          let dictionaryInfo = getMonthlyrateInfo(newValue.currency);
+          let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
           if (dictionaryInfo) {
             newValue.currencyrate = dictionaryInfo.exchangerate;
           }
         } else if (newValue.currency === 'PG019002') {
           this.disablecurr = false;
-          let dictionaryInfo = getMonthlyrateInfo(newValue.currency);
+          let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
           if (dictionaryInfo) {
             newValue.currencyrate = dictionaryInfo.exchangerate;
           }
@@ -4891,14 +4897,14 @@
                     }
                   }
                 }
-                if(this.error_currency != 0){
+                if (this.error_currency != 0) {
                   this.activeName = 'third';
                   Message({
                     message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
-                  return
+                  return;
                 }
                 let error = 0;
                 //add-ws-6/16-禅道103
@@ -4971,7 +4977,7 @@
                       }
                       if (this.tableT[i].subjectnumber === '') {
                         this.activeName = 'second';
-                        alert(111)
+                        alert(111);
                         error = error + 1;
                         Message({
                           message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
