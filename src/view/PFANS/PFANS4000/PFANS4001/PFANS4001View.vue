@@ -4,6 +4,10 @@
                      :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
                      @handleacceptstate="handleacceptstate" :handles="handles"
     >
+      <span slot="customize">{{$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') +':'}}</span>
+      <span slot="customize" class="sub_color_red">{{this.user}}</span>
+      <span slot="customize">{{$t('label.PFANS4001FORMVIEW_SEALDETAILDATE') +':'}}</span>
+      <span slot="customize" class="sub_color_red">{{this.sealdetail}}</span>
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
     <el-drawer :visible.sync="insertnamedialog" size="40%" :show-close="false" :withHeader="false" append-to-body>
@@ -46,6 +50,7 @@
     },
     data() {
       return {
+        spanshow: true,
         handles: true,
         userlist: '',
         error: '',
@@ -160,17 +165,21 @@
             let roles = getCurrentRole17();
             if (response.sealdetail.length > 0) {
               this.userlist = response.sealdetail[0].sealdetailname;
+              this.user = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
               if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
                 let claimdatetime = response.sealdetail[0].sealdetaildate;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                 this.sealdetaildate = [claimdatetim, claimdatetime1];
+                this.sealdetail = claimdatetim+"~"+claimdatetime1;
                 if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
                   this.userlist = this.$store.getters.userinfo.userid;
+                  this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
                   let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
                   let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
                   let claimdatetime2 = claimdatetime1 + '-03-31';
                   this.sealdetaildate = [claimdatetim, claimdatetime2];
+                  this.sealdetail = claimdatetim+"~"+claimdatetime1;
                 }
               }
             }
@@ -292,7 +301,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
-            return
+            return;
           }
           if (this.userlist == '') {
             Message({
@@ -300,7 +309,7 @@
               type: 'error',
               duration: 5 * 1000,
             });
-            return
+            return;
           }
           let sealdetaildate = this.getsealdetaildate(this.sealdetaildate);
           let parameter = {
@@ -326,7 +335,7 @@
               });
               this.loading = false;
             });
-        }else{
+        } else {
           {
             this.loading = true;
             this.$store
@@ -334,17 +343,21 @@
               .then(response => {
                 if (response.length > 0) {
                   this.userlist = response[0].sealdetailname;
+                  this.user = getUserInfo(response[0].sealdetailname).userinfo.customername;
                   if (response[0].sealdetaildate !== '' && response[0].sealdetaildate !== null) {
                     let claimdatetime = response[0].sealdetaildate;
                     let claimdatetim = claimdatetime.slice(0, 10);
                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                     this.sealdetaildate = [claimdatetim, claimdatetime1];
+                    this.sealdetail = claimdatetim+"~"+claimdatetime1;
                     if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
                       this.userlist = this.$store.getters.userinfo.userid;
+                      this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
                       let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
                       let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
                       let claimdatetime2 = claimdatetime1 + '-03-31';
                       this.sealdetaildate = [claimdatetim, claimdatetime2];
+                      this.sealdetail = claimdatetim+"~"+claimdatetime1;
                     }
                   }
                 }
@@ -356,7 +369,7 @@
       getUserids(val) {
         this.sealdetailname = val;
         this.userlist = val;
-      
+        this.user = getUserInfo(val).userinfo.customername;
       },
       //add-ws-12/21-印章盖印
       rowClick(row) {
