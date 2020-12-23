@@ -392,17 +392,19 @@
               //总经理
               this.workflowCode = 'W0101';
             } else if (this.form.machinemedia == 'PJ028001') {//增加财务部长节点
-              if(roleLC == '2' || roleLC == '3') { //GM Center
-                this.workflowCode = 'W0118'//新流程
-              }else { //TL 正式员工
-                this.workflowCode = 'W0058'
-              }
+              this.workflowCode = 'W0058'
+              // if(roleLC == '2' || roleLC == '3') { //GM Center
+              //   this.workflowCode = 'W0118'//新流程
+              // }else { //TL 正式员工
+              //   this.workflowCode = 'W0058'
+              // }
             } else {
-              if(roleLC == '2' || roleLC == '3') { //GM Center
-                this.workflowCode = 'W0108'//新流程
-              }else { //TL 正式员工
-                this.workflowCode = 'W0030'
-              }
+              this.workflowCode = 'W0030'
+              // if(roleLC == '2' || roleLC == '3') { //GM Center
+              //   this.workflowCode = 'W0108'//新流程
+              // }else { //TL 正式员工
+              //   this.workflowCode = 'W0030'
+              // }
             }
             if (this.form.information === '') {
               this.checked3 = false;
@@ -610,11 +612,12 @@
             //总经理
             this.workflowCode = 'W0101';
           } else {
-            if(roleLC == '2' || roleLC == '3') { //GM Center
-              this.workflowCode = 'W0118'//新流程
-            }else { //TL 正式员工
-              this.workflowCode = 'W0058'
-            }
+            this.workflowCode = 'W0058'
+            // if(roleLC == '2' || roleLC == '3') { //GM Center
+            //   this.workflowCode = 'W0118'//新流程
+            // }else { //TL 正式员工
+            //   this.workflowCode = 'W0058'
+            // }
           }
           if (this.form.exportdate != '' && this.form.returndate != '') {
             this.checkDateSpace(this.form.exportdate, this.form.returndate);
@@ -624,11 +627,12 @@
             //总经理
             this.workflowCode = 'W0101';
           } else {
-            if(roleLC == '2' || roleLC == '3') { //GM Center
-              this.workflowCode = 'W0108'//新流程
-            }else { //TL 正式员工
-              this.workflowCode = 'W0030'
-            }
+            this.workflowCode = 'W0030'
+            // if(roleLC == '2' || roleLC == '3') { //GM Center
+            //   this.workflowCode = 'W0108'//新流程
+            // }else { //TL 正式员工
+            //   this.workflowCode = 'W0030'
+            // }
           }
         }
       },
