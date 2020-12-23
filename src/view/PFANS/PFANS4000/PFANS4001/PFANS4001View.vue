@@ -286,6 +286,22 @@
       },
       insertnamedialogs() {
         if (!this.insertnamedialog) {
+          if (this.userlist == '') {
+            Message({
+              message: this.$t('label.PFANS4001FORMVIRW_ERROR1'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return
+          }
+          if (this.sealdetaildate == '') {
+            Message({
+              message: this.$t('label.PFANS4001FORMVIRW_RRROR2'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return
+          }
           let sealdetaildate = this.getsealdetaildate(this.sealdetaildate);
           let parameter = {
             sealdetaildate: sealdetaildate,
