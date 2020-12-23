@@ -1378,7 +1378,7 @@
           jpyfxrate: '',
           dollarfxrate: '',
           otherfxrate: '',
-          usexchangerate: getMonthlyrateInfo2('PG019001', this.month3).exchangerate,
+          usexchangerate: getMonthlyrateInfo2('PG019001', moment(new Date()).format('YYYY-MM')).exchangerate,
           reimbursementdate: moment(new Date()).format('YYYY-MM-DD'),
           personalcode: '',
           uploadfile: '',
