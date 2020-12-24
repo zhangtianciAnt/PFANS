@@ -122,7 +122,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
-
+  import {getDictionaryInfo,} from '../../../../utils/customize';
   export default {
     name: 'PFANS8011View',
     components: {
@@ -140,6 +140,7 @@
         table: [
           {
             currency: '',
+            currencyname: '',
             businessplanexchangerate: '',
             accountingexchangerate: '',
             exchangerate: '',
@@ -164,6 +165,7 @@
     methods: {
       getcurrency(val, row) {
         row.currency = val;
+        row.currencyname = getDictionaryInfo(val).value1
       },
       addRow() {
         this.table.push({
@@ -251,6 +253,7 @@
               rmarks: this.table[i].rmarks,
               month: this.month,
               year: this.year,
+              currencyname:  this.table[i].currencyname,
             },
           );
         }
@@ -260,7 +263,6 @@
             this.$store
               .dispatch('PFANS8011Store/update', this.baseInfo.monthlyrate)
               .then(response => {
-                this.data = response;
                 this.loading = false;
                 Message({
                   message: this.$t('normal.success_01'),
@@ -284,7 +286,6 @@
             this.$store
               .dispatch('PFANS8011Store/create', this.baseInfo.monthlyrate)
               .then(response => {
-                this.data = response;
                 this.loading = false;
                 Message({
                   message: this.$t('normal.success_01'),

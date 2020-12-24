@@ -56,7 +56,7 @@
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :error="error" :label="$t('label.applicant')"  prop="user_id">
+                    <el-form-item :error="error" :label="$t('label.applicant')" prop="user_id">
                       <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
                             @getUserids="getUserids" style="width: 20vw"></user>
                     </el-form-item>
@@ -389,13 +389,22 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
-                      <dicselect :code="code7"
-                                 :data="form.currency"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getCurrency"
-                                 style="width: 20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典             -->
+                      <!--                      <dicselect :code="code7"-->
+                      <!--                                 :data="form.currency"-->
+                      <!--                                 :disabled="!disable"-->
+                      <!--                                 :multiple="multiple"-->
+                      <!--                                 @change="getCurrency"-->
+                      <!--                                 style="width: 20vw">-->
+                      <!--                      </dicselect>-->
+                      <monthlyrate :month="month7"
+                                   :data="form.currency"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   @change="getCurrency"
+                                   style="width: 20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -855,26 +864,28 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from '../../../components/user.vue';
-    import project from '../../../components/project.vue';
-    import {Message} from 'element-ui';
-    import moment from 'moment';
-    import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName} from '@/utils/customize';
-    import dicselect from '../../../components/dicselect';
-    import {getDictionaryInfo} from '../../../../utils/customize';
-    import org from '../../../components/org';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import project from '../../../components/project.vue';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
+  import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName} from '@/utils/customize';
+  import dicselect from '../../../components/dicselect';
+  import monthlyrate from '../../../components/monthlyrate';
+  import {getDictionaryInfo,getMonthlyrateInfo} from '../../../../utils/customize';
+  import org from '../../../components/org';
 
-    export default {
+  export default {
     name: 'PFANS1002FormView',
     components: {
+      monthlyrate,
       dicselect,
       EasyNormalContainer,
       user,
       project,
-        org,
-        // PFANS1012Pop,
-        // PFANS1006Pop,
+      org,
+      // PFANS1012Pop,
+      // PFANS1006Pop,
     },
     data() {
       var validateUserid = (rule, value, callback) => {
@@ -966,13 +977,13 @@
         enableSave: false,
         userlist: '',
         activeName: 'first',
-          urlparams: '',
-          url: '',
-          tableA: [],
-          tableB: [],
+        urlparams: '',
+        url: '',
+        tableA: [],
+        tableB: [],
         loading: false,
         disableview: false,
-          workflowCode: '',
+        workflowCode: '',
         disabled: false,
         code1: 'PJ016',
         code2: 'PJ017',
@@ -980,7 +991,10 @@
         code4: 'PG002',
         code5: 'PR002',
         code6: 'PR003',
-        code7: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code7: 'PG019',
+        month7: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code8: 'PJ019',
         code9: 'PJ035',
         code10: 'PJ021',
@@ -1404,15 +1418,15 @@
               trigger: 'change',
             },
           ],
-            //add_fjl_0806 预算编码
-            // budgetunit: [
-            //     {
-            //         required: true,
-            //         message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-            //         trigger: 'change',
-            //     },
-            // ],
-            //add_fjl_0806 预算编码
+          //add_fjl_0806 预算编码
+          // budgetunit: [
+          //     {
+          //         required: true,
+          //         message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+          //         trigger: 'change',
+          //     },
+          // ],
+          //add_fjl_0806 预算编码
         },
         show: false,
         show2: false,
@@ -1423,7 +1437,7 @@
         show9: false,
         show10: false,
         canStart: false,
-          checkGro: false,
+        checkGro: false,
       };
     },
     mounted() {
@@ -1448,10 +1462,10 @@
                 let role = getCurrentRole();
                 if (role == '1') {//总经理
                   this.workcode = 'W0097';
-                } else if(role == '2' || role == '3') { //GM Center
-                  this.workcode = 'W0113'//新流程
-                }else { //TL 正式员工
-                  this.workcode = 'W0048'
+                } else if (role == '2' || role == '3') { //GM Center
+                  this.workcode = 'W0113';//新流程
+                } else { //TL 正式员工
+                  this.workcode = 'W0048';
                 }
                 //add_fjl_0806  添加总经理审批流程
                 if (this.form.checkch != '1') {
@@ -1464,7 +1478,7 @@
                 let rst = getOrgInfoByUserId(response.business.user_id);
                 if (rst) {
                   //upd_fjl_0806
-                  if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
+                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
                     this.checkGro = true;
                   } else {
                     this.checkGro = false;
@@ -1513,19 +1527,19 @@
                 }
                 if (this.form.currency === 'PG019001') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.currency === 'PG019002') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.currency === 'PG019003') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.currency === 'PG019004') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.provision === '1') {
                   this.show7 = true;
@@ -1558,69 +1572,67 @@
                   }
                 }
                 //add ccm 0805
-                  //add_fjl_0806
-                  //有暂借款编号绑定暂借款信息
-                  if (this.form.loanapplication_id) {
-                      this.$store
-                          .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
-                          .then(response => {
-                              if (response !== null && response !== '' && response !== undefined) {
-                                for (var i = 0; i < response.length; i++)
-                                {
-                                  let status = getStatus(response[i].status);
-                                  this.tableA.push({
-                                    loanapno: response[i].loanapno,
-                                    moneys: response[i].moneys,
-                                    remarks: response[i].remarks,
-                                    status: status,
-                                    loanapplication_id: response[i].loanapplication_id,
-                                  });
-                                }
-                              }
-                              this.loading = false;
-                          })
-                          .catch(error => {
-                              Message({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000,
-                              });
-                              this.loading = false;
+                //add_fjl_0806
+                //有暂借款编号绑定暂借款信息
+                if (this.form.loanapplication_id) {
+                  this.$store
+                    .dispatch('PFANS1006Store/getLoanapplicationOne2', {'loanapplication_id': this.form.loanapplication_id})
+                    .then(response => {
+                      if (response !== null && response !== '' && response !== undefined) {
+                        for (var i = 0; i < response.length; i++) {
+                          let status = getStatus(response[i].status);
+                          this.tableA.push({
+                            loanapno: response[i].loanapno,
+                            moneys: response[i].moneys,
+                            remarks: response[i].remarks,
+                            status: status,
+                            loanapplication_id: response[i].loanapplication_id,
                           });
-                  }
+                        }
+                      }
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
+                }
 
-                  //有精算报销编号绑定精算信息
-                  if (this.form.publicexpense_id) {
-                      this.$store
-                          .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
-                          .then(response => {
-                              if (response !== null && response !== '' && response !== undefined) {
+                //有精算报销编号绑定精算信息
+                if (this.form.publicexpense_id) {
+                  this.$store
+                    .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
+                    .then(response => {
+                      if (response !== null && response !== '' && response !== undefined) {
 
-                                for (var i = 0; i < response.length; i++)
-                                {
-                                  let status = getStatus(response[i].status);
-                                  this.tableB.push({
-                                    invoiceno: response[i].invoiceno,
-                                    moneys: response[i].moneys,
-                                    remarks: response[i].preparefor,
-                                    status: status,
-                                    publicexpense_id: response[i].publicexpenseid,
-                                  });
-                                }
-                              }
-                              this.loading = false;
-                          })
-                          .catch(error => {
-                              Message({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000,
-                              });
-                              this.loading = false;
+                        for (var i = 0; i < response.length; i++) {
+                          let status = getStatus(response[i].status);
+                          this.tableB.push({
+                            invoiceno: response[i].invoiceno,
+                            moneys: response[i].moneys,
+                            remarks: response[i].preparefor,
+                            status: status,
+                            publicexpense_id: response[i].publicexpenseid,
                           });
+                        }
+                      }
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
 
-                  }
-                  //add_fjl_0806
+                }
+                //add_fjl_0806
                 this.loading = false;
               })
               .catch(error => {
@@ -1633,30 +1645,29 @@
               });
           });
 
-      }
-      else if (this.$route.params._type === 1) {
+      } else if (this.$route.params._type === 1) {
         this.form.offshore_id = this.$route.params._checkid;
         this.userlist = this.$store.getters.userinfo.userid;
-        if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
+        if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
 
           if (rst) {
-              //upd_fjl_0806
-              if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
-                  this.checkGro = true;
-              } else {
-                  this.checkGro = false;
-              }
-              // this.centerid = rst.centerNmae;
-              // this.groupid = rst.groupNmae;
-              // this.teamid = rst.teamNmae;
-              // this.form.center_id = rst.centerId;
-              // this.form.group_id = rst.groupId;
-              // this.form.team_id = rst.teamId;
-              //upd_fjl_0806
+            //upd_fjl_0806
+            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              this.checkGro = true;
+            } else {
+              this.checkGro = false;
+            }
+            // this.centerid = rst.centerNmae;
+            // this.groupid = rst.groupNmae;
+            // this.teamid = rst.teamNmae;
+            // this.form.center_id = rst.centerId;
+            // this.form.group_id = rst.groupId;
+            // this.form.team_id = rst.teamId;
+            //upd_fjl_0806
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-            this.getBudt(this.form.group_id);
+          this.getBudt(this.form.group_id);
         }
       } else {
         if (this.$route.params._id) {
@@ -1669,17 +1680,17 @@
                 return;
               }
               this.form = response.business;
-                //add_fjl_0806  添加总经理审批流程
-                if (getCurrentRole() === '1') {
-                    this.workflowCode = 'W0097';//总经理流程
+              //add_fjl_0806  添加总经理审批流程
+              if (getCurrentRole() === '1') {
+                this.workflowCode = 'W0097';//总经理流程
+              } else {
+                if (this.form.user_id === '5e78b2264e3b194874180f35' || getCurrentRole() === '2') {
+                  this.workflowCode = 'W0113';
                 } else {
-                  if (this.form.user_id === '5e78b2264e3b194874180f35' || getCurrentRole() === '2') {
-                    this.workflowCode = 'W0113';
-                  } else {
-                    this.workflowCode = 'W0048';//其他
-                  }
+                  this.workflowCode = 'W0048';//其他
                 }
-                //add_fjl_0806  添加总经理审批流程
+              }
+              //add_fjl_0806  添加总经理审批流程
               if (this.form.checkch != '1') {
                 if (this.$route.params._type === 3) {
                   this.form.checkch = '1';
@@ -1689,16 +1700,16 @@
               }
               let rst = getOrgInfoByUserId(response.business.user_id);
               if (rst) {
-                  //upd_fjl_0806
-                  if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
-                      this.checkGro = true;
-                  } else {
-                      this.checkGro = false;
-                  }
-                  // this.centerid = rst.centerNmae;
-                  // this.groupid = rst.groupNmae;
-                  // this.teamid = rst.teamNmae;
-                  //upd_fjl_0806
+                //upd_fjl_0806
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.checkGro = true;
+                } else {
+                  this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0806
               }
               if (response.travelcontent.length > 0) {
                 this.tablePD = [];
@@ -1719,7 +1730,7 @@
                 }
               }
               this.userlist = this.form.user_id;
-                this.getBudt(this.form.group_id);
+              this.getBudt(this.form.group_id);
               this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
               if (this.form.objectivetype === 'PJ018005') {
                 this.show = true;
@@ -1739,19 +1750,19 @@
               }
               if (this.form.currency === 'PG019001') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019002') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019003') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019004') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.provision === '1') {
                 this.show7 = true;
@@ -1784,63 +1795,63 @@
                 }
               }
               //add ccm 0805
-                //add_fjl_0806
-                //有暂借款编号绑定暂借款信息
-                if (this.form.loanapplication_id) {
-                    this.$store
-                        .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
-                        .then(response => {
-                            if (response !== null && response !== '' && response !== undefined) {
-                                let status = getStatus(response.status);
-                                this.tableA.push({
-                                    loanapno: response.loanapno,
-                                    moneys: response.moneys,
-                                    remarks: response.remarks,
-                                    status: status,
-                                    loanapplication_id: response.loanapplication_id,
-                                });
-                            }
-                            this.loading = false;
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
-                }
+              //add_fjl_0806
+              //有暂借款编号绑定暂借款信息
+              if (this.form.loanapplication_id) {
+                this.$store
+                  .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.form.loanapplication_id})
+                  .then(response => {
+                    if (response !== null && response !== '' && response !== undefined) {
+                      let status = getStatus(response.status);
+                      this.tableA.push({
+                        loanapno: response.loanapno,
+                        moneys: response.moneys,
+                        remarks: response.remarks,
+                        status: status,
+                        loanapplication_id: response.loanapplication_id,
+                      });
+                    }
+                    this.loading = false;
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
+              }
 
-                //有精算报销编号绑定精算信息
-                if (this.form.publicexpense_id) {
-                    this.$store
-                        .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
-                        .then(response => {
-                            if (response !== null && response !== '' && response !== undefined) {
-                                let pub = response.publicexpense;
-                                let status = getStatus(pub.status);
-                                this.tableB.push({
-                                    invoiceno: pub.invoiceno,
-                                    moneys: pub.moneys,
-                                    remarks: pub.preparefor,
-                                    status: status,
-                                    publicexpense_id: pub.publicexpenseid,
-                                });
-                            }
-                            this.loading = false;
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
+              //有精算报销编号绑定精算信息
+              if (this.form.publicexpense_id) {
+                this.$store
+                  .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                  .then(response => {
+                    if (response !== null && response !== '' && response !== undefined) {
+                      let pub = response.publicexpense;
+                      let status = getStatus(pub.status);
+                      this.tableB.push({
+                        invoiceno: pub.invoiceno,
+                        moneys: pub.moneys,
+                        remarks: pub.preparefor,
+                        status: status,
+                        publicexpense_id: pub.publicexpenseid,
+                      });
+                    }
+                    this.loading = false;
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
 
-                }
-                //add_fjl_0806
+              }
+              //add_fjl_0806
               this.loading = false;
             })
             .catch(error => {
@@ -1853,24 +1864,24 @@
             });
         } else {
           this.userlist = this.$store.getters.userinfo.userid;
-          if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
+          if (this.userlist !== null && this.userlist !== '' && this.userlist !== undefined) {
             let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
             if (rst) {
               this.centerid = rst.centerNmae;
               this.groupid = rst.groupNmae;
               this.teamid = rst.teamNmae;
               this.form.center_id = rst.centerId;
-                // this.form.group_id = rst.groupId;
+              // this.form.group_id = rst.groupId;
               this.form.team_id = rst.teamId;
-                //add_fjl_0806
-                if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined) {
-                    this.form.group_id = rst.groupId;
-                    this.getBudt(this.form.group_id);
-                    this.checkGro = true;
-                } else {
-                    this.checkGro = false;
-                }
-                //add_fjl_0806
+              //add_fjl_0806
+              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                this.form.group_id = rst.groupId;
+                this.getBudt(this.form.group_id);
+                this.checkGro = true;
+              } else {
+                this.checkGro = false;
+              }
+              //add_fjl_0806
             }
             this.form.user_id = this.$store.getters.userinfo.userid;
           }
@@ -1878,8 +1889,8 @@
       }
     },
     created() {
-        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1002FormView');
-        this.disableview = this.$route.params._disableview;
+      // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1002FormView');
+      this.disableview = this.$route.params._disableview;
       let userid = '';
       if (this.$route.params.userid) {
         if (getUserInfoName(this.$route.params.userid) !== '-1') {
@@ -2036,60 +2047,60 @@
       //add-ws-7/7-禅道247
     },
     methods: {
-        //add_fjl_0806  查看详情
-        rowClick(row) {
-            this.$store.commit('global/SET_HISTORYURL', '');
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
-            this.$router.push({
-                name: 'PFANS1006FormView',
-                params: {
-                    _id: row.loanapplication_id,
-                    disabled: false,
-                    _checkid: this.$route.params._id,
-                    _check: true,
-                    _fromname: 'PFANS1002FormView',
-                },
-            });
-            // this.url = '';
-            // this.urlparams = '';
-            // this.url = 'PFANS1006FormView';
-            // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
-            // this.$refs.PFANS1006Pop.open = true;
-        },
-        rowClick1(row) {
-            this.$store.commit('global/SET_HISTORYURL', '');
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
-            this.$router.push({
-                name: 'PFANS1012FormView',
-                params: {
-                    _id: row.publicexpense_id,
-                    disabled: false,
-                    _checkid: this.$route.params._id,
-                    _check2: true,
-                    _fromname: 'PFANS1002FormView',
-                },
-            });
-            // this.url = '';
-            // this.urlparams = '';
-            // this.url = 'PFANS1012FormView';
-            // this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
-            // this.$refs.PFANS1012Pop.open = true;
-        },
-        //add_fjl_0806  查看详情
-        //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
-        //add_fjl_0806
-        getCenterid(val) {
-            this.form.center_id = val;
-        },
-        getGroupId(val) {
-            this.form.group_id = val;
-            this.form.budgetunit = '';
-            this.getBudt(val);
-        },
-        getTeamid(val) {
-            this.form.team_id = val;
-        },
-        //add_fjl_0806
+      //add_fjl_0806  查看详情
+      rowClick(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+        this.$router.push({
+          name: 'PFANS1006FormView',
+          params: {
+            _id: row.loanapplication_id,
+            disabled: false,
+            _checkid: this.$route.params._id,
+            _check: true,
+            _fromname: 'PFANS1002FormView',
+          },
+        });
+        // this.url = '';
+        // this.urlparams = '';
+        // this.url = 'PFANS1006FormView';
+        // this.urlparams = {'_id': row.loanapplication_id, 'disabled': false};
+        // this.$refs.PFANS1006Pop.open = true;
+      },
+      rowClick1(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
+        this.$router.push({
+          name: 'PFANS1012FormView',
+          params: {
+            _id: row.publicexpense_id,
+            disabled: false,
+            _checkid: this.$route.params._id,
+            _check2: true,
+            _fromname: 'PFANS1002FormView',
+          },
+        });
+        // this.url = '';
+        // this.urlparams = '';
+        // this.url = 'PFANS1012FormView';
+        // this.urlparams = {'_id': row.publicexpense_id, 'disabled': false};
+        // this.$refs.PFANS1012Pop.open = true;
+      },
+      //add_fjl_0806  查看详情
+      //add-ws-4/23-总务蛋蛋高可用i选择部门带出预算编码
+      //add_fjl_0806
+      getCenterid(val) {
+        this.form.center_id = val;
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+        this.form.budgetunit = '';
+        this.getBudt(val);
+      },
+      getTeamid(val) {
+        this.form.team_id = val;
+      },
+      //add_fjl_0806
       //add ccm 0805
       clickBun() {
         this.$store.commit('global/SET_HISTORYURL', '');
@@ -2205,25 +2216,25 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
-          this.options = [];
-          if (val === '' || val === null) {
-              return;
-          }
+        this.options = [];
+        if (val === '' || val === null) {
+          return;
+        }
         //ADD_FJL  修改人员预算编码
-          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(val).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
-                this.options.push({
-                  lable: dic[i].value2 + '_' + dic[i].value3,
-                  value: dic[i].code,
-                });
-              }
+        // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+        let butinfo = getOrgInfo(val).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              this.options.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
             }
           }
-          // }
+        }
+        // }
         //ADD_FJL  修改人员预算编码
       },
       checkRequire() {
@@ -2411,34 +2422,34 @@
       getCurrency(val) {
         this.form.currency = val;
         if (val === 'PG019001') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
         if (val === 'PG019002') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
         if (val === 'PG019003') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
         if (val === 'PG019004') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
@@ -2603,19 +2614,19 @@
               }
               if (this.form.currency === 'PG019001') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019002') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019003') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019004') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.provision === '1') {
                 this.show7 = true;

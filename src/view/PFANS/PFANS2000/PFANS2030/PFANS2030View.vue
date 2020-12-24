@@ -102,11 +102,18 @@
             filter: true
           },
           {
-            code: 'total3',
+            code: 'heating',
             label: 'label.PFANS2009VIEW_TAXWORKS',
             width: 134,
             fix: false,
             filter: true
+          },
+          {
+              code: 'onlychildmoney',
+              label: 'label.PFANS2009VIEW_COLLECTION',
+              width: 134,
+              fix: false,
+              filter: true
           },
           {
             code: 'pension',
@@ -323,7 +330,7 @@
         exportdata(vardata) {
             let heads = [
                 this.$t('label.department'), this.$t('label.PFANS2009VIEW_NUMBER'), this.$t('label.PFANS2009VIEW_KONJIKI'),this.$t('label.PFANS2009VIEW_TAXENGINEERING')
-                ,this.$t('label.PFANS2009VIEW_TAXWORKS'), this.$t('label.PFANS2009VIEW_KAIHO'), this.$t('label.PFANS2030VIEW_COMENDOWMENTINSURANCE')
+                ,this.$t('label.PFANS2009VIEW_TAXWORKS'), this.$t('label.PFANS2009VIEW_COLLECTION'),this.$t('label.PFANS2009VIEW_KAIHO'), this.$t('label.PFANS2030VIEW_COMENDOWMENTINSURANCE')
                 ,this.$t('label.PFANS2030VIEW_COMMEDICALINSURANCE'), this.$t('label.PFANS2030VIEW_COMUNEMPLOYMENTINSURANCE'), this.$t('label.PFANS2030VIEW_COMINJURYINSURANCE')
                 ,this.$t('label.PFANS2030VIEW_COMBIRTHINSURANCE'),this.$t('label.PFANS2030VIEW_COMHEATING'), this.$t('label.PFANS2009VIEW_KOKIN')
                 ,this.$t('label.PFANS2009VIEW_STOCK'), this.$t('label.PFANS2009VIEW_MONTHLYTAX'), this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY')
@@ -339,29 +346,30 @@
                     [heads[1]]: obj.user_id,
                     [heads[2]]: parseFloat(obj.totalwages).toFixed(2),
                     [heads[3]]: parseFloat(obj.taxestotal).toFixed(2),
-                    [heads[4]]: parseFloat(obj.total3).toFixed(2),
-                    [heads[5]]: parseFloat(obj.pension).toFixed(2),
-                    [heads[6]]: parseFloat(obj.comendowmentinsurance).toFixed(2),
-                    [heads[7]]: parseFloat(obj.commedicalinsurance).toFixed(2),
-                    [heads[8]]: parseFloat(obj.comunemploymentinsurance).toFixed(2),
-                    [heads[9]]: parseFloat(obj.cominjuryinsurance).toFixed(2),
-                    [heads[10]]: parseFloat(obj.combirthinsurance).toFixed(2),
-                    [heads[11]]: parseFloat(obj.comheating).toFixed(2),
-                    [heads[12]]: parseFloat(obj.comaccumulationfund).toFixed(2),
-                    [heads[13]]: parseFloat(obj.bonusmoney).toFixed(2),
-                    [heads[14]]: parseFloat(obj.appreciation).toFixed(2),
-                    [heads[15]]: parseFloat(obj.labourunionfunds).toFixed(2),
-                    [heads[16]]: parseFloat(obj.other4).toFixed(2),
-                    [heads[17]]: parseFloat(obj.other5).toFixed(2),
-                    [heads[18]]: parseFloat(obj.total).toFixed(2),
-                    [heads[19]]: parseFloat(obj.overtimesubsidy).toFixed(2),
-                    [heads[20]]: parseFloat(obj.thismonthadjustment).toFixed(2),
-                    [heads[21]]: parseFloat(obj.socialinsurance).toFixed(2),
-                    [heads[22]]: parseFloat(obj.accumulationfund).toFixed(2),
-                    [heads[23]]: parseFloat(obj.realwages).toFixed(2),
-                    [heads[24]]: parseFloat(obj.shouldcumulative).toFixed(2),
-                    [heads[25]]: parseFloat(obj.other6).toFixed(2),
-                    [heads[26]]: parseFloat(obj.labourunionbase).toFixed(2),
+                    [heads[4]]: parseFloat(obj.heating).toFixed(2),
+                    [heads[5]]: parseFloat(obj.onlychildmoney).toFixed(2),
+                    [heads[6]]: parseFloat(obj.pension).toFixed(2),
+                    [heads[7]]: parseFloat(obj.comendowmentinsurance).toFixed(2),
+                    [heads[8]]: parseFloat(obj.commedicalinsurance).toFixed(2),
+                    [heads[9]]: parseFloat(obj.comunemploymentinsurance).toFixed(2),
+                    [heads[10]]: parseFloat(obj.cominjuryinsurance).toFixed(2),
+                    [heads[11]]: parseFloat(obj.combirthinsurance).toFixed(2),
+                    [heads[12]]: parseFloat(obj.comheating).toFixed(2),
+                    [heads[13]]: parseFloat(obj.comaccumulationfund).toFixed(2),
+                    [heads[14]]: parseFloat(obj.bonusmoney).toFixed(2),
+                    [heads[15]]: parseFloat(obj.appreciation).toFixed(2),
+                    [heads[16]]: parseFloat(obj.labourunionfunds).toFixed(2),
+                    [heads[17]]: parseFloat(obj.other4).toFixed(2),
+                    [heads[18]]: parseFloat(obj.other5).toFixed(2),
+                    [heads[19]]: parseFloat(obj.total).toFixed(2),
+                    [heads[20]]: parseFloat(obj.overtimesubsidy).toFixed(2),
+                    [heads[21]]: parseFloat(obj.thismonthadjustment).toFixed(2),
+                    [heads[22]]: parseFloat(obj.socialinsurance).toFixed(2),
+                    [heads[23]]: parseFloat(obj.accumulationfund).toFixed(2),
+                    [heads[24]]: parseFloat(obj.realwages).toFixed(2),
+                    [heads[25]]: parseFloat(obj.shouldcumulative).toFixed(2),
+                    [heads[26]]: parseFloat(obj.other6).toFixed(2),
+                    [heads[27]]: parseFloat(obj.labourunionbase).toFixed(2),
                 });
             }
             const result = json2csv.parse(csvData, {

@@ -560,6 +560,24 @@
             })
           })
       },
+      //add-ws-12/10-汇率字典
+      getMonthlyrate() {
+        this.$store
+          .dispatch('PFANS8011Store/slectlist2')
+          .then(response => {
+            if (response) {
+              this.$store.commit("global/SET_MONTHLYRATE", response);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            })
+          })
+      },
+      //add-ws-12/10-汇率字典
       getDictionaryList() {
         this.$store
           .dispatch('dictionaryStore/getAll')
@@ -632,8 +650,9 @@
       this.handleSelect("homePage");
       //获取消息
       this.getMessageData();
-
-
+      //add-ws-12/10-汇率字典
+      this.getMonthlyrate();
+      //add-ws-12/10-汇率字典
       this.getUserList();
       this.getOrgList();
       this.$store.commit("usersStore/SET_ORGS",this.$refs.treeCom.$refs.treeCom);

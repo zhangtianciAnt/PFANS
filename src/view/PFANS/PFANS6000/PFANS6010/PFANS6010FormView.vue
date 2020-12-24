@@ -15,6 +15,7 @@
                                width="50" fixed="left"></el-table-column>
               <el-table-column property="suppliername" :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
                                width="250" fixed="left"></el-table-column>
+
               <el-table-column :label="$t(item)"
                                v-for="(item, index) in this.groupnamelist" :key="index">
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_APPOINT')"

@@ -315,6 +315,40 @@ export function menu() {
                     },
                   ],
                 },
+                {
+                  '_id': 'PFANS1048',
+                  'name': 'menu.PFANS1048',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1048View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {
+                      '_id': 'PFANS1048_read',
+                      'actiontype': '0',
+                      'name': 'button.view',
+                      'auth': 4,
+                    },
+                    {
+                      '_id': 'PFANS1048_new',
+                      'actiontype': 'new',
+                      'name': 'button.insert',
+                      'auth': 4,
+                    },
+                    {
+                      '_id': 'PFANS1048_edit',
+                      'actiontype': 'edit',
+                      'name': 'button.update',
+                      'auth': 4,
+                    },
+                    {
+                      '_id': 'PFANS1048_del',
+                      'actiontype': 'del',
+                      'name': 'button.delete',
+                      'auth': 4,
+                    },
+                  ],
+                },
               ],
             },
             {

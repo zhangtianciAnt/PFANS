@@ -1,17 +1,12 @@
-import {
-  update,
-  create,
-  list,
-  slectlist,
-  slectlist2
-} from './PFANS8011Api'
-
-const PFANS8011Store = {
+import {getprojects,insert,get,selectById,downloadExcel} from './PFANS1048Api'
+const PFANS1048store = {
   namespaced: true,
+  state: {},
+  mutations: {},
   actions: {
-    list() {
+    selectById({commit}, data) {
       return new Promise((resolve, reject) => {
-        list().then(response => {
+        selectById(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -22,59 +17,59 @@ const PFANS8011Store = {
         });
       });
     },
-    create({commit}, data) {
+    get({ commit }, data) {
       return new Promise((resolve, reject) => {
-        create(data).then(response => {
+        get(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message);
+            reject(response.message)
           }
         }).catch(error => {
           reject(error);
-        });
-      });
+        })
+      })
     },
-    update({commit}, data) {
+    getprojects({ commit }, data) {
       return new Promise((resolve, reject) => {
-        update(data).then(response => {
+        getprojects(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message);
+            reject(response.message)
           }
         }).catch(error => {
           reject(error);
-        });
-      });
+        })
+      })
     },
-    slectlist2({commit}) {
+    downloadExcel({commit}, data) {
       return new Promise((resolve, reject) => {
-        slectlist2().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
+        downloadExcel(data).then(response => {
+          if ( response.type.indexOf("json") == -1 ) {
+            resolve(response)
           } else {
-            reject(response.message);
+            reject(response.message)
           }
         }).catch(error => {
           reject(error);
-        });
-      });
+        })
+      })
     },
-    slectlist({commit}, data) {
+    insert({ commit }, data) {
       return new Promise((resolve, reject) => {
-        slectlist(data).then(response => {
+        insert(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
-            reject(response.message);
+            reject(response.message)
           }
         }).catch(error => {
           reject(error);
-        });
-      });
+        })
+      })
     },
   }
-}
+};
 
-export default PFANS8011Store;
+export default PFANS1048store;

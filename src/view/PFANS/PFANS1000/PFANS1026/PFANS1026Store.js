@@ -12,7 +12,8 @@ import {
   purchaseExistCheck,
   getindividual,
   generatesta,
-  getworkfolwPurchaseData
+  getworkfolwPurchaseData,
+  getNapinQinqiu
   } from './PFANS1026Api';
 
 
@@ -206,6 +207,20 @@ const PFANS1026Store = {
       })
     },
     //采购业务数据流程查看详情
+
+    getNapinQinqiu({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getNapinQinqiu(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
   },
 };
 

@@ -1,7 +1,8 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="workflowCode"
-                         @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick" :defaultStart="defaultStart"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
+                         @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick"
+                         :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
@@ -315,6 +316,19 @@
             </div>
           </el-row>
         </el-form>
+        <el-drawer :visible.sync="checkworkflow" size="40%" :show-close="false" :withHeader="false" append-to-body>
+          <el-table
+            :data="tableworkflow"
+            style="width: 100%" :header-cell-style="tableHeaderColor">
+
+            <el-table-column :label="$t('label.PFANS2032FROMVIEW_CHECKERROR2')"
+            >
+              <template slot-scope="scope">
+                <span>{{scope.row.workflowname}}</span>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-drawer>
       </div>
     </EasyNormalContainer>
     <PFANS2032Pop :params="urlparams" ref="PFANS2032Pop" :url="url"></PFANS2032Pop>
@@ -328,7 +342,7 @@
   import {getOrgInfoByUserId, getUserInfo} from '@/utils/customize';
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo,getCurrentRole,getCurrentRole12} from '../../../../utils/customize';
+  import {getDictionaryInfo, getCurrentRole, getCurrentRole12} from '../../../../utils/customize';
   import PFANS2032Pop from '@/components/EasyPop/PFANS2032Pop';
 
   export default {
@@ -372,6 +386,8 @@
         }
       };
       return {
+        tableworkflow: [],
+        checkworkflow: false,
         url: '',
         urlparams: '',
         code1: 'PR012',
@@ -381,7 +397,6 @@
         groupid: '',
         teamid: '',
         right: '',
-        workflowCode: '',
         error: '',
         selectType: 'Single',
         title: 'title.PFANS2026FROMVIEW',
@@ -497,7 +512,7 @@
       // if(this.checktype = 1){
       let role12 = getCurrentRole12();
       if (!this.$route.params.disabled) {
-        if (this.$route.params._status === 4) {
+        if (this.$route.params._status === 4 || this.$route.params._disto === '1') {
           this.enableSave = true;
           // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
           if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
@@ -558,10 +573,10 @@
       }
 
       if (this.$route.params._type2 === 1) {
-        this.right = '1';//离职日变更
+        this.right = 'W0080';//离职日变更
         this.canStart = true;
       } else {
-        this.right = '2';//离职申请
+        this.right = 'W0033';//离职申请
         this.canStart = false;
       }
       this.disable = this.$route.params.disabled;
@@ -587,22 +602,6 @@
                 this.form.stage = '1';
               }
             }
-            // }
-            let role = getCurrentRole();
-            if(this.right === 1){//离职日变更
-              if(role == '2' || role == '3') { //GM Center
-                this.workflowCode = 'W0138'//新流程
-              }else { //TL 正式员工
-                this.workflowCode = 'W0033'
-              }
-            }else{//离职申请
-              if(role == '2' || role == '3') { //GM Center
-                this.workflowCode = 'W0137'//新流程
-              }else { //TL 正式员工
-                this.workflowCode = 'W0080'
-              }
-            }
-
 
             if (this.form.status != '0') {
               if (this.form.stage == '0') {
@@ -679,6 +678,15 @@
       }
     },
     methods: {
+      tableHeaderColor({row, column, rowIndex, columnIndex}) {
+        if (rowIndex === 0) {
+          return {
+            color: 'red',
+            'border-bottom': '1px solid #99CCFF',
+            'border-right': '1px solid #73B9FF',
+          };
+        }
+      },
       submitForm(ruleFormNew) {
         this.url = '';
         this.urlparams = '';
@@ -863,12 +871,22 @@
           .dispatch('PFANS2026Store/get3', {'userid': this.userlist})
           .then(response => {
             if (response.length > 0) {
-              Message({
-                message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
+              let data = response.filter(item => (moment(new Date).subtract(2, 'month').format('YYYY-MM-DD') <= moment(item.createon).format('YYYY-MM-DD') && moment(item.createon).format('YYYY-MM-DD') <= moment(new Date).format('YYYY-MM-DD')));
+              if (data.length > 0) {
+                this.checkworkflow = true;
+                this.tableworkflow = data;
+                // Message({
+                //   message: this.$t('label.PFANS2032FROMVIEW_CHECKERROR'),
+                //   type: 'error',
+                //   duration: 5 * 1000,
+                // });
+                this.loading = false;
+              } else {
+                if (val === 'StartWorkflow') {
+                  this.$refs.container.$refs.workflow.startWorkflow();
+                }
+                this.loading = false;
+              }
             } else {
               if (val === 'StartWorkflow') {
                 this.$refs.container.$refs.workflow.startWorkflow();

@@ -47,13 +47,22 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')"
                                   prop="currencyposition">
-                      <dicselect :code="code3"
-                                 :data="form.currencyposition"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 @change="getcurrencyformat"
-                                 style="width:20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典-->
+<!--                      <dicselect :code="code3"-->
+<!--                                 :data="form.currencyposition"-->
+<!--                                 :disabled="true"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="getcurrencyformat"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
+                      <monthlyrate :month="month3"
+                                   :data="form.currencyposition"
+                                   :disabled="true"
+                                   :multiple="multiple"
+                                   @change="getcurrencyformat"
+                                   style="width:20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -98,10 +107,11 @@
   import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
 
   import project from '../../../components/project';
-
+  import monthlyrate from '../../../components/monthlyrate';
   export default {
     name: 'PFANS1025FormView',
     components: {
+      monthlyrate,
       EasyNormalContainer,
       user,
       org,
@@ -118,7 +128,10 @@
         error: '',
         userlist: '',
         code1: 'HT015',
-        code3: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         sumAwardmoney: '',
         errorgroup: '',
         selectType: 'Single',

@@ -8,7 +8,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui'
   import moment from "moment";
-  import {getDictionaryInfo, getOrgInfo, getStatus, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getStatus, getUserInfo,getMonthlyrateInfo} from '@/utils/customize';
 
   export default {
     name: 'PFANS1026View',
@@ -141,9 +141,9 @@
             }
             //add-ws-6/16-禅道任务135和057
             if (tabledata[i].currencyposition !== null && tabledata[i].currencyposition !== '') {
-              let letcurrencyposition = getDictionaryInfo(tabledata[i].currencyposition);
+              let letcurrencyposition = getMonthlyrateInfo(tabledata[i].currencyposition);
               if (letcurrencyposition) {
-                tabledata[i].currencyposition = letcurrencyposition.value1;
+                tabledata[i].currencyposition = letcurrencyposition.currencyname;
               }
             }
             tabledata[i].status = getStatus(tabledata[i].status);

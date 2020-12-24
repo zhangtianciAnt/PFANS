@@ -24,6 +24,13 @@ export function slectlist(data) {
   })
 }
 
+export function slectlist2() {
+  return request({
+    url: 'monthlyrate/slectlist2',
+    method: 'get',
+  })
+}
+
 export function list() {
   return request({
     url: 'monthlyrate/list',

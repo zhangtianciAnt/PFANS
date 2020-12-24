@@ -2318,14 +2318,14 @@
           //暂借款申请
           //del ccm 0813 决裁到暂借款，精算  check去掉
           // //check是否存在暂借款
-          // if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
-          //   Message({
-          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-          //     type: 'info',
-          //     duration: 3 * 1000,
-          //   });
-          //   return;
-          // } else {
+          if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+            Message({
+              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+              type: 'info',
+              duration: 3 * 1000,
+            });
+            return;
+          } else {
           //del ccm 0813 决裁到暂借款，精算  check去掉
           //采购ID
           let purchase_id = [];
@@ -2353,7 +2353,7 @@
             },
           });
           //del ccm 0813 决裁到暂借款，精算  check去掉
-          // }
+          }
           //del ccm 0813 决裁到暂借款，精算  check去掉
         } else if (val === 'actuarial') {
           this.$store.commit('global/SET_HISTORYURL', this.$route.path);

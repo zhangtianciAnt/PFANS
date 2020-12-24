@@ -656,6 +656,7 @@
                       v-model="scope.row.companyen"></el-input>
           </template>
         </el-table-column>
+
         <el-table-column :label="$t('label.April')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="110" prop="money4">
             <template slot-scope="scope">

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -51,13 +51,11 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getStatus, getUserInfo, getCurrentRole3} from '@/utils/customize';
-  import {getOrgInfo} from '../../../../utils/customize';
-  import {getToken} from '@/utils/auth';
   import {Decrypt} from '@/utils/customize';
+  import {getToken} from '@/utils/auth';
 
   export default {
-    name: 'PFANS1036View',
+    name: 'PFANS1048View',
     components: {
       EasyNormalTable,
     },
@@ -77,46 +75,31 @@
         daoru: false,
         checkTableData: [],
         authHeader: {'x-auth-token': getToken()},
-        postAction: process.env.BASE_API + '/businessplan/importUser',
+        postAction: process.env.BASE_API + '/projectincome/importUser',
         resultShow: false,
         file: null,
         loading: false,
-        title: 'title.PFANS1036VIEW',
-        // 表格数据源
+        title: 'title.PFANS1048VIEW',
+        projectincomeid: '',
         data: [],
-        // 列属性
         columns: [
           {
             code: 'year',
             label: 'label.PFANS1036FORMVIEW_BUSINESSYEAR',
-            width: 150,
+            width: 120,
             fix: false,
             filter: true,
           },
           {
-            code: 'user_id',
-            label: 'label.applicant',
-            width: 100,
+            code: 'month',
+            label: 'label.PFANS2009VIEW_JUNE',
+            width: 120,
             fix: false,
             filter: true,
           },
           {
-            code: 'center',
-            label: 'label.center',
-            width: 150,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'group',
-            label: 'label.group',
-            width: 150,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'status',
-            label: 'label.approval_status',
+            code: 'group_id',
+            label: 'label.PFANS1039FORMVIEW_GROUP',
             width: 120,
             fix: false,
             filter: true,
@@ -126,44 +109,19 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'import', 'name': 'button.import', 'disabled': true, icon: 'el-icon-download'},
+          {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-download'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
         ],
-        rowid: '',
-        row_id: 'businessplanid',
+        state: '',
+        row_info: [],
+        row_id: 'projectincomeid',
       };
     },
     mounted() {
-      let role3 = getCurrentRole3();
-      if (role3 === '0') {
-        this.buttonList[3].disabled = false;
-      }
-      if (this.$store.getters.userinfo.userid) {
-        let group = getUserInfo(this.$store.getters.userinfo.userid);
-        if (group.userinfo.groupid === '' || group.userinfo.groupid === null) {
-          this.buttonList[1].disabled = true;
-          this.buttonList[2].disabled = true;
-        } else {
-          this.buttonList[1].disabled = false;
-          this.buttonList[2].disabled = false;
-        }
-      }
       this.loading = true;
       this.$store
-        .dispatch('PFANS1036Store/get')
+        .dispatch('PFANS1048Store/get')
         .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== '') {
-              let rst = getUserInfo(response[j].user_id);
-              if (rst) {
-                response[j].user_id = rst.userinfo.customername;
-                response[j].center = rst.userinfo.centername;
-                response[j].group = rst.userinfo.groupname;
-              }
-              if (response[j].status !== null && response[j].status !== '') {
-                response[j].status = getStatus(response[j].status);
-              }
-            }
-          }
           this.data = response;
           this.loading = false;
         })
@@ -248,14 +206,40 @@
         }
       },
       rowClick(row) {
-        this.rowid = row.businessplanid;
-        this.year = row.year;
-        this.groupid = row.group_id;
+        this.projectincomeid = row.projectincomeid;
+      },
+      download(data, filename) {
+        if("msSaveOrOpenBlob" in navigator){
+          window.navigator.msSaveOrOpenBlob(
+            new Blob([data],{type: 'application/vnd.ms-excel;charset=utf-8'}),
+            decodeURI(filename) + ".xlsx"
+          );
+        }else {
+          var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+          var downloadElement = document.createElement('a');
+          var href = window.URL.createObjectURL(blob); //创建下载的链接
+          downloadElement.href = href;
+          downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+          document.body.appendChild(downloadElement);
+          downloadElement.click(); //点击下载
+          document.body.removeChild(downloadElement); //下载完成移除元素
+          window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
+      },
+      export(selectedList) {
+        this.$store
+          .dispatch('PFANS1048Store/downloadExcel', {'projectincomeid': selectedList})
+          .then(response => {
+            this.download(response, '项目结转表一览');
+          })
+          .catch(() => {
+            console.log('no');
+          });
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'view') {
-          if (this.rowid === '') {
+        if (val === 'update') {
+          if (this.projectincomeid === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -264,51 +248,54 @@
             return;
           }
           this.$router.push({
-            name: 'PFANS1036FormView',
+            name: 'PFANS1048FormView',
             params: {
-              _id: this.rowid,
-              year: this.year,
-              groupid: this.groupid,
+              _id: this.projectincomeid,
+              disabled: true,
+            },
+          });
+        } else if (val === 'view') {
+          if (this.projectincomeid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS1048FormView',
+            params: {
+              _id: this.projectincomeid,
               disabled: false,
             },
           });
         } else if (val === 'insert') {
-          this.loading = true;
           this.$router.push({
-            name: 'PFANS1036FormView',
+            name: 'PFANS1048FormView',
             params: {
               _id: '',
               disabled: true,
             },
           });
-        } else if (val === 'update') {
-          if (this.rowid === '') {
+        } else if (val === 'import') {
+          this.daoru = true;
+        } else if (val === 'export') {
+          if (this.projectincomeid === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
               duration: 2 * 1000,
             });
-            return;
+          } else {
+            this.export(this.projectincomeid);
           }
-          this.$router.push({
-            name: 'PFANS1036FormView',
-            params: {
-              _id: this.rowid,
-              year: this.year,
-              groupid: this.groupid,
-              disabled: true,
-            },
-          });
-        } else if (val === 'import') {
-          this.daoru = true;
         }
       },
     },
   };
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss">
 
 </style>
-
-

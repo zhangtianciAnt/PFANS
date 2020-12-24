@@ -89,7 +89,7 @@
                 </el-col>
                 <!--决裁类型-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004FORMVIEW_DECISIVELC')" prop="decision">
+                  <el-form-item :label="$t('label.PFANS1004FORMVIEW_DECISIVELC')" prop="decision" v-if="showM">
                     <dicselect
                       :code="code6"
                       :data="form.decision"
@@ -1037,25 +1037,25 @@
               //add-ws-4/23-总务担当可用选择部门带出预算编码
               if (response.judgement.musectosion == '1') {//多部门决裁
                 this.workcode = 'W0091';
-              } else if (response.judgement.decision == 'PJ146001') {//决裁类型（其他）
+              } else if (response.judgement.decision == 'PJ146001') {//决裁类型（其他）1
                 this.workcode = 'W0006';
-              } else if (response.judgement.decision == 'PJ146002') {//各种对外发表对应
+              } else if (response.judgement.decision == 'PJ146002') {//各种对外发表对应 1
                 this.workcode = 'W0007';
-              } else if (response.judgement.decision == 'PJ146003') {//无偿进口设备相关
+              } else if (response.judgement.decision == 'PJ146003') {//无偿进口设备相关 1
                 this.workcode = 'W0013';
-              } else if (response.judgement.decision == 'PJ146004') {//采购服务合同相关
+              } else if (response.judgement.decision == 'PJ146004') {//采购服务合同相关 1
                 this.workcode = 'W0020';
-              } else if (response.judgement.decision == 'PJ146005') {//基本合同相关
+              } else if (response.judgement.decision == 'PJ146005') {//基本合同相关 1
                 this.workcode = 'W0021';
-              } else if (response.judgement.decision == 'PJ146006') {//银行税务相关
+              } else if (response.judgement.decision == 'PJ146006') {//银行税务相关 1
                 this.workcode = 'W0034';
               } else if (response.judgement.decision == 'PJ146007') {//经费支出
                 this.workcode = 'W0035';
-              } else if (response.judgement.decision == 'PJ146008') {//各种疾病，传染病等
+              } else if (response.judgement.decision == 'PJ146008') {//各种疾病，传染病等1
                 this.workcode = 'W0042';
-              } else if (response.judgement.decision == 'PJ146009') {//各种体制变更，人员移动等
+              } else if (response.judgement.decision == 'PJ146009') {//各种体制变更，人员移动等 1
                 this.workcode = 'W0044';
-              } else{//全社统一表彰，惩处等决裁、各种晋升、各种培训、制度变更
+              } else{//全社统一表彰，惩处等决裁、各种晋升、各种培训、制度变更 1
                 this.workcode = 'W0051';
               }
               let rst = getOrgInfoByUserId(response.judgement.user_id);
@@ -1413,6 +1413,7 @@
         this.$refs.PFANS1004Pop.open = true;
       },
       changemusectosion(val) {
+        this.form.decision = null;
         if (val === '1') {
           this.showM = false;
           this.showH = true;
@@ -1611,6 +1612,7 @@
         if(val == 'PJ146006'){
           if(this.role15 == '0'){
             this.form.decision = val;
+            this.workcode = 'W0034';
           }else{
             Message({
               message: this.$t('normal.error_21'),
@@ -1623,6 +1625,13 @@
           || val == 'PJ146011' || val == 'PJ146012' || val == 'PJ146013'){
           if(this.role16 == '0'){
             this.form.decision = val;
+            if(val == 'PJ146008'){
+              this.workcode = 'W0042';
+            }else if(val == 'PJ146009'){
+              this.workcode = 'W0044';
+            } else{
+              this.workcode = 'W0051';
+            }
           }else{
             Message({
               message: this.$t('normal.error_22'),
@@ -1633,6 +1642,19 @@
           }
         }else{
           this.form.decision = val;
+          if(val == 'PJ146001'){
+            this.workcode = 'W0006';
+          } else if(val == 'PJ146002'){
+            this.workcode = 'W0007';
+          } else if(val == 'PJ146003'){
+            this.workcode = 'W0013';
+          } else if(val == 'PJ146004'){
+            this.workcode = 'W0020';
+          } else if(val == 'PJ146005'){
+            this.workcode = 'W0021';
+          }else{
+            this.workcode = 'W0035';
+          }
         }
       },
       getAddbook(val) {

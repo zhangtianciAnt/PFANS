@@ -782,13 +782,13 @@
                         //暂借款申请
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //check是否存在暂借款
-                        // let str = '';
-                        // for (let i = 0; i < this.selectedlist.length; i++) {
-                        //   if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                        //     str += this.selectedlist[i].purnumbers + ' , ';
-                        //   }
-                        // }
-                        // if (str === '') {
+                        let str = '';
+                        for (let i = 0; i < this.selectedlist.length; i++) {
+                          if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                            str += this.selectedlist[i].purnumbers + ' , ';
+                          }
+                        }
+                        if (str === '') {
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         this.$router.push({
                             name: 'PFANS1006FormView',
@@ -804,14 +804,14 @@
                             },
                         });
                         //del ccm 0813 决裁到暂借款，精算  check去掉
-                        // } else {
-                        //   Message({
-                        //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                        //     type: 'info',
-                        //     duration: 3 * 1000,
-                        //   });
-                        //   return
-                        // }
+                        } else {
+                          Message({
+                            message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                            type: 'info',
+                            duration: 3 * 1000,
+                          });
+                          return
+                        }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                     }
                 }
