@@ -605,17 +605,17 @@
             }
 
             let role = getCurrentRole();
-            if (this.right == '1') {//离职日变更
+            if (this.right === 1) {//离职日变更
               if (role == '2' || role == '3') { //GM Center
                 this.workflowCode = 'W0138'//新流程
               } else { //TL 正式员工
-                this.workflowCode = 'W0033'
+                this.workflowCode = 'W0080'
               }
             } else {//离职申请
               if (role == '2' || role == '3') { //GM Center
                 this.workflowCode = 'W0137'//新流程
               } else { //TL 正式员工
-                this.workflowCode = 'W0080'
+                this.workflowCode = 'W0033'
               }
             }
 
