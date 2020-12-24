@@ -53,7 +53,7 @@
     data() {
       return {
         form: {
-          year: '',
+          year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y') : moment(new Date()),
           org: '',
         },
         dialogVisible: false,

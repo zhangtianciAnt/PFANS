@@ -687,7 +687,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
-                                     v-if="showforeigncurrency" width="200">
+                                     v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="checktaxes"
@@ -1149,7 +1149,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
-                                     v-if="showforeigncurrency" width="200">
+                                     v-if="this.form.type === '0'? false : true" width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="checktaxes"
@@ -1510,7 +1510,6 @@
         multiple: false,
         show2: false,
         showAout: false,
-        showforeigncurrency: false,
         canStart: false,
         rank: '',
         fileList: [],
@@ -1800,7 +1799,6 @@
               this.show = true;
               this.show2 = false;
               this.showAout = false;
-              this.showforeigncurrency = false;
               this.showrow = true;
               this.showrow3 = true;
               this.showrow2 = false;
@@ -1809,7 +1807,6 @@
               this.showAout = true;
               this.show = false;
               this.show2 = true;
-              this.showforeigncurrency = true;
               this.showrow = false;
               this.showrow2 = true;
               this.showrow3 = false;
@@ -2655,7 +2652,6 @@
           this.show = true;
           this.show2 = false;
           this.showAout = false;
-          this.showforeigncurrency = false;
           this.showrow3 = true;
           this.showrow = true;
           this.showrow2 = false;
@@ -2669,7 +2665,6 @@
           this.show = false;
           this.show2 = true;
           this.showAout = true;
-          this.showforeigncurrency = true;
           this.showrow3 = false;
           this.showrow = false;
           this.showrow2 = true;

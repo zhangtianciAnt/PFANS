@@ -4,6 +4,8 @@
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
+      :defaultStart="defaultStart"
+      @StartWorkflow="buttonClick"
       :canStart="canStart"
       @end="end" :workflowCode="workcode"
       @start="start" @disabled="setdisabled"
@@ -1304,6 +1306,9 @@
         }
       };
       return {
+        //add-12/24-审批check
+        defaultStart: false,
+        //add-12/24-审批check
         workcode: '',
         tableclaimtype: [{
           claimtype: '',

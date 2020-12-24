@@ -6,7 +6,7 @@
                          :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
             <el-tab-pane :label="$t('label.PFANS1012VIEW_SUMMONS')" name="first">
               <div>
                 <el-row>
@@ -926,7 +926,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecurr"
+                              :disabled="true"
                               :max="999999"
                               :min="0"
                               :precision="7"
@@ -1169,7 +1169,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecurr"
+                              :disabled="true"
                               :max="999999"
                               :min="0"
                               :precision="7"
@@ -1621,7 +1621,6 @@
         checkGro: false,
         loading: false,
         disabled: false,
-        disablecurr: false,
         fromViewname: '',
         buttonList: [],
         checkCode2: '',
@@ -2822,6 +2821,31 @@
       },
     },
     methods: {
+      handleClick(tab, event) {
+        if (tab.name === 'first') {
+          if (this.form.type === 'PJ001002') {
+            let tableptormb = 0;
+            let tablertormb = 0;
+            if (this.tableP.length > 0) {
+              for (let j = 0; j < this.tableP.length; j++) {
+                if (this.tableP[j].tormb > 0) {
+                  tableptormb += parseFloat(this.tableP[j].tormb);
+                }
+              }
+            }
+
+            if (this.tableR.length > 0) {
+              for (let i = 0; i < this.tableR.length; i++) {
+                if (this.tableR[i].tormb > 0) {
+                  tablertormb += parseFloat(this.tableR[i].tormb);
+                }
+              }
+            }
+            this.tormbT = Number(tablertormb) + Number(tableptormb);
+            this.form.tormb = this.tormbT;
+          }
+        }
+      },
       changeereimbursementdate(value) {
         if (value) {
           this.month4 = moment(value).format('YYYY-MM');
@@ -4186,31 +4210,21 @@
           }
         }
         if (error == '0') {
-          if (val === 'PG019001') {
-            this.disablecurr = false;
-            let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
-            if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.exchangerate;
-            }
-            3;
-          } else if (val === 'PG019002') {
-            this.disablecurr = false;
-            let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
-            if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.exchangerate;
-            }
+          let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
+          if (dictionaryInfo) {
+            row.currencyrate = dictionaryInfo.exchangerate;
           }
           row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
-          this.tormbT = Number(this.tormbT) + row.tormb;
-          this.form.tormb = this.tormbT;
+          // this.tormbT = Number(this.tormbT) + row.tormb;
+          // this.form.tormb = this.tormbT;
           this.form.currency = getMonthlyrateInfo2(val, this.month4).currencyname;
         }
         this.error_currency = error;
       },
       getCurrencyrate(row) {
         row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
-        this.tormbT = Number(this.tormbT) + row.tormb;
-        this.form.tormb = this.tormbT;
+        // this.tormbT = Number(this.tormbT) + row.tormb;
+        // this.form.tormb = this.tormbT;
       },
       deleteRow(index, rows, row) {
         if (rows.length > 1) {
@@ -4565,22 +4579,13 @@
             newValue.display = true;
           });
         }
-        if (newValue.currency === 'PG019001') {
-          this.disablecurr = false;
-          let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
-          if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.exchangerate;
-          }
-        } else if (newValue.currency === 'PG019002') {
-          this.disablecurr = false;
-          let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
-          if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.exchangerate;
-          }
+        let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
+        if (dictionaryInfo) {
+          newValue.currencyrate = dictionaryInfo.exchangerate;
         }
         newValue.tormb = Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100;
-        this.tormbT = Number(this.tormbT) + newValue.tormb;
-        this.form.tormb = this.tormbT;
+        // this.tormbT = Number(this.tormbT) + newValue.tormb;
+        // this.form.tormb = this.tormbT;
       },
       handleClickChange(val) {
         this.currentRow = val.suppliername;
@@ -4709,6 +4714,27 @@
         if (val === 'save') {
           this.$refs['reff'].validate(valid => {
               if (valid) {
+                if (this.form.type === 'PJ001002') {
+                  let tableptormb = 0;
+                  let tablertormb = 0;
+                  if (this.tableP.length > 0) {
+                    for (let j = 0; j < this.tableP.length; j++) {
+                      if (this.tableP[j].tormb > 0) {
+                        tableptormb += parseFloat(this.tableP[j].tormb);
+                      }
+                    }
+                  }
+
+                  if (this.tableR.length > 0) {
+                    for (let i = 0; i < this.tableR.length; i++) {
+                      if (this.tableR[i].tormb > 0) {
+                        tablertormb += parseFloat(this.tableR[i].tormb);
+                      }
+                    }
+                  }
+                  this.tormbT = Number(tablertormb) + Number(tableptormb);
+                  this.form.tormb = this.tormbT;
+                }
                 this.baseInfo = {};
                 this.baseInfo.publicexpense = [];
                 this.baseInfo.trafficdetails = [];

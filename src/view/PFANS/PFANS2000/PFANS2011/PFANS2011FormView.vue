@@ -543,15 +543,17 @@
             //     this.disactualovertime = true;
             // }
             if (this.form.status === '0' || this.form.status === '3') {
-              // this.workflowCode = 'W0001';
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0067';
               } else {
-                if (getCurrentRole() === '2') {
-                  this.workflowCode = 'W0134';
-                } else {
-                  this.workflowCode = 'W0001';
-                }
+                //upd ztc 1224  start
+                // if (getCurrentRole() === '2') {
+                //   this.workflowCode = 'W0134';
+                // } else {
+                //   this.workflowCode = 'W0001';
+                // }
+                this.workflowCode = 'W0001';
+                //upd ztc 1224  end
               }
               //总经理预计
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -571,11 +573,14 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                if (getCurrentRole() === '2') {
-                  this.workflowCode = 'W0135';
-                } else {
-                  this.workflowCode = 'W0040';
-                }
+                //upd ztc 1224  start
+                // if (getCurrentRole() === '2') {
+                //   this.workflowCode = 'W0135';
+                // } else {
+                //   this.workflowCode = 'W0040';
+                // }
+                this.workflowCode = 'W0040';
+                //upd ztc 1224  end
               }
               //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -596,11 +601,14 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                if (getCurrentRole() === '2') {
-                  this.workflowCode = 'W0135';
-                } else {
-                  this.workflowCode = 'W0040';
-                }
+                //upd ztc 1224  start
+                // if (getCurrentRole() === '2') {
+                //   this.workflowCode = 'W0135';
+                // } else {
+                //   this.workflowCode = 'W0040';
+                // }
+                this.workflowCode = 'W0040';
+                //upd ztc 1224  end
               }
               //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -1031,11 +1039,14 @@
           }
         } else {
           if (this.form.status === '0') {
-            if (getCurrentRole() === '2') {
-              this.workflowCode = 'W0134';
-            } else {
-              this.workflowCode = 'W0001';
-            }
+            //upd ztc 1224  start
+            // if (getCurrentRole() === '2') {
+            //   this.workflowCode = 'W0134';
+            // } else {
+            //   this.workflowCode = 'W0001';
+            // }
+            this.workflowCode = 'W0001';
+            //upd ztc 1224  end
           }
         }
         if (this.form.userid ==='5e78fefff1560b363cdd6db7')
