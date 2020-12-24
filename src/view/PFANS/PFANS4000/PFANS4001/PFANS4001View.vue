@@ -231,18 +231,7 @@
               }
               response.seal[j].modifyon = true;
               response.seal[j].modifyby = true;
-              if (roles === '0' && response.seal[j].status == this.$t('label.PFANS5004VIEW_OVERTIME')) {
-                response.seal[j].modifyon = false;
-                if (this.userlist === this.$store.getters.userinfo.userid) {
-                  response.seal[j].modifyby = true;
-                }
-                if (response.seal[j].acceptstate === true) {
-                  response.seal[j].modifyon = true;
-                }
-                if (response.seal[j].regulatorstate === true) {
-                  response.seal[j].modifyby = true;
-                }
-              }
+
               if (this.userlist === this.$store.getters.userinfo.userid) {
                 response.seal[j].modifyon = true;
                 if (response.seal[j].acceptstate === true) {
@@ -251,7 +240,18 @@
                   response.seal[j].modifyby = true;
                 }
               }
-
+              if (roles === '0' && response.seal[j].status == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                response.seal[j].modifyon = false;
+                if (this.userlist === this.$store.getters.userinfo.userid) {
+                  response.seal[j].modifyby = false;
+                }
+                if (response.seal[j].acceptstate === true) {
+                  response.seal[j].modifyon = true;
+                }
+                if (response.seal[j].regulatorstate === true) {
+                  response.seal[j].modifyby = true;
+                }
+              }
               //add-ws-12/21-印章盖印
             }
             this.data = response.seal;
