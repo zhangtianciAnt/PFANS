@@ -6,7 +6,7 @@
       :key="item.currency"
       :label="item.currencyname"
       :value="item.currency"
-      v-for="item in options">
+      v-for="item in optionscurrency">
     </el-option>
   </el-select>
 </template>
@@ -17,7 +17,7 @@
     name: 'monthlyrate',
     data() {
       return {
-        options: [],
+        optionscurrency: [],
         value: '',
         loading: false
       }
@@ -59,14 +59,14 @@
       }
       if (this.month) {
         this.loading = true;
-        this.options=[]
+        this.optionscurrency=[]
         let dic = this.$store.getters.monthlyrate.filter(item => item.month === this.month);
         for(let item of dic){
-          this.options.push(item);
+          this.optionscurrency.push(item);
         }
         this.loading = false;
       }else{
-        this.options=[]
+        this.optionscurrency=[]
       }
     },
     methods: {
@@ -84,13 +84,13 @@
       },
       month(val) {
         if (val) {
-          this.options=[];
+          this.optionscurrency=[];
           let dic = this.$store.getters.monthlyrate.filter(item => item.month === val);
           for(let item of dic){
-            this.options.push(item);
+            this.optionscurrency.push(item);
           }
         }else{
-          this.options=[];
+          this.optionscurrency=[];
         }
       }
     }

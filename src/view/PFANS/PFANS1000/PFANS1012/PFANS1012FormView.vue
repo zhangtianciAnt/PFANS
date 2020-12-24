@@ -926,7 +926,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecurr"
+                              :disabled="true"
                               :max="999999"
                               :min="0"
                               :precision="7"
@@ -1169,7 +1169,7 @@
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecurr"
+                              :disabled="true"
                               :max="999999"
                               :min="0"
                               :precision="7"
@@ -1621,7 +1621,6 @@
         checkGro: false,
         loading: false,
         disabled: false,
-        disablecurr: false,
         fromViewname: '',
         buttonList: [],
         checkCode2: '',
@@ -4186,19 +4185,9 @@
           }
         }
         if (error == '0') {
-          if (val === 'PG019001') {
-            this.disablecurr = false;
-            let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
-            if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.exchangerate;
-            }
-            3;
-          } else if (val === 'PG019002') {
-            this.disablecurr = false;
-            let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
-            if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.exchangerate;
-            }
+          let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
+          if (dictionaryInfo) {
+            row.currencyrate = dictionaryInfo.exchangerate;
           }
           row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
           this.tormbT = Number(this.tormbT) + row.tormb;
@@ -4565,18 +4554,9 @@
             newValue.display = true;
           });
         }
-        if (newValue.currency === 'PG019001') {
-          this.disablecurr = false;
-          let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
-          if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.exchangerate;
-          }
-        } else if (newValue.currency === 'PG019002') {
-          this.disablecurr = false;
-          let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
-          if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.exchangerate;
-          }
+        let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
+        if (dictionaryInfo) {
+          newValue.currencyrate = dictionaryInfo.exchangerate;
         }
         newValue.tormb = Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100;
         this.tormbT = Number(this.tormbT) + newValue.tormb;
