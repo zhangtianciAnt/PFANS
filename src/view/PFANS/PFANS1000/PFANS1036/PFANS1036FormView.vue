@@ -2295,6 +2295,7 @@
           group_id: '',
           user_id: '',
           year: '',
+          encoding: '',
         },
         rules: {
           user_id: [{
@@ -2371,6 +2372,7 @@
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         this.form.center_id = rst.centerId || '';
         this.form.group_id = rst.groupId || '';
+
         this.form.user_id = this.$store.getters.userinfo.userid;
         let parameter = {
           year: this.form.year,
@@ -2379,6 +2381,7 @@
         this.$store
           .dispatch('PFANS1036Store/getgroupcompanyen', parameter)
           .then(response => {
+
             if (response) {
               this.orgtree = response;
               if (this.orgtree) {
@@ -2386,6 +2389,7 @@
                 for (let i = 0; i < this.checkList.length; i++) {
                   if (this.checkList[i].id === this.form.group_id) {
                     this.org = this.checkList[i];
+                    this.form.encoding = this.org.encoding;
                   }
                 }
               }
@@ -2400,10 +2404,36 @@
                 if (this.orgtree.length > 0) {
                   for (let i = 0; i < this.orgtree.length; i++) {
                     this.equipment_lodyear.push({
+                      encoding: this.orgtree[i].encoding,
                       companyen: this.orgtree[i].companyen,
+                      money4: 0,
+                      money5: 0,
+                      money6: 0,
+                      money7: 0,
+                      money8: 0,
+                      money9: 0,
+                      money10: 0,
+                      money11: 0,
+                      money12: 0,
+                      money1: 0,
+                      money2: 0,
+                      money3: 0,
                     });
                     this.assets_lodyear.push({
+                      encoding: this.orgtree[i].encoding,
                       companyen: this.orgtree[i].companyen,
+                      money4: 0,
+                      money5: 0,
+                      money6: 0,
+                      money7: 0,
+                      money8: 0,
+                      money9: 0,
+                      money10: 0,
+                      money11: 0,
+                      money12: 0,
+                      money1: 0,
+                      money2: 0,
+                      money3: 0,
                     });
                   }
                 }
