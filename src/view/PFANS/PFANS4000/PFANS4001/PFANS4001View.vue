@@ -354,6 +354,14 @@
           this.insertnamedialog = true;
         }
         if (val === 'recognition') {
+          if (this.handlsealid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
           this.loading = true;
           this.$store
             .dispatch('PFANS4001Store/insertrecognition', {'sealid': this.handlsealid})

@@ -252,7 +252,7 @@
         this.year = row.year;
         this.groupid = row.group_id;
       },
-      buttonClick(val) {
+      buttonClick(val) {[]
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'view') {
           if (this.rowid === '') {
