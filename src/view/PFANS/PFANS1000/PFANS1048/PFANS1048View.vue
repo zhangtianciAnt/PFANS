@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -110,6 +110,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-download'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
         ],
         state: '',
         row_info: [],
@@ -207,6 +208,34 @@
       rowClick(row) {
         this.projectincomeid = row.projectincomeid;
       },
+      download(data, filename) {
+        if("msSaveOrOpenBlob" in navigator){
+          window.navigator.msSaveOrOpenBlob(
+            new Blob([data],{type: 'application/vnd.ms-excel;charset=utf-8'}),
+            decodeURI(filename) + ".xlsx"
+          );
+        }else {
+          var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+          var downloadElement = document.createElement('a');
+          var href = window.URL.createObjectURL(blob); //创建下载的链接
+          downloadElement.href = href;
+          downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+          document.body.appendChild(downloadElement);
+          downloadElement.click(); //点击下载
+          document.body.removeChild(downloadElement); //下载完成移除元素
+          window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
+      },
+      export(selectedList) {
+        this.$store
+          .dispatch('PFANS1048Store/downloadExcel', {'projectincomeid': selectedList})
+          .then(response => {
+            this.download(response, '项目结转表一览');
+          })
+          .catch(() => {
+            console.log('no');
+          });
+      },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'update') {
@@ -251,6 +280,16 @@
           });
         } else if (val === 'import') {
           this.daoru = true;
+        } else if (val === 'export') {
+          if (this.projectincomeid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+          } else {
+            this.export(this.projectincomeid);
+          }
         }
       },
     },

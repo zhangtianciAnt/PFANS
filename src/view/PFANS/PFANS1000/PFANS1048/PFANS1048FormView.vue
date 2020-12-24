@@ -261,6 +261,9 @@
           .dispatch('PFANS1048Store/selectById', {'projectincomeid': this.$route.params._id})
           .then(response => {
             this.refform = response;
+            this.project1 = JSON.parse(response.projectincomevo1);
+            this.project2 = JSON.parse(response.projectincomevo2);
+            this.project4 = JSON.parse(response.projectincomevo4);
             this.dataHeader = JSON.parse(response.projectincomevo1);
             this.dataList = JSON.parse(response.projectincomevo2);
             //经费
