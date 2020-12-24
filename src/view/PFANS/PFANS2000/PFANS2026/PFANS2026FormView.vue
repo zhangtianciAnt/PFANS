@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="workflowCode"
                          @buttonClick="buttonClick" :enableSave="enableSave" @StartWorkflow="checkbuttonClick"
                          :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
@@ -397,6 +397,7 @@
         groupid: '',
         teamid: '',
         right: '',
+        workflowCode: '',
         error: '',
         selectType: 'Single',
         title: 'title.PFANS2026FROMVIEW',
@@ -573,10 +574,10 @@
       }
 
       if (this.$route.params._type2 === 1) {
-        this.right = 'W0080';//离职日变更
+        this.right = '1';//离职日变更
         this.canStart = true;
       } else {
-        this.right = 'W0033';//离职申请
+        this.right = '2';//离职申请
         this.canStart = false;
       }
       this.disable = this.$route.params.disabled;
@@ -600,6 +601,21 @@
                 this.form.stage = '0';
               } else {
                 this.form.stage = '1';
+              }
+            }
+
+            let role = getCurrentRole();
+            if (this.right == '1') {//离职日变更
+              if (role == '2' || role == '3') { //GM Center
+                this.workflowCode = 'W0138'//新流程
+              } else { //TL 正式员工
+                this.workflowCode = 'W0033'
+              }
+            } else {//离职申请
+              if (role == '2' || role == '3') { //GM Center
+                this.workflowCode = 'W0137'//新流程
+              } else { //TL 正式员工
+                this.workflowCode = 'W0080'
               }
             }
 
