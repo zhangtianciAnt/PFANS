@@ -51,10 +51,11 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
-  import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getUserInfo, getCurrentRole3} from '@/utils/customize';
   import {getOrgInfo} from '../../../../utils/customize';
   import {getToken} from '@/utils/auth';
   import {Decrypt} from '@/utils/customize';
+
   export default {
     name: 'PFANS1036View',
     components: {
@@ -125,13 +126,17 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-download'},
+          {'key': 'import', 'name': 'button.import', 'disabled': true, icon: 'el-icon-download'},
         ],
         rowid: '',
         row_id: 'businessplanid',
       };
     },
     mounted() {
+      let role3 = getCurrentRole3();
+      if (role3 === '0') {
+        this.buttonList[3].disabled = false;
+      }
       if (this.$store.getters.userinfo.userid) {
         let group = getUserInfo(this.$store.getters.userinfo.userid);
         if (group.userinfo.groupid === '' || group.userinfo.groupid === null) {
@@ -247,7 +252,7 @@
         this.year = row.year;
         this.groupid = row.group_id;
       },
-      buttonClick(val) {
+      buttonClick(val) {[]
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'view') {
           if (this.rowid === '') {
@@ -294,7 +299,7 @@
               disabled: true,
             },
           });
-        }else if (val === 'import') {
+        } else if (val === 'import') {
           this.daoru = true;
         }
       },
