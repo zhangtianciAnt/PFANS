@@ -2,10 +2,10 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
-                     :handle="handle" @handleacceptstate="handleacceptstate" :handles="handles"
+                     @handleacceptstate="handleacceptstate"
     >
     </EasyNormalTable>
-<!--    add-ws-12/21-印章盖印-->
+    <!--    add-ws-12/21-印章盖印-->
     <el-drawer :visible.sync="insertnamedialog" size="40%" :show-close="false" :withHeader="false" append-to-body>
       <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
         <el-row>
@@ -28,7 +28,7 @@
         </el-row>
       </el-form>
     </el-drawer>
-<!--    add-ws-12/21-印章盖印-->
+    <!--    add-ws-12/21-印章盖印-->
   </div>
 </template>
 <script>
@@ -46,8 +46,7 @@
     },
     data() {
       return {
-        handles: false,
-        handle: false,
+
         userlist: '',
         error: '',
         selectType: 'Single',
@@ -152,7 +151,7 @@
     },
     methods: {
       //add-ws-12/21-印章盖印
-      getList(){
+      getList() {
         this.loading = true;
         this.$store
           .dispatch('PFANS4001Store/getFpans4001List', {})
@@ -177,14 +176,12 @@
             }
             if (this.userlist === this.$store.getters.userinfo.userid) {
               this.buttonList[4].disabled = false;
-              this.handle = false;
-              this.handles = true;
+
             }
             if (roles === '0') {
               this.buttonList[3].disabled = false;
               this.buttonList[4].disabled = false;
-              this.handle = true;
-              this.handles = true;
+
             }
             //add-ws-12/21-印章盖印
             for (let j = 0; j < response.seal.length; j++) {
@@ -231,6 +228,29 @@
               }
               if (response.seal[j].regulatorstate === 'true') {
                 response.seal[j].regulatorstate = true;
+              }
+              response.seal[j].modifyon = true;
+              response.seal[j].modifyby = true;
+
+              if (this.userlist === this.$store.getters.userinfo.userid) {
+                response.seal[j].modifyon = true;
+                if (response.seal[j].acceptstate === true) {
+                  response.seal[j].modifyby = false;
+                } else {
+                  response.seal[j].modifyby = true;
+                }
+              }
+              if (roles === '0' && response.seal[j].status == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                response.seal[j].modifyon = false;
+                if (this.userlist === this.$store.getters.userinfo.userid) {
+                  response.seal[j].modifyby = false;
+                }
+                if (response.seal[j].acceptstate === true) {
+                  response.seal[j].modifyon = true;
+                }
+                if (response.seal[j].regulatorstate === true) {
+                  response.seal[j].modifyby = true;
+                }
               }
               //add-ws-12/21-印章盖印
             }

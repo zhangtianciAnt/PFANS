@@ -75,31 +75,31 @@
           </template>
         </el-table-column>
         <!--        add_fjl_书类使用，不可更改disabled-->
-<!--        add-ws-12/21-印章盖印-->
-        <el-table-column :label="$t('label.PFANS4001FORMVIEW_ACCEPTSTATE')" align="center" v-if="handle" width="110vw">
+        <!--        add-ws-12/21-印章盖印-->
+        <el-table-column :label="$t('label.PFANS4001FORMVIEW_ACCEPTSTATE')" align="center" width="110vw">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.acceptstate"
               @change="handleacceptstate(scope.$index, scope.row)"
-              :disabled="scope.row.status != $t('label.PFANS5004VIEW_OVERTIME')"
+              :disabled="scope.row.modifyon"
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column :label="$t('label.PFANS4001FORMVIEW_REGULATORSTATE')" align="center" v-if="handles"
+        <el-table-column :label="$t('label.PFANS4001FORMVIEW_REGULATORSTATE')" align="center"
                          width="130vw">
           <template slot-scope="scope">
             <el-checkbox
-              :disabled="!scope.row.acceptstate"
+              :disabled="scope.row.modifyby"
               @change="handleacceptstate(scope.$index, scope.row)"
               v-model="scope.row.regulatorstate"
             ></el-checkbox>
           </template>
         </el-table-column>
-        <el-table-column property="regulator" v-if="handles"
+        <el-table-column property="regulator"
                          :label="$t('label.PFANS4001FORMVIEW_REGULATOR')"
                          width="130">
         </el-table-column>
-<!--        add-ws-12/21-印章盖印-->
+        <!--        add-ws-12/21-印章盖印-->
       </el-table>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
