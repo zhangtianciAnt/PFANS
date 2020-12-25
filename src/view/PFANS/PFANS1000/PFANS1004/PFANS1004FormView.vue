@@ -258,6 +258,18 @@
                                      v-model="form.amounttobegiven"></el-input-number>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" v-if="showM">
+                    <dicselect
+                      :code="code7"
+                      :data="form.enableduplicateloan"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="getEnableduplicateloan"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -759,6 +771,7 @@
           invoiceno: '',
           publicexpense_id: '',
           oldjudgementid: '',
+          enableduplicateloan:'PJ055002',
         },
         tableA: [
           {
@@ -778,6 +791,7 @@
         code4: 'PJ011',
         code5: 'PJ030',
         code6: 'PJ146',
+        code7:'PJ055',
         disabled: true,
         enableSave: false,
         menuList: [],
@@ -816,6 +830,13 @@
               message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN'),
             },
             {validator: CheckGiven, trigger: 'change'},
+          ],
+          enableduplicateloan: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN'),
+              trigger: 'change',
+            },
           ],
           gist: [
             {
@@ -1075,6 +1096,7 @@
               this.userlistA = this.form.user_id;
               this.getBudt(this.form.group_id);
               this.getDecisive(this.form.decisive);
+              this.getEnableduplicateloan(this.form.enableduplicateloan);
               this.getBusinessplantype(this.form.businessplantype);
               if (this.form.careerplan === '1') {
                 this.show = true;
@@ -1597,6 +1619,9 @@
       },
       getClassificationtype(val) {
         this.form.classificationtype = val;
+      },
+      getEnableduplicateloan(val){
+        this.form.enableduplicateloan = val;
       },
       getBusinessplantype(val) {
         this.form.businessplantype = val;

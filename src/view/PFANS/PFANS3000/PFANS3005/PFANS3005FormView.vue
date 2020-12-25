@@ -1438,19 +1438,25 @@
                 this.form.procurementproject === 'PJ005018' ||
                 this.form.procurementproject === 'PJ005019' ||
                 this.form.procurementproject === 'PJ005020') {
-                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0125';
-                } else {
-                  //电脑相关，最后节点到总经理   两万以上
-                  this.workflowCode = 'W0114';
-                }
+                //电脑相关，最后节点到总经理   两万以上
+                this.workflowCode = 'W0114';
+                // upd ztc 1223 start
+                // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                //   this.workflowCode = 'W0125';
+                // } else {
+                //   //电脑相关，最后节点到总经理   两万以上
+                //   this.workflowCode = 'W0114';
+                // }
+                // upd ztc 1223 end
               } else {
-                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0132';
-                } else {
-                  //最后节点到总经理   两万以上
-                  this.workflowCode = 'W0075';
-                }
+                //最后节点到总经理   两万以上
+                this.workflowCode = 'W0075';
+                // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                //   this.workflowCode = 'W0132';
+                // } else {
+                //   //最后节点到总经理   两万以上
+                //   this.workflowCode = 'W0075';
+                // }
               }
             }
           } else if (this.form.careerplan === '0') {
@@ -1461,18 +1467,21 @@
               this.form.procurementproject === 'PJ005019' ||
               this.form.procurementproject === 'PJ005020') {
               //最后节点到总经理   电脑相关 事业计划外
-              if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                this.workflowCode = 'W0133';
-              } else {
-                this.workflowCode = 'W0128';
-              }
+              this.workflowCode = 'W0128';
+              // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+              //   this.workflowCode = 'W0133';
+              // } else {
+              //   this.workflowCode = 'W0128';
+              // }
             } else {
-              if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                this.workflowCode = 'W0132';
-              } else {
-                //最后节点到总经理   事业计划外
-                this.workflowCode = 'W0075';
-              }
+              //最后节点到总经理   事业计划外
+              this.workflowCode = 'W0075';
+              // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+              //   this.workflowCode = 'W0132';
+              // } else {
+              //   //最后节点到总经理   事业计划外
+              //   this.workflowCode = 'W0075';
+              // }
             }
           }
           // add_fjl_06/15 --添加审批流程 end
