@@ -286,17 +286,17 @@
       },
       insertnamedialogs() {
         if (!this.insertnamedialog) {
-          if (this.userlist == '') {
+          if (this.sealdetaildate == '') {
             Message({
-              message: this.$t('label.PFANS4001FORMVIRW_ERROR1'),
+              message: this.$t('label.PFANS4001FORMVIRW_RRROR2'),
               type: 'error',
               duration: 5 * 1000,
             });
             return
           }
-          if (this.sealdetaildate == '') {
+          if (this.userlist == '') {
             Message({
-              message: this.$t('label.PFANS4001FORMVIRW_RRROR2'),
+              message: this.$t('label.PFANS4001FORMVIRW_ERROR1'),
               type: 'error',
               duration: 5 * 1000,
             });
@@ -326,16 +326,37 @@
               });
               this.loading = false;
             });
+        }else{
+          {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS4001Store/selectcognition')
+              .then(response => {
+                if (response.length > 0) {
+                  this.userlist = response[0].sealdetailname;
+                  if (response[0].sealdetaildate !== '' && response[0].sealdetaildate !== null) {
+                    let claimdatetime = response[0].sealdetaildate;
+                    let claimdatetim = claimdatetime.slice(0, 10);
+                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                    this.sealdetaildate = [claimdatetim, claimdatetime1];
+                    if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
+                      this.userlist = this.$store.getters.userinfo.userid;
+                      let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
+                      let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
+                      let claimdatetime2 = claimdatetime1 + '-03-31';
+                      this.sealdetaildate = [claimdatetim, claimdatetime2];
+                    }
+                  }
+                }
+                this.loading = false;
+              });
+          }
         }
       },
       getUserids(val) {
         this.sealdetailname = val;
         this.userlist = val;
-        if (!this.sealdetailname || this.sealdetailname === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
-        }
+      
       },
       //add-ws-12/21-印章盖印
       rowClick(row) {

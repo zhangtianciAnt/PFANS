@@ -59,3 +59,10 @@ export function insertrecognition(data) {
     data: data
   })
 }
+
+export function selectcognition() {
+  return request({
+    url: 'seal/selectcognition',
+    method: 'get',
+  })
+}
