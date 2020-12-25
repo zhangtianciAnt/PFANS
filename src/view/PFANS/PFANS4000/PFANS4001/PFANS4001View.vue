@@ -2,7 +2,7 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
-                     @handleacceptstate="handleacceptstate"
+                     @handleacceptstate="handleacceptstate" :handles="handles"
     >
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
@@ -46,7 +46,7 @@
     },
     data() {
       return {
-
+        handles: false,
         userlist: '',
         error: '',
         selectType: 'Single',
