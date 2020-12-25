@@ -514,34 +514,68 @@
       let role12 = getCurrentRole12();
       if (!this.$route.params.disabled) {
         if (this.$route.params._status === 4 || this.$route.params._disto === '1') {
-          this.enableSave = true;
-          // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
-          if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
-            this.buttonList = [
-              {
-                key: 'generate',
-                name: 'button.insertgenerate',
-                disabled: false,
-              },
-              {
-                key: 'insertsta',
-                name: 'button.insertsta',
-                disabled: true,
-              },
-            ];
-          } else {
-            this.buttonList = [
-              {
-                key: 'generate',
-                name: 'button.insertgenerate',
-                disabled: false,
-              },
-              {
-                key: 'insertsta',
-                name: 'button.insertsta',
-                disabled: false,
-              },
-            ];
+          if (this.$route.params._status === 4) {
+            this.enableSave = true;
+            // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
+            if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
+              this.buttonList = [
+                {
+                  key: 'generate',
+                  name: 'button.insertgenerate',
+                  disabled: false,
+                },
+                {
+                  key: 'insertsta',
+                  name: 'button.insertsta',
+                  disabled: true,
+                },
+              ];
+            }
+            else {
+              this.buttonList = [
+                {
+                  key: 'generate',
+                  name: 'button.insertgenerate',
+                  disabled: false,
+                },
+                {
+                  key: 'insertsta',
+                  name: 'button.insertsta',
+                  disabled: false,
+                },
+              ];
+            }
+          }
+          else if (this.$route.params._status === 2 && this.$route.params._disto === '1'){
+            this.enableSave = true;
+            if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
+              this.buttonList = [
+                {
+                  key: 'generate',
+                  name: 'button.insertgenerate',
+                  disabled: false,
+                },
+                {
+                  key: 'insertsta',
+                  name: 'button.insertsta',
+                  disabled: true,
+                },
+              ];
+            }
+            else {
+              this.buttonList = [
+                {
+                  key: 'generate',
+                  name: 'button.insertgenerate',
+                  disabled: false,
+                },
+                {
+                  key: 'insertsta',
+                  name: 'button.insertsta',
+                  disabled: false,
+                },
+              ];
+            }
           }
         } else { //离职申请未结束不能生成调书
           this.enableSave = false;
