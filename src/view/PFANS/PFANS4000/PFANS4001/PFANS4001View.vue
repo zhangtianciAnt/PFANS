@@ -46,7 +46,7 @@
     },
     data() {
       return {
-        handles: false,
+        handles: true,
         userlist: '',
         error: '',
         selectType: 'Single',
