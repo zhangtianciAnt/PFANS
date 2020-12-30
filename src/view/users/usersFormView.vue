@@ -3831,7 +3831,7 @@
                 let roles = '';
                 if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
                     for (let role of this.$store.getters.useraccount.roles) {
-                        roles = roles + role.desgetCurrentRole2cription;
+                        roles = roles + role.description;
                     }
                     if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
                         this.varroles = '1';
