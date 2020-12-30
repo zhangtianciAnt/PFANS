@@ -1862,8 +1862,8 @@
       getErrorType(val) {
         this.form.hospital = '';
         this.form.edate = '';
-        this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
-        this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
+        // this.form.finisheddate = moment(new Date()).format('YYYY-MM-DD');
+        // this.form.occurrencedate = moment(new Date()).format('YYYY-MM-DD');
         this.form.worktime = '';
         this.typecheck = '';
         let dictionaryInfo = getDictionaryInfo(val);
@@ -1924,6 +1924,7 @@
           this.checkrelengthtime = false;
           this.dislengthtime = false;
           this.showVacation = false;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = '0';
           //add ccm 0720
           this.rules.enclosurecontent[0].required = false;
@@ -1936,10 +1937,12 @@
             this.form.finisheddate = this.$route.params._day;
           }
           //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
+
         } else if (val === 'PR013009') {
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = '0';
           this.showVacation = true;
           //add ccm 0720
@@ -1957,6 +1960,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = true;
           //add ccm 0720
@@ -1966,6 +1970,7 @@
           this.checkerrortishi = true;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = true;
           //add ccm 0720
@@ -1975,6 +1980,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = true;
           //add ccm 0720
@@ -1985,6 +1991,7 @@
           this.checkrelengthtime = true;
           this.dislengthtime = false;
           this.showVacation = false;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = '0';
           //add ccm 0720
           this.rules.enclosurecontent[0].required = false;
@@ -1993,6 +2000,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = true;
           //add ccm 0720
@@ -2002,6 +2010,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = false;
           this.dislengthtime = false;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = '0';
           this.showVacation = true;
           //add ccm 0720
@@ -2011,6 +2020,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = true;
           //add ccm 0720
@@ -2020,6 +2030,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = false;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = '0';
           this.showVacation = false;
           //add ccm 0720
@@ -2029,6 +2040,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = false;
           //add ccm 0720
@@ -2038,6 +2050,7 @@
           this.checkerrortishi = false;
           this.checkrelengthtime = true;
           this.dislengthtime = true;
+          this.form.finisheddate = this.form.occurrencedate;
           this.form.lengthtime = 8;
           this.showVacation = true;
           //add ccm 0720
