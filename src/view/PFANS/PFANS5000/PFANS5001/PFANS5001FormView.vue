@@ -3391,8 +3391,11 @@
                       type: 'success',
                       duration: 5 * 1000,
                     });
-                    if (this.$store.getters.historyUrl) {
+                    if (this.$store.getters.historyUrl && val != 'StartWorkflow') {
                       this.$router.push(this.$store.getters.historyUrl);
+                    }
+                    if (val === 'StartWorkflow') {
+                      this.$refs.container.$refs.workflow.startWorkflow();
                     }
                   }
                 })
