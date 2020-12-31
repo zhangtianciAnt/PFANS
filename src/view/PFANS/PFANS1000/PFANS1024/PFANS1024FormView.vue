@@ -2281,6 +2281,7 @@
           }
         }
         this.dialogFormVisible = false;
+
       },
       //存在check222
       existCheck(contractNumber, index) {
@@ -2612,12 +2613,29 @@
             this.getChecked(true);
           }
         }
-        if (val === 'cancellation') {
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            this.form.tabledata[i].entrycondition = 'HT004001';
-          }
-          this.handleSave('cancellation');
+        if (val === 'cancellation')  {
+          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+            confirmButtonText: this.$t('button.confirm'),
+            cancelButtonText: this.$t('button.cancel'),
+            type: 'warning',
+          }).then(() =>{
+            this.$message({
+              type: 'success',
+              message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
+            });
+          }).then(()=>{
+            for (let i = 0; i < this.form.tabledata.length; i++) {
+              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+              this.form.tabledata[i].entrycondition = 'HT004001';
+            }
+            this.handleSave('cancellation');
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+            });
+            return;
+          });
         }
         if (val === 'save') {
           this.handleSave('save');
