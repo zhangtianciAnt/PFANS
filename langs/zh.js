@@ -124,6 +124,9 @@ module.exports = {
     contract1: '全组织',
     importwages: '历史工资导入',
     generate: '自动生成',
+    orginsert: '新建组织',
+    orgresume: '组织履历',
+    orgchange: '组织变更',
   },
   table: {
     detail: '一览',
@@ -221,6 +224,8 @@ module.exports = {
     dashboard: '仪表盘',
     orgSetting: '组织架构设置',
     org: '组织架构',
+    org1001: '组织架构',
+    org1002: '组织架构',
     user: '人员管理',
     user2: '人员信息',
     authority: '系统权限设置',

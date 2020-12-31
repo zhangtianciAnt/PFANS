@@ -365,7 +365,11 @@ export default {
                 this.endTime = this.working.substring(13, 23);
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
-                  return ( moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD') && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD'))
+                  return (
+                      moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD')
+                      && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
+                      && (item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD'))
+                  )
                 });
               }
             }
