@@ -4,6 +4,8 @@ import frameView from '@/view/frame/frameView.vue'
 import logInFrameView from '@/view/logInFrame/logInFrameView.vue'
 import EasyLogin from '@/components/EasyLogin'
 import orgTreeView from '@/view/orgTree/orgTreeView.vue'
+import orgTree1001View from '@/view/orgTree/orgTree1001View.vue'
+import orgTree1002View from '@/view/orgTree/orgTree1002View.vue'
 import orgTreeFormView from '@/view/orgTree/orgTreeFormView.vue'
 import invoiceFormView from '@/view/orgTree/invoiceFormView.vue'
 import bankFormView from '@/view/orgTree/bankFormView.vue'
@@ -259,6 +261,16 @@ const routes = [
         path: '/org',
         name: 'org',
         component: orgTreeView
+      },
+      {
+        path: '/orgTree1001View',
+        name: 'orgTree1001View',
+        component: orgTree1001View
+      },
+      {
+        path: '/orgTree1002View',
+        name: 'orgTree1002View',
+        component: orgTree1002View
       },
       {
         path: '/orgFormEdit',
