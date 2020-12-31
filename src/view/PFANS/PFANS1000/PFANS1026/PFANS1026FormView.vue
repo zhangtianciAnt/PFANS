@@ -3947,6 +3947,7 @@
         }
       },
 
+
       buttonClick(val) {
         if (val === 'back') {
           this.paramsTitle();
@@ -3965,18 +3966,35 @@
           }
         }
         if (val === 'cancellation') {
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            this.form.tabledata[i].entrycondition = 'HT004001';
-          }
-          this.handleSave('cancellation');
-          // this.display = false;
-          // this.checkeddisplay = false;
-          // this.dialogFormVisible = true;
-          // this.show1=false;
-          // this.show2=true;
-          // this.form.contractnumber = this.$route.params._id;
+          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+            confirmButtonText: this.$t('button.confirm'),
+            cancelButtonText: this.$t('button.cancel'),
+            type: 'warning',
+          }).then(() =>{
+            this.$message({
+              type: 'success',
+              message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
+            });
+          }).then(()=>{
+            for (let i = 0; i < this.form.tabledata.length; i++) {
+              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+              this.form.tabledata[i].entrycondition = 'HT004001';
+            }
+            this.handleSave('cancellation');
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+            });
+              return;
+          });
         }
+            // this.display = false;
+            // this.checkeddisplay = false;
+            // this.dialogFormVisible = true;
+            // this.show1=false;
+            // this.show2=true;
+            // this.form.contractnumber = this.$route.params._id;
         if (val === 'save') {
           this.handleSave('save');
         }
