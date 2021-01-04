@@ -1257,6 +1257,7 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉
+
               if (loan !== '') {
                 Message({
                   message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
