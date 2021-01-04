@@ -6,6 +6,7 @@ import {
   getPfans4001One,
   createbook,
   insertnamedialog,
+  selectcognition
 } from './PFANS4001Api';
 
 const PFANS4001store = {
@@ -13,6 +14,19 @@ const PFANS4001store = {
   state: {},
   mutations: {},
   actions: {
+    selectcognition({commit}) {
+      return new Promise((resolve, reject) => {
+        selectcognition().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     insertrecognition({commit}, data) {
       return new Promise((resolve, reject) => {
         insertrecognition(data).then(response => {

@@ -90,7 +90,7 @@
           <template slot-scope="scope">
             <el-checkbox
               :disabled="scope.row.modifyby"
-              @change="handleacceptstate(scope.$index, scope.row)"
+              @change="handleacceptstate1(scope.$index, scope.row)"
               v-model="scope.row.regulatorstate"
             ></el-checkbox>
           </template>
@@ -266,6 +266,9 @@
       //add-ws-12/21-印章盖印
       handleacceptstate(index, row) {
         this.$emit('handleacceptstate', row);
+      },
+      handleacceptstate1(index, row) {
+        this.$emit('handleacceptstate1', row);
       },
       //add-ws-12/21-印章盖印
       handlsealid(index, row) {

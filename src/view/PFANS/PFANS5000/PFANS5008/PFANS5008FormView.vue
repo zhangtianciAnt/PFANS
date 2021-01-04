@@ -1210,8 +1210,20 @@
               this.getAttendancelist();
               this.loading = true;
               let error = 0;
-              //add-ws-日志截止日期check添加
               let check = 0;
+              if (Number(this.companyform.time_start)<=0)
+              {
+                check = check + 1;
+                Message({
+                  message: this.$t('label.PFANS5008VIEW_CHECKDATA0'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+                return;
+              }
+              //add-ws-日志截止日期check添加
+
               let log_date = moment(this.companyform.log_date).format('DD');
               let date = getDictionaryInfo('BP027001').value1;
               let checkdate = date < 10 ? '0' + date : date;
@@ -1227,7 +1239,8 @@
                     this.loading = false;
                   }
                 }
-              } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
+              }
+              else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
                 if (checkdate < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
@@ -1237,7 +1250,6 @@
                   });
                   this.loading = false;
                 }
-
               }
               //add-ws-日志截止日期check添加
               if (check === 0) {

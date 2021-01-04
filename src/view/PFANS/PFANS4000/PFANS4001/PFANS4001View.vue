@@ -2,8 +2,12 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
-                     @handleacceptstate="handleacceptstate" :handles="handles"
+                     @handleacceptstate="handleacceptstate" :handles="handles"  @handleacceptstate1="handleacceptstate1"
     >
+      <span slot="customize">{{$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') +':'}}</span>
+      <span slot="customize" class="sub_color_red">{{this.user}}</span>
+      <span slot="customize">{{$t('label.PFANS4001FORMVIEW_SEALDETAILDATE') +':'}}</span>
+      <span slot="customize" class="sub_color_red">{{this.sealdetail}}</span>
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
     <el-drawer :visible.sync="insertnamedialog" size="40%" :show-close="false" :withHeader="false" append-to-body>
@@ -46,6 +50,8 @@
     },
     data() {
       return {
+        checklist: [],
+        spanshow: true,
         handles: true,
         userlist: '',
         error: '',
@@ -160,17 +166,25 @@
             let roles = getCurrentRole17();
             if (response.sealdetail.length > 0) {
               this.userlist = response.sealdetail[0].sealdetailname;
+              if (getUserInfo(response.sealdetail[0].sealdetailname)) {
+                this.user = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
+              }
               if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
                 let claimdatetime = response.sealdetail[0].sealdetaildate;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                 this.sealdetaildate = [claimdatetim, claimdatetime1];
+                this.sealdetail = claimdatetim + '~' + claimdatetime1;
                 if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
                   this.userlist = this.$store.getters.userinfo.userid;
+                  if (getUserInfo(this.$store.getters.userinfo.userid)) {
+                    this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+                  }
                   let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
                   let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
                   let claimdatetime2 = claimdatetime1 + '-03-31';
                   this.sealdetaildate = [claimdatetim, claimdatetime2];
+                  this.sealdetail = claimdatetim + '~' + claimdatetime1;
                 }
               }
             }
@@ -266,12 +280,57 @@
             this.loading = false;
           });
       },
-      handleacceptstate(row) {
-        if (this.handlsealid != '') {
-          this.handlsealid = this.handlsealid + ',' + row.sealid;
+      handleacceptstate1(row) {
+
+        if (row.regulatorstate) {
+          if (this.handlsealid != '') {
+            this.handlsealid = this.handlsealid + ',' + row.sealid;
+          } else {
+            this.handlsealid = row.sealid;
+          }
+          this.checklist = this.handlsealid.split(',');
         } else {
-          this.handlsealid = row.sealid;
+          if (this.handlsealid !== null && this.handlsealid !== '') {
+            for (let a = 0; a < this.checklist.length; a++) {
+              if (row.sealid === this.checklist[a]) {
+                this.checklist.splice(a, 1);
+              }
+            }
+            let checktableD = '';
+            for (let c = 0; c < this.checklist.length; c++) {
+              checktableD = checktableD + this.checklist[c] + ',';
+            }
+            this.handlsealid = '';
+            this.handlsealid = checktableD.substring(0, checktableD.length - 1);
+          }
         }
+
+      },
+      handleacceptstate(row) {
+        if (row.acceptstate) {
+          if (this.handlsealid != '') {
+            this.handlsealid = this.handlsealid + ',' + row.sealid;
+          } else {
+            this.handlsealid = row.sealid;
+          }
+          this.checklist = this.handlsealid.split(',');
+        } else {
+          if (this.handlsealid !== null && this.handlsealid !== '') {
+            for (let a = 0; a < this.checklist.length; a++) {
+              if (row.sealid === this.checklist[a]) {
+                this.checklist.splice(a, 1);
+              }
+            }
+            let checktableD = '';
+            for (let c = 0; c < this.checklist.length; c++) {
+              checktableD = checktableD + this.checklist[c] + ',';
+            }
+            this.handlsealid = '';
+            this.handlsealid = checktableD.substring(0, checktableD.length - 1);
+          }
+        }
+
+
       },
       getsealdetaildate(sealdetaildate) {
         if (sealdetaildate != null) {
@@ -286,21 +345,21 @@
       },
       insertnamedialogs() {
         if (!this.insertnamedialog) {
-          if (this.userlist == '') {
-            Message({
-              message: this.$t('label.PFANS4001FORMVIRW_ERROR1'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return
-          }
           if (this.sealdetaildate == '') {
             Message({
               message: this.$t('label.PFANS4001FORMVIRW_RRROR2'),
               type: 'error',
               duration: 5 * 1000,
             });
-            return
+            return;
+          }
+          if (this.userlist == '') {
+            Message({
+              message: this.$t('label.PFANS4001FORMVIRW_ERROR1'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
           }
           let sealdetaildate = this.getsealdetaildate(this.sealdetaildate);
           let parameter = {
@@ -326,15 +385,46 @@
               });
               this.loading = false;
             });
+        } else {
+          {
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS4001Store/selectcognition')
+              .then(response => {
+                if (response.length > 0) {
+                  this.userlist = response[0].sealdetailname;
+                  if (getUserInfo(response[0].sealdetailname)) {
+                    this.user = getUserInfo(response[0].sealdetailname).userinfo.customername;
+                  }
+                  if (response[0].sealdetaildate !== '' && response[0].sealdetaildate !== null) {
+                    let claimdatetime = response[0].sealdetaildate;
+                    let claimdatetim = claimdatetime.slice(0, 10);
+                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                    this.sealdetaildate = [claimdatetim, claimdatetime1];
+                    this.sealdetail = claimdatetim + '~' + claimdatetime1;
+                    if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
+                      this.userlist = this.$store.getters.userinfo.userid;
+                      if (getUserInfo(this.$store.getters.userinfo.userid)) {
+                        this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+                      }
+                      let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
+                      let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
+                      let claimdatetime2 = claimdatetime1 + '-03-31';
+                      this.sealdetaildate = [claimdatetim, claimdatetime2];
+                      this.sealdetail = claimdatetim + '~' + claimdatetime1;
+                    }
+                  }
+                }
+                this.loading = false;
+              });
+          }
         }
       },
       getUserids(val) {
         this.sealdetailname = val;
         this.userlist = val;
-        if (!this.sealdetailname || this.sealdetailname === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
+        if (getUserInfo(val)) {
+          this.user = getUserInfo(val).userinfo.customername;
         }
       },
       //add-ws-12/21-印章盖印

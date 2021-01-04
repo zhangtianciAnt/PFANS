@@ -1416,20 +1416,20 @@
               this.form.procurementproject === 'PJ005019' ||
               this.form.procurementproject === 'PJ005020'){
                 //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
-                // Center GM
-                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0131';
-                } else {
-                  this.workflowCode = 'W0127';
-                }
+                this.workflowCode = 'W0127';
+                // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                //   this.workflowCode = 'W0131';
+                // } else {
+                //   this.workflowCode = 'W0127';
+                // }
               } else {
-                // Center GM
-                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0130';
-                } else {
-                  //最后节点到center长  事业计划内  1000到20000之间
-                  this.workflowCode = 'W0022';
-                }
+                this.workflowCode = 'W0022';
+                // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                //   this.workflowCode = 'W0130';
+                // } else {
+                //   //最后节点到center长  事业计划内  1000到20000之间
+                //   this.workflowCode = 'W0022';
+                // }
               }
             } else if (Number(this.form.totalamount) > 20000) {
               if (this.form.procurementproject === 'PJ005005' ||
