@@ -4,6 +4,8 @@
       :buttonList="buttonList"
       :title="title"
       @buttonClick="buttonClick"
+      :defaultStart="defaultStart"
+      @StartWorkflow="buttonClick"
       @end="end" @disabled="setdisabled"
       @start="start"
       @workflowState="workflowState"
@@ -87,20 +89,20 @@
                         ></el-input>
                       </el-form-item>
                     </el-col>
-<!--                    &lt;!&ndash; 项目名称(和)&ndash;&gt;-->
-<!--                    <el-col :span="8">-->
-<!--                      <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">-->
-<!--                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>-->
-<!--                      <el-switch-->
-<!--                        :disabled="!disable"-->
-<!--                        active-value="1"-->
-<!--                        inactive-value="0"-->
-<!--                        v-model="form.abroadbusiness"-->
-<!--                      >-->
-<!--                      </el-switch>-->
-<!--                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>-->
-<!--                      </el-form-item>-->
-<!--                    </el-col>-->
+                    <!--                    &lt;!&ndash; 项目名称(和)&ndash;&gt;-->
+                    <!--                    <el-col :span="8">-->
+                    <!--                      <el-form-item :label="$t('label.PFANS1002VIEW_ABROADBUSINESS')">-->
+                    <!--                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>-->
+                    <!--                      <el-switch-->
+                    <!--                        :disabled="!disable"-->
+                    <!--                        active-value="1"-->
+                    <!--                        inactive-value="0"-->
+                    <!--                        v-model="form.abroadbusiness"-->
+                    <!--                      >-->
+                    <!--                      </el-switch>-->
+                    <!--                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>-->
+                    <!--                      </el-form-item>-->
+                    <!--                    </el-col>-->
                     <!-- 项目名称(和)-->
                     <el-col :span="8">
                       <el-form-item
@@ -319,7 +321,6 @@
                 </el-form>
               </div>
             </el-tab-pane>
-
             <!--            体制-->
             <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_SYSTEM')" name="fourth">
               <el-form-item>
@@ -625,8 +626,6 @@
                 </el-row>
               </el-form-item>
             </el-tab-pane>
-
-
           </el-tabs>
         </el-form>
       </div>
@@ -734,6 +733,7 @@
         // centerorglist: '',
         // grouporglist: '',
         // teamorglist: '',
+        defaultStart: false,
         currentRow5: '',
         errorcenter: '',
         errorgroup: '',
@@ -1718,12 +1718,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
