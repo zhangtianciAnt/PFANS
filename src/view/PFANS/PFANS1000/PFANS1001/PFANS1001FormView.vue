@@ -1071,14 +1071,14 @@
             }
             if (val === 'actuarial') {
               //del ccm 0813 决裁到暂借款，精算  check去掉
-              if (str !== '') {
-                Message({
-                  message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              } else {
+              // if (str !== '') {
+              //   Message({
+              //     message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // } else {
                 //del ccm 0813 决裁到暂借款，精算  check去掉
                 if (loan != null && loan != '' && loan != undefined) {
                   loan = loan.substring(0, loan.length - 1);
@@ -1113,7 +1113,7 @@
                   });
                 }
                 //del ccm 0813 决裁到暂借款，精算  check去掉
-              }
+              // }
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉\
