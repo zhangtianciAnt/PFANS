@@ -593,24 +593,27 @@
                         return;
                     }//add-ws-8/19-禅道470任务
                     else {
+                      if(val === 'actuarial')
+                      {
                         let selectedlist = this.$refs.roletable.selectedList;
                         let n = 0;
                         let checksum = selectedlist.length;
                         for (let i = 0; i < selectedlist.length; i++) {
-                            if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
-                                n = n + 1;
-                            }
+                          if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
+                            n = n + 1;
+                          }
                         }
                         if (n != checksum) {
-                            if (n != 0) {
-                                Message({
-                                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                                    type: 'info',
-                                    duration: 2 * 1000,
-                                });
-                                return;
-                            }
+                          if (n != 0) {
+                            Message({
+                              message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                              type: 'info',
+                              duration: 2 * 1000,
+                            });
+                            return;
+                          }
                         }
+                      }
                     }
                     //add-ws-8/19-禅道470任务
                     this.selectedlist = [];
@@ -751,7 +754,8 @@
                         //   return
                         // }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
-                    } else {
+                    }
+                    else {
                       //暂借款剩余可借金额
                       let selectedlistAnt = this.$refs.roletable.selectedList;
                       let warnlist = '';
@@ -771,7 +775,7 @@
                       }
                       if(warnlist != ''){
                         Message({
-                          message: warnlist + this.$t('normal.info_16'),
+                          message: warnlist + this.$t('normal.info_19'),
                           type: 'info',
                           duration: 2 * 1000,
                         });
