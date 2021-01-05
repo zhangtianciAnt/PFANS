@@ -623,6 +623,7 @@
                     let _judgement_name = '';
                     let _judgements_moneys = '';
                     let _remarks = '';
+                    let enableduplicateloan = [];
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         let user = getUserInfo(this.selectedlist[i].user_id);
                         if (user) {
@@ -643,6 +644,7 @@
                         _judgement_name += this.selectedlist[i].purnumbers + ',';
                         _judgements_moneys += this.selectedlist[i].totalamount + ',';
                         _remarks += this.selectedlist[i].purchasepurpose + '^';
+                        enableduplicateloan= this.selectedlist[i].enableduplicateloan;
                     }
 
                     if (val === 'actuarial') {
@@ -786,7 +788,7 @@
                         // //check是否存在暂借款
                         let str = '';
                         for (let i = 0; i < this.selectedlist.length; i++) {
-                          if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                          if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined && this.selectedlist[i].enableduplicateloan === 'PJ055002') {
                             str += this.selectedlist[i].purnumbers + ' , ';
                           }
                         }
@@ -806,17 +808,19 @@
                             },
                           });
                           //del ccm 0813 决裁到暂借款，精算  check去掉
-                        } else {
-                          Message({
-                            message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                            type: 'info',
-                            duration: 3 * 1000,
-                          });
+                        }
+                         else{
+                              Message({
+                                message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                                type: 'info',
+                                duration: 3 * 1000,
+                              });
                           return
                         }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                       }
                     }
+
                 }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
                 if (val === 'conapp') {
