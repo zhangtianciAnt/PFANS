@@ -4146,6 +4146,40 @@ export function menu() {
               ],
             },
             {
+              '_id': 'org1003',
+              'name': 'menu.org1003',
+              'menuvisible': false,
+              'menuurl': '/orgTree1003View',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {
+                  '_id': 'org_read',
+                  'actiontype': '0',
+                  'name': 'button.view',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'org_new',
+                  'actiontype': 'new',
+                  'name': 'button.insert',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'org_edit',
+                  'actiontype': 'edit',
+                  'name': 'button.update',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'org_del',
+                  'actiontype': 'del',
+                  'name': 'button.delete',
+                  'auth': 4,
+                },
+              ],
+            },
+            {
               '_id': 'role',
               'name': 'menu.role',
               'menuvisible': true,

@@ -429,6 +429,7 @@
       if (this.companyform.project_id) {
         this.companyform.work_phase = '';
       }
+
       if (this.$route.params._id) {
         this.companyform.logmanagement_id = this.$route.params._id;
         this.loading = true;
@@ -786,23 +787,25 @@
       },
       getAttendancelist() {
         this.loading = true;
-        let parameter = {
-          createby: this.User_id,
-          log_date: moment(this.companyform.log_date).format('YYYY-MM-DD'),
-        };
         this.$store
-          .dispatch('PFANS5008Store/sumlogdate', parameter)
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
           .then(response => {
-            let sumtime = response[0].time_start;
+            let sumtime = 0;
+            for (let j = 0; j < response.length; j++) {
+              if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                sumtime += parseFloat(response[j].time_start);
+              }
+            }
             let sumoutgoinghours = 0;
-            let datalist = this.checkList.filter(item => moment(item.dates).format('YYYY-MM-DD') == moment(this.companyform.log_date).format('YYYY-MM-DD'));
-            for (let j = 0; j < datalist.length; j++) {
-              if (datalist[j].outgoinghours === null) {
-                sumoutgoinghours = 0;
-              } else if (datalist[j].outgoinghours === '') {
-                sumoutgoinghours = 0;
-              } else {
-                sumoutgoinghours = parseFloat(datalist[j].outgoinghours);
+            for (let j = 0; j < this.checkList.length; j++) {
+              if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                if (this.checkList[j].outgoinghours === null) {
+                  sumoutgoinghours = 0;
+                } else if (this.checkList[j].outgoinghours === '') {
+                  sumoutgoinghours = 0;
+                } else {
+                  sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
+                }
               }
             }
             this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
@@ -1318,6 +1321,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_02'),
@@ -1379,7 +1383,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1401,6 +1405,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_01'),
@@ -1463,7 +1468,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1536,6 +1541,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_02'),
@@ -1598,7 +1604,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1621,6 +1627,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_01'),
@@ -1683,7 +1690,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
