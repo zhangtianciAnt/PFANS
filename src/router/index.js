@@ -6,6 +6,7 @@ import EasyLogin from '@/components/EasyLogin'
 import orgTreeView from '@/view/orgTree/orgTreeView.vue'
 import orgTree1001View from '@/view/orgTree/orgTree1001View.vue'
 import orgTree1002View from '@/view/orgTree/orgTree1002View.vue'
+import orgTree1003View from '@/view/orgTree/orgTree1003View.vue'
 import orgTreeFormView from '@/view/orgTree/orgTreeFormView.vue'
 import invoiceFormView from '@/view/orgTree/invoiceFormView.vue'
 import bankFormView from '@/view/orgTree/bankFormView.vue'
@@ -271,6 +272,11 @@ const routes = [
         path: '/orgTree1002View',
         name: 'orgTree1002View',
         component: orgTree1002View
+      },
+      {
+        path: '/orgTree1003View',
+        name: 'orgTree1003View',
+        component: orgTree1003View
       },
       {
         path: '/orgFormEdit',
