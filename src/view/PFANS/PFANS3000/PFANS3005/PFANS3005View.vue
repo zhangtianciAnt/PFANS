@@ -760,8 +760,8 @@
                       let selectedlistAnt = this.$refs.roletable.selectedList;
                       let warnlist = '';
                       let _surloappmoney = 0;
-                      for(let o = 0 ; o < selectedlistAnt.length; o ++) {
-                        if(selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
+                      for (let o = 0; o < selectedlistAnt.length; o++) {
+                        if (selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
                           if (selectedlistAnt[o].surloappmoney <= 0) {
                             if (warnlist == '') {
                               warnlist = selectedlistAnt[o].purnumbers;
@@ -773,16 +773,14 @@
                           }
                         }
                       }
-                      if(warnlist != ''){
+                      if (warnlist != '') {
                         Message({
                           message: warnlist + this.$t('normal.info_19'),
                           type: 'info',
                           duration: 2 * 1000,
                         });
                         return;
-                      }else{
-
-                      }
+                      } else {
                         //暂借款申请
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //check是否存在暂借款
@@ -793,21 +791,21 @@
                           }
                         }
                         if (str === '') {
-                        //del ccm 0813 决裁到暂借款，精算  check去掉
-                        this.$router.push({
+                          //del ccm 0813 决裁到暂借款，精算  check去掉
+                          this.$router.push({
                             name: 'PFANS1006FormView',
                             params: {
-                                _id: '',
-                                _judgement: _judgement,
-                                _judgement_name: _judgement_name,
-                                _judgements_moneys: _judgements_moneys,
-                                _surloappmoney: _surloappmoney,
-                                _remarks: _remarks,
-                                _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
-                                disabled: true,
+                              _id: '',
+                              _judgement: _judgement,
+                              _judgement_name: _judgement_name,
+                              _judgements_moneys: _judgements_moneys,
+                              _surloappmoney: _surloappmoney,
+                              _remarks: _remarks,
+                              _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+                              disabled: true,
                             },
-                        });
-                        //del ccm 0813 决裁到暂借款，精算  check去掉
+                          });
+                          //del ccm 0813 决裁到暂借款，精算  check去掉
                         } else {
                           Message({
                             message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
@@ -817,6 +815,7 @@
                           return
                         }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
+                      }
                     }
                 }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
