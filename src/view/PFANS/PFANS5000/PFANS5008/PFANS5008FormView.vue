@@ -1321,6 +1321,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_02'),
@@ -1404,6 +1405,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_01'),
@@ -1539,6 +1541,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_02'),
@@ -1624,6 +1627,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_01'),
