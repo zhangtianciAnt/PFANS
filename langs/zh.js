@@ -127,6 +127,7 @@ module.exports = {
     orginsert: '新建组织',
     orgresume: '组织履历',
     orgchange: '组织变更',
+    recalculation: '重新计算社保公积金基数',
   },
   table: {
     detail: '一览',
@@ -3052,6 +3053,10 @@ module.exports = {
     PFANS2036VIEW_NAME: '姓名',
     PFANS2036VIEW_BMJC: '部门简称',
     PFANS2036VIEW_RN: 'Rn',
+    PFANS2036VIEW_RS: '人数',
+    PFANS2036VIEW_YGZ: '月工资',
+    PFANS2036VIEW_JBGZ: '基本工资',
+    PFANS2036VIEW_ZZGZ: '职责工资',
     PFANS2036VIEW_PFYF: '配付与否',
     PFANS2036VIEW_NEWPERSONALDATE: '新人入社预定月',
     PFANS2036VIEW_EXRANK: '升格前Rn',
