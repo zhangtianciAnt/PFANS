@@ -788,7 +788,7 @@
         this.loading = true;
         let parameter = {
           createby: this.User_id,
-          log_date: moment(this.companyform.log_date).format('YYYY-MM-DD'),
+          log_date: this.companyform.log_date,
         };
         this.$store
           .dispatch('PFANS5008Store/sumlogdate', parameter)
@@ -1379,7 +1379,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1463,7 +1463,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1598,7 +1598,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1683,7 +1683,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
