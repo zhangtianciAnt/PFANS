@@ -759,7 +759,6 @@
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
-            debugger
             //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
             if (response.length === 0) {
               this.$store
@@ -787,31 +786,28 @@
       },
       getAttendancelist() {
         this.loading = true;
+        let parameter = {
+          createby: this.User_id,
+          log_date: moment(this.companyform.log_date).format('YYYY-MM-DD'),
+        };
         this.$store
-          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .dispatch('PFANS5008Store/sumlogdate', parameter)
           .then(response => {
-            let sumtime = 0;
-            for (let j = 0; j < response.length; j++) {
-              if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                sumtime += parseFloat(response[j].time_start);
-              }
-            }
+            let sumtime = response[0].time_start;
             let sumoutgoinghours = 0;
-            for (let j = 0; j < this.checkList.length; j++) {
-              if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                if (this.checkList[j].outgoinghours === null) {
-                  sumoutgoinghours = 0;
-                } else if (this.checkList[j].outgoinghours === '') {
-                  sumoutgoinghours = 0;
-                } else {
-                  sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
-                }
+            let datalist = this.checkList.filter(item => moment(item.dates).format('YYYY-MM-DD') == moment(this.companyform.log_date).format('YYYY-MM-DD'));
+            for (let j = 0; j < datalist.length; j++) {
+              if (datalist[j].outgoinghours === null) {
+                sumoutgoinghours = 0;
+              } else if (datalist[j].outgoinghours === '') {
+                sumoutgoinghours = 0;
+              } else {
+                sumoutgoinghours = parseFloat(datalist[j].outgoinghours);
               }
             }
             this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
             //add ccm 小于0时等于0 from
-            if(this.checkdata < 0)
-            {
+            if (this.checkdata < 0) {
               this.checkdata = '0.00';
             }
             //add ccm 小于0时等于0 to
@@ -1211,8 +1207,7 @@
               this.loading = true;
               let error = 0;
               let check = 0;
-              if (Number(this.companyform.time_start)<=0)
-              {
+              if (Number(this.companyform.time_start) <= 0) {
                 check = check + 1;
                 Message({
                   message: this.$t('label.PFANS5008VIEW_CHECKDATA0'),
@@ -1239,8 +1234,7 @@
                     this.loading = false;
                   }
                 }
-              }
-              else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
+              } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
                 if (checkdate < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
