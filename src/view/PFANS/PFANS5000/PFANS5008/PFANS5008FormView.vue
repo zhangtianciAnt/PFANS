@@ -754,12 +754,12 @@
       checkgetAttendancelist() {
         let parameter = {
           user_id: this.User_id,
-          years: moment(this.companyform.log_date).format('YYYY'),
         };
         this.loading = true;
         this.$store
           .dispatch('PFANS2010Store/getAttendancelist', parameter)
           .then(response => {
+            debugger
             //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
             if (response.length === 0) {
               this.$store
@@ -810,7 +810,8 @@
             }
             this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
             //add ccm 小于0时等于0 from
-            if (this.checkdata < 0) {
+            if(this.checkdata < 0)
+            {
               this.checkdata = '0.00';
             }
             //add ccm 小于0时等于0 to
@@ -962,7 +963,7 @@
           });
       },
       changedate() {
-        this.checkgetAttendancelist();
+        this.getAttendancelist();
         this.$route.params._id = '';
         this.row = '';
         this.companyform.logmanagement_id = '';
@@ -1047,7 +1048,7 @@
         this.loading = false;
       },
       riqi() {
-        this.checkgetAttendancelist();
+        this.getAttendancelist();
         this.$route.params._id = '';
         this.row = '';
         this.companyform.logmanagement_id = '';
@@ -1134,7 +1135,7 @@
           this.divfalse = false;
           this.xsTable = false;
           this.companyform.log_date = moment(this.companyform.log_date).add(1, 'days').format('YYYY-MM-DD');
-          this.checkgetAttendancelist();
+          this.getAttendancelist();
           this.companyform.time_start = '';
           this.companyform.wbs_id = '';
           this.companyform.behavior_breakdown = '';
@@ -1206,11 +1207,12 @@
         if (val === 'btnSave') {
           this.$refs['companyform'].validate(valid => {
             if (valid) {
-              this.checkgetAttendancelist();
+              this.getAttendancelist();
               this.loading = true;
               let error = 0;
               let check = 0;
-              if (Number(this.companyform.time_start) <= 0) {
+              if (Number(this.companyform.time_start)<=0)
+              {
                 check = check + 1;
                 Message({
                   message: this.$t('label.PFANS5008VIEW_CHECKDATA0'),
@@ -1237,7 +1239,8 @@
                     this.loading = false;
                   }
                 }
-              } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
+              }
+              else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
                 if (checkdate < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
@@ -1733,7 +1736,7 @@
         this.companyform.behavior_breakdown = value3;
       },
       clickdata() {
-        this.checkgetAttendancelist();
+        this.getAttendancelist();
         this.$route.params._id = '';
         this.row = '';
         this.companyform.logmanagement_id = '';
