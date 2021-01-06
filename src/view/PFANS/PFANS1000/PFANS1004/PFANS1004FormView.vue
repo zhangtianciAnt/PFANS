@@ -1637,7 +1637,7 @@
         if(val == 'PJ146006'){
           if(this.role15 == '0'){
             this.form.decision = val;
-            this.workcode = 'W0034';
+            // this.workcode = 'W0034';
           }else{
             Message({
               message: this.$t('normal.error_21'),
@@ -1651,11 +1651,11 @@
           if(this.role16 == '0'){
             this.form.decision = val;
             if(val == 'PJ146008'){
-              this.workcode = 'W0042';
+              // this.workcode = 'W0042';
             }else if(val == 'PJ146009'){
-              this.workcode = 'W0044';
+              // this.workcode = 'W0044';
             } else{
-              this.workcode = 'W0051';
+              // this.workcode = 'W0051';
             }
           }else{
             Message({
@@ -1668,17 +1668,17 @@
         }else{
           this.form.decision = val;
           if(val == 'PJ146001'){
-            this.workcode = 'W0006';
+            // this.workcode = 'W0006';
           } else if(val == 'PJ146002'){
-            this.workcode = 'W0007';
+            // this.workcode = 'W0007';
           } else if(val == 'PJ146003'){
-            this.workcode = 'W0013';
+            // this.workcode = 'W0013';
           } else if(val == 'PJ146004'){
-            this.workcode = 'W0020';
+            // this.workcode = 'W0020';
           } else if(val == 'PJ146005'){
-            this.workcode = 'W0021';
+            // this.workcode = 'W0021';
           }else{
-            this.workcode = 'W0035';
+            // this.workcode = 'W0035';
           }
         }
       },

@@ -867,22 +867,25 @@
             }
             //add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable1.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable1.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -1001,22 +1004,25 @@
               return;
             }//add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable3.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable3.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -1060,19 +1066,19 @@
                 loanid += this.selectedlist[i].loanapplication_id + ',';
               }
               if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                enableduplicateloan.push(this.selectedlist[i].enableduplicateloan);
+                enableduplicateloan.push(this.selectedlist[i]);
               }
             }
             if (val === 'actuarial') {
               //del ccm 0813 决裁到暂借款，精算  check去掉
-              if (str !== '') {
-                Message({
-                  message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-                  type: 'info',
-                  duration: 3 * 1000,
-                });
-                return;
-              } else {
+              // if (str !== '') {
+              //   Message({
+              //     message: str + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+              //     type: 'info',
+              //     duration: 3 * 1000,
+              //   });
+              //   return;
+              // } else {
                 //del ccm 0813 决裁到暂借款，精算  check去掉
                 if (loan != null && loan != '' && loan != undefined) {
                   loan = loan.substring(0, loan.length - 1);
@@ -1107,19 +1113,24 @@
                   });
                 }
                 //del ccm 0813 决裁到暂借款，精算  check去掉
-              }
+              // }
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉\
+              let judloan = '';
               for(let k=0;k<enableduplicateloan.length;k++) {
-                if (loan !== '' && enableduplicateloan[k] === 'PJ055002') {
-                  Message({
-                    message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                    type: 'info',
-                    duration: 3 * 1000,
-                  });
-                  return;
+                if (enableduplicateloan[k].loanapno !== '' && enableduplicateloan[k].enableduplicateloan === 'PJ055002') {
+                  judloan = judloan + enableduplicateloan[k].judgnumbers + ' , ';
                 }
+              }
+              if (judloan.length > 0)
+              {
+                Message({
+                  message: judloan + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
               }
               //del ccm 0813 决裁到暂借款，精算  check去掉
               if (this.$route.params.title === 4) {
@@ -1156,22 +1167,25 @@
               return;
             }//add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable2.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable2.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -1257,6 +1271,7 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉
+
               if (loan !== '') {
                 Message({
                   message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
@@ -1291,22 +1306,25 @@
               return;
             }//add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable5.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable5.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }

@@ -95,18 +95,9 @@
         },
 
         data () {
-            const data1 = [{
-                id: 1,
-                title: '公司',
-                orgs: [],
-                type: 0,
-                status: 1,
-                years:moment(new Date()).format("YYYY"),
-            }];
             return {
                 companyFormcheck: {},
                 treeshow: true,
-                data1: JSON.parse(JSON.stringify(data1)),
                 data:[],
                 filterText: '',
                 loading: false,
@@ -140,7 +131,6 @@
         },
         methods: {
             append(data) {
-                debugger;
                 let lettype;
                 if(data.type === 0){
                     lettype = 1;
@@ -185,21 +175,25 @@
                 this.currentNode.companyname = data.title;
             },
             getInitData () {
-                var months = moment(new Date()).format('M');
-                var years = months === '1' || months === '2' || months === '3' ?  moment(new Date()).format("YYYY") : moment(new Date()).add(1, 'y').format('YYYY');
-                if(this.data){
-                    this.data = [{
-                        id: 1,
-                        title: '公司',
-                        orgs: [],
-                        type: 0,
-                        status: 1,
-                        years:years,
-                    }];
-                }
-                else{
-                    this.data = [this.data]
-                }
+                this.loading = true;
+                this.$store
+                  .dispatch('orgTreeStore/getTreeYears', {"Years": this.year,"type": '0'})
+                  .then(response => {
+                      if (response) {
+                          debugger;
+                          this.data = [response]
+                          this.currentNode = response
+                      }
+                      this.loading = false;
+                  })
+                  .catch(error => {
+                      Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000
+                      })
+                      this.loading = false;
+                  })
             },
             buttonClick (val) {
                 if (val === 'back') {

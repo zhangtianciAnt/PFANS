@@ -429,6 +429,7 @@
       if (this.companyform.project_id) {
         this.companyform.work_phase = '';
       }
+
       if (this.$route.params._id) {
         this.companyform.logmanagement_id = this.$route.params._id;
         this.loading = true;
@@ -630,112 +631,112 @@
     },
     methods: {
       getCompanyProjectList() {
-          //upd_fjl_0805  查看时显示项目name  start
-          if (this.disable) {
-              this.loading = true;
+        //upd_fjl_0805  查看时显示项目name  start
+        if (this.disable) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5009Store/getSiteList5', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdata.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+                this.optionsdategroup.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].group_id,
+                });
+              }
+
               this.$store
-                  .dispatch('PFANS5009Store/getSiteList5', {})
-                  .then(response => {
-                      for (let i = 0; i < response.length; i++) {
-                          this.optionsdata.push({
-                              value: response[i].companyprojects_id,
-                              lable: response[i].numbers + '_' + response[i].project_name,
-                          });
-                          this.optionsdategroup.push({
-                              value: response[i].companyprojects_id,
-                              lable: response[i].group_id,
-                          });
-                      }
-
-                      this.$store
-                          .dispatch('PFANS5013Store/getMyConProject2', {})
-                          .then(response => {
-                              for (let i = 0; i < response.length; i++) {
-                                  this.optionsdata.push({
-                                      value: response[i].comproject_id,
-                                      lable: response[i].numbers + '_' + response[i].project_name,
-                                  });
-                                  this.optionsdategroup.push({
-                                      value: response[i].comproject_id,
-                                      lable: response[i].group_id,
-                                  });
-                              }
-                              this.loading = false;
-                          })
-                          .catch(error => {
-                              Message({
-                                  message: error,
-                                  type: 'error',
-                                  duration: 5 * 1000,
-                              });
-                              this.loading = false;
-                          });
-
-                      this.loading = false;
-                  })
-                  .catch(error => {
-                      Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                  });
-          } else {
-              this.listAll();
-          }
-      },
-        listAll() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS5013Store/Listproject2', {})
+                .dispatch('PFANS5013Store/getMyConProject2', {})
                 .then(response => {
-                    for (let i = 0; i < response.length; i++) {
-                        this.optionsdata.push({
-                            value: response[i].companyprojects_id,
-                            lable: response[i].numbers + '_' + response[i].project_name,
-                        });
-                        this.optionsdategroup.push({
-                            value: response[i].companyprojects_id,
-                            lable: response[i].group_id,
-                        });
-                    }
-                    this.$store
-                        .dispatch('PFANS5013Store/Listproject', {})
-                        .then(response => {
-                            for (let i = 0; i < response.length; i++) {
-                                this.optionsdata.push({
-                                    value: response[i].comproject_id,
-                                    lable: response[i].numbers + '_' + response[i].project_name,
-                                });
-                                this.optionsdategroup.push({
-                                    value: response[i].comproject_id,
-                                    lable: response[i].group_id,
-                                });
-                            }
-                            this.loading = false;
-                        })
-                        .catch(error => {
-                            Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        });
-
-                    this.loading = false;
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdata.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                    this.optionsdategroup.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].group_id,
+                    });
+                  }
+                  this.loading = false;
                 })
                 .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-        },
-        //upd_fjl_0805  查看时显示项目name  end
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.listAll();
+        }
+      },
+      listAll() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5013Store/Listproject2', {})
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              this.optionsdata.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].numbers + '_' + response[i].project_name,
+              });
+              this.optionsdategroup.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].group_id,
+              });
+            }
+            this.$store
+              .dispatch('PFANS5013Store/Listproject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdata.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                  this.optionsdategroup.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].group_id,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //upd_fjl_0805  查看时显示项目name  end
       checklistgettable() {
         this.$store
           .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
@@ -754,7 +755,6 @@
       checkgetAttendancelist() {
         let parameter = {
           user_id: this.User_id,
-          years: moment(new Date()).format('YYYY'),
         };
         this.loading = true;
         this.$store
@@ -810,8 +810,7 @@
             }
             this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
             //add ccm 小于0时等于0 from
-            if(this.checkdata < 0)
-            {
+            if (this.checkdata < 0) {
               this.checkdata = '0.00';
             }
             //add ccm 小于0时等于0 to
@@ -1211,8 +1210,7 @@
               this.loading = true;
               let error = 0;
               let check = 0;
-              if (Number(this.companyform.time_start)<=0)
-              {
+              if (Number(this.companyform.time_start) <= 0) {
                 check = check + 1;
                 Message({
                   message: this.$t('label.PFANS5008VIEW_CHECKDATA0'),
@@ -1239,8 +1237,7 @@
                     this.loading = false;
                   }
                 }
-              }
-              else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
+              } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
                 if (checkdate < moment(new Date()).format('DD')) {
                   check = check + 1;
                   Message({
@@ -1324,6 +1321,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_02'),
@@ -1385,7 +1383,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1407,6 +1405,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_01'),
@@ -1469,7 +1468,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1542,6 +1541,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/updateNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_02'),
@@ -1604,7 +1604,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });
@@ -1627,6 +1627,7 @@
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
+                                this.companyform.time_start = '';
                                 this.data = response;
                                 Message({
                                   message: this.$t('normal.success_01'),
@@ -1689,7 +1690,7 @@
                                       }
 
                                     }
-                                    this.checkgetAttendancelist();
+                                    this.getAttendancelist();
                                     this.DataList = datalist;
                                     this.loading = false;
                                   });

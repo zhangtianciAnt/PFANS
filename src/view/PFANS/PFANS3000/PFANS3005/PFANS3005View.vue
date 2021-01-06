@@ -593,24 +593,27 @@
                         return;
                     }//add-ws-8/19-禅道470任务
                     else {
+                      if(val === 'actuarial')
+                      {
                         let selectedlist = this.$refs.roletable.selectedList;
                         let n = 0;
                         let checksum = selectedlist.length;
                         for (let i = 0; i < selectedlist.length; i++) {
-                            if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
-                                n = n + 1;
-                            }
+                          if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '') {
+                            n = n + 1;
+                          }
                         }
                         if (n != checksum) {
-                            if (n != 0) {
-                                Message({
-                                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                                    type: 'info',
-                                    duration: 2 * 1000,
-                                });
-                                return;
-                            }
+                          if (n != 0) {
+                            Message({
+                              message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                              type: 'info',
+                              duration: 2 * 1000,
+                            });
+                            return;
+                          }
                         }
+                      }
                     }
                     //add-ws-8/19-禅道470任务
                     this.selectedlist = [];
@@ -620,6 +623,7 @@
                     let _judgement_name = '';
                     let _judgements_moneys = '';
                     let _remarks = '';
+                    let enableduplicateloan = [];
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         let user = getUserInfo(this.selectedlist[i].user_id);
                         if (user) {
@@ -640,6 +644,7 @@
                         _judgement_name += this.selectedlist[i].purnumbers + ',';
                         _judgements_moneys += this.selectedlist[i].totalamount + ',';
                         _remarks += this.selectedlist[i].purchasepurpose + '^';
+                        enableduplicateloan= this.selectedlist[i].enableduplicateloan;
                     }
 
                     if (val === 'actuarial') {
@@ -751,13 +756,14 @@
                         //   return
                         // }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
-                    } else {
+                    }
+                    else {
                       //暂借款剩余可借金额
                       let selectedlistAnt = this.$refs.roletable.selectedList;
                       let warnlist = '';
                       let _surloappmoney = 0;
-                      for(let o = 0 ; o < selectedlistAnt.length; o ++) {
-                        if(selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
+                      for (let o = 0; o < selectedlistAnt.length; o++) {
+                        if (selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
                           if (selectedlistAnt[o].surloappmoney <= 0) {
                             if (warnlist == '') {
                               warnlist = selectedlistAnt[o].purnumbers;
@@ -769,51 +775,52 @@
                           }
                         }
                       }
-                      if(warnlist != ''){
+                      if (warnlist != '') {
                         Message({
-                          message: warnlist + this.$t('normal.info_16'),
+                          message: warnlist + this.$t('normal.info_19'),
                           type: 'info',
                           duration: 2 * 1000,
                         });
                         return;
-                      }else{
-
-                      }
+                      } else {
                         //暂借款申请
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //check是否存在暂借款
                         let str = '';
                         for (let i = 0; i < this.selectedlist.length; i++) {
-                          if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                          if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined && this.selectedlist[i].enableduplicateloan === 'PJ055002') {
                             str += this.selectedlist[i].purnumbers + ' , ';
                           }
                         }
                         if (str === '') {
-                        //del ccm 0813 决裁到暂借款，精算  check去掉
-                        this.$router.push({
+                          //del ccm 0813 决裁到暂借款，精算  check去掉
+                          this.$router.push({
                             name: 'PFANS1006FormView',
                             params: {
-                                _id: '',
-                                _judgement: _judgement,
-                                _judgement_name: _judgement_name,
-                                _judgements_moneys: _judgements_moneys,
-                                _surloappmoney: _surloappmoney,
-                                _remarks: _remarks,
-                                _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
-                                disabled: true,
+                              _id: '',
+                              _judgement: _judgement,
+                              _judgement_name: _judgement_name,
+                              _judgements_moneys: _judgements_moneys,
+                              _surloappmoney: _surloappmoney,
+                              _remarks: _remarks,
+                              _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+                              disabled: true,
                             },
-                        });
-                        //del ccm 0813 决裁到暂借款，精算  check去掉
-                        } else {
-                          Message({
-                            message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                            type: 'info',
-                            duration: 3 * 1000,
                           });
+                          //del ccm 0813 决裁到暂借款，精算  check去掉
+                        }
+                         else{
+                              Message({
+                                message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + str + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                                type: 'info',
+                                duration: 3 * 1000,
+                              });
                           return
                         }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
+                      }
                     }
+
                 }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
                 if (val === 'conapp') {
