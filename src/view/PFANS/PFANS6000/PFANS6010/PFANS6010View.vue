@@ -109,7 +109,9 @@
                 if(Number(moment(this.months).format('M')) < 4){
                     letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
                 }
-                let dates = letdates[0] + "-" + letdates[1];
+                //let dates = letdates[0] + "-" + letdates[1];
+                let now = new Date(this.months);
+                let dates = moment(now.setMonth(now.getMonth() - 1)).format("YYYY-MM");
                 this.letparams = {
                     dates: dates,
                     role: letRole2,
