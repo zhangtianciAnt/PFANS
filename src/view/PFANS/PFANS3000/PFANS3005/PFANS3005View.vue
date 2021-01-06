@@ -761,6 +761,7 @@
                       //暂借款剩余可借金额
                       let selectedlistAnt = this.$refs.roletable.selectedList;
                       let warnlist = '';
+                      let enableuplicate='';
                       let _surloappmoney = 0;
                       for (let o = 0; o < selectedlistAnt.length; o++) {
                         if (selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
@@ -774,8 +775,9 @@
                             _surloappmoney = this.accAdd(_surloappmoney, parseFloat(selectedlistAnt[o].surloappmoney));
                           }
                         }
+                        enableuplicate = enableuplicate+selectedlistAnt[o].enableduplicateloan + ',';
                       }
-                      if (warnlist != '') {
+                      if (warnlist != '' && enableuplicate.includes("PJ055002")) {
                         Message({
                           message: warnlist + this.$t('normal.info_19'),
                           type: 'info',
@@ -792,6 +794,7 @@
                             str += this.selectedlist[i].purnumbers + ' , ';
                           }
                         }
+
                         if (str === '') {
                           //del ccm 0813 决裁到暂借款，精算  check去掉
                           this.$router.push({
