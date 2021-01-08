@@ -17,7 +17,9 @@
             :placeholder="$t('normal.error_09')">
           </el-date-picker>
         </div>
+
         <el-tabs v-model="activeName" type="border-card">
+          <!--现时点人员-->
           <el-tab-pane
             :label="$t('label.PFANS1038VIEW_REALISTIC')"
             name="first"
@@ -26,7 +28,7 @@
             <el-table
               :data="tableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'621px':'801px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'900px':'1240px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -94,7 +96,7 @@
               </el-table-column>
               <el-table-column
                 prop="unitprice"
-                :label="$t('label.PFANS3005VIEW_UNITPRICE')"
+                :label="$t('label.PFANS1038VIEW_UNITPRICE')"
                 width="180"
                 v-if="show3"
                 align="center">
@@ -111,11 +113,12 @@
             </el-table>
           </el-tab-pane>
 
+          <!--新入职人员-->
           <el-tab-pane :label="$t('label.PFANS1038VIEW_NEWHIRES')" name="second">
             <el-table
               :data="newTableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'51vw':'69vw'),marginLeft:(this.$route.params.type === 0?'5%':'0%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'80vw':'75vw'),marginLeft:(this.$route.params.type === 0?'1%':'0%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
