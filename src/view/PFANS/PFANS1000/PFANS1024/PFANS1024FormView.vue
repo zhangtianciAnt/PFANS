@@ -325,9 +325,10 @@
                 </el-form-item>
               </template>
             </el-table-column>
+            <!--            upd-ws-01/16-禅道任务710-->
             <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
               <template slot-scope="scope">
-                <el-form-item prop="theme">
+                <el-form-item prop="theme" :prop="'tabledata.' + scope.$index + '.theme'" :rules='rules.theme'>
                   <div class="">
                     <el-input class="content bg"
                               :disabled="true"
@@ -339,31 +340,46 @@
                 </el-form-item>
                 <el-dialog :visible.sync="dialogVisibleB"
                            top="8vh"
-                           width="30%"
+                           size="40%"
                            append-to-body>
                   <div>
                     <el-select @change="changed" v-model="region">
                       <el-option :label="$t(titleB)" value="1"></el-option>
                       <el-option :label="$t(titleC)" value="2"></el-option>
                     </el-select>
-                    <el-table :data="tableB" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
-                              width="100%" v-loading='loading' v-show="showTable1">
-                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
-                                       width="180"></el-table-column>
-                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
-                                       width="180"></el-table-column>
+                    <el-table
+                      :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))"
+                      height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                      @row-click="handleClickChange"
+                      v-loading='loading'>
+                      <el-table-column property="themename"
+                                       :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
+                                       width="120" show-overflow-tooltip></el-table-column>
+                      <el-table-column property="divide"
+                                       :label="$t('label.PFANS1039FORMVIEW_TEAM')"
+                                       width="120" show-overflow-tooltip></el-table-column>
+                      <el-table-column property="contract"
+                                       :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"
+                                       width="120" show-overflow-tooltip></el-table-column>
+                      <el-table-column property="currency"
+                                       :label="$t('label.PFANS8011VIEW_CURRENCY')"
+                                       width="120" show-overflow-tooltip></el-table-column>
+                      <el-table-column
+                        align="right" width="230">
+                        <template slot="header" slot-scope="scope">
+                          <el-input
+                            v-model="search1"
+                            size="mini"
+                            :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME3')"/>
+                        </template>
+                      </el-table-column>
                     </el-table>
-                    <el-table :data="tableC" :row-key="rowid" @row-click="rowClickB" max-height="400" ref="roletableA"
-                              width="100%" v-loading='loading' v-show="!showTable1">
-                      <el-table-column property="theme" :label="$t('label.PFANS1039FORMVIEW_THEME')"
-                                       width="180"></el-table-column>
-                      <el-table-column property="months" :label="$t('label.PFANS1024VIEW_TIME')"
-                                       width="180"></el-table-column>
-                    </el-table>
+
                   </div>
                 </el-dialog>
               </template>
             </el-table-column>
+            <!--            upd-ws-01/16-禅道任务710-->
             <el-table-column :label="$t('label.PFANS1024VIEW_EXTENSIONDATE')" align="center" prop="extensiondate"
                              width="200">
               <template slot-scope="scope">
@@ -905,6 +921,15 @@
           callback();
         }
       };
+      //add-ws-01/06-禅道任务710
+      var validateTheme = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error(this.$t('label.PFANS1026FORMVIEW_THEME')));
+        } else {
+          callback();
+        }
+      };
+//add-ws-01/06-禅道任务710
       var validateSupportdate = (rule, value, callback) => {
         if (!value) {
           callback(new Error(this.$t('label.PFANS1026FORMVIEW_ZFR')));
@@ -937,6 +962,9 @@
         }
       };
       return {
+        //add-ws-01/06-禅道任务710
+        search1: '',
+        //add-ws-01/06-禅道任务710
         //add-ws-6/22-禅道152任务
         checknumber: false,
         show10: true,
@@ -996,7 +1024,7 @@
         disabled3: false,
         disabled4: false,
         ruleSet: {
-          'save': ['contractnumber'],
+          'save': ['contractnumber', 'theme'],
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -1050,6 +1078,11 @@
           ],
         },
         rules: {
+          //add-ws-01/06-禅道任务710
+          theme: [
+            {validator: validateTheme},
+          ],
+          //add-ws-01/06-禅道任务710
           group_id: [
             {
               required: true,
@@ -1403,8 +1436,9 @@
       //get customer
       this.getsupplierinfor();
       //テーマ
-      this.getdata('2');
-      this.getdata('4');
+      //upd-ws-01/06-禅道任务710
+      this.getdata('0');
+      //upd-ws-01/06-禅道任务710
       //get project
       this.getProjectList();
       //get contractapplication type=1
@@ -1609,13 +1643,6 @@
       //   row.conjapanese = nameJA.substring(0, nameJA.length - 1);
       // },
       // DEL_FJL  enf
-      changed() {
-        if (this.region === '2') {
-          this.showTable1 = false;
-        } else if (this.region === '1') {
-          this.showTable1 = true;
-        }
-      },
       handleClickA(row) {
         this.recordData = row;
         this.dialogVisibleA = true;
@@ -1646,10 +1673,7 @@
         this.form.claimtype = this.form1.claimtype;
         this.dialogVisibleE = true;
       },
-      handleClickB(row) {
-        this.recordDataB = row;
-        this.dialogVisibleB = true;
-      },
+
       rowClickE(row) {
         this.form1.custojapanese = row.supjapanese;
 
@@ -1675,43 +1699,58 @@
         this.formcustomer.responemail = row.protemail;
         this.dialogVisibleE = false;
       },
-      rowClickB(row) {
-        this.recordDataB.theme = row.theme;
-        this.recordDataB.temaid = row.contractthemeid;
+      //upd-ws-01/06-禅道任务710
+      handleClickB(row) {
+        this.recordDataB = row;
+        this.dialogVisibleB = true;
+      },
+      handleClickChange(row) {
+        this.recordDataB.theme = row.themename;
+        this.recordDataB.temaid = row.themeplandetail_id;
         this.dialogVisibleB = false;
       },
+      changed() {
+        if (this.region === '2') {
+          this.getdata('1');
+        } else if (this.region === '1') {
+          this.getdata('0');
+        }
+      },
       getdata(type) {
-        let datainfo = {};
-        var myDate = new Date();
-        var tYear = myDate.getFullYear();
-        datainfo = {'type': type, 'years': tYear, 'status': '4'};
-
+        this.tableB = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS1040Store/get', datainfo)
+          .dispatch('PFANS1043Store/themenametype', {'type': type})
           .then(response => {
-            if (response.length > 0) {
-              if (type === '2') {
-                this.tableBc = [];
-                let months = response[0].months;
-                for (let j = 0; j < response.length; j++) {
-                  if (months === response[j].months) {
-                    this.tableBc.push(response[j]);
-                  }
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].branch != '' && response[j].branch != null) {
+                let letErrortype = getDictionaryInfo(response[j].branch);
+                if (letErrortype != null) {
+                  response[j].branch = letErrortype.value1;
                 }
-                this.tableB = this.tableBc;
-              } else {
-                this.tableBc = [];
-                let months = response[0].months;
-                for (let j = 0; j < response.length; j++) {
-                  if (months === response[j].months) {
-                    this.tableBc.push(response[j]);
-                  }
-                }
-                this.tableC = this.tableBc;
               }
+              if (response[j].contracttype != '' && response[j].contracttype != null) {
+                let letErrortype = getDictionaryInfo(response[j].contracttype);
+                if (letErrortype != null) {
+                  response[j].contracttype = letErrortype.value1;
+                }
+              }
+              if (response[j].contracttype != '' && response[j].contracttype != null) {
+                let letErrortype = getDictionaryInfo(response[j].contracttype);
+                if (letErrortype != null) {
+                  response[j].contracttype = letErrortype.value1;
+                }
+              }
+              this.tableB.push(
+                {
+                  themeplandetail_id: response[j].themeplandetail_id,
+                  themename: response[j].themename,
+                  divide: response[j].branch,
+                  contract: response[j].contracttype,
+                  currency: response[j].contracttype,
+                },
+              );
             }
-            this.dialogVisibleB = false;
             this.loading = false;
           })
           .catch(error => {
@@ -1723,6 +1762,7 @@
             this.loading = false;
           });
       },
+      //upd-ws-01/06-禅道任务710
       //获取供应商列表
       getsupplierinfor() {
         this.loading = true;
