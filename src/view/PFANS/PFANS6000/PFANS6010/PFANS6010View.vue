@@ -121,17 +121,19 @@
                 this.$store
                     .dispatch('PFANS6008Store/getcostMonthList', this.letparams)
                     .then(response => {
-
                        response = response.sort((a,b)=>a.status-b.status).reverse();
-                        let dates = moment(this.months).format('M');
-                        if(Number(dates) >= Number(moment(new Date()).format("M"))){
-                            var tempDate = new Date();
-                            var list = moment(new Date()).format("YYYY-MM").split('-');
-                            tempDate.setFullYear(list[0]);
-                            tempDate.setMonth(Number(list[1]) - 2);
-                            tempDate.setDate(1);
-                            dates = moment(tempDate).format('M');
-                        }
+                        // let dates = moment(this.months).format('M');
+                      let now1 = new Date(this.months);
+                      let dates = moment(now1.setMonth(now1.getMonth() - 1)).format("M");
+                        // if(Number(dates) >= Number(moment(new Date()).format("M"))){
+                        //     var tempDate = new Date();
+                        //     var list = moment(new Date()).format("YYYY-MM").split('-');
+                        //     tempDate.setFullYear(list[0]);
+                        //     tempDate.setMonth(Number(list[1]) - 2);
+                        //     tempDate.setDate(1);
+                        //     dates = moment(tempDate).format('M');
+                        // }
+
                         for (let j = 0; j < response.length; j++) {
                             if(response[j].groupid){
                                 let group = getorgGroupallList(response[j].groupid);
