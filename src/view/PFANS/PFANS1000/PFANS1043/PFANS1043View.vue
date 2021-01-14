@@ -135,6 +135,15 @@
                   });
                   this.loading = false;
                 });
+              } else {
+                this.$router.push({
+                  name: 'PFANS1043FormView',
+                  params: {
+                    _id: this.row,
+                    disabled: false,
+                  },
+                });
+                this.loading = false;
               }
               this.loading = false;
             })

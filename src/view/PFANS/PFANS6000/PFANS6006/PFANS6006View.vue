@@ -471,7 +471,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getCurrentRole,getDownOrgInfo,getDictionaryInfo} from '../../../../utils/customize';
+  import {getCurrentRole,getDownOrgInfo,getDictionaryInfo,getCooperinterviewListByAccount,getOrgInfo} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -496,6 +496,7 @@
           delegainformation_id: '',
           companyprojects_id:'',
           projectsystem_id:'',
+          supplierinfor_id:'',
           project_name: '',
           group_id: '',
           account: '',
@@ -580,11 +581,15 @@
                   }
               }
               response[j].monthlength = h;
+              let exp = getCooperinterviewListByAccount(response[j].account);
+              if (exp)
+              {
+                response[j].exittime = exp.exitime;
+              }
               tabledate.push({
                   delegainformation_id: response[j].delegainformation_id,
                   companyprojects_id: response[j].companyprojects_id,
                   projectsystem_id: response[j].projectsystem_id,
-                  year: response[j].year,
                   supplierinfor_id: response[j].supplierinfor_id,
                   project_name: response[j].project_name,
                   group_id: response[j].group_id,
@@ -645,6 +650,26 @@
                     lable: this.$store.getters.userinfo.userinfo.groupname,
                   },
                 );
+                //add ccm 0112 兼职部门
+                if (this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                  for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                  {
+                    if (others.groupid)
+                    {
+                      let groupname = getOrgInfo(others.groupid);
+                      if (groupname) {
+                        vote.push(
+                          {
+                            value: others.groupid,
+                            lable: groupname.companyname,
+                          },
+                        );
+                      }
+                    }
+                  }
+                }
+                //add ccm 0112 兼职部门
                 this.group_id = this.$store.getters.userinfo.userinfo.groupid;
               } else if (role === '2') {
                 let centerId = this.$store.getters.userinfo.userinfo.centerid;
@@ -654,7 +679,6 @@
                     this.group_id = orgs[0]._id;
                   }
                   for (let org of orgs) {
-                    console.log(org)
                     vote.push(
                       {
                         value: org._id,
@@ -663,7 +687,41 @@
                     );
                   }
                 }
-
+                //add ccm 0112 兼职部门
+                if (this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                  for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                  {
+                    if (others.groupid)
+                    {
+                      let groupname = getOrgInfo(others.groupid);
+                      if (groupname) {
+                        vote.push(
+                          {
+                            value: others.groupid,
+                            lable: groupname.companyname,
+                          },
+                        );
+                      }
+                    }
+                    else if (others.centerid)
+                    {
+                      let centerId = others.centerid;
+                      let orgs = getDownOrgInfo(centerId);
+                      if (orgs){
+                        for (let org of orgs) {
+                          vote.push(
+                            {
+                              value: org._id,
+                              lable: org.companyname,
+                            },
+                          );
+                        }
+                      }
+                    }
+                  }
+                }
+                //add ccm 0112 兼职部门
               } else if (role === '1') {
                 let centerId = this.$store.getters.userinfo.userinfo.centerid;
                 let orgs = getDownOrgInfo(centerId);
@@ -852,7 +910,17 @@
           };
         }
       },
-
+      //add-退场人员信息背景色
+      rowClassName({row, rowIndex}) {
+        if (row.exittime !==null && row.exittime !=='' && row.exittime !==undefined)
+        {
+          if (moment(new Date()).format('YYYY-MM') >= moment(row.exittime).add(2, 'months').format('YYYY-MM'))
+          {
+            return "sub_bg_color_Darkgrey";
+          }
+        }
+      },
+      //add-退场人员信息背景色
     },
     mounted() {
       this.getById();
