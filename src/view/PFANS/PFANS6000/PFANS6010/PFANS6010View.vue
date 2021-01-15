@@ -132,25 +132,25 @@
           this.months.split('-')[0],
           this.months.split('-')[1],
         ];
-        //大于系统时间时取系统时间的前月
-        if (Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format('YYYYMM'))) {
-          letdates[1] = Number(moment(new Date()).format('M')) - 1;
-          if (letdates[1].toString().length === 1) {
-            letdates[1] = '0' + letdates[1];
-          }
-        }
-        //选择1,2,3月时按事业年度算应该年-1
-        if (Number(moment(this.months).format('M')) < 4) {
-          letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
-        }
-        //let dates = letdates[0] + "-" + letdates[1];
+        // //大于系统时间时取系统时间的前月
+        // if(Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format("YYYYMM"))){
+        //     letdates[1] = Number(moment(new Date()).format("M")) - 1;
+        //     if(letdates[1].toString().length === 1){
+        //         letdates[1] = "0" + letdates[1];
+        //     }
+        // }
+        // //选择1,2,3月时按事业年度算应该年-1
+        // if(Number(moment(this.months).format('M')) < 4){
+        //     letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
+        // }
+        // let dates = letdates[0] + "-" + letdates[1];
         let now = new Date(this.months);
-        let dates = moment(now.setMonth(now.getMonth() - 1)).format('YYYY-MM');
+        let dates = moment(now.setMonth(now.getMonth() - 1)).format("YYYY-MM");
         this.letparams = {
           dates: dates,
           role: letRole2,
-          groupid: groupid,
-        };
+          groupid: groupid
+        }
         this.loading = true;
         this.$store
           .dispatch('PFANS6008Store/getcostMonthList', this.letparams)
