@@ -72,6 +72,13 @@
                 fix: false,
                 filter: false
               },
+              {
+                code: 'projecttype',
+                label: 'label.PFANS5001FORMVIEW_PROJECTTYPE',
+                width: 120,
+                fix: false,
+                filter: true
+              },
               /*项目负责人*/
               {
                 code: 'leaderid',
@@ -144,6 +151,14 @@
                         response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
                     }
 
+                    //项目类型
+                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                      let letStage = getDictionaryInfo(response[j].projecttype);
+                      if (letStage != null) {
+                        response[j].projecttype = letStage.value1;
+                      }
+                    }
+
                     if(response[j].nowdate !== null && response[j].nowdate !== ""){
                         response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
                     }
@@ -201,6 +216,14 @@
 
                     if(response[j].startdate !== null && response[j].startdate !== ""){
                         response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                    }
+
+                      //项目类型
+                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                      let letStage = getDictionaryInfo(response[j].projecttype);
+                      if (letStage != null) {
+                        response[j].projecttype = letStage.value1;
+                      }
                     }
 
                     if(response[j].nowdate !== null && response[j].nowdate !== ""){
