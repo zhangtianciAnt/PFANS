@@ -265,7 +265,7 @@
                   :on-remove="fileRemove"
                   :on-success="fileSuccess"
                   :on-change="filechange"
-                  class="upload-demo"ec
+                  class="upload-demo"
                   drag
                   ref="upload">
                   <i class="el-icon-upload"></i>
