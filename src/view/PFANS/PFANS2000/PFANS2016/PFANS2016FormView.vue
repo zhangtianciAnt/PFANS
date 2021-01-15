@@ -254,9 +254,8 @@
             </el-col>
           </el-row>
           <el-row>
-            <!--            prop="enclosurecontent"-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.enclosure')">
+              <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
                   :action="upload"
                   :disabled="disableupload"
@@ -266,7 +265,7 @@
                   :on-remove="fileRemove"
                   :on-success="fileSuccess"
                   :on-change="filechange"
-                  class="upload-demo"
+                  class="upload-demo"ec
                   drag
                   ref="upload">
                   <i class="el-icon-upload"></i>
