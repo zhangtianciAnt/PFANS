@@ -267,8 +267,12 @@
         this.groupid = row.groupid;
         //upd-ws-01/13-修改审批驳回问题
         let checkgroupid = '';
+        let checkgroupid2 = '';
         if (this.$store.getters.userinfo.userinfo.otherorgs) {
-          checkgroupid = this.$store.getters.userinfo.userinfo.otherorgs[0].groupid + ',' + this.$store.getters.userinfo.userinfo.groupid;
+          for (let i = 0; i < this.$store.getters.userinfo.userinfo.otherorgs.length; i++) {
+            checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',';
+          }
+          checkgroupid = checkgroupid2 + ',' + this.$store.getters.userinfo.userinfo.groupid;
         } else {
           checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
         }
