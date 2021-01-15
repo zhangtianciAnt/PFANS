@@ -21,6 +21,7 @@
     getorgGroupList,
     getorgGroupallList,
     getCurrentRole8,
+    getDownOrgInfo
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -96,8 +97,44 @@
         let letRole2 = this.getCurrentRole2();
         if (letRole2 !== '4') {
           letRole2 = this.getCurrentRole3();
-          if (letRole2 === '2') {
+          // if (letRole2 === '2') {
+          //   groupid = this.$store.getters.userinfo.userinfo.centerid;
+          // }
+          if (letRole2 === '2')
+          {
+            //CENTER长
             groupid = this.$store.getters.userinfo.userinfo.centerid;
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid)
+              {
+                groupid = groupid + ',' + others.centerid;
+              }
+            }
+          }
+          else if (letRole2 === '1')
+          {
+            //GROUP
+            groupid = this.$store.getters.userinfo.userinfo.groupid;
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid)
+              {
+                let centerId = others.centerid;
+                let orgs = getDownOrgInfo(centerId);
+                if (orgs){
+                  for (let org of orgs) {
+                    if (others.groupid)
+                    {
+                      if (org._id === others.groupid)
+                      {
+                        groupid = groupid + ',' + org._id;
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
         let letdates = [
