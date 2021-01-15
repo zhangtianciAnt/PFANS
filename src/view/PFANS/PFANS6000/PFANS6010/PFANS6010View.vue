@@ -21,7 +21,7 @@
     getorgGroupList,
     getorgGroupallList,
     getCurrentRole8,
-    getDownOrgInfo
+    getDownOrgInfo,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -100,34 +100,25 @@
           // if (letRole2 === '2') {
           //   groupid = this.$store.getters.userinfo.userinfo.centerid;
           // }
-          if (letRole2 === '2')
-          {
+          if (letRole2 === '2') {
             //CENTER长
             groupid = this.$store.getters.userinfo.userinfo.centerid;
-            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-            {
-              if (others.centerid)
-              {
+            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+              if (others.centerid) {
                 groupid = groupid + ',' + others.centerid;
               }
             }
-          }
-          else if (letRole2 === '1')
-          {
+          } else if (letRole2 === '1') {
             //GROUP
             groupid = this.$store.getters.userinfo.userinfo.groupid;
-            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-            {
-              if (others.centerid)
-              {
+            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+              if (others.centerid) {
                 let centerId = others.centerid;
                 let orgs = getDownOrgInfo(centerId);
-                if (orgs){
+                if (orgs) {
                   for (let org of orgs) {
-                    if (others.groupid)
-                    {
-                      if (org._id === others.groupid)
-                      {
+                    if (others.groupid) {
+                      if (org._id === others.groupid) {
                         groupid = groupid + ',' + org._id;
                       }
                     }
@@ -275,11 +266,18 @@
         this.letstatus = row.status;
         this.groupid = row.groupid;
         //upd-ws-01/13-修改审批驳回问题
-        if (this.$store.getters.userinfo.userinfo.groupid === this.groupid
+        let checkgroupid = '';
+        if (this.$store.getters.userinfo.userinfo.otherorgs) {
+          checkgroupid = this.$store.getters.userinfo.userinfo.otherorgs[0].groupid + ',' + this.$store.getters.userinfo.userinfo.groupid;
+        } else {
+          checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+        }
+
+        if (checkgroupid.indexOf(this.groupid) !== -1
           && (row.status === '0' || row.status === '3' || row.status === '4')) {
           this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
         } else {
-          if (this.$store.getters.userinfo.userinfo.groupid === null
+          if (checkgroupid === null
             && (row.status === '0' || row.status === '3' || row.status === '4')) {
             this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
           } else {
