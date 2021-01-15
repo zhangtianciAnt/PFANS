@@ -254,8 +254,9 @@
             </el-col>
           </el-row>
           <el-row>
+            <!--            prop="enclosurecontent"-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
+              <el-form-item :label="$t('label.enclosure')">
                 <el-upload
                   :action="upload"
                   :disabled="disableupload"
@@ -294,7 +295,7 @@
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect.vue';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getCurrentRole,getUserInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId, getCurrentRole, getUserInfo} from '@/utils/customize';
   import moment from 'moment';
   import {downLoadUrl, getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
 
@@ -439,8 +440,7 @@
                     valflg = 0.5;
                   }
                   //upd ccm 0928 客户提出的bug代休填写实际被check，
-                  if (this.form.status==='4' || this.form.status==='6')
-                  {
+                  if (this.form.status === '4' || this.form.status === '6') {
                     if (Number(valflg) > Number(response.checkdat) + Number(this.form.lengthtime)) {
                       callback(this.$t('normal.error_norestdays'));
                     } else {
@@ -580,30 +580,22 @@
       };
       //add ccm 0720
       var checkenclosurecontent = (rule, value, callback) => {
-        if (this.form.errortype !=null && this.form.errortype !='')
-        {
-          if(this.form.errortype == 'PR013009' || this.form.errortype == 'PR013010' || this.form.errortype == 'PR013011'
+        if (this.form.errortype != null && this.form.errortype != '') {
+          if (this.form.errortype == 'PR013009' || this.form.errortype == 'PR013010' || this.form.errortype == 'PR013011'
             || this.form.errortype == 'PR013012' || this.form.errortype == 'PR013013' || this.form.errortype == 'PR013015'
             || this.form.errortype == 'PR013016' || this.form.errortype == 'PR013017' || this.form.errortype == 'PR013020'
-            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022')
-          {
-            if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined)
-            {
+            || this.form.errortype == 'PR013021' || this.form.errortype == 'PR013022') {
+            if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined) {
               return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
-            }
-            else
-            {
+            } else {
               callback();
               this.clearValidate(['enclosurecontent']);
             }
-          }
-          else
-          {
+          } else {
             callback();
             this.clearValidate(['enclosurecontent']);
           }
-        }
-        else {
+        } else {
           callback();
           this.clearValidate(['enclosurecontent']);
         }
@@ -611,9 +603,9 @@
       //add ccm 0720
       return {
         //add ccm 0806 剩余年休
-        remaningAnnual:[],
+        remaningAnnual: [],
         //add ccm 0806 剩余年休
-        appUserid:'',
+        appUserid: '',
         defaultStart: false,
         checkerrortishi: false,
         dislengthtime: false,
@@ -807,7 +799,7 @@
         checkTimeLenght: '',
         // enterday: '',
         marryday: '',
-        enclosurecontent:'',
+        enclosurecontent: '',
       };
     },
     mounted() {
@@ -816,8 +808,7 @@
       // this.getAttendance();
       this.getDay();
       //add ccm 0804
-      if (this.$route.params._lengthtime && this.$route.params._day)
-      {
+      if (this.$route.params._lengthtime && this.$route.params._day) {
         this.form.lengthtime = this.$route.params._lengthtime;
         this.form.occurrencedate = this.$route.params._day;
         this.form.finisheddate = this.$route.params._day;
@@ -828,7 +819,7 @@
       }
       //add ccm 0804
       if (this.$route.params._id) {
-          // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016View');
+        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016View');
         this.loading = true;
         this.$store
           .dispatch('PFANS2016Store/getPfans2016One', {'abnormalid': this.$route.params._id})
@@ -908,25 +899,19 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022')
-                {
+                  || this.form.errortype === 'PR013022') {
                   this.workflowCode = 'W0087';
-                }
-                else
-                {
+                } else {
                   this.workflowCode = 'W0070';
                 }
-              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
-                     || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
-                     || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
-                     || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
-                     || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                     || this.form.errortype === 'PR013022')
-              {
+              } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+                || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
+                || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
+                || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
+                || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
+                || this.form.errortype === 'PR013022') {
                 this.workflowCode = 'W0085';
-              }
-              else
-              {
+              } else {
                 this.workflowCode = 'W0003';
               }
 
@@ -942,25 +927,20 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022')
-                {
+                  || this.form.errortype === 'PR013022') {
                   this.workflowCode = 'W0088';
-                }
-                else
-                {
+                } else {
                   this.workflowCode = 'W0071';
                 }
 
-              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+              } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
                 || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022')
-              {
+                || this.form.errortype === 'PR013022') {
                 this.workflowCode = 'W0086';
-              }
-              else {
+              } else {
                 this.workflowCode = 'W0059';
               }
               this.canStart = true;
@@ -989,25 +969,20 @@
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                   || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                   || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                  || this.form.errortype === 'PR013022')
-                {
+                  || this.form.errortype === 'PR013022') {
                   this.workflowCode = 'W0088';
-                }
-                else
-                {
+                } else {
                   this.workflowCode = 'W0071';
                 }
 
-              } else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+              } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
                 || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
                 || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
                 || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
                 || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-                || this.form.errortype === 'PR013022')
-              {
+                || this.form.errortype === 'PR013022') {
                 this.workflowCode = 'W0086';
-              }
-              else {
+              } else {
                 this.workflowCode = 'W0059';
               }
               this.canStart = false;
@@ -1032,8 +1007,7 @@
             this.loading = false;
           });
 
-      }
-      else {
+      } else {
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2016FormView');
         this.userlist = this.$store.getters.userinfo.userid;
         // this.getRestday(this.userlist);
@@ -1059,31 +1033,25 @@
             || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
             || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
             || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-            || this.form.errortype === 'PR013022')
-          {
+            || this.form.errortype === 'PR013022') {
             this.workflowCode = 'W0087';
-          }
-          else {
+          } else {
             this.workflowCode = 'W0070';
           }
 
-        }
-        else if(this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
+        } else if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
           || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
           || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
           || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013017'
           || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021'
-          || this.form.errortype === 'PR013022')
-        {
+          || this.form.errortype === 'PR013022') {
           this.workflowCode = 'W0085';
-        }
-        else {
+        } else {
           this.workflowCode = 'W0003';
         }
 
         //add ccm 0804
-        if (this.$route.params._lengthtime && this.$route.params._day)
-        {
+        if (this.$route.params._lengthtime && this.$route.params._day) {
           this.form.lengthtime = this.$route.params._lengthtime;
           this.form.occurrencedate = this.$route.params._day;
           this.form.finisheddate = this.$route.params._day;
@@ -1124,8 +1092,7 @@
           .dispatch('PFANS2016Store/getremainingByuserid', {'userid': this.form.user_id})
           .then(response => {
             this.remaningAnnual = [];
-            if (response && response.length>0)
-            {
+            if (response && response.length > 0) {
               this.remaningAnnual = response;
             }
             this.loading = false;
@@ -1702,6 +1669,20 @@
         // if (this.form.errortype != 'PR013001' && this.form.errortype != 'PR013014') {
         // if (this.form.errortype != 'PR013001') {
         // }
+        //add-ws-01/15-禅道任务712
+        //当天时间    （外出，家长会，妊娠检查，劳灾，其他福利）
+        if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
+          || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
+          this.form.refinisheddate = this.form.reoccurrencedate;
+        }
+        //请假单位为8小时    （结婚，产休，男护理，丧假，计划生育，工伤，流产） 包含公休日
+        if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015' ||
+          this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020' || this.form.errortype === 'PR013021') {
+          if (rediffDate > 0) {
+            this.form.relengthtime = 8 * rediffDate;
+          }
+        }
+        //add-ws-01/15-禅道任务712
         if (this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') {
           if (this.retypecheck == '0') {
             let time = 0;
@@ -1740,19 +1721,6 @@
             this.form.relengthtime = this.reList.length * 8;
           }
         }
-        // if (this.form.errortype === 'PR013009') {
-        //   if (rediffDate > 30 - this.sickleave) {
-        //     this.errorcheck = 2;
-        //     Message({
-        //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-        //       type: 'error',
-        //       duration: 5 * 1000,
-        //     });
-        //     return;
-        //   } else {
-        //     this.errorcheck = 1;
-        //   }
-        // }
         if (this.retypecheck == '0') {
           let timere = 0;
           for (let d = 0; d < this.relistTwo.length; d++) {
@@ -1769,12 +1737,9 @@
       },
       getUserids(val) {
         if (val === 'undefined') {
-          if (this.appUserid !='')
-          {
+          if (this.appUserid != '') {
             val = this.appUserid;
-          }
-          else
-          {
+          } else {
             this.userlist = '1';
             return;
           }
@@ -1842,12 +1807,12 @@
             let restdiff2 = 0;
             let restdiff = 0;
             for (let a = 0; a < response.length; a++) {
-              if (response[a].status === '2' ) {
+              if (response[a].status === '2') {
                 if (response[a].errortype === this.form.errortype) {
                   restdiff2 += Number(response[a].lengthtime);
                 }
               }
-              if (response[a].status === '5' ) {
+              if (response[a].status === '5') {
                 if (response[a].errortype === this.form.errortype) {
                   restdiff += Number(response[a].relengthtime);
                 }
@@ -1883,8 +1848,7 @@
           this.rules.enclosurecontent[0].required = false;
           //add ccm 0720
           //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
-          if (this.$route.params._lengthtime && this.$route.params._day)
-          {
+          if (this.$route.params._lengthtime && this.$route.params._day) {
             this.form.lengthtime = this.$route.params._lengthtime;
             this.form.occurrencedate = this.$route.params._day;
             this.form.finisheddate = this.$route.params._day;
@@ -1930,8 +1894,7 @@
           this.rules.enclosurecontent[0].required = false;
           //add ccm 0720
           //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
-          if (this.$route.params._lengthtime && this.$route.params._day)
-          {
+          if (this.$route.params._lengthtime && this.$route.params._day) {
             this.form.lengthtime = this.$route.params._lengthtime;
             this.form.occurrencedate = this.$route.params._day;
             this.form.finisheddate = this.$route.params._day;
@@ -1949,8 +1912,7 @@
           this.rules.enclosurecontent[0].required = true;
           //add ccm 0720
           //add ccm 0812 从考勤管理申请异常，选择休假类型时，休假时间，休假日期
-          if (this.$route.params._lengthtime && this.$route.params._day)
-          {
+          if (this.$route.params._lengthtime && this.$route.params._day) {
             this.form.lengthtime = this.$route.params._lengthtime;
             this.form.occurrencedate = this.$route.params._day;
             this.form.finisheddate = this.$route.params._day;
@@ -2089,7 +2051,7 @@
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070' || val.workflowCode === 'W0085'|| val.workflowCode === 'W0087') {
+          if (val.workflowCode === 'W0003' || val.workflowCode === 'W0070' || val.workflowCode === 'W0085' || val.workflowCode === 'W0087') {
             this.form.status = '4';
           } else if (val.workflowCode === 'W0059' || val.workflowCode === 'W0071' || val.workflowCode === 'W0086' || val.workflowCode === 'W0088') {
             this.form.status = '7';
@@ -2154,19 +2116,19 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
 
       },
       fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
+        if (response.data == 'upload_success') {
           this.fileList = [];
           this.form.uploadfile = '';
           for (var item of fileList) {
@@ -2186,82 +2148,48 @@
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile =''
+          this.form.uploadfile = '';
           this.$refs.upload.clearFiles();
         }
       },
       buttonClick(val) {
-        if (val ==='back')
-        {
-          if (this.$route.params._day)
-          {
-              //add_fjl_0901  添加返回时的流程URL
-              this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2010View');
-              //add_fjl_0901  添加返回时的流程URL
+        if (val === 'back') {
+          if (this.$route.params._day) {
+            //add_fjl_0901  添加返回时的流程URL
+            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2010View');
+            //add_fjl_0901  添加返回时的流程URL
             this.$router.push({
               name: 'PFANS2010FormView',
               params: {
-                _id: this.$route.params._user + ',' +this.$route.params._year +',' + this.$route.params._month,
+                _id: this.$route.params._user + ',' + this.$route.params._year + ',' + this.$route.params._month,
                 disabled: false,
               },
             });
-          }
-          else
-          {
+          } else {
             this.$router.push({
               name: 'PFANS2016View',
               params: {},
             });
           }
-          return
+          return;
         }
         this.$refs['ruleForm'].validate(valid => {
             this.$store.commit('global/SET_HISTORYURL', 'PFANS2016View');
             if (valid) {
 
-                //add_fjl 04/09
-                let time = 0;
-                let timere = 0;
-                let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
-                let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
-                if (parseInt(this.form.status) >= 4) {
-                  this.rediffNoDays();
-                } else {
-                  this.diffNoDays();
-                }
-                if (this.form.errortype === 'PR013007') {
-                  if (this.form.status) {
-                    if (parseInt(this.form.status) < 4) {
-                      if (this.form.restdiff < this.form.lengthtime) {
-                        Message({
-                          message: this.$t('normal.error_norestdays'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      }
-                    } else if (this.form.status ==='5' || this.form.status ==='7') {
-                      if (this.form.restdiff < this.form.relengthtime) {
-                        Message({
-                          message: this.$t('normal.error_norestdays'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      }
-                    } else {
-                      //add ccm 0928 客户提出的bug代休填写实际被check，
-                      if (Number(this.form.restdiff) + Number(this.form.lengthtime) < this.form.relengthtime) {
-                        Message({
-                          message: this.$t('normal.error_norestdays'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      }
-                      //add ccm 0928 客户提出的bug代休填写实际被check，
-                    }
-                  } else {
+              //add_fjl 04/09
+              let time = 0;
+              let timere = 0;
+              let diffDate = moment(this.form.finisheddate).diff(moment(this.form.occurrencedate), 'days') + 1;
+              let rediffDate = moment(this.form.refinisheddate).diff(moment(this.form.reoccurrencedate), 'days') + 1;
+              if (parseInt(this.form.status) >= 4) {
+                this.rediffNoDays();
+              } else {
+                this.diffNoDays();
+              }
+              if (this.form.errortype === 'PR013007') {
+                if (this.form.status) {
+                  if (parseInt(this.form.status) < 4) {
                     if (this.form.restdiff < this.form.lengthtime) {
                       Message({
                         message: this.$t('normal.error_norestdays'),
@@ -2270,367 +2198,339 @@
                       });
                       return;
                     }
-                  }
-                }
-                //产休假，流产假
-                if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
-                  || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
-                  || this.form.errortype === 'PR013021') {
-                  if ((this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021') && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  //男护理假
-                  if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  if (this.form.lengthtime > diffDate * 8) {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                }
-                //外出，家长会，劳灾，其他福利，妊娠检查
-                if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
-                  || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
-                  //家长会一个事业年度只能申请两次
-                  if (this.form.errortype === 'PR013014') {
-                    // if (2 - this.parent < 0) {
-                    //   Message({
-                    //     message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
-                    //     type: 'error',
-                    //     duration: 5 * 1000,
-                    //   });
-                    //   return;
-                    // }
-                    //每次家长会假不能超过四小时
-                    if (this.form.lengthtime > 4 || this.form.relengthtime > 4) {
+                  } else if (this.form.status === '5' || this.form.status === '7') {
+                    if (this.form.restdiff < this.form.relengthtime) {
                       Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
-                  } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                    Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  if (parseInt(this.form.status) >= 4) {
-                    for (let d = 0; d < this.relistTwo.length; d++) {
-                      timere = timere + 1;
-                    }
-                    if (timere === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
-                    if (this.form.relengthtime > 8) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                        message: this.$t('normal.error_norestdays'),
                         type: 'error',
                         duration: 5 * 1000,
                       });
                       return;
                     }
                   } else {
-                    for (let d = 0; d < this.relist.length; d++) {
-                      time = time + 1;
-                    }
-                    if (time === 0) {
+                    //add ccm 0928 客户提出的bug代休填写实际被check，
+                    if (Number(this.form.restdiff) + Number(this.form.lengthtime) < this.form.relengthtime) {
                       Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                        message: this.$t('normal.error_norestdays'),
                         type: 'error',
                         duration: 5 * 1000,
                       });
                       return;
                     }
-                    if (this.form.lengthtime > 8) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
+                    //add ccm 0928 客户提出的bug代休填写实际被check，
                   }
-                }
-                //代休_特殊
-                if (this.form.errortype === 'PR013007') {
-                  if (parseInt(this.form.status) >= 4) {
-                    for (let d = 0; d < this.relistTwo.length; d++) {
-                      timere = timere + 1;
-                    }
-                    if (timere === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      if (this.retypecheck === '0') {
-                        this.form.relengthtime = timere * 8;
-                      } else if (this.retypecheck === '1') {
-                        this.form.relengthtime = 4;
-                      } else if (this.retypecheck === '2') {
-                        this.form.relengthtime = 0;
-                      }
-                    }
-                  } else {
-                    for (let d = 0; d < this.relist.length; d++) {
-                      time = time + 1;
-                    }
-                    if (time === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      if (this.typecheck === '0') {
-                        this.form.lengthtime = time * 8;
-                      } else {
-                        this.form.lengthtime = 4;
-                      }
-                    }
-                  }
-                }
-                //年休
-                if (this.form.errortype === 'PR013005') {
-                  let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
-                  //判断申请人是否在试用期
-                  if (enddateflg >= moment(new Date()).format('YYYY-MM-DD')) {
+                } else {
+                  if (this.form.restdiff < this.form.lengthtime) {
                     Message({
-                      message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVEU'),
+                      message: this.$t('normal.error_norestdays'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
                     return;
                   }
-                  //根据工龄,check申请病假超过2/3/4月，则不能申请年休
-                  var workdayflg = moment(this.$store.getters.userinfo.userinfo.workday);
-                  var year = workdayflg.get('y');
-                  var mon = workdayflg.get('M') + 1;
-                  var day = workdayflg.get('d');
-                  //当前年度
-                  var date = new Date();
-                  var nowyear = date.getFullYear();
+                }
+              }
+              //产休假，流产假
+              if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
+                || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
+                || this.form.errortype === 'PR013021') {
+                if ((this.form.errortype === 'PR013012' || this.form.errortype === 'PR013021') && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                //男护理假
+                if (this.form.errortype === 'PR013013' && this.$store.getters.userinfo.userinfo.sex !== 'PR019001') {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_MENCHECK'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                if (this.form.lengthtime > diffDate * 8) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+              //外出，家长会，劳灾，其他福利，妊娠检查
+              if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013014' || this.form.errortype === 'PR013016'
+                || this.form.errortype === 'PR013018' || this.form.errortype === 'PR013019') {
+                //家长会一个事业年度只能申请两次
+                if (this.form.errortype === 'PR013014') {
+                  // if (2 - this.parent < 0) {
+                  //   Message({
+                  //     message: this.$t('label.PFANS2016FORMVIEW_BJDJZHCHECK'),
+                  //     type: 'error',
+                  //     duration: 5 * 1000,
+                  //   });
+                  //   return;
+                  // }
+                  //每次家长会假不能超过四小时
+                  if (this.form.lengthtime > 4 || this.form.relengthtime > 4) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_BJDJZCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else if (this.form.errortype === 'PR013016' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                if (parseInt(this.form.status) >= 4) {
+                  for (let d = 0; d < this.relistTwo.length; d++) {
+                    timere = timere + 1;
+                  }
+                  if (timere === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                  if (this.form.relengthtime > 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  for (let d = 0; d < this.relist.length; d++) {
+                    time = time + 1;
+                  }
+                  if (time === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                  if (this.form.lengthtime > 8) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                }
+              }
+              //代休_特殊
+              if (this.form.errortype === 'PR013007') {
+                if (parseInt(this.form.status) >= 4) {
+                  for (let d = 0; d < this.relistTwo.length; d++) {
+                    timere = timere + 1;
+                  }
+                  if (timere === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  } else {
+                    if (this.retypecheck === '0') {
+                      this.form.relengthtime = timere * 8;
+                    } else if (this.retypecheck === '1') {
+                      this.form.relengthtime = 4;
+                    } else if (this.retypecheck === '2') {
+                      this.form.relengthtime = 0;
+                    }
+                  }
+                } else {
+                  for (let d = 0; d < this.relist.length; d++) {
+                    time = time + 1;
+                  }
+                  if (time === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  } else {
+                    if (this.typecheck === '0') {
+                      this.form.lengthtime = time * 8;
+                    } else {
+                      this.form.lengthtime = 4;
+                    }
+                  }
+                }
+              }
+              //年休
+              if (this.form.errortype === 'PR013005') {
+                let enddateflg = moment(this.$store.getters.userinfo.userinfo.enddate).format('YYYY-MM-DD');
+                //判断申请人是否在试用期
+                if (enddateflg >= moment(new Date()).format('YYYY-MM-DD')) {
+                  Message({
+                    message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVEU'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                //根据工龄,check申请病假超过2/3/4月，则不能申请年休
+                var workdayflg = moment(this.$store.getters.userinfo.userinfo.workday);
+                var year = workdayflg.get('y');
+                var mon = workdayflg.get('M') + 1;
+                var day = workdayflg.get('d');
+                //当前年度
+                var date = new Date();
+                var nowyear = date.getFullYear();
 
-                  var a = moment([year, mon, day]);
-                  var b = moment([nowyear, 4, 1]);
-                  var diffY = b.diff(a, 'years', true); // 取两位小数
-                  if (1 <= diffY < 10) {             //十年工龄，病假超过两个月check
-                    if (this.sickleave > 60) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
-                  } else if (10 <= diffY < 20) {        //十年到二十年工龄，病假超过三个月check
-                    if (this.sickleave > 90) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG2'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
-                  } else if (20 <= diffY) {           //二十年年工龄以上，病假超过四个月check
-                    if (this.sickleave > 120) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG3'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
+                var a = moment([year, mon, day]);
+                var b = moment([nowyear, 4, 1]);
+                var diffY = b.diff(a, 'years', true); // 取两位小数
+                if (1 <= diffY < 10) {             //十年工龄，病假超过两个月check
+                  if (this.sickleave > 60) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
                   }
-                  if (parseInt(this.form.status) >= 4) {
-                    // if(moment(this.form.refinisheddate).format("YYYY-MM-DD") === moment(this.form.reoccurrencedate).format("YYYY-MM-DD")){
-                    //     if (this.retypecheck === '0') {
-                    //         this.form.relengthtime =  8;
-                    //         timere =  8;
-                    //     } else {
-                    //         this.form.relengthtime = 4;
-                    //         timere = 4;
-                    //     }
-                    // } else {
-                    for (let d = 0; d < this.relistTwo.length; d++) {
-                      timere = timere + 1;
-                    }
-                    if (timere === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      if (this.retypecheck === '0') {
-                        this.form.relengthtime = timere * 8;
-                      } else if (this.retypecheck === '1') {
-                        this.form.relengthtime = 4;
-                        timere = 0.5;
-                      } else if (this.retypecheck === '2') {
-                        this.form.relengthtime = 0;
-                        timere = 0;
-                      }
-                      // }
-                    }
-                    if (this.checkDate < timere) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
-                  } else {
-                    // if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
-                    //     if (this.typecheck === '0') {
-                    //         this.form.lengthtime =  8;
-                    //         time =  8;
-                    //     } else {
-                    //         this.form.lengthtime = 4;
-                    //         time = 4;
-                    //     }
-                    // } else {
-                    for (let d = 0; d < this.relist.length; d++) {
-                      time = time + 1;
-                    }
-                    if (time === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      if (this.typecheck === '0') {
-                        this.form.lengthtime = time * 8;
-                      } else {
-                        this.form.lengthtime = 4;
-                        time = 0.5;
-                      }
-                    }
-                    // }
-                    if (this.checkDate < time) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    }
+                } else if (10 <= diffY < 20) {        //十年到二十年工龄，病假超过三个月check
+                  if (this.sickleave > 90) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else if (20 <= diffY) {           //二十年年工龄以上，病假超过四个月check
+                  if (this.sickleave > 120) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECKFLG3'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
                   }
                 }
-                //代休_周末，事休
-                if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
-                  // let sum = 0;
-                  // if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
-                  //   if (this.form.lengthtime > 8) {
-                  //     Message({
-                  //       message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                  //       type: 'error',
-                  //       duration: 5 * 1000,
-                  //     });
-                  //     return;
-                  //   }
+                if (parseInt(this.form.status) >= 4) {
+                  // if(moment(this.form.refinisheddate).format("YYYY-MM-DD") === moment(this.form.reoccurrencedate).format("YYYY-MM-DD")){
+                  //     if (this.retypecheck === '0') {
+                  //         this.form.relengthtime =  8;
+                  //         timere =  8;
+                  //     } else {
+                  //         this.form.relengthtime = 4;
+                  //         timere = 4;
+                  //     }
                   // } else {
-                  if (parseInt(this.form.status) >= 4) {
-                    for (let i = 0; i < this.relistTwo.length; i++) {
-                      timere = timere + 1;
-                    }
-                    if (timere === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
-                    } else {
-                      if (timere === 1) {
-                        if (this.form.relengthtime > 8) {
-                          Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          return;
-                        }
-                      } else {
-                        if (this.form.relengthtime > timere * 8) {
-                          Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          return;
-                        }
-                      }
-                    }
+                  for (let d = 0; d < this.relistTwo.length; d++) {
+                    timere = timere + 1;
+                  }
+                  if (timere === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
                   } else {
-                    for (let i = 0; i < this.relist.length; i++) {
-                      time = time + 1;
+                    if (this.retypecheck === '0') {
+                      this.form.relengthtime = timere * 8;
+                    } else if (this.retypecheck === '1') {
+                      this.form.relengthtime = 4;
+                      timere = 0.5;
+                    } else if (this.retypecheck === '2') {
+                      this.form.relengthtime = 0;
+                      timere = 0;
                     }
-                    if (time === 0) {
-                      Message({
-                        message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      return;
+                    // }
+                  }
+                  if (this.checkDate < timere) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                } else {
+                  // if(moment(this.form.finisheddate).format("YYYY-MM-DD") === moment(this.form.occurrencedate).format("YYYY-MM-DD")){
+                  //     if (this.typecheck === '0') {
+                  //         this.form.lengthtime =  8;
+                  //         time =  8;
+                  //     } else {
+                  //         this.form.lengthtime = 4;
+                  //         time = 4;
+                  //     }
+                  // } else {
+                  for (let d = 0; d < this.relist.length; d++) {
+                    time = time + 1;
+                  }
+                  if (time === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  } else {
+                    if (this.typecheck === '0') {
+                      this.form.lengthtime = time * 8;
                     } else {
-                      if (time === 1) {
-                        if (this.form.lengthtime > 8) {
-                          Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          return;
-                        }
-                      } else {
-                        if (this.form.lengthtime > time * 8) {
-                          Message({
-                            message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          return;
-                        }
-                      }
+                      this.form.lengthtime = 4;
+                      time = 0.5;
                     }
                   }
                   // }
+                  if (this.checkDate < time) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_ERRORANNUALLEAVE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
-                //病休
-                if (this.form.errortype === 'PR013009') {
-                  if (parseInt(this.form.status) >= 4) {
-                    if (rediffDate === 1) {
+              }
+              //代休_周末，事休
+              if (this.form.errortype === 'PR013006' || this.form.errortype === 'PR013008') {
+                // let sum = 0;
+                // if (moment(this.form.finisheddate).format('YYYY-MM-DD') === moment(this.form.occurrencedate).format('YYYY-MM-DD')) {
+                //   if (this.form.lengthtime > 8) {
+                //     Message({
+                //       message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                //       type: 'error',
+                //       duration: 5 * 1000,
+                //     });
+                //     return;
+                //   }
+                // } else {
+                if (parseInt(this.form.status) >= 4) {
+                  for (let i = 0; i < this.relistTwo.length; i++) {
+                    timere = timere + 1;
+                  }
+                  if (timere === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  } else {
+                    if (timere === 1) {
                       if (this.form.relengthtime > 8) {
                         Message({
                           message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
@@ -2639,18 +2539,30 @@
                         });
                         return;
                       }
-                      // } else {
-                      //   if (rediffDate > 30 - this.sickleave || (this.form.relengthtime / 8) > 30 - this.sickleave) {
-                      //     Message({
-                      //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                      //       type: 'error',
-                      //       duration: 5 * 1000,
-                      //     });
-                      //     return;
-                      //   }
+                    } else {
+                      if (this.form.relengthtime > timere * 8) {
+                        Message({
+                          message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        return;
+                      }
                     }
+                  }
+                } else {
+                  for (let i = 0; i < this.relist.length; i++) {
+                    time = time + 1;
+                  }
+                  if (time === 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
                   } else {
-                    if (diffDate === 1) {
+                    if (time === 1) {
                       if (this.form.lengthtime > 8) {
                         Message({
                           message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
@@ -2659,68 +2571,95 @@
                         });
                         return;
                       }
-                      // } else {
-                      //   if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
-                      //     Message({
-                      //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-                      //       type: 'error',
-                      //       duration: 5 * 1000,
-                      //     });
-                      //     return;
-                      //   }
-                    }
-                  }
-                }
-                //加餐、哺乳（女）
-                if (this.form.errortype === 'PR013022' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                  this.form.lengthtime = 1;
-                }
-                //金额不能为0的check
-                if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
-                  this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
-                  Message({
-                    message: this.$t('label.PFANS2016FORMVIEW_TIMECHECK'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  return;
-                }
-
-                //add-ws-6/8-禅道035
-                if (this.form.errortype === 'PR013007') {
-                  if (this.form.restdiff === '') {
-                    this.form.restdiff = 0;
-                  }
-                  if (this.restdiff3 === '') {
-                    this.restdiff3 = 0;
-                  }
-                  if (this.form.status) {
-                    if (parseInt(this.form.status) < 4) {
-                      if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
-                        Message({
-                          message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      }
                     } else {
-                      if (this.form.restdiff - Number(this.restdiff3 + this.form.relengthtime - this.checklength3).toFixed(2) < 0) {
+                      if (this.form.lengthtime > time * 8) {
                         Message({
-                          message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                          message: this.$t('label.PFANS2016FORMVIEW_ERROREFFECTIVE'),
                           type: 'error',
                           duration: 5 * 1000,
                         });
                         return;
                       }
                     }
-                  } else {
+                  }
+                }
+                // }
+              }
+              //病休
+              if (this.form.errortype === 'PR013009') {
+                if (parseInt(this.form.status) >= 4) {
+                  if (rediffDate === 1) {
+                    if (this.form.relengthtime > 8) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                    // } else {
+                    //   if (rediffDate > 30 - this.sickleave || (this.form.relengthtime / 8) > 30 - this.sickleave) {
+                    //     Message({
+                    //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                    //       type: 'error',
+                    //       duration: 5 * 1000,
+                    //     });
+                    //     return;
+                    //   }
+                  }
+                } else {
+                  if (diffDate === 1) {
+                    if (this.form.lengthtime > 8) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_WAICHUTIMENOCHECK'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                    // } else {
+                    //   if (diffDate > 30 - this.sickleave || (this.form.lengthtime / 8) > 30 - this.sickleave) {
+                    //     Message({
+                    //       message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+                    //       type: 'error',
+                    //       duration: 5 * 1000,
+                    //     });
+                    //     return;
+                    //   }
+                  }
+                }
+              }
+              //加餐、哺乳（女）
+              if (this.form.errortype === 'PR013022' && this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
+                Message({
+                  message: this.$t('label.PFANS2016FORMVIEW_WOMENCHECK'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+                this.form.lengthtime = 1;
+              }
+              //金额不能为0的check
+              if ((this.form.errortype != 'PR013005' && this.form.errortype != 'PR013007') && this.form.status != '4' &&
+                this.form.status != '5' && this.form.status != '6' && this.form.status != '7' && this.form.status != '8' && this.form.lengthtime <= 0) {
+                Message({
+                  message: this.$t('label.PFANS2016FORMVIEW_TIMECHECK'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+
+              //add-ws-6/8-禅道035
+              if (this.form.errortype === 'PR013007') {
+                if (this.form.restdiff === '') {
+                  this.form.restdiff = 0;
+                }
+                if (this.restdiff3 === '') {
+                  this.restdiff3 = 0;
+                }
+                if (this.form.status) {
+                  if (parseInt(this.form.status) < 4) {
                     if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
                       Message({
                         message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
@@ -2729,37 +2668,8 @@
                       });
                       return;
                     }
-                  }
-                }
-                else if (this.form.errortype === 'PR013006') {
-                  if (this.form.restdiff === '') {
-                    this.form.restdiff = 0;
-                  }
-                  if (this.form.restdiff2 === '') {
-                    this.form.restdiff2 = 0;
-                  }
-                  if (this.form.status) {
-                    if (parseInt(this.form.status) < 4) {
-                      if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
-                        Message({
-                          message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      }
-                    } else {
-                      if (this.form.restdiff - Number(this.form.restdiff2 + this.form.relengthtime - this.checklength3) < 0) {
-                        Message({
-                          message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        return;
-                      }
-                    }
                   } else {
-                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                    if (this.form.restdiff - Number(this.restdiff3 + this.form.relengthtime - this.checklength3).toFixed(2) < 0) {
                       Message({
                         message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
                         type: 'error',
@@ -2768,138 +2678,175 @@
                       return;
                     }
                   }
+                } else {
+                  if (this.form.restdiff - Number(this.restdiff3 + this.form.lengthtime - this.checklength3).toFixed(2) < 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
+              } else if (this.form.errortype === 'PR013006') {
+                if (this.form.restdiff === '') {
+                  this.form.restdiff = 0;
+                }
+                if (this.form.restdiff2 === '') {
+                  this.form.restdiff2 = 0;
+                }
+                if (this.form.status) {
+                  if (parseInt(this.form.status) < 4) {
+                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  } else {
+                    if (this.form.restdiff - Number(this.form.restdiff2 + this.form.relengthtime - this.checklength3) < 0) {
+                      Message({
+                        message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      return;
+                    }
+                  }
+                } else {
+                  if (this.form.restdiff - Number(this.form.restdiff2 + this.form.lengthtime - this.checklength3) < 0) {
+                    Message({
+                      message: this.$t('label.PFANS2016FORMVIEW_CHECKRESTDIFF2'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
+                }
+              }
 
-                //add ccm 0806 请事假超过4小时保存时，check是否有年休，有年休，不允许保存事假，
-                if (this.form.errortype === 'PR013008' && this.form.lengthtime >=4)
-                {
-                  let userInfo = getUserInfo(this.form.user_id);
-                  if (userInfo)
-                  {
-                    if (this.remaningAnnual.length>0)
-                    {
-                      //有剩余年休
-                      if (Number(this.remaningAnnual[0].remaining_annual_leave_thisyear) - Number(this.remaningAnnual[0].annual_leave_shenqingzhong) >0)
-                      {
-                        //试用期截止日
-                        let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
-                        //判断申请人是否在试用期
-                        if (enddateflg < moment(new Date()).format('YYYY-MM-DD'))
-                        {
-                          if (userInfo.userinfo.resignation_date)
-                          {
-                            //离职日
-                            let resignationdate = moment(userInfo.userinfo.resignation_date).format('YYYY-MM-DD');
-                            if (Number(this.remaningAnnual[0].annual_avg_remaining) > 0)
-                            {
-                              Message({
-                                message: this.$t('label.PFANS2016FORMVIEW_REMANINGRESIGNATIONCHECK'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              return;
-                            }
-                          }
-                          else
-                          {
+              //add ccm 0806 请事假超过4小时保存时，check是否有年休，有年休，不允许保存事假，
+              if (this.form.errortype === 'PR013008' && this.form.lengthtime >= 4) {
+                let userInfo = getUserInfo(this.form.user_id);
+                if (userInfo) {
+                  if (this.remaningAnnual.length > 0) {
+                    //有剩余年休
+                    if (Number(this.remaningAnnual[0].remaining_annual_leave_thisyear) - Number(this.remaningAnnual[0].annual_leave_shenqingzhong) > 0) {
+                      //试用期截止日
+                      let enddateflg = moment(userInfo.userinfo.enddate).format('YYYY-MM-DD');
+                      //判断申请人是否在试用期
+                      if (enddateflg < moment(new Date()).format('YYYY-MM-DD')) {
+                        if (userInfo.userinfo.resignation_date) {
+                          //离职日
+                          let resignationdate = moment(userInfo.userinfo.resignation_date).format('YYYY-MM-DD');
+                          if (Number(this.remaningAnnual[0].annual_avg_remaining) > 0) {
                             Message({
-                              message: this.$t('label.PFANS2016FORMVIEW_REMANINGCHECK'),
+                              message: this.$t('label.PFANS2016FORMVIEW_REMANINGRESIGNATIONCHECK'),
                               type: 'error',
                               duration: 5 * 1000,
                             });
                             return;
                           }
+                        } else {
+                          Message({
+                            message: this.$t('label.PFANS2016FORMVIEW_REMANINGCHECK'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          return;
                         }
                       }
                     }
                   }
                 }
-                //add ccm 0806 请事假保存时，check是否有年休，有年休，不允许保存事假，
-
-  //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
-  //               this.loading = true;
-  //               this.$store
-  //                 .dispatch('PFANS2016Store/getLeaveNumber', this.form)
-  //                 .then(response => {
-  //                   this.leaveNum = response;
-  //                   this.loading = false;
-  //                   if (parseInt(this.form.status) >= 4) {
-  //                     let reletime = 0;
-  //                     let retimess = 0;
-  //                     if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
-  //                       || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
-  //                       || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
-  //                       for (let i = 0; i < this.relistTwo.length; i++) {
-  //                         retimess = retimess + 1;
-  //                       }
-  //                       if (retimess === 0) {
-  //                         Message({
-  //                           message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-  //                           type: 'error',
-  //                           duration: 5 * 1000,
-  //                         });
-  //                         return;
-  //                       } else {
-  //                         reletime = retimess;
-  //                       }
-  //                     } else {
-  //                       reletime = rediffDate;
-  //                     }
-  //                     if (rediffDate * 8 - Number(this.leaveNum) + Number(this.form.relengthtime) < 0) {
-  //                       Message({
-  //                         message: this.$t('异常申请每天累计不超过8小时'),
-  //                         type: 'error',
-  //                         duration: 5 * 1000,
-  //                       });
-  //                       return;
-  //                     } else {
-  //                       this.updint(val);
-  //                     }
-  //                   } else {
-  //                     let letime = 0;
-  //                     let timess = 0;
-  //                     if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
-  //                       || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
-  //                       || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
-  //                       for (let i = 0; i < this.relist.length; i++) {
-  //                         timess = timess + 1;
-  //                       }
-  //                       if (timess === 0) {
-  //                         Message({
-  //                           message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
-  //                           type: 'error',
-  //                           duration: 5 * 1000,
-  //                         });
-  //                         return;
-  //                       } else {
-  //                         letime = timess;
-  //                       }
-  //                     } else {
-  //                       letime = diffDate;
-  //                     }
-  //                     if (letime * 8 - Number(this.leaveNum) + Number(this.form.lengthtime) < 0) {
-  //                       Message({
-  //                         message: this.$t('异常申请每天累计不超过8小时'),
-  //                         type: 'error',
-  //                         duration: 5 * 1000,
-  //                       });
-  //                       return;
-  //                     } else {
-                this.updint(val);
-                //     }
-                //   }
-                // })
-                // .catch(error => {
-                //   Message({
-                //     message: error,
-                //     type: 'error',
-                //     duration: 5 * 1000,
-                //   });
-                //   this.loading = false;
-                // });
-                //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
               }
-            else {
+              //add ccm 0806 请事假保存时，check是否有年休，有年休，不允许保存事假，
+
+              //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  start
+              //               this.loading = true;
+              //               this.$store
+              //                 .dispatch('PFANS2016Store/getLeaveNumber', this.form)
+              //                 .then(response => {
+              //                   this.leaveNum = response;
+              //                   this.loading = false;
+              //                   if (parseInt(this.form.status) >= 4) {
+              //                     let reletime = 0;
+              //                     let retimess = 0;
+              //                     if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+              //                       || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+              //                       || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+              //                       for (let i = 0; i < this.relistTwo.length; i++) {
+              //                         retimess = retimess + 1;
+              //                       }
+              //                       if (retimess === 0) {
+              //                         Message({
+              //                           message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+              //                           type: 'error',
+              //                           duration: 5 * 1000,
+              //                         });
+              //                         return;
+              //                       } else {
+              //                         reletime = retimess;
+              //                       }
+              //                     } else {
+              //                       reletime = rediffDate;
+              //                     }
+              //                     if (rediffDate * 8 - Number(this.leaveNum) + Number(this.form.relengthtime) < 0) {
+              //                       Message({
+              //                         message: this.$t('异常申请每天累计不超过8小时'),
+              //                         type: 'error',
+              //                         duration: 5 * 1000,
+              //                       });
+              //                       return;
+              //                     } else {
+              //                       this.updint(val);
+              //                     }
+              //                   } else {
+              //                     let letime = 0;
+              //                     let timess = 0;
+              //                     if (this.form.errortype === 'PR013001' || this.form.errortype === 'PR013005' || this.form.errortype === 'PR013006'
+              //                       || this.form.errortype === 'PR013007' || this.form.errortype === 'PR013016' || this.form.errortype === 'PR013018'
+              //                       || this.form.errortype === 'PR013019' || this.form.errortype === 'PR013014') {
+              //                       for (let i = 0; i < this.relist.length; i++) {
+              //                         timess = timess + 1;
+              //                       }
+              //                       if (timess === 0) {
+              //                         Message({
+              //                           message: this.$t('label.PFANS2016FORMVIEW_SHORTCHECK'),
+              //                           type: 'error',
+              //                           duration: 5 * 1000,
+              //                         });
+              //                         return;
+              //                       } else {
+              //                         letime = timess;
+              //                       }
+              //                     } else {
+              //                       letime = diffDate;
+              //                     }
+              //                     if (letime * 8 - Number(this.leaveNum) + Number(this.form.lengthtime) < 0) {
+              //                       Message({
+              //                         message: this.$t('异常申请每天累计不超过8小时'),
+              //                         type: 'error',
+              //                         duration: 5 * 1000,
+              //                       });
+              //                       return;
+              //                     } else {
+              this.updint(val);
+              //     }
+              //   }
+              // })
+              // .catch(error => {
+              //   Message({
+              //     message: error,
+              //     type: 'error',
+              //     duration: 5 * 1000,
+              //   });
+              //   this.loading = false;
+              // });
+              //    add_fjl_06/16  -- 添加异常申请每天累计不超过8小时check  end
+            } else {
               Message({
                 message: this.$t('normal.error_12'),
                 type: 'error',
@@ -2950,8 +2897,7 @@
               });
               this.loading = false;
             });
-        }
-        else {
+        } else {
           //总经理审批自动通过
           // if (getCurrentRole() === '1') {
           //   this.form.status = '4';
