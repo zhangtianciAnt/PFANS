@@ -60,6 +60,13 @@
                 fix: false,
                 filter: false
               },
+              {
+                code: 'projecttype',
+                label: 'label.PFANS5001FORMVIEW_PROJECTTYPE',
+                width: 120,
+                fix: false,
+                filter: true
+              },
               // 计划期间
               {
                 code: 'planning',
@@ -135,6 +142,13 @@
                 width: 120,
                 fix: false,
                 filter: false
+              },
+              {
+                code: 'projecttype',
+                label: 'label.PFANS5001FORMVIEW_PROJECTTYPE',
+                width: 120,
+                fix: false,
+                filter: true
               },
               // 计划期间
               {
@@ -231,6 +245,13 @@
                             response[j].phasestatus = this.phasestatus1
                         }
                     }
+                  //项目类型
+                  if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                    let letStage = getDictionaryInfo(response[j].projecttype);
+                    if (letStage != null) {
+                      response[j].projecttype = letStage.value1;
+                    }
+                  }
                   //预计期间
                   if (response[j].startdate !== null && response[j].startdate !== "" || response[j].enddate !== null && response[j].enddate !== "") {
                     response[j].planning = moment(response[j].startdate).format("YYYY-MM-DD") + '~' + moment(response[j].enddate).format("YYYY-MM-DD");
@@ -286,6 +307,13 @@
                         }else {
                             response[j].phasestatus = this.phasestatus1
                         }
+                    }
+                    //项目类型
+                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                      let letStage = getDictionaryInfo(response[j].projecttype);
+                      if (letStage != null) {
+                        response[j].projecttype = letStage.value1;
+                      }
                     }
                     if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
                         if(response[j].contractstatus === "0") {

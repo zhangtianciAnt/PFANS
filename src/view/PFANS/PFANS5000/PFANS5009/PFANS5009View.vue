@@ -50,7 +50,13 @@
             fix: false,
             filter: false,
           },
-
+          {
+            code: 'projecttype',
+            label: 'label.PFANS5001FORMVIEW_PROJECTTYPE',
+            width: 120,
+            fix: false,
+            filter: true
+          },
           {
             code: 'phase',
             label: 'label.PFANS5009VIEW_PHASE',
@@ -134,6 +140,13 @@
               let letPhase = getDictionaryInfo(response[j].phase);
               if (letPhase != null) {
                 response[j].phase = letPhase.value1;
+              }
+            }
+            //项目类型
+            if (response[j].projecttype !== null && response[j].projecttype !== "") {
+              let letStage = getDictionaryInfo(response[j].projecttype);
+              if (letStage != null) {
+                response[j].projecttype = letStage.value1;
               }
             }
             if (response[j].phasestatus !== null && response[j].phasestatus !== '') {
