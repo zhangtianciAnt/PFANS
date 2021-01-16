@@ -93,6 +93,7 @@
         this.getList();
       },
       getList() {
+        debugger;
         let groupid = this.$store.getters.userinfo.userinfo.groupid;
         let letRole2 = this.getCurrentRole2();
         if (letRole2 !== '4') {
@@ -103,23 +104,29 @@
           if (letRole2 === '2') {
             //CENTER长
             groupid = this.$store.getters.userinfo.userinfo.centerid;
-            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
-              if (others.centerid) {
-                groupid = groupid + ',' + others.centerid;
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+                if (others.centerid) {
+                  groupid = groupid + ',' + others.centerid;
+                }
               }
             }
           } else if (letRole2 === '1') {
             //GROUP
             groupid = this.$store.getters.userinfo.userinfo.groupid;
-            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
-              if (others.centerid) {
-                let centerId = others.centerid;
-                let orgs = getDownOrgInfo(centerId);
-                if (orgs) {
-                  for (let org of orgs) {
-                    if (others.groupid) {
-                      if (org._id === others.groupid) {
-                        groupid = groupid + ',' + org._id;
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+                if (others.centerid) {
+                  let centerId = others.centerid;
+                  let orgs = getDownOrgInfo(centerId);
+                  if (orgs) {
+                    for (let org of orgs) {
+                      if (others.groupid) {
+                        if (org._id === others.groupid) {
+                          groupid = groupid + ',' + org._id;
+                        }
                       }
                     }
                   }
@@ -132,25 +139,25 @@
           this.months.split('-')[0],
           this.months.split('-')[1],
         ];
-        // //大于系统时间时取系统时间的前月
-        // if(Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format("YYYYMM"))){
-        //     letdates[1] = Number(moment(new Date()).format("M")) - 1;
-        //     if(letdates[1].toString().length === 1){
-        //         letdates[1] = "0" + letdates[1];
-        //     }
-        // }
-        // //选择1,2,3月时按事业年度算应该年-1
-        // if(Number(moment(this.months).format('M')) < 4){
-        //     letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
-        // }
-        // let dates = letdates[0] + "-" + letdates[1];
+        //大于系统时间时取系统时间的前月
+        if (Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format('YYYYMM'))) {
+          letdates[1] = Number(moment(new Date()).format('M')) - 1;
+          if (letdates[1].toString().length === 1) {
+            letdates[1] = '0' + letdates[1];
+          }
+        }
+        //选择1,2,3月时按事业年度算应该年-1
+        if (Number(moment(this.months).format('M')) < 4) {
+          letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
+        }
+        //let dates = letdates[0] + "-" + letdates[1];
         let now = new Date(this.months);
-        let dates = moment(now.setMonth(now.getMonth() - 1)).format("YYYY-MM");
+        let dates = moment(now.setMonth(now.getMonth() - 1)).format('YYYY-MM');
         this.letparams = {
           dates: dates,
           role: letRole2,
-          groupid: groupid
-        }
+          groupid: groupid,
+        };
         this.loading = true;
         this.$store
           .dispatch('PFANS6008Store/getcostMonthList', this.letparams)
