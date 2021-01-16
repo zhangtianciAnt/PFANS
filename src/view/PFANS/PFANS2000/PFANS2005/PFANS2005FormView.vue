@@ -4490,7 +4490,7 @@
                             ) {
                                 response.entryVo[j].startdate = moment(
                                     response.entryVo[j].startdate
-                                ).add(1, 'days').format("YYYY-MM-DD");
+                                ).format("YYYY-MM-DD");
                             }
                             this.tableRZ = response.entryVo;
                             this.totaldataRZ = response.entryVo;
