@@ -35,10 +35,11 @@ export function updatePfans1043(data) {
 }
 
 
-export function getFpans1043List() {
+export function getFpans1043List(data) {
   return request({
     url: 'themeinfor/list',
-    method: 'post'
+    method: 'get',
+    params: data,
   })
 }
 

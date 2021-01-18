@@ -158,7 +158,7 @@
                     <div style="text-align: center">
                       <el-row style="text-align: center;height: 90%;overflow: hidden">
                         <el-table
-                          :data="gridData.filter(data => !search || data.toolsorgs.toLowerCase().includes(search.toLowerCase()))"
+                          :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                           height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                           @row-click="handleClickChange">
                           <el-table-column property="suppliername"
@@ -578,7 +578,6 @@
         this.$store
           .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
-            this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               vote.suppliername = response[i].supchinese;
