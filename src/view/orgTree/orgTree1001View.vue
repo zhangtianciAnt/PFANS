@@ -13,7 +13,7 @@
           </div>
           <div>{{"年份"}}
             <el-date-picker
-              v-model="year"
+              v-model="years"
               type="year"
               @change="showData"
               placeholder="选择年">
@@ -100,7 +100,7 @@
   import EasyButtonBar from '@/components/EasyButtonBar'
   import { parseTime } from '@/utils/customize'
   import { Message } from 'element-ui'
-  import moment from "moment";
+  import moment from "moment"
   import user from "../components/user.vue";
   export default {
     name: 'orgTree1001View',
@@ -121,7 +121,7 @@
           label: 'title',
           children: 'orgs'
         },
-        year:  moment(new Date()).format('YYYY'),
+        years:  moment(new Date()).format('YYYY'),
         activeNam: 'first',
         currentNode: {
           type: '1'
@@ -147,7 +147,7 @@
     },
     methods: {
       showData(value) {
-        this.year = moment(value).format('YYYY');
+        this.years = moment(value).format('YYYY');
         this.getInitData();
       },
       getUserids(val){
@@ -176,10 +176,9 @@
       getInitData () {
         this.loading = true;
         this.$store
-          .dispatch('orgTreeStore/getTreeYears', {"Years": this.year,"type": '1'})
+          .dispatch('orgTreeStore/getTreeYears', {"Years": this.years,"Status": '0'})
               .then(response => {
             if (response) {
-                debugger;
               this.data = [response]
               this.currentNode = response
               if (this.currentNode.invoiceinfo) {

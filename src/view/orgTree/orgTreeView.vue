@@ -116,12 +116,13 @@
           type: '1'
         },
         buttonList: [
-          // { key: 'insert', name: 'button.orginsert', disabled: false, icon: 'el-icon-plus' },
-          { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
-          { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
-          { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
+            // { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
+            // { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
+            // { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
+          { key: 'insert', name: 'button.orginsert', disabled: false, icon: 'el-icon-plus' },
+          { key: 'change', name: 'button.orgchange', disabled: false, icon: 'el-icon-edit' },
+          { key: 'view', name: 'button.orgresume', disabled: false, icon: 'el-icon-paperclip'},
           { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' },
-          // { key: 'view', name: 'button.orgresume', disabled: false, icon: 'el-icon-upload'}
         ],
         nameflag: false,
         namelessflag: false,
@@ -237,35 +238,20 @@
         this.$store.commit('global/SET_HISTORYURL', this.$route.path)
         if (val === 'insert') {
             this.$router.push({
-                name: 'orgTree1002View',
-                params: {
-                    _id: '',
-                    disabled: true
-                }
+                name: 'orgTree1002View'
             })
         }
         else if (val === 'save') {
             this.formcommit();
         }
         else if (val === 'view') {
-                this.$router.push({
-                    name: 'orgTree1001View',
-                    params: {
-                        _id: '',
-                        disabled: true
-                    }
-                })
+            this.$router.push({
+                name: 'orgTree1001View'
+            })
         } else {
-          this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-          let type = val === 'new1' ? '1' : (val === 'new2' ? '2' : '3')
-          this.$router.push({
-            name: 'orgFormEdit',
-            params: {
-              currentNode: this.currentNode,
-              orgTree: this.$refs.treeCom.$refs.treeCom,
-              type: type
-            }
-          })
+            this.$router.push({
+                name: 'orgTree1003View'
+            })
         }
       },
       changeflag (flag, type) {
