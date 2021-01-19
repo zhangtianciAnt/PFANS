@@ -3332,7 +3332,6 @@
                         //         }
                         //     }
                         // }
-                        //111
                         //工资计算试运行（可有工资计算担当能看见工资）工资测试完之后放开以上代码
                         if(this.varroles === "0"){
                             this.form.basic = '0';
@@ -3832,7 +3831,7 @@
                 let roles = '';
                 if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
                     for (let role of this.$store.getters.useraccount.roles) {
-                        roles = roles + role.description;
+                        roles = roles + role.desgetCurrentRole2cription;
                     }
                     if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
                         this.varroles = '1';
