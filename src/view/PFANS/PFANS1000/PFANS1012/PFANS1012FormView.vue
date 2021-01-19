@@ -4347,7 +4347,7 @@
           invoice_id: '',
           publicexpenseid: '',
           invoicenumber: c,
-          invoicetype: '',
+          invoicetype: 'PJ068001',
           invoiceamount: '',
           taxrate: '',
           excludingtax: '',
