@@ -49,8 +49,6 @@ import PFANS1038Store from '../view/PFANS/PFANS1000/PFANS1038/PFANS1038Store'
 import PFANS1040Store from '../view/PFANS/PFANS1000/PFANS1040/PFANS1040Store'
 import PFANS1042Store from '../view/PFANS/PFANS1000/PFANS1042/PFANS1042Store'
 import PFANS1043Store from '../view/PFANS/PFANS1000/PFANS1043/PFANS1043Store'
-import PFANS1048Store from '../view/PFANS/PFANS1000/PFANS1048/PFANS1048Store'
-import PFANS1049Store from '../view/PFANS/PFANS1000/PFANS1049/PFANS1049Store'
 import PFANS2001Store from '../view/PFANS/PFANS2000/PFANS2001/PFANS2001Store'
 import PFANS2002Store from '../view/PFANS/PFANS2000/PFANS2002/PFANS2002Store'
 import PFANS2003Store from '../view/PFANS/PFANS2000/PFANS2003/PFANS2003Store'
@@ -71,7 +69,6 @@ import PFANS2023Store from '../view/PFANS/PFANS2000/PFANS2023/PFANS2023Store'
 import PFANS2024Store from '../view/PFANS/PFANS2000/PFANS2024/PFANS2024Store'
 import PFANS2026Store from '../view/PFANS/PFANS2000/PFANS2026/PFANS2026Store'
 import PFANS2027Store from '../view/PFANS/PFANS2000/PFANS2027/PFANS2027Store'
-import PFANS2036Store from '../view/PFANS/PFANS2000/PFANS2036/PFANS2036Store'
 import PFANS3001Store from '../view/PFANS/PFANS3000/PFANS3001/PFANS3001Store'
 import PFANS3002Store from '../view/PFANS/PFANS3000/PFANS3002/PFANS3002Store'
 import PFANS3003Store from '../view/PFANS/PFANS3000/PFANS3003/PFANS3003Store'
@@ -81,7 +78,6 @@ import PFANS3006Store from '../view/PFANS/PFANS3000/PFANS3006/PFANS3006Store'
 import PFANS3007Store from '../view/PFANS/PFANS3000/PFANS3007/PFANS3007Store'
 import PFANS4001Store from '../view/PFANS/PFANS4000/PFANS4001/PFANS4001Store'
 import PFANS5001Store from '../view/PFANS/PFANS5000/PFANS5001/PFANS5001Store'
-import PFANS8011Store from '../view/PFANS/PFANS8000/PFANS8011/PFANS8011Store'
 //import PFANS5002Store from '../view/PFANS/PFANS5000/PFANS5002/PFANS5002Store'
 import PFANS5004Store from '../view/PFANS/PFANS5000/PFANS5004/PFANS5004Store'
 import PFANS5009Store from '../view/PFANS/PFANS5000/PFANS5009/PFANS5009Store'
@@ -106,8 +102,6 @@ import ASSETS1002Store from '../view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002Stor
 Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
-    PFANS1048Store,
-    PFANS1049Store,
     global,
     frameStore,
     orgTreeStore,
@@ -176,7 +170,6 @@ const store = new Vuex.Store({
     PFANS2024Store,
     PFANS2026Store,
     PFANS2027Store,
-    PFANS2036Store,
     PFANS3001Store,
     PFANS3002Store,
     PFANS3003Store,
@@ -186,7 +179,6 @@ const store = new Vuex.Store({
     PFANS3007Store,
     PFANS4001Store,
     PFANS5001Store,
-    PFANS8011Store,
     //PFANS5002Store,
     PFANS5004Store,
     PFANS5008Store,

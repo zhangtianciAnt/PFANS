@@ -55,13 +55,13 @@
                     prop="statutoryresidue"
                     width="90" >
                   </plx-table-column>
-<!--                  &lt;!&ndash;                一齐年休&ndash;&gt;-->
-<!--                  <plx-table-column-->
-<!--                    :label="$t('label.PFANS2010VIEW_EVERYYEAR')"-->
-<!--                    align="center"-->
-<!--                    prop="annualrestday"-->
-<!--                    width="110" >-->
-<!--                  </plx-table-column>-->
+                  <!--                一齐年休-->
+                  <plx-table-column
+                    :label="$t('label.PFANS2010VIEW_EVERYYEAR')"
+                    align="center"
+                    prop="annualrestday"
+                    width="110" >
+                  </plx-table-column>
                   <!--                特别休日-->
                   <plx-table-column
                     :label="$t('label.PFANS2010VIEW_OCCASIONS')"
@@ -190,7 +190,7 @@
           ordinaryindustry:'',
           weekendindustry:'',
           statutoryresidue:'',
-          // annualrestday:'',
+          annualrestday:'',
           specialday:'',
           youthday:'',
           womensday:'',
@@ -251,7 +251,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 2 && columnIndex >=2 && columnIndex <=8)
+        if (column.level === 2 && columnIndex >=2 && columnIndex <=9)
         {
           return {
             height: '20px',
@@ -260,7 +260,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 1 && columnIndex >=9 && columnIndex <=11)
+        if (column.level === 1 && columnIndex >=10 && columnIndex <=12)
         {
           return {
             height: '40px',
@@ -279,7 +279,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 2 && columnIndex >= 12 && columnIndex <= 13)
+        if (column.level === 2 && columnIndex >= 13 && columnIndex <= 14)
         {
           return {
             height: '20px',
@@ -288,7 +288,7 @@
             border: '1px solid white',
           };
         }
-        if (column.level === 1 && columnIndex >= 6 && columnIndex >= 8)
+        if (column.level === 1 && columnIndex >= 7 && columnIndex >= 9)
         {
           return {
             height: '40px',
@@ -536,7 +536,7 @@
                 ordinaryindustry:response[j].ordinaryindustry,
                 weekendindustry:response[j].weekendindustry,
                 statutoryresidue:response[j].statutoryresidue,
-                // annualrestday:response[j].annualrestday,
+                annualrestday:response[j].annualrestday,
                 specialday:response[j].specialday,
                 youthday:response[j].youthday,
                 womensday:response[j].womensday,

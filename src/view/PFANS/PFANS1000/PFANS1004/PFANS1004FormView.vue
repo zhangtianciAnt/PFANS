@@ -258,18 +258,6 @@
                                      v-model="form.amounttobegiven"></el-input-number>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" v-if="showM">
-                    <dicselect
-                      :code="code7"
-                      :data="form.enableduplicateloan"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getEnableduplicateloan"
-                      style="width:20vw">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -771,7 +759,6 @@
           invoiceno: '',
           publicexpense_id: '',
           oldjudgementid: '',
-          enableduplicateloan:'PJ055002',
         },
         tableA: [
           {
@@ -791,7 +778,6 @@
         code4: 'PJ011',
         code5: 'PJ030',
         code6: 'PJ146',
-        code7:'PJ055',
         disabled: true,
         enableSave: false,
         menuList: [],
@@ -830,13 +816,6 @@
               message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN'),
             },
             {validator: CheckGiven, trigger: 'change'},
-          ],
-          enableduplicateloan: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN'),
-              trigger: 'change',
-            },
           ],
           gist: [
             {
@@ -1096,7 +1075,6 @@
               this.userlistA = this.form.user_id;
               this.getBudt(this.form.group_id);
               this.getDecisive(this.form.decisive);
-              this.getEnableduplicateloan(this.form.enableduplicateloan);
               this.getBusinessplantype(this.form.businessplantype);
               if (this.form.careerplan === '1') {
                 this.show = true;
@@ -1620,9 +1598,6 @@
       getClassificationtype(val) {
         this.form.classificationtype = val;
       },
-      getEnableduplicateloan(val){
-        this.form.enableduplicateloan = val;
-      },
       getBusinessplantype(val) {
         this.form.businessplantype = val;
         if (val === 'PR002006') {
@@ -1637,7 +1612,7 @@
         if(val == 'PJ146006'){
           if(this.role15 == '0'){
             this.form.decision = val;
-            // this.workcode = 'W0034';
+            this.workcode = 'W0034';
           }else{
             Message({
               message: this.$t('normal.error_21'),
@@ -1651,11 +1626,11 @@
           if(this.role16 == '0'){
             this.form.decision = val;
             if(val == 'PJ146008'){
-              // this.workcode = 'W0042';
+              this.workcode = 'W0042';
             }else if(val == 'PJ146009'){
-              // this.workcode = 'W0044';
+              this.workcode = 'W0044';
             } else{
-              // this.workcode = 'W0051';
+              this.workcode = 'W0051';
             }
           }else{
             Message({
@@ -1668,17 +1643,17 @@
         }else{
           this.form.decision = val;
           if(val == 'PJ146001'){
-            // this.workcode = 'W0006';
+            this.workcode = 'W0006';
           } else if(val == 'PJ146002'){
-            // this.workcode = 'W0007';
+            this.workcode = 'W0007';
           } else if(val == 'PJ146003'){
-            // this.workcode = 'W0013';
+            this.workcode = 'W0013';
           } else if(val == 'PJ146004'){
-            // this.workcode = 'W0020';
+            this.workcode = 'W0020';
           } else if(val == 'PJ146005'){
-            // this.workcode = 'W0021';
+            this.workcode = 'W0021';
           }else{
-            // this.workcode = 'W0035';
+            this.workcode = 'W0035';
           }
         }
       },

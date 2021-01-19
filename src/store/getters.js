@@ -20,9 +20,6 @@ const getters = {
   orgGroupList: state => state.global.orgGroupList,
   orgGroupallList: state => state.global.orgGroupallList,
   operateOwner: state => state.global.operateOwner,
-  //add-ws-12/10-汇率字典
-  monthlyrate: state => state.global.monthlyrate,
-  //add-ws-12/10-汇率字典
 }
 
 export default getters

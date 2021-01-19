@@ -82,19 +82,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" prop="currencyposition">
-                    <!--                      add-ws-12/10-汇率字典-->
-<!--                    <dicselect-->
-<!--                      code="PG019"-->
-<!--                      :data="form.currencyposition"-->
-<!--                      style="width: 20vw"-->
-<!--                      :disabled="!disabled1">-->
-<!--                    </dicselect>-->
-                    <monthlyrate :month="month2"
-                                 :data="form.currencyposition"
-                                 style="width: 20vw"
-                                 :disabled="!disabled1">
-                    </monthlyrate>
-                    <!--                      add-ws-12/10-汇率字典-->
+                    <dicselect
+                      code="PG019"
+                      :data="form.currencyposition"
+                      style="width: 20vw"
+                      :disabled="!disabled1">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -412,12 +405,11 @@
   import {Message} from 'element-ui';
   import org from '../../../components/org';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo ,getMonthlyrateInfo,} from '@/utils/customize';
-  import monthlyrate from '../../../components/monthlyrate';
+  import {getDictionaryInfo, getUserInfo} from '@/utils/customize';
+
   export default {
     name: 'PFANS1027FormView',
     components: {
-      monthlyrate,
       EasyNormalContainer,
       PFANS1027View,
       user,
@@ -650,10 +642,7 @@
         qualifications: '',
         fileList: [],
         code: 'HT008',
-        //add-ws-12/10-汇率字典
-        // code1: 'PG019',
-        month2: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
+        code1: 'PG019',
       };
     },
     mounted() {
@@ -708,9 +697,9 @@
             if (response.numbercounts.length > 0) {
               let aa = 0;
               for (let i = 0; i < response.numbercounts.length; i++) {
-                let letCurrencyposition = getMonthlyrateInfo(response.numbercounts[i].currencyposition);
+                let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
                 if (letCurrencyposition != null) {
-                  response.numbercounts[i].currencyposition = letCurrencyposition.currencyname;
+                  response.numbercounts[i].currencyposition = letCurrencyposition.value1;
                 }
                 let deliverydate = response.numbercounts[i].deliverydate;
                 let completiondate = response.numbercounts[i].completiondate;

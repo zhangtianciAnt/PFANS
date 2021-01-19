@@ -8,7 +8,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.user_name')" prop="expname">
-                <el-input maxlength="100" :disabled="!disabled" style="width: 20vw"
+                <el-input :disabled="!disabled" maxlength='36' style="width: 20vw"
                           v-model="form.expname"></el-input>
               </el-form-item>
             </el-col>
@@ -58,7 +58,7 @@
                             prop="suppliername">
                 <div class="dpSupIndex" style="width: 19vw" prop="suppliername">
                   <el-container>
-                    <input maxlength="255" class="content bg" v-model="form.suppliername" :error="errorsuppliername"
+                    <input  class="content bg" v-model="form.suppliername" :error="errorsuppliername"
                            :disabled="true"></input>
                     <el-button :disabled="!disabled" icon="el-icon-search" @click="dialogTableVisible = true"
                                size="small"></el-button>

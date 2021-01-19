@@ -400,8 +400,8 @@
         groupid: '',
         teamid: '',
         userlist: '',
-        workflowCode: '',
         error: '',
+        workflowCode: 'W0017',
         selectedList: [],
         assetsList: [],
         totalvalueAnt: 0.00,
@@ -539,12 +539,6 @@
           .dispatch('PFANS1007Store/selectById', {'assetinformationid': this.$route.params._id})
           .then(response => {
             this.form = response.assetinformation;
-            let role = getCurrentRole()
-              if(role == '2' || role == '3') { //GM Center
-                this.workcode = 'W0129'//新流程
-              }else { //TL 正式员工
-                this.workcode = 'W0017'
-              }
             let rst = getOrgInfoByUserId(response.assetinformation.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;

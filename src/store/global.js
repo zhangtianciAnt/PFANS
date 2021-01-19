@@ -7,7 +7,6 @@ const global = {
     operateId: "",
     currentUrl: "",
     userinfo: "",
-    monthlyrate:[],
     customersInfo: [],
     userList:[],
     workflowUrl:"",
@@ -116,11 +115,6 @@ const global = {
     SET_OPERATEOWNER(state, operateOwner) {
       state.operateOwner = operateOwner
     },
-    //add-ws-12/10-汇率字典
-    SET_MONTHLYRATE(state, monthlyrate) {
-      state.monthlyrate = monthlyrate
-    },
-    //add-ws-12/10-汇率字典
   }
 }
 

@@ -328,7 +328,7 @@
         assetsList: [],
         centerid: '',
         groupid: '',
-        workflowCode: 'W0019',
+        workflowCode: 'W0018',
         teamid: '',
         baseInfo: {},
         // ferrycenterorglist: '',

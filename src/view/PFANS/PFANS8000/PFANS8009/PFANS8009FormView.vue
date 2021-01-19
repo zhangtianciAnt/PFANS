@@ -72,14 +72,6 @@
                     </el-input>
                   </template>
                 </el-table-column>
-                <!--       人件费 需要添加 1228 ccm         -->
-                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE10')" align="center" width="200">
-                  <template slot-scope="scope">
-                    <el-input :disabled="!disable" v-model="scope.row.value10">
-                    </el-input>
-                  </template>
-                </el-table-column>
-                <!--       人件费 需要添加 1228 ccm         -->
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-button
@@ -138,7 +130,6 @@
             valie7: "",
             valie8: "",
             valie9: "",
-            valie10: "",
             pcode: "",
             status: "",
           }
@@ -219,7 +210,6 @@
               valie7: "",
               valie8: "",
               valie9: "",
-              valie10: "",
               pcode: "",
               status: "",
             }
@@ -245,7 +235,6 @@
           valie7: "",
           valie8: "",
           valie9: "",
-          valie10: "",
           pcode: "",
           status: "",
         });
@@ -282,7 +271,6 @@
               value7: this.tableD[i].value7,
               value8: this.tableD[i].value8,
               value9: this.tableD[i].value9,
-              value10: this.tableD[i].value10,
               pcode: this.tableD[i].pcode,
               status: this.tableD[i].status,
             });

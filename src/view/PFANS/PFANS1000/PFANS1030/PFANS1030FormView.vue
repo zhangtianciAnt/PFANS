@@ -10,7 +10,6 @@
                          @workflowState="workflowState"
                          @disabled="setdisabled"
                          ref="container"
-                         :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw">
@@ -108,22 +107,13 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" :error="errorcurrencyposition"
                                   prop="currencyposition">
-                      <!--                      add-ws-12/10-汇率字典-->
-<!--                      <dicselect :code="code3"-->
-<!--                                 :data="form.currencyposition"-->
-<!--                                 :disabled="true"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="getcurrencyformat"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
-                      <monthlyrate :month="month3"
-                                   :data="form.currencyposition"
-                                   :disabled="true"
-                                   :multiple="multiple"
-                                   @change="getcurrencyformat"
-                                   style="width:20vw">
-                      </monthlyrate>
-                      <!--                      add-ws-12/10-汇率字典-->
+                      <dicselect :code="code3"
+                                 :data="form.currencyposition"
+                                 :disabled="true"
+                                 :multiple="multiple"
+                                 @change="getcurrencyformat"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -674,14 +664,13 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole} from '@/utils/customize';
-  import monthlyrate from '../../../components/monthlyrate';
+  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo} from '@/utils/customize';
+
   import project from '../../../components/project';
 
   export default {
     name: 'PFANS1025FormView',
     components: {
-      monthlyrate,
       EasyNormalContainer,
       user,
       org,
@@ -882,10 +871,7 @@
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
-        //add-ws-12/10-汇率字典
-        // code3: 'PG019',
-        month3: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
+        code3: 'PG019',
         sumAwardmoney: '',
         errorgroup: '',
         selectType: 'Single',
@@ -893,7 +879,6 @@
         title: 'title.PFANS1030VIEW',
         multiple: false,
         orglist: '',
-        workflowCode: 'W0057',
         baseInfo: {},
         arrAttf: [],
         groupN: '',
@@ -1138,7 +1123,7 @@
             trigger: 'change',
           }],
           enclosurecontent: [{
-            required: true,
+            required: false,
             validator: checkuploadfile,
             trigger: 'change',
           }],
@@ -1154,12 +1139,6 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
-            // let roleLC = getCurrentRole();
-            // if(roleLC == '2' || roleLC == '3') { //GM Center
-            //   this.workflowCode = 'W0005'//新流程
-            // }else { //TL 正式员工
-            //   this.workflowCode = 'W0057'
-            // }
             if (this.form.status === '4' || this.form.status === '2') {
               this.enableSave = false;
             } else {

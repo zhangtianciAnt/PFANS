@@ -19,7 +19,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getUserInfo, getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
 
   export default {
     name: 'PFANS1031View',
@@ -188,9 +188,9 @@
                     }
 
                     if (response[j].currencyformat !== null && response[j].currencyformat !== '') {
-                      let letContracttype = getMonthlyrateInfo(response[j].currencyformat);
+                      let letContracttype = getDictionaryInfo(response[j].currencyformat);
                       if (letContracttype != null) {
-                        response[j].currencyformat = letContracttype.currencyname;
+                        response[j].currencyformat = letContracttype.value1;
                       }
                     }
 

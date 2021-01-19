@@ -18,7 +18,7 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus, getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getOrgInfoByUserId} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
 
@@ -224,9 +224,9 @@
                               }
                             }
                             if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
-                              let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
+                              let letCurrencyposition = getDictionaryInfo(response[j].currencyposition);
                               if (letCurrencyposition != null) {
-                                response[j].currencyposition = letCurrencyposition.currencyname;
+                                response[j].currencyposition = letCurrencyposition.value1;
                               }
                             }
                             //add-ws-4/17-添加审批时间

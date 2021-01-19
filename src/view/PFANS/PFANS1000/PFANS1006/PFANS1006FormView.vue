@@ -139,22 +139,13 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1006FORMVIEW_CURRENCYCHOICE')" prop="currencychoice">
-                      <!--                      add-ws-12/10-汇率字典-->
-<!--                      <dicselect :code="code3"-->
-<!--                                 :data="form.currencychoice"-->
-<!--                                 :disabled="!disable"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="changecurrencychoice"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
-                      <monthlyrate :month="month3"
-                                   :data="form.currencychoice"
-                                   :disabled="!disable"
-                                   :multiple="multiple"
-                                   @change="changecurrencychoice"
-                                   style="width:20vw">
-                      </monthlyrate>
-                      <!--                      add-ws-12/10-汇率字典-->
+                      <dicselect :code="code3"
+                                 :data="form.currencychoice"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="changecurrencychoice"
+                                 style="width:20vw">
+                      </dicselect>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -163,7 +154,7 @@
                                        controls-position="right"
                                        :disabled="!disable"
                                        :min="0"
-                                       :max="maxcontrol"
+                                       :max="1000000000"
                                        :precision="2"
                                        style="width:20vw"
                       ></el-input-number>
@@ -516,11 +507,10 @@
     import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
     import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
     import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
-    import monthlyrate from '../../../components/monthlyrate';
+
     export default {
     name: 'PFANS1006FormView',
     components: {
-      monthlyrate,
       EasyNormalContainer,
       dicselect,
       user,
@@ -664,7 +654,6 @@
         enableSave: false,
         role2: '',
         acceptShow: true,
-        maxcontrol: 100000000,
           showvoid: false,
         options2: [
           {
@@ -708,7 +697,6 @@
         editableTabs: [],
         tabIndex: 0,
         multiple: false,
-        surloappmoney: 0,
         form: {
           // add-ws-8/12-禅道任务446
           processingstatus: '0',
@@ -742,7 +730,7 @@
           uploadfile: '',
           canafver: '0',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
-          publicradio: '2',//专用
+            publicradio: '2',//专用
         },
         currentRow: '',
         currentRow1: '',
@@ -752,10 +740,7 @@
         Codecheck: '',
         code1: 'PG001',
         code2: 'PJ002',
-        //add-ws-12/10-汇率字典
-        // code3: 'PG019',
-        month3: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
+        code3: 'PG019',
         code4: 'PJ015',
         show2: false,
         show3: false,
@@ -1190,9 +1175,9 @@
               judgements_moneys = _judgements_moneys.toString().split(',');
               this.form.judgements_moneys = _judgements_moneys;
             }
+
             this.form.judgements = _judgement;
             this.form.judgements_name = _judgement_name;
-            this.surloappmoney = this.$route.params._surloappmoney;
             this.form.judgements_type = this.$route.params._judgements_type;
             let datalist = [];
             for (var i = 0; i < judgement.length; i++) {
@@ -1214,9 +1199,6 @@
               muchmoneys = (muchmoneys - 0) + (judgements_moneys[m] - 0);
             }
             this.form.moneys = muchmoneys;
-            if(this.surloappmoney != 0){
-              this.maxcontrol = this.surloappmoney
-            }
             this.form.remarks = remarks[0];
           } else {
             this.showtab = false;
@@ -1440,16 +1422,6 @@
         //ADD_FJL_0819  添加区分
         radioChange(val) {
             this.form.publicradio = val;
-            if(val == '1'){
-              this.maxcontrol = 100000000
-            }else{
-              if(this.surloappmoney != 0){
-                this.maxcontrol = this.surloappmoney
-                if(this.form.moneys > this.surloappmoney){
-                  this.form.moneys = this.maxcontrol
-                }
-              }
-            }
         },
         //ADD_FJL_0819  添加区分
       changecurrencychoice(val) {

@@ -790,7 +790,6 @@
         this.$store
           .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
           .then(response => {
-
             let sumtime = 0;
             for (let j = 0; j < response.length; j++) {
               if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {

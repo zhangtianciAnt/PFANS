@@ -1,5 +1,4 @@
 import request from '../../../../utils/request'
-import requestDownload from '../../../../utils/requestDownload';
 
 export function getList(data) {
   return request({
@@ -9,7 +8,13 @@ export function getList(data) {
   })
 }
 
-
+export function get(data) {
+  return request({
+    url: 'themeplan/get',
+    method: 'post',
+    data: data
+  })
+}
 
 export function getdetilList(data) {
   return request({
@@ -18,6 +23,15 @@ export function getdetilList(data) {
     data: data
   })
 }
+
+export function insert(data) {
+  return request({
+    url: 'themeplan/insert',
+    method: 'post',
+    data: data
+  })
+}
+
 
 export function update(data) {
   return request({
@@ -34,13 +48,7 @@ export function inserttheme(data) {
   })
 }
 
-export function getdataList(data) {
-  return request({
-    url: 'themeplan/getdataList',
-    method: 'get',
-    params: data,
-  })
-}
+
 
 
 

@@ -65,8 +65,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME1')" prop="project_name">
                     <el-input
-                      maxlength="255"
                       :disabled="true"
+                      maxlength="20"
                       style="width:20vw"
                       v-model="form.project_name"
                     ></el-input>
@@ -75,8 +75,8 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS5009FORMVIEW_NAME2')" prop="project_namejp">
                     <el-input
-                      maxlength="255"
                       :disabled="true"
+                      maxlength="5"
                       style="width:20vw"
                       v-model="form.project_namejp"
                     ></el-input>
@@ -811,6 +811,7 @@
                               size="small"
                             ></el-button>
                             <el-dialog
+                              :title="$t('menu.BROKERAGECONTRACT')"
                               :visible.sync="dialogTableVisible3"
                               center
                               size="50%"
@@ -2399,22 +2400,6 @@
                 });
               }
             }
-            //add-ws-01/16-禅道任务710
-            for (let i = 0; i < this.tableD.length; i++) {
-              for (let j = 1; j < this.tableD.length; j++) {
-                if (this.tableD[i].theme != this.tableD[j].theme) {
-                  Message({
-                    message: this.$t('label.PFANS5001FORMVIEW_PROJECTERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.activeName = 'fifth';
-                  this.loading = false;
-                  return;
-                }
-              }
-            }
-            //add-ws-01/16-禅道任务710
             for (let i = 0; i < this.tableB.length; i++) {
               // 社内员工进组时间&退出时间必须Check
               if ((!this.tableB[i].admissiontime || this.tableB[i].admissiontime === '' || !this.tableB[i].exittime || this.tableB[i].exittime === '') && this.tableB[i].name !== '') {

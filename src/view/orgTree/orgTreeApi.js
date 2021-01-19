@@ -14,11 +14,3 @@ export function getOrgTree() {
     method: 'get'
   })
 }
-
-export function getTreeYears(data) {
-  return request({
-    url: 'OrgTree/getTreeYears',
-    method: 'get',
-    params: data
-  })
-}

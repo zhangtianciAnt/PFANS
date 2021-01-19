@@ -474,6 +474,15 @@
             }else { //TL 正式员工
               this.workflowCode = 'W0023'
             }
+            // if (getCurrentRole() === '1') {
+            //   this.workflowCode = 'W0102';//总经理流程
+            // } else {
+            //   if (this.form.user_id === '5e78b2264e3b194874180f35') {
+            //     this.workflowCode = 'W0119';
+            //   } else {
+            //     this.workflowCode = 'W0023';//其他
+            //   }
+            // }
             let duringdate = response.routing.duringdate;
             let serdate = duringdate.slice(0, 10);
             let serdate1 = duringdate.slice(duringdate.length - 10);

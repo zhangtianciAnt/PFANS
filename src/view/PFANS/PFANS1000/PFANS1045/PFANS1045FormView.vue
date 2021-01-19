@@ -79,20 +79,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
-                    <!--                      add-ws-12/10-汇率字典-->
-<!--                    <dicselect :code="code7"-->
-<!--                               :data="form.currency"-->
-<!--                               :disabled="true"-->
-<!--                               :multiple="multiple"-->
-<!--                               style="width: 20vw">-->
-<!--                    </dicselect>-->
-                    <monthlyrate :month="month7"
-                                 :data="form.currency"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 style="width: 20vw">
-                    </monthlyrate>
-                    <!--                      add-ws-12/10-汇率字典-->
+                    <dicselect :code="code7"
+                               :data="form.currency"
+                               :disabled="true"
+                               :multiple="multiple"
+                               style="width: 20vw">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -330,12 +322,10 @@
     getStatus,
     uploadUrl
   } from '@/utils/customize';
-  import monthlyrate from '../../../components/monthlyrate';
-  import moment from 'moment';
+
   export default {
     name: 'PFANS1045FormView',
     components: {
-      monthlyrate,
       dicselect,
       EasyNormalContainer,
       user,
@@ -347,10 +337,7 @@
         checkcycle: 0,
         show10: true,
         canStart: true,
-        //add-ws-12/10-汇率字典
-        // code7: 'PG019',
-        month7: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
+        code7: 'PG019',
         disablecheck: '',
         upload: uploadUrl(),
         fileList: [],
@@ -462,7 +449,6 @@
                   let o = {};
                   o.name = uploadfile[i].split(',')[0];
                   o.url = uploadfile[i].split(',')[1];
-                  console.log(o)
                   this.fileList.push(o);
                 }
               }

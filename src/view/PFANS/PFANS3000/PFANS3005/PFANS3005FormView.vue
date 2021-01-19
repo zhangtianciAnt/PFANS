@@ -43,18 +43,6 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" >
-                    <dicselect
-                      :code="code5"
-                      :data="form.enableduplicateloan"
-                      :disabled="acceptShow"
-                      :multiple="multiple"
-                      @change="getEnableduplicateloan"
-                      style="width:20vw">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
                     <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
                                     v-model="form.findate"></el-date-picker>
@@ -809,7 +797,6 @@
           nodeList: [],
           accept: '0',
           acceptstatus: '',
-          enableduplicateloan:'PJ055002',
           findate: '',
           refusereason: '',
           //add_fjl_0908 添加供应商名称
@@ -849,7 +836,6 @@
         code3: 'PJ005',
         //add ccm 0720
         code4: 'PJ013',
-        code5: 'PJ055',
         show6: false,
         upload: uploadUrl(),
         fileList: [],
@@ -864,13 +850,6 @@
         menuList: [],
         disabled: false,
         rules: {
-          enableduplicateloan: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN'),
-              trigger: 'change',
-            },
-          ],
           //add ccm 0720
           salequotation: [
             {
@@ -1407,7 +1386,7 @@
         handler: function () {
           //totalamount --总金额
           // add_fjl_06/15 --添加审批流程 start
-           if (this.form.careerplan === '1') {
+          if (this.form.careerplan === '1') {
             if (Number(this.form.totalamount) <= 1000) {
               if (this.form.procurementproject === 'PJ005005' ||
                 this.form.procurementproject === 'PJ005006' ||
@@ -1434,8 +1413,8 @@
                 this.form.procurementproject === 'PJ005006' ||
                 this.form.procurementproject === 'PJ005007' ||
                 this.form.procurementproject === 'PJ005018'||
-              this.form.procurementproject === 'PJ005019' ||
-              this.form.procurementproject === 'PJ005020'){
+                this.form.procurementproject === 'PJ005019' ||
+                this.form.procurementproject === 'PJ005020'){
                 //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
                 this.workflowCode = 'W0127';
                 // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
@@ -1576,18 +1555,18 @@
                 disabled: true,
                 icon: 'el-icon-plus',
               },
-              {
-                key: 'temLoanApp',
-                name: 'button.temLoanApp',
-                disabled: true,
-                icon: 'el-icon-plus',
-              },
-              {
-                key: 'actuarial',
-                name: 'button.actuarial',
-                disabled: true,
-                icon: 'el-icon-edit-outline',
-              },
+              // {
+              //   key: 'temLoanApp',
+              //   name: 'button.temLoanApp',
+              //   disabled: true,
+              //   icon: 'el-icon-plus',
+              // },
+              // {
+              //   key: 'actuarial',
+              //   name: 'button.actuarial',
+              //   disabled: true,
+              //   icon: 'el-icon-edit-outline',
+              // },
             ];
           } else if(role4 === '0' || role5 === '0'){
             // this.disable = !this.$route.params.disabled;
@@ -1627,18 +1606,18 @@
               disabled: true,
               icon: 'el-icon-plus',
             },
-            {
-              key: 'temLoanApp',
-              name: 'button.temLoanApp',
-              disabled: true,
-              icon: 'el-icon-plus',
-            },
-            {
-              key: 'actuarial',
-              name: 'button.actuarial',
-              disabled: true,
-              icon: 'el-icon-edit-outline',
-            },
+            // {
+            //   key: 'temLoanApp',
+            //   name: 'button.temLoanApp',
+            //   disabled: true,
+            //   icon: 'el-icon-plus',
+            // },
+            // {
+            //   key: 'actuarial',
+            //   name: 'button.actuarial',
+            //   disabled: true,
+            //   icon: 'el-icon-edit-outline',
+            // },
           ];
         }
       }
@@ -1880,9 +1859,6 @@
       },
       //add-ws-6/16-禅道137
       //change受理状态  add_fjl
-      getEnableduplicateloan(val){
-        this.form.enableduplicateloan = val;
-      },
       changeAcc(val) {
         this.form.acceptstatus = val;
         if (val === '0') {
@@ -2346,102 +2322,104 @@
             });
           //采购合同重复check
 
-        } else if (val === 'temLoanApp') {
-          this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-          //暂借款申请
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-          // //check是否存在暂借款
-          if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
-            Message({
-              message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              type: 'info',
-              duration: 3 * 1000,
-            });
-            return;
-          } else {
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-          //采购ID
-          let purchase_id = [];
-          //采购编号
-          let purnumbers = [];
-          //采购金额
-          let moneys = [];
-          //采购摘要
-          let remarks = [];
-          purnumbers = this.form.purnumbers + ',';
-          purchase_id = this.form.purchase_id + ',';
-          moneys = this.form.totalamount + ',';
-          remarks = (this.form.remarks === null ? '' : this.form.remarks) + ',';
-          //暂借款申请
-          this.$router.push({
-            name: 'PFANS1006FormView',
-            params: {
-              _id: '',
-              _judgement: purchase_id,
-              _judgement_name: purnumbers,
-              _judgements_moneys: moneys,
-              _remarks: remarks,
-              _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
-              disabled: true,
-            },
-          });
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-          }
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-        } else if (val === 'actuarial') {
-          this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-          // if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
-          //   Message({
-          //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
-          //     type: 'info',
-          //     duration: 3 * 1000,
-          //   });
-          //   return;
-          // } else {
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-          let optionsSEL = [];
-          let user = getUserInfo(this.form.user_id);
-          if (user) {
-            this.form.user_id = getUserInfo(this.form.user_id).userinfo.customername;
-          }
-          var vote = {};
-          vote.user_id = this.form.user_id;
-          vote.remarks = this.form.purchasepurpose;
-          vote.numbers = this.form.purnumbers;
-          vote.value = this.form.purchase_id;
-          vote.label = this.form.purnumbers;
-          vote.judgements_moneys = this.form.totalamount;
-          if (this.$i18n) {
-            vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSES');
-          }
-          optionsSEL.push(vote);
-          if (this.form.loanapno === null || this.form.loanapno === '' || this.form.loanapno === undefined) {
-            //精算 没有暂借款
-            this.$router.push({
-              name: 'PFANS1012FormView',
-              params: {
-                _name: optionsSEL,
-                _type: 'PJ001002',
-                disabled: true,
-              },
-            });
-          } else {
-            //精算  带暂借款
-            this.$router.push({
-              name: 'PFANS1012FormView',
-              params: {
-                _name: optionsSEL,
-                _type: 'PJ001002',
-                _haveLoanapp: this.form.loanapplication_id,
-                disabled: true,
-              },
-            });
-          }
-          //del ccm 0813 决裁到暂借款，精算  check去掉
-          // }
-          //del ccm 0813 决裁到暂借款，精算  check去掉
         }
+        // else if (val === 'temLoanApp') {
+        //   this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        //   //暂借款申请
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        //   // //check是否存在暂借款
+        //   if (this.form.loanapno != null && this.form.loanapno != '' && this.form.loanapno != undefined) {
+        //     Message({
+        //       message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+        //       type: 'info',
+        //       duration: 3 * 1000,
+        //     });
+        //     return;
+        //   } else {
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        //   //采购ID
+        //   let purchase_id = [];
+        //   //采购编号
+        //   let purnumbers = [];
+        //   //采购金额
+        //   let moneys = [];
+        //   //采购摘要
+        //   let remarks = [];
+        //   purnumbers = this.form.purnumbers + ',';
+        //   purchase_id = this.form.purchase_id + ',';
+        //   moneys = this.form.totalamount + ',';
+        //   remarks = (this.form.remarks === null ? '' : this.form.remarks) + ',';
+        //   //暂借款申请
+        //   this.$router.push({
+        //     name: 'PFANS1006FormView',
+        //     params: {
+        //       _id: '',
+        //       _judgement: purchase_id,
+        //       _judgement_name: purnumbers,
+        //       _judgements_moneys: moneys,
+        //       _remarks: remarks,
+        //       _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
+        //       disabled: true,
+        //     },
+        //   });
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        //   }
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        // }
+        // else if (val === 'actuarial') {
+        //   this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        //   // if (this.form.invoiceno != null && this.form.invoiceno != '' && this.form.invoiceno != undefined) {
+        //   //   Message({
+        //   //     message: this.$t('label.PFANS3005VIEW_NUMBERS') + ' : ' + this.form.purnumbers + ' ' + this.$t('label.PFANS3005VIEW_INVOICENO'),
+        //   //     type: 'info',
+        //   //     duration: 3 * 1000,
+        //   //   });
+        //   //   return;
+        //   // } else {
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        //   let optionsSEL = [];
+        //   let user = getUserInfo(this.form.user_id);
+        //   if (user) {
+        //     this.form.user_id = getUserInfo(this.form.user_id).userinfo.customername;
+        //   }
+        //   var vote = {};
+        //   vote.user_id = this.form.user_id;
+        //   vote.remarks = this.form.purchasepurpose;
+        //   vote.numbers = this.form.purnumbers;
+        //   vote.value = this.form.purchase_id;
+        //   vote.label = this.form.purnumbers;
+        //   vote.judgements_moneys = this.form.totalamount;
+        //   if (this.$i18n) {
+        //     vote.judgements_type = this.$t('label.PFANS1012VIEW_PURCHASSES');
+        //   }
+        //   optionsSEL.push(vote);
+        //   if (this.form.loanapno === null || this.form.loanapno === '' || this.form.loanapno === undefined) {
+        //     //精算 没有暂借款
+        //     this.$router.push({
+        //       name: 'PFANS1012FormView',
+        //       params: {
+        //         _name: optionsSEL,
+        //         _type: 'PJ001002',
+        //         disabled: true,
+        //       },
+        //     });
+        //   } else {
+        //     //精算  带暂借款
+        //     this.$router.push({
+        //       name: 'PFANS1012FormView',
+        //       params: {
+        //         _name: optionsSEL,
+        //         _type: 'PJ001002',
+        //         _haveLoanapp: this.form.loanapplication_id,
+        //         disabled: true,
+        //       },
+        //     });
+        //   }
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        //   // }
+        //   //del ccm 0813 决裁到暂借款，精算  check去掉
+        // }
       },
     },
   };

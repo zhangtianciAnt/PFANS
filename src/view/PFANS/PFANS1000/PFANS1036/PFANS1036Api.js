@@ -45,28 +45,8 @@ export function getPlan(data) {
   })
 }
 
-export function getgroupA1(data) {
-  return request({
-    url: 'businessplan/getgroupA1',
-    method: 'get',
-    params: data,
-  })
-}
 
-export function getgroup(data) {
-  return request({
-    url: 'businessplan/getgroup',
-    method: 'get',
-    params: data,
-  })
-}
 
-export function getgroupcompanyen(data) {
-  return request({
-    url: 'businessplan/getgroupcompanyen',
-    method: 'get',
-    params: data,
-  })
-}
+
 
 

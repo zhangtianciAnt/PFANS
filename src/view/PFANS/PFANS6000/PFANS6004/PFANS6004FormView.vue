@@ -33,10 +33,9 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ADFIELD')" prop="accountname">
                 <el-input
-                  maxlength="100"
                   :disabled="!disabled"
                   style="width:20vw"
-                  v-model="form.accountname">
+                  v-model="form.accountname" maxlength="20">
                 </el-input>
               </el-form-item>
             </el-col>
@@ -75,7 +74,7 @@
             <!--            供应商名称-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')" prop="suppliername">
-                <el-input maxlength="255" :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.suppliername"></el-input>
               </el-form-item>
             </el-col>
             <!--            技术分类-->

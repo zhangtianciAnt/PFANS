@@ -377,7 +377,7 @@
         }, {
           value: '1',
           label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
-        }, {
+        },{
           value: '2',
           label: this.$t('label.PFANS2011FROMVIEW_NOHALFDATE'),
         }],
@@ -514,7 +514,7 @@
                   this.form.actualovertime = '8';
                 } else if(this.form.overtimelength === '1'){
                   this.form.actualovertime = '4';
-                } else{
+                } else {
                   this.form.actualovertime = '0';
                 }
               }
@@ -557,17 +557,16 @@
             //     this.disactualovertime = true;
             // }
             if (this.form.status === '0' || this.form.status === '3') {
+              // this.workflowCode = 'W0001';
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0067';
               } else {
-                //upd ztc 1224  start
                 // if (getCurrentRole() === '2') {
                 //   this.workflowCode = 'W0134';
                 // } else {
                 //   this.workflowCode = 'W0001';
                 // }
                 this.workflowCode = 'W0001';
-                //upd ztc 1224  end
               }
               //总经理预计
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -587,14 +586,12 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                //upd ztc 1224  start
                 // if (getCurrentRole() === '2') {
                 //   this.workflowCode = 'W0135';
                 // } else {
                 //   this.workflowCode = 'W0040';
                 // }
                 this.workflowCode = 'W0040';
-                //upd ztc 1224  end
               }
               //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -615,20 +612,22 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
-                //upd ztc 1224  start
                 // if (getCurrentRole() === '2') {
                 //   this.workflowCode = 'W0135';
                 // } else {
                 //   this.workflowCode = 'W0040';
                 // }
                 this.workflowCode = 'W0040';
-                //upd ztc 1224  end
               }
               //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
               {
                 this.workflowCode = 'W0073';
               }
+              // //王磊实际 禅道362
+              // if (this.form.userid === '5e78b2264e3b194874180f35') {
+              //   this.workflowCode = 'W0109';
+              // }
               this.canStart = false;
               this.disable = false;
               this.disactualovertime = false;
@@ -931,15 +930,15 @@
       },
       workflowState(val) {
         if (val.state === '1') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0134') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108' || val.workflowCode === 'W0134') {
             this.form.status = '3';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0135') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109' || val.workflowCode === 'W0135') {
             this.form.status = '6';
           }
         } else if (val.state === '2') {
-          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0134') {
+          if (val.workflowCode === 'W0001' || val.workflowCode === 'W0067' || val.workflowCode === 'W0072' || val.workflowCode === 'W0108' || val.workflowCode === 'W0134') {
             this.form.status = '4';
-          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0135') {
+          } else if (val.workflowCode === 'W0040' || val.workflowCode === 'W0068' || val.workflowCode === 'W0073' || val.workflowCode === 'W0109' || val.workflowCode === 'W0135') {
             this.form.status = '7';
             this.canStart = false;
           }
@@ -1044,7 +1043,7 @@
           } else {
             this.form.reserveovertime = '4';
           }
-        } else if (val === '2') {
+        }else if (val === '2') {
           if (Number(this.form.status) >= 4) {
             this.form.actualovertime = '0';
           } else {
@@ -1059,20 +1058,29 @@
           }
         } else {
           if (this.form.status === '0') {
-            //upd ztc 1224  start
             // if (getCurrentRole() === '2') {
             //   this.workflowCode = 'W0134';
             // } else {
             //   this.workflowCode = 'W0001';
             // }
             this.workflowCode = 'W0001';
-            //upd ztc 1224  end
           }
         }
         if (this.form.userid ==='5e78fefff1560b363cdd6db7')
         {
           this.workflowCode = 'W0072';
         }
+        // else if (this.form.userid === '5e78b2264e3b194874180f35') {
+        //   if (val >= 'PR001004') {
+        //     if (this.form.status === '0') {
+        //       this.workflowCode = 'W0067';
+        //     }
+        //   } else {
+        //     if (this.form.status === '0') {
+        //       this.workflowCode = 'W0108';
+        //     }
+        //   }
+        // }
 
         this.showovertimetype = false;
         this.showovertimelength = false;
@@ -1099,8 +1107,8 @@
           this.disovertimelength = false;
           this.showovertimetype = true;
           this.showovertimelength = true;
-          // this.form.overtimelength = '1';
-           this.form.reserveovertime = '0';
+          //this.form.overtimelength = '1';
+          this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
           if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
             Message({
@@ -1116,8 +1124,8 @@
           this.disovertimelength = false;
           this.showovertimetype = true;
           this.showovertimelength = true;
-          // this.form.overtimelength = '1';
-           this.form.reserveovertime = '0';
+          //this.form.overtimelength = '1';
+          this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
           if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
             Message({
@@ -1128,6 +1136,8 @@
             return;
           }
         }
+
+
       },
       change2(val) {
         this.form.reserveovertime = val;
@@ -1185,12 +1195,12 @@
               // }
               if (this.form.overtimelength==='0')
               {
-                    Message({
-                        message: this.$t('label.PFANS2011FROMVIEW_NOALLDAY'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    return;
+                Message({
+                  message: this.$t('label.PFANS2011FROMVIEW_NOALLDAY'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
               }
               if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                 Message({
@@ -1200,6 +1210,7 @@
                 });
                 return;
               }
+
             }
             if (this.form.overtimetype === 'PR001007') {
               //五四青年节重复申请check

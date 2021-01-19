@@ -15,7 +15,6 @@
                                width="50" fixed="left"></el-table-column>
               <el-table-column property="suppliername" :label="$t('label.PFANS6007VIEW_BPCLUBNAME')"
                                width="250" fixed="left"></el-table-column>
-
               <el-table-column :label="$t(item)"
                                v-for="(item, index) in this.groupnamelist" :key="index">
                 <el-table-column :label="$t('label.PFANS1027FORMVIEW_APPOINT')"
@@ -39,7 +38,7 @@
                   <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
                                    :property="`ex2cost${index}`"
                                    width="120"></el-table-column>
-                  <el-table-column :label="$t('label.PFANS6010VIEW_PERNUMBER')"
+                  <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')"
                                    :property="`ex2usercount${index}`"
                                    width="100"></el-table-column>
                 </el-table-column>

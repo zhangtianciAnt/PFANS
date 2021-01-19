@@ -120,18 +120,11 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                <!--                      add-ws-12/10-汇率字典-->
-<!--                <dicselect :code="code2"-->
-<!--                           :data="form.currencyposition"-->
-<!--                           :disabled="true"-->
-<!--                           style="width:20vw">-->
-<!--                </dicselect>-->
-                <monthlyrate :month="month2"
-                             :data="form.currencyposition"
-                             :disabled="true"
-                             style="width:20vw">
-                </monthlyrate>
-                <!--                      add-ws-12/10-汇率字典-->
+                <dicselect :code="code2"
+                           :data="form.currencyposition"
+                           :disabled="true"
+                           style="width:20vw">
+                </dicselect>
               </el-form-item>
             </el-col>
           </el-row>
@@ -156,11 +149,11 @@
     import moment from "moment";
   import dicselect from '../../../components/dicselect';
     import {getOrgInfoByUserId} from '@/utils/customize';
-    import monthlyrate from '../../../components/monthlyrate';
+
   export default {
       name: "PFANS1032FormView",
     components: {
-      EasyNormalContainer, dicselect,monthlyrate
+      EasyNormalContainer, dicselect,
     },
     data() {
       return {
@@ -169,10 +162,7 @@
         loading: false,
         disabled: true,
         code1: 'HT008',
-        //add-ws-12/10-汇率字典
-        // code2: 'PG019',
-        month2: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
+        code2: 'PG019',
         error: '',
         form: {
           contractnumber: '',

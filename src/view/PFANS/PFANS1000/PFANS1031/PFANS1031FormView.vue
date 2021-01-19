@@ -132,20 +132,12 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                <!--                      add-ws-12/10-汇率字典-->
-<!--                <dicselect :code="code3"-->
-<!--                           :data="form.currencyformat"-->
-<!--                           :disabled="disable"-->
-<!--                           :multiple="multiple"-->
-<!--                           style="width:20vw">-->
-<!--                </dicselect>-->
-                <monthlyrate :month="month3"
-                             :data="form.currencyformat"
-                             :disabled="disable"
-                             :multiple="multiple"
-                             style="width:20vw">
-                </monthlyrate>
-                <!--                      add-ws-12/10-汇率字典-->
+                <dicselect :code="code3"
+                           :data="form.currencyformat"
+                           :disabled="disable"
+                           :multiple="multiple"
+                           style="width:20vw">
+                </dicselect>
               </el-form-item>
             </el-col>
             <el-col :span="8">
@@ -197,11 +189,10 @@
   import {getUserInfo, getDictionaryInfo, getOrgInfoByUserId} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
   import moment from 'moment';
-  import monthlyrate from '../../../components/monthlyrate';
+
   export default {
     name: 'PFANS1031FormView',
     components: {
-      monthlyrate,
       EasyNormalContainer,
       PFANS1031View,
       dicselect,
@@ -245,10 +236,7 @@
         },
         code1: 'HT008',
         code2: 'PJ081',
-        //add-ws-12/10-汇率字典
-        // code3: 'PG019',
-        month3: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
+        code3: 'PG019',
         code4: 'HT012',
         code5: 'PJ082',
         disabled: true,
