@@ -88,6 +88,8 @@ module.exports = {
     trash: '废弃',
     end: '结束',
     vResult: '查看结果',
+    pause:'暂停',
+    start:'启动',
     savePrt: '保存并打印',
     prtQrcode: '打印二维码',
     disclick: '一键驳回',

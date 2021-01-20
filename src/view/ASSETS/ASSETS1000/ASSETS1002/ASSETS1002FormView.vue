@@ -224,6 +224,7 @@
     },
     created() {
       this.disable = this.$route.params.disabled;
+      this.status = this.$route.params.viewstatus;
       if (this.disable) {
         this.buttonList = [
           {
@@ -232,7 +233,39 @@
             icon: 'el-icon-check',
           },
         ];
-      } else {
+      }
+// 禅道任务741
+      else if(this.status === this.$t('label.node_step4')||this.status === this.$t('button.pause')) {
+        this.buttonList = [
+          {
+            key: 'vResult',
+            name: 'button.vResult',
+            icon: 'el-icon-thumb',
+          },
+          {
+            key: 'end',
+            name: 'button.end',
+            icon: 'el-icon-finished',
+          },
+          {
+            key: 'trash',
+            name: 'button.trash',
+            icon: 'el-icon-close',
+          },
+          {
+            key: 'pause',
+            name: 'button.pause',
+            icon: 'el-icon-video-pause',
+          },
+          {
+            key: 'start',
+            name: 'button.start',
+            icon: 'el-icon-video-play',
+          },
+        ];
+      }
+      // 禅道任务741
+      else {
         this.buttonList = [
           {
             key: 'vResult',
@@ -251,6 +284,7 @@
           },
         ];
       }
+
     },
     methods: {
       getDepartmentData() {
@@ -522,6 +556,18 @@
             this.baseInfo.inventoryRange = this.$refs.roletable.selectedList;
             this.getUpdate();
           }
+            if (val === 'pause' || val === 'start') {
+              let resultFlg = '';
+              if (val === 'start') {
+                resultFlg = '0';
+              } else {
+                resultFlg = '4';
+              }
+              this.form.status = resultFlg;
+              this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.inventoryRange = this.$refs.roletable.selectedList;
+              this.getUpdate();
+            }
         });
       },
     },
