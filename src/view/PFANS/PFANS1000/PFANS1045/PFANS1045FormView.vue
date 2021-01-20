@@ -171,7 +171,7 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.fiscal_year')">
+                  <el-form-item :label="$t('label.fiscal_year')" prop="yearss">
                     <div class="block">
                       <el-date-picker
                         :disabled="!disable"
@@ -412,7 +412,7 @@
         formLabelWidth: '120px',
         userlist: '',
         form: {
-          yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, "y").format('YYYY'),
           summonet: '',
           remark: '',
           cycle: '',
@@ -445,6 +445,11 @@
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1045VIEW_OUTSOURCINGCOMPANY'),
             trigger: 'change',
+          }],
+          yearss: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.fiscal_year'),
+            trigger: 'prop',
           }],
           cycle: [{
             required: true,
