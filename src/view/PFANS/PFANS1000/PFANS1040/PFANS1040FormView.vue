@@ -1337,7 +1337,7 @@
       getlisttheme() {
         this.loading = true;
         let parameters = {
-          year: moment(new Date()).add(1, 'y').format('YYYY'),
+          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
           contract: 0,
         };
         this.$store

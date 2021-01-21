@@ -138,7 +138,7 @@ export default {
       custominfo: {
         userinfo: {
           tel: '',
-          customername: ''
+          contactnumbercustomername: ''
         }
       },
       radio: 1,

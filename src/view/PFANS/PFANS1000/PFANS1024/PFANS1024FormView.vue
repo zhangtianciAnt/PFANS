@@ -272,15 +272,15 @@
                 <!--code9-->
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
                   <!--                      add-ws-12/10-汇率字典-->
-<!--                  <dicselect-->
-<!--                    :code="code9"-->
-<!--                    :data="scope.row.currencyposition"-->
-<!--                    :no="scope.row"-->
-<!--                    :multiple="multiple"-->
-<!--                    @change="getCurrencyposition"-->
-<!--                    style="width: 11rem"-->
-<!--                    :disabled="!disabled">-->
-<!--                  </dicselect>-->
+                  <!--                  <dicselect-->
+                  <!--                    :code="code9"-->
+                  <!--                    :data="scope.row.currencyposition"-->
+                  <!--                    :no="scope.row"-->
+                  <!--                    :multiple="multiple"-->
+                  <!--                    @change="getCurrencyposition"-->
+                  <!--                    style="width: 11rem"-->
+                  <!--                    :disabled="!disabled">-->
+                  <!--                  </dicselect>-->
                   <monthlyrate :month="month9"
                                :data="scope.row.currencyposition"
                                :no="scope.row"
@@ -715,6 +715,7 @@
   import project from '../../../components/project';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
+
   export default {
     name: 'PFANS1024View',
     components: {
@@ -1024,7 +1025,8 @@
         disabled3: false,
         disabled4: false,
         ruleSet: {
-          'save': ['contractnumber', 'theme'],
+        // , 'theme'
+          'save': ['contractnumber'],
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -2297,8 +2299,8 @@
           let letclaimtypeone = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype();
           this.form.tableclaimtype[i].claimtype = letclaimtypeone;
-          if(this.$route.params.bpcostcount){
-            this.form.tableclaimtype[0].claimamount =this.$route.params.bpcostcount
+          if (this.$route.params.bpcostcount) {
+            this.form.tableclaimtype[0].claimamount = this.$route.params.bpcostcount;
           }
         }
         if (this.form.contracttype === 'HT014001') {
@@ -2518,6 +2520,12 @@
                   });
               }
             }
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
           }
         });
       },
@@ -2620,11 +2628,11 @@
         });
       },
       checkparamsTitle() {
-        let letparamslist = this.$route.params.letparams
+        let letparamslist = this.$route.params.letparams;
         this.$router.push({
           name: 'PFANS6010FormView',
           params: {
-            letparams:letparamslist
+            letparams: letparamslist,
           },
         });
       },
@@ -2634,7 +2642,7 @@
             if (this.$route.params.letparams) {
               this.checkparamsTitle();
             }
-          }else{
+          } else {
             this.paramsTitle();
           }
         } else if (val === 'application') {
@@ -2653,17 +2661,17 @@
             this.getChecked(true);
           }
         }
-        if (val === 'cancellation')  {
+        if (val === 'cancellation') {
           this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
             confirmButtonText: this.$t('button.confirm'),
             cancelButtonText: this.$t('button.cancel'),
             type: 'warning',
-          }).then(() =>{
+          }).then(() => {
             this.$message({
               type: 'success',
               message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
             });
-          }).then(()=>{
+          }).then(() => {
             for (let i = 0; i < this.form.tabledata.length; i++) {
               this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
               this.form.tabledata[i].entrycondition = 'HT004001';

@@ -70,9 +70,9 @@ const PFANS1043store = {
       });
     },
 
-    getFpans1043List({commit}) {
+    getFpans1043List({commit}, data) {
       return new Promise((resolve, reject) => {
-        getFpans1043List().then(response => {
+        getFpans1043List(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
