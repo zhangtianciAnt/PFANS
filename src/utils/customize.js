@@ -752,6 +752,19 @@ export function getCurrentRole17() {
   return '1';
 }
 
+export function getCurrentRole18() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.description;
+    }
+    if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
 import CryptoJS from 'crypto-js/crypto-js';
 
 
