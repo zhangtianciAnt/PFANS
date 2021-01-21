@@ -162,7 +162,6 @@
         </el-row>
       </el-form>
     </EasyNormalTable>
-
   </div>
 </template>
 
@@ -310,6 +309,13 @@
             fix: false,
             filter: false,
           },
+          {
+            code: 'state',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 130,
+            fix: false,
+            filter: false,
+          },
         ],
         //add-ws-No.29-合同检索一览表中追加纳品日期 受托
         columns: [
@@ -413,6 +419,13 @@
             fix: false,
             filter: false,
           },
+          {
+            code: 'state',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
         ],
         //add-ws-No.29-合同检索一览表中追加纳品日期 其他
         columns3: [
@@ -478,6 +491,13 @@
             width: 120,
             fix: false,
             filter: true,
+          },
+          {
+            code: 'state',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 120,
+            fix: false,
+            filter: false,
           },
         ],
         row: '',
@@ -669,6 +689,7 @@
               this.$t('label.applicant'),
               this.$t('label.PFANS1024VIEW_APPLICATIONDATE'),
               this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+              this.$t('label.PFANS5009VIEW_STATUS'),
               this.$t('label.PFANS1024VIEW_CONTRACTNUMBER'),
               this.$t('label.PFANS1024VIEW_ENTRYCONDITION'),
               this.$t('label.PFANS1024VIEW_ENTRYPAYMENT'),
@@ -708,6 +729,7 @@
               'username',
               'applicationdate',
               'contracttype',
+              'state',
               'contractnumber',
               'entrycondition',
               'entrypayment',
@@ -807,7 +829,6 @@
             const data = this.formatJson(filterVal, output);
             excel.export_json_to_excel(tHeader, data, '契约一览');
           });
-
         } else if (val === 'export1') {
           if (this.contractType === '0') {
             if (this.$refs.roletable2.selectedList.length === 0) {
