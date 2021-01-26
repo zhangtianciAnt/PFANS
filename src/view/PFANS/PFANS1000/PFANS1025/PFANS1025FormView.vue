@@ -10,6 +10,7 @@
                          @workflowState="workflowState"
                          @disabled="setdisabled"
                          ref="container"
+                         :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw">
@@ -105,13 +106,22 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                      <dicselect :code="code3"
-                                 :data="form.currencyposition"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 @change="getcurrencyformat"
-                                 style="width:20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典-->
+<!--                      <dicselect :code="code3"-->
+<!--                                 :data="form.currencyposition"-->
+<!--                                 :disabled="true"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="getcurrencyformat"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
+                      <monthlyrate :month="month3"
+                                   :data="form.currencyposition"
+                                   :disabled="true"
+                                   :multiple="multiple"
+                                   @change="getcurrencyformat"
+                                   style="width:20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -530,10 +540,12 @@
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
+  import {getCurrentRole} from '@/utils/customize';
   import moment from 'moment';
   import org from '../../../components/org';
   import project from '../../../components/project';
   import {
+    getMonthlyrateInfo,
     getDictionaryInfo,
     getOrgInfo,
     getOrgInfoByUserId,
@@ -542,10 +554,11 @@
     uploadUrl,
   } from '@/utils/customize';
   import PFANS1045Pop from '@/components/EasyPop/PFANS1045Pop';
-
+  import monthlyrate from '../../../components/monthlyrate';
   export default {
     name: 'PFANS1025FormView',
     components: {
+      monthlyrate,
       PFANS1045Pop,
       EasyNormalContainer,
       user,
@@ -594,9 +607,12 @@
         error: '',
         errorfile: '',
         userlist: '',
-        code1: 'HT008',
+        code1: 'HT014',
         code2: 'HT005',
-        code3: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code4: 'HT018',
         errorgroup: '',
         selectType: 'Single',
@@ -604,6 +620,7 @@
         title: 'title.PFANS1025VIEW',
         multiple: false,
         orglist: '',
+        workflowCode: 'W0056',
         baseInfo: {},
         // add-ws-7/17-禅道116任务
         optionsdata: [],
@@ -716,6 +733,12 @@
               //   }
               // }
               //add-ws-契约种类value1值处理
+              // let roleLC = getCurrentRole();
+              //  if(roleLC == '2' || roleLC == '3') { //GM Center
+              //   this.workflowCode = 'W0004'//新流程
+              // }else { //TL 正式员工
+              //   this.workflowCode = 'W0056'
+              // }
               if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
                 this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
               }
@@ -793,9 +816,9 @@
               if (response.numbercounts.length > 0) {
 
                 for (let i = 0; i < response.numbercounts.length; i++) {
-                  let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
+                  let letCurrencyposition = getMonthlyrateInfo(response.numbercounts[i].currencyposition);
                   if (letCurrencyposition != null) {
-                    response.numbercounts[i].currencyposition = letCurrencyposition.value1;
+                    response.numbercounts[i].currencyposition = letCurrencyposition.currencyname;
                   }
                   let deliverydate = response.numbercounts[i].deliverydate;
                   let completiondate = response.numbercounts[i].completiondate;
