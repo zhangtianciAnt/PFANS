@@ -6,7 +6,7 @@
                          :workflowCode="workflowCode">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
             <el-tab-pane :label="$t('label.PFANS1012VIEW_SUMMONS')" name="first">
               <div>
                 <el-row>
@@ -56,7 +56,8 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')" prop="application_date">
-                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.reimbursementdate">
+                      <el-date-picker :disabled="true" style="width:20vw" v-model="form.reimbursementdate"
+                                      @change="changeereimbursementdate">
                       </el-date-picker>
                     </el-form-item>
                   </el-col>
@@ -899,22 +900,33 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center" prop="currency"
                                          width="150">
                           <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       clearable
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+                            <!--                            <dicselect :code="code4"-->
+                            <!--                                       clearable-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       :disabled="disa"-->
+                            <!--                                       @change="getCurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
+                            <monthlyrate :month="month4"
+                                         clearable
+                                         :data="scope.row.currency"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         :disabled="disa"
+                                         @change="getCurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecurr"
+                              :disabled="true"
                               :max="999999"
                               :min="0"
                               :precision="7"
@@ -1133,21 +1145,31 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
                                          width="150">
                           <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+                            <!--                            <dicselect :code="code4"-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       :disabled="disa"-->
+                            <!--                                       @change="getCurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
+                            <monthlyrate :month="month4"
+                                         :data="scope.row.currency"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         :disabled="disa"
+                                         @change="getCurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
                                          width="150">
                           <template slot-scope="scope">
                             <el-input-number
-                              :disabled="!disablecurr"
+                              :disabled="true"
                               :max="999999"
                               :min="0"
                               :precision="7"
@@ -1359,7 +1381,9 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import dicselect from '../../../components/dicselect';
+  import monthlyrate from '../../../components/monthlyrate';
   import {
+    getMonthlyrateInfo2,
     downLoadUrl,
     getCurrentRole,
     getCurrentRole5,
@@ -1377,6 +1401,7 @@
   export default {
     name: 'PFANS1012FormView',
     components: {
+      monthlyrate,
       PFANS1003Pop,
       PFANS1004Pop,
       PFANS1005Pop,
@@ -1596,7 +1621,6 @@
         checkGro: false,
         loading: false,
         disabled: false,
-        disablecurr: false,
         fromViewname: '',
         buttonList: [],
         checkCode2: '',
@@ -1809,7 +1833,10 @@
         IDname: '',
         code2: 'PJ002',
         code3: 'PJ004',
-        code4: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code4: 'PG019',
+        month4: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code5: 'PJ005',
         code11: '',
         code13: 'PJ071',
@@ -1927,19 +1954,17 @@
                     }
                   }
                 }
-//add-ws-6/12-禅道105
                 let role = getCurrentRole();
                 if (role == '1') {
                   //总经理
                   this.workflowCode = 'W0100';
                 } else {
                   if (this.form.moneys >= 20000) {
-                    // if (role == '2' || role == '3') { //GM Center
-                    //   this.workflowCode = 'W0115';//新流程
-                    // } else { //TL 正式员工
-                    //   this.workflowCode = 'W0077';
-                    // }
-                    this.workflowCode = 'W0077';
+                    if (role == '2' || role == '3') { //GM Center
+                      this.workflowCode = 'W0115';//新流程
+                    } else { //TL 正式员工
+                      this.workflowCode = 'W0077';
+                    }
                   } else {
                     if (role == '2' || role == '3') { //GM Center
                       this.workflowCode = 'W0141';//新流程
@@ -1948,8 +1973,6 @@
                     }
                   }
                 }
-//add-ws-6/12-禅道105
-//add-ws-6/16-禅道103
                 if (this.disable) {
                   if (this.form.paymentmethod === 'PJ004001') {
                     this.checkexpectedpaydate = false;
@@ -2050,10 +2073,12 @@
                     if (group) {
                       this.tableT[i].RedirictT = group.redirict;
                     }
-                    if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
+                    if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null
+                      && this.tableT[i].departmentname !== undefined) {
                       //ADD_FJL
                       this.tableT[i].optionsT = [];
                       let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
+                      //213
                       let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                       if (dic.length > 0) {
                         for (let j = 0; j < dic.length; j++) {
@@ -2796,6 +2821,36 @@
       },
     },
     methods: {
+      handleClick(tab, event) {
+        if (tab.name === 'first') {
+          if (this.form.type === 'PJ001002') {
+            let tableptormb = 0;
+            let tablertormb = 0;
+            if (this.tableP.length > 0) {
+              for (let j = 0; j < this.tableP.length; j++) {
+                if (this.tableP[j].tormb > 0) {
+                  tableptormb += parseFloat(this.tableP[j].tormb);
+                }
+              }
+            }
+
+            if (this.tableR.length > 0) {
+              for (let i = 0; i < this.tableR.length; i++) {
+                if (this.tableR[i].tormb > 0) {
+                  tablertormb += parseFloat(this.tableR[i].tormb);
+                }
+              }
+            }
+            this.tormbT = Number(tablertormb) + Number(tableptormb);
+            this.form.tormb = this.tormbT;
+          }
+        }
+      },
+      changeereimbursementdate(value) {
+        if (value) {
+          this.month4 = moment(value).format('YYYY-MM');
+        }
+      },
       // add-ws-8/20-禅道469
       // toggleSelection(rows) {
       //   if (rows) {
@@ -2878,12 +2933,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%", "%25");
-          file.url = file.url.replace("#", "%23");
-          file.url = file.url.replace("&", "%26");
-          file.url = file.url.replace("+", "%2B");
-          file.url = file.url.replace("=", "%3D");
-          file.url = file.url.replace("?", "%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -4046,7 +4101,7 @@
           this.form.fullname = '';
           this.form.suppliername = ' ';
           this.checkexpectedpaydate = true;
-          if (this.form.loan === "") {
+          if (this.form.loan === '') {
             this.getLoanApplicationList();
           }
         } else {
@@ -4155,30 +4210,21 @@
           }
         }
         if (error == '0') {
-          if (val === 'PG019001') {
-            this.disablecurr = false;
-            let dictionaryInfo = getDictionaryInfo(val);
-            if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.value2;
-            }
-          } else if (val === 'PG019002') {
-            this.disablecurr = false;
-            let dictionaryInfo = getDictionaryInfo(val);
-            if (dictionaryInfo) {
-              row.currencyrate = dictionaryInfo.value2;
-            }
+          let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
+          if (dictionaryInfo) {
+            row.currencyrate = dictionaryInfo.exchangerate;
           }
           row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
-          this.tormbT = Number(this.tormbT) + row.tormb;
-          this.form.tormb = this.tormbT;
-          this.form.currency = getDictionaryInfo(val).value1;
+          // this.tormbT = Number(this.tormbT) + row.tormb;
+          // this.form.tormb = this.tormbT;
+          this.form.currency = getMonthlyrateInfo2(val, this.month4).currencyname;
         }
         this.error_currency = error;
       },
       getCurrencyrate(row) {
         row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
-        this.tormbT = Number(this.tormbT) + row.tormb;
-        this.form.tormb = this.tormbT;
+        // this.tormbT = Number(this.tormbT) + row.tormb;
+        // this.form.tormb = this.tormbT;
       },
       deleteRow(index, rows, row) {
         if (rows.length > 1) {
@@ -4256,7 +4302,7 @@
         } else {
           this.tableF = [{
             invoicenumber: this.$t('label.PFANS1012FORMVIEW_NUMBERZP') + 1,
-            invoicetype: '',
+            invoicetype: 'PJ068001',
             invoiceamount: '',
             taxrate: '',
             excludingtax: '',
@@ -4269,7 +4315,7 @@
         this.tableT.push({
           optionsT: this.tableT[0].optionsT,
           //禅道653 ztc
-          accoundoptionsdate:this.tableT[0].accoundoptionsdate,
+          accoundoptionsdate: this.tableT[0].accoundoptionsdate,
           //禅道653 ztc
           trafficdetails_id: '',
           publicexpenseid: '',
@@ -4301,7 +4347,7 @@
           invoice_id: '',
           publicexpenseid: '',
           invoicenumber: c,
-          invoicetype: '',
+          invoicetype: 'PJ068001',
           invoiceamount: '',
           taxrate: '',
           excludingtax: '',
@@ -4446,28 +4492,32 @@
                 return prev;
               }
             }, 0);
-            if (index == 7) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index == 8) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+            // if (index == 7) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index == 8) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
             // if (index == 9) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
             // }
             // if (index == 10) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
             // }
-            if (index == 11) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
-            if (index == 12) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
-            }
+            // if (index == 11) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
+            // if (index == 12) {
+            //   sums[index] = Math.round((sums[index]) * 100) / 100;
+            // }
           } else {
             sums[index] = '--';
           }
         });
+        sums[7] = Math.round(sums[7] * 100) / 100;
+        sums[8] = Math.round(sums[8] * 100) / 100;
+        sums[11] = Math.round(sums[11] * 100) / 100;
+        sums[12] = Math.round(sums[12] * 100) / 100;
         this.getMoney(sums);
         this.getforeigncurrency(sums);
         return sums;
@@ -4533,22 +4583,13 @@
             newValue.display = true;
           });
         }
-        if (newValue.currency === 'PG019001') {
-          this.disablecurr = false;
-          let dictionaryInfo = getDictionaryInfo(newValue.currency);
-          if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.value2;
-          }
-        } else if (newValue.currency === 'PG019002') {
-          this.disablecurr = false;
-          let dictionaryInfo = getDictionaryInfo(newValue.currency);
-          if (dictionaryInfo) {
-            newValue.currencyrate = dictionaryInfo.value2;
-          }
+        let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
+        if (dictionaryInfo) {
+          newValue.currencyrate = dictionaryInfo.exchangerate;
         }
         newValue.tormb = Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100;
-        this.tormbT = Number(this.tormbT) + newValue.tormb;
-        this.form.tormb = this.tormbT;
+        // this.tormbT = Number(this.tormbT) + newValue.tormb;
+        // this.form.tormb = this.tormbT;
       },
       handleClickChange(val) {
         this.currentRow = val.suppliername;
@@ -4677,6 +4718,27 @@
         if (val === 'save') {
           this.$refs['reff'].validate(valid => {
               if (valid) {
+                if (this.form.type === 'PJ001002') {
+                  let tableptormb = 0;
+                  let tablertormb = 0;
+                  if (this.tableP.length > 0) {
+                    for (let j = 0; j < this.tableP.length; j++) {
+                      if (this.tableP[j].tormb > 0) {
+                        tableptormb += parseFloat(this.tableP[j].tormb);
+                      }
+                    }
+                  }
+
+                  if (this.tableR.length > 0) {
+                    for (let i = 0; i < this.tableR.length; i++) {
+                      if (this.tableR[i].tormb > 0) {
+                        tablertormb += parseFloat(this.tableR[i].tormb);
+                      }
+                    }
+                  }
+                  this.tormbT = Number(tablertormb) + Number(tableptormb);
+                  this.form.tormb = this.tormbT;
+                }
                 this.baseInfo = {};
                 this.baseInfo.publicexpense = [];
                 this.baseInfo.trafficdetails = [];
@@ -4865,14 +4927,14 @@
                     }
                   }
                 }
-                if(this.error_currency != 0){
+                if (this.error_currency != 0) {
                   this.activeName = 'third';
                   Message({
                     message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
-                  return
+                  return;
                 }
                 let error = 0;
                 //add-ws-6/16-禅道103
@@ -4945,6 +5007,7 @@
                       }
                       if (this.tableT[i].subjectnumber === '') {
                         this.activeName = 'second';
+                        alert(111);
                         error = error + 1;
                         Message({
                           message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
