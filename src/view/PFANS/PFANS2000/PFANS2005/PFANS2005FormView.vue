@@ -3272,12 +3272,12 @@
                     prop="user_name"
                   ></el-table-column>
                   <el-table-column
-                    :label="$t('label.PFANS2005FORMVIEW_JULY')"
+                    :label="this.thismonth"
                     align="center"
                     prop="thismonth"
                   ></el-table-column>
                   <el-table-column
-                    :label="$t('label.PFANS2005FORMVIEW_JUNE')"
+                    :label="this.lastmonth"
                     align="center"
                     prop="lastmonth"
                   ></el-table-column>
@@ -3347,6 +3347,8 @@
                     {label: "男", value: "男"},
                     {label: "女", value: "女"}
                 ],
+                thismonth: '',
+                lastmonth: '',
                 totaldataFJKC: [],
                 totaldataQQ: [],
                 totaldataCY: [],
@@ -3626,6 +3628,8 @@
         created() {
         },
         mounted() {
+            this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
+            this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
             this.Giving = this.$route.params._id;
             this.getListdata();
             // todo By Skaixx : 添加滚动条滑动监听事件
@@ -4490,7 +4494,7 @@
                             ) {
                                 response.entryVo[j].startdate = moment(
                                     response.entryVo[j].startdate
-                                ).add(1, 'days').format("YYYY-MM-DD");
+                                ).format("YYYY-MM-DD");
                             }
                             this.tableRZ = response.entryVo;
                             this.totaldataRZ = response.entryVo;

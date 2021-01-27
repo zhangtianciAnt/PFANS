@@ -13,6 +13,6 @@ module.exports = merge(prodEnv, {
   WS_API: '"ws://10.194.144.208:5556/"',
   // UPLOAD_URL:'"http://10.194.144.208:8002/?explorer/fileUpload&accessToken={1}&upload_to=E:/Kodkit/root/data/User/admin/home/PFANS/"',
   // DOWN_URL:'"http://10.194.144.208:8002/?explorer/fileDownload&accessToken={1}"'
-  UPLOAD_URL:'"http://10.194.144.212:80/kodexplorer/?explorer/fileUpload&accessToken={1}&upload_to=/opt/lampp/htdocs/kodexplorer/data/User/admin/home/document/"',
-  DOWN_URL:'"http://10.194.144.212:80/kodexplorer/?explorer/fileDownload&accessToken={1}"'
+  UPLOAD_URL:'"http://59.46.185.130:5558?explorer/fileUpload&accessToken={1}&upload_to=C:/Kodkit/root/data/User/admin/home/"',
+  DOWN_URL:'"http://59.46.185.130:5558?explorer/fileDownload&accessToken={1}"'
 })

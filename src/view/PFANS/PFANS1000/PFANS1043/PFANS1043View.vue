@@ -3,6 +3,12 @@
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid"
     >
+      <el-date-picker
+        v-model="year"
+        type="year"
+        slot="customize"
+        @change="showData">
+      </el-date-picker>
     </EasyNormalTable>
 
   </div>
@@ -21,6 +27,7 @@
     },
     data() {
       return {
+        year: moment(new Date()).format('YYYY'),
         loading: false,
         title: 'title.PFANS1043VIEW',
         data: [],
@@ -59,13 +66,19 @@
       };
     },
     mounted() {
-      this.getlistname();
+      this.getlistname(moment(new Date()).format('YYYY'));
     },
     methods: {
-      getlistname() {
+      showData() {
+        this.getlistname(moment(this.year).format('YYYY'));
+      },
+      getlistname(val) {
+        let parameters = {
+          year: val,
+        };
         this.loading = true;
         this.$store
-          .dispatch('PFANS1043Store/getFpans1043List', {})
+          .dispatch('PFANS1043Store/getFpans1043List', parameters)
           .then(response => {
             const data = [];
             for (let j = 0; j < response.length; j++) {
@@ -135,6 +148,15 @@
                   });
                   this.loading = false;
                 });
+              } else {
+                this.$router.push({
+                  name: 'PFANS1043FormView',
+                  params: {
+                    _id: this.row,
+                    disabled: true,
+                  },
+                });
+                this.loading = false;
               }
               this.loading = false;
             })

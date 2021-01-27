@@ -81,9 +81,11 @@
                   response[j].status = this.$t('button.end');
                 } else if(response[j].status === "3"){
                   response[j].status = this.$t('button.trash');
-                }
+                }// 禅道任务741
+                 else if(response[j].status === "4"){
+                  response[j].status = this.$t('button.pause');
+                }// 禅道任务741
               }
-
             }
             this.data = response;
             this.loading = false;
@@ -99,6 +101,9 @@
       },
       rowClick(row) {
         this.rowid = row.inventoryplan_id;
+        // 禅道任务741
+        this.status = row.status;
+        // 禅道任务741
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -112,6 +117,7 @@
           });
         }
         if (val === 'view') {
+
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -125,6 +131,9 @@
             params: {
               _id: this.rowid,
               disabled: false,
+              // 禅道任务741
+              viewstatus: this.status,
+              // 禅道任务741
             },
           });
         }

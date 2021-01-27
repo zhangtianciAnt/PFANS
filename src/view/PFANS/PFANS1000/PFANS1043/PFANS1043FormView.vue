@@ -93,7 +93,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                          v-show="show1">
+                          v-show="show1" prop="toolsorgs">
               <div class="dpSupIndex" style="width: 20vw">
                 <el-container>
                   <el-input style="width: 20vw"
@@ -158,7 +158,7 @@
                     <div style="text-align: center">
                       <el-row style="text-align: center;height: 90%;overflow: hidden">
                         <el-table
-                          :data="gridData.filter(data => !search || data.toolsorgs.toLowerCase().includes(search.toLowerCase()))"
+                          :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
                           height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                           @row-click="handleClickChange">
                           <el-table-column property="suppliername"
@@ -289,7 +289,7 @@
           themename: '',
           centerid: '',
           groupid: '',
-          year: moment(new Date()).add(1, 'y').format('YYYY'),
+          year: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
           user_id: '',
           data: '',
           divide: '',
@@ -305,6 +305,11 @@
         },
         disable: true,
         rules: {
+          toolsorgs: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS5001FORMVIEW_ENTRUST'),
+            trigger: 'change',
+          }],
           contract: [{
             required: true,
             message: this.$t('normal.error_09') + this.$t('label.PFANS1043FORMVIEW_CONTRACT'),
@@ -367,11 +372,11 @@
               this.show1 = true;
             } else if (this.form.contract == 'PJ142006' || this.form.contract == 'PJ142007') {
               this.show2 = true;
-            } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009'|| this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
+            } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009' || this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
               this.show3 = true;
             }
             if (this.$route.params.type) {
-              this.form.year=moment(new Date()).add(1, 'y').format('YYYY')
+              this.form.year = moment(new Date()).add(1, 'y').format('YYYY');
             }
             this.loading = false;
           })
@@ -573,7 +578,6 @@
         this.$store
           .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
-            this.gridData = [];
             for (let i = 0; i < response.length; i++) {
               var vote = {};
               vote.suppliername = response[i].supchinese;
@@ -608,7 +612,7 @@
       },
       getcontract(val) {
         this.form.contract = val;
-        if (this.form.contract == 'PJ142001' || this.form.contract == 'PJ142002' || this.form.contract == 'PJ142003' ) {
+        if (this.form.contract == 'PJ142001' || this.form.contract == 'PJ142002' || this.form.contract == 'PJ142003') {
           this.show1 = true;
           this.show2 = false;
           this.show3 = false;
@@ -618,7 +622,7 @@
           this.show2 = true;
           this.show3 = false;
           this.form.toolsorgs = '';
-        } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009'|| this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
+        } else if (this.form.contract == 'PJ142008' || this.form.contract == 'PJ142009' || this.form.contract == 'PJ142004' || this.form.contract == 'PJ142005') {
           this.show1 = false;
           this.show2 = false;
           this.show3 = true;

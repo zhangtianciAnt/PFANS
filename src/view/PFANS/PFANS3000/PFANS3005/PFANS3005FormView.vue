@@ -43,6 +43,18 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" >
+                    <dicselect
+                      :code="code5"
+                      :data="form.enableduplicateloan"
+                      :disabled="acceptShow"
+                      :multiple="multiple"
+                      @change="getEnableduplicateloan"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
                     <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
                                     v-model="form.findate"></el-date-picker>
@@ -797,6 +809,7 @@
           nodeList: [],
           accept: '0',
           acceptstatus: '',
+          enableduplicateloan:'PJ055002',
           findate: '',
           refusereason: '',
           //add_fjl_0908 添加供应商名称
@@ -836,6 +849,7 @@
         code3: 'PJ005',
         //add ccm 0720
         code4: 'PJ013',
+        code5: 'PJ055',
         show6: false,
         upload: uploadUrl(),
         fileList: [],
@@ -850,6 +864,13 @@
         menuList: [],
         disabled: false,
         rules: {
+          enableduplicateloan: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN'),
+              trigger: 'change',
+            },
+          ],
           //add ccm 0720
           salequotation: [
             {
@@ -1859,6 +1880,9 @@
       },
       //add-ws-6/16-禅道137
       //change受理状态  add_fjl
+      getEnableduplicateloan(val){
+        this.form.enableduplicateloan = val;
+      },
       changeAcc(val) {
         this.form.acceptstatus = val;
         if (val === '0') {

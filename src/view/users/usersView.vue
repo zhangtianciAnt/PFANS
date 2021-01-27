@@ -61,7 +61,7 @@
             @change="filterInfo"
           ></el-date-picker>
         </EasyNormalTable>
-        <el-dialog :visible.sync="daoru" width="50%">
+        <el-dialog :visible.sync="daoru"  @close="refresh"  width="50%">
           <div>
             <div style="margin-top: 1rem;margin-left: 28%">
               <el-upload
@@ -331,6 +331,10 @@ export default {
     };
   },
   methods: {
+    refresh() {
+        this.getInitData();
+        this.getDataList();
+    },
     //ADD-LXX
     filterInfo() {
       this.tableList = this.TABLEList.slice(0);
@@ -563,12 +567,10 @@ export default {
       //ADD_FJL  获取年龄
       //ADD_FJL 获取年假信息
       getDataList() {
-          this.loading = true;
           this.$store
               .dispatch('PFANS2013Store/getDataList', {})
               .then(response => {
                   this._tableList = response;
-                  this.loading = false;
               })
               .catch(error => {
                   Message({
@@ -576,7 +578,7 @@ export default {
                       type: 'error',
                       duration: 5 * 1000,
                   });
-                  this.loading = false;
+                  //this.loading = false;
               });
       },
       //ADD_FJL 获取年假信息
@@ -594,7 +596,7 @@ export default {
           import("@/vendor/Export2Excel").then(excel => {
               const tHeader = [
                   this.$t("label.user_name"),//姓名
-                  this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//AD域账号
+                  this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//登录账号
                   this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
                   this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
                   this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
@@ -655,7 +657,7 @@ export default {
               ];
               const filterVal = [
                   "customername",//姓名
-                  "adfield",//AD域账号
+                  "adfield",//登录账号
                   "jobnumber",//卡号
                   "personalcode",//员工ID
                   "idnumber",//身份证号码

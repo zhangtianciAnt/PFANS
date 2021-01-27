@@ -377,6 +377,9 @@
         }, {
           value: '1',
           label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
+        }, {
+          value: '2',
+          label: this.$t('label.PFANS2011FROMVIEW_NOHALFDATE'),
         }],
         // ageflg: '',
         sexflg: '',
@@ -509,8 +512,10 @@
               if (this.form.status === '4') {
                 if (this.form.overtimelength === '0') {
                   this.form.actualovertime = '8';
-                } else {
+                } else if(this.form.overtimelength === '1'){
                   this.form.actualovertime = '4';
+                } else{
+                  this.form.actualovertime = '0';
                 }
               }
               this.disovertimelength = false;
@@ -518,7 +523,16 @@
               this.disactualovertime = false;
             } else if (this.form.overtimetype === 'PR001007' || this.form.overtimetype === 'PR001008') {
               //五四青年节,妇女节的场合
-              this.disovertimelength = true;
+              if (this.form.status === '4') {
+                if (this.form.overtimelength === '0') {
+                  this.form.actualovertime = '8';
+                } else if(this.form.overtimelength === '1'){
+                  this.form.actualovertime = '4';
+                } else{
+                  this.form.actualovertime = '0';
+                }
+              }
+              this.disovertimelength = false;
               this.showovertimetype = true;
               this.showovertimelength = true;
               this.disactualovertime = false;
@@ -1030,6 +1044,12 @@
           } else {
             this.form.reserveovertime = '4';
           }
+        } else if (val === '2') {
+          if (Number(this.form.status) >= 4) {
+            this.form.actualovertime = '0';
+          } else {
+            this.form.reserveovertime = '0';
+          }
         }
       },
       change(val) {
@@ -1072,14 +1092,15 @@
           this.disovertimelength = false;
           this.showovertimelength = true;
           this.disactualovertime = false;
+          this.form.reserveovertime = '0';
         }
         if (val === 'PR001008') {
           this.disactualovertime = false;
-          this.disovertimelength = true;
+          this.disovertimelength = false;
           this.showovertimetype = true;
           this.showovertimelength = true;
-          this.form.overtimelength = '1';
-          this.form.reserveovertime = '4';
+          // this.form.overtimelength = '1';
+           this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
           if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
             Message({
@@ -1092,11 +1113,11 @@
         }
         if (val === 'PR001007') {
           this.disactualovertime = false;
-          this.disovertimelength = true;
+          this.disovertimelength = false;
           this.showovertimetype = true;
           this.showovertimelength = true;
-          this.form.overtimelength = '1';
-          this.form.reserveovertime = '4';
+          // this.form.overtimelength = '1';
+           this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
           if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
             Message({
@@ -1107,8 +1128,6 @@
             return;
           }
         }
-
-
       },
       change2(val) {
         this.form.reserveovertime = val;
@@ -1164,6 +1183,15 @@
               //     });
               //     return;
               // }
+              if (this.form.overtimelength==='0')
+              {
+                    Message({
+                        message: this.$t('label.PFANS2011FROMVIEW_NOALLDAY'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    });
+                    return;
+              }
               if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
                 Message({
                   message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOS'),
@@ -1172,7 +1200,6 @@
                 });
                 return;
               }
-
             }
             if (this.form.overtimetype === 'PR001007') {
               //五四青年节重复申请check
@@ -1184,6 +1211,15 @@
               //     });
               //     return;
               // }
+              if (this.form.overtimelength==='0')
+              {
+                Message({
+                  message: this.$t('label.PFANS2011FROMVIEW_NOALLDAY'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
               //五四青年节28周岁以内申请
               if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
                 Message({

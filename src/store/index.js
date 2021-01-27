@@ -50,6 +50,7 @@ import PFANS1040Store from '../view/PFANS/PFANS1000/PFANS1040/PFANS1040Store'
 import PFANS1042Store from '../view/PFANS/PFANS1000/PFANS1042/PFANS1042Store'
 import PFANS1043Store from '../view/PFANS/PFANS1000/PFANS1043/PFANS1043Store'
 import PFANS1048Store from '../view/PFANS/PFANS1000/PFANS1048/PFANS1048Store'
+import PFANS1049Store from '../view/PFANS/PFANS1000/PFANS1049/PFANS1049Store'
 import PFANS2001Store from '../view/PFANS/PFANS2000/PFANS2001/PFANS2001Store'
 import PFANS2002Store from '../view/PFANS/PFANS2000/PFANS2002/PFANS2002Store'
 import PFANS2003Store from '../view/PFANS/PFANS2000/PFANS2003/PFANS2003Store'
@@ -106,6 +107,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   modules: {
     PFANS1048Store,
+    PFANS1049Store,
     global,
     frameStore,
     orgTreeStore,

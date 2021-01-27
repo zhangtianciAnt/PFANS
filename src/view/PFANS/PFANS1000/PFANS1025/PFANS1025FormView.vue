@@ -607,7 +607,7 @@
         error: '',
         errorfile: '',
         userlist: '',
-        code1: 'HT008',
+        code1: 'HT014',
         code2: 'HT005',
         //add-ws-12/10-汇率字典
         // code3: 'PG019',

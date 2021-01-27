@@ -142,7 +142,7 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {Decrypt, getDictionaryInfo, getOrgInfo, getUserInfo, getUserInfoName} from '@/utils/customize';
+  import {Decrypt, getDictionaryInfo, getOrgInfo, getUserInfo, getUserInfoName, getCurrentRole18, getUserInfoBudgetunit} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
@@ -318,7 +318,7 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
-          {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': true, 'icon': 'el-icon-plus'},
+          {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         rowid: '',
         row_id: 'assets_id',
@@ -540,13 +540,17 @@
       },
       rowClick(row) {
         //add-ws-9/30-禅道任务564
-        this.buttonList[7].disabled = true;
-        if (getUserInfoName(row.principal) !== '-1') {
-          this.userids = getUserInfoName(row.principal).userid;
-        }
-        if (this.userids === this.$store.getters.userinfo.userid) {
-          this.buttonList[7].disabled = false;
-        }
+        // this.buttonList[7].disabled = true;
+        // if (getUserInfoName(row.principal) !== '-1') {
+        //   this.userids = getUserInfoName(row.principal).userid;
+        //   this.usedepartment1 = getUserInfoName(row.principal).userinfo.budgetunit;
+        // }
+        // let role = getCurrentRole18();
+        // if (role === '0' && this.usedepartment1 === this.$store.getters.userinfo.userinfo.budgetunit) {
+        //   this.buttonList[7].disabled = false;
+        // } else if (this.userids === this.$store.getters.userinfo.userid) {
+        //   this.buttonList[7].disabled = false;
+        // }
 //add-ws-9/30-禅道任务564
         this.rowid = row.assets_id;
 
@@ -704,7 +708,30 @@
           this.websocketsend(JSON.stringify(list));
         }
         if (val === 'assettransfer') {
-          this.pop_assettransfer = true;
+          let R = 1;
+          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+            if (getUserInfoName(this.$refs.roletable.selectedList[i].principal) !== '-1') {
+              this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
+              this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
+            }
+            let role = getCurrentRole18();
+            if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+              R *= 0;
+            } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+              R *= 0;
+            } else {
+              R *= 1;
+            }
+          }
+          if (R === 0) {
+            Message({
+              message: this.$t('normal.error_23'),
+              type: 'error',
+              duration: 3 * 1000,
+            });
+          } else {
+            this.pop_assettransfer = true;
+          }
         }
       },
       export(selectedList) {

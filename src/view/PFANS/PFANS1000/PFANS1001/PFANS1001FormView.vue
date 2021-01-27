@@ -1066,7 +1066,7 @@
                 loanid += this.selectedlist[i].loanapplication_id + ',';
               }
               if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
-                enableduplicateloan.push(this.selectedlist[i].enableduplicateloan);
+                enableduplicateloan.push(this.selectedlist[i]);
               }
             }
             if (val === 'actuarial') {
@@ -1117,15 +1117,20 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉\
+              let judloan = '';
               for(let k=0;k<enableduplicateloan.length;k++) {
-                if (loan !== '' && enableduplicateloan[k] === 'PJ055002') {
-                  Message({
-                    message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-                    type: 'info',
-                    duration: 3 * 1000,
-                  });
-                  return;
+                if (enableduplicateloan[k].loanapno !== '' && enableduplicateloan[k].enableduplicateloan === 'PJ055002') {
+                  judloan = judloan + enableduplicateloan[k].judgnumbers + ' , ';
                 }
+              }
+              if (judloan.length > 0)
+              {
+                Message({
+                  message: judloan + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
               }
               //del ccm 0813 决裁到暂借款，精算  check去掉
               if (this.$route.params.title === 4) {

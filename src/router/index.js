@@ -6,6 +6,7 @@ import EasyLogin from '@/components/EasyLogin'
 import orgTreeView from '@/view/orgTree/orgTreeView.vue'
 import orgTree1001View from '@/view/orgTree/orgTree1001View.vue'
 import orgTree1002View from '@/view/orgTree/orgTree1002View.vue'
+import orgTree1003View from '@/view/orgTree/orgTree1003View.vue'
 import orgTreeFormView from '@/view/orgTree/orgTreeFormView.vue'
 import invoiceFormView from '@/view/orgTree/invoiceFormView.vue'
 import bankFormView from '@/view/orgTree/bankFormView.vue'
@@ -98,6 +99,8 @@ import PFANS1045View from '@/view/PFANS/PFANS1000/PFANS1045/PFANS1045View.vue'
 import PFANS1046View from '@/view/PFANS/PFANS1000/PFANS1046/PFANS1046View.vue'
 import PFANS1048View from '@/view/PFANS/PFANS1000/PFANS1048/PFANS1048View.vue'
 import PFANS1048FormView from '@/view/PFANS/PFANS1000/PFANS1048/PFANS1048FormView.vue'
+import PFANS1049View from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049View.vue'
+import PFANS1049FormView from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049FormView.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -271,6 +274,11 @@ const routes = [
         path: '/orgTree1002View',
         name: 'orgTree1002View',
         component: orgTree1002View
+      },
+      {
+        path: '/orgTree1003View',
+        name: 'orgTree1003View',
+        component: orgTree1003View
       },
       {
         path: '/orgFormEdit',
@@ -725,6 +733,16 @@ const routes = [
         path: '/PFANS1048FormView',
         name: 'PFANS1048FormView',
         component: PFANS1048FormView,
+      },
+      {
+        path: '/PFANS1049View',
+        name: 'PFANS1049View',
+        component: PFANS1049View,
+      },
+      {
+        path: '/PFANS1049FormView',
+        name: 'PFANS1049FormView',
+        component: PFANS1049FormView,
       },
       {
         path: '/PFANS1045FormView',

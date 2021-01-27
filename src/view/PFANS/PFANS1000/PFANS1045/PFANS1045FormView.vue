@@ -80,12 +80,12 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
                     <!--                      add-ws-12/10-汇率字典-->
-<!--                    <dicselect :code="code7"-->
-<!--                               :data="form.currency"-->
-<!--                               :disabled="true"-->
-<!--                               :multiple="multiple"-->
-<!--                               style="width: 20vw">-->
-<!--                    </dicselect>-->
+                    <!--                    <dicselect :code="code7"-->
+                    <!--                               :data="form.currency"-->
+                    <!--                               :disabled="true"-->
+                    <!--                               :multiple="multiple"-->
+                    <!--                               style="width: 20vw">-->
+                    <!--                    </dicselect>-->
                     <monthlyrate :month="month7"
                                  :data="form.currency"
                                  :disabled="true"
@@ -155,19 +155,6 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="cycle">
-                    <el-select v-model="form.cycle" :disabled="!disable" style="width: 19.5vw" clearable
-                               @change="changeAcc">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1045VIEW_SUMMONET')">
                     <el-input-number
                       :disabled="true"
@@ -179,6 +166,35 @@
                       style="width: 20vw"
                       v-model="form.summonet">
                     </el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.fiscal_year')" prop="yearss">
+                    <div class="block">
+                      <el-date-picker
+                        :disabled="!disable"
+                        style="width: 20vw"
+                        type="year"
+                        v-model="form.yearss"
+                        @change="showData">>
+                      </el-date-picker>
+                    </div>
+                  </el-form-item>
+                </el-col>
+
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="cycle">
+                    <el-select v-model="form.cycle" :disabled="!disable" style="width: 19.5vw" clearable
+                               @change="changeAcc">
+                      <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -328,10 +344,11 @@
   import {
     downLoadUrl,
     getStatus,
-    uploadUrl
+    uploadUrl,
   } from '@/utils/customize';
   import monthlyrate from '../../../components/monthlyrate';
   import moment from 'moment';
+
   export default {
     name: 'PFANS1045FormView',
     components: {
@@ -395,6 +412,7 @@
         formLabelWidth: '120px',
         userlist: '',
         form: {
+          yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, "y").format('YYYY'),
           summonet: '',
           remark: '',
           cycle: '',
@@ -427,6 +445,11 @@
             required: true,
             message: this.$t('normal.error_08') + this.$t('label.PFANS1045VIEW_OUTSOURCINGCOMPANY'),
             trigger: 'change',
+          }],
+          yearss: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.fiscal_year'),
+            trigger: 'prop',
           }],
           cycle: [{
             required: true,
@@ -462,7 +485,7 @@
                   let o = {};
                   o.name = uploadfile[i].split(',')[0];
                   o.url = uploadfile[i].split(',')[1];
-                  console.log(o)
+                  console.log(o);
                   this.fileList.push(o);
                 }
               }
@@ -499,6 +522,9 @@
       this.disable2 = this.$route.params.disabled;
     },
     methods: {
+      showData() {
+        this.form.yearss = moment(this.form.yearss).format('YYYY');
+      },
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
@@ -547,12 +573,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -718,7 +744,7 @@
         this.$store
           .dispatch('PFANS1006Store/chackcycle', this.form)
           .then(response => {
-            if (response.length == 1) {
+            if (response.length > 0) {
               this.checkcycle = 1;
               Message({
                 message: this.$t('label.PFANS1045VIEW_CHECK2'),

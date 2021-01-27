@@ -8,8 +8,15 @@ export function createPfans1043(data) {
     data: data
   })
 }
-
-
+//add-ws-01/06-禅道任务710
+export function themenametype(data) {
+  return request({
+    url: 'themeplan/themenametype',
+    method: 'get',
+    params: data,
+  })
+}
+//add-ws-01/06-禅道任务710
 export function getthemename(data) {
   return request({
     url: 'themeplan/getthemename',
@@ -28,10 +35,11 @@ export function updatePfans1043(data) {
 }
 
 
-export function getFpans1043List() {
+export function getFpans1043List(data) {
   return request({
     url: 'themeinfor/list',
-    method: 'post'
+    method: 'get',
+    params: data,
   })
 }
 

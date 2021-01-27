@@ -569,7 +569,7 @@
     methods: {
       setdisabled(val) {
         if (this.$route.params.disabled) {
-          this.disabled = val;
+          this.disabled =  val;
         }
       },
       changeperscale(val) {

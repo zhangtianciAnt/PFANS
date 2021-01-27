@@ -8,9 +8,12 @@
       </el-aside>
       <el-main style="padding: 0;width: 100%;min-height: 100%">
         <el-card style="border:none;border-radius:0;min-height: 100%">
+          <div slot="header" class="clearfix" style="height: 2rem">
+            <easy-button-bar @buttonClick="buttonClick" :data="buttonList"></easy-button-bar>
+          </div>
           <div>{{"年份"}}
             <el-date-picker
-              v-model="year"
+              v-model="years"
               type="year"
               @change="showData"
               placeholder="选择年">
@@ -97,7 +100,7 @@
   import EasyButtonBar from '@/components/EasyButtonBar'
   import { parseTime } from '@/utils/customize'
   import { Message } from 'element-ui'
-  import moment from "moment";
+  import moment from "moment"
   import user from "../components/user.vue";
   export default {
     name: 'orgTree1001View',
@@ -118,18 +121,14 @@
           label: 'title',
           children: 'orgs'
         },
-        year:  moment(new Date()).format('YYYY'),
+        years:  moment(new Date()).format('YYYY'),
         activeNam: 'first',
         currentNode: {
           type: '1'
         },
-        // buttonList: [
-        //   { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
-        //   { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
-        //   { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
-        //   { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' },
-        //   { key: 'view', name: 'button.resume', disabled: false, icon: 'el-icon-check' }
-        // ],
+        buttonList: [
+            { key: 'back', name: 'button.back', disabled: false, icon: 'el-icon-back' },
+        ],
         nameflag: false,
         namelessflag: false,
         nameengflag: false,
@@ -148,39 +147,11 @@
     },
     methods: {
       showData(value) {
-        this.year = moment(value).format('YYYY');
+        this.years = moment(value).format('YYYY');
         this.getInitData();
       },
       getUserids(val){
         this.currentNode.user = val;
-      },
-      getButtonAuth (data) {
-        this.$store
-          .dispatch('tableStore/getActionsAuth', data.owner)
-          .then(response => {
-            this.buttonList[3].disabled = response[1];
-            this.formDisabled = response[1];
-          })
-          .catch(error => {
-            this.buttonList[3].disabled = false;
-            this.formDisabled = false;
-          })
-      },
-      getNewActionAuth () {
-        this.$store
-          .dispatch('tableStore/getNewActionAuth')
-          .then(response => {
-            // this.newBtnDisabled = response;
-            // this.buttonList[0].disabled = response;
-            // this.buttonList[1].disabled = response;
-            // this.buttonList[2].disabled = response;
-          })
-          .catch(error => {
-            // this.newBtnDisabled = false;
-            // this.buttonList[0].disabled = false;
-            // this.buttonList[1].disabled = false;
-            // this.buttonList[2].disabled = false;
-          })
       },
       handleNodeClick (data) {
         let temp = []
@@ -205,13 +176,11 @@
       getInitData () {
         this.loading = true;
         this.$store
-          .dispatch('orgTreeStore/getTreeYears', {"Years": this.year})
+          .dispatch('orgTreeStore/getTreeYears', {"Years": this.years,"Status": '0'})
               .then(response => {
             if (response) {
-              this.$store.commit("global/SET_ORGLIST", [response]);
               this.data = [response]
               this.currentNode = response
-              this.getButtonAuth(this.currentNode)
               if (this.currentNode.invoiceinfo) {
                 this.exrinfolist.invlist = [this.currentNode.invoiceinfo]
               }
@@ -230,30 +199,9 @@
             this.loading = false;
           })
       },
-      // buttonClick (val) {
-      //   if (val === 'save') {
-      //     this.formcommit();
-      //   } else if (val === 'view') {
-      //     this.$router.push({
-      //       name: '',
-      //       params: {
-      //         _id: '',
-      //         disabled: true
-      //       }
-      //     })
-      //   } else {
-      //     this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-      //     let type = val === 'new1' ? '1' : (val === 'new2' ? '2' : '3')
-      //     this.$router.push({
-      //       name: 'orgFormEdit',
-      //       params: {
-      //         currentNode: this.currentNode,
-      //         orgTree: this.$refs.treeCom.$refs.treeCom,
-      //         type: type
-      //       }
-      //     })
-      //   }
-      // },
+      buttonClick (val) {
+          this.cancelForm();
+      },
       changeflag (flag, type) {
         switch (flag) {
           case 'nameflag':
@@ -376,10 +324,14 @@
           .catch(() => {
             this.loading = false
           })
-      }
+      },
+      cancelForm() {
+          if(this.$store.getters.historyUrl){
+              this.$router.push(this.$store.getters.historyUrl);
+          }
+      },
     },
     mounted () {
-      this.getNewActionAuth()
       this.getInitData()
       this.$store.commit('global/SET_OPERATEID', '')
     }

@@ -2041,6 +2041,7 @@
                 oldageData: null,
                 otherOrgs: null,
                 houseData: null,
+                varroles:'0',
                 // add_fjl
                 syeData: null,
                 syuData: null,
@@ -2735,6 +2736,7 @@
             // }
         },
         mounted() {
+          this.getCurrentRole2();
           //ws-8/14-禅道任务450
           this.roles = getCurrentRole6();
           //ws-8/14-禅道任务450
@@ -3198,138 +3200,151 @@
                                 },
                             ];
                         }
-                        // add_fjl_05/21   --添加履历的处理
+                        // add_fjl_05/21   --添加履历的处理 update  gbb 20210116 start
                         //给料履历
-                        let letgridData = this.userInfo.customerInfo.userinfo.gridData;
-                        if (letgridData !== null && letgridData !== '' && letgridData !== undefined) {
-                            this.gridData = [];
-                            for (let g = 0; g < letgridData.length; g++) {
-                                //最后一次的变更日期
-                                if (letgridData[g].date !== null && letgridData[g].date !== '') {
-                                    if ((letgridData[g].basic !== null || letgridData[g].basic !== '')
-                                        && (letgridData[g].duty !== null || letgridData[g].duty !== '')) {
-                                        this.feedingchangeday = letgridData[0].date;
-                                        let gridData = {};
-                                        gridData.basic = letgridData[g].basic;
-                                        gridData.duty = letgridData[g].duty;
-                                        if (letgridData[g].date.length != 10) {
-                                            gridData.date = moment(letgridData[g].date).format("YYYY-MM-DD");
-                                        } else {
-                                            gridData.date = letgridData[g].date;
-                                        }
-                                        this.gridData.push(gridData);
-                                    }
-                                }
-                            }
+                        // let letgridData = this.userInfo.customerInfo.userinfo.gridData;
+                        // if (letgridData !== null && letgridData !== '' && letgridData !== undefined) {
+                        //     this.gridData = [];
+                        //     for (let g = 0; g < letgridData.length; g++) {
+                        //         //最后一次的变更日期
+                        //         if (letgridData[g].date !== null && letgridData[g].date !== '') {
+                        //             if ((letgridData[g].basic !== null || letgridData[g].basic !== '')
+                        //                 && (letgridData[g].duty !== null || letgridData[g].duty !== '')) {
+                        //                 this.feedingchangeday = letgridData[0].date;
+                        //                 let gridData = {};
+                        //                 gridData.basic = letgridData[g].basic;
+                        //                 gridData.duty = letgridData[g].duty;
+                        //                 if (letgridData[g].date.length != 10) {
+                        //                     gridData.date = moment(letgridData[g].date).format("YYYY-MM-DD");
+                        //                 } else {
+                        //                     gridData.date = letgridData[g].date;
+                        //                 }
+                        //                 this.gridData.push(gridData);
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                        // //养老保险基数履历
+                        // let oldageData = this.userInfo.customerInfo.userinfo.oldageData;
+                        // if (oldageData !== null && oldageData !== '' && oldageData !== undefined) {
+                        //     this.oldageData = [];
+                        //     for (let g = 0; g < oldageData.length; g++) {
+                        //         if (oldageData[g].date !== null && oldageData[g].date !== '' &&
+                        //             oldageData[g].basic !== null && oldageData[g].basic !== '') {
+                        //             let letoldageData = {};
+                        //             letoldageData.basic = oldageData[g].basic;
+                        //             if (oldageData[g].date.length != 10) {
+                        //                 letoldageData.date = moment(oldageData[g].date).format("YYYY-MM-DD");
+                        //             } else {
+                        //                 letoldageData.date = oldageData[g].date;
+                        //             }
+                        //             this.oldageData.push(letoldageData);
+                        //         }
+                        //     }
+                        // }
+                        // //住房保险基数履历
+                        // let houseData = this.userInfo.customerInfo.userinfo.houseData;
+                        // if (houseData !== null && houseData !== '' && houseData !== undefined) {
+                        //     this.houseData = [];
+                        //     for (let g = 0; g < houseData.length; g++) {
+                        //         if (houseData[g].date !== null && houseData[g].date !== '' &&
+                        //             houseData[g].basic !== null && houseData[g].basic !== '') {
+                        //             let lethouseData = {};
+                        //             lethouseData.basic = houseData[g].basic;
+                        //             if (houseData[g].date.length != 10) {
+                        //                 lethouseData.date = moment(houseData[g].date).format("YYYY-MM-DD");
+                        //             } else {
+                        //                 lethouseData.date = houseData[g].date;
+                        //             }
+                        //             this.houseData.push(lethouseData);
+                        //         }
+                        //     }
+                        // }
+                        // //医疗保险基数履历
+                        // let medicalData = this.userInfo.customerInfo.userinfo.medicalData;
+                        // if (medicalData !== null && medicalData !== '' && medicalData !== undefined) {
+                        //     this.medicalData = [];
+                        //     for (let g = 0; g < medicalData.length; g++) {
+                        //         if (medicalData[g].date !== null && medicalData[g].date !== '' &&
+                        //             medicalData[g].basic !== null && medicalData[g].basic !== '') {
+                        //             let letmedicalData = {};
+                        //             letmedicalData.basic = medicalData[g].basic;
+                        //             if (medicalData[g].date.length != 10) {
+                        //                 letmedicalData.date = moment(medicalData[g].date).format("YYYY-MM-DD");
+                        //             } else {
+                        //                 letmedicalData.date = medicalData[g].date;
+                        //             }
+                        //             this.medicalData.push(letmedicalData);
+                        //         }
+                        //     }
+                        // }
+                        // //失业保险基数履历
+                        // let syeData = this.userInfo.customerInfo.userinfo.syeData;
+                        // if (syeData !== null && syeData !== '' && syeData !== undefined) {
+                        //     this.syeData = [];
+                        //     for (let g = 0; g < syeData.length; g++) {
+                        //         if (syeData[g].date !== null && syeData[g].date !== '' &&
+                        //             syeData[g].basic !== null && syeData[g].basic !== '') {
+                        //             let letsyeData = {};
+                        //             letsyeData.basic = syeData[g].basic;
+                        //             if (syeData[g].date.length != 10) {
+                        //                 letsyeData.date = moment(syeData[g].date).format("YYYY-MM-DD");
+                        //             } else {
+                        //                 letsyeData.date = syeData[g].date;
+                        //             }
+                        //             this.syeData.push(letsyeData);
+                        //         }
+                        //     }
+                        // }
+                        // //生育保险基数履历
+                        // let syuData = this.userInfo.customerInfo.userinfo.syuData;
+                        // if (syuData !== null && syuData !== '' && syuData !== undefined) {
+                        //     this.syuData = [];
+                        //     for (let g = 0; g < syuData.length; g++) {
+                        //         if (syuData[g].date !== null && syuData[g].date !== '' &&
+                        //             syuData[g].basic !== null && syuData[g].basic !== '') {
+                        //             let letsyuData = {};
+                        //             letsyuData.basic = syuData[g].basic;
+                        //             if (syuData[g].date.length != 10) {
+                        //                 letsyuData.date = moment(syuData[g].date).format("YYYY-MM-DD");
+                        //             } else {
+                        //                 letsyuData.date = syuData[g].date;
+                        //             }
+                        //             this.syuData.push(letsyuData);
+                        //         }
+                        //     }
+                        // }
+                        // //工伤保险基数履历
+                        // let gsData = this.userInfo.customerInfo.userinfo.gsData;
+                        // if (gsData !== null && gsData !== ''&& gsData !== undefined) {
+                        //     this.gsData = [];
+                        //     for (let g = 0; g < gsData.length; g++) {
+                        //         if (gsData[g].date !== null && gsData[g].date !== '' &&
+                        //             gsData[g].basic !== null && gsData[g].basic !== '') {
+                        //             let letgsData = {};
+                        //             letgsData.basic = gsData[g].basic;
+                        //             if (gsData[g].date.length != 10) {
+                        //                 letgsData.date = moment(gsData[g].date).format("YYYY-MM-DD");
+                        //             } else {
+                        //                 letgsData.date = gsData[g].date;
+                        //             }
+                        //             this.gsData.push(letgsData);
+                        //         }
+                        //     }
+                        // }
+                        //工资计算试运行（可有工资计算担当能看见工资）工资测试完之后放开以上代码
+                        if(this.varroles === "0"){
+                            this.form.basic = '0';
+                            this.form.duty = '0';
+                            this.form.gongshanginsurance = '0';
+                            this.form.yanglaoinsurance = '0';
+                            this.form.yiliaoinsurance = '0';
+                            this.form.shiyeinsurance = '0';
+                            this.form.gongshanginsurance = '0';
+                            this.form.shengyuinsurance = '0';
+                            this.form.houseinsurance = '0'
                         }
-                        //养老保险基数履历
-                        let oldageData = this.userInfo.customerInfo.userinfo.oldageData;
-                        if (oldageData !== null && oldageData !== '' && oldageData !== undefined) {
-                            this.oldageData = [];
-                            for (let g = 0; g < oldageData.length; g++) {
-                                if (oldageData[g].date !== null && oldageData[g].date !== '' &&
-                                    oldageData[g].basic !== null && oldageData[g].basic !== '') {
-                                    let letoldageData = {};
-                                    letoldageData.basic = oldageData[g].basic;
-                                    if (oldageData[g].date.length != 10) {
-                                        letoldageData.date = moment(oldageData[g].date).format("YYYY-MM-DD");
-                                    } else {
-                                        letoldageData.date = oldageData[g].date;
-                                    }
-                                    this.oldageData.push(letoldageData);
-                                }
-                            }
-                        }
-                        //住房保险基数履历
-                        let houseData = this.userInfo.customerInfo.userinfo.houseData;
-                        if (houseData !== null && houseData !== '' && houseData !== undefined) {
-                            this.houseData = [];
-                            for (let g = 0; g < houseData.length; g++) {
-                                if (houseData[g].date !== null && houseData[g].date !== '' &&
-                                    houseData[g].basic !== null && houseData[g].basic !== '') {
-                                    let lethouseData = {};
-                                    lethouseData.basic = houseData[g].basic;
-                                    if (houseData[g].date.length != 10) {
-                                        lethouseData.date = moment(houseData[g].date).format("YYYY-MM-DD");
-                                    } else {
-                                        lethouseData.date = houseData[g].date;
-                                    }
-                                    this.houseData.push(lethouseData);
-                                }
-                            }
-                        }
-                        //医疗保险基数履历
-                        let medicalData = this.userInfo.customerInfo.userinfo.medicalData;
-                        if (medicalData !== null && medicalData !== '' && medicalData !== undefined) {
-                            this.medicalData = [];
-                            for (let g = 0; g < medicalData.length; g++) {
-                                if (medicalData[g].date !== null && medicalData[g].date !== '' &&
-                                    medicalData[g].basic !== null && medicalData[g].basic !== '') {
-                                    let letmedicalData = {};
-                                    letmedicalData.basic = medicalData[g].basic;
-                                    if (medicalData[g].date.length != 10) {
-                                        letmedicalData.date = moment(medicalData[g].date).format("YYYY-MM-DD");
-                                    } else {
-                                        letmedicalData.date = medicalData[g].date;
-                                    }
-                                    this.medicalData.push(letmedicalData);
-                                }
-                            }
-                        }
-                        //失业保险基数履历
-                        let syeData = this.userInfo.customerInfo.userinfo.syeData;
-                        if (syeData !== null && syeData !== '' && syeData !== undefined) {
-                            this.syeData = [];
-                            for (let g = 0; g < syeData.length; g++) {
-                                if (syeData[g].date !== null && syeData[g].date !== '' &&
-                                    syeData[g].basic !== null && syeData[g].basic !== '') {
-                                    let letsyeData = {};
-                                    letsyeData.basic = syeData[g].basic;
-                                    if (syeData[g].date.length != 10) {
-                                        letsyeData.date = moment(syeData[g].date).format("YYYY-MM-DD");
-                                    } else {
-                                        letsyeData.date = syeData[g].date;
-                                    }
-                                    this.syeData.push(letsyeData);
-                                }
-                            }
-                        }
-                        //生育保险基数履历
-                        let syuData = this.userInfo.customerInfo.userinfo.syuData;
-                        if (syuData !== null && syuData !== '' && syuData !== undefined) {
-                            this.syuData = [];
-                            for (let g = 0; g < syuData.length; g++) {
-                                if (syuData[g].date !== null && syuData[g].date !== '' &&
-                                    syuData[g].basic !== null && syuData[g].basic !== '') {
-                                    let letsyuData = {};
-                                    letsyuData.basic = syuData[g].basic;
-                                    if (syuData[g].date.length != 10) {
-                                        letsyuData.date = moment(syuData[g].date).format("YYYY-MM-DD");
-                                    } else {
-                                        letsyuData.date = syuData[g].date;
-                                    }
-                                    this.syuData.push(letsyuData);
-                                }
-                            }
-                        }
-                        //工伤保险基数履历
-                        let gsData = this.userInfo.customerInfo.userinfo.gsData;
-                        if (gsData !== null && gsData !== ''&& gsData !== undefined) {
-                            this.gsData = [];
-                            for (let g = 0; g < gsData.length; g++) {
-                                if (gsData[g].date !== null && gsData[g].date !== '' &&
-                                    gsData[g].basic !== null && gsData[g].basic !== '') {
-                                    let letgsData = {};
-                                    letgsData.basic = gsData[g].basic;
-                                    if (gsData[g].date.length != 10) {
-                                        letgsData.date = moment(gsData[g].date).format("YYYY-MM-DD");
-                                    } else {
-                                        letgsData.date = gsData[g].date;
-                                    }
-                                    this.gsData.push(letgsData);
-                                }
-                            }
-                        }
+                        //update  gbb 20210116  end
                         //rank
                         let rankData = this.userInfo.customerInfo.userinfo.rankData;
                         if (rankData !== null && rankData !== '' && rankData !== undefined) {
@@ -3811,6 +3826,17 @@
                             duration: 5 * 1000,
                         });
                     });
+            },
+            getCurrentRole2() {
+                let roles = '';
+                if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
+                    for (let role of this.$store.getters.useraccount.roles) {
+                        roles = roles + role.description;
+                    }
+                    if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+                        this.varroles = '1';
+                    }
+                }
             },
         },
     };

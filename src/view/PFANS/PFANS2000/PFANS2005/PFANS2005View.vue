@@ -231,6 +231,7 @@
       rowClick(row) {
         this.rowid = row.giving_id;
         this.status = row.status;
+        this.generationdate = row.generationdate;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -241,7 +242,7 @@
               type: 'info',
               duration: 2 * 1000
             });
-            return;
+            return;_id
           }
           if(this.status === '2' || this.status === '4'){
               this.status = '2'
@@ -254,6 +255,7 @@
             params: {
               status:this.status,
               _id: this.rowid,
+              generationdate: this.generationdate,
               disabled: false,
             },
           });

@@ -333,13 +333,11 @@
                             this.$t('label.PFANS6002VIEW_SUPPLIERNAMEE'),
                             this.$t('label.PFANS6002FORMVIEW_ABBREVIATION'),
                             this.$t('label.ASSETS1002VIEW_USERID'),
-
                             this.$t('label.PFANS6003FORMVIEW_VENDORNUM'),
                             this.$t('label.PFANS1012VIEW_PAYEENAME'),
                             this.$t('label.PFANS1012VIEW_PAYEEBANKNUMBER'),
                             this.$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT'),
                             this.$t('label.PFANS1012VIEW_FOREIGNPAYEECODE'),
-
                             this.$t('label.PFANS6002VIEW_PROJECTNAMEC'),
                             this.$t('label.PFANS6002VIEW_PROJECTNAMEJ'),
                             this.$t('label.PFANS6002VIEW_PROJECTNAMEE'),
@@ -352,7 +350,6 @@
                             this.$t('label.PFANS6002VIEW_ADDRESSJ'),
                             this.$t('label.PFANS6002VIEW_ADDRESSE'),
                             this.$t('label.PFANS6002VIEW_PERSCALE'),
-
                             this.$t('label.PFANS6002FORMVIEW_WEBSITE'),
                             this.$t('label.remarks'),
                         ];
@@ -362,13 +359,11 @@
                             'supenglish',
                             'abbreviation',
                             'liableperson',
-
                             'vendornum',
                             'payeename',
                             'payeebankaccountnumber',
                             'payeebankaccount',
                             'suppliercode',
-
                             'prochinese',
                             'projapanese',
                             'proenglish',
@@ -381,7 +376,6 @@
                             'addjapanese',
                             'addenglish',
                             'perscale',
-
                             'website',
                             'remarks',
                         ];

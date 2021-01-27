@@ -165,7 +165,7 @@
     getCurrentRole,
     getDownOrgInfo,
   } from '@/utils/customize';
-  import {getCurrentRole9} from "../../../../utils/customize";
+  import {getCurrentRole9, getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS6009View',
@@ -1551,6 +1551,26 @@
                 lable: this.$store.getters.userinfo.userinfo.groupname,
               },
             );
+            //add ccm 0112 兼职部门
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                if (others.groupid)
+                {
+                  let groupname = getOrgInfo(others.groupid);
+                  if (groupname) {
+                    vote.push(
+                      {
+                        value: others.groupid,
+                        lable: groupname.companyname,
+                      },
+                    );
+                  }
+                }
+              }
+            }
+            //add ccm 0112 兼职部门
           } else if (role === '2') {
             let centerId = this.$store.getters.userinfo.userinfo.centerid;
             let orgs = getDownOrgInfo(centerId);
@@ -1564,7 +1584,41 @@
                 );
               }
             }
-
+            //add ccm 0112 兼职部门
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                if (others.groupid)
+                {
+                  let groupname = getOrgInfo(others.groupid);
+                  if (groupname) {
+                    vote.push(
+                      {
+                        value: others.groupid,
+                        lable: groupname.companyname,
+                      },
+                    );
+                  }
+                }
+                else if (others.centerid)
+                {
+                  let centerId = others.centerid;
+                  let orgs = getDownOrgInfo(centerId);
+                  if (orgs){
+                    for (let org of orgs) {
+                      vote.push(
+                        {
+                          value: org._id,
+                          lable: org.companyname,
+                        },
+                      );
+                    }
+                  }
+                }
+              }
+            }
+            //add ccm 0112 兼职部门
           } else if (role === '1') {
             let centerId = this.$store.getters.userinfo.userinfo.centerid;
             let orgs = getDownOrgInfo(centerId);

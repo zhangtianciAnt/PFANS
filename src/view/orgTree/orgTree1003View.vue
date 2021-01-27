@@ -58,7 +58,7 @@
               <el-tab-pane label="基本信息" name="first">
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="companyForm"
                          label-position="left" label-width="8rem" style="border: none;  border-radius: 0.5rem;padding:3rem;"
-                         v-show="currentNode.type === '0'|| currentNode.type === '1'||currentNode.type === '2'" :disabled="formDisabled">
+                         v-show="currentNode.type === '1'||currentNode.type === '2'" :disabled="formDisabled">
                   <el-form-item prop="name" label="简称" @mouseover.native="changeflag('nameflag',true)" @mouseout.native="changeflag('nameflag',false)">
                     <el-input v-model="currentNode.companyshortname" v-show="nameflag"></el-input>
                     <span v-show="!nameflag">{{currentNode.companyshortname}}</span>
@@ -93,7 +93,7 @@
                 </el-form>
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="departmentForm"
                          label-position="left" label-width="8rem" style="  border-radius: 0.5rem;padding:3rem;"
-                         v-show="currentNode.type !== '0'&& currentNode.type !== '1'&& currentNode.type !== '2'" :disabled="formDisabled">
+                         v-show="currentNode.type !== '1'&& currentNode.type !== '2'" :disabled="formDisabled">
                   <el-form-item prop="departmentname" label="名称"
                                 @mouseover.native="changeflag('nameflag',true)"
                                 @mouseout.native="changeflag('nameflag',false)"
@@ -136,8 +136,9 @@
     import { Message } from 'element-ui'
     import moment from "moment"
     import user from "../components/user.vue";
+    let _id = 1;
     export default {
-        name: 'orgTree1002View',
+        name: 'orgTree1003View',
         components: {
             EasyTree,
             EasyButtonBar,
@@ -152,6 +153,7 @@
                 data: [],
                 filterText: '',
                 checktrictly:false,
+                ids:'',
                 loading: false,
                 defaultProps: {
                     label: 'title',
@@ -193,7 +195,7 @@
                         lettype = '1';
                         newChild = { _id: getUUID(36, 16), title: '请输入组织名称',type:lettype, orgs: [] };
                         this.currentNode = {};
-                        this.currentNode.companyname = '请输入组织名称';
+                        //this.currentNode.companyname = '请输入组织名称';
                         data.orgs.push(newChild);
                         return;
                     }
@@ -202,13 +204,13 @@
                     lettype = '2';
                     newChild = { _id: getUUID(36, 16), title: '请输入组织名称',type:lettype, orgs: [] };
                     this.currentNode = {};
-                    this.currentNode.companyname = '请输入组织名称';
+                    //this.currentNode.companyname = '请输入组织名称';
                 }
                 else{
                     lettype = '3';
                     newChild = { _id: getUUID(36, 16), title: '请输入组织名称',type:lettype, upcompany : data.companyname };
                     this.currentNode = {};
-                    this.currentNode.departmentname = '请输入组织名称';
+                    //this.currentNode.departmentname = '请输入组织名称';
                     this.currentNode.upcompany = data.companyname;
                 }
                 data.orgs.push(newChild);
@@ -232,14 +234,14 @@
                 this.currentNode.user = val;
             },
             handleNodeClick (data) {
+                if(this.ids != ''){
+                }
+                this.ids = data._id;
                 let temp = []
                 this.companyFormcheck = Object.assign(
                     {},
                     data
                 )
-                // if (!data.companyname) {
-                //     data.companyname = data.title
-                // }
                 if(data.companyname != undefined)(
                     data.title = data.companyname
                 )
@@ -261,8 +263,6 @@
             },
             getInitData () {
                 this.loading = true;
-                var months = moment(new Date()).format('M');
-                var years = months === '1' || months === '2' || months === '3' ?  moment(new Date()).format("YYYY") : moment(new Date()).add(1, 'y').format('YYYY');
                 this.$store
                     .dispatch('orgTreeStore/getTreeYears', {"Years": this.year,"Status": '1'})
                     .then(response => {
@@ -277,16 +277,12 @@
                             }
                         }
                         else{
-                              if(this.data.length === 0){
-                                  this.data = [{
-                                      _id: getUUID(36, 16),
-                                      title: '公司',
-                                      orgs: [],
-                                      type: 0,
-                                      status: 1,
-                                      years:years,
-                                  }];
-                              }
+                            Message({
+                                message: this.$t('normal.info_16'),
+                                type: 'info',
+                                duration: 2 * 1000,
+                            });
+                            this.buttonList[1].disabled = true;
                         }
                         this.loading = false;
                     })
@@ -342,7 +338,7 @@
                     let dataArray = this.$refs.treeCom.data
                     this.companyFormcheck = Object.assign({}, this.currentNode)
                     this.loading = true
-                    this.currentNode.title = this.currentNode.type === '0' || this.currentNode.type === '1' || this.currentNode.type === '2' ? this.currentNode.companyshortname : this.currentNode.departmentname
+                    this.currentNode.title = this.currentNode.type === '1' || this.currentNode.type === '2' ? this.currentNode.companyshortname : this.currentNode.departmentname
                     this.$store
                         .dispatch('orgTreeStore/saveTree', dataArray[0])
                         .then((response) => {
