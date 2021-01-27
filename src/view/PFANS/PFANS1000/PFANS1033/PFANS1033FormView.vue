@@ -1690,11 +1690,28 @@
                 }
             }
             if (val === "cancellation") {
+              this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+              }).then(() =>{
+                this.$message({
+                  type: 'success',
+                  message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
+                });
+              }).then(()=>{
                 for (let i = 0; i < this.tablefourth.length; i++) {
                   this.tablefourth[i].state =this.$t('label.PFANS8008FORMVIEW_INVALID');
                   this.tablefourth[i].entrycondition = 'HT004001';
                 }
                 this.handleSaveLin('cancellation');
+              }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                });
+                return;
+              });
             }
             if (val === "save") {
                 this.handleSaveLin('save');
