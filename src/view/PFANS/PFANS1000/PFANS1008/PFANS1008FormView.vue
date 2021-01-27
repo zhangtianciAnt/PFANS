@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList" :workflowCode="workflowCode"
+                         :buttonList="buttonList" :userlist="userlistLc"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
@@ -326,9 +326,9 @@
         options1: [],
         selectedList: [],
         assetsList: [],
+        userlistLc: [],
         centerid: '',
         groupid: '',
-        workflowCode: 'W0018',
         teamid: '',
         baseInfo: {},
         // ferrycenterorglist: '',
@@ -533,6 +533,12 @@
             this.tubecenterorglist = this.form.tubecenter_id;
             this.tubegrouporglist = this.form.tubegroup_id;
             this.tubeteamorglist = this.form.tubeteam_id;
+            if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
+              let groupInfo = getOrgInfo(this.form.tubegroup_id);
+              if (groupInfo) {
+                this.userlistLc.push(groupInfo.user);
+              }
+            }
             //add-ws-7/2-禅道任务192
             this.getFebud(this.form.ferrygroup_id);
             this.getbud(this.form.tubegroup_id);
@@ -559,7 +565,6 @@
           //     this.form.ferrybudgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
           // }
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          console.log(rst)
           if (rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
