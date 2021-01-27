@@ -79,20 +79,12 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
-                    <!--                      add-ws-12/10-汇率字典-->
-                    <!--                    <dicselect :code="code7"-->
-                    <!--                               :data="form.currency"-->
-                    <!--                               :disabled="true"-->
-                    <!--                               :multiple="multiple"-->
-                    <!--                               style="width: 20vw">-->
-                    <!--                    </dicselect>-->
-                    <monthlyrate :month="month7"
-                                 :data="form.currency"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 style="width: 20vw">
-                    </monthlyrate>
-                    <!--                      add-ws-12/10-汇率字典-->
+                    <dicselect :code="code7"
+                               :data="form.currency"
+                               :disabled="true"
+                               :multiple="multiple"
+                               style="width: 20vw">
+                    </dicselect>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -336,595 +328,588 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import user from '../../../components/user.vue';
-  import project from '../../../components/project.vue';
-  import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect';
-  import {
-    downLoadUrl,
-    getStatus,
-    uploadUrl,
-  } from '@/utils/customize';
-  import monthlyrate from '../../../components/monthlyrate';
-  import moment from 'moment';
+    import EasyNormalContainer from '@/components/EasyNormalContainer';
+    import user from '../../../components/user.vue';
+    import project from '../../../components/project.vue';
+    import {Message} from 'element-ui';
+    import dicselect from '../../../components/dicselect';
+    import {
+        downLoadUrl,
+        getStatus,
+        uploadUrl
+    } from '@/utils/customize';
 
-  export default {
-    name: 'PFANS1045FormView',
-    components: {
-      monthlyrate,
-      dicselect,
-      EasyNormalContainer,
-      user,
-      project,
-    },
-    data() {
-      return {
-        workflowCode: 'W0095',
-        checkcycle: 0,
-        show10: true,
-        canStart: true,
-        //add-ws-12/10-汇率字典
-        // code7: 'PG019',
-        month7: moment(new Date()).format('YYYY-MM'),
-        //add-ws-12/10-汇率字典
-        disablecheck: '',
-        upload: uploadUrl(),
-        fileList: [],
-        disable2: false,
-        multiple: false,
-        disable: false,
-        dialogTableVisible: false,
-        loading: false,
-        gridData: [],
-        DataList: [],
-        tableF: [
-          {
-            invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
-            money: '',
-            remark: '',
-          },
-        ],
-        options: [{
-          value: '0',
-          label: this.$t('label.PFANS2007VIEW_YEAR'),
-        }, {
-          value: '1',
-          label: this.$t('label.PFANS1045VIEW_CYCLE1'),
-        }, {
-          value: '2',
-          label: this.$t('label.PFANS1045VIEW_CYCLE2'),
-        }, {
-          value: '3',
-          label: this.$t('label.PFANS1045VIEW_CYCLE3'),
-        }, {
-          value: '4',
-          label: this.$t('label.PFANS1045VIEW_CYCLE4'),
-        }, {
-          value: '5',
-          label: this.$t('label.PFANS1045VIEW_CYCLE5'),
-        }, {
-          value: '6',
-          label: this.$t('label.PFANS1045VIEW_CYCLE6'),
-        }],
-        search: '',
-        currentRow: '',
-        formLabelWidth: '120px',
-        userlist: '',
-        form: {
-          yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, "y").format('YYYY'),
-          summonet: '',
-          remark: '',
-          cycle: '',
-          applicationdate: new Date(),
-          amountcase: '',
-          modifiedamount: '',
-          newamountcase: '',
-          user_id: '',
-          outsourcingcompany: '',
-          currency: 'PG019003',
-          policynumbers: '',
-          uploadfile: '',
-          type: '0',
+    export default {
+        name: 'PFANS1045FormView',
+        components: {
+            dicselect,
+            EasyNormalContainer,
+            user,
+            project,
         },
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
-        selectType: 'Single',
-        error: '',
-        title: 'title.PFANS1045VIEW',
-        activeName: 'first',
-        IDname: '',
-        rules: {
-          outsourcingcompany: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1045VIEW_OUTSOURCINGCOMPANY'),
-            trigger: 'change',
-          }],
-          yearss: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.fiscal_year'),
-            trigger: 'prop',
-          }],
-          cycle: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
-            trigger: 'change',
-          }],
+        data() {
+            return {
+                workflowCode: 'W0095',
+                checkcycle: 0,
+                show10: true,
+                canStart: true,
+                code7: 'PG019',
+                disablecheck: '',
+                upload: uploadUrl(),
+                fileList: [],
+                disable2: false,
+                multiple: false,
+                disable: false,
+                dialogTableVisible: false,
+                loading: false,
+                gridData: [],
+                DataList: [],
+                tableF: [
+                    {
+                        invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
+                        money: '',
+                        remark: '',
+                    },
+                ],
+                options: [{
+                    value: '0',
+                    label: this.$t('label.PFANS2007VIEW_YEAR'),
+                }, {
+                    value: '1',
+                    label: this.$t('label.PFANS1045VIEW_CYCLE1'),
+                }, {
+                    value: '2',
+                    label: this.$t('label.PFANS1045VIEW_CYCLE2'),
+                }, {
+                    value: '3',
+                    label: this.$t('label.PFANS1045VIEW_CYCLE3'),
+                }, {
+                    value: '4',
+                    label: this.$t('label.PFANS1045VIEW_CYCLE4'),
+                }, {
+                    value: '5',
+                    label: this.$t('label.PFANS1045VIEW_CYCLE5'),
+                }, {
+                    value: '6',
+                    label: this.$t('label.PFANS1045VIEW_CYCLE6'),
+                }],
+                search: '',
+                currentRow: '',
+                formLabelWidth: '120px',
+                userlist: '',
+                form: {
+                    yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, "y").format('YYYY'),
+                    summonet: '',
+                    remark: '',
+                    cycle: '',
+                    applicationdate: new Date(),
+                    amountcase: '',
+                    modifiedamount: '',
+                    newamountcase: '',
+                    user_id: '',
+                    outsourcingcompany: '',
+                    currency: 'PG019003',
+                    policynumbers: '',
+                    uploadfile: '',
+                    type: '0',
+                },
+                buttonList: [
+                    {
+                        key: 'save',
+                        name: 'button.save',
+                        disabled: false,
+                        icon: 'el-icon-check',
+                    },
+                ],
+                selectType: 'Single',
+                error: '',
+                title: 'title.PFANS1045VIEW',
+                activeName: 'first',
+                IDname: '',
+                rules: {
+                    outsourcingcompany: [{
+                        required: true,
+                        message: this.$t('normal.error_08') + this.$t('label.PFANS1045VIEW_OUTSOURCINGCOMPANY'),
+                        trigger: 'change',
+                    }],
+                    yearss: [{
+                        required: true,
+                        message: this.$t('normal.error_09') + this.$t('label.fiscal_year'),
+                        trigger: 'prop',
+                    }],
+                    cycle: [{
+                        required: true,
+                        message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
+                        trigger: 'change',
+                    }],
+                },
+
+            };
         },
+        mounted() {
+            this.getaward();
+            this.getsupplierinfor();
+            if (this.$route.params._id) {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
+                    .then(response => {
+                        this.form = response.policycontract;
 
-      };
-    },
-    mounted() {
-      this.getaward();
-      this.getsupplierinfor();
-      if (this.$route.params._id) {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
-          .then(response => {
-            this.form = response.policycontract;
-
-            if (response.policycontractdetails.length > 0) {
-              this.tableF = response.policycontractdetails;
-            }
-            if (this.disable) {
-              this.show10 = true;
+                        if (response.policycontractdetails.length > 0) {
+                            this.tableF = response.policycontractdetails;
+                        }
+                        if (this.disable) {
+                            this.show10 = true;
+                        } else {
+                            this.show10 = false;
+                        }
+                        if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
+                            let uploadfile = this.form.uploadfile.split(';');
+                            for (var i = 0; i < uploadfile.length; i++) {
+                                if (uploadfile[i].split(',')[0] != '') {
+                                    let o = {};
+                                    o.name = uploadfile[i].split(',')[0];
+                                    o.url = uploadfile[i].split(',')[1];
+                                    this.fileList.push(o);
+                                }
+                            }
+                        }
+                        if (this.form.status === '4') {
+                            this.disable = false;
+                            if (this.disablecheck) {
+                                this.disable2 = true;
+                            } else {
+                                this.disable2 = false;
+                            }
+                        }
+                        this.userlist = this.form.user_id;
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
             } else {
-              this.show10 = false;
-            }
-            if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
-              let uploadfile = this.form.uploadfile.split(';');
-              for (var i = 0; i < uploadfile.length; i++) {
-                if (uploadfile[i].split(',')[0] != '') {
-                  let o = {};
-                  o.name = uploadfile[i].split(',')[0];
-                  o.url = uploadfile[i].split(',')[1];
-                  console.log(o);
-                  this.fileList.push(o);
+                if (this.$store.getters.userinfo) {
+                    this.userlist = this.$store.getters.userinfo.userid;
                 }
-              }
             }
-            if (this.form.status === '4') {
-              this.disable = false;
-              if (this.disablecheck) {
-                this.disable2 = true;
-              } else {
-                this.disable2 = false;
-              }
-            }
-            this.userlist = this.form.user_id;
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      } else {
-        if (this.$store.getters.userinfo) {
-          this.userlist = this.$store.getters.userinfo.userid;
-        }
-      }
-    },
-    created() {
-      this.IDname = this.$route.params._id;
-      this.disablecheck = this.$route.params.disabled;
-      this.disable = this.$route.params.disabled;
-      this.disable2 = this.$route.params.disabled;
-    },
-    methods: {
-      showData() {
-        this.form.yearss = moment(this.form.yearss).format('YYYY');
-      },
-      viewdata(row) {
-        this.$store.commit('global/SET_HISTORYURL', '');
-        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-        this.$router.push({
-          name: 'PFANS1025FormView',
-          params: {
-            _checkdisable: this.disable,
-            _checkid: this.IDname,
-            checkname: true,
-            _contractnumber: this.form.policynumbers,
-            _id: row.award_id,
-            disabled: false,
-          },
-        });
-      },
-      changeSum(row) {
-        for (let i = 0; i < this.tableF.length; i++) {
-          this.form.modifiedamount = this.tableF[i].money;
-        }
-      },
-      getamountcase(val) {
-        this.form.modifiedamount = val;
-      },
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disable = val;
-        }
-      },
-      fileError(err, file, fileList) {
-        Message({
-          message: this.$t('normal.error_04'),
-          type: 'error',
-          duration: 5 * 1000,
-        });
-      },
-      fileRemove(file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          o.url = item.url;
-          this.fileList.push(o);
-          this.form.uploadfile += item.name + ',' + item.url + ';';
-        }
-      },
-      fileDownload(file) {
-        if (file.url) {
-          file.url = file.url.replace('%', '%25');
-          file.url = file.url.replace('#', '%23');
-          file.url = file.url.replace('&', '%26');
-          file.url = file.url.replace('+', '%2B');
-          file.url = file.url.replace('=', '%3D');
-          file.url = file.url.replace('?', '%3F');
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-
-      },
-      fileSuccess(response, file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          } else {
-            o.url = item.url;
-          }
-          this.fileList.push(o);
-          this.form.uploadfile += o.name + ',' + o.url + ';';
-        }
-      },
-      getaward() {
-        this.DataList = [];
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1006Store/getaward')
-          .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                if (response[i].policycontract_id === this.$route.params._id) {
-                  if (response[i].status !== null && response[i].status !== '') {
-                    response[i].status = getStatus(response[i].status);
-                  }
-                  this.DataList.push({
-                    award_id: response[i].award_id,
-                    claimamount: response[i].claimamount,
-                    contractnumber: response[i].contractnumber,
-                    status: response[i].status,
-                  });
-                }
-              }
-              this.loading = false;
+        },
+        created() {
+            this.IDname = this.$route.params._id;
+            this.disablecheck = this.$route.params.disabled;
+            this.disable = this.$route.params.disabled;
+            this.disable2 = this.$route.params.disabled;
+        },
+        methods: {
+            showData() {
+                this.form.yearss = moment(this.form.yearss).format('YYYY');
             },
-          ).catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
-      },
-      getDsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-          } else {
-            sums[index] = '--';
-          }
-        });
-        sums[1] = Math.round(sums[1] * 100) / 100;
-        this.getMoney2(sums);
-        return sums;
-      },
-      getFsummaries(param) {
-        const {columns, data} = param;
-        const sums = [];
-        columns.forEach((column, index) => {
-          if (index === 0) {
-            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-            return;
-          }
-          const values = data.map(item => Number(item[column.property]));
-          if (!values.every(value => isNaN(value))) {
-            sums[index] = values.reduce((prev, curr) => {
-              const value = Number(curr);
-              if (!isNaN(value)) {
-                return prev + curr;
-              } else {
-                return prev;
-              }
-            }, 0);
-          } else {
-            sums[index] = '--';
-          }
-        });
-        sums[1] = Math.round(sums[1] * 100) / 100;
-        return sums;
-      },
-      getMoney2(sums) {
-        this.form.summonet = sums[1];
-      },
-      addRow7() {
-        let b;
-        let c;
-        if (this.tableF.length > 0) {
-          b = this.tableF.length + 1;
-          c = this.$t('label.PFANS1045VIEW_JUE') + b;
-        }
-        this.tableF.push({
-          invoicenumber: c,
-          remark: '',
-          money: '',
-        });
-      },
-      deleteRow7(index, rows) {
-        if (rows.length > 1) {
-          rows.splice(index, 1);
-        } else {
-          this.tableF = [{
-            invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
-            money: '',
-            remark: '',
-          }];
-        }
-      },
-      workflowState(val) {
-        if (val.state === '1') {
-          this.form.status = '3';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('save');
-      },
-      start(val) {
-        if (val.state === '0') {
-          this.form.status = '2';
-        } else if (val.state === '2') {
-          this.form.status = '4';
-        }
-        this.buttonClick('save');
-      },
-      //upd 审批流程 to
-      end() {
-        this.form.status = '0';
-        this.buttonClick('save');
-      },
-      changeAcc(val) {
-        if (this.form.outsourcingcompany === '') {
-          this.form.cycle = '';
-          Message({
-            message: this.$t('label.PFANS1045VIEW_CHECK3'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          return;
-        }
-        this.checkcycle = 0;
-        this.form.cycle = val;
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1006Store/chackcycle', this.form)
-          .then(response => {
-            if (response.length > 0) {
-              this.checkcycle = 1;
-              Message({
-                message: this.$t('label.PFANS1045VIEW_CHECK2'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            } else {
-              this.loading = false;
-            }
-          }).catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
-      },
-      paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1045View',
-        });
-      },
-
-      buttonClick(val) {
-        if (val === 'back') {
-          this.paramsTitle();
-        } else {
-          this.$refs['reff'].validate(valid => {
-            if (valid) {
-              if (this.form.amountcase === 0) {
-                Message({
-                  message: this.$t('label.PFANS1045VIEW_CHECK4'),
-                  type: 'error',
-                  duration: 5 * 1000,
+            viewdata(row) {
+                this.$store.commit('global/SET_HISTORYURL', '');
+                this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+                this.$router.push({
+                    name: 'PFANS1025FormView',
+                    params: {
+                        _checkdisable: this.disable,
+                        _checkid: this.IDname,
+                        checkname: true,
+                        _contractnumber: this.form.policynumbers,
+                        _id: row.award_id,
+                        disabled: false,
+                    },
                 });
-                return;
-              }
-              if (this.form.status === '4') {
-                let ckecksum = 0;
+            },
+            changeSum(row) {
                 for (let i = 0; i < this.tableF.length; i++) {
-                  ckecksum = this.tableF[i].money;
+                    this.form.modifiedamount = this.tableF[i].money;
                 }
-                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
-                  Message({
-                    message: this.$t('label.PFANS1045VIEW_CHECK6'),
+            },
+            getamountcase(val) {
+                this.form.modifiedamount = val;
+            },
+            setdisabled(val) {
+                if (this.$route.params.disabled) {
+                    this.disable = val;
+                }
+            },
+            fileError(err, file, fileList) {
+                Message({
+                    message: this.$t('normal.error_04'),
                     type: 'error',
                     duration: 5 * 1000,
-                  });
-                  return;
-                }
-              }
-              this.form.user_id = this.userlist;
-              this.baseInfo = {};
-              this.baseInfo.policycontract = [];
-              this.baseInfo.policycontractdetails = [];
-              this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
-              for (let i = 0; i < this.tableF.length; i++) {
-                this.baseInfo.policycontractdetails.push({
-                  invoicenumber: this.tableF[i].invoicenumber,
-                  money: this.tableF[i].money,
-                  remark: this.tableF[i].remark,
                 });
+            },
+            fileRemove(file, fileList) {
+                this.fileList = [];
+                this.form.uploadfile = '';
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    o.url = item.url;
+                    this.fileList.push(o);
+                    this.form.uploadfile += item.name + ',' + item.url + ';';
+                }
+            },
+            fileDownload(file) {
+                if (file.url) {
+                    file.url = file.url.replace("%","%25");
+                    file.url = file.url.replace("#","%23");
+                    file.url = file.url.replace("&","%26");
+                    file.url = file.url.replace("+","%2B");
+                    file.url = file.url.replace("=","%3D");
+                    file.url = file.url.replace("?","%3F");
+                    var url = downLoadUrl(file.url);
+                    window.open(url);
+                }
 
-              }
-              this.loading = true;
-              if (this.checkcycle === 0) {
-                if (this.$route.params._id) {
-                  this.form.policycontract_id = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
+            },
+            fileSuccess(response, file, fileList) {
+                this.fileList = [];
+                this.form.uploadfile = '';
+                for (var item of fileList) {
+                    let o = {};
+                    o.name = item.name;
+                    if (!item.url) {
+                        o.url = item.response.info;
+                    } else {
+                        o.url = item.url;
+                    }
+                    this.fileList.push(o);
+                    this.form.uploadfile += o.name + ',' + o.url + ';';
+                }
+            },
+            getaward() {
+                this.DataList = [];
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1006Store/getaward')
                     .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
-                        Message({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.paramsTitle();
-                      }
-                    })
-                    .catch(error => {
-                      Message({
+                            for (let i = 0; i < response.length; i++) {
+                                if (response[i].policycontract_id === this.$route.params._id) {
+                                    if (response[i].status !== null && response[i].status !== '') {
+                                        response[i].status = getStatus(response[i].status);
+                                    }
+                                    this.DataList.push({
+                                        award_id: response[i].award_id,
+                                        claimamount: response[i].claimamount,
+                                        contractnumber: response[i].contractnumber,
+                                        status: response[i].status,
+                                    });
+                                }
+                            }
+                            this.loading = false;
+                        },
+                    ).catch(error => {
+                    Message({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000,
-                      });
-                      this.loading = false;
                     });
+                    this.loading = false;
+                });
+            },
+            getDsummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                    } else {
+                        sums[index] = '--';
+                    }
+                });
+                sums[1] = Math.round(sums[1] * 100) / 100;
+                this.getMoney2(sums);
+                return sums;
+            },
+            getFsummaries(param) {
+                const {columns, data} = param;
+                const sums = [];
+                columns.forEach((column, index) => {
+                    if (index === 0) {
+                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+                        return;
+                    }
+                    const values = data.map(item => Number(item[column.property]));
+                    if (!values.every(value => isNaN(value))) {
+                        sums[index] = values.reduce((prev, curr) => {
+                            const value = Number(curr);
+                            if (!isNaN(value)) {
+                                return prev + curr;
+                            } else {
+                                return prev;
+                            }
+                        }, 0);
+                    } else {
+                        sums[index] = '--';
+                    }
+                });
+                sums[1] = Math.round(sums[1] * 100) / 100;
+                return sums;
+            },
+            getMoney2(sums) {
+                this.form.summonet = sums[1];
+            },
+            addRow7() {
+                let b;
+                let c;
+                if (this.tableF.length > 0) {
+                    b = this.tableF.length + 1;
+                    c = this.$t('label.PFANS1045VIEW_JUE') + b;
+                }
+                this.tableF.push({
+                    invoicenumber: c,
+                    remark: '',
+                    money: '',
+                });
+            },
+            deleteRow7(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
                 } else {
-
-                  this.$store
-                    .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
+                    this.tableF = [{
+                        invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
+                        money: '',
+                        remark: '',
+                    }];
+                }
+            },
+            workflowState(val) {
+                if (val.state === '1') {
+                    this.form.status = '3';
+                } else if (val.state === '2') {
+                    this.form.status = '4';
+                }
+                this.buttonClick('save');
+            },
+            start(val) {
+                if (val.state === '0') {
+                    this.form.status = '2';
+                } else if (val.state === '2') {
+                    this.form.status = '4';
+                }
+                this.buttonClick('save');
+            },
+            //upd 审批流程 to
+            end() {
+                this.form.status = '0';
+                this.buttonClick('save');
+            },
+            changeAcc(val) {
+                if (this.form.outsourcingcompany === '') {
+                    this.form.cycle = '';
+                    Message({
+                        message: this.$t('label.PFANS1045VIEW_CHECK3'),
+                        type: 'error',
                         duration: 5 * 1000,
-                      });
-                      this.paramsTitle();
-                    })
-                    .catch(error => {
-                      Message({
+                    });
+                    return;
+                }
+                this.checkcycle = 0;
+                this.form.cycle = val;
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS1006Store/chackcycle', this.form)
+                    .then(response => {
+                        if (response.length > 0) {
+                            this.checkcycle = 1;
+                            Message({
+                                message: this.$t('label.PFANS1045VIEW_CHECK2'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                        } else {
+                            this.loading = false;
+                        }
+                    }).catch(error => {
+                    Message({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000,
-                      });
-                      this.loading = false;
                     });
-
-                }
-              } else {
-                Message({
-                  message: this.$t('label.PFANS1045VIEW_CHECK5'),
-                  type: 'error',
-                  duration: 5 * 1000,
+                    this.loading = false;
                 });
-                this.loading = false;
-              }
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          });
-        }
-      },
-      getsupplierinfor() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor2')
-          .then(response => {
-            this.gridData = [];
-            for (let i = 0; i < response.length; i++) {
-              var vote = {};
-              vote.suppliername = response[i].supchinese;
-              vote.payeename = response[i].payeename;
-              vote.suppliercode = response[i].suppliercode;
-              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
-              vote.payeebankaccount = response[i].payeebankaccount;
-              this.gridData.push(vote);
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
+            },
+            paramsTitle() {
+                this.$router.push({
+                    name: 'PFANS1045View',
+                });
+            },
 
-      handleClickChange(val) {
-        this.currentRow = val.suppliername;
-      },
-      submit() {
-        let val = this.currentRow;
-        this.dialogTableVisible = false;
-        this.form.outsourcingcompany = val;
-      },
-      getUserids(val) {
-        this.userlist = val;
-        this.form.user_id = val;
-        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
-          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
-        } else {
-          this.error = '';
-        }
-      },
-    },
-  };
+            buttonClick(val) {
+                if (val === 'back') {
+                    this.paramsTitle();
+                } else {
+                    this.$refs['reff'].validate(valid => {
+                        if (valid) {
+                            if (this.form.amountcase === 0) {
+                                Message({
+                                    message: this.$t('label.PFANS1045VIEW_CHECK4'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                return;
+                            }
+                            if (this.form.status === '4') {
+                                let ckecksum = 0;
+                                for (let i = 0; i < this.tableF.length; i++) {
+                                    ckecksum = this.tableF[i].money;
+                                }
+                                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                                    Message({
+                                        message: this.$t('label.PFANS1045VIEW_CHECK6'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                            }
+                            this.form.user_id = this.userlist;
+                            this.baseInfo = {};
+                            this.baseInfo.policycontract = [];
+                            this.baseInfo.policycontractdetails = [];
+                            this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
+                            for (let i = 0; i < this.tableF.length; i++) {
+                                this.baseInfo.policycontractdetails.push({
+                                    invoicenumber: this.tableF[i].invoicenumber,
+                                    money: this.tableF[i].money,
+                                    remark: this.tableF[i].remark,
+                                });
+
+                            }
+                            this.loading = true;
+                            if (this.checkcycle === 0) {
+                                if (this.$route.params._id) {
+                                    this.form.policycontract_id = this.$route.params._id;
+                                    this.$store
+                                        .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            if (val !== 'update') {
+                                                Message({
+                                                    message: this.$t('normal.success_02'),
+                                                    type: 'success',
+                                                    duration: 5 * 1000,
+                                                });
+                                                this.paramsTitle();
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.loading = false;
+                                        });
+                                } else {
+
+                                    this.$store
+                                        .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            Message({
+                                                message: this.$t('normal.success_01'),
+                                                type: 'success',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.paramsTitle();
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000,
+                                            });
+                                            this.loading = false;
+                                        });
+
+                                }
+                            } else {
+                                Message({
+                                    message: this.$t('label.PFANS1045VIEW_CHECK5'),
+                                    type: 'error',
+                                    duration: 5 * 1000,
+                                });
+                                this.loading = false;
+                            }
+                        } else {
+                            Message({
+                                message: this.$t('normal.error_12'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        }
+                    });
+                }
+            },
+            getsupplierinfor() {
+                this.loading = true;
+                this.$store
+                    .dispatch('PFANS6003Store/getsupplierinfor2')
+                    .then(response => {
+                        this.gridData = [];
+                        for (let i = 0; i < response.length; i++) {
+                            var vote = {};
+                            vote.suppliername = response[i].supchinese;
+                            vote.payeename = response[i].payeename;
+                            vote.suppliercode = response[i].suppliercode;
+                            vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+                            vote.payeebankaccount = response[i].payeebankaccount;
+                            this.gridData.push(vote);
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+
+            handleClickChange(val) {
+                this.currentRow = val.suppliername;
+            },
+            submit() {
+                let val = this.currentRow;
+                this.dialogTableVisible = false;
+                this.form.outsourcingcompany = val;
+            },
+            getUserids(val) {
+                this.userlist = val;
+                this.form.user_id = val;
+                if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
+                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+                } else {
+                    this.error = '';
+                }
+            },
+        },
+    };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
