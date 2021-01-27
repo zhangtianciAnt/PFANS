@@ -278,7 +278,28 @@
           }
           checkgroupid = checkgroupid2 + ',' + this.$store.getters.userinfo.userinfo.groupid;
         } else {
-          checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+          //upd 20210127 王聪 没有发起审批修改
+          // checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+          let groupid = this.$store.getters.userinfo.userinfo.groupid;
+          if(groupid)
+          {
+            checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+          }
+          else
+          {
+            if (this.$store.getters.userinfo.userinfo.centerid) {
+              let centerId = this.$store.getters.userinfo.userinfo.centerid;
+              let orgs = getDownOrgInfo(centerId);
+              if (orgs) {
+                for (let org of orgs) {
+                    if (org.user === this.$store.getters.userinfo.userid) {
+                      checkgroupid = checkgroupid + ',' + org._id;
+                    }
+                }
+              }
+            }
+          }
+          //upd 20210127 王聪 没有发起审批修改
         }
 
         if (checkgroupid.indexOf(this.groupid) !== -1
