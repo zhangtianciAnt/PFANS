@@ -338,7 +338,7 @@
         getStatus,
         uploadUrl
     } from '@/utils/customize';
-
+    import moment from 'moment';
     export default {
         name: 'PFANS1045FormView',
         components: {
