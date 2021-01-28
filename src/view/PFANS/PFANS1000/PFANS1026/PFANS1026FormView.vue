@@ -3499,8 +3499,7 @@
           //   }
           // }
           o.claimdatetime = this.getclaimdatetime(this.form.tabledata[i].claimdatetime);
-          this.form.tabledata[i].contracttype = this.form.contracttype;
-          o.contracttype = this.form.tabledata[i].contracttype;
+          o.contracttype =this.form.contracttype;
           //海外受託 技術開発
           if (this.form.contracttype === 'HT008001') {
             o.maketype = '1';
