@@ -2341,8 +2341,7 @@
           //   }
           // }
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
-          this.form.tabledata[i].contracttype = this.form.contracttype;
-          o.contracttype = this.form.tabledata[i].contracttype;
+          o.contracttype = this.form.contracttype;
           if (this.form.contracttype === 'HT014001') {
             o.maketype = '1';
           } else if (this.form.contracttype === 'HT014002') {
