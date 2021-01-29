@@ -697,24 +697,23 @@
         //ADD_FJL_06/30 -- 添加周末加班的check end
       //加班合计时长
       getWorktime() {
+        let parameters = {
+          punchcardrecord_date: moment(this.form.reserveovertimedate).format('YYYY-MM-DD'),
+          user_id: this.$store.getters.userinfo.userid,
+        };
         this.loading = true;
         this.$store
-          .dispatch('PFANS2017Store/getFpans2017Listowner', {})
+          .dispatch('PFANS2011Store/getFpans2011Listowner', parameters)
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
-                let timeend = moment(response[j].time_end).format('HH:mm').replace(':', '.');
-                // let worktime = Number(response[j].worktime);
-                let timeflg1 = timeend.substring(0, 2);
-                let timeflg2 = timeend.substring(timeend.length - 2);
-                let timeflg3 = timeflg2 / 60;
-                // if ((Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2) > 0) {
-                //     this.form.worktime = (Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2);
-                if ((Number(timeflg1) + Number(timeflg3) - 18).toFixed(2) > 0) {
-                  this.form.worktime = (Number(timeflg1) + Number(timeflg3) - 18).toFixed(2);
-                } else {
-                  this.form.worktime = 0.00;
-                }
+              let timeend = moment(response[j].time_end).format('HH:mm').replace(':', '.');
+              let timeflg1 = timeend.substring(0, 2);
+              let timeflg2 = timeend.substring(timeend.length - 2);
+              let timeflg3 = timeflg2 / 60;
+              if ((Number(timeflg1) + Number(timeflg3) - 18).toFixed(2) > 0) {
+                this.form.worktime = (Number(timeflg1) + Number(timeflg3) - 18).toFixed(2);
+              } else {
+                this.form.worktime = 0.00;
               }
             }
             this.loading = false;

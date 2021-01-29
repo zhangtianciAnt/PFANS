@@ -68,4 +68,10 @@ export function deleteLog(data) {
 }
 //add-ws-9/4-加班申请可删除任务
 
-
+export function getFpans2011Listowner(data) {
+  return request({
+    url: 'punchcardrecord/list2',
+    method: 'get',
+    params: data,
+  })
+}
