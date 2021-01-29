@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList" :userlist="userlistLc"
+                         :buttonList="buttonList" :userlist="userlistLc" :workflowCode="workflowCode"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" label-width="8vw" label-position="top" style="padding: 2vw" :rules="rules"
@@ -329,6 +329,7 @@
         userlistLc: [],
         centerid: '',
         groupid: '',
+        workflowCode: 'W0018',
         teamid: '',
         baseInfo: {},
         // ferrycenterorglist: '',
@@ -539,6 +540,7 @@
                 this.userlistLc.push(groupInfo.user);
               }
             }
+            this.$store.commit('global/SET_OPERATEOWNER', this.form.user_id);
             //add-ws-7/2-禅道任务192
             this.getFebud(this.form.ferrygroup_id);
             this.getbud(this.form.tubegroup_id);
@@ -577,6 +579,7 @@
             this.form.ferryteam_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
+          this.getFebud(this.form.ferrygroup_id);
         }
         if (this.selectedList != '') {
           this.assetsList = JSON.parse(this.selectedList);
