@@ -7,9 +7,10 @@ import {
   getDataList,
   getOvertimeDay,
   getOvertimeOneday,
-  deleteLog,
-getFpans2011Listowner
+  deleteLog
 } from './PFANS2011Api'
+import {deleteUser} from "../../PFANS8000/PFANS8007/PFANS8007Api";
+import {getFpans2017List} from "../PFANS2017/PFANS2017Api";
 
 const PFANS2011Store = {
   namespaced: true,
@@ -17,19 +18,6 @@ const PFANS2011Store = {
   },
   mutations: {
   },
- getFpans2011Listowner({commit,data}) {
-      return new Promise((resolve, reject) => {
-        getFpans2011Listowner(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
   actions: {
     //add-ws-9/4-加班申请可删除任务
     deleteLog({ commit },data) {
