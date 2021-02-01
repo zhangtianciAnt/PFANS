@@ -1911,12 +1911,7 @@
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.IDname})
                     .then(response => {
                             if (response.publicexpense != null) {
-                                this.form = response.publicexpense;
-                                if (this.form.status === '4') {
-                                    this.acceptShow = false;
-                                } else {
-                                    this.acceptShow = true;
-                                }
+                                this.form = response.publicexpense;                            
                                 if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                                     let uploadfile = this.form.uploadfile.split(';');
                                     for (var i = 0; i < uploadfile.length; i++) {
@@ -2751,37 +2746,64 @@
                 this.buttonList = [];
             }
             this.disable = this.$route.params.disabled;
-            if (this.disable) {
-                if (this.role2 === '0') {
-                    this.buttonList = [
-                        {
-                            key: 'save',
-                            name: 'button.save',
-                            disabled: false,
-                            icon: 'el-icon-check',
-                        },
-                    ];
-                    this.enableSave = true;
-                } else {
-                    this.buttonList = [
-                        {
-                            key: 'save',
-                            name: 'button.save',
-                            disabled: false,
-                            icon: 'el-icon-check',
-                        },
-                    ];
-                }
-                this.checkexternal = false;
-                this.checktaxes = false;
-                this.checkdisable = false;
-                this.disablecheck = false;
-            } else {
-                this.checkexternal = true;
-                this.checktaxes = true;
-                this.checkdisable = true;
-                this.disablecheck = true;
-            }
+             if (this.disable) {
+        this.checkexternal = false;
+        this.checktaxes = false;
+        this.checkdisable = false;
+        this.disablecheck = false;
+        if (this.role2 === '0') {
+          if (this.$route.params._statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.checkexternal = true;
+            this.checktaxes = true;
+            this.checkdisable = true;
+            this.disablecheck = true;
+            this.acceptShow = false;
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else if (this.$route.params._statuss == this.$t('label.PFANS1026VIEW_WSTATUS')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
+      } else {
+        this.checkexternal = true;
+        this.checktaxes = true;
+        this.checkdisable = true;
+        this.disablecheck = true;
+      }
         },
         computed: {
             foreigncurrency: {

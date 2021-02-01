@@ -264,6 +264,7 @@
       //ADD_FJL
       rowClick(row) {
         this.rowid = row.evectionid;
+        this.statuss = row.status;
       },
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
@@ -311,6 +312,7 @@
           this.$router.push({
             name: 'PFANS1013FormView',
             params: {
+              _statuss: this.statuss,
               _id: this.rowid,
               disabled: true,
               method: 'update',
@@ -336,6 +338,7 @@
           this.$router.push({
             name: 'PFANS1013FormView',
             params: {
+              _statuss: this.statuss,
               _id: this.rowid,
               disabled: false,
               method: 'view',
