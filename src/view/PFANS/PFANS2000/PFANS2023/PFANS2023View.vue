@@ -25,7 +25,7 @@
         // 列属性
         columns: [
           {
-            code: 'createon',
+            code: years
             label: 'label.PFANS2023VIEW_YEARS',
             width: 120,
             fix: false,
@@ -74,7 +74,7 @@
             filter: true
           },
           {
-            code: 'modifyon',
+            code: createon
             label: 'label.PFANS2023VIEW_MAKINGTIME',
             width: 120,
             fix: false,
@@ -111,16 +111,13 @@
             }
             response[j].status = getStatus(response[j].status);
             if (response[j].createon !== null && response[j].createon !== "") {
-              response[j].modifyon = moment(response[j].createon).format("YYYY-MM-DD");
+              response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
             }
             if (response[j].stage !== null && response[j].stage !== "") {
               let letStage = getDictionaryInfo(response[j].stage);
               if (letStage != null) {
                 response[j].stage = letStage.value1;
               }
-            }
-            if (response[j].createon !== null && response[j].createon !== "") {
-              response[j].createon = moment(response[j].createon).format("YYYY");
             }
             if (this.$i18n) {
               if (response[j].stage !== null && response[j].stage !== "") {
