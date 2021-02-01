@@ -57,6 +57,8 @@
         error: '',
         selectType: 'Single',
         sealdetaildate: '',
+        sealdetail: '',
+        user: '',
         insertnamedialog: false,
         loading: false,
         title: 'title.PFANS4001VIEW',
