@@ -205,7 +205,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="vendornum"
+                                  <el-table-column property="suppliercode"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -317,7 +317,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="vendornum"
+                                  <el-table-column property="suppliercode"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -447,7 +447,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="vendornum"
+                                  <el-table-column property="suppliercode"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -602,7 +602,7 @@
                             show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disable" style="width: 100%"
+                        <el-date-picker :disabled="!disable" style="width: 110%"
                                         v-model="scope.row.trafficdate"></el-date-picker>
                       </template>
                     </el-table-column>
@@ -748,7 +748,7 @@
                                 show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 100%"
+                            <el-date-picker :disabled="!disable" style="width: 110%"
                                             v-model="scope.row.purchasedetailsdate">
                             </el-date-picker>
                           </template>
@@ -1008,7 +1008,7 @@
                                 show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 100%"
+                            <el-date-picker :disabled="!disable" style="width: 110%"
                                             v-model="scope.row.otherdetailsdate">
                             </el-date-picker>
                           </template>
@@ -1938,11 +1938,6 @@
           .then(response => {
               if (response.publicexpense != null) {
                 this.form = response.publicexpense;
-                if (this.form.status === '4') {
-                  this.acceptShow = false;
-                } else {
-                  this.acceptShow = true;
-                }
                 if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                   let uploadfile = this.form.uploadfile.split(';');
                   for (var i = 0; i < uploadfile.length; i++) {
@@ -2779,16 +2774,47 @@
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
+        this.checkexternal = false;
+        this.checktaxes = false;
+        this.checkdisable = false;
+        this.disablecheck = false;
         if (this.role2 === '0') {
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: false,
-              icon: 'el-icon-check',
-            },
-          ];
-          this.enableSave = true;
+          if (this.$route.params._statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.checkexternal = true;
+            this.checktaxes = true;
+            this.checkdisable = true;
+            this.disablecheck = true;
+            this.acceptShow = false;
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else if (this.$route.params._statuss == this.$t('label.PFANS1026VIEW_WSTATUS')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }
         } else {
           this.buttonList = [
             {
@@ -2799,10 +2825,6 @@
             },
           ];
         }
-        this.checkexternal = false;
-        this.checktaxes = false;
-        this.checkdisable = false;
-        this.disablecheck = false;
       } else {
         this.checkexternal = true;
         this.checktaxes = true;
@@ -4492,32 +4514,28 @@
                 return prev;
               }
             }, 0);
-            // if (index == 7) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 8) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 9) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 10) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 11) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
-            // if (index == 12) {
-            //   sums[index] = Math.round((sums[index]) * 100) / 100;
-            // }
+            if (index == 7) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 8) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 9) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 10) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 11) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 12) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
           } else {
             sums[index] = '--';
           }
         });
-        sums[7] = Math.round(sums[7] * 100) / 100;
-        sums[8] = Math.round(sums[8] * 100) / 100;
-        sums[11] = Math.round(sums[11] * 100) / 100;
-        sums[12] = Math.round(sums[12] * 100) / 100;
         this.getMoney(sums);
         this.getforeigncurrency(sums);
         return sums;
@@ -5005,12 +5023,11 @@
                         });
                         break;
                       }
-                      if (this.tableT[i].subjectnumber === '') {
+                      if (this.tableT[i].accountcode === '') {
                         this.activeName = 'second';
-                        alert(111);
                         error = error + 1;
                         Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
                           type: 'error',
                           duration: 5 * 1000,
                         });
@@ -5033,11 +5050,11 @@
                       }
                       //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
                       if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                        if (this.tableR[i].subjectnumber === '') {
+                        if (this.tableR[i].accountcode === '') {
                           this.activeName = 'third';
                           error = error + 1;
                           Message({
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
                             type: 'error',
                             duration: 5 * 1000,
                           });
@@ -5071,11 +5088,11 @@
                       }
                       //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
                       if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                        if (this.tableP[i].subjectnumber === '') {
+                        if (this.tableP[i].accountcode === '') {
                           this.activeName = 'third';
                           error = error + 1;
                           Message({
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
                             type: 'error',
                             duration: 5 * 1000,
                           });

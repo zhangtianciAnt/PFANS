@@ -1580,11 +1580,6 @@
               // this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
-            if (this.form.status === '4') {
-              this.acceptShow = false;
-            } else {
-              this.acceptShow = true;
-            }
             let role = getCurrentRole();
             if (role == '1') {//总经理
               this.workflowCode = 'W0084';
@@ -1999,16 +1994,44 @@
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
+        this.checkmoney = false;
+        this.checktaxes = false;
         if (this.role2 === '0') {
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: false,
-              icon: 'el-icon-check',
-            },
-          ];
-          this.enableSave = true;
+          if (this.$route.params._statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.checkmoney = true;
+            this.checktaxes = true;
+            this.acceptShow = false;
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else if (this.$route.params._statuss == this.$t('label.PFANS1026VIEW_WSTATUS')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }
         } else {
           this.buttonList = [
             {
@@ -2019,8 +2042,6 @@
             },
           ];
         }
-        this.checktaxes = false;
-        this.checkmoney = false;
       } else {
         this.checkmoney = true;
         this.checktaxes = true;
