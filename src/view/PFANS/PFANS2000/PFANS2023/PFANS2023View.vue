@@ -25,7 +25,7 @@
         // 列属性
         columns: [
           {
-            code: years
+            code: 'years',
             label: 'label.PFANS2023VIEW_YEARS',
             width: 120,
             fix: false,
@@ -74,7 +74,7 @@
             filter: true
           },
           {
-            code: createon
+            code: 'createon',
             label: 'label.PFANS2023VIEW_MAKINGTIME',
             width: 120,
             fix: false,
