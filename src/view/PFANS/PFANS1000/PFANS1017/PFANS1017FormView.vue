@@ -504,15 +504,6 @@
             }
             this.userlist = response.user_id;
             this.form = response.psdcd;
-            // if (getCurrentRole() === '1') {
-            //   this.workflowCode = 'W0103';//总经理流程
-            // } else {
-            //   if (this.form.user_id === '5e78b2264e3b194874180f35') {
-            //     this.workflowCode = 'W0120';
-            //   } else {
-            //     this.workflowCode = 'W0024';//其他
-            //   }
-            // }
             let roleLC = getCurrentRole();
             if (roleLC == '1') {
               this.workflowCode = 'W0103';//总经理流程
