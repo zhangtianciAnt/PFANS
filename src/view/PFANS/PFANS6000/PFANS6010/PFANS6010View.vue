@@ -140,16 +140,16 @@
           this.months.split('-')[1],
         ];
         //大于系统时间时取系统时间的前月
-        if (Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format('YYYYMM'))) {
-          letdates[1] = Number(moment(new Date()).format('M')) - 1;
-          if (letdates[1].toString().length === 1) {
-            letdates[1] = '0' + letdates[1];
-          }
-        }
+        // if (Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format('YYYYMM'))) {
+        //   letdates[1] = Number(moment(new Date()).format('M')) - 1;
+        //   if (letdates[1].toString().length === 1) {
+        //     letdates[1] = '0' + letdates[1];
+        //   }
+        // }
         //选择1,2,3月时按事业年度算应该年-1
-        if (Number(moment(this.months).format('M')) < 4) {
-          letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
-        }
+        // if (Number(moment(this.months).format('M')) < 4) {
+        //   letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
+        // }
         //let dates = letdates[0] + "-" + letdates[1];
         let now = new Date(this.months);
         let dates = moment(now.setMonth(now.getMonth() - 1)).format('YYYY-MM');
@@ -281,7 +281,28 @@
           }
           checkgroupid = checkgroupid2 + ',' + this.$store.getters.userinfo.userinfo.groupid;
         } else {
-          checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+          //upd 20210127 王聪 没有发起审批修改
+          // checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+          let groupid = this.$store.getters.userinfo.userinfo.groupid;
+          if(groupid)
+          {
+            checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
+          }
+          else
+          {
+            if (this.$store.getters.userinfo.userinfo.centerid) {
+              let centerId = this.$store.getters.userinfo.userinfo.centerid;
+              let orgs = getDownOrgInfo(centerId);
+              if (orgs) {
+                for (let org of orgs) {
+                    if (org.user === this.$store.getters.userinfo.userid) {
+                      checkgroupid = checkgroupid + ',' + org._id;
+                    }
+                }
+              }
+            }
+          }
+          //upd 20210127 王聪 没有发起审批修改
         }
 
         if (checkgroupid.indexOf(this.groupid) !== -1

@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
-                         :buttonList="buttonList" :workflowCode="workflowCode"
+                         :buttonList="buttonList"
                          @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -400,7 +400,6 @@
         groupid: '',
         teamid: '',
         userlist: '',
-        workflowCode: '',
         error: '',
         selectedList: [],
         assetsList: [],

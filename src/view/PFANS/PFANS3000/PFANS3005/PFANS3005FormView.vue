@@ -43,6 +43,12 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
+                    <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                    v-model="form.findate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" >
                     <dicselect
                       :code="code5"
@@ -52,12 +58,6 @@
                       @change="getEnableduplicateloan"
                       style="width:20vw">
                     </dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
-                    <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
-                                    v-model="form.findate"></el-date-picker>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -1085,6 +1085,7 @@
                         this.form.findate = moment(new Date()).format('YYYY-MM-DD');
                       }
                     }
+                    this.disable = !this.$route.params.disabled;
                     this.acceptShow = false;
                   } else {
                     this.acceptShow = true;

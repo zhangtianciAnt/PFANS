@@ -52,14 +52,11 @@
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
-                        <!--                         ADD_FJL_05/21   &#45;&#45;年度可修改-->
-                        <!--                        {{form.createon  | moment('YYYY')}}-->
                         <el-date-picker
                           v-model="form.years"
-                          :disabled="!disable"
+                          :disabled="true"
                           type="year">
                         </el-date-picker>
-                        <!--                        ADD_FJL_05/21   &#45;&#45;年度可修改-->
                       </el-form-item>
                     </el-col>
                   </el-row>

@@ -140,13 +140,13 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1006FORMVIEW_CURRENCYCHOICE')" prop="currencychoice">
                       <!--                      add-ws-12/10-汇率字典-->
-<!--                      <dicselect :code="code3"-->
-<!--                                 :data="form.currencychoice"-->
-<!--                                 :disabled="!disable"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="changecurrencychoice"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
+                      <!--                      <dicselect :code="code3"-->
+                      <!--                                 :data="form.currencychoice"-->
+                      <!--                                 :disabled="!disable"-->
+                      <!--                                 :multiple="multiple"-->
+                      <!--                                 @change="changecurrencychoice"-->
+                      <!--                                 style="width:20vw">-->
+                      <!--                      </dicselect>-->
                       <monthlyrate :month="month3"
                                    :data="form.currencychoice"
                                    :disabled="!disable"
@@ -492,39 +492,40 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import dicselect from '../../../components/dicselect.vue';
-    import {Message} from 'element-ui';
-    import user from '../../../components/user.vue';
-    import {
-        getCurrentRole2,
-        getCurrentRole5,
-        getOrgInfo,
-        getOrgInfoByUserId,
-        getStatus,
-        getUserInfo
-    } from '@/utils/customize';
-    import moment from 'moment';
-    import png11 from '@/assets/png/11.png';
-    import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
-    import org from '../../../components/org';
-    import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
-    import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
-    import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
-    import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
-    import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
-    import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
-    import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
-    import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
-    import monthlyrate from '../../../components/monthlyrate';
-    export default {
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect.vue';
+  import {Message} from 'element-ui';
+  import user from '../../../components/user.vue';
+  import {
+    getCurrentRole2,
+    getCurrentRole5,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getStatus,
+    getUserInfo,
+  } from '@/utils/customize';
+  import moment from 'moment';
+  import png11 from '@/assets/png/11.png';
+  import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
+  import org from '../../../components/org';
+  import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
+  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+  import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
+  import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+  import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
+  import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+  import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+  import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+  import monthlyrate from '../../../components/monthlyrate';
+
+  export default {
     name: 'PFANS1006FormView',
     components: {
       monthlyrate,
       EasyNormalContainer,
       dicselect,
       user,
-        org,
+      org,
       PFANS1003Pop,
       PFANS1004Pop,
       PFANS1005Pop,
@@ -639,7 +640,7 @@
         active: '1',
         activeName: 'first',
         showtab: true,
-          checkGro: false,
+        checkGro: false,
         show10: true,
         show11: false,
         DataList: [{
@@ -665,7 +666,7 @@
         role2: '',
         acceptShow: true,
         maxcontrol: 100000000,
-          showvoid: false,
+        showvoid: false,
         options2: [
           {
             value: '0',
@@ -675,10 +676,10 @@
             value: '1',
             label: this.$t('label.PFANS1006FORMVIEW_OPTIONS2'),
           },
-            {
-                value: '2',
-                label: this.$t('label.PFANS1006FORMVIEW_OPTIONS3'),
-            },
+          {
+            value: '2',
+            label: this.$t('label.PFANS1006FORMVIEW_OPTIONS3'),
+          },
         ],
         // add-ws-8/12-禅道任务446
         gridData: [],
@@ -713,7 +714,7 @@
           // add-ws-8/12-禅道任务446
           processingstatus: '0',
           // add-ws-8/12-禅道任务446
-            reasonvoid: '',
+          reasonvoid: '',
           accountpayeename: '',
           judgements: '',
           judgements_name: '',
@@ -851,16 +852,16 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_REASONFORDELAY'),
             trigger: 'change',
           }],
-            //add_fjl_0929  报废原因
-            reasonvoid: [{
-                required: false,
-                message: this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_REASONVOID'),
-                trigger: 'change',
-            }],
-            //add_fjl_0929  报废原因
+          //add_fjl_0929  报废原因
+          reasonvoid: [{
+            required: false,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1006FORMVIEW_REASONVOID'),
+            trigger: 'change',
+          }],
+          //add_fjl_0929  报废原因
         },
         canStart: false,
-        flowData:[],
+        flowData: [],
       };
     },
     created() {
@@ -868,24 +869,47 @@
       //   alert(1 + this.$store.getters.workflowUrl)
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
-        //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
-        // if (this.$route.params._workflowurl1012 === undefined) {
-        //     this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
-        // }
-        //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
+      //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
+      // if (this.$route.params._workflowurl1012 === undefined) {
+      //     this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+      // }
+      //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        if(this.role2 === '0' ){
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: false,
-              icon: 'el-icon-check',
-            },
-          ];
-          this.enableSave = true
-        }else{
+        if (this.role2 === '0') {
+          if (this.$route.params.statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.acceptShow = false;
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else if (this.$route.params.statuss == this.$t('label.node_step4')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }
+        } else {
           this.buttonList = [
             {
               key: 'save',
@@ -898,7 +922,7 @@
       }
     },
     mounted() {
-        // alert(2 + this.$store.getters.workflowUrl)
+      // alert(2 + this.$store.getters.workflowUrl)
       //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
       this.role1 = getCurrentRole2();
       //add-ws-5/13-总务担当看到所有符合条件的数据，其他人看本身的而数据
@@ -909,27 +933,22 @@
         this.flag = true;
       }
       this.IDname = this.$route.params._id;
-        //add_fjl_0929  查询公共费用中的暂借款 start
-        this.getpublice();
-        //add_fjl_0929  查询公共费用中的暂借款 end
-        if (this.IDname) {
+      //add_fjl_0929  查询公共费用中的暂借款 start
+      this.getpublice();
+      //add_fjl_0929  查询公共费用中的暂借款 end
+      if (this.IDname) {
         this.loading = true;
         this.$store
-            .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.IDname})
+          .dispatch('PFANS1006Store/getLoanapplicationOne', {'loanapplication_id': this.IDname})
           .then(response => {
             if (response !== undefined) {
               this.form = response;
-                if (this.disable && this.form.status === '4') {
-                this.acceptShow = false
-              }else{
-                this.acceptShow = true
+              //add_fjl_0929  报废原因
+              if (this.role2 === '0' && this.form.processingstatus === '2') {
+                this.showvoid = true;
+                this.rules.reasonvoid[0].required = true;
               }
-                //add_fjl_0929  报废原因
-                if (this.role2 === '0' && this.form.processingstatus === '2') {
-                    this.showvoid = true;
-                    this.rules.reasonvoid[0].required = true;
-                }
-                //add_fjl_0929  报废原因
+              //add_fjl_0929  报废原因
               //决裁关联
               if (this.form.judgements != null && this.form.judgements != '' && this.form.judgements != undefined) {
                 let judgement = this.form.judgements.split(',');
@@ -971,16 +990,16 @@
               this.namelist = this.form.user_name;
               let rst = getOrgInfoByUserId(response.user_id);
               if (rst) {
-                  //upd_fjl_0927
-                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                      this.checkGro = true;
-                  } else {
-                      this.checkGro = false;
-                  }
-                  // this.centerid = rst.centerNmae;
-                  // this.groupid = rst.groupNmae;
-                  // this.teamid = rst.teamNmae;
-                  //upd_fjl_0927
+                //upd_fjl_0927
+                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                  this.checkGro = true;
+                } else {
+                  this.checkGro = false;
+                }
+                // this.centerid = rst.centerNmae;
+                // this.groupid = rst.groupNmae;
+                // this.teamid = rst.teamNmae;
+                //upd_fjl_0927
               }
               this.userlist = this.form.user_id;
               if (this.form.paymentmethod === 'PJ015001') {
@@ -999,7 +1018,7 @@
                 this.show3 = true;
                 this.show7 = true;
               }
-                this.getBudt(this.form.group_id);
+              this.getBudt(this.form.group_id);
               if (this.form.uploadfile != '' && this.form.uploadfile != null && this.form.uploadfile != undefined) {
                 let uploadfile = this.form.uploadfile.split(';');
                 for (var i = 0; i < uploadfile.length; i++) {
@@ -1020,26 +1039,24 @@
 
             //采购业务数据流程查看详情
             this.$store
-                .dispatch('PFANS1006Store/getworkfolwPurchaseData', {'loanapplication_id': this.IDname})
+              .dispatch('PFANS1006Store/getworkfolwPurchaseData', {'loanapplication_id': this.IDname})
               .then(response3 => {
 
                 if (response3 !== null && response3 !== '' && response3 !== undefined) {
-                  if (response3["purchase"]!=undefined)
-                  {
-                    let purlist = response3["purchase"].split(';');
+                  if (response3['purchase'] != undefined) {
+                    let purlist = response3['purchase'].split(';');
                     let setpurlist = new Set(purlist);
-                    for (let i of setpurlist)
-                    {
+                    for (let i of setpurlist) {
                       let pur = i.split(',');
-                      let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      let statu = pur[1] === '4' ? 'normal.done' : (pur[1] === '2' ? 'normal.doing' : 'normal.todo');
                       this.flowData.push(
                         {
-                          No:this.flowData.length + 1,
+                          No: this.flowData.length + 1,
                           Name: '采购决裁',
                           Status: statu,
                           url: 'PFANS3005FormView',
-                          params: {'_id':pur[0]}
-                        })
+                          params: {'_id': pur[0]},
+                        });
                     }
                   }
                   // if (response3["award"]!=undefined)
@@ -1078,22 +1095,20 @@
                   //       })
                   //   }
                   // }
-                  if (response3["loanApplication"]!=undefined)
-                  {
-                    let loanapplist = response3["loanApplication"].split(';');
+                  if (response3['loanApplication'] != undefined) {
+                    let loanapplist = response3['loanApplication'].split(';');
                     let setloanapplist = new Set(loanapplist);
-                    for (let i of setloanapplist)
-                    {
+                    for (let i of setloanapplist) {
                       let loanapp = i.split(',');
-                      let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo')
+                      let statu = loanapp[1] === '4' ? 'normal.done' : (loanapp[1] === '2' ? 'normal.doing' : 'normal.todo');
                       this.flowData.push(
                         {
-                          No:this.flowData.length + 1,
+                          No: this.flowData.length + 1,
                           Name: '暂借款申请',
                           Status: statu,
                           url: 'PFANS1006FormView',
-                          params: {'_id':loanapp[0]}
-                        })
+                          params: {'_id': loanapp[0]},
+                        });
                     }
                   }
                   // if (response3["publicExpense"]!=undefined)
@@ -1114,9 +1129,9 @@
                   //       })
                   //   }
                   // }
-                  this.$emit('showPop',this.flowData);
+                  this.$emit('showPop', this.flowData);
                 }
-              })
+              });
             //采购业务数据流程查看详情
             this.loading = false;
           })
@@ -1151,17 +1166,17 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-              // this.form.group_id = rst.groupId;
+            // this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
-              //add_fjl_0927
-              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                  this.form.group_id = rst.groupId;
-                  this.getBudt(this.form.group_id);
-                  this.checkGro = true;
-              } else {
-                  this.checkGro = false;
-              }
-              //add_fjl_0927
+            //add_fjl_0927
+            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              this.form.group_id = rst.groupId;
+              this.getBudt(this.form.group_id);
+              this.checkGro = true;
+            } else {
+              this.checkGro = false;
+            }
+            //add_fjl_0927
           }
 
           if (this.$route.params._judgement != null && this.$route.params._judgement != '' && this.$route.params._judgement != undefined) {
@@ -1214,8 +1229,8 @@
               muchmoneys = (muchmoneys - 0) + (judgements_moneys[m] - 0);
             }
             this.form.moneys = muchmoneys;
-            if(this.surloappmoney != 0){
-              this.maxcontrol = this.surloappmoney
+            if (this.surloappmoney != 0) {
+              this.maxcontrol = this.surloappmoney;
             }
             this.form.remarks = remarks[0];
           } else {
@@ -1225,19 +1240,19 @@
       }
     },
     methods: {
-        //add_fjl_0927
-        getCenterid(val) {
-            this.form.center_id = val;
-        },
-        getGroupId(val) {
-            this.form.group_id = val;
-            this.form.budgetunit = '';
-            this.getBudt(val);
-        },
-        getTeamid(val) {
-            this.form.team_id = val;
-        },
-        //add_fjl_0927
+      //add_fjl_0927
+      getCenterid(val) {
+        this.form.center_id = val;
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+        this.form.budgetunit = '';
+        this.getBudt(val);
+      },
+      getTeamid(val) {
+        this.form.team_id = val;
+      },
+      //add_fjl_0927
       //add-ws-5/18-No70-增加收款人
       getUsernames(val) {
         if (val === '') {
@@ -1256,25 +1271,25 @@
       },
 //add-ws-5/18-No70-增加收款人
       getBudt(val) {
-          this.options1 = [];
-          if (val === '' || val === null) {
-              return;
-          }
+        this.options1 = [];
+        if (val === '' || val === null) {
+          return;
+        }
         //ADD_FJL  修改人员预算编码
-          // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(val).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
-                this.options1.push({
-                  lable: dic[i].value2 + '_' + dic[i].value3,
-                  value: dic[i].code,
-                });
-              }
+        // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+        let butinfo = getOrgInfo(val).encoding;
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        if (dic.length > 0) {
+          for (let i = 0; i < dic.length; i++) {
+            if (butinfo === dic[i].value1) {
+              this.options1.push({
+                lable: dic[i].value2 + '_' + dic[i].value3,
+                value: dic[i].code,
+              });
             }
           }
-          // }
+        }
+        // }
         //ADD_FJL  修改人员预算编码
       },
       changeBut(val) {
@@ -1313,12 +1328,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -1381,25 +1396,25 @@
             this.loading = false;
           });
       },
-        //add_fjl_0929  添加公共费用中暂借款查询 start
-        getpublice() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS1006Store/getpublice', {'loanapplication_id': this.IDname})
-                .then(response => {
-                    this.pubLoan = response.length;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-        },
-        //add_fjl_0929  添加公共费用中暂借款查询 end
+      //add_fjl_0929  添加公共费用中暂借款查询 start
+      getpublice() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1006Store/getpublice', {'loanapplication_id': this.IDname})
+          .then(response => {
+            this.pubLoan = response.length;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //add_fjl_0929  添加公共费用中暂借款查询 end
       getUserids(val) {
         this.form.user_id = val;
         if (val === '') {
@@ -1437,36 +1452,36 @@
       getmodule(val) {
         this.form.moduleid = val;
       },
-        //ADD_FJL_0819  添加区分
-        radioChange(val) {
-            this.form.publicradio = val;
-            if(val == '1'){
-              this.maxcontrol = 100000000
-            }else{
-              if(this.surloappmoney != 0){
-                this.maxcontrol = this.surloappmoney
-                if(this.form.moneys > this.surloappmoney){
-                  this.form.moneys = this.maxcontrol
-                }
-              }
+      //ADD_FJL_0819  添加区分
+      radioChange(val) {
+        this.form.publicradio = val;
+        if (val == '1') {
+          this.maxcontrol = 100000000;
+        } else {
+          if (this.surloappmoney != 0) {
+            this.maxcontrol = this.surloappmoney;
+            if (this.form.moneys > this.surloappmoney) {
+              this.form.moneys = this.maxcontrol;
             }
-        },
-        //ADD_FJL_0819  添加区分
+          }
+        }
+      },
+      //ADD_FJL_0819  添加区分
       changecurrencychoice(val) {
         this.form.currencychoice = val;
       },
-        //add_fjl_0929  处理状态
-        prostatusChange(val) {
-            this.rules.reasonvoid[0].required = false;
-            this.showvoid = false;
-            this.form.processingstatus = val;
-            this.form.reasonvoid = '';
-            if (val === '2') {
-                this.showvoid = true;
-                this.rules.reasonvoid[0].required = true;
-            }
-        },
-        //add_fjl_0929  处理状态
+      //add_fjl_0929  处理状态
+      prostatusChange(val) {
+        this.rules.reasonvoid[0].required = false;
+        this.showvoid = false;
+        this.form.processingstatus = val;
+        this.form.reasonvoid = '';
+        if (val === '2') {
+          this.showvoid = true;
+          this.rules.reasonvoid[0].required = true;
+        }
+      },
+      //add_fjl_0929  处理状态
       getPayment(val) {
         this.form.paymentmethod = val;
         if (val === 'PJ015001') {
@@ -1563,54 +1578,54 @@
           },
         });
       },
-        //add-fjl-0816-暂借款中，点击决裁，跳转画面
-        checkparams() {
-            let id = this.$route.params._checkid;
-            let fromname = this.$route.params._fromname;
-            //add_fjl_0828  流程信息查不到横展开
-            if (fromname === 'PFANS3005FormView') {
-                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
-            } else if (fromname === 'PFANS1013FormView') {
-                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
-            } else if (fromname === 'PFANS1012FormView') {
-                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
-            } else {
-                this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
-            }
-            //add_fjl_0828  流程信息查不到横展开
-            this.$router.push({
-                name: fromname,
-                params: {
-                    disabled: true,
-                    _id: id,
-                },
-            });
-        },
-        //add-fjl-0816-暂借款中，点击决裁，跳转画面
+      //add-fjl-0816-暂借款中，点击决裁，跳转画面
+      checkparams() {
+        let id = this.$route.params._checkid;
+        let fromname = this.$route.params._fromname;
+        //add_fjl_0828  流程信息查不到横展开
+        if (fromname === 'PFANS3005FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+        } else if (fromname === 'PFANS1013FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
+        } else if (fromname === 'PFANS1012FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
+        } else {
+          this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
+        }
+        //add_fjl_0828  流程信息查不到横展开
+        this.$router.push({
+          name: fromname,
+          params: {
+            disabled: true,
+            _id: id,
+          },
+        });
+      },
+      //add-fjl-0816-暂借款中，点击决裁，跳转画面
       buttonClick(val) {
         if (val === 'back') {
-            //add-fjl-0816-暂借款中，点击决裁，跳转画面
-            if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
-                if (this.$route.params._check) {
-                    this.checkparams();
-                }
-            } else {
-                this.paramsTitle();
+          //add-fjl-0816-暂借款中，点击决裁，跳转画面
+          if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
+            if (this.$route.params._check) {
+              this.checkparams();
             }
-            //add-fjl-0816-暂借款中，点击决裁，跳转画面
+          } else {
+            this.paramsTitle();
+          }
+          //add-fjl-0816-暂借款中，点击决裁，跳转画面
         } else {
           this.$refs['refform'].validate(valid => {
             if (valid) {
-                //add_fjl_0929  暂借款在公共费用中使用，不可作废 start
-                if (this.showvoid && this.pubLoan !== 0) {
-                    Message({
-                        message: this.$t('label.PFANS1006FORMVIEW_VOIDERROR'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    return;
-                }
-                //add_fjl_0929  暂借款在公共费用中使用，不可作废 end
+              //add_fjl_0929  暂借款在公共费用中使用，不可作废 start
+              if (this.showvoid && this.pubLoan !== 0) {
+                Message({
+                  message: this.$t('label.PFANS1006FORMVIEW_VOIDERROR'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+              //add_fjl_0929  暂借款在公共费用中使用，不可作废 end
               // if (this.form.paymentmethod === 'PJ015001') {
               //   this.form.name = '';
               // } else if (this.form.paymentmethod === 'PJ015002') {
@@ -1640,9 +1655,9 @@
                 this.loading = false;
               }
               if (error === 0) {
-                  if (this.IDname) {
-                      this.loading = true;
-                      this.form.loanapplication_id = this.IDname;
+                if (this.IDname) {
+                  this.loading = true;
+                  this.form.loanapplication_id = this.IDname;
                   this.$store
                     .dispatch('PFANS1006Store/updateLoanapplication', this.form)
                     .then(response => {
@@ -1737,7 +1752,7 @@
         }
         this.urlparams = '';
         this.url = '';
-          this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
+        this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
         // this.$store.commit('global/SET_HISTORYURL', '');
         // this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1047FormView');
         if (row.judgement_name.substring(0, 2) === 'JC') {
