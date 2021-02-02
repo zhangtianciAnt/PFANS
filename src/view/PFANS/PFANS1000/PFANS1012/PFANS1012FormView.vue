@@ -2795,7 +2795,7 @@
             this.acceptShow = false;
             this.disable = !this.$route.params.disabled;
             this.enableSave = true;
-          } else if (this.$route.params._statuss == this.$t('label.PFANS1026VIEW_WSTATUS')) {
+          } else if (this.$route.params._statuss == this.$t('label.node_step4')) {
             this.buttonList = [
               {
                 key: 'save',
