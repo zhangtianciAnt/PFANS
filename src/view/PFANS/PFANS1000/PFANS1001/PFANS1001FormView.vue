@@ -722,6 +722,7 @@
         } else if (this.$route.params.title === 6) {
           //ADD_FJL_0906  添加workfolwurl start
           this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+          this.statuss = row;
           //ADD_FJL_0906  添加workfolwurl end
           this.rowid = row.loanapplication_id;
         } else if (this.$route.params.title === 10) {
