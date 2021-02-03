@@ -1967,7 +1967,7 @@
               {
                 key: 'save',
                 name: 'button.save',
-                disabled: false,
+                disabled: true,
                 icon: 'el-icon-check',
               },
             ];
