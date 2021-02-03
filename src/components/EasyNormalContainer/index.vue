@@ -9,6 +9,7 @@
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
                           @canStartWorkflow="canStartWorkflow" :userlist="userlist"
                           @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow" :defaultStart="defaultStart"
+                          :defaultDo="defaultDo" @OperationWorkflow="OperationWorkflow"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
         </el-row>
@@ -91,6 +92,10 @@
         type:Boolean,
         default:true
       },
+      defaultDo:{
+        type:Boolean,
+        default:true
+      },
       userlist: {
         type: Array,
         default: function () {
@@ -144,6 +149,9 @@
       },
       StartWorkflow(val){
         this.$emit("StartWorkflow",val)
+      },
+      OperationWorkflow(val){
+        this.$emit("OperationWorkflow",val)
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;
