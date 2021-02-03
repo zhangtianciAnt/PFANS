@@ -351,6 +351,7 @@
       //   }
       // };
       return {
+        varworktime:[],
         disovertimelength: false,
         defaultStart: false,
         showovertimelength: false,
@@ -493,6 +494,7 @@
       this.getDateList();
       this.getOvertimeDay();
       this.getOvertimeMen();
+      this.getWorktime();
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -701,21 +703,8 @@
         this.$store
           .dispatch('PFANS2017Store/getFpans2017Listowner', {})
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(response[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === response[j].user_id) {
-                let timeend = moment(response[j].time_end).format('HH:mm').replace(':', '.');
-                // let worktime = Number(response[j].worktime);
-                let timeflg1 = timeend.substring(0, 2);
-                let timeflg2 = timeend.substring(timeend.length - 2);
-                let timeflg3 = timeflg2 / 60;
-                // if ((Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2) > 0) {
-                //     this.form.worktime = (Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2);
-                if ((Number(timeflg1) + Number(timeflg3) - 18).toFixed(2) > 0) {
-                  this.form.worktime = (Number(timeflg1) + Number(timeflg3) - 18).toFixed(2);
-                } else {
-                  this.form.worktime = 0.00;
-                }
-              }
+            if(response.length > 0){
+                this.varworktime = response;
             }
             this.loading = false;
           })
@@ -833,7 +822,24 @@
       },
       changeReserveovertimedate() {
           this.form.overtimetype = '';
-        this.getWorktime();
+        if(this.varworktime.length > 0) {
+            for (let j = 0; j < this.varworktime.length; j++) {
+                if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.varworktime[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === this.varworktime[j].user_id) {
+                    let timeend = moment(this.varworktime[j].time_end).format('HH:mm').replace(':', '.');
+                    // let worktime = Number(this.varworktime[j].worktime);
+                    let timeflg1 = timeend.substring(0, 2);
+                    let timeflg2 = timeend.substring(timeend.length - 2);
+                    let timeflg3 = timeflg2 / 60;
+                    // if ((Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2) > 0) {
+                    //     this.form.worktime = (Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2);
+                    if ((Number(timeflg1) + Number(timeflg3) - 18).toFixed(2) > 0) {
+                        this.form.worktime = (Number(timeflg1) + Number(timeflg3) - 18).toFixed(2);
+                    } else {
+                        this.form.worktime = 0.00;
+                    }
+                }
+            }
+        }
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
           'YYYY-MM-DD',
         );
@@ -886,26 +892,21 @@
           this.rules.reservesubstitutiondate[0].required = false;
           this.form.actualsubstitutiondate = null;
         }
-        for (let i = 0; i < this.dataList.length; i++) {
-          if (
-            letreserveovertimedate ===
-            moment(this.dataList[i].workingdate).format('YYYY-MM-DD')
-          ) {
-            if (this.dataList[i].type === '1') {
-              this.change('PR001003');
-            } else if (this.dataList[i].type === '5') {
-              this.change('PR001005');
-            } else if (this.dataList[i].type === '6') {
-              this.change('PR001004');
+        let resultList = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
+        if(resultList.length > 0){
+            if (resultList[0].type === '1') {
+                this.change('PR001003');
+            } else if (resultList[0].type === '5') {
+                this.change('PR001005');
+            } else if (resultList[0].type === '6') {
+                this.change('PR001004');
             } else {
-              this.display = false;
-              this.$nextTick(() => {
-                this.form.overtimetype = '';
-                this.display = true;
-              });
+                this.display = false;
+                this.$nextTick(() => {
+                    this.form.overtimetype = '';
+                    this.display = true;
+                });
             }
-            return;
-          }
         }
       },
       changeType(type) {
