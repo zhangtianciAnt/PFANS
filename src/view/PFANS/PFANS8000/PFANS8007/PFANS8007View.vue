@@ -155,13 +155,13 @@
               </el-col>
             </el-row>
             <div>&nbsp;</div>
-            <el-row>
-              <el-col :span="2">
-                <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green">
-                  {{$t('label.PFANS8007VIEW_YQ')}}
-                </el-tag>
-              </el-col>
-            </el-row>
+            <!--            <el-row>-->
+            <!--              <el-col :span="2">-->
+            <!--                <el-tag effect="dark" style="width: 7rem;background-color: green;border-color:green">-->
+            <!--                  {{$t('label.PFANS8007VIEW_YQ')}}-->
+            <!--                </el-tag>-->
+            <!--              </el-col>-->
+            <!--            </el-row>-->
           </el-main>
         </el-container>
         <el-dialog :visible.sync="tanchang" width="40rem">
@@ -196,12 +196,12 @@
                         v-model="radio1">{{$t('label.PFANS8007VIEW_HS')}}
               </el-radio>
             </tr>
-            <tr>
-              <el-radio @change="setClick('6')" border label="6"
-                        style="width: 8rem;background-color:green;color: white"
-                        v-model="radio1">{{$t('label.PFANS8007VIEW_YQ')}}
-              </el-radio>
-            </tr>
+            <!--            <tr>-->
+            <!--              <el-radio @change="setClick('6')" border label="6"-->
+            <!--                        style="width: 8rem;background-color:green;color: white"-->
+            <!--                        v-model="radio1">{{$t('label.PFANS8007VIEW_YQ')}}-->
+            <!--              </el-radio>-->
+            <!--            </tr>-->
           </table>
           <div style="margin-top: 1rem;margin-left: 13rem">
             <el-button @click="submitForm('ruleFormNew')" type="primary">
@@ -233,19 +233,20 @@
       return {
         noback: true,
         showNonCurrentDates: false,
-        defaultDate1: moment().years() + 1 + '-01-01',
-        defaultDate2: moment().years() + 1 + '-02-01',
-        defaultDate3: moment().years() + 1 + '-03-01',
-        defaultDate4: moment().years() + '-04-01',
-        defaultDate5: moment().years() + '-05-01',
-        defaultDate6: moment().years() + '-06-01',
-        defaultDate7: moment().years() + '-07-01',
-        defaultDate8: moment().years() + '-08-01',
-        defaultDate9: moment().years() + '-09-01',
-        defaultDate10: moment().years() + '-10-01',
-        defaultDate11: moment().years() + '-11-01',
-        defaultDate12: moment().years() + '-12-01',
-
+        //upd-ws-01/11-工作日年度修改
+        defaultDate1: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + 1 + '-01-01' : moment().years() + '-01-01',
+        defaultDate2: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + 1 + '-02-01' : moment().years() + '-02-01',
+        defaultDate3: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + 1 + '-03-01' : moment().years() + '-03-01',
+        defaultDate4: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-04-01' : moment().years() - 1 + '-04-01',
+        defaultDate5: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-05-01' : moment().years() - 1 + '-05-01',
+        defaultDate6: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-06-01' : moment().years() - 1 + '-06-01',
+        defaultDate7: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-07-01' : moment().years() - 1 + '-07-01',
+        defaultDate8: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-08-01' : moment().years() - 1 + '-08-01',
+        defaultDate9: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-09-01' : moment().years() - 1 + '-09-01',
+        defaultDate10: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-10-01' : moment().years() - 1 + '-10-01',
+        defaultDate11: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-11-01' : moment().years() - 1 + '-11-01',
+        defaultDate12: parseInt(moment(new Date()).format('MM')) >= 4 ? moment().years() + '-12-01' : moment().years() - 1 + '-12-01',
+        //upd-ws-01/11-工作日年度修改
         method: '$(\'#calendar\').fullCalendar(\'prev\')',
         tanchang: false,
         title: 'title.PFANS8007VIEW',
@@ -331,11 +332,11 @@
                 info.el.bgColor = 'magenta';
               }
             }
-            if (response[c].type == 6) {
-              if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
-                info.el.bgColor = 'green';
-              }
-            }
+            // if (response[c].type == 6) {
+            //   if (moment(response[c].workingdate).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+            //     info.el.bgColor = 'green';
+            //   }
+            // }
           }
           this.loading = false;
         }
@@ -375,9 +376,9 @@
                     if (this.params.type == '5') {
                       this.data.style.backgroundColor = 'magenta';
                     }
-                    if (this.params.type == '6') {
-                      this.data.style.backgroundColor = 'green';
-                    }
+                    // if (this.params.type == '6') {
+                    //   this.data.style.backgroundColor = 'green';
+                    // }
                     Message({
                       message: this.$t('normal.success_01'),
                       type: 'success',
@@ -423,9 +424,9 @@
             if (this.params.type == '5') {
               this.data.style.backgroundColor = ' rgb(255, 255, 204)';
             }
-            if (this.params.type == '6') {
-              this.data.style.backgroundColor = ' rgb(255, 255, 204)';
-            }
+            // if (this.params.type == '6') {
+            //   this.data.style.backgroundColor = ' rgb(255, 255, 204)';
+            // }
             Message({
               message: this.$t('normal.info_03'),
               type: 'success',
@@ -498,10 +499,10 @@
                     this.radio1 = '5';
                     this.checkradio = '1';
                   }
-                  if (this.list1[a].type == 6) {
-                    this.radio1 = '6';
-                    this.checkradio = '1';
-                  }
+                  // if (this.list1[a].type == 6) {
+                  //   this.radio1 = '6';
+                  //   this.checkradio = '1';
+                  // }
                 }
               }
             }
@@ -514,7 +515,9 @@
         var myDate = new Date;
         var year = myDate.getFullYear() + 1;
         this.initSelectYear(year);
-        this.yearsModel = year - 1;
+        //upd-ws-01/11-工作日年度修改
+        this.yearsModel = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) : moment(new Date()).format('YYYY') - 1;
+        //upd-ws-01/11-工作日年度修改
         let obj = {year: this.yearsModel};
       }
       ,
