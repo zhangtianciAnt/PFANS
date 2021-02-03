@@ -8,8 +8,7 @@
           <easy-button-bar :data="buttons" @buttonClick="buttonClick"></easy-button-bar>
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
                           @canStartWorkflow="canStartWorkflow" :userlist="userlist"
-                          @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow" @OperationWorkflow="OperationWorkflow" :defaultStart="defaultStart"
-                          :defaultDo="defaultDo"
+                          @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow" :defaultStart="defaultStart"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
         </el-row>
@@ -92,10 +91,6 @@
         type:Boolean,
         default:true
       },
-      defaultDo:{
-        type:Boolean,
-        default:true
-      },
       userlist: {
         type: Array,
         default: function () {
@@ -149,9 +144,6 @@
       },
       StartWorkflow(val){
         this.$emit("StartWorkflow",val)
-      },
-      OperationWorkflow(val){
-        this.$emit("OperationWorkflow",val)
       },
       canViewWorkflow(val) {
         this.canViewWorkflowVal = val;
