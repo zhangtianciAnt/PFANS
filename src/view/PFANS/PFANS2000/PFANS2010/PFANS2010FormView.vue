@@ -111,14 +111,17 @@
                 width: 90,
                 fix: false,
                 filter: true,
-              }, {
-                code: 'annualrestday',
-                label: 'label.PFANS2010VIEW_EVERYYEAR',
-                labelClass: 'pfans2010view_column_3',
-                width: 110,
-                fix: false,
-                filter: true,
-              }, {
+              },
+              // {
+              //   code: 'annualrestday',
+              //   label: 'label.PFANS2010VIEW_EVERYYEAR',
+              //   labelClass: 'pfans2010view_column_3',
+              //   width: 110,
+              //   fix: false,
+              //   filter: true,
+              //
+              // },
+              {
                 code: 'specialday',
                 label: 'label.PFANS2010VIEW_OCCASIONS',
                 labelClass: 'pfans2010view_column_3',
@@ -162,7 +165,7 @@
             code: 'welfare',
             label: 'label.PFANS2010VIEW_WELFARE',
             labelClass: 'pfans2010view_column_6',
-            width: 100,
+            width: 140,
             fix: false,
             filter: true,
           },
@@ -201,7 +204,7 @@
             code: 'nursingleave',
             label: 'label.PFANS2010VIEW_MATERNITY',
             labelClass: 'pfans2010view_column_7',
-            width: 110,
+            width: 140,
             fix: false,
             filter: true,
           },
@@ -775,7 +778,7 @@
             var total_ordinaryindustry = 0;
             var total_weekendindustry = 0;
             var total_statutoryresidue = 0;
-            var total_annualrestday = 0;
+            // var total_annualrestday = 0;
             var total_specialday = 0;
             var total_youthday = 0;
             var total_womensday = 0;
@@ -793,7 +796,7 @@
               total_ordinaryindustry += parseFloat(res[i]['ordinaryindustry'] === undefined ? '0' : (res[i]['ordinaryindustry'] === null || res[i]['ordinaryindustry'] === '' ? '0' : res[i]['ordinaryindustry']));
               total_weekendindustry += parseFloat(res[i]['weekendindustry'] === undefined ? '0' : (res[i]['weekendindustry'] === null || res[i]['weekendindustry'] === '' ? '0' : res[i]['weekendindustry']));
               total_statutoryresidue += parseFloat(res[i]['statutoryresidue'] === undefined ? '0' : (res[i]['statutoryresidue'] === null || res[i]['statutoryresidue'] === '' ? '0' : res[i]['statutoryresidue']));
-              total_annualrestday += parseFloat(res[i]['annualrestday'] === undefined ? '0' : (res[i]['annualrestday'] === null || res[i]['annualrestday'] === '' ? '0' : res[i]['annualrestday']));
+              // total_annualrestday += parseFloat(res[i]['annualrestday'] === undefined ? '0' : (res[i]['annualrestday'] === null || res[i]['annualrestday'] === '' ? '0' : res[i]['annualrestday']));
               total_specialday += parseFloat(res[i]['specialday'] === undefined ? '0' : (res[i]['specialday'] === null || res[i]['specialday'] === '' ? '0' : res[i]['specialday']));
               total_youthday += parseFloat(res[i]['youthday'] === undefined ? '0' : (res[i]['youthday'] === null || res[i]['youthday'] === '' ? '0' : res[i]['youthday']));
               total_womensday += parseFloat(res[i]['womensday'] === undefined ? '0' : (res[i]['womensday'] === null || res[i]['womensday'] === '' ? '0' : res[i]['womensday']));
@@ -812,7 +815,7 @@
               ordinaryindustry: total_ordinaryindustry,
               weekendindustry: total_weekendindustry,
               statutoryresidue: total_statutoryresidue,
-              annualrestday: total_annualrestday,
+              // annualrestday: total_annualrestday,
               specialday: total_specialday,
               youthday: total_youthday,
               womensday: total_womensday,
