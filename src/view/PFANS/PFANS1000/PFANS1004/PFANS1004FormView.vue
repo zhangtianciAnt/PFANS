@@ -695,7 +695,7 @@
         editorOption: {},
         options: [],
         optionsM: [],
-        workcode: '',
+        workcode: 'W0091',
         centerid: '',
         groupid: '',
         errorgroupM: '',

@@ -341,7 +341,7 @@
         //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
         defaultStart: false,
         //add-ws-4/16-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
-        workcode: '',
+        workcode: 'W0065',
         disabled: true,
         activeName: 'first',
         errorManager: '',

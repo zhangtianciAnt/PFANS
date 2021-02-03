@@ -397,7 +397,7 @@
         groupid: '',
         teamid: '',
         right: '',
-        workflowCode: '',
+        workflowCode: 'W0033',
         error: '',
         selectType: 'Single',
         title: 'title.PFANS2026FROMVIEW',

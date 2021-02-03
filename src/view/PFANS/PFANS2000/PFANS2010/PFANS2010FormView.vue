@@ -60,7 +60,7 @@
         disdateflg: '',
         loading: false,
         exitdate: '',
-        workflowCode: '',
+        workflowCode: 'W0069',
         title: 'title.PFANS2010FOMRVIEW',
         data: [],
         rowid: '',

@@ -1309,7 +1309,7 @@
         //add-12/24-审批check
         defaultStart: false,
         //add-12/24-审批check
-        workcode: '',
+        workcode: 'W0064',
         tableclaimtype: [{
           claimtype: '',
           deliverydate: '',
