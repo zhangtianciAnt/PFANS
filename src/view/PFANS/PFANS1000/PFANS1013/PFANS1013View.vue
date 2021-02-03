@@ -31,6 +31,7 @@
     },
     data() {
       return {
+        statuss: '',
         travelcostvalue: [],
         startoption: [],
         selectedlist: [],
