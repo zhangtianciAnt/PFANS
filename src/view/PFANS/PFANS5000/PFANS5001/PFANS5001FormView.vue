@@ -12,7 +12,6 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading">
-
       <div slot="customize">
         <el-form
           :model="form"
