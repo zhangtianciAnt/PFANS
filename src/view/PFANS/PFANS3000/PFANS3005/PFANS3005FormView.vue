@@ -1064,6 +1064,7 @@
                         this.form.findate = moment(new Date()).format('YYYY-MM-DD');
                       }
                     }
+                    this.disable = !this.$route.params.disabled;
                     this.acceptShow = false;
                   } else {
                     this.acceptShow = true;
