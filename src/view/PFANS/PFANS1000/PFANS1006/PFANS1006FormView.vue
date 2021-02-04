@@ -878,7 +878,7 @@
               {
                 key: 'save',
                 name: 'button.save',
-                disabled: true,
+                disabled: false,
                 icon: 'el-icon-check',
               },
             ];

@@ -205,7 +205,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="suppliercode"
+                                  <el-table-column property="vendornum"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -317,7 +317,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="suppliercode"
+                                  <el-table-column property="vendornum"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -447,7 +447,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="suppliercode"
+                                  <el-table-column property="vendornum"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -602,7 +602,7 @@
                             show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disable" style="width: 110%"
+                        <el-date-picker :disabled="!disable" style="width: 100%"
                                         v-model="scope.row.trafficdate"></el-date-picker>
                       </template>
                     </el-table-column>
@@ -748,7 +748,7 @@
                                 show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 110%"
+                            <el-date-picker :disabled="!disable" style="width: 100%"
                                             v-model="scope.row.purchasedetailsdate">
                             </el-date-picker>
                           </template>
@@ -997,7 +997,7 @@
                                 show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 110%"
+                            <el-date-picker :disabled="!disable" style="width: 100%"
                                             v-model="scope.row.otherdetailsdate">
                             </el-date-picker>
                           </template>
@@ -2773,7 +2773,7 @@
               {
                 key: 'save',
                 name: 'button.save',
-                disabled: true,
+                disabled: false,
                 icon: 'el-icon-check',
               },
             ];
@@ -4738,27 +4738,27 @@
                                         }
                                     }
 
-                  if (this.tableR.length > 0) {
-                    for (let i = 0; i < this.tableR.length; i++) {
-                      if (this.tableR[i].tormb > 0) {
-                        tablertormb += parseFloat(this.tableR[i].tormb);
-                      }
-                    }
-                  }
-                  this.tormbT = Number(tablertormb) + Number(tableptormb);
-                  this.form.tormb = this.tormbT;
-                }
-                this.baseInfo = {};
-                this.baseInfo.publicexpense = [];
-                this.baseInfo.trafficdetails = [];
-                this.baseInfo.purchasedetails = [];
-                this.baseInfo.otherdetails = [];
-                this.baseInfo.invoice = [];
-                this.form.user_id = this.userlist;
-                this.form.user_name = this.namelist;
-                if (this.form.tormb === undefined) {
-                  this.form.tormb = '';
-                }
+                                    if (this.tableR.length > 0) {
+                                        for (let i = 0; i < this.tableR.length; i++) {
+                                            if (this.tableR[i].tormb > 0) {
+                                                tablertormb += parseFloat(this.tableR[i].tormb);
+                                            }
+                                        }
+                                    }
+                                    this.tormbT = Number(tablertormb) + Number(tableptormb);
+                                    this.form.tormb = this.tormbT;
+                                }
+                                this.baseInfo = {};
+                                this.baseInfo.publicexpense = [];
+                                this.baseInfo.trafficdetails = [];
+                                this.baseInfo.purchasedetails = [];
+                                this.baseInfo.otherdetails = [];
+                                this.baseInfo.invoice = [];
+                                this.form.user_id = this.userlist;
+                                this.form.user_name = this.namelist;
+                                if (this.form.tormb === undefined) {
+                                    this.form.tormb = '';
+                                }
 // add-ws-8/20-禅道469
                                 let checktableD = '';
                                 if (this.multipleSelection) {
@@ -5014,11 +5014,11 @@
                                                 });
                                                 break;
                                             }
-                      if (this.tableT[i].accountcode === '') {
+                                            if (this.tableT[i].subjectnumber === '') {
                                                 this.activeName = 'second';
                                                 error = error + 1;
                                                 Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
+                                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                                                     type: 'error',
                                                     duration: 5 * 1000,
                                                 });
@@ -5041,11 +5041,11 @@
                                             }
                                             //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
                                             if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                        if (this.tableR[i].accountcode === '') {
+                                                if (this.tableR[i].subjectnumber === '') {
                                                     this.activeName = 'third';
                                                     error = error + 1;
                                                     Message({
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
+                                                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                                                         type: 'error',
                                                         duration: 5 * 1000,
                                                     });
@@ -5079,11 +5079,11 @@
                                             }
                                             //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
                                             if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                        if (this.tableP[i].accountcode === '') {
+                                                if (this.tableP[i].subjectnumber === '') {
                                                     this.activeName = 'third';
                                                     error = error + 1;
                                                     Message({
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
+                                                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
                                                         type: 'error',
                                                         duration: 5 * 1000,
                                                     });
