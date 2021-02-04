@@ -908,7 +908,7 @@
                         <div class="dpSupIndex" style="width:16vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="!disable" style="min-width: 50%;width: 50%"></input>
+                                   :disabled="true" style="min-width: 50%;width: 50%"></input>
                             <el-button :disabled="!disable" icon="el-icon-search" @click="changecontract(scope.row)"
                                        size="small"></el-button>
                             <el-dialog :title="$t('menu.BROKERAGECONTRACT')" :visible.sync="dialogTableVisible3" center
@@ -2550,6 +2550,7 @@
         }
         //add-ws-6/9-禅道任务080
         this.dialogTableVisible3 = false;
+        this.search = '';
         //region复合合同金额分配
         // if (this.compounddata.length > 0) {
         //   let dic = this.compounddata.filter(item => item.contractnumber === row.contract
