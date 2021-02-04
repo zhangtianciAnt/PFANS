@@ -136,20 +136,11 @@
           this.months.split('-')[0],
           this.months.split('-')[1],
         ];
-        // //大于系统时间时取系统时间的前月
-        // if(Number(moment(this.months).format('YYYYMM')) >= Number(moment(new Date()).format("YYYYMM"))){
-        //     letdates[1] = Number(moment(new Date()).format("M")) - 1;
-        //     if(letdates[1].toString().length === 1){
-        //         letdates[1] = "0" + letdates[1];
-        //     }
-        // }
-        // //选择1,2,3月时按事业年度算应该年-1
-        // if(Number(moment(this.months).format('M')) < 4){
-        //     letdates[0] = Number(moment(this.months).format('YYYY')) - 1;
-        // }
-        // let dates = letdates[0] + "-" + letdates[1];
         let now = new Date(this.months);
-        let dates = moment(now.setMonth(now.getMonth() - 1)).format("YYYY-MM");
+        let dates = moment(now).format('YYYY-MM');
+        if(now.getMonth() === 0 || now.getMonth() === 1 || now.getMonth() === 2){
+            dates = moment(now.setFullYear(now.getFullYear() - 1)).format('YYYY-MM');
+        }
         this.letparams = {
           dates: dates,
           role: letRole2,
@@ -162,16 +153,7 @@
             response = response.sort((a, b) => a.status - b.status).reverse();
             // let dates = moment(this.months).format('M');
             let now1 = new Date(this.months);
-            let dates = moment(now1.setMonth(now1.getMonth() - 1)).format('M');
-            // if(Number(dates) >= Number(moment(new Date()).format("M"))){
-            //     var tempDate = new Date();
-            //     var list = moment(new Date()).format("YYYY-MM").split('-');
-            //     tempDate.setFullYear(list[0]);
-            //     tempDate.setMonth(Number(list[1]) - 2);
-            //     tempDate.setDate(1);
-            //     dates = moment(tempDate).format('M');
-            // }
-
+            let dates = moment(now1).format('M');
             for (let j = 0; j < response.length; j++) {
               if (response[j].groupid) {
                 let group = getorgGroupallList(response[j].groupid);
