@@ -2061,6 +2061,7 @@
     },
     methods: {
       getContractNumber() {
+        this.loading = true;
         for(let h = 0 ; h < this.tableAnt.length; h ++){
           this.$store
             .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
@@ -2077,7 +2078,7 @@
                 this.tableD[h].contractrequestamount = response.claimamount,
                 this.tableD[h].contract = response.contractnumber,
                 this.tableD[h].workinghours = response.claimdatetimeqh
-
+                this.loading = false;
             });
         }
       },
