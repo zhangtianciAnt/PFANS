@@ -873,7 +873,7 @@
             this.acceptShow = false;
             this.disable = !this.$route.params.disabled;
             this.enableSave = true;
-          } else if (this.$route.params.statuss == this.$t('label.node_step4')) {
+          } else if (this.$route.params.statuss == this.$t('label.PFANS1026VIEW_WSTATUS')) {
             this.buttonList = [
               {
                 key: 'save',
