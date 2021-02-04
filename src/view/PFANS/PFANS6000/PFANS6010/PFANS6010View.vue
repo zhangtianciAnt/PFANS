@@ -90,6 +90,7 @@
     methods: {
       changed(val) {
         this.months = moment(val).format('YYYY-MM');
+        this.showButton = '0'
         this.getList();
       },
       getList() {
