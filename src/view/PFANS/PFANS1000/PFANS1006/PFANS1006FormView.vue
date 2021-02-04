@@ -860,40 +860,17 @@
         //add_fjl_0815  添加1012画面跳转过来是否显示流程信息
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        if (this.role2 === '0') {
-          if (this.$route.params.statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: false,
-                icon: 'el-icon-check',
-              },
-            ];
-            this.acceptShow = false;
-            this.disable = !this.$route.params.disabled;
-            this.enableSave = true;
-          } else if (this.$route.params.statuss == this.$t('label.node_step4')) {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: true,
-                icon: 'el-icon-check',
-              },
-            ];
-            this.enableSave = true;
-          } else {
-            this.buttonList = [
-              {
-                key: 'save',
-                name: 'button.save',
-                disabled: false,
-                icon: 'el-icon-check',
-              },
-            ];
-          }
-        } else {
+        if(this.role2 === '0' ){
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+          this.enableSave = true
+        }else{
           this.buttonList = [
             {
               key: 'save',
@@ -927,12 +904,17 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
-              //add_fjl_0929  报废原因
-              if (this.role2 === '0' && this.form.processingstatus === '2') {
-                this.showvoid = true;
-                this.rules.reasonvoid[0].required = true;
+                if (this.disable && this.form.status === '4') {
+                this.acceptShow = false
+              }else{
+                this.acceptShow = true
               }
-              //add_fjl_0929  报废原因
+                //add_fjl_0929  报废原因
+                if (this.role2 === '0' && this.form.processingstatus === '2') {
+                    this.showvoid = true;
+                    this.rules.reasonvoid[0].required = true;
+                }
+                //add_fjl_0929  报废原因
               //决裁关联
               if (this.form.judgements != null && this.form.judgements != '' && this.form.judgements != undefined) {
                 let judgement = this.form.judgements.split(',');

@@ -729,7 +729,7 @@
                 this.$store
                     .dispatch('PFANS1006Store/chackcycle', this.form)
                     .then(response => {
-                       if (response.length > 4) {
+                        if (response.length > 0) {
                             this.checkcycle = 1;
                             Message({
                                 message: this.$t('label.PFANS1045VIEW_CHECK2'),
