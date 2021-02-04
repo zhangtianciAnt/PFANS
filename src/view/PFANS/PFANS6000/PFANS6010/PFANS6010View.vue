@@ -35,7 +35,7 @@
       return {
         loading: false,
         title: 'title.PFANS6010VIEW',
-        months: moment(new Date()).format('YYYY-MM'),
+        months: moment(new Date().setMonth(new Date().getMonth() - 1)).format('YYYY-MM'),
         // 表格数据源
         data: [],
         letparams: {},
