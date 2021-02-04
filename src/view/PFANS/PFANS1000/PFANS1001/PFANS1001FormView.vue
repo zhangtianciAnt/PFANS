@@ -720,9 +720,10 @@
         } else if (this.$route.params.title === 5) {
           this.rowid = row.purchaseapply_id;
         } else if (this.$route.params.title === 6) {
-            //ADD_FJL_0906  添加workfolwurl start
-            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
-            //ADD_FJL_0906  添加workfolwurl end
+          //ADD_FJL_0906  添加workfolwurl start
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1006FormView');
+          this.statuss = row;
+          //ADD_FJL_0906  添加workfolwurl end
           this.rowid = row.loanapplication_id;
         } else if (this.$route.params.title === 10) {
           this.rowid = row.communication_id;
@@ -866,22 +867,25 @@
             }
             //add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable1.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable1.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -1000,22 +1004,25 @@
               return;
             }//add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable3.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable3.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -1150,22 +1157,25 @@
               return;
             }//add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable2.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable2.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
@@ -1285,22 +1295,25 @@
               return;
             }//add-ws-8/19-禅道470任务
             else {
-              let selectedlist = this.$refs.roletable5.selectedList;
-              let n = 0;
-              let checksum = selectedlist.length;
-              for (let i = 0; i < selectedlist.length; i++) {
-                if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == ''|| selectedlist[i].loanapno == undefined) {
-                  n = n + 1;
+              if (val === 'actuarial')
+              {
+                let selectedlist = this.$refs.roletable5.selectedList;
+                let n = 0;
+                let checksum = selectedlist.length;
+                for (let i = 0; i < selectedlist.length; i++) {
+                  if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
+                    n = n + 1;
+                  }
                 }
-              }
-              if (n != checksum) {
-                if (n != 0) {
-                  Message({
-                    message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-                    type: 'info',
-                    duration: 2 * 1000,
-                  });
-                  return;
+                if (n != checksum) {
+                  if (n != 0) {
+                    Message({
+                      message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    return;
+                  }
                 }
               }
             }
