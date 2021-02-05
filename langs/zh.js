@@ -1,4 +1,4 @@
-let date = new Date();
+let date = new Date();//1
 let dateMonth = new Date();
 dateMonth.setMonth(dateMonth.getMonth() - 1);
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
   },
   logout: {
     signinlog: '登录记录',
-    name: '退出登录',
+    name: '退出登录1',
   },
   button: {
     insertname: '盖印监管者',
