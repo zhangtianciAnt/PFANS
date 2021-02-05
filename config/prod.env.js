@@ -18,8 +18,8 @@ module.exports = merge(prodEnv, {
 
 
   //2020端口测试环境
-  BASE_API: '"http://59.46.185.130:2220/"',
-  WS_API: '"ws://59.46.185.130:2220/"',
+  BASE_API: '"http://59.46.185.130:5559/"',
+  WS_API: '"ws://59.46.185.130:5559/"',
   UPLOAD_URL:'"http://59.46.185.130:5558?explorer/fileUpload&accessToken={1}&upload_to=C:/Kodkit/root/data/User/admin/home/"',
   DOWN_URL:'"http://59.46.185.130:5558?explorer/fileDownload&accessToken={1}"'
 })
