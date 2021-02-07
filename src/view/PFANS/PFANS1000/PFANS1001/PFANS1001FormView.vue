@@ -854,6 +854,9 @@
           let loan = '';
           let loanid = '';
           let str = '';
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+          let enableduplicateloan = [];
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
           // 交际费事前决裁 ztc 精算后为冲销暂借款
           if (this.$route.params.title === 10) {
             if (this.$refs.roletable1.selectedList.length === 0) {
@@ -917,6 +920,11 @@
               if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
                 loanid += this.selectedlist[i].loanapplication_id + ',';
               }
+              //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+              if (this.selectedlist[i].loanapno != null && this.selectedlist[i].loanapno != '' && this.selectedlist[i].loanapno != undefined) {
+                enableduplicateloan.push(this.selectedlist[i].enableduplicateloan);
+              }
+              //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
             }
             if (val === 'actuarial') {
               //del ccm 0813 决裁到暂借款，精算  check去掉

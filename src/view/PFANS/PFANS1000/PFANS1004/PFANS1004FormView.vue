@@ -258,6 +258,20 @@
                                      v-model="form.amounttobegiven"></el-input-number>
                   </el-form-item>
                 </el-col>
+                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-start-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" v-if="showM">
+                    <dicselect
+                      :code="code7"
+                      :data="form.enableduplicateloan"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="getEnableduplicateloan"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-end-->
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -759,6 +773,9 @@
           invoiceno: '',
           publicexpense_id: '',
           oldjudgementid: '',
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+          enableduplicateloan:'PJ055002',
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
         },
         tableA: [
           {
@@ -778,6 +795,9 @@
         code4: 'PJ011',
         code5: 'PJ030',
         code6: 'PJ146',
+        //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+        code7:'PJ055',
+        //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
         disabled: true,
         enableSave: false,
         menuList: [],
@@ -817,6 +837,15 @@
             },
             {validator: CheckGiven, trigger: 'change'},
           ],
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+          enableduplicateloan: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN'),
+              trigger: 'change',
+            },
+          ],
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
           gist: [
             {
               required: true,
@@ -1076,6 +1105,9 @@
               this.getBudt(this.form.group_id);
               this.getDecisive(this.form.decisive);
               this.getBusinessplantype(this.form.businessplantype);
+              //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+              this.getEnableduplicateloan(this.form.enableduplicateloan);
+              //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
               if (this.form.careerplan === '1') {
                 this.show = true;
                 this.rules.businessplantype[0].required = true;
@@ -1598,6 +1630,11 @@
       getClassificationtype(val) {
         this.form.classificationtype = val;
       },
+      //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+      getEnableduplicateloan(val){
+        this.form.enableduplicateloan = val;
+      },
+      //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
       getBusinessplantype(val) {
         this.form.businessplantype = val;
         if (val === 'PR002006') {
