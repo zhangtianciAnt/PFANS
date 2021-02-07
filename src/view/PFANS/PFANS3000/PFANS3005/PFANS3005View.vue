@@ -620,6 +620,9 @@
                     let _judgement_name = '';
                     let _judgements_moneys = '';
                     let _remarks = '';
+                  //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+                    let enableduplicateloan = [];
+                  //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         let user = getUserInfo(this.selectedlist[i].user_id);
                         if (user) {
@@ -640,6 +643,9 @@
                         _judgement_name += this.selectedlist[i].purnumbers + ',';
                         _judgements_moneys += this.selectedlist[i].totalamount + ',';
                         _remarks += this.selectedlist[i].purchasepurpose + '^';
+                        //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+                        enableduplicateloan= this.selectedlist[i].enableduplicateloan;
+                         //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
                     }
 
                     if (val === 'actuarial') {
