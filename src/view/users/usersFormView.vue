@@ -9,7 +9,7 @@
     >
       <div style="margin-top:30px" slot="customize">
         <el-form ref="form" :model="form" :rules="rules" label-position="top" label-width="8vw">
-          <el-tabs v-model="activeName" type="border-card">
+          <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
             <el-tab-pane
               :label="$t('label.PFANSUSERFORMVIEW_BASICPERSONALINFORMATION')"
               name="first"
@@ -1146,481 +1146,8 @@
                     ></el-input>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_BASIC')" prop="basic">
-                    <el-input-number
-                      v-model="form.basic"
-                      :min="0"
-                      :precision="2"
-                      :step="50"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DUTY')" prop="duty">
-                    <el-input-number
-                      v-model="form.duty"
-                      :min="0"
-                      :precision="2"
-                      :step="50"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
-              <!-- ADD-LXX -->
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
-                    prop="yanglaoinsurance"
-                  >
-                    <el-input-number
-                      v-model="form.yanglaoinsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible2 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible2"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="16">
-                          <el-table :data="oldageData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.basic }}</span>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
-                    prop="gongshanginsurance"
-                  >
-                    <el-input-number
-                      v-model="form.gongshanginsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible6 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible6"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="16">
-                          <el-table :data="gsData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.basic }}</span>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
-                    prop="shiyeinsurance"
-                  >
-                    <el-input-number
-                      v-model="form.shiyeinsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible7 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible7"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="16">
-                          <el-table :data="syeData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.basic }}</span>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
-                    prop="yiliaoinsurance"
-                  >
-                    <el-input-number
-                      v-model="form.yiliaoinsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible4 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible4"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="16">
-                          <el-table :data="medicalData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.basic }}</span>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
-                    prop="shengyuinsurance"
-                  >
-                    <el-input-number
-                      v-model="form.shengyuinsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible8 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible8"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="16">
-                          <el-table :data="syuData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.basic }}</span>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item
-                    :label="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE')"
-                    prop="houseinsurance"
-                  >
-                    <el-input-number
-                      v-model="form.houseinsurance"
-                      :min="0"
-                      :max="100000"
-                      :precision="2"
-                      :step="0.1"
-                      class="width"
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible3 = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible3"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="16">
-                          <el-table :data="houseData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <el-table-column
-                              property="after"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#d16765">{{ scope.row.basic }}</span>
-                              </template>
-                            </el-table-column>
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!-- ADD-LXX -->
-              <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
-              <el-row>
-                <!--                add_fjl-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY')">
-                    <el-date-picker
-                      v-model="feedingchangeday"
-                      type="date"
-                      style="width:20vw"
-                    ></el-date-picker>
-                  </el-form-item>
-                </el-col>
-                <!--                add_fjl-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
-                    <el-input-number
-                      v-model="form.salary"
-                      :min="0"
-                      :precision="2"
-                      :step="100"
-                      class="width"
-                      disabled
-                      style="width:20vw"
-                    ></el-input-number>
-                    <el-button
-                      type="text"
-                      @click="dialogTableVisible = true"
-                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                    </el-button>
-                    <el-dialog
-                      :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                      :visible.sync="dialogTableVisible"
-                      style="padding-top:5px"
-                    >
-                      <el-row>
-                        <el-col :span="24">
-                          <el-table :data="gridData" stripe>
-                            <el-table-column
-                              property="date"
-                              align="center"
-                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                              width="200"
-                            >
-                              <template slot-scope="scope">
-                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
-                              </template>
-                            </el-table-column>
-                            <!--<el-table-column-->
-                            <!--property="before"-->
-                            <!--align="center"-->
-                            <!--:label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
-                            <!--width="130"-->
-                            <!--&gt;</el-table-column>-->
-                            <!--                            del_fjl_05/20   &#45;&#45;注释掉调整前的工资-->
-                            <!--                            <el-table-column-->
-                            <!--                              align="center"-->
-                            <!--                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
-                            <!--                              width="130"-->
-                            <!--                            >-->
-                            <!--                              &lt;!&ndash;                              <template slot-scope="scope">&ndash;&gt;-->
-                            <!--                              &lt;!&ndash;                                <span style="color:#d16765">{{ scope.row.after }}</span>&ndash;&gt;-->
-                            <!--                              &lt;!&ndash;                              </template>&ndash;&gt;-->
-                            <!--                              <el-table-column-->
-                            <!--                                property="after"-->
-                            <!--                                align="center"-->
-                            <!--                                :label="$t('label.PFANSUSERFORMVIEW_BASIC')"-->
-                            <!--                                width="100"-->
-                            <!--                              >-->
-                            <!--                                <template slot-scope="scope">-->
-                            <!--                                  <span style="color:#d16765">{{ scope.row.after }}</span>-->
-                            <!--                                </template>-->
-                            <!--                              </el-table-column>-->
-                            <!--                              <el-table-column-->
-                            <!--                                property="before"-->
-                            <!--                                align="center"-->
-                            <!--                                :label="$t('label.PFANSUSERFORMVIEW_DUTY')"-->
-                            <!--                                width="100"-->
-                            <!--                              >-->
-                            <!--                                <template slot-scope="scope">-->
-                            <!--                                  <span style="color:#d16765">{{ scope.row.before }}</span>-->
-                            <!--                                </template>-->
-                            <!--                              </el-table-column>-->
-                            <!--                            </el-table-column>-->
-                            <!--                            <el-table-column-->
-                            <!--                              align="center"-->
-                            <!--                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"-->
-                            <!--                              width="200"-->
-                            <!--                            >-->
-                              <el-table-column
-                                property="basic"
-                                align="center"
-                                :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
-                                width="200"
-                              >
-                                <template slot-scope="scope">
-                                  <span style="color:#d16765">{{ scope.row.basic }}</span>
-                                </template>
-                              </el-table-column>
-                              <el-table-column
-                                property="duty"
-                                align="center"
-                                :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
-                                width="200"
-                              >
-                                <template slot-scope="scope">
-                                  <span style="color:#d16765">{{ scope.row.duty }}</span>
-                                </template>
-                              </el-table-column>
-                            <!--                            </el-table-column>-->
-                            <!--                            <el-table-column-->
-                            <!--                              property="remark"-->
-                            <!--                              align="center"-->
-                            <!--                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"-->
-                            <!--                            >-->
-                            <!--                              <template slot-scope="scope">-->
-                            <!--                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini"></el-input>-->
-                            <!--                              </template>-->
-                            <!--                            </el-table-column>-->
-                            <!--                            del_fjl_05/20   &#45;&#45;注释掉调整前的工资-->
-                          </el-table>
-                        </el-col>
-                      </el-row>
-                    </el-dialog>
-                  </el-form-item>
-                </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
                     <el-input
@@ -1958,6 +1485,525 @@
               </el-row>
               <!--              ws-6/28-禅道141任务-->
             </el-tab-pane>
+            <!--            add-lyt-21/2/2-禅道任务734 start--->
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SALARYNUMBER')" name="nine" style="padding-left:0.5%" >
+              <el-dialog
+                :close-on-click-modal="false"
+                :close-on-press-escape="false"
+                :show-close="false"
+                :title="$t('login.error_002')"
+                :visible.sync="passwordcheckbar"
+                size="50%"
+                top="30vh"
+                width="70%"
+                height="80%"
+                lock-scroll
+                append-to-body>
+                <div style="text-align: center">
+                  <el-row>
+                    <el-input
+                      v-model="personalpw"
+                      show-password>
+                    </el-input>
+                  </el-row>
+                  <el-row>
+                    <el-button center
+                               style="margin-top:20px"
+                               @click="checkPassword()">{{$t('button.confirm')}}</el-button>
+                  </el-row>
+                </div>
+              </el-dialog>
+              <!--            add-lyt-21/2/2-禅道任务734 end--->
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_BASIC')" prop="basic">
+                    <el-input-number
+                      v-model="form.basic"
+                      :min="0"
+                      :precision="2"
+                      :step="50"
+                      v-if="show"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DUTY')" prop="duty">
+                    <el-input-number
+                      v-model="form.duty"
+                      :min="0"
+                      v-if="show"
+                      :precision="2"
+                      :step="50"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+
+              </el-row>
+              <el-row>
+                <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
+                <!-- ADD-LXX -->
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
+                    prop="yanglaoinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.yanglaoinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      v-if="show"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible2 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_OLDAGEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible2"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="oldageData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
+                    prop="gongshanginsurance"
+                  >
+                    <el-input-number
+                      v-model="form.gongshanginsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                      v-if="show"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible6 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible6"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="gsData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
+                    prop="shiyeinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.shiyeinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      v-if="show"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible7 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible7"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="syeData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
+                    prop="yiliaoinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.yiliaoinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                      v-if="show"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible4 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible4"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="medicalData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
+                    prop="shengyuinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.shengyuinsurance"
+                      :min="0"
+                      :max="100000"
+                      v-if="show"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible8 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible8"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="syuData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item
+                    :label="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE')"
+                    prop="houseinsurance"
+                  >
+                    <el-input-number
+                      v-model="form.houseinsurance"
+                      :min="0"
+                      :max="100000"
+                      :precision="2"
+                      :step="0.1"
+                      class="width"
+                      v-if="show"
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible3 = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible3"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="16">
+                          <el-table :data="houseData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="after"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <!-- ADD-LXX -->
+              <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
+              <el-row>
+                <!--                add_fjl-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY')">
+                    <el-date-picker
+                      v-model="feedingchangeday"
+                      type="date"
+                      v-if="show"
+                      style="width:20vw"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <!--                add_fjl-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
+                    <el-input-number
+                      v-model="form.salary"
+                      :min="0"
+                      :precision="2"
+                      :step="100"
+                      class="width"
+                      v-if="show"
+                      disabled
+                      style="width:20vw"
+                    ></el-input-number>
+                    <el-button
+                      type="text"
+                      @click="dialogTableVisible = true"
+                    >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+                    </el-button>
+                    <el-dialog
+                      :title="$t('label.PFANSUSERFORMVIEW_SALARY') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                      :visible.sync="dialogTableVisible"
+                      style="padding-top:5px"
+                    >
+                      <el-row>
+                        <el-col :span="24">
+                          <el-table :data="gridData" stripe>
+                            <el-table-column
+                              property="date"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#75a7ef">{{ scope.row.date }}</span>
+                              </template>
+                            </el-table-column>
+                            <!--<el-table-column-->
+                            <!--property="before"-->
+                            <!--align="center"-->
+                            <!--:label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
+                            <!--width="130"-->
+                            <!--&gt;</el-table-column>-->
+                            <!--                            del_fjl_05/20   &#45;&#45;注释掉调整前的工资-->
+                            <!--                            <el-table-column-->
+                            <!--                              align="center"-->
+                            <!--                              :label="$t('label.PFANSUSERFORMVIEW_BEFORE')"-->
+                            <!--                              width="130"-->
+                            <!--                            >-->
+                            <!--                              &lt;!&ndash;                              <template slot-scope="scope">&ndash;&gt;-->
+                            <!--                              &lt;!&ndash;                                <span style="color:#d16765">{{ scope.row.after }}</span>&ndash;&gt;-->
+                            <!--                              &lt;!&ndash;                              </template>&ndash;&gt;-->
+                            <!--                              <el-table-column-->
+                            <!--                                property="after"-->
+                            <!--                                align="center"-->
+                            <!--                                :label="$t('label.PFANSUSERFORMVIEW_BASIC')"-->
+                            <!--                                width="100"-->
+                            <!--                              >-->
+                            <!--                                <template slot-scope="scope">-->
+                            <!--                                  <span style="color:#d16765">{{ scope.row.after }}</span>-->
+                            <!--                                </template>-->
+                            <!--                              </el-table-column>-->
+                            <!--                              <el-table-column-->
+                            <!--                                property="before"-->
+                            <!--                                align="center"-->
+                            <!--                                :label="$t('label.PFANSUSERFORMVIEW_DUTY')"-->
+                            <!--                                width="100"-->
+                            <!--                              >-->
+                            <!--                                <template slot-scope="scope">-->
+                            <!--                                  <span style="color:#d16765">{{ scope.row.before }}</span>-->
+                            <!--                                </template>-->
+                            <!--                              </el-table-column>-->
+                            <!--                            </el-table-column>-->
+                            <!--                            <el-table-column-->
+                            <!--                              align="center"-->
+                            <!--                              :label="$t('label.PFANSUSERFORMVIEW_AFTER')"-->
+                            <!--                              width="200"-->
+                            <!--                            >-->
+                            <el-table-column
+                              property="basic"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_BASIC')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.basic }}</span>
+                              </template>
+                            </el-table-column>
+                            <el-table-column
+                              property="duty"
+                              align="center"
+                              :label="$t('label.PFANSUSERFORMVIEW_DUTY')"
+                              width="200"
+                            >
+                              <template slot-scope="scope">
+                                <span style="color:#d16765">{{ scope.row.duty }}</span>
+                              </template>
+                            </el-table-column>
+                            <!--                            </el-table-column>-->
+                            <!--                            <el-table-column-->
+                            <!--                              property="remark"-->
+                            <!--                              align="center"-->
+                            <!--                              :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')"-->
+                            <!--                            >-->
+                            <!--                              <template slot-scope="scope">-->
+                            <!--                                <el-input style="width:5vw" v-model="scope.row.remark" size="mini"></el-input>-->
+                            <!--                              </template>-->
+                            <!--                            </el-table-column>-->
+                            <!--                            del_fjl_05/20   &#45;&#45;注释掉调整前的工资-->
+                          </el-table>
+                        </el-col>
+                      </el-row>
+                    </el-dialog>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
           </el-tabs>
         </el-form>
       </div>
@@ -2033,6 +2079,11 @@
               //ws-8/14-禅道任务450
                 age: '',
                 code: '',
+                //lyt-21/2/2-禅道任务734-start
+                show:false,
+                passwordcheckbar: false,
+                personalpw:'',
+                //lyt-21/2/2-禅道任务734-end
                 code1: 'PG021',
                 occupationtypecode: '',
                 occupationtypedis: true,
@@ -2805,6 +2856,19 @@
                 }
                 this.age = agenew;
             },
+          //lyt-21/2/2-禅道任务734-start
+            handleClick() {
+               if (this.activeName === 'nine') {
+                 if(this.$route.params._org){
+                   this.show = true;
+                   this.this.passwordcheckbar = false;
+              }
+                 else{
+                   this.passwordcheckbar = true;
+              }
+            }
+          },
+          //lyt-21/2/2-禅道任务734-end
             // ADD-WS-生年月日change事件
             // ADD-LXX
             sumToOldAge() {
@@ -3838,6 +3902,37 @@
                     }
                 }
             },
+          //lyt-21/2/2-禅道任务734-start
+            checkPassword(){
+              this.show=false
+              if(this.personalpw === "" || this.personalpw === null){
+                 Message({
+                  message: this.$t('login.error_002'),
+                  type: 'error',
+                  duration: 5 * 1000,
+              })
+            }
+              else{
+                let params = {
+                  userid:this.$store.getters.userinfo.userid,
+                  password:this.personalpw,
+              }
+                this.$store.dispatch('usersStore/checkPassword', params)
+                  .then(response => {
+                    if (response.message == "1") {
+                      this.passwordcheckbar = false;
+                      this.show=true;
+                    } else {
+                      Message({
+                        message: this.$t('label.PFANSUSERFORMVIEW_WRONGNUMBER'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                    })
+                  }
+                })
+            }
+          },
+          //lyt-21/2/2-禅道任务734-end
         },
     };
 </script>

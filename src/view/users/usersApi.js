@@ -104,3 +104,11 @@ export function getSigninlog() {
     method: 'get',
   });
 }
+ //获取工资tab页登录密码
+export function checkPassword(data) {
+  return request({
+    url: 'user/checkpassword',
+    method: 'get',
+    params: data
+  })
+}
