@@ -20,7 +20,7 @@ module.exports = {
   },
   logout: {
     signinlog: '登录记录',
-    name: '退出登录1',
+    name: '退出登录',
   },
   button: {
     insertname: '盖印监管者',
