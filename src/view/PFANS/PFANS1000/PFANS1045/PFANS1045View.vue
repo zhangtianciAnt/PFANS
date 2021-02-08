@@ -67,13 +67,22 @@
             fix: false,
             filter: true,
           },
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          // {
+          //   code: 'cycle',
+          //   label: 'label.PFANS1045VIEW_CYCLE',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
-            code: 'cycle',
+            code: 'yearss',
             label: 'label.PFANS1045VIEW_CYCLE',
             width: 120,
             fix: false,
             filter: true,
           },
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
           {
             code: 'remark',
             label: 'label.PFANS1017FORMVIEW_PREPAREFOR',
