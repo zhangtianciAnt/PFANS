@@ -31,6 +31,23 @@ Vue.use(ElementUI, {
 })
 
 router.beforeEach((to, from, next) => {
+  // add  shubo  20200208  index from
+
+  var fromTitle = from.fullPath;
+  var toTitle = to.fullPath;
+  if (toTitle == "/index") {
+
+  } else {
+    if (fromTitle.slice(1, 10) != toTitle.slice(1, 10) && fromTitle.length != 18 && fromTitle.length != 13) {
+      var filters = "undefined";
+      store.dispatch("tableStore/getActionsAuth", filters)
+        .then((response) => {
+        })
+        .catch((error) => { });
+    }
+  }
+  // add  shubo  20200208  index to
+
   NProgress.start();
   /* 路由发生变化修改页面title */
   if (to.meta.title && to.meta.type === 'wx') {
@@ -54,7 +71,7 @@ NProgress.configure({
   minimum: 0.3 // 初始化时的最小百分比
 })
 
-Vue.filter('moment', function(dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
+Vue.filter('moment', function (dataStr, pattern = 'YYYY-MM-DD HH:mm:ss') {
   return moment(dataStr).format(pattern)
 
 })
