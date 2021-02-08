@@ -1620,7 +1620,6 @@
               <el-dialog
                 :close-on-click-modal="false"
                 :close-on-press-escape="false"
-                :show-close="false"
                 :title="$t('login.error_002')"
                 :visible.sync="passwordcheckbar"
                 size="50%"
@@ -1645,7 +1644,7 @@
               </el-dialog>
               <!--            add-lyt-21/2/2-禅道任务734 end--->
               <el-row>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_BASIC')" prop="basic">
                     <el-input-number
                       v-model="form.basic"
@@ -1654,11 +1653,10 @@
                       :step="50"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_DUTY')" prop="duty">
                     <el-input-number
                       v-model="form.duty"
@@ -1667,7 +1665,6 @@
                       :step="50"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -1675,7 +1672,7 @@
               <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
               <!-- ADD-LXX -->
               <el-row>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_YANGLAOINSURANCE')"
                     prop="yanglaoinsurance"
@@ -1689,7 +1686,6 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -1730,7 +1726,7 @@
                     </el-dialog>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE')"
                     prop="gongshanginsurance"
@@ -1744,7 +1740,7 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
+
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -1785,7 +1781,7 @@
                     </el-dialog>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_SHIYEINSURANCE')"
                     prop="shiyeinsurance"
@@ -1799,7 +1795,7 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
+
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -1842,7 +1838,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_YILIAOINSURANCE')"
                     prop="yiliaoinsurance"
@@ -1856,7 +1852,6 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -1897,7 +1892,7 @@
                     </el-dialog>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_SHENGYUINSURANCE')"
                     prop="shengyuinsurance"
@@ -1911,7 +1906,6 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -1952,7 +1946,7 @@
                     </el-dialog>
                   </el-form-item>
                 </el-col>
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item
                     :label="$t('label.PFANSUSERFORMVIEW_HOUSEINSURANCE')"
                     prop="houseinsurance"
@@ -1966,7 +1960,6 @@
                       :step="0.1"
                       class="width"
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -2012,19 +2005,18 @@
               <!--              upd_fjl_05/21  &#45;&#45;添加基数履历-->
               <el-row>
                 <!--                add_fjl-->
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY')">
                     <el-date-picker
                       disabled
                       v-model="feedingchangeday"
                       type="date"
                       style="width:20vw"
-                      v-if="show"
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
                 <!--                add_fjl-->
-                <el-col :span="8">
+                <el-col :span="8" v-if="show">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SALARY')" prop="salary">
                     <el-input-number
                       disabled
@@ -2035,7 +2027,6 @@
                       class="width"
                       disabled
                       style="width:20vw"
-                      v-if="show"
                     ></el-input-number>
                     <el-button
                       type="text"
