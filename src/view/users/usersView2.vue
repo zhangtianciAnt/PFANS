@@ -516,6 +516,9 @@ export default {
               this.tableList = tabledate
           }
           }
+          // add-lyt-21/2/8-NT_PFANS_20210208_BUG_020-start
+          this.filterInfo()
+          // add-lyt-21/2/8-NT_PFANS_20210208_BUG_020-end
       },
     handleChange(file, fileList) {
       this.clear(true);
