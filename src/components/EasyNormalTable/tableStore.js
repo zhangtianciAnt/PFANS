@@ -13,7 +13,7 @@ const tableStore = {
   },
   actions: {
     // 获取按钮权限
-    // add  shubo  20200208  index from
+    // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 from
 
     getActionsAuth({ commit }, data) {
       if (data.length == 0) {
@@ -27,7 +27,7 @@ const tableStore = {
         return this.Auth;
       }
     },
-    // add  shubo  20200208  index to
+    // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 to
 
     // 获取新建按钮权限
     getNewActionAuth({ commit }) {

@@ -418,7 +418,7 @@ export default {
     // 表格筛选
     tableFilter(filters, key) {
       // this.$store.tableStore.tableStoreFil = filters;
-      // add  shubo  20200208  index from
+      // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 from
 
       if (key == "1") {
       } else {
@@ -429,7 +429,7 @@ export default {
           })
           .catch((error) => {});
       }
-      // add  shubo  20200208  index to
+      // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 to
 
       this.loading = true;
       this.listQuery.page = 1;
@@ -454,9 +454,9 @@ export default {
         }
       });
       if (this.searchValue !== "") {
-        // add  shubo  20200208  index from
+        // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 from
         this.filtersdata(true);
-        // add  shubo  20200208  index to
+        // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 to
         this.inputChange();
       }
       this.getList();

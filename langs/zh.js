@@ -3964,6 +3964,7 @@ module.exports = {
     //ADD-LXX
     USERSVIEW_ENTER: "在职",
     USERSVIEW_LEAVE: "离职",
+    USERSVIEW_NOTLEAVEYET:"待离职",
     PFANS2017VIEW_AFTERNOON: '下午外出时长',
     //ADD-LXX
     USERSVIEW_WHERETOLEAVE: "离职去向",

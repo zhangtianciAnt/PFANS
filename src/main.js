@@ -31,7 +31,7 @@ Vue.use(ElementUI, {
 })
 
 router.beforeEach((to, from, next) => {
-  // add  shubo  20200208  index from
+  // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 from
 
   var fromTitle = from.fullPath;
   var toTitle = to.fullPath;
@@ -46,7 +46,7 @@ router.beforeEach((to, from, next) => {
         .catch((error) => { });
     }
   }
-  // add  shubo  20200208  index to
+  // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 to
 
   NProgress.start();
   /* 路由发生变化修改页面title */
