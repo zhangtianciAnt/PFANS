@@ -232,6 +232,9 @@
               var vote = {};
               vote.value = this.options[b].value;
               vote.label = this.options[b].label;
+              vote.remarks = this.options[b].remarks;
+              vote.judgements_moneys = this.options[b].money;
+              vote.judgements_type = this.$t('menu.PFANS1012');
               this.listjudgement.push(vote);
               break;
             }
@@ -263,6 +266,8 @@
               vote.value = this.options[b].value;
               vote.label = this.options[b].label;
                 vote.remarks = this.options[b].remarks;
+              vote.judgements_moneys = this.options[b].money;
+              vote.judgements_type = this.$t('menu.PFANS1012');
               this.listjudgement.push(vote);
               break;
             }
@@ -564,6 +569,7 @@
                   vote.numbers = response[i].invoiceno;
                   vote.value = response[i].publicexpenseid;
                   vote.label = response[i].invoiceno;
+                  vote.money = response[i].moneys;
                   this.options.push(vote);
                   this.totaldata.push(vote);
                   this.getList();
@@ -621,6 +627,7 @@
                             vote.numbers = response[i].invoiceno;
                             vote.value = response[i].publicexpenseid;
                             vote.label = response[i].invoiceno;
+                            vote.money = response[i].moneys;
                             this.options.push(vote);
                             this.totaldata.push(vote);
                             this.getList();

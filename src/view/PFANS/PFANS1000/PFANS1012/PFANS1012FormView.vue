@@ -205,7 +205,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="vendornum"
+                                  <el-table-column property="suppliercode"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -317,7 +317,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="vendornum"
+                                  <el-table-column property="suppliercode"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -447,7 +447,7 @@
                                   <el-table-column property="payeename"
                                                    :label="$t('label.PFANS1012VIEW_PAYEENAME')"
                                                    width="150"></el-table-column>
-                                  <el-table-column property="vendornum"
+                                  <el-table-column property="suppliercode"
                                                    :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
                                                    width="100"></el-table-column>
                                   <el-table-column property="payeebankaccountnumber"
@@ -602,7 +602,7 @@
                             show-summary stripe border>
                     <el-table-column :label="$t('label.date')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-date-picker :disabled="!disable" style="width: 100%"
+                        <el-date-picker :disabled="!disable" style="width: 110%"
                                         v-model="scope.row.trafficdate"></el-date-picker>
                       </template>
                     </el-table-column>
@@ -748,7 +748,7 @@
                                 show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 100%"
+                            <el-date-picker :disabled="!disable" style="width: 110%"
                                             v-model="scope.row.purchasedetailsdate">
                             </el-date-picker>
                           </template>
@@ -997,7 +997,7 @@
                                 show-summary stripe border>
                         <el-table-column :label="$t('label.date')" align="center" width="150">
                           <template slot-scope="scope">
-                            <el-date-picker :disabled="!disable" style="width: 100%"
+                            <el-date-picker :disabled="!disable" style="width: 110%"
                                             v-model="scope.row.otherdetailsdate">
                             </el-date-picker>
                           </template>
@@ -1911,12 +1911,7 @@
                     .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.IDname})
                     .then(response => {
                             if (response.publicexpense != null) {
-                                this.form = response.publicexpense;
-                                if (this.form.status === '4') {
-                                    this.acceptShow = false;
-                                } else {
-                                    this.acceptShow = true;
-                                }
+                                this.form = response.publicexpense;                            
                                 if (this.form.uploadfile != '' && this.form.uploadfile != null) {
                                     let uploadfile = this.form.uploadfile.split(';');
                                     for (var i = 0; i < uploadfile.length; i++) {
@@ -2751,37 +2746,64 @@
                 this.buttonList = [];
             }
             this.disable = this.$route.params.disabled;
-            if (this.disable) {
-                if (this.role2 === '0') {
-                    this.buttonList = [
-                        {
-                            key: 'save',
-                            name: 'button.save',
-                            disabled: false,
-                            icon: 'el-icon-check',
-                        },
-                    ];
-                    this.enableSave = true;
-                } else {
-                    this.buttonList = [
-                        {
-                            key: 'save',
-                            name: 'button.save',
-                            disabled: false,
-                            icon: 'el-icon-check',
-                        },
-                    ];
-                }
-                this.checkexternal = false;
-                this.checktaxes = false;
-                this.checkdisable = false;
-                this.disablecheck = false;
-            } else {
-                this.checkexternal = true;
-                this.checktaxes = true;
-                this.checkdisable = true;
-                this.disablecheck = true;
-            }
+             if (this.disable) {
+        this.checkexternal = false;
+        this.checktaxes = false;
+        this.checkdisable = false;
+        this.disablecheck = false;
+        if (this.role2 === '0') {
+          if (this.$route.params._statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.checkexternal = true;
+            this.checktaxes = true;
+            this.checkdisable = true;
+            this.disablecheck = true;
+            this.acceptShow = false;
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else if (this.$route.params._statuss == this.$t('label.node_step4')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }
+        } else {
+          this.buttonList = [
+            {
+              key: 'save',
+              name: 'button.save',
+              disabled: false,
+              icon: 'el-icon-check',
+            },
+          ];
+        }
+      } else {
+        this.checkexternal = true;
+        this.checktaxes = true;
+        this.checkdisable = true;
+        this.disablecheck = true;
+      }
         },
         computed: {
             foreigncurrency: {
@@ -4456,54 +4478,50 @@
                 this.tablePValue = sums;
                 return sums;
             },
-            getRsummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                        // if (index == 7) {
-                        //   sums[index] = Math.round((sums[index]) * 100) / 100;
-                        // }
-                        // if (index == 8) {
-                        //   sums[index] = Math.round((sums[index]) * 100) / 100;
-                        // }
-                        // if (index == 9) {
-                        //   sums[index] = Math.round((sums[index]) * 100) / 100;
-                        // }
-                        // if (index == 10) {
-                        //   sums[index] = Math.round((sums[index]) * 100) / 100;
-                        // }
-                        // if (index == 11) {
-                        //   sums[index] = Math.round((sums[index]) * 100) / 100;
-                        // }
-                        // if (index == 12) {
-                        //   sums[index] = Math.round((sums[index]) * 100) / 100;
-                        // }
-                    } else {
-                        sums[index] = '--';
-                    }
-                });
-                sums[7] = Math.round(sums[7] * 100) / 100;
-                sums[8] = Math.round(sums[8] * 100) / 100;
-                sums[11] = Math.round(sums[11] * 100) / 100;
-                sums[12] = Math.round(sums[12] * 100) / 100;
-                this.getMoney(sums);
-                this.getforeigncurrency(sums);
-                return sums;
-            },
+             getRsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            if (index == 7) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 8) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 9) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 10) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 11) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+            if (index == 12) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+          } else {
+            sums[index] = '--';
+          }
+        });
+        this.getMoney(sums);
+        this.getforeigncurrency(sums);
+        return sums;
+      },
             getMoney(sums) {
                 if (this.form.type === 'PJ001001') {
                     this.form.rmbexpenditure = sums[8];
@@ -4720,27 +4738,27 @@
                                         }
                                     }
 
-                                    if (this.tableR.length > 0) {
-                                        for (let i = 0; i < this.tableR.length; i++) {
-                                            if (this.tableR[i].tormb > 0) {
-                                                tablertormb += parseFloat(this.tableR[i].tormb);
-                                            }
-                                        }
-                                    }
-                                    this.tormbT = Number(tablertormb) + Number(tableptormb);
-                                    this.form.tormb = this.tormbT;
-                                }
-                                this.baseInfo = {};
-                                this.baseInfo.publicexpense = [];
-                                this.baseInfo.trafficdetails = [];
-                                this.baseInfo.purchasedetails = [];
-                                this.baseInfo.otherdetails = [];
-                                this.baseInfo.invoice = [];
-                                this.form.user_id = this.userlist;
-                                this.form.user_name = this.namelist;
-                                if (this.form.tormb === undefined) {
-                                    this.form.tormb = '';
-                                }
+                  if (this.tableR.length > 0) {
+                    for (let i = 0; i < this.tableR.length; i++) {
+                      if (this.tableR[i].tormb > 0) {
+                        tablertormb += parseFloat(this.tableR[i].tormb);
+                      }
+                    }
+                  }
+                  this.tormbT = Number(tablertormb) + Number(tableptormb);
+                  this.form.tormb = this.tormbT;
+                }
+                this.baseInfo = {};
+                this.baseInfo.publicexpense = [];
+                this.baseInfo.trafficdetails = [];
+                this.baseInfo.purchasedetails = [];
+                this.baseInfo.otherdetails = [];
+                this.baseInfo.invoice = [];
+                this.form.user_id = this.userlist;
+                this.form.user_name = this.namelist;
+                if (this.form.tormb === undefined) {
+                  this.form.tormb = '';
+                }
 // add-ws-8/20-禅道469
                                 let checktableD = '';
                                 if (this.multipleSelection) {
@@ -4996,11 +5014,11 @@
                                                 });
                                                 break;
                                             }
-                                            if (this.tableT[i].subjectnumber === '') {
+                      if (this.tableT[i].accountcode === '') {
                                                 this.activeName = 'second';
                                                 error = error + 1;
                                                 Message({
-                                                    message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
                                                     type: 'error',
                                                     duration: 5 * 1000,
                                                 });
@@ -5023,11 +5041,11 @@
                                             }
                                             //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
                                             if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                                                if (this.tableR[i].subjectnumber === '') {
+                        if (this.tableR[i].accountcode === '') {
                                                     this.activeName = 'third';
                                                     error = error + 1;
                                                     Message({
-                                                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
                                                         type: 'error',
                                                         duration: 5 * 1000,
                                                     });
@@ -5061,11 +5079,11 @@
                                             }
                                             //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
                                             if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                                                if (this.tableP[i].subjectnumber === '') {
+                        if (this.tableP[i].accountcode === '') {
                                                     this.activeName = 'third';
                                                     error = error + 1;
                                                     Message({
-                                                        message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNTB'),
+                            message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
                                                         type: 'error',
                                                         duration: 5 * 1000,
                                                     });

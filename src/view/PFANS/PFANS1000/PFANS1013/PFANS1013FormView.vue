@@ -1527,12 +1527,6 @@
                 // this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
-            if(this.form.status ==='4'){
-              this.acceptShow = false
-            }else{
-              this.acceptShow = true
-            }
-            //add-ws-6/17-禅道101
             let role = getCurrentRole();
             if (role == '1') {//总经理
               this.workflowCode = 'W0084';
@@ -1951,17 +1945,45 @@
       }
       this.disable = this.$route.params.disabled;
       if (this.disable) {
-        if(this.role2 === '0' ){
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              disabled: false,
-              icon: 'el-icon-check',
-            },
-          ];
-          this.enableSave = true
-        }else{
+        this.checkmoney = false;
+        this.checktaxes = false;
+        if (this.role2 === '0') {
+          if (this.$route.params._statuss == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.checkmoney = true;
+            this.checktaxes = true;
+            this.acceptShow = false;
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else if (this.$route.params._statuss == this.$t('label.node_step4')) {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+            ];
+            this.disable = !this.$route.params.disabled;
+            this.enableSave = true;
+          } else {
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: false,
+                icon: 'el-icon-check',
+              },
+            ];
+          }
+        } else {
           this.buttonList = [
             {
               key: 'save',
@@ -1971,8 +1993,6 @@
             },
           ];
         }
-        this.checktaxes = false;
-        this.checkmoney = false;
       } else {
         this.checkmoney = true;
         this.checktaxes = true;
