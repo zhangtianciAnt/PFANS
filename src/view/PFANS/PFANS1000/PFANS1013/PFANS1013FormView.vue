@@ -1562,7 +1562,7 @@
         });
       }
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
-      this.getLoanapp();
+
       this.getCompanyProjectList();
       this.checkOption();
         if (this.params_id) {
