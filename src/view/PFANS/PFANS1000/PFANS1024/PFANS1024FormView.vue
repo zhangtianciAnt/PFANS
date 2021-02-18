@@ -1026,7 +1026,7 @@
         disabled4: false,
         ruleSet: {
         // , 'theme'
-          'save': ['contractnumber'],
+          'save': ['contractnumber', 'theme'],
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
