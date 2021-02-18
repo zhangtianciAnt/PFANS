@@ -795,3 +795,30 @@ export function getCurrentRole17() {
   }
   return '1';
 }
+//add-ws-12/10-汇率字典
+export function getMonthlyrateInfo(code) {
+  let info = null;
+  if (store.getters.monthlyrate && store.getters.monthlyrate.length > 0) {
+    for (let dictionary of store.getters.monthlyrate) {
+      if (dictionary.currency === code) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+export function getMonthlyrateInfo2(code, month) {
+  let dic = store.getters.monthlyrate.filter(item => item.month === month);
+  let info = null;
+  if (dic && dic.length > 0) {
+    for (let dictionary of dic) {
+      if (dictionary.currency === code) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+//add-ws-12/10-汇率字典

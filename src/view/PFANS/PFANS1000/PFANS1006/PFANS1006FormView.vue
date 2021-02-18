@@ -139,13 +139,22 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1006FORMVIEW_CURRENCYCHOICE')" prop="currencychoice">
-                      <dicselect :code="code3"
-                                 :data="form.currencychoice"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="changecurrencychoice"
-                                 style="width:20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典-->
+                      <!--                      <dicselect :code="code3"-->
+                      <!--                                 :data="form.currencychoice"-->
+                      <!--                                 :disabled="!disable"-->
+                      <!--                                 :multiple="multiple"-->
+                      <!--                                 @change="changecurrencychoice"-->
+                      <!--                                 style="width:20vw">-->
+                      <!--                      </dicselect>-->
+                      <monthlyrate :month="month3"
+                                   :data="form.currencychoice"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   @change="changecurrencychoice"
+                                   style="width:20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -483,34 +492,36 @@
   </div>
 </template>
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import dicselect from '../../../components/dicselect.vue';
-    import {Message} from 'element-ui';
-    import user from '../../../components/user.vue';
-    import {
-        getCurrentRole2,
-        getCurrentRole5,
-        getOrgInfo,
-        getOrgInfoByUserId,
-        getStatus,
-        getUserInfo
-    } from '@/utils/customize';
-    import moment from 'moment';
-    import png11 from '@/assets/png/11.png';
-    import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
-    import org from '../../../components/org';
-    import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
-    import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
-    import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
-    import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
-    import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
-    import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
-    import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
-    import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect.vue';
+  import {Message} from 'element-ui';
+  import user from '../../../components/user.vue';
+  import {
+    getCurrentRole2,
+    getCurrentRole5,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getStatus,
+    getUserInfo,
+  } from '@/utils/customize';
+  import moment from 'moment';
+  import png11 from '@/assets/png/11.png';
+  import {downLoadUrl, uploadUrl} from '../../../../utils/customize';
+  import org from '../../../components/org';
+  import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
+  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+  import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
+  import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+  import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
+  import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+  import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+  import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+  import monthlyrate from '../../../components/monthlyrate';
 
-    export default {
+  export default {
     name: 'PFANS1006FormView',
     components: {
+      monthlyrate,
       EasyNormalContainer,
       dicselect,
       user,
@@ -740,7 +751,10 @@
         Codecheck: '',
         code1: 'PG001',
         code2: 'PJ002',
-        code3: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code4: 'PJ015',
         show2: false,
         show3: false,

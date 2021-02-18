@@ -389,13 +389,22 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
-                      <dicselect :code="code7"
-                                 :data="form.currency"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getCurrency"
-                                 style="width: 20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典             -->
+                      <!--                      <dicselect :code="code7"-->
+                      <!--                                 :data="form.currency"-->
+                      <!--                                 :disabled="!disable"-->
+                      <!--                                 :multiple="multiple"-->
+                      <!--                                 @change="getCurrency"-->
+                      <!--                                 style="width: 20vw">-->
+                      <!--                      </dicselect>-->
+                      <monthlyrate :month="month7"
+                                   :data="form.currency"
+                                   :disabled="!disable"
+                                   :multiple="multiple"
+                                   @change="getCurrency"
+                                   style="width: 20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -855,19 +864,21 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from '../../../components/user.vue';
-    import project from '../../../components/project.vue';
-    import {Message} from 'element-ui';
-    import moment from 'moment';
-    import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName} from '@/utils/customize';
-    import dicselect from '../../../components/dicselect';
-    import {getDictionaryInfo} from '../../../../utils/customize';
-    import org from '../../../components/org';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import project from '../../../components/project.vue';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
+  import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName} from '@/utils/customize';
+  import dicselect from '../../../components/dicselect';
+  import monthlyrate from '../../../components/monthlyrate';
+  import {getDictionaryInfo,getMonthlyrateInfo} from '../../../../utils/customize';
+  import org from '../../../components/org';
 
     export default {
     name: 'PFANS1002FormView',
     components: {
+      monthlyrate,
       dicselect,
       EasyNormalContainer,
       user,
@@ -980,7 +991,10 @@
         code4: 'PG002',
         code5: 'PR002',
         code6: 'PR003',
-        code7: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code7: 'PG019',
+        month7: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         code8: 'PJ019',
         code9: 'PJ035',
         code10: 'PJ021',
@@ -1510,19 +1524,19 @@
                 }
                 if (this.form.currency === 'PG019001') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.currency === 'PG019002') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.currency === 'PG019003') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.currency === 'PG019004') {
                   this.show4 = true;
-                  this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                  this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
                 }
                 if (this.form.provision === '1') {
                   this.show7 = true;
@@ -1732,19 +1746,19 @@
               }
               if (this.form.currency === 'PG019001') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019002') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019003') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019004') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.provision === '1') {
                 this.show7 = true;
@@ -2404,34 +2418,34 @@
       getCurrency(val) {
         this.form.currency = val;
         if (val === 'PG019001') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
         if (val === 'PG019002') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
         if (val === 'PG019003') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
         if (val === 'PG019004') {
-          let dictionaryInfo = getDictionaryInfo(val);
+          let dictionaryInfo = getMonthlyrateInfo(val);
           if (dictionaryInfo) {
             this.show4 = true;
-            this.form.otherfxrate = dictionaryInfo.value2;
+            this.form.otherfxrate = dictionaryInfo.exchangerate;
             this.form.moneys = Math.round((this.form.foreigncurrency * this.form.otherfxrate) * 10) / 10;
           }
         }
@@ -2596,19 +2610,19 @@
               }
               if (this.form.currency === 'PG019001') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019002') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019003') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.currency === 'PG019004') {
                 this.show4 = true;
-                this.form.otherfxrate = getDictionaryInfo(this.form.currency).value2;
+                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
               if (this.form.provision === '1') {
                 this.show7 = true;

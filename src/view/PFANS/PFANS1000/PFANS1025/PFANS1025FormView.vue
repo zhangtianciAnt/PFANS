@@ -106,13 +106,22 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
-                      <dicselect :code="code3"
-                                 :data="form.currencyposition"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 @change="getcurrencyformat"
-                                 style="width:20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典-->
+                      <!--                      <dicselect :code="code3"-->
+                      <!--                                 :data="form.currencyposition"-->
+                      <!--                                 :disabled="true"-->
+                      <!--                                 :multiple="multiple"-->
+                      <!--                                 @change="getcurrencyformat"-->
+                      <!--                                 style="width:20vw">-->
+                      <!--                      </dicselect>-->
+                      <monthlyrate :month="month3"
+                                   :data="form.currencyposition"
+                                   :disabled="true"
+                                   :multiple="multiple"
+                                   @change="getcurrencyformat"
+                                   style="width:20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -248,7 +257,7 @@
                   <!--add-ws-7/17-禅道116任务-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_POLICYCONTRACT')">
-                      <el-select v-model="form.policycontract_id" :disabled="true" style="width: 20vw" clearable
+                      <el-select v-model="form.policycontract_id" :disabled="!disable" style="width: 20vw" clearable
                                  @change="getpolicycontract">
                         <el-option
                           v-for="item in optionsdata"
@@ -527,26 +536,30 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from '../../../components/user.vue';
-    import {Message} from 'element-ui';
-    import dicselect from '../../../components/dicselect';
-    import moment from 'moment';
-    import org from '../../../components/org';
-    import project from '../../../components/project';
-    import {
-        getDictionaryInfo,
-        getOrgInfo,
-        getOrgInfoByUserId,
-        downLoadUrl,
-        getUserInfo,
-        uploadUrl,
-    } from '@/utils/customize';
-    import PFANS1045Pop from '@/components/EasyPop/PFANS1045Pop';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import dicselect from '../../../components/dicselect';
+  import {getCurrentRole} from '@/utils/customize';
+  import moment from 'moment';
+  import org from '../../../components/org';
+  import project from '../../../components/project';
+  import {
+    getMonthlyrateInfo,
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    downLoadUrl,
+    getUserInfo,
+    uploadUrl,
+  } from '@/utils/customize';
+  import PFANS1045Pop from '@/components/EasyPop/PFANS1045Pop';
+  import monthlyrate from '../../../components/monthlyrate';
 
     export default {
         name: 'PFANS1025FormView',
         components: {
+  monthlyrate,
             PFANS1045Pop,
             EasyNormalContainer,
             user,
@@ -597,7 +610,10 @@
                 userlist: '',
                 code1: 'HT014',
                 code2: 'HT005',
-                code3: 'PG019',
+ //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
                 code4: 'HT018',
                 errorgroup: '',
                 selectType: 'Single',
@@ -794,15 +810,15 @@
                             let mamount = 0;
                             if (response.numbercounts.length > 0) {
 
-                                for (let i = 0; i < response.numbercounts.length; i++) {
-                                    let letCurrencyposition = getDictionaryInfo(response.numbercounts[i].currencyposition);
-                                    if (letCurrencyposition != null) {
-                                        response.numbercounts[i].currencyposition = letCurrencyposition.value1;
-                                    }
-                                    let deliverydate = response.numbercounts[i].deliverydate;
-                                    let completiondate = response.numbercounts[i].completiondate;
-                                    let claimdate = response.numbercounts[i].claimdate;
-                                    let supportdate = response.numbercounts[i].supportdate;
+                for (let i = 0; i < response.numbercounts.length; i++) {
+                  let letCurrencyposition = getMonthlyrateInfo(response.numbercounts[i].currencyposition);
+                  if (letCurrencyposition != null) {
+                    response.numbercounts[i].currencyposition = letCurrencyposition.currencyname;
+                  }
+                  let deliverydate = response.numbercounts[i].deliverydate;
+                  let completiondate = response.numbercounts[i].completiondate;
+                  let claimdate = response.numbercounts[i].claimdate;
+                  let supportdate = response.numbercounts[i].supportdate;
 
                                     if (deliverydate !== '' && deliverydate != null) {
                                         response.numbercounts[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
@@ -981,9 +997,11 @@
                                     moneys: response[i].modifiedamount,
                                 });
                             }
-                            if (this.optionsdata.length > 0) {
-                                this.getpolicycontract(this.optionsdata[0].value);
-                            }
+ //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              // if (this.optionsdata.length > 0) {
+              //   this.getpolicycontract(this.optionsdata[0].value);
+              // }
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
                             this.loading = false;
                         },
                     ).catch(error => {

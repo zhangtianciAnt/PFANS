@@ -79,12 +79,20 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1002VIEW_CURRENCY')" prop="currency">
-                    <dicselect :code="code7"
-                               :data="form.currency"
-                               :disabled="true"
-                               :multiple="multiple"
-                               style="width: 20vw">
-                    </dicselect>
+                    <!--                      add-ws-12/10-汇率字典-->
+                    <!--                    <dicselect :code="code7"-->
+                    <!--                               :data="form.currency"-->
+                    <!--                               :disabled="true"-->
+                    <!--                               :multiple="multiple"-->
+                    <!--                               style="width: 20vw">-->
+                    <!--                    </dicselect>-->
+                    <monthlyrate :month="month7"
+                                 :data="form.currency"
+                                 :disabled="true"
+                                 :multiple="multiple"
+                                 style="width: 20vw">
+                    </monthlyrate>
+                    <!--                      add-ws-12/10-汇率字典-->
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -346,138 +354,141 @@
 </template>
 
 <script>
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from '../../../components/user.vue';
-    import project from '../../../components/project.vue';
-    import {Message} from 'element-ui';
-    import dicselect from '../../../components/dicselect';
-    import {
-        downLoadUrl,
-        getStatus,
-        uploadUrl
-    } from '@/utils/customize';
-    import moment from 'moment';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import project from '../../../components/project.vue';
+  import {Message} from 'element-ui';
+  import dicselect from '../../../components/dicselect';
+  import {
+    downLoadUrl,
+    getStatus,
+    uploadUrl,
+  } from '@/utils/customize';
+  import monthlyrate from '../../../components/monthlyrate';
+  import moment from 'moment';
 
-    export default {
-        name: 'PFANS1045FormView',
-        components: {
-            dicselect,
-            EasyNormalContainer,
-            user,
-            project,
+  export default {
+    name: 'PFANS1045FormView',
+    components: {
+      monthlyrate,
+      dicselect,
+      EasyNormalContainer,
+      user,
+      project,
+    },
+    data() {
+      return {
+        workflowCode: 'W0095',
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        working: '',
+        starttime: '',
+        endTime: '',
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        checkcycle: 0,
+        show10: true,
+        canStart: true,
+        //add-ws-12/10-汇率字典
+        // code7: 'PG019',
+        month7: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
+        disablecheck: '',
+        upload: uploadUrl(),
+        fileList: [],
+        disable2: false,
+        multiple: false,
+        disable: false,
+        dialogTableVisible: false,
+        loading: false,
+        gridData: [],
+        DataList: [],
+        tableF: [
+          {
+            invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
+            money: '',
+            remark: '',
+          },
+        ],
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // options: [{
+        //   value: '0',
+        //   label: this.$t('label.PFANS2007VIEW_YEAR'),
+        // }, {
+        //   value: '1',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE1'),
+        // }, {
+        //   value: '2',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE2'),
+        // }, {
+        //   value: '3',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE3'),
+        // }, {
+        //   value: '4',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE4'),
+        // }, {
+        //   value: '5',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE5'),
+        // }, {
+        //   value: '6',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE6'),
+        // }],
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        search: '',
+        currentRow: '',
+        formLabelWidth: '120px',
+        userlist: '',
+        form: {
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          // yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, 'y').format('YYYY'),
+          yearss: '',
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          summonet: '',
+          remark: '',
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          // cycle: '',
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          applicationdate: new Date(),
+          amountcase: '',
+          modifiedamount: '',
+          newamountcase: '',
+          user_id: '',
+          outsourcingcompany: '',
+          currency: 'PG019003',
+          policynumbers: '',
+          uploadfile: '',
+          type: '0',
         },
-        data() {
-            return {
-                workflowCode: 'W0095',
-                //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                working: '',
-                starttime: '',
-                endTime: '',
-                //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-
-                checkcycle: 0,
-
-                show10: true,
-                canStart: true,
-                code7: 'PG019',
-                disablecheck: '',
-                upload: uploadUrl(),
-                fileList: [],
-                disable2: false,
-                multiple: false,
-                disable: false,
-                dialogTableVisible: false,
-                loading: false,
-                gridData: [],
-                DataList: [],
-                tableF: [
-                    {
-                        invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
-                        money: '',
-                        remark: '',
-                    },
-                ],
-//DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                // options: [{
-                //   value: '0',
-                //   label: this.$t('label.PFANS2007VIEW_YEAR'),
-                // }, {
-                //   value: '1',
-                //   label: this.$t('label.PFANS1045VIEW_CYCLE1'),
-                // }, {
-                //   value: '2',
-                //   label: this.$t('label.PFANS1045VIEW_CYCLE2'),
-                // }, {
-                //   value: '3',
-                //   label: this.$t('label.PFANS1045VIEW_CYCLE3'),
-                // }, {
-                //   value: '4',
-                //   label: this.$t('label.PFANS1045VIEW_CYCLE4'),
-                // }, {
-                //   value: '5',
-                //   label: this.$t('label.PFANS1045VIEW_CYCLE5'),
-                // }, {
-                //   value: '6',
-                //   label: this.$t('label.PFANS1045VIEW_CYCLE6'),
-                // }],
-                //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                search: '',
-                currentRow: '',
-                formLabelWidth: '120px',
-                userlist: '',
-                form: {
-                    //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                    // yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, 'y').format('YYYY'),
-                    yearss: '',
-                    //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                    summonet: '',
-                    remark: '',
-                    //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                    // cycle: '',
-                    //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                    applicationdate: new Date(),
-                    amountcase: '',
-                    modifiedamount: '',
-                    newamountcase: '',
-                    user_id: '',
-                    outsourcingcompany: '',
-                    currency: 'PG019003',
-                    policynumbers: '',
-                    uploadfile: '',
-                    type: '0',
-                },
-                buttonList: [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
-                ],
-                selectType: 'Single',
-                error: '',
-                title: 'title.PFANS1045VIEW',
-                activeName: 'first',
-                IDname: '',
-                rules: {
-                    outsourcingcompany: [{
-                        required: true,
-                        message: this.$t('normal.error_08') + this.$t('label.PFANS1045VIEW_OUTSOURCINGCOMPANY'),
-                        trigger: 'change',
-                    }],
-                    yearss: [{
-                        required: true,
-                        message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
-                        trigger: 'prop',
-                    }],
-                    //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                    // cycle: [{
-                    //   required: true,
-                    //   message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
-                    //   trigger: 'change',
-                    // }],
-                    //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                },
+        buttonList: [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: false,
+            icon: 'el-icon-check',
+          },
+        ],
+        selectType: 'Single',
+        error: '',
+        title: 'title.PFANS1045VIEW',
+        activeName: 'first',
+        IDname: '',
+        rules: {
+          outsourcingcompany: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1045VIEW_OUTSOURCINGCOMPANY'),
+            trigger: 'change',
+          }],
+          yearss: [{
+            required: true,
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
+            trigger: 'prop',
+          }],
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          // cycle: [{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
+          //   trigger: 'change',
+          // }],
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        },
 
             };
         },

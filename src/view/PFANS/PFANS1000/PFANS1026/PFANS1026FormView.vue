@@ -358,15 +358,25 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.currencyposition'" :rules='rules.currencyposition'>
-                  <dicselect
-                    :code="code9"
-                    :data="scope.row.currencyposition"
-                    :no="scope.row"
-                    :multiple="multiple"
-                    @change="getCurrencyposition"
-                    style="width: 11rem"
-                    :disabled="!disabled">
-                  </dicselect>
+                  <!--                      add-ws-12/10-汇率字典-->
+                  <!--                  <dicselect-->
+                  <!--                    :code="code9"-->
+                  <!--                    :data="scope.row.currencyposition"-->
+                  <!--                    :no="scope.row"-->
+                  <!--                    :multiple="multiple"-->
+                  <!--                    @change="getCurrencyposition"-->
+                  <!--                    style="width: 11rem"-->
+                  <!--                    :disabled="!disabled">-->
+                  <!--                  </dicselect>-->
+                  <monthlyrate :month="month9"
+                               :data="scope.row.currencyposition"
+                               :no="scope.row"
+                               :multiple="multiple"
+                               @change="getCurrencyposition"
+                               style="width: 11rem"
+                               :disabled="!disabled">
+                  </monthlyrate>
+                  <!--                      add-ws-12/10-汇率字典-->
                   <!--<el-select :no="scope.row" v-model="scope.row.currencyposition" @change="(val)=>{getCurrencyposition(val,scope.row)}" style="width: 11rem" :disabled="!disabled">-->
                   <!--<el-option v-for="(item,index) in options" :key="index" :value="item.value">-->
                   <!--{{item.value}}-->
@@ -1085,10 +1095,12 @@
   import moment from 'moment';
   import ElInput from '../../../../../node_modules/element-ui/packages/input/src/input.vue';
   import ElFormItem from '../../../../../node_modules/element-ui/packages/form/src/form-item.vue';
+  import monthlyrate from '../../../components/monthlyrate';
 
   export default {
     name: 'PFANS1026View',
     components: {
+      monthlyrate,
       ElFormItem,
       ElInput,
       EasyNormalContainer,

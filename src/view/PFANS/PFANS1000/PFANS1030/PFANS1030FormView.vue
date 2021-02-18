@@ -107,13 +107,22 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')" :error="errorcurrencyposition"
                                   prop="currencyposition">
-                      <dicselect :code="code3"
-                                 :data="form.currencyposition"
-                                 :disabled="true"
-                                 :multiple="multiple"
-                                 @change="getcurrencyformat"
-                                 style="width:20vw">
-                      </dicselect>
+                      <!--                      add-ws-12/10-汇率字典-->
+<!--                      <dicselect :code="code3"-->
+<!--                                 :data="form.currencyposition"-->
+<!--                                 :disabled="true"-->
+<!--                                 :multiple="multiple"-->
+<!--                                 @change="getcurrencyformat"-->
+<!--                                 style="width:20vw">-->
+<!--                      </dicselect>-->
+                      <monthlyrate :month="month3"
+                                   :data="form.currencyposition"
+                                   :disabled="true"
+                                   :multiple="multiple"
+                                   @change="getcurrencyformat"
+                                   style="width:20vw">
+                      </monthlyrate>
+                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                 </el-row>
@@ -664,13 +673,14 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo} from '@/utils/customize';
-
+  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole} from '@/utils/customize';
+  import monthlyrate from '../../../components/monthlyrate';
   import project from '../../../components/project';
 
   export default {
     name: 'PFANS1025FormView',
     components: {
+      monthlyrate,
       EasyNormalContainer,
       user,
       org,
@@ -871,7 +881,10 @@
         userlist: '',
         code1: 'HT008',
         code2: 'HT005',
-        code3: 'PG019',
+        //add-ws-12/10-汇率字典
+        // code3: 'PG019',
+        month3: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
         sumAwardmoney: '',
         errorgroup: '',
         selectType: 'Single',

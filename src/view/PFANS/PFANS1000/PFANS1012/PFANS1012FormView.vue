@@ -900,15 +900,26 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center" prop="currency"
                                          width="150">
                           <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       clearable
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+                            <!--                            <dicselect :code="code4"-->
+                            <!--                                       clearable-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       :disabled="disa"-->
+                            <!--                                       @change="getCurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
+                            <monthlyrate :month="month4"
+                                         clearable
+                                         :data="scope.row.currency"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         :disabled="disa"
+                                         @change="getCurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
@@ -1134,14 +1145,24 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
                                          width="150">
                           <template slot-scope="scope">
-                            <dicselect :code="code4"
-                                       :data="scope.row.currency"
-                                       :multiple="multiple"
-                                       :no="scope.row"
-                                       :disabled="disa"
-                                       @change="getCurrency"
-                                       style="width: 100%">
-                            </dicselect>
+                            <!--                      add-ws-12/10-汇率字典-->
+                            <!--                            <dicselect :code="code4"-->
+                            <!--                                       :data="scope.row.currency"-->
+                            <!--                                       :multiple="multiple"-->
+                            <!--                                       :no="scope.row"-->
+                            <!--                                       :disabled="disa"-->
+                            <!--                                       @change="getCurrency"-->
+                            <!--                                       style="width: 100%">-->
+                            <!--                            </dicselect>-->
+                            <monthlyrate :month="month4"
+                                         :data="scope.row.currency"
+                                         :multiple="multiple"
+                                         :no="scope.row"
+                                         :disabled="disa"
+                                         @change="getCurrency"
+                                         style="width: 100%">
+                            </monthlyrate>
+                            <!--                      add-ws-12/10-汇率字典-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
@@ -1348,73 +1369,76 @@
 
 
 <script>
-    import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
-    import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
-    import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
-    import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
-    import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
-    import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
-    import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
-    import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
-    import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
-    import EasyNormalContainer from '@/components/EasyNormalContainer';
-    import user from '../../../components/user.vue';
-    import dicselect from '../../../components/dicselect';
-    import {
-        downLoadUrl,
-        getCurrentRole,
-        getCurrentRole5,
-        getDictionaryInfo,
-        getOrgInfo,
-        getOrgInfoByUserId,
-        getStatus,
-        getUserInfo,
-        uploadUrl,
-    } from '@/utils/customize';
-    import {Message} from 'element-ui';
-    import moment from 'moment';
-    import org from '../../../components/org';
+  import PFANS1003Pop from '@/components/EasyPop/PFANS1003Pop';
+  import PFANS1004Pop from '@/components/EasyPop/PFANS1004Pop';
+  import PFANS1005Pop from '@/components/EasyPop/PFANS1005Pop';
+  import PFANS1025Pop from '@/components/EasyPop/PFANS1025Pop';
+  import PFANS3005Pop from '@/components/EasyPop/PFANS3005Pop';
+  import PFANS1002Pop from '@/components/EasyPop/PFANS1002Pop';
+  import PFANS1035Pop from '@/components/EasyPop/PFANS1035Pop';
+  import PFANS1010Pop from '@/components/EasyPop/PFANS1010Pop';
+  import PFANS1006Pop from '@/components/EasyPop/PFANS1006Pop';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import user from '../../../components/user.vue';
+  import dicselect from '../../../components/dicselect';
+  import monthlyrate from '../../../components/monthlyrate';
+  import {
+    getMonthlyrateInfo2,
+    downLoadUrl,
+    getCurrentRole,
+    getCurrentRole5,
+    getDictionaryInfo,
+    getOrgInfo,
+    getOrgInfoByUserId,
+    getStatus,
+    getUserInfo,
+    uploadUrl,
+  } from '@/utils/customize';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
+  import org from '../../../components/org';
 
-    export default {
-        name: 'PFANS1012FormView',
-        components: {
-            PFANS1003Pop,
-            PFANS1004Pop,
-            PFANS1005Pop,
-            PFANS1025Pop,
-            PFANS3005Pop,
-            PFANS1002Pop,
-            PFANS1035Pop,
-            PFANS1010Pop,
-            PFANS1006Pop,
-            dicselect,
-            EasyNormalContainer,
-            getOrgInfoByUserId,
-            user,
-            org,
-        },
-        data() {
-            var checkuser = (rule, value, callback) => {
-                if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
-                    this.error = this.$t('normal.error_09') + this.$t('label.applicant');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-                } else {
-                    this.error = '';
-                    return callback();
-                }
-            };
-            var checktele = (rule, value, callback) => {
-                this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
-                if (this.form.telephone !== null && this.form.telephone !== '') {
-                    if (!this.regExp.test(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
-                }
-            };
+  export default {
+    name: 'PFANS1012FormView',
+    components: {
+      monthlyrate,
+      PFANS1003Pop,
+      PFANS1004Pop,
+      PFANS1005Pop,
+      PFANS1025Pop,
+      PFANS3005Pop,
+      PFANS1002Pop,
+      PFANS1035Pop,
+      PFANS1010Pop,
+      PFANS1006Pop,
+      dicselect,
+      EasyNormalContainer,
+      getOrgInfoByUserId,
+      user,
+      org,
+    },
+    data() {
+      var checkuser = (rule, value, callback) => {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
+          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
+        } else {
+          this.error = '';
+          return callback();
+        }
+      };
+      var checktele = (rule, value, callback) => {
+        this.regExp = /^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{0,20}$/;
+        if (this.form.telephone !== null && this.form.telephone !== '') {
+          if (!this.regExp.test(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+      };
 
             var validatepayeename = (rule, value, callback) => {
                 if (this.show1) {
@@ -1810,7 +1834,10 @@
                 IDname: '',
                 code2: 'PJ002',
                 code3: 'PJ004',
-                code4: 'PG019',
+               //add-ws-12/10-汇率字典
+        // code4: 'PG019',
+        month4: moment(new Date()).format('YYYY-MM'),
+        //add-ws-12/10-汇率字典
                 code5: 'PJ005',
                 code11: '',
                 code13: 'PJ071',
@@ -4205,19 +4232,10 @@
                     }
                 }
                 if (error == '0') {
-                    if (val === 'PG019001') {
-                        this.disablecurr = false;
-                        let dictionaryInfo = getDictionaryInfo(val);
-                        if (dictionaryInfo) {
-                            row.currencyrate = dictionaryInfo.value2;
-                        }
-                    } else if (val === 'PG019002') {
-                        this.disablecurr = false;
-                        let dictionaryInfo = getDictionaryInfo(val);
-                        if (dictionaryInfo) {
-                            row.currencyrate = dictionaryInfo.value2;
-                        }
-                    }
+                 let dictionaryInfo = getMonthlyrateInfo2(val, this.month4);
+          if (dictionaryInfo) {
+            row.currencyrate = dictionaryInfo.exchangerate;
+          }
                     row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
                     // this.tormbT = Number(this.tormbT) + row.tormb;
                     // this.form.tormb = this.tormbT;
@@ -4583,19 +4601,10 @@
                         newValue.display = true;
                     });
                 }
-                if (newValue.currency === 'PG019001') {
-                    this.disablecurr = false;
-                    let dictionaryInfo = getDictionaryInfo(newValue.currency);
-                    if (dictionaryInfo) {
-                        newValue.currencyrate = dictionaryInfo.value2;
-                    }
-                } else if (newValue.currency === 'PG019002') {
-                    this.disablecurr = false;
-                    let dictionaryInfo = getDictionaryInfo(newValue.currency);
-                    if (dictionaryInfo) {
-                        newValue.currencyrate = dictionaryInfo.value2;
-                    }
-                }
+                let dictionaryInfo = getMonthlyrateInfo2(newValue.currency, this.month4);
+        if (dictionaryInfo) {
+          newValue.currencyrate = dictionaryInfo.exchangerate;
+        }
                 newValue.tormb = Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100;
                 // this.tormbT = Number(this.tormbT) + newValue.tormb;
                 // this.form.tormb = this.tormbT;
