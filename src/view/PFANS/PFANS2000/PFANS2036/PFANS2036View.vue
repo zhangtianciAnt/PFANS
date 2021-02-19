@@ -50,7 +50,8 @@
     },
     methods: {
       rowClick(row) {
-        this.rowid = row.yearsantid;
+        this.rowid = row.yearsantid,
+        this.years = row.years
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -68,6 +69,7 @@
             params: {
               _id: this.rowid,
               disabled: false,
+              years:this.years,
             },
           });
         }
@@ -85,6 +87,7 @@
             params: {
               _id: this.rowid,
               disabled: true,
+              years:this.years,
             },
           });
         }
