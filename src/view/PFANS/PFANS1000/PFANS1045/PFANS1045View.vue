@@ -212,7 +212,6 @@
         let letname;
         letname = 'PFANS1045FormView';
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1045View');
-        this.$store.commit('global/SET_HISTORYURL', '');
         if (val === 'update') {
           if (this.rowid === '') {
             Message({
