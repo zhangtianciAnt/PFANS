@@ -241,7 +241,7 @@
                           v-for="item in loans">
                         </el-option>
                       </el-select>
-                      <el-button @click="clickBunloan" size="small" type="primary">{{this.$t('button.view')}}
+                      <el-button @click="clickBunloan" size="small" :disabled="disable" type="primary">{{this.$t('button.view')}}
                       </el-button>
                     </el-form-item>
                   </el-col>

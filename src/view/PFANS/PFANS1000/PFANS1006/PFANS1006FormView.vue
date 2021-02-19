@@ -860,9 +860,18 @@
         },
         canStart: false,
         flowData:[],
+        //add-ws-02/19-NT_PFANS_20210204_BUG_015-from
+        checkids: '',
+        fromname: '',
+        //add-ws-02/19-NT_PFANS_20210204_BUG_015-to
       };
     },
     created() {
+      //add-ws-02/19-NT_PFANS_20210204_BUG_015-from
+      this.checkids = this.$route.params._checkid;
+      this.fromname = this.$route.params._fromname;
+      this.check = this.$route.params._check
+      //add-ws-02/19-NT_PFANS_20210204_BUG_015-to
       // add-ws-8/12-禅道任务446
       //   alert(1 + this.$store.getters.workflowUrl)
       this.role2 = getCurrentRole5();
@@ -1568,39 +1577,70 @@
         });
       },
         //add-fjl-0816-暂借款中，点击决裁，跳转画面
-        checkparams() {
-            let id = this.$route.params._checkid;
-            let fromname = this.$route.params._fromname;
-            //add_fjl_0828  流程信息查不到横展开
-            if (fromname === 'PFANS3005FormView') {
-                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
-            } else if (fromname === 'PFANS1013FormView') {
-                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
-            } else if (fromname === 'PFANS1012FormView') {
-                this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
-            } else {
-                this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
-            }
-            //add_fjl_0828  流程信息查不到横展开
-            this.$router.push({
-                name: fromname,
-                params: {
-                    disabled: true,
-                    _id: id,
-                },
-            });
-        },
+       //upd-ws-02/19-NT_PFANS_20210204_BUG_015-from
+      // checkparams() {
+      //   let id = this.$route.params._checkid;
+      //   let fromname = this.$route.params._fromname;
+      //   //add_fjl_0828  流程信息查不到横展开
+      //   if (fromname === 'PFANS3005FormView') {
+      //     this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+      //   } else if (fromname === 'PFANS1013FormView') {
+      //     this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
+      //   } else if (fromname === 'PFANS1012FormView') {
+      //     this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
+      //   } else {
+      //     this.$store.commit('global/SET_WORKFLOWURL', '/' + fromname);
+      //   }
+      //   //add_fjl_0828  流程信息查不到横展开
+      //   this.$router.push({
+      //     name: fromname,
+      //     params: {
+      //       disabled: true,
+      //       _id: id,
+      //     },
+      //   });
+      // },
+      checkparams() {
+        //add_fjl_0828  流程信息查不到横展开
+        if (this.fromname === 'PFANS3005FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS3005View');
+        } else if (this.fromname === 'PFANS1013FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1013View');
+        } else if (this.fromname === 'PFANS1012FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012View');
+        } else {
+          this.$store.commit('global/SET_WORKFLOWURL', '/' + this.fromname);
+        }
+        //add_fjl_0828  流程信息查不到横展开
+        this.$router.push({
+          name: this.fromname,
+          params: {
+            disabled: false,
+            _id: this.checkids,
+          },
+        });
+      },
+      //upd-ws-02/19-NT_PFANS_20210204_BUG_015-to
         //add-fjl-0816-暂借款中，点击决裁，跳转画面
       buttonClick(val) {
         if (val === 'back') {
             //add-fjl-0816-暂借款中，点击决裁，跳转画面
-            if (this.$route.params._check != null && this.$route.params._check != '' && this.$route.params._check != undefined) {
-                if (this.$route.params._check) {
-                    this.checkparams();
-                }
-            } else {
-                this.paramsTitle();
+           //upd-ws-02/19-NT_PFANS_20210204_BUG_015-from
+          // if (this.$route.params._check != null && this.$route.params._check!= '' && this.$route.params._check!= undefined) {
+          //   if (this.$route.params._check) {
+          //     this.checkparams();
+          //   }
+          // } else {
+          //   this.paramsTitle();
+          // }
+          if (this.check != null && this.check!= '' && this.check!= undefined) {
+            if (this.check) {
+              this.checkparams();
             }
+          } else {
+            this.paramsTitle();
+          }
+          //upd-ws-02/19-NT_PFANS_20210204_BUG_015-from
             //add-fjl-0816-暂借款中，点击决裁，跳转画面
         } else {
           this.$refs['refform'].validate(valid => {
