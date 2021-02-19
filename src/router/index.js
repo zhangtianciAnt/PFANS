@@ -90,9 +90,12 @@ import PFANS1041View from '@/view/PFANS/PFANS1000/PFANS1041/PFANS1041View.vue'
 import PFANS1041FormView from '@/view/PFANS/PFANS1000/PFANS1041/PFANS1041FormView.vue'
 import PFANS1042View from '@/view/PFANS/PFANS1000/PFANS1042/PFANS1042View.vue'
 import PFANS1043View from '@/view/PFANS/PFANS1000/PFANS1043/PFANS1043View.vue'
+import PFANS1043FormView from '@/view/PFANS/PFANS1000/PFANS1043/PFANS1043FormView.vue'
 import PFANS1045FormView from '@/view/PFANS/PFANS1000/PFANS1045/PFANS1045FormView.vue'
 import PFANS1045View from '@/view/PFANS/PFANS1000/PFANS1045/PFANS1045View.vue'
 import PFANS1046View from '@/view/PFANS/PFANS1000/PFANS1046/PFANS1046View.vue'
+import PFANS1048View from '@/view/PFANS/PFANS1000/PFANS1048/PFANS1048View.vue'
+import PFANS1048FormView from '@/view/PFANS/PFANS1000/PFANS1048/PFANS1048FormView.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -209,6 +212,8 @@ import PFANS8009View from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009View.vue'
 import PFANS8009PointView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009PointView.vue'
 import PFANS8009FormView from '@/view/PFANS/PFANS8000/PFANS8009/PFANS8009FormView.vue'
 import PFANS8010View from '@/view/PFANS/PFANS8000/PFANS8010/PFANS8010View.vue'
+import PFANS8011FormView from '@/view/PFANS/PFANS8000/PFANS8011/PFANS8011FormView.vue'
+import PFANS8011View from '@/view/PFANS/PFANS8000/PFANS8011/PFANS8011View.vue'
 import ASSETS1001View from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001View.vue'
 import ASSETS1001FormView from '@/view/ASSETS/ASSETS1000/ASSETS1001/ASSETS1001FormView.vue'
 import ASSETS1002View from '@/view/ASSETS/ASSETS1000/ASSETS1002/ASSETS1002View.vue'
@@ -683,6 +688,11 @@ const routes = [
         component: PFANS1043View,
       },
       {
+        path: '/PFANS1043FormView',
+        name: 'PFANS1043FormView',
+        component: PFANS1043FormView,
+      },
+      {
         path: '/PFANS1045View',
         name: 'PFANS1045View',
         component: PFANS1045View,
@@ -691,6 +701,16 @@ const routes = [
         path: '/PFANS1046View',
         name: 'PFANS1046View',
         component: PFANS1046View,
+      },
+      {
+        path: '/PFANS1048View',
+        name: 'PFANS1048View',
+        component: PFANS1048View,
+      },
+      {
+        path: '/PFANS1048FormView',
+        name: 'PFANS1048FormView',
+        component: PFANS1048FormView,
       },
       {
         path: '/PFANS1045FormView',
@@ -1284,6 +1304,16 @@ const routes = [
         path: '/PFANS8010View',
         name: 'PFANS8010View',
         component: PFANS8010View
+      },
+      {
+        path: '/PFANS8011FormView',
+        name: 'PFANS8011FormView',
+        component: PFANS8011FormView,
+      },
+      {
+        path: '/PFANS8011View',
+        name: 'PFANS8011View',
+        component: PFANS8011View
       },
       {
         path: '/ASSETS1001View',
