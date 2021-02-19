@@ -420,15 +420,15 @@ export default {
       // this.$store.tableStore.tableStoreFil = filters;
       // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 from
 
-      if (key == "1") {
-      } else {
-        this.$store
-          .dispatch("tableStore/getActionsAuth", filters)
-          .then((response) => {
-            this.tableFilter(response, "1");
-          })
-          .catch((error) => {});
-      }
+      // if (key == "1") {
+      // } else {
+      //   this.$store
+      //     .dispatch("tableStore/getActionsAuth", filters)
+      //     .then((response) => {
+      //       this.tableFilter(response, "1");
+      //     })
+      //     .catch((error) => {});
+      // }
       // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 to
 
       this.loading = true;
@@ -455,7 +455,7 @@ export default {
       });
       if (this.searchValue !== "") {
         // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 from
-        this.filtersdata(true);
+        // this.filtersdata(true);
         // add  shubo  20200208  PSDCD_PFANS_20201217_XQ_057 to
         this.inputChange();
       }
