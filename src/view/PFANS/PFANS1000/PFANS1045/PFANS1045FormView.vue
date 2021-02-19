@@ -3,10 +3,10 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :title="title"
-      @StartWorkflow="buttonClick"
-      :defaultStart="defaultStart"
       @buttonClick="buttonClick"
       :canStart="canStart"
+      @StartWorkflow="buttonClick"
+      :defaultStart="defaultStart"
       @end="end" @start="start" @workflowState="workflowState"
       ref="container"
       v-loading="loading"
@@ -383,6 +383,7 @@
         defaultStart: false,
         workflowCode: 'W0095',
         //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        checkstatus: '',
         working: '',
         starttime: '',
         endTime: '',
@@ -493,452 +494,532 @@
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
         },
 
-            };
-        },
-        mounted() {
-            this.getaward();
-            this.getsupplierinfor();
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
-                    .then(response => {
-                        this.form = response.policycontract;
+      };
+    },
+    mounted() {
+      this.getaward();
+      this.getsupplierinfor();
+      if (this.$route.params._id) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
+          .then(response => {
+            this.form = response.policycontract;
 
-                        if (response.policycontractdetails.length > 0) {
-                            this.tableF = response.policycontractdetails;
-                        }
-                        if (this.disable) {
-                            this.show10 = true;
-                        } else {
-                            this.show10 = false;
-                        }
-                        if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
-                            let uploadfile = this.form.uploadfile.split(';');
-                            for (var i = 0; i < uploadfile.length; i++) {
-                                if (uploadfile[i].split(',')[0] != '') {
-                                    let o = {};
-                                    o.name = uploadfile[i].split(',')[0];
-                                    o.url = uploadfile[i].split(',')[1];
-                                    this.fileList.push(o);
-                                }
-                            }
-                        }
-                        if (this.form.status === '4') {
-                            this.disable = false;
-                            if (this.disablecheck) {
-                                this.disable2 = true;
-                            } else {
-                                this.disable2 = false;
-                            }
-                        }
-                        this.userlist = this.form.user_id;
-//ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                        if (this.form.yearss !== '' && this.form.yearss !== null) {
-                            let claimdatetime = this.form.yearss;
-                            let claimdatetim = claimdatetime.slice(0, 7);
-                            let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 7);
-                            this.form.yearss = [claimdatetim, claimdatetime1];
-                        }
-                        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            } else {
-                if (this.$store.getters.userinfo) {
-                    this.userlist = this.$store.getters.userinfo.userid;
-                }
+            if (response.policycontractdetails.length > 0) {
+              this.tableF = response.policycontractdetails;
             }
-        },
-        created() {
-            this.IDname = this.$route.params._id;
-            this.disablecheck = this.$route.params.disabled;
-            this.disable = this.$route.params.disabled;
-            this.disable2 = this.$route.params.disabled;
-        },
-        methods: {
+            if (this.disable) {
+              this.show10 = true;
+            } else {
+              this.show10 = false;
+            }
+            if (this.form.uploadfile != null && this.form.uploadfile != '' && this.form.uploadfile != undefined) {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  console.log(o);
+                  this.fileList.push(o);
+                }
+              }
+            }
+            if (this.form.status === '4') {
+              this.disable = false;
+              if (this.disablecheck) {
+                this.disable2 = true;
+              } else {
+                this.disable2 = false;
+              }
+            }
+            this.userlist = this.form.user_id;
             //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-            filterInfo() {
-                this.working = this.getworkinghours(this.form.yearss);
-                if (this.working === '') {
-                    this.starttime = moment(new Date()).startOf('month').format('YYYY-MM');
-                    this.endTime = moment(new Date()).endOf('month').format('YYYY-MM');
-                    this.changeAcc();
-                } else {
-                    this.starttime = this.working.substring(0, 7);
-                    this.endTime = this.working.substring(10, 17);
-                    this.changeAcc();
-                }
-            },
-            getworkinghours(workinghours) {
-                if (workinghours != null) {
-                    if (workinghours.length > 0) {
-                        return (
-                            moment(workinghours[0]).format('YYYY-MM') +
-                            ' ~ ' +
-                            moment(workinghours[1]).format('YYYY-MM')
-                        );
-                    } else {
-                        return '';
-                    }
-                } else {
-                    return '';
-                }
-            },
+            if (this.form.yearss !== '' && this.form.yearss !== null) {
+              let claimdatetime = this.form.yearss;
+              let claimdatetim = claimdatetime.slice(0, 7);
+              let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 7);
+              this.form.yearss = [claimdatetim, claimdatetime1];
+            }
             //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-            //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-            // showData() {
-            //   this.form.yearss = moment(this.form.yearss).format('YYYY');
-            // },
-            //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-            viewdata(row) {
-                this.$store.commit('global/SET_HISTORYURL', '');
-                this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
-                this.$router.push({
-                    name: 'PFANS1025FormView',
-                    params: {
-                        _checkdisable: this.disable,
-                        _checkid: this.IDname,
-                        checkname: true,
-                        _contractnumber: this.form.policynumbers,
-                        _id: row.award_id,
-                        disabled: false,
-                    },
-                });
-            },
-            changeSum(row) {
-                for (let i = 0; i < this.tableF.length; i++) {
-                    this.form.modifiedamount = this.tableF[i].money;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      } else {
+        if (this.$store.getters.userinfo) {
+          this.userlist = this.$store.getters.userinfo.userid;
+        }
+      }
+    },
+    created() {
+      this.IDname = this.$route.params._id;
+      this.disablecheck = this.$route.params.disabled;
+      this.disable = this.$route.params.disabled;
+      this.disable2 = this.$route.params.disabled;
+    },
+    methods: {
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      filterInfo() {
+        this.working = this.getworkinghours(this.form.yearss);
+        if (this.working === '') {
+          this.starttime = moment(new Date()).startOf('month').format('YYYY-MM');
+          this.endTime = moment(new Date()).endOf('month').format('YYYY-MM');
+          this.changeAcc();
+        } else {
+          this.starttime = this.working.substring(0, 7);
+          this.endTime = this.working.substring(10, 17);
+          this.changeAcc();
+        }
+      },
+      getworkinghours(workinghours) {
+        if (workinghours != null) {
+          if (workinghours.length > 0) {
+            return (
+              moment(workinghours[0]).format('YYYY-MM') +
+              ' ~ ' +
+              moment(workinghours[1]).format('YYYY-MM')
+            );
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      // showData() {
+      //   this.form.yearss = moment(this.form.yearss).format('YYYY');
+      // },
+      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      viewdata(row) {
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
+        this.$router.push({
+          name: 'PFANS1025FormView',
+          params: {
+            _checkdisable: this.disable,
+            _checkid: this.IDname,
+            checkname: true,
+            _contractnumber: this.form.policynumbers,
+            _id: row.award_id,
+            disabled: false,
+          },
+        });
+      },
+      changeSum(row) {
+        for (let i = 0; i < this.tableF.length; i++) {
+          this.form.modifiedamount = this.tableF[i].money;
+        }
+      },
+      getamountcase(val) {
+        this.form.modifiedamount = val;
+      },
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disable = val;
+        }
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileDownload(file) {
+        if (file.url) {
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+
+      },
+      fileSuccess(response, file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          if (!item.url) {
+            o.url = item.response.info;
+          } else {
+            o.url = item.url;
+          }
+          this.fileList.push(o);
+          this.form.uploadfile += o.name + ',' + o.url + ';';
+        }
+      },
+      getaward() {
+        this.DataList = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1006Store/getaward')
+          .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                if (response[i].policycontract_id === this.$route.params._id) {
+                  if (response[i].status !== null && response[i].status !== '') {
+                    response[i].status = getStatus(response[i].status);
+                  }
+                  this.DataList.push({
+                    award_id: response[i].award_id,
+                    claimamount: response[i].claimamount,
+                    contractnumber: response[i].contractnumber,
+                    status: response[i].status,
+                  });
                 }
+              }
+              this.loading = false;
             },
-            getamountcase(val) {
-                this.form.modifiedamount = val;
-            },
-            setdisabled(val) {
-                if (this.$route.params.disabled) {
-                    this.disable = val;
-                }
-            },
-            fileError(err, file, fileList) {
+          ).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      getDsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          } else {
+            sums[index] = '--';
+          }
+        });
+        sums[1] = Math.round(sums[1] * 100) / 100;
+        this.getMoney2(sums);
+        return sums;
+      },
+      getFsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+          } else {
+            sums[index] = '--';
+          }
+        });
+        sums[1] = Math.round(sums[1] * 100) / 100;
+        return sums;
+      },
+      getMoney2(sums) {
+        this.form.summonet = sums[1];
+      },
+      addRow7() {
+        let b;
+        let c;
+        if (this.tableF.length > 0) {
+          b = this.tableF.length + 1;
+          c = this.$t('label.PFANS1045VIEW_JUE') + b;
+        }
+        this.tableF.push({
+          invoicenumber: c,
+          remark: '',
+          money: '',
+        });
+      },
+      deleteRow7(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableF = [{
+            invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
+            money: '',
+            remark: '',
+          }];
+        }
+      },
+      workflowState(val) {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.checkstatus = 1;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        if (val.state === '1') {
+          this.form.status = '3';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      },
+      start(val) {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.checkstatus = 0;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '2') {
+          this.form.status = '4';
+        }
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      },
+      //upd 审批流程 to
+      end() {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.checkstatus = 1;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.form.status = '0';
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      buttonClick2() {
+        this.form.user_id = this.userlist;
+        if (this.checkstatus == 1) {
+          this.form.yearss = this.getworkinghours(this.form.yearss);
+        }
+        this.baseInfo = {};
+        this.baseInfo.policycontract = [];
+        this.baseInfo.policycontractdetails = [];
+        this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
+        for (let i = 0; i < this.tableF.length; i++) {
+          this.baseInfo.policycontractdetails.push({
+            invoicenumber: this.tableF[i].invoicenumber,
+            money: this.tableF[i].money,
+            remark: this.tableF[i].remark,
+          });
+        }
+        this.loading = true;
+        if (this.$route.params._id) {
+          this.form.policycontract_id = this.$route.params._id;
+          this.$store
+            .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.$store
+            .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_01'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      // changeAcc(val) {
+      //   if (this.form.outsourcingcompany === '') {
+      //     this.form.cycle = '';
+      //     Message({
+      //       message: this.$t('label.PFANS1045VIEW_CHECK3'),
+      //       type: 'error',
+      //       duration: 5 * 1000,
+      //     });
+      //     return;
+      //   }
+      //   this.checkcycle = 0;
+      //   this.form.cycle = val;
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS1006Store/chackcycle', this.form)
+      //     .then(response => {
+      //       if (response.length > 4) {
+      //         this.checkcycle = 1;
+      //         Message({
+      //           message: this.$t('label.PFANS1045VIEW_CHECK2'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //       } else {
+      //         this.loading = false;
+      //       }
+      //     }).catch(error => {
+      //     Message({
+      //       message: error,
+      //       type: 'error',
+      //       duration: 5 * 1000,
+      //     });
+      //     this.loading = false;
+      //   });
+      // },
+      changeAcc() {
+        if (this.form.outsourcingcompany === '') {
+          this.form.yearss = '';
+          Message({
+            message: this.$t('label.PFANS1045VIEW_CHECK3'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
+        this.checkcycle = 0;
+        let parameter = {
+          outsourcingcompany: this.form.outsourcingcompany,
+          cycle: this.starttime,
+          yearss: this.endTime,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1006Store/chackcycle', parameter)
+          .then(response => {
+            if (!response) {
+              this.checkcycle = 1;
+              Message({
+                message: this.$t('label.PFANS1045VIEW_CHECK2'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            } else {
+              this.loading = false;
+            }
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1045View',
+        });
+      },
+
+      buttonClick(val) {
+        if (val === 'back') {
+          this.paramsTitle();
+        } else {
+          this.$refs['reff'].validate(valid => {
+            if (valid) {
+              if (this.form.amountcase === 0) {
                 Message({
-                    message: this.$t('normal.error_04'),
+                  message: this.$t('label.PFANS1045VIEW_CHECK4'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+              if (this.form.status === '4') {
+                let ckecksum = 0;
+                for (let i = 0; i < this.tableF.length; i++) {
+                  ckecksum = this.tableF[i].money;
+                }
+                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                  Message({
+                    message: this.$t('label.PFANS1045VIEW_CHECK6'),
                     type: 'error',
                     duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+              this.form.user_id = this.userlist;
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              this.form.yearss = this.getworkinghours(this.form.yearss);
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              this.baseInfo = {};
+              this.baseInfo.policycontract = [];
+              this.baseInfo.policycontractdetails = [];
+              this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
+              for (let i = 0; i < this.tableF.length; i++) {
+                this.baseInfo.policycontractdetails.push({
+                  invoicenumber: this.tableF[i].invoicenumber,
+                  money: this.tableF[i].money,
+                  remark: this.tableF[i].remark,
                 });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = '';
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.form.uploadfile += item.name + ',' + item.url + ';';
-                }
-            },
-            fileDownload(file) {
-                if (file.url) {
-                    file.url = file.url.replace("%", "%25");
-                    file.url = file.url.replace("#", "%23");
-                    file.url = file.url.replace("&", "%26");
-                    file.url = file.url.replace("+", "%2B");
-                    file.url = file.url.replace("=", "%3D");
-                    file.url = file.url.replace("?", "%3F");
-                    var url = downLoadUrl(file.url);
-                    window.open(url);
-                }
 
-            },
-            fileSuccess(response, file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = '';
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    if (!item.url) {
-                        o.url = item.response.info;
-                    } else {
-                        o.url = item.url;
-                    }
-                    this.fileList.push(o);
-                    this.form.uploadfile += o.name + ',' + o.url + ';';
-                }
-            },
-            getaward() {
-                this.DataList = [];
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1006Store/getaward')
+              }
+              this.loading = true;
+
+              if (this.checkcycle === 0) {
+
+                if (this.$route.params._id) {
+                  this.form.policycontract_id = this.$route.params._id;
+                  this.$store
+                    .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
                     .then(response => {
-                            for (let i = 0; i < response.length; i++) {
-                                if (response[i].policycontract_id === this.$route.params._id) {
-                                    if (response[i].status !== null && response[i].status !== '') {
-                                        response[i].status = getStatus(response[i].status);
-                                    }
-                                    this.DataList.push({
-                                        award_id: response[i].award_id,
-                                        claimamount: response[i].claimamount,
-                                        contractnumber: response[i].contractnumber,
-                                        status: response[i].status,
-                                    });
-                                }
-                            }
-                            this.loading = false;
-                        },
-                    ).catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-            },
-            getDsummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                    } else {
-                        sums[index] = '--';
-                    }
-                });
-                sums[1] = Math.round(sums[1] * 100) / 100;
-                this.getMoney2(sums);
-                return sums;
-            },
-            getFsummaries(param) {
-                const {columns, data} = param;
-                const sums = [];
-                columns.forEach((column, index) => {
-                    if (index === 0) {
-                        sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
-                        return;
-                    }
-                    const values = data.map(item => Number(item[column.property]));
-                    if (!values.every(value => isNaN(value))) {
-                        sums[index] = values.reduce((prev, curr) => {
-                            const value = Number(curr);
-                            if (!isNaN(value)) {
-                                return prev + curr;
-                            } else {
-                                return prev;
-                            }
-                        }, 0);
-                    } else {
-                        sums[index] = '--';
-                    }
-                });
-                sums[1] = Math.round(sums[1] * 100) / 100;
-                return sums;
-            },
-            getMoney2(sums) {
-                this.form.summonet = sums[1];
-            },
-            addRow7() {
-                let b;
-                let c;
-                if (this.tableF.length > 0) {
-                    b = this.tableF.length + 1;
-                    c = this.$t('label.PFANS1045VIEW_JUE') + b;
-                }
-                this.tableF.push({
-                    invoicenumber: c,
-                    remark: '',
-                    money: '',
-                });
-            },
-            deleteRow7(index, rows) {
-                if (rows.length > 1) {
-                    rows.splice(index, 1);
-                } else {
-                    this.tableF = [{
-                        invoicenumber: this.$t('label.PFANS1045VIEW_JUE') + 1,
-                        money: '',
-                        remark: '',
-                    }];
-                }
-            },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick('save');
-            },
-            start(val) {
-                if (val.state === '0') {
-                    this.form.status = '2';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick('save');
-            },
-            //upd 审批流程 to
-            end() {
-                this.form.status = '0';
-                this.buttonClick('save');
-            },
-            //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-            // changeAcc(val) {
-            //   if (this.form.outsourcingcompany === '') {
-            //     this.form.cycle = '';
-            //     Message({
-            //       message: this.$t('label.PFANS1045VIEW_CHECK3'),
-            //       type: 'error',
-            //       duration: 5 * 1000,
-            //     });
-            //     return;
-            //   }
-            //   this.checkcycle = 0;
-            //   this.form.cycle = val;
-            //   this.loading = true;
-            //   this.$store
-            //     .dispatch('PFANS1006Store/chackcycle', this.form)
-            //     .then(response => {
-            //       if (response.length > 4) {
-            //         this.checkcycle = 1;
-            //         Message({
-            //           message: this.$t('label.PFANS1045VIEW_CHECK2'),
-            //           type: 'error',
-            //           duration: 5 * 1000,
-            //         });
-            //         this.loading = false;
-            //       } else {
-            //         this.loading = false;
-            //       }
-            //     }).catch(error => {
-            //     Message({
-            //       message: error,
-            //       type: 'error',
-            //       duration: 5 * 1000,
-            //     });
-            //     this.loading = false;
-            //   });
-            // },
-            changeAcc() {
-                if (this.form.outsourcingcompany === '') {
-                    this.form.yearss = '';
-                    Message({
-                        message: this.$t('label.PFANS1045VIEW_CHECK3'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    return;
-                }
-                this.checkcycle = 0;
-                let parameter = {
-                    outsourcingcompany: this.form.outsourcingcompany,
-                    cycle: this.starttime,
-                    yearss: this.endTime,
-                };
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS1006Store/chackcycle', parameter)
-                    .then(response => {
-                        if (!response) {
-                            this.checkcycle = 1;
-                            Message({
-                                message: this.$t('label.PFANS1045VIEW_CHECK2'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                        } else {
-                            this.loading = false;
-                        }
-                    }).catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-            },
-            //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-            paramsTitle() {
-                this.$router.push({
-                    name: 'PFANS1045View',
-                });
-            },
-
-            buttonClick(val) {
-                if (val === 'back') {
-                    this.paramsTitle();
-                } else {
-                    this.$refs['reff'].validate(valid => {
-                        if (valid) {
-                            if (this.form.amountcase === 0) {
-                                Message({
-                                    message: this.$t('label.PFANS1045VIEW_CHECK4'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                return;
-                            }
-                            if (this.form.status === '4') {
-                                let ckecksum = 0;
-                                for (let i = 0; i < this.tableF.length; i++) {
-                                    ckecksum = this.tableF[i].money;
-                                }
-                                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
-                                    Message({
-                                        message: this.$t('label.PFANS1045VIEW_CHECK6'),
-                                        type: 'error',
-                                        duration: 5 * 1000,
-                                    });
-                                    return;
-                                }
-                            }
-                            this.form.user_id = this.userlist;
-                            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                            this.form.yearss = this.getworkinghours(this.form.yearss);
-                            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                            this.baseInfo = {};
-                            this.baseInfo.policycontract = [];
-                            this.baseInfo.policycontractdetails = [];
-                            this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
-                            for (let i = 0; i < this.tableF.length; i++) {
-                                this.baseInfo.policycontractdetails.push({
-                                    invoicenumber: this.tableF[i].invoicenumber,
-                                    money: this.tableF[i].money,
-                                    remark: this.tableF[i].remark,
-                                });
-
-                            }
-                            this.loading = true;
-                            if (this.checkcycle === 0) {
-                                if (this.$route.params._id) {
-                                    this.form.policycontract_id = this.$route.params._id;
-                                    this.$store
-                                        .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
-                                        .then(response => {
-                                            this.data = response;
-                                            this.loading = false;
-                                              //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+                      this.data = response;
+                      this.loading = false;
+                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
                       // if (val !== 'update') {
                       //   Message({
                       //     message: this.$t('normal.success_02'),
@@ -961,103 +1042,102 @@
                         }
                       }
                       //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                                        })
-                                        .catch(error => {
-                                            Message({
-                                                message: error,
-                                                type: 'error',
-                                                duration: 5 * 1000,
-                                            });
-                                            this.loading = false;
-                                        });
-                                } else {
-
-                                    this.$store
-                                        .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
-                                        .then(response => {
-                                            this.data = response;
-                                            this.loading = false;
-                                            Message({
-                                                message: this.$t('normal.success_01'),
-                                                type: 'success',
-                                                duration: 5 * 1000,
-                                            });
-                                            this.paramsTitle();
-                                        })
-                                        .catch(error => {
-                                            Message({
-                                                message: error,
-                                                type: 'error',
-                                                duration: 5 * 1000,
-                                            });
-                                            this.loading = false;
-                                        });
-
-                                }
-                            } else {
-                                Message({
-                                    message: this.$t('label.PFANS1045VIEW_CHECK5'),
-                                    type: 'error',
-                                    duration: 5 * 1000,
-                                });
-                                this.loading = false;
-                            }
-                        } else {
-                            Message({
-                                message: this.$t('normal.error_12'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                        }
-                    });
-                }
-            },
-            getsupplierinfor() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS6003Store/getsupplierinfor2')
-                    .then(response => {
-                        this.gridData = [];
-                        for (let i = 0; i < response.length; i++) {
-                            var vote = {};
-                            vote.suppliername = response[i].supchinese;
-                            vote.payeename = response[i].payeename;
-                            vote.suppliercode = response[i].suppliercode;
-                            vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
-                            vote.payeebankaccount = response[i].payeebankaccount;
-                            this.gridData.push(vote);
-                        }
-                        this.loading = false;
                     })
                     .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
                     });
-            },
-
-            handleClickChange(val) {
-                this.currentRow = val.suppliername;
-            },
-            submit() {
-                let val = this.currentRow;
-                this.dialogTableVisible = false;
-                this.form.outsourcingcompany = val;
-            },
-            getUserids(val) {
-                this.userlist = val;
-                this.form.user_id = val;
-                if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
-                    this.error = this.$t('normal.error_08') + this.$t('label.applicant');
                 } else {
-                    this.error = '';
+
+                  this.$store
+                    .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
+                    .then(response => {
+                      this.data = response;
+                      this.loading = false;
+                      Message({
+                        message: this.$t('normal.success_01'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.paramsTitle();
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    });
                 }
-            },
-        },
-    };
+              } else {
+                Message({
+                  message: this.$t('label.PFANS1045VIEW_CHECK5'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          });
+        }
+      },
+      getsupplierinfor() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6003Store/getsupplierinfor2')
+          .then(response => {
+            this.gridData = [];
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.suppliername = response[i].supchinese;
+              vote.payeename = response[i].payeename;
+              vote.suppliercode = response[i].suppliercode;
+              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+              vote.payeebankaccount = response[i].payeebankaccount;
+              this.gridData.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+
+      handleClickChange(val) {
+        this.currentRow = val.suppliername;
+      },
+      submit() {
+        let val = this.currentRow;
+        this.dialogTableVisible = false;
+        this.form.outsourcingcompany = val;
+      },
+      getUserids(val) {
+        this.userlist = val;
+        this.form.user_id = val;
+        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.applicant');
+        } else {
+          this.error = '';
+        }
+      },
+    },
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
