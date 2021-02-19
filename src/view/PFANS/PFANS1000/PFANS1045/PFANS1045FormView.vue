@@ -938,14 +938,29 @@
                                         .then(response => {
                                             this.data = response;
                                             this.loading = false;
-                                            if (val !== 'update') {
-                                                Message({
-                                                    message: this.$t('normal.success_02'),
-                                                    type: 'success',
-                                                    duration: 5 * 1000,
-                                                });
-                                                this.paramsTitle();
-                                            }
+                                              //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+                      // if (val !== 'update') {
+                      //   Message({
+                      //     message: this.$t('normal.success_02'),
+                      //     type: 'success',
+                      //     duration: 5 * 1000,
+                      //   });
+                      //   this.paramsTitle();
+                      // }
+                      if (val !== 'update') {
+                        Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                        });
+                        if (this.$store.getters.historyUrl && val != 'StartWorkflow') {
+                          this.paramsTitle();
+                        }
+                        if (val === 'StartWorkflow') {
+                          this.$refs.container.$refs.workflow.startWorkflow();
+                        }
+                      }
+                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
                                         })
                                         .catch(error => {
                                             Message({
