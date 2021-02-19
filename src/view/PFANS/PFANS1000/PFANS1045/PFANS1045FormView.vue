@@ -3,6 +3,8 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :title="title"
+      @StartWorkflow="buttonClick"
+      :defaultStart="defaultStart"
       @buttonClick="buttonClick"
       :canStart="canStart"
       @end="end" @start="start" @workflowState="workflowState"
@@ -378,6 +380,7 @@
     },
     data() {
       return {
+        defaultStart: false,
         workflowCode: 'W0095',
         //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
         working: '',
