@@ -5,6 +5,8 @@
       :title="title"
       @buttonClick="buttonClick"
       :canStart="canStart"
+      @StartWorkflow="buttonClick"
+      :defaultStart="defaultStart"
       @end="end" @start="start" @workflowState="workflowState"
       ref="container"
       v-loading="loading"
@@ -378,6 +380,7 @@
     },
     data() {
       return {
+        defaultStart: false,
         workflowCode: 'W0095',
         //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
         working: '',
