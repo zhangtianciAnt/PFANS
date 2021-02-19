@@ -383,6 +383,7 @@
         defaultStart: false,
         workflowCode: 'W0095',
         //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        checkstatus: '',
         working: '',
         starttime: '',
         endTime: '',
@@ -782,26 +783,103 @@
         }
       },
       workflowState(val) {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.checkstatus = 1;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('save');
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
       },
       start(val) {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.checkstatus = 0;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
         if (val.state === '0') {
           this.form.status = '2';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('save');
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
       },
       //upd 审批流程 to
       end() {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        this.checkstatus = 1;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
         this.form.status = '0';
-        this.buttonClick('save');
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
       },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      buttonClick2() {
+        this.form.user_id = this.userlist;
+        if (this.checkstatus == 1) {
+          this.form.yearss = this.getworkinghours(this.form.yearss);
+        }
+        this.baseInfo = {};
+        this.baseInfo.policycontract = [];
+        this.baseInfo.policycontractdetails = [];
+        this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
+        for (let i = 0; i < this.tableF.length; i++) {
+          this.baseInfo.policycontractdetails.push({
+            invoicenumber: this.tableF[i].invoicenumber,
+            money: this.tableF[i].money,
+            remark: this.tableF[i].remark,
+          });
+        }
+        this.loading = true;
+        if (this.$route.params._id) {
+          this.form.policycontract_id = this.$route.params._id;
+          this.$store
+            .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.$store
+            .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_01'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
       //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
       // changeAcc(val) {
       //   if (this.form.outsourcingcompany === '') {
