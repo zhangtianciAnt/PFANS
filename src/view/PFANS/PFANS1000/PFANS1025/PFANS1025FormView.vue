@@ -997,63 +997,63 @@
                                     moneys: response[i].modifiedamount,
                                 });
                             }
- //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
               // if (this.optionsdata.length > 0) {
               //   this.getpolicycontract(this.optionsdata[0].value);
               // }
-              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-                            this.loading = false;
-                        },
-                    ).catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+              this.loading = false;
             },
-            // add-ws-7/17-禅道116任务
-            //add-ws-4/17-审批过程中数据可编辑问题修改
-            setdisabled(val) {
-                if (this.$route.params.disabled) {
-                    this.disable = val;
-                }
-            },
-            //add-ws-4/17-审批过程中数据可编辑问题修改
-            //add-ws-添加上传附件功能-
-            fileError(err, file, fileList) {
-                Message({
-                    message: this.$t('normal.error_04'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                });
-            },
-            fileRemove(file, fileList) {
-                this.fileList = [];
-                this.form.uploadfile = '';
-                for (var item of fileList) {
-                    let o = {};
-                    o.name = item.name;
-                    o.url = item.url;
-                    this.fileList.push(o);
-                    this.form.uploadfile += item.name + ',' + item.url + ';';
-                }
-            },
-            filechange(file, fileList) {
-                this.$refs.reff.validateField('enclosurecontent');
-            },
-            fileDownload(file) {
-                if (file.url) {
-                    file.url = file.url.replace('%', '%25');
-                    file.url = file.url.replace('#', '%23');
-                    file.url = file.url.replace('&', '%26');
-                    file.url = file.url.replace('+', '%2B');
-                    file.url = file.url.replace('=', '%3D');
-                    file.url = file.url.replace('?', '%3F');
-                    var url = downLoadUrl(file.url);
-                    window.open(url);
-                }
+          ).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.loading = false;
+        });
+      },
+      // add-ws-7/17-禅道116任务
+      //add-ws-4/17-审批过程中数据可编辑问题修改
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disable = val;
+        }
+      },
+      //add-ws-4/17-审批过程中数据可编辑问题修改
+      //add-ws-添加上传附件功能-
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      filechange(file, fileList) {
+        this.$refs.reff.validateField('enclosurecontent');
+      },
+      fileDownload(file) {
+        if (file.url) {
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
 
             },
             fileSuccess(response, file, fileList) {
@@ -1571,7 +1571,7 @@
                                     return;
                                 }
                             }
-//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
 //               this.$store
 //                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
 //                 .then(response => {
@@ -1679,7 +1679,7 @@
                                         this.loading = false;
                                     });
                             }
-//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
                         } else {
                             Message({
                                 message: this.$t('normal.error_12'),

@@ -172,7 +172,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <!--               UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078 -->
+                <!--               UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from -->
                 <!--                <el-col :span="8">-->
                 <!--                  <el-form-item :label="$t('label.fiscal_year')" prop="yearss">-->
                 <!--                    <div class="block">-->
@@ -201,8 +201,8 @@
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
-                <!--                UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078 -->
-                <!--                DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078 -->
+                <!--                UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to -->
+                <!--                DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from -->
                 <!--                <el-col :span="8">-->
                 <!--                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="cycle">-->
                 <!--                    <el-select v-model="form.cycle" :disabled="!disable" style="width: 19.5vw" clearable-->
@@ -216,7 +216,7 @@
                 <!--                    </el-select>-->
                 <!--                  </el-form-item>-->
                 <!--                </el-col>-->
-                <!--                DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078 -->
+                <!--                DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to -->
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
@@ -382,12 +382,12 @@
       return {
         defaultStart: false,
         workflowCode: 'W0095',
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         checkstatus: '',
         working: '',
         starttime: '',
         endTime: '',
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         checkcycle: 0,
         show10: true,
         canStart: true,
@@ -412,7 +412,7 @@
             remark: '',
           },
         ],
-        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         // options: [{
         //   value: '0',
         //   label: this.$t('label.PFANS2007VIEW_YEAR'),
@@ -435,21 +435,21 @@
         //   value: '6',
         //   label: this.$t('label.PFANS1045VIEW_CYCLE6'),
         // }],
-        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         search: '',
         currentRow: '',
         formLabelWidth: '120px',
         userlist: '',
         form: {
-          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, 'y').format('YYYY'),
           yearss: '',
-          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
           summonet: '',
           remark: '',
-          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // cycle: '',
-          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
           applicationdate: new Date(),
           amountcase: '',
           modifiedamount: '',
@@ -485,13 +485,13 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
             trigger: 'prop',
           }],
-          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // cycle: [{
           //   required: true,
           //   message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
           //   trigger: 'change',
           // }],
-          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         },
 
       };
@@ -535,14 +535,14 @@
               }
             }
             this.userlist = this.form.user_id;
-            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
             if (this.form.yearss !== '' && this.form.yearss !== null) {
               let claimdatetime = this.form.yearss;
               let claimdatetim = claimdatetime.slice(0, 7);
               let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 7);
               this.form.yearss = [claimdatetim, claimdatetime1];
             }
-            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
             this.loading = false;
           })
           .catch(error => {
@@ -566,7 +566,7 @@
       this.disable2 = this.$route.params.disabled;
     },
     methods: {
-      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
       filterInfo() {
         this.working = this.getworkinghours(this.form.yearss);
         if (this.working === '') {
@@ -594,12 +594,12 @@
           return '';
         }
       },
-      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
       // showData() {
       //   this.form.yearss = moment(this.form.yearss).format('YYYY');
       // },
-      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
@@ -783,45 +783,45 @@
         }
       },
       workflowState(val) {
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         this.checkstatus = 1;
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         // this.buttonClick("save");
         this.buttonClick2();
-        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       },
       start(val) {
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         this.checkstatus = 0;
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         if (val.state === '0') {
           this.form.status = '2';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         // this.buttonClick("save");
         this.buttonClick2();
-        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       },
       //upd 审批流程 to
       end() {
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         this.checkstatus = 1;
-        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         this.form.status = '0';
-        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         // this.buttonClick("save");
         this.buttonClick2();
-        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       },
-      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
       buttonClick2() {
         this.form.user_id = this.userlist;
         if (this.checkstatus == 1) {
@@ -879,8 +879,8 @@
             });
         }
       },
-      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
-      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
       // changeAcc(val) {
       //   if (this.form.outsourcingcompany === '') {
       //     this.form.cycle = '';
@@ -957,7 +957,7 @@
           this.loading = false;
         });
       },
-      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       paramsTitle() {
         this.$router.push({
           name: 'PFANS1045View',
@@ -993,9 +993,9 @@
                 }
               }
               this.form.user_id = this.userlist;
-              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
               this.form.yearss = this.getworkinghours(this.form.yearss);
-              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               this.baseInfo = {};
               this.baseInfo.policycontract = [];
               this.baseInfo.policycontractdetails = [];
@@ -1019,7 +1019,7 @@
                     .then(response => {
                       this.data = response;
                       this.loading = false;
-                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
                       // if (val !== 'update') {
                       //   Message({
                       //     message: this.$t('normal.success_02'),
@@ -1041,7 +1041,7 @@
                           this.$refs.container.$refs.workflow.startWorkflow();
                         }
                       }
-                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
                     })
                     .catch(error => {
                       Message({
