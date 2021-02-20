@@ -1013,7 +1013,9 @@
                     : response[j].type === '4'
                     ? '退職'
                     : '-';
-                response[j].bonus = response[j].bonus === '2' ? this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF') : this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+                //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 FROM
+                response[j].bonus = response[j].bonus;// === '2' ? this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF') : this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+                //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
                 response[j].sociology = response[j].sociology === '1' ? this.$t('label.yes') : '-';
                 response[j].registered = response[j].registered === '1' ? this.$t('label.yes') : '-';
               }
