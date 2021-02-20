@@ -5,6 +5,8 @@
       :title="title"
       @buttonClick="buttonClick"
       :canStart="canStart"
+      @StartWorkflow="buttonClick"
+      :defaultStart="defaultStart"
       @end="end" @start="start" @workflowState="workflowState"
       ref="container"
       v-loading="loading"
@@ -170,33 +172,51 @@
                 </el-col>
               </el-row>
               <el-row>
+                <!--               UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from -->
+                <!--                <el-col :span="8">-->
+                <!--                  <el-form-item :label="$t('label.fiscal_year')" prop="yearss">-->
+                <!--                    <div class="block">-->
+                <!--                      <el-date-picker-->
+                <!--                        :disabled="!disable"-->
+                <!--                        style="width: 20vw"-->
+                <!--                        type="year"-->
+                <!--                        v-model="form.yearss"-->
+                <!--                        @change="showData">>-->
+                <!--                      </el-date-picker>-->
+                <!--                    </div>-->
+                <!--                  </el-form-item>-->
+                <!--                </el-col>-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.fiscal_year')" prop="yearss">
-                    <div class="block">
-                      <el-date-picker
-                        :disabled="!disable"
-                        style="width: 20vw"
-                        type="year"
-                        v-model="form.yearss"
-                        @change="showData">>
-                      </el-date-picker>
-                    </div>
+                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
+                    <el-date-picker
+                      unlink-panels
+                      class="bigWidth"
+                      v-model="form.yearss"
+                      style="margin-right:1vw"
+                      type="monthrange"
+                      :end-placeholder="$t('label.enddate')"
+                      :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                      :start-placeholder="$t('label.startdate')"
+                      @change="filterInfo"
+                    ></el-date-picker>
                   </el-form-item>
                 </el-col>
-
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="cycle">
-                    <el-select v-model="form.cycle" :disabled="!disable" style="width: 19.5vw" clearable
-                               @change="changeAcc">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                      </el-option>
-                    </el-select>
-                  </el-form-item>
-                </el-col>
+                <!--                UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to -->
+                <!--                DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from -->
+                <!--                <el-col :span="8">-->
+                <!--                  <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="cycle">-->
+                <!--                    <el-select v-model="form.cycle" :disabled="!disable" style="width: 19.5vw" clearable-->
+                <!--                               @change="changeAcc">-->
+                <!--                      <el-option-->
+                <!--                        v-for="item in options"-->
+                <!--                        :key="item.value"-->
+                <!--                        :label="item.label"-->
+                <!--                        :value="item.value">-->
+                <!--                      </el-option>-->
+                <!--                    </el-select>-->
+                <!--                  </el-form-item>-->
+                <!--                </el-col>-->
+                <!--                DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to -->
               </el-row>
               <el-row>
                 <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
@@ -360,7 +380,14 @@
     },
     data() {
       return {
+        defaultStart: false,
         workflowCode: 'W0095',
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        checkstatus: '',
+        working: '',
+        starttime: '',
+        endTime: '',
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         checkcycle: 0,
         show10: true,
         canStart: true,
@@ -385,37 +412,44 @@
             remark: '',
           },
         ],
-        options: [{
-          value: '0',
-          label: this.$t('label.PFANS2007VIEW_YEAR'),
-        }, {
-          value: '1',
-          label: this.$t('label.PFANS1045VIEW_CYCLE1'),
-        }, {
-          value: '2',
-          label: this.$t('label.PFANS1045VIEW_CYCLE2'),
-        }, {
-          value: '3',
-          label: this.$t('label.PFANS1045VIEW_CYCLE3'),
-        }, {
-          value: '4',
-          label: this.$t('label.PFANS1045VIEW_CYCLE4'),
-        }, {
-          value: '5',
-          label: this.$t('label.PFANS1045VIEW_CYCLE5'),
-        }, {
-          value: '6',
-          label: this.$t('label.PFANS1045VIEW_CYCLE6'),
-        }],
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        // options: [{
+        //   value: '0',
+        //   label: this.$t('label.PFANS2007VIEW_YEAR'),
+        // }, {
+        //   value: '1',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE1'),
+        // }, {
+        //   value: '2',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE2'),
+        // }, {
+        //   value: '3',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE3'),
+        // }, {
+        //   value: '4',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE4'),
+        // }, {
+        //   value: '5',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE5'),
+        // }, {
+        //   value: '6',
+        //   label: this.$t('label.PFANS1045VIEW_CYCLE6'),
+        // }],
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         search: '',
         currentRow: '',
         formLabelWidth: '120px',
         userlist: '',
         form: {
-          yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, "y").format('YYYY'),
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+          // yearss: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : moment(new Date()).subtract(1, 'y').format('YYYY'),
+          yearss: '',
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
           summonet: '',
           remark: '',
-          cycle: '',
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+          // cycle: '',
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
           applicationdate: new Date(),
           amountcase: '',
           modifiedamount: '',
@@ -448,14 +482,16 @@
           }],
           yearss: [{
             required: true,
-            message: this.$t('normal.error_09') + this.$t('label.fiscal_year'),
+            message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
             trigger: 'prop',
           }],
-          cycle: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
-            trigger: 'change',
-          }],
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+          // cycle: [{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.PFANS1045VIEW_CYCLE'),
+          //   trigger: 'change',
+          // }],
+          //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         },
 
       };
@@ -499,6 +535,14 @@
               }
             }
             this.userlist = this.form.user_id;
+            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+            if (this.form.yearss !== '' && this.form.yearss !== null) {
+              let claimdatetime = this.form.yearss;
+              let claimdatetim = claimdatetime.slice(0, 7);
+              let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 7);
+              this.form.yearss = [claimdatetim, claimdatetime1];
+            }
+            //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
             this.loading = false;
           })
           .catch(error => {
@@ -522,9 +566,40 @@
       this.disable2 = this.$route.params.disabled;
     },
     methods: {
-      showData() {
-        this.form.yearss = moment(this.form.yearss).format('YYYY');
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+      filterInfo() {
+        this.working = this.getworkinghours(this.form.yearss);
+        if (this.working === '') {
+          this.starttime = moment(new Date()).startOf('month').format('YYYY-MM');
+          this.endTime = moment(new Date()).endOf('month').format('YYYY-MM');
+          this.changeAcc();
+        } else {
+          this.starttime = this.working.substring(0, 7);
+          this.endTime = this.working.substring(10, 17);
+          this.changeAcc();
+        }
       },
+      getworkinghours(workinghours) {
+        if (workinghours != null) {
+          if (workinghours.length > 0) {
+            return (
+              moment(workinghours[0]).format('YYYY-MM') +
+              ' ~ ' +
+              moment(workinghours[1]).format('YYYY-MM')
+            );
+          } else {
+            return '';
+          }
+        } else {
+          return '';
+        }
+      },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+      // showData() {
+      //   this.form.yearss = moment(this.form.yearss).format('YYYY');
+      // },
+      //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       viewdata(row) {
         this.$store.commit('global/SET_HISTORYURL', '');
         this.$store.commit('global/SET_WORKFLOWURL', '/FFFFF1012FormView');
@@ -708,29 +783,143 @@
         }
       },
       workflowState(val) {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        this.checkstatus = 1;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('save');
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       },
       start(val) {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        this.checkstatus = 0;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         if (val.state === '0') {
           this.form.status = '2';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick('save');
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       },
       //upd 审批流程 to
       end() {
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        this.checkstatus = 1;
+        //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         this.form.status = '0';
-        this.buttonClick('save');
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        // this.buttonClick("save");
+        this.buttonClick2();
+        //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       },
-      changeAcc(val) {
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+      buttonClick2() {
+        this.form.user_id = this.userlist;
+        if (this.checkstatus == 1) {
+          this.form.yearss = this.getworkinghours(this.form.yearss);
+        }
+        this.baseInfo = {};
+        this.baseInfo.policycontract = [];
+        this.baseInfo.policycontractdetails = [];
+        this.baseInfo.policycontract = JSON.parse(JSON.stringify(this.form));
+        for (let i = 0; i < this.tableF.length; i++) {
+          this.baseInfo.policycontractdetails.push({
+            invoicenumber: this.tableF[i].invoicenumber,
+            money: this.tableF[i].money,
+            remark: this.tableF[i].remark,
+          });
+        }
+        this.loading = true;
+        if (this.$route.params._id) {
+          this.form.policycontract_id = this.$route.params._id;
+          this.$store
+            .dispatch('PFANS1006Store/updatepolicycontract', this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.$store
+            .dispatch('PFANS1006Store/createpolicycontract', this.baseInfo)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_01'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+      // changeAcc(val) {
+      //   if (this.form.outsourcingcompany === '') {
+      //     this.form.cycle = '';
+      //     Message({
+      //       message: this.$t('label.PFANS1045VIEW_CHECK3'),
+      //       type: 'error',
+      //       duration: 5 * 1000,
+      //     });
+      //     return;
+      //   }
+      //   this.checkcycle = 0;
+      //   this.form.cycle = val;
+      //   this.loading = true;
+      //   this.$store
+      //     .dispatch('PFANS1006Store/chackcycle', this.form)
+      //     .then(response => {
+      //       if (response.length > 4) {
+      //         this.checkcycle = 1;
+      //         Message({
+      //           message: this.$t('label.PFANS1045VIEW_CHECK2'),
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //       } else {
+      //         this.loading = false;
+      //       }
+      //     }).catch(error => {
+      //     Message({
+      //       message: error,
+      //       type: 'error',
+      //       duration: 5 * 1000,
+      //     });
+      //     this.loading = false;
+      //   });
+      // },
+      changeAcc() {
         if (this.form.outsourcingcompany === '') {
-          this.form.cycle = '';
+          this.form.yearss = '';
           Message({
             message: this.$t('label.PFANS1045VIEW_CHECK3'),
             type: 'error',
@@ -739,12 +928,16 @@
           return;
         }
         this.checkcycle = 0;
-        this.form.cycle = val;
+        let parameter = {
+          outsourcingcompany: this.form.outsourcingcompany,
+          cycle: this.starttime,
+          yearss: this.endTime,
+        };
         this.loading = true;
         this.$store
-          .dispatch('PFANS1006Store/chackcycle', this.form)
+          .dispatch('PFANS1006Store/chackcycle', parameter)
           .then(response => {
-            if (response.length > 4) {
+            if (!response) {
               this.checkcycle = 1;
               Message({
                 message: this.$t('label.PFANS1045VIEW_CHECK2'),
@@ -764,6 +957,7 @@
           this.loading = false;
         });
       },
+      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
       paramsTitle() {
         this.$router.push({
           name: 'PFANS1045View',
@@ -799,6 +993,9 @@
                 }
               }
               this.form.user_id = this.userlist;
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+              this.form.yearss = this.getworkinghours(this.form.yearss);
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               this.baseInfo = {};
               this.baseInfo.policycontract = [];
               this.baseInfo.policycontractdetails = [];
@@ -812,7 +1009,9 @@
 
               }
               this.loading = true;
+
               if (this.checkcycle === 0) {
+
                 if (this.$route.params._id) {
                   this.form.policycontract_id = this.$route.params._id;
                   this.$store
@@ -820,14 +1019,29 @@
                     .then(response => {
                       this.data = response;
                       this.loading = false;
+                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+                      // if (val !== 'update') {
+                      //   Message({
+                      //     message: this.$t('normal.success_02'),
+                      //     type: 'success',
+                      //     duration: 5 * 1000,
+                      //   });
+                      //   this.paramsTitle();
+                      // }
                       if (val !== 'update') {
                         Message({
                           message: this.$t('normal.success_02'),
                           type: 'success',
                           duration: 5 * 1000,
                         });
-                        this.paramsTitle();
+                        if (this.$store.getters.historyUrl && val != 'StartWorkflow') {
+                          this.paramsTitle();
+                        }
+                        if (val === 'StartWorkflow') {
+                          this.$refs.container.$refs.workflow.startWorkflow();
+                        }
                       }
+                      //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
                     })
                     .catch(error => {
                       Message({
@@ -859,7 +1073,6 @@
                       });
                       this.loading = false;
                     });
-
                 }
               } else {
                 Message({

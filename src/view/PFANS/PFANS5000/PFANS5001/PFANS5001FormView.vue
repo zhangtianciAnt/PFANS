@@ -909,7 +909,7 @@
                         <div class="dpSupIndex" style="width:16vw">
                           <el-container>
                             <input class="content bg" v-model="scope.row.contract"
-                                   :disabled="!disable" style="min-width: 50%;width: 50%"></input>
+                                   :disabled="true" style="min-width: 50%;width: 50%"></input>
                             <el-button :disabled="!disable" icon="el-icon-search" @click="changecontract(scope.row)"
                                        size="small"></el-button>
                             <el-dialog :visible.sync="dialogTableVisible3" center
@@ -1309,7 +1309,7 @@
         //add-12/24-审批check
         defaultStart: false,
         //add-12/24-审批check
-        workcode: '',
+        workcode: 'W0064',
         tableclaimtype: [{
           claimtype: '',
           deliverydate: '',
@@ -2061,6 +2061,7 @@
     },
     methods: {
       getContractNumber() {
+        this.loading = true;
         for (let h = 0; h < this.tableAnt.length; h++) {
           this.$store
             .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
@@ -2077,7 +2078,7 @@
                 this.tableD[h].contractrequestamount = response.claimamount,
                 this.tableD[h].contract = response.contractnumber,
                 this.tableD[h].workinghours = response.claimdatetimeqh;
-
+              this.loading = false;
             });
         }
       },
@@ -2550,6 +2551,7 @@
         }
         //add-ws-6/9-禅道任务080
         this.dialogTableVisible3 = false;
+        this.search = '';
         //region复合合同金额分配
         // if (this.compounddata.length > 0) {
         //   let dic = this.compounddata.filter(item => item.contractnumber === row.contract

@@ -34,7 +34,7 @@
               </el-radio>
             </el-col>
           </el-row>
-          <el-tabs type="border-card" v-model="activeName" @tab-click="balenceClick">
+          <el-tabs type="border-card" v-model="activeName">
             <el-tab-pane :label="$t('label.PFANS1013VIEW_TOTAL')" name="first">
               <div>
                 <el-row>
@@ -241,7 +241,7 @@
                           v-for="item in loans">
                         </el-option>
                       </el-select>
-                      <el-button @click="clickBunloan" size="small" type="primary">{{this.$t('button.view')}}
+                      <el-button @click="clickBunloan" :disabled="disable" size="small" type="primary">{{this.$t('button.view')}}
                       </el-button>
                     </el-form-item>
                   </el-col>
@@ -687,7 +687,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
-                                     v-if="this.form.type === '0'? false : true" width="200">
+                                     v-if="showforeigncurrency" width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="checktaxes"
@@ -1149,7 +1149,7 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                      prop="foreigncurrency"
-                                     v-if="this.form.type === '0'? false : true" width="200">
+                                     v-if="showforeigncurrency" width="200">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="checktaxes"
@@ -1510,6 +1510,7 @@
         multiple: false,
         show2: false,
         showAout: false,
+        showforeigncurrency: false,
         canStart: false,
         rank: '',
         fileList: [],
@@ -1560,7 +1561,6 @@
         });
       }
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
-      this.getLoanapp();
       this.getCompanyProjectList();
       this.checkOption();
       if (this.params_id) {
@@ -1794,6 +1794,7 @@
               this.show = true;
               this.show2 = false;
               this.showAout = false;
+              this.showforeigncurrency = false;
               this.showrow = true;
               this.showrow3 = true;
               this.showrow2 = false;
@@ -1802,6 +1803,7 @@
               this.showAout = true;
               this.show = false;
               this.show2 = true;
+              this.showforeigncurrency = true;
               this.showrow = false;
               this.showrow2 = true;
               this.showrow3 = false;
@@ -2016,7 +2018,7 @@
               {
                 key: 'save',
                 name: 'button.save',
-                disabled: false,
+                disabled: true,
                 icon: 'el-icon-check',
               },
             ];
@@ -2180,41 +2182,6 @@
       //     }
       //   }
       // },
-      getLoanapp() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS1013Store/getLoanApplication')
-          .then(response => {
-            for (let i = 0; i < response.length; i++) {
-              if (this.disable) {
-                if (response[i].status === '4' && this.$store.getters.userinfo.userid === response[i].user_id) {
-                  this.loans.push({
-                    value: response[i].loanapplication_id,
-                    label: this.$t('menu.PFANS1006') + '_' + response[i].loanapno,
-                    moneys: response[i].moneys,
-                  });
-                }
-              } else {
-                if (response[i].status === '4') {
-                  this.loans.push({
-                    value: response[i].loanapplication_id,
-                    label: this.$t('menu.PFANS1006') + '_' + response[i].loanapno,
-                    moneys: response[i].moneys,
-                  });
-                }
-              }
-            }
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            this.loading = false;
-          });
-      },
       //add_fjl_0820 添加境内出差申请申请精算书联动 start
       busInt() {
         if (this.$route.params._name) {
@@ -2673,6 +2640,7 @@
           this.show = true;
           this.show2 = false;
           this.showAout = false;
+          this.showforeigncurrency = false;
           this.showrow3 = true;
           this.showrow = true;
           this.showrow2 = false;
@@ -2686,6 +2654,7 @@
           this.show = false;
           this.show2 = true;
           this.showAout = true;
+          this.showforeigncurrency = true;
           this.showrow3 = false;
           this.showrow = false;
           this.showrow2 = true;
@@ -2730,7 +2699,6 @@
         } else {
           row.exchangermb = 0.00;
         }
-        this.changebalance();
       },
       changesummoney(row) {
         row.facetax = row.invoiceamount - row.excludingtax;
@@ -2992,11 +2960,7 @@
             this.optionsdata.push(vote);
         }
       },
-      balenceClick(tab, event) {
-        if (tab.name == 'first') {
-          this.form.balance = this.form.loanamount - this.form.totalpay;
-        }
-      },
+
       fileError(err, file, fileList) {
         Message({
           message: this.$t('normal.error_04'),
@@ -3327,11 +3291,29 @@
       change2(val) {
         this.form.loan = val;
         this.form.loanamount = '';
-        for (var i = 0; i < this.loans.length; i++) {
-          if (this.loans[i].value === val) {
-            this.form.loanamount = this.loans[i].moneys;
-          }
-        }
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1013Store/getLoanApplication')
+          .then(response => {
+            response = response.filter(item => (item.loanapplication_id == val));
+            if (response.length > 0) {
+              this.loans.push({
+                value: response[0].loanapplication_id,
+                label: this.$t('menu.PFANS1006') + '_' + response[0].loanapno,
+                moneys: response[0].moneys,
+              });
+              this.form.loanamount = response[0].moneys;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
       },
       getsummaries(param) {
         const {columns, data} = param;
@@ -3503,75 +3485,8 @@
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
           this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
-          //add-ws-5/11-结余公式重新计算
-          this.changebalance();
-          //add-ws-5/11-结余公式重新计算
         }
       },
-      //add-ws-5/11-结余公式重新计算
-      changebalance() {
-        let sumoutold = 0;
-        let Newsumout = 0;
-        let summoneyt = 0;
-        let summoneya = 0;
-        let summoneyr = 0;
-        for (let i = 0; i < this.tableT.length; i++) {
-          if (this.tableT[i].currency === '') {
-            summoneyt += this.tableT[i].rmb;
-          }
-        }
-        for (let i = 0; i < this.tableA.length; i++) {
-          if (this.tableA[i].currency === '') {
-            summoneya += this.tableA[i].rmb;
-          }
-        }
-        for (let i = 0; i < this.tableR.length; i++) {
-          if (this.tableR[i].currency === '') {
-            summoneyr += this.tableR[i].rmb;
-          }
-        }
-
-        for (let j = 0; j < this.tableW.length; j++) {
-          let summoney = 0;
-          let summoneyT = 0;
-          let sumMoney = 0;
-          let sumout = 0;
-          let exchangerate = 0;
-          for (let i = 0; i < this.tableT.length; i++) {
-            if (this.tableT[i].currency !== '') {
-              if (this.tableT[i].currency == this.tableW[j].currency) {
-                if (this.tableT[i].foreigncurrency != '0') {
-                  summoneyT += this.tableT[i].foreigncurrency;
-                }
-              }
-            }
-          }
-          for (let i = 0; i < this.tableA.length; i++) {
-            if (this.tableA[i].currency !== '') {
-              if (this.tableA[i].currency == this.tableW[j].currency) {
-                if (this.tableA[i].travel != '0') {
-                  summoney += this.tableA[i].travel;
-                }
-              }
-            }
-          }
-          for (let i = 0; i < this.tableR.length; i++) {
-            if (this.tableR[i].currency !== '') {
-              if (this.tableR[i].currency == this.tableW[j].currency) {
-                if (this.tableR[i].foreigncurrency != '0') {
-                  sumMoney += this.tableR[i].foreigncurrency;
-                }
-              }
-            }
-          }
-          exchangerate = this.tableW[j].exchangerate;
-          sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
-          sumoutold += parseFloat(sumout);
-        }
-        Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
-        this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;
-      },
-      //add-ws-5/11-结余公式重新计算
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
@@ -3658,7 +3573,6 @@
         if (curinfo) {
           row.currencyexchangerate = curinfo.exchangerate;
         }
-        this.changebalance();
       },
       changeAcc(val, row) {
         row.currency = val;
@@ -3700,9 +3614,73 @@
         }
         //add-ws-8/29-禅道bug066
         if (val === 'save') {
-          this.form.balance = this.form.loanamount - this.form.totalpay;
+
           this.$refs['refform'].validate(valid => {
               if (valid) {
+                if (this.form.type === '0') {
+                  this.form.balance = this.form.loanamount - this.form.totalpay;
+                } else {
+                  let sumoutold = 0;
+                  let Newsumout = 0;
+                  let summoneyt = 0;
+                  let summoneya = 0;
+                  let summoneyr = 0;
+                  for (let i = 0; i < this.tableT.length; i++) {
+                    if (this.tableT[i].currency === '') {
+                      summoneyt += this.tableT[i].rmb;
+                    }
+                  }
+                  for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].currency === '') {
+                      summoneya += this.tableA[i].rmb;
+                    }
+                  }
+                  for (let i = 0; i < this.tableR.length; i++) {
+                    if (this.tableR[i].currency === '') {
+                      summoneyr += this.tableR[i].rmb;
+                    }
+                  }
+
+                  for (let j = 0; j < this.tableW.length; j++) {
+                    let summoney = 0;
+                    let summoneyT = 0;
+                    let sumMoney = 0;
+                    let sumout = 0;
+                    let exchangerate = 0;
+                    for (let i = 0; i < this.tableT.length; i++) {
+                      if (this.tableT[i].currency !== '') {
+                        if (this.tableT[i].currency == this.tableW[j].currency) {
+                          if (this.tableT[i].foreigncurrency != '0') {
+                            summoneyT += this.tableT[i].foreigncurrency;
+                          }
+                        }
+                      }
+                    }
+                    for (let i = 0; i < this.tableA.length; i++) {
+                      if (this.tableA[i].currency !== '') {
+                        if (this.tableA[i].currency == this.tableW[j].currency) {
+                          if (this.tableA[i].travel != '0') {
+                            summoney += this.tableA[i].travel;
+                          }
+                        }
+                      }
+                    }
+                    for (let i = 0; i < this.tableR.length; i++) {
+                      if (this.tableR[i].currency !== '') {
+                        if (this.tableR[i].currency == this.tableW[j].currency) {
+                          if (this.tableR[i].foreigncurrency != '0') {
+                            sumMoney += this.tableR[i].foreigncurrency;
+                          }
+                        }
+                      }
+                    }
+                    exchangerate = this.tableW[j].exchangerate;
+                    sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
+                    sumoutold += parseFloat(sumout);
+                  }
+                  Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
+                  this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;
+                }
                 this.baseInfo = {};
                 this.form.user_id = this.userlist;
                 this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));

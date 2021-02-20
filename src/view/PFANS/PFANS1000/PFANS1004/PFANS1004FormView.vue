@@ -695,7 +695,7 @@
         editorOption: {},
         options: [],
         optionsM: [],
-        workcode: '',
+        workcode: 'W0091',
         centerid: '',
         groupid: '',
         errorgroupM: '',
@@ -1633,6 +1633,7 @@
           this.rules.classificationtype[0].required = false;
         }
       },
+      
       getDecision(val) {
         if(val == 'PJ146006'){
           if(this.role15 == '0'){

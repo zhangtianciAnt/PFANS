@@ -96,7 +96,7 @@
     getCooperinterviewListByAccount,
     getorgGroupList,
     getUserInfo,
-    getCurrentRole11
+    getCurrentRole9
   } from '@/utils/customize';
 
   export default {
@@ -224,7 +224,10 @@
       };
     },
     mounted() {
-      this.roles = getCurrentRole11();
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //this.roles = getCurrentRol1();
+      this.roles = getCurrentRole9();
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
       if (this.roles === '0') {
         this.buttonList[2].disabled = false;
       } else {

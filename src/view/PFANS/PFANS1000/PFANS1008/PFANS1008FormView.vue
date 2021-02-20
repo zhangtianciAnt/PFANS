@@ -205,7 +205,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import {Message} from 'element-ui'
-  import {getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId,getUserInfoName} from '@/utils/customize';
   import org from "../../../components/org";
   import moment from "moment";
 
@@ -582,6 +582,7 @@
           this.getFebud(this.form.ferrygroup_id);
         }
         if (this.selectedList != '') {
+
           this.assetsList = JSON.parse(this.selectedList);
           for (let i = 0; i < this.assetsList.length; i++) {
             var vote = {};
@@ -591,8 +592,12 @@
             if (this.assetsList[i].filename !== null && this.assetsList[i].filename !== '') {
               vote.assetname = this.assetsList[i].filename;
             }
-            if (this.assetsList[i].psdcdreturnconfirmation1 !== null && this.assetsList[i].psdcdreturnconfirmation1 !== '') {
-              vote.person = this.assetsList[i].psdcdreturnconfirmation1;
+            if (this.assetsList[i].principal !== null && this.assetsList[i].principal !== '') {
+              let userinfo = getUserInfoName(this.assetsList[i].principal)
+              if(userinfo != '-1'){
+                debugger
+                vote.person = userinfo.userid;
+              }
             }
             this.tableD.push(vote);
           }

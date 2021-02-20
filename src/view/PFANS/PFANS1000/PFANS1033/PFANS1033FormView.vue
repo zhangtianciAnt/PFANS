@@ -1,4 +1,3 @@
-1
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList"

@@ -258,7 +258,7 @@ export default {
       teamid: "",
       baseInfo: {},
       userlist: "",
-      workflowCode: "",
+      workflowCode: "W0027",
       loading: false,
       //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
       acceptShow: 'true',

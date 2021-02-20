@@ -107,13 +107,13 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')">
                       <!--                      add-ws-12/10-汇率字典-->
-<!--                      <dicselect :code="code3"-->
-<!--                                 :data="form.currencyposition"-->
-<!--                                 :disabled="true"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="getcurrencyformat"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
+                      <!--                      <dicselect :code="code3"-->
+                      <!--                                 :data="form.currencyposition"-->
+                      <!--                                 :disabled="true"-->
+                      <!--                                 :multiple="multiple"-->
+                      <!--                                 @change="getcurrencyformat"-->
+                      <!--                                 style="width:20vw">-->
+                      <!--                      </dicselect>-->
                       <monthlyrate :month="month3"
                                    :data="form.currencyposition"
                                    :disabled="true"
@@ -257,7 +257,7 @@
                   <!--add-ws-7/17-禅道116任务-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_POLICYCONTRACT')">
-                      <el-select v-model="form.policycontract_id" :disabled="true" style="width: 20vw" clearable
+                      <el-select v-model="form.policycontract_id" :disabled="!disable" style="width: 20vw" clearable
                                  @change="getpolicycontract">
                         <el-option
                           v-for="item in optionsdata"
@@ -555,6 +555,7 @@
   } from '@/utils/customize';
   import PFANS1045Pop from '@/components/EasyPop/PFANS1045Pop';
   import monthlyrate from '../../../components/monthlyrate';
+
   export default {
     name: 'PFANS1025FormView',
     components: {
@@ -1002,9 +1003,11 @@
                   moneys: response[i].modifiedamount,
                 });
               }
-              if (this.optionsdata.length > 0) {
-                this.getpolicycontract(this.optionsdata[0].value);
-              }
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+              // if (this.optionsdata.length > 0) {
+              //   this.getpolicycontract(this.optionsdata[0].value);
+              // }
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               this.loading = false;
             },
           ).catch(error => {
@@ -1048,12 +1051,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -1492,7 +1495,7 @@
             let lengths = '';
             for (let b = 0; b < letstaff.length; b++) {
               lengths = letstaff[b].substring(letstaff[b].length - 3, letstaff[b].length),
-              length = length + lengths + ',';
+                length = length + lengths + ',';
             }
             let imgss = length.substring(0, length.length - 1);
             if (check != 0) {
@@ -1518,50 +1521,160 @@
         } else {
           //add-ws-9/25-禅道567
           this.$refs['reff'].validate(valid => {
-            if (valid) {
-              this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
-              this.baseInfo.award.award_id = this.params_id;
-              this.baseInfo.awardDetail = [];
-              for (let i = 0; i < this.tableT.length; i++) {
-                if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
-                  || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
-                  this.baseInfo.awardDetail.push({
-                    awarddetail_id: this.tableT[i].awarddetail_id,
-                    award_id: this.tableT[i].award_id,
-                    budgetcode: this.tableT[i].budgetcode,
-                    depart: this.tableT[i].depart,
-                    member: this.tableT[i].member,
-                    projects: this.tableT[i].projects,
-                    community: this.tableT[i].community,
-                    outsource: this.tableT[i].outsource,
-                    outcommunity: this.tableT[i].outcommunity,
-                    worknumber: this.tableT[i].worknumber,
-                    awardmoney: this.tableT[i].awardmoney,
-                    rowindex: this.tableT[i].rowindex,
-                  });
+              if (valid) {
+                this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
+                this.baseInfo.award.award_id = this.params_id;
+                this.baseInfo.awardDetail = [];
+                for (let i = 0; i < this.tableT.length; i++) {
+                  if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                    || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
+                    this.baseInfo.awardDetail.push({
+                      awarddetail_id: this.tableT[i].awarddetail_id,
+                      award_id: this.tableT[i].award_id,
+                      budgetcode: this.tableT[i].budgetcode,
+                      depart: this.tableT[i].depart,
+                      member: this.tableT[i].member,
+                      projects: this.tableT[i].projects,
+                      community: this.tableT[i].community,
+                      outsource: this.tableT[i].outsource,
+                      outcommunity: this.tableT[i].outcommunity,
+                      worknumber: this.tableT[i].worknumber,
+                      awardmoney: this.tableT[i].awardmoney,
+                      rowindex: this.tableT[i].rowindex,
+                    });
+                  }
                 }
-              }
-              this.loading = true;
-              if (this.modifiedamount != 0) {
-                if (this.form.claimamount > this.modifiedamount) {
+                this.loading = true;
+                if (this.modifiedamount != 0) {
+                  if (this.form.claimamount > this.modifiedamount) {
+                    this.$store
+                      .dispatch('PFANS1025Store/update', this.baseInfo)
+                      .then(response => {
+                        Message({
+                          message: this.$t('label.PFANS1025FROMVIEW_MODIFIEDAMOUNTCHECK'),
+                          type: 'error',
+                          duration: 1 * 1000,
+                        });
+                        this.loading = false;
+                        setTimeout(() => {
+                          this.$router.push({
+                            name: 'PFANS1045View',
+                            params: {
+                              check: this.numbers,
+                            },
+                          });
+                        }, 1500);
+                        return;
+                      })
+                      .catch(error => {
+                        Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      });
+                    return;
+                  }
+                }
+//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+//               this.$store
+//                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
+//                 .then(response => {
+//                   if (response.length == 1) {
+//                     if (this.params_id) {     //郛冶ｾ�
+//                       this.$store
+//                         .dispatch('PFANS1025Store/update', this.baseInfo)
+//                         .then(response => {
+//                           this.data = response;
+//                           this.loading = false;
+//                           Message({
+//                             message: this.$t('normal.success_02'),
+//                             type: 'success',
+//                             duration: 5 * 1000,
+//                           });
+//                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
+//                           if (val === 'StartWorkflow') {
+//                             this.$refs.container.$refs.workflow.startWorkflow();
+//                           } else {
+//                             this.paramsTitle();
+//                           }
+//                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
+//                         })
+//                         .catch(error => {
+//                           Message({
+//                             message: error,
+//                             type: 'error',
+//                             duration: 5 * 1000,
+//                           });
+//                           this.loading = false;
+//                         });
+//                     }
+//                   } else {
+//                     if (this.form.policycontract_id) {
+//                       Message({
+//                         message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
+//                         type: 'error',
+//                         duration: 5 * 1000,
+//                       });
+//                       this.loading = false;
+//                     } else {
+//                       if (this.params_id) {     //郛冶ｾ�
+//                         this.$store
+//                           .dispatch('PFANS1025Store/update', this.baseInfo)
+//                           .then(response => {
+//                             this.data = response;
+//                             this.loading = false;
+//                             Message({
+//                               message: this.$t('normal.success_02'),
+//                               type: 'success',
+//                               duration: 5 * 1000,
+//                             });
+//                             //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
+//                             if (val === 'StartWorkflow') {
+//                               this.$refs.container.$refs.workflow.startWorkflow();
+//                             } else {
+//                               this.paramsTitle();
+//                             }
+//                             //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
+//                           })
+//                           .catch(error => {
+//                             Message({
+//                               message: error,
+//                               type: 'error',
+//                               duration: 5 * 1000,
+//                             });
+//                             this.loading = false;
+//                           });
+//                       }
+//                     }
+//                   }
+//                 }).catch(error => {
+//                 Message({
+//                   message: error,
+//                   type: 'error',
+//                   duration: 5 * 1000,
+//                 });
+//
+//               });
+                if (this.params_id) {     //郛冶ｾ�
                   this.$store
                     .dispatch('PFANS1025Store/update', this.baseInfo)
                     .then(response => {
-                      Message({
-                        message: this.$t('label.PFANS1025FROMVIEW_MODIFIEDAMOUNTCHECK'),
-                        type: 'error',
-                        duration: 1 * 1000,
-                      });
+                      this.data = response;
                       this.loading = false;
-                      setTimeout(() => {
-                        this.$router.push({
-                          name: 'PFANS1045View',
-                          params: {
-                            check: this.numbers,
-                          },
-                        });
-                      }, 1500);
-                      return;
+                      Message({
+                        message: this.$t('normal.success_02'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
+                      if (val === 'StartWorkflow') {
+                        this.$refs.container.$refs.workflow.startWorkflow();
+                      } else {
+                        this.paramsTitle();
+                      }
+                      //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
                     })
                     .catch(error => {
                       Message({
@@ -1571,99 +1684,17 @@
                       });
                       this.loading = false;
                     });
-                  return;
                 }
-              }
-
-              this.$store
-                .dispatch('PFANS1025Store/checkby', this.baseInfo)
-                .then(response => {
-                  if (response.length == 1) {
-                    if (this.params_id) {     //郛冶ｾ�
-                      this.$store
-                        .dispatch('PFANS1025Store/update', this.baseInfo)
-                        .then(response => {
-                          this.data = response;
-                          this.loading = false;
-                          Message({
-                            message: this.$t('normal.success_02'),
-                            type: 'success',
-                            duration: 5 * 1000,
-                          });
-                          //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
-                          if (val === 'StartWorkflow') {
-                            this.$refs.container.$refs.workflow.startWorkflow();
-                          } else {
-                            this.paramsTitle();
-                          }
-                          //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-                        })
-                        .catch(error => {
-                          Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                          });
-                          this.loading = false;
-                        });
-                    }
-                  } else {
-                    if (this.form.policycontract_id) {
-                      Message({
-                        message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    } else {
-                      if (this.params_id) {     //郛冶ｾ�
-                        this.$store
-                          .dispatch('PFANS1025Store/update', this.baseInfo)
-                          .then(response => {
-                            this.data = response;
-                            this.loading = false;
-                            Message({
-                              message: this.$t('normal.success_02'),
-                              type: 'success',
-                              duration: 5 * 1000,
-                            });
-                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
-                            if (val === 'StartWorkflow') {
-                              this.$refs.container.$refs.workflow.startWorkflow();
-                            } else {
-                              this.paramsTitle();
-                            }
-                            //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-                          })
-                          .catch(error => {
-                            Message({
-                              message: error,
-                              type: 'error',
-                              duration: 5 * 1000,
-                            });
-                            this.loading = false;
-                          });
-                      }
-                    }
-                  }
-                }).catch(error => {
+//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+              } else {
                 Message({
-                  message: error,
+                  message: this.$t('normal.error_12'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
-
-              });
-
-
-            } else {
-              Message({
-                message: this.$t('normal.error_12'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          });
+              }
+            },
+          );
         }
       },
     },

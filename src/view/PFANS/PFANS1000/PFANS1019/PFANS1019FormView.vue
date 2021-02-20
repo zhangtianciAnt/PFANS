@@ -222,7 +222,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        workflowCode: '',
+        workflowCode: 'W0026',
         baseInfo: {},
         loading: false,
         multiple: false,

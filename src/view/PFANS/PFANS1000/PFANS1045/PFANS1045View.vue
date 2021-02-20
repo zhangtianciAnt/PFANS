@@ -67,13 +67,22 @@
             fix: false,
             filter: true,
           },
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+          // {
+          //   code: 'cycle',
+          //   label: 'label.PFANS1045VIEW_CYCLE',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
-            code: 'cycle',
+            code: 'yearss',
             label: 'label.PFANS1045VIEW_CYCLE',
             width: 120,
             fix: false,
             filter: true,
           },
+          //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
           {
             code: 'remark',
             label: 'label.PFANS1017FORMVIEW_PREPAREFOR',
@@ -203,7 +212,9 @@
         let letname;
         letname = 'PFANS1045FormView';
         this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1045View');
-        this.$store.commit('global/SET_HISTORYURL', '');
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+        // this.$store.commit('global/SET_HISTORY', '');
+        //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
         if (val === 'update') {
           if (this.rowid === '') {
             Message({
