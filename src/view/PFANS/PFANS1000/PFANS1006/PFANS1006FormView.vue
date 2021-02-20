@@ -215,7 +215,10 @@
 
                 <el-row>
                   <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
-                    <el-input :disabled="!disable" :rows="6" style="width:72vw" type="textarea" v-model="form.remark">
+<!--                    add-lyt-21/2/20-PSDCD_PFANS_20210202_BUG_009(maxlength="20")-start-->
+                    <el-input :disabled="!disable"  style="width:72vw" type="textarea" v-model="form.remark"
+                              maxlength="20">
+<!--                      add-lyt-21/2/20-PSDCD_PFANS_20210202_BUG_009(maxlength="20")-end-->
                     </el-input>
                   </el-form-item>
                 </el-row>
