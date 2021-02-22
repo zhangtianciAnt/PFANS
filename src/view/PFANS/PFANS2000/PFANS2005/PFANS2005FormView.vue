@@ -1958,6 +1958,18 @@
                   width="100"
                 ></el-table-column>
                 <el-table-column
+                  :label="$t('label.PFANS2005FORMVIEW_ANNUALLEAVE')"
+                  align="center"
+                  prop="annualleave"
+                  width="100"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2005FORMVIEW_ANNUALLEAVEGIVE')"
+                  align="center"
+                  prop="annualleavegive"
+                  width="100"
+                ></el-table-column>
+                <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_ATTENDANCE')"
                   align="center"
                   prop="attendance"
