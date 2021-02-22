@@ -703,9 +703,67 @@
 
           this.websocketsend(JSON.stringify(list));
         }
+
+
+//UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
+//         if (val === 'assettransfer') {
+//           let R = 1;
+//           for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+//             if (getUserInfoName(this.$refs.roletable.selectedList[i].principal) !== '-1') {
+//               this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
+//               this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
+//             }
+//             let role = getCurrentRole18();
+//             if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+//               R *= 0;
+//             } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+//               R *= 0;
+//             } else {
+//               R *= 1;
+//             }
+//           }
+//           if (R === 0) {
+//             Message({
+//               message: this.$t('normal.error_23'),
+//               type: 'error',
+//               duration: 3 * 1000,
+//             });
+//           } else {
+//             this.pop_assettransfer = true;
+//           }
+//         }
         if (val === 'assettransfer') {
-          this.pop_assettransfer = true;
+          let roles = getCurrentRole20();
+          if (roles === '0'){
+            this.pop_assettransfer = true;
+          }else{
+            let R = 1;
+            for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+              if (getUserInfoName(this.$refs.roletable.selectedList[i].principal) !== '-1') {
+                this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
+                this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
+              }
+              let role = getCurrentRole18();
+              if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+                R *= 0;
+              } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+                R *= 0;
+              } else {
+                R *= 1;
+              }
+            }
+            if (R === 0) {
+              Message({
+                message: this.$t('normal.error_23'),
+                type: 'error',
+                duration: 3 * 1000,
+              });
+            } else {
+              this.pop_assettransfer = true;
+            }
+          }
         }
+//UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
       },
       export(selectedList) {
         let tHeader = "";

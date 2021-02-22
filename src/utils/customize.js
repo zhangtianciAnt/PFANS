@@ -879,3 +879,17 @@ export function getMonthlyrateInfo2(code, month) {
   return info;
 }
 //add-ws-12/10-汇率字典
+//add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
+export function getCurrentRole20() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('设备管理担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
