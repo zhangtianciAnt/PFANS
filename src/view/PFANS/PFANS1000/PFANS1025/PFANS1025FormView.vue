@@ -1003,11 +1003,11 @@
                   moneys: response[i].modifiedamount,
                 });
               }
-              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
               // if (this.optionsdata.length > 0) {
               //   this.getpolicycontract(this.optionsdata[0].value);
               // }
-              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               this.loading = false;
             },
           ).catch(error => {
@@ -1577,7 +1577,7 @@
                     return;
                   }
                 }
-//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
 //               this.$store
 //                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
 //                 .then(response => {
@@ -1685,7 +1685,7 @@
                       this.loading = false;
                     });
                 }
-//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078
+//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               } else {
                 Message({
                   message: this.$t('normal.error_12'),
