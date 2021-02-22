@@ -212,7 +212,7 @@
                 let letname;
                 letname = 'PFANS1045FormView';
                 this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1045View');
-              /DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
+              //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
         // this.$store.commit('global/SET_HISTORY', '');
         //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
                 if (val === 'update') {
