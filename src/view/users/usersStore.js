@@ -10,7 +10,8 @@ import {
   getUserTableList2,
   getUserTableList3,
   download,
-  getSigninlog
+  getSigninlog,
+  checkPassword
 } from './usersApi'
 
 const usersStore = {
