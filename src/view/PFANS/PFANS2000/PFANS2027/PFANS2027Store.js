@@ -1,6 +1,5 @@
 import {getLunarbonus,getLunardetails,update,insertLunarbonus,getExaminationobject,getStatus,getOne, createTodonotice,overTodonotice} from './PFANS2027Api'
 import {getPfans2016One} from "../PFANS2016/PFANS2016Api";
-import {createcommodityApply} from '../../PFANS6000/PFANS6011/PFANS6011Api';
 
 const PFANS2027Store = {
   namespaced: true,
