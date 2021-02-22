@@ -187,6 +187,20 @@ const usersStore = {
         })
       })
     },
+    //add-lyt-21/2/3-禅道734
+    checkPassword({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        checkPassword(params).then(response => {
+          if (response.code === 0) {
+            resolve(response);
+          } else {
+            reject(response)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 }
 
