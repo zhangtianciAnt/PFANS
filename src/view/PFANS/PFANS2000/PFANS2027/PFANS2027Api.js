@@ -33,7 +33,22 @@ export function update(data) {
     data: data
   })
 }
+// 发起待办
+export function createTodonotice(data) {
+  return request({
+    url: 'Getlunarbonus/createTodonotice',
+    method: 'POST',
+    data: data
+  })
+}
 
+export function overTodonotice(data) {
+  return request({
+    url: 'Getlunarbonus/Over',
+    method: 'post',
+    data: data
+  })
+}
 
 export function getStatus(data){
   return request({

@@ -1,5 +1,6 @@
-import {getLunarbonus,getLunardetails,update,insertLunarbonus,getExaminationobject,getStatus,getOne} from './PFANS2027Api'
+import {getLunarbonus,getLunardetails,update,insertLunarbonus,getExaminationobject,getStatus,getOne, createTodonotice,overTodonotice} from './PFANS2027Api'
 import {getPfans2016One} from "../PFANS2016/PFANS2016Api";
+import {createcommodityApply} from '../../PFANS6000/PFANS6011/PFANS6011Api';
 
 const PFANS2027Store = {
   namespaced: true,
@@ -64,6 +65,37 @@ const PFANS2027Store = {
         })
       })
     },
+
+    // 发起待办
+    createTodonotice({commit}, data) {
+      return new Promise((resolve, reject) => {
+        createTodonotice(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    // 关闭评价
+    overTodonotice({commit}, data) {
+      return new Promise((resolve, reject) => {
+        overTodonotice(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     //新建
     insertLunarbonus({commit}, data) {
       return new Promise((resolve, reject) => {
