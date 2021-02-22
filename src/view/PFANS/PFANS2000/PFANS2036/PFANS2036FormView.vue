@@ -13,6 +13,7 @@
               <div id="table_list">
                 <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_RBSYJH')" name="show_first" v-if="this.rolesshow1">
+                    <!--add-lyt-21/1/25-禅道任务645 -start-->
                     <el-row>
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_YEARS')">
@@ -78,6 +79,7 @@
                       </el-col>
                       <!--                            add-lyt-1/22-禅道任务645-end-->
                     </el-row>
+                    <!--add-lyt-21/1/25-禅道任务645 -end-->
                     <plx-table-grid
                       :datas="tableData"
                       :height-change="false"
@@ -861,14 +863,16 @@
                         </template>
                       </plx-table-column>
                     </plx-table-grid>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
-                      <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
+                      <el-pagination :current-page.sync="listQuery.pageData" :page-size="listQuery.limitData"
                                      :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
                                      @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
                     </div>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end-->
                   </el-tab-pane>
 
                   <!--部门汇总-->
@@ -1165,6 +1169,16 @@
                         </template>
                       </el-table-column>
                     </el-table>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination :current-page.sync="listQuery.pageBm" :page-size="listQuery.limitBm"
+                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeBm"
+                                     @size-change="handleSizeChangeBm" layout="slot,sizes, ->,prev, pager, next, jumper">
+                        <slot><span class="front Content_front"
+                                    style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                      </el-pagination>
+                    </div>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end-->
                   </el-tab-pane>
 
                   <!--公司汇总-->
@@ -1444,6 +1458,16 @@
                         </template>
                       </el-table-column>
                     </el-table>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination :current-page.sync="listQuery.pageGs" :page-size="listQuery.limitGs"
+                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeGs"
+                                     @size-change="handleSizeChangeGs" layout="slot,sizes, ->,prev, pager, next, jumper">
+                        <slot><span class="front Content_front"
+                                    style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                      </el-pagination>
+                    </div>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end-->
                   </el-tab-pane>
 
                   <!--人别-->
@@ -2193,11 +2217,17 @@
     },
     data() {
       return {
+        // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
         listQuery: {
-          page: 1,
-          limit: 10
+          pageData: 1,
+          limitData: 5,
+          pageBm: 1,
+          limitBm: 5,
+          pageGs: 1,
+          limitGs: 5,
         },
         total: 0,
+        // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
         title: 'title.PFANS2036FormView',
         loading: false,
         activeName: 'show_first',
@@ -2220,10 +2250,15 @@
         tableRb: [],
         tableBm: [],
         tableGs: [],
+        // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
+        tableDataCopy:[],
+        tableGsCopy:[],
+        tableBmCopy:[],
+        // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
         ranksList: {},
         multiple: false,
         selectType: "Single",
-        //add-lyt-21/1/22 角色权限添加
+        //add-lyt-21/1/22-禅道任务645-start
         rolesshow1: true,
         rolesshow2: true,
         rolesshow3: true,
@@ -2235,6 +2270,7 @@
           rnAnt: '',
           group_id: '',
         },
+        //add-lyt-21/1/22-禅道任务645-end
       };
     },
     created() {
@@ -2260,7 +2296,7 @@
     mounted() {
       this.form.yearsantid = this.$route.params._id;
       this.getById();
-      //add-lyt-21/1/22 角色权限添加 start
+      //add-lyt-21/1/22-禅道任务645-start
       let role = getCurrentRole();
       let role3 = getCurrentRole3();
       let role14 = getCurrentRole14();
@@ -2280,7 +2316,7 @@
         this.rolesshow3=false;
         this.rolesshow4=false;
       }
-      //add-lyt-21/1/22 角色权限添加 end
+      //add-lyt-21/1/22-禅道任务645-end
     },
     methods: {
       // getGroupId() {
@@ -2316,21 +2352,57 @@
       //   }
       //   this.getChangeRanks();
       // },
+      // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
+      handleSizeChange(val){
+        this.listQuery.limitData = val;
+        this.cutList();
+      },
       handleCurrentChange(val) {
-        this.listQuery.page = val;
+        this.listQuery.pageData = val;
+        this.cutList();
+      },
+      handleSizeChangeGs(val){
+        this.listQuery.limitGs = val;
+        this.cutList()
+      },
+      handleCurrentChangeGs(val) {
+        this.listQuery.pageGs = val;
+        this.cutList()
+      },
+      handleSizeChangeBm(val){
+        this.listQuery.limitBm = val;
+        this.cutList()
+      },
+      handleCurrentChangeBm(val) {
+        this.listQuery.pageBm = val;
         this.cutList()
       },
       cutList() {
         this.loading = true;
-        let start = (this.listQuery.page - 1) * this.listQuery.limit;
-        let end = this.listQuery.page * this.listQuery.limit;
-        if (this.tableData) {
-          let pList = this.tableData.slice(start, end);
-          this.message = pList;
-          this.total = this.tableData.length
+        if (this.activeName === 'show_first' && this.tableData) {
+          let start = (this.listQuery.pageData - 1) * this.listQuery.limitData;
+          let end = this.listQuery.pageData * this.listQuery.limitData;
+          let pList = this.tableDataCopy.slice(start, end);
+          this.tableData = pList;
+          this.total = this.tableDataCopy.length
+        }
+        else if (this.activeName === 'show_second' && this.tableBm){
+          let start = (this.listQuery.pageBm - 1) * this.listQuery.limitBm;
+          let end = this.listQuery.pageBm * this.listQuery.limitBm;
+          let pList = this.tableBmCopy.slice(start, end);
+          this.tableBm = pList;
+          this.total = this.tableBmCopy.length
+        }
+        else if (this.activeName === 'show_third' && this.tableGs) {
+          let start = (this.listQuery.pageGs - 1) * this.listQuery.limitGs;
+          let end = this.listQuery.pageGs * this.listQuery.limitGs;
+          let pList = this.tableGsCopy.slice(start, end);
+          this.tableGs = pList;
+          this.total = this.tableGsCopy.length
         }
         this.loading = false
       },
+      // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
       getChangeRanks(){
         this.loading = true;
         this.$store
@@ -2508,6 +2580,10 @@
               }
             }
             this.tableBm = response;
+            // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-Start
+            this.tableBmCopy = response;
+            this.cutList();
+            // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
             this.loading = false;
           })
           .catch(err => {
@@ -2531,6 +2607,10 @@
               }
             }
             this.tableGs = response;
+            // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
+            this.tableGsCopy = response;
+            this.cutList();
+            // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
             this.loading = false;
           })
           .catch(err => {
@@ -2711,6 +2791,10 @@
               }
             }
             this.tableData = response;
+            // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
+            this.tableDataCopy = response;
+            this.cutList();
+            // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
             this.loading = false;
           })
       },
