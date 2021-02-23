@@ -310,6 +310,15 @@
             fix: false,
             filter: false,
           },
+          //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-start
+          {
+            code: 'state',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 130,
+            fix: false,
+            filter: false,
+          },
+        //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-end
         ],
         //add-ws-No.29-合同检索一览表中追加纳品日期 受托
         columns: [
@@ -413,6 +422,15 @@
             fix: false,
             filter: false,
           },
+          //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-start
+          {
+            code: 'state',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-end
         ],
         //add-ws-No.29-合同检索一览表中追加纳品日期 其他
         columns3: [
@@ -479,6 +497,15 @@
             fix: false,
             filter: true,
           },
+          //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-start
+          {
+            code: 'state',
+            label: 'label.PFANS5009VIEW_STATUS',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-end
         ],
         row: '',
         contractnumber: '',
@@ -669,6 +696,9 @@
               this.$t('label.applicant'),
               this.$t('label.PFANS1024VIEW_APPLICATIONDATE'),
               this.$t('label.PFANS1024VIEW_CONTRACTTYPE'),
+              //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-start
+              this.$t('label.PFANS5009VIEW_STATUS'),
+              //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-end
               this.$t('label.PFANS1024VIEW_CONTRACTNUMBER'),
               this.$t('label.PFANS1024VIEW_ENTRYCONDITION'),
               this.$t('label.PFANS1024VIEW_ENTRYPAYMENT'),
@@ -708,6 +738,9 @@
               'username',
               'applicationdate',
               'contracttype',
+              //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-start
+              'state',
+              //add-lyt-21/1/21-PSDCD_PFANS_20200921_XQ_008-合同导出添加有效/无效列-end
               'contractnumber',
               'entrycondition',
               'entrypayment',
