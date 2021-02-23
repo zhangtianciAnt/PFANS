@@ -216,6 +216,14 @@
                                     response[j].perscale = perscale.value1;
                                 }
                             }
+                            //insert gbb 20210223 PSDCD_PFANS_20201122_XQ_042 添加统计区分字段 start
+                            if (response[j].statistics !== null && response[j].statistics !== "") {
+                                let statistics = getDictionaryInfo(response[j].statistics);
+                                if (statistics != null) {
+                                    response[j].statistics = statistics.value1;
+                                }
+                            }
+                            //insert gbb 20210223 PSDCD_PFANS_20201122_XQ_042 添加统计区分字段 end
                         }
                         this.data = response;
                         this.loading = false;
@@ -352,6 +360,7 @@
                             this.$t('label.PFANS6002VIEW_PERSCALE'),
                             this.$t('label.PFANS6002FORMVIEW_WEBSITE'),
                             this.$t('label.remarks'),
+                            this.$t('label.PFANS6002VIEW_STATISTICS'),
                         ];
                         const filterVal = [
                             'supchinese',
@@ -378,6 +387,7 @@
                             'perscale',
                             'website',
                             'remarks',
+                            'statistics',
                         ];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
