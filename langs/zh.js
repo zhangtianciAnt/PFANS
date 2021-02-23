@@ -588,6 +588,8 @@ module.exports = {
     October: '10月',
     November: '11月',
     December: '12月',
+    taxtotal: '含税总额',
+    tax: '税率',
     firsthalfyear: '上期',
     secondhalfyear: '下期',
     totalyear: '年間',
