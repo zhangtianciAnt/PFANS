@@ -3057,11 +3057,19 @@
           });
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
           this.passwordcheckbar = true;
         }
+        //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
+        else{
+          this.passwordcheckbar = false;
+          this.show = false;
+        }
+        //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-end
       },
+      //add-lyt-2021/2/3-禅道任务734-end
       changeEducational(val) {
         this.form.educational = val;
       },

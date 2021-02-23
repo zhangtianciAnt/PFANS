@@ -2850,16 +2850,24 @@
                 this.age = agenew;
             },
           //lyt-21/2/2-禅道任务734-start
-            handleClick() {
-               if (this.activeName === 'nine') {
-                 if(this.$route.params._org){
-                   this.show = true;
-                   this.this.passwordcheckbar = false;
+          handleClick() {
+            if (this.activeName === 'nine') {
+              if(this.$route.params._org){
+                this.show = true;
+                this.this.passwordcheckbar = false;
+              } else if(this.roles==='0'){
+                //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-start
+                this.passwordcheckbar = false;
+                this.show = true;
+                //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-end
+              } else{
+                this.passwordcheckbar = true;
               }
-                 else{
-                   this.passwordcheckbar = true;
-              }
-            }
+            } else{
+              //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
+              this.passwordcheckbar = false;
+              this.show = false;
+            }//add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-end
           },
           //lyt-21/2/2-禅道任务734-end
             // ADD-WS-生年月日change事件
@@ -3904,8 +3912,7 @@
                   type: 'error',
                   duration: 5 * 1000,
               })
-            }
-              else{
+              }else{
                 let params = {
                   userid:this.$store.getters.userinfo.userid,
                   password:this.personalpw,

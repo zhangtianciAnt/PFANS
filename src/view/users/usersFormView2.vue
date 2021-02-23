@@ -2963,8 +2963,19 @@
       //lyt-21/2/2-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
-          this.passwordcheckbar = true;
-        }
+          //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-start
+          if(this.role6 === '0'){
+            this.passwordcheckbar = false;
+            this.show = true;
+            //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-end
+          }else{
+            this.passwordcheckbar = true;
+          }
+        } else{
+          //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
+          this.passwordcheckbar = false;
+          this.show = false;
+        }//add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
       },
       //lyt-21/2/2-禅道任务734-end
       checkRequire() {
