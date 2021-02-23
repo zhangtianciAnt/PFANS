@@ -59,6 +59,21 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row>
+            <!--            统计区分-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6002VIEW_STATISTICS')" prop="statistics">
+                <dicselect
+                  :code="code2"
+                  :data="form.statistics"
+                  :disabled="!disabled"
+                  :multiple="multiple"
+                  @change="changestatistics"
+                  style="width:20vw">
+                </dicselect>
+              </el-form-item>
+            </el-col>
+          </el-row>
           <!--            </el-collapse-item>-->
           <!--          </el-collapse>-->
           <!--            银行账户信息-->
@@ -359,6 +374,7 @@
           addjapanese: '',
           addenglish: '',
           perscale: '',
+          statistics: 'BP029001',
           website: '',
           remarks: '',
           uploadfile: '',
@@ -371,6 +387,8 @@
         },
         //人员规模
         code1: 'BP007',
+        //统计区分
+        code2: 'BP029',
         disabled: true,
         rules: {
           // 中文（供应商名称）
@@ -601,6 +619,11 @@
           this.disabled = val;
         }
       },
+      //insert gbb 20210223 PSDCD_PFANS_20201122_XQ_042 添加统计区分字段 start
+      changestatistics(val) {
+        this.form.statistics = val;
+      },
+      //insert gbb 20210223 PSDCD_PFANS_20201122_XQ_042 添加统计区分字段 end
       changeperscale(val) {
         this.form.perscale = val;
       },
