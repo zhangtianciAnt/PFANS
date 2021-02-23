@@ -2206,11 +2206,13 @@
         code: '',
         code1: 'PG021',
         occupationtypecode: '',
+        //add-lyt-2021/2/3-禅道任务734-start
         personalpw:'',
         passwordcheckbar: false,
+        show:false,
+        //add-lyt-2021/2/3-禅道任务734-end
         occupationtypedis: true,
         display: true,
-        show:false,
         occupationtypedisplay: true,
         oldageData: null,
         houseData: null,
@@ -3053,11 +3055,16 @@
           });
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
           this.passwordcheckbar = true;
+        }else{
+          this.passwordcheckbar = false;
+          this.show = false;
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-end
       changeEducational(val) {
         this.form.educational = val;
       },
@@ -3966,6 +3973,7 @@
               }
           }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       checkPassword(){
         this.show=false
         if(this.personalpw === "" || this.personalpw === null){
@@ -3995,6 +4003,7 @@
             })
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-end
     },
   };
 </script>

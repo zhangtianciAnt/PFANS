@@ -2191,9 +2191,11 @@
         role6:'',
         age: '',
         code: '',
+        //add-lyt-2021/2/3-禅道任务734-start
         show:false,
         personcheck: false,
         personalpw:'',
+        //add-lyt-2021/2/3-禅道任务734-start
         code1: 'PG021',
         occupationtypecode: '',
         occupationtypedis: true,
@@ -2944,11 +2946,21 @@
         }
         this.age = agenew;
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
-           this.passwordcheckbar = true;
+          if(this.role6 === '0'){
+            this.passwordcheckbar = false;
+            this.show = true;
+          }else{
+            this.passwordcheckbar = true;
+          }
+        }else{
+           this.passwordcheckbar = false;
+           this.show = false;
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       // ADD-WS-生年月日change事件
       checkRequire() {
         if (
@@ -3972,6 +3984,7 @@
               }
           }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       checkPassword(){
         this.show=false
         if(this.personalpw === "" || this.personalpw === null){
@@ -4001,6 +4014,7 @@
             })
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-end
     },
   };
 </script>
