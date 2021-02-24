@@ -142,7 +142,7 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {Decrypt, getDictionaryInfo, getOrgInfo, getUserInfo, getUserInfoName} from '@/utils/customize';
+  import {Decrypt, getDictionaryInfo, getOrgInfo, getUserInfo, getUserInfoName,getCurrentRole20} from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
