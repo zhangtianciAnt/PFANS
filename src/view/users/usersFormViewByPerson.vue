@@ -3058,7 +3058,12 @@
       //add-lyt-2021/2/3-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
-          this.passwordcheckbar = true;
+          if(this.roles === '0'){
+            this.passwordcheckbar = false;
+            this.show = true;
+          }else {
+            this.passwordcheckbar = true;
+          }
         }else{
           this.passwordcheckbar = false;
           this.show = false;
