@@ -31,7 +31,508 @@
                 </div>
               </el-col>
             </el-row>
-            <el-row style="padding-top: 10px">
+            <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start-->
+            <el-row style="margin-top: 20px">
+              <plx-table-grid :datas="taxdata" border
+                              header-cell-class-name="sub_bg_color_blue"
+                              use-virtual :pagination-show="paginationShow"
+                              style="width: 100%;" :row-height="rowheight">
+                <!--4月-->
+                <plx-table-column
+                  :label="$t('label.April')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.april">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.apriltax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--5月-->
+                <plx-table-column
+                  :label="$t('label.May')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.may">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.maytax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--6月-->
+                <plx-table-column
+                  :label="$t('label.June')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.june">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.junetax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--7月-->
+                <plx-table-column
+                  :label="$t('label.July')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.july">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.julytax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--8月-->
+                <plx-table-column
+                  :label="$t('label.August')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.august">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.augusttax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--9月-->
+                <plx-table-column
+                  :label="$t('label.September')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.september">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.septembertax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--10月-->
+                <plx-table-column
+                  :label="$t('label.October')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.october">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.octobertax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--11月-->
+                <plx-table-column
+                  :label="$t('label.November')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.november">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.novembertax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--12月-->
+                <plx-table-column
+                  :label="$t('label.December')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.december">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.decembertax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--1月-->
+                <plx-table-column
+                  :label="$t('label.January')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.january">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.januarytax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--2月-->
+                <plx-table-column
+                  :label="$t('label.February')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.february">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.februarytax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+                <!--3月-->
+                <plx-table-column
+                  :label="$t('label.March')"
+                  align="center">
+                  <plx-table-column
+                    :label="$t('label.taxtotal')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.march">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                  <plx-table-column
+                    :label="$t('label.tax')"
+                    align="center"
+                    width="130"
+                    prop="april">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        size="mini"
+                        :max="9999999999"
+                        :min="0"
+                        :precision="2"
+                        :step="0.01"
+                        controls-position="right"
+                        style="width:90%"
+                        v-model.trim="scope.row.marchtax">
+                      </el-input-number>
+                    </template>
+                  </plx-table-column>
+                </plx-table-column>
+              </plx-table-grid>
+            </el-row>
+            <el-row style="margin-top: 180px">
+              <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end-->
               <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400" header-row-class-name="height"
                               use-virtual :pagination-show="paginationShow" big-data-checkbox highlight-current-row
@@ -537,6 +1038,10 @@
         title: 'title.PFANS6006VIEW_TITLE',
         disabled: false,
         disable: true,
+        //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
+        taxdata:[],
+        multiple: false,
+        //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
         buttonList: [
           {
             'key': 'save',
@@ -559,72 +1064,109 @@
           .dispatch('PFANS6006Store/getYears', {'year': this.year,'group_id': this.group_id})
           .then(response => {
             let tabledate = [];
-            for (let j = 0; j < response.length; j++) {
+            //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
+            let responsex = response.delegainformationVo;
+            for (let j = 0; j < responsex.length; j++) {
               let arr = [
-                  response[j].april,
-                  response[j].may,
-                  response[j].june,
-                  response[j].july,
-                  response[j].august,
-                  response[j].september,
-                  response[j].october,
-                  response[j].november,
-                  response[j].december,
-                  response[j].january,
-                  response[j].february,
-                  response[j].march
+                responsex[j].april,
+                responsex[j].may,
+                responsex[j].june,
+                responsex[j].july,
+                responsex[j].august,
+                responsex[j].september,
+                responsex[j].october,
+                responsex[j].november,
+                responsex[j].december,
+                responsex[j].january,
+                responsex[j].february,
+                responsex[j].march
               ];
               var h = 0;
               for (let i = 0; i < arr.length; i++) {
-                  if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
-                      h++;
-                  }
+                if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
+                  h++;
+                }
               }
-              response[j].monthlength = h;
-              let exp = getCooperinterviewListByAccount(response[j].account);
+              responsex[j].monthlength = h;
+              let exp = getCooperinterviewListByAccount(responsex[j].account);
               if (exp)
               {
-                response[j].exittime = exp.exitime;
+                responsex[j].exittime = exp.exitime;
               }
               tabledate.push({
-                  delegainformation_id: response[j].delegainformation_id,
-                  companyprojects_id: response[j].companyprojects_id,
-                  projectsystem_id: response[j].projectsystem_id,
-                  supplierinfor_id: response[j].supplierinfor_id,
-                  project_name: response[j].project_name,
-                  group_id: response[j].group_id,
-                  account: response[j].account,
-                  managerid: response[j].managerid,
-                  expname: response[j].expname,
-                  suppliername: response[j].suppliername,
-                  admissiontime: response[j].admissiontime,
-                  exittime: response[j].exittime,
-                  operationform: response[j].operationform,
-                  jobclassification: response[j].jobclassification,
-                  distriobjects: response[j].distriobjects,
-                  venuetarget: response[j].venuetarget,
-                  january: response[j].january,
-                  february: response[j].february,
-                  march: response[j].march,
-                  april: response[j].april,
-                  may: response[j].may,
-                  june: response[j].june,
-                  july: response[j].july,
-                  august: response[j].august,
-                  september: response[j].september,
-                  october: response[j].october,
-                  november: response[j].november,
-                  december: response[j].december,
-                  monthlength: response[j].monthlength,
-                  remarks: response[j].remarks,
-                  alltechnology: response[j].alltechnology,
-                  sitevaluation: response[j].sitevaluation,
-                  exitreason: response[j].exitreason,
-                  businessimpact:response[j].businessimpact,
-                  countermeasure: response[j].countermeasure,
-                  year: response[j].year,
+                delegainformation_id: responsex[j].delegainformation_id,
+                companyprojects_id: responsex[j].companyprojects_id,
+                projectsystem_id: responsex[j].projectsystem_id,
+                supplierinfor_id: responsex[j].supplierinfor_id,
+                project_name: responsex[j].project_name,
+                group_id: responsex[j].group_id,
+                account: responsex[j].account,
+                managerid: responsex[j].managerid,
+                expname: responsex[j].expname,
+                suppliername: responsex[j].suppliername,
+                admissiontime: responsex[j].admissiontime,
+                exittime: responsex[j].exittime,
+                operationform: responsex[j].operationform,
+                jobclassification: responsex[j].jobclassification,
+                distriobjects: responsex[j].distriobjects,
+                venuetarget: responsex[j].venuetarget,
+                january: responsex[j].january,
+                february: responsex[j].february,
+                march: responsex[j].march,
+                april: responsex[j].april,
+                may: responsex[j].may,
+                june: responsex[j].june,
+                july: responsex[j].july,
+                august: responsex[j].august,
+                september: responsex[j].september,
+                october: responsex[j].october,
+                november: responsex[j].november,
+                december: responsex[j].december,
+                monthlength: responsex[j].monthlength,
+                remarks: responsex[j].remarks,
+                alltechnology: responsex[j].alltechnology,
+                sitevaluation: responsex[j].sitevaluation,
+                exitreason: responsex[j].exitreason,
+                businessimpact:responsex[j].businessimpact,
+                countermeasure: responsex[j].countermeasure,
+                year: responsex[j].year,
               })
             }
+            if(response.delegainformationtaxList != null){
+              this.taxdata = response.delegainformationtaxList;
+            }
+            else{
+              this.taxdata = [{
+                delegainformationtax_id: '',
+                year: this.year,
+                group_id: this.group_id,
+                april: '',
+                apriltax: '',
+                may: '',
+                maytax: '',
+                june: '',
+                junetax: '',
+                july: '',
+                julytax: '',
+                august: '',
+                augusttax: '',
+                september: '',
+                septembertax: '',
+                october: '',
+                octobertax: '',
+                november: '',
+                novembertax: '',
+                december: '',
+                decembertax: '',
+                january: '',
+                januarytax: '',
+                february: '',
+                februarytax: '',
+                march: '',
+                marchtax: '',
+              }]
+            }
+            //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             this.multipleSelection = [];
             this.tableData = tabledate;
             this.loading = false;
@@ -824,9 +1366,18 @@
                   });
                   return;
               }
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
+            //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
+            this.taxdata[0].group_id = this.group_id;
+            this.taxdata[0].year = this.year;
+            let vo = {
+              delegainformationList: this.multipleSelection,
+              delegainformationtaxList: this.taxdata,
+            };
+            this.loading = true;
+            this.$store
+            //.dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
+              .dispatch('PFANS6006Store/updateDeleginformation', vo)
+              //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             .then(response => {
               this.data = response;
               this.multipleSelection = [];
