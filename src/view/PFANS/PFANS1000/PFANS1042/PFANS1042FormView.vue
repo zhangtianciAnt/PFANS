@@ -521,7 +521,8 @@
             width="92"
             prop="benefitrate">
             <template slot-scope="scope">
-              <span>{{scope.row.benefitrate}}%</span>
+              <span v-if="scope.row.benefitrate ==='---'">{{scope.row.benefitrate}}</span>
+              <span v-else>{{scope.row.benefitrate}}%</span>
             </template>
           </pl-table-column>
           <!--          営業利益-->
@@ -853,7 +854,7 @@
         form: {
           year: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
           group_id: '',
-          status: '0',
+          status: '',
           region: moment(new Date()).format('YYYY-MM'),
         },
         rules: {
@@ -896,7 +897,9 @@
     },
     methods: {
       workflowState(val) {
-        if (val.state === '1') {
+        if (val.state === '0') {
+          this.form.status = '2';
+        } else if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
           this.form.status = '4';
@@ -1124,6 +1127,7 @@
             year: this.form.year,
             region: this.form.region,
             group_id: this.form.group_id,
+            totalpro: this.tableData[i].totalpro,
             costcarryforward_id: this.tableData[i].costcarryforward_id,
             pj: this.tableData[i].pj,
             pj1: this.tableData[i].pj1,

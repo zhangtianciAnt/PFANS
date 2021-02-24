@@ -443,7 +443,7 @@ module.exports = {
     PFANS1039VIEW: 'theme',
     PFANS1040VIEW: '受託theme',
     PFANS1041VIEW: '委託theme',
-    PFANS1042VIEW: '成本结转表',
+    PFANS1042VIEW: '损益表',
     PFANS1043VIEW: 'theme管理',
     PFANS1044VIEW: '契約检索',
     PFANS1045VIEW: '方针合同',
