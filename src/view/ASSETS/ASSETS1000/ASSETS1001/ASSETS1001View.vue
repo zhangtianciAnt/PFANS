@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
                      :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
