@@ -32,3 +32,9 @@ export function insert(data) {
     data: data
   })
 }
+export function list() {
+  return request({
+    url: 'Pltab/list',
+    method: 'get'
+  })
+}
