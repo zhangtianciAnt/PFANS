@@ -327,7 +327,10 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
+          //UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
+          // {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': true, 'icon': 'el-icon-plus'},
           {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': false, 'icon': 'el-icon-plus'},
+          //UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
         ],
         rowid: '',
         row_id: 'assets_id',
@@ -548,6 +551,7 @@
           });
       },
       rowClick(row) {
+        //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
         //add-ws-9/30-禅道任务564
         // this.buttonList[7].disabled = true;
         // if (getUserInfoName(row.principal) !== '-1') {
@@ -561,6 +565,7 @@
         //   this.buttonList[7].disabled = false;
         // }
 //add-ws-9/30-禅道任务564
+        //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
         this.rowid = row.assets_id;
 
       },
