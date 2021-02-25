@@ -2845,17 +2845,25 @@
                 }
                 this.age = agenew;
             },
+          //add-lyt-2021/2/3-禅道任务734-start
           handleClick() {
             if (this.activeName === 'nine') {
               if(this.$route.params._org){
                 this.show = true;
                 this.this.passwordcheckbar = false;
+              }else if(this.roles==='0'){
+                this.passwordcheckbar = false;
+                this.show = true;
               }
               else{
                 this.passwordcheckbar = true;
               }
+            }else{
+                this.passwordcheckbar = false;
+                this.show = false;
             }
           },
+          //add-lyt-2021/2/3-禅道任务734-start
             // ADD-WS-生年月日change事件
             // ADD-LXX
             sumToOldAge() {
@@ -3889,6 +3897,7 @@
                     }
                 }
             },
+          //add-lyt-2021/2/3-禅道任务734-start
           checkPassword(){
             this.show=false
             if(this.personalpw === "" || this.personalpw === null){
@@ -3918,6 +3927,7 @@
                 })
             }
           },
+          //add-lyt-2021/2/3-禅道任务734-end
         },
     };
 </script>

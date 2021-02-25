@@ -142,14 +142,23 @@
   import {getToken} from '@/utils/auth';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {Decrypt, getDictionaryInfo, getOrgInfo, getUserInfo, getUserInfoName, getCurrentRole18, getUserInfoBudgetunit} from '@/utils/customize';
+  import {
+    Decrypt,
+    getDictionaryInfo,
+    getOrgInfo,
+    getUserInfo,
+    getUserInfoName,
+    getCurrentRole18,
+    getUserInfoBudgetunit,
+    getCurrentRole20,
+  } from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
   export default {
     name: 'ASSETS1001View',
     components: {
       EasyNormalTable,
-      dicselect
+      dicselect,
     },
     data() {
       return {
@@ -165,7 +174,7 @@
         form: {
           bartype: '',
           typeassets: '',
-          sum: 1
+          sum: 1,
         },
         code4: 'PA004',
         code1: 'PA001',
@@ -207,8 +216,8 @@
               required: true,
               message: this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_SUM'),
               trigger: 'change',
-            }
-          ]
+            },
+          ],
         },
         columns: [
           {
@@ -318,11 +327,14 @@
           {'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
           {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
+          //UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
+          // {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': true, 'icon': 'el-icon-plus'},
           {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': false, 'icon': 'el-icon-plus'},
+          //UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
         ],
         rowid: '',
         row_id: 'assets_id',
-        selectedlist: []
+        selectedlist: [],
       };
     },
     computed: {
@@ -332,8 +344,8 @@
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_WUXING'), type: 3},
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_BUWAI1'), type: 4},
           {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_BUWAI'), type: 1},
-          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_QITA'), type: 0}
-        ]
+          {name: this.$t('label.ASSETS1001VIEW_TEMPLAET_QITA'), type: 0},
+        ];
       },
     },
     mounted() {
@@ -344,11 +356,11 @@
       this.initWebSocket();
     },
     destroyed() {
-      this.websock.close() //离开路由之后断开websocket连接
+      this.websock.close(); //离开路由之后断开websocket连接
     },
     methods: {
       initWebSocket() { //初始化weosocket
-        const wsuri = "ws://127.0.0.1:6690/add";
+        const wsuri = 'ws://127.0.0.1:6690/add';
         this.websock = new WebSocket(wsuri);
         this.websock.onmessage = this.websocketonmessage;
         this.websock.onopen = this.websocketonopen;
@@ -431,22 +443,22 @@
                 }
                 filters.add(i);
               }
-              let filtersrst = [...new Set(filters)]
-              var hash = {}
-              filtersrst = filtersrst.reduce(function (item, next) {
+              let filtersrst = [...new Set(filters)];
+              var hash = {};
+              filtersrst = filtersrst.reduce(function(item, next) {
                 if (hash[next.code]) {
-                  ''
+                  '';
                 } else {
-                  hash[next.code] = true && item.push(next)
+                  hash[next.code] = true && item.push(next);
                 }
-                return item
-              }, [])
+                return item;
+              }, []);
               for (let i = 0; i < filtersrst.length; i++) {
                 if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
-                  filtersrst[i].code = '全部'
+                  filtersrst[i].code = '全部';
                 }
               }
-              this.options = filtersrst
+              this.options = filtersrst;
 
               // for (let item of response) {
               //   let i = {};
@@ -455,7 +467,7 @@
               //   }
               //   this.options.push(i);
               // }
-            }
+            },
           ).catch(error => {
           Message({
             message: error,
@@ -470,8 +482,8 @@
       },
       getListData() {
         this.loading = true;
-        if(this.department == '全部'){
-          this.department = undefined
+        if (this.department == '全部') {
+          this.department = undefined;
         }
         this.$store
           .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
@@ -539,6 +551,7 @@
           });
       },
       rowClick(row) {
+        //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
         //add-ws-9/30-禅道任务564
         // this.buttonList[7].disabled = true;
         // if (getUserInfoName(row.principal) !== '-1') {
@@ -552,6 +565,7 @@
         //   this.buttonList[7].disabled = false;
         // }
 //add-ws-9/30-禅道任务564
+        //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
         this.rowid = row.assets_id;
 
       },
@@ -670,9 +684,9 @@
           this.selectedlist = this.$refs.roletable.selectedList;
           if (this.selectedlist.length === 0) {
             Message({
-              message: this.$t("normal.info_01"),
+              message: this.$t('normal.info_01'),
               type: 'info',
-              duration: 2 * 1000
+              duration: 2 * 1000,
             });
           } else {
             let selectedList = this.selectedlist;
@@ -707,62 +721,97 @@
 
           this.websocketsend(JSON.stringify(list));
         }
+
+
+//UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
+//         if (val === 'assettransfer') {
+//           let R = 1;
+//           for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+//             if (getUserInfoName(this.$refs.roletable.selectedList[i].principal) !== '-1') {
+//               this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
+//               this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
+//             }
+//             let role = getCurrentRole18();
+//             if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+//               R *= 0;
+//             } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+//               R *= 0;
+//             } else {
+//               R *= 1;
+//             }
+//           }
+//           if (R === 0) {
+//             Message({
+//               message: this.$t('normal.error_23'),
+//               type: 'error',
+//               duration: 3 * 1000,
+//             });
+//           } else {
+//             this.pop_assettransfer = true;
+//           }
+//         }
         if (val === 'assettransfer') {
-          let R = 1;
-          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
-            if (getUserInfoName(this.$refs.roletable.selectedList[i].principal) !== '-1') {
-              this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
-              this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
-            }
-            let role = getCurrentRole18();
-            if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
-              R *= 0;
-            } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
-              R *= 0;
-            } else {
-              R *= 1;
-            }
-          }
-          if (R === 0) {
-            Message({
-              message: this.$t('normal.error_23'),
-              type: 'error',
-              duration: 3 * 1000,
-            });
-          } else {
+          let roles = getCurrentRole20();
+          if (roles === '0'){
             this.pop_assettransfer = true;
+          }else{
+            let R = 1;
+            for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+              if (getUserInfoName(this.$refs.roletable.selectedList[i].principal) !== '-1') {
+                this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
+                this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
+              }
+              let role = getCurrentRole18();
+              if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+                R *= 0;
+              } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+                R *= 0;
+              } else {
+                R *= 1;
+              }
+            }
+            if (R === 0) {
+              Message({
+                message: this.$t('normal.error_23'),
+                type: 'error',
+                duration: 3 * 1000,
+              });
+            } else {
+              this.pop_assettransfer = true;
+            }
           }
         }
+//UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
       },
       export(selectedList) {
-        let tHeader = "";
-        let filterVal = "";
+        let tHeader = '';
+        let filterVal = '';
         //固定资产 //簿外资产 //无形资产
-        let arr1 = ["PA001001", "PA001002", "PA001003", "PA001004", "PA001009"];
+        let arr1 = ['PA001001', 'PA001002', 'PA001003', 'PA001004', 'PA001009'];
         //借入资产
-        let arr2 = ["PA001008"];
+        let arr2 = ['PA001008'];
         //对外资产
-        let arr3 = ["PA001005", "PA001006"];
+        let arr3 = ['PA001005', 'PA001006'];
 
         if (selectedList.every(list => {
-          return arr1.includes(list.typeassets1)
+          return arr1.includes(list.typeassets1);
         })) {
           selectedList.forEach(
             list => {
               if (list.purchasetime) {
-                list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
+                list.purchasetime = moment(list.purchasetime).format('YYYY/MM/DD');
               }
               if (list.activitiondate) {
-                list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+                list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
               }
               if (list.psdcdperiod) {
-                list.psdcdperiod = moment(list.psdcdperiod).format("YYYY/MM/DD");
+                list.psdcdperiod = moment(list.psdcdperiod).format('YYYY/MM/DD');
               }
               if (list.psdcdreturndate) {
-                list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
+                list.psdcdreturndate = moment(list.psdcdreturndate).format('YYYY/MM/DD');
               }
               if (list.psdcdshijidate) {
-                list.psdcdshijidate = moment(list.psdcdshijidate).format("YYYY/MM/DD");
+                list.psdcdshijidate = moment(list.psdcdshijidate).format('YYYY/MM/DD');
               }
             });
           tHeader = [
@@ -794,23 +843,23 @@
 
           ];
           filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
-            , 'bartypeName', 'assetstatus', 'stockstatus', 'pcno','storagelocation','activitiondate', 'price', 'realprice', 'model'
+            , 'bartypeName', 'assetstatus', 'stockstatus', 'pcno', 'storagelocation', 'activitiondate', 'price', 'realprice', 'model'
             , 'psdcddebitsituation', 'psdcdbringoutreason', 'address', 'psdcdresponsible', 'psdcdphone'
-            , 'psdcdperiod', 'psdcdreturndate', 'psdcdshijidate', 'remarks', 'remarks1', ];
+            , 'psdcdperiod', 'psdcdreturndate', 'psdcdshijidate', 'remarks', 'remarks1'];
 
         } else if (selectedList.every(list => {
-          return arr2.includes(list.typeassets1)
+          return arr2.includes(list.typeassets1);
         })) {
           selectedList.forEach(
             list => {
               if (list.activitiondate) {
-                list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+                list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
               }
               if (list.psdcdperiod) {
-                list.psdcdperiod = moment(list.psdcdperiod).format("YYYY/MM/DD");
+                list.psdcdperiod = moment(list.psdcdperiod).format('YYYY/MM/DD');
               }
               if (list.psdcdreturndate) {
-                list.psdcdreturndate = moment(list.psdcdreturndate).format("YYYY/MM/DD");
+                list.psdcdreturndate = moment(list.psdcdreturndate).format('YYYY/MM/DD');
               }
             });
           tHeader = [
@@ -835,11 +884,11 @@
             this.$t('label.ASSETS1001VIEW_REMARKS2'),//备注1
           ];
           filterVal = ['typeassets', 'filename', 'barcode', 'usedepartment', 'departmentcode', 'caiwupersonalcode'
-             ,'bartypeName', 'model', 'address', 'psdcdresponsible', 'psdcdphone', 'loancontract', 'loancontractno'
+            , 'bartypeName', 'model', 'address', 'psdcdresponsible', 'psdcdphone', 'loancontract', 'loancontractno'
             , 'activitiondate', 'psdcdreturndate', 'psdcdshijidate', 'remarks1', 'remarks', 'remarks2'];
 
         } else if (selectedList.every(list => {
-          return arr3.includes(list.typeassets1)
+          return arr3.includes(list.typeassets1);
         })) {
           selectedList.forEach(
             list => {
@@ -865,36 +914,36 @@
                 list.outparams8 = getUserInfo(list.outparams8).userinfo.customername;
               }
               if (list.purchasetime) {
-                list.purchasetime = moment(list.purchasetime).format("YYYY/MM/DD");
+                list.purchasetime = moment(list.purchasetime).format('YYYY/MM/DD');
               }
               if (list.activitiondate) {
-                list.activitiondate = moment(list.activitiondate).format("YYYY/MM/DD");
+                list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
               }
               if (list.inparams4) {
-                list.inparams4 = moment(list.inparams4).format("YYYY/MM/DD");
+                list.inparams4 = moment(list.inparams4).format('YYYY/MM/DD');
               }
               if (list.inparams7) {
-                list.inparams7 = moment(list.inparams7).format("YYYY/MM/DD");
+                list.inparams7 = moment(list.inparams7).format('YYYY/MM/DD');
               }
               if (list.outparams3) {
-                list.outparams3 = moment(list.outparams3).format("YYYY/MM/DD");
+                list.outparams3 = moment(list.outparams3).format('YYYY/MM/DD');
               }
               if (list.outparams13) {
-                list.outparams13 = moment(list.outparams13).format("YYYY/MM/DD");
+                list.outparams13 = moment(list.outparams13).format('YYYY/MM/DD');
               }
               if (list.outparams9) {
-                list.outparams9 = moment(list.outparams9).format("YYYY/MM/DD");
+                list.outparams9 = moment(list.outparams9).format('YYYY/MM/DD');
               }
 
-              list.inparams1 = list.inparams1 === "1" ? this.$t("label.yes") : this.$t("label.no");
-              list.inparams2 = list.inparams2 === "1" ? this.$t("label.yes") : this.$t("label.no");
-              list.inparams5 = list.inparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
-              list.outparams4 = list.outparams4 === "1" ? this.$t("label.yes") : this.$t("label.no");
-              list.outparams5 = list.outparams5 === "1" ? this.$t("label.yes") : this.$t("label.no");
-              list.outparams6 = list.outparams6 === "1" ? this.$t("label.yes") : this.$t("label.no");
-              list.outparams10 = list.outparams10 === "1" ? this.$t("label.yes") : this.$t("label.no");
-            }
-          )
+              list.inparams1 = list.inparams1 === '1' ? this.$t('label.yes') : this.$t('label.no');
+              list.inparams2 = list.inparams2 === '1' ? this.$t('label.yes') : this.$t('label.no');
+              list.inparams5 = list.inparams5 === '1' ? this.$t('label.yes') : this.$t('label.no');
+              list.outparams4 = list.outparams4 === '1' ? this.$t('label.yes') : this.$t('label.no');
+              list.outparams5 = list.outparams5 === '1' ? this.$t('label.yes') : this.$t('label.no');
+              list.outparams6 = list.outparams6 === '1' ? this.$t('label.yes') : this.$t('label.no');
+              list.outparams10 = list.outparams10 === '1' ? this.$t('label.yes') : this.$t('label.no');
+            },
+          );
           tHeader = [this.$t('label.ASSETS1001VIEW_FILENAME'),
             this.$t('label.ASSETS1001VIEW_TYPEASSETS'),
             this.$t('label.ASSETS1001VIEW_BARCODE'),
@@ -938,17 +987,17 @@
 
           ];
           filterVal = ['filename', 'typeassets', 'barcode', 'principal', 'bartypeName', 'assetstatus', 'stockstatus',
-            'pcno', 'model','price', 'no', 'purchasetime', 'activitiondate', 'remarks', 'customer', 'controlno', 'machinename',
+            'pcno', 'model', 'price', 'no', 'purchasetime', 'activitiondate', 'remarks', 'customer', 'controlno', 'machinename',
             'inparams1', 'inparams2',
             'inparams3', 'inparams4', 'inparams5', 'owner',
             'inparams7', 'inparams8', 'outparams1',
             'outparams2', 'outparams3', 'outparams4', 'outparams5', 'outparams6', 'outparams7', 'outparams8', 'outparams9',
-            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', "usedepartment" ];
+            'outparams10', 'outparams11', 'outparams12', 'outparams13', 'outparams14', 'usedepartment'];
         } else {
           Message({
-            message: this.$t("label.ASSETS1001VIEW_ERROR"),
+            message: this.$t('label.ASSETS1001VIEW_ERROR'),
             type: 'error',
-            duration: 2 * 1000
+            duration: 2 * 1000,
           });
         }
         if (tHeader && filterVal) {
@@ -970,18 +1019,18 @@
             Message({
               message: error,
               type: 'error',
-              duration: 5 * 1000
+              duration: 5 * 1000,
             });
             this.loading = false;
-          })
+          });
       },
       assetoperation(val) {
         this.selectedlist = this.$refs.roletable.selectedList;
         if (this.selectedlist.length === 0) {
           Message({
-            message: this.$t("normal.info_01"),
+            message: this.$t('normal.info_01'),
             type: 'info',
-            duration: 2 * 1000
+            duration: 2 * 1000,
           });
         } else {
           let error_BF = 0;
@@ -994,9 +1043,9 @@
             // 报废
             if (error_BF != 0) {
               Message({
-                message: this.$t("normal.error_18"),
+                message: this.$t('normal.error_18'),
                 type: 'info',
-                duration: 2 * 1000
+                duration: 2 * 1000,
               });
             } else {
               this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1007FormView');
@@ -1031,14 +1080,14 @@
               });
             } else {
               Message({
-                message: this.$t("label.ASSETS1001VIEW_SELECTEDONLY"),
+                message: this.$t('label.ASSETS1001VIEW_SELECTEDONLY'),
                 type: 'info',
-                duration: 2 * 1000
+                duration: 2 * 1000,
               });
             }
           }
         }
-      }
+      },
     },
   };
 </script>

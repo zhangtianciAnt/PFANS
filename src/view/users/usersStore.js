@@ -10,7 +10,8 @@ import {
   getUserTableList2,
   getUserTableList3,
   download,
-  getSigninlog
+  getSigninlog,
+  checkPassword
 } from './usersApi'
 
 const usersStore = {
@@ -181,6 +182,20 @@ const usersStore = {
             resolve(response.data);
           } else {
             reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-lyt-21/2/3-禅道734
+    checkPassword({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        checkPassword(params).then(response => {
+          if (response.code === 0) {
+            resolve(response);
+          } else {
+            reject(response)
           }
         }).catch(error => {
           reject(error);

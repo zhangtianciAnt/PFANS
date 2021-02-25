@@ -874,7 +874,7 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENDDATE')">
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OFFICIALDATE')">
                     <el-date-picker
                       v-model="form.enddate"
                       type="date"
@@ -2191,9 +2191,11 @@
         role6:'',
         age: '',
         code: '',
+        //add-lyt-2021/2/3-禅道任务734-start
         show:false,
         personcheck: false,
         personalpw:'',
+        //add-lyt-2021/2/3-禅道任务734-start
         code1: 'PG021',
         occupationtypecode: '',
         occupationtypedis: true,
@@ -2944,11 +2946,21 @@
         }
         this.age = agenew;
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
-           this.passwordcheckbar = true;
+          if(this.role6 === '0'){
+            this.passwordcheckbar = false;
+            this.show = true;
+          }else{
+            this.passwordcheckbar = true;
+          }
+        }else{
+           this.passwordcheckbar = false;
+           this.show = false;
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       // ADD-WS-生年月日change事件
       checkRequire() {
         if (
@@ -3271,6 +3283,11 @@
             if(response.customerInfo.userinfo.resignation_date!=null&&response.customerInfo.userinfo.resignation_date!=""){
               this.form.resignation_date =  moment(response.customerInfo.userinfo.resignation_date).format("YYYY-MM-DD");
             }
+            //update gbb NT_PFANS_20210223_BUG_023 【试用期截止日】改成【转正日】 start
+              if (response.customerInfo.userinfo.enddate != '' && response.customerInfo.userinfo.enddate != null) {
+                this.form.enddate =  moment(response.customerInfo.userinfo.enddate).add(1,'days').format("YYYY-MM-DD");
+            }
+            //update gbb NT_PFANS_20210223_BUG_023 【试用期截止日】改成【转正日】 end
             //add-ws-7/10-禅道141问提修改
               if (response.customerInfo.userinfo.birthday != '' && response.customerInfo.userinfo.birthday != null) {
               let birthdays = new Date(
@@ -3967,6 +3984,7 @@
               }
           }
       },
+      //add-lyt-2021/2/3-禅道任务734-start
       checkPassword(){
         this.show=false
         if(this.personalpw === "" || this.personalpw === null){
@@ -3996,6 +4014,7 @@
             })
         }
       },
+      //add-lyt-2021/2/3-禅道任务734-end
     },
   };
 </script>

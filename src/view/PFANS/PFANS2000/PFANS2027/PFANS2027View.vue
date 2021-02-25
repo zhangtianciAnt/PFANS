@@ -49,7 +49,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
   import moment from 'moment'
-  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo} from '@/utils/customize'
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getCurrentRole} from '@/utils/customize'
   import dicselect from '../../../components/dicselect';
 
   export default {
@@ -60,6 +60,7 @@
     },
     data() {
       return {
+        modifyby: "",
         loading: false,
         dialogFormVisible: false,
         title: 'title.PFANS2027VIEW',
@@ -113,21 +114,14 @@
                 width: 120,
                 fix: false,
                 filter: true
-            },
-            //add_fjl_06/10 start --添加評価実施日
-          {
-            code: 'status',
-            label: 'label.PFANS5005VIEW_STATUS',
-            width: 150,
-            fix: false,
-            filter: true
-          }
+            }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          {'key': 'insert', 'name': 'button.insert', 'disabled': false, "icon": "el-icon-plus"},
-          {'key': 'update', 'name': 'button.update', 'disabled': false, "icon": 'el-icon-edit'}
-        ],
+          {'key': 'insert', 'name': 'button.insert', 'disabled': this.statusss(), 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'start', 'name': 'button.startEvaluate', 'disabled': this.statusss(), 'icon': 'el-icon-check'},
+          {'key': 'over', 'name': 'button.overEvaluate', 'disabled': this.statusss(), 'icon': 'el-icon-close'}],
         rowid: '',
         row_id: 'lunarbonus_id',
         subjectmon: '',
@@ -151,7 +145,6 @@
         }
       };
     },
-
     mounted() {
       this.loading = true;
 
@@ -175,16 +168,16 @@
       }
       let user = getUserInfo(this.form.user_id);
       //获取本用户的职位
-      let postcode = user.userinfo.post;
-      if (postcode === 'PG021005') {
-        this.form.evaluatenum = 'PJ104001';
-      }
-      if (postcode === 'PG021003') {
-        this.form.evaluatenum = 'PJ104002';
-      }
-      if (postcode === 'PG021002') {
-        this.form.evaluatenum = 'PJ104003';
-      }
+      // let postcode = user.userinfo.post;
+      // if (postcode === 'PG021005') {
+      //   this.form.evaluatenum = 'PJ104001';
+      // }
+      // if (postcode === 'PG021003') {
+      //   this.form.evaluatenum = 'PJ104002';
+      // }
+      // if (postcode === 'PG021002') {
+      //   this.form.evaluatenum = 'PJ104003';
+      // }
 
       this.$store
         .dispatch("PFANS2027Store/getExaminationobject")
@@ -207,6 +200,14 @@
         this.get();
     },*/
     methods: {
+      statusss() {
+        //人事和工资可点
+        if (this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37" || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f") {
+          return false;
+        } else {
+          return true;
+        }
+      },
       close() {
         this.$refs.refform.resetFields();
       },
@@ -259,7 +260,7 @@
       get() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2027Store/getLunarbonus', {})
+          .dispatch('PFANS2027Store/getLunarbonus')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               // if (response[j].user_id !== null && response[j].user_id !== "") {
@@ -335,6 +336,7 @@
             name: 'PFANS2027FormView',
             params: {
               _id: this.rowid,
+              evaluatenum: this.evaluatenum,
               disabled: false,
             }
           })
@@ -353,9 +355,80 @@
             name: 'PFANS2027FormView',
             params: {
               _id: this.rowid,
+              evaluatenum: this.evaluatenum,
               disabled: true,
             }
           })
+        } else if (val === 'start') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          let lunarbonus = {
+            lunarbonus_id: this.rowid,
+            evaluatenum: this.evaluatenum,
+            subjectmon: this.subjectmon
+          };
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS2027Store/createTodonotice', lunarbonus)
+            .then(response => {
+              // this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_03'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else if (val === 'over') {
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+          }
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.loading = true;
+          this.$store
+            .dispatch("PFANS2027Store/overTodonotice")
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_03'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       }
     }

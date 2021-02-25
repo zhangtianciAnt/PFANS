@@ -104,3 +104,11 @@ export function getSigninlog() {
     method: 'get',
   });
 }
+// add-lyt-21/2/3-禅道734
+export function checkPassword(data) {
+  return request({
+    url: 'user/checkpassword',
+    method: 'get',
+    params: data
+  })
+}
