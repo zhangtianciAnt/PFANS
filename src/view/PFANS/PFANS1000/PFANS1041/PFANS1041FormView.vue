@@ -1097,6 +1097,9 @@
                   currency: response[j].currency,
                   remark: response[j].remark,
                   supplierinfor_id: response[j].supplierinfor_id,
+                  otherone: response[j].otherone,
+                  othertwo: response[j].othertwo,
+                  otherthree: response[j].otherthree,
                 },
               );
             }
@@ -1130,6 +1133,9 @@
         this.tableDataA[this.index].assignor = val.toolsorgs;
         this.tableDataA[this.index].remarks = val.remark;
         this.tableDataA[this.index].customerinfor_id = val.customerinfor_id;
+        this.tableDataA[this.index].otherone = val.otherone;
+        this.tableDataA[this.index].othertwo = val.othertwo;
+        this.tableDataA[this.index].otherthree = val.otherthree;
         this.dialogTableVisible = false;
       },
       yearChange(value) {
@@ -1217,6 +1223,9 @@
               rowindex: '',
               status: '0',
               type: '1',
+              otherone: '',
+              othertwo: '',
+              otherthree: '',
             },
           ];
         }
@@ -1291,6 +1300,9 @@
             rowindex: '',
             status: '0',
             type: '1',
+            otherone: '',
+            othertwo: '',
+            otherthree: '',
           });
         this.tableDataAcount = this.tableDataAcount + 1;
 

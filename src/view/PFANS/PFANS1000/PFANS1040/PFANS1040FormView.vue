@@ -374,12 +374,12 @@
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                 <template slot-scope="scope">
                   <!--                      add-ws-12/10-汇率字典-->
-<!--                  <dicselect-->
-<!--                    :disabled="true"-->
-<!--                    :code="code5"-->
-<!--                    :data="scope.row.currencytype"-->
-<!--                    :no="scope.row"-->
-<!--                  ></dicselect>-->
+                  <!--                  <dicselect-->
+                  <!--                    :disabled="true"-->
+                  <!--                    :code="code5"-->
+                  <!--                    :data="scope.row.currencytype"-->
+                  <!--                    :no="scope.row"-->
+                  <!--                  ></dicselect>-->
                   <monthlyrate :month="month5"
                                :data="scope.row.currencytype"
                                :no="scope.row"
@@ -964,6 +964,7 @@
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
+
   export default {
     name: 'PFANS1040FormView',
     components: {
@@ -1130,7 +1131,7 @@
               this.refform.group_id = this.tableDataA[0].group_id;
               this.refform.center_id = this.tableDataA[0].center_id;
               for (let i = 0; i < this.tableDataA.length; i++) {
-                if (this.tableDataA[i].contracttype == 'PJ142001' || this.tableDataA[i].contracttype == 'PJ142002'|| this.tableDataA[i].contracttype == 'PJ142003') {
+                if (this.tableDataA[i].contracttype == 'PJ142001' || this.tableDataA[i].contracttype == 'PJ142002' || this.tableDataA[i].contracttype == 'PJ142003') {
                   this.tableDataA[i].show = true;
                 } else if (this.tableDataA[i].contracttype == 'PJ142004' || this.tableDataA[i].contracttype == 'PJ142005') {
                   this.tableDataA[i].show = false;
@@ -1187,7 +1188,7 @@
         row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
         row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
         row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        row.sumamount1 =  Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
+        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       wsum(row) {
         row.sumwpersonnel1 = Number(row.wpersonnel4) + Number(row.wpersonnel5) + Number(row.wpersonnel6);
@@ -1203,7 +1204,7 @@
         row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
         row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
         row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        row.sumamount1 =  Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
+        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       amountsum(row) {
         row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
@@ -1319,7 +1320,7 @@
         this.dialogTableVisible = true;
       },
       handleClickChange(val) {
-        if (val.contract == 'PJ142001' || val.contract == 'PJ142002'|| val.contract == 'PJ142003') {
+        if (val.contract == 'PJ142001' || val.contract == 'PJ142002' || val.contract == 'PJ142003') {
           this.tableDataA[this.index].show = true;
         } else if (val.contract == 'PJ142004' || val.contract == 'PJ142005') {
           this.tableDataA[this.index].show = false;
@@ -1332,6 +1333,9 @@
         this.tableDataA[this.index].assignor = val.toolsorgs;
         this.tableDataA[this.index].remarks = val.remark;
         this.tableDataA[this.index].customerinfor_id = val.customerinfor_id;
+        this.tableDataA[this.index].otherone = val.otherone;
+        this.tableDataA[this.index].othertwo = val.othertwo;
+        this.tableDataA[this.index].otherthree = val.otherthree;
         this.dialogTableVisible = false;
       },
       getlisttheme() {
@@ -1376,6 +1380,9 @@
                   toolsorgs: response[j].toolsorgs,
                   remark: response[j].remark,
                   customerinfor_id: response[j].customerinfor_id,
+                  otherone: response[j].otherone,
+                  othertwo: response[j].othertwo,
+                  otherthree: response[j].otherthree,
                 },
               );
 
@@ -1495,7 +1502,7 @@
             this.tableData = [];
             let data1 = response.filter(item => (item.type == '0'));
             let data2 = response.filter(item => (item.type == '1'));
-            let amountwpersonnel  = 0;
+            let amountwpersonnel = 0;
             let amountpersonnel = 0;
             let personnel4 = 0;
             let personnel5 = 0;
@@ -1859,6 +1866,9 @@
               rowindex: '',
               status: '0',
               type: '0',
+              otherone: '',
+              othertwo: '',
+              otherthree: '',
             },
           ];
         }
@@ -1933,6 +1943,9 @@
             rowindex: '',
             status: '0',
             type: '0',
+            otherone: '',
+            othertwo: '',
+            otherthree: '',
           });
         this.tableDataAcount = this.tableDataAcount + 1;
 
