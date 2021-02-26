@@ -20,3 +20,11 @@ export function insert(data) {
     data: data
   })
 }
+
+export function getradio(data) {
+  return request({
+    url: 'incomeexpenditure/getradio',
+    method: 'get',
+    params: data,
+  })
+}

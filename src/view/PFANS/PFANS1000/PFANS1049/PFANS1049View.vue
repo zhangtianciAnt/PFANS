@@ -1,15 +1,40 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList"
-                   :columns="columns"
-                   :data="data"
-                   :title="title"
-                   :rowid="row_id"
-                   @buttonClick="buttonClick"
-                   @rowClick="rowClick"
-                   v-loading="loading"
-                   ref="roletable"
-  >
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList"
+                     :columns="columns"
+                     :data="data"
+                     :title="title"
+                     :rowid="row_id"
+                     @buttonClick="buttonClick"
+                     @rowClick="rowClick"
+                     v-loading="loading"
+                     ref="roletable"
+    >
+    </EasyNormalTable>
+    <el-drawer append-to-body destroy-on-close custom-class="custimize_drawer"
+               :visible.sync="show" :show-close="false" :withHeader="false"
+               size="70%">
+      <div>
+        <div>
+          <el-row>
+            <el-radio v-model="radiox" label="1">月</el-radio>
+            <el-radio v-model="radiox" label="2">年</el-radio>
+            <el-radio v-model="radiox" label="3">季</el-radio>
+          </el-row>
+          <el-row>
+            <el-radio v-model="radioy" label="4">theme</el-radio>
+            <el-radio v-model="radioy" label="5">项目</el-radio>
+          </el-row>
+        </div>
+        <div style="margin-top: 1rem;margin-left: 14.5rem">
+          <el-button @click="checklist" type="primary">
+            {{$t('button.confirm')}}
+          </el-button>
+        </div>
+        <iframe style="width:3100px;height:800px" v-bind:src="contents"></iframe>
+      </div>
+    </el-drawer>
+  </div>
 </template>
 
 <script>
@@ -25,6 +50,11 @@
     },
     data() {
       return {
+        datadrawer: [],
+        contents: 'http://59.80.34.104:50400/jeecg-boot/jmreport/view/1365204824395747328',
+        radiox: '1',
+        radioy: '4',
+        show: false,
         loading: false,
         title: 'title.PFANS1049VIEW',
         data: [],
@@ -32,13 +62,6 @@
           {
             code: 'year',
             label: 'label.fiscal_year',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'user_id',
-            label: 'label.applicant',
             width: 120,
             fix: false,
             filter: true,
@@ -57,19 +80,13 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'status',
-            label: 'label.approval_status',
-            width: 120,
-            fix: false,
-            filter: true,
-          },
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
         ],
-        row_id: 'themeplan_id',
+        row_id: 'incomeexpenditure_id',
         row_info: '',
       };
     },
@@ -110,6 +127,28 @@
         });
     },
     methods: {
+      checklist() {
+        this.loading = true;
+        let parameters = {
+          radiox: this.radiox,
+          radioy: this.radioy,
+        };
+        this.$store
+          .dispatch('PFANS1049Store/getradio', parameters)
+          .then(response => {
+            this.datadrawer = response;
+            this.show = false;
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.row_info = row;
       },
@@ -127,6 +166,7 @@
           this.$router.push({
             name: 'PFANS1049FormView',
             params: {
+              id: this.row_info.incomeexpenditure_id,
               year: this.row_info.year,
               group_id: this.row_info.group_id,
               center_id: this.row_info.center_id,
@@ -146,6 +186,7 @@
           this.$router.push({
             name: 'PFANS1049FormView',
             params: {
+              id: this.row_info.incomeexpenditure_id,
               year: this.row_info.year,
               group_id: this.row_info.group_id,
               center_id: this.row_info.center_id,
@@ -153,12 +194,17 @@
             },
           });
         }
-
+        if (val === 'export') {
+          this.show = true;
+        }
       },
     },
   };
 </script>
 
-<style scoped>
-
+<style lang='scss'>
+  .custimize_drawer {
+    -webkit-box-sizing: border-box;
+    overflow: auto !important;
+  }
 </style>
