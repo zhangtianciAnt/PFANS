@@ -401,6 +401,9 @@
           cause: '',
           status: '',
         },
+        //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
+        age:'',
+        //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
         rules: {
           userid: [
             {
@@ -672,6 +675,9 @@
       // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
       //   this.workflowCode = '';
       // }
+      //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
+      this.getAge();
+      //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
     },
     created() {
       this.disable = this.$route.params.disabled;
@@ -909,6 +915,22 @@
             }
         }
       },
+      //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
+      getAge(){
+        let birthdays = new Date(this.$store.getters.userinfo.userinfo.birthday);
+        let d = new Date();
+        let age = 0;
+        let agenew = 0;
+        age = d.getFullYear() - birthdays.getFullYear();
+        agenew = d.getFullYear() - birthdays.getFullYear();
+        if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+          agenew = age;
+        } else {
+          agenew = age - 1;
+        }
+        this.age = agenew;
+      },
+      //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
       changeType(type) {
         switch (type) {
           case 'PR001003':
@@ -1128,7 +1150,10 @@
           //this.form.overtimelength = '1';
           this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
-          if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
+          //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
+          //if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
+          if (Number(this.age) > 28) {
+          //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
             Message({
               message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
               type: 'error',
@@ -1233,7 +1258,10 @@
                 return;
               }
               //五四青年节28周岁以内申请
-              if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
+              //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
+              //if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
+              if (Number(this.age) > 28) {
+              //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
                 Message({
                   message: this.$t('label.PFANS2011FROMVIEW_ERRORINFOW'),
                   type: 'error',
