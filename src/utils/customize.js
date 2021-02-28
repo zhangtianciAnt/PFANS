@@ -512,7 +512,7 @@ export function getCurrentRole2() {
       //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
       //roles = roles + role.description;
       roles = roles + role.rolename;
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+      //upd gbb 20210219 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
     }
     if (roles.toUpperCase().indexOf('总务担当') != -1 || roles.toUpperCase().indexOf('前台总务') != -1) {
       return '0';
@@ -792,8 +792,39 @@ export function getCurrentRole16() {
   }
   return '1';
 }
+//insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 start
+export function getCurrentRole17() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
 
-
+export function getCurrentRole18() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 end
 
 import CryptoJS from 'crypto-js/crypto-js';
 
@@ -836,21 +867,6 @@ export function Decrypt(word, keyStr, ivStr) {
   });
   var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
   return decryptedStr.toString();
-}
-export function getCurrentRole17() {
-  let roles = '';
-  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
-    for (let role of store.getters.useraccount.roles) {
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
-      //roles = roles + role.description;
-      roles = roles + role.rolename;
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
-    }
-    if (roles.toUpperCase().indexOf('总经理') != -1) {
-      return '0';
-    }
-  }
-  return '1';
 }
 //add-ws-12/10-汇率字典
 export function getMonthlyrateInfo(code) {
