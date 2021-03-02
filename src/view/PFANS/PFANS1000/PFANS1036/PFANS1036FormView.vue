@@ -912,7 +912,7 @@
                     <TrustComponent :disabled="true" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B4')" name="fifth">
-                    <TrustComponent :disabled="false" :tableTrust="groupC" @sum="getSumC"></TrustComponent>
+                    <TrustComponent :disabled="false" :tableTrust="groupC" @sum="getSumC" :check="false"></TrustComponent>
                   </el-tab-pane>
                 </el-tabs>
               </div>
