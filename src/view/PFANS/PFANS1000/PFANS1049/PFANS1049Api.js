@@ -1,4 +1,5 @@
 import request from "../../../../utils/request"
+import requestDownload from '../../../../utils/requestExcel';
 export function list() {
   return request({
     url: 'incomeexpenditure/list',
@@ -18,5 +19,13 @@ export function insert(data) {
     url: 'incomeexpenditure/insert',
     method: 'post',
     data: data
+  })
+}
+
+export function getradio(data) {
+  return requestDownload({
+    url: 'incomeexpenditure/getradio',
+    method: 'get',
+    params: data,
   })
 }
