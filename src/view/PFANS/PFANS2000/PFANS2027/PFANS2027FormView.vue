@@ -36,20 +36,20 @@
                     use-virtual
                     v-if="isShow"
                   >
-<!--                    <plx-table-column-->
-<!--                      fixed="left"-->
-<!--                      width="50">-->
-<!--                      <template slot-scope="scope">-->
-<!--                        <el-checkbox-->
-<!--                          v-model="scope.row.dis"-->
-<!--                          :disabled="!disabled"-->
-<!--                          :key="index"-->
-<!--                          @change="getChecked(scope.row.dis,scope.$index)"-->
-<!--                          active-value="1"-->
-<!--                          inactive-value="0"-->
-<!--                        ></el-checkbox>-->
-<!--                      </template>-->
-<!--                    </plx-table-column>-->
+                    <!--                    <plx-table-column-->
+                    <!--                      fixed="left"-->
+                    <!--                      width="50">-->
+                    <!--                      <template slot-scope="scope">-->
+                    <!--                        <el-checkbox-->
+                    <!--                          v-model="scope.row.dis"-->
+                    <!--                          :disabled="!disabled"-->
+                    <!--                          :key="index"-->
+                    <!--                          @change="getChecked(scope.row.dis,scope.$index)"-->
+                    <!--                          active-value="1"-->
+                    <!--                          inactive-value="0"-->
+                    <!--                        ></el-checkbox>-->
+                    <!--                      </template>-->
+                    <!--                    </plx-table-column>-->
                     <plx-table-column
                       :label="$t('label.PFANS2027VIEW_NAME')"
                       prop="userName"
@@ -1019,23 +1019,29 @@
               if (this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37" || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f") {
                 this.R *= 0;
               } else {
-                if (this.$route.params.evaluatenum === "一次評価") {
-                  if (item.process === "1") {
-                    this.R *= 1;
-                  } else {
-                    this.R *= 0;
-                  }
-                } else if (this.$route.params.evaluatenum === "二次評価") {
-                  if (item.process === "2") {
-                    this.R *= 1;
-                  } else {
-                    this.R *= 0;
-                  }
-                } else if (this.$route.params.evaluatenum === "最终評価") {
-                  if (item.process === "3") {
-                    this.R *= 1;
-                  } else {
-                    this.R *= 0;
+                if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && item.process === "4") {
+                  this.R *= 1;
+                } else if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && item.process !== "4") {
+                  this.R *= 0;
+                } else {
+                  if (this.$route.params.evaluatenum === "一次評価") {
+                    if (item.process === "1") {
+                      this.R *= 1;
+                    } else {
+                      this.R *= 0;
+                    }
+                  } else if (this.$route.params.evaluatenum === "二次評価") {
+                    if (item.process === "2") {
+                      this.R *= 1;
+                    } else {
+                      this.R *= 0;
+                    }
+                  } else if (this.$route.params.evaluatenum === "最终評価") {
+                    if (item.process === "3") {
+                      this.R *= 1;
+                    } else {
+                      this.R *= 0;
+                    }
                   }
                 }
               }
@@ -1073,14 +1079,18 @@
           if (scope.prize === "无") {
             return true;
           } else {
-            if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
-              return false;
-            } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
-              return false;
-            } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+            if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && scope.process === "4") {
               return false;
             } else {
-              return true;
+              if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
+                return false;
+              } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
+                return false;
+              } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+                return false;
+              } else {
+                return true;
+              }
             }
           }
         }
