@@ -77,6 +77,20 @@
                   </el-select>
                 </template>
               </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-start-->
+              <el-table-column
+                prop="summerplanpc"
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="winterplanpc"
+                :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
+                width="180"
+                align="center">
+              </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-end-->
               <el-table-column
                 prop="entermouth"
                 :label="$t('label.PFANS1038VIEW_ADOPTED')"
@@ -342,7 +356,8 @@
                 this.show = false;
             }
             if (this.$route.params._id) {
-                this.getOne(this.$route.params._id);
+                // this.getOne(this.$route.params._id);
+              this.getPersonalCost(this.$route.params._id)
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
@@ -364,6 +379,19 @@
                     }
                 }
             },
+          // add-lyt-21/1/29-禅道任务648-start
+          getPersonalCost(id) {
+            this.$store
+              .dispatch('PFANS1038Store/getYearsantid',id)
+              .then(response => {
+                  this.form.yearsantid = this.response.yearsantid,
+                    this.tableData.name = this.response.username,
+                    this.tableData.summerplanpc = this.response.aptoju,
+                    this.tableData.winterplanpc =this.response.jutoma
+                }
+              )
+          },
+          // add-lyt-21/1/29-禅道任务648-end
             getCustomerInfo(id) {
                 this.$store
                     .dispatch('PFANS1038Store/getCustomerInfo', id)
