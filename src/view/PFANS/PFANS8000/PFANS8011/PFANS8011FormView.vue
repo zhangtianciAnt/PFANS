@@ -157,7 +157,7 @@
             icon: 'el-icon-check',
           },
         ],
-        isDisable: "false"
+        isDisable: false
       };
     },
     created() {
@@ -167,13 +167,13 @@
           var date = new Date();
           let c_month = date.getMonth();
           let c_year = date.getFullYear();
-          if(c_year === this.$route.params.year && c_month<2){
-            this.isDisable = "true";
+          if(c_year.toString().trim() === this.$route.params.year.trim() && c_month<=2){
+            this.isDisable = false;
           }else {
-            this.isDisable = "false";
+            this.isDisable = true;
           }
         }else {
-          this.isDisable = "true";
+          this.isDisable = true;
         }
       }
     },
