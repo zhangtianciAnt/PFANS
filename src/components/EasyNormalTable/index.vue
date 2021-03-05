@@ -505,6 +505,13 @@
         }
       }
     },
+    activated(){
+      this.searchValue = '';
+      this.listQuery = {
+          page: 1,
+          limit: 50,
+      };
+    },
     mounted() {
       this.totaldata = this.data;
       this.getList();

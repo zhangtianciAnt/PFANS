@@ -828,6 +828,9 @@ const routes = [
         path: '/PFANS2010View',
         name: 'PFANS2010View',
         component: PFANS2010View,
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: '/PFANS2010FormView',
@@ -838,6 +841,10 @@ const routes = [
         path: '/PFANS2011View',
         name: 'PFANS2011View',
         component: PFANS2011View,
+        meta: {
+          keepAlive: true
+        }
+
       },
       {
         path: '/PFANS2011FormView',

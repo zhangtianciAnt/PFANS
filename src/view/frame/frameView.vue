@@ -66,7 +66,7 @@
           <el-main class="sub_bg_color_grey" style="padding: 1rem;overflow-x: hidden">
             <!--<transition name="el-fade-in">-->
             <!--<router-view @changeMenu="changeMenu" @showPersonCenter="showPersonCenter"/>-->
-            <keep-alive>
+            <keep-alive v-if="isRouterAlive">
               <router-view v-if="$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop">
                 <!-- 这里是会被缓存的视图组件，比如列表A页面 -->
               </router-view>
