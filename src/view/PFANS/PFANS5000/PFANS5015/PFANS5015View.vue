@@ -132,8 +132,8 @@
     created() {
     },
     async mounted() {
-      await this.getcontract();
-      await this.getProjectList();
+      // await this.getcontract();
+      // await this.getProjectList();
     },
     methods: {
       filter(){
