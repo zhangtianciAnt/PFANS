@@ -16,8 +16,9 @@
           <i class="el-icon-question" v-if="showHelp" slot="reference"/>
           </el-popover></span>
         <slot name="customize"></slot>
-        <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
-                  style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
+        <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
+                  style="width: 25%;vertical-align:top" v-model="searchValue">
+          <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
       <slot name="search"></slot>

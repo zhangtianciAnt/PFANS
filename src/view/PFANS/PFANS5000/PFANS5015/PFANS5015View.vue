@@ -11,7 +11,6 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
                 <el-date-picker
-                  @change="changeFilte"
                   type="date"
                   v-model="start">
                 </el-date-picker>
@@ -20,7 +19,6 @@
             <el-col :span="12">
               <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
                 <el-date-picker
-                  @change="changeFilte"
                   type="date"
                   v-model="end">
                 </el-date-picker>
@@ -56,6 +54,7 @@
         buttonList: [
           //{'key': 'import', 'name': 'button.import', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
         ],
         contractType: '0',
         loading: false,
@@ -312,37 +311,42 @@
 
       },
       buttonClick(val) {
-        if (this.$refs.roletable.selectedList.length === 0) {
-          Message({
-            message: this.$t('normal.info_01'),
-            type: 'info',
-            duration: 2 * 1000,
-          });
-          return;
-        }
-        this.selectedlist = this.$refs.roletable.selectedList;
-        import('@/vendor/Export2Excel').then(excel => {
-          const tHeader = [
-            this.$t('label.user_name'),
-            this.$t('label.PFANSUSERFORMVIEW_COMPANY'),
-            this.$t('label.group'),
-            this.$t('label.PFANS5008VIEW_PROGRAM'),
-            this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
-            this.$t('label.PFANS5015VIEW_FORMVIEW_SC'),
+        if(val == 'export'){
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.selectedlist = this.$refs.roletable.selectedList;
+          import('@/vendor/Export2Excel').then(excel => {
+            const tHeader = [
+              this.$t('label.user_name'),
+              this.$t('label.PFANSUSERFORMVIEW_COMPANY'),
+              this.$t('label.group'),
+              this.$t('label.PFANS5008VIEW_PROGRAM'),
+              this.$t('label.PFANS1007FORMVIEW_CONTRACTNO'),
+              this.$t('label.PFANS5015VIEW_FORMVIEW_SC'),
 
-          ];
-          const filterVal = [
-            'username',
-            'company',
-            'groupname',
-            'project_name',
-            'contractno',
-            'time',
-          ];
-          const list = this.selectedlist;
-          const data = this.formatJson(filterVal, list);
-          excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS5015'));
-        });
+            ];
+            const filterVal = [
+              'username',
+              'company',
+              'groupname',
+              'project_name',
+              'contractno',
+              'time',
+            ];
+            const list = this.selectedlist;
+            const data = this.formatJson(filterVal, list);
+            excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS5015'));
+          });
+        }else if(val == 'search'){
+          this.changeFilte();
+        }
+
       },
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {

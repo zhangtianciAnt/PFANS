@@ -10,7 +10,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-              <el-select @change="changed" v-model="contractType">
+              <el-select  v-model="contractType">
                 <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
                 <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
                 <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
@@ -20,7 +20,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month">
               </el-date-picker>
             </el-form-item>
@@ -29,7 +29,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month5">
               </el-date-picker>
             </el-form-item>
@@ -40,7 +40,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month3">
               </el-date-picker>
             </el-form-item>
@@ -48,7 +48,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month4">
               </el-date-picker>
             </el-form-item>
@@ -56,7 +56,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month2">
               </el-date-picker>
             </el-form-item>
@@ -75,7 +75,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-              <el-select @change="changed" v-model="contractType">
+              <el-select  v-model="contractType">
                 <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
                 <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
                 <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
@@ -85,7 +85,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month">
               </el-date-picker>
             </el-form-item>
@@ -94,7 +94,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                type="month"
                 v-model="month5">
               </el-date-picker>
             </el-form-item>
@@ -105,7 +105,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month3">
               </el-date-picker>
             </el-form-item>
@@ -113,7 +113,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month4">
               </el-date-picker>
             </el-form-item>
@@ -121,7 +121,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                type="month"
                 v-model="month2">
               </el-date-picker>
             </el-form-item>
@@ -138,7 +138,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-              <el-select @change="changed" v-model="contractType">
+              <el-select  v-model="contractType">
                 <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
                 <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
                 <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
@@ -147,8 +147,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker  type="month"
                 v-model="month">
               </el-date-picker>
             </el-form-item>
@@ -156,8 +155,7 @@
           <!--          add-ws-01/21-禅道任务748-->
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker type="month"
                 v-model="month5">
               </el-date-picker>
             </el-form-item>
@@ -168,24 +166,21 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker type="month"
                 v-model="month3">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker  type="month"
                 v-model="month4">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker  type="month"
                 v-model="month2">
               </el-date-picker>
             </el-form-item>
@@ -211,7 +206,7 @@
     },
     data() {
       return {
-        showTable: '',
+        showTable: 1,
         selectedlist: [],
         showSelection: true,
         showSelection2: true,
@@ -219,11 +214,12 @@
         buttonList: [
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORTCSV', 'disabled': false, icon: 'el-icon-upload2'},
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
         ],
         contractType: '0',
         loading: false,
         title: 'title.PFANS1044VIEW',
-        contractnumbercount: '',
+        contractnumbercount: 1,
         data: [],
         totalcostvalue: [],
         totalcostvalue2: [],
@@ -541,25 +537,25 @@
         rowid: 'contractapplication_id ',
       };
     },
-    beforeRouteEnter(to, from, next) {
-      if (from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView') {
-        to.meta.isBack = true;
-      } else {
-        to.meta.isBack = false;
-      }
-      next();
-    },
-
+    // beforeRouteEnter(to, from, next) {
+    //   if (from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView') {
+    //     to.meta.isBack = true;
+    //   } else {
+    //     to.meta.isBack = false;
+    //   }
+    //   next();
+    // },
+    //
     activated() {
-      if (!this.$route.meta.isBack) {
+      // if (!this.$route.meta.isBack) {
         // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
-        this.init();
-        this.contractType = '0';
-        this.month = '';
-        this.month2 = '';
-      }
-      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
-      this.$route.meta.isBack = false;
+        // this.init();
+        // this.contractType = '0';
+        // this.month = '';
+        // this.month2 = '';
+      // }
+      // // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      // this.$route.meta.isBack = false;
 
     },
     methods: {
@@ -2178,6 +2174,8 @@
               duration: 2 * 1000,
             });
           }
+        }else if(val == 'search'){
+          this.init();
         }
       },
       formatJson(filterVal, jsonData) {
