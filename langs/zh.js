@@ -37,7 +37,6 @@ module.exports = {
     sumnumber: '添加',
     insert: '新建',
     search: '检索',
-    reload:'获取最新',
     insertLots: '批量新建',
     update: '编辑',
     delete: '删除',

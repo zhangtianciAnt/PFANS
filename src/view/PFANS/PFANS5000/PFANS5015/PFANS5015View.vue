@@ -1,7 +1,7 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data"
                    :showSelection="isShow"
-                   @buttonClick="buttonClick" :showReaload="showReaload"
+                   @buttonClick="buttonClick"
                    :title="title" ref="roletable"
                    v-loading="loading">
     <div slot="search">
@@ -48,7 +48,6 @@
     },
     data() {
       return {
-        showReaload:false,
         start: moment(new Date()).format('YYYY-MM-DD'),
         end: moment(new Date()).format('YYYY-MM-DD'),
         showSelection: true,
@@ -133,8 +132,8 @@
     created() {
     },
     async mounted() {
-      // await this.getcontract();
-      // await this.getProjectList();
+      await this.getcontract();
+      await this.getProjectList();
     },
     methods: {
       filter(){

@@ -2,7 +2,7 @@
   <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 2rem)">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-if="buttonShow">
-        <easy-button-bar :data="btlisst" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
+        <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"></easy-work-flow>
       </div>
       <div align="right" class="filter-container" v-if="titleShow">
@@ -128,7 +128,6 @@
       EasyButtonBar,
       EasyWorkFlow,
     },
-    inject:['reload'],
     data() {
       return {
         showHelp: false,
@@ -146,7 +145,6 @@
         loading: false,
         filterlist: [],
         selectedList: [],
-        btlisst:[],
       };
     },
     props: {
@@ -261,10 +259,6 @@
         type: String,
         default: '',
       },
-      showReaload:{
-        type: Boolean,
-        default: true,
-      }
     },
     methods: {
       handleEdit(index, row) {
@@ -286,12 +280,7 @@
         return 'row_height_left';
       },
       buttonClick(val) {
-        if(val == 'reload'){
-          this.reload();
-        }else{
-
-          this.$emit('buttonClick', val);
-        }
+        this.$emit('buttonClick', val);
       },
       // 表格排序
       sortChange(column, prop, order) {
@@ -473,21 +462,6 @@
       // }
     },
     created() {
-      if(this.showReaload){
-        this.btlisst = this.buttonList.concat(
-          [
-            {
-              key: 'reload',
-              name: 'button.reload',
-              disabled: false,
-              icon: 'el-icon-refresh-right',
-            }
-          ]
-        );
-      }else{
-        this.btlisst = this.buttonList;
-      }
-
       this.$parent.$emit('showPop', []);
       let Content = helpContent().filter(item => item.id == this.$router.currentRoute.name);
       if (Content.length > 0) {

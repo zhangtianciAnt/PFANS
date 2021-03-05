@@ -2,7 +2,7 @@
   <div class="EasyNormalTable" style="height: calc(100vh - 60px - 2rem)" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
-        <easy-button-bar :data="btlisst" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
+        <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
       <div align="right" class="filter-container" style="padding-bottom: 10px">
@@ -86,8 +86,7 @@
         loading: false,
         filterlist: [],
         systembutton: [false, false, false],
-        selectedList: [],
-        btlisst:[],
+        selectedList: []
       }
     },
     props: {
@@ -156,10 +155,6 @@
       showIndex: {
         type: Boolean,
         default: false
-      },
-      showReaload:{
-        type: Boolean,
-        default: true,
       }
     },
     methods: {
@@ -168,12 +163,7 @@
       //   return 'row_height_left';
       // },
       buttonClick (val) {
-        if(val == 'reload'){
-          this.reload();
-        }else{
-
-          this.$emit('buttonClick', val);
-        }
+        this.$emit('buttonClick', val)
       },
       // 表格排序
       sortChange (column, prop, order) {
@@ -341,20 +331,6 @@
       // }
     },
     mounted () {
-      if(this.showReaload){
-        this.btlisst = this.buttonList.concat(
-          [
-            {
-              key: 'reload',
-              name: 'button.reload',
-              disabled: false,
-              icon: 'el-icon-refresh-right',
-            }
-          ]
-        );
-      }else{
-        this.btlisst = this.buttonList;
-      }
       this.totaldata = this.data
       this.getList()
       // this.getNewActionAuth()

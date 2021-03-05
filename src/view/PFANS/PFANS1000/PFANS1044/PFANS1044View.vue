@@ -3,7 +3,7 @@
     <!--委托契约-->
     <!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :rowid="rowid"
-                     :showSelection="showSelection2" :showReaload="showReaload"
+                     :showSelection="showSelection2"
                      :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable2"
                      v-loading="loading" v-show="this.showTable===2">
       <el-form label-position="top" label-width="8vw" slot="search">
@@ -67,7 +67,7 @@
     <!--    add-ws-No.29-合同检索一览表中追加纳品日期-->
     <!--受托契约-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="rowid"
-                     :showSelection="showSelection" :showReaload="showReaload"
+                     :showSelection="showSelection"
                      :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable"
                      v-loading="loading" v-show="this.showTable===1">
 
@@ -131,7 +131,7 @@
     </EasyNormalTable>
     <!--其他契约-->
     <EasyNormalTable :buttonList="buttonList" :columns="columns3" :data="data" :rowid="rowid"
-                     :showSelection="showSelection3" :showReaload="showReaload"
+                     :showSelection="showSelection3"
                      :title="title" @buttonClick="buttonClick" @dbrowClick="dbrowClick" ref="roletable3"
                      v-loading="loading" v-show="this.showTable===3">
       <el-form label-position="top" label-width="8vw" slot="search">
@@ -206,7 +206,6 @@
     },
     data() {
       return {
-        showReaload:false,
         showTable: 1,
         selectedlist: [],
         showSelection: true,

@@ -72,7 +72,7 @@
               </router-view>
             </keep-alive>
 
-            <router-view v-if="!$route.meta.keepAlive && isRouterAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop" >
+            <router-view v-if="!$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop">
               <!-- 这里是不被缓存的视图组件，比如详情B页面-->
             </router-view>
             <!--</transition>-->
@@ -164,14 +164,8 @@
       EasyPop,
       person
     },
-    provide (){
-      return {
-        reload:this.reload
-      }
-    },
     data() {
       return {
-        isRouterAlive:true,
         userIcon:userIcon,
         companyIcon:companyIcon,
         flowData: [],
@@ -239,12 +233,6 @@
       };
     },
     methods: {
-      reload (){
-        this.isRouterAlive = false
-        this.$nextTick(function(){
-          this.isRouterAlive = true
-        })
-      },
       changeType(val) {
         if (val === 'company') {
           this.changeTypeMessage = "将切换至工作空间, 是否继续?"
