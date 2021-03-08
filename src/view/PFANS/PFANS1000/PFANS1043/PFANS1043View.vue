@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        year: moment(new Date()).format('YYYY'),
+        year:  parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
         loading: false,
         title: 'title.PFANS1043VIEW',
         data: [],
