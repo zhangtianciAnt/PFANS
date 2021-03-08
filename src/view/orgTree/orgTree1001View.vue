@@ -121,7 +121,7 @@
           label: 'title',
           children: 'orgs'
         },
-        years:  moment(new Date()).format('YYYY'),
+        years:  moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         activeNam: 'first',
         currentNode: {
           type: '1'
