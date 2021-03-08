@@ -2,7 +2,7 @@
   <div class="EasyNormalTable" element-loading-spinner="el-icon-loading" style="height: calc(100vh - 60px - 2rem)">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-if="buttonShow">
-        <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
+        <easy-button-bar :data="btlisst" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"></easy-work-flow>
       </div>
       <div align="right" class="filter-container" v-if="titleShow">
@@ -16,8 +16,9 @@
           <i class="el-icon-question" v-if="showHelp" slot="reference"/>
           </el-popover></span>
         <slot name="customize"></slot>
-        <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
-                  style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
+        <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
+                  style="width: 25%;vertical-align:top" v-model="searchValue">
+          <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
       <slot name="search"></slot>
@@ -127,6 +128,7 @@
       EasyButtonBar,
       EasyWorkFlow,
     },
+    inject:['reload'],
     data() {
       return {
         showHelp: false,
@@ -144,6 +146,7 @@
         loading: false,
         filterlist: [],
         selectedList: [],
+        btlisst:[],
       };
     },
     props: {
@@ -258,6 +261,10 @@
         type: String,
         default: '',
       },
+      showReaload:{
+        type: Boolean,
+        default: true,
+      }
     },
     methods: {
       handleEdit(index, row) {
@@ -279,7 +286,12 @@
         return 'row_height_left';
       },
       buttonClick(val) {
-        this.$emit('buttonClick', val);
+        if(val == 'reload'){
+          this.reload();
+        }else{
+
+          this.$emit('buttonClick', val);
+        }
       },
       // 表格排序
       sortChange(column, prop, order) {
@@ -461,6 +473,21 @@
       // }
     },
     created() {
+      if(this.showReaload){
+        this.btlisst = this.buttonList.concat(
+          [
+            {
+              key: 'reload',
+              name: 'button.reload',
+              disabled: false,
+              icon: 'el-icon-refresh-right',
+            }
+          ]
+        );
+      }else{
+        this.btlisst = this.buttonList;
+      }
+
       this.$parent.$emit('showPop', []);
       let Content = helpContent().filter(item => item.id == this.$router.currentRoute.name);
       if (Content.length > 0) {
@@ -477,6 +504,13 @@
           this.showHelp = true;
         }
       }
+    },
+    activated(){
+      this.searchValue = '';
+      this.listQuery = {
+          page: 1,
+          limit: 50,
+      };
     },
     mounted() {
       this.totaldata = this.data;
