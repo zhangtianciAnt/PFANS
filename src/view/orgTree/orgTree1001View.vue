@@ -11,6 +11,14 @@
           <div slot="header" class="clearfix" style="height: 2rem">
             <easy-button-bar @buttonClick="buttonClick" :data="buttonList"></easy-button-bar>
           </div>
+          <div>{{"年份"}}
+            <el-date-picker
+              v-model="years"
+              type="year"
+              @change="showData"
+              placeholder="选择年">
+            </el-date-picker>
+          </div>
           <div>
             <el-tabs v-model="activeNam">
               <el-tab-pane label="基本信息" name="first">
@@ -18,34 +26,34 @@
                          label-position="left" label-width="8rem" style="border: none;  border-radius: 0.5rem;padding:3rem;"
                          v-show="currentNode.type === '1'||currentNode.type === '2'" :disabled="formDisabled">
                   <el-form-item prop="name" label="简称" @mouseover.native="changeflag('nameflag',true)" @mouseout.native="changeflag('nameflag',false)">
-                    <el-input v-model="currentNode.companyshortname" v-show="nameflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.companyshortname" v-show="nameflag"></el-input>
                     <span v-show="!nameflag">{{currentNode.companyshortname}}</span>
                   </el-form-item>
                   <el-form-item prop="lessname" label="全称" @mouseover.native="changeflag('namelessflag',true)" @mouseout.native="changeflag('namelessflag',false)">
-                    <el-input v-model="currentNode.companyname" v-show="namelessflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.companyname" v-show="namelessflag"></el-input>
                     <span v-show="!namelessflag">{{currentNode.companyname}}</span>
                   </el-form-item>
                   <el-form-item prop="engname" label="英文缩写" @mouseover.native="changeflag('nameengflag',true)" @mouseout.native="changeflag('nameengflag',false)">
-                    <el-input v-model="currentNode.companyen" v-show="nameengflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.companyen" v-show="nameengflag"></el-input>
                     <span v-show="!nameengflag">{{currentNode.companyen}}</span>
                   </el-form-item>
                   <el-form-item  label="组织番号" @mouseover.native="changeflag('orgnameflag',true)" @mouseout.native="changeflag('orgnameflag',false)">
-                    <el-input v-model="currentNode.orgname" v-show="orgnameflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.orgname" v-show="orgnameflag"></el-input>
                     <span v-show="!orgnameflag">{{currentNode.orgname}}</span>
                   </el-form-item>
                   <el-form-item  label="预算编码(集约）" @mouseover.native="changeflag('encodingflag',true)" @mouseout.native="changeflag('encodingflag',false)">
-                    <el-input v-model="currentNode.encoding" v-show="encodingflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.encoding" v-show="encodingflag"></el-input>
                     <span v-show="!encodingflag">{{currentNode.encoding}}</span>
                   </el-form-item>
                   <el-form-item prop="user" label="组织负责人">
-                    <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
+                    <user :disabled="!disabled" selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
                   </el-form-item>
                   <el-form-item prop="redirict" label="是否直属组织">
-                    <el-switch v-model="currentNode.redirict" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    <el-switch :disabled="!disabled" v-model="currentNode.redirict" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
                   </el-form-item>
                   <el-form-item prop="status" label="状态">
-                    <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    <el-switch :disabled="!disabled" v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
                   </el-form-item>
                 </el-form>
@@ -56,25 +64,25 @@
                                 @mouseover.native="changeflag('nameflag',true)"
                                 @mouseout.native="changeflag('nameflag',false)"
                                 :rules="[{ required: true, message: '请输入部门名称', trigger: 'blur' }]">
-                    <el-input v-model="currentNode.departmentname" v-show="nameflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.departmentname" v-show="nameflag"></el-input>
                     <span v-show="!nameflag">{{currentNode.departmentname}}</span>
                   </el-form-item>
                   <el-form-item label="上级组织" prop="cname">
                     <span >{{currentNode.upcompany}}</span>
                   </el-form-item>
                   <el-form-item  label="预算编码" @mouseover.native="changeflag('encodingflag',true)" @mouseout.native="changeflag('encodingflag',false)">
-                    <el-input v-model="currentNode.encoding" v-show="encodingflag"></el-input>
+                    <el-input :disabled="!disabled" v-model="currentNode.encoding" v-show="encodingflag"></el-input>
                     <span v-show="!encodingflag">{{currentNode.encoding}}</span>
                   </el-form-item>
                   <el-form-item prop="user" label="组织负责人">
-                    <user selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
+                    <user :disabled="!disabled" selectType="Single" @getUserids="getUserids" :userlist="currentNode.user" style="width:20vw"></user>
                   </el-form-item>
                   <el-form-item prop="redirict" label="是否直属组织">
-                    <el-switch v-model="currentNode.redirict" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    <el-switch :disabled="!disabled" v-model="currentNode.redirict" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
                   </el-form-item>
                   <el-form-item prop="status" label="状态">
-                    <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    <el-switch :disabled="!disabled" v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
                   </el-form-item>
                 </el-form>
@@ -92,9 +100,10 @@
   import EasyButtonBar from '@/components/EasyButtonBar'
   import { parseTime } from '@/utils/customize'
   import { Message } from 'element-ui'
+  import moment from "moment"
   import user from "../components/user.vue";
   export default {
-    name: 'orgTreeView',
+    name: 'orgTree1001View',
     components: {
       EasyTree,
       EasyButtonBar,
@@ -102,6 +111,7 @@
     },
     data () {
       return {
+        disabled: false,
         companyFormcheck: {},
         treeshow: true,
         data: [],
@@ -111,20 +121,13 @@
           label: 'title',
           children: 'orgs'
         },
+        years:  moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         activeNam: 'first',
         currentNode: {
           type: '1'
         },
         buttonList: [
-          //update gbb 20210308  禅道任务708  start
-          // { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
-          // { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
-          // { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
-          { key: 'insert', name: 'button.orginsert', disabled: false, icon: 'el-icon-plus' },
-          { key: 'change', name: 'button.orgchange', disabled: false, icon: 'el-icon-edit' },
-          { key: 'view', name: 'button.orgresume', disabled: false, icon: 'el-icon-paperclip'},
-          { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' },
-          //update gbb 20210308  禅道任务708  end
+            { key: 'back', name: 'button.back', disabled: false, icon: 'el-icon-back' },
         ],
         nameflag: false,
         namelessflag: false,
@@ -143,36 +146,12 @@
       }
     },
     methods: {
+      showData(value) {
+        this.years = moment(value).format('YYYY');
+        this.getInitData();
+      },
       getUserids(val){
         this.currentNode.user = val;
-      },
-      getButtonAuth (data) {
-        this.$store
-          .dispatch('tableStore/getActionsAuth', data.owner)
-          .then(response => {
-            this.buttonList[3].disabled = response[1];
-            this.formDisabled = response[1];
-          })
-          .catch(error => {
-            this.buttonList[3].disabled = false;
-            this.formDisabled = false;
-          })
-      },
-      getNewActionAuth () {
-        this.$store
-          .dispatch('tableStore/getNewActionAuth')
-          .then(response => {
-            this.newBtnDisabled = response;
-            this.buttonList[0].disabled = response;
-            this.buttonList[1].disabled = response;
-            this.buttonList[2].disabled = response;
-          })
-          .catch(error => {
-            this.newBtnDisabled = false;
-            this.buttonList[0].disabled = false;
-            this.buttonList[1].disabled = false;
-            this.buttonList[2].disabled = false;
-          })
       },
       handleNodeClick (data) {
         let temp = []
@@ -182,20 +161,6 @@
         )
         if (!data.companyname) {
           data.companyname = data.title
-        }
-        //设置按钮状态
-        this.getButtonAuth(data);
-        if (data.type === '2') {
-          this.activeNam = 'first'
-          this.buttonList[0].disabled = true
-          this.buttonList[1].disabled = false
-        } else if (data.type === '3') {
-          this.activeNam = 'first'
-          this.buttonList[0].disabled = true
-          this.buttonList[1].disabled = true
-        } else {
-          this.buttonList[0].disabled = false || this.newBtnDisabled
-          this.buttonList[1].disabled = false || this.newBtnDisabled
         }
         this.currentNode = data
         if (data.invoiceinfo) {
@@ -211,13 +176,11 @@
       getInitData () {
         this.loading = true;
         this.$store
-          .dispatch('orgTreeStore/getOrgTree')
-          .then(response => {
+          .dispatch('orgTreeStore/getTreeYears', {"Years": this.years,"Status": '0'})
+              .then(response => {
             if (response) {
-              this.$store.commit("global/SET_ORGLIST", [response]);
               this.data = [response]
               this.currentNode = response
-              this.getButtonAuth(this.currentNode)
               if (this.currentNode.invoiceinfo) {
                 this.exrinfolist.invlist = [this.currentNode.invoiceinfo]
               }
@@ -237,26 +200,7 @@
           })
       },
       buttonClick (val) {
-        //update gbb 20210308  禅道任务708  start
-        this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-        if (val === 'insert') {
-          this.$router.push({
-            name: 'orgTree1002View'
-          })
-        }
-        else if (val === 'save') {
-          this.formcommit();
-        }
-        else if (val === 'view') {
-          this.$router.push({
-            name: 'orgTree1001View'
-          })
-        } else {
-          this.$router.push({
-            name: 'orgTree1003View'
-          })
-        }
-        //update gbb 20210308  禅道任务708  end
+          this.cancelForm();
       },
       changeflag (flag, type) {
         switch (flag) {
@@ -380,10 +324,14 @@
           .catch(() => {
             this.loading = false
           })
-      }
+      },
+      cancelForm() {
+          if(this.$store.getters.historyUrl){
+              this.$router.push(this.$store.getters.historyUrl);
+          }
+      },
     },
     mounted () {
-      this.getNewActionAuth()
       this.getInitData()
       this.$store.commit('global/SET_OPERATEID', '')
     }
