@@ -82,12 +82,21 @@
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
+                v-if="show2"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="winterplanpc"
                 :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
                 width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="unitprice"
+                :label="$t('label.PFANS3005VIEW_UNITPRICE')"
+                width="180"
+                v-if="show3"
                 align="center">
               </el-table-column>
               <!--              add-lyt-21/1/29-禅道任务648-end-->
@@ -215,6 +224,29 @@
                   </el-switch>
                 </template>
               </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-start-->
+              <el-table-column
+                prop="summerplanpc"
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="winterplanpc"
+                :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
+                width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="unitprice"
+                :label="$t('label.PFANS3005VIEW_UNITPRICE')"
+                width="180"
+                v-if="show3"
+                align="center">
+              </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-end-->
               <el-table-column :label="$t('label.operation')" width="200" align="center">
                 <template slot-scope="scope">
                   <el-button
@@ -314,6 +346,10 @@
                 buttonList: [],
                 show: false,
                 show1: false,
+                // add-lyt-21/1/29-禅道任务648-start
+                show2:false,
+                show3:false,
+                //add-lyt-21/1/29-禅道任务648-end
                 titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
                 form: {
                     //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
@@ -356,13 +392,12 @@
                 this.show = false;
             }
             if (this.$route.params._id) {
-                // this.getOne(this.$route.params._id);
-              this.getPersonalCost(this.$route.params._id)
+                this.getOne(this.$route.params._id);
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.$route.params.type === 0 ? this.getCustomerInfo(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "");
+                    this.$route.params.type === 0 ? this.getPersonalCost(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "")
                 }
             }
         },
@@ -381,13 +416,26 @@
             },
           // add-lyt-21/1/29-禅道任务648-start
           getPersonalCost(id) {
+            this.show2=true;
+            let params={
+              groupid : id,
+              years : this.form.years,
+            };
             this.$store
-              .dispatch('PFANS1038Store/getYearsantid',id)
+              .dispatch('PFANS1038Store/getPersonalCost',params)
               .then(response => {
-                  this.form.yearsantid = this.response.yearsantid,
-                    this.tableData.name = this.response.username,
-                    this.tableData.summerplanpc = this.response.aptoju,
-                    this.tableData.winterplanpc =this.response.jutoma
+                for (var i = 0; i < response.length; i++){
+                  this.tableData.push({
+                    //add-lyt-3/4-添加加班时给，不显示-start
+                    overtimepay: response[i].overtimepay,
+                    //add-lyt-3/4-添加加班时给，不显示-end
+                    name: response[i].username,
+                    thisyear: response[i].exrank,
+                    nextyear: response[i].ltrank,
+                    summerplanpc: response[i].aptoju,
+                    winterplanpc:response[i].jutoma,
+                  });
+                }
                 }
               )
           },
@@ -421,6 +469,7 @@
                     })
             },
             getExpatriatesinfor(id) {
+                this.show3=true;
                 this.$store
                     .dispatch('PFANS1038Store/getExpatriatesinfor', id)
                     .then(response => {
@@ -455,6 +504,7 @@
             },
             getOne(id) {
                 this.loading = true;
+                this.show2=true;
                 this.$store
                     .dispatch("PFANS1038Store/getOne", id)
                     .then(response => {
