@@ -2328,6 +2328,14 @@
         }
       },
       buttonClick(val) {
+        if (moment(this.form.startdate).format("YYYY-MM-DD") > moment(this.form.enddate).format("YYYY-MM-DD")) {
+          Message({
+            message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
         this.checkRequire();
