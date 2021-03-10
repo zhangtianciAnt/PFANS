@@ -264,16 +264,17 @@
                   <el-row>
                     <!--受託工数-->
                     <el-col :span="8">
-                      <el-form-item
-                        :label="$t('label.PFANS5009FORMVIEW_WORK')"
-                        prop="work"
-                      >
-                        <el-input
-                          :disabled="!disable"
-                          maxlength="20"
-                          style="width: 20vw"
+                      <el-form-item :label="$t('label.PFANS5009FORMVIEW_WORK')" prop="work">
+                        <el-input-number
+                          :disabled="!disabled"
+                          :max="99999"
+                          :min="0"
+                          :precision="0"
+                          :step="1"
+                          controls-position="right"
+                          style="width:20vw"
                           v-model="form.work"
-                        ></el-input>
+                        ></el-input-number>
                       </el-form-item>
                     </el-col>
                     <!--   納期-->
