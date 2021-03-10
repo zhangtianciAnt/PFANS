@@ -263,6 +263,7 @@
                   </el-row>
                   <el-row>
                     <!--受託工数-->
+                    <!--                    NT_PFANS_20210304_BUG_052  将受託工数 变为数字组件-->
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5009FORMVIEW_WORK')" prop="work">
                         <el-input-number
