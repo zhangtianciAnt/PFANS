@@ -3754,56 +3754,62 @@
             letone.sort((a, b) => {
               return a.claimtype > b.claimtype;
             });
-            let cl = '';
-            let gr = [];
-            let grAnt = [];
-            let mon = 0;
+            // PSDCD_PFANS_20210310_BUG_030 ztc start
             let datamountMap = new Map();
             for (let t = 0; t < this.form.tableclaimtype.length; t++) {
               datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
             }
-            for (let n = 0; n < letone.length; n++) {
-              if (n == 0) { //初始化cl
-                cl = letone[n].claimtype;
-              }
-              //回数相同
-              if (letone[n].claimtype === cl && n != 0) {
-                for (let i = 0; i < grAnt.length; i++) {
-                  if (grAnt.indexOf(letone[n].group_id) != -1) {
-                    Message({
-                      message: letone[n].claimtype + this.$t('label.PFANS1026FORMVIEW_GROUP'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  } else {
-                    gr.push(letone[n].group_id); //D z zk
-                    mon += Number(letone[n].contractrequestamount); //66250 132500 66250
-                  }
-                }
+            let scanList = [];
+            let scanMap = new Map();
+            for (let h = 0; h < letone.length; h++) {
+              let scanChild = letone[h].claimtype + letone[h].group_id;
+              scanList.push(scanChild);
+              if (h == 0) {
+                scanMap.set(letone[h].claimtype, letone[h].contractrequestamount)
               } else {
-                if (n != 0) {
-                  let claimtype = letone[n - 1].claimtype;
-                  let cla = datamountMap.get(claimtype);
-                  if (mon != 0 && Number(mon).toFixed(2) != Number(cla).toFixed(2)) {
-                    Message({
-                      message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  gr = [];
-                  grAnt = [];
+                let resultAnt = scanMap.get(letone[h].claimtype)
+                if (resultAnt == undefined) {
+                  scanMap.set(letone[h].claimtype, letone[h].contractrequestamount)
+                } else {
+                  let resultInScanMap = resultAnt + letone[h].contractrequestamount;
+                  scanMap.set(letone[h].claimtype, resultInScanMap)
                 }
-                gr.push(letone[n].group_id);
-                grAnt.push(letone[n].group_id);
-                cl = letone[n].claimtype;
-                mon = Number(letone[n].contractrequestamount);
+              }
+            }
+            ;
+            // 复合合同同一请求回合，部门不能重复
+            for (let p = 0; p < letone.length; p++) {
+              let cek = 0;
+              let checkChild = letone[p].claimtype + letone[p].group_id;
+              for (let c = 0; c < scanList.length; c++) {
+                if (checkChild == scanList[c]) {
+                  cek++;
+                }
+                if (cek > 1) {
+                  Message({
+                    message: letone[p].claimtype + this.$t('label.PFANS1026FORMVIEW_GROUP'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+            }
+            // 复合合同分配金额校验
+            for (let t = 0; t < this.form.tableclaimtype.length; t++) {
+              let dataMapChild = datamountMap.get(this.form.tableclaimtype[t].claimtype);
+              let scanMapChild = scanMap.get(this.form.tableclaimtype[t].claimtype);
+              if (dataMapChild != scanMapChild) {
+                Message({
+                  message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
               }
             }
 
-
+            // PSDCD_PFANS_20210310_BUG_030 ztc end
             function refrain(arr) {
               var tmp = [];
               if (Array.isArray(arr)) {
