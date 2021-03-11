@@ -70,6 +70,7 @@
     },
     data() {
       return {
+        datalist:[],
         fileList: [],
         upload: uploadUrl(),
         loading: false,
@@ -185,55 +186,92 @@
           }
           this.$refs['form'].validate((valid) => {
             if (valid) {
-              if (this.$route.params._id) {
-                this.form.workflowid = this.$route.params._id;
+              //add fr 添加流程名/识别码的重复check
+              if (this.form.code !== "" || this.form.workflowname !== "") {
                 this.loading = true;
                 this.$store
-                  .dispatch('workflowStore/updateWorkflow', this.form)
+                  .dispatch('workflowStore/getWorkflowList', {})
                   .then(response => {
-                    this.data = response;
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false
-
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false
-                  })
-
-              } else {
-                this.loading = true;
-                this.$store
-                  .dispatch('workflowStore/createWorkflow', this.form)
-                  .then(response => {
-                    this.data = response;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl)
+                    this.datalist = response;
+                    let data1 = this.datalist.filter(item => item.workflowname === this.form.workflowname && item.workflowid !== this.$route.params._id);
+                    let data2 = this.datalist.filter(item => item.code === this.form.code && item.workflowid !== this.$route.params._id);
+                    if (data1.length > 0 ) {
+                      Message({
+                        message: this.$t('label.workflow_check2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (data2.length > 0) {
+                      Message({
+                        message: this.$t('label.workflow_check1'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
                     }
+                    else
+                    {
+                      if (this.$route.params._id) {
+                        this.form.workflowid = this.$route.params._id;
+                        this.loading = true;
+                        this.$store
+                          .dispatch('workflowStore/updateWorkflow', this.form)
+                          .then(response => {
+                            this.data = response;
+                            Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false
+
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false
+                          })
+
+                      }
+                      else {
+                        this.loading = true;
+                        this.$store
+                          .dispatch('workflowStore/createWorkflow', this.form)
+                          .then(response => {
+                            this.data = response;
+                            Message({
+                              message: this.$t('normal.success_01'),
+                              type: 'success',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false;
+                            if (this.$store.getters.historyUrl) {
+                              this.$router.push(this.$store.getters.historyUrl)
+                            }
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false
+                          })
+                      }
+                    }
+                    this.loading = false;
                   })
                   .catch(error => {
                     Message({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000
-                    });
-                    this.loading = false
+                    })
                   })
               }
+              //add to
             }
             else{
                 Message({

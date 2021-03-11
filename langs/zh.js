@@ -556,6 +556,8 @@ module.exports = {
     workflow_code: '识别码',
     workflow_page: '所属画面',
     workflow_remarks: '流程说明',
+    workflow_check1:"当前识别码已存在，请勿重复创建",
+    workflow_check2:"当前流程名已存在，请勿重复创建",
     new_node: '新节点',
     node: '节点',
     hou: '后再选择',
