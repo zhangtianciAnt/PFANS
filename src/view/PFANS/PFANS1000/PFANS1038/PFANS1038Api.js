@@ -58,3 +58,12 @@ export function getAll() {
     method: 'get'
   })
 }
+// add-lyt-21/1/29-禅道任务648-start
+export function getPersonalCost(data) {
+  return request({
+    url: 'personnelplan/getPersonalCost',
+    method: 'get',
+    params: data
+  })
+}
+// add-lyt-21/1/29-禅道任务648-end

@@ -2328,6 +2328,16 @@
         }
       },
       buttonClick(val) {
+
+        //NT_PFANS_20210304_BUG_053  保存时，提示实际开始时间不能大于实际结束时间。
+        if (moment(this.form.startdate).format("YYYY-MM-DD") > moment(this.form.enddate).format("YYYY-MM-DD")) {
+          Message({
+            message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
         this.form.leaderid = this.userlist;
         this.form.managerid = this.userlist1;
         this.checkRequire();

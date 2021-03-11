@@ -2,14 +2,15 @@
   <div class="EasyNormalTable" style="height: calc(100vh - 60px - 2rem)" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
-        <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
+        <easy-button-bar :data="btlisst" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
       <div align="right" class="filter-container" style="padding-bottom: 10px">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
-        <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
-                  style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
+        <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
+                  style="width: 25%;vertical-align:top" v-model="searchValue">
+          <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
       <slot name="search"></slot>
@@ -85,7 +86,8 @@
         loading: false,
         filterlist: [],
         systembutton: [false, false, false],
-        selectedList: []
+        selectedList: [],
+        btlisst:[],
       }
     },
     props: {
@@ -154,6 +156,10 @@
       showIndex: {
         type: Boolean,
         default: false
+      },
+      showReaload:{
+        type: Boolean,
+        default: true,
       }
     },
     methods: {
@@ -162,7 +168,12 @@
       //   return 'row_height_left';
       // },
       buttonClick (val) {
-        this.$emit('buttonClick', val)
+        if(val == 'reload'){
+          this.reload();
+        }else{
+
+          this.$emit('buttonClick', val);
+        }
       },
       // 表格排序
       sortChange (column, prop, order) {
@@ -330,6 +341,20 @@
       // }
     },
     mounted () {
+      if(this.showReaload){
+        this.btlisst = this.buttonList.concat(
+          [
+            {
+              key: 'reload',
+              name: 'button.reload',
+              disabled: false,
+              icon: 'el-icon-refresh-right',
+            }
+          ]
+        );
+      }else{
+        this.btlisst = this.buttonList;
+      }
       this.totaldata = this.data
       this.getList()
       // this.getNewActionAuth()

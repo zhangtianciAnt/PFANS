@@ -1290,8 +1290,12 @@
                       }
                       if (this.companyform.logmanagement_id) {
                         if (this.resignation_date == null || this.resignation_date == '') {
-                          this.checkLenth = checklenth;
-                          if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                          //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                          // this.checkLenth = checklenth;
+                          // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                          this.checkLenth = checklenth.toFixed(2);
+                          if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength)).toFixed(2) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
                             error = error + 1;
                             Message({
                               message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
@@ -1304,7 +1308,10 @@
                       } else {
                         if (this.resignation_date == null || this.resignation_date == '') {
                           this.checkLenth = checklenth;
-                          if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                          //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                          // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                          if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start)).toFixed(2) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
                             error = error + 1;
                             Message({
                               message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
@@ -1510,8 +1517,12 @@
                       }
                       if (this.companyform.logmanagement_id) {
                         if (this.resignation_date == null || this.resignation_date == '') {
-                          this.checkLenth = checklenth;
-                          if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                            // this.checkLenth = checklenth;
+                            // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                            this.checkLenth = checklenth.toFixed(2);
+                            if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength)).toFixed(2) > this.checktime) {
+                              //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
                             error = error + 1;
                             Message({
                               message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
@@ -1524,7 +1535,10 @@
                       } else {
                         if (this.resignation_date == null || this.resignation_date == '') {
                           this.checkLenth = checklenth;
-                          if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                          //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                          // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                          if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start)).toFixed(2) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
                             error = error + 1;
                             Message({
                               message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),

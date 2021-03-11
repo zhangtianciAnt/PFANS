@@ -23,6 +23,9 @@ const getters = {
   //add-ws-12/10-汇率字典
   monthlyrate: state => state.global.monthlyrate,
   //add-ws-12/10-汇率字典
+  //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
+  roles: state => state.global.roles,
+  //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
 }
 
 export default getters

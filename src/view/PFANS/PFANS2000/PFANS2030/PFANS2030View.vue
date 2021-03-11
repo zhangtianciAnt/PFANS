@@ -34,7 +34,8 @@
         </EasyNormalTable>
       </div>
       <div slot="customize">
-        <EasyNormalTable :columns="columns" :data="datadiff" :title="titlewagesdiff"
+        <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="datadiff" :title="titlewagesdiff"
+                         @buttonClick="buttonClick2"
                          v-loading="loading" :summary-method="summaryMethod">
           <el-date-picker
             :placeholder="$t('normal.error_09')"
@@ -104,28 +105,28 @@
           {
             code: 'heating',
             label: 'label.PFANS2009VIEW_TAXWORKS',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
           {
               code: 'onlychildmoney',
               label: 'label.PFANS2009VIEW_COLLECTION',
-              width: 134,
+              width: 136,
               fix: false,
               filter: true
           },
           {
             code: 'pension',
             label: 'label.PFANS2009VIEW_KAIHO',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
           {
             code: 'comendowmentinsurance',
             label: 'label.PFANS2030VIEW_COMENDOWMENTINSURANCE',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
@@ -139,21 +140,21 @@
           {
             code: 'comunemploymentinsurance',
             label: 'label.PFANS2030VIEW_COMUNEMPLOYMENTINSURANCE',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
           {
             code: 'cominjuryinsurance',
             label: 'label.PFANS2030VIEW_COMINJURYINSURANCE',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
           {
             code: 'combirthinsurance',
             label: 'label.PFANS2030VIEW_COMBIRTHINSURANCE',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
@@ -325,6 +326,17 @@
                 return;
             }
             this.exportdata(this.dataactual);
+        },
+        buttonClick2(val) {
+            if (this.datadiff.length === 0) {
+                Message({
+                    message: this.$t('normal.info_16'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                });
+                return;
+            }
+            this.exportdata(this.datadiff);
         },
         //导出
         exportdata(vardata) {

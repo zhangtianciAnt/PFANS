@@ -183,13 +183,15 @@
                       :value="item.value"
                       v-for="item in relations">
                     </el-option>
+                    <!--NT_PFANS_20210308_BUG_149 ztc start-->
                     <el-option
-                      v-else
+                      v-if="form.ticketstype === 'second'"
                       :key="item.value"
                       :label="item.label"
                       :value="item.value"
                       v-for="item in relations1">
                     </el-option>
+                    <!--NT_PFANS_20210308_BUG_149 ztc end-->
                   </el-select>
                 </el-form-item>
               </el-col>

@@ -369,6 +369,13 @@
             //add-ws-7/7-禅道247
             rowClick(row) {
                 this.rowid = row.tickets_id;
+              //NT_PFANS_20210308_BUG_148 ztc start 机票受理状态为【取消】或【完成】时【取消机票】按钮不可用
+              if (row.acceptstatus === '取消' || row.acceptstatus === '完成') {
+                this.buttonList[4].disabled = true;
+              } else {
+                this.buttonList[4].disabled = false;
+              }
+              //NT_PFANS_20210308_BUG_148 ztc end 机票受理状态为【取消】或【完成】时【取消机票】按钮不可用
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);

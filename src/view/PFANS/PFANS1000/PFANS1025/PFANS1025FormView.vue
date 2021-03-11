@@ -882,7 +882,9 @@
             {
               key: 'generate',
               name: 'button.generate',
-              disabled: true,
+              //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
+              disabled: false,
+              //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-end
             },
             {
               key: 'actuarial',
@@ -892,11 +894,13 @@
           ];
         } else if (this.$route.params._status === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
           this.buttonList = [
-            {
-              key: 'generate',
-              name: 'button.generate',
-              disabled: true,
-            },
+            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
+            // {
+            //   key: 'generate',
+            //   name: 'button.generate',
+            //   disabled: true,
+            // },
+            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-end
             {
               key: 'actuarial',
               name: 'button.actuarial',
@@ -905,11 +909,13 @@
           ];
         } else {
           this.buttonList = [
-            {
-              key: 'generate',
-              name: 'button.generate',
-              disabled: false,
-            },
+            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
+            // {
+            //   key: 'generate',
+            //   name: 'button.generate',
+            //   disabled: false,
+            // },
+            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-end
             {
               key: 'actuarial',
               name: 'button.actuarial',
@@ -1281,11 +1287,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             if (index == 1) {
               sums[index] = '--';

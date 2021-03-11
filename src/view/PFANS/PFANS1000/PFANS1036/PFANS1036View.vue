@@ -3,13 +3,29 @@
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" width="50%">
+    <el-dialog width="50%"
+               :visible.sync="daoru">
+      <div>
+        <div>
+          <el-row>
+            <el-radio v-model="radio" label="1">设备投资</el-radio>
+            <el-radio v-model="radio" label="2">软件资产</el-radio>
+          </el-row>
+        </div>
+        <div style="margin-top: 1rem;margin-left: 14.5rem">
+          <el-button @click="checkliste" type="primary">
+            {{$t('button.confirm')}}
+          </el-button>
+        </div>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="show" width="50%">
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
             drag
             ref="uploader"
-            :action="postAction"
+            :action="UploadUrl()"
             :on-success="handleSuccess"
             :before-upload="handleChange"
             :headers="authHeader"
@@ -63,6 +79,8 @@
     },
     data() {
       return {
+        show: false,
+        radio: '1',
         totaldata: [],
         listQuery: {
           page: 1,
@@ -77,7 +95,6 @@
         daoru: false,
         checkTableData: [],
         authHeader: {'x-auth-token': getToken()},
-        postAction: process.env.BASE_API + '/businessplan/importUser',
         resultShow: false,
         file: null,
         loading: false,
@@ -177,6 +194,13 @@
         });
     },
     methods: {
+      UploadUrl: function() {
+        return process.env.BASE_API + '/businessplan/importUser?radio=' + this.radio;
+      },
+      checkliste() {
+        this.daoru = false;
+        this.show = true;
+      },
       handleSizeChange(val) {
         this.listQuery.limit = val;
         this.getList();
@@ -252,7 +276,8 @@
         this.year = row.year;
         this.groupid = row.group_id;
       },
-      buttonClick(val) {[]
+      buttonClick(val) {
+        [];
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'view') {
           if (this.rowid === '') {

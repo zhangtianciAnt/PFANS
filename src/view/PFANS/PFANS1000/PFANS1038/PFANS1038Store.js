@@ -1,4 +1,4 @@
-import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne,getAll} from '../PFANS1038/PFANS1038Api';
+import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne,getAll,getPersonalCost} from '../PFANS1038/PFANS1038Api';
 const PFANS1038Store = {
   namespaced: true,
   state: {},
@@ -98,6 +98,22 @@ const PFANS1038Store = {
         })
       })
     },
+    // add-lyt-21/1/29-禅道任务648-start
+    getPersonalCost({ commit },params) {
+      return new Promise((resolve, reject) => {
+        getPersonalCost(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          console.log(error)
+          reject(error);
+        })
+      })
+    },
+    // add-lyt-21/1/29-禅道任务648-end
   }
 }
 

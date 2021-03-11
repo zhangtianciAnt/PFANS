@@ -2,14 +2,20 @@
   <el-table :data="tableTrust" :summary-method="getSummaries" show-summary stripe
             header-cell-class-name="sub_bg_color_blue">
     <el-table-column>
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')" align="center" width="110" prop="groupname">
+      <el-table-column v-if="this.check" :label="$t('label.department')" align="center" width="110" prop="groupname">
+        <template slot-scope="scope">
+          <el-input :disabled="disabled" maxlength="100" style="width: 100%"
+                    v-model="scope.row.groupname"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column v-else :label="$t('label.type')" align="center" width="110" prop="groupname">
         <template slot-scope="scope">
           <el-input :disabled="disabled" maxlength="100" style="width: 100%"
                     v-model="scope.row.groupname"></el-input>
         </template>
       </el-table-column>
     </el-table-column>
-    <el-table-column>
+    <el-table-column v-if="this.check">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_DEVELOPMENTRATE')" align="center"
                        width="140" prop="commission">
         <template slot-scope="scope">
@@ -19,7 +25,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.April')" align="center" width="130">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number4">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number4"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -37,7 +44,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.May')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number5">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number5"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -54,7 +62,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.June')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number6">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number6"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -71,7 +80,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.July')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number7">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number7"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -88,7 +98,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.August')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number8">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number8"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -105,7 +116,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.September')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number9">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number9"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -122,7 +134,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numberfirst">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numberfirst"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -140,7 +153,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.October')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number10">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number10"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -157,7 +171,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.November')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number11">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number11"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -174,7 +189,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.December')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number12">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number12"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -191,7 +207,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.January')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number1">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number1"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -208,7 +225,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.February')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number2">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number2"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -225,7 +243,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.March')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number3">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number3"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -242,7 +261,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numbersecond">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numbersecond"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -260,7 +280,8 @@
       </el-table-column>
     </el-table-column>
     <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numbertotal">
+      <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="numbertotal"
+                       v-if="this.check">
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
@@ -302,6 +323,10 @@
         type: Boolean,
         default: false,
       },
+      check: {
+        type: Boolean,
+        default: true,
+      },
     },
     mounted() {
 
@@ -328,11 +353,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             sums[index] = Math.round((sums[index]) * 100) / 100;
           } else {
