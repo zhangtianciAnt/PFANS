@@ -952,9 +952,11 @@
                 if (this.form.tableD[i].title == '') {
                   error = error + 1;
                 }
-                if (this.form.tableD[i].startdate == '') {
+              //NT_PFANS_20210305_BUG_131 ztc 修改明细出勤日未填弹出messageBUG start
+              if (this.form.tableD[i].startdate == '' || this.form.tableD[i].startdate == null || this.form.tableD[i].startdate == undefined) {
                   error3 = error3 + 1;
                 }
+              //NT_PFANS_20210305_BUG_131 ztc 修改明细出勤日未填弹出messageBUG end
                 if (this.form.tableD[i].fabuilding != '') {
                   let checktlist = this.form.tableD[i].fabuilding.splice(',');
                   for (var m = 0; m < checktlist.length; m++) {
