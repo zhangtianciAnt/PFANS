@@ -3980,11 +3980,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             sums[index] = Math.round((sums[index]) * 100) / 100;
           } else {
@@ -4443,11 +4445,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             // if (index == 8) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -4473,11 +4477,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             // if (index == 8) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -4508,11 +4514,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             if (index == 7) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
