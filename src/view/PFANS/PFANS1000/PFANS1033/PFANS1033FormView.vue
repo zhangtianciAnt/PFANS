@@ -33,7 +33,9 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth"
                           v-show="show3">
-              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled1"></el-input>
+<!--              add-lyt-21/3/10-NT_PFANS_20210226_BUG_029-将‘!disabled1’修改为‘!disabled2’-start-->
+              <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled2"></el-input>
+              <!--              add-lyt-21/3/10-NT_PFANS_20210226_BUG_029-将‘!disabled1’修改为‘!disabled2’-end-->
               <el-checkbox
                 v-if="checkeddisplay"
                 v-model="checked"
@@ -1046,10 +1048,12 @@
       if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
         this.buttonList = [];
       }
-      //  //画面没有 makeinto按钮，删除
-      // if(this.$route.params._id === ''){
-      //     this.buttonList[3].disabled = true;
-      // }
+      //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-start
+       //画面没有 makeinto按钮，删除
+      if(this.$route.params._id === ''){
+          this.buttonList[3].disabled = true;
+      }
+      //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-end
     },
     methods: {
       getProjectList() {
