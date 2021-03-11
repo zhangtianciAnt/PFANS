@@ -668,7 +668,9 @@
                 //update gbb 20200807 合计值保留两位小数
                 return this.setScale2(prev + curr);
               } else {
-                return prev;
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                return Math.round(prev * 100) / 100;
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
               }
             }, 0);
           }
