@@ -1291,11 +1291,19 @@
               }
             }
             const vote1 = [];
-            if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
-                || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
-                || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
-                || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
-                || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+        //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
+        //系统管理员，总经理、财务部长、企划部长、外注管理担当
+        if (this.$store.getters.roles.indexOf("1") ||
+          this.$store.getters.roles.indexOf("2") ||
+          this.$store.getters.roles.indexOf("7") ||
+          this.$store.getters.roles.indexOf("9") ||
+          this.$store.getters.roles.indexOf("13"))
+        // if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+        //     || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
+        //     || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+        //     || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+        //     || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+        //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
             {
                 let centerId = '5e7858a08f4316308435112c';
                 let orgs = getDownOrgInfo(centerId);
