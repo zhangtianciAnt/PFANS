@@ -188,7 +188,9 @@
                 <!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
+                    <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-date-picker
+                      :disabled="!disable"
                       unlink-panels
                       class="bigWidth"
                       v-model="form.yearss"
@@ -329,7 +331,9 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.enclosure')">
+                    <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-upload
+                      :disabled="!disable"
                       :action="upload"
                       :file-list="fileList"
                       :on-error="fileError"
