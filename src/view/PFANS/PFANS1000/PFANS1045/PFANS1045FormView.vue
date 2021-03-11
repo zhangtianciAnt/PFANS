@@ -189,6 +189,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
                     <el-date-picker
+                      :disabled="!disable"
                       unlink-panels
                       class="bigWidth"
                       v-model="form.yearss"
@@ -330,6 +331,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.enclosure')">
                     <el-upload
+                      :disabled="!disable"
                       :action="upload"
                       :file-list="fileList"
                       :on-error="fileError"
