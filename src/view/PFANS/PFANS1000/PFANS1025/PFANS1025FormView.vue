@@ -926,13 +926,6 @@
       } else {
         if (this.$route.params._status === this.$t('label.PFANS5004VIEW_OVERTIME')) {
           this.buttonList = [
-            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
-            {
-              key: 'generate',
-              name: 'button.generate',
-              disabled: false,
-            },
-            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-end
             {
               key: 'save',
               name: 'button.save',
