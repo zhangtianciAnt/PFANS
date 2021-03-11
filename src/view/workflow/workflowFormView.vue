@@ -202,11 +202,11 @@
                         duration: 5 * 1000,
                       });
                     } else if (data2.length > 0) {
-                        Message({
-                          message: this.$t('label.workflow_check1'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
+                      Message({
+                        message: this.$t('label.workflow_check1'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
                     }
                     else
                     {
