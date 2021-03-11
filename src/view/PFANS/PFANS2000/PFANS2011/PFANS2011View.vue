@@ -344,6 +344,8 @@
             params: {
               _id: this.rowid,
               disabled: false,
+              // NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制
+              action: "view"
             },
           });
         }
