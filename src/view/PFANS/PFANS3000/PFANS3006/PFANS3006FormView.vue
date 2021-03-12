@@ -628,6 +628,9 @@
         } else {
           this.refuseShow = false;
         }
+        //NT_PFANS_20210308_BUG_171 受理状态为其他时，拒绝理由清空 ztc start
+        this.form.refusereason = '';
+        //NT_PFANS_20210308_BUG_171 受理状态为其他时，拒绝理由清空 ztc end
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
