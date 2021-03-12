@@ -639,6 +639,9 @@
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】strat
+            this.loading = true;
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】end
             this.$store
               .dispatch('PFANS3006Store/download', {})
               .then(response => {
@@ -658,6 +661,9 @@
             });
 
           }).catch(() => {
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】strat
+            this.form.welcomeboard = '0';
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】end
             this.$message({
               type: 'info',
               message: '已取消'
