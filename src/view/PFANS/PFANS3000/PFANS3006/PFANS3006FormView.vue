@@ -144,13 +144,15 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_169 使用时长disabled ztc start-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
-                <el-input :disabled="false"
+                <el-input :disabled="!disable"
                           style="width:20vw"
                           v-model="form.diffdata"></el-input>
               </el-form-item>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_169 使用时长disabled ztc end-->
           </el-row>
           <el-row>
             <!--4-->
