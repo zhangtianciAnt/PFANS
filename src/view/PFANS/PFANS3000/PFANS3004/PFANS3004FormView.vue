@@ -618,6 +618,9 @@
                 }
             },
             addRow() {
+              //NT_PFANS_20210308_BUG_152 ztc 新建行取消明细选项BUG start
+              this.optionsname = [];
+              //NT_PFANS_20210308_BUG_152 ztc 新建行取消明细选项BUG end
                 this.tableD.push({
                     stationerytype: '',
                     footname: '',
