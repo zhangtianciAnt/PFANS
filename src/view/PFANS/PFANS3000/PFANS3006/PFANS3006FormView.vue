@@ -587,7 +587,8 @@
     },
     created() {
       this.disable = this.$route.params.disable;
-      if (this.disable) {
+      //NT_PFANS_20210308_BUG_153 ztc 修改新建数据，不能出现【取消】按钮BUG start
+      if (this.disable && this.$route.params._id != '') {
         this.buttonList = [
           {
             key: "save",
@@ -602,7 +603,17 @@
             disabled: this.disable2
           }
         ];
+      } else {
+        this.buttonList = [
+          {
+            key: "save",
+            name: "button.save",
+            icon: "el-icon-check",
+            disabled: this.disable2
+          },
+        ]
       }
+      //NT_PFANS_20210308_BUG_153 ztc 修改新建数据，不能出现【取消】按钮BUG end
     },
     methods: {
       //change受理状态  add_fjl
