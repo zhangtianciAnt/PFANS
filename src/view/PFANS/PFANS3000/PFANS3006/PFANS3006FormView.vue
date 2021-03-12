@@ -182,6 +182,7 @@
                 </el-form-item>
               </template>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_154 ztc 组件宽度不够 start-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DISTINGUISH')" prop="distinguish" v-show="show2">
                 <dicselect
@@ -190,11 +191,12 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   @change="change2"
-                  style="width: 11rem"
+                  style="width:20vw"
                 >
                 </dicselect>
               </el-form-item>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_154 ztc 组件宽度不够 end-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DEPARTURECITY')" prop="departurecity" v-show="show2">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
