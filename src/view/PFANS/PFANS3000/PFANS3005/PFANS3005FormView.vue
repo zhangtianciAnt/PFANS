@@ -1674,6 +1674,9 @@
       getSalequotation(val) {
         this.form.salequotation = val;
         if (val === 'PJ013002') {
+//ADD CCM 20210312 NT_PFANS_20210308_BUG_177 FR
+          this.form.reasonsforquotation = null;
+//ADD CCM 20210312 NT_PFANS_20210308_BUG_177 TO
           this.show6 = false;
         } else if (val === 'PJ013001') {
           this.show6 = true;
