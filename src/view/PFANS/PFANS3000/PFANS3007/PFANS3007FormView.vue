@@ -515,7 +515,9 @@
                         callback();
                     }
                 } else {
-                    this.form.contractdatenumber = 0;
+                  //NT_PFANS_20210308_BUG_156 ztc 组件内容显示值错误BUG start
+                  this.form.contractdatenumber = 1;
+                  //NT_PFANS_20210308_BUG_156 ztc 组件内容显示值错误BUG end
                     this.form.dailycost = Math.floor(this.form.totalcost / this.form.contractdatenumber);
                     callback();
                 }
@@ -530,7 +532,9 @@
                         callback();
                     }
                 } else {
-                    this.form.contractdatenumber = 0;
+                  ////NT_PFANS_20210308_BUG_156 ztc 组件内容显示值错误BUG start
+                  this.form.contractdatenumber = 1;
+                  ////NT_PFANS_20210308_BUG_156 ztc 组件内容显示值错误BUG end
                     this.form.dailycost = Math.floor(this.form.totalcost / this.form.contractdatenumber);
                     callback();
                 }
@@ -1529,7 +1533,11 @@
             ,
             changetotalcost(val) {
                 this.form.totalcost = val;
+              //NT_PFANS_20210308_BUG_156 ztc 组件内容显示值错误BUG start
+              if (this.form.contractdatenumber != '') {
                 this.form.dailycost = Math.floor(val / this.form.contractdatenumber);
+              }
+              //NT_PFANS_20210308_BUG_156 ztc 组件内容显示值错误BUG end
                 if (this.form.condominiumcompany === 'PR007001') {
                     this.form.moneys = (this.moneys1) - (this.form.usemoney);
                     this.form.paymoney = this.form.totalcost - this.form.usemoney - (this.tableD2[0].copunvalue) * (this.tableD2[0].copunusenumber) - (this.tableD2[1].copunvalue) * (this.tableD2[1].copunusenumber) - (this.tableD2[2].copunvalue) * (this.tableD2[2].copunusenumber);
