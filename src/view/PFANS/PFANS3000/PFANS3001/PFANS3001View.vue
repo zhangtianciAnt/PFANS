@@ -241,7 +241,9 @@
                     {key: 'view', name: 'button.view', disabled: false, icon: 'el-icon-view'},
                     {key: 'insert', name: 'button.insert', disabled: false, icon: 'el-icon-plus'},
                     {key: 'edit', name: 'button.update', disabled: false, icon: 'el-icon-edit'},
-                    {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-upload2'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
+                  {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-download'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
                     {key: 'qxjp', name: 'button.qxjp', disabled: false, icon: 'el-icon-edit'},
                 ];
             } else {
@@ -249,7 +251,9 @@
                     {key: 'view', name: 'button.view', disabled: false, icon: 'el-icon-view'},
                     {key: 'insert', name: 'button.insert', disabled: false, icon: 'el-icon-plus'},
                     {key: 'edit', name: 'button.update', disabled: false, icon: 'el-icon-edit'},
-                    {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-upload2'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
+                  {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-download'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
 
                 ];
             }
