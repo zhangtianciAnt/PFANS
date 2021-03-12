@@ -101,7 +101,8 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-                <el-input :disabled="!disabled" style="width:20vw" v-model="form.psdcdwindow"></el-input>
+                <!--                NT_PFANS_20210304_BUG_049 限制最大长度为8-->
+                <el-input :disabled="!disabled" style="width:20vw" maxlength="8" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">

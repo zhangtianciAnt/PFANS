@@ -111,8 +111,9 @@
               <template>
                 <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIMELENGTH')" prop="overtimelength"
                               v-show="form.overtimetype === 'PR001005' || form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008'">
+                  <!--                 NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制-->
                   <el-select
-                    :disabled="disovertimelength"
+                    :disabled="disovertimelengths()"
                     @change="handleclick" style="width: 20vw"
                     v-model="form.overtimelength">
                     <el-option
@@ -693,6 +694,15 @@
       }
     },
     methods: {
+      // add start NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制
+      disovertimelengths() {
+        if (this.$route.params.action === "view") {
+          return true;
+        } else {
+          return this.disovertimelength;
+        }
+      },
+      // add end NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制
         //ADD_FJL_06/30 -- 添加周末加班的check start
         getDatey(str) {
             var tempDate = new Date();

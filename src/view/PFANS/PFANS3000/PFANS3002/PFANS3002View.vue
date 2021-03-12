@@ -306,7 +306,8 @@
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [this.$t('label.applicant'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.PFANS3002VIEW_NAME'), this.$t('label.PFANS3002VIEW_NAMEROME'), this.$t('label.PFANS3002VIEW_HOTEL'), this.$t('label.PFANS3002VIEW_CHECKIN'), this.$t('label.PFANS3002VIEW_CHECKOUT'), this.$t('label.PFANS3002VIEW_CHECKINDAYS'), this.$t('label.PFANS3002VIEW_SMOKE'), this.$t('label.remarks')];
-                        const filterVal = ['applicant', 'centerid', 'groupid', 'teamid', 'name', 'namerome', 'hotel', 'checkin', 'checkout', 'checkindays', 'smoke', 'remarks'];
+                        //NT_PFANS_20210305_BUG_104    更改导出时部门名字显示code值问题
+                        const filterVal = ['applicant', 'centername', 'groupname', 'teamname', 'name', 'namerome', 'hotel', 'checkin', 'checkout', 'checkindays', 'smoke', 'remarks'];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3002'));

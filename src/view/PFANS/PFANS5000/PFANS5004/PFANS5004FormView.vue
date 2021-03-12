@@ -435,7 +435,9 @@
             //     this.title = this.$t('title.PFANS5004VIEW');
             //   }
             // }
-            if (this.form.projecttype === 'PP001002') {
+
+            //NT_PFANS_20210304_BUG_054 投资类流程加入总经理审批
+            if (response.companyprojects.projecttype === 'PP001002') {
               this.workcode = 'W0009';
             } else {
               this.workcode = 'W0065';

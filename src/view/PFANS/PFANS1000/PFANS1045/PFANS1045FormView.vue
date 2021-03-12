@@ -188,7 +188,9 @@
                 <!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
+<!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-date-picker
+                      :disabled="!disable"
                       unlink-panels
                       class="bigWidth"
                       v-model="form.yearss"
@@ -329,7 +331,9 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.enclosure')">
+                    <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-upload
+                      :disabled="!disable"
                       :action="upload"
                       :file-list="fileList"
                       :on-error="fileError"
@@ -716,11 +720,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
           } else {
             sums[index] = '--';
@@ -742,11 +748,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return prev + curr;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return prev;
+                return Math.round(prev * 100) / 100;
               }
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
           } else {
             sums[index] = '--';
