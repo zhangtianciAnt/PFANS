@@ -1034,7 +1034,10 @@
       getBonus() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2006Store/getBonus', {})
+          // update gbb 20210312 NT_PFANS_20210308_BUG_166 工资详细（全社）,奖金详细数据根据日期组件筛选 start
+          //.dispatch('PFANS2006Store/getBonus', {})
+          .dispatch('PFANS2006Store/getBonus', {dates: this.months})
+          // update gbb 20210312 NT_PFANS_20210308_BUG_166 工资详细（全社）,奖金详细数据根据日期组件筛选 end
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== '') {
