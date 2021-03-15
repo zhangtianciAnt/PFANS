@@ -1073,14 +1073,18 @@
           if (scope.prize === "无") {
             return true;
           } else {
-            if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
-              return false;
-            } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
-              return false;
-            } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+            if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && scope.process === "4") {
               return false;
             } else {
-              return true;
+              if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
+                return false;
+              } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
+                return false;
+              } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+                return false;
+              } else {
+                return true;
+              }
             }
           }
         }
