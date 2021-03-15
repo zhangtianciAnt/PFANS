@@ -54,10 +54,12 @@
                 title: "title.PFANS3006VIEW",
                 data: [],
                 columns: [
-                    {
-                        code: 'basicsituation',
-                        label: 'label.PFANS3006VIEW_BASICSITUATION',
-                        child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // {
+                  //     //code: 'basicsituation',
+                  //     label: 'label.PFANS3006VIEW_BASICSITUATION',
+                  //     child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                             {
                                 code: 'applicant',
                                 label: 'label.applicant',
@@ -114,15 +116,17 @@
                                 fix: false,
                                 filter: false
                             },
-                        ],
-                        width: 990,
-                        fix: false,
-                        filter: true,
-                    },
-                    {
-                        code: 'set',
-                        label: 'label.PFANS3006VIEW_SET',
-                        child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // ],
+                  // width: 990,
+                  // fix: false,
+                  // filter: true,
+                  // },
+                  // {
+                  //code: 'set',
+                  // label: 'label.PFANS3006VIEW_SET',
+                  // child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                             {
                                 code: 'starttime',
                                 label: 'label.PFANS3006VIEW_STARTTIME',
@@ -139,15 +143,17 @@
                                 fix: false,
                                 filter: true
                             },
-                        ],
-                        width: 290,
-                        fix: false,
-                        filter: true,
-                    },
-                    {
-                        code: 'arrive',
-                        label: 'label.PFANS3006VIEW_ARRIVE',
-                        child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // ],
+                  // width: 290,
+                  // fix: false,
+                  // filter: true,
+                  // },
+                  // {
+                  //code: 'arrive',
+                  // label: 'label.PFANS3006VIEW_ARRIVE',
+                  // child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                             {
                                 code: 'transferstation',
                                 label: 'label.PFANS3006VIEW_TRANSFERSTATION',
@@ -172,15 +178,17 @@
                                 fix: false,
                                 filter: true
                             },
-                        ],
-                        width: 520,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'arrive1',
-                        label: 'label.PFANS3006VIEW_ARRIVE',
-                        child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // ],
+                  // width: 520,
+                  // fix: false,
+                  // filter: true
+                  // },
+                  // {
+                  //code: 'arrive1',
+                  // label: 'label.PFANS3006VIEW_ARRIVE',
+                  // child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                             {
                                 code: 'flightnumber',
                                 label: 'label.PFANS3006VIEW_FLIGHTNUMBER',
@@ -229,14 +237,16 @@
                                 fix: false,
                                 filter: false
                             },
-                        ],
-                        width: 850,
-                        fix: false,
-                        filter: true
-                    }, {
-                        code: 'guestinformation',
-                        label: 'label.PFANS3006VIEW_GUESTINFORMATION',
-                        child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // ],
+                  // width: 850,
+                  // fix: false,
+                  // filter: true
+                  // }, {
+                  //code: 'guestinformation',
+                  // label: 'label.PFANS3006VIEW_GUESTINFORMATION',
+                  // child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                             {
                                 code: 'guestname',
                                 label: 'label.PFANS3002VIEW_GUESTNAME',
@@ -245,15 +255,17 @@
                                 fix: false,
                                 filter: false
                             },
-                        ],
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'other',
-                        label: 'label.PFANS3006VIEW_OTHER',
-                        child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // ],
+                  // width: 140,
+                  // fix: false,
+                  // filter: true
+                  // },
+                  // {
+                  //code: 'other',
+                  // label: 'label.PFANS3006VIEW_OTHER',
+                  // child: [
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                             {
                                 code: 'usenumber',
                                 label: 'label.PFANS3006VIEW_USENUMBER',
@@ -270,11 +282,12 @@
                                 fix: false,
                                 filter: false
                             },
-                        ],
-                        width: 280,
-                        fix: false,
-                        filter: true
-                    },
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc start
+                  // ],
+                  // width: 280,
+                  // fix: false,
+                  // filter: true
+                  // },
                     // {
                     //     code: 'status',
                     //     label: 'label.status',
@@ -300,6 +313,7 @@
                     //     fix: false,
                     //     filter: true
                     // },
+                  //NT_PFANS_20210308_BUG_174 搜索BUG ztc end
                     {
                         code: 'acceptstatus',
                         label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
