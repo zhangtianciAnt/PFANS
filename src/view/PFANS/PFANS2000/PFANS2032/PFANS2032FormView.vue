@@ -681,14 +681,17 @@
         reporterlist: '',
         activeName: 'second',
         loading: false,
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            // disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+        // buttonList: [
+        //     {
+        //         key: 'save',
+        //         name: 'button.save',
+        //         // disabled: false,
+        //         icon: 'el-icon-check',
+        //     },
+        // ],
+        buttonList: [],
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
         tableD: [
           {
             citation_id: '',
@@ -887,6 +890,21 @@
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
+      // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+      if (this.disable) {
+          //未开始/驳回时可点击保存
+          if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2')) {
+              this.buttonList = [
+                  {
+                      key: 'save',
+                      name: 'button.save',
+                      // disabled: false,
+                      icon: 'el-icon-check',
+                  },
+              ]
+          }
+      }
+      // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
     },
     methods: {
       checklist(){
