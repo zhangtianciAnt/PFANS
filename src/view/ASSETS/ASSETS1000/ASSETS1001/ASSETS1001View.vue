@@ -749,10 +749,15 @@
                 this.userids = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userid;
                 this.usedepartment1 = getUserInfoName(this.$refs.roletable.selectedList[i].principal).userinfo.budgetunit;
               }
-              let role = getCurrentRole18();
-              if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+              // update gbb 20210312 NT_PFANS_20210304_BUG_063 获取登录人权限 start
+              //let role = getCurrentRole18();
+              //if (role === '0' && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
+              //GM权限
+              if (this.$store.getters.roles.indexOf("4") === 0 && this.usedepartment1 !== this.$store.getters.userinfo.userinfo.budgetunit) {
                 R *= 0;
-              } else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+              //} else if (role !== '0' && this.userids !== this.$store.getters.userinfo.userid) {
+              } else if (this.$store.getters.roles.indexOf("4") !== 0 && this.userids !== this.$store.getters.userinfo.userid) {
+                // update gbb 20210312 NT_PFANS_20210304_BUG_063 获取登录人权限 end
                 R *= 0;
               } else {
                 R *= 1;
