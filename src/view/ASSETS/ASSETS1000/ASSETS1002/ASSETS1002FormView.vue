@@ -408,13 +408,17 @@
           });
       },
       getUserids(val) {
-        this.form.user_id = val;
+        //update gbb 20210315 NT_PFANS_20210305_BUG_133 负责人项目必填check start
+        //this.form.user_id = val;
+        this.form.userid = val;
         this.userlist = val;
-        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        //if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        if (!this.form.userid || this.form.userid === '' || val === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID');
         } else {
           this.error = '';
         }
+        //update gbb 20210315 NT_PFANS_20210305_BUG_133 负责人项目必填check end
       },
       getUpdate() {
         this.loading = true;
