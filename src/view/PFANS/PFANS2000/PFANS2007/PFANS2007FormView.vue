@@ -193,6 +193,9 @@
         },
         data() {
             return {
+                // update gbb 20210311 NT_PFANS_20210305_BUG_130 点击送信时判断是否选择了数据 start
+                multipleSelection: [],
+                // update gbb 20210311 NT_PFANS_20210305_BUG_130 点击送信时判断是否选择了数据 end
                 totaldata: [],
                 listQuery: {
                   page: 1,
@@ -479,37 +482,68 @@
                            this.pop_download = true;
                         }
                       if (val === 'deliver') {
-                        this.loading = true;
-                        for(let i of this.multipleSelection){
-                          let toDoNotice = {};
-                          toDoNotice.type = '2';
-                          if(this.i18n){
-                            toDoNotice.title = this.$t('normal.error_bonus');
-                          }
-                          toDoNotice.dataid = i.bonussend_id;
-                          toDoNotice.url = this.$route.path;
-                          toDoNotice.initiator = this.$store.getters.userinfo.userid;
-                          toDoNotice.owner = this.user_id;
-                          this.$store
-                            .dispatch('PFANS2007Store/inserttodo', toDoNotice)
-                            .then(response => {
-                              this.getList(this.years);
-                              Message({
-                                message: this.$t("normal.success_03"),
-                                type: 'success',
-                                duration: 5 * 1000
-                              });
-                              this.loading = false;
-                            })
-                            .catch(error => {
-                              Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000,
-                              });
-                              this.loading = false;
-                            })
+
+                        // update gbb 20210311 NT_PFANS_20210305_BUG_130 点击送信时判断是否选择了数据 start
+                        if(this.multipleSelection.length === 0){
+                          Message({
+                            message: this.$t('normal.info_01'),
+                            type: 'info',
+                            duration: 2 * 1000
+                          });
+                          return;
                         }
+                        this.loading = true;
+                        let bonussend = this.multipleSelection
+                        this.$store
+                          .dispatch('PFANS2007Store/inserttodo', bonussend)
+                          .then(response => {
+                            this.getList(this.years);
+                            Message({
+                              message: this.$t("normal.success_03"),
+                              type: 'success',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false;
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          })
+                        // for(let i of this.multipleSelection){
+                        //   let toDoNotice = {};
+                        //   toDoNotice.type = '2';
+                        //   if(this.i18n){
+                        //     toDoNotice.title = this.$t('normal.error_bonus');
+                        //   }
+                        //   toDoNotice.dataid = i.bonussend_id;
+                        //   toDoNotice.url = this.$route.path;
+                        //   toDoNotice.initiator = this.$store.getters.userinfo.userid;
+                        //   toDoNotice.owner = this.user_id;
+                        //   this.$store
+                        //     .dispatch('PFANS2007Store/inserttodo', bonussend)
+                        //     .then(response => {
+                        //       this.getList(this.years);
+                        //       Message({
+                        //         message: this.$t("normal.success_03"),
+                        //         type: 'success',
+                        //         duration: 5 * 1000
+                        //       });
+                        //       this.loading = false;
+                        //     })
+                        //     .catch(error => {
+                        //       Message({
+                        //         message: error,
+                        //         type: 'error',
+                        //         duration: 5 * 1000,
+                        //       });
+                        //       this.loading = false;
+                        //     })
+                        // }
+                        // update gbb 20210311 NT_PFANS_20210305_BUG_130 点击送信时判断是否选择了数据 end
 
                       }
                       if (val === 'import') {
