@@ -687,6 +687,15 @@
                     return callback();
                 }
             };
+          var groupId = (rule, value, callback) => {
+            if (!value || value === '' || value === 'undefined') {
+              this.errorcenter = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP');
+              return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP')));
+            } else {
+              this.errorcenter = '';
+              return callback();
+            }
+          };
             var entrydivision = (rule, value, callback) => {
               if (this.form.entrydivision!=null && this.form.entrydivision!='')
               {
@@ -856,6 +865,7 @@
                         //   validator: validentrytime,trigger:'change'
                         // }
                     // ],
+                    group_id: [{required: true, validator: groupId, trigger: "blur"}],
                     center_id: [{required: true, validator: centerId, trigger: "blur"}],
                   // add ccm 11/13
                     entrytime: [
