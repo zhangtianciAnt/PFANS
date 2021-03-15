@@ -46,6 +46,9 @@
         },
         data() {
             return {
+                // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                row:[],
+                // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                 title: 'label.PFANS8002VIEW_XXYL',
                 noback: true,
                 activeName: 'first',
@@ -108,6 +111,9 @@
                 this.$store
                     .dispatch('indexStore/getStatus', {status: val})
                     .then(response => {
+                        // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                        this.row = [];
+                        // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                         if (response != undefined) {
                             if (val === '0') {
                                 this.table = [];
@@ -152,6 +158,15 @@
                                 }
                             }
                         }
+                        // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                        else{
+                            if (val === '0') {
+                                this.table = [];
+                            } else if (val === '1') {
+                                this.table2 = [];
+                            }
+                        }
+                        // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                       this.loading = false;
                     })
                     .catch(err => {
