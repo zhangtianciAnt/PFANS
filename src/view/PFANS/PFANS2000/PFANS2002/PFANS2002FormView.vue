@@ -390,7 +390,7 @@
                     :placeholder="$t('normal.error_09')"
                     class="width"
                     type="date"
-                    style="width:8vw"
+                    style="width:9vw"
                     v-model="form.expectedtime"
                   ></el-date-picker>
                 </el-form-item>
@@ -405,7 +405,7 @@
                     :placeholder="$t('normal.error_09')"
                     class="width"
                     type="date"
-                    style="width:8vw"
+                    style="width:9vw"
                     v-model="form.interviewtime"
                   ></el-date-picker>
                 </el-form-item>
@@ -419,7 +419,7 @@
                     :placeholder="$t('normal.error_09')"
                     class="width"
                     type="date"
-                    style="width:8vw"
+                    style="width:9vw"
                     v-model="form.intime"
                   ></el-date-picker>
                 </el-form-item>
@@ -451,7 +451,7 @@
                       :placeholder="$t('normal.error_09')"
                       class="width"
                       type="date"
-                      style="width:8vw"
+                      style="width:9vw"
                       v-model="form.entrytime"
                     ></el-date-picker>
                   </el-form-item>
