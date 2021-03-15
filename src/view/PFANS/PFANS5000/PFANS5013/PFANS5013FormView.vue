@@ -2073,6 +2073,25 @@
             let error1 = 0;
             //ADD-WS-体制时间范围check
             for (let i = 0; i < this.tableB.length; i++) {
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_119-start
+              let num = 0;
+              for (let j = 0; j < this.tableB.length; j++) {
+                if (this.tableB[i].name === this.tableB[j].name) {
+                  num++;
+                  if (num > 1) {
+                    Message({
+                      message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+                        + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.activeName = 'fourth';
+                    this.loading = false;
+                    return;
+                  }
+                }
+              }
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_119-end
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'fourth';
                 this.loading = false;
