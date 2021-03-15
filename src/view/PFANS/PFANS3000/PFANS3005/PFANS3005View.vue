@@ -277,11 +277,20 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    {'key': 'export', 'name': 'button.generatearticle', 'disabled': false, 'icon': 'el-icon-download'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
+                  {
+                    'key': 'export',
+                    'name': 'button.generatearticle',
+                    'disabled': false,
+                    'icon': 'el-icon-edit-outline'
+                  },
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
                     {'key': 'conapp', 'name': 'button.conapp', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-edit-outline'},
-                    {'key': 'export2', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-edit-outline'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
+                  {'key': 'export2', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
 
                 ],
                 rowid: '',

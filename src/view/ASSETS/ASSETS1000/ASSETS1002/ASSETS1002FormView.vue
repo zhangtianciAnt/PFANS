@@ -293,13 +293,39 @@
           .dispatch('ASSETS1001Store/getDepartment')
           .then(response => {
               this.loading = false;
+              // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 start
+              // for (let item of response) {
+              //   let i = {};
+              //   if (item) {
+              //     i.code = item;
+              //   }
+              //   this.options.push(i);
+              // }
+              let filters = new Set();
               for (let item of response) {
-                let i = {};
-                if (item) {
-                  i.code = item;
-                }
-                this.options.push(i);
+                  let i = {};
+                  if (item) {
+                      i.code = item;
+                  }
+                  filters.add(i);
               }
+              let filtersrst = [...new Set(filters)];
+              var hash = {};
+              filtersrst = filtersrst.reduce(function(item, next) {
+                  if (hash[next.code]) {
+                      '';
+                  } else {
+                      hash[next.code] = true && item.push(next);
+                  }
+                  return item;
+              }, []);
+              for (let i = 0; i < filtersrst.length; i++) {
+                  if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
+                      filtersrst[i].code = '全部';
+                  }
+              }
+              this.options = filtersrst;
+              // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 end
             }
           ).catch(error => {
           Message({
@@ -405,7 +431,10 @@
       getSelectAll() {
         this.loading = true;
         this.$store
-          .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
+        // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 start
+          //.dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
+            .dispatch('ASSETS1001Store/getList', {usedepartment: this.department == '全部' ? undefined : this.department})
+            // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 end
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);
@@ -442,13 +471,17 @@
           });
       },
       getUserids(val) {
-        this.form.user_id = val;
+        //update gbb 20210315 NT_PFANS_20210305_BUG_133 负责人项目必填check start
+        //this.form.user_id = val;
+        this.form.userid = val;
         this.userlist = val;
-        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        //if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+        if (!this.form.userid || this.form.userid === '' || val === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1002VIEW_USERID');
         } else {
           this.error = '';
         }
+        //update gbb 20210315 NT_PFANS_20210305_BUG_133 负责人项目必填check end
       },
       getUpdate() {
         this.loading = true;

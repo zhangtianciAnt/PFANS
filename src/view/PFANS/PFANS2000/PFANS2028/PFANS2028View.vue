@@ -6,6 +6,14 @@
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
       </el-select>
+      <el-date-picker
+        :placeholder="$t('normal.error_09')"
+        @change="changeddate"
+        slot="customize"
+        style="width:11vw"
+        type="month"
+        v-model="months">
+      </el-date-picker>
     </EasyNormalTable>
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
                      v-show="!showTable1">
@@ -13,6 +21,14 @@
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
       </el-select>
+      <el-date-picker
+        :placeholder="$t('normal.error_09')"
+        @change="changeddate"
+        slot="customize"
+        style="width:11vw"
+        type="month"
+        v-model="months">
+      </el-date-picker>
     </EasyNormalTable>
   </div>
 </template>
@@ -30,6 +46,7 @@
     },
     data() {
       return {
+        months: moment(new Date()).format('YYYY-MM'),
         region: '1',
         loading: false,
         // title: 'title.PFANS2006VIEW',
@@ -512,10 +529,20 @@
       this.getTaxestotal();
     },
     methods: {
+      // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 start
+      changeddate(val) {
+          this.months = moment(val).format('YYYY-MM');
+          if (this.region === '2') {
+              this.getBonus();
+          } else if (this.region === '1') {
+              this.getTaxestotal();
+          }
+      },
+      // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 end
       getTaxestotal() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2006Store/getTaxestotal', {"userid": this.$store.getters.userinfo.userid})
+          .dispatch('PFANS2006Store/getTaxestotal', {"userid": this.$store.getters.userinfo.userid,"dates": this.months})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
@@ -572,7 +599,7 @@
       getBonus() {
         this.loading = true;
         this.$store
-          .dispatch('PFANS2006Store/getBonus', {"userid": this.$store.getters.userinfo.userid})
+          .dispatch('PFANS2006Store/getBonus', {userid: this.$store.getters.userinfo.userid,dates: this.months})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== '') {

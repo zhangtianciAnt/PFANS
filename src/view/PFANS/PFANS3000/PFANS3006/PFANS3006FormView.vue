@@ -144,13 +144,15 @@
                 </el-date-picker>
               </el-form-item>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_169 使用时长disabled ztc start-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DIFFDATE')" prop="diffdata">
-                <el-input :disabled="false"
+                <el-input :disabled="!disable"
                           style="width:20vw"
                           v-model="form.diffdata"></el-input>
               </el-form-item>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_169 使用时长disabled ztc end-->
           </el-row>
           <el-row>
             <!--4-->
@@ -182,6 +184,7 @@
                 </el-form-item>
               </template>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_154 ztc 组件宽度不够 start-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DISTINGUISH')" prop="distinguish" v-show="show2">
                 <dicselect
@@ -190,11 +193,12 @@
                   :disabled="!disable"
                   :multiple="multiple"
                   @change="change2"
-                  style="width: 11rem"
+                  style="width:20vw"
                 >
                 </dicselect>
               </el-form-item>
             </el-col>
+            <!--NT_PFANS_20210308_BUG_154 ztc 组件宽度不够 end-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3006VIEW_DEPARTURECITY')" prop="departurecity" v-show="show2">
                 <el-input :disabled="!disable" maxlength='20' style="width:20vw"
@@ -587,7 +591,8 @@
     },
     created() {
       this.disable = this.$route.params.disable;
-      if (this.disable) {
+      //NT_PFANS_20210308_BUG_153 ztc 修改新建数据，不能出现【取消】按钮BUG start
+      if (this.disable && this.$route.params._id != '') {
         this.buttonList = [
           {
             key: "save",
@@ -602,7 +607,17 @@
             disabled: this.disable2
           }
         ];
+      } else {
+        this.buttonList = [
+          {
+            key: "save",
+            name: "button.save",
+            icon: "el-icon-check",
+            disabled: this.disable2
+          },
+        ]
       }
+      //NT_PFANS_20210308_BUG_153 ztc 修改新建数据，不能出现【取消】按钮BUG end
     },
     methods: {
       //change受理状态  add_fjl
@@ -613,6 +628,9 @@
         } else {
           this.refuseShow = false;
         }
+        //NT_PFANS_20210308_BUG_171 受理状态为其他时，拒绝理由清空 ztc start
+        this.form.refusereason = '';
+        //NT_PFANS_20210308_BUG_171 受理状态为其他时，拒绝理由清空 ztc end
       },
       setdisabled(val) {
         if (this.$route.params.disabled) {
@@ -626,6 +644,9 @@
             cancelButtonText: '取消',
             type: 'warning'
           }).then(() => {
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】strat
+            this.loading = true;
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】end
             this.$store
               .dispatch('PFANS3006Store/download', {})
               .then(response => {
@@ -645,6 +666,9 @@
             });
 
           }).catch(() => {
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】strat
+            this.form.welcomeboard = '0';
+            //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】end
             this.$message({
               type: 'info',
               message: '已取消'
