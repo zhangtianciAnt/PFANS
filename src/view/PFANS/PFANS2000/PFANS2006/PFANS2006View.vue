@@ -941,16 +941,18 @@
               csvData.push({
                 [heads[0]]: obj.years,
                 [heads[1]]: obj.user_id,
-                [heads[2]]: parseFloat(obj.totalbonus1).toFixed(2),
+                // update gbb 20210312 NT_PFANS_20210308_BUG_165 导出值为Nan处理 start
+                [heads[2]]: obj.totalbonus1 === null ? "" :parseFloat(obj.totalbonus1).toFixed(2),
                 [heads[3]]: obj.method,
-                [heads[4]]: parseFloat(obj.taxable).toFixed(2),
-                [heads[5]]: parseFloat(obj.amount).toFixed(2),
-                [heads[6]]: parseFloat(obj.payable).toFixed(2),
-                [heads[7]]: parseFloat(obj.income).toFixed(2),
+                [heads[4]]: obj.taxable=== null ? "" : parseFloat(obj.taxable).toFixed(2),
+                [heads[5]]: obj.amount=== null ? "" : parseFloat(obj.amount).toFixed(2),
+                [heads[6]]: obj.payable=== null ? "" : parseFloat(obj.payable).toFixed(2),
+                [heads[7]]: obj.income=== null ? "" : parseFloat(obj.income).toFixed(2),
                 [heads[8]]: obj.taxrate,
-                [heads[9]]: parseFloat(obj.deductions).toFixed(2),
-                [heads[10]]: parseFloat(obj.bonustax).toFixed(2),
-                [heads[11]]: parseFloat(obj.received).toFixed(2),
+                [heads[9]]: obj.deductions=== null ? "" : parseFloat(obj.deductions).toFixed(2),
+                [heads[10]]: obj.bonustax=== null ? "" : parseFloat(obj.bonustax).toFixed(2),
+                [heads[11]]: obj.received=== null ? "" : parseFloat(obj.received).toFixed(2),
+                // update gbb 20210312 NT_PFANS_20210308_BUG_165 导出值为Nan处理 start
                 [heads[12]]: obj.remarks,
               });
             }

@@ -378,6 +378,9 @@
         firstclass: '',
         fileList: [],
         upload: uploadUrl(),
+        // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 start
+        appgroupid:''
+        // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 end
       };
     },
     mounted() {
@@ -698,6 +701,9 @@
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
         }
+        // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 start
+        this.gettwoclass(this.code1 + "001")
+        // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 start
       },
       gettwoclass(val) {
         this.form.twoclass = val;
