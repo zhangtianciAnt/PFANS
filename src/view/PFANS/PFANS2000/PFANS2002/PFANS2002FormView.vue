@@ -687,6 +687,15 @@
                     return callback();
                 }
             };
+            var groupId = (rule, value, callback) => {
+                if (!value || value === '' || value === 'undefined') {
+                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP')));
+                } else {
+                    this.errorgroup = '';
+                    return callback();
+                }
+            };
             var entrydivision = (rule, value, callback) => {
               if (this.form.entrydivision!=null && this.form.entrydivision!='')
               {
@@ -856,6 +865,7 @@
                         //   validator: validentrytime,trigger:'change'
                         // }
                     // ],
+                    group_id: [{required: true, validator: groupId, trigger: "blur"}],
                     center_id: [{required: true, validator: centerId, trigger: "blur"}],
                   // add ccm 11/13
                     entrytime: [
@@ -953,7 +963,7 @@
                     this.activeName = 'first';
                 } else if (!this.form.intime) {
                     this.activeName = 'third';
-                } else if (!this.form.center_id) {
+                } else if (!this.form.center_id || !this.form.group_id) {
                     this.activeName = 'fourth';
                 }
             },
@@ -1209,10 +1219,10 @@
             },
             getGroupId(val) {
                 this.getOrgInformation(val);
-                if (this.form.center_id === "") {
-                    this.errorgroup = this.$t("normal.error_08") + "center";
+                if (this.form.group_id === "") {
+                  this.errorgroup = this.$t("normal.error_08") + "group";
                 } else {
-                    this.errorgroup = "";
+                  this.errorgroup = "";
                 }
             },
             getTeamId(val) {
