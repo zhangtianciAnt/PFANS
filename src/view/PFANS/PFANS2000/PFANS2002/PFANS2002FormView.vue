@@ -689,10 +689,10 @@
             };
           var groupId = (rule, value, callback) => {
             if (!value || value === '' || value === 'undefined') {
-              this.errorcenter = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP');
+              this.errorgroup = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP');
               return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP')));
             } else {
-              this.errorcenter = '';
+              this.errorgroup = '';
               return callback();
             }
           };
@@ -963,7 +963,7 @@
                     this.activeName = 'first';
                 } else if (!this.form.intime) {
                     this.activeName = 'third';
-                } else if (!this.form.center_id) {
+                } else if (!this.form.center_id || !this.form.group_id) {
                     this.activeName = 'fourth';
                 }
             },
@@ -1219,8 +1219,8 @@
             },
             getGroupId(val) {
                 this.getOrgInformation(val);
-                if (this.form.center_id === "") {
-                    this.errorgroup = this.$t("normal.error_08") + "center";
+                if (this.form.group_id === "") {
+                    this.errorgroup = this.$t("normal.error_08") + "group";
                 } else {
                     this.errorgroup = "";
                 }
