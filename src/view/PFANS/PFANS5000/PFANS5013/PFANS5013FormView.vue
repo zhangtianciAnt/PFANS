@@ -2146,6 +2146,20 @@
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_116-start
+              // 外协员工入场时间&离场时间必须Check
+              if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
+                this.activeName = 'fourth';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('normal.error_pfans5001'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_116-end
               if (
                 this.tableC[i].number !== '' ||
                 this.tableC[i].name !== '' ||
