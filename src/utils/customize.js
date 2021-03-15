@@ -908,19 +908,4 @@ export function getCurrentRole20() {
   }
   return '1';
 }
-export function getCurrentRole18() {
-  let roles = '';
-  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
-    for (let role of store.getters.useraccount.roles) {
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
-      //roles = roles + role.description;
-      roles = roles + role.rolename;
-      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
-    }
-    if (roles.toUpperCase().indexOf('GM') != -1) {
-      return '0';
-    }
-  }
-  return '1';
-}
 //add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to

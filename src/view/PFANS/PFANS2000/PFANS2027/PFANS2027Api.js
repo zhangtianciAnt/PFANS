@@ -44,7 +44,7 @@ export function createTodonotice(data) {
 
 export function overTodonotice(data) {
   return request({
-    url: 'Getlunarbonus/Over',
+    url: 'Getlunarbonus/overTodonotice',
     method: 'post',
     data: data
   })
