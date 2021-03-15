@@ -2225,9 +2225,16 @@
                         type: 'success',
                         duration: 5 * 1000,
                       });
-                      if (this.$store.getters.historyUrl) {
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-添加 val != 'StartWorkflow'判定条件-start
+                      if (this.$store.getters.historyUrl&& val != 'StartWorkflow') {
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-添加 val != 'StartWorkflow'判定条件-end
                         this.$router.push(this.$store.getters.historyUrl);
                       }
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-start
+                      if (val === 'StartWorkflow') {
+                        this.$refs.container.$refs.workflow.startWorkflow();
+                      }
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-end
                     }
                   })
                   .catch(error => {
