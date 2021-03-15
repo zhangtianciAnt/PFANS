@@ -679,7 +679,7 @@
 </template>
 
 <script>
-  import {getDictionaryInfo, getOrgInfo, getUserInfo, getCurrentRole} from "@/utils/customize";
+  import {getDictionaryInfo, getOrgInfo, getUserInfo, getCurrentRole10, getCurrentRole17} from "@/utils/customize";
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect";
   import EasyNormalTable from "@/components/EasyNormalTable";
@@ -695,6 +695,8 @@
     },
     data() {
       return {
+        role: getCurrentRole10(),  //人事 / 工资
+        role1: getCurrentRole17(), //总经理
         R: 1,
         showState: false,
         isShow: false,
@@ -981,7 +983,6 @@
           lunarbonus_id: this.$route.params._id
         })
         .then(response => {
-          debugger;
           this.data = response.lunarbonus;
           if (response.lunarbonus.status === 4) {
             this.disabled = false;
@@ -1016,12 +1017,13 @@
 
               item.enterdayFormat = moment(item.enterday).format("YYYY-MM-DD");
 
-              if (this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37" || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f") {
+
+              if (this.role === '0') {
                 this.R *= 0;
               } else {
-                if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && item.process === "4") {
+                if (this.role1 === '0' && item.process === "4") {
                   this.R *= 1;
-                } else if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && item.process !== "4") {
+                } else if (this.role1 === '0' && item.process !== "4") {
                   this.R *= 0;
                 } else {
                   if (this.$route.params.evaluatenum === "一次評価") {
@@ -1073,13 +1075,13 @@
       },
       // 判断是否可以更改数据（上一级未提交的数据不可更改）
       getdisabled(scope) {
-        if ((this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37" || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f") && scope.process === "0") {
+        if (this.role === '0' && scope.process === "0") {
           return false;
         } else {
           if (scope.prize === "无") {
             return true;
           } else {
-            if (this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7" && scope.process === "4") {
+            if (this.role === '0' && scope.process === "4") {
               return false;
             } else {
               if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
