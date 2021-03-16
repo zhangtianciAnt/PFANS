@@ -2474,6 +2474,20 @@
               });
             }
             //add-ws-6/9-禅道任务080
+            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
+            for (let i = 0; i < this.tableP.length; i++) {//111
+              if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
+                this.activeName = 'second';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
             for (let i = 0; i < this.tableB.length; i++) {
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';
