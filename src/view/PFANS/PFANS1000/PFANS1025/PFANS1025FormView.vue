@@ -876,7 +876,9 @@
                         {
                             key: 'generate',
                             name: 'button.generate',
-                            disabled: true,
+                            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
+                            disabled: false,
+                            //add-lyt-21/3/11-NT_PFANS_20210226_BUG_031-end
                         },
                         {
                             key: 'actuarial',
@@ -886,11 +888,13 @@
                     ];
                 } else if (this.$route.params._status === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
                     this.buttonList = [
-                        {
-                            key: 'generate',
-                            name: 'button.generate',
-                            disabled: true,
-                        },
+                      // //del-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
+                      //   {
+                      //       key: 'generate',
+                      //       name: 'button.generate',
+                      //       disabled: true,
+                      //   },
+                      // //del-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
                         {
                             key: 'actuarial',
                             name: 'button.actuarial',
@@ -899,11 +903,13 @@
                     ];
                 } else {
                     this.buttonList = [
-                        {
-                            key: 'generate',
-                            name: 'button.generate',
-                            disabled: false,
-                        },
+                        // //del-lyt-21/3/11-NT_PFANS_20210226_BUG_031-start
+                        // {
+                        //     key: 'generate',
+                        //     name: 'button.generate',
+                        //     disabled: false,
+                        // },
+                        // //del-lyt-21/3/11-NT_PFANS_20210226_BUG_031-end
                         {
                             key: 'actuarial',
                             name: 'button.actuarial',
