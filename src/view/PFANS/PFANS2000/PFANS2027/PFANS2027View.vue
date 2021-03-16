@@ -353,7 +353,8 @@
             params: {
               _id: this.rowid,
               evaluatenum: this.evaluatenum,
-              disabled: false,
+              disabled: true,
+              disabled1: true,
             }
           })
         } else if (val === "insert") {
@@ -373,12 +374,21 @@
               _id: this.rowid,
               evaluatenum: this.evaluatenum,
               disabled: true,
+              disabled1: false,
             }
           })
         } else if (val === 'start') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          if (this.evaluatenum !== "一次評価") {
+            Message({
+              message: this.$t('normal.info_24'),
               type: 'info',
               duration: 2 * 1000
             });
@@ -427,6 +437,14 @@
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          if (this.evaluatenum !== "最终評価") {
+            Message({
+              message: this.$t('normal.info_25'),
               type: 'info',
               duration: 2 * 1000
             });
