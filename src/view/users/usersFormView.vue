@@ -2074,7 +2074,7 @@
                 code: '',
                 code1: 'PG021',
                 occupationtypecode: '',
-                personalpw:'',
+
                 occupationtypedis: true,
                 display: true,
                 occupationtypedisplay: true,
@@ -2107,6 +2107,7 @@
               //add-lyt-2021/2/3-禅道任务734-start
                  passwordcheckbar: false,
                  personcheck: false,
+                 personalpw:'',
               //add-lyt-2021/2/3-禅道任务734-end
                 loading: false,
                 error: '',
