@@ -1047,10 +1047,12 @@
       if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
         this.buttonList = [];
       }
-      //  //画面没有 makeinto按钮，删除
-      // if(this.$route.params._id === ''){
-      //     this.buttonList[3].disabled = true;
-      // }
+      //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-start
+       //画面没有 makeinto按钮，删除
+      if(this.$route.params._id === ''){
+          this.buttonList[3].disabled = true;
+      }
+      //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-end
     },
     methods: {
       getProjectList() {
