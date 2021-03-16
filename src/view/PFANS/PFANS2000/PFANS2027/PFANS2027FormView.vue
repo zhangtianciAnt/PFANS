@@ -707,7 +707,7 @@
         title2: this.$t("title.PFANS2027VIEW_VIEW2"),
         loading: false,
         buttonList: [],
-        disabled: false,
+        // disabled1: false,
         code14: "PJ101",
         buttonShow: false,
         titleShow: false,
@@ -964,7 +964,7 @@
           {
             key: "save",
             name: "button.save",
-            disabled: false,
+            disabled: this.$route.params.disabled1,
             icon: "el-icon-check"
           },
           {
@@ -1075,26 +1075,30 @@
       },
       // 判断是否可以更改数据（上一级未提交的数据不可更改）
       getdisabled(scope) {
-        if (this.role === '0' && scope.process === "0") {
-          return false;
-        } else {
-          if (scope.prize === "无") {
-            return true;
+        if (this.$route.params.disabled1 === false) {
+          if (this.role === '0' && scope.process === "0") {
+            return false;
           } else {
-            if (this.role === '0' && scope.process === "4") {
-              return false;
+            if (scope.prize === "无") {
+              return true;
             } else {
-              if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
-                return false;
-              } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
-                return false;
-              } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+              if (this.role === '0' && scope.process === "4") {
                 return false;
               } else {
-                return true;
+                if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
+                  return false;
+                } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
+                  return false;
+                } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+                  return false;
+                } else {
+                  return true;
+                }
               }
             }
           }
+        } else {
+          return true;
         }
       },
       setdisabled(val) {
