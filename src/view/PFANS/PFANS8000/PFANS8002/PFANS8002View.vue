@@ -46,6 +46,9 @@
         },
         data() {
             return {
+                // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                row:[],
+                // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                 title: 'label.PFANS8002VIEW_XXYL',
                 noback: true,
                 activeName: 'first',
@@ -152,6 +155,15 @@
                                 }
                             }
                         }
+                        // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                        else{
+                          if (val === '0') {
+                            this.table = [];
+                          } else if (val === '1') {
+                            this.table2 = [];
+                          }
+                        }
+                        // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                       this.loading = false;
                     })
                     .catch(err => {
@@ -212,7 +224,10 @@
                     })
                 } else if (val === 'read') {
                     //    ADD_FJL_05/25  -- 对审批驳回之后不想再次申请的数据进行删除的处理
-                    if (!this.row || this.row.noticeid === '') {
+                    // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                    //if (!this.row || this.row.noticeid === '') {
+                    if (!this.row || this.row.noticeid === '' || this.row.noticeid === undefined) {
+                    // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                         Message({
                             message: this.$t('normal.info_01'),
                             type: 'info',
@@ -229,6 +244,9 @@
                         this.$store
                             .dispatch("frameStore/delToDoNotice", {'todonoticeid': this.row.noticeid})
                             .then(response => {
+                                // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
+                                this.row = [];
+                                // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 emd
                                 this.getStatus('0');
                                 Message({
                                     message: this.$t("normal.success_03"),
