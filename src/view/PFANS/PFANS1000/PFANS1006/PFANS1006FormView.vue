@@ -172,10 +172,16 @@
                   <!--                  ADD_FJL_0819  添加区分-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1006FORMVIEW_DISTINGUISH')">
-                      <el-radio-group @change="radioChange" v-model="form.publicradio">
+<!--                      UPD CCM 20210311 NT_PFANS_20210304_BUG_089 FR-->
+<!--                      <el-radio-group @change="radioChange" v-model="form.publicradio">-->
+<!--                        <el-radio label="1">{{$t('label.PFANS1006FORMVIEW_PUBLIC')}}</el-radio>-->
+<!--                        <el-radio label="2">{{$t('label.PFANS1006FORMVIEW_DEDICATED')}}</el-radio>-->
+<!--                      </el-radio-group>-->
+                      <el-radio-group @change="radioChange" v-model="form.publicradio" :disabled="!disable">
                         <el-radio label="1">{{$t('label.PFANS1006FORMVIEW_PUBLIC')}}</el-radio>
                         <el-radio label="2">{{$t('label.PFANS1006FORMVIEW_DEDICATED')}}</el-radio>
                       </el-radio-group>
+<!--                      UPD CCM 20210311 NT_PFANS_20210304_BUG_089 TO-->
                     </el-form-item>
                   </el-col>
                   <!--                  ADD_FJL_0819  添加区分-->
@@ -377,6 +383,22 @@
                     </template>
                     <div style="margin-left:5%;margin-top:1%">
                       <el-row>
+                        <!--                      UPD CCM 20210311 NT_PFANS_20210304_BUG_089 FR-->
+<!--                        <el-upload-->
+<!--                          :action="upload"-->
+<!--                          :file-list="fileList"-->
+<!--                          :on-remove="fileRemove"-->
+<!--                          :on-preview="fileDownload"-->
+<!--                          :on-success="fileSuccess"-->
+<!--                          :on-error="fileError"-->
+<!--                          class="upload-demo"-->
+<!--                          drag-->
+<!--                          ref="upload"-->
+<!--                          v-model="form.uploadfile">-->
+<!--                          <i class="el-icon-upload"></i>-->
+<!--                          <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>-->
+<!--                          </div>-->
+<!--                        </el-upload>-->
                         <el-upload
                           :action="upload"
                           :file-list="fileList"
@@ -387,11 +409,12 @@
                           class="upload-demo"
                           drag
                           ref="upload"
-                          v-model="form.uploadfile">
+                          v-model="form.uploadfile" :disabled="!disable">
                           <i class="el-icon-upload"></i>
                           <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
                           </div>
                         </el-upload>
+<!--                      UPD CCM 20210311 NT_PFANS_20210304_BUG_089 TO-->
                       </el-row>
                     </div>
                   </el-collapse-item>
