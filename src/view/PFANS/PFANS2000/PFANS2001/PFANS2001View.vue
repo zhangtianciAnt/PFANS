@@ -212,6 +212,8 @@
             });
             return;
           }
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.$store.commit('global/SET_WORKFLOWURL', '');
           this.$router.push({
             name: 'PFANS2035View',
             params: {
