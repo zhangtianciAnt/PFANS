@@ -347,8 +347,10 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
                     <!--<tinymce :height="300" :readonly="readonly" id="mytinymce" v-model="form.gist" style="width: 72vw"></tinymce>-->
-                    <quill-editor :options="editorOption" ref="myQuillEditor" style="height: 300px;width: 72vw"
+                    <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-start-->
+                    <quill-editor :disabled="!disabled" :options="editorOption" ref="myQuillEditor" style="height: 300px;width: 72vw"
                                   v-model="form.gist">
+                      <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-end-->
                     </quill-editor>
                   </el-form-item>
                 </el-col>
@@ -436,7 +438,9 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.enclosure')" v-show="show3">
+                    <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-start-->
                     <el-upload
+                      :disabled="!disabled"
                       :action="upload"
                       :file-list="fileList"
                       :on-error="fileError"
@@ -451,6 +455,7 @@
                       <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
                       </div>
                     </el-upload>
+                    <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-end-->
                   </el-form-item>
                 </el-col>
               </el-row>
