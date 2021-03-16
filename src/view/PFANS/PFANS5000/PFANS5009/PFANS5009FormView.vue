@@ -2411,7 +2411,7 @@
             }
             //add-ws-01/16-禅道任务710
             for (let i = 0; i < this.tableD.length; i++) {
-              // update gbb 20210316 NT_PFANS_20210305_BUG_124 阶段信息日期组件check start
+              // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check start
               if(this.tableD[i].contractamount === 0){
                 this.activeName = 'fifth';
                 Message({
@@ -2422,7 +2422,7 @@
                 this.loading = false;
                 return;
               }
-              // update gbb 20210316 NT_PFANS_20210305_BUG_124 阶段信息日期组件check end
+              // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check end
               for (let j = 1; j < this.tableD.length; j++) {
                 if (this.tableD[i].theme != this.tableD[j].theme) {
                   Message({
