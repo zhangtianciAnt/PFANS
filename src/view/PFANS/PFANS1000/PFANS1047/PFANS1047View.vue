@@ -132,11 +132,34 @@
         }
       },
       getPjanme() {
+        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+        this.loading = true;
+        this.$store
+        .dispatch('PFANS1026Store/get', {'type': '2'})
+          .then(response => {
+              let data = [];
+              for (let i = 0; i < response.contractapplication.length; i++) {
+                if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+                  data.push({
+                    contractnumber: response.contractapplication[i].contractnumber,
+                  });
+                  this.checkdata = data;
+                }
+              }
+              //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
         this.loading = true;
         this.$store
           .dispatch('PFANS1025Store/getList', {'maketype': '9'})
           .then(response => {
-            for (let i = 0; i < response.length; i++)
+            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+            const datated = [];
+            for(let j = 0; j< this.checkdata.length; j++){
+              //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+            for (let i = 0; i < response.length; i++)//add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+            {
+              if(this.checkdata[j].contractnumber === response[i].contractnumber){
+                if (response[i].award_id !== null && response[i].award_id !== '')
+                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
             {
               //契约种类
               if (response[i].contracttype !== null && response[i].contracttype !== '') {
@@ -166,10 +189,52 @@
                   response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
                 } else if (response[i].sealstatus === '3') {
                   response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+                  //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
                 }
               }
+              datated.push({
+                contracttype: response[i].contracttype,
+                custochinese: response[i].custochinese,
+                modifyon: response[i].modifyon,
+                deployment: response[i].deployment,
+                pjnamechinese: response[i].pjnamechinese,
+                claimdatetime: response[i].claimdatetime,
+                contractnumber: response[i].contractnumber,
+                currencyposition: response[i].currencyposition,
+                claimamount: response[i].claimamount,
+                award_id: response[i].award_id,
+                status:response[i].status,
+                owner: response[i].owner,
+              });
             }
-            this.data = response;
+          }
+        }
+              //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+                }
+            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+            const datatade = [];
+            for (let m = 0; m < response.length; m++) {
+              for (let n = 0; n < datated.length; n++) {
+                if (datated[n].contractnumber === response[m].contractnumber) {
+                  datatade.push({
+                    contracttype: response[m].contracttype,
+                    custochinese: response[m].custochinese,
+                    modifyon: response[m].modifyon,
+                    deployment: response[m].deployment,
+                    pjnamechinese: response[m].pjnamechinese,
+                    claimdatetime: response[m].claimdatetime,
+                    contractnumber: response[m].contractnumber,
+                    currencyposition: response[m].currencyposition,
+                    claimamount: response[m].claimamount,
+                    award_id: response[m].award_id,
+                    status:response[m].status,
+                    owner: response[m].owner,
+                  });
+                }
+                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+              }
+            }
+            this.data = datatade;
             this.loading = false;
           })
           .catch(error => {
@@ -178,7 +243,9 @@
               type: 'error',
               duration: 5 * 1000,
             });
-
+            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+          });
+            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
           });
       },
       rowClick(row) {
