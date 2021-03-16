@@ -250,7 +250,10 @@
         checkparmers: 1,
         url: '',
         checkstatus: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         centerid: '',
         groupid: '',
         teamid: '',
@@ -472,7 +475,10 @@
       //add_fjl_添加合同回款相关  start
       viewBook(row) {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         if (this.form.filetype === 'PC002004') {
           this.url = 'PFANS1032FormView';
           this.urlparams = {'_id': row.petition_id};

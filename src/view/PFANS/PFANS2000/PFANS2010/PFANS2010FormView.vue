@@ -52,7 +52,10 @@
         centerDialogVisible:false,
         centerDialogVisible1:false,
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         defaultStart: false,
         showSelection: true,
         uplist: [],
@@ -870,7 +873,10 @@
       handleView(row)
       {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = 'PFANS2013FormView';
         this.urlparams = {'_id': row.user_id, '_dates':moment(row.dates).format('YYYY-MM-DD'), 'disabled': false};
         this.$refs.PFANS2013Pop.open = true;

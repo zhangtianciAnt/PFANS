@@ -695,7 +695,10 @@
         checkgroup: false,
         activeName: 'first',
         errorgroup: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         role15: '',
         role16: '',
         url: '',
@@ -1446,7 +1449,10 @@
       //add_fjl_0806  查看详情
       rowClickHis(row) {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = 'PFANS1004FormView';
         this.urlparams = {'_id': row.judgementid, 'disabled': false};
         this.$refs.PFANS1004Pop.open = true;

@@ -1300,7 +1300,10 @@
         // add-ws-8/12-禅道任务446
         //add_ws_0724  禅道154任务
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         //add_ws_0724  禅道154任务
         //add-ws-7/10-禅道249
         role1: '',
@@ -2071,7 +2074,10 @@
       //add_ws_0724  禅道154任务
       clickBun() {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         if (this.form.business_id !== '' && this.form.business_id !== null && this.form.business_id !== undefined) {
           this.urlparams = {'_id': this.form.business_id};
           if (this.form.type == '0') {
