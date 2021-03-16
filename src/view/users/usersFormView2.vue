@@ -2906,6 +2906,7 @@
       if (this.$route.params._id) {
         this.getById(this.$route.params._id);
       }
+      //add-lyt-2021/2/3-禅道任务734-start
       this.role6 = getCurrentRole6();
       if(this.$store.getters.userinfo.userid === this.$route.params._id||this.role6 === '0'){
          this.personcheck=true;
@@ -2913,6 +2914,7 @@
       else{
          this.personcheck=false;
       }
+      //add-lyt-2021/2/3-禅道任务734-end
     },
     methods: {
       //        ws-6/28-禅道141任务
