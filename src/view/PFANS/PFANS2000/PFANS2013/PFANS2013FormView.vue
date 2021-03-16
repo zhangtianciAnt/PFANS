@@ -108,14 +108,20 @@
         title: 'title.PFANS2016VIEW',
         tableA:[],
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
       };
     },
     methods: {
       viewBook(row)
       {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = 'PFANS2016FormView';
         this.urlparams = {'_id': row.abnormalid, 'disabled': false};
         this.$refs.PFANS2016Pop.open = true;

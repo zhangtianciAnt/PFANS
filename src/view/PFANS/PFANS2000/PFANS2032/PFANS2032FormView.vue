@@ -576,7 +576,10 @@
         status: '',
         ID: '',
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         defaultStart: false,
         checkdisable: true,
         hope_exit_date: '',
@@ -942,7 +945,10 @@
       },
       submitForm(ruleFormNew) {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = 'PFANS2026FormView';
         this.urlparams = {'_id': this.listsums.staffexitprocedure.staffexitprocedure_id, 'disabled': false};
         this.$refs.PFANS2026Pop.open = true;

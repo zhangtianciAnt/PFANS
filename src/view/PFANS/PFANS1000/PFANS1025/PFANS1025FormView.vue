@@ -592,7 +592,10 @@
         multipleSelection: '',
         //add-ws-9/25-禅道567
         url: 'PFANS1045FormView',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
         defaultStart: false,
         //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
