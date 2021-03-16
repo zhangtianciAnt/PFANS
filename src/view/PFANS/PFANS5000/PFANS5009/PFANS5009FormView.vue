@@ -1168,7 +1168,7 @@
   import dicselect from '../../../components/dicselect.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getOrgInfoByUserId} from '@/utils/customize';
+  import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize';
   import org from '../../../components/org';
   import {getDictionaryInfo} from '../../../../utils/customize';
 
@@ -2489,6 +2489,25 @@
             }
             // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
             for (let i = 0; i < this.tableB.length; i++) {
+              // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check start
+              let num = 0;
+              for (let j = 0; j < this.tableB.length; j++) {
+                if (this.tableB[i].name === this.tableB[j].name) {
+                  num++;
+                  if (num > 1) {
+                    Message({
+                      message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+                        + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.activeName = 'third';
+                    this.loading = false;
+                    return;
+                  }
+                }
+              }
+              // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check end
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';
                 this.loading = false;
@@ -2545,6 +2564,20 @@
                 });
               }
             }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
+            for (let i = 0; i < this.tableP.length; i++) {
+              if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
+                this.activeName = 'second';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
             //add-gbb-7/16-内采项目在现场管理中不显示合同
             if (this.form.toolstype === '0') {
               //this.form.toolsorgs = ' ';
