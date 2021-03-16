@@ -1211,7 +1211,10 @@
               this.loading = true;
               let error = 0;
               let check = 0;
-              if (Number(this.companyform.time_start) <= 0) {
+              // update gbb 20210316 NT_PFANS_20210315_BUG_145 日志填写【时长】字段为空check start
+              //if (Number(this.companyform.time_start) <= 0) {
+              if (Number(this.companyform.time_start) <= 0 || this.companyform.time_start === undefined) {
+              // update gbb 20210316 NT_PFANS_20210315_BUG_145 日志填写【时长】字段为空check end
                 check = check + 1;
                 Message({
                   message: this.$t('label.PFANS5008VIEW_CHECKDATA0'),
