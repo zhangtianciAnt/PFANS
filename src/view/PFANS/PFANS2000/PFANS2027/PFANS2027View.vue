@@ -49,7 +49,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable'
   import {Message} from 'element-ui'
   import moment from 'moment'
-  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getCurrentRole} from '@/utils/customize'
+  import {getDictionaryInfo, getOrgInfoByUserId, getStatus, getUserInfo, getCurrentRole10} from '@/utils/customize'
   import dicselect from '../../../components/dicselect';
 
   export default {
@@ -126,6 +126,7 @@
         row_id: 'lunarbonus_id',
         subjectmon: '',
         evaluatenum: '',
+        evaluationday: '',
         rules: {
           evaluationday: [{
             required: true,
@@ -201,8 +202,9 @@
     },*/
     methods: {
       statusss() {
+        let role = getCurrentRole10();
         //人事和工资可点
-        if (this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37" || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f") {
+        if (role === '0') {
           return false;
         } else {
           return true;
@@ -212,9 +214,23 @@
         this.$refs.refform.resetFields();
       },
       rowClick(row) {
+        let role1 = getCurrentRole10();
         this.rowid = row.lunarbonus_id;
         this.subjectmon = row.subjectmon;
         this.evaluatenum = row.evaluatenum;
+        this.evaluationday = row.evaluationday;
+        if (role1 === '0') {
+          if (row.tenantid === "0") {
+            this.buttonList[3].disabled = false;
+            this.buttonList[4].disabled = true;
+          } else if (row.tenantid === "1") {
+            this.buttonList[3].disabled = true;
+            this.buttonList[4].disabled = false;
+          } else if (row.tenantid === "5") {
+            this.buttonList[3].disabled = true;
+            this.buttonList[4].disabled = true;
+          }
+        }
       },
       click() {
         this.$refs['refform'].validate(valid => {
@@ -337,7 +353,8 @@
             params: {
               _id: this.rowid,
               evaluatenum: this.evaluatenum,
-              disabled: false,
+              disabled: true,
+              disabled1: true,
             }
           })
         } else if (val === "insert") {
@@ -357,6 +374,7 @@
               _id: this.rowid,
               evaluatenum: this.evaluatenum,
               disabled: true,
+              disabled1: false,
             }
           })
         } else if (val === 'start') {
@@ -368,10 +386,25 @@
             });
             return;
           }
+          if (this.evaluatenum !== "一次評価") {
+            Message({
+              message: this.$t('normal.info_24'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.$confirm(this.$t('normal.info_20'), this.$t('normal.info'), {
+            confirmButtonText: this.$t('button.confirm'),
+            cancelButtonText: this.$t('button.cancel'),
+            type: 'warning',
+            center: true
+          }).then(() => {
           let lunarbonus = {
             lunarbonus_id: this.rowid,
             evaluatenum: this.evaluatenum,
-            subjectmon: this.subjectmon
+            subjectmon: this.subjectmon,
+            evaluationday: this.evaluationday
           };
           this.loading = true;
           this.$store
@@ -392,7 +425,14 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('normal.info_21'),
             });
+            this.loading = false;
+          })
         } else if (val === 'over') {
           if (this.rowid === '') {
             Message({
@@ -402,9 +442,29 @@
             });
             return;
           }
+          if (this.evaluatenum !== "最终評価") {
+            Message({
+              message: this.$t('normal.info_25'),
+              type: 'info',
+              duration: 2 * 1000
+            });
+            return;
+          }
+          this.$confirm(this.$t('normal.info_22'), this.$t('normal.info'), {
+            confirmButtonText: this.$t('button.confirm'),
+            cancelButtonText: this.$t('button.cancel'),
+            type: 'warning',
+            center: true
+          }).then(() => {
           this.loading = true;
+          let lunarbonus = {
+            lunarbonus_id: this.rowid,
+            evaluatenum: this.evaluatenum,
+            subjectmon: this.subjectmon,
+            evaluationday: this.evaluationday
+          };
           this.$store
-            .dispatch("PFANS2027Store/overTodonotice")
+            .dispatch("PFANS2027Store/overTodonotice", lunarbonus)
             .then(response => {
               this.data = response;
               this.loading = false;
@@ -421,7 +481,14 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: this.$t('normal.info_23'),
             });
+            this.loading = false;
+          })
         }
       }
     }

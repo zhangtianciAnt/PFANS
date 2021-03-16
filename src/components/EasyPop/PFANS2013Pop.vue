@@ -27,7 +27,7 @@
                 default: '',
             },
             params: {
-                type: String,
+                type: Object,
                 default: {},
             },
         },

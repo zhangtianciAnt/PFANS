@@ -576,7 +576,10 @@
         status: '',
         ID: '',
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         defaultStart: false,
         checkdisable: true,
         hope_exit_date: '',
@@ -681,14 +684,17 @@
         reporterlist: '',
         activeName: 'second',
         loading: false,
-        buttonList: [
-          {
-            key: 'save',
-            name: 'button.save',
-            // disabled: false,
-            icon: 'el-icon-check',
-          },
-        ],
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+        // buttonList: [
+        //     {
+        //         key: 'save',
+        //         name: 'button.save',
+        //         // disabled: false,
+        //         icon: 'el-icon-check',
+        //     },
+        // ],
+        buttonList: [],
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
         tableD: [
           {
             citation_id: '',
@@ -887,6 +893,21 @@
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
+      // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+      if (this.disable) {
+          //未开始/驳回时可点击保存
+          if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2')) {
+              this.buttonList = [
+                  {
+                      key: 'save',
+                      name: 'button.save',
+                      // disabled: false,
+                      icon: 'el-icon-check',
+                  },
+              ]
+          }
+      }
+      // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
     },
     methods: {
       checklist(){
@@ -924,7 +945,10 @@
       },
       submitForm(ruleFormNew) {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = 'PFANS2026FormView';
         this.urlparams = {'_id': this.listsums.staffexitprocedure.staffexitprocedure_id, 'disabled': false};
         this.$refs.PFANS2026Pop.open = true;

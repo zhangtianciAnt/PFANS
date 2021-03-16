@@ -2073,6 +2073,25 @@
             let error1 = 0;
             //ADD-WS-体制时间范围check
             for (let i = 0; i < this.tableB.length; i++) {
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_119-start
+              let num = 0;
+              for (let j = 0; j < this.tableB.length; j++) {
+                if (this.tableB[i].name === this.tableB[j].name) {
+                  num++;
+                  if (num > 1) {
+                    Message({
+                      message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+                        + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.activeName = 'fourth';
+                    this.loading = false;
+                    return;
+                  }
+                }
+              }
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_119-end
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'fourth';
                 this.loading = false;
@@ -2127,6 +2146,20 @@
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_116-start
+              // 外协员工入场时间&离场时间必须Check
+              if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
+                this.activeName = 'fourth';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('normal.error_pfans5001'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+              //add-lyt-21/3/15-NT_PFANS_20210305_BUG_116-end
               if (
                 this.tableC[i].number !== '' ||
                 this.tableC[i].name !== '' ||
@@ -2192,9 +2225,16 @@
                         type: 'success',
                         duration: 5 * 1000,
                       });
-                      if (this.$store.getters.historyUrl) {
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-添加 val != 'StartWorkflow'判定条件-start
+                      if (this.$store.getters.historyUrl&& val != 'StartWorkflow') {
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-添加 val != 'StartWorkflow'判定条件-end
                         this.$router.push(this.$store.getters.historyUrl);
                       }
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-start
+                      if (val === 'StartWorkflow') {
+                        this.$refs.container.$refs.workflow.startWorkflow();
+                      }
+                      //add-lyt-21/3/15-NT_PFANS_20210305_BUG_114-end
                     }
                   })
                   .catch(error => {

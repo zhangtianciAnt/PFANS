@@ -389,7 +389,10 @@
         tableworkflow: [],
         checkworkflow: false,
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         code1: 'PR012',
         button: false,
         code: '',
@@ -739,7 +742,10 @@
       },
       submitForm(ruleFormNew) {
         this.url = '';
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = 'PFANS2032FormView';
         this.urlparams = {'_id': this.listbutton[0].staffexitproce_id, 'disabled': false};
         this.$refs.PFANS2032Pop.open = true;

@@ -660,7 +660,10 @@
       };
       return {
         url: '',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         active: '1',
         activeName: 'first',
         showtab: true,
@@ -1814,7 +1817,10 @@
             dicStr += d.value2 + ',';
           }
         }
-        this.urlparams = '';
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //this.urlparams = '';
+        this.urlparams = {};
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         this.url = '';
         this.urlparams = {'_id': row.judgement, 'disabled': false, '_disableview': true};
         // this.$store.commit('global/SET_HISTORYURL', '');

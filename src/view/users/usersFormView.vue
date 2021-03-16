@@ -1485,7 +1485,9 @@
               </el-row>
               <!--              ws-6/28-禅道141任务-->
             </el-tab-pane>
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SALARYNUMBER')" name="nine" style="padding-left:0.5%" >
+            <!-- add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-start           -->
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SALARYNUMBER')" name="nine" style="padding-left:0.5%" v-if="this.personcheck">
+              <!-- add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-end           -->
               <!--            add-lyt-21/2/2-禅道任务734 start--->
               <el-dialog
                 :close-on-click-modal="false"
@@ -2072,7 +2074,7 @@
                 code: '',
                 code1: 'PG021',
                 occupationtypecode: '',
-                personalpw:'',
+
                 occupationtypedis: true,
                 display: true,
                 occupationtypedisplay: true,
@@ -2102,7 +2104,11 @@
                 dialogTableVisible9: false,
                 dialogTableVisible10: false,
                 // add_fjl
+              //add-lyt-2021/2/3-禅道任务734-start
                  passwordcheckbar: false,
+                 personcheck: false,
+                 personalpw:'',
+              //add-lyt-2021/2/3-禅道任务734-end
                 loading: false,
                 error: '',
                 educationTable: [
@@ -2796,6 +2802,15 @@
             if (this.$route.params._id) {
                 this.getById(this.$route.params._id);
             }
+          // add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-start
+          this.roles = getCurrentRole6();
+          if(this.$store.getters.userinfo.userid === this.$route.params._id||this.roles === '0'){
+            this.personcheck=true;
+          }
+          else{
+            this.personcheck=false;
+          }
+          // add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-end
         },
         methods: {
 
@@ -2850,7 +2865,7 @@
             if (this.activeName === 'nine') {
               if(this.$route.params._org){
                 this.show = true;
-                this.this.passwordcheckbar = false;
+                this.passwordcheckbar = false;
               }else if(this.roles==='0'){
                 this.passwordcheckbar = false;
                 this.show = true;

@@ -977,7 +977,10 @@
         enableSave: false,
         userlist: '',
         activeName: 'first',
-        urlparams: '',
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
         url: '',
         tableA: [],
         tableB: [],

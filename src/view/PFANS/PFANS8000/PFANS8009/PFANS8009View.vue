@@ -53,7 +53,10 @@
             getCompanyProjectList(codetype) {
                 if (codetype === 'PJ') {
                     this.title = 'label.PFANS8009VIEW_MANAGEMENT';
-                } else if (codetype === 'CT') {
+                // update gbb 20210315 NT_PFANS_20210308_BUG_163 字典列表显示对应类型的字典（合同管理） start
+                //} else if (codetype === 'CT') {
+                } else if (codetype === 'HT') {
+                // update gbb 20210315 NT_PFANS_20210308_BUG_163 字典列表显示对应类型的字典（合同管理） end
                     this.title = 'label.PFANS8009VIEW_CONTRACT';
                 } else if (codetype === 'PR') {
                     this.title = 'label.PFANS8009VIEW_PERSONNELMATTERS';

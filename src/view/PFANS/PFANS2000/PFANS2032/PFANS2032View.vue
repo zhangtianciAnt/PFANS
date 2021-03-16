@@ -20,6 +20,9 @@
         loading: false,
         title: 'title.PFANS2032VIEW',
         data: [],
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+        status:'',
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
         columns: [
           {
             code: 'user_id',
@@ -165,6 +168,9 @@
       },
       rowClick(row) {
         this.rowid = row.staffexitproce_id;
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+        this.status = row.status;
+        // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -181,6 +187,9 @@
           this.$router.push({
             name: 'PFANS2032FormView',
             params: {
+              // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+              _status:this.status,
+              // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
               _checkdisabled: false,
               _type: 0,
               _id: this.rowid,
@@ -199,6 +208,9 @@
           this.$router.push({
             name: 'PFANS2032FormView',
             params: {
+              // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
+              _status:this.status,
+              // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
               _checkdisabled: false,
               _type: 0,
               _id: this.rowid,
