@@ -141,7 +141,13 @@ export default {
         {
           value: "1",
           label: this.$t("label.USERSVIEW_LEAVE")
+        },
+        //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
+        {
+          value: "2",
+          label: this.$t("label.USERSVIEW_NOTLEAVEYET")
         }
+        //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
       ],
       //ADD-WS-6/8-禅道037
       TABLEList: [],
@@ -374,6 +380,31 @@ export default {
               });
             }
           }
+          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
+          else{
+            if (this.workinghours) {
+              this.working = this.getworkinghours(this.workinghours);
+              this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+              if (this.starttime != "" || this.endTime != "") {
+                this.tableList = this.tableList.filter(item => {
+                  return(
+                    ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD')
+                      &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
+                      && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD') )
+                    && (item.resignation_date !== null && item.resignation_date !== "")
+                  )
+
+                });
+              }
+            }
+            else {
+              this.tableList = this.tableList.filter(item => {
+                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')
+              });
+            }
+          }
+          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
         }
         //add-lyt-2/4 人员信息判定BUG start
         else{
