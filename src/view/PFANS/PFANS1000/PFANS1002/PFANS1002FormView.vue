@@ -1418,15 +1418,17 @@
               trigger: 'change',
             },
           ],
+          // ADD CCM 20210311 NT_PFANS_20210304_BUG_075 FR
           //add_fjl_0806 预算编码
-          // budgetunit: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-          //         trigger: 'change',
-          //     },
-          // ],
+          budgetunit: [
+              {
+                  required: true,
+                  message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                  trigger: 'change',
+              },
+          ],
           //add_fjl_0806 预算编码
+          // ADD CCM 20210311 NT_PFANS_20210304_BUG_075 TO
         },
         show: false,
         show2: false,
