@@ -749,7 +749,9 @@
           filename: '',
           decision: '',
           scheduleddate: moment(new Date()).format('YYYY-MM-DD'),
-          careerplan: true,
+          // add-lyt-21/3/11-NT_PFANS_20210304_BUG_082-start
+          careerplan: '1',
+          // add-lyt-21/3/11-NT_PFANS_20210304_BUG_082-end
           businessplantype: '',
           classificationtype: '',
           businessplanbalance: 0,
