@@ -45,6 +45,9 @@
             contractstatus0: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS0'),
             contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
             contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
+            //update gbb 20210317 NT_PFANS_20210315_BUG_140 添加【日志不可填写】状态 start
+            contractstatus3: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS3'),
+            //update gbb 20210317 NT_PFANS_20210315_BUG_140 添加【日志不可填写】状态 end
             columns:[
                 {
                     code: 'numbers',
