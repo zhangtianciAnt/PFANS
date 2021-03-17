@@ -1242,7 +1242,10 @@ export default {
         {
           key: "setRole",
           name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
-          disabled: false,
+          //update gbb 20210317 NT_PFANS_20210303_BUG_048 选中行之后【设置角色】按钮可用 start
+          //disabled: false,
+          disabled: true,
+          //update gbb 20210317 NT_PFANS_20210303_BUG_048 选中行之后【设置角色】按钮可用 end
           icon: "el-icon-plus"
         },
         {
