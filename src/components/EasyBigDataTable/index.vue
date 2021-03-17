@@ -69,9 +69,9 @@
       EasyButtonBar,
       EasyWorkFlow
     },
-    // 解决加班申请【刷新】报错 ztc start
-    inject:['reload'],
-    // 解决加班申请【刷新】报错 ztc end
+    //注入缓存修改 20210317 ztc start
+    //inject:['reload'],
+    //注入缓存修改 20210317 ztc end
     data () {
       return {
         total: 0,
@@ -171,12 +171,14 @@
       //   return 'row_height_left';
       // },
       buttonClick (val) {
-        if(val == 'reload'){
-          this.reload();
-        }else{
+        //注入缓存修改 20210317 ztc start
+        // if(val == 'reload'){
+        //   this.reload();
+        // }else{
 
           this.$emit('buttonClick', val);
-        }
+        // }
+        //注入缓存修改 20210317 ztc end
       },
       // 表格排序
       sortChange (column, prop, order) {
