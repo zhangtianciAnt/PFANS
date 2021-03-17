@@ -142,10 +142,12 @@ export default {
           value: "1",
           label: this.$t("label.USERSVIEW_LEAVE")
         },
+        //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
         {
           value: "2",
           label: this.$t("label.USERSVIEW_NOTLEAVEYET")
         }
+        //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
       ],
       //ADD-WS-6/8-禅道037
       TABLEList: [],

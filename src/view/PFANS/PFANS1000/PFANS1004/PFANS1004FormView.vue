@@ -258,6 +258,7 @@
                                      v-model="form.amounttobegiven"></el-input-number>
                   </el-form-item>
                 </el-col>
+                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-start-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" v-if="showM">
                     <dicselect
@@ -270,6 +271,7 @@
                     </dicselect>
                   </el-form-item>
                 </el-col>
+                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-end-->
               </el-row>
               <el-row>
                 <el-col :span="8">
@@ -781,7 +783,9 @@
           invoiceno: '',
           publicexpense_id: '',
           oldjudgementid: '',
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
           enableduplicateloan:'PJ055002',
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
         },
         tableA: [
           {
@@ -801,7 +805,9 @@
         code4: 'PJ011',
         code5: 'PJ030',
         code6: 'PJ146',
+        //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
         code7:'PJ055',
+        //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
         disabled: true,
         enableSave: false,
         menuList: [],
@@ -841,6 +847,7 @@
             },
             {validator: CheckGiven, trigger: 'change'},
           ],
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
           enableduplicateloan: [
             {
               required: true,
@@ -848,6 +855,7 @@
               trigger: 'change',
             },
           ],
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
           gist: [
             {
               required: true,
@@ -1106,8 +1114,10 @@
               this.userlistA = this.form.user_id;
               this.getBudt(this.form.group_id);
               this.getDecisive(this.form.decisive);
-              this.getEnableduplicateloan(this.form.enableduplicateloan);
               this.getBusinessplantype(this.form.businessplantype);
+              //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+              this.getEnableduplicateloan(this.form.enableduplicateloan);
+              //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
               if (this.form.careerplan === '1') {
                 this.show = true;
                 this.rules.businessplantype[0].required = true;
@@ -1633,9 +1643,11 @@
       getClassificationtype(val) {
         this.form.classificationtype = val;
       },
+      //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
       getEnableduplicateloan(val){
         this.form.enableduplicateloan = val;
       },
+      //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
       getBusinessplantype(val) {
         this.form.businessplantype = val;
         if (val === 'PR002006') {
@@ -1646,12 +1658,11 @@
           this.rules.classificationtype[0].required = false;
         }
       },
-
       getDecision(val) {
         if(val == 'PJ146006'){
           if(this.role15 == '0'){
             this.form.decision = val;
-            // this.workcode = 'W0034';
+            this.workcode = 'W0034';
           }else{
             Message({
               message: this.$t('normal.error_21'),
@@ -1665,11 +1676,11 @@
           if(this.role16 == '0'){
             this.form.decision = val;
             if(val == 'PJ146008'){
-              // this.workcode = 'W0042';
+              this.workcode = 'W0042';
             }else if(val == 'PJ146009'){
-              // this.workcode = 'W0044';
+              this.workcode = 'W0044';
             } else{
-              // this.workcode = 'W0051';
+              this.workcode = 'W0051';
             }
           }else{
             Message({
@@ -1682,17 +1693,17 @@
         }else{
           this.form.decision = val;
           if(val == 'PJ146001'){
-            // this.workcode = 'W0006';
+            this.workcode = 'W0006';
           } else if(val == 'PJ146002'){
-            // this.workcode = 'W0007';
+            this.workcode = 'W0007';
           } else if(val == 'PJ146003'){
-            // this.workcode = 'W0013';
+            this.workcode = 'W0013';
           } else if(val == 'PJ146004'){
-            // this.workcode = 'W0020';
+            this.workcode = 'W0020';
           } else if(val == 'PJ146005'){
-            // this.workcode = 'W0021';
+            this.workcode = 'W0021';
           }else{
-            // this.workcode = 'W0035';
+            this.workcode = 'W0035';
           }
         }
       },

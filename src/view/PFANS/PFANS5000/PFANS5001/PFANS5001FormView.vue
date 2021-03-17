@@ -2079,8 +2079,8 @@
                 this.tableD[h].claimtype = response.claimtype,
                 this.tableD[h].contractrequestamount = response.claimamount,
                 this.tableD[h].contract = response.contractnumber,
-                this.tableD[h].workinghours = response.claimdatetimeqh;
-              this.loading = false;
+                this.tableD[h].workinghours = response.claimdatetimeqh
+                this.loading = false;
             });
         }
       },

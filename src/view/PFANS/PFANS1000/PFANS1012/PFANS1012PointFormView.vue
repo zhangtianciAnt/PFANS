@@ -247,7 +247,6 @@
         }
       },
       viewdata(row) {
-        debugger
         this.listjudgement = [];
         let error = 0;
         let listcheck = this.form.judgement.split(',');
@@ -558,7 +557,6 @@
           this.$store
             .dispatch('PFANS1012Store/get', {})
             .then(response => {
-              debugger
               for (let i = 0; i < response.length; i++) {
                 if (user_id === response[i].user_id && response[i].status === '4' && response[i].paymentmethod === 'PJ004005') {
                   let user = getUserInfo(response[i].user_id);

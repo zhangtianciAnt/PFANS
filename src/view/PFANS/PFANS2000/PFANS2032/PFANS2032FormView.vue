@@ -499,6 +499,7 @@
   import {isvalidPhone, telephoneNumber} from '@/utils/validate';
   import dicselect from '../../../components/dicselect';
   import {getCurrentRole,getCurrentRole12} from '../../../../utils/customize';
+  import {getDictionaryInfo} from '../../../../utils/customize';
   import PFANS2026Pop from '@/components/EasyPop/PFANS2026Pop';
 
   export default {

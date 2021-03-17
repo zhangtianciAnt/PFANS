@@ -792,7 +792,7 @@ export function getCurrentRole16() {
   }
   return '1';
 }
-
+//insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 start
 export function getCurrentRole17() {
   let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
@@ -824,6 +824,7 @@ export function getCurrentRole18() {
   }
   return '1';
 }
+//insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 end
 
 import CryptoJS from 'crypto-js/crypto-js';
 

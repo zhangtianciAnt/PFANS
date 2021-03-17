@@ -420,37 +420,37 @@
                     return 'sub_bg_color_lightblue';
                 }
             },
-          accAdd(arg1, arg2) {
-            var r1, r2, m, c;
-            try {
-              r1 = arg1.toString().split(".")[1].length;
-            }
-            catch (e) {
-              r1 = 0;
-            }
-            try {
-              r2 = arg2.toString().split(".")[1].length;
-            }
-            catch (e) {
-              r2 = 0;
-            }
-            c = Math.abs(r1 - r2);
-            m = Math.pow(10, Math.max(r1, r2));
-            if (c > 0) {
-              var cm = Math.pow(10, c);
-              if (r1 > r2) {
-                arg1 = Number(arg1.toString().replace(".", ""));
-                arg2 = Number(arg2.toString().replace(".", "")) * cm;
-              } else {
-                arg1 = Number(arg1.toString().replace(".", "")) * cm;
-                arg2 = Number(arg2.toString().replace(".", ""));
-              }
-            } else {
-              arg1 = Number(arg1.toString().replace(".", ""));
-              arg2 = Number(arg2.toString().replace(".", ""));
-            }
-            return (arg1 + arg2) / m;
-          },
+          // accAdd(arg1, arg2) {
+          //   var r1, r2, m, c;
+          //   try {
+          //     r1 = arg1.toString().split(".")[1].length;
+          //   }
+          //   catch (e) {
+          //     r1 = 0;
+          //   }
+          //   try {
+          //     r2 = arg2.toString().split(".")[1].length;
+          //   }
+          //   catch (e) {
+          //     r2 = 0;
+          //   }
+          //   c = Math.abs(r1 - r2);
+          //   m = Math.pow(10, Math.max(r1, r2));
+          //   if (c > 0) {
+          //     var cm = Math.pow(10, c);
+          //     if (r1 > r2) {
+          //       arg1 = Number(arg1.toString().replace(".", ""));
+          //       arg2 = Number(arg2.toString().replace(".", "")) * cm;
+          //     } else {
+          //       arg1 = Number(arg1.toString().replace(".", "")) * cm;
+          //       arg2 = Number(arg2.toString().replace(".", ""));
+          //     }
+          //   } else {
+          //     arg1 = Number(arg1.toString().replace(".", ""));
+          //     arg2 = Number(arg2.toString().replace(".", ""));
+          //   }
+          //   return (arg1 + arg2) / m;
+          // },
             //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
             rowClick(row) {
                 this.rowid = row.purchase_id;
@@ -632,7 +632,9 @@
                     let _judgement_name = '';
                     let _judgements_moneys = '';
                     let _remarks = '';
+                  //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
                     let enableduplicateloan = [];
+                  //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         let user = getUserInfo(this.selectedlist[i].user_id);
                         if (user) {
@@ -653,35 +655,37 @@
                         _judgement_name += this.selectedlist[i].purnumbers + ',';
                         _judgements_moneys += this.selectedlist[i].totalamount + ',';
                         _remarks += this.selectedlist[i].purchasepurpose + '^';
+                        //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
                         enableduplicateloan= this.selectedlist[i].enableduplicateloan;
+                         //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
                     }
 
                     if (val === 'actuarial') {
                       //暂借款剩余可报销金额
-                      let selectedlistAnt = this.$refs.roletable.selectedList;
-                      let warnlist = '';
-                      let _surpubilcmoney = 0;
-                      for(let o = 0 ; o < selectedlistAnt.length; o ++) {
-                        if(selectedlistAnt[o].surpubilcmoney != '' && selectedlistAnt[o].surpubilcmoney != null){
-                          if (selectedlistAnt[o].surpubilcmoney <= 0) {
-                            if (warnlist == '') {
-                              warnlist = selectedlistAnt[o].purnumbers;
-                            } else {
-                              warnlist += ',' + selectedlistAnt[o].purnumbers
-                            }
-                          }else{
-                            _surpubilcmoney = this.accAdd(_surpubilcmoney,parseFloat(selectedlistAnt[o].surpubilcmoney));
-                          }
-                        }
-                      }
-                      if(warnlist != ''){
-                        Message({
-                          message: warnlist + this.$t('normal.info_17'),
-                          type: 'info',
-                          duration: 2 * 1000,
-                        });
-                        return;
-                      }
+                      // let selectedlistAnt = this.$refs.roletable.selectedList;
+                      // let warnlist = '';
+                      // let _surpubilcmoney = 0;
+                      // for(let o = 0 ; o < selectedlistAnt.length; o ++) {
+                      //   if(selectedlistAnt[o].surpubilcmoney != '' && selectedlistAnt[o].surpubilcmoney != null){
+                      //     if (selectedlistAnt[o].surpubilcmoney <= 0) {
+                      //       if (warnlist == '') {
+                      //         warnlist = selectedlistAnt[o].purnumbers;
+                      //       } else {
+                      //         warnlist += ',' + selectedlistAnt[o].purnumbers
+                      //       }
+                      //     }else{
+                      //       _surpubilcmoney = this.accAdd(_surpubilcmoney,parseFloat(selectedlistAnt[o].surpubilcmoney));
+                      //     }
+                      //   }
+                      // }
+                      // if(warnlist != ''){
+                      //   Message({
+                      //     message: warnlist + this.$t('normal.info_17'),
+                      //     type: 'info',
+                      //     duration: 2 * 1000,
+                      //   });
+                      //   return;
+                      // }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //是否已经精算
                         // let str = '';
@@ -730,7 +734,7 @@
                                         _name: optionsSEL,
                                         _type: 'PJ001002',
                                         _haveLoanapp: loan,
-                                        _surpubilcmoney: _surpubilcmoney,
+                                        // _surpubilcmoney: _surpubilcmoney,
                                         disabled: true,
                                     },
                                 });
@@ -740,7 +744,7 @@
                                     params: {
                                         _name: optionsSEL,
                                         _type: 'PJ001002',
-                                        _surpubilcmoney: _surpubilcmoney,
+                                        // _surpubilcmoney: _surpubilcmoney,
                                         disabled: true,
                                     },
                                 });
@@ -768,32 +772,32 @@
                     }
                     else {
                       //暂借款剩余可借金额
-                      let selectedlistAnt = this.$refs.roletable.selectedList;
-                      let warnlist = '';
-                      let enableuplicate='';
-                      let _surloappmoney = 0;
-                      for (let o = 0; o < selectedlistAnt.length; o++) {
-                        if (selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
-                          if (selectedlistAnt[o].surloappmoney <= 0) {
-                            if (warnlist == '') {
-                              warnlist = selectedlistAnt[o].purnumbers;
-                            } else {
-                              warnlist += ',' + selectedlistAnt[o].purnumbers
-                            }
-                          } else {
-                            _surloappmoney = this.accAdd(_surloappmoney, parseFloat(selectedlistAnt[o].surloappmoney));
-                          }
-                        }
-                        enableuplicate = enableuplicate+selectedlistAnt[o].enableduplicateloan + ',';
-                      }
-                      if (warnlist != '' && enableuplicate.includes("PJ055002")) {
-                        Message({
-                          message: warnlist + this.$t('normal.info_19'),
-                          type: 'info',
-                          duration: 2 * 1000,
-                        });
-                        return;
-                      } else {
+                      // let selectedlistAnt = this.$refs.roletable.selectedList;
+                      // let warnlist = '';
+                      // let _surloappmoney = 0;
+                      // for(let o = 0 ; o < selectedlistAnt.length; o ++) {
+                      //   if(selectedlistAnt[o].surloappmoney != '' && selectedlistAnt[o].surloappmoney != null) {
+                      //     if (selectedlistAnt[o].surloappmoney <= 0) {
+                      //       if (warnlist == '') {
+                      //         warnlist = selectedlistAnt[o].purnumbers;
+                      //       } else {
+                      //         warnlist += ',' + selectedlistAnt[o].purnumbers
+                      //       }
+                      //     } else {
+                      //       _surloappmoney = this.accAdd(_surloappmoney, parseFloat(selectedlistAnt[o].surloappmoney));
+                      //     }
+                      //   }
+                      // }
+                      // if(warnlist != ''){
+                      //   Message({
+                      //     message: warnlist + this.$t('normal.info_19'),
+                      //     type: 'info',
+                      //     duration: 2 * 1000,
+                      //   });
+                      //   return;
+                      // }else{
+                      //
+                      // }
                         //暂借款申请
                         //del ccm 0813 决裁到暂借款，精算  check去掉
                         // //check是否存在暂借款
@@ -830,9 +834,7 @@
                           return
                         }
                         //del ccm 0813 决裁到暂借款，精算  check去掉
-                      }
                     }
-
                 }
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
                 if (val === 'conapp') {

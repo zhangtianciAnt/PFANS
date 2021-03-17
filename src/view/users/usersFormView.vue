@@ -2072,6 +2072,14 @@
               //ws-8/14-禅道任务450
                 age: '',
                 code: '',
+                //lyt-21/2/2-禅道任务734-start
+                show:false,
+                passwordcheckbar: false,
+                personalpw:'',
+                //add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-start
+                personcheck: false,
+                //add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-end
+                //lyt-21/2/2-禅道任务734-end
                 code1: 'PG021',
                 occupationtypecode: '',
 
@@ -2104,11 +2112,6 @@
                 dialogTableVisible9: false,
                 dialogTableVisible10: false,
                 // add_fjl
-              //add-lyt-2021/2/3-禅道任务734-start
-                 passwordcheckbar: false,
-                 personcheck: false,
-                 personalpw:'',
-              //add-lyt-2021/2/3-禅道任务734-end
                 loading: false,
                 error: '',
                 educationTable: [
@@ -2866,19 +2869,21 @@
               if(this.$route.params._org){
                 this.show = true;
                 this.passwordcheckbar = false;
-              }else if(this.roles==='0'){
+              } else if(this.roles==='0'){
+                //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-start
                 this.passwordcheckbar = false;
                 this.show = true;
-              }
-              else{
+                //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-end
+              } else{
                 this.passwordcheckbar = true;
               }
-            }else{
-                this.passwordcheckbar = false;
-                this.show = false;
-            }
+            } else{
+              //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
+              this.passwordcheckbar = false;
+              this.show = false;
+            }//add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-end
           },
-          //add-lyt-2021/2/3-禅道任务734-start
+          //lyt-21/2/2-禅道任务734-end
             // ADD-WS-生年月日change事件
             // ADD-LXX
             sumToOldAge() {

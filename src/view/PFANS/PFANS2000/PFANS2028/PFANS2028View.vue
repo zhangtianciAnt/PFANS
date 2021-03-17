@@ -542,7 +542,10 @@
       getTaxestotal() {
         this.loading = true;
         this.$store
+        // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 start
+          //.dispatch('PFANS2006Store/getTaxestotal', {"userid": this.$store.getters.userinfo.userid})
           .dispatch('PFANS2006Store/getTaxestotal', {"userid": this.$store.getters.userinfo.userid,"dates": this.months})
+          // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 end
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
@@ -577,11 +580,11 @@
                           : response[j].type === "4"
                               ? "退職"
                               : "-";
-                  //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 FROM
-                  response[j].bonus = response[j].bonus; //=== "2" ? this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF") : this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF");
-                  //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
-                  response[j].sociology = response[j].sociology === "1" ? this.$t("label.yes") : "-";
-                  response[j].registered = response[j].registered === "1" ? this.$t("label.yes") : "-";
+                //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 FROM
+                response[j].bonus = response[j].bonus; //=== "2" ? this.$t("label.PFANSUSERFORMVIEW_OLDSTAFF") : this.$t("label.PFANSUSERFORMVIEW_NEWSTAFF");
+                //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
+                response[j].sociology = response[j].sociology === "1" ? this.$t("label.yes") : "-";
+                response[j].registered = response[j].registered === "1" ? this.$t("label.yes") : "-";
               }
             }
             this.data = response;
@@ -599,7 +602,10 @@
       getBonus() {
         this.loading = true;
         this.$store
+        // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 start
+          //.dispatch('PFANS2006Store/getBonus', {"userid": this.$store.getters.userinfo.userid})
           .dispatch('PFANS2006Store/getBonus', {userid: this.$store.getters.userinfo.userid,dates: this.months})
+          // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 end
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== '') {

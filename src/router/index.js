@@ -4,10 +4,12 @@ import frameView from '@/view/frame/frameView.vue'
 import logInFrameView from '@/view/logInFrame/logInFrameView.vue'
 import EasyLogin from '@/components/EasyLogin'
 import orgTreeView from '@/view/orgTree/orgTreeView.vue'
+//update gbb 20210308  禅道任务708  start
 import orgTree1001View from '@/view/orgTree/orgTree1001View.vue'
 import orgTree1002View from '@/view/orgTree/orgTree1002View.vue'
 import orgTree1003View from '@/view/orgTree/orgTree1003View.vue'
 import orgTreeFormView from '@/view/orgTree/orgTreeFormView.vue'
+//update gbb 20210308  禅道任务708  end
 import invoiceFormView from '@/view/orgTree/invoiceFormView.vue'
 import bankFormView from '@/view/orgTree/bankFormView.vue'
 import indexView from '@/view/index/indexView.vue'
@@ -266,6 +268,7 @@ const routes = [
         name: 'org',
         component: orgTreeView
       },
+      //update gbb 20210308  禅道任务708  start
       {
         path: '/orgTree1001View',
         name: 'orgTree1001View',
@@ -281,6 +284,7 @@ const routes = [
         name: 'orgTree1003View',
         component: orgTree1003View
       },
+      //update gbb 20210308  禅道任务708  end
       {
         path: '/orgFormEdit',
         name: 'orgFormEdit',

@@ -111,14 +111,14 @@
               }
             }
             response[j].status = getStatus(response[j].status);
+            if (response[j].createon !== null && response[j].createon !== "") {
+              response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
+            }
             if (response[j].stage !== null && response[j].stage !== "") {
               let letStage = getDictionaryInfo(response[j].stage);
               if (letStage != null) {
                 response[j].stage = letStage.value1;
               }
-            }
-            if (response[j].createon !== null && response[j].createon !== "") {
-              response[j].createon =  moment(response[j].createon).format("YYYY-MM-DD");
             }
             if (this.$i18n) {
               if (response[j].stage !== null && response[j].stage !== "") {

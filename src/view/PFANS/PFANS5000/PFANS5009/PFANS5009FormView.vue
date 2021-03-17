@@ -2576,6 +2576,20 @@
                 });
               }
             }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check start
+            for (let i = 0; i < this.tableP.length; i++) {
+              if (moment(this.tableP[i].actualstarttime).format('YYYY-MM-DD') > moment(this.tableP[i].actualendtime).format('YYYY-MM-DD')) {
+                this.activeName = 'second';
+                this.loading = false;
+                error1 = error1 + 1;
+                Message({
+                  message: this.$t('label.PFANS5009FORMVIEW_CHECKDATE'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            }
+            // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
             //add-gbb-7/16-内采项目在现场管理中不显示合同
             if (this.form.toolstype === '0') {
               //this.form.toolsorgs = ' ';

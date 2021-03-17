@@ -1464,13 +1464,10 @@
                 }
                 this.form = response.business;
                 //add_fjl_0806  添加总经理审批流程
-                let role = getCurrentRole();
-                if (role == '1') {//总经理
-                  this.workcode = 'W0097';
-                } else if (role == '2' || role == '3') { //GM Center
-                  this.workcode = 'W0113';//新流程
-                } else { //TL 正式员工
-                  this.workcode = 'W0048';
+                if (getCurrentRole() === '1') {
+                  this.workflowCode = 'W0097';//总经理流程
+                } else {
+                  this.workflowCode = 'W0048';//其他
                 }
                 //add_fjl_0806  添加总经理审批流程
                 if (this.form.checkch != '1') {
