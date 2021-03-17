@@ -137,6 +137,7 @@ export default {
   },
   data() {
     return {
+      rowid: '',
       _tableList: [],
       TABLEList: [],
       totaldata: [],
@@ -943,6 +944,14 @@ export default {
           }
         });
       } else if (val === "setRole") {
+        if (this.rowid === '') {
+          Message({
+            message: this.$t("normal.info_01"),
+            type: 'info',
+            duration: 2 * 1000
+          });
+          return;
+        }
         this.$router.push({
           name: "usersToRoleView",
           params: {
@@ -1070,6 +1079,7 @@ export default {
         });
     },
     rowClick(row) {
+      this.rowid = row._id;
       if (row) {
         this.rowData = row;
         this.buttonList[1].disabled = false;
