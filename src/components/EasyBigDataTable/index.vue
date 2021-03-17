@@ -69,6 +69,9 @@
       EasyButtonBar,
       EasyWorkFlow
     },
+    // 解决加班申请【刷新】报错 ztc start
+    inject:['reload'],
+    // 解决加班申请【刷新】报错 ztc end
     data () {
       return {
         total: 0,
