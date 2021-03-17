@@ -1292,7 +1292,7 @@ export default {
       );
     }
   },
-  mounted() {
+  created(){
     if (this.$store.getters.useraccount._id === "5e78b17ef3c8d71e98a2aa30" || this.$store.getters.useraccount._id === "5e78b2034e3b194874180e37") {
       this.buttonList = [
         {
@@ -1336,6 +1336,9 @@ export default {
         }
       ];
     }
+  },
+  mounted() {
+
     this.getInitData();
     this.getDataList();
     this.$store.commit("global/SET_OPERATEID", "");
