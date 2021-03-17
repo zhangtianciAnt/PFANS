@@ -2227,7 +2227,7 @@
           }
           if (this.month4) {
             // add-lyt-21/3/16-NT_PFANS_20210315_BUG_136-添加不为空判定条件-start
-            a = a.filter(item => moment(item.end).format('YYYY-MM') == moment(this.month4).format('YYYY-MM')&&item.start!== null&&item.start!== ''&&item.start!== undefined);
+            a = a.filter(item => moment(item.end).format('YYYY-MM') == moment(this.month4).format('YYYY-MM')&&item.end!== null&&item.end!== ''&&item.end!== undefined);
             // add-lyt-21/3/16-NT_PFANS_20210315_BUG_136-添加不为空判定条件-end
           }
           let prices = cons.filter(item => al2.contractnumber == item.contractnumber);
