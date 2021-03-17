@@ -224,6 +224,7 @@
     },
     created() {
       this.disable = this.$route.params.disabled;
+      this.status = this.$route.params.viewstatus;
       if (this.disable) {
         this.buttonList = [
           {
@@ -232,7 +233,39 @@
             icon: 'el-icon-check',
           },
         ];
-      } else {
+      }
+// 禅道任务741
+      else if(this.status === this.$t('label.node_step4')||this.status === this.$t('button.pause')) {
+        this.buttonList = [
+          {
+            key: 'vResult',
+            name: 'button.vResult',
+            icon: 'el-icon-thumb',
+          },
+          {
+            key: 'end',
+            name: 'button.end',
+            icon: 'el-icon-finished',
+          },
+          {
+            key: 'trash',
+            name: 'button.trash',
+            icon: 'el-icon-close',
+          },
+          {
+            key: 'pause',
+            name: 'button.pause',
+            icon: 'el-icon-video-pause',
+          },
+          {
+            key: 'start',
+            name: 'button.start',
+            icon: 'el-icon-video-play',
+          },
+        ];
+      }
+      // 禅道任务741
+      else {
         this.buttonList = [
           {
             key: 'vResult',
@@ -251,6 +284,7 @@
           },
         ];
       }
+
     },
     methods: {
       getDepartmentData() {
@@ -269,26 +303,26 @@
               // }
               let filters = new Set();
               for (let item of response) {
-                let i = {};
-                if (item) {
-                  i.code = item;
-                }
-                filters.add(i);
+                  let i = {};
+                  if (item) {
+                      i.code = item;
+                  }
+                  filters.add(i);
               }
               let filtersrst = [...new Set(filters)];
               var hash = {};
               filtersrst = filtersrst.reduce(function(item, next) {
-                if (hash[next.code]) {
-                  '';
-                } else {
-                  hash[next.code] = true && item.push(next);
-                }
-                return item;
+                  if (hash[next.code]) {
+                      '';
+                  } else {
+                      hash[next.code] = true && item.push(next);
+                  }
+                  return item;
               }, []);
               for (let i = 0; i < filtersrst.length; i++) {
-                if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
-                  filtersrst[i].code = '全部';
-                }
+                  if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
+                      filtersrst[i].code = '全部';
+                  }
               }
               this.options = filtersrst;
               // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 end
@@ -398,9 +432,9 @@
         this.loading = true;
         this.$store
         // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 start
-        //.dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
-          .dispatch('ASSETS1001Store/getList', {usedepartment: this.department == '全部' ? undefined : this.department})
-          // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 end
+          //.dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
+            .dispatch('ASSETS1001Store/getList', {usedepartment: this.department == '全部' ? undefined : this.department})
+            // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 end
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);
@@ -555,6 +589,18 @@
             this.baseInfo.inventoryRange = this.$refs.roletable.selectedList;
             this.getUpdate();
           }
+            if (val === 'pause' || val === 'start') {
+              let resultFlg = '';
+              if (val === 'start') {
+                resultFlg = '0';
+              } else {
+                resultFlg = '4';
+              }
+              this.form.status = resultFlg;
+              this.baseInfo.inventoryplan = JSON.parse(JSON.stringify(this.form));
+              this.baseInfo.inventoryRange = this.$refs.roletable.selectedList;
+              this.getUpdate();
+            }
         });
       },
     },

@@ -17,7 +17,9 @@
             :placeholder="$t('normal.error_09')">
           </el-date-picker>
         </div>
+
         <el-tabs v-model="activeName" type="border-card">
+          <!--现时点人员-->
           <el-tab-pane
             :label="$t('label.PFANS1038VIEW_REALISTIC')"
             name="first"
@@ -26,7 +28,7 @@
             <el-table
               :data="tableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'621px':'801px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'900px':'1240px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -77,6 +79,29 @@
                   </el-select>
                 </template>
               </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-start-->
+              <el-table-column
+                prop="summerplanpc"
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="winterplanpc"
+                :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
+                width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="unitprice"
+                :label="$t('label.PFANS1038VIEW_UNITPRICE')"
+                width="180"
+                v-if="show3"
+                align="center">
+              </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-end-->
               <el-table-column
                 prop="entermouth"
                 :label="$t('label.PFANS1038VIEW_ADOPTED')"
@@ -88,11 +113,12 @@
             </el-table>
           </el-tab-pane>
 
+          <!--新入职人员-->
           <el-tab-pane :label="$t('label.PFANS1038VIEW_NEWHIRES')" name="second">
             <el-table
               :data="newTableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'51vw':'69vw'),marginLeft:(this.$route.params.type === 0?'5%':'0%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'80vw':'75vw'),marginLeft:(this.$route.params.type === 0?'1%':'0%'),marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -201,6 +227,29 @@
                   </el-switch>
                 </template>
               </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-start-->
+              <el-table-column
+                prop="summerplanpc"
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="winterplanpc"
+                :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
+                width="180"
+                v-if="show2"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                prop="unitprice"
+                :label="$t('label.PFANS3005VIEW_UNITPRICE')"
+                width="180"
+                v-if="show3"
+                align="center">
+              </el-table-column>
+              <!--              add-lyt-21/1/29-禅道任务648-end-->
               <el-table-column :label="$t('label.operation')" width="200" align="center">
                 <template slot-scope="scope">
                   <el-button
@@ -300,6 +349,10 @@
                 buttonList: [],
                 show: false,
                 show1: false,
+                // add-lyt-21/1/29-禅道任务648-start
+                show2:false,
+                show3:false,
+                //add-lyt-21/1/29-禅道任务648-end
                 titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
                 form: {
                     //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
@@ -347,7 +400,7 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.$route.params.type === 0 ? this.getCustomerInfo(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "");
+                    this.$route.params.type === 0 ? this.getPersonalCost(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "")
                 }
             }
         },
@@ -364,6 +417,32 @@
                     }
                 }
             },
+          // add-lyt-21/1/29-禅道任务648-start
+          getPersonalCost(id) {
+            this.show2=true;
+            let params={
+              groupid : id,
+              years : this.form.years,
+            };
+            this.$store
+              .dispatch('PFANS1038Store/getPersonalCost',params)
+              .then(response => {
+                for (var i = 0; i < response.length; i++){
+                  this.tableData.push({
+                    //add-lyt-3/4-添加加班时给，不显示-start
+                    overtimepay: response[i].overtimepay,
+                    //add-lyt-3/4-添加加班时给，不显示-end
+                    name: response[i].username,
+                    thisyear: response[i].exrank,
+                    nextyear: response[i].ltrank,
+                    summerplanpc: response[i].aptoju,
+                    winterplanpc:response[i].jutoma,
+                  });
+                }
+                }
+              )
+          },
+          // add-lyt-21/1/29-禅道任务648-end
             getCustomerInfo(id) {
                 this.$store
                     .dispatch('PFANS1038Store/getCustomerInfo', id)
@@ -393,6 +472,7 @@
                     })
             },
             getExpatriatesinfor(id) {
+                this.show3=true;
                 this.$store
                     .dispatch('PFANS1038Store/getExpatriatesinfor', id)
                     .then(response => {
@@ -427,6 +507,7 @@
             },
             getOne(id) {
                 this.loading = true;
+                this.show2=true;
                 this.$store
                     .dispatch("PFANS1038Store/getOne", id)
                     .then(response => {

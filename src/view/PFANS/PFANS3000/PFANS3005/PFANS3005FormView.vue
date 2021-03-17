@@ -42,7 +42,12 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
-                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-start-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
+                    <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                    v-model="form.findate"></el-date-picker>
+                  </el-form-item>
+                </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" >
                     <dicselect
@@ -767,7 +772,7 @@
         recipientslist: '',
         title: 'title.PFANS3005VIEW',
         enableSave: false,
-        workflowCode: '',
+        workflowCode: 'W0126',
         fixedisable: true,
         editableTabsValue: '0',
         editableTabs: [],
@@ -1418,7 +1423,7 @@
         handler: function () {
           //totalamount --总金额
           // add_fjl_06/15 --添加审批流程 start
-          if (this.form.careerplan === '1') {
+           if (this.form.careerplan === '1') {
             if (Number(this.form.totalamount) <= 1000) {
               if (this.form.procurementproject === 'PJ005005' ||
                 this.form.procurementproject === 'PJ005006' ||
@@ -1445,8 +1450,8 @@
                 this.form.procurementproject === 'PJ005006' ||
                 this.form.procurementproject === 'PJ005007' ||
                 this.form.procurementproject === 'PJ005018'||
-                this.form.procurementproject === 'PJ005019' ||
-                this.form.procurementproject === 'PJ005020'){
+              this.form.procurementproject === 'PJ005019' ||
+              this.form.procurementproject === 'PJ005020'){
                 //电脑相关，//最后节点到center长  事业计划内  1000到20000之间
                 this.workflowCode = 'W0127';
                 // if (getCurrentRole() === '2' || getCurrentRole() === '3') {

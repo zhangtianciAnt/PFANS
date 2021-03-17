@@ -116,15 +116,13 @@
           type: '1'
         },
         buttonList: [
-          //update gbb 20210308  禅道任务708  start
-          // { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
-          // { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
-          // { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
+            // { key: 'new1', name: 'button.newCenter', disabled: false, icon: 'el-icon-plus' },
+            // { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
+            // { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
           { key: 'insert', name: 'button.orginsert', disabled: false, icon: 'el-icon-plus' },
           { key: 'change', name: 'button.orgchange', disabled: false, icon: 'el-icon-edit' },
           { key: 'view', name: 'button.orgresume', disabled: false, icon: 'el-icon-paperclip'},
           { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' },
-          //update gbb 20210308  禅道任务708  end
         ],
         nameflag: false,
         namelessflag: false,
@@ -237,26 +235,24 @@
           })
       },
       buttonClick (val) {
-        //update gbb 20210308  禅道任务708  start
         this.$store.commit('global/SET_HISTORYURL', this.$route.path)
         if (val === 'insert') {
-          this.$router.push({
-            name: 'orgTree1002View'
-          })
+            this.$router.push({
+                name: 'orgTree1002View'
+            })
         }
         else if (val === 'save') {
-          this.formcommit();
+            this.formcommit();
         }
         else if (val === 'view') {
-          this.$router.push({
-            name: 'orgTree1001View'
-          })
+            this.$router.push({
+                name: 'orgTree1001View'
+            })
         } else {
-          this.$router.push({
-            name: 'orgTree1003View'
-          })
+            this.$router.push({
+                name: 'orgTree1003View'
+            })
         }
-        //update gbb 20210308  禅道任务708  end
       },
       changeflag (flag, type) {
         switch (flag) {

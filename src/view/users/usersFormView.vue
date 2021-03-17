@@ -1485,8 +1485,10 @@
               </el-row>
               <!--              ws-6/28-禅道141任务-->
             </el-tab-pane>
-            <!--            add-lyt-21/2/2-禅道任务734 start--->
-            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SALARYNUMBER')" name="nine" style="padding-left:0.5%" v-if="this.personcheck" >
+            <!-- add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-start           -->
+            <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SALARYNUMBER')" name="nine" style="padding-left:0.5%" v-if="this.personcheck">
+              <!-- add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-end           -->
+              <!--            add-lyt-21/2/2-禅道任务734 start--->
               <el-dialog
                 :close-on-click-modal="false"
                 :close-on-press-escape="false"
@@ -1769,7 +1771,6 @@
                       v-model="form.shengyuinsurance"
                       :min="0"
                       :max="100000"
-
                       :precision="2"
                       :step="100"
                       class="width"
@@ -1826,7 +1827,6 @@
                       :precision="2"
                       :step="0.1"
                       class="width"
-
                       style="width:20vw"
                     ></el-input-number>
                     <el-button
@@ -2082,13 +2082,15 @@
                 //lyt-21/2/2-禅道任务734-end
                 code1: 'PG021',
                 occupationtypecode: '',
+
                 occupationtypedis: true,
                 display: true,
                 occupationtypedisplay: true,
+                show:false,
                 oldageData: null,
                 otherOrgs: null,
                 houseData: null,
-                varroles:'0',
+                varroles:'1',
                 // add_fjl
                 syeData: null,
                 syuData: null,
@@ -2861,7 +2863,7 @@
                 }
                 this.age = agenew;
             },
-          //lyt-21/2/2-禅道任务734-start
+          //add-lyt-2021/2/3-禅道任务734-start
           handleClick() {
             if (this.activeName === 'nine') {
               if(this.$route.params._org){
@@ -3915,36 +3917,37 @@
                     }
                 }
             },
-          //lyt-21/2/2-禅道任务734-start
-            checkPassword(){
-              this.show=false
-              if(this.personalpw === "" || this.personalpw === null){
-                 Message({
-                  message: this.$t('login.error_002'),
-                  type: 'error',
-                  duration: 5 * 1000,
+          //add-lyt-2021/2/3-禅道任务734-start
+          checkPassword(){
+            this.show=false
+            if(this.personalpw === "" || this.personalpw === null){
+              Message({
+                message: this.$t('login.error_002'),
+                type: 'error',
+                duration: 5 * 1000,
               })
-              }else{
-                let params = {
-                  userid:this.$store.getters.userinfo.userid,
-                  password:this.personalpw,
+            }
+            else{
+              let params = {
+                userid:this.$store.getters.userinfo.userid,
+                password:this.personalpw,
               }
-                this.$store.dispatch('usersStore/checkPassword', params)
-                  .then(response => {
-                    if (response.message == "1") {
-                      this.passwordcheckbar = false;
-                      this.show=true;
-                    } else {
-                      Message({
-                        message: this.$t('label.PFANSUSERFORMVIEW_WRONGNUMBER'),
-                        type: 'error',
-                        duration: 5 * 1000,
+              this.$store.dispatch('usersStore/checkPassword', params)
+                .then(response => {
+                  if (response.message == "1") {
+                    this.passwordcheckbar = false;
+                    this.show=true;
+                  } else {
+                    Message({
+                      message: this.$t('label.PFANSUSERFORMVIEW_WRONGNUMBER'),
+                      type: 'error',
+                      duration: 5 * 1000,
                     })
                   }
                 })
             }
           },
-          //lyt-21/2/2-禅道任务734-end
+          //add-lyt-2021/2/3-禅道任务734-end
         },
     };
 </script>

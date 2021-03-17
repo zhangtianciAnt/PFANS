@@ -41,24 +41,24 @@
                 <plx-table-column
                   :label="$t('label.April')"
                   align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.april">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
+                <plx-table-column
+                  :label="$t('label.taxtotal')"
+                  align="center"
+                  width="130"
+                  prop="april">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      size="mini"
+                      :max="9999999999"
+                      :min="0"
+                      :precision="2"
+                      :step="0.01"
+                      controls-position="right"
+                      style="width:90%"
+                      v-model.trim="scope.row.april">
+                    </el-input-number>
+                  </template>
+                </plx-table-column>
                   <plx-table-column
                     :label="$t('label.tax')"
                     align="center"
@@ -532,7 +532,7 @@
               </plx-table-grid>
             </el-row>
             <el-row style="margin-top: 180px">
-              <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end-->
+            <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end-->
               <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400" header-row-class-name="height"
                               use-virtual :pagination-show="paginationShow" big-data-checkbox highlight-current-row
@@ -1068,24 +1068,24 @@
             let responsex = response.delegainformationVo;
             for (let j = 0; j < responsex.length; j++) {
               let arr = [
-                responsex[j].april,
-                responsex[j].may,
-                responsex[j].june,
-                responsex[j].july,
-                responsex[j].august,
-                responsex[j].september,
-                responsex[j].october,
-                responsex[j].november,
-                responsex[j].december,
-                responsex[j].january,
-                responsex[j].february,
-                responsex[j].march
+                  responsex[j].april,
+                  responsex[j].may,
+                  responsex[j].june,
+                  responsex[j].july,
+                  responsex[j].august,
+                  responsex[j].september,
+                  responsex[j].october,
+                  responsex[j].november,
+                  responsex[j].december,
+                  responsex[j].january,
+                  responsex[j].february,
+                  responsex[j].march
               ];
               var h = 0;
               for (let i = 0; i < arr.length; i++) {
-                if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
-                  h++;
-                }
+                  if (arr[i] != null && arr[i] != "0.00" && arr[i] != "0") {
+                      h++;
+                  }
               }
               responsex[j].monthlength = h;
               let exp = getCooperinterviewListByAccount(responsex[j].account);
@@ -1094,77 +1094,77 @@
                 responsex[j].exittime = exp.exitime;
               }
               tabledate.push({
-                delegainformation_id: responsex[j].delegainformation_id,
-                companyprojects_id: responsex[j].companyprojects_id,
-                projectsystem_id: responsex[j].projectsystem_id,
-                supplierinfor_id: responsex[j].supplierinfor_id,
-                project_name: responsex[j].project_name,
-                group_id: responsex[j].group_id,
-                account: responsex[j].account,
-                managerid: responsex[j].managerid,
-                expname: responsex[j].expname,
-                suppliername: responsex[j].suppliername,
-                admissiontime: responsex[j].admissiontime,
-                exittime: responsex[j].exittime,
-                operationform: responsex[j].operationform,
-                jobclassification: responsex[j].jobclassification,
-                distriobjects: responsex[j].distriobjects,
-                venuetarget: responsex[j].venuetarget,
-                january: responsex[j].january,
-                february: responsex[j].february,
-                march: responsex[j].march,
-                april: responsex[j].april,
-                may: responsex[j].may,
-                june: responsex[j].june,
-                july: responsex[j].july,
-                august: responsex[j].august,
-                september: responsex[j].september,
-                october: responsex[j].october,
-                november: responsex[j].november,
-                december: responsex[j].december,
-                monthlength: responsex[j].monthlength,
-                remarks: responsex[j].remarks,
-                alltechnology: responsex[j].alltechnology,
-                sitevaluation: responsex[j].sitevaluation,
-                exitreason: responsex[j].exitreason,
-                businessimpact:responsex[j].businessimpact,
-                countermeasure: responsex[j].countermeasure,
-                year: responsex[j].year,
+                  delegainformation_id: responsex[j].delegainformation_id,
+                  companyprojects_id: responsex[j].companyprojects_id,
+                  projectsystem_id: responsex[j].projectsystem_id,
+                  supplierinfor_id: responsex[j].supplierinfor_id,
+                  project_name: responsex[j].project_name,
+                  group_id: responsex[j].group_id,
+                  account: responsex[j].account,
+                  managerid: responsex[j].managerid,
+                  expname: responsex[j].expname,
+                  suppliername: responsex[j].suppliername,
+                  admissiontime: responsex[j].admissiontime,
+                  exittime: responsex[j].exittime,
+                  operationform: responsex[j].operationform,
+                  jobclassification: responsex[j].jobclassification,
+                  distriobjects: responsex[j].distriobjects,
+                  venuetarget: responsex[j].venuetarget,
+                  january: responsex[j].january,
+                  february: responsex[j].february,
+                  march: responsex[j].march,
+                  april: responsex[j].april,
+                  may: responsex[j].may,
+                  june: responsex[j].june,
+                  july: responsex[j].july,
+                  august: responsex[j].august,
+                  september: responsex[j].september,
+                  october: responsex[j].october,
+                  november: responsex[j].november,
+                  december: responsex[j].december,
+                  monthlength: responsex[j].monthlength,
+                  remarks: responsex[j].remarks,
+                  alltechnology: responsex[j].alltechnology,
+                  sitevaluation: responsex[j].sitevaluation,
+                  exitreason: responsex[j].exitreason,
+                  businessimpact:responsex[j].businessimpact,
+                  countermeasure: responsex[j].countermeasure,
+                  year: responsex[j].year,
               })
             }
             if(response.delegainformationtaxList != null){
-              this.taxdata = response.delegainformationtaxList;
+                this.taxdata = response.delegainformationtaxList;
             }
             else{
-              this.taxdata = [{
-                delegainformationtax_id: '',
-                year: this.year,
-                group_id: this.group_id,
-                april: '',
-                apriltax: '',
-                may: '',
-                maytax: '',
-                june: '',
-                junetax: '',
-                july: '',
-                julytax: '',
-                august: '',
-                augusttax: '',
-                september: '',
-                septembertax: '',
-                october: '',
-                octobertax: '',
-                november: '',
-                novembertax: '',
-                december: '',
-                decembertax: '',
-                january: '',
-                januarytax: '',
-                february: '',
-                februarytax: '',
-                march: '',
-                marchtax: '',
-              }]
+                this.taxdata = [{
+                    delegainformationtax_id: '',
+                    year: this.year,
+                    group_id: this.group_id,
+                    april: '',
+                    apriltax: '',
+                    may: '',
+                    maytax: '',
+                    june: '',
+                    junetax: '',
+                    july: '',
+                    julytax: '',
+                    august: '',
+                    augusttax: '',
+                    september: '',
+                    septembertax: '',
+                    october: '',
+                    octobertax: '',
+                    november: '',
+                    novembertax: '',
+                    december: '',
+                    decembertax: '',
+                    january: '',
+                    januarytax: '',
+                    february: '',
+                    februarytax: '',
+                    march: '',
+                    marchtax: '',
+                }]
             }
             //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             this.multipleSelection = [];
@@ -1291,19 +1291,19 @@
               }
             }
             const vote1 = [];
-            //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
-            //系统管理员，总经理、财务部长、企划部长、外注管理担当
-          if (this.$store.getters.roles.indexOf("1") != -1 ||
-            this.$store.getters.roles.indexOf("2")  != -1 ||
-            this.$store.getters.roles.indexOf("7")  != -1 ||
-            this.$store.getters.roles.indexOf("9")  != -1 ||
-            this.$store.getters.roles.indexOf("13") != -1 )
-            // if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
-            //     || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
-            //     || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
-            //     || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
-            //     || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
-            //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
+        //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
+        //系统管理员，总经理、财务部长、企划部长、外注管理担当
+        if (this.$store.getters.roles.indexOf("1") != -1 ||
+          this.$store.getters.roles.indexOf("2")  != -1 ||
+          this.$store.getters.roles.indexOf("7")  != -1 ||
+          this.$store.getters.roles.indexOf("9")  != -1 ||
+          this.$store.getters.roles.indexOf("13") != -1 )
+        // if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
+        //     || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
+        //     || this.$store.getters.userinfo.userid ==='5e78b2254e3b194874180f31'
+        //     || this.$store.getters.userinfo.userid ==='5e78b2004e3b194874180e21'
+        //     || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
+        //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
             {
                 let centerId = '5e7858a08f4316308435112c';
                 let orgs = getDownOrgInfo(centerId);
@@ -1374,18 +1374,20 @@
                   });
                   return;
               }
-            //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
-            this.taxdata[0].group_id = this.group_id;
-            this.taxdata[0].year = this.year;
-            let vo = {
+          //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
+          this.taxdata[0].group_id = this.group_id;
+          this.taxdata[0].year = this.year;
+          let vo = {
               delegainformationList: this.multipleSelection,
               delegainformationtaxList: this.taxdata,
-            };
-            this.loading = true;
-            this.$store
-            //.dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
+          };
+          //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
+          this.loading = true;
+          this.$store
+          //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
+          //.dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
               .dispatch('PFANS6006Store/updateDeleginformation', vo)
-              //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
+            //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             .then(response => {
               this.data = response;
               this.multipleSelection = [];

@@ -24,8 +24,8 @@ const global = {
     userTableList:[],
     useraccount:"",
     //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
-    roles:"",
-    //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
+    roles: "",
+    //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
     operateOwner:"",
   },
   mutations: {
@@ -231,7 +231,7 @@ const global = {
           returnroles = returnroles + ',' + '36';
         }
       }
-      state.roles = returnroles.substring(1,returnroles.length);
+      state.roles = returnroles.substring(1, returnroles.length);
       //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
     },
     SET_OPERATEOWNER(state, operateOwner) {

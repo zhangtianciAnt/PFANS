@@ -2323,6 +2323,7 @@
           }
         }
         this.dialogFormVisible = false;
+
       },
       //存在check222
       existCheck(contractNumber, index) {
@@ -2436,8 +2437,8 @@
           this.handleIndexDisabled();
         }
         else if (value === 'cancellation') {
-          //废弃
-          this.handleCancellation(baseInfo);
+            //废弃
+            this.handleCancellation(baseInfo);
         } else {
           this.handleSaveContract(value, baseInfo);
 
@@ -2445,28 +2446,28 @@
       },
       //废弃
       handleCancellation(baseInfo) {
-        this.loading = true;
-        if (this.$route.params._id) {
-          this.$store.dispatch('PFANS1026Store/update', baseInfo)
-            .then(response => {
-              this.data = response;
-              Message({
-                message: this.$t('normal.success_02'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-              this.paramsTitle();
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
+          this.loading = true;
+          if (this.$route.params._id) {
+              this.$store.dispatch('PFANS1026Store/update', baseInfo)
+                  .then(response => {
+                      this.data = response;
+                      Message({
+                          message: this.$t('normal.success_02'),
+                          type: 'success',
+                          duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                      this.paramsTitle();
+                  })
+                  .catch(error => {
+                      Message({
+                          message: error,
+                          type: 'error',
+                          duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                  });
+          }
       },
       //contractapplication save
       handleSaveContract(value, baseInfo, tabledata) {
@@ -2659,7 +2660,7 @@
         this.$router.push({
           name: 'PFANS6010FormView',
           params: {
-            letparams:letparamslist,
+            letparams: letparamslist,
           },
         });
       },
@@ -2669,7 +2670,7 @@
             if (this.$route.params.letparams) {
               this.checkparamsTitle();
             }
-          }else{
+          } else {
             this.paramsTitle();
           }
         } else if (val === 'application') {
@@ -2694,11 +2695,11 @@
             cancelButtonText: this.$t('button.cancel'),
             type: 'warning',
           }).then(() => {
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            this.form.tabledata[i].entrycondition = 'HT004001';
-          }
-          this.handleSave('cancellation');
+            for (let i = 0; i < this.form.tabledata.length; i++) {
+              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+              this.form.tabledata[i].entrycondition = 'HT004001';
+            }
+            this.handleSave('cancellation');
           }).catch(() => {
             this.$message({
               type: 'info',

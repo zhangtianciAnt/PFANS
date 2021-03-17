@@ -347,10 +347,10 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS1004VIEW_GIST')" prop="gist">
                     <!--<tinymce :height="300" :readonly="readonly" id="mytinymce" v-model="form.gist" style="width: 72vw"></tinymce>-->
-                    <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-start-->
+                  <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-start-->
                     <quill-editor :disabled="!disabled" :options="editorOption" ref="myQuillEditor" style="height: 300px;width: 72vw"
                                   v-model="form.gist">
-                      <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-end-->
+                  <!--                    add-lyt-NT_PFANS_20210304_BUG_085-添加:disabled属性-end-->
                     </quill-editor>
                   </el-form-item>
                 </el-col>
@@ -705,7 +705,7 @@
         editorOption: {},
         options: [],
         optionsM: [],
-        workcode: '',
+        workcode: 'W0091',
         centerid: '',
         groupid: '',
         errorgroupM: '',

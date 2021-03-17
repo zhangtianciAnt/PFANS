@@ -48,7 +48,6 @@
         },
         watch: {
             open(val) {
-                debugger
                 if (val) {
                     this.bkParams = [...this.$route.params];
                     for (let key in this.params) {

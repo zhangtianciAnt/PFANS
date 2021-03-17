@@ -668,7 +668,7 @@
             person: '',
           },
         ],
-        right: '',
+        right: 'W0081',
         d1: false,
         d2: true,
         d3: true,
@@ -687,14 +687,14 @@
         loading: false,
         // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
         // buttonList: [
-        //   {
-        //     key: 'save',
-        //     name: 'button.save',
-        //     // disabled: false,
-        //     icon: 'el-icon-check',
-        //   },
+        //     {
+        //         key: 'save',
+        //         name: 'button.save',
+        //         // disabled: false,
+        //         icon: 'el-icon-check',
+        //     },
         // ],
-        buttonList:[],
+        buttonList: [],
         // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
         tableD: [
           {
@@ -792,17 +792,19 @@
             this.form = response.staffexitproce;
             this.ID = this.params_id
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
-            if (response.staffexitproce.checkedgm === 'true') {
-              this.form.checkedgm = true;
-              this.checkbox = true;
-            } else {
-              this.form.checkedgm = false;
-            }
+
             let role = getCurrentRole();
             if(role == '2' || role == '3') { //GM Center
               this.right = 'W0139'//新流程
             }else { //TL 正式员工
               this.right = 'W0081'
+            }
+
+            if (response.staffexitproce.checkedgm === 'true') {
+              this.form.checkedgm = true;
+              this.checkbox = true;
+            } else {
+              this.form.checkedgm = false;
             }
             if (response.staffexitproce.checkedcenter === 'true') {
               this.form.checkedcenter = true;
@@ -894,17 +896,17 @@
       this.disable = this.$route.params.disabled;
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
       if (this.disable) {
-        //未开始/驳回时可点击保存
-        if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2')) {
-          this.buttonList = [
-            {
-              key: 'save',
-              name: 'button.save',
-              // disabled: false,
-              icon: 'el-icon-check',
-            },
-          ]
-        }
+          //未开始/驳回时可点击保存
+          if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2')) {
+              this.buttonList = [
+                  {
+                      key: 'save',
+                      name: 'button.save',
+                      // disabled: false,
+                      icon: 'el-icon-check',
+                  },
+              ]
+          }
       }
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
     },

@@ -1,9 +1,7 @@
 import {
   saveTree,
-  //update gbb 20210308  禅道任务708  start
   getOrgTree,
   getTreeYears
-  //update gbb 20210308  禅道任务708  end
 } from './orgTreeApi'
 
 const orgTreeStore = {
@@ -41,7 +39,6 @@ const orgTreeStore = {
         })
       })
     },
-    //update gbb 20210308  禅道任务708  start
     getTreeYears({ commit }, data) {
       return new Promise((resolve, reject) => {
         getTreeYears(data).then(response => {
@@ -55,7 +52,6 @@ const orgTreeStore = {
         })
       })
     },
-    //update gbb 20210308  禅道任务708  end
   }
 }
 

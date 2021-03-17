@@ -138,12 +138,14 @@
             disabled: false,
             icon: 'el-icon-edit'
           },
+          //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
           {
             key: 'export',
             name: 'button.export',
             disabled: false,
-            icon: 'el-icon-upload2'
+            icon: 'el-icon-download'
           }
+          //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
         ],
         rowid: '',
         row_id: 'businesscardid',

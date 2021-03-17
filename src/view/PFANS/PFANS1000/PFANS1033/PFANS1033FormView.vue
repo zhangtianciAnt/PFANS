@@ -33,7 +33,7 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS1024VIEW_ORIGINALCONTRACT')" :label-width="formLabelWidth"
                           v-show="show3">
-              <!--              add-lyt-21/3/10-NT_PFANS_20210226_BUG_029-将‘!disabled1’修改为‘!disabled2’-start-->
+<!--              add-lyt-21/3/10-NT_PFANS_20210226_BUG_029-将‘!disabled1’修改为‘!disabled2’-start-->
               <el-input v-model="form1.contractnumber" style="width: 20vw" :disabled="!disabled2"></el-input>
               <!--              add-lyt-21/3/10-NT_PFANS_20210226_BUG_029-将‘!disabled1’修改为‘!disabled2’-end-->
               <el-checkbox
@@ -396,6 +396,7 @@
                         </template>
                       </el-table-column>
                     </el-table>
+
                   </div>
                 </el-dialog>
               </template>
@@ -1667,6 +1668,7 @@
       },
       //保存
       handleSave(tabledatabook) {
+
         let baseInfo = {};
         baseInfo.contractapplication = [];
         baseInfo.contractnumbercount = [];
@@ -1907,7 +1909,6 @@
         }
       },
       handleIndexDisabled() {
-        //11
         if (this.letcontractnumber == null || this.letcontractnumber == undefined || this.letcontractnumber == '') {
           Message({
             message: this.$t('label.PFANS1026FORMVIEW_QXSQFH'),

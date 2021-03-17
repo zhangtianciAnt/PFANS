@@ -1740,7 +1740,6 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -1795,7 +1794,6 @@
                       :step="100"
                       class="width"
                       style="width:20vw"
-
                     ></el-input-number>
                     <el-button
                       type="text"
@@ -2208,17 +2206,17 @@
         code: '',
         code1: 'PG021',
         occupationtypecode: '',
-        occupationtypedis: true,
-        display: true,
-        occupationtypedisplay: true,
-        //lyt-21/2/2-禅道任务734-start
+        //add-lyt-2021/2/3-禅道任务734-start
         personalpw:'',
         passwordcheckbar: false,
         show:false,
-        //lyt-21/2/2-禅道任务734-end
+        //add-lyt-2021/2/3-禅道任务734-end
+        occupationtypedis: true,
+        display: true,
+        occupationtypedisplay: true,
         oldageData: null,
         houseData: null,
-        varroles:'0',
+        varroles:'1',
         // add_fjl
         syeData: null,
         syuData: null,
@@ -3285,7 +3283,7 @@
             }
             //update gbb NT_PFANS_20210223_BUG_023 【试用期截止日】改成【转正日】 start
             if (response.customerInfo.userinfo.enddate != '' && response.customerInfo.userinfo.enddate != null) {
-              this.form.enddate =  moment(response.customerInfo.userinfo.enddate).add(1,'days').format("YYYY-MM-DD");
+                this.form.enddate =  moment(response.customerInfo.userinfo.enddate).add(1,'days').format("YYYY-MM-DD");
             }
             //update gbb NT_PFANS_20210223_BUG_023 【试用期截止日】改成【转正日】 end
             //add-ws-7/10-禅道141问提修改
@@ -3985,7 +3983,7 @@
               }
           }
       },
-      //lyt-21/2/2-禅道任务734-start
+      //add-lyt-2021/2/3-禅道任务734-start
       checkPassword(){
         this.show=false
         if(this.personalpw === "" || this.personalpw === null){
@@ -4015,7 +4013,7 @@
             })
         }
       },
-      //lyt-21/2/2-禅道任务734-end
+      //add-lyt-2021/2/3-禅道任务734-end
     },
   };
 </script>

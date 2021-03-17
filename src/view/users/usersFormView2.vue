@@ -822,8 +822,6 @@
 <!--                  </el-form-item>-->
 <!--                </el-col>-->
                 <!--                add-ws-9/7-禅道505任务-->
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE')">
                     <el-select
@@ -841,6 +839,8 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_FIXEDATE')">
                     <el-date-picker
@@ -851,9 +851,6 @@
                     ></el-date-picker>
                   </el-form-item>
                 </el-col>
-              </el-row>
-
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_ENTERDAY')" prop="enterday">
                     <el-date-picker
@@ -875,7 +872,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_OFFICIALDATE')">
@@ -902,7 +898,9 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-
+                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
+                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw"></el-input>
+                  </el-form-item>
                 </el-col>
               </el-row>
               <!--del_fjl_05/20   &#45;&#45;式样变更，功能修改-->
@@ -1000,13 +998,6 @@
               <!--del_fjl_05/20   &#45;&#45;式样变更，功能修改-->
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_SEATNUMBER')" prop="seatnumber">
-                    <el-input class="width" v-model="form.seatnumber" maxlength="20" style="width:20vw"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
                   <el-form-item :label="$t('label.PFANSUSERFORMVIEW_CAUTION')" label-width="7rem">
                     <el-input
                       class="width"
@@ -1017,7 +1008,6 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-
               <!--              <el-row>-->
               <!--                <el-col :span="8">-->
               <!--                  <el-form-item-->
@@ -1618,7 +1608,7 @@
               </el-row>
               <!--              ws-6/28-禅道141任务-->
             </el-tab-pane>
-            <!--            add-lyt-21/2/2-禅道任务734 start--->
+<!--            add-lyt-21/2/2-禅道任务734 start--->
             <el-tab-pane :label="this.$t('label.PFANSUSERFORMVIEW_SALARYNUMBER')" name="nine" style="padding-left:0.5%"  v-if="this.personcheck">
               <el-dialog
                 :close-on-click-modal="false"
@@ -2198,23 +2188,22 @@
         //ws-8/14-禅道任务450
         roles: '',
         //ws-8/14-禅道任务450
+        role6:'',
         age: '',
         code: '',
-        code1: 'PG021',
-        //lyt-21/2/2-禅道任务734-start
-        role6:'',
+        //add-lyt-2021/2/3-禅道任务734-start
         show:false,
         personcheck: false,
-        passwordcheckbar: false,
         personalpw:'',
-        //lyt-21/2/2-禅道任务734-end
+        //add-lyt-2021/2/3-禅道任务734-start
+        code1: 'PG021',
         occupationtypecode: '',
         occupationtypedis: true,
         display: true,
         occupationtypedisplay: true,
         oldageData: null,
         houseData: null,
-        varroles:'0',
+        varroles:'1',
           // add_fjl
           syeData: null,
           syuData: null,
@@ -2236,6 +2225,7 @@
           dialogTableVisible9: false,
           dialogTableVisible10: false,
           // add_fjl
+          passwordcheckbar: false,
         loading: false,
         error: '',
         educationTable: [
@@ -2913,19 +2903,18 @@
           budgetunit: this.form.budgetunit,
         } = this.$route.params._org);
       }
-
       if (this.$route.params._id) {
         this.getById(this.$route.params._id);
       }
-      //lyt-21/2/2-禅道任务734-start
+      //add-lyt-2021/2/3-禅道任务734-start
       this.role6 = getCurrentRole6();
       if(this.$store.getters.userinfo.userid === this.$route.params._id||this.role6 === '0'){
-        this.personcheck=true;
+         this.personcheck=true;
       }
       else{
-        this.personcheck=false;
+         this.personcheck=false;
       }
-      //lyt-21/2/2-禅道任务734-end
+      //add-lyt-2021/2/3-禅道任务734-end
     },
     methods: {
       //        ws-6/28-禅道141任务
@@ -2959,25 +2948,22 @@
         }
         this.age = agenew;
       },
-      // ADD-WS-生年月日change事件
-      //lyt-21/2/2-禅道任务734-start
+      //add-lyt-2021/2/3-禅道任务734-start
       handleClick() {
         if (this.activeName === 'nine') {
-          //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-start
           if(this.role6 === '0'){
             this.passwordcheckbar = false;
             this.show = true;
-            //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-增加总经理、薪资担当、人事部长权限-end
           }else{
             this.passwordcheckbar = true;
           }
-        } else{
-          //add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
-          this.passwordcheckbar = false;
-          this.show = false;
-        }//add-lyt-2021/2/23-NT_PFANS_20210219_BUG_021-点击其他TAB页工资页状态变回不可见-start
+        }else{
+           this.passwordcheckbar = false;
+           this.show = false;
+        }
       },
-      //lyt-21/2/2-禅道任务734-end
+      //add-lyt-2021/2/3-禅道任务734-start
+      // ADD-WS-生年月日change事件
       checkRequire() {
         if (
           !this.form.customername ||
@@ -3300,8 +3286,8 @@
               this.form.resignation_date =  moment(response.customerInfo.userinfo.resignation_date).format("YYYY-MM-DD");
             }
             //update gbb NT_PFANS_20210223_BUG_023 【试用期截止日】改成【转正日】 start
-            if (response.customerInfo.userinfo.enddate != '' && response.customerInfo.userinfo.enddate != null) {
-              this.form.enddate =  moment(response.customerInfo.userinfo.enddate).add(1,'days').format("YYYY-MM-DD");
+              if (response.customerInfo.userinfo.enddate != '' && response.customerInfo.userinfo.enddate != null) {
+                this.form.enddate =  moment(response.customerInfo.userinfo.enddate).add(1,'days').format("YYYY-MM-DD");
             }
             //update gbb NT_PFANS_20210223_BUG_023 【试用期截止日】改成【转正日】 end
             //add-ws-7/10-禅道141问提修改
@@ -4000,7 +3986,7 @@
               }
           }
       },
-      //lyt-21/2/2-禅道任务734-start
+      //add-lyt-2021/2/3-禅道任务734-start
       checkPassword(){
         this.show=false
         if(this.personalpw === "" || this.personalpw === null){
@@ -4030,7 +4016,7 @@
             })
         }
       },
-      //lyt-21/2/2-禅道任务734-end
+      //add-lyt-2021/2/3-禅道任务734-end
     },
   };
 </script>

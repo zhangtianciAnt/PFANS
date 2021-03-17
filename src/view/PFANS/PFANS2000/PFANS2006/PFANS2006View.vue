@@ -1015,7 +1015,9 @@
                     : response[j].type === '4'
                     ? '退職'
                     : '-';
-                response[j].bonus = response[j].bonus === '2' ? this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF') : this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+                //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 FROM
+                response[j].bonus = response[j].bonus;// === '2' ? this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF') : this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+                //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
                 response[j].sociology = response[j].sociology === '1' ? this.$t('label.yes') : '-';
                 response[j].registered = response[j].registered === '1' ? this.$t('label.yes') : '-';
               }
@@ -1037,9 +1039,9 @@
         this.loading = true;
         this.$store
           // update gbb 20210312 NT_PFANS_20210308_BUG_166 工资详细（全社）,奖金详细数据根据日期组件筛选 start
-          //.dispatch('PFANS2006Store/getBonus', {})
-          .dispatch('PFANS2006Store/getBonus', {dates: this.months})
-          // update gbb 20210312 NT_PFANS_20210308_BUG_166 工资详细（全社）,奖金详细数据根据日期组件筛选 end
+            //.dispatch('PFANS2006Store/getBonus', {})
+            .dispatch('PFANS2006Store/getBonus', {dates: this.months})
+            // update gbb 20210312 NT_PFANS_20210308_BUG_166 工资详细（全社）,奖金详细数据根据日期组件筛选 end
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== '') {

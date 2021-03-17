@@ -241,7 +241,7 @@
                           v-for="item in loans">
                         </el-option>
                       </el-select>
-                      <el-button @click="clickBunloan" size="small" :disabled="disable" type="primary">{{this.$t('button.view')}}
+                      <el-button @click="clickBunloan" :disabled="disable" size="small" type="primary">{{this.$t('button.view')}}
                       </el-button>
                     </el-form-item>
                   </el-col>
@@ -1262,7 +1262,7 @@
       monthlyrate,
       PFANS1002Pop,
       PFANS1035Pop,
-        PFANS1006Pop,
+      PFANS1006Pop,
       dicselect,
       EasyNormalContainer,
       user,
@@ -1339,7 +1339,7 @@
         userlist: '',
         activeName: 'first',
         loading: false,
-          checkGroupId: false,
+        checkGroupId: false,
         disabled: false,
         tableTValue: '',
         tableAValue: '',
@@ -1504,7 +1504,6 @@
         },
         code1: 'PG002',
         code2: 'PJ036',
-
         code4: 'PJ024',
         code9: 'PJ017',
         code10: 'PJ035',
@@ -1536,9 +1535,9 @@
         plsummaryflg1: '',
         plsummaryflg: '',
         optionsdata: [{value: this.$t('label.PFANS1012FORMVIEW_NOMONEY'), label: ''}],
-          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-          params_id: ''
-          //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        params_id: '',
+        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       };
     },
     mounted() {
@@ -1565,24 +1564,23 @@
         });
       }
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
-
       this.getCompanyProjectList();
       this.checkOption();
-        if (this.params_id) {
+      if (this.params_id) {
         this.loading = true;
         this.$store
-            .dispatch('PFANS1013Store/selectById', {'evectionid': this.params_id})
+          .dispatch('PFANS1013Store/selectById', {'evectionid': this.params_id})
           .then(response => {
             let lst = getOrgInfoByUserId(response.evection.userid);
             if (lst) {
-                if (lst.groupId !== null && lst.groupId !== '') {
-                    this.checkGroupId = true;
-                } else {
-                    this.checkGroupId = false;
-                }
-                // this.centername = lst.centerNmae;
-                // this.groupname = lst.groupNmae;
-                // this.teamname = lst.teamNmae;
+              if (lst.groupId !== null && lst.groupId !== '') {
+                this.checkGroupId = true;
+              } else {
+                this.checkGroupId = false;
+              }
+              // this.centername = lst.centerNmae;
+              // this.groupname = lst.groupNmae;
+              // this.teamname = lst.teamNmae;
             }
             this.form = response.evection;
             let role = getCurrentRole();
@@ -1593,8 +1591,6 @@
             } else { //TL 正式员工
               this.workflowCode = 'W0014';
             }
-            // add-ws-7/10-禅道249
-//add-ws-6/17-禅道101
             if (this.form.uploadfile != '' && this.form.uploadfile != null) {
               let uploadfile = this.form.uploadfile.split(';');
               for (var i = 0; i < uploadfile.length; i++) {
@@ -1835,7 +1831,7 @@
           });
       } else {
         this.getBusInside();
-          this.getBusOuter();
+        this.getBusOuter();
         this.checkmoney = true;
         this.checktaxes = true;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
@@ -1896,9 +1892,9 @@
             // this.tableA[1].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.tableR[0].budgetcoding = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
             this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).redirict;
-          }else if(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId == '' || getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId == null){
+          } else if (getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId == '' || getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId == null) {
             // 禅道591 ztc 1019
-            if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId)){
+            if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId)) {
               this.Redirict = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).centerId).redirict;
             }
           }
@@ -1912,14 +1908,14 @@
             this.groupname = lst.groupNmae;
             this.teamname = lst.teamNmae;
             this.form.centerid = lst.centerId;
-              // this.form.groupid = lst.groupId;
+            // this.form.groupid = lst.groupId;
             this.form.teamid = lst.teamId;
-              if (lst.groupId !== null && lst.groupId !== '') {
-                  this.form.groupid = lst.groupId;
-                  this.checkGroupId = true;
-              } else {
-                  this.checkGroupId = false;
-              }
+            if (lst.groupId !== null && lst.groupId !== '') {
+              this.form.groupid = lst.groupId;
+              this.checkGroupId = true;
+            } else {
+              this.checkGroupId = false;
+            }
           }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
@@ -1992,9 +1988,9 @@
       }
     },
     created() {
-        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-        this.params_id = this.$route.params._id;
-        //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      this.params_id = this.$route.params._id;
+      //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
@@ -2091,32 +2087,32 @@
         }
       },
       //add_ws_0724  禅道154任务
-        //add_fjl_0810  添加暂借款查看
-        clickBunloan() {
-            if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
-                this.$store.commit('global/SET_HISTORYURL', '');
-                this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
-                this.$router.push({
-                    name: 'PFANS1006FormView',
-                    params: {
-                        _id: this.form.loan,
-                        disabled: false,
-                        _checkid: this.params_id,
-                        _check: true,
-                        _fromname: 'PFANS1013FormView',
-                    },
-                });
-            }
-            // this.url = '';
-            // this.urlparams = '';
-            // if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
-            //     this.urlparams = {'_id': this.form.loan};
-            //     this.url = 'PFANS1006FormView';
-            //     this.$refs.PFANS1006Pop.open = true;
-            //
-            // }
-        },
-        //add_fjl_0810  添加暂借款查看
+      //add_fjl_0810  添加暂借款查看
+      clickBunloan() {
+        if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1006FormView');
+          this.$router.push({
+            name: 'PFANS1006FormView',
+            params: {
+              _id: this.form.loan,
+              disabled: false,
+              _checkid: this.params_id,
+              _check: true,
+              _fromname: 'PFANS1013FormView',
+            },
+          });
+        }
+        // this.url = '';
+        // this.urlparams = '';
+        // if (this.form.loan !== '' && this.form.loan !== null && this.form.loan !== undefined) {
+        //     this.urlparams = {'_id': this.form.loan};
+        //     this.url = 'PFANS1006FormView';
+        //     this.$refs.PFANS1006Pop.open = true;
+        //
+        // }
+      },
+      //add_fjl_0810  添加暂借款查看
       //add-ws-6/18-禅道任务15
       changearrivenight(val) {
         let moneys = 0;
@@ -2213,7 +2209,7 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
-              this.relations = [];
+            this.relations = [];
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2230,7 +2226,7 @@
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
                     regionname: response[i].regionname,
-                      loanapplication_id: response[i].loanapplication_id,
+                    loanapplication_id: response[i].loanapplication_id,
                   });
                 }
               } else {
@@ -2248,15 +2244,15 @@
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
                     regionname: response[i].regionname,
-                      loanapplication_id: response[i].loanapplication_id,
+                    loanapplication_id: response[i].loanapplication_id,
                   });
                 }
               }
             }
 
-              //add_fjl_0820 添加境内出差申请申请精算书联动 start
-              this.busInt();
-              //add_fjl_0820 添加境内出差申请申请精算书联动 end
+            //add_fjl_0820 添加境内出差申请申请精算书联动 start
+            this.busInt();
+            //add_fjl_0820 添加境内出差申请申请精算书联动 end
             this.business(this.form.business_id);
             this.loading = false;
           })
@@ -2275,7 +2271,7 @@
         this.$store
           .dispatch('PFANS1001Store/getBusiness', businesstype)
           .then(response => {
-              this.relations = [];
+            this.relations = [];
             for (let i = 0; i < response.length; i++) {
               if (this.disable) {
                 if (response[i].user_id === this.$store.getters.userinfo.userid && response[i].status === '4') {
@@ -2293,13 +2289,13 @@
                     level: response[i].level,
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
-                      loanapplication_id: response[i].loanapplication_id,
+                    loanapplication_id: response[i].loanapplication_id,
                   });
                 }
 
               } else {
                 if (response[i].status === '4') {
-                    this.relations.push({
+                  this.relations.push({
                     place: response[i].city,
                     value: response[i].business_id,
                     label: this.$t('menu.PFANS1002') + '_' + moment(response[i].createon).format('YYYY-MM-DD'),
@@ -2313,14 +2309,14 @@
                     level: response[i].level,
                     businesstype: response[i].businesstype,
                     datenumber: response[i].datenumber,
-                      loanapplication_id: response[i].loanapplication_id,
+                    loanapplication_id: response[i].loanapplication_id,
                   });
                 }
               }
             }
-              //add_fjl_0820 添加境内出差申请申请精算书联动 start
-              this.busInt();
-              //add_fjl_0820 添加境内出差申请申请精算书联动 end
+            //add_fjl_0820 添加境内出差申请申请精算书联动 start
+            this.busInt();
+            //add_fjl_0820 添加境内出差申请申请精算书联动 end
             this.business(this.form.business_id);
             this.loading = false;
           })
@@ -2364,88 +2360,88 @@
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       getCompanyProjectList() {
-          // if (this.disable) {
-          //   this.loading = true;
-          //   this.$store
-          //     .dispatch('PFANS5009Store/getSiteList5', {})
-          //     .then(response => {
-          //       for (let i = 0; i < response.length; i++) {
-          //         this.optionsdate.push({
-          //           value: response[i].companyprojects_id,
-          //           lable: response[i].numbers + '_' + response[i].project_name,
-          //         });
-          //       }
-          //       this.$store
-          //         .dispatch('PFANS5013Store/getMyConProject', {})
-          //         .then(response => {
-          //           for (let i = 0; i < response.length; i++) {
-          //             this.optionsdate.push({
-          //               value: response[i].comproject_id,
-          //               lable: response[i].numbers + '_' + response[i].project_name,
-          //             });
-          //           }
-          //           this.loading = false;
-          //         })
-          //         .catch(error => {
-          //           Message({
-          //             message: error,
-          //             type: 'error',
-          //             duration: 5 * 1000,
-          //           });
-          //           this.loading = false;
-          //         });
-          //       this.loading = false;
-          //     })
-          //     .catch(error => {
-          //       Message({
-          //         message: error,
-          //         type: 'error',
-          //         duration: 5 * 1000,
-          //       });
-          //       this.loading = false;
-          //     });
-          // } else {
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS5013Store/Listproject2', {})
-            .then(response => {
-              for (let i = 0; i < response.length; i++) {
-                this.optionsdate.push({
-                  value: response[i].companyprojects_id,
-                  lable: response[i].numbers + '_' + response[i].project_name,
-                });
-              }
-              this.$store
-                .dispatch('PFANS5013Store/Listproject', {})
-                .then(response => {
-                  for (let i = 0; i < response.length; i++) {
-                    this.optionsdate.push({
-                      value: response[i].comproject_id,
-                      lable: response[i].numbers + '_' + response[i].project_name,
-                    });
-                  }
-                  this.loading = false;
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.loading = false;
-                });
-
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
+        // if (this.disable) {
+        //   this.loading = true;
+        //   this.$store
+        //     .dispatch('PFANS5009Store/getSiteList5', {})
+        //     .then(response => {
+        //       for (let i = 0; i < response.length; i++) {
+        //         this.optionsdate.push({
+        //           value: response[i].companyprojects_id,
+        //           lable: response[i].numbers + '_' + response[i].project_name,
+        //         });
+        //       }
+        //       this.$store
+        //         .dispatch('PFANS5013Store/getMyConProject', {})
+        //         .then(response => {
+        //           for (let i = 0; i < response.length; i++) {
+        //             this.optionsdate.push({
+        //               value: response[i].comproject_id,
+        //               lable: response[i].numbers + '_' + response[i].project_name,
+        //             });
+        //           }
+        //           this.loading = false;
+        //         })
+        //         .catch(error => {
+        //           Message({
+        //             message: error,
+        //             type: 'error',
+        //             duration: 5 * 1000,
+        //           });
+        //           this.loading = false;
+        //         });
+        //       this.loading = false;
+        //     })
+        //     .catch(error => {
+        //       Message({
+        //         message: error,
+        //         type: 'error',
+        //         duration: 5 * 1000,
+        //       });
+        //       this.loading = false;
+        //     });
+        // } else {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5013Store/Listproject2', {})
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              this.optionsdate.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].numbers + '_' + response[i].project_name,
               });
-              this.loading = false;
+            }
+            this.$store
+              .dispatch('PFANS5013Store/Listproject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdate.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
             });
-          // }
+            this.loading = false;
+          });
+        // }
       },
       //upd-ws-6/5-禅道075任务，项目名称问题修正
       // changeInvoice(val, row){
@@ -2481,7 +2477,7 @@
           row.Redirict = group.redirict;
           let codeinfo = '';
           if (row.Redirict === '0') {
-              codeinfo = 'PJ119002';
+            codeinfo = 'PJ119002';
           } else if (row.Redirict == '1' || row.Redirict == '') {
             codeinfo = 'PJ132002';
           }
@@ -2546,9 +2542,9 @@
       },
       getGroupIdA(orglist, row) {
         row.departmentname = orglist;
-          row.plsummary = this.plsummaryflg,
-              //ADD_FJL
-              row.optionsA = [];
+        row.plsummary = this.plsummaryflg,
+          //ADD_FJL
+          row.optionsA = [];
         row.budgetcoding = '';
         row.subjectnumber = '';
         let butinfo = getOrgInfo(row.departmentname).encoding;
@@ -2891,7 +2887,7 @@
           accountcode: this.newaccountcodeflg,
           optionsA: this.tableA[0].optionsA,
           budgetcoding: this.tableA[0].budgetcoding,
-            Redirict: this.tableA[0].Redirict,
+          Redirict: this.tableA[0].Redirict,
           subjectnumber: this.accflg,
           city: '',
           region: '',
@@ -2991,12 +2987,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -3038,13 +3034,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
                 return Math.round(prev * 100) / 100;
               }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             // if (index === 9) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -3079,13 +3075,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
                 return Math.round(prev * 100) / 100;
               }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             // if (index === 10) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -3132,13 +3128,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
                 return Math.round(prev * 100) / 100;
               }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
           } else {
             sums[index] = '--';
@@ -3165,21 +3161,21 @@
         }
       },
       changebusiness(val) {
-          //del_fjl_0911  添加初始化值 start
-          // this.form.startdate = '';
-          // this.form.enddate = '';
-          // this.form.arrivenight = '';
-          //del_fjl_0911  添加初始化值 end
+        //del_fjl_0911  添加初始化值 start
+        // this.form.startdate = '';
+        // this.form.enddate = '';
+        // this.form.arrivenight = '';
+        //del_fjl_0911  添加初始化值 end
         this.Todaysum = [];
         this.tableA = [];
         this.form.business_id = val;
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
-              //add_fjl_0911  添加初始化值 start
-              this.form.startdate = '';
-              this.form.enddate = '';
-              this.form.arrivenight = '';
-              //add_fjl_0911  添加初始化值 start
+            //add_fjl_0911  添加初始化值 start
+            this.form.startdate = '';
+            this.form.enddate = '';
+            this.form.arrivenight = '';
+            //add_fjl_0911  添加初始化值 start
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
               this.form.place = cityinfo.value1;
@@ -3198,9 +3194,9 @@
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
-              //add_fjl_0810  添加出差申请自动带出暂借款
-              this.change2(this.relations[i].loanapplication_id);
-              //add_fjl_0810  添加出差申请自动带出暂借款
+            //add_fjl_0810  添加出差申请自动带出暂借款
+            this.change2(this.relations[i].loanapplication_id);
+            //add_fjl_0810  添加出差申请自动带出暂借款
           }
         }
         if (this.form.startdate != '' && this.form.enddate != '' && moment(this.form.startdate).format('YYYY-MM-DD') != moment(this.form.enddate).format('YYYY-MM-DD')) {
@@ -3241,7 +3237,7 @@
           dateArr.splice(0, 0, moment(this.form.startdate).format('YYYY-MM-DD'));
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
           this.Todaysum = dateArr;
-        }else{
+        } else {
           var dateArr = [];
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
           this.Todaysum = dateArr;
@@ -3343,13 +3339,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
                 return Math.round(prev * 100) / 100;
               }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             // if (index === 5) {
             //   sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -3614,21 +3610,21 @@
       buttonClick(val) {
         //add-ws-8/29-禅道bug066
         if (val === 'back') {
-            if (this.$route.params._typecheck) {
-              this.$router.push({
-                name: 'PFANS1001FormView',
-                params: {
-                  title: 1,
-                },
-              });
-            }else {
-              this.$router.push({
-                name: 'PFANS1001FormView',
-                params: {
-                  title: 2,
-                },
-              });
-            }
+          if (this.$route.params._typecheck) {
+            this.$router.push({
+              name: 'PFANS1001FormView',
+              params: {
+                title: 1,
+              },
+            });
+          } else {
+            this.$router.push({
+              name: 'PFANS1001FormView',
+              params: {
+                title: 2,
+              },
+            });
+          }
         }
         //add-ws-8/29-禅道bug066
         if (val === 'save') {
@@ -4360,8 +4356,8 @@
                 }
                 if (errorFLG == '0' && this.accomflg === 0) {
                   this.loading = true;
-                    if (this.params_id) {
-                        this.baseInfo.evection.evectionid = this.params_id;
+                  if (this.params_id) {
+                    this.baseInfo.evection.evectionid = this.params_id;
                     this.$store
                       .dispatch('PFANS1013Store/update', this.baseInfo)
                       .then(response => {
@@ -4398,15 +4394,15 @@
                           type: 'success',
                           duration: 5 * 1000,
                         });
-                          //upd_fjl_0928  返回一览画面
-                          // if (this.$store.getters.historyUrl) {
-                          //   this.$router.push(this.$store.getters.historyUrl);
-                          // }
-                          this.$router.push({
-                              name: 'PFANS1013View',
-                              params: {},
-                          });
-                          //upd_fjl_0928  返回一览画面
+                        //upd_fjl_0928  返回一览画面
+                        // if (this.$store.getters.historyUrl) {
+                        //   this.$router.push(this.$store.getters.historyUrl);
+                        // }
+                        this.$router.push({
+                          name: 'PFANS1013View',
+                          params: {},
+                        });
+                        //upd_fjl_0928  返回一览画面
                       })
                       .catch(error => {
                         Message({

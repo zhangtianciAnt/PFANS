@@ -140,3 +140,12 @@ export function deleteLog(data) {
     data: data,
   });
 }
+//add-ws-01/05-优化接口
+export function sumlogdate(data) {
+  return request({
+    url: 'logmanagement/sumlogdate',
+    method: 'post',
+    data: data
+  })
+}
+//add-ws-01/05-优化接口

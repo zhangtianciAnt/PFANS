@@ -45,6 +45,9 @@
             contractstatus0: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS0'),
             contractstatus1: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS1'),
             contractstatus2: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS2'),
+            //update gbb 20210317 NT_PFANS_20210315_BUG_140 添加【日志不可填写】状态 start
+            contractstatus3: this.$t('label.PFANS5009FORMVIEW_CONTRACTSTATUS3'),
+            //update gbb 20210317 NT_PFANS_20210315_BUG_140 添加【日志不可填写】状态 end
             columns:[
                 {
                     code: 'numbers',
@@ -308,13 +311,13 @@
                             response[j].phasestatus = this.phasestatus1
                         }
                     }
-                  //项目类型
-                  if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                    let letStage = getDictionaryInfo(response[j].projecttype);
-                    if (letStage != null) {
-                      response[j].projecttype = letStage.value1;
+                    //项目类型
+                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                      let letStage = getDictionaryInfo(response[j].projecttype);
+                      if (letStage != null) {
+                        response[j].projecttype = letStage.value1;
+                      }
                     }
-                  }
                     if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
                         if(response[j].contractstatus === "0") {
                             response[j].contractstatus = this.contractstatus0

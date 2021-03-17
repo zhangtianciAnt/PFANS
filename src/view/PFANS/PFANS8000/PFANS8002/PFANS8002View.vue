@@ -157,11 +157,11 @@
                         }
                         // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
                         else{
-                          if (val === '0') {
-                            this.table = [];
-                          } else if (val === '1') {
-                            this.table2 = [];
-                          }
+                            if (val === '0') {
+                                this.table = [];
+                            } else if (val === '1') {
+                                this.table2 = [];
+                            }
                         }
                         // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                       this.loading = false;

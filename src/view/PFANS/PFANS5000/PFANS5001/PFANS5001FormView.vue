@@ -12,6 +12,7 @@
       @workflowState="workflowState"
       ref="container"
       v-loading="loading">
+
       <div slot="customize">
         <el-form
           :model="form"
@@ -263,7 +264,7 @@
                   </el-row>
                   <el-row>
                     <!--受託工数-->
-                    <!--                    NT_PFANS_20210304_BUG_052  将受託工数 变为数字组件-->
+<!--                    NT_PFANS_20210304_BUG_052  将受託工数 变为数字组件-->
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS5009FORMVIEW_WORK')" prop="work">
                         <el-input-number
@@ -1310,7 +1311,7 @@
         //add-12/24-审批check
         defaultStart: false,
         //add-12/24-审批check
-        workcode: '',
+        workcode: 'W0064',
         tableclaimtype: [{
           claimtype: '',
           deliverydate: '',
@@ -1972,7 +1973,7 @@
             }
             if (response.projectcontract.length > 0) {
               for (let p = 0; p < response.projectcontract.length; p++) {
-                this.tableAnt.push(response.projectcontract[p].contractnumbercount_id)
+                this.tableAnt.push(response.projectcontract[p].contractnumbercount_id);
               }
               this.getContractNumber();
             }
@@ -2063,7 +2064,7 @@
     methods: {
       getContractNumber() {
         this.loading = true;
-        for(let h = 0 ; h < this.tableAnt.length; h ++){
+        for (let h = 0; h < this.tableAnt.length; h++) {
           this.$store
             .dispatch('PFANS5001Store/selectConnumList', {'contractnumbercount_id': this.tableAnt[h]})
             .then(response => {
@@ -2345,7 +2346,7 @@
         // add_fjl_05/29  --添加人员多选
         let us = userlist.split(',');
         if (us.length > 1) {
-          let na = "";
+          let na = '';
           for (let nameid of this.tableB) {
             if (us[0] === nameid.name) {
               nameid.name = '';
@@ -2368,7 +2369,7 @@
             }
           }
           //保留人名不为空的数据
-          this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '')
+          this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
         } else {
           row.name = userlist;
         }
@@ -2474,7 +2475,7 @@
         for (let a = 0; a < table.length; a++) {
           if (row.contract != '') {
             if (table[a].contract != row.contract) {
-              checktable1 = checktable1 + 1
+              checktable1 = checktable1 + 1;
               check.push({
                 contractnumbercount_id: table[a].contractnumbercount_id,
                 deliveryfinshdate: table[a].deliveryfinshdate,
@@ -2506,7 +2507,7 @@
           }];
         } else {
           if (checktable1 != 0) {
-            this.tableD = check
+            this.tableD = check;
           }
         }
       },
@@ -2690,18 +2691,18 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%", "%25");
-          file.url = file.url.replace("#", "%23");
-          file.url = file.url.replace("&", "%26");
-          file.url = file.url.replace("+", "%2B");
-          file.url = file.url.replace("=", "%3D");
-          file.url = file.url.replace("?", "%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
       },
       fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
+        if (response.data == 'upload_success') {
           this.fileList = [];
           this.form.uploadfile = '';
           for (var item of fileList) {
@@ -2721,7 +2722,7 @@
             type: 'error',
             duration: 5 * 1000,
           });
-          this.form.uploadfile = ''
+          this.form.uploadfile = '';
           this.$refs.upload.clearFiles();
         }
       },
@@ -3008,12 +3009,12 @@
       },
       fileDownload(file) {
         if (file.url) {
-          file.url = file.url.replace("%", "%25");
-          file.url = file.url.replace("#", "%23");
-          file.url = file.url.replace("&", "%26");
-          file.url = file.url.replace("+", "%2B");
-          file.url = file.url.replace("=", "%3D");
-          file.url = file.url.replace("?", "%3F");
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
           var url = downLoadUrl(file.url);
           window.open(url);
         }
@@ -3153,7 +3154,7 @@
                   if (num > 1) {
                     Message({
                       message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
-                        + this.$t("label.PFANS5001FORMVIEW_CHECKDOUBLE"),
+                        + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
                       type: 'error',
                       duration: 5 * 1000,
                     });

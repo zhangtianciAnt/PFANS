@@ -188,7 +188,7 @@ const usersStore = {
         })
       })
     },
-    //获取工资tab页登录密码
+    //add-lyt-21/2/3-禅道734
     checkPassword({ commit }, params) {
       return new Promise((resolve, reject) => {
         checkPassword(params).then(response => {

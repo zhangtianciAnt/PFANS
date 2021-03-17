@@ -107,14 +107,14 @@
             fix: false,
             filter: true
           },
-          //add_fjl_06/10 start --添加評価実施日
-          {
-            code: 'modifyon',
-            label: 'label.PFANS2027VIEW_MODIFYON',
-            width: 120,
-            fix: false,
-            filter: true
-          }
+            //add_fjl_06/10 start --添加評価実施日
+            {
+                code: 'modifyon',
+                label: 'label.PFANS2027VIEW_MODIFYON',
+                width: 120,
+                fix: false,
+                filter: true
+            }
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -257,11 +257,11 @@
                 });
             }
             else{
-              Message({
-                message: this.$t("normal.error_12"),
-                type: 'error',
-                duration: 5 * 1000
-              });
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           }
         );
@@ -281,41 +281,41 @@
             for (let j = 0; j < response.length; j++) {
               // if (response[j].user_id !== null && response[j].user_id !== "") {
 
-              // let lst = getOrgInfoByUserId(response[j].user_id);
-              // if (lst) {
-              //   response[j].group_id = lst.groupNmae;
-              // }
-              // let rst = getUserInfo(response[j].user_id);
-              // if (rst) {
-              //   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-              // }
-              if (response[j].subjectmon !== null && response[j].subjectmon !== "") {
-                let letUsetype = getDictionaryInfo(response[j].subjectmon);
-                if (letUsetype != null) {
-                  response[j].subjectmon = letUsetype.value1;
+                // let lst = getOrgInfoByUserId(response[j].user_id);
+                // if (lst) {
+                //   response[j].group_id = lst.groupNmae;
+                // }
+                // let rst = getUserInfo(response[j].user_id);
+                // if (rst) {
+                //   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                // }
+                if (response[j].subjectmon !== null && response[j].subjectmon !== "") {
+                  let letUsetype = getDictionaryInfo(response[j].subjectmon);
+                  if (letUsetype != null) {
+                    response[j].subjectmon = letUsetype.value1;
+                  }
                 }
-              }
-              if (response[j].subject !== null && response[j].subject !== "") {
-                let letUsetype = getDictionaryInfo(response[j].subject);
-                if (letUsetype != null) {
-                  response[j].subject = letUsetype.value2;
+                if (response[j].subject !== null && response[j].subject !== "") {
+                  let letUsetype = getDictionaryInfo(response[j].subject);
+                  if (letUsetype != null) {
+                    response[j].subject = letUsetype.value2;
+                  }
                 }
-              }
 
-              if (response[j].evaluatenum !== null && response[j].evaluatenum !== "") {
-                let letUsetype = getDictionaryInfo(response[j].evaluatenum);
-                if (letUsetype != null) {
-                  response[j].evaluatenum = letUsetype.value1;
+                if (response[j].evaluatenum !== null && response[j].evaluatenum !== "") {
+                  let letUsetype = getDictionaryInfo(response[j].evaluatenum);
+                  if (letUsetype != null) {
+                    response[j].evaluatenum = letUsetype.value1;
+                  }
                 }
-              }
-              //add_fjl_06/10 start --添加評価実施日
-              if (response[j].modifyon !== null && response[j].modifyon !== "") {
-                response[j].modifyon = moment(response[j].modifyon).format("YYYY-MM-DD");
-              }
-              //add_fjl_06/10 end --添加評価実施日
-              if (response[j].status !== null && response[j].status !== "") {
-                response[j].status = getStatus(response[j].status);
-              }
+                //add_fjl_06/10 start --添加評価実施日
+                if (response[j].modifyon !== null && response[j].modifyon !== "") {
+                    response[j].modifyon = moment(response[j].modifyon).format("YYYY-MM-DD");
+                }
+                //add_fjl_06/10 end --添加評価実施日
+                if (response[j].status !== null && response[j].status !== "") {
+                  response[j].status = getStatus(response[j].status);
+                }
               // }
             }
             this.data = response;
@@ -400,32 +400,32 @@
             type: 'warning',
             center: true
           }).then(() => {
-            let lunarbonus = {
-              lunarbonus_id: this.rowid,
-              evaluatenum: this.evaluatenum,
-              subjectmon: this.subjectmon,
-              evaluationday: this.evaluationday
-            };
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS2027Store/createTodonotice', lunarbonus)
-              .then(response => {
-                // this.data = response;
-                this.loading = false;
-                Message({
-                  message: this.$t('normal.success_03'),
-                  type: 'success',
-                  duration: 5 * 1000,
-                });
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              })
+          let lunarbonus = {
+            lunarbonus_id: this.rowid,
+            evaluatenum: this.evaluatenum,
+            subjectmon: this.subjectmon,
+            evaluationday: this.evaluationday
+          };
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS2027Store/createTodonotice', lunarbonus)
+            .then(response => {
+              // this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_03'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
           }).catch(() => {
             this.$message({
               type: 'info',
@@ -456,32 +456,32 @@
             type: 'warning',
             center: true
           }).then(() => {
-            this.loading = true;
-            let lunarbonus = {
-              lunarbonus_id: this.rowid,
-              evaluatenum: this.evaluatenum,
-              subjectmon: this.subjectmon,
-              evaluationday: this.evaluationday
-            };
-            this.$store
-              .dispatch("PFANS2027Store/overTodonotice", lunarbonus)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                Message({
-                  message: this.$t('normal.success_03'),
-                  type: 'success',
-                  duration: 5 * 1000,
-                });
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              })
+          this.loading = true;
+          let lunarbonus = {
+            lunarbonus_id: this.rowid,
+            evaluatenum: this.evaluatenum,
+            subjectmon: this.subjectmon,
+            evaluationday: this.evaluationday
+          };
+          this.$store
+            .dispatch("PFANS2027Store/overTodonotice", lunarbonus)
+            .then(response => {
+              this.data = response;
+              this.loading = false;
+              Message({
+                message: this.$t('normal.success_03'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            })
           }).catch(() => {
             this.$message({
               type: 'info',

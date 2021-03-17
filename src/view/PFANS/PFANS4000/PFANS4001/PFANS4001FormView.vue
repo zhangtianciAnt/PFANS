@@ -259,7 +259,7 @@
         teamid: '',
         awardable: true,
         error: '',
-        workflowCode: '',
+        workflowCode: 'W0074',
         tableD: [],
         chgesal: [],
         multipleSelection: [],

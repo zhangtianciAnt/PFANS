@@ -70,11 +70,11 @@ service.interceptors.response.use(
             path: '/',
             query: { redirect: router.currentRoute.fullPath }
           })
-        // return Promise.reject(i18n.t('normal.error_05'))
+
+          // return Promise.reject(i18n.t('normal.error_05'))
         // }else {
           return false;
         // }
-
 
       } else if (response.data.code === 20102) {
         router.push({

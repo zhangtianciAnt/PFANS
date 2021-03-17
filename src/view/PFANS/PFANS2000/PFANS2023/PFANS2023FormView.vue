@@ -52,14 +52,11 @@
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
-                        <!--                         ADD_FJL_05/21   &#45;&#45;年度可修改-->
-                        <!--                        {{form.createon  | moment('YYYY')}}-->
                         <el-date-picker
                           v-model="form.years"
                           :disabled="true"
                           type="year">
                         </el-date-picker>
-                        <!--                        ADD_FJL_05/21   &#45;&#45;年度可修改-->
                       </el-form-item>
                     </el-col>
                   </el-row>
@@ -863,6 +860,16 @@
                 }
                 else{
                         this.checkRequire();
+                  //NT_PFANS_20210305_BUG_128 目标管理仅创建人才可以保存 ztc start
+                  if (this.form.user_id != this.$store.getters.userinfo.userid) {
+                    Message({
+                      message: this.$t('normal.error_24'),
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    return
+                  }
+                  //NT_PFANS_20210305_BUG_128 目标管理仅创建人才可以保存 ztc end
                         this.$refs["ruleForm"].validate(valid => {
                             if (valid) {
                                 if (this.$route.params._id) {

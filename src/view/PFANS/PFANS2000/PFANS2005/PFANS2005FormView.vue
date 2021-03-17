@@ -1958,6 +1958,18 @@
                   width="100"
                 ></el-table-column>
                 <el-table-column
+                  :label="$t('label.PFANS2005FORMVIEW_ANNUALLEAVE')"
+                  align="center"
+                  prop="annualleave"
+                  width="100"
+                ></el-table-column>
+                <el-table-column
+                  :label="$t('label.PFANS2005FORMVIEW_ANNUALLEAVEGIVE')"
+                  align="center"
+                  prop="annualleavegive"
+                  width="100"
+                ></el-table-column>
+                <el-table-column
                   :label="$t('label.PFANS2005FORMVIEW_ATTENDANCE')"
                   align="center"
                   prop="attendance"
@@ -4019,7 +4031,9 @@
                                 : item.type === "4"
                                   ? "退職"
                                   : "-";
-                            item.bonusshow = item.bonus === "2" ? "老员工" : "新员工";
+                            //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG 奖金记上用字典【PR021】_020 FROM
+                            item.bonusshow = item.bonus; //=== "2" ? "老员工" : "新员工";
+                            //UPD GBB 20210220 PSDCD_PFANS_20210220_BUG_020 奖金记上用字典【PR021】 TO
                             item.sociologyshow = item.sociology === "1" ? "是" : "-";
                             item.registeredshow = item.registered === "1" ? "是" : "-";
                         });

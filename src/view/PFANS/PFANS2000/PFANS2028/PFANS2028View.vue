@@ -531,12 +531,12 @@
     methods: {
       // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 start
       changeddate(val) {
-        this.months = moment(val).format('YYYY-MM');
-        if (this.region === '2') {
-          this.getBonus();
-        } else if (this.region === '1') {
-          this.getTaxestotal();
-        }
+          this.months = moment(val).format('YYYY-MM');
+          if (this.region === '2') {
+              this.getBonus();
+          } else if (this.region === '1') {
+              this.getTaxestotal();
+          }
       },
       // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 end
       getTaxestotal() {

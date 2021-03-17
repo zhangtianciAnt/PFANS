@@ -137,6 +137,7 @@ export default {
   },
   data() {
     return {
+      rowid: '',
       _tableList: [],
       TABLEList: [],
       totaldata: [],
@@ -325,6 +326,10 @@ export default {
         {
           value: "1",
           label: this.$t("label.USERSVIEW_LEAVE")
+        },
+        {
+          value: "2",
+          label: this.$t("label.USERSVIEW_NOTLEAVEYET")
         }
       ]
       //ADD-LXX
@@ -342,49 +347,94 @@ export default {
         //进行在职离职筛选
         if (this.enterOrleave !== "") {
             //离职筛选
-          if (this.enterOrleave === "1") {
-              if (this.workinghours)
-              {
-                this.working = this.getworkinghours(this.workinghours);
-                this.starttime = this.working.substring(0, 10),
-                this.endTime = this.working.substring(13, 23);
-                if (this.starttime != "" || this.endTime != "") {
-                  this.tableList = this.tableList.filter(item => {
-                    return ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD') &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
-                  });
-                }
-              }
-              else
-              {
-                this.tableList = this.tableList.filter(item => {
-                  return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD')
-                });
-              }
-          } else {
-            if (this.workinghours)
-            {
-
+          if (this.enterOrleave === "0") {
+            if (this.workinghours) {
               this.working = this.getworkinghours(this.workinghours);
               this.starttime = this.working.substring(0, 10),
                 this.endTime = this.working.substring(13, 23);
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
                   return (
-                      moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD')
-                      && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
-                      && (item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD'))
+                    moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD')
+                    && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
+                    && (item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD'))
                   )
+                });
+              }
+            }
+            else {
+              this.tableList = this.tableList.filter(item => {
+                return item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD')
+              });
+            }
+          }
+          else if (this.enterOrleave === "1"){
+            if (this.workinghours)
+            {
+              this.working = this.getworkinghours(this.workinghours);
+              this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+              if (this.starttime != "" || this.endTime != "") {
+                this.tableList = this.tableList.filter(item => {
+                  return ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD') &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
                 });
               }
             }
             else
             {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
+          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
+          else{
+            if (this.workinghours) {
+              this.working = this.getworkinghours(this.workinghours);
+              this.starttime = this.working.substring(0, 10),
+                this.endTime = this.working.substring(13, 23);
+              if (this.starttime != "" || this.endTime != "") {
+                this.tableList = this.tableList.filter(item => {
+                  return(
+                    ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD')
+                      &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
+                      && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD') )
+                    && (item.resignation_date !== null && item.resignation_date !== "")
+                  )
+
+                });
+              }
+            }
+            else {
+              this.tableList = this.tableList.filter(item => {
+                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')
+              });
+            }
+          }
+          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
         }
+        //add-lyt-2/4 人员信息判定BUG start
+        else{
+          if(this.workinghours){
+            this.working = this.getworkinghours(this.workinghours);
+            this.starttime = this.working.substring(0, 10),
+              this.endTime = this.working.substring(13, 23);
+            if (this.starttime != "" || this.endTime != "") {
+              this.tableList = this.tableList.filter(item => {
+                return(
+                  ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD') &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
+                  ||( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.enterday).format('YYYY-MM-DD')&& moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')&& (item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD')))
+                )
+              });
+            }
+          }
+          else{
+            this.tableList = this.tableList.filter(item => {
+              return item.resignation_date !== null || item.resignation_date !== "" || moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD')
+            });
+          }
+        }
+        //add-lyt-2/4 人员信息判定BUG end
         //进行时间筛选
         // this.working = this.getworkinghours(this.workinghours);
         // (this.starttime = this.working.substring(0, 10)),
@@ -483,6 +533,9 @@ export default {
           this.tableList = tabledate;
         }
       }
+      // add-lyt-21/2/9-NT_PFANS_20210208_BUG_020-start
+      this.filterInfo()
+      // add-lyt-21/2/9-NT_PFANS_20210208_BUG_020-end
     },
     handleChange(file, fileList) {
       this.clear(true);
@@ -596,7 +649,7 @@ export default {
           import("@/vendor/Export2Excel").then(excel => {
               const tHeader = [
                   this.$t("label.user_name"),//姓名
-                  this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//登录账户
+                  this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//登录账号
                   this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
                   this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
                   this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
@@ -657,7 +710,7 @@ export default {
               ];
               const filterVal = [
                   "customername",//姓名
-                  "adfield",//登录账户
+                  "adfield",//登录账号
                   "jobnumber",//卡号
                   "personalcode",//员工ID
                   "idnumber",//身份证号码
@@ -887,10 +940,18 @@ export default {
         this.$router.push({
           name: "usersFormView",
           params: {
-            _org: this.org
+            _org: this.org,
           }
         });
       } else if (val === "setRole") {
+        if (this.rowid === '') {
+          Message({
+            message: this.$t("normal.info_01"),
+            type: 'info',
+            duration: 2 * 1000
+          });
+          return;
+        }
         this.$router.push({
           name: "usersToRoleView",
           params: {
@@ -1018,6 +1079,7 @@ export default {
         });
     },
     rowClick(row) {
+      this.rowid = row._id;
       if (row) {
         this.rowData = row;
         this.buttonList[1].disabled = false;
@@ -1242,7 +1304,10 @@ export default {
         {
           key: "setRole",
           name: this.$t("label.PFANSUSERVIEW_SETTINGROLES"),
-          disabled: false,
+          //update gbb 20210317 NT_PFANS_20210303_BUG_048 选中行之后【设置角色】按钮可用 start
+          //disabled: false,
+          disabled: true,
+          //update gbb 20210317 NT_PFANS_20210303_BUG_048 选中行之后【设置角色】按钮可用 end
           icon: "el-icon-plus"
         },
         {

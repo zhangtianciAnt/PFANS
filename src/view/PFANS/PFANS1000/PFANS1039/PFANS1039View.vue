@@ -1,6 +1,20 @@
 <template>
   <div style="min-height: 100%">
     <el-card class="box-card" style="height: calc(100vh - 60px - 2rem)">
+
+      <div>
+        <div @click="submitForm(3)" class="m-content">
+          <el-col :span="18">
+            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
+                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('menu.PFANS1043')}}
+            </div>
+          </el-col>
+          <el-col :span="6" class="m-div">
+            <img :src="png3" class="m-img">
+          </el-col>
+        </div>
+      </div>
+
       <div>
         <div @click="submitForm(1)" class="m-content">
           <el-col :span="18">
@@ -26,18 +40,6 @@
         </div>
       </div>
 
-      <div>
-        <div @click="submitForm(3)" class="m-content">
-          <el-col :span="18">
-            <div style="width: 150px; margin-left: 8px; text-overflow: ellipsis; overflow: hidden;
-                          float: left; padding: 10px 0px; height: 50px; line-height: 18px;">{{$t('theme管理')}}
-            </div>
-          </el-col>
-          <el-col :span="6" class="m-div">
-            <img :src="png3" class="m-img">
-          </el-col>
-        </div>
-      </div>
 
 
     </el-card>

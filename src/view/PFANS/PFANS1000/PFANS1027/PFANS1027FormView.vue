@@ -875,9 +875,9 @@
                 //解决浮点加法计算问题
                 return this.accAdd(prev,curr);
               } else {
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                  // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
                 return Math.round(prev * 100) / 100;
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                  // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
               }
             }, 0);
             if (index == 3) {

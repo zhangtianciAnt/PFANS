@@ -15,13 +15,13 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {
-    getCurrentRole8,
     getDictionaryInfo,
-    getDownOrgInfo,
-    getorgGroupallList,
-    getorgGroupList,
     getStatus,
     getUserInfo,
+    getorgGroupList,
+    getorgGroupallList,
+    getCurrentRole8,
+    getDownOrgInfo,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -104,7 +104,8 @@
           if (letRole2 === '2') {
             //CENTER长
             groupid = this.$store.getters.userinfo.userinfo.centerid;
-            if (this.$store.getters.userinfo.userinfo.otherorgs) {
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
               for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
                 if (others.centerid) {
                   groupid = groupid + ',' + others.centerid;
@@ -114,7 +115,8 @@
           } else if (letRole2 === '1') {
             //GROUP
             groupid = this.$store.getters.userinfo.userinfo.groupid;
-            if (this.$store.getters.userinfo.userinfo.otherorgs) {
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
               for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
                 if (others.centerid) {
                   let centerId = others.centerid;
@@ -145,8 +147,8 @@
         this.letparams = {
           dates: dates,
           role: letRole2,
-          groupid: groupid
-        }
+          groupid: groupid,
+        };
         this.loading = true;
         this.$store
           .dispatch('PFANS6008Store/getcostMonthList', this.letparams)

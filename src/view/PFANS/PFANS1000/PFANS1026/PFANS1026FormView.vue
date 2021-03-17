@@ -10,13 +10,13 @@
           <el-dialog :title="$t('button.application')" :visible.sync="dialogFormVisible">
             <el-form-item :label="$t('label.PFANS1024VIEW_NUMBER')" :label-width="formLabelWidth" v-if="display"
                           :error="errorclaimtype" prop="claimtype">
-<!--              <dicselect-->
-<!--                :code="code"-->
-<!--                :data="form1.claimtype"-->
-<!--                :multiple="multiple"-->
-<!--                @change="getnumber"-->
-<!--                style="width: 20vw">-->
-<!--              </dicselect>-->
+              <!--              <dicselect-->
+              <!--                :code="code"-->
+              <!--                :data="form1.claimtype"-->
+              <!--                :multiple="multiple"-->
+              <!--                @change="getnumber"-->
+              <!--                style="width: 20vw">-->
+              <!--              </dicselect>-->
               <el-input-number
                 step-strictly
                 :max="1000000000"
@@ -624,7 +624,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input maxlength="100":disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -1373,7 +1373,7 @@
         }
       };
       return {
-        judgementdisable:false,
+        judgementdisable: false,
         //add-ws-6/22-禅道152任务
         show10: true,
         IDname: '',
@@ -1472,21 +1472,21 @@
         // , 'theme'
           'save': ['contractnumber', 'theme', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
           'makeinto': ['contractnumber'],
-            '1': ['supportdate', 'conenglish', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
+          '1': ['supportdate', 'conenglish', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           // 该非判定书
           '2': ['custojapanese', 'deployment', 'claimdatetime', 'varto'],
           // 契约书作成
           '3': ['custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate', 'completiondate', 'claimdate', 'supportdate'],
           // 决裁书作成
-            '4': ['custojapanese', 'conenglish', 'custochinese', 'conchinese', 'conjapanese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
+          '4': ['custojapanese', 'conenglish', 'custochinese', 'conchinese', 'conjapanese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount'],
           // 纳品书作成
-            '5': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
+          '5': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custoenglish', 'custoabbreviation', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate', 'deliverydate', 'completiondate'
             , 'claimdate', 'supportdate', 'varto', 'conchinese', 'conjapanese', 'loadingjudge', 'deliveryfinshdate'],
-            '6': ['claimdatetimeqh', 'conenglish', 'conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
-            '7': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
-            '61': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
+          '6': ['claimdatetimeqh', 'conenglish', 'conchinese', 'conjapanese', 'custochinese', 'businesscode', 'claimdatetime', 'currencyposition', 'claimamount', 'deliveryfinshdate'],
+          '7': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'deliverydate'],
+          '61': ['claimdatetimeqh', 'conenglish', 'custojapanese', 'custoenglish', 'custochinese', 'businesscode', 'currencyposition', 'conchinese', 'conjapanese', 'claimamount', 'claimdate', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
           // 请求书作成
-          '62': ['claimdatetimeqh', 'conenglish','claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
+          '62': ['claimdatetimeqh', 'conenglish', 'claimdatetime', 'custoenglish', 'conchinese', 'currencyposition', 'businesscode', 'conjapanese', 'claimamount', 'placejapanese', 'claimdate', 'placechinese', 'deliveryfinshdate', 'loadingjudge', 'supportdate'],
         },
         rules1: {
           claimtype: [
@@ -1743,7 +1743,7 @@
         claimamount3: '',
         claimamount4: '',
         peid: '',
-        tempMountList:[],
+        tempMountList: [],
       };
     },
     mounted() {
@@ -1995,9 +1995,9 @@
         this.show10 = false;
       }
       //add-ws-6/22-禅道152任务
-        if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
-          this.buttonList = [];
-        }
+      if (this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
+        this.buttonList = [];
+      }
 //            if(this.$route.params._id === ''){
 //              this.buttonList.splice(3, 1);
 //            }
@@ -2149,7 +2149,7 @@
                 this.DataList.push({
                   award_id: response.naplist[i].napalm_id,
                   award: this.$t('title.PFANS1031VIEW'),
-                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + response.naplist[i].claimnumber.substring(response.naplist[i].claimnumber.length-1,response.naplist[i].claimnumber.length) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + response.naplist[i].claimnumber.substring(response.naplist[i].claimnumber.length - 1, response.naplist[i].claimnumber.length) + this.$t('label.PFANS1026FORMVIEW_H'),
                   createon: response.naplist[i].createon,
                 });
                 this.checkdata = true;
@@ -2163,7 +2163,7 @@
                 this.DataList.push({
                   award_id: response.petilist[i].petition_id,
                   award: this.$t('title.PFANS1032VIEW'),
-                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + response.petilist[i].claimnumber.substring(response.petilist[i].claimnumber.length-1,response.petilist[i].claimnumber.length) + this.$t('label.PFANS1026FORMVIEW_H'),
+                  awardtype: this.$t('label.PFANS1026FORMVIEW_D') + response.petilist[i].claimnumber.substring(response.petilist[i].claimnumber.length - 1, response.petilist[i].claimnumber.length) + this.$t('label.PFANS1026FORMVIEW_H'),
                   createon: response.petilist[i].createon,
                 });
                 this.checkdata = true;
@@ -2288,7 +2288,7 @@
                 //       countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
                 // }
                 let huishu = this.multipleSelection[i].claimtype.replace('第', '').replace('回', '').replace('覚書', '');
-                
+                ;
                 countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-' + huishu;
               }
               var tabledata = {'contractnumber': contractNumber, 'rowindex': index, 'countNumber': countNumber};
@@ -2358,7 +2358,7 @@
         this.recordData.responphone = row.protelephone;
         this.recordData.responemail = row.protemail;
         this.recordData.businesscode = row.causecode;
-          this.recordData.regindiff = row.regindiff;
+        this.recordData.regindiff = row.regindiff;
         this.dialogVisibleA = false;
         this.loading = false;
       },
@@ -2739,7 +2739,7 @@
             responerglish: '',
             responphone: '',
             responemail: '',
-              regindiff: '',
+            regindiff: '',
             conjapanese: '',
             conenglish: '',
             conchinese: '',
@@ -2750,7 +2750,7 @@
             theme: '',
             temaid: '',
             qingremarks: '',
-              claimamount: '',
+            claimamount: '',
           };
           this.form.tabledata.push(o);
 //                this.tabledata.push(o);
@@ -2785,134 +2785,126 @@
       },
       //add ccm 20201203
       addRowclaimtype1(rows) {
-        let letclaimtype ='';
-        if (this.form.tableclaimtype!=null && this.form.tableclaimtype.length>0)
-        {
-          if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS'))!=-1)
-          {
+        let letclaimtype = '';
+        if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0) {
+          if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
             letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
           }
         }
         let flag = 0;
         let con = rows.length + 1;
         let cla = 0;
-        for(let h = 0; h < this.tableclaimtypeAnt.length; h++){
-          if(this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1){
+        for (let h = 0; h < this.tableclaimtypeAnt.length; h++) {
+          if (this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1) {
             flag++;
-            cla = h
+            cla = h;
           }
         }
-         if(flag == 0){
-           this.form.tableclaimtype.push({
-             contractnumbercount_id: '',
-             contractnumber: this.letcontractnumber,
-             claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H'),
-             deliverydate: '',
-             bookStatus:false,
-             completiondate: '',
-             deliveryfinshdate: '',
-             loadingjudge: '',
-             claimdate: moment(new Date()).format('YYYY-MM-DD'),
-             claimamount: '',
-             supportdate: '',
-             type: '1',
-             maketype: '',
-             rowindex: '',
-             claimdatetimeqh: '',
-             deliveryconditionqh: 'HT009001',
-             deliveryqh: '',
-             claimconditionqh: 'HT011001',
-             claimqh: '',
-             qingremarksqh: '',
-             remarksqh: '',
-             recoverystatus: '0',
-             recoverydate: '',
-           });
-          }else{
-           this.tableclaimtypeAnt[cla].claimtype = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length+1)+ this.$t('label.PFANS1026FORMVIEW_H');
-           this.tableclaimtypeAnt[cla].contractnumbercount_id = '';
-           this.tableclaimtypeAnt[cla].contractnumber = this.letcontractnumber;
-           this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
-          }
+        if (flag == 0) {
+          this.form.tableclaimtype.push({
+            contractnumbercount_id: '',
+            contractnumber: this.letcontractnumber,
+            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+            deliverydate: '',
+            bookStatus: false,
+            completiondate: '',
+            deliveryfinshdate: '',
+            loadingjudge: '',
+            claimdate: moment(new Date()).format('YYYY-MM-DD'),
+            claimamount: '',
+            supportdate: '',
+            type: '1',
+            maketype: '',
+            rowindex: '',
+            claimdatetimeqh: '',
+            deliveryconditionqh: 'HT009001',
+            deliveryqh: '',
+            claimconditionqh: 'HT011001',
+            claimqh: '',
+            qingremarksqh: '',
+            remarksqh: '',
+            recoverystatus: '0',
+            recoverydate: '',
+          });
+        } else {
+          this.tableclaimtypeAnt[cla].claimtype = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+          this.tableclaimtypeAnt[cla].contractnumbercount_id = '';
+          this.tableclaimtypeAnt[cla].contractnumber = this.letcontractnumber;
+          this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
+        }
 
       },
       deleteRowclaimtype1(index, rows) {
-          let datainfo = {};
-          datainfo = {
-            'contractnumber': rows[index].contractnumber,
-            'claimnumber': rows[index].contractnumber + '-' + (index+1),
-            'contractnumbercount_id':rows[index].contractnumbercount_id
-          };
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS1026Store/getNapinQinqiu',datainfo)
-            .then(response => {
-              if (response !=null)
-              {
-                if (response === true)
-                {
-                  Message({
-                    message: this.$t('normal.error_napalmpetition'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                }
-                else
-                {
-                  if (rows.length > 1) {
-                    rows.splice(index, 1);
-                    for (let i = index; i < rows.length; i++) {
-                      this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i+1)+ this.$t('label.PFANS1026FORMVIEW_H');
-                    }
-                  } else {
-                    let letclaimtype ='';
-                    if (this.form.tableclaimtype!=null && this.form.tableclaimtype.length>0)
-                    {
-                      if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS'))!=-1)
-                      {
-                        letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
-                      }
-                    }
-                    this.form.tableclaimtype = [
-                      {
-                        contractnumbercount_id: '',
-                        bookStatus:false,
-                        contractnumber: '',
-                        claimtype: letclaimtype+this.$t('label.PFANS1026FORMVIEW_D') + (1)+ this.$t('label.PFANS1026FORMVIEW_H'),
-                        deliverydate: '',
-                        completiondate: '',
-                        deliveryfinshdate: '',
-                        loadingjudge: '',
-                        claimdate: '',
-                        claimamount: '',
-                        supportdate: '',
-                        type: '',
-                        maketype: '',
-                        rowindex: '',
-                        claimdatetimeqh: '',
-                        deliveryconditionqh: '',
-                        deliveryqh: '',
-                        claimconditionqh: '',
-                        claimqh: '',
-                        qingremarksqh: '',
-                        remarksqh: '',
-                        recoverystatus: '',
-                        recoverydate: '',
-                      },
-                    ];
+        let datainfo = {};
+        datainfo = {
+          'contractnumber': rows[index].contractnumber,
+          'claimnumber': rows[index].contractnumber + '-' + (index + 1),
+          'contractnumbercount_id': rows[index].contractnumbercount_id,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1026Store/getNapinQinqiu', datainfo)
+          .then(response => {
+            if (response != null) {
+              if (response === true) {
+                Message({
+                  message: this.$t('normal.error_napalmpetition'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              } else {
+                if (rows.length > 1) {
+                  rows.splice(index, 1);
+                  for (let i = index; i < rows.length; i++) {
+                    this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
                   }
+                } else {
+                  let letclaimtype = '';
+                  if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0) {
+                    if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+                      letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
+                    }
+                  }
+                  this.form.tableclaimtype = [
+                    {
+                      contractnumbercount_id: '',
+                      bookStatus: false,
+                      contractnumber: '',
+                      claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (1) + this.$t('label.PFANS1026FORMVIEW_H'),
+                      deliverydate: '',
+                      completiondate: '',
+                      deliveryfinshdate: '',
+                      loadingjudge: '',
+                      claimdate: '',
+                      claimamount: '',
+                      supportdate: '',
+                      type: '',
+                      maketype: '',
+                      rowindex: '',
+                      claimdatetimeqh: '',
+                      deliveryconditionqh: '',
+                      deliveryqh: '',
+                      claimconditionqh: '',
+                      claimqh: '',
+                      qingremarksqh: '',
+                      remarksqh: '',
+                      recoverystatus: '',
+                      recoverydate: '',
+                    },
+                  ];
                 }
               }
-              this.loading = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
             });
+            this.loading = false;
+          });
       },
       //add ccm 20201203
       addRowcompound() {
@@ -2960,21 +2952,19 @@
         // if (val.claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_FOUR')) != -1) {
         //   this.claimamount4 = val.claimamount;
         // }
-          //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-              if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                let sumclaimamount =0;
-                for (let i = 0; i < this.form.tableclaimtype.length; i++)
-                {
-                  this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
-                }
-              }
+        //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
+        for (let i = 0; i < this.form.tabledata.length; i++) {
+          if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+            let sumclaimamount = 0;
+            for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+              this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+            }
           }
-          //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
+        }
+        //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
         for (let i = 0; i < this.form.tablecompound.length; i++) {
-          for (let j = 0; j < this.form.tableclaimtype.length; j++)
-          {
-            if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j+1)+ this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
+          for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+            if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
               this.form.tablecompound[i].claimamount = this.this.form.tableclaimtype[j].claimamount;
             }
           }
@@ -2994,18 +2984,14 @@
       changeclaimtype(val) {
         val.contractrequestamount = '0';
         let datamount = [];
-        datamount = this.tempMountList.filter(item => item.claimtype == val.claimtype)
-        if (datamount.length>0)
-        {
+        datamount = this.tempMountList.filter(item => item.claimtype == val.claimtype);
+        if (datamount.length > 0) {
           //编辑
           val.claimamount = datamount[0].claimamount;
-        }
-        else
-        {
+        } else {
           //新建
-          datamount = this.form.tableclaimtype.filter(item => item.claimtype == val.claimtype)
-          if (datamount.length>0)
-          {
+          datamount = this.form.tableclaimtype.filter(item => item.claimtype == val.claimtype);
+          if (datamount.length > 0) {
             val.claimamount = datamount[0].claimamount;
           }
         }
@@ -3025,13 +3011,13 @@
       },
       //契約番号做成
       click() {
-        this.tableclaimtypeAnt=[];
+        this.tableclaimtypeAnt = [];
         this.$refs['refform1'].validate(valid => {
           if (valid) {
-            if(this.form.tableclaimtype.length != 0){
-              for(let i = 0; i < this.form.tableclaimtype.length; i++){
-                if(this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003'){
-                  this.tableclaimtypeAnt.push(this.form.tableclaimtype[i])
+            if (this.form.tableclaimtype.length != 0) {
+              for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+                if (this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003') {
+                  this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
                 }
               }
             }
@@ -3221,9 +3207,8 @@
         //   this.optionscompound.push(option3);
         //   this.optionscompound.push(option4);
         // }
-        for (let i = 0; i < this.form.claimtype; i++)
-        {
-          let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (i+1)+ this.$t('label.PFANS1026FORMVIEW_H') ;
+        for (let i = 0; i < this.form.claimtype; i++) {
+          let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype1(this.form.tableclaimtype);
           this.form.tableclaimtype[i].claimtype = letclaimtypeone;
           let option = [];
@@ -3304,7 +3289,7 @@
           this.dialogBook = false;
           return;
         }
-        if(index < 5){
+        if (index < 5) {
           this.$store.dispatch('PFANS1026Store/existCheck', {contractNumber: contractNumber})
             .then(response => {
               let s = 'count' + index;
@@ -3336,7 +3321,7 @@
                 //   type: 'error',
                 //   duration: 5 * 1000,
                 // });
-              } else{
+              } else {
                 var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
                 this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
               }
@@ -3353,53 +3338,54 @@
               this.loading = false;
               this.dialogBook = false;
             });
-        }else{
+        } else {
           let NapinList = [];
-          for(let i = 0; i < this.multipleSelection.length; i++){
+          for (let i = 0; i < this.multipleSelection.length; i++) {
             NapinList.push(this.multipleSelection[i].claimnumber);
-          };
+          }
+          ;
           let s = 'count' + index;
-          if(s === 'count5'){
+          if (s === 'count5') {
             // 纳品书
             this.$store.dispatch('PFANS1026Store/existN', NapinList)
               .then(response => {
                 if (response[s] > 0 && s === 'count5') {
                   this.tipMes(contractNumber, index);
-                }else {
-                    let countNumber = '';
-                    if (this.multipleSelection.length === 0) {
-                      Message({
-                        message: this.$t('normal.info_01'),
-                        type: 'info',
-                        duration: 2 * 1000
-                      });
-                      this.dialogBook = false;
-                      this.loading = false;
-                      return;
+                } else {
+                  let countNumber = '';
+                  if (this.multipleSelection.length === 0) {
+                    Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    this.dialogBook = false;
+                    this.loading = false;
+                    return;
+                  }
+                  if (this.multipleSelection.length > 0) {
+                    for (let i = 0; i < this.multipleSelection.length; i++) {
+                      // if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
+                      //   countNumber = this.multipleSelection[i].contractnumber + '-1';
+                      // }
+                      // if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
+                      //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                      // }
+                      // if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
+                      //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                      // }
+                      // if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
+                      //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                      // }
+                      let huishu = this.multipleSelection[i].claimtype.replace('第', '').replace('回', '').replace('覚書', '');
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-' + huishu;
                     }
-                    if (this.multipleSelection.length > 0) {
-                      for (let i = 0; i < this.multipleSelection.length; i++) {
-                        // if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
-                        //   countNumber = this.multipleSelection[i].contractnumber + '-1';
-                        // }
-                        // if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
-                        //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
-                        // }
-                        // if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
-                        //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
-                        // }
-                        // if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
-                        //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
-                        // }
-                        let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','').replace('覚書','');
-                        countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-'+ huishu;
-                      }
-                      var tabledata = {
-                        'contractnumber': contractNumber,
-                        'rowindex': index,
-                        'countNumber': countNumber
-                      };
-                    }else {
+                    var tabledata = {
+                      'contractnumber': contractNumber,
+                      'rowindex': index,
+                      'countNumber': countNumber,
+                    };
+                  } else {
                     var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
                   }
                   // add_fjl_0604 --添加请求书和纳品书的选择生成
@@ -3417,51 +3403,53 @@
                 this.loading = false;
                 this.dialogBook = false;
               });
-          }else{
+          } else {
             let QingqiuList = [];
-            for(let i = 0; i < this.multipleSelection.length; i++){
+            for (let i = 0; i < this.multipleSelection.length; i++) {
               QingqiuList.push(this.multipleSelection[i].claimnumber);
-            };
+            }
+            ;
             // 请求书
             this.$store.dispatch('PFANS1026Store/existQ', QingqiuList)
               .then(response => {
                 if (response[s] > 0 && s === 'count6') {
                   this.tipMes(contractNumber, index);
                 } else {
-                    let countNumber = '';
-                    if (this.multipleSelection.length === 0) {
-                      Message({
-                        message: this.$t('normal.info_01'),
-                        type: 'info',
-                        duration: 2 * 1000
-                      });
-                      this.dialogBook = false;
-                      this.loading = false;
-                      return;
+                  let countNumber = '';
+                  if (this.multipleSelection.length === 0) {
+                    Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000,
+                    });
+                    this.dialogBook = false;
+                    this.loading = false;
+                    return;
+                  }
+                  if (this.multipleSelection.length > 0) {
+                    for (let i = 0; i < this.multipleSelection.length; i++) {
+                      // if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
+                      //   countNumber = this.multipleSelection[i].contractnumber + '-1';
+                      // }
+                      // if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
+                      //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
+                      // }
+                      // if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
+                      //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
+                      // }
+                      // if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
+                      //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
+                      // }
+                      let huishu = this.multipleSelection[i].claimtype.replace('第', '').replace('回', '').replace('覚書', '');
+                      ;
+                      countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-' + huishu;
                     }
-                    if (this.multipleSelection.length > 0) {
-                      for (let i = 0; i < this.multipleSelection.length; i++) {
-                        // if (this.multipleSelection[i].claimtype.indexOf("第一回") >= 0) {
-                        //   countNumber = this.multipleSelection[i].contractnumber + '-1';
-                        // }
-                        // if (this.multipleSelection[i].claimtype.indexOf("第二回") >= 0) {
-                        //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-2';
-                        // }
-                        // if (this.multipleSelection[i].claimtype.indexOf("第三回") >= 0) {
-                        //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-3';
-                        // }
-                        // if (this.multipleSelection[i].claimtype.indexOf("第四回") >= 0) {
-                        //   countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-4';
-                        // }
-                        let huishu = this.multipleSelection[i].claimtype.replace('第','').replace('回','').replace('覚書','');;
-                        countNumber = countNumber + ',' + this.multipleSelection[i].contractnumber + '-'+ huishu;
-                      }
-                      var tabledata = {
-                        'contractnumber': contractNumber,
-                        'rowindex': index,
-                        'countNumber': countNumber
-                      };
-                    }else {
+                    var tabledata = {
+                      'contractnumber': contractNumber,
+                      'rowindex': index,
+                      'countNumber': countNumber,
+                    };
+                  } else {
                     var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
                   }
                   // add_fjl_0604 --添加请求书和纳品书的选择生成
@@ -3513,7 +3501,7 @@
           //   }
           // }
           o.claimdatetime = this.getclaimdatetime(this.form.tabledata[i].claimdatetime);
-          o.contracttype =  this.form.contracttype;
+          o.contracttype =this.form.contracttype;
           //海外受託 技術開発
           if (this.form.contracttype === 'HT008001') {
             o.maketype = '1';
@@ -3550,7 +3538,7 @@
           else if (this.form.contracttype === 'HT008009') {
             o.maketype = '9';
           }
-            // if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVdeE')) {
+          // if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVdeE')) {
           //add-ws-4/17-契约番号废弃状态有效变无效修改
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
@@ -3602,40 +3590,38 @@
           this.handleIndexDisabled();
         }
         else if (value === 'cancellation') {
-          //废弃
-          this.handleCancellation(baseInfo);
+            //废弃
+            this.handleCancellation(baseInfo);
         }
         else {
           this.handleSaveContract(value, baseInfo);
         }
       },
-
-      //废弃
+        //废弃
       handleCancellation(baseInfo) {
-        this.loading = true;
-        if (this.$route.params._id) {
-          this.$store.dispatch('PFANS1026Store/update', baseInfo)
-            .then(response => {
-              this.data = response;
-              Message({
-                message: this.$t('normal.success_02'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-              this.paramsTitle();
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        }
-      },
-
+          this.loading = true;
+            if (this.$route.params._id) {
+                this.$store.dispatch('PFANS1026Store/update', baseInfo)
+                    .then(response => {
+                        this.data = response;
+                        Message({
+                            message: this.$t('normal.success_02'),
+                            type: 'success',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                        this.paramsTitle();
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            }
+        },
 
       // add_fjl_0604 --添加请求书和纳品书的选择生成
       handleSelectionChange(val) {
@@ -3724,10 +3710,9 @@
                   checkgroup = checkgroup + 1;
                 }
               }
-              for (let y = 0; y < this.form.tableclaimtype.length; y++)
-              {
+              for (let y = 0; y < this.form.tableclaimtype.length; y++) {
                 if (this.form.tablecompound[x].claimtype === this.form.tableclaimtype[y].claimtype) {
-                  let op =[];
+                  let op = [];
                   op.claimtype = this.form.tablecompound[x].claimtype;
                   op.contractrequestamount = this.form.tablecompound[x].contractrequestamount;
                   op.group_id = this.form.tablecompound[x].group_id;
@@ -3768,7 +3753,7 @@
               });
               return;
             }
-            letone.sort((a,b)=>{
+            letone.sort((a, b) => {
               return a.claimtype > b.claimtype;
             });
             // PSDCD_PFANS_20210310_BUG_030 ztc start
@@ -3992,7 +3977,7 @@
                 },
               });
             }
-              this.loading = false;
+            this.loading = false;
             //add-ws-7/1-禅道152任务
           })
           .catch(error => {
@@ -4015,15 +4000,16 @@
             duration: 5 * 1000,
           });
           return;
-        }else{
+        } else {
           this.dialogBook = true;
         }
       },
 
+
       buttonClick(val) {
         if (val === 'back') {
           this.paramsTitle();
-        }else if (val === 'application') {
+        } else if (val === 'application') {
           this.display = true;
           this.checkeddisplay = true;
           this.dialogFormVisible = true;
@@ -4042,17 +4028,12 @@
             confirmButtonText: this.$t('button.confirm'),
             cancelButtonText: this.$t('button.cancel'),
             type: 'warning',
-          }).then(() =>{
-            this.$message({
-              type: 'success',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
-            });
-          }).then(()=>{
-          for (let i = 0; i < this.form.tabledata.length; i++) {
-            this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            this.form.tabledata[i].entrycondition = 'HT004001';
-          }
-          this.handleSave('cancellation');
+          }).then(() => {
+            for (let i = 0; i < this.form.tabledata.length; i++) {
+              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+              this.form.tabledata[i].entrycondition = 'HT004001';
+            }
+            this.handleSave('cancellation');
           }).catch(() => {
             this.$message({
               type: 'info',
@@ -4060,12 +4041,13 @@
             });
             return;
           });
-        }          // this.display = false;
-          // this.checkeddisplay = false;
-          // this.dialogFormVisible = true;
-          // this.show1=false;
-          // this.show2=true;
-          // this.form.contractnumber = this.$route.params._id;
+        }
+        // this.display = false;
+        // this.checkeddisplay = false;
+        // this.dialogFormVisible = true;
+        // this.show1=false;
+        // this.show2=true;
+        // this.form.contractnumber = this.$route.params._id;
         if (val === 'save') {
           this.handleSave('save');
         }

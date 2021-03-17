@@ -111,7 +111,7 @@
               <template>
                 <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIMELENGTH')" prop="overtimelength"
                               v-show="form.overtimetype === 'PR001005' || form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008'">
-                  <!--                 NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制-->
+<!--                 NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制-->
                   <el-select
                     :disabled="disovertimelengths()"
                     @change="handleclick" style="width: 20vw"
@@ -379,7 +379,7 @@
         }, {
           value: '1',
           label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
-        },{
+        }, {
           value: '2',
           label: this.$t('label.PFANS2011FROMVIEW_NOHALFDATE'),
         }],
@@ -520,7 +520,7 @@
                   this.form.actualovertime = '8';
                 } else if(this.form.overtimelength === '1'){
                   this.form.actualovertime = '4';
-                } else {
+                } else{
                   this.form.actualovertime = '0';
                 }
               }
@@ -563,16 +563,17 @@
             //     this.disactualovertime = true;
             // }
             if (this.form.status === '0' || this.form.status === '3') {
-              // this.workflowCode = 'W0001';
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0067';
               } else {
+                //upd ztc 1224  start
                 // if (getCurrentRole() === '2') {
                 //   this.workflowCode = 'W0134';
                 // } else {
                 //   this.workflowCode = 'W0001';
                 // }
                 this.workflowCode = 'W0001';
+                //upd ztc 1224  end
               }
               //总经理预计
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -592,12 +593,14 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
+                //upd ztc 1224  start
                 // if (getCurrentRole() === '2') {
                 //   this.workflowCode = 'W0135';
                 // } else {
                 //   this.workflowCode = 'W0040';
                 // }
                 this.workflowCode = 'W0040';
+                //upd ztc 1224  end
               }
               //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
@@ -618,22 +621,20 @@
               if (this.form.overtimetype >= 'PR001004') {
                 this.workflowCode = 'W0068';
               } else {
+                //upd ztc 1224  start
                 // if (getCurrentRole() === '2') {
                 //   this.workflowCode = 'W0135';
                 // } else {
                 //   this.workflowCode = 'W0040';
                 // }
                 this.workflowCode = 'W0040';
+                //upd ztc 1224  end
               }
               //总经理
               if (this.form.userid ==='5e78fefff1560b363cdd6db7')
               {
                 this.workflowCode = 'W0073';
               }
-              // //王磊实际 禅道362
-              // if (this.form.userid === '5e78b2264e3b194874180f35') {
-              //   this.workflowCode = 'W0109';
-              // }
               this.canStart = false;
               this.disable = false;
               this.disactualovertime = false;
@@ -695,7 +696,7 @@
     },
     methods: {
       // add start NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制
-      disovertimelengths() {
+        disovertimelengths() {
         if (this.$route.params.action === "view") {
           return true;
         } else {
@@ -703,7 +704,7 @@
         }
       },
       // add end NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制
-        //ADD_FJL_06/30 -- 添加周末加班的check start
+      //ADD_FJL_06/30 -- 添加周末加班的check start
         getDatey(str) {
             var tempDate = new Date();
             var list = str.split('-');
@@ -1076,7 +1077,7 @@
           } else {
             this.form.reserveovertime = '4';
           }
-        }else if (val === '2') {
+        } else if (val === '2') {
           if (Number(this.form.status) >= 4) {
             this.form.actualovertime = '0';
           } else {
@@ -1091,29 +1092,20 @@
           }
         } else {
           if (this.form.status === '0') {
+            //upd ztc 1224  start
             // if (getCurrentRole() === '2') {
             //   this.workflowCode = 'W0134';
             // } else {
             //   this.workflowCode = 'W0001';
             // }
             this.workflowCode = 'W0001';
+            //upd ztc 1224  end
           }
         }
         if (this.form.userid ==='5e78fefff1560b363cdd6db7')
         {
           this.workflowCode = 'W0072';
         }
-        // else if (this.form.userid === '5e78b2264e3b194874180f35') {
-        //   if (val >= 'PR001004') {
-        //     if (this.form.status === '0') {
-        //       this.workflowCode = 'W0067';
-        //     }
-        //   } else {
-        //     if (this.form.status === '0') {
-        //       this.workflowCode = 'W0108';
-        //     }
-        //   }
-        // }
 
         this.showovertimetype = false;
         this.showovertimelength = false;
@@ -1140,8 +1132,8 @@
           this.disovertimelength = false;
           this.showovertimetype = true;
           this.showovertimelength = true;
-          //this.form.overtimelength = '1';
-          this.form.reserveovertime = '0';
+          // this.form.overtimelength = '1';
+           this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '03' + '-' + '08';
           if (this.$store.getters.userinfo.userinfo.sex !== 'PR019002') {
             Message({
@@ -1157,8 +1149,8 @@
           this.disovertimelength = false;
           this.showovertimetype = true;
           this.showovertimelength = true;
-          //this.form.overtimelength = '1';
-          this.form.reserveovertime = '0';
+          // this.form.overtimelength = '1';
+           this.form.reserveovertime = '0';
           this.form.reserveovertimedate = dateMonth.getFullYear() + '-' + '05' + '-' + '04';
           //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
           //if (Number(this.$store.getters.userinfo.userinfo.age) > 28) {
@@ -1172,8 +1164,6 @@
             return;
           }
         }
-
-
       },
       change2(val) {
         this.form.reserveovertime = val;
@@ -1246,7 +1236,6 @@
                 });
                 return;
               }
-
             }
             if (this.form.overtimetype === 'PR001007') {
               //五四青年节重复申请check

@@ -72,6 +72,14 @@
                     </el-input>
                   </template>
                 </el-table-column>
+                <!--       人件费 需要添加 1228 ccm         -->
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE10')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value10">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <!--       人件费 需要添加 1228 ccm         -->
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-button
@@ -84,7 +92,7 @@
                     </el-button>
                     <el-button
                       :disabled="!disable"
-                      @click="addRow()"
+                      @click="addRow(scope.$index, tableD)"
                       plain
                       size="small"
                       type="primary"
@@ -130,6 +138,7 @@
             valie7: "",
             valie8: "",
             valie9: "",
+            valie10: "",
             pcode: "",
             status: "",
           }
@@ -196,6 +205,15 @@
       deleteRow(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+          // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
+          for (let i = index; i < rows.length; i++) {
+            if (index < 9) {
+              this.tableD[i].code = this.letcode.substring(0, 5) + "00" + (i + 1);
+            } else if (index >= 9) {
+              this.tableD[i].code = this.letcode.substring(0, 5) + "0" + (i + 1);
+            }
+          }
+          // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
         } else {
           this.tableD = [
             {
@@ -210,18 +228,20 @@
               valie7: "",
               valie8: "",
               valie9: "",
+              valie10: "",
               pcode: "",
               status: "",
             }
           ]
         }
       },
-      addRow() {
-        let code = parseInt(this.letcode.substring(5, this.letcode.length)) + 1;
-        if (code.toString().length === 1) {
-          this.letcode = this.letcode.substring(0, 5) + '00' + code.toString();
-        } else if (code.toString().length === 2) {
-          this.letcode = this.letcode.substring(0, 5) + '0' + code.toString();
+      // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
+      addRow(index, rows) {
+        if (rows.length < 9) {
+          this.letcode = this.letcode.substring(0, 5) + "00" + (rows.length + 1);
+        } else if (rows.length >= 9) {
+          this.letcode = this.letcode.substring(0, 5) + "0" + (rows.length + 1);
+          // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
         }
         this.tableD.push({
           code: this.letcode,
@@ -235,6 +255,7 @@
           valie7: "",
           valie8: "",
           valie9: "",
+          valie10: "",
           pcode: "",
           status: "",
         });
@@ -271,6 +292,7 @@
               value7: this.tableD[i].value7,
               value8: this.tableD[i].value8,
               value9: this.tableD[i].value9,
+              value10: this.tableD[i].value10,
               pcode: this.tableD[i].pcode,
               status: this.tableD[i].status,
             });

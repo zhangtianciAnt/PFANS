@@ -364,7 +364,7 @@
         detailcenterid: '',
         detailgroupid: '',
         detailteamid: '',
-        workflowCode: '',
+        workflowCode: 'W0028',
         //add-ws-7/27-禅道298任务
         baseInfo: {},
         userlist: '',

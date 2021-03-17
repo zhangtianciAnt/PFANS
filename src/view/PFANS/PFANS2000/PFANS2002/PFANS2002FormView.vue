@@ -687,15 +687,15 @@
                     return callback();
                 }
             };
-            var groupId = (rule, value, callback) => {
-                if (!value || value === '' || value === 'undefined') {
-                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP')));
-                } else {
-                    this.errorgroup = '';
-                    return callback();
-                }
-            };
+          var groupId = (rule, value, callback) => {
+            if (!value || value === '' || value === 'undefined') {
+              this.errorgroup = this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP');
+              return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5012VIEW_GROUP')));
+            } else {
+              this.errorgroup = '';
+              return callback();
+            }
+          };
             var entrydivision = (rule, value, callback) => {
               if (this.form.entrydivision!=null && this.form.entrydivision!='')
               {
@@ -1220,9 +1220,9 @@
             getGroupId(val) {
                 this.getOrgInformation(val);
                 if (this.form.group_id === "") {
-                  this.errorgroup = this.$t("normal.error_08") + "group";
+                    this.errorgroup = this.$t("normal.error_08") + "group";
                 } else {
-                  this.errorgroup = "";
+                    this.errorgroup = "";
                 }
             },
             getTeamId(val) {
@@ -1352,13 +1352,13 @@
                     if (!values.every(value => isNaN(value))) {
                         sums[index] = values.reduce((prev, curr) => {
                             const value = Number(curr);
-                          // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                            // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
                             if (!isNaN(value)) {
                                 return Math.round((prev + curr) * 100) / 100;
                             } else {
                                 return Math.round(prev * 100) / 100;
                             }
-                          // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                            // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
                         }, 0);
                     } else {
                         sums[index] = '';

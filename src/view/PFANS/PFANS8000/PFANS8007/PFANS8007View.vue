@@ -113,7 +113,7 @@
           </el-aside>
           <el-main>
             <el-row>
-              <!--// update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start-->
+            <!--// update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start-->
 <!--              <el-select @change="dateChange(1)" style="width:7rem;" v-model="yearsModel">-->
 <!--                <el-option-->
 <!--                  :key="item.value"-->
@@ -135,25 +135,33 @@
             <div>&nbsp;</div>
             <el-row>
               <el-col :span="2">
-                <el-tag effect="dark" type="danger" style="width: 7rem;background-color:#df4848;border-color:#df4848">{{$t('label.PFANS8007VIEW_FD')}}</el-tag>
+                <el-tag effect="dark" type="danger" style="width: 7rem;background-color:#df4848;border-color:#df4848">
+                  {{$t('label.PFANS8007VIEW_FD')}}
+                </el-tag>
               </el-col>
             </el-row>
             <div>&nbsp;</div>
             <el-row>
               <el-col :span="2">
-                <el-tag effect="dark" type="info" style="width: 7rem;background-color:#999;border-color:#999">{{$t('label.PFANS8007VIEW_GX')}}</el-tag>
+                <el-tag effect="dark" type="info" style="width: 7rem;background-color:#999;border-color:#999">
+                  {{$t('label.PFANS8007VIEW_GX')}}
+                </el-tag>
               </el-col>
             </el-row>
             <div>&nbsp;</div>
             <el-row>
               <el-col :span="2">
-                <el-tag effect="dark" style="width: 7rem;background-color:#005baa;border-color:#005baa">{{$t('label.PFANS8007VIEW_ZT')}}</el-tag>
+                <el-tag effect="dark" style="width: 7rem;background-color:#005baa;border-color:#005baa">
+                  {{$t('label.PFANS8007VIEW_ZT')}}
+                </el-tag>
               </el-col>
             </el-row>
             <div>&nbsp;</div>
             <el-row>
               <el-col :span="2">
-                <el-tag effect="dark" type="warning" style="width: 7rem;;background-color:#f9e30e;border-color:#f9e30e">{{$t('label.PFANS8007VIEW_ZTC')}}</el-tag>
+                <el-tag effect="dark" type="warning" style="width: 7rem;;background-color:#f9e30e;border-color:#f9e30e">
+                  {{$t('label.PFANS8007VIEW_ZTC')}}
+                </el-tag>
               </el-col>
             </el-row>
             <div>&nbsp;</div>

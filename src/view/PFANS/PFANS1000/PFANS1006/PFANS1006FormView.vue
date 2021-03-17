@@ -163,7 +163,7 @@
                                        controls-position="right"
                                        :disabled="!disable"
                                        :min="0"
-                                       :max="1000000000"
+                                       :max="maxcontrol"
                                        :precision="2"
                                        style="width:20vw"
                       ></el-input-number>
@@ -220,11 +220,9 @@
                 </el-row>
 
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1012VIEW_ABSTRACT')" prop="remark">
-<!--                    add-lyt-21/2/20-PSDCD_PFANS_20210202_BUG_009(maxlength="20")-start-->
-                    <el-input :disabled="!disable"  style="width:72vw" type="textarea" v-model="form.remark"
+                  <el-form-item :label="$t('label.PFANS1006FORMVIEW_ABSTRACT')" prop="remark">
+                    <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remark"
                               maxlength="20">
-<!--                      add-lyt-21/2/20-PSDCD_PFANS_20210202_BUG_009(maxlength="20")-end-->
                     </el-input>
                   </el-form-item>
                 </el-row>
@@ -694,7 +692,8 @@
         enableSave: false,
         role2: '',
         acceptShow: true,
-          showvoid: false,
+        maxcontrol: 100000000,
+        showvoid: false,
         options2: [
           {
             value: '0',
@@ -1484,11 +1483,21 @@
       getmodule(val) {
         this.form.moduleid = val;
       },
-        //ADD_FJL_0819  添加区分
-        radioChange(val) {
-            this.form.publicradio = val;
-        },
-        //ADD_FJL_0819  添加区分
+      //ADD_FJL_0819  添加区分
+      radioChange(val) {
+        this.form.publicradio = val;
+        if (val == '1') {
+          this.maxcontrol = 100000000;
+        } else {
+          if (this.surloappmoney != 0) {
+            this.maxcontrol = this.surloappmoney;
+            if (this.form.moneys > this.surloappmoney) {
+              this.form.moneys = this.maxcontrol;
+            }
+          }
+        }
+      },
+      //ADD_FJL_0819  添加区分
       changecurrencychoice(val) {
         this.form.currencychoice = val;
       },
@@ -1639,7 +1648,7 @@
         this.$router.push({
           name: this.fromname,
           params: {
-            disabled: false,
+            disabled: true,
             _id: this.checkids,
           },
         });

@@ -92,6 +92,7 @@
     },
     mounted() {
       this.loading = true;
+      //gbb 禅道 609 2.0-目标管理增加按钮控制是都可填写 20201211
       this.getCurrentRole2();
       this.$store
         .dispatch('PFANS2023Store/getFpans2023List', {})

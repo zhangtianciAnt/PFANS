@@ -10,6 +10,7 @@
                          @workflowState="workflowState"
                          @disabled="setdisabled"
                          ref="container"
+                         :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw">
@@ -892,6 +893,7 @@
         title: 'title.PFANS1030VIEW',
         multiple: false,
         orglist: '',
+        workflowCode: 'W0057',
         baseInfo: {},
         arrAttf: [],
         groupN: '',
@@ -1136,7 +1138,7 @@
             trigger: 'change',
           }],
           enclosurecontent: [{
-            required: false,
+            required: true,
             validator: checkuploadfile,
             trigger: 'change',
           }],
@@ -1448,13 +1450,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
                 return Math.round(prev * 100) / 100;
               }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             if (index == 1) {
               sums[index] = '--';
@@ -1679,13 +1681,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
                 return Math.round(prev * 100) / 100;
               }
-              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
             if (index == 1) {
               sums[index] = '--';

@@ -648,8 +648,8 @@
                 response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
               } else if (response[j].processingstatus === '1') {
                 response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
-              }else if (response[j].processingstatus === '2') {
-                  response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS3');
+              } else if (response[j].processingstatus === '2') {
+                response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS3');
               }
             }
           }
@@ -978,14 +978,14 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //add ztc 1201 决裁到暂借款check
-              // if (loan !== '') {
-              //   Message({
-              //     message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              //     type: 'info',
-              //     duration: 3 * 1000,
-              //   });
-              //   return;
-              // }
+              if (loan !== '') {
+                Message({
+                  message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
+              }
               //add ztc 1201 决裁到暂借款check
               this.$router.push({
                 name: 'PFANS1006FormView',
@@ -1084,19 +1084,29 @@
               //   });
               //   return;
               // } else {
-              //del ccm 0813 决裁到暂借款，精算  check去掉
-              if (loan != null && loan != '' && loan != undefined) {
-                loan = loan.substring(0, loan.length - 1);
+                //del ccm 0813 决裁到暂借款，精算  check去掉
                 if (loan != null && loan != '' && loan != undefined) {
-                  this.$router.push({
-                    name: 'PFANS1012FormView',
-                    params: {
-                      _name: optionsSEL,
-                      _type: 'PJ001002',
-                      _haveLoanapp: loanid,
-                      disabled: true,
-                    },
-                  });
+                  loan = loan.substring(0, loan.length - 1);
+                  if (loan != null && loan != '' && loan != undefined) {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        _haveLoanapp: loanid,
+                        disabled: true,
+                      },
+                    });
+                  } else {
+                    this.$router.push({
+                      name: 'PFANS1012FormView',
+                      params: {
+                        _name: optionsSEL,
+                        _type: 'PJ001002',
+                        disabled: true,
+                      },
+                    });
+                  }
                 } else {
                   this.$router.push({
                     name: 'PFANS1012FormView',
@@ -1107,29 +1117,26 @@
                     },
                   });
                 }
-              } else {
-                this.$router.push({
-                  name: 'PFANS1012FormView',
-                  params: {
-                    _name: optionsSEL,
-                    _type: 'PJ001002',
-                    disabled: true,
-                  },
-                });
-              }
-              //del ccm 0813 决裁到暂借款，精算  check去掉
+                //del ccm 0813 决裁到暂借款，精算  check去掉
               // }
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
-              //del ccm 0813 决裁到暂借款，精算  check去掉
-              // if (loan !== '') {
-              //   Message({
-              //     message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              //     type: 'info',
-              //     duration: 3 * 1000,
-              //   });
-              //   return;
-              // }
+              //del ccm 0813 决裁到暂借款，精算  check去掉\
+              let judloan = '';
+              for(let k=0;k<enableduplicateloan.length;k++) {
+                if (enableduplicateloan[k].loanapno !== '' && enableduplicateloan[k].enableduplicateloan === 'PJ055002') {
+                  judloan = judloan + enableduplicateloan[k].judgnumbers + ' , ';
+                }
+              }
+              if (judloan.length > 0)
+              {
+                Message({
+                  message: judloan + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
+              }
               //del ccm 0813 决裁到暂借款，精算  check去掉
               if (this.$route.params.title === 4) {
                 if (this.$i18n) {
@@ -1269,14 +1276,15 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉
-              // if (loan !== '') {
-              //   Message({
-              //     message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              //     type: 'info',
-              //     duration: 3 * 1000,
-              //   });
-              //   return;
-              // }
+
+              if (loan !== '') {
+                Message({
+                  message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
+              }
               //del ccm 0813 决裁到暂借款，精算  check去掉
               this.$router.push({
                 name: 'PFANS1006FormView',
@@ -1387,10 +1395,10 @@
                   }
                 }
               }
-              let type ="";
+              let type = "";
               if (this.$route.params.title === 1) {
                 type = true
-              } else if(this.$route.params.title === 2){
+              } else if (this.$route.params.title === 2) {
                 type = false
               }
               //add-ws-8/29-禅道bug066
@@ -1441,14 +1449,14 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
             } else {
               //del ccm 0813 决裁到暂借款，精算  check去掉
-              //   if (loan !== '') {
-              //       Message({
-              //           message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
-              //           type: 'info',
-              //           duration: 3 * 1000,
-              //       });
-              //       return;
-              //   }
+              if (loan !== '') {
+                Message({
+                  message: loan + ' ' + this.$t('label.PFANS3005VIEW_LOANAPP'),
+                  type: 'info',
+                  duration: 3 * 1000,
+                });
+                return;
+              }
               //del ccm 0813 决裁到暂借款，精算  check去掉
               if (this.$route.params.title === 1) {
                 if (this.$i18n) {

@@ -106,21 +106,21 @@
                 <!--            中文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="prochinese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
                               v-model="form.prochinese"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--            日文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="projapanese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
                               v-model="form.projapanese"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--            英文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="proenglish">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
                               v-model="form.proenglish"></el-input>
                   </el-form-item>
                 </el-col>
@@ -130,7 +130,7 @@
                 <!--        联系电话-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="protelephone">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
                               v-model="form.protelephone"></el-input>
                   </el-form-item>
                 </el-col>
@@ -155,14 +155,14 @@
                 <!--            共通事务联络人-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6002VIEW_COMMONTPERSON')" prop="commontperson">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
                               v-model="form.commontperson"></el-input>
                   </el-form-item>
                 </el-col>
                 <!--        联系电话-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="comtelephone">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
+                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
                               v-model="form.comtelephone"></el-input>
                   </el-form-item>
                 </el-col>
@@ -194,7 +194,7 @@
                 <!--            日文-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="addjapanese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
+                    <el-input maxlength="255" :disabled="!disabled" style="width:20vw"
                               v-model="form.addjapanese"></el-input>
                   </el-form-item>
                 </el-col>
@@ -569,7 +569,7 @@
     methods: {
       setdisabled(val) {
         if (this.$route.params.disabled) {
-          this.disabled = val;
+          this.disabled =  val;
         }
       },
       changeperscale(val) {

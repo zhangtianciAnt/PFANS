@@ -151,13 +151,13 @@
                         response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
                     }
 
-                  //项目类型
-                  if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                    let letStage = getDictionaryInfo(response[j].projecttype);
-                    if (letStage != null) {
-                      response[j].projecttype = letStage.value1;
+                    //项目类型
+                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                      let letStage = getDictionaryInfo(response[j].projecttype);
+                      if (letStage != null) {
+                        response[j].projecttype = letStage.value1;
+                      }
                     }
-                  }
 
                     if(response[j].nowdate !== null && response[j].nowdate !== ""){
                         response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
@@ -218,13 +218,13 @@
                         response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
                     }
 
-                  //项目类型
-                  if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                    let letStage = getDictionaryInfo(response[j].projecttype);
-                    if (letStage != null) {
-                      response[j].projecttype = letStage.value1;
+                      //项目类型
+                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                      let letStage = getDictionaryInfo(response[j].projecttype);
+                      if (letStage != null) {
+                        response[j].projecttype = letStage.value1;
+                      }
                     }
-                  }
 
                     if(response[j].nowdate !== null && response[j].nowdate !== ""){
                         response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
