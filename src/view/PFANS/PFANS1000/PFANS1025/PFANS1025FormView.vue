@@ -685,7 +685,9 @@
                 }, {
                     awarddetail_id: '',
                     award_id: '',
-                    budgetcode: '',
+                  // add-lyt-21/3/16-NT_PFANS_20210226_BUG_030-start
+                    budgetcode: this.$t('label.PFANS1025FORMVIEW_DETAIL'),
+                  // add-lyt-21/3/16-NT_PFANS_20210226_BUG_030-end
                     depart: '',
                     member: '',
                     community: '',

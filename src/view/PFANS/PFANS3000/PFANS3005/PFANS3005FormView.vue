@@ -42,6 +42,20 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
+                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-start-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN')" prop="enableduplicateloan" >
+                    <dicselect
+                      :code="code5"
+                      :data="form.enableduplicateloan"
+                      :disabled="acceptShow"
+                      :multiple="multiple"
+                      @change="getEnableduplicateloan"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-end-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1016FORMVIEW_COMPLETEDATE')" v-if="refuseShow">
                     <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
@@ -816,7 +830,9 @@
           publicexpense_id: '',
           trashreason: '',
           //add ccm 0720
-
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+          enableduplicateloan:'PJ055002',
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
         },
         options: [
           {
@@ -839,6 +855,9 @@
         code3: 'PJ005',
         //add ccm 0720
         code4: 'PJ013',
+        //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+        code5: 'PJ055',
+        //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
         show6: false,
         upload: uploadUrl(),
         fileList: [],
@@ -853,6 +872,15 @@
         menuList: [],
         disabled: false,
         rules: {
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+          enableduplicateloan: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_ENABLEDUPLICATELOAN'),
+              trigger: 'change',
+            },
+          ],
+          //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
           //add ccm 0720
           salequotation: [
             {
@@ -1865,6 +1893,11 @@
         }
       },
       //add-ws-6/16-禅道137
+      //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
+      getEnableduplicateloan(val){
+        this.form.enableduplicateloan = val;
+      },
+      //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
       //change受理状态  add_fjl
       changeAcc(val) {
         this.form.acceptstatus = val;
