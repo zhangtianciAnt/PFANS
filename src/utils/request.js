@@ -7,6 +7,9 @@ import {
 import  {Decrypt} from './customize'
 import i18n from '../assets/js/i18n'
 let Base64 = require('js-base64').Base64
+
+axios.defaults.timeout =  6000;
+
 const service = axios.create({
   baseURL: process.env.BASE_API,
 });
@@ -94,6 +97,9 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error); // for debug
+    if(error.code == 'ECONNABORTED' && error.message.indexOf('timeout')!=-1){
+      return Promise.reject(i18n.t('normal.error_25'))
+    }
     return Promise.reject(i18n.t('normal.error_07'))
   });
 
