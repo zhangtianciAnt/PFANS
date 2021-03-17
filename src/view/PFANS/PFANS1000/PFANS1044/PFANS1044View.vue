@@ -2233,10 +2233,14 @@
           let a = this.alldata.filter(item => item.type == this.contractType && al2.contractnumber == item.contractnumber);
 
           if (this.month3) {
-            a = a.filter(item => moment(item.start).format('YYYY-MM') == moment(this.month3).format('YYYY-MM'));
+            // add-lyt-21/3/16-NT_PFANS_20210315_BUG_136-添加不为空判定条件-start
+            a = a.filter(item => moment(item.start).format('YYYY-MM') == moment(this.month3).format('YYYY-MM')&&item.start!== null&&item.start!== ''&&item.start!== undefined);
+            // add-lyt-21/3/16-NT_PFANS_20210315_BUG_136-添加不为空判定条件-end
           }
           if (this.month4) {
-            a = a.filter(item => moment(item.end).format('YYYY-MM') == moment(this.month4).format('YYYY-MM'));
+            // add-lyt-21/3/16-NT_PFANS_20210315_BUG_136-添加不为空判定条件-start
+            a = a.filter(item => moment(item.end).format('YYYY-MM') == moment(this.month4).format('YYYY-MM')&&item.end!== null&&item.end!== ''&&item.end!== undefined);
+            // add-lyt-21/3/16-NT_PFANS_20210315_BUG_136-添加不为空判定条件-end
           }
           let prices = cons.filter(item => al2.contractnumber == item.contractnumber);
           let price = 0;
