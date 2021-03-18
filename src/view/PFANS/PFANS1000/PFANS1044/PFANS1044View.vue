@@ -10,7 +10,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-              <el-select @change="changed" v-model="contractType">
+              <el-select  v-model="contractType">
                 <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
                 <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
                 <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
@@ -20,7 +20,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month">
               </el-date-picker>
             </el-form-item>
@@ -29,7 +29,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month5">
               </el-date-picker>
             </el-form-item>
@@ -40,7 +40,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month3">
               </el-date-picker>
             </el-form-item>
@@ -48,7 +48,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month4">
               </el-date-picker>
             </el-form-item>
@@ -56,7 +56,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month2">
               </el-date-picker>
             </el-form-item>
@@ -75,7 +75,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-              <el-select @change="changed" v-model="contractType">
+              <el-select  v-model="contractType">
                 <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
                 <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
                 <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
@@ -85,7 +85,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month">
               </el-date-picker>
             </el-form-item>
@@ -94,7 +94,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                type="month"
                 v-model="month5">
               </el-date-picker>
             </el-form-item>
@@ -105,7 +105,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month3">
               </el-date-picker>
             </el-form-item>
@@ -113,7 +113,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                 type="month"
                 v-model="month4">
               </el-date-picker>
             </el-form-item>
@@ -121,7 +121,7 @@
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
               <el-date-picker
-                @change="changed" type="month"
+                type="month"
                 v-model="month2">
               </el-date-picker>
             </el-form-item>
@@ -138,7 +138,7 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1044VIEW_CONTRACT')">
-              <el-select @change="changed" v-model="contractType">
+              <el-select  v-model="contractType">
                 <el-option :label="$t('menu.COMMISSIONCONTRACT')" value="0"></el-option>
                 <el-option :label="$t('menu.BROKERAGECONTRACT')" value="1"></el-option>
                 <el-option :label="$t('menu.OTHERCONTRACT')" value="2"></el-option>
@@ -147,8 +147,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_DELIVERYDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker  type="month"
                 v-model="month">
               </el-date-picker>
             </el-form-item>
@@ -156,8 +155,7 @@
           <!--          add-ws-01/21-禅道任务748-->
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker type="month"
                 v-model="month5">
               </el-date-picker>
             </el-form-item>
@@ -168,24 +166,21 @@
         <el-row>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_OCCURRENCEDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker type="month"
                 v-model="month3">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS2016VIEW_FINISHEDDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker  type="month"
                 v-model="month4">
               </el-date-picker>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMDATE')">
-              <el-date-picker
-                @change="changed" type="month"
+              <el-date-picker  type="month"
                 v-model="month2">
               </el-date-picker>
             </el-form-item>
@@ -211,7 +206,7 @@
     },
     data() {
       return {
-        showTable: '',
+        showTable: 1,
         selectedlist: [],
         showSelection: true,
         showSelection2: true,
@@ -219,11 +214,12 @@
         buttonList: [
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-upload2'},
           {'key': 'export1', 'name': 'label.PFANS1012VIEW_EXPORTCSV', 'disabled': false, icon: 'el-icon-upload2'},
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
         ],
         contractType: '0',
         loading: false,
         title: 'title.PFANS1044VIEW',
-        contractnumbercount: '',
+        contractnumbercount: 1,
         data: [],
         totalcostvalue: [],
         totalcostvalue2: [],
@@ -547,25 +543,25 @@
         rowid: 'contractapplication_id ',
       };
     },
-    beforeRouteEnter(to, from, next) {
-      if (from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView') {
-        to.meta.isBack = true;
-      } else {
-        to.meta.isBack = false;
-      }
-      next();
-    },
-
+    // beforeRouteEnter(to, from, next) {
+    //   if (from.name === 'PFANS1024FormView' || from.name === 'PFANS1026FormView' || from.name === 'PFANS1033FormView') {
+    //     to.meta.isBack = true;
+    //   } else {
+    //     to.meta.isBack = false;
+    //   }
+    //   next();
+    // },
+    //
     activated() {
-      if (!this.$route.meta.isBack) {
+      // if (!this.$route.meta.isBack) {
         // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
-        this.init();
-        this.contractType = '0';
-        this.month = '';
-        this.month2 = '';
-      }
-      // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
-      this.$route.meta.isBack = false;
+        // this.init();
+        // this.contractType = '0';
+        // this.month = '';
+        // this.month2 = '';
+      // }
+      // // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
+      // this.$route.meta.isBack = false;
 
     },
     methods: {
@@ -840,11 +836,11 @@
                 if (letContracttype != null) {
                   citem.currencyposition = letContracttype.value1;
                 }
-                  //add_fjl_0923_纳品完了日format
-                  if (citem.deliverydate != null) {
-                      citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
-                  }
-                  //add_fjl_0923_纳品完了日format
+                //add_fjl_0923_纳品完了日format
+                if (citem.deliverydate != null) {
+                  citem.deliverydate = moment(citem.deliverydate).format('YYYY-MM-DD');
+                }
+                //add_fjl_0923_纳品完了日format
                 //add_fjl_0803
                 // if (citem.deliveryfinshdate != null) {
                 //     citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
@@ -951,24 +947,40 @@
                               for (let j = 0; j < contractnumbercount.length; j++) {
                                 for (let d = 0; d < contractcompound.length; d++) {
                                   if (contractnumbercount[j].claimtype === contractcompound[d].claimtype) {
-                                    if (this.month && this.month2) {
-                                      if (moment(this.month).format('YYYY-MM') === moment(contractnumbercount[j].deliverydate).format('YYYY-MM') && moment(this.month2).format('YYYY-MM') === moment(contractnumbercount[j].claimdate).format('YYYY-MM')) {
+                                    if (this.month && this.month2 && this.month5) {
+                                      if (moment(this.month).format('YYYY-MM') === moment(contractnumbercount[j].deliverydate).format('YYYY-MM') && moment(this.month2).format('YYYY-MM') === moment(contractnumbercount[j].claimdate).format('YYYY-MM') && moment(this.month5).format('YYYY-MM') === moment(contractnumbercount[j].claimdate).format('YYYY-MM')) {
                                         number = number + 1;
                                         numbers = number + '0';
                                         let invoicedat = moment(new Date()).format('YY');
                                         //add-ws-01/21-禅道任务748
                                         let checkinvoiceDate = '';
                                         let Invoicedat = '';
-                                        if (this.month) {
-                                          checkinvoiceDate = moment(this.month).format('MM');
-                                          Invoicedat = moment(this.month).format('YYYY');
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // if (this.month) {
+                                        //   checkinvoiceDate = moment(this.month).format('MM');
+                                        //   Invoicedat = moment(this.month).format('YYYY');
+                                        // } else {
+                                        //   checkinvoiceDate = moment(new Date()).format('MM');
+                                        //   Invoicedat = moment(new Date()).format('YYYY');
+                                        // }
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        let day = '';
+                                        if (contractnumbercount[j].deliverydate) {
+                                          checkinvoiceDate = moment(contractnumbercount[j].deliverydate).format('MM');
+                                          Invoicedat = moment(contractnumbercount[j].deliverydate).format('YYYY');
+                                          day = moment(contractnumbercount[j].deliverydate).format('DD');
                                         } else {
                                           checkinvoiceDate = moment(new Date()).format('MM');
                                           Invoicedat = moment(new Date()).format('YYYY');
+                                          day = moment(new Date()).format('DD');
                                         }
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         //add-ws-01/21-禅道任务748
-                                        let invoiceDate = moment(new Date()).format('MM');
-                                        let invoice = moment(new Date()).format('DD');
+                                         let invoiceDate = moment(new Date()).format('MM');
+                                           //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // let invoice = moment(new Date()).format('DD');
+                                           //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         //upd-ws-01/21-禅道任务748
@@ -989,7 +1001,7 @@
                                         } else if (checkinvoiceDate == '08') {
                                           date = 'AUG';
                                         } else if (checkinvoiceDate == '09') {
-                                          date = 'SEPT';
+                                          date = 'SEP';
                                         } else if (checkinvoiceDate == '10') {
                                           date = 'OCT';
                                         } else if (checkinvoiceDate == '11') {
@@ -998,8 +1010,10 @@
                                           date = 'DEC';
                                         }
                                         //upd-ws-01/21-禅道任务748
-                                        contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                        contractapplication[n].start = '25' + date + Invoicedat;
+                                           // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        contractapplication[n].applicationdate = day + date + Invoicedat;
+                                        contractapplication[n].start = day + date + Invoicedat;
+                                           // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
                                         if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                           let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                           if (letContracttype != null) {
@@ -1072,16 +1086,32 @@
                                         //add-ws-01/21-禅道任务748
                                         let checkinvoiceDate = '';
                                         let Invoicedat = '';
-                                        if (this.month) {
-                                          checkinvoiceDate = moment(this.month).format('MM');
-                                          Invoicedat = moment(this.month).format('YYYY');
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // if (this.month) {
+                                        //   checkinvoiceDate = moment(this.month).format('MM');
+                                        //   Invoicedat = moment(this.month).format('YYYY');
+                                        // } else {
+                                        //   checkinvoiceDate = moment(new Date()).format('MM');
+                                        //   Invoicedat = moment(new Date()).format('YYYY');
+                                        // }
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        let day = '';
+                                        if (contractnumbercount[j].deliverydate) {
+                                          checkinvoiceDate = moment(contractnumbercount[j].deliverydate).format('MM');
+                                          Invoicedat = moment(contractnumbercount[j].deliverydate).format('YYYY');
+                                          day = moment(contractnumbercount[j].deliverydate).format('DD');
                                         } else {
                                           checkinvoiceDate = moment(new Date()).format('MM');
                                           Invoicedat = moment(new Date()).format('YYYY');
+                                          day = moment(new Date()).format('DD');
                                         }
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         //add-ws-01/21-禅道任务748
                                         let invoiceDate = moment(new Date()).format('MM');
-                                        let invoice = moment(new Date()).format('DD');
+                                          //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // let invoice = moment(new Date()).format('DD');
+                                          //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         //upd-ws-01/21-禅道任务748
@@ -1102,7 +1132,7 @@
                                         } else if (checkinvoiceDate == '08') {
                                           date = 'AUG';
                                         } else if (checkinvoiceDate == '09') {
-                                          date = 'SEPT';
+                                          date = 'SEP';
                                         } else if (checkinvoiceDate == '10') {
                                           date = 'OCT';
                                         } else if (checkinvoiceDate == '11') {
@@ -1111,8 +1141,10 @@
                                           date = 'DEC';
                                         }
                                         //upd-ws-01/21-禅道任务748
-                                        contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                        contractapplication[n].start = '25' + date + Invoicedat;
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        contractapplication[n].applicationdate = day + date + Invoicedat;
+                                        contractapplication[n].start = day + date + Invoicedat;
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                           let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                           if (letContracttype != null) {
@@ -1183,16 +1215,32 @@
                                         //add-ws-01/21-禅道任务748
                                         let checkinvoiceDate = '';
                                         let Invoicedat = '';
-                                        if (this.month) {
-                                          checkinvoiceDate = moment(this.month).format('MM');
-                                          Invoicedat = moment(this.month).format('YYYY');
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // if (this.month) {
+                                        //   checkinvoiceDate = moment(this.month).format('MM');
+                                        //   Invoicedat = moment(this.month).format('YYYY');
+                                        // } else {
+                                        //   checkinvoiceDate = moment(new Date()).format('MM');
+                                        //   Invoicedat = moment(new Date()).format('YYYY');
+                                        // }
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        let day = '';
+                                        if (contractnumbercount[j].deliverydate) {
+                                          checkinvoiceDate = moment(contractnumbercount[j].deliverydate).format('MM');
+                                          Invoicedat = moment(contractnumbercount[j].deliverydate).format('YYYY');
+                                          day = moment(contractnumbercount[j].deliverydate).format('DD');
                                         } else {
                                           checkinvoiceDate = moment(new Date()).format('MM');
                                           Invoicedat = moment(new Date()).format('YYYY');
+                                          day = moment(new Date()).format('DD');
                                         }
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         //add-ws-01/21-禅道任务748
                                         let invoiceDate = moment(new Date()).format('MM');
-                                        let invoice = moment(new Date()).format('DD');
+                                          //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // let invoice = moment(new Date()).format('DD');
+                                          //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
                                         contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         //upd-ws-01/21-禅道任务748
@@ -1213,7 +1261,7 @@
                                         } else if (checkinvoiceDate == '08') {
                                           date = 'AUG';
                                         } else if (checkinvoiceDate == '09') {
-                                          date = 'SEPT';
+                                          date = 'SEP';
                                         } else if (checkinvoiceDate == '10') {
                                           date = 'OCT';
                                         } else if (checkinvoiceDate == '11') {
@@ -1222,8 +1270,10 @@
                                           date = 'DEC';
                                         }
                                         //upd-ws-01/21-禅道任务748
-                                        contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                        contractapplication[n].start = '25' + date + Invoicedat;
+                                          // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        contractapplication[n].applicationdate = day + date + Invoicedat;
+                                        contractapplication[n].start = day + date + Invoicedat;
+                                          // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                           let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                           if (letContracttype != null) {
@@ -1295,16 +1345,32 @@
                                         //add-ws-01/21-禅道任务748
                                         let checkinvoiceDate = '';
                                         let Invoicedat = '';
-                                        if (this.month) {
-                                          checkinvoiceDate = moment(this.month).format('MM');
-                                          Invoicedat = moment(this.month).format('YYYY');
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // if (this.month) {
+                                        //   checkinvoiceDate = moment(this.month).format('MM');
+                                        //   Invoicedat = moment(this.month).format('YYYY');
+                                        // } else {
+                                        //   checkinvoiceDate = moment(new Date()).format('MM');
+                                        //   Invoicedat = moment(new Date()).format('YYYY');
+                                        // }
+                                        // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        let day = '';
+                                        if (contractnumbercount[j].deliverydate) {
+                                          checkinvoiceDate = moment(contractnumbercount[j].deliverydate).format('MM');
+                                          Invoicedat = moment(contractnumbercount[j].deliverydate).format('YYYY');
+                                          day = moment(contractnumbercount[j].deliverydate).format('DD');
                                         } else {
                                           checkinvoiceDate = moment(new Date()).format('MM');
                                           Invoicedat = moment(new Date()).format('YYYY');
+                                          day = moment(new Date()).format('DD');
                                         }
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                         //add-ws-01/21-禅道任务748
                                         let invoiceDate = moment(new Date()).format('MM');
-                                        let invoice = moment(new Date()).format('DD');
+                                          // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        // let invoice = moment(new Date()).format('DD');
+                                          //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
                                         contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                         let date = '';
                                         //upd-ws-01/21-禅道任务748
@@ -1334,8 +1400,10 @@
                                           date = 'DEC';
                                         }
                                         //upd-ws-01/21-禅道任务748
-                                        contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                        contractapplication[n].start = '25' + date + Invoicedat;
+                                          // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                        contractapplication[n].applicationdate = day + date + Invoicedat;
+                                        contractapplication[n].start = day + date + Invoicedat;
+                                          // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
                                         if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                           let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                           if (letContracttype != null) {
@@ -1407,16 +1475,32 @@
                                       //add-ws-01/21-禅道任务748
                                       let checkinvoiceDate = '';
                                       let Invoicedat = '';
-                                      if (this.month) {
-                                        checkinvoiceDate = moment(this.month).format('MM');
-                                        Invoicedat = moment(this.month).format('YYYY');
+                                      // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                      // if (this.month) {
+                                      //   checkinvoiceDate = moment(this.month).format('MM');
+                                      //   Invoicedat = moment(this.month).format('YYYY');
+                                      // } else {
+                                      //   checkinvoiceDate = moment(new Date()).format('MM');
+                                      //   Invoicedat = moment(new Date()).format('YYYY');
+                                      // }
+                                      // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                      // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                      let day = '';
+                                      if (contractnumbercount[j].deliverydate) {
+                                        checkinvoiceDate = moment(contractnumbercount[j].deliverydate).format('MM');
+                                        Invoicedat = moment(contractnumbercount[j].deliverydate).format('YYYY');
+                                        day = moment(contractnumbercount[j].deliverydate).format('DD');
                                       } else {
                                         checkinvoiceDate = moment(new Date()).format('MM');
                                         Invoicedat = moment(new Date()).format('YYYY');
+                                        day = moment(new Date()).format('DD');
                                       }
+                                      // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                       //add-ws-01/21-禅道任务748
                                       let invoiceDate = moment(new Date()).format('MM');
-                                      let invoice = moment(new Date()).format('DD');
+                                          //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                      // let invoice = moment(new Date()).format('DD');
+                                         //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                       contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                       let date = '';
                                       //upd-ws-01/21-禅道任务748
@@ -1437,7 +1521,7 @@
                                       } else if (checkinvoiceDate == '08') {
                                         date = 'AUG';
                                       } else if (checkinvoiceDate == '09') {
-                                        date = 'SEPT';
+                                        date = 'SEP';
                                       } else if (checkinvoiceDate == '10') {
                                         date = 'OCT';
                                       } else if (checkinvoiceDate == '11') {
@@ -1446,8 +1530,10 @@
                                         date = 'DEC';
                                       }
                                       //upd-ws-01/21-禅道任务748
-                                      contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                      contractapplication[n].start = '25' + date + Invoicedat;
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                      contractapplication[n].applicationdate = day + date + Invoicedat;
+                                      contractapplication[n].start = day + date + Invoicedat;
+                                        // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                       if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                         let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                         if (letContracttype != null) {
@@ -1518,22 +1604,38 @@
                         } else {
                           if (contractnumbercount.length > 0) {
                             for (let b = 0; b < contractnumbercount.length; b++) {
-                              if (this.month && this.month2  && this.month5) {
-                                if (moment(this.month).format('YYYY-MM') === moment(contractnumbercount[b].deliverydate).format('YYYY-MM') && moment(this.month2).format('YYYY-MM') ===  moment(contractnumbercount[b].claimdate).format('YYYY-MM') && moment(this.month5).format('YYYY-MM') ===moment(contractnumbercount[b].claimdate).format('YYYY-MM')) {
+                              if (this.month && this.month2 && this.month5) {
+                                if (moment(this.month).format('YYYY-MM') === moment(contractnumbercount[b].deliverydate).format('YYYY-MM') && moment(this.month2).format('YYYY-MM') === moment(contractnumbercount[b].claimdate).format('YYYY-MM') && moment(this.month5).format('YYYY-MM') === moment(contractnumbercount[b].claimdate).format('YYYY-MM')) {
                                   let invoicedat = moment(new Date()).format('YY');
                                   //add-ws-01/21-禅道任务748
                                   let checkinvoiceDate = '';
                                   let Invoicedat = '';
-                                  if (this.month) {
-                                    checkinvoiceDate = moment(this.month).format('MM');
-                                    Invoicedat = moment(this.month).format('YYYY');
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // if (this.month) {
+                                  //   checkinvoiceDate = moment(this.month).format('MM');
+                                  //   Invoicedat = moment(this.month).format('YYYY');
+                                  // } else {
+                                  //   checkinvoiceDate = moment(new Date()).format('MM');
+                                  //   Invoicedat = moment(new Date()).format('YYYY');
+                                  // }
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  let day = '';
+                                  if (contractnumbercount[b].deliverydate) {
+                                    checkinvoiceDate = moment(contractnumbercount[b].deliverydate).format('MM');
+                                    Invoicedat = moment(contractnumbercount[b].deliverydate).format('YYYY');
+                                    day = moment(contractnumbercount[b].deliverydate).format('DD');
                                   } else {
                                     checkinvoiceDate = moment(new Date()).format('MM');
                                     Invoicedat = moment(new Date()).format('YYYY');
+                                    day = moment(new Date()).format('DD');
                                   }
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   //add-ws-01/21-禅道任务748
                                   let invoiceDate = moment(new Date()).format('MM');
-                                  let invoice = moment(new Date()).format('DD');
+                                      //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // let invoice = moment(new Date()).format('DD');
+                                     //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                   let date = '';
                                   //upd-ws-01/21-禅道任务748
@@ -1554,7 +1656,7 @@
                                   } else if (checkinvoiceDate == '08') {
                                     date = 'AUG';
                                   } else if (checkinvoiceDate == '09') {
-                                    date = 'SEPT';
+                                    date = 'SEP';
                                   } else if (checkinvoiceDate == '10') {
                                     date = 'OCT';
                                   } else if (checkinvoiceDate == '11') {
@@ -1563,8 +1665,10 @@
                                     date = 'DEC';
                                   }
                                   //upd-ws-01/21-禅道任务748
-                                  contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                  contractapplication[n].start = '25' + date + Invoicedat;
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  contractapplication[n].applicationdate = day + date + Invoicedat;
+                                  contractapplication[n].start = day + date + Invoicedat;
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                     let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                     if (letContracttype != null) {
@@ -1633,16 +1737,32 @@
                                   //add-ws-01/21-禅道任务748
                                   let checkinvoiceDate = '';
                                   let Invoicedat = '';
-                                  if (this.month) {
-                                    checkinvoiceDate = moment(this.month).format('MM');
-                                    Invoicedat = moment(this.month).format('YYYY');
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // if (this.month) {
+                                  //   checkinvoiceDate = moment(this.month).format('MM');
+                                  //   Invoicedat = moment(this.month).format('YYYY');
+                                  // } else {
+                                  //   checkinvoiceDate = moment(new Date()).format('MM');
+                                  //   Invoicedat = moment(new Date()).format('YYYY');
+                                  // }
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  let day = '';
+                                  if (contractnumbercount[b].deliverydate) {
+                                    checkinvoiceDate = moment(contractnumbercount[b].deliverydate).format('MM');
+                                    Invoicedat = moment(contractnumbercount[b].deliverydate).format('YYYY');
+                                    day = moment(contractnumbercount[b].deliverydate).format('DD');
                                   } else {
                                     checkinvoiceDate = moment(new Date()).format('MM');
                                     Invoicedat = moment(new Date()).format('YYYY');
+                                    day = moment(new Date()).format('DD');
                                   }
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   //add-ws-01/21-禅道任务748
                                   let invoiceDate = moment(new Date()).format('MM');
-                                  let invoice = moment(new Date()).format('DD');
+                                     //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // let invoice = moment(new Date()).format('DD');
+                                     //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                   let date = '';
                                   //upd-ws-01/21-禅道任务748
@@ -1663,7 +1783,7 @@
                                   } else if (checkinvoiceDate == '08') {
                                     date = 'AUG';
                                   } else if (checkinvoiceDate == '09') {
-                                    date = 'SEPT';
+                                    date = 'SEP';
                                   } else if (checkinvoiceDate == '10') {
                                     date = 'OCT';
                                   } else if (checkinvoiceDate == '11') {
@@ -1672,8 +1792,10 @@
                                     date = 'DEC';
                                   }
                                   //upd-ws-01/21-禅道任务748
-                                  contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                  contractapplication[n].start = '25' + date + Invoicedat;
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  contractapplication[n].applicationdate = day + date + Invoicedat;
+                                  contractapplication[n].start = day + date + Invoicedat;
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                     let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                     if (letContracttype != null) {
@@ -1742,16 +1864,32 @@
                                   //add-ws-01/21-禅道任务748
                                   let checkinvoiceDate = '';
                                   let Invoicedat = '';
-                                  if (this.month) {
-                                    checkinvoiceDate = moment(this.month).format('MM');
-                                    Invoicedat = moment(this.month).format('YYYY');
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // if (this.month) {
+                                  //   checkinvoiceDate = moment(this.month).format('MM');
+                                  //   Invoicedat = moment(this.month).format('YYYY');
+                                  // } else {
+                                  //   checkinvoiceDate = moment(new Date()).format('MM');
+                                  //   Invoicedat = moment(new Date()).format('YYYY');
+                                  // }
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  let day = '';
+                                  if (contractnumbercount[b].deliverydate) {
+                                    checkinvoiceDate = moment(contractnumbercount[b].deliverydate).format('MM');
+                                    Invoicedat = moment(contractnumbercount[b].deliverydate).format('YYYY');
+                                    day = moment(contractnumbercount[b].deliverydate).format('DD');
                                   } else {
                                     checkinvoiceDate = moment(new Date()).format('MM');
                                     Invoicedat = moment(new Date()).format('YYYY');
+                                    day = moment(new Date()).format('DD');
                                   }
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   //add-ws-01/21-禅道任务748
                                   let invoiceDate = moment(new Date()).format('MM');
-                                  let invoice = moment(new Date()).format('DD');
+                                    //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // let invoice = moment(new Date()).format('DD');
+                                    //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
                                   contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                   let date = '';
                                   //upd-ws-01/21-禅道任务748
@@ -1772,7 +1910,7 @@
                                   } else if (checkinvoiceDate == '08') {
                                     date = 'AUG';
                                   } else if (checkinvoiceDate == '09') {
-                                    date = 'SEPT';
+                                    date = 'SEP';
                                   } else if (checkinvoiceDate == '10') {
                                     date = 'OCT';
                                   } else if (checkinvoiceDate == '11') {
@@ -1781,8 +1919,10 @@
                                     date = 'DEC';
                                   }
                                   //upd-ws-01/21-禅道任务748
-                                  contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                  contractapplication[n].start = '25' + date + Invoicedat;
+                                    // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  contractapplication[n].applicationdate = day + date + Invoicedat;
+                                  contractapplication[n].start = day + date + Invoicedat;
+                                    // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                   if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                     let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                     if (letContracttype != null) {
@@ -1845,116 +1985,134 @@
                                     outnumber: '',
                                   });
                                 }
-                              //add-ws-01/21-禅道任务748
-                            } else if (this.month5) {
-                              if (moment(this.month5).format('YYYY-MM') === moment(contractnumbercount[b].claimdate).format('YYYY-MM')) {
-                                let invoicedat = moment(new Date()).format('YY');
                                 //add-ws-01/21-禅道任务748
-                                let checkinvoiceDate = '';
-                                let Invoicedat = '';
-                                if (this.month) {
-                                  checkinvoiceDate = moment(this.month).format('MM');
-                                  Invoicedat = moment(this.month).format('YYYY');
-                                } else {
-                                  checkinvoiceDate = moment(new Date()).format('MM');
-                                  Invoicedat = moment(new Date()).format('YYYY');
-                                }
-                                //add-ws-01/21-禅道任务748
-                                let invoiceDate = moment(new Date()).format('MM');
-                                let invoice = moment(new Date()).format('DD');
-                                contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
-                                let date = '';
-                                //upd-ws-01/21-禅道任务748
-                                if (checkinvoiceDate == '01') {
-                                  date = 'JAN';
-                                } else if (checkinvoiceDate == '02') {
-                                  date = 'FEB';
-                                } else if (checkinvoiceDate == '03') {
-                                  date = 'MAR';
-                                } else if (checkinvoiceDate == '04') {
-                                  date = 'APR';
-                                } else if (checkinvoiceDate == '05') {
-                                  date = 'MAY';
-                                } else if (checkinvoiceDate == '06') {
-                                  date = 'JUN';
-                                } else if (checkinvoiceDate == '07') {
-                                  date = 'JUL';
-                                } else if (checkinvoiceDate == '08') {
-                                  date = 'AUG';
-                                } else if (checkinvoiceDate == '09') {
-                                  date = 'SEPT';
-                                } else if (checkinvoiceDate == '10') {
-                                  date = 'OCT';
-                                } else if (checkinvoiceDate == '11') {
-                                  date = 'NOV';
-                                } else if (checkinvoiceDate == '12') {
-                                  date = 'DEC';
-                                }
-                                //upd-ws-01/21-禅道任务748
-                                contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                contractapplication[n].start = '25' + date + Invoicedat;
-                                if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
-                                  let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
-                                  if (letContracttype != null) {
-                                    contractapplication[n].currencyposition = letContracttype.value3;
-                                    contractapplication[n].type = letContracttype.value2;
+                              } else if (this.month5) {
+                                if (moment(this.month5).format('YYYY-MM') === moment(contractnumbercount[b].claimdate).format('YYYY-MM')) {
+                                  let invoicedat = moment(new Date()).format('YY');
+                                  //add-ws-01/21-禅道任务748
+                                  let checkinvoiceDate = '';
+                                  let Invoicedat = '';
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // if (this.month) {
+                                  //   checkinvoiceDate = moment(this.month).format('MM');
+                                  //   Invoicedat = moment(this.month).format('YYYY');
+                                  // } else {
+                                  //   checkinvoiceDate = moment(new Date()).format('MM');
+                                  //   Invoicedat = moment(new Date()).format('YYYY');
+                                  // }
+                                  // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  let day = '';
+                                  if (contractnumbercount[b].deliverydate) {
+                                    checkinvoiceDate = moment(contractnumbercount[b].deliverydate).format('MM');
+                                    Invoicedat = moment(contractnumbercount[b].deliverydate).format('YYYY');
+                                    day = moment(contractnumbercount[b].deliverydate).format('DD');
+                                  } else {
+                                    checkinvoiceDate = moment(new Date()).format('MM');
+                                    Invoicedat = moment(new Date()).format('YYYY');
+                                    day = moment(new Date()).format('DD');
                                   }
-                                }
-                                if (contractapplication[n].businesscode.substring(0, 3) === '000') {
-                                  contractapplication[n].careeryear = '0271000000';
-                                } else {
-                                  contractapplication[n].careeryear = '0201000000';
-                                }
-                                if (contractapplication[n].businesscode.substring(0, 3) === '000') {
-                                  if (contractapplication[n].contractnumber.substring(0, 2) === 'WS' || contractapplication[n].contractnumber.substring(0, 2) === 'WG') {
-                                    contractapplication[n].claim = '7071000003';
-                                  } else if (contractapplication[n].contractnumber.substring(0, 2) === 'NS') {
-                                    contractapplication[n].claim = '7071000001';
+                                  // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                  //add-ws-01/21-禅道任务748
+                                  let invoiceDate = moment(new Date()).format('MM');
+                                    //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  // let invoice = moment(new Date()).format('DD');
+                                    //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                  contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
+                                  let date = '';
+                                  //upd-ws-01/21-禅道任务748
+                                  if (checkinvoiceDate == '01') {
+                                    date = 'JAN';
+                                  } else if (checkinvoiceDate == '02') {
+                                    date = 'FEB';
+                                  } else if (checkinvoiceDate == '03') {
+                                    date = 'MAR';
+                                  } else if (checkinvoiceDate == '04') {
+                                    date = 'APR';
+                                  } else if (checkinvoiceDate == '05') {
+                                    date = 'MAY';
+                                  } else if (checkinvoiceDate == '06') {
+                                    date = 'JUN';
+                                  } else if (checkinvoiceDate == '07') {
+                                    date = 'JUL';
+                                  } else if (checkinvoiceDate == '08') {
+                                    date = 'AUG';
+                                  } else if (checkinvoiceDate == '09') {
+                                    date = 'SEP';
+                                  } else if (checkinvoiceDate == '10') {
+                                    date = 'OCT';
+                                  } else if (checkinvoiceDate == '11') {
+                                    date = 'NOV';
+                                  } else if (checkinvoiceDate == '12') {
+                                    date = 'DEC';
                                   }
-                                } else {
-                                  if (contractapplication[n].contractnumber.substring(0, 2) === 'WS' || contractapplication[n].contractnumber.substring(0, 2) === 'WG') {
-                                    contractapplication[n].claim = '7001000003';
-                                  } else if (contractapplication[n].contractnumber.substring(0, 2) === 'NS') {
-                                    contractapplication[n].claim = '7001000001';
+                                  //upd-ws-01/21-禅道任务748
+                                    // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  contractapplication[n].applicationdate = day + date + Invoicedat;
+                                  contractapplication[n].start = day + date + Invoicedat;
+                                    // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                  if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
+                                    let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
+                                    if (letContracttype != null) {
+                                      contractapplication[n].currencyposition = letContracttype.value3;
+                                      contractapplication[n].type = letContracttype.value2;
+                                    }
                                   }
+                                  if (contractapplication[n].businesscode.substring(0, 3) === '000') {
+                                    contractapplication[n].careeryear = '0271000000';
+                                  } else {
+                                    contractapplication[n].careeryear = '0201000000';
+                                  }
+                                  if (contractapplication[n].businesscode.substring(0, 3) === '000') {
+                                    if (contractapplication[n].contractnumber.substring(0, 2) === 'WS' || contractapplication[n].contractnumber.substring(0, 2) === 'WG') {
+                                      contractapplication[n].claim = '7071000003';
+                                    } else if (contractapplication[n].contractnumber.substring(0, 2) === 'NS') {
+                                      contractapplication[n].claim = '7071000001';
+                                    }
+                                  } else {
+                                    if (contractapplication[n].contractnumber.substring(0, 2) === 'WS' || contractapplication[n].contractnumber.substring(0, 2) === 'WG') {
+                                      contractapplication[n].claim = '7001000003';
+                                    } else if (contractapplication[n].contractnumber.substring(0, 2) === 'NS') {
+                                      contractapplication[n].claim = '7001000001';
+                                    }
+                                  }
+                                  this.totalcostvalue.push({
+                                    varto: contractapplication[n].varto,
+                                    claimdate: '10',
+                                    applicationdate: contractapplication[n].applicationdate,
+                                    start: contractapplication[n].start,
+                                    currencyposition: contractapplication[n].currencyposition,
+                                    type: contractapplication[n].type,
+                                    theme: 'AutoInvoice',
+                                    tenantid: '自动发票',
+                                    temaid: '00/00/00',
+                                    supportdate: '',
+                                    status: '',
+                                    businesscode: contractapplication[n].businesscode,
+                                    state: '应收',
+                                    sidegroup: '',
+                                    secondjudge: '',
+                                    rowindex: '01',
+                                    responphone: '000000',
+                                    careeryear: contractapplication[n].careeryear,
+                                    responerglish: '00000',
+                                    responemail: '确认收入',
+                                    remarks: '',
+                                    qingremarks: '1',
+                                    contractnumber: contractnumbercount[b].claimamount,
+                                    claimamount: contractnumbercount[b].claimamount,
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
+                                    claim: contractapplication[n].claim,
+                                    placechinese: '00000',
+                                    periods: '',
+                                    papercontract: '',
+                                    pageSize: '',
+                                    owners: '',
+                                    owner: '',
+                                    outputmanager: '',
+                                    outnumber: '',
+                                  });
                                 }
-                                this.totalcostvalue.push({
-                                  varto: contractapplication[n].varto,
-                                  claimdate: '10',
-                                  applicationdate: contractapplication[n].applicationdate,
-                                  start: contractapplication[n].start,
-                                  currencyposition: contractapplication[n].currencyposition,
-                                  type: contractapplication[n].type,
-                                  theme: 'AutoInvoice',
-                                  tenantid: '自动发票',
-                                  temaid: '00/00/00',
-                                  supportdate: '',
-                                  status: '',
-                                  businesscode: contractapplication[n].businesscode,
-                                  state: '应收',
-                                  sidegroup: '',
-                                  secondjudge: '',
-                                  rowindex: '01',
-                                  responphone: '000000',
-                                  careeryear: contractapplication[n].careeryear,
-                                  responerglish: '00000',
-                                  responemail: '确认收入',
-                                  remarks: '',
-                                  qingremarks: '1',
-                                  contractnumber: contractnumbercount[b].claimamount,
-                                  claimamount: contractnumbercount[b].claimamount,
-                                  group_id: getOrgInfo(contractapplication[n].group_id).companyen,
-                                  claim: contractapplication[n].claim,
-                                  placechinese: '00000',
-                                  periods: '',
-                                  papercontract: '',
-                                  pageSize: '',
-                                  owners: '',
-                                  owner: '',
-                                  outputmanager: '',
-                                  outnumber: '',
-                                });
-                              }
                               }
                               //add-ws-01/21-禅道任务748
                               else {
@@ -1962,16 +2120,32 @@
                                 //add-ws-01/21-禅道任务748
                                 let checkinvoiceDate = '';
                                 let Invoicedat = '';
-                                if (this.month) {
-                                  checkinvoiceDate = moment(this.month).format('MM');
-                                  Invoicedat = moment(this.month).format('YYYY');
+                                // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                // if (this.month) {
+                                //   checkinvoiceDate = moment(this.month).format('MM');
+                                //   Invoicedat = moment(this.month).format('YYYY');
+                                // } else {
+                                //   checkinvoiceDate = moment(new Date()).format('MM');
+                                //   Invoicedat = moment(new Date()).format('YYYY');
+                                // }
+                                // del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
+                                // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                let day = '';
+                                if (contractnumbercount[b].deliverydate) {
+                                  checkinvoiceDate = moment(contractnumbercount[b].deliverydate).format('MM');
+                                  Invoicedat = moment(contractnumbercount[b].deliverydate).format('YYYY');
+                                  day = moment(contractnumbercount[b].deliverydate).format('DD');
                                 } else {
                                   checkinvoiceDate = moment(new Date()).format('MM');
                                   Invoicedat = moment(new Date()).format('YYYY');
+                                  day = moment(new Date()).format('DD');
                                 }
+                                // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                 //add-ws-01/21-禅道任务748
-                                let invoiceDate = moment(new Date()).format('MM');
-                                let invoice = moment(new Date()).format('DD');
+                                  let invoiceDate = moment(new Date()).format('MM');
+                                   //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                // let invoice = moment(new Date()).format('DD');
+                                   //del-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                 contractapplication[n].varto = invoicedat + invoiceDate + '-' + contractapplication[n].contractnumber;
                                 let date = '';
                                 //upd-ws-01/21-禅道任务748
@@ -2001,8 +2175,10 @@
                                   date = 'DEC';
                                 }
                                 //upd-ws-01/21-禅道任务748
-                                contractapplication[n].applicationdate = '25' + date + Invoicedat;
-                                contractapplication[n].start = '25' + date + Invoicedat;
+                                    // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-start
+                                contractapplication[n].applicationdate = day + date + Invoicedat;
+                                contractapplication[n].start = day + date + Invoicedat;
+                                    // add-lyt-21/3/17-NT_PFANS_20210315_BUG_137-end
                                 if (contractapplication[n].currencyposition != '' && contractapplication[n].currencyposition != null) {
                                   let letContracttype = getDictionaryInfo(contractapplication[n].currencyposition);
                                   if (letContracttype != null) {
@@ -2189,6 +2365,8 @@
               duration: 2 * 1000,
             });
           }
+        }else if(val == 'search'){
+          this.init();
         }
       },
       formatJson(filterVal, jsonData) {

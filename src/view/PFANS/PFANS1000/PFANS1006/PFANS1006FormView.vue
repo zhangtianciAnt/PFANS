@@ -1263,7 +1263,16 @@
               muchmoneys = (muchmoneys - 0) + (judgements_moneys[m] - 0);
             }
             this.form.moneys = muchmoneys;
-            this.form.remarks = remarks[0];
+            //add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
+            let str=this.$route.params._remarks;
+            for(let i=0;i<str.length;i++){
+              this.form.remarks+=str[i];
+              if(str[i]==='^'){
+                this.form.remarks+="\n";
+              }
+            }
+            this.form.remarks=this.form.remarks.replaceAll("^",";");
+            //add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
           } else {
             this.showtab = false;
           }

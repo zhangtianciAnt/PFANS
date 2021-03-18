@@ -67,6 +67,10 @@
       defaultStart:{
         type:Boolean,
         default:true
+      },
+      defaultDo:{
+        type:Boolean,
+        default:true
       }
     },
     methods: {
@@ -350,9 +354,14 @@
       },
       //打开进行审批画面
       OperationWorkflow() {
-        this.$refs.operation.operationWorkflow = true;
-        this.$refs.operation.getlogDetail();
-        this.$refs.operation.init()
+        if(this.defaultDo){
+          this.$refs.operation.operationWorkflow = true;
+          this.$refs.operation.getlogDetail();
+          this.$refs.operation.init()
+        }else{
+          this.$emit("OperationWorkflow","OperationWorkflow")
+        }
+
       },
       ViewWorkflow() {
         this.$refs.log.viewWorkflow = true;

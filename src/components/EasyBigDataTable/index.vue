@@ -8,8 +8,9 @@
       <div align="right" class="filter-container" style="padding-bottom: 10px">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}</span>
         <slot name="customize"></slot>
-        <el-input :placeholder="defaultSerchTooltip" @input="inputChange" class="filter-item"
-                  style="width: 25%;vertical-align:top" v-bind:prefix-icon="changeIcon" v-model="searchValue">
+        <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
+                  style="width: 25%;vertical-align:top" v-model="searchValue">
+          <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
       <slot name="search"></slot>

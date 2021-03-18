@@ -1,5 +1,5 @@
-import { getActionsAuth, getNewActionAuth} 
-from '@/components/EasyNormalTable/tableApi'
+import { getActionsAuth, getNewActionAuth}
+  from '@/components/EasyNormalTable/tableApi'
 
 const tableStore = {
   namespaced: true,
