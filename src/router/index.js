@@ -555,8 +555,7 @@ const routes = [
         name: 'PFANS1044View',
         component: PFANS1044View,
         meta: {
-          keepAlive: true,
-          isBack:false
+          keepAlive: true
         }
       },
       {
@@ -1166,7 +1165,10 @@ const routes = [
       {
         path: '/PFANS5015View',
         name: 'PFANS5015View',
-        component: PFANS5015View
+        component: PFANS5015View,
+        meta: {
+          keepAlive: true
+        }
       },
       {
         path: '/PFANS5009View',
