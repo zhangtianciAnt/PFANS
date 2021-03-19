@@ -133,7 +133,7 @@
           {
             code: 'commedicalinsurance',
             label: 'label.PFANS2030VIEW_COMMEDICALINSURANCE',
-            width: 134,
+            width: 136,
             fix: false,
             filter: true
           },
