@@ -817,7 +817,6 @@
                               _judgement: _judgement,
                               _judgement_name: _judgement_name,
                               _judgements_moneys: _judgements_moneys,
-                              _surloappmoney: _surloappmoney,
                               _remarks: _remarks,
                               _judgements_type: this.$t('label.PFANS1012VIEW_PURCHASSES'),
                               disabled: true,
