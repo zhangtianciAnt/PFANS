@@ -712,6 +712,9 @@
         teamid: '',
         userlistA: '',
         userlist: [],
+        //NT_PFANS_20210207_BUG_018 ztc 多部门审批 start
+        userlistOrg: [],
+        //NT_PFANS_20210207_BUG_018 ztc 多部门审批 end
         userlistAnt: [],
         loading: false,
         checkGro: false,
@@ -1019,6 +1022,9 @@
                     let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
                     if (groupInfo) {
                       this.userlist.push(groupInfo.user);
+                      //NT_PFANS_20210207_BUG_018 ztc 多部门审批 start
+                      this.userlistOrg.push(groupInfo.user)
+                      //NT_PFANS_20210207_BUG_018 ztc 多部门审批 end
                     }
                   }
                   //禅道 610 去除数据字典不统一 ztc range
@@ -1065,6 +1071,11 @@
                         }
                       }
                     }
+                    //NT_PFANS_20210207_BUG_018 ztc 多部门审批 start
+                    if(this.userlist.length === 0){
+                      this.userlist = this.userlistOrg;
+                    }
+                    //NT_PFANS_20210207_BUG_018 ztc 多部门审批 end
                   }
                 })
               }
