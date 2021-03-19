@@ -506,7 +506,10 @@
             }
         },
         created() {
-            if (!this.$route.params.disabled) {
+            // update gbb 20210318 NT_PFANS_20210315_BUG_142 已归档项目不可保存 start
+            //if (!this.$route.params.disabled ||) {
+            if (!this.$route.params.disabled || this.$route.params._region === '2') {
+            // update gbb 20210318 NT_PFANS_20210315_BUG_142 已归档项目不可保存 end
                 this.buttonList = [];
             }
             this.disable = this.$route.params.disabled;
