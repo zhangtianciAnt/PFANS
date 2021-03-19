@@ -336,10 +336,13 @@
                 activeName: "first",
                 errorManager: "",
                 userlist: "",
-                buttonList: [{
-                    key: "save",
-                    name: "button.save"
-                }],
+                // update gbb 20210318 NT_PFANS_20210315_BUG_142 控制保存按钮是否可编辑 start
+                // buttonList: [{
+                //   key: "save",
+                //   name: "button.save"
+                // }],
+                buttonList: [],
+                // update gbb 20210318 NT_PFANS_20210315_BUG_142 控制保存按钮是否可编辑 end
                 source: [{
                     name_id: '',
                     prosystem_id: '',
@@ -506,10 +509,21 @@
             }
         },
         created() {
-            if (!this.$route.params.disabled) {
-                this.buttonList = [];
-            }
+            // update gbb 20210318 NT_PFANS_20210315_BUG_142 控制保存按钮是否可编辑 start
+            // if (!this.$route.params.disabled) {
+            //     this.buttonList = [];
+            // }
             this.disable = this.$route.params.disabled;
+            if (this.disable) {
+              this.buttonList = [
+                {
+                  key: 'save',
+                  name: 'button.save',
+                  disabled: false,
+                },
+              ];
+            }
+            // update gbb 20210318 NT_PFANS_20210315_BUG_142 控制保存按钮是否可编辑 end
         },
         methods: {
           setdisabled(val){
