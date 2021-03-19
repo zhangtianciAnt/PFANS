@@ -4662,8 +4662,10 @@
                                 response.contrast[j].thismonth != null &&
                                 response.contrast[j].lastmonth != null
                             ) {
+                                //update 20210319 个人到手差额对比数据格式化 start
                                 obj.difference =
-                                    response.contrast[j].lastmonth - response.contrast[j].thismonth;
+                                  Math.round((response.contrast[j].thismonth - response.contrast[j].lastmonth) * 100 ) / 100;
+                              //update 20210319 个人到手差额对比数据格式化 end
                             }
                             datalistgrdb[j] = obj;
                             this.tableGRDB = datalistgrdb;
