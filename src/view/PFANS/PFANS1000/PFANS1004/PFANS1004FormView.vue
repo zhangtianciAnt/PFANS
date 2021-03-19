@@ -1680,7 +1680,9 @@
               type: 'info',
               duration: 5 * 1000,
             });
-            this.form.decision = null;
+            // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
+            this.form.decision = val;
+            // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
           }
         }else if(val == 'PJ146008' || val == 'PJ146009' || val == 'PJ146010'
           || val == 'PJ146011' || val == 'PJ146012' || val == 'PJ146013'){
@@ -1699,7 +1701,9 @@
               type: 'info',
               duration: 5 * 1000,
             });
-            this.form.decision = null;
+            // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
+            this.form.decision = val;
+            // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
           }
         }else{
           this.form.decision = val;
@@ -2173,294 +2177,320 @@
             });
           }
         } else {
-          if (this.form.musectosion == '0') {
-            this.$refs['refform'].validate(valid => {
-              if (valid) {
-                this.loading = true;
-                if (this.form.careerplan === '0') {
-                  this.form.businessplantype = '';
-                  this.form.businessplanbalance = '';
-                  this.form.classificationtype = '';
+            if (this.form.musectosion == '0') {
+              // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
+              if(this.form.decision == 'PJ146006') {
+                if (this.role15 === '1'){
+                  Message({
+                    message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_21'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
                 }
-                if (this.form.businessplantype === 'PR002001') {
-                  this.form.classificationtype = '';
+              }
+              else if(this.form.decision == 'PJ146008' || this.form.decision == 'PJ146009' || this.form.decision == 'PJ146010'
+                || this.form.decision == 'PJ146011' || this.form.decision == 'PJ146012' || this.form.decision == 'PJ146013'){
+                if(this.role16 === '1'){
+                  Message({
+                    message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_22'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
                 }
-                if (this.form.businessplantype === 'PR002002') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002003') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002004') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.salequotation === 'PJ013002') {
-                  this.form.reasonsforquotation = '';
-                }
-                // if (this.form.salequotation === 'PJ013003') {
-                //   this.form.reasonsforquotation = '';
-                // }
-                if (this.form.decisive === 'PJ011001') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011002') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011003') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011005') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-                this.form.equipment = '0';
-                let error = 0;
-                //add-ws-4/22-实施计划金额不能大于事业计划余额check
-                if (this.form.careerplan === '1') {
-                  if (this.form.amounttobegiven > this.form.businessplanbalance) {
-                    error = error + 1;
+              }else{
+                // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
+                this.$refs['refform'].validate(valid => {
+                  if (valid) {
+                    this.loading = true;
+                    if (this.form.careerplan === '0') {
+                      this.form.businessplantype = '';
+                      this.form.businessplanbalance = '';
+                      this.form.classificationtype = '';
+                    }
+                    if (this.form.businessplantype === 'PR002001') {
+                      this.form.classificationtype = '';
+                    }
+                    if (this.form.businessplantype === 'PR002002') {
+                      this.form.classificationtype = '';
+                    }
+                    if (this.form.businessplantype === 'PR002003') {
+                      this.form.classificationtype = '';
+                    }
+                    if (this.form.businessplantype === 'PR002004') {
+                      this.form.classificationtype = '';
+                    }
+                    if (this.form.salequotation === 'PJ013002') {
+                      this.form.reasonsforquotation = '';
+                    }
+                    // if (this.form.salequotation === 'PJ013003') {
+                    //   this.form.reasonsforquotation = '';
+                    // }
+                    if (this.form.decisive === 'PJ011001') {
+                      this.form.startdate = '';
+                      this.form.enddate = '';
+                    }
+                    if (this.form.decisive === 'PJ011002') {
+                      this.form.startdate = '';
+                      this.form.enddate = '';
+                    }
+                    if (this.form.decisive === 'PJ011003') {
+                      this.form.startdate = '';
+                      this.form.enddate = '';
+                    }
+                    if (this.form.decisive === 'PJ011005') {
+                      this.form.startdate = '';
+                      this.form.enddate = '';
+                    }
+                    this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
+                    this.form.equipment = '0';
+                    let error = 0;
+                    //add-ws-4/22-实施计划金额不能大于事业计划余额check
+                    if (this.form.careerplan === '1') {
+                      if (this.form.amounttobegiven > this.form.businessplanbalance) {
+                        error = error + 1;
+                        Message({
+                          message: this.$t('label.PFANS1004FORMVIEW_CHECKERROR'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                      }
+                    }
+                    //add-ws-4/22-实施计划金额不能大于事业计划余额check
+                    if (error === 0) {
+                      if (this.params_id) {
+                        this.form.judgementid = this.params_id;
+                        this.$store
+                          .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
+                          .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            if (val !== 'update') {
+                              Message({
+                                message: this.$t('normal.success_02'),
+                                type: 'success',
+                                duration: 5 * 1000,
+                              });
+                              this.paramsTitle();
+                            }
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          });
+                      } else {
+                        this.$store
+                          .dispatch('PFANS1004Store/createJudgement', JudgementVo)
+                          .then(response => {
+                            this.data = response;
+                            this.loading = false;
+                            Message({
+                              message: this.$t('normal.success_01'),
+                              type: 'success',
+                              duration: 5 * 1000,
+                            });
+                            this.paramsTitle();
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          });
+                      }
+                    }
+                  } else {
                     Message({
-                      message: this.$t('label.PFANS1004FORMVIEW_CHECKERROR'),
+                      message: this.$t('normal.error_12'),
                       type: 'error',
                       duration: 5 * 1000,
                     });
-                    this.loading = false;
                   }
-                }
-                //add-ws-4/22-实施计划金额不能大于事业计划余额check
-                if (error === 0) {
-                  if (this.params_id) {
-                    this.form.judgementid = this.params_id;
-                    this.$store
-                      .dispatch('PFANS1004Store/updateJudgement', JudgementVo)
-                      .then(response => {
-                        this.data = response;
-                        this.loading = false;
-                        if (val !== 'update') {
-                          Message({
-                            message: this.$t('normal.success_02'),
-                            type: 'success',
-                            duration: 5 * 1000,
-                          });
-                          this.paramsTitle();
-                        }
-                      })
-                      .catch(error => {
-                        Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                      });
-                  } else {
-                    this.$store
-                      .dispatch('PFANS1004Store/createJudgement', JudgementVo)
-                      .then(response => {
-                        this.data = response;
-                        this.loading = false;
-                        Message({
-                          message: this.$t('normal.success_01'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.paramsTitle();
-                      })
-                      .catch(error => {
-                        Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                      });
-                  }
-                }
-              } else {
-                Message({
-                  message: this.$t('normal.error_12'),
-                  type: 'error',
-                  duration: 5 * 1000,
                 });
+                // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
               }
-            });
-          } else if (this.form.musectosion == '1') {
-            this.$refs['refform'].validate(valid => {
-              if (valid) {
-                this.loading = true;
-                this.baseInfo = {};
-                if (this.form.careerplan === '0') {
-                  this.form.businessplantype = '';
-                  this.form.businessplanbalance = '';
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002001') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002002') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002003') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002004') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.salequotation === 'PJ013002') {
-                  this.form.reasonsforquotation = '';
-                }
-                if (this.form.decisive === 'PJ011001') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011002') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011003') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011005') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-                this.form.equipment = '0';
-                let error_BM = 0;
-                let error_YS = 0;
-                let error_JH = 0;
-                let error_FL = 0;
-                this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
-                this.baseInfo.judgementdetail = [];
-                for (let i = 0; i < this.tableA.length; i++) {
-                  if (this.tableA[i].group_nameM == '' || this.tableA[i].group_nameM == null) {
-                    error_BM = error_BM + 1;
-                    break;
+              // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
+            } else if (this.form.musectosion == '1') {
+              this.$refs['refform'].validate(valid => {
+                if (valid) {
+                  this.loading = true;
+                  this.baseInfo = {};
+                  if (this.form.careerplan === '0') {
+                    this.form.businessplantype = '';
+                    this.form.businessplanbalance = '';
+                    this.form.classificationtype = '';
                   }
-                  if (this.tableA[i].thisprojectM == '' || this.tableA[i].thisprojectM == null) {
-                    error_YS = error_YS + 1;
-                    break;
+                  if (this.form.businessplantype === 'PR002001') {
+                    this.form.classificationtype = '';
                   }
-                  // 表格中事业计划为【内】=> 1
-                  if (this.tableA[i].careerplanM == '1') {
-                    //事业计划类型为空
-                    if (this.tableA[i].businessplantypeM == '' || this.tableA[i].businessplantypeM == null) {
-                      error_JH = error_JH + 1;
+                  if (this.form.businessplantype === 'PR002002') {
+                    this.form.classificationtype = '';
+                  }
+                  if (this.form.businessplantype === 'PR002003') {
+                    this.form.classificationtype = '';
+                  }
+                  if (this.form.businessplantype === 'PR002004') {
+                    this.form.classificationtype = '';
+                  }
+                  if (this.form.salequotation === 'PJ013002') {
+                    this.form.reasonsforquotation = '';
+                  }
+                  if (this.form.decisive === 'PJ011001') {
+                    this.form.startdate = '';
+                    this.form.enddate = '';
+                  }
+                  if (this.form.decisive === 'PJ011002') {
+                    this.form.startdate = '';
+                    this.form.enddate = '';
+                  }
+                  if (this.form.decisive === 'PJ011003') {
+                    this.form.startdate = '';
+                    this.form.enddate = '';
+                  }
+                  if (this.form.decisive === 'PJ011005') {
+                    this.form.startdate = '';
+                    this.form.enddate = '';
+                  }
+                  this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
+                  this.form.equipment = '0';
+                  let error_BM = 0;
+                  let error_YS = 0;
+                  let error_JH = 0;
+                  let error_FL = 0;
+                  this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
+                  this.baseInfo.judgementdetail = [];
+                  for (let i = 0; i < this.tableA.length; i++) {
+                    if (this.tableA[i].group_nameM == '' || this.tableA[i].group_nameM == null) {
+                      error_BM = error_BM + 1;
                       break;
-                      // 事业计划类型为【各种经费】
-                    } else if (this.tableA[i].businessplantypeM == 'PR002006') {
-                      if (this.tableA[i].classificationtypeM == '' || this.tableA[i].classificationtypeM == null) {
-                        error_FL = error_FL + 1;
+                    }
+                    if (this.tableA[i].thisprojectM == '' || this.tableA[i].thisprojectM == null) {
+                      error_YS = error_YS + 1;
+                      break;
+                    }
+                    // 表格中事业计划为【内】=> 1
+                    if (this.tableA[i].careerplanM == '1') {
+                      //事业计划类型为空
+                      if (this.tableA[i].businessplantypeM == '' || this.tableA[i].businessplantypeM == null) {
+                        error_JH = error_JH + 1;
                         break;
+                        // 事业计划类型为【各种经费】
+                      } else if (this.tableA[i].businessplantypeM == 'PR002006') {
+                        if (this.tableA[i].classificationtypeM == '' || this.tableA[i].classificationtypeM == null) {
+                          error_FL = error_FL + 1;
+                          break;
+                        }
                       }
                     }
                   }
-                }
-                if (error_BM != 0) {
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.error_09') +
-                      this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                } else if (error_YS != 0) {
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.error_09') +
-                      this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                } else if (error_JH != 0) {
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.error_09') +
-                      this.$t('label.PFANS1004VIEW_BUSINESSPLANTYPE'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                } else if (error_FL != 0) {
-                  this.loading = false;
-                  Message({
-                    message: this.$t('normal.error_09') +
-                      this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                } else {
-                  for (let i = 0; i < this.tableA.length; i++) {
-                    this.baseInfo.judgementdetail.push({
-                      group_nameM: this.tableA[i].group_nameM,
-                      thisprojectM: this.tableA[i].thisprojectM,
-                      businessplantypeM: this.tableA[i].businessplantypeM,
-                      careerplanM: this.tableA[i].careerplanM,
-                      classificationtypeM: this.tableA[i].classificationtypeM,
-                      businessplanbalanceM: this.tableA[i].businessplanbalanceM,
-                      amounttobegivenM: this.tableA[i].amounttobegivenM,
+                  if (error_BM != 0) {
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.error_09') +
+                        this.$t('label.PFANS1012FORMVIEW_DEPARTMENT'),
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
-                  }
-                  if (this.params_id) {
-                    this.baseInfo.judgement.judgementid = this.params_id;
-                    this.$store
-                      .dispatch('PFANS1004Store/updateJudgementDetail', this.baseInfo)
-                      .then(response => {
-                        this.data = response;
-                        this.loading = false;
-                        if (val !== 'update') {
+                  } else if (error_YS != 0) {
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.error_09') +
+                        this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (error_JH != 0) {
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.error_09') +
+                        this.$t('label.PFANS1004VIEW_BUSINESSPLANTYPE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else if (error_FL != 0) {
+                    this.loading = false;
+                    Message({
+                      message: this.$t('normal.error_09') +
+                        this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  } else {
+                    for (let i = 0; i < this.tableA.length; i++) {
+                      this.baseInfo.judgementdetail.push({
+                        group_nameM: this.tableA[i].group_nameM,
+                        thisprojectM: this.tableA[i].thisprojectM,
+                        businessplantypeM: this.tableA[i].businessplantypeM,
+                        careerplanM: this.tableA[i].careerplanM,
+                        classificationtypeM: this.tableA[i].classificationtypeM,
+                        businessplanbalanceM: this.tableA[i].businessplanbalanceM,
+                        amounttobegivenM: this.tableA[i].amounttobegivenM,
+                      });
+                    }
+                    if (this.params_id) {
+                      this.baseInfo.judgement.judgementid = this.params_id;
+                      this.$store
+                        .dispatch('PFANS1004Store/updateJudgementDetail', this.baseInfo)
+                        .then(response => {
+                          this.data = response;
+                          this.loading = false;
+                          if (val !== 'update') {
+                            Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000,
+                            });
+                            this.paramsTitle();
+                          }
+                        })
+                        .catch(error => {
                           Message({
-                            message: this.$t('normal.success_02'),
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          this.loading = false;
+                        });
+                    } else {
+                      this.$store
+                        .dispatch('PFANS1004Store/createJudgementDetail', this.baseInfo)
+                        .then(response => {
+                          this.data = response;
+                          this.loading = false;
+                          Message({
+                            message: this.$t('normal.success_01'),
                             type: 'success',
                             duration: 5 * 1000,
                           });
                           this.paramsTitle();
-                        }
-                      })
-                      .catch(error => {
-                        Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
+                        })
+                        .catch(error => {
+                          Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                          });
+                          this.loading = false;
                         });
-                        this.loading = false;
-                      });
-                  } else {
-                    this.$store
-                      .dispatch('PFANS1004Store/createJudgementDetail', this.baseInfo)
-                      .then(response => {
-                        this.data = response;
-                        this.loading = false;
-                        Message({
-                          message: this.$t('normal.success_01'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.paramsTitle();
-                      })
-                      .catch(error => {
-                        Message({
-                          message: error,
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                      });
+                    }
                   }
+                } else {
+                  Message({
+                    message: this.$t('normal.error_12'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
                 }
-              } else {
-                Message({
-                  message: this.$t('normal.error_12'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-              }
-            });
-          }
+              });
+            }
         }
 
       },
