@@ -374,11 +374,16 @@
             rowClick(row) {
                 this.rowid = row.tickets_id;
               //NT_PFANS_20210308_BUG_148 ztc start 机票受理状态为【取消】或【完成】时【取消机票】按钮不可用
-              if (row.acceptstatus === '取消' || row.acceptstatus === '完成') {
-                this.buttonList[4].disabled = true;
-              } else {
-                this.buttonList[4].disabled = false;
+              //update gbb 20210320 总务担当权限可操作 start
+              this.role1 = getCurrentRole2();
+              if (getCurrentRole2() === '0') {
+                  if (row.acceptstatus === '取消' || row.acceptstatus === '完成') {
+                      this.buttonList[4].disabled = true;
+                  } else {
+                      this.buttonList[4].disabled = false;
+                  }
               }
+              //update gbb 20210320 总务担当权限可操作 end
               //NT_PFANS_20210308_BUG_148 ztc end 机票受理状态为【取消】或【完成】时【取消机票】按钮不可用
             },
             buttonClick(val) {

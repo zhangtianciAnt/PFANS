@@ -1474,36 +1474,140 @@
       },
       nsum(row) {
         row.sumpersonnel1 = Number(row.personnel4) + Number(row.personnel5) + Number(row.personnel6);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       wsum(row) {
         row.sumwpersonnel1 = Number(row.wpersonnel4) + Number(row.wpersonnel5) + Number(row.wpersonnel6);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       amountsum(row) {
         row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       nsum1(row) {
         row.sumpersonnel2 = Number(row.personnel7) + Number(row.personnel8) + Number(row.personnel9);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       wsum1(row) {
         row.sumwpersonnel2 = Number(row.wpersonnel7) + Number(row.wpersonnel8) + Number(row.wpersonnel9);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       amountsum1(row) {
         row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       nsum2(row) {
         row.sumpersonnel3 = Number(row.personnel10) + Number(row.personnel11) + Number(row.personnel12);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       wsum2(row) {
         row.sumwpersonnel3 = Number(row.wpersonnel10) + Number(row.wpersonnel11) + Number(row.wpersonnel12);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       amountsum2(row) {
         row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       nsum3(row) {
         row.sumpersonnel4 = Number(row.personnel1) + Number(row.personnel2) + Number(row.personnel3);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       wsum3(row) {
         row.sumwpersonnel4 = Number(row.wpersonnel1) + Number(row.wpersonnel2) + Number(row.wpersonnel3);
+        row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
+        row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
+        row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
+        row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
+        row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
+        row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
+        row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
+        row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
+        row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
+        row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
+        row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
+        row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
+        row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       amountsum3(row) {
         row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
