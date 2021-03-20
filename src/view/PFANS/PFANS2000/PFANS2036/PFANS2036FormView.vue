@@ -171,8 +171,14 @@
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
-                            :disabled="true"
+                            v-show="false"
                             v-model="scope.row.exrank"
+                          >
+                          </el-input>
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.exrankshow"
                             size="mini"
                           ></el-input>
                         </template>
@@ -205,8 +211,14 @@
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
-                            :disabled="true"
+                            v-show="false"
                             v-model="scope.row.ltrank"
+                          >
+                          </el-input>
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.ltrankshow"
                             size="mini"
                           ></el-input>
                         </template>
@@ -2296,6 +2308,7 @@
     mounted() {
       this.form.yearsantid = this.$route.params._id;
       this.getById();
+      this.getChangeRanks();
       //add-lyt-21/1/22-禅道任务645-start
       let role = getCurrentRole();
       let role3 = getCurrentRole3();
@@ -2420,34 +2433,34 @@
             });
           });
       },
-      getPersonalCost() {
-        let groupid = this.group_id;
-        this.loading = true;
-        let params = {
-          groupid: groupid,
-          yearsantid: this.$route.params._id
-        };
-        this.$store
-          .dispatch("PFANS2036Store/getPersonalCost", params)
-          .then(response => {
-            for (let u = 0; u < response.length; u++) {
-              let exrankinfo = getDictionaryInfo(response[u].exrank);
-              if (exrankinfo != null) {
-                response[u].exrank = exrankinfo.value1;
-              }
-            }
-            this.tableData = response;
-            this.loading = false;
-          })
-          .catch(err => {
-            this.loading = false;
-            Message({
-              message: err,
-              type: "error",
-              duration: 5 * 1000
-            });
-          });
-      },
+      // getPersonalCost() {
+      //   let groupid = this.group_id;
+      //   this.loading = true;
+      //   let params = {
+      //     groupid: groupid,
+      //     yearsantid: this.$route.params._id
+      //   };
+      //   this.$store
+      //     .dispatch("PFANS2036Store/getPersonalCost", params)
+      //     .then(response => {
+      //       for (let u = 0; u < response.length; u++) {
+      //         let exrankinfo = getDictionaryInfo(response[u].exrank);
+      //         if (exrankinfo != null) {
+      //           response[u].exrank = exrankinfo.value1;
+      //         }
+      //       }
+      //       this.tableData = response;
+      //       this.loading = false;
+      //     })
+      //     .catch(err => {
+      //       this.loading = false;
+      //       Message({
+      //         message: err,
+      //         type: "error",
+      //         duration: 5 * 1000
+      //       });
+      //     });
+      // },
       getById() {
         this.loading = true;
         let vote1 = [];
@@ -2640,12 +2653,12 @@
           });
       },
 
-      changeGroup(val) {
-        this.group_id = val;
-        if (this.group_id) {
-          this.getPersonalCost();
-        }
-      },
+      // changeGroup(val) {
+      //   this.group_id = val;
+      //   if (this.group_id) {
+      //     this.getPersonalCost();
+      //   }
+      // },
       changeName(val) {
         this.username = val;
       },
@@ -2783,11 +2796,11 @@
             for (let u = 0; u < response.length; u++) {
               let ltrankinfo = getDictionaryInfo(response[u].ltrank);
               if (ltrankinfo != null) {
-                response[u].ltrank = ltrankinfo.value1;
+                response[u].ltrankshow = ltrankinfo.value1;
               }
               let exrankinfo = getDictionaryInfo(response[u].exrank);
               if (exrankinfo != null) {
-                response[u].exrank = exrankinfo.value1;
+                response[u].exrankshow = exrankinfo.value1;
               }
             }
             this.tableData = response;
@@ -2909,10 +2922,12 @@
           // for(row.exrank in this.ranksMap){
           //   ltrankant = this.ranksMap[]; //注意是 [  ]
           // }
-          let ranksListAnt = this.ranksList.filter(item => item.value1 == row.exrank);
-          row.ltrank = getDictionaryInfo(ranksListAnt[0].value12).value1;
+          let ranksListAnt = this.ranksList.filter(item => item.value1 == row.exrankshow);
+          row.ltrankshow = getDictionaryInfo(ranksListAnt[0].value12).value1;
+          row.ltrank = ranksListAnt[0].value12;
         }else{
-          row.ltrank = '';
+          row.ltrankshow = row.exrankshow;
+          row.ltrank = row.exrank
         }
       },
       buttonClick(val) {
@@ -2927,7 +2942,7 @@
                 duration: 5 * 1000
               });
               this.loading = false;
-              this.getPersonalCost();
+              this.SearchBar();
             })
             .catch(err => {
               this.loading = false;
@@ -2948,7 +2963,7 @@
                 duration: 5 * 1000
               });
               this.loading = false;
-              this.getPersonalCost();
+              this.SearchBar();
             })
             .catch(err => {
               this.loading = false;

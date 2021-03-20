@@ -61,23 +61,24 @@
                 :label="getNextYearLevel"
                 width="180"
                 align="center"
+                :formatter="formatterDic"
               >
-                <template slot-scope="scope">
-                  <el-select size="small"
-                             clearable
-                             v-model="scope.row.nextyear"
-                             :disabled="disabled"
-                             :placeholder="$t('normal.error_09')">
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                <!--<template slot-scope="scope">-->
+                  <!--<el-select size="small"-->
+                             <!--clearable-->
+                             <!--v-model="scope.row.nextyear"-->
+                             <!--:disabled="disabled"-->
+                             <!--:placeholder="$t('normal.error_09')">-->
+                    <!--<el-option-->
+                      <!--v-for="item in options"-->
+                      <!--:key="item.value"-->
+                      <!--:label="item.label"-->
+                      <!--:value="item.value"-->
 
-                    >
-                    </el-option>
-                  </el-select>
-                </template>
+                    <!--&gt;-->
+                    <!--</el-option>-->
+                  <!--</el-select>-->
+                <!--</template>-->
               </el-table-column>
               <!--              add-lyt-21/1/29-禅道任务648-start-->
               <el-table-column
@@ -527,7 +528,7 @@
                     });
             },
             formatterDic(row, column) {
-                if (column.property === "thisyear") {
+                if (column.property === "thisyear" || column.property === "nextyear") {
                     if (row[column.property]) {
                         let dic = getDictionaryInfo(row[column.property]);
                         return dic === null ? "-" : dic.value1;
