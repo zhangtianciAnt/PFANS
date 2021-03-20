@@ -897,7 +897,7 @@
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
       if (this.disable) {
           //未开始/驳回时可点击保存
-          if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2')) {
+          if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2') || this.$route.params._status === undefined) {
               this.buttonList = [
                   {
                       key: 'save',
