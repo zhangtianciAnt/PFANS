@@ -946,15 +946,15 @@
               trigger: 'change',
             },
           ],
-            //add_fjl_0806 预算编码
-            // budgetunit: [
-            //     {
-            //         required: true,
-            //         message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
-            //         trigger: 'change',
-            //     },
-            // ],
-            //add_fjl_0806 预算编码
+          //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc start
+            budgetunit: [
+                {
+                    required: true,
+                    message: this.$t('normal.error_09') + this.$t('label.PFANS1012FORMVIEW_BUDGET'),
+                    trigger: 'change',
+                },
+            ],
+          //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc end
         },
         show: false,
         show2: false,
@@ -1144,9 +1144,11 @@
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-          //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-          // }
+          //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc start
+          if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+              this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          }
+          //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc end
           if (rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
@@ -1492,9 +1494,11 @@
         this.form.user_id = val;
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
-        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-        //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-        // }
+        //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc start
+        if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+            this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        }
+        //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc end
         if (rst) {
           this.centerid = rst.centerNmae;
           this.groupid = rst.groupNmae;
