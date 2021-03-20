@@ -328,7 +328,7 @@
             <!--            upd-ws-01/16-禅道任务710-->
             <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
               <template slot-scope="scope">
-                <el-form-item prop="theme" :prop="'tabledata.' + scope.$index + '.theme'" :rules='rules.theme'>
+                <el-form-item prop="theme" :prop="'tabledata.' + scope.$index + '.theme'" >
                   <div class="">
                     <el-input class="content bg"
                               :disabled="true"
