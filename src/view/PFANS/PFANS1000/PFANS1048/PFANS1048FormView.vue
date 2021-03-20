@@ -17,7 +17,7 @@
                   <el-date-picker
                     type="year"
                     @change="yearChange"
-                    :disabled="!disabled"
+                    :disabled="true"
                     style="width: 20vw"
                     v-model="refform.year">
                   </el-date-picker>
@@ -30,7 +30,7 @@
                   <el-date-picker
                     type="month"
                     @change="monthChange"
-                    :disabled="!disabled"
+                    :disabled="true"
                     style="width: 20vw"
                     v-model="refform.month">
                   </el-date-picker>
@@ -233,7 +233,7 @@ export default {
       },
       refform: {
         year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
-        month: moment(new Date()).format('YYYY-MM'),
+        month: moment(new Date().setMonth(new Date().getMonth() - 1)).format('YYYY-MM'),
         group_id: '',
         encoding: '',
         sumtatole1: '',
@@ -608,7 +608,7 @@ export default {
         groupid: this.refform.group_id,
         userid: this.$store.getters.userinfo.userid,
         year: this.refform.year,
-        month: moment(this.refform.month).format('MM'),
+        month: this.refform.month,
       };
       this.loading = true;
       this.$store
