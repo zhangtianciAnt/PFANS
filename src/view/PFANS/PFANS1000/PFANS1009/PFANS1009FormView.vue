@@ -269,7 +269,9 @@
           nodeList: [],
         },
         code1: 'PA001',
-        code1: 'PJ009',
+        //update gbb 20210320 下拉绑定code重复 start
+        //code1: 'PJ009',
+        //update gbb 20210320 下拉绑定code重复 end
         code2: 'PJ010',
         menuList: [],
         selectedList: [],
