@@ -2356,10 +2356,19 @@
           }
           for (let i = 0; i < us.length; i++) {
             //去除单次选择时，重复的数据
+            //update gbb 20210319 人员职务数据获取 start
+            let position = '';
+            if (row.name != null && row.name !== '') {
+              let lst = getUserInfo(us[i]);
+              if (lst.userinfo.post) {
+                position = getDictionaryInfo(lst.userinfo.post).value1;
+              }
+            }
+            //update gbb 20210319 人员职务数据获取 end
             if (na.indexOf(us[i]) == -1) {
               this.tableB.push({
                 name: us[i],
-                position: '',
+                position: position,
                 admissiontime: '',
                 exittime: '',
                 number: '',
@@ -2379,6 +2388,11 @@
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
           // row.position = lst.userinfo.post;
+          //update gbb 20210319 人员职务数据获取 start
+          if (lst.userinfo.post) {
+            row.position = getDictionaryInfo(lst.userinfo.post).value1;
+          }
+          //update gbb 20210319 人员职务数据获取 end
           row.number = lst.userinfo.jobnumber;
           let lst1 = getOrgInfoByUserId(row.name);
           row.company = lst1.groupNmae;
