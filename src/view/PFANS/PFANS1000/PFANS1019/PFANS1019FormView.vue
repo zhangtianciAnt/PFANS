@@ -140,7 +140,7 @@
               <!--</el-table-column>-->
               <el-table-column :label="$t('label.PFANS1019FORMVIEW_DEVELOPER')" align="center" width="150">
                 <template slot-scope="scope">
-                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.developer" style="width: 100%">
+                  <el-input :no="scope.row" :disabled="!disable" v-model="scope.row.developer" maxlength="20" style="width: 100%">
                   </el-input>
                 </template>
               </el-table-column>

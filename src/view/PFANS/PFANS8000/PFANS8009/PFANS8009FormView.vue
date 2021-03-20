@@ -206,10 +206,10 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
           // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
-          for (let i = index; i < rows.length; i++) {
-            if (index < 9) {
+          for (let i = 0; i < rows.length; i++) {
+            if (i < 9) {
               this.tableD[i].code = this.letcode.substring(0, 5) + "00" + (i + 1);
-            } else if (index >= 9) {
+            } else if (i >= 9) {
               this.tableD[i].code = this.letcode.substring(0, 5) + "0" + (i + 1);
             }
           }
