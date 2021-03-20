@@ -206,6 +206,8 @@
                           award_id: response[i].award_id,
                           status:response[i].status,
                           owner: response[i].owner,
+                          sealstatus:response[i].sealstatus,
+                          sealid:response[i].sealid,
                         });
                       }
                     }
@@ -230,6 +232,8 @@
                         award_id: response[m].award_id,
                         status:response[m].status,
                         owner: response[m].owner,
+                        sealstatus:response[m].sealstatus,
+                        sealid:response[m].sealid,
                       });
                     }
                     //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
