@@ -139,12 +139,9 @@
                     },
                   });
                 }).catch(() => {
-                  this.$router.push({
-                    name: 'PFANS1043FormView',
-                    params: {
-                      _id: this.row,
-                      disabled: false,
-                    },
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('normal.info_18'),
                   });
                   this.loading = false;
                 });
