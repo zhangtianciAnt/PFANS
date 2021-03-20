@@ -136,6 +136,7 @@
                     <el-col :span="8">
                       <el-form-item :label="$t('label.enclosure')">
                         <el-upload
+                          :disabled="!disabled"
                           :action="upload"
                           :file-list="fileList"
                           :on-remove="fileRemove"
