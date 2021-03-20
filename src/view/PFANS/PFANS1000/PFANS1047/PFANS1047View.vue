@@ -128,7 +128,6 @@
       },
       selectInit(row, index) {
         if (this.$i18n) {
-          debugger;
           return (row.status === this.$t("label.PFANS5004VIEW_OVERTIME") && (row.sealstatus === '' || row.sealstatus === null || row.sealstatus === undefined));
         }
       },
