@@ -720,10 +720,7 @@ const routes = [
       {
         path: '/PFANS1036View',
         name: 'PFANS1036View',
-        component: PFANS1036View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS1036View
       },
       {
         path: '/PFANS1036FormView',
