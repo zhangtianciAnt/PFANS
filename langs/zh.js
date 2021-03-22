@@ -555,6 +555,7 @@ module.exports = {
     PFANS8008VIEWYILAN: '信息一览'
   },
   label: {
+    PFANSFORMVIEW_DOWNLOAD:'点击下方文档下载',
     expectedattend: '预计',
     actualattend: '实际',
     pfanstype: '申请种类',
