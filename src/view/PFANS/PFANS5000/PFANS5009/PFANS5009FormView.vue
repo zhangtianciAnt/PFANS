@@ -2423,18 +2423,20 @@
                   return;
               }
               // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check end
-              for (let j = 1; j < this.tableD.length; j++) {
-                if (this.tableD[i].theme != this.tableD[j].theme) {
-                  Message({
-                    message: this.$t('label.PFANS5001FORMVIEW_PROJECTERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.activeName = 'fifth';
-                  this.loading = false;
-                  return;
-                }
-              }
+              //theme 还未和合同关联 注掉
+              // for (let j = 1; j < this.tableD.length; j++) {
+              //   if (this.tableD[i].theme != this.tableD[j].theme) {
+              //     Message({
+              //       message: this.$t('label.PFANS5001FORMVIEW_PROJECTERROR'),
+              //       type: 'error',
+              //       duration: 5 * 1000,
+              //     });
+              //     this.activeName = 'fifth';
+              //     this.loading = false;
+              //     return;
+              //   }
+              // }
+              //theme 还未和合同关联 注掉
             }
             //add-ws-01/16-禅道任务710
             for (let i = 0; i < this.tableB.length; i++) {
