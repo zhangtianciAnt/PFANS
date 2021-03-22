@@ -230,7 +230,7 @@
             <!--            upd-ws-01/16-禅道任务710-->
             <el-table-column :label="$t('label.PFANS1024VIEW_TEMA')" align="center" prop="theme" width="200">
               <template slot-scope="scope">
-                <el-form-item prop="theme" :prop="'tabledata.' + scope.$index + '.theme'" :rules='rules.theme'>
+                <el-form-item prop="theme" :prop="'tabledata.' + scope.$index + '.theme'" >
                   <div class="">
                     <el-input class="content bg"
                               :disabled="true"
@@ -3798,16 +3798,19 @@
               }
             }
             // 复合合同分配金额校验
-            for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-              let dataMapChild = datamountMap.get(this.form.tableclaimtype[t].claimtype);
-              let scanMapChild = scanMap.get(this.form.tableclaimtype[t].claimtype);
-              if (dataMapChild != scanMapChild) {
-                Message({
-                  message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
+            if(this.form.contracttype === 'HT008002' || this.form.contracttype === 'HT008004'
+              || this.form.contracttype === 'HT008006' || this.form.contracttype === 'HT008008'){
+              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
+                let dataMapChild = datamountMap.get(this.form.tableclaimtype[t].claimtype);
+                let scanMapChild = scanMap.get(this.form.tableclaimtype[t].claimtype);
+                if (dataMapChild != scanMapChild) {
+                  Message({
+                    message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
             }
 
