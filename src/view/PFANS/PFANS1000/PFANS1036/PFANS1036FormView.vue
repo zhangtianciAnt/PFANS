@@ -2355,6 +2355,7 @@
       };
     },
     created() {
+      this.loading = true;
       if (!this.$route.params.disabled) {
         this.buttonList = [];
       }
@@ -2495,7 +2496,7 @@
             this.loading = false;
           });
 
-
+        this.loading = true;
         if (this.form.group_id) {
           this.getgroupA1(this.form.group_id);
         }
@@ -2506,6 +2507,8 @@
         if (this.form.group_id) {
           this.getPersonTable(rst.groupId, this.form.year);
         }
+
+        this.loading = false;
       }
 
     },
@@ -2549,6 +2552,10 @@
         );
         return this.tableK;
       },
+      wactValue:function () {
+        let { tableO, tableO1,tableO2,tableO3,tableO4,tableA,tableC, tableD,assets1,assets2,travel,sumA1,sumA2,sumB1,sumB2,sumB3,sumC1} = this
+        return { tableO, tableO1,tableO2,tableO3,tableO4,tableA,tableC, tableD,assets1,assets2,travel,sumA1,sumA2,sumB1,sumB2,sumB3,sumC1}
+      }
     },
     methods: {
       workflowState(val) {
@@ -3554,115 +3561,116 @@
       },
     },
     watch: {
-      tableO: {
+      wactValue: {
         handler(newValue, oldValue) {
           this.computedSum();
         },
         deep: true,
+        immediate: true
       },
-      tableO1: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      tableO2: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      tableO3: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      tableO4: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      tableA: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      // tableB: {
+      // tableO1: {
       //   handler(newValue, oldValue) {
       //     this.computedSum();
       //   },
       //   deep: true,
       // },
-      tableC: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      tableD: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      assets1: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      assets2: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-
-        },
-        deep: true,
-      },
-      travel: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      sumA1: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      sumA2: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      sumB1: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      sumB2: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      sumB3: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
-      sumC1: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-      },
+      // tableO2: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // tableO3: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // tableO4: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // tableA: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // // tableB: {
+      // //   handler(newValue, oldValue) {
+      // //     this.computedSum();
+      // //   },
+      // //   deep: true,
+      // // },
+      // tableC: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // tableD: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // assets1: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // assets2: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //
+      //   },
+      //   deep: true,
+      // },
+      // travel: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // sumA1: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // sumA2: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // sumB1: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // sumB2: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // sumB3: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
+      // sumC1: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      // },
     },
   };
 </script>
