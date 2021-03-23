@@ -56,6 +56,7 @@
                 align="center"
                 :formatter="formatterDic">
               </el-table-column>
+              <!--本社员-->
               <el-table-column
                 prop="nextyear"
                 :label="getNextYearLevel"
@@ -79,6 +80,30 @@
                     <!--</el-option>-->
                   <!--</el-select>-->
                 <!--</template>-->
+              </el-table-column>
+              <!--外注社员-->
+              <el-table-column
+                prop="nextyear"
+                :label="getNextYearLevel"
+                width="180"
+                align="center"
+                v-if="this.$route.params.type === 0 ? false : true"
+              >
+                <template slot-scope="scope">
+                  <el-select size="small"
+                  clearable
+                  v-model="scope.row.nextyear"
+                  :disabled="disabled"
+                  :placeholder="$t('normal.error_09')">
+                    <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    >
+                    </el-option>
+                  </el-select>
+                </template>
               </el-table-column>
               <!--              add-lyt-21/1/29-禅道任务648-start-->
               <el-table-column
