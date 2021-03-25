@@ -601,7 +601,6 @@ export default {
       }
     },
     getprojects() {
-      debugger;
       if (this.refform.group_id === '') {
         this.refform.group_id = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId || '';
       }
@@ -612,7 +611,6 @@ export default {
         month: this.refform.month,
       };
       this.loading = true;
-      debugger;
       this.$store
         .dispatch('PFANS1048Store/getprojects', parameter)
         .then(response => {

@@ -776,7 +776,6 @@
                   this.$store
                       .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
                       .then(response => {
-                          debugger;
                           if (response !== null && response !== '' && response !== undefined) {
                             for (var i = 0; i < response.length; i++)
                             {

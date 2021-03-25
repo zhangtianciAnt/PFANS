@@ -120,9 +120,9 @@
             // { key: 'new2', name: 'button.newGroup', disabled: false, icon: 'el-icon-plus' },
             // { key: 'new3', name: 'button.newTeam', disabled: false, icon: 'el-icon-plus' },
           { key: 'insert', name: 'button.orginsert', disabled: false, icon: 'el-icon-plus' },
-          { key: 'change', name: 'button.orgchange', disabled: false, icon: 'el-icon-edit' },
+          // { key: 'change', name: 'button.orgchange', disabled: false, icon: 'el-icon-edit' },
           { key: 'view', name: 'button.orgresume', disabled: false, icon: 'el-icon-paperclip'},
-          { key: 'save', name: 'button.confirm', disabled: true, icon: 'el-icon-check' },
+          { key: 'save', name: 'button.confirm', disabled: false, icon: 'el-icon-check' },
         ],
         nameflag: false,
         namelessflag: false,
@@ -136,7 +136,7 @@
           banlist: [],
           invlist: []
         },
-        newBtnDisabled: false,
+        // newBtnDisabled: false,
         formDisabled: false
       }
     },
@@ -148,12 +148,12 @@
         this.$store
           .dispatch('tableStore/getActionsAuth', data.owner)
           .then(response => {
-            this.buttonList[3].disabled = response[1];
-            this.formDisabled = response[1];
+            // this.buttonList[3].disabled = response[1];
+            // this.formDisabled = response[1];
           })
           .catch(error => {
-            this.buttonList[3].disabled = false;
-            this.formDisabled = false;
+            // this.buttonList[3].disabled = false;
+            // this.formDisabled = false;
           })
       },
       getNewActionAuth () {
@@ -161,15 +161,15 @@
           .dispatch('tableStore/getNewActionAuth')
           .then(response => {
             this.newBtnDisabled = response;
-            this.buttonList[0].disabled = response;
-            this.buttonList[1].disabled = response;
-            this.buttonList[2].disabled = response;
+            // this.buttonList[0].disabled = response;
+            // this.buttonList[1].disabled = response;
+            // this.buttonList[2].disabled = response;
           })
           .catch(error => {
             this.newBtnDisabled = false;
-            this.buttonList[0].disabled = false;
-            this.buttonList[1].disabled = false;
-            this.buttonList[2].disabled = false;
+            // this.buttonList[0].disabled = false;
+            // this.buttonList[1].disabled = false;
+            // this.buttonList[2].disabled = false;
           })
       },
       handleNodeClick (data) {
@@ -185,15 +185,15 @@
         this.getButtonAuth(data);
         if (data.type === '2') {
           this.activeNam = 'first'
-          this.buttonList[0].disabled = true
-          this.buttonList[1].disabled = false
+          // this.buttonList[0].disabled = true
+          // this.buttonList[1].disabled = false
         } else if (data.type === '3') {
           this.activeNam = 'first'
-          this.buttonList[0].disabled = true
-          this.buttonList[1].disabled = true
+          // this.buttonList[0].disabled = true
+          // this.buttonList[1].disabled = true
         } else {
-          this.buttonList[0].disabled = false || this.newBtnDisabled
-          this.buttonList[1].disabled = false || this.newBtnDisabled
+          // this.buttonList[0].disabled = false || this.newBtnDisabled
+          // this.buttonList[1].disabled = false || this.newBtnDisabled
         }
         this.currentNode = data
         if (data.invoiceinfo) {
@@ -289,7 +289,7 @@
           let dataArray = this.$refs.treeCom.getData()
           this.companyFormcheck = Object.assign({}, this.currentNode)
           this.loading = true
-          this.currentNode.title = this.currentNode.type === '1' ? this.currentNode.companyshortname : this.currentNode.departmentname
+          this.currentNode.title = (this.currentNode.type === '1' || this.currentNode.type === '2')? this.currentNode.companyshortname : this.currentNode.departmentname
           this.$store
             .dispatch('orgTreeStore/saveTree', dataArray[0])
             .then((response) => {

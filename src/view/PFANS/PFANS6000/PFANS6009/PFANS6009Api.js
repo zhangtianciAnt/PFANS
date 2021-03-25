@@ -26,7 +26,6 @@ export function getWorkers(data) {
 }
 
 export function downloadExcel(data) {
-  debugger;
   return requestDownload({
     url: '/companystatistics/downloadExcel',
     method: 'get',

@@ -455,7 +455,6 @@
             });
             return;
           }
-          debugger;
           let letexitdate = '0';
           this.exitdate = getUserInfo(this.linshiid.split(',')[0]).userinfo.resignation_date;
           if (this.exitdate != '') {

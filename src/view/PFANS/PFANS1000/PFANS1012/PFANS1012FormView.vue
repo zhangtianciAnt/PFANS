@@ -65,15 +65,17 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
+<!--                      upd-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-:disabled参数更改为新创建的moduledisable参数-start-->
                       <dicselect :code="code2"
                                  :data="form.moduleid"
-                                 :disabled="!disable"
+                                 :disabled="moduledisable"
                                  :multiple="multiple"
                                  @change="getmodule"
                                  style="width:20vw"
                                  v-if="show6"
                       >
                       </dicselect>
+<!--                      upd-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-:disabled参数更改为新创建的moduledisable参数-end-->
                       <el-input :disabled="true" style="width:20vw"
                                 v-model="form.moduleidApp" v-if="show9"></el-input>
                     </el-form-item>
@@ -1309,12 +1311,14 @@
                     :label="$t('label.PFANS1013VIEW_REIMNUMBER')"
                     width="280px">
                   </el-table-column>
+                  <!--                    upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-start-->
                   <el-table-column
                     align="center"
-                    prop="moneys"
+                    prop="judgements_moneys"
                     :label="$t('label.PFANS1025VIEW_AWARDMONEY')"
                     width="280px">
                   </el-table-column>
+                  <!--                    upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-end-->
                   <el-table-column
                     align="center"
                     prop="status"
@@ -2776,6 +2780,11 @@
         this.buttonList = [];
       }
       this.disable = this.$route.params.disabled;
+      // add-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-设置新参数的判定（编辑查看模式下都不可更改“模块”数据项）-start
+      if(this.$route.params._id){
+        this.moduledisable = true;
+      }
+      // add-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-设置新参数的判定（编辑查看模式下都不可更改“模块”数据项）-end
       if (this.disable) {
         this.checkexternal = false;
         this.checktaxes = false;
@@ -3094,6 +3103,9 @@
                 response[i].status = getStatus(response[i].status);
               }
               this.DataList2.push({
+                // upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-start
+                judgements_moneys: response[i].judgements_moneys,
+                // upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-end
                 moneys: response[i].moneys,
                 invoiceno: response[i].invoiceno,
                 status: response[i].status,

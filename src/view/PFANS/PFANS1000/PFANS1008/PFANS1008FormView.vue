@@ -595,7 +595,6 @@
             if (this.assetsList[i].principal !== null && this.assetsList[i].principal !== '') {
               let userinfo = getUserInfoName(this.assetsList[i].principal)
               if(userinfo != '-1'){
-                debugger
                 vote.person = userinfo.userid;
               }
             }

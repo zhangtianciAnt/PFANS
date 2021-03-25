@@ -510,7 +510,6 @@
       checkDateSpace(startTime, endTime) {
         var startObj = moment(startTime).format('YYYY-MM-DD');
         var endObj = moment(endTime).format('YYYY-MM-DD');
-        // debugger
         // var startObj = '2020-01-31';
         // var endObj = '2020-03-01';
         // var starDate = startObj.value;
