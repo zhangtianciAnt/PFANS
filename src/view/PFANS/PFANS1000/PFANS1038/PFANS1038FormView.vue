@@ -454,9 +454,13 @@
               .dispatch('PFANS1038Store/getPersonalCost',params)
               .then(response => {
                 for (var i = 0; i < response.length; i++){
+                  if(response[i].ltrank == "" || response[i].ltrank == null || response[i].ltrank == undefined){
+                    response[i].ltrank = response[i].exrank;
+                  }
                   this.tableData.push({
                     //add-lyt-3/4-添加加班时给，不显示-start
                     overtimepay: response[i].overtimepay,
+                    overtimehour: response[i].overtimehour,
                     //add-lyt-3/4-添加加班时给，不显示-end
                     name: response[i].username,
                     thisyear: response[i].exrank,
