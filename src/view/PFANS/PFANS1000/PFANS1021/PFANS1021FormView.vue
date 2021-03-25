@@ -869,7 +869,6 @@
             this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
             || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
             this.form.tableD[i].timea = moment(this.tableT[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tableT[i].timea[1]).format('YYYY-MM-DD');
-            debugger
             let checktableD = '';
             let checktable = '';
             if (this.form.status === '4' || this.form.status === '3') {

@@ -32,7 +32,6 @@ export function createinterviewrecord(data) {
 }
 //add-ws-7/30-禅道任务296
 export function createinterviewrecord2(data) {
-  debugger
   return request({
     url: 'interviewrecord/create2',
     method: 'post',

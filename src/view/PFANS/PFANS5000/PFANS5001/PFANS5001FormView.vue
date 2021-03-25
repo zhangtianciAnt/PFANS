@@ -2534,7 +2534,6 @@
         this.$store
           .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
           .then(response => {
-            debugger
             let contractnumbercount = response.contractnumbercount;
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {

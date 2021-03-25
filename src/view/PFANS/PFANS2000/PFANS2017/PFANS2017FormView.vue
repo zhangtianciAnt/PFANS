@@ -63,7 +63,9 @@
         methods: {
             getPunchcardrecorddetail() {
                 let parameter = {
-                    user_id:this.$route.params.user_id,
+                    //update gbb 20210323 获取打卡记录时删除人员名称条件 start
+                    //user_id:this.$route.params.user_id,
+                    //update gbb 20210323 获取打卡记录时删除人员名称条件 end
                     jobnumber:this.$route.params.jobnumber,
                     punchcardrecord_date:this.$route.params.punchcardrecord_date,
                 }
