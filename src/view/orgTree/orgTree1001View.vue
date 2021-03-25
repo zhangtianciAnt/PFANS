@@ -204,7 +204,6 @@
         if (val === 'back') {
           this.cancelForm();
         } else if (val === 'applicate') {
-          debugger;
           this.$store
             .dispatch('orgTreeStore/updateStatus', {"Years": this.years})
             .then((response) => {
