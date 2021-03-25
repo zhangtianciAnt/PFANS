@@ -2923,8 +2923,8 @@
           //   ltrankant = this.ranksMap[]; //注意是 [  ]
           // }
           let ranksListAnt = this.ranksList.filter(item => item.value1 == row.exrankshow);
-          row.ltrankshow = getDictionaryInfo(ranksListAnt[0].value12).value1;
-          row.ltrank = ranksListAnt[0].value12;
+          row.ltrankshow = getDictionaryInfo(ranksListAnt[0].value11).value1;
+          row.ltrank = ranksListAnt[0].value11;
         }else{
           row.ltrankshow = row.exrankshow;
           row.ltrank = row.exrank
