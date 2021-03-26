@@ -9,11 +9,17 @@
           <easy-work-flow :canStart="canStart" :workflowCode="workflowCode"
                           @canStartWorkflow="canStartWorkflow" :userlist="userlist"
                           @canViewWorkflow="canViewWorkflow" @StartWorkflow="StartWorkflow" :defaultStart="defaultStart"
-                          :defaultDo="defaultDo" @OperationWorkflow="OperationWorkflow"
+                          :defaultDo="defaultDo" @OperationWorkflow="OperationWorkflow"  @setAlert="setAlert"
                           @changeLoading="changeLoading" @end="end" @start="start" @workflowState="workflowState"
                           ref="workflow"></easy-work-flow>
         </el-row>
       </div>
+      <el-alert
+        type="info"
+        :description="description"
+        v-if="description"
+        show-icon>
+      </el-alert>
       <div align="right" class="filter-container">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}
         <el-popover
@@ -41,6 +47,7 @@
     name: 'index',
     data() {
       return {
+        description:'',
         Pop:false,
         buttons: [],
         defaultbuttons: [{'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'}],
@@ -104,6 +111,9 @@
       },
     },
     methods: {
+      setAlert(val){
+        this.description = val;
+      },
       start(val) {
         this.$emit('start',val)
       },

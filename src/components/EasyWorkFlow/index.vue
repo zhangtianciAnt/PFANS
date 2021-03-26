@@ -86,6 +86,15 @@
       },
       //是否可以插销审批
       isDelWorkflow() {
+
+
+        //add zgd_210326 无画面ID和数据ID时 不能撤销流程 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canDelWorkflow = false
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能撤销流程 end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
@@ -120,6 +129,15 @@
           return;
         }
         //add_fjl_0908  添加没有组织结构的人员不能发起审批  end
+        //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canStartWorkflow = false;
+          this.$emit('setAlert', "获取数据失败，无法进行审批操作，请重试！");
+          this.$emit('canStartWorkflow', false);
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
@@ -223,6 +241,14 @@
       },
       //是否可以进行审批
       isOperationWorkflow() {
+
+        //add zgd_210326 无画面ID和数据ID时 不能进行审批 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canOperationWorkflow = false
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能进行审批 end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
@@ -266,6 +292,15 @@
       },
       //是否可以查看流程日志
       isViewWorkflow() {
+
+
+        //add zgd_210326 无画面ID和数据ID时 不能查看流程 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canViewWorkflow = false
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能查看流程 end
         this.$emit('changeLoading', true);
         this.canViewWorkflow= false;
         this.workflow.dataId = this.$store.getters.operateId;
