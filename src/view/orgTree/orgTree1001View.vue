@@ -188,6 +188,16 @@
               if (this.currentNode.bankinfo) {
                 this.exrinfolist.banlist = this.currentNode.bankinfo
               }
+              // 根据年度控制【应用】按钮权限 且无组织时不显示
+              if (response.status === "0") {
+                this.buttonList[1].disabled = true;
+              } else {
+                this.buttonList[1].disabled = false;
+              }
+            } else {
+              this.data = [];
+              this.buttonList[1].disabled = true;
+              // 根据年度控制【应用】按钮权限 且无组织时不显示
             }
             this.loading = false;
           })
