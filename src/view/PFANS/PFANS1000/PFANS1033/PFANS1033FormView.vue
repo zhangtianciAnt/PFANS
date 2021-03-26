@@ -1728,29 +1728,40 @@
                   this.loading = false;
                 });
             } else {
-              this.$store.dispatch('PFANS1026Store/insert', baseInfo)
-                .then(response => {
-                  this.data = response;
-                  if (tabledatabook) {
-                    this.handleSaveNumber(tabledatabook);
-                  } else {
+              // add fr 检查是否有申请至少一条契约番号
+              if (this.tablefourth.length === 0) {
+                Message({
+                  message: this.$t('normal.error_application'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              } else {
+                this.$store.dispatch('PFANS1026Store/insert', baseInfo)
+                  .then(response => {
+                    this.data = response;
+                    if (tabledatabook) {
+                      this.handleSaveNumber(tabledatabook);
+                    } else {
+                      Message({
+                        message: this.$t('normal.success_01'),
+                        type: 'success',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                      this.paramsTitle();
+                    }
+                  })
+                  .catch(error => {
                     Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
+                      message: error,
+                      type: 'error',
                       duration: 5 * 1000,
                     });
                     this.loading = false;
-                    this.paramsTitle();
-                  }
-                })
-                .catch(error => {
-                  Message({
-                    message: error,
-                    type: 'error',
-                    duration: 5 * 1000,
                   });
-                  this.loading = false;
-                });
+              }
+              // add to 检查是否有申请至少一条契约番号
             }
           }
         });
