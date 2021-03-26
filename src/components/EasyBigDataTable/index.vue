@@ -13,7 +13,17 @@
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
-      <slot name="search"></slot>
+      <div v-if="$slots.search" style="padding-top: 5px;">
+      <el-collapse>
+        <el-collapse-item>
+          <template slot="title">
+                      <span class="collapse_Title"
+                            style="color:#005BAA">检索条件</span>
+          </template>
+          <slot name="search"></slot>
+        </el-collapse-item>
+      </el-collapse>
+      </div>
       <div style="height: calc(100vh - 60px - 15rem);width: 100%">
       <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
