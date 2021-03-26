@@ -1309,12 +1309,14 @@
                     :label="$t('label.PFANS1013VIEW_REIMNUMBER')"
                     width="280px">
                   </el-table-column>
+                  <!--                    upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-start-->
                   <el-table-column
                     align="center"
-                    prop="moneys"
+                    prop="judgements_moneys"
                     :label="$t('label.PFANS1025VIEW_AWARDMONEY')"
                     width="280px">
                   </el-table-column>
+                  <!--                    upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-end-->
                   <el-table-column
                     align="center"
                     prop="status"
@@ -3094,6 +3096,9 @@
                 response[i].status = getStatus(response[i].status);
               }
               this.DataList2.push({
+                // upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-start
+                judgements_moneys: response[i].judgements_moneys,
+                // upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-end
                 moneys: response[i].moneys,
                 invoiceno: response[i].invoiceno,
                 status: response[i].status,
