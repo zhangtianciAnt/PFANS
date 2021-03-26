@@ -257,34 +257,37 @@
         sessionStorage.setItem("datatype", this.dataType);
         this.$router.push("/index");
         this.changeMenu();
+        // this.removeCache();
       },
       removeCache() {
-        debugger
-        if (this.$refs.content.$vnode && this.$refs.content.$vnode.data.keepAlive)
-        {
-          if (this.$refs.content.$vnode.parent && this.$refs.content.$vnode.parent.componentInstance && this.$refs.content.$vnode.parent.componentInstance.cache)
+        if(this.$refs.content){
+          if (this.$refs.content.$vnode && this.$refs.content.$vnode.data.keepAlive)
           {
-            if (this.$refs.content.$vnode.componentOptions)
+            if (this.$refs.content.$vnode.parent && this.$refs.content.$vnode.parent.componentInstance && this.$refs.content.$vnode.parent.componentInstance.cache)
             {
-              var key = this.$refs.content.$vnode.key == null
-                ? this.$refs.content.$vnode.componentOptions.Ctor.cid + (this.$refs.content.$vnode.componentOptions.tag ? `::${this.$refs.content.$vnode.componentOptions.tag}` : '')
-                : this.$refs.content.$vnode.key;
-              var cache = this.$refs.content.$vnode.parent.componentInstance.cache;
-              var keys  = this.$refs.content.$vnode.parent.componentInstance.keys;
-              if (cache[key])
+              if (this.$refs.content.$vnode.componentOptions)
               {
-                if (keys.length) {
-                  var index = keys.indexOf(key);
-                  if (index > -1) {
-                    keys.splice(index, 1);
+                var key = this.$refs.content.$vnode.key == null
+                  ? this.$refs.content.$vnode.componentOptions.Ctor.cid + (this.$refs.content.$vnode.componentOptions.tag ? `::${this.$refs.content.$vnode.componentOptions.tag}` : '')
+                  : this.$refs.content.$vnode.key;
+                var cache = this.$refs.content.$vnode.parent.componentInstance.cache;
+                var keys  = this.$refs.content.$vnode.parent.componentInstance.keys;
+                if (cache[key])
+                {
+                  if (keys.length) {
+                    var index = keys.indexOf(key);
+                    if (index > -1) {
+                      keys.splice(index, 1);
+                    }
                   }
+                  delete cache[key];
                 }
-                delete cache[key];
               }
             }
           }
+          this.$refs.content.$destroy();
         }
-        this.$destroy();
+
 
       },
       openPop(val){

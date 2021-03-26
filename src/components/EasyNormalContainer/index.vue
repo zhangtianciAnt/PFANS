@@ -14,12 +14,14 @@
                           ref="workflow"></easy-work-flow>
         </el-row>
       </div>
+      <div style="padding-bottom: 10px">
       <el-alert
         type="info"
         :description="description"
         v-if="description"
         show-icon>
       </el-alert>
+      </div>
       <div align="right" class="filter-container">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}
         <el-popover
