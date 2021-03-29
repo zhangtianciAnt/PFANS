@@ -2505,7 +2505,6 @@
         // 获取table_list的真实高度（浮动内容的真实高度）
         const tableHeight = document.getElementById('table_list').offsetHeight
         // boxHeight和滑块浮动的高度相差小于50 && 不在加载中 && 不是最后一页
-        alert(this.tableList.length)
         if (tableHeight - (e.target.scrollTop + boxHeight) < 50 && !this.loading && this.listPage < (this.tableList.length / 300)) {
           // 第一次触发时，记录滑块高度
           // data里scrollTop，listPage默认为0
