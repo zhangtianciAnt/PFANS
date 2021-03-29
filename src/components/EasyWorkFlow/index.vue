@@ -148,9 +148,12 @@
                   })
                 } else {
                   //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
-                  this.$emit('setAlert', "如无审批操作相关按钮，请稍作等待或刷新重试！");
-                  this.$emit('canStartWorkflow', false);
-                  return;
+                  if(response.data.list.length > 0){
+                    this.$emit('setAlert', "如无审批操作相关按钮，请稍作等待或刷新重试！");
+                    this.$emit('canStartWorkflow', false);
+                    return;
+                  }
+
                   //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
                 }
                 this.workflowlist = workflows;
