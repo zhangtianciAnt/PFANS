@@ -10,6 +10,15 @@
       @buttonClick="buttonClick"
       ref="roletable" :rowClassName="rowClassName"
       v-loading="loading">
+<!--      ADD CCM 20210330 费用统计添加年度筛选 fr-->
+                  <el-date-picker
+                    :placeholder="$t('normal.error_09')"
+                    @change="yearChange"
+                    format="yyyy"
+                    type="year"
+                    v-model="form.year" slot="customize">
+                  </el-date-picker>
+<!--      ADD CCM 20210330 费用统计添加年度筛选 to-->
                   <el-select v-model="form.group_id" style="width: 20vw"
                              @change="changeGroup" slot="customize">
                     <el-option
@@ -42,6 +51,9 @@
         data: [],
         form: {
           group_id: '',
+          // ADD CCM 20210330 费用统计添加年度筛选 fr
+          year:moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
+          // ADD CCM 20210330 费用统计添加年度筛选 to
         },
         optionsdata: [],
         columns: [
@@ -690,8 +702,18 @@
         {
           groupid = this.form.group_id;
         }
+        // ADD CCM 20210330 费用统计添加年度筛选 fr
+        let yearnomal = '';
+        if (this.form.year)
+        {
+          yearnomal = moment(this.form.year).format('YYYY');
+        }
+        // ADD CCM 20210330 费用统计添加年度筛选 to
         let params = {
-          groupid: groupid
+          groupid: groupid,
+          // ADD CCM 20210330 费用统计添加年度筛选 fr
+          year:yearnomal
+          // ADD CCM 20210330 费用统计添加年度筛选 to
         }
         this.$store
           .dispatch('PFANS6008Store/getCostBygroupid', params)
@@ -793,8 +815,18 @@
           {
             groupid = this.form.group_id;
           }
+          // ADD CCM 20210330 费用统计添加年度筛选 fr
+          let yearnomal = '';
+          if (this.form.year)
+          {
+            yearnomal = moment(this.form.year).format('YYYY');
+          }
+          // ADD CCM 20210330 费用统计添加年度筛选 to
           let params = {
-            groupid: groupid
+            groupid: groupid,
+            // ADD CCM 20210330 费用统计添加年度筛选 fr
+            year:yearnomal
+            // ADD CCM 20210330 费用统计添加年度筛选 to
           }
           this.$store
             .dispatch('PFANS6008Store/insertCoststatistics',params)
@@ -996,6 +1028,13 @@
           this.init();
         }
       },
+      // ADD CCM 20210330 费用统计添加年度筛选 fr
+      yearChange(value) {
+        this.year = moment(value).format('YYYY');
+        this.$refs.roletable.$refs.eltable.clearSelection();
+        this.init();
+      },
+      // ADD CCM 20210330 费用统计添加年度筛选 fr
       //add-退场人员信息背景色
       rowClassName({row, rowIndex}) {
         if (row.exitime !==null && row.exitime !=='' && row.exitime !==undefined)
