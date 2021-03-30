@@ -48,6 +48,14 @@
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
                   </el-form-item>
+                  <el-form-item prop="type" label="组织层级" @mouseover.native="changeflag('typeflag',true)" @mouseout.native="changeflag('typeflag',false)">
+                    <el-input v-model="currentNode.type" v-show="typeflag"></el-input>
+                    <span v-show="!typeflag">{{currentNode.type}}</span>
+                  </el-form-item>
+                  <el-form-item prop="virtual" label="虚拟组织">
+                    <el-switch v-model="currentNode.virtual" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    </el-switch>
+                  </el-form-item>
                 </el-form>
                 <el-form autoComplete="off" status-icon :model="currentNode" ref="departmentForm"
                          label-position="left" label-width="8rem" style="  border-radius: 0.5rem;padding:3rem;"
@@ -75,6 +83,14 @@
                   </el-form-item>
                   <el-form-item prop="status" label="状态">
                     <el-switch v-model="currentNode.status" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
+                    </el-switch>
+                  </el-form-item>
+                  <el-form-item prop="type" label="组织层级" @mouseover.native="changeflag('typeflag',true)" @mouseout.native="changeflag('typeflag',false)">
+                    <el-input v-model="currentNode.type" v-show="typeflag"></el-input>
+                    <span v-show="!typeflag">{{currentNode.type}}</span>
+                  </el-form-item>
+                  <el-form-item prop="virtual" label="虚拟组织">
+                    <el-switch v-model="currentNode.virtual" active-color="#13ce66" inactive-color="#ff4949" active-value="0" inactive-value="1" :width="50">
                     </el-switch>
                   </el-form-item>
                 </el-form>
@@ -132,6 +148,7 @@
         timeflag: false,
         orgnameflag:false,
         encodingflag:false,
+        typeflag:false,
         exrinfolist: {
           banlist: [],
           invlist: []
@@ -276,6 +293,9 @@
             break
           case 'encodingflag':
             this.encodingflag = type
+            break
+          case 'typeflag':
+            this.typeflag = type
             break
           default:
             this.timeflag = type
