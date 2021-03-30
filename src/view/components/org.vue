@@ -52,7 +52,27 @@
       //       duration: 5 * 1000
       //     })
       //   })
-      this.data = this.$store.getters.orgList;
+      debugger
+
+      var orgs = this.$store.getters.orgList;
+      var result = [];
+      if(orgs.length > 0){
+        result = Object.assign({},orgs[0]);
+        result.orgs = []
+      }
+
+      for(var i_orgs = 0;i_orgs<orgs.length;i_orgs++){
+        let sub1orgs = orgs[i_orgs];
+        for(var i_sub1orgs = 0;i_sub1orgs<sub1orgs.orgs.length;i_sub1orgs++){
+          let sub2orgs = sub1orgs.orgs[i_sub1orgs];
+          if(sub2orgs.virtual === '0'){
+            result.orgs = result.orgs.concat(sub2orgs.orgs);
+          }else{
+            result.orgs.push(sub2orgs);
+          }
+        }
+      }
+      this.data = [result];
       this.orglistids = this.orglist
       if (this.orglistids != null) {
         if (!Array.isArray(this.orglistids)) {
