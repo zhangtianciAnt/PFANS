@@ -995,7 +995,10 @@ export default {
       if (role === '1' || roleFin === '0') {
         let centerId = '';
         if (roleFin === '0') {
-          centerId = '5e7858a08f4316308435112c';
+          //update gbb 20210329 2021组织架构变更 start
+          //centerId = '5e7858a08f4316308435112c';
+          centerId = this.$store.getters.orgtreeId;
+          //update gbb 20210329 2021组织架构变更 end
         } else {
           centerId = this.$store.getters.userinfo.userinfo.centerid;
         }

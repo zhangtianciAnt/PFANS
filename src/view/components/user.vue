@@ -291,7 +291,10 @@
         //     this.loading = false;
         //   })
 
-        this.data = this.$store.getters.orgList;
+        //update gbb 20210329 2021组织架构变更-人员选择时树组织隐藏副总经理节点 start
+        //this.data = this.$store.getters.orgList;
+        this.data = this.$store.getters.orguserList;
+        //update gbb 20210329 2021组织架构变更-人员选择时树组织隐藏副总经理节点 end
         this.departmentData = {};
         this.buildDepartmentData(this.data);
         this.handleNodeClick(this.data[0]);

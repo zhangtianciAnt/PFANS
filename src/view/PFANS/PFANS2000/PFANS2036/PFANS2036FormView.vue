@@ -2472,7 +2472,10 @@
         );
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
           || this.$store.getters.userinfo.userid === '5e78b22c4e3b194874180f5f') {
-          let centerId = '5e7858a08f4316308435112c';
+          //update gbb 20210329 2021组织架构变更 start
+          //let centerId = '5e7858a08f4316308435112c';
+          let centerId = this.$store.getters.orgtreeId;
+          //update gbb 20210329 2021组织架构变更 end
           let orgs = getDownOrgInfo(centerId);
           if (orgs) {
             if (orgs.length > 0) {

@@ -1305,7 +1305,10 @@
         //     || this.$store.getters.userinfo.userid ==='5e78b2064e3b194874180e4d')
         //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
             {
-                let centerId = '5e7858a08f4316308435112c';
+                //update gbb 20210329 2021组织架构变更 start
+                //let centerId = '5e7858a08f4316308435112c';
+                let centerId = this.$store.getters.orgtreeId;
+                //update gbb 20210329 2021组织架构变更 end
                 let orgs = getDownOrgInfo(centerId);
                 if (orgs){
                     if(orgs.length > 0){

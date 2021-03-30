@@ -9,6 +9,10 @@ const getters = {
   userList: state => state.global.userList,
   workflowUrl: state => state.global.workflowUrl,
   orgList: state => state.global.orgList,
+  //add gbb 20210329 2021组织架构变更 start
+  orguserList: state => state.global.orguserList,
+  orgtreeId: state => state.global.orgtreeId,
+  //add gbb 20210329 2021组织架构变更 end
   dictionaryList: state => state.global.dictionaryList,
   days: state => state.global.days,
   orgs: state => state.usersStore.orgs,
