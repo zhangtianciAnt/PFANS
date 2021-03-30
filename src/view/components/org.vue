@@ -52,8 +52,6 @@
       //       duration: 5 * 1000
       //     })
       //   })
-      debugger
-
       var orgs = this.$store.getters.orgList;
       var result = [];
       if(orgs.length > 0){
