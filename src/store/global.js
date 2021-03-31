@@ -69,10 +69,12 @@ const global = {
                   //所有center[orgGroupList为center数据]
                   orgsnew.push(infos[0].orgs[i].orgs[j]);
                   state.orgGroupList.push({
-                    centerid: infos[0].orgs[i]._id,
+                    centerid: infos[0].orgs[i]._id,//副总经理组织
                     centername: infos[0].orgs[i].companyname,
-                    groupid: infos[0].orgs[i].orgs[j]._id,
+                    centeruser: infos[0].orgs[i].user,//副总经经理负责人
+                    groupid: infos[0].orgs[i].orgs[j]._id,//center组织
                     groupname: infos[0].orgs[i].orgs[j].companyname,
+                    groupuser: infos[0].orgs[i].orgs[j].user,//center负责人
                     companyen: infos[0].orgs[i].orgs[j].companyen,
                     encoding: infos[0].orgs[i].orgs[j].encoding,
                     redirict:infos[0].orgs[i].orgs[j].redirict
@@ -157,113 +159,117 @@ const global = {
         for (let role of useraccount.roles) {
           roles = roles + ',' + role.rolename;
         }
+        roles = roles.replace("副总经理","副总");
         if (roles.indexOf('系统管理员') != -1) {
-          returnroles = returnroles + ',' + '1';
-        }
-        if (roles.indexOf('总经理') != -1) {
-          returnroles = returnroles + ',' + '2';
-        }
-        if (roles.indexOf('center长') != -1) {
-          returnroles = returnroles + ',' + '3';
-        }
-        if (roles.indexOf('GM') != -1) {
-          returnroles = returnroles + ',' + '4';
-        }
-        if (roles.indexOf('TL') != -1) {
-          returnroles = returnroles + ',' + '5';
-        }
-        if (roles.indexOf('正式社员') != -1) {
-          returnroles = returnroles + ',' + '6';
-        }
-        if (roles.indexOf('财务部长') != -1) {
-          returnroles = returnroles + ',' + '7';
-        }
-        if (roles.indexOf('人事总务部长') != -1) {
-          returnroles = returnroles + ',' + '8';
-        }
-        if (roles.indexOf('企划部长') != -1) {
-          returnroles = returnroles + ',' + '9';
-        }
-        if (roles.indexOf('合同担当') != -1) {
           returnroles = returnroles + ',' + '10';
         }
-        if (roles.indexOf('信息安全担当') != -1) {
+        if (roles.indexOf('总经理') != -1) {
           returnroles = returnroles + ',' + '11';
         }
-        if (roles.indexOf('IT担当') != -1) {
+        if (roles.indexOf('center长') != -1) {
           returnroles = returnroles + ',' + '12';
         }
-        if (roles.indexOf('外注管理担当') != -1) {
+        if (roles.indexOf('GM') != -1) {
           returnroles = returnroles + ',' + '13';
         }
-        if (roles.indexOf('工资计算担当') != -1) {
+        if (roles.indexOf('TL') != -1) {
           returnroles = returnroles + ',' + '14';
         }
-        if (roles.indexOf('招聘担当') != -1) {
+        if (roles.indexOf('正式社员') != -1) {
           returnroles = returnroles + ',' + '15';
         }
-        if (roles.indexOf('总务担当') != -1) {
+        if (roles.indexOf('财务部长') != -1) {
           returnroles = returnroles + ',' + '16';
         }
-        if (roles.indexOf('财务担当') != -1) {
+        if (roles.indexOf('人事总务部长') != -1) {
           returnroles = returnroles + ',' + '17';
         }
-        if (roles.indexOf('外协员工') != -1) {
+        if (roles.indexOf('企划部长') != -1) {
           returnroles = returnroles + ',' + '18';
         }
-        if (roles.indexOf('外协staff') != -1) {
+        if (roles.indexOf('合同担当') != -1) {
           returnroles = returnroles + ',' + '19';
         }
-        if (roles.indexOf('司机') != -1) {
+        if (roles.indexOf('信息安全担当') != -1) {
           returnroles = returnroles + ',' + '20';
         }
-        if (roles.indexOf('招聘_全人员') != -1) {
+        if (roles.indexOf('IT担当') != -1) {
           returnroles = returnroles + ',' + '21';
         }
-        if (roles.indexOf('军权_合同，PJ所有') != -1) {
+        if (roles.indexOf('外注管理担当') != -1) {
           returnroles = returnroles + ',' + '22';
         }
-        if (roles.indexOf('盘点') != -1) {
+        if (roles.indexOf('工资计算担当') != -1) {
           returnroles = returnroles + ',' + '23';
         }
-        if (roles.indexOf('离职审批人员') != -1) {
+        if (roles.indexOf('招聘担当') != -1) {
           returnroles = returnroles + ',' + '24';
         }
-        if (roles.indexOf('纳品担当') != -1) {
+        if (roles.indexOf('总务担当') != -1) {
           returnroles = returnroles + ',' + '25';
         }
-        if (roles.indexOf('请求担当') != -1) {
+        if (roles.indexOf('财务担当') != -1) {
           returnroles = returnroles + ',' + '26';
         }
-        if (roles.indexOf('前台总务') != -1) {
+        if (roles.indexOf('外协员工') != -1) {
           returnroles = returnroles + ',' + '27';
         }
-        if (roles.indexOf('PL权限') != -1) {
+        if (roles.indexOf('外协staff') != -1) {
           returnroles = returnroles + ',' + '28';
         }
-        if (roles.indexOf('离职担当') != -1) {
+        if (roles.indexOf('司机') != -1) {
           returnroles = returnroles + ',' + '29';
         }
-        if (roles.indexOf('工会担当') != -1) {
+        if (roles.indexOf('招聘_全人员') != -1) {
           returnroles = returnroles + ',' + '30';
         }
-        if (roles.indexOf('研修担当') != -1) {
+        if (roles.indexOf('军权_合同，PJ所有') != -1) {
           returnroles = returnroles + ',' + '31';
         }
-        if (roles.indexOf('法务') != -1) {
+        if (roles.indexOf('盘点') != -1) {
           returnroles = returnroles + ',' + '32';
         }
-        if (roles.indexOf('项目管理担当（财务）') != -1) {
+        if (roles.indexOf('离职审批人员') != -1) {
           returnroles = returnroles + ',' + '33';
         }
-        if (roles.indexOf('其他合同担当') != -1) {
+        if (roles.indexOf('纳品担当') != -1) {
           returnroles = returnroles + ',' + '34';
         }
-        if (roles.indexOf('IT担当-采购资产编号维护') != -1) {
+        if (roles.indexOf('请求担当') != -1) {
           returnroles = returnroles + ',' + '35';
         }
-        if (roles.indexOf('财务担当-采购资产编号维护') != -1) {
+        if (roles.indexOf('前台总务') != -1) {
           returnroles = returnroles + ',' + '36';
+        }
+        if (roles.indexOf('PL权限') != -1) {
+          returnroles = returnroles + ',' + '37';
+        }
+        if (roles.indexOf('离职担当') != -1) {
+          returnroles = returnroles + ',' + '38';
+        }
+        if (roles.indexOf('工会担当') != -1) {
+          returnroles = returnroles + ',' + '39';
+        }
+        if (roles.indexOf('研修担当') != -1) {
+          returnroles = returnroles + ',' + '40';
+        }
+        if (roles.indexOf('法务') != -1) {
+          returnroles = returnroles + ',' + '41';
+        }
+        if (roles.indexOf('项目管理担当（财务）') != -1) {
+          returnroles = returnroles + ',' + '42';
+        }
+        if (roles.indexOf('其他合同担当') != -1) {
+          returnroles = returnroles + ',' + '43';
+        }
+        if (roles.indexOf('IT担当-采购资产编号维护') != -1) {
+          returnroles = returnroles + ',' + '44';
+        }
+        if (roles.indexOf('财务担当-采购资产编号维护') != -1) {
+          returnroles = returnroles + ',' + '45';
+        }
+        if (roles.indexOf('副总') != -1) {
+          returnroles = returnroles + ',' + '46';
         }
       }
       state.roles = returnroles.substring(1, returnroles.length);
