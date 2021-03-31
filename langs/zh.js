@@ -580,6 +580,7 @@ module.exports = {
     node_type_1: '确认节点',
     node_type_2: '通知节点',
     node_operate_user: '审批人',
+    node_operate_org: '出口组织',
     node_remarks: '注意事项',
     node_notice: '通知文言',
     user_type: '审批人类型',
