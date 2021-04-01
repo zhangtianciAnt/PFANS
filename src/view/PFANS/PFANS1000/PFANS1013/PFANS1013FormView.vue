@@ -1586,8 +1586,8 @@
             let role = getCurrentRole();
             if (role == '1') {//总经理
               this.workflowCode = 'W0084';
-            } else if (role == '2' || role == '3') { //GM Center
-              this.workflowCode = 'W0079';//新流程
+            // } else if (role == '2' || role == '3') { //GM Center
+            //   this.workflowCode = 'W0079';//新流程
             } else { //TL 正式员工
               this.workflowCode = 'W0014';
             }
