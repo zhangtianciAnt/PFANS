@@ -960,7 +960,7 @@
   import EasyWorkFlow from '@/components/EasyWorkFlow';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getCurrentRole, getDictionaryInfo, getDownOrgInfo, getUpOrgInfo, getUserInfo} from '@/utils/customize';
+  import {getCurrentRoleNew, getDictionaryInfo, getDownOrgInfo, getUpOrgInfo, getUserInfo} from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
@@ -1416,89 +1416,102 @@
       },
       getGroupOptions() {
         this.loading = true;
-        let role = getCurrentRole();
-        const options = [];
-        if (this.$store.getters.useraccount._id != '5e78b17ef3c8d71e98a2aa30') {
-          if (role === '3') {//GM
-            options.push(
-              {
-                value: this.$store.getters.userinfo.userinfo.groupid,
-                lable: this.$store.getters.userinfo.userinfo.groupname,
-              },
+        //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 start
+        let role = getCurrentRoleNew();
+        const vote = [];
+        if (role === '3') {//CENTER
+            vote.push(
+                {
+                    value: this.$store.getters.userinfo.userinfo.centerid,
+                    lable: this.$store.getters.userinfo.userinfo.centername,
+                },
             );
-          } else if (role === '2') {//Center长
-            if (this.$store.getters.userinfo.userid) {
-              let centerId = this.$store.getters.userinfo.userinfo.centerid;
-              let orgs = getDownOrgInfo(centerId);
-              if (orgs) {
-                for (let org of orgs) {
-                  // console.log(org);
-                  options.push(
+            //add ccm 0112 兼职部门
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+                for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                    if (others.centerid)
                     {
-                      value: org._id,
-                      lable: org.companyname,
-                    },
-                  );
-                }
-              }
-            }
-          } else if (role === '1') {//总经理
-            if (this.$store.getters.userinfo.userid) {
-              let centerId = this.$store.getters.userinfo.userinfo.centerid;
-              let orgs = getDownOrgInfo(centerId);
-              if (orgs) {
-                for (let center of orgs) {
-                  let centers = getDownOrgInfo(center._id);
-                  if (centers) {
-                    for (let group of centers) {
-                      options.push(
-                        {
-                          value: group._id,
-                          lable: group.companyname,
-                        },
-                      );
+                        this.$store.getters.orgGroupList.filter((item) => {
+                            if (item.centerid === others.centerid) {
+                                vote.push(
+                                    {
+                                        value: item.centerid,
+                                        lable: item.centername,
+                                    },
+                                );
+                            }
+                        })
                     }
-                  }
                 }
-              }
             }
-          }
+            //add ccm 0112 兼职部门
+        } else if (role === '2') {//副总经理
+            this.$store.getters.orgGroupList.filter((item) => {
+                if (item.virtualuser === this.$store.getters.userinfo.userid) {
+                    vote.push(
+                        {
+                            value: item.centerid,
+                            lable: item.centername,
+                        },
+                    );
+                }
+            })
+            //add ccm 0112 兼职部门
+            if (this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+                for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                    if (others.centerid)
+                    {
+                        this.$store.getters.orgGroupList.filter((item) => {
+                            if (item.centerid === others.centerid) {
+                                vote.push(
+                                    {
+                                        value: item.centerid,
+                                        lable: item.centername,
+                                    },
+                                );
+                            }
+                        })
+                    }
+                }
+            }
+            //add ccm 0112 兼职部门
         }
         const vote1 = [];
-        if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
-          || this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'
-          || this.$store.getters.userinfo.userid === '5e78b2254e3b194874180f31'
-          || this.$store.getters.userinfo.userid === '5e78b2004e3b194874180e21'
-          || this.$store.getters.userinfo.userid === '5e78b2064e3b194874180e4d') {
-          //update gbb 20210329 2021组织架构变更 start
-          //let centerId = '5e7858a08f4316308435112c';
-          let centerId = this.$store.getters.orgtreeId;
-          //update gbb 20210329 2021组织架构变更 end
-          let orgs = getDownOrgInfo(centerId);
-          if (orgs) {
-            if (orgs.length > 0) {
-              if (getDownOrgInfo(orgs[0]._id).length > 0) {
-                this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
-              }
-            }
-            for (let center of orgs) {
-              let centers = getDownOrgInfo(center._id);
-              if (centers) {
-                for (let group of centers) {
-                  vote1.push(
+        if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+            || this.$store.getters.roles.indexOf("11") != -1 //总经理
+            || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+            || this.$store.getters.roles.indexOf("18") != -1//企划部长
+            || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+        {
+            this.$store.getters.orgGroupList.filter((item) => {
+                vote1.push(
                     {
-                      value: group._id,
-                      lable: group.companyname,
+                        value: item.centerid,
+                        lable: item.centername,
                     },
-                  );
-                }
-              }
-            }
-          }
-          this.grp_options = vote1;
-        } else {
-          this.grp_options = options;
+                );
+            })
+            this.grp_options = vote1;
         }
+        else
+        {
+            this.grp_options = vote;
+        }
+        //去重
+        let letoptionsdata = [];
+        let arrId = [];
+        for(var item of this.grp_options){
+            if(arrId.indexOf(item['lable']) == -1){
+                arrId.push(item['lable']);
+                letoptionsdata.push(item);
+            }
+        }
+        this.grp_options = letoptionsdata;
+        //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
         this.loading = false;
       },
       yearChange(value) {
