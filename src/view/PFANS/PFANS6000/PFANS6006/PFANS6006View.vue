@@ -1414,8 +1414,18 @@
               if (this.group_id) {
                   groupid = this.group_id;
               }
+            // ADD CCM 20210330 费用统计添加年度筛选 fr
+            let yearnomal = '';
+            if (this.year)
+            {
+              yearnomal = moment(this.year).format('YYYY');
+            }
+            // ADD CCM 20210330 费用统计添加年度筛选 to
               let params = {
-                  groupid: groupid
+                  groupid: groupid,
+                // ADD CCM 20210330 费用统计添加年度筛选 fr
+                year:yearnomal
+                // ADD CCM 20210330 费用统计添加年度筛选 to
               }
               this.$store
                   .dispatch('PFANS6008Store/insertCoststatistics', params)
