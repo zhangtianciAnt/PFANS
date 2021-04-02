@@ -376,7 +376,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        workflowCode: 'W0024',
+        workflowCode: '',
         buttonList: [],
         baseInfo: {},
         multiple: false,

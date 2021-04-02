@@ -233,7 +233,7 @@
         }
       };
       return {
-        workcode: 'W0066',
+        workcode: '',
         centerid: '',
         groupid: '',
         teamid: '',

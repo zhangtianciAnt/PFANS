@@ -10,6 +10,7 @@
       @start="start"
       @workflowState="workflowState"
       :enableSave="enableSave"
+      :workflowCode="workflowCode"
       ref="container"
     >
       <div slot="customize">
@@ -268,6 +269,7 @@
                 centerid: '',
                 groupid: '',
                 teamid: '',
+                workflowCode: 'W0041',
                 loading: false,
                 canStart: false,
                 selectType: "Single",

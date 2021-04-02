@@ -617,7 +617,7 @@
         errorcheck: 1,
         // checkfinisheddate: true,
         relistTwo: '',
-        workflowCode: 'W0070',
+        workflowCode: '',
         canStart: true,
         loading: false,
         leaveNum: 0,

@@ -772,7 +772,7 @@
         recipientslist: '',
         title: 'title.PFANS3005VIEW',
         enableSave: false,
-        workflowCode: 'W0126',
+        workflowCode: '',
         fixedisable: true,
         editableTabsValue: '0',
         editableTabs: [],

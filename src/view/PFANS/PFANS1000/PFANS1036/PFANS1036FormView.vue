@@ -6,7 +6,7 @@
       :title="title"
       @buttonClick="buttonClick"
       ref="container"
-      @end="end" @start="start" @workflowState="workflowState"
+      @end="end" @start="start" @workflowState="workflowState" :workflowCode="workflowCode"
     >
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" employedref="refform"
@@ -2219,6 +2219,7 @@
         }
       };
       return {
+        workflowCode: 'W0010',
         role: '',
         org: [],
         month: '',

@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="workcode"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
+                         :workflowCode="workcode"
                          @buttonClick="buttonClick" @disabled="setdisabled" :enableSave="enableSave"
                          :userlist="userlist"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
@@ -705,7 +706,7 @@
         editorOption: {},
         options: [],
         optionsM: [],
-        workcode: 'W0091',
+        workcode: '',
         centerid: '',
         groupid: '',
         errorgroupM: '',

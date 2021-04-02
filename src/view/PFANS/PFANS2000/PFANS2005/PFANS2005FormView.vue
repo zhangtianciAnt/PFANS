@@ -9,6 +9,7 @@
       :canStart="canStart"
       @end="end"
       @start="start"
+      :workflowCode="workflowCode"
       @workflowState="workflowState"
     >
       <div slot="customize">
@@ -3352,6 +3353,7 @@
             return {
                 canStart: false,
                 status:'0',
+                workflowCode:'W0089',
                 responseDataInit: [], // responseDataInit 初始化值
                 filterName: "", //  过滤用户姓名
                 tableData: [], // 工资画面显示总数据

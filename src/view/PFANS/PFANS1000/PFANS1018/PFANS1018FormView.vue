@@ -246,7 +246,7 @@
         appcenterid: '',
         appgroupid: '',
         appteamid: '',
-        workflowCode: 'W0025',
+        workflowCode: '',
         loading: false,
         error_applicant: '',
         error_user: '',

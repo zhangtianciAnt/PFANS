@@ -10,6 +10,7 @@
                          @workflowState="workflowState"
                          @disabled="setdisabled"
                          ref="container"
+                         :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw;height: auto">
@@ -124,6 +125,7 @@
         defaultStart: false,
         enableSave: false,
         moneysum: '',
+        workflowCode: 'W0090',
         disable: false,
         error: '',
         userlist: '',

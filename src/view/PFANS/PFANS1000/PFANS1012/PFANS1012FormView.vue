@@ -1595,7 +1595,7 @@
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         tormbT: '',
         //add-ws-6/12-禅道105
-        workflowCode: 'W0016',
+        workflowCode: '',
         //add-ws-6/12-禅道105
         Redirict: '',
         search: '',

@@ -7,6 +7,7 @@
       @end="end"
       @start="start" @disabled="setdisabled"
       @workflowState="workflowState"
+      :workflowCode="workflowCode"
       ref="container"
       v-loading="loading"
     >
@@ -334,6 +335,7 @@
                 flags:false,
                 disabled: true,
                 activeName: "first",
+                workflowCode: "W0062",
                 errorManager: "",
                 userlist: "",
                 // update gbb 20210318 NT_PFANS_20210315_BUG_142 控制保存按钮是否可编辑 start

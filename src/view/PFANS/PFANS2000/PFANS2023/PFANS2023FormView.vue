@@ -1,6 +1,7 @@
 <template>
   <div>
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="aaaaaa" :enableSave="enableSave"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
+                         :workflowCode="workflowCode" :enableSave="enableSave"
                          @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState"
                          ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
@@ -266,10 +267,10 @@
                 centerid: '',
                 groupid: '',
                 teamid: '',
-                aaaaaa: "W0036",
+                workflowCode: '',
                 error: "",
                 selectType: "Single",
-                userlist: "",
+                userlist: '',
                 activeName: 'first',
                 buttonList: [],
                 data: [],
@@ -453,7 +454,7 @@
             //add_fjl_08/19  --一个事业年度只可以提出一次check
             useDisable(){
                 if (this.form.stage === '0' && this.form.status === '0') {
-                    this.aaaaaa = 'W0036';
+                    this.workflowCode = 'W0036';
                     this.canStart = true;
                     this.disable = true;
                     this.disableyear = true;
@@ -462,7 +463,7 @@
                     this.disabledec = false;
                     this.disablemar = false;
                 } else if (this.form.stage === '0' && this.form.status === '2') {
-                    this.aaaaaa = 'W0036';
+                    this.workflowCode = 'W0036';
                     this.canStart = false;
                     this.disable = false;
                     //add-ws-6/11-禅道任务082
@@ -473,7 +474,7 @@
                     this.disabledec = false;
                     this.disablemar = false;
                 } else if (this.form.stage === '0' && this.form.status === '3') {
-                    this.aaaaaa = 'W0036';
+                    this.workflowCode = 'W0036';
                     this.canStart = true;
                     this.disable = true;
                     //add-ws-6/11-禅道任务082
@@ -484,7 +485,7 @@
                     this.disabledec = false;
                     this.disablemar = false;
                 } else if (this.form.stage === '0' && this.form.status === '4') {
-                    this.aaaaaa = 'W0036';
+                    this.workflowCode = 'W0036';
                     this.disable = false;
                     this.disableyear = false;
                     this.disablesep = true;
@@ -492,7 +493,7 @@
                     this.disablemar = false;
                     this.canStart = true;
                 } else if (this.form.stage === '1' && this.form.status === '0') {
-                    this.aaaaaa = 'W0037';
+                    this.workflowCode = 'W0037';
                     this.canStart = true;
                     this.disable = false;
                     this.disableyear = false;
@@ -522,7 +523,7 @@
                     // this.form.your_own_goals_sep =  this.form.your_own_goals_year
                     // upd_fjl  --为空赋前一个tab里面的值
                 } else if (this.form.stage === '1' && this.form.status === '2') {
-                    this.aaaaaa = 'W0037';
+                    this.workflowCode = 'W0037';
                     this.canStart = false;
                     this.disable = false;
                     this.disableyear = false;
@@ -532,7 +533,7 @@
                     this.disabledec = false;
                     this.disablemar = false;
                 } else if (this.form.stage === '1' && this.form.status === '3') {
-                    this.aaaaaa = 'W0037';
+                    this.workflowCode = 'W0037';
                     this.canStart = true;
                     this.disable = false;
                     //add-ws-6/11-禅道任务082
@@ -543,7 +544,7 @@
                     this.disabledec = false;
                     this.disablemar = false;
                 } else if (this.form.stage === '1' && this.form.status === '4') {
-                    this.aaaaaa = 'W0037';
+                    this.workflowCode = 'W0037';
                     this.canStart = true;
                     this.disable = false;
                     this.disableyear = false;
@@ -551,7 +552,7 @@
                     this.disabledec = true;
                     this.disablemar = false;
                 } else if (this.form.stage === '2' && this.form.status === '0') {
-                    this.aaaaaa = 'W0038';
+                    this.workflowCode = 'W0038';
                     this.canStart = true;
                     this.disable = false;
                     this.disableyear = false;
@@ -583,7 +584,7 @@
                     //upd_fjl  --为空赋前一个tab里面的值
 
                 } else if (this.form.stage === '2' && this.form.status === '2') {
-                    this.aaaaaa = 'W0038';
+                    this.workflowCode = 'W0038';
                     this.canStart = false;
                     this.disable = false;
                     this.disableyear = false;
@@ -595,7 +596,7 @@
                     this.disablemar = false;
                     this.mar = false;
                 } else if (this.form.stage === '2' && this.form.status === '3') {
-                    this.aaaaaa = 'W0038';
+                    this.workflowCode = 'W0038';
                     this.canStart = true;
                     this.disable = false;
                     //add-ws-6/11-禅道任务082
@@ -606,7 +607,7 @@
                     this.disabledec = true;
                     this.disablemar = false;
                 } else if (this.form.stage === '2' && this.form.status === '4') {
-                    this.aaaaaa = 'W0038';
+                    this.workflowCode = 'W0038';
                     this.canStart = true;
                     this.disable = false;
                     this.disableyear = false;
@@ -614,7 +615,7 @@
                     this.disabledec = false;
                     this.disablemar = true;
                 } else if (this.form.stage === '3' && this.form.status === '0') {
-                    this.aaaaaa = 'W0039';
+                    this.workflowCode = 'W0039';
                     this.canStart = true;
                     this.disable = false;
                     this.disableyear = false;
@@ -646,7 +647,7 @@
                     // this.form.your_own_goals_mar =  this.form.your_own_goals_dec
                     //upd_fjl  --为空赋前一个tab里面的值
                 } else if (this.form.stage === '3' && this.form.status === '2') {
-                    this.aaaaaa = 'W0039';
+                    this.workflowCode = 'W0039';
                     this.canStart = false;
                     this.disable = false;
                     this.disableyear = false;
@@ -658,7 +659,7 @@
                     this.disablemar = false;
                     this.mar = false;
                 } else if (this.form.stage === '3' && this.form.status === '3') {
-                    this.aaaaaa = 'W0039';
+                    this.workflowCode = 'W0039';
                     this.canStart = true;
                     this.disable = false;
                     //add-ws-6/11-禅道任务082
@@ -669,7 +670,7 @@
                     this.disabledec = false;
                     this.disablemar = true;
                 } else if (this.form.stage === '3' && this.form.status === '4') {
-                    this.aaaaaa = 'W0039';
+                    this.workflowCode = 'W0039';
                     this.canStart = false;
                     this.disable = false;
                     this.disableyear = false;

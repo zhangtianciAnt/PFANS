@@ -12,6 +12,7 @@
     @disabled="setdisabled"
     v-loading="loading"
     :enableSave="enableSave"
+    :workflowCode="workflowCode"
   >
     <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
@@ -730,6 +731,7 @@
             };
 
             return {
+                workflowCode: 'W0046',
                 errorcenter: '',
                 errorgroup: '',
                 loading: false,

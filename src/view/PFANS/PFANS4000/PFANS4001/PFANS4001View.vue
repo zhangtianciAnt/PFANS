@@ -1,13 +1,9 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :alertshow="alertshow"
                      @handleacceptstate="handleacceptstate" :handles="handles"  @handleacceptstate1="handleacceptstate1"
     >
-      <span slot="customize">{{$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') +':'}}</span>
-      <span slot="customize" class="sub_color_red">{{this.user}}</span>
-      <span slot="customize">{{$t('label.PFANS4001FORMVIEW_SEALDETAILDATE') +':'}}</span>
-      <span slot="customize" class="sub_color_red">{{this.sealdetail}}</span>
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
     <el-drawer :visible.sync="insertnamedialog" size="40%" :show-close="false" :withHeader="false" append-to-body>
@@ -50,6 +46,8 @@
     },
     data() {
       return {
+        alertshow: true,
+        description:'',
         checklist: [],
         spanshow: true,
         handles: true,
@@ -270,6 +268,7 @@
               }
               //add-ws-12/21-印章盖印
             }
+            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.user + this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.sealdetail;
             this.data = response.seal;
             this.loading = false;
           })

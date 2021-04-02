@@ -679,7 +679,7 @@
         activeName: 'first',
         loading: false,
         disableview: false,
-          workflowCode: 'W0049',
+        workflowCode: '',
         disabled: false,
         code1: 'PJ018',
         code2: 'PG002',

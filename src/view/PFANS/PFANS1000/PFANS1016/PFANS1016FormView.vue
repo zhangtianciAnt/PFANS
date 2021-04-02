@@ -343,7 +343,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        workflowCode: 'W0023',
+        workflowCode: '',
         buttonList: [],
         baseInfo: {},
         loading: false,
