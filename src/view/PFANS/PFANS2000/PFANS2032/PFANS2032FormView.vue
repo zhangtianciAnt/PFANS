@@ -792,14 +792,14 @@
             this.form = response.staffexitproce;
             this.ID = this.params_id
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
-
-            let role = getCurrentRole();
-            if(role == '2' || role == '3') { //GM Center
-              this.right = 'W0139'//新流程
-            }else { //TL 正式员工
+            //update ztc 2021新年度流程调整 start
+            // let role = getCurrentRole();
+            // if(role == '2' || role == '3') { //GM Center
+            //   this.right = 'W0139'//新流程 删除
+            // }else { //TL 正式员工
               this.right = 'W0081'
-            }
-
+            // }
+            //update ztc 2021新年度流程调整 end
             if (response.staffexitproce.checkedgm === 'true') {
               this.form.checkedgm = true;
               this.checkbox = true;

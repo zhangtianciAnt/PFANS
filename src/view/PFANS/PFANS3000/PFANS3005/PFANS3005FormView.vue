@@ -1432,18 +1432,24 @@
                 this.form.procurementproject === 'PJ005019' ||
                 this.form.procurementproject === 'PJ005020') {
                 //电脑相关，1000元以下
-                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0136';
-                } else {
-                  this.workflowCode = 'W0126';
-                }
+                //update ztc 2021新年度流程调整 start
+                this.workflowCode = 'W0126';
+                // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                //   this.workflowCode = 'W0136';//删除
+                // } else {
+                //   this.workflowCode = 'W0126';
+                // }
+                //update ztc 2021新年度流程调整 end
               } else {
-                if (getCurrentRole() === '2' || getCurrentRole() === '3') {
-                  this.workflowCode = 'W0140';
-                } else {
-                  //最后节点到GM  事业计划内 1000以下
-                  this.workflowCode = 'W0082';
-                }
+                //update ztc 2021新年度流程调整 start
+                this.workflowCode = 'W0082';
+                // if (getCurrentRole() === '2' || getCurrentRole() === '3') {
+                //   this.workflowCode = 'W0140';//删除
+                // } else {
+                //   //最后节点到GM  事业计划内 1000以下
+                //   this.workflowCode = 'W0082';
+                // }
+                //update ztc 2021新年度流程调整 end
               }
             } else if (Number(this.form.totalamount) > 1000 && Number(this.form.totalamount) <= 20000) {
               if (this.form.procurementproject === 'PJ005005' ||
