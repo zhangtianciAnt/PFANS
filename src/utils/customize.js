@@ -505,6 +505,26 @@ export function getCurrentRole() {
   return '5';
 }
 
+//insert gbb 20210331 2021组织架构变更-添加副总经理 start
+export function getCurrentRoleNew() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.indexOf('副总经理') != -1) {
+      return '2';
+    } else if (roles.toUpperCase().indexOf('总经理') != -1) {
+      return '1';
+    } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+      return '3';
+    } else if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '4';
+    }
+  }
+  return '0';
+}
+//insert gbb 20210331 2021组织架构变更-添加副总经理 end
 export function getCurrentRole2() {
   let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
