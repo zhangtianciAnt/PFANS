@@ -65,18 +65,18 @@ const global = {
           for (let i = 0; i < infos[0].orgs.length; i++) {
             if (infos[0].orgs[i].orgs.length > 0) {
               for (let j = 0; j < infos[0].orgs[i].orgs.length; j++) {
-                if (infos[0].orgs[i].orgs[j].type === "2") {
+                if (infos[0].orgs[i].orgs[j].type === "1") {
                   //所有center[orgGroupList为center数据]
                   orgsnew.push(infos[0].orgs[i].orgs[j]);
                   state.orgGroupList.push({
-                    centerid: infos[0].orgs[i]._id,//副总经理组织
-                    centername: infos[0].orgs[i].companyname,
-                    centeruser: infos[0].orgs[i].user,//副总经经理负责人
-                    groupid: infos[0].orgs[i].orgs[j]._id,//center组织
-                    groupname: infos[0].orgs[i].orgs[j].companyname,
-                    groupuser: infos[0].orgs[i].orgs[j].user,//center负责人
-                    companyen: infos[0].orgs[i].orgs[j].companyen,
-                    encoding: infos[0].orgs[i].orgs[j].encoding,
+                    virtualid: infos[0].orgs[i]._id,
+                    virtualname: infos[0].orgs[i].companyname,//副总经理组织
+                    virtualuser: infos[0].orgs[i].user,//副总经经理负责人
+                    centerid: infos[0].orgs[i].orgs[j]._id,
+                    centername: infos[0].orgs[i].orgs[j].companyname,//center组织
+                    centeruser: infos[0].orgs[i].orgs[j].user,//center负责人
+                    companyen: infos[0].orgs[i].orgs[j].companyen,//英文缩写
+                    encoding: infos[0].orgs[i].orgs[j].encoding,//预算编码
                     redirict:infos[0].orgs[i].orgs[j].redirict
                   });
                 }
