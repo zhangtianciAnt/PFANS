@@ -2642,7 +2642,7 @@
         this.$store
           .dispatch("PFANS2036Store/gettableRb", {yearsantid: this.$route.params._id})
           .then(response => {
-            // this.tableRb = response;
+            this.tableRb = response;
             this.loading = false;
           })
           .catch(err => {
