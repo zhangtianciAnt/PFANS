@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :alertshow="alertshow"
+                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :alertshow="alertshow" :description="description"
                      @handleacceptstate="handleacceptstate" :handles="handles"  @handleacceptstate1="handleacceptstate1"
     >
     </EasyNormalTable>
@@ -443,22 +443,22 @@
             });
             return;
           }
-          this.$router.push({
-            name: 'PFANS4001FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false,
-            },
-          });
+          // this.$router.push({
+          //   name: 'PFANS4001FormView',
+          //   params: {
+          //     _id: this.rowid,
+          //     disabled: false,
+          //   },
+          // });
         }
         if (val === 'insert') {
-          this.$router.push({
-            name: 'PFANS4001FormView',
-            params: {
-              _id: '',
-              disabled: true,
-            },
-          });
+          // this.$router.push({
+          //   name: 'PFANS4001FormView',
+          //   params: {
+          //     _id: '',
+          //     disabled: true,
+          //   },
+          // });
         }
         if (val === 'edit') {
           if (this.rowid === '') {
@@ -469,13 +469,13 @@
             });
             return;
           }
-          this.$router.push({
-            name: 'PFANS4001FormView',
-            params: {
-              _id: this.rowid,
-              disabled: true,
-            },
-          });
+          // this.$router.push({
+          //   name: 'PFANS4001FormView',
+          //   params: {
+          //     _id: this.rowid,
+          //     disabled: true,
+          //   },
+          // });
         }
         if (val === 'insertname') {
           this.insertnamedialog = true;
