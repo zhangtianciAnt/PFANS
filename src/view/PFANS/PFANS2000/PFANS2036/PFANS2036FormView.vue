@@ -2472,7 +2472,10 @@
         );
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
           || this.$store.getters.userinfo.userid === '5e78b22c4e3b194874180f5f') {
-          let centerId = '5e7858a08f4316308435112c';
+          //update gbb 20210329 2021组织架构变更 start
+          //let centerId = '5e7858a08f4316308435112c';
+          let centerId = this.$store.getters.orgtreeId;
+          //update gbb 20210329 2021组织架构变更 end
           let orgs = getDownOrgInfo(centerId);
           if (orgs) {
             if (orgs.length > 0) {
@@ -2505,7 +2508,6 @@
         // 获取table_list的真实高度（浮动内容的真实高度）
         const tableHeight = document.getElementById('table_list').offsetHeight
         // boxHeight和滑块浮动的高度相差小于50 && 不在加载中 && 不是最后一页
-        alert(this.tableList.length)
         if (tableHeight - (e.target.scrollTop + boxHeight) < 50 && !this.loading && this.listPage < (this.tableList.length / 300)) {
           // 第一次触发时，记录滑块高度
           // data里scrollTop，listPage默认为0

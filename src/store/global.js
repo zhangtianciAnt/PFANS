@@ -27,6 +27,10 @@ const global = {
     roles: "",
     //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
     operateOwner:"",
+    //add gbb 20210329 2021组织架构变更 start
+    orgtreeId: "",//树主键
+    orguserList:[],//人员选择时树组织隐藏副总经理节点
+    //add gbb 20210329 2021组织架构变更 end
   },
   mutations: {
     SET_HISTORYURL(state, url) {
@@ -52,45 +56,76 @@ const global = {
     },
     SET_ORGLIST(state, infos) {
       state.orgList = infos
-      for (let i = 0; i < infos.length; i++) {
-        if (infos[i].orgs != null) {
-          //center
-          for (let j = 0; j < infos[i].orgs.length; j++) {
-            if (infos[i].orgs[j].orgs != null) {
-              if (infos[i].orgs[j].type === "1") {
-                state.orgCenterList.push(infos[i].orgs[j]);
-                //group
-                for (let x = 0; x < infos[i].orgs[j].orgs.length; x++) {
-                  if (infos[i].orgs[j].orgs[x].orgs != null) {
-                    if (infos[i].orgs[j].orgs[x].type === "2") {
-                      state.orgGroupList.push({
-                        centerid: infos[i].orgs[j]._id,
-                        centername: infos[i].orgs[j].companyname,
-                        groupid: infos[i].orgs[j].orgs[x]._id,
-                        groupname: infos[i].orgs[j].orgs[x].companyname,
-                        companyen: infos[i].orgs[j].orgs[x].companyen,
-                        encoding: infos[i].orgs[j].orgs[x].encoding,
-                        redirict:infos[i].orgs[j].orgs[x].redirict
-                      });
-                    }
-                  }
-                  if (infos[i].orgs[j].orgs[x].type === "2") {
-                    state.orgGroupallList.push({
-                      centerid: infos[i].orgs[j]._id,
-                      centername: infos[i].orgs[j].companyname,
-                      groupid: infos[i].orgs[j].orgs[x]._id,
-                      groupname: infos[i].orgs[j].orgs[x].companyname,
-                      companyen: infos[i].orgs[j].orgs[x].companyen,
-                      encoding: infos[i].orgs[j].orgs[x].encoding,
-                      redirict:infos[i].orgs[j].orgs[x].redirict
-                    });
-                  }
+      //add gbb 20210329 2021组织架构变更 start
+      var orgsnew = [];
+      if(infos.length > 0){
+        //树主键
+        state.orgtreeId = infos[0]._id;
+        if(infos[0].orgs.length > 0){
+          for (let i = 0; i < infos[0].orgs.length; i++) {
+            if (infos[0].orgs[i].orgs.length > 0) {
+              for (let j = 0; j < infos[0].orgs[i].orgs.length; j++) {
+                if (infos[0].orgs[i].orgs[j].type === "2") {
+                  //所有center[orgGroupList为center数据]
+                  orgsnew.push(infos[0].orgs[i].orgs[j]);
+                  state.orgGroupList.push({
+                    centerid: infos[0].orgs[i]._id,
+                    centername: infos[0].orgs[i].companyname,
+                    groupid: infos[0].orgs[i].orgs[j]._id,
+                    groupname: infos[0].orgs[i].orgs[j].companyname,
+                    companyen: infos[0].orgs[i].orgs[j].companyen,
+                    encoding: infos[0].orgs[i].orgs[j].encoding,
+                    redirict:infos[0].orgs[i].orgs[j].redirict
+                  });
                 }
               }
             }
           }
         }
       }
+      // for (let i = 0; i < infos.length; i++) {
+      //   if (infos[i].orgs != null) {
+      //     //center
+      //     for (let j = 0; j < infos[i].orgs.length; j++) {
+      //       if (infos[i].orgs[j].orgs != null) {
+      //         if (infos[i].orgs[j].type === "1") {
+      //           state.orgCenterList.push(infos[i].orgs[j]);
+      //           //group
+      //           for (let x = 0; x < infos[i].orgs[j].orgs.length; x++) {
+      //             if (infos[i].orgs[j].orgs[x].orgs != null) {
+      //               if (infos[i].orgs[j].orgs[x].type === "2") {
+      //                 state.orgGroupList.push({
+      //                   centerid: infos[i].orgs[j]._id,
+      //                   centername: infos[i].orgs[j].companyname,
+      //                   groupid: infos[i].orgs[j].orgs[x]._id,
+      //                   groupname: infos[i].orgs[j].orgs[x].companyname,
+      //                   companyen: infos[i].orgs[j].orgs[x].companyen,
+      //                   encoding: infos[i].orgs[j].orgs[x].encoding,
+      //                   redirict:infos[i].orgs[j].orgs[x].redirict
+      //                 });
+      //               }
+      //             }
+      //             if (infos[i].orgs[j].orgs[x].type === "2") {
+      //               state.orgGroupallList.push({
+      //                 centerid: infos[i].orgs[j]._id,
+      //                 centername: infos[i].orgs[j].companyname,
+      //                 groupid: infos[i].orgs[j].orgs[x]._id,
+      //                 groupname: infos[i].orgs[j].orgs[x].companyname,
+      //                 companyen: infos[i].orgs[j].orgs[x].companyen,
+      //                 encoding: infos[i].orgs[j].orgs[x].encoding,
+      //                 redirict:infos[i].orgs[j].orgs[x].redirict
+      //               });
+      //             }
+      //           }
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+      //
+      state.orguserList = JSON.parse(JSON.stringify(infos));
+      state.orguserList[0].orgs = orgsnew;
+      //add gbb 20210329 2021组织架构变更 end
     },
     SET_DICTIONARYLIST(state, infos) {
       state.dictionaryList = infos

@@ -1,7 +1,7 @@
 <template>
   <div style="height: calc(100vh - 60px - 2rem)">
     <el-row>
-      <el-col :span="12" style="padding: 5px">
+      <el-col :span="12" style="padding: 5px;padding-top: 25px">
         <el-row style="height: 120px;max-height: 120px">
           <el-card class="box-card" shadow="hover">
             <div
@@ -21,7 +21,7 @@
             </div>
           </el-card>
         </el-row>
-        <el-row style="padding-top: 2px;height: 290px;max-height: 290px">
+        <el-row style="padding-top: 4px;height: 290px;max-height: 290px">
           <el-card class="box-card" shadow="hover">
             <el-row>
               <el-col :span="12">
@@ -57,11 +57,11 @@
             <el-link
               :underline="false"
               @click="clickrilicheck"
-              style="margin-left: 75%;color: #5d9cec"
+              style="float:right;color: #5d9cec;"
               target="_blank"
               type="primary"
             >
-              <span style="font-size: 0.85rem">{{$t('label.INDEX_RILICHECK')}}</span>
+              <span style="font-size: 0.5rem">{{$t('label.INDEX_RILICHECK')}}</span>
             </el-link>
           </el-col>
         </el-row>
