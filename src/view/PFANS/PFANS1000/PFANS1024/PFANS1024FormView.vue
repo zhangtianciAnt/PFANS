@@ -66,11 +66,11 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
+            <el-form-item :label="$t('label.department')" :label-width="formLabelWidth" prop="grouporglist"
                           :error="errorgroup">
               <org
                 :orglist="form1.grouporglist"
-                orgtype="2"
+                orgtype="1"
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
@@ -550,7 +550,7 @@
                   <el-table :data="tableD" :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
                             v-loading='loading'>
                     <el-table-column property="user_id" :label="$t('label.applicant')" width="120"></el-table-column>
-                    <el-table-column property="deployment" :label="$t('label.group')" width="120"></el-table-column>
+                    <el-table-column property="deployment" :label="$t('label.department')" width="120"></el-table-column>
                     <el-table-column property="contractnumber" :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')"
                                      width="120"></el-table-column>
                     <el-table-column property="contracttype" :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
@@ -947,8 +947,8 @@
       };
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
-          callback(new Error(this.$t('normal.error_08') + 'group'));
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           callback();
         }
@@ -1427,7 +1427,7 @@
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
-          this.form1.grouporglist = lst.groupId;
+          this.form1.grouporglist = lst.centerId;
           this.getGroupId(this.form1.grouporglist);
           this.checkGroupId = true;
         } else {
@@ -1903,7 +1903,7 @@
           this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
         }
         if (!val || this.form1.grouporglist === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           this.errorgroup = '';
         }

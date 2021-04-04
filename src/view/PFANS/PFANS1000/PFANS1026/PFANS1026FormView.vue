@@ -66,10 +66,10 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
+            <el-form-item :label="$t('label.department')" :label-width="formLabelWidth" prop="grouporglist"
                           :error="errorgroup">
               <org :orglist="form1.grouporglist"
-                   orgtype="2"
+                   orgtype="1"
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
@@ -1003,12 +1003,12 @@
               </template>
             </el-table-column>
             <el-table-column
-              :label="$t('label.group')"
+              :label="$t('label.department')"
               align="center"
               width="240">
               <template slot-scope="scope">
                 <org :no="scope.row" :orglist="scope.row.group_id" @getOrgids="getEntrustgroupId"
-                     orgtype="2" style="width:90%"></org>
+                     orgtype="1" style="width:90%"></org>
               </template>
             </el-table-column>
             <el-table-column
@@ -1358,8 +1358,8 @@
       // };
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
-          callback(new Error(this.$t('normal.error_08') + 'group'));
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           callback();
         }
@@ -1969,8 +1969,9 @@
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if (lst.groupId !== null && lst.groupId !== '') {
-          this.form1.grouporglist = lst.groupId;
+        if (lst.centerId !== null && lst.centerId !== '') {
+          this.form1.grouporglist = lst.centerId;
+
           this.getGroupId(this.form1.grouporglist);
           this.checkGroupId = true;
         } else {
@@ -2501,7 +2502,7 @@
           this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
         }
         if (!val || this.form1.grouporglist === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           this.errorgroup = '';
         }
@@ -2510,7 +2511,7 @@
         this.grouporglist = val;
         this.form.group_id = val;
         if (this.form.group_id === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           this.errorgroup = '';
         }

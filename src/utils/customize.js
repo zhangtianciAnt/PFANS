@@ -384,7 +384,7 @@ export function getorgGroupList(groupid) {
   let info = null;
   if (store.getters.orgGroupList && store.getters.orgGroupList.length > 0) {
     for (let cooperinterview of store.getters.orgGroupList) {
-      if (cooperinterview.groupid === groupid) {
+      if (cooperinterview.centerid === groupid) {
         info = cooperinterview;
         break;
       }

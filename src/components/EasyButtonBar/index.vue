@@ -16,9 +16,6 @@
         buttonData: []
       };
     },
-    //注入缓存修改 20210317 ztc start
-    inject:['reload'],
-    //注入缓存修改 20210317 ztc end
     props: {
       data: {
         type: Array,
@@ -39,14 +36,10 @@
     },
     methods: {
       buttonClick(key) {
-        //注入缓存修改 20210317 ztc start
-        if(key == 'reload'){
-          this.reload();
-        }else if("new" === key) {
-          this.$store.commit("global/SET_HISTORYURL", this.$route.path);
+        if("new" === key){
+          this.$store.commit("global/SET_HISTORYURL",this.$route.path);
         }
         this.$emit("buttonClick", key);
-        //注入缓存修改 20210317 ztc end
       },
       disabledfunc(item){
         if(item.key === "new"){

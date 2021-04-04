@@ -120,9 +120,9 @@
           <el-row>
             <!--            所属部门-->
             <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+              <el-form-item :error="errorgroup" :label="$t('label.department')" prop="group_id">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="2" style="width:20vw"></org>
+                     orgtype="1" style="width:20vw"></org>
                 <!--                    add_ccm_06/04  &#45;&#45;添加履历-->
                 <el-button
                   type="text"
@@ -130,7 +130,7 @@
                 >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
                 </el-button>
                 <el-dialog
-                  :title="$t('label.group') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                  :title="$t('label.department') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
                   :visible.sync="dialogTableVisible9"
                 >
                   <el-row>
@@ -149,7 +149,7 @@
                         <el-table-column
                           property="after"
                           align="center"
-                          :label="$t('label.group')"
+                          :label="$t('label.department')"
                         >
                           <template slot-scope="scope">
                             <span style="color:#75a7ef">{{ scope.row.groupname }}</span>
@@ -445,8 +445,8 @@
 
             var checkgroup = (rule, value, callback) => {
                 if (!value || value === '') {
-                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
-                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.department');
+                    return callback(new Error(this.$t('normal.error_09') + this.$t('label.department')));
                 } else {
                     this.errorgroup = '';
                     return callback();
@@ -776,7 +776,7 @@
                                     letexpData.group_id = response[g].group_id;
                                     let group = getorgGroupList(response[g].group_id);
                                     if (group) {
-                                        letexpData.groupname = group.groupname;
+                                        letexpData.groupname = group.centername;
                                     }
                                     this.expData.push(letexpData);
                                 }
@@ -906,7 +906,7 @@
                 this.form.group_id = val;
                 this.grouporglist = val;
                 if (!this.form.group_id || this.form.group_id === '' || val === 'undefined') {
-                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.group');
+                    this.errorgroup = this.$t('normal.error_09') + this.$t('label.department');
                 } else {
                     this.errorgroup = '';
                 }
@@ -949,7 +949,7 @@
                             if (response[j].group_id !== null && response[j].group_id !== '') {
                                 let group = getorgGroupList(response[j].group_id);
                                 if (group) {
-                                    response[j].group_id = group.groupname;
+                                    response[j].group_id = group.centername;
                                 }
                             }
                             if (response[j].project_name !== null && response[j].project_name !== "") {

@@ -318,10 +318,15 @@
         //   return;
         // }
         this.$store.commit("global/SET_ORGID",data._id);
+        let virtual = "";//虚拟组织
+        if(data.virtual != undefined){
+            virtual = data.virtual;//总经理、副总经理
+        }
         this.currentNodeData = data;
         let params = {
           orgid: data._id,
-          orgtype: data.type
+          orgtype: data.type,
+          virtual: virtual,
         }
         this.$store.dispatch('usersStore/getUserTableList2', params).then(response => {
           let _tableList = [];
