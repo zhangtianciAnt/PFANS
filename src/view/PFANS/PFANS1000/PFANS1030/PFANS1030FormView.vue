@@ -296,7 +296,7 @@
                                  :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
                     <org :orglist="scope.row.depart"
-                         orgtype="2"
+                         orgtype="1"
                          :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
                          :error="errorgroup"
                          style="width: 9rem"
