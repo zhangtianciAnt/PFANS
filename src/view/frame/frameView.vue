@@ -1,6 +1,6 @@
 <template>
-  <div >
-    <el-container style="overflow-y:scroll;">
+  <div>
+    <el-container>
       <el-header class="main_bg_color" style="padding: 0">
         <el-col :span="4">
           <EasyLogo :logo="basselogo" maxheight="4rem" title @ToIndex="ToIndex"></EasyLogo>
@@ -66,13 +66,13 @@
           <el-main class="sub_bg_color_grey" style="padding: 1rem;overflow-x: hidden">
             <!--<transition name="el-fade-in">-->
             <!--<router-view @changeMenu="changeMenu" @showPersonCenter="showPersonCenter"/>-->
-            <keep-alive v-if="isRouterAlive" :max="10">
-              <router-view v-if="$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop" ref="content">
+            <keep-alive>
+              <router-view v-if="$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop">
                 <!-- 这里是会被缓存的视图组件，比如列表A页面 -->
               </router-view>
             </keep-alive>
 
-            <router-view v-if="!$route.meta.keepAlive && isRouterAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop" >
+            <router-view v-if="!$route.meta.keepAlive" @changeMenu="changeMenu" @showPersonCenter="showPersonCenter" @showPop="showPop">
               <!-- 这里是不被缓存的视图组件，比如详情B页面-->
             </router-view>
             <!--</transition>-->
@@ -164,14 +164,8 @@
       EasyPop,
       person
     },
-    provide (){
-      return {
-        reload:this.reload
-      }
-    },
     data() {
       return {
-        isRouterAlive:true,
         userIcon:userIcon,
         companyIcon:companyIcon,
         flowData: [],
@@ -239,12 +233,6 @@
       };
     },
     methods: {
-      reload (){
-        this.isRouterAlive = false
-        this.$nextTick(function(){
-          this.isRouterAlive = true
-        })
-      },
       changeType(val) {
         if (val === 'company') {
           this.changeTypeMessage = "将切换至工作空间, 是否继续?"
@@ -257,38 +245,6 @@
         sessionStorage.setItem("datatype", this.dataType);
         this.$router.push("/index");
         this.changeMenu();
-        // this.removeCache();
-      },
-      removeCache() {
-        if(this.$refs.content){
-          if (this.$refs.content.$vnode && this.$refs.content.$vnode.data.keepAlive)
-          {
-            if (this.$refs.content.$vnode.parent && this.$refs.content.$vnode.parent.componentInstance && this.$refs.content.$vnode.parent.componentInstance.cache)
-            {
-              if (this.$refs.content.$vnode.componentOptions)
-              {
-                var key = this.$refs.content.$vnode.key == null
-                  ? this.$refs.content.$vnode.componentOptions.Ctor.cid + (this.$refs.content.$vnode.componentOptions.tag ? `::${this.$refs.content.$vnode.componentOptions.tag}` : '')
-                  : this.$refs.content.$vnode.key;
-                var cache = this.$refs.content.$vnode.parent.componentInstance.cache;
-                var keys  = this.$refs.content.$vnode.parent.componentInstance.keys;
-                if (cache[key])
-                {
-                  if (keys.length) {
-                    var index = keys.indexOf(key);
-                    if (index > -1) {
-                      keys.splice(index, 1);
-                    }
-                  }
-                  delete cache[key];
-                }
-              }
-            }
-          }
-          this.$refs.content.$destroy();
-        }
-
-
       },
       openPop(val){
         this.$refs[val.No][0].open = true;
