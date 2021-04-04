@@ -2,6 +2,15 @@
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
                      :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+      <!--   add-lyt-2021/4/4-添加年份检索栏-start-->
+      <el-date-picker
+        v-model="yearvalue"
+        type="year"
+        @change="changed"
+        slot="customize"
+        placeholder="选择年">
+      </el-date-picker>
+      <!--    add-lyt-2021/4/4-添加年份检索栏-end-->
     </EasyNormalTable>
     <el-dialog center
                :visible.sync="dialogVisible"
@@ -59,6 +68,7 @@
         dialogVisible: false,
         loading: false,
         title: 'title.PFANS2024VIEW',
+        yearvalue:moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         // 表格数据源
         data: [],
         // 列属性
@@ -147,7 +157,7 @@
         this.loading = true;
 
         this.$store
-          .dispatch('PFANS2024Store/getDataList', {})
+          .dispatch('PFANS2024Store/getDataList', {'years':this.yearvalue})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].user_id !== null && response[j].user_id !== '') {
@@ -284,6 +294,70 @@
           });
         }
       },
+      changed(){
+        if(this.yearvalue !== '' && this.yearvalue !== null && this.yearvalue !== undefined){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS2024Store/getDataList', {'years':moment(this.yearvalue).format('YYYY')})
+            .then(response => {
+              for (let j = 0; j < response.length; j++) {
+                if (response[j].user_id !== null && response[j].user_id !== '') {
+                  let user = getUserInfo(response[j].user_id);
+                  let nameflg = getOrgInfoByUserId(response[j].user_id);
+                  if (nameflg) {
+                    response[j].center_name = nameflg.centerNmae;
+                    response[j].group_name = nameflg.groupNmae;
+                    response[j].team_name = nameflg.teamNmae;
+                  }
+                  if (user) {
+                    response[j].user_name = user.userinfo.customername;
+                  }
+                }
+                if (response[j].status !== null && response[j].status !== '') {
+                  response[j].status = getStatus(response[j].status);
+                }
+                if (response[j].skilllevelafter !== null && response[j].skilllevelafter !== '') {
+                  let letStage = getDictionaryInfo(response[j].skilllevelafter);
+                  if (letStage != null) {
+                    response[j].skilllevelafter = letStage.value1;
+                  }
+                }
+                if (response[j].schoolspecies !== null && response[j].schoolspecies !== '') {
+                  let letStage = getDictionaryInfo(response[j].schoolspecies);
+                  if (letStage != null) {
+                    response[j].schoolspecies = letStage.value1;
+                  }
+                }
+                if (response[j].entryyear !== null && response[j].entryyear !== '') {
+                  response[j].entryyear = moment(response[j].entryyear).format('YYYY-MM-DD');
+                }
+                // if (response[j].graduationyear !== null && response[j].graduationyear !== "") {
+                //     response[j].graduationyear = moment(response[j].graduationyear).format("YYYY");
+                // }
+                if (response[j].contract !== null && response[j].contract !== '') {
+                  response[j].contract = moment(response[j].contract).format('YYYY');
+                }
+                if (response[j].finishstatus == '0') {
+                  response[j].finishstatus = '已保存';
+                } else if (response[j].finishstatus == '1') {
+                  response[j].finishstatus = '已完成';
+                } else {
+                  response[j].finishstatus = '未开始';
+                }
+              }
+              this.data = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      }
     },
   };
 </script>

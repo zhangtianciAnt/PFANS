@@ -32,7 +32,7 @@ export function getFpans2023List(data) {
   return request({
     url: 'goalmanagement/list',
     method: 'post',
-    data: data
+    params: data
   })
 }
 
