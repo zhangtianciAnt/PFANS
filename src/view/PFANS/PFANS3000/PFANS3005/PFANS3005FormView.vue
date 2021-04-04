@@ -2345,7 +2345,7 @@
                   name: 'PFANS1033FormView',
                   params: {
                     _id: '',
-                    _applicantdeptcode: this.form.group_id,
+                    _applicantdeptcode: this.form.center_id,
                     _caigouhetongTable: this.caigouhetongTable,
                     disabled: true,
                   },
