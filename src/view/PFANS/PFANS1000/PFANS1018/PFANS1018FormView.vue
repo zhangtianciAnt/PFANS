@@ -246,7 +246,7 @@
         appcenterid: '',
         appgroupid: '',
         appteamid: '',
-        workflowCode: 'W0025',
+        workflowCode: '',
         loading: false,
         error_applicant: '',
         error_user: '',
@@ -358,8 +358,8 @@
             let roleLC = getCurrentRole();
             if (roleLC == '1') {
               this.workflowCode = 'W0104';//总经理流程
-            } else if(roleLC == '2' || roleLC == '3') { //GM Center
-              this.workflowCode = 'W0121'//新流程
+            // } else if(roleLC == '2' || roleLC == '3') { //GM Center
+            //   this.workflowCode = 'W0121'//新流程
             }else { //TL 正式员工
               this.workflowCode = 'W0025'
             }

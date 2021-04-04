@@ -9,6 +9,7 @@
       @end="end" @disabled="setdisabled"
       @start="start"
       @workflowState="workflowState"
+      :workflowCode = "workflowCode"
       ref="container"
       v-loading="loading">
 
@@ -733,6 +734,7 @@
         // centerorglist: '',
         // grouporglist: '',
         // teamorglist: '',
+        workflowCode: 'W0061',
         defaultStart: false,
         currentRow5: '',
         errorcenter: '',

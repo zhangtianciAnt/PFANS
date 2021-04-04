@@ -5,6 +5,15 @@
         <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"></easy-work-flow>
       </div>
+      <div style="padding-bottom: 10px">
+        <el-alert
+          type="info"
+          :description="description"
+          v-if="alertshow"
+          :closable="false"
+          show-icon>
+        </el-alert>
+      </div>
       <div align="right" class="filter-container" v-if="titleShow">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}
           <el-popover
@@ -130,6 +139,7 @@
     },
     data() {
       return {
+        description:'',
         showHelp: false,
         helpContent: '',
         total: 0,
@@ -150,6 +160,10 @@
     props: {
       // 详情画面标题
       title: {
+        type: String,
+        default: '',
+      },
+      description: {
         type: String,
         default: '',
       },
@@ -219,6 +233,10 @@
         default: function() {
           return [];
         },
+      },
+      alertshow: {
+        type: Boolean,
+        default: false,
       },
       buttonShow: {
         type: Boolean,

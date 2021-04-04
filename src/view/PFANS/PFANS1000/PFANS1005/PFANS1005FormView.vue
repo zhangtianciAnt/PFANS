@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" v-loading="loading" :title="title" @buttonClick="buttonClick"
-                         @disabled="setdisabled"
+                         @disabled="setdisabled" :workflowCode="workflowCode"
                          @end="end" @start="start" @workflowState="workflowState" ref="container">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm"
@@ -317,6 +317,7 @@
         urlparams: {},
         // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
           url: '',
+        workflowCode: 'W0012',
         errorgroup: '',
         checkgroup: false,
         optionsdata: [],

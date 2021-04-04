@@ -10,6 +10,7 @@
       :canStart="canStart"
       @start="start"
       @end="end"
+      :workflowCode="workflowCode"
       :enableSave="enableSave"
     >
       <div slot="customize">
@@ -286,6 +287,7 @@
                 centerid: '',
                 groupid: '',
                 teamid: '',
+                workflowCode: 'W0043',
                 loading: false,
                 canStart: false,
                 enableSave: false,

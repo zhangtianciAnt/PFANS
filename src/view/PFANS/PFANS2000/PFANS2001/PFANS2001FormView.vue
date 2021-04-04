@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end" @disabled="setdisabled"
+                         @end="end" @disabled="setdisabled" :workflowCode="workflowCode"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -269,6 +269,7 @@
       };
       return {
         // centerorglist: '',
+        workflowCode: 'W0032',
         // grouporglist: '',
         // teamorglist: '',
         //upd-ws-6/22禅道任务163

@@ -1192,98 +1192,98 @@
                         lable: this.$store.getters.userinfo.userinfo.centername,
                     },
                 );
-              	//add ccm 0112 兼职部门
-              if (this.$store.getters.userinfo.userinfo.otherorgs)
-              {
-                for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                //add ccm 0112 兼职部门
+                if (this.$store.getters.userinfo.userinfo.otherorgs)
                 {
-                  if (others.centerid)
-                  {
-                    this.$store.getters.orgGroupList.filter((item) => {
-                      if (item.centerid === others.centerid) {
-                        vote.push(
-                          {
-                            value: item.centerid,
-                            lable: item.centername,
-                          },
-                        );
-                      }
-                    })
-                  }
-                }
-              }
-              //add ccm 0112 兼职部门
-              this.group_id = this.$store.getters.userinfo.userinfo.centerid;
-            } else if (role === '2') {//副总经理
-              this.$store.getters.orgGroupList.filter((item) => {
-                if (item.virtualuser === this.$store.getters.userinfo.userid) {
-                  vote.push(
+                    for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
                     {
-                      value: item.centerid,
-                      lable: item.centername,
-                    },
-                  );
+                        if (others.centerid)
+                        {
+                            this.$store.getters.orgGroupList.filter((item) => {
+                                if (item.centerid === others.centerid) {
+                                    vote.push(
+                                        {
+                                            value: item.centerid,
+                                            lable: item.centername,
+                                        },
+                                    );
+                                }
+                            })
+                        }
+                    }
                 }
-              })
-              //add ccm 0112 兼职部门
-              if (this.$store.getters.userinfo.userinfo.otherorgs)
-              {
-                for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
-                {
-                  if (others.centerid)
-                  {
-                    this.$store.getters.orgGroupList.filter((item) => {
-                      if (item.centerid === others.centerid) {
+                //add ccm 0112 兼职部门
+                this.group_id = this.$store.getters.userinfo.userinfo.centerid;
+            } else if (role === '2') {//副总经理
+                this.$store.getters.orgGroupList.filter((item) => {
+                    if (item.virtualuser === this.$store.getters.userinfo.userid) {
                         vote.push(
-                          {
-                            value: item.centerid,
-                            lable: item.centername,
-                          },
+                            {
+                                value: item.centerid,
+                                lable: item.centername,
+                            },
                         );
-                      }
-                    })
-                  }
+                    }
+                })
+                //add ccm 0112 兼职部门
+                if (this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                    for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                    {
+                        if (others.centerid)
+                        {
+                            this.$store.getters.orgGroupList.filter((item) => {
+                                if (item.centerid === others.centerid) {
+                                    vote.push(
+                                        {
+                                            value: item.centerid,
+                                            lable: item.centername,
+                                        },
+                                    );
+                                }
+                            })
+                        }
+                    }
                 }
-              }
-              //add ccm 0112 兼职部门
+                //add ccm 0112 兼职部门
             }
             const vote1 = [];
             if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
-              || this.$store.getters.roles.indexOf("11") != -1 //总经理
-              || this.$store.getters.roles.indexOf("16") != -1 //财务部长
-              || this.$store.getters.roles.indexOf("18") != -1//企划部长
-              || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+                || this.$store.getters.roles.indexOf("11") != -1 //总经理
+                || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+                || this.$store.getters.roles.indexOf("18") != -1//企划部长
+                || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
             {
-              this.$store.getters.orgGroupList.filter((item) => {
-                vote1.push(
-                  {
-                    value: item.centerid,
-                    lable: item.centername,
-                  },
-                );
-              })
-              this.optionsdata = vote1;
+                this.$store.getters.orgGroupList.filter((item) => {
+                    vote1.push(
+                        {
+                            value: item.centerid,
+                            lable: item.centername,
+                        },
+                    );
+                })
+                this.optionsdata = vote1;
             }
             else
             {
-              this.optionsdata = vote;
+                this.optionsdata = vote;
             }
             //去重
             let letoptionsdata = [];
             let arrId = [];
             for(var item of this.optionsdata){
-              if(arrId.indexOf(item['lable']) == -1){
-                arrId.push(item['lable']);
-                letoptionsdata.push(item);
-              }
+                if(arrId.indexOf(item['lable']) == -1){
+                    arrId.push(item['lable']);
+                    letoptionsdata.push(item);
+                }
             }
             this.optionsdata = letoptionsdata;
             if(this.optionsdata.length > 0){
-              this.group_id = this.optionsdata[0].value;
+                this.group_id = this.optionsdata[0].value;
             }
             //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
             this.loading = false;
-      },
+        },
       changeGroup(val) {
             this.group_id = val;
             if (this.group_id) {

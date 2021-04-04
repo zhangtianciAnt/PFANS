@@ -1,6 +1,7 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="right"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
+                         :workflowCode="workflowCode"
                          @buttonClick="buttonClick"
                          @end="end" @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
       <div slot="customize">
@@ -668,7 +669,7 @@
             person: '',
           },
         ],
-        right: 'W0081',
+        workflowCode: 'W0081',
         d1: false,
         d2: true,
         d3: true,
@@ -792,14 +793,14 @@
             this.form = response.staffexitproce;
             this.ID = this.params_id
             this.status = this.form.status === '4' ? 'normal.done' : (this.form.status === '2' ? 'normal.doing' : 'normal.todo')
-
-            let role = getCurrentRole();
-            if(role == '2' || role == '3') { //GM Center
-              this.right = 'W0139'//新流程
-            }else { //TL 正式员工
-              this.right = 'W0081'
-            }
-
+            //update ztc 2021新年度流程调整 start
+            // let role = getCurrentRole();
+            // if(role == '2' || role == '3') { //GM Center
+            //   this.right = 'W0139'//新流程 删除
+            // }else { //TL 正式员工
+            //this.right = 'W0081'
+            // }
+            //update ztc 2021新年度流程调整 end
             if (response.staffexitproce.checkedgm === 'true') {
               this.form.checkedgm = true;
               this.checkbox = true;
@@ -897,7 +898,7 @@
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
       if (this.disable) {
           //未开始/驳回时可点击保存
-        if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2') || this.$route.params._status === undefined) {
+          if (this.$route.params._status === this.$t('normal.todo') || this.$route.params._status === this.$t('label.node_step2') || this.$route.params._status === undefined) {
               this.buttonList = [
                   {
                       key: 'save',

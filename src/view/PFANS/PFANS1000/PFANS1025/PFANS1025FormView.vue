@@ -1699,19 +1699,20 @@
                     });
                 }
 //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
-                        } else {
-                            Message({
-                                message: this.$t('normal.error_12'),
-                                type: 'error',
-                                duration: 5 * 1000,
-                            });
-                        }
-                    });
-                }
+              } else {
+                Message({
+                  message: this.$t('normal.error_12'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
             },
-        },
-    }
-    ;
+          );
+        }
+      },
+    },
+  }
+  ;
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">

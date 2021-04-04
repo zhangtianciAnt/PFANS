@@ -8,7 +8,7 @@ import  {Decrypt} from './customize'
 import i18n from '../assets/js/i18n'
 let Base64 = require('js-base64').Base64
 
-//axios.defaults.timeout =  60000;
+// axios.defaults.timeout =  6000;
 
 const service = axios.create({
   baseURL: process.env.BASE_API,

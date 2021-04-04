@@ -364,7 +364,7 @@
         timeend: '',
         closingtimeend: '',
         display: true,
-        workflowCode: 'W0001',
+        workflowCode: '',
         loading: false,
         canStart: true,
         selectType: 'Single',

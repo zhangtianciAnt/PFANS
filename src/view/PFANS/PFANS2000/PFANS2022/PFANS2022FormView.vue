@@ -233,7 +233,7 @@
         }
       };
       return {
-        workcode: 'W0066',
+        workcode: '',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -396,24 +396,30 @@
               this.groupid = rst.groupNmae;
               this.teamid = rst.teamNmae;
             }
+            //update ztc 2021新年度流程调整 start
             let role = getCurrentRole()
             if (this.form.twoclass === 'PR034001') {//ztc 招聘
               if (role == '1') {//总经理
                 this.workcode = 'W0099';
-              } else if(role == '2' || role == '3') { //GM Center
-                this.workcode = 'W0111'//新流程
-              }else { //TL 正式员工
+              }
+              // else if(role == '2' || role == '3') { //GM Center
+              //   this.workcode = 'W0111'//新流程
+              // }
+              else { //TL 正式员工
                 this.workcode = 'W0066'
               }
             } else {
               if (role == '1') {//总经理
                 this.workcode = 'W0098';
-              } else if(role == '2' || role == '3') { //GM Center
-                this.workcode = 'W0110'//新流程
-              }else { //TL 正式员工
+              }
+              // else if(role == '2' || role == '3') { //GM Center
+              //   this.workcode = 'W0110'//新流程
+              // }
+              else { //TL 正式员工
                 this.workcode = 'W0031'
               }
             }
+            //update ztc 2021新年度流程调整 end
             this.userlist = this.form.user_id;
             this.nomineeslist = this.form.nominees;
             if (this.form.firstclass === 'PR024004') {
@@ -684,7 +690,7 @@
           this.rules.twoclass[0].required = true;
         } else if (val === "PR024007") {
           this.code1 = 'PR038';
-          //this.gettwoclass("PR038001");
+          this.gettwoclass("PR038001");
           this.disable = true;
           this.show1 = false;
           this.show2 = false;
@@ -745,24 +751,31 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
         }
+        //update ztc 2021新年度流程调整 start
         let role = getCurrentRole()
-        if (this.form.twoclass === 'PR034001') {//ztc 招聘
+        if (this.form.twoclass === 'PR034001') {
+          //ztc 招聘
           if (role == '1') {//总经理
             this.workcode = 'W0099';
-          } else if(role == '2' || role == '3') { //GM Center
-            this.workcode = 'W0111'//新流程
-          }else { //TL 正式员工
+          }
+          // else if(role == '2' || role == '3') { //GM Center
+          //   this.workcode = 'W0111'//新流程
+          // }
+          else { //TL 正式员工
             this.workcode = 'W0066'
           }
         } else {
           if (role == '1') {//总经理
             this.workcode = 'W0098';
-          } else if(role == '2' || role == '3') { //GM Center
-            this.workcode = 'W0110'//新流程
-          }else { //TL 正式员工
+          }
+          // else if(role == '2' || role == '3') { //GM Center
+          //   this.workcode = 'W0110'//新流程
+          // }
+          else { //TL 正式员工
             this.workcode = 'W0031'
           }
         }
+        //update ztc 2021新年度流程调整 end
       },
       getenteringform(val) {
         this.form.enteringform = val;

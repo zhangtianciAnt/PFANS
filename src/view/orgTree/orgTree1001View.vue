@@ -127,8 +127,8 @@
           type: '1'
         },
         buttonList: [
-            { key: 'back', name: 'button.back', disabled: false, icon: 'el-icon-back' },
-            { key: 'applicate', name: 'button.applicate', disabled: false, icon: 'el-icon-check' },
+          { key: 'back', name: 'button.back', disabled: false, icon: 'el-icon-back' },
+          { key: 'applicate', name: 'button.applicate', disabled: false, icon: 'el-icon-check' },
         ],
         nameflag: false,
         namelessflag: false,

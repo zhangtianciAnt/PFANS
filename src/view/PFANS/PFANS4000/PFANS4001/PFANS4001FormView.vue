@@ -359,11 +359,11 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
-              if (this.form.userid === '5e78b2264e3b194874180f35') {
-                this.workflowCode = 'W0117';
-              } else {
-                this.workflowCode = 'W0074';//其他
-              }
+              // if (this.form.userid === '5e78b2264e3b194874180f35') {
+              //   this.workflowCode = 'W0117';
+              // } else {
+              //   this.workflowCode = 'W0074';//其他
+              // }
               // add-ws-印章管理下拉多选
               if (this.form.sealtype != '' && this.form.sealtype != null && this.form.sealtype != undefined) {
                 let letstaff = this.form.sealtype.split(',');

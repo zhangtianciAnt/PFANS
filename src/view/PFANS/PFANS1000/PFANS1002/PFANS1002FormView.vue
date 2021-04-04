@@ -986,7 +986,7 @@
         tableB: [],
         loading: false,
         disableview: false,
-        workflowCode: 'W0048',
+        workflowCode: '',
         disabled: false,
         code1: 'PJ016',
         code2: 'PJ017',

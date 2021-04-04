@@ -65,7 +65,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_MODULE')">
-                      <!--                      upd-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-:disabled参数更改为新创建的moduledisable参数-start-->
+<!--                      upd-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-:disabled参数更改为新创建的moduledisable参数-start-->
                       <dicselect :code="code2"
                                  :data="form.moduleid"
                                  :disabled="moduledisable"
@@ -75,7 +75,7 @@
                                  v-if="show6"
                       >
                       </dicselect>
-                      <!--                      upd-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-:disabled参数更改为新创建的moduledisable参数-end-->
+<!--                      upd-lyt-21/3/24-PSDCD_PFANS_20210318_BUG_035-:disabled参数更改为新创建的moduledisable参数-end-->
                       <el-input :disabled="true" style="width:20vw"
                                 v-model="form.moduleidApp" v-if="show9"></el-input>
                     </el-form-item>
@@ -1595,7 +1595,7 @@
         optionsdate: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         tormbT: '',
         //add-ws-6/12-禅道105
-        workflowCode: 'W0016',
+        workflowCode: '',
         //add-ws-6/12-禅道105
         Redirict: '',
         search: '',
@@ -1962,17 +1962,17 @@
                   this.workflowCode = 'W0100';
                 } else {
                   if (this.form.moneys >= 20000) {
-                    if (role == '2' || role == '3') { //GM Center
-                      this.workflowCode = 'W0115';//新流程
-                    } else { //TL 正式员工
+                    // if (role == '2' || role == '3') { //GM Center
+                    //   this.workflowCode = 'W0115';//新流程
+                    // } else { //TL 正式员工
                       this.workflowCode = 'W0077';
-                    }
+                    // }
                   } else {
-                    if (role == '2' || role == '3') { //GM Center
-                      this.workflowCode = 'W0141';//新流程
-                    } else { //TL 正式员工
+                    // if (role == '2' || role == '3') { //GM Center
+                    //   this.workflowCode = 'W0141';//新流程
+                    // } else { //TL 正式员工
                       this.workflowCode = 'W0016';
-                    }
+                    // }
                   }
                 }
                 if (this.disable) {

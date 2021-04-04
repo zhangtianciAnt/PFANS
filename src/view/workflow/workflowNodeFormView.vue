@@ -45,6 +45,14 @@
             <el-form-item :label="$t('label.node_operate_user')" prop="user" :error="error"  v-if="usershow">
               <user :selectType="selectType" @getUserids="getUserids" :userlist="userlist" :disabled="disabled" :error="error"  style="width:20vw"></user>
             </el-form-item>
+          <el-form-item :label="$t('label.node_operate_org')" prop="org"  v-if="orgshow">
+            <org
+              :orglist="outorg"
+              style="width:20vw"
+              selectType="Single"
+              @getOrgids="getOrgids"
+            ></org>
+          </el-form-item>
         </el-row>
       </el-form>
     </div>
@@ -52,10 +60,12 @@
 
 <script>
   import user from "../components/user.vue";
+  import org from "../components/org.vue";
   export default {
     name: 'workflowNodeFormView',
     components: {
-      user
+      user,
+      org
     },
     props: {
       no:{
@@ -88,6 +98,7 @@
 
       return {
         usershow:true,
+        orgshow:false,
         form: {
           nodename: '',
           nodetype: '',
@@ -95,11 +106,13 @@
           nodeusertype:'',
           remarks:'',
           itemid: '',
+          outorg:'',
           outcondition:1
         },
         error:"",
         selectType:"mult",
         userlist:"",
+        outorg:"",
         rules: {
           nodename: [
             {required: true, message: this.$t('normal.error_08') + this.$t('label.node_name'), trigger: 'blur'},
@@ -121,12 +134,18 @@
       if(this.nodedata){
         this.form = this.nodedata;
         this.userlist = this.form.itemid
+        this.outorg = this.form.outorg
       }
       this.form.nodeord = this.no;
       if(this.form.nodeusertype  === '1'){
         this.usershow = true
       }else{
         this.usershow = false
+      }
+      if(this.form.nodeusertype  === '2'){
+        this.orgshow = true
+      }else{
+        this.orgshow = false
       }
     },
     methods: {
@@ -141,11 +160,19 @@
           this.error = "";
         }
       },
+      getOrgids(val){
+        this.form.outorg = val;
+      },
       changeNodeType(val){
         if(val === '1'){
           this.usershow = true
         }else{
           this.usershow = false
+        }
+        if(val === '2'){
+          this.orgshow = true
+        }else{
+          this.orgshow = false
         }
       }
     }

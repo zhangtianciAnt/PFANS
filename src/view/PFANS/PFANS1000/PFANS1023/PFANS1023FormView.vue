@@ -238,7 +238,7 @@
         }
       };
       return {
-        workflowCode: 'W0030',
+        workflowCode: '',
         centerid: '',
         groupid: '',
         teamid: '',
@@ -252,7 +252,7 @@
         loading: false,
         erroruser: '',
         //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
-        acceptShow: 'true',
+        acceptShow: true,
         enableSave: false,
         //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         selectType: 'Single',

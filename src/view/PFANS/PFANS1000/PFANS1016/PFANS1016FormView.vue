@@ -343,7 +343,7 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        workflowCode: 'W0023',
+        workflowCode: '',
         buttonList: [],
         baseInfo: {},
         loading: false,
@@ -469,8 +469,8 @@
             let roleLC = getCurrentRole();
             if (roleLC == '1') {
               this.workflowCode = 'W0102';//总经理流程
-            } else if(roleLC == '2' || roleLC == '3') { //GM Center
-              this.workflowCode = 'W0119'//新流程
+            // } else if(roleLC == '2' || roleLC == '3') { //GM Center
+            //   this.workflowCode = 'W0119'//新流程
             }else { //TL 正式员工
               this.workflowCode = 'W0023'
             }

@@ -679,7 +679,7 @@
         activeName: 'first',
         loading: false,
         disableview: false,
-          workflowCode: 'W0049',
+        workflowCode: '',
         disabled: false,
         code1: 'PJ018',
         code2: 'PG002',
@@ -979,14 +979,18 @@
             }
             this.form = response.business;
               //add_fjl_0806  添加总经理审批流程
+            //update ztc 2021新年度流程调整 start
             let role = getCurrentRole();
             if (role == '1') {//总经理
               this.workflowCode = 'W0096';
-            } else if(role == '2' || role == '3') { //GM Center
-              this.workflowCode = 'W0112'//新流程
-            }else { //TL 正式员工
+            }
+            // else if(role == '2' || role == '3') { //GM Center
+            //   this.workflowCode = 'W0112'//新流程
+            // }
+            else { //TL 正式员工
               this.workflowCode = 'W0049'
             }
+            //update ztc 2021新年度流程调整 end
               //add_fjl_0806  添加总经理审批流程
             if (this.form.checkch != '1') {
               if (this.$route.params._type === 3) {

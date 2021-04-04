@@ -2,6 +2,7 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          @workflowState="workflowState" v-loading="loading" :enableSave="enableSave"
+                         :workflowCode="workflowCode"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -406,6 +407,7 @@
       };
       return {
         enableSave: false,
+        workflowCode: 'W0050',
         centerid: '',
         groupid: '',
         teamid: '',

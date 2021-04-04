@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
-                         @workflowState="workflowState" v-loading="loading"
+                         @workflowState="workflowState" v-loading="loading" :workflowCode="workflowCode"
                          :canStart="canStart" @start="start" @end="end">
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
@@ -368,6 +368,7 @@
           tableA: [],
           tableB: [],
         options: [],
+        workflowCode: 'W0047',
         centerid: '',
         groupid: '',
         teamid: '',
