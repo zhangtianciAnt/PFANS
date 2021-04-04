@@ -236,7 +236,7 @@ module.exports = {
     error_pfans5001: '外协员工的入离场时间不能为空',
     error_pfans50011: '社内员工的进组或退出时间不能为空',
     error_tipis:'之前作成的书类要被替换,是否继续？',
-    error_priceset: 'group修改后,会在新设定的group下重新生成单价, 是否继续？',
+    error_priceset: '部门修改后,会在新设定的部门下重新生成单价, 是否继续？',
     error_napalmpetition: '该纳品回数的书类已经在印章中或已经有项目使用该合同，不能删除！',
     error_judgement: '该合同的决裁书已经进行中或是审批完成，不能删除！',
     error_application: '请先申请至少一条契约番号！'
