@@ -139,7 +139,6 @@
     },
     data() {
       return {
-        description:'',
         showHelp: false,
         helpContent: '',
         total: 0,
