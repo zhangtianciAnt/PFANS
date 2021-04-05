@@ -46,7 +46,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <org :disabled="true"
+                <org :disabled="!disable"
                      :orglist="form.centerid"
                      @getOrgids="getCenterid"
                      orgtype="1"
@@ -56,7 +56,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <org :disabled="checkGro"
+                <org :disabled="!disable"
                      :orglist="form.groupid"
                      @getOrgids="getGroupId"
                      orgtype="2"
@@ -837,19 +837,19 @@
                                     this.acceptShow = true;
                                 }
                                 //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
-                                let rst = getOrgInfoByUserId(response.japancondominium.userid);
-                                if (rst) {
-                                    //upd_fjl_0927
-                                    if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                                        this.checkGro = true;
-                                    } else {
-                                        this.checkGro = false;
-                                    }
-                                    // this.centerid = rst.centerNmae;
-                                    // this.groupid = rst.groupNmae;
-                                    // this.teamid = rst.teamNmae;
-                                    //upd_fjl_0927
-                                }
+                                // let rst = getOrgInfoByUserId(response.japancondominium.userid);
+                                // if (rst) {
+                                //     //upd_fjl_0927
+                                //     if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                                //         this.checkGro = true;
+                                //     } else {
+                                //         this.checkGro = false;
+                                //     }
+                                //     // this.centerid = rst.centerNmae;
+                                //     // this.groupid = rst.groupNmae;
+                                //     // this.teamid = rst.teamNmae;
+                                //     //upd_fjl_0927
+                                // }
                                 if (response.usecoupon.length > 0) {
                                     if (this.form.condominiumcompany === 'PR007001') {
                                         this.tableD2 = response.usecoupon;
@@ -881,7 +881,7 @@
                                     }
                                 }
                                 this.userlist = this.form.userid;
-                                this.getBudt(this.form.groupid);
+                                this.getBudt(this.form.centerid);
                                 this.baseInfo.japancondominium = JSON.parse(JSON.stringify(this.form));
                                 if (this.form.condominiumcompany === 'PR007001') {
                                     this.baseInfo.usecoupon = JSON.parse(JSON.stringify(this.tableD2));
@@ -1022,16 +1022,17 @@
                                 this.groupid = rst.groupNmae;
                                 this.teamid = rst.teamNmae;
                                 this.form.centerid = rst.centerId;
-                                // this.form.groupid = rst.groupId;
+                                this.form.groupid = rst.groupId;
                                 this.form.teamid = rst.teamId;
+                                this.getBudt(this.form.centerId);
                                 //add_fjl_0927
-                                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                                    this.form.groupid = rst.groupId;
-                                    this.getBudt(this.form.groupid);
-                                    this.checkGro = true;
-                                } else {
-                                    this.checkGro = false;
-                                }
+                                // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                                //     this.form.groupid = rst.groupId;
+                                //     this.getBudt(this.form.groupid);
+                                //     this.checkGro = true;
+                                // } else {
+                                //     this.checkGro = false;
+                                // }
                                 //add_fjl_0927
                             }
                             this.form.userid = this.$store.getters.userinfo.userid;
@@ -1228,16 +1229,17 @@
                             this.groupid = rst.groupNmae;
                             this.teamid = rst.teamNmae;
                             this.form.centerid = rst.centerId;
-                            // this.form.groupid = rst.groupId;
+                            this.form.groupid = rst.groupId;
                             this.form.teamid = rst.teamId;
                             //add_fjl_0927
-                            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                                this.form.groupid = rst.groupId;
-                                this.getBudt(this.form.groupid);
-                                this.checkGro = true;
-                            } else {
-                                this.checkGro = false;
-                            }
+                            this.getBudt(this.form.centerid);
+                            // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                            //     this.form.groupid = rst.groupId;
+                            //     this.getBudt(this.form.groupid);
+                            //     this.checkGro = true;
+                            // } else {
+                            //     this.checkGro = false;
+                            // }
                             //add_fjl_0927
                         }
                         this.form.userid = this.$store.getters.userinfo.userid;
@@ -1254,12 +1256,22 @@
         methods: {
             //add_fjl_0927
             getCenterid(val) {
-                this.form.centerid = val;
+              this.form.centerid = val;
+              this.form.budgetnumber = '';
+              this.getBudt(val);
+              if(val === ""){
+                this.form.groupid = "";
+              }
             },
             getGroupId(val) {
-                this.form.groupid = val;
-                this.form.budgetunit = '';
+              this.form.groupid = val;
+              this.form.budgetnumber = '';
+              if(val != ""){
+                this.getOrgInformation(val);
                 this.getBudt(val);
+              }else{
+                this.getBudt(this.form.centerid);
+              }
             },
             getTeamid(val) {
                 this.form.teamid = val;
@@ -1336,11 +1348,11 @@
                 }
                 //ADD_FJL  修改人员预算编码
                 // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(val).encoding;
+                let butinfo = (getOrgInfo(val).encoding).substring(0,3);
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if (dic.length > 0) {
                     for (let i = 0; i < dic.length; i++) {
-                        if (butinfo === dic[i].value1) {
+                        if (butinfo === (dic[i].value1).substring(0,3)) {
                             this.options1.push({
                                 lable: dic[i].value2 + '_' + dic[i].value3,
                                 value: dic[i].code,

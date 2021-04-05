@@ -54,7 +54,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <org :disabled="true"
+                <org :disabled="!disable"
                      :orglist="form.centerid"
                      @getOrgids="getCenterid"
                      orgtype="1"
@@ -64,7 +64,7 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <org :disabled="checkGro"
+                <org :disabled="!disable"
                      :orglist="form.groupid"
                      @getOrgids="getGroupId"
                      orgtype="2"
@@ -401,21 +401,21 @@
                             this.refuseShow = false;
                             this.refuseShow1 = false;
                         }
-                        let rst = getOrgInfoByUserId(response.userid);
-                        if (rst) {
-                            //upd_fjl_0927
-                            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                                this.checkGro = true;
-                            } else {
-                                this.checkGro = false;
-                            }
-                            // this.centerid = rst.centerNmae;
-                            // this.groupid = rst.groupNmae;
-                            // this.teamid = rst.teamNmae;
-                            //upd_fjl_0927
-                        }
+                        // let rst = getOrgInfoByUserId(response.userid);
+                        // if (rst) {
+                        //     //upd_fjl_0927
+                        //     if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                        //         this.checkGro = true;
+                        //     } else {
+                        //         this.checkGro = false;
+                        //     }
+                        //     // this.centerid = rst.centerNmae;
+                        //     // this.groupid = rst.groupNmae;
+                        //     // this.teamid = rst.teamNmae;
+                        //     //upd_fjl_0927
+                        // }
                         this.userlist = this.form.userid;
-                        this.getBudt(this.form.groupid);
+                        this.getBudt(this.form.centerid);
                         if (this.form.status === '2') {
                             this.disable = false;
                         }
@@ -458,16 +458,17 @@
                         this.groupid = rst.groupNmae;
                         this.teamid = rst.teamNmae;
                         this.form.centerid = rst.centerId;
-                        // this.form.groupid = rst.groupId;
+                        this.form.groupid = rst.groupId;
                         this.form.teamid = rst.teamId;
+                        this.getBudt(this.form.centerid);
                         //add_fjl_0927
-                        if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                            this.form.groupid = rst.groupId;
-                            this.getBudt(this.form.groupid);
-                            this.checkGro = true;
-                        } else {
-                            this.checkGro = false;
-                        }
+                        // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                        //     this.form.groupid = rst.groupId;
+
+                        //     this.checkGro = true;
+                        // } else {
+                        //     this.checkGro = false;
+                        // }
                         //add_fjl_0927
                     }
                     this.form.userid = this.$store.getters.userinfo.userid;
@@ -489,13 +490,48 @@
         },
         methods: {
             //add_fjl_0927
+          getOrgInformation(id) {
+            let org = {};
+            let treeCom = this.$store.getters.orgs;
+            if (id && treeCom.getNode(id)) {
+              let node = id;
+              let type = treeCom.getNode(id).data.type || 0;
+              for (let index = parseInt(type); index >= 1; index--) {
+                if (index === 2) {
+                  org.groupname = treeCom.getNode(node).data.departmentname;
+                  org.group_id = treeCom.getNode(node).data._id;
+                }
+                if (index === 1) {
+                  org.centername = treeCom.getNode(node).data.companyname;
+                  org.center_id = treeCom.getNode(node).data._id;
+                }
+                node = treeCom.getNode(node).parent.data._id;
+              }
+              ({
+                centername: this.form.centername,
+                groupname: this.form.groupname,
+                center_id: this.form.centerid,
+                group_id: this.form.groupid,
+              } = org);
+            }
+          },
             getCenterid(val) {
-                this.form.centerid = val;
+              this.form.centerid = val;
+              this.form.company = '';
+              this.getBudt(val);
+              if(val === ""){
+                this.form.groupid = "";
+              }
             },
             getGroupId(val) {
-                this.form.groupid = val;
-                this.form.company = '';
+              this.form.groupid = val;
+              this.form.company = '';
+              if(val != ""){
+                this.getOrgInformation(val);
                 this.getBudt(val);
+              }else{
+                this.getBudt(this.form.centerid);
+              }
             },
             getTeamid(val) {
                 this.form.teamid = val;
@@ -532,11 +568,11 @@
                 }
                 //ADD_FJL  修改人员预算编码
                 // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-                let butinfo = getOrgInfo(val).encoding;
+                let butinfo = (getOrgInfo(val).encoding).substring(0,3);
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if (dic.length > 0) {
                     for (let i = 0; i < dic.length; i++) {
-                        if (butinfo === dic[i].value1) {
+                        if (butinfo === (dic[i].value1).substring(0,3)) {
                             this.options1.push({
                                 lable: dic[i].value2 + '_' + dic[i].value3,
                                 value: dic[i].code,
@@ -544,6 +580,20 @@
                         }
                     }
                 }
+              // if(this.options1.length === 0){
+              //   let butinfo = (getOrgInfo(this.form.groupid).encoding).substring(0,3);
+              //   let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              //   if (dic.length > 0) {
+              //     for (let i = 0; i < dic.length; i++) {
+              //       if (butinfo === (dic[i].value1).substring(0,3)) {
+              //         this.options1.push({
+              //           lable: dic[i].value2 + '_' + dic[i].value3,
+              //           value: dic[i].code,
+              //         });
+              //       }
+              //     }
+              //   }
+              // }
                 // }
                 //ADD_FJL  修改人员预算编码
             },

@@ -14,9 +14,10 @@
           <el-tabs type="border-card" v-model="activeName">
             <el-tab-pane :label="$t('label.PFANS2002FORMVIEW_ORGIN')" name="first">
               <el-row>
+                <!--update center取预算单位横展 start 0404-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <org :disabled="true"
+                    <org :disabled="!disable"
                          :orglist="form.center_id"
                          @getOrgids="getCenterid"
                          orgtype="1"
@@ -26,7 +27,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <org :disabled="checkGro"
+                    <org :disabled="!disable"
                          :orglist="form.group_id"
                          @getOrgids="getGroupId"
                          orgtype="2"
@@ -34,6 +35,7 @@
                     ></org>
                   </el-form-item>
                 </el-col>
+                <!--update center取预算单位横展 end 0404-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
                     <org :disabled="true"
@@ -466,21 +468,23 @@
           .then(response => {
             if (response != undefined) {
               this.form = response;
-              let rst = getOrgInfoByUserId(response.user_id);
-              if (rst) {
-                  //upd_fjl_0927
-                  if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                      this.checkGro = true;
-                  } else {
-                      this.checkGro = false;
-                  }
-                  // this.centerid = rst.centerNmae;
-                  // this.groupid = rst.groupNmae;
-                  // this.teamid = rst.teamNmae;
-                  //upd_fjl_0927
-              }
+              // update center取预算单位横展 start
+              // let rst = getOrgInfoByUserId(response.user_id);
+              // if (rst) {
+              //     //upd_fjl_0927
+              //     if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              //         this.checkGro = true;
+              //     } else {
+              //         this.checkGro = false;
+              //     }
+              //     // this.centerid = rst.centerNmae;
+              //     // this.groupid = rst.groupNmae;
+              //     // this.teamid = rst.teamNmae;
+              //     //upd_fjl_0927
+              // }
               this.userlist = this.form.user_id;
-                this.getBudt(this.form.group_id);
+              this.getBudt(this.form.center_id);
+              // update center取预算单位横展 end
               let lettableT = [];
               let letreason = response.reason.split(';');
               if (letreason.length > 0) {
@@ -587,17 +591,20 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-              // this.form.group_id = rst.groupId;
-              this.form.team_id = rst.teamId;
+            // update center取预算单位横展 start
+            this.form.group_id = rst.groupId;
+            this.form.team_id = rst.teamId;
+            this.getBudt(this.form.center_id);
               //add_fjl_0927
-              if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                  this.form.group_id = rst.groupId;
-                  this.getBudt(this.form.group_id);
-                  this.checkGro = true;
-              } else {
-                  this.checkGro = false;
-              }
+              // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              //     this.form.group_id = rst.groupId;
+
+              //     this.checkGro = true;
+              // } else {
+              //     this.checkGro = false;
+              // }
               //add_fjl_0927
+            // update center取预算单位横展 end
           }
           // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
           //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
@@ -606,15 +613,52 @@
       }
     },
     methods: {
-        //add_fjl_0927
-        getCenterid(val) {
-            this.form.center_id = val;
-        },
-        getGroupId(val) {
-            this.form.group_id = val;
-            this.form.budgetunit = '';
-            this.getBudt(val);
-        },
+      // update center取预算单位横展 start 0404
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+          } = org);
+        }
+      },
+      //add_fjl_0927
+      getCenterid(val) {
+        this.form.center_id = val;
+        this.form.budgetnumber = '';
+        this.getBudt(val);
+        if(val === ""){
+          this.form.group_id = "";
+        }
+      },
+      getGroupId(val) {
+        this.form.group_id = val;
+        this.form.budgetnumber = '';
+        if(val != ""){
+          this.getOrgInformation(val);
+          this.getBudt(val);
+        }else{
+          this.getBudt(this.form.center_id);
+        }
+      },
+      // update center取预算单位横展 end 0404
         getTeamid(val) {
             this.form.team_id = val;
         },
@@ -659,6 +703,7 @@
             // this.$refs.PFANS1012Pop.open = true;
         },
         //add_fjl_0806  查看详情
+      // update center取预算单位横展 end start
       getBudt(val) {
           this.options = [];
           if (val === '' || val === null) {
@@ -666,11 +711,11 @@
           }
         //ADD_FJL  修改人员预算编码
           // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(val).encoding;
+          let butinfo = (getOrgInfo(val).encoding).substring(0,3);
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
+              if (butinfo === (dic[i].value1).substring(0,3)) {
                 this.options.push({
                   lable: dic[i].value2 + '_' + dic[i].value3,
                   value: dic[i].code,
@@ -678,6 +723,21 @@
               }
             }
           }
+        // if(this.options.length === 0){
+        //   let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0,3);
+        //   let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        //   if (dic.length > 0) {
+        //     for (let i = 0; i < dic.length; i++) {
+        //       if (butinfo === (dic[i].value1).substring(0,3)) {
+        //         this.options.push({
+        //           lable: dic[i].value2 + '_' + dic[i].value3,
+        //           value: dic[i].code,
+        //         });
+        //       }
+        //     }
+        //   }
+        // }
+        // update center取预算单位横展 end 0404
           // }
         //ADD_FJL  修改人员预算编码
       },

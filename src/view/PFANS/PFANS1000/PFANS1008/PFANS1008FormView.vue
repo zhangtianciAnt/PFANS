@@ -14,13 +14,13 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                    <el-input :disabled="!disabled" style="width:20vw" v-model="centerid"></el-input>
                     <el-input v-show='false' v-model="form.center_id" :disabled="true" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                    <el-input :disabled="!disabled" style="width:20vw" v-model="groupid"></el-input>
                     <el-input v-show='false' v-model="form.group_id" :disabled="true" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
@@ -655,20 +655,26 @@
         row.eafter = val;
       },
       getCenterId1(val) {
-        this.getOrgInformation(val);
+        this.form.ferrycenter_id = val;
+        this.form.ferrybudgetunit = '';
+        this.getFebud(val);
         if (!val || this.form.ferrycenter_id === "") {
           this.errorferrycenter = this.$t("normal.error_08") + "center";
+          this.form.ferrygroup_id = "";
         } else {
           this.errorferrycenter = "";
         }
       },
       //转让部門
       getGroupId1(val) {
-        if (val === "" || val === null) {
-          this.form.ferrybudgetunit = '';
-          this.options = [];
+        this.form.ferrygroup_id = val;
+        this.form.ferrybudgetunit = '';
+        if (val != "") {
+          this.getOrgInformation(val);
+          this.getFebud(val);
+        }else{
+          this.getFebud(this.form.ferrycenter_id);
         }
-        this.getOrgInformation(val);
         if (this.form.ferrycenter_id === "") {
           this.errorferrygroup = this.$t("normal.error_08") + "center";
         } else {
@@ -688,11 +694,11 @@
         if (val !== '' && val !== null) {
           this.options = [];
           // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-          let butinfo = getOrgInfo(val).encoding;
+          let butinfo = (getOrgInfo(val).encoding).substring(0,3);
           let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
           if (dic.length > 0) {
             for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
+              if (butinfo === (dic[i].value1).substring(0,3)) {
                 this.options.push({
                   lable: dic[i].value3,
                   value: dic[i].code,
@@ -706,11 +712,32 @@
           this.options = [];
         }
       },
+      getFebud1(val) {
+        if (val !== '' && val !== null) {
+          this.options1 = [];
+          // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
+          let butinfo = (getOrgInfo(val).encoding).substring(0,3);
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === (dic[i].value1).substring(0,3)) {
+                this.options1.push({
+                  lable: dic[i].value3,
+                  value: dic[i].code,
+                })
+              }
+            }
+          }
+          // }
+        } else {
+          this.form.tubebudgetunit = '';
+          this.options1 = [];
+        }
+      },
       //ADD_FJL  修改人员预算编码
       getOrgInformation(id) {
         let org = {};
         let treeCom = this.$store.getters.orgs;
-
         if (id && treeCom.getNode(id)) {
           let node = id;
           let type = treeCom.getNode(id).data.type || 0;
@@ -724,7 +751,6 @@
             if (index === 2) {
               org.ferrygroupname = treeCom.getNode(node).data.departmentname;
               org.ferrygroup_id = treeCom.getNode(node).data._id;
-              this.getFebud(org.ferrygroup_id);
             }
             if (index === 1) {
               org.ferrycentername = treeCom.getNode(node).data.companyname;
@@ -742,10 +768,44 @@
           } = org);
         }
       },
+      getOrgInformation2(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            // if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+            //   org.ferrycentername = treeCom.getNode(node).data.departmentname;
+            //   org.ferryteam_id = treeCom.getNode(node).data._id;
+            // }
+            if (index === 2) {
+              org.tubegroupname = treeCom.getNode(node).data.departmentname;
+              org.tubegroup_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.tubecentername = treeCom.getNode(node).data.companyname;
+              org.tubecenter_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            tubecentername: this.form.tubecentername,
+            tubegroupname: this.form.tubegroupname,
+            // ferryteamname: this.form.ferryteamname,
+            tubecenter_id: this.form.tubecenter_id,
+            tubegroup_id: this.form.tubegroup_id,
+            // ferryteam_id: this.form.ferryteam_id,
+          } = org);
+        }
+      },
       getCenterId2(val) {
-        this.getOrgInformation1(val);
+        this.form.tubecenter_id = val;
+        this.form.tubebudgetunit = '';
+        this.getFebud1(val);
         if (!val || this.form.tubecenter_id === "") {
           this.errortubecenter = this.$t("normal.error_08") + "center";
+          this.form.tubegroup_id = "";
         } else {
           this.errortubecenter = "";
         }
@@ -753,13 +813,15 @@
       //移管部門
       getGroupId2(val) {
         this.form.tubegroup_id = val;
-        if (val === "" || val === null) {
-          this.form.tubebudgetunit = '';
-          this.options1 = [];
+        this.form.tubebudgetunit = '';
+        if (val != "") {
+          this.getOrgInformation2(val);
+          this.getFebud1(val);
+        }else{
+          this.getFebud1(this.form.tubecenter_id);
         }
-        this.getOrgInformation1(val);
-        if (this.form.tubegroup_id == "" || this.form.tubegroup_id == null) {
-          this.errortubegroup = this.$t("normal.error_08") + "group";
+        if (this.form.tubecenter_id === "") {
+          this.errortubegroup = this.$t("normal.error_08") + "center";
         } else {
           this.errortubegroup = "";
         }
