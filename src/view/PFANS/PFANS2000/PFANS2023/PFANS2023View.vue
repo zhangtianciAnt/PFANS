@@ -304,6 +304,7 @@
       // add-lyt-2021/4/4-添加年份检索栏-start
       changed() {
         if (this.yearvalue !== '' && this.yearvalue !== null && this.yearvalue !== undefined) {
+          this.loading = true;
           this.$store
             .dispatch('PFANS2023Store/getFpans2023List', {'years':moment(this.yearvalue).format('YYYY')})
             .then(response => {
