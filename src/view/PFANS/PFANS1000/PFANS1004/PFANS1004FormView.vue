@@ -2230,7 +2230,7 @@
             if (this.form.musectosion == '0') {
               // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
               if(this.form.decision == 'PJ146006') {
-                if (this.role15 === '1'){
+                if (this.role15 === '1'&& this.$store.getters.userinfo.userid === this.form.user_id){
                   Message({
                     message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_21'),
                     type: 'error',
@@ -2241,7 +2241,7 @@
               }
               else if(this.form.decision == 'PJ146008' || this.form.decision == 'PJ146009' || this.form.decision == 'PJ146010'
                 || this.form.decision == 'PJ146011' || this.form.decision == 'PJ146012' || this.form.decision == 'PJ146013'){
-                if(this.role16 === '1'){
+                if(this.role16 === '1'&& this.$store.getters.userinfo.userid === this.form.user_id){
                   Message({
                     message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_22'),
                     type: 'error',
@@ -2249,7 +2249,7 @@
                   });
                   return;
                 }
-              }else{
+              }
                 // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
                 this.$refs['refform'].validate(valid => {
                   if (valid) {
@@ -2365,9 +2365,6 @@
                     });
                   }
                 });
-                // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-start
-              }
-              // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
             } else if (this.form.musectosion == '1') {
               this.$refs['refform'].validate(valid => {
                 if (valid) {
