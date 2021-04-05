@@ -1541,17 +1541,19 @@
         //ADD_FJL
         row.options1 = [];
         row.budgetcode = '';
-        let butinfo = (getOrgInfo(row.depart).encoding).substring(0,3);
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === (dic[i].value1).substring(0,3)) {
-              row.options1.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        if(getOrgInfo(row.depart)){
+            let butinfo = (getOrgInfo(row.depart).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.options1.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
         //ADD_FJL  修改人员预算编码
         let group = getOrgInfo(orglist);

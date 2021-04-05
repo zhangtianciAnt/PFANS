@@ -3395,17 +3395,19 @@
         row.accoundoptionsdate = [];
         row.subjectnumber = '';
         // update center取预算单位横展 start
-        let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === (dic[i].value1).substring(0,3)) {
-              row.optionsT.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        if(getOrgInfo(row.departmentname)){
+            let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.optionsT.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
         // update center取预算单位横展 end
         //ADD_FJL  修改人员预算编码
@@ -3455,17 +3457,19 @@
         row.checkCode2 = '';
         row.checkCode = '';
         // update center取预算单位横展 start
-        let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === (dic[i].value1).substring(0,3)) {
-              row.optionsR.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        if(getOrgInfo(row.departmentname)){
+            let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.optionsR.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
         // update center取预算单位横展 end
         //ADD_FJL  修改人员预算编码
@@ -3640,17 +3644,19 @@
         row.accountcode = '';
         row.subjectnumber = '';
         // update center取预算单位横展 start
-        let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === (dic[i].value1).substring(0,3)) {
-              row.optionsP.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        if(getOrgInfo(row.departmentname)){
+            let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.optionsP.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
         // update center取预算单位横展 end
         //ADD_FJL  修改人员预算编码
