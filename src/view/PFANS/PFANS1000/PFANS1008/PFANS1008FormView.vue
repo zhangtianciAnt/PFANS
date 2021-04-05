@@ -542,7 +542,7 @@
             }
             this.$store.commit('global/SET_OPERATEOWNER', this.form.user_id);
             //add-ws-7/2-禅道任务192
-            this.getFebud(this.form.ferrygroup_id);
+            this.getFebud(this.form.ferrycenter_id);
             this.getbud(this.form.tubegroup_id);
             //add-ws-7/2-禅道任务192
             if (response.notification.length > 0) {
@@ -579,7 +579,7 @@
             this.form.ferryteam_id = rst.teamId;
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
-          this.getFebud(this.form.ferrygroup_id);
+          this.getFebud(this.form.ferrycenter_id);
         }
         if (this.selectedList != '') {
 
@@ -708,6 +708,20 @@
                   }
               }
           }
+          if(this.options.length === 0){
+            let butinfo = (getOrgInfo(this.form.ferrygroup_id).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+              for (let i = 0; i < dic.length; i++) {
+                if (butinfo === (dic[i].value1).substring(0,3)) {
+                  this.options.push({
+                    lable: dic[i].value2 + '_' + dic[i].value3,
+                    value: dic[i].code,
+                  });
+                }
+              }
+            }
+          }
           // }
         } else {
           this.form.ferrybudgetunit = '';
@@ -731,6 +745,20 @@
                       }
                   }
               }
+            if(this.options1.length === 0){
+              let butinfo = (getOrgInfo(this.form.tubegroup_id).encoding).substring(0,3);
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                  if (butinfo === (dic[i].value1).substring(0,3)) {
+                    this.options1.push({
+                      lable: dic[i].value2 + '_' + dic[i].value3,
+                      value: dic[i].code,
+                    });
+                  }
+                }
+              }
+            }
           }
           // }
         } else {
