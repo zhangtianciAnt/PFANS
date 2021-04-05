@@ -802,7 +802,7 @@
                                 //     // this.teamid = rst.teamNmae;
                                 //     //upd_fjl_0927
                                 // }
-                                this.getBudt(this.form.center_id);
+                                this.getBudt(this.form.centerid);
                                 if (this.form.ticketstype === 'first') {
                                     this.showDomestic = true;
                                     this.showForeign = false;
@@ -990,7 +990,7 @@
                             //     // this.teamid = rst.teamNmae;
                             //     //upd_fjl_0927
                             // }
-                            this.getBudt(this.form.group_id);
+                            this.getBudt(this.form.center_id);
                             if (this.form.ticketstype === 'first') {
                                 this.showDomestic = true;
                                 this.showForeign = false;
@@ -1032,16 +1032,16 @@
                             this.groupid = rst.groupNmae;
                             this.teamid = rst.teamNmae;
                             this.form.center_id = rst.centerId;
-                            // this.form.group_id = rst.groupId;
+                            this.form.group_id = rst.groupId;
                             this.form.team_id = rst.teamId;
+                            this.getBudt(this.form.center_id);
                             //add_fjl_0927
-                            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                                this.form.group_id = rst.groupId;
-                                this.getBudt(this.form.group_id);
-                                this.checkGro = true;
-                            } else {
-                                this.checkGro = false;
-                            }
+                            // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+                            //     this.form.group_id = rst.groupId;
+                            //     this.checkGro = true;
+                            // } else {
+                            //     this.checkGro = false;
+                            // }
                             //add_fjl_0927
                             // if(rst.groupId){
                             //     this.form.budgetnumber = getOrgInfo(rst.groupId).encoding;
@@ -1136,18 +1136,21 @@
                 }
                 //ADD_FJL  修改人员预算编码
                 // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+              if(getOrgInfo(val)){
                 let butinfo = (getOrgInfo(val).encoding).substring(0,3);
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if (dic.length > 0) {
-                    for (let i = 0; i < dic.length; i++) {
-                        if (butinfo === (dic[i].value1).substring(0,3)) {
-                            this.options1.push({
-                                lable: dic[i].value2 + '_' + dic[i].value3,
-                                value: dic[i].code,
-                            });
-                        }
+                  for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                      this.options1.push({
+                        lable: dic[i].value2 + '_' + dic[i].value3,
+                        value: dic[i].code,
+                      });
                     }
+                  }
                 }
+              }
+
               // if(this.options1.length === 0){
               //   let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0,3);
               //   let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');

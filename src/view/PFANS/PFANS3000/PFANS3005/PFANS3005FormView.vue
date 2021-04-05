@@ -1971,6 +1971,7 @@
         }
         //ADD_FJL  修改人员预算编码
         // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
+        if(getOrgInfo(val)){
         let butinfo = (getOrgInfo(val).encoding).substring(0,3);
         let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
         if (dic.length > 0) {
@@ -1982,6 +1983,7 @@
               });
             }
           }
+        }
         }
         // if(this.options1.length === 0){
         //   let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0,3);
