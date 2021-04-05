@@ -393,20 +393,6 @@ export function getorgGroupList(groupid) {
   return info;
 }
 
-//所有部門取得 add gbb 0810
-export function getorgGroupallList(groupid) {
-  let info = null;
-  if (store.getters.orgGroupallList && store.getters.orgGroupallList.length > 0) {
-    for (let cooperinterview of store.getters.orgGroupallList) {
-      if (cooperinterview.groupid === groupid) {
-        info = cooperinterview;
-        break;
-      }
-    }
-  }
-  return info;
-}
-
 export function getSupplierinfor(id) {
   let info = null;
   if (store.getters.supplierinforList && store.getters.supplierinforList.length > 0) {

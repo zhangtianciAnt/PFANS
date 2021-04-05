@@ -19,9 +19,9 @@
     getStatus,
     getUserInfo,
     getorgGroupList,
-    getorgGroupallList,
     getCurrentRole8,
     getDownOrgInfo,
+    getCurrentRoleNew,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
@@ -50,7 +50,7 @@
         columns: [
           {
             code: 'groupname',
-            label: 'label.group',
+            label: 'label.department',
             width: 110,
             fix: false,
             filter: false,
@@ -94,47 +94,139 @@
         this.getList();
       },
       getList() {
-        let groupid = this.$store.getters.userinfo.userinfo.groupid;
-        let letRole2 = this.getCurrentRole2();
-        if (letRole2 !== '4') {
-          letRole2 = this.getCurrentRole3();
-          // if (letRole2 === '2') {
-          //   groupid = this.$store.getters.userinfo.userinfo.centerid;
-          // }
-          if (letRole2 === '2') {
-            //CENTER长
-            groupid = this.$store.getters.userinfo.userinfo.centerid;
-            if (this.$store.getters.userinfo.userinfo.otherorgs)
-            {
-              for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
-                if (others.centerid) {
-                  groupid = groupid + ',' + others.centerid;
-                }
-              }
-            }
-          } else if (letRole2 === '1') {
-            //GROUP
-            groupid = this.$store.getters.userinfo.userinfo.groupid;
-            if (this.$store.getters.userinfo.userinfo.otherorgs)
-            {
-              for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
-                if (others.centerid) {
-                  let centerId = others.centerid;
-                  let orgs = getDownOrgInfo(centerId);
-                  if (orgs) {
-                    for (let org of orgs) {
-                      if (others.groupid) {
-                        if (org._id === others.groupid) {
-                          groupid = groupid + ',' + org._id;
-                        }
+          let role = getCurrentRoleNew();
+          const vote = [];
+          if (role === '3') {//CENTER
+              vote.push(
+                  {
+                      value: this.$store.getters.userinfo.userinfo.centerid,
+                      lable: this.$store.getters.userinfo.userinfo.centername,
+                  },
+              );
+              //add ccm 0112 兼职部门
+              if (this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                  for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                  {
+                      if (others.centerid)
+                      {
+                          this.$store.getters.orgGroupList.filter((item) => {
+                              if (item.centerid === others.centerid) {
+                                  vote.push(
+                                      {
+                                          value: item.centerid,
+                                          lable: item.centername,
+                                      },
+                                  );
+                              }
+                          })
                       }
-                    }
                   }
-                }
               }
-            }
+              //add ccm 0112 兼职部门
+              this.group_id = this.$store.getters.userinfo.userinfo.centerid;
+          } else if (role === '2') {//副总经理
+              this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.virtualuser === this.$store.getters.userinfo.userid) {
+                      vote.push(
+                          {
+                              value: item.centerid,
+                              lable: item.centername,
+                          },
+                      );
+                  }
+              })
+              //add ccm 0112 兼职部门
+              if (this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                  for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                  {
+                      if (others.centerid)
+                      {
+                          this.$store.getters.orgGroupList.filter((item) => {
+                              if (item.centerid === others.centerid) {
+                                  vote.push(
+                                      {
+                                          value: item.centerid,
+                                          lable: item.centername,
+                                      },
+                                  );
+                              }
+                          })
+                      }
+                  }
+              }
+              //add ccm 0112 兼职部门
           }
-        }
+          const vote1 = [];
+          let letRole2 = this.getCurrentRole2();
+          if (letRole2 === '4')//外注管理担当
+          {
+              this.$store.getters.orgGroupList.filter((item) => {
+                  vote1.push(
+                      {
+                          value: item.centerid,
+                          lable: item.centername,
+                      },
+                  );
+              })
+              this.optionsdata = vote1;
+          }
+          else
+          {
+              this.optionsdata = vote;
+          }
+          //去重
+          let groupidList = "";
+          let arrId = [];
+          for(var item of this.optionsdata){
+              if(arrId.indexOf(item['lable']) == -1){
+                  arrId.push(item['lable']);
+                  //groupidList.push(item['value']);
+                  groupidList = groupidList + ',' + item['value'];
+              }
+          }
+        // let groupid = this.$store.getters.userinfo.userinfo.groupid;
+        // let letRole2 = this.getCurrentRole2();
+        // if (letRole2 !== '4') {
+        //   letRole2 = this.getCurrentRole3();
+        //   // if (letRole2 === '2') {
+        //   //   groupid = this.$store.getters.userinfo.userinfo.centerid;
+        //   // }
+        //   if (letRole2 === '2') {
+        //     //CENTER长
+        //     groupid = this.$store.getters.userinfo.userinfo.centerid;
+        //     if (this.$store.getters.userinfo.userinfo.otherorgs)
+        //     {
+        //       for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+        //         if (others.centerid) {
+        //           groupid = groupid + ',' + others.centerid;
+        //         }
+        //       }
+        //     }
+        //   } else if (letRole2 === '1') {
+        //     //GROUP
+        //     groupid = this.$store.getters.userinfo.userinfo.groupid;
+        //     if (this.$store.getters.userinfo.userinfo.otherorgs)
+        //     {
+        //       for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
+        //         if (others.centerid) {
+        //           let centerId = others.centerid;
+        //           let orgs = getDownOrgInfo(centerId);
+        //           if (orgs) {
+        //             for (let org of orgs) {
+        //               if (others.groupid) {
+        //                 if (org._id === others.groupid) {
+        //                   groupid = groupid + ',' + org._id;
+        //                 }
+        //               }
+        //             }
+        //           }
+        //         }
+        //       }
+        //     }
+        //   }
+        // }
         let letdates = [
           this.months.split('-')[0],
           this.months.split('-')[1],
@@ -146,8 +238,8 @@
         }
         this.letparams = {
           dates: dates,
-          role: letRole2,
-          groupid: groupid,
+          role: '',
+          groupid: groupidList.substring(1,groupidList.length),
         };
         this.loading = true;
         this.$store
@@ -159,9 +251,9 @@
             let dates = moment(now1).format('M');
             for (let j = 0; j < response.length; j++) {
               if (response[j].groupid) {
-                let group = getorgGroupallList(response[j].groupid);
+                let group = getorgGroupList(response[j].groupid);
                 if (group) {
-                  response[j].groupname = group.groupname;
+                  response[j].groupname = group.centername;
                 }
               }
               if (response[j].status === null || response[j].status === '' || response[j].status === '3') {
@@ -344,6 +436,7 @@
           for (let role of this.$store.getters.useraccount.roles) {
             roles = roles + role.description;
           }
+          roles = roles.replace('副总经理','');
           if (roles.toUpperCase().indexOf('外注管理担当') != -1 || roles.toUpperCase().indexOf('财务部长') != -1 || roles.toUpperCase().indexOf('企划部长') != -1 || roles.toUpperCase().indexOf('合同担当') != -1 || roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('管理员') != -1) {
             return '4';
           } else {
