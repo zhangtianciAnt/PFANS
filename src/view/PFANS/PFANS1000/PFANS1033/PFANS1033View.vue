@@ -31,7 +31,7 @@
                     },
                     {
                         code: 'deployment',
-                        label: 'label.group',
+                        label: 'label.department',
                         width: 120,
                         fix: false,
                         filter: true,

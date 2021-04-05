@@ -384,7 +384,7 @@ export function getorgGroupList(groupid) {
   let info = null;
   if (store.getters.orgGroupList && store.getters.orgGroupList.length > 0) {
     for (let cooperinterview of store.getters.orgGroupList) {
-      if (cooperinterview.groupid === groupid) {
+      if (cooperinterview.centerid === groupid) {
         info = cooperinterview;
         break;
       }
@@ -491,8 +491,9 @@ export function getCurrentRole() {
       roles = roles + role.rolename;
       //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
     }
-
-    if (roles.indexOf('总经理') != -1) {
+    if (roles.indexOf('副总经理') != -1) {
+      return '5';
+    } else if (roles.indexOf('总经理') != -1) {
       return '1';
     } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
       return '2';

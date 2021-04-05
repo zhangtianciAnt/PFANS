@@ -2,7 +2,7 @@
   <div class="EasyNormalTable" style="height: calc(100vh - 60px - 2rem)" element-loading-spinner="el-icon-loading">
     <el-card class="box-card">
       <div class="clearfix" slot="header" style="height: 20px" v-show="buttonShow">
-        <easy-button-bar :data="btlisst" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
+        <easy-button-bar :data="buttonList" :systembutton="systembutton" @buttonClick="buttonClick"></easy-button-bar>
         <easy-work-flow ref="workflow"> </easy-work-flow>
       </div>
       <div align="right" class="filter-container" style="padding-bottom: 10px">
@@ -13,17 +13,7 @@
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
-      <div v-if="$slots.search" style="padding-top: 5px;">
-      <el-collapse>
-        <el-collapse-item>
-          <template slot="title">
-                      <span class="collapse_Title"
-                            style="color:#005BAA">检索条件</span>
-          </template>
-          <slot name="search"></slot>
-        </el-collapse-item>
-      </el-collapse>
-      </div>
+      <slot name="search"></slot>
       <div style="height: calc(100vh - 60px - 15rem);width: 100%">
       <pl-table :datas="this.pagedate" :default-sort='defaultSort' :element-loading-text="$t('normal.waiting')" :row-key="rowid"
                 @filter-change="tableFilter" @row-click="rowClick" @row-dblclick="rowClick" @selection-change="handleSelectionChange" @sort-change="sortChange"
@@ -79,9 +69,6 @@
       EasyButtonBar,
       EasyWorkFlow
     },
-    //注入缓存修改 20210317 ztc start
-    //inject:['reload'],
-    //注入缓存修改 20210317 ztc end
     data () {
       return {
         total: 0,
@@ -99,8 +86,7 @@
         loading: false,
         filterlist: [],
         systembutton: [false, false, false],
-        selectedList: [],
-        btlisst:[],
+        selectedList: []
       }
     },
     props: {
@@ -169,10 +155,6 @@
       showIndex: {
         type: Boolean,
         default: false
-      },
-      showReaload:{
-        type: Boolean,
-        default: true,
       }
     },
     methods: {
@@ -181,14 +163,7 @@
       //   return 'row_height_left';
       // },
       buttonClick (val) {
-        //注入缓存修改 20210317 ztc start
-        // if(val == 'reload'){
-        //   this.reload();
-        // }else{
-
-          this.$emit('buttonClick', val);
-        // }
-        //注入缓存修改 20210317 ztc end
+        this.$emit('buttonClick', val)
       },
       // 表格排序
       sortChange (column, prop, order) {
@@ -356,20 +331,6 @@
       // }
     },
     mounted () {
-      if(this.showReaload){
-        this.btlisst = this.buttonList.concat(
-          [
-            {
-              key: 'reload',
-              name: 'button.reload',
-              disabled: false,
-              icon: 'el-icon-refresh-right',
-            }
-          ]
-        );
-      }else{
-        this.btlisst = this.buttonList;
-      }
       this.totaldata = this.data
       this.getList()
       // this.getNewActionAuth()

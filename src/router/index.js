@@ -308,18 +308,12 @@ const routes = [
       {
         path: '/roleView',
         name: 'roleView',
-        component: roleView,
-        meta: {
-          keepAlive: true
-        }
+        component: roleView
       },
       {
         path: '/workflowView',
         name: 'workflowView',
-        component: workflowView,
-        meta: {
-          keepAlive: true
-        }
+        component: workflowView
       },
       {
         path: '/roleFormView',
@@ -334,10 +328,7 @@ const routes = [
       {
         path: '/usersView',
         name: 'usersView',
-        component: usersView,
-        meta: {
-          keepAlive: true
-        }
+        component: usersView
       },
       {
         path: '/usersFormView',
@@ -347,10 +338,7 @@ const routes = [
       {
         path: '/OnlyusersView',
         name: 'usersView2',
-        component: usersView2,
-        meta: {
-          keepAlive: true
-        }
+        component: usersView2
       },
       {
         path: '/OnlyusersFormView',
@@ -441,9 +429,6 @@ const routes = [
         path: '/PFANS1012View',
         name: 'PFANS1012View',
         component: PFANS1012View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1012PointFormView',
@@ -459,9 +444,6 @@ const routes = [
         path: '/PFANS1013View',
         name: 'PFANS1013View',
         component: PFANS1013View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1013FormView',
@@ -477,9 +459,6 @@ const routes = [
         path: '/PFANS1016View',
         name: 'PFANS1016View',
         component: PFANS1016View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1016FormView',
@@ -490,9 +469,6 @@ const routes = [
         path: '/PFANS1017View',
         name: 'PFANS1017View',
         component: PFANS1017View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1017FormView',
@@ -503,9 +479,6 @@ const routes = [
         path: '/PFANS1018View',
         name: 'PFANS1018View',
         component: PFANS1018View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1018FormView',
@@ -516,9 +489,6 @@ const routes = [
         path: '/PFANS1019View',
         name: 'PFANS1019View',
         component: PFANS1019View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1019FormView',
@@ -529,9 +499,6 @@ const routes = [
         path: '/PFANS1020View',
         name: 'PFANS1020View',
         component: PFANS1020View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1020FormView',
@@ -542,9 +509,6 @@ const routes = [
         path: '/PFANS1021View',
         name: 'PFANS1021View',
         component: PFANS1021View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1021FormView',
@@ -565,9 +529,6 @@ const routes = [
         path: '/PFANS1023View',
         name: 'PFANS1023View',
         component: PFANS1023View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1023FormView',
@@ -578,9 +539,6 @@ const routes = [
         path: '/PFANS1024View',
         name: 'PFANS1024View',
         component: PFANS1024View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1024FormView',
@@ -591,9 +549,6 @@ const routes = [
         path: '/PFANS1025View',
         name: 'PFANS1025View',
         component: PFANS1025View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1044View',
@@ -612,9 +567,6 @@ const routes = [
         path: '/PFANS1026View',
         name: 'PFANS1026View',
         component: PFANS1026View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1026FormView',
@@ -625,9 +577,6 @@ const routes = [
         path: '/PFANS1027View',
         name: 'PFANS1027View',
         component: PFANS1027View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1027FormView',
@@ -638,9 +587,6 @@ const routes = [
         path: '/PFANS1028View',
         name: 'PFANS1028View',
         component: PFANS1028View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1028FormView',
@@ -651,9 +597,6 @@ const routes = [
         path: '/PFANS1029View',
         name: 'PFANS1029View',
         component: PFANS1029View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1029FormView',
@@ -664,9 +607,6 @@ const routes = [
         path: '/PFANS1030View',
         name: 'PFANS1030View',
         component: PFANS1030View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1030FormView',
@@ -677,9 +617,6 @@ const routes = [
         path: '/PFANS1031View',
         name: 'PFANS1031View',
         component: PFANS1031View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1031FormView',
@@ -690,9 +627,6 @@ const routes = [
         path: '/PFANS1032View',
         name: 'PFANS1032View',
         component: PFANS1032View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1032FormView',
@@ -703,9 +637,6 @@ const routes = [
         path: '/PFANS1033View',
         name: 'PFANS1033View',
         component: PFANS1033View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1033FormView',
@@ -720,7 +651,7 @@ const routes = [
       {
         path: '/PFANS1036View',
         name: 'PFANS1036View',
-        component: PFANS1036View
+        component: PFANS1036View,
       },
       {
         path: '/PFANS1036FormView',
@@ -735,15 +666,12 @@ const routes = [
       {
         path: '/PFANS1037FormView',
         name: 'PFANS1037FormView',
-        component: PFANS1037FormView
+        component: PFANS1037FormView,
       },
       {
         path: '/PFANS1038View',
         name: 'PFANS1038View',
         component: PFANS1038View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1038FormView',
@@ -759,9 +687,6 @@ const routes = [
         path: '/PFANS1040View',
         name: 'PFANS1040View',
         component: PFANS1040View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1040FormView',
@@ -772,9 +697,6 @@ const routes = [
         path: '/PFANS1041View',
         name: 'PFANS1041View',
         component: PFANS1041View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1041FormView',
@@ -785,9 +707,6 @@ const routes = [
         path: '/PFANS1042View',
         name: 'PFANS1042View',
         component: PFANS1042View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1042FormView',
@@ -798,9 +717,6 @@ const routes = [
         path: '/PFANS1043View',
         name: 'PFANS1043View',
         component: PFANS1043View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1043FormView',
@@ -811,25 +727,16 @@ const routes = [
         path: '/PFANS1045View',
         name: 'PFANS1045View',
         component: PFANS1045View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1046View',
         name: 'PFANS1046View',
         component: PFANS1046View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1048View',
         name: 'PFANS1048View',
         component: PFANS1048View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1048FormView',
@@ -840,9 +747,6 @@ const routes = [
         path: '/PFANS1049View',
         name: 'PFANS1049View',
         component: PFANS1049View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1049FormView',
@@ -858,9 +762,6 @@ const routes = [
         path: '/PFANS1047View',
         name: 'PFANS1047View',
         component: PFANS1047View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS1047FormView',
@@ -876,9 +777,6 @@ const routes = [
         path: '/PFANS2001View',
         name: 'PFANS2001View',
         component: PFANS2001View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2001FormView',
@@ -889,9 +787,6 @@ const routes = [
         path: '/PFANS2002View',
         name: 'PFANS2002View',
         component: PFANS2002View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2002FormView',
@@ -902,9 +797,6 @@ const routes = [
         path: '/PFANS2003View',
         name: 'PFANS2003View',
         component: PFANS2003View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2003FormView',
@@ -915,9 +807,6 @@ const routes = [
         path: '/PFANS2005View',
         name: 'PFANS2005View',
         component: PFANS2005View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2005FormView',
@@ -928,9 +817,6 @@ const routes = [
         path: '/PFANS2006View',
         name: 'PFANS2006View',
         component: PFANS2006View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2007FormView',
@@ -941,17 +827,11 @@ const routes = [
         path: '/PFANS2009View',
         name: 'PFANS2009View',
         component: PFANS2009View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2010View',
         name: 'PFANS2010View',
         component: PFANS2010View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2010FormView',
@@ -962,10 +842,6 @@ const routes = [
         path: '/PFANS2011View',
         name: 'PFANS2011View',
         component: PFANS2011View,
-        meta: {
-          keepAlive: true
-        }
-
       },
       {
         path: '/PFANS2011FormView',
@@ -976,9 +852,6 @@ const routes = [
         path: '/PFANS2013View',
         name: 'PFANS2013View',
         component: PFANS2013View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2013FormView',
@@ -998,10 +871,7 @@ const routes = [
       {
         path: '/PFANS2016View',
         name: 'PFANS2016View',
-        component: PFANS2016View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2016View
       },
       {
         path: '/PFANS2016FormView',
@@ -1011,10 +881,7 @@ const routes = [
       {
         path: '/PFANS2017View',
         name: 'PFANS2017View',
-        component: PFANS2017View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2017View
       },
       {
         path: '/PFANS2017FormView',
@@ -1024,10 +891,7 @@ const routes = [
       {
         path: '/PFANS2029View',
         name: 'PFANS2029View',
-        component: PFANS2029View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2029View
       },
       {
         path: '/PFANS2029FormView',
@@ -1057,10 +921,7 @@ const routes = [
       {
         path: '/PFANS2022View',
         name: 'PFANS2022View',
-        component: PFANS2022View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2022View
       },
       {
         path: '/PFANS2022FormView',
@@ -1070,10 +931,7 @@ const routes = [
       {
         path: '/PFANS2023View',
         name: 'PFANS2023View',
-        component: PFANS2023View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2023View
       },
       {
         path: '/PFANS2023FormView',
@@ -1083,10 +941,7 @@ const routes = [
       {
         path: '/PFANS2024View',
         name: 'PFANS2024View',
-        component: PFANS2024View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2024View
       },
       {
         path: '/PFANS2024FormView',
@@ -1106,10 +961,7 @@ const routes = [
       {
         path: '/PFANS2026View',
         name: 'PFANS2026View',
-        component: PFANS2026View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2026View
       },
       {
         path: '/PFANS2026FormView',
@@ -1119,10 +971,7 @@ const routes = [
       {
         path: '/PFANS2027View',
         name: 'PFANS2027View',
-        component: PFANS2027View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2027View
       },
       {
         path: '/PFANS2027FormView',
@@ -1133,17 +982,11 @@ const routes = [
         path: '/PFANS2028View',
         name: 'PFANS2028View',
         component: PFANS2028View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2030View',
         name: 'PFANS2030View',
         component: PFANS2030View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS2033View',
@@ -1173,10 +1016,7 @@ const routes = [
       {
         path: '/PFANS2032View',
         name: 'PFANS2032View',
-        component: PFANS2032View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS2032View
       },
       {
         path: '/PFANS2032FormView',
@@ -1186,10 +1026,7 @@ const routes = [
       {
         path: '/PFANS3001View',
         name: 'PFANS3001View',
-        component: PFANS3001View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3001View
       },{
         path: '/PFANS3001FormView',
         name: 'PFANS3001FormView',
@@ -1198,10 +1035,7 @@ const routes = [
       {
         path: '/PFANS3002View',
         name: 'PFANS3002View',
-        component: PFANS3002View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3002View
       },
       {
         path: '/PFANS3002FormView',
@@ -1211,10 +1045,7 @@ const routes = [
       {
         path: '/PFANS3003View',
         name: 'PFANS3003View',
-        component: PFANS3003View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3003View
       },
       {
         path: '/PFANS3003FormView',
@@ -1224,10 +1055,7 @@ const routes = [
       {
         path: '/PFANS3004View',
         name: 'PFANS3004View',
-        component: PFANS3004View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3004View
       },
       {
         path: '/PFANS3004FormView',
@@ -1237,10 +1065,7 @@ const routes = [
       {
         path: '/PFANS3005View',
         name: 'PFANS3005View',
-        component: PFANS3005View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3005View
       },
       {
         path: '/PFANS3005FormView',
@@ -1250,10 +1075,7 @@ const routes = [
       {
         path: '/PFANS3006View',
         name: 'PFANS3006View',
-        component: PFANS3006View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3006View
       },
       {
         path: '/PFANS3006FormView',
@@ -1263,10 +1085,7 @@ const routes = [
       {
         path: '/PFANS3007View',
         name: 'PFANS3007View',
-        component: PFANS3007View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS3007View
       },
       {
         path: '/PFANS3007FormView',
@@ -1277,9 +1096,6 @@ const routes = [
         path: '/PFANS4001View',
         name: 'PFANS4001View',
         component: PFANS4001View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS4001FormView',
@@ -1299,10 +1115,7 @@ const routes = [
       {
         path: '/PFANS5001View',
         name: 'PFANS5001View',
-        component: PFANS5001View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS5001View
       },
       {
         path: '/PFANS5001FormView',
@@ -1322,10 +1135,7 @@ const routes = [
       {
         path: '/PFANS5004View',
         name: 'PFANS5004View',
-        component: PFANS5004View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS5004View
       },
       {
         path: '/PFANS5004FormView',
@@ -1345,10 +1155,7 @@ const routes = [
       {
         path: '/PFANS5008View',
         name: 'PFANS5008View',
-        component: PFANS5008View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS5008View
       },
       {
         path: '/PFANS5008FormView',
@@ -1366,10 +1173,7 @@ const routes = [
       {
         path: '/PFANS5009View',
         name: 'PFANS5009View',
-        component: PFANS5009View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS5009View
       },
       {
         path: '/PFANS5009FormView',
@@ -1399,10 +1203,7 @@ const routes = [
       {
         path: '/PFANS5013View',
         name: 'PFANS5013View',
-        component: PFANS5013View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS5013View
       },
       {
         path: '/PFANS5013FormView',
@@ -1412,10 +1213,7 @@ const routes = [
       {
         path: '/PFANS5014View',
         name: 'PFANS5014View',
-        component: PFANS5014View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS5014View
       },
       {
         path: '/PFANS5014FormView',
@@ -1425,10 +1223,7 @@ const routes = [
       {
         path: '/PFANS6001View',
         name: 'PFANS6001View',
-        component: PFANS6001View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6001View
       },
       {
         path: '/PFANS6001FormView',
@@ -1438,10 +1233,7 @@ const routes = [
       {
         path: '/PFANS6002View',
         name: 'PFANS6002View',
-        component: PFANS6002View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6002View
       },
       {
         path: '/PFANS6002FormView',
@@ -1451,10 +1243,7 @@ const routes = [
       {
         path: '/PFANS6003View',
         name: 'PFANS6003View',
-        component: PFANS6003View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6003View
       },
       {
         path: '/PFANS6003FormView',
@@ -1464,10 +1253,7 @@ const routes = [
       {
         path: '/PFANS6004View',
         name: 'PFANS6004View',
-        component: PFANS6004View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6004View
       },
       {
         path: '/PFANS6004FormView',
@@ -1492,10 +1278,7 @@ const routes = [
       {
         path: '/PFANS6007View',
         name: 'PFANS6007View',
-        component: PFANS6007View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6007View
       },
       {
         path: '/PFANS6007FormView',
@@ -1505,26 +1288,17 @@ const routes = [
       {
         path: '/PFANS6008View',
         name: 'PFANS6008View',
-        component: PFANS6008View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6008View
       },
       {
         path: '/PFANS6009View',
         name: 'PFANS6009View',
-        component: PFANS6009View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6009View
       },
       {
         path: '/PFANS6010View',
         name: 'PFANS6010View',
-        component: PFANS6010View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS6010View
       },
       {
         path: '/PFANS6010FormView',
@@ -1553,18 +1327,12 @@ const routes = [
       {
         path: '/PFANS8007View',
         name: 'PFANS8007View',
-        component: PFANS8007View,
-        meta: {
-          keepAlive: true
-        }
+        component: PFANS8007View
       },
       {
         path: '/PFANS8008View',
         name: 'PFANS8008',
         component: PFANS8008View,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/PFANS8008FormView',
@@ -1610,9 +1378,6 @@ const routes = [
         path: '/ASSETS1001FormView',
         name: 'ASSETS1001FormView',
         component: ASSETS1001FormView,
-        meta: {
-          keepAlive: true
-        }
       },
       {
         path: '/ASSETS1002View',
