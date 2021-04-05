@@ -189,7 +189,7 @@
         columns: [
           {
             code: 'groupname',
-            label: 'label.group',
+            label: 'label.department',
             width: 190,
             fix: false,
             filter: false,

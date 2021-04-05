@@ -96,7 +96,7 @@
           },
           {
             code: 'groupname',
-            label: 'label.group',
+            label: 'label.department',
             width: 120,
             fix: false,
             filter: false,
