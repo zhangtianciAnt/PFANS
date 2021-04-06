@@ -1060,7 +1060,7 @@ export default {
                 );
               if (_tableList[j].sex === "PR019001") {
                 _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-              } else {
+              } else if (_tableList[j].sex === "PR019002"){
                 _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
               }
             }
@@ -1207,7 +1207,7 @@ export default {
               if (this.$i18n) {
                 if (_tableList[j].sex === "PR019001") {
                   _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                } else {
+                } else if (_tableList[j].sex === "PR019002"){
                   _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
                 }
               }
