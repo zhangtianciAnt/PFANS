@@ -1234,19 +1234,21 @@
                 if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
                   //ADD_FJL
                   this.tableT[i].options1 = [];
-                  let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
-                  let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                  if (dic.length > 0) {
-                    for (let j = 0; j < dic.length; j++) {
-                      if (butinfo === dic[j].value1) {
-                        this.tableT[i].options1.push({
-                          lable: dic[j].value2 + '_' + dic[j].value3,
-                          value: dic[j].code,
-                        });
+                  if (getOrgInfo(this.tableT[i].depart)) {
+                    let butinfo = (getOrgInfo(this.tableT[i].depart).encoding).substring(0, 3);
+                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                    if (dic.length > 0) {
+                      for (let j = 0; j < dic.length; j++) {
+                        if (butinfo === (dic[j].value1).substring(0, 3)) {
+                          this.tableT[i].options1.push({
+                            lable: dic[j].value2 + '_' + dic[j].value3,
+                            value: dic[j].code,
+                          });
+                        }
                       }
                     }
+                    //ADD_FJL  修改人员预算编码
                   }
-                  //ADD_FJL  修改人员预算编码
                 }
               }
             }

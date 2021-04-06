@@ -644,15 +644,17 @@
       getchangeGroup(val) {
         this.options1 = [];
         if (val) {
-          let butinfo = getOrgInfo(val).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
-                this.options1.push({
-                  lable: dic[i].value2 + '_' + dic[i].value3,
-                  value: dic[i].code,
-                });
+          if (getOrgInfo(val).encoding) {
+            let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+              for (let i = 0; i < dic.length; i++) {
+                if (butinfo === (dic[i].value1).substring(0, 3)) {
+                  this.options1.push({
+                    lable: dic[i].value2 + '_' + dic[i].value3,
+                    value: dic[i].code,
+                  });
+                }
               }
             }
           }
@@ -679,16 +681,18 @@
               }
             }
           }
-          if(this.options1.length === 0){
-            let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0,3);
-            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-            if (dic.length > 0) {
-              for (let i = 0; i < dic.length; i++) {
-                if (butinfo === (dic[i].value1).substring(0,3)) {
-                  this.options1.push({
-                    lable: dic[i].value2 + '_' + dic[i].value3,
-                    value: dic[i].code,
-                  });
+          if(this.options1.length === 0) {
+            if (getOrgInfo(this.form.group_id).encoding) {
+              let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                  if (butinfo === (dic[i].value1).substring(0, 3)) {
+                    this.options1.push({
+                      lable: dic[i].value2 + '_' + dic[i].value3,
+                      value: dic[i].code,
+                    });
+                  }
                 }
               }
             }
