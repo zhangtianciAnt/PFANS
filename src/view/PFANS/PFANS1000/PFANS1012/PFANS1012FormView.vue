@@ -2079,20 +2079,22 @@
                       && this.tableT[i].departmentname !== undefined) {
                       //ADD_FJL
                       this.tableT[i].optionsT = [];
-                      let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
-                      //213
-                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                      if (dic.length > 0) {
-                        for (let j = 0; j < dic.length; j++) {
-                          if (butinfo === dic[j].value1) {
-                            this.tableT[i].optionsT.push({
-                              lable: dic[j].value2 + '_' + dic[j].value3,
-                              value: dic[j].code,
-                            });
+                      if (getOrgInfo(this.tableT[i].departmentname)) {
+                        let butinfo = (getOrgInfo(this.tableT[i].departmentname).encoding).substring(0,3);
+                        //213
+                        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                        if (dic.length > 0) {
+                          for (let j = 0; j < dic.length; j++) {
+                            if (butinfo === (dic[j].value1).substring(0, 3)) {
+                              this.tableT[i].optionsT.push({
+                                lable: dic[j].value2 + '_' + dic[j].value3,
+                                value: dic[j].code,
+                              });
+                            }
                           }
                         }
+                        //ADD_FJL  修改人员预算编码
                       }
-                      //ADD_FJL  修改人员预算编码
                     }
                     if (this.tableT[i].RedirictT == '0') {
                       this.tableT[i].accoundoptionsdate = [];
@@ -2132,19 +2134,21 @@
                     if (this.tableP[i].departmentname !== '' && this.tableP[i].departmentname !== null && this.tableP[i].departmentname !== undefined) {
                       //ADD_FJL
                       this.tableP[i].optionsP = [];
-                      let butinfo = getOrgInfo(this.tableP[i].departmentname).encoding;
-                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                      if (dic.length > 0) {
-                        for (let j = 0; j < dic.length; j++) {
-                          if (butinfo === dic[j].value1) {
-                            this.tableP[i].optionsP.push({
-                              lable: dic[j].value2 + '_' + dic[j].value3,
-                              value: dic[j].code,
-                            });
+                      if (getOrgInfo(this.tableP[i].departmentname)) {
+                        let butinfo = (getOrgInfo(this.tableP[i].departmentname).encoding).substring(0,3);
+                        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                        if (dic.length > 0) {
+                          for (let j = 0; j < dic.length; j++) {
+                            if (butinfo === (dic[j].value1).substring(0, 3)) {
+                              this.tableP[i].optionsP.push({
+                                lable: dic[j].value2 + '_' + dic[j].value3,
+                                value: dic[j].code,
+                              });
+                            }
                           }
                         }
+                        //ADD_FJL  修改人员预算编码
                       }
-                      //ADD_FJL  修改人员预算编码
                     }
                     if (this.tableP[i].foreigncurrency > 0) {
                       this.disa = false;
@@ -2235,19 +2239,21 @@
                     if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
                       //ADD_FJL
                       this.tableR[i].optionsR = [];
-                      let butinfo = getOrgInfo(this.tableR[i].departmentname).encoding;
-                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                      if (dic.length > 0) {
-                        for (let j = 0; j < dic.length; j++) {
-                          if (butinfo === dic[j].value1) {
-                            this.tableR[i].optionsR.push({
-                              lable: dic[j].value2 + '_' + dic[j].value3,
-                              value: dic[j].code,
-                            });
+                      if (getOrgInfo(this.tableR[i].departmentname)) {
+                        let butinfo = (getOrgInfo(this.tableR[i].departmentname).encoding).substring(0,3);
+                        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                        if (dic.length > 0) {
+                          for (let j = 0; j < dic.length; j++) {
+                            if (butinfo === (dic[j].value1).substring(0, 3)) {
+                              this.tableR[i].optionsR.push({
+                                lable: dic[j].value2 + '_' + dic[j].value3,
+                                value: dic[j].code,
+                              });
+                            }
                           }
                         }
+                        //ADD_FJL  修改人员预算编码
                       }
-                      //ADD_FJL  修改人员预算编码
                     }
                     if (this.tableR[i].foreigncurrency > 0) {
                       this.disa = false;
@@ -2618,16 +2624,18 @@
           this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           if (this.tableT[0].departmentname) {
             this.tableT[0].optionsT = [];
-            let butinfo = getOrgInfo(this.tableT[0].departmentname).encoding;
-            if (butinfo) {
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                for (let j = 0; j < dic.length; j++) {
-                  if (butinfo === dic[j].value1) {
-                    this.tableT[0].optionsT.push({
-                      lable: dic[j].value2 + '_' + dic[j].value3,
-                      value: dic[j].code,
-                    });
+            if (getOrgInfo(this.tableT[0].departmentname)) {
+              let butinfo = (getOrgInfo(this.tableT[0].departmentname).encoding).substring(0,3);
+              if (butinfo) {
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if (dic.length > 0) {
+                  for (let j = 0; j < dic.length; j++) {
+                    if (butinfo === (dic[j].value1).substring(0, 3)) {
+                      this.tableT[0].optionsT.push({
+                        lable: dic[j].value2 + '_' + dic[j].value3,
+                        value: dic[j].code,
+                      });
+                    }
                   }
                 }
               }
@@ -2635,16 +2643,18 @@
           }
           if (this.tableP[0].departmentname) {
             this.tableP[0].optionsP = [];
-            let butinfo = getOrgInfo(this.tableP[0].departmentname).encoding;
-            if (butinfo) {
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                for (let j = 0; j < dic.length; j++) {
-                  if (butinfo === dic[j].value1) {
-                    this.tableP[0].optionsP.push({
-                      lable: dic[j].value2 + '_' + dic[j].value3,
-                      value: dic[j].code,
-                    });
+            if (getOrgInfo(this.tableP[0].departmentname)) {
+              let butinfo = (getOrgInfo(this.tableP[0].departmentname).encoding).substring(0, 3);
+              if (butinfo) {
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if (dic.length > 0) {
+                  for (let j = 0; j < dic.length; j++) {
+                    if (butinfo === (dic[j].value1).substring(0, 3)) {
+                      this.tableP[0].optionsP.push({
+                        lable: dic[j].value2 + '_' + dic[j].value3,
+                        value: dic[j].code,
+                      });
+                    }
                   }
                 }
               }
@@ -2652,16 +2662,18 @@
           }
           if (this.tableR[0].departmentname) {
             this.tableR[0].optionsR = [];
-            let butinfo = getOrgInfo(this.tableR[0].departmentname).encoding;
-            if (butinfo) {
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                for (let j = 0; j < dic.length; j++) {
-                  if (butinfo === dic[j].value1) {
-                    this.tableR[0].optionsR.push({
-                      lable: dic[j].value2 + '_' + dic[j].value3,
-                      value: dic[j].code,
-                    });
+            if (getOrgInfo(this.tableR[0].departmentname)) {
+              let butinfo = (getOrgInfo(this.tableR[0].departmentname).encoding).substring(0, 3);
+              if (butinfo) {
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if (dic.length > 0) {
+                  for (let j = 0; j < dic.length; j++) {
+                    if (butinfo === (dic[j].value1).substring(0, 3)) {
+                      this.tableR[0].optionsR.push({
+                        lable: dic[j].value2 + '_' + dic[j].value3,
+                        value: dic[j].code,
+                      });
+                    }
                   }
                 }
               }
