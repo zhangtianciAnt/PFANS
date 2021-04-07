@@ -271,6 +271,9 @@ const global = {
         if (roles.indexOf('副总') != -1) {
           returnroles = returnroles + ',' + '46';
         }
+        if (roles.indexOf('资产管理担当') != -1) {
+          returnroles = returnroles + ',' + '47';
+        }
       }
       state.roles = returnroles.substring(1, returnroles.length);
       //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
