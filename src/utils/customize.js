@@ -84,6 +84,13 @@ export function getDepartmentById(id) {
   return departmentName.join();
 }
 
+export function getOrgInformation(id) {
+  let org = {};
+  let treeCom = store.getters.orgs;
+  org = treeCom.getNode(id);
+  return org;
+}
+
 function departmentId(orgs, arr) {
   for (let org of orgs) {
     if (arr.includes(org._id)) {
