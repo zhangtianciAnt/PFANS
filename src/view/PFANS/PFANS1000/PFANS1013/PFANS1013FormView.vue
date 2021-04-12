@@ -1830,8 +1830,19 @@
             this.loading = false;
           });
       } else {
-        this.getBusInside();
-        this.getBusOuter();
+        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+        this.busInt();
+        if(this.form.type === '0'){
+        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          this.getBusInside();
+       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+        }
+        else{
+       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          this.getBusOuter();
+       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+        }
+        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
         this.checkmoney = true;
         this.checktaxes = true;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
