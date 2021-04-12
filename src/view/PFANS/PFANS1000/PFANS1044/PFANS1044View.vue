@@ -2365,7 +2365,7 @@
                 let csvContent = 'data:text/csv;charset=utf-8,\ufeff' + eee;
                 const link = document.createElement('a');
                 link.href = csvContent;
-                link.download = this.$t('label.PFANS5001FORMVIEW_CONTRACT2') + fff + '.csv';
+                link.download = this.$t('label.PFANS5001FORMVIEW_CONTRACT2') + '.csv';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);
