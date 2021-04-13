@@ -296,7 +296,7 @@
                                  :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
                     <org :orglist="scope.row.depart"
-                         orgtype="1"
+                         orgtype="4"
                          :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
                          :error="errorgroup"
                          style="width: 9rem"
@@ -1360,6 +1360,29 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      checkRequire() {
+        if (!this.form.custochinese ||
+          !this.form.placejapanese ||
+          !this.form.custojapanese ||
+          !this.form.placechinese ||
+          !this.form.deployment ||
+          !this.form.pjnamejapanese ||
+          !this.form.pjnamechinese ||
+          !this.form.claimdatetimeStart ||
+          !this.form.claimdatetimeEnd ||
+          !this.form.currencyposition ||
+          !this.form.claimamount
+        ) {
+          this.activeName = 'first';
+        } else if (!this.form.user_id ||
+          !this.form.valuation ||
+          !this.form.individual
+        ) {
+          this.activeName = 'second';
+        } else if (!this.form.uploadfile) {
+          this.activeName = 'fourth';
+        }
+      },
       //add-ws-4/17-审批过程中数据可编辑问题修改
       setdisabled(val) {
         if (this.$route.params.disabled) {
@@ -1775,6 +1798,7 @@
           }
           //add-ws-6/22-禅道152任务
         } else if (val === 'save' || val === 'StartWorkflow') {
+          this.checkRequire();
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
