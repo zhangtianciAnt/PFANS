@@ -1311,14 +1311,14 @@
                     :label="$t('label.PFANS1013VIEW_REIMNUMBER')"
                     width="280px">
                   </el-table-column>
-                  <!--                    upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-start-->
+                  <!--                    upd-lyt-21/4/13-PSDCD_PFANS_20210318_BUG_034-start-->
                   <el-table-column
                     align="center"
-                    prop="judgements_moneys"
+                    prop="detail_moneys"
                     :label="$t('label.PFANS1025VIEW_AWARDMONEY')"
                     width="280px">
                   </el-table-column>
-                  <!--                    upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-end-->
+                  <!--                    upd-lyt-21/4/13-PSDCD_PFANS_20210318_BUG_034-end-->
                   <el-table-column
                     align="center"
                     prop="status"
@@ -1749,6 +1749,7 @@
           judgement_name: '',
           remarksdetail: '',
           judgements_moneys: '',
+          detail_moneys:'',
           judgements_type: '',
           receivables: '',
           loan: '',
@@ -3107,6 +3108,9 @@
       rowclick(row, event, column) {
         this.DataList2 = [];
         this.loading = true;
+        // add-lyt-21/3/13-PSDCD_PFANS_20210318_BUG_034-start
+        let detailmoney ='';
+        // add-lyt-21/3/13-PSDCD_PFANS_20210318_BUG_034-end
         this.$store
           .dispatch('PFANS1012Store/getpublicelist', {'publicexpenseid': row.judgement})
           .then(response => {
@@ -3114,10 +3118,19 @@
               if (response[i].status !== null && response[i].status !== '') {
                 response[i].status = getStatus(response[i].status);
               }
+              // upd-lyt-21/4/13-PSDCD_PFANS_20210318_BUG_034-start
+              if(response[i].currency == this.$t('label.PFANS1012VIEW_USD')
+                ||response[i].currency == this.$t('label.PFANS1012VIEW_JPY')
+                ||response[i].currency == this.$t('label.PFANS1012VIEW_SGD')){
+                  detailmoney = response[i].foreigncurrency;
+             }else {
+                  detailmoney = response[i].moneys;
+              }
+              // upd-lyt-21/4/13-PSDCD_PFANS_20210318_BUG_034-end
               this.DataList2.push({
-                // upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-start
-                judgements_moneys: response[i].judgements_moneys,
-                // upd-lyt-21/3/23-PSDCD_PFANS_20210318_BUG_034-end
+                // upd-lyt-21/4/13-PSDCD_PFANS_20210318_BUG_034-start
+                detail_moneys: detailmoney,
+                // upd-lyt-21/4/13-PSDCD_PFANS_20210318_BUG_034-end
                 moneys: response[i].moneys,
                 invoiceno: response[i].invoiceno,
                 status: response[i].status,
