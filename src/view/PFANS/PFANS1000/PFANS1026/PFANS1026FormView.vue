@@ -2503,10 +2503,20 @@
           if(group.data.type === '2'){
             this.form1.grouporglist = group.parent.data._id;
             this.grouporglist = group.parent.data._id;
-            this.groupinfo = [group.parent.data._id, group.parent.data.companyen, group.data.orgname, group.parent.data.companyname];
+            this.groupinfo = [
+              group.parent.data._id,
+              group.parent.data.companyen === undefined ? "" : group.parent.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.parent.data.companyname === undefined ? "" : group.parent.data.companyname
+            ];
           }
           else{
-            this.groupinfo = [val, group.data.companyen, group.data.orgname, group.data.companyname];
+            this.groupinfo = [
+              val,
+              group.data.companyen === undefined ? "" : group.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.data.companyname === undefined ? "" : group.data.companyname
+            ];
           }
         }
         //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 end
