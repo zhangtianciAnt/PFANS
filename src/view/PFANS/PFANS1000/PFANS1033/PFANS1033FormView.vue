@@ -72,7 +72,7 @@
                           :error="errorgroup">
               <org
                 :orglist="form1.grouporglist"
-                orgtype="1"
+                orgtype="4"
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
@@ -655,6 +655,7 @@
     getSupplierinfor,
     getStatus,
     getOrgInfoByUserId,
+    getOrgInformation,
   } from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
@@ -1305,10 +1306,29 @@
       getGroupId(val) {
         this.form1.grouporglist = val;
         this.grouporglist = val;
-        let group = getOrgInfo(val);
+        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
+        let group = getOrgInformation(val);
         if (group) {
-          this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
+          if(group.data.type === '2'){
+            this.form1.grouporglist = group.parent.data._id;
+            this.grouporglist = group.parent.data._id;
+            this.groupinfo = [
+              group.parent.data._id,
+              group.parent.data.companyen === undefined ? "" : group.parent.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.parent.data.companyname === undefined ? "" : group.parent.data.companyname
+            ];
+          }
+          else{
+            this.groupinfo = [
+              val,
+              group.data.companyen === undefined ? "" : group.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.data.companyname === undefined ? "" : group.data.companyname
+            ];
+          }
         }
+        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 end
         if (!val || this.form1.grouporglist === '') {
           this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
@@ -1573,7 +1593,18 @@
               this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
             } else {
               if (this.groupinfo[2] !== null) {
-                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + letbook;
+                //选择group是判断组织编码为空时不可以创建合同
+                if(this.groupinfo[2].trim() !== "") {
+                  this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + letbook;
+                }
+                else{
+                  Message({
+                    message: this.$t('normal.error_14'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               } else {
                 Message({
                   message: this.$t('normal.error_14'),
