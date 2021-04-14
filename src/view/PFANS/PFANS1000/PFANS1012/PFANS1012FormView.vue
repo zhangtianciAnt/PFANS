@@ -4797,6 +4797,22 @@
           //add-fjl-0813-精算中，点击决裁，跳转画面
         }
         if (val === 'save') {
+          // add-lyt-21/4/14-NT_PFANS_20210413_BUG_002-start
+          for(let i = 0;i<this.tableP.length;i++){
+            for(let j = 0;j<this.tableP.length;j++){
+              if((this.tableP[i].foreigncurrency > 0 && this.tableP[j].rmb>0)
+                || (this.tableP[j].rmb>0 && (this.tableP[j].currency !== null && this.tableP[j].currency !==''))){
+                this.activeName = 'third';
+                Message({
+                  message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+            }
+          };
+          // add-lyt-21/4/14-NT_PFANS_20210413_BUG_002-end
           this.$refs['reff'].validate(valid => {
               if (valid) {
                 if (this.form.type === 'PJ001002') {
