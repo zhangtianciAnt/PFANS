@@ -5,53 +5,62 @@
   </EasyNormalTable>
     <el-dialog center
                :visible.sync="dialogVisible"
-               width="60%">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+               :title="$t('button.carryforward')"
+               width="50%">
+      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw">
         <el-row>
-          <el-col :span="8">
+          <div style=
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
+          <el-col :span="8" style="margin-left: 0.5vw">
             <el-form-item :label="$t('label.center')">
-              <el-input :disabled="true" style="width:13vw" v-model="form.last_center_id"></el-input>
+              <el-input :disabled="true" style="width:15vw" v-model="form.last_center_id"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('label.group')">
-              <el-input :disabled="true" style="width:13vw" v-model="form.last_group_id"></el-input>
+              <el-input :disabled="true" style="width:15vw" v-model="form.last_group_id"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7">
             <el-form-item :label="$t('label.team')">
-              <el-input :disabled="true" style="width:13vw" v-model="form.last_team_id"></el-input>
+              <el-input :disabled="true" style="width:15vw" v-model="form.last_team_id"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
+          <div style=
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
+          <el-col :span="8" style="margin-left: 0.5vw; margin-bottom: -1vw;">
             <el-form-item :label="$t('label.center')" prop="new_center_id"
                           :error="error_center">
               <org :orglist="form.new_center_id"
                    orgtype="1"
-                   style="width: 10vw"
+                   style="width: 14vw"
                    @getOrgids="getCenterid"
                    :error="error_center"
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="8" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.group')" prop="new_group_id"
                           :error="error_group">
               <org :orglist="form.new_group_id"
                    orgtype="2"
-                   style="width: 10vw"
+                   style="width: 14vw"
                    @getOrgids="getGroupid"
                    :error="error_group"
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
+          <el-col :span="7" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.team')">
               <org :orglist="form.new_team_id"
                    orgtype="3"
-                   style="width: 10vw"
+                   style="width: 14vw"
                    @getOrgids="getTeamid"
               ></org>
             </el-form-item>
@@ -59,7 +68,7 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-    <el-button type="primary" @click="submit">确 定</el-button>
+    <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
   </span>
     </el-dialog>
   </div>
@@ -70,7 +79,7 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '@/view/components/org';
-  import {getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId,getDepartmentById} from '@/utils/customize';
+  import {getOrgInfo,getStatus, getUserInfo, getDictionaryInfo, getOrgInfoByUserId,getDepartmentById} from '@/utils/customize';
 
   export default {
     name: 'PFANS2032View',
@@ -295,9 +304,18 @@
                     response[j].starank = letbudge.value1;
                   }
                 }
-                response[j].center_name = getDepartmentById(response[j].center_id);
-                response[j].group_name = getDepartmentById(response[j].group_id);
-                response[j].team_name = getDepartmentById(response[j].team_id);
+                let center = getOrgInfo(response[j].center_id);
+                if (center) {
+                  response[j].center_name = center.companyname;
+                }
+                let group = getOrgInfo(response[j].group_id);
+                if (group) {
+                  response[j].group_name = group.companyname;
+                }
+                let team = getOrgInfo(response[j].team_id);
+                if (team) {
+                  response[j].team_name = team.companyname;
+                }
                 let postinfo = getDictionaryInfo(response[j].position);
                 if (postinfo) {
                   response[j].position = postinfo.value1;

@@ -488,11 +488,11 @@
             getdateInfo(){
               this.mounth = new Date().getMonth() + 1;
               this.date = new Date().getDate();
-              // if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+              if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
                 this.buttonList = this.buttonListAnt;
-              // }else{
-              //   this.buttonList = this.buttonListOld;
-              // }
+              }else{
+                this.buttonList = this.buttonListOld;
+              }
             },
             selectInfo(){
               this.loading = true;
@@ -1286,12 +1286,5 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .pfans3005view{
-    .dialog_row {
-      font-family: 宋体;
-      color: #005BAA;
-      font-size: 0.8rem;
-      font-weight: bold
-    }
-  }
+
 </style>

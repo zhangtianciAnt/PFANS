@@ -34,10 +34,15 @@
     </EasyNormalTable>
     <el-dialog center
                :visible.sync="dialogVisible"
-               width="60%">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+               :title="$t('button.carryforward')"
+               width="50%">
+      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw">
         <el-row>
-          <el-col :span="6">
+          <div style=
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
+          <el-col :span="6" style="margin-left: 0.5vw">
             <el-form-item :label="$t('label.center')">
               <el-input :disabled="true" style="width:11vw" v-model="form.last_center_id"></el-input>
             </el-form-item>
@@ -52,15 +57,18 @@
               <el-input :disabled="true" style="width:11vw" v-model="form.last_team_id"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item :label="$t('label.budgetunit')" >
               <el-input :disabled="true" style="width:11vw" v-model="form.last_budgetunit"></el-input>
-
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">
+          <div style=
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
+          <el-col :span="6" style="margin-left: 0.5vw; margin-bottom: -1vw;">
             <el-form-item :label="$t('label.center')" prop="new_center_id"
                           :error="error_center">
               <org :orglist="form.new_center_id"
@@ -71,7 +79,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.group')">
               <org :orglist="form.new_group_id"
                    orgtype="2"
@@ -80,7 +88,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.team')">
               <org :orglist="form.new_team_id"
                    orgtype="3"
@@ -90,7 +98,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.budgetunit')" prop="new_budgetunit">
               <el-select clearable style="width: 11vw" v-model="form.new_budgetunit"
                          :placeholder="$t('normal.error_09')">
@@ -107,7 +115,7 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submit">确 定</el-button>
+        <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
       </span>
     </el-dialog>
   </div>
@@ -653,9 +661,6 @@
           {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
           {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
-          // add-ztc  数据转结 fr
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
-          // add-ztc  数据转结 to
         ],
         buttonListCarry2: [ //境外出差申请 境内出差申請
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -664,6 +669,9 @@
           {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
           {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+          // add-ztc  数据转结 fr
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          // add-ztc  数据转结 to
         ],
         //add-ws-7/7-禅道247
         rowid: '',
