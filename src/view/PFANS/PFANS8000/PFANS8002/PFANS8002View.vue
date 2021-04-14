@@ -2,6 +2,7 @@
   <div style="min-height: 100%">
 
     <EasyNormalTable
+      ref="dataTable"
       :buttonList="buttonList"
       :columns="columns"
       :data="table"
@@ -10,8 +11,16 @@
       @rowClick="rowclick"
       v-loading="loading"
       v-show="showTable1"
+      :showSelection="true"
     >
-      <el-select @change="handleClick" slot="customize" v-model="activeName">
+      <el-select @change="monthChange" slot="customize" v-model="activeTime" style="width: 8vw">
+        <el-option :label="$t('label.PFANS8002VIEW_WEEKIN')" value="first"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_MONTHIN')" value="second"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_THREEMONTHIN')" value="third"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_HALFYEARIN')" value="fourth"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_YEARIN')" value="fifth"></el-option>
+      </el-select>
+      <el-select @change="handleClick" slot="customize" v-model="activeName" style="width: 8vw">
         <el-option :label="$t('label.node_step4')" value="first"></el-option>
         <el-option :label="$t('label.PFANS8002VIEW_JS')" value="second"></el-option>
       </el-select>
@@ -26,7 +35,14 @@
       v-loading="loading"
       v-show="!showTable1"
     >
-      <el-select @change="handleClick" slot="customize" v-model="activeName">
+      <el-select @change="monthChange" slot="customize" v-model="activeTime" style="width: 8vw">
+        <el-option :label="$t('label.PFANS8002VIEW_WEEKIN')" value="first"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_MONTHIN')" value="second"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_THREEMONTHIN')" value="third"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_HALFYEARIN')" value="fourth"></el-option>
+        <el-option :label="$t('label.PFANS8002VIEW_YEARIN')" value="fifth"></el-option>
+      </el-select>
+      <el-select @change="handleClick" slot="customize" v-model="activeName" style="width: 8vw">
         <el-option :label="$t('label.node_step4')" value="first"></el-option>
         <el-option :label="$t('label.PFANS8002VIEW_JS')" value="second"></el-option>
       </el-select>
@@ -37,6 +53,7 @@
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui';
     import moment from 'moment';
+    import { menu } from "@/utils/menu";
     import {getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
 
     export default {
@@ -46,27 +63,36 @@
         },
         data() {
             return {
+                thatday: '',
                 // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
                 row:[],
                 // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                 title: 'label.PFANS8002VIEW_XXYL',
                 noback: true,
                 activeName: 'first',
+                activeTime: 'first',
                 table: [],
                 table2: [],
-                status: '',
+                status: '0',
                 workflowurl: '',
                 total: 0,
                 total2: 0,
                 dataList: '',
                 dataList2: '',
-                selectedlist: '',
+                selectedlist: [],
                 loading: false,
                 data: [],
                 buttonList: [
                     {key: "open", name: "button.open", disabled: false, icon: ""},
                     {key: "read", name: "button.read", disabled: false, icon: ""}],
                 columns: [
+                    {
+                      code: 'viewname',
+                      label: 'label.information_viewname',
+                      width: 150,
+                      fix: false,
+                      filter: true
+                    },
                     {
                         code: 'title',
                         label: 'label.information_title',
@@ -102,19 +128,51 @@
         mounted() {
             this.$store.commit("global/SET_CURRENTURL", "/PFANS8002View");
             this.$store.commit("global/SET_WORKFLOWURL", "/PFANS8002View");
-            this.getStatus('0');
+            var thisday = moment();
+            this.thatday = thisday.subtract(7, 'days').format('YYYY-MM-DD');
+            this.getStatus(this.status,this.thatday);
             // this.getStatus('1');
+            let menus = menu().filter(item => item._id === "homePage")[0].menus;
+            menus.map(item=>{
+              if(!item.children || item.children.length === 0){
+                this.menuList.push(item)
+              }else{
+                item.children.map(
+                  citem=>{
+                    if(!citem.children || citem.children.length === 0){
+                      // this.menuList.push(citem)
+                    }else{
+                      citem.children.map(
+                        ccitem=>{
+                          if (!ccitem.children || ccitem.children.length === 0) {
+                            // this.menuList.push(ccitem)
+                          } else {
+                            ccitem.children.map(
+                              cccitem => {
+                                if (!cccitem.children || cccitem.children.length === 0) {
+                                  // this.menuList.push(cccitem)
+                                }
+                              }
+                            )
+                          }
+                        }
+                      )
+                    }
+                  }
+                )
+              }
+            })
         },
         methods: {
-            getStatus(val) {
+            getStatus(data1,data2) {
               this.loading = true;
                 this.$store
-                    .dispatch('indexStore/getStatus', {status: val})
+                    .dispatch('indexStore/getStatus', {status: data1, createon: data2})
                     .then(response => {
                         if (response != undefined) {
-                            if (val === '0') {
+                            if (data1 === '0') {
                                 this.table = [];
-                            } else if (val === '1') {
+                            } else if (data1 === '1') {
                                 this.table2 = [];
                             }
                             for (let j = 0; j < response.length; j++) {
@@ -136,6 +194,8 @@
 
                                     this.table = response;
                                 }
+                              this.appdata = menu();
+                                response[j].viewname = this.$t('menu.' + response[j].url.replace("/","").replace("Form","").replace("View",""));
                                 if (response[j].status === '1') {
                                     if (response[j].createon !== null && response[j].createon !== '') {
                                         response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
@@ -157,9 +217,9 @@
                         }
                         // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
                         else{
-                            if (val === '0') {
+                            if (data1 === '0') {
                                 this.table = [];
-                            } else if (val === '1') {
+                            } else if (data1 === '1') {
                                 this.table2 = [];
                             }
                         }
@@ -178,11 +238,28 @@
             handleClick() {
                 if (this.activeName === 'second') {
                     this.showTable1 = false;
-                    this.getStatus('1');
+                    this.status = '1';
+                    this.getStatus(this.status,this.thatday);
                 } else if (this.activeName === 'first') {
                     this.showTable1 = true;
-                    this.getStatus('0');
+                    this.status = '0';
+                    this.getStatus(this.status,this.thatday);
                 }
+            },
+            monthChange() {
+                let thisday = moment();
+                if (this.activeTime === 'first') {
+                    this.thatday = thisday.subtract(7, 'days').format('YYYY-MM-DD');
+                } else if (this.activeTime === 'second') {
+                    this.thatday = thisday.subtract(1, 'month').format('YYYY-MM-DD');
+                } else if (this.activeTime === 'third') {
+                    this.thatday = thisday.subtract(3, 'month').format('YYYY-MM-DD')
+                } else if (this.activeTime === 'fourth') {
+                    this.thatday = thisday.subtract(6, 'month').format('YYYY-MM-DD');
+                } else if (this.activeTime === 'fifth') {
+                    this.thatday = thisday.subtract(12, 'month').format('YYYY-MM-DD');
+                }
+                this.getStatus(this.status,this.thatday);
             },
             rowclick(row) {
                 // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
@@ -223,10 +300,11 @@
                         }
                     })
                 } else if (val === 'read') {
+                    this.selectedlist = [];
                     //    ADD_FJL_05/25  -- 对审批驳回之后不想再次申请的数据进行删除的处理
                     // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
                     //if (!this.row || this.row.noticeid === '') {
-                    if (!this.row || this.row.noticeid === '' || this.row.noticeid === undefined) {
+                    if (this.$refs.dataTable.selectedList.length === 0) {
                     // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 end
                         Message({
                             message: this.$t('normal.info_01'),
@@ -235,6 +313,9 @@
                         });
                         return;
                     }
+                    for (let i = 0; i < this.$refs.dataTable.selectedList.length; i++) {
+                      this.selectedlist.push(this.$refs.dataTable.selectedList[i].noticeid)
+                    }
                     this.$confirm(this.$t('normal.confirm_iscontinue1'), this.$t('normal.info'), {
                         confirmButtonText: this.$t('button.confirm'),
                         cancelButtonText: this.$t('button.cancel'),
@@ -242,7 +323,7 @@
                     }).then(() => {
                         this.loading = true;
                         this.$store
-                            .dispatch("frameStore/delToDoNotice", {'todonoticeid': this.row.noticeid})
+                            .dispatch("frameStore/delToDoNotice", this.selectedlist)
                             .then(response => {
                                 // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 start
                                 this.row = [];
