@@ -4812,6 +4812,20 @@
               }
             }
           };
+          for(let i = 0;i<this.tableR.length;i++){
+            for(let j = 0;j<this.tableR.length;j++){
+              if((this.tableR[i].foreigncurrency > 0 && this.tableR[j].rmb>0)
+                || (this.tableR[j].rmb>0 && (this.tableR[j].currency !== null && this.tableR[j].currency !==''))){
+                this.activeName = 'third';
+                Message({
+                  message: this.$t('label.PFANS1012FORMVIEW_CHECKMESSAGE'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+            }
+          };
           // add-lyt-21/4/14-NT_PFANS_20210413_BUG_002-end
           this.$refs['reff'].validate(valid => {
               if (valid) {
