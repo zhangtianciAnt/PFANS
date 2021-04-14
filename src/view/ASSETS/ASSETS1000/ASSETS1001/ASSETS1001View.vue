@@ -492,12 +492,14 @@
               // response[j].principal1 = response[j].principal;
               response[j].psdcdreturnconfirmation1 = response[j].psdcdreturnconfirmation;
               let user = getUserInfo(response[j].principal);
-              if (response[j].usedepartment !== null && response[j].usedepartment !== '') {
-                let group = getOrgInfo(response[j].usedepartment);
-                if (group) {
-                  response[j].usedepartment = group.companyname;
-                }
-              }
+              //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
+              // if (response[j].usedepartment !== null && response[j].usedepartment !== '') {
+              //   let group = getOrgInfo(response[j].usedepartment);
+              //   if (group) {
+              //     response[j].usedepartment = group.companyname;
+              //   }
+              // }
+              //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc end
               if (user) {
                 response[j].principal = user.userinfo.customername;
                 response[j].jobnumber = user.userinfo.jobnumber;
