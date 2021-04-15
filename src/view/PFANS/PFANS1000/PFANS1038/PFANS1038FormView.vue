@@ -426,7 +426,7 @@
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.$route.params.type === 0 ? this.getPersonalCost(rst.groupId || "") : this.getExpatriatesinfor(rst.groupId || "")
+                    this.$route.params.type === 0 ? this.getPersonalCost(rst.centerId || "") : this.getExpatriatesinfor(rst.centerId || "")
                 }
             }
         },

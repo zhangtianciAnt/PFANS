@@ -25,7 +25,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')" prop="group">
+              <el-form-item :label="$t('label.PFANS1039FORMVIEW_CENTER')" prop="group">
                 <el-select v-model="refform.group_id" style="width: 20vw" :disabled="disabledT"
                            @change="groupChange">
                   <el-option

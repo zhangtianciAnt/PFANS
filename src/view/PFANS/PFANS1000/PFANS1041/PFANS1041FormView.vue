@@ -25,7 +25,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')" prop="group">
+              <el-form-item :label="$t('label.PFANS1039FORMVIEW_CENTER')" prop="group">
                 <el-select v-model="refform.group_id" style="width: 20vw" :disabled="disabledT"
                            @change="groupChange">
                   <el-option
@@ -967,6 +967,7 @@
     getDownOrgInfo,
     getUpOrgInfo,
     getUserInfo,
+    getCurrentRoleNew
   } from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1630,53 +1631,102 @@
       },
       getGroupOptions() {
         this.loading = true;
-        let role = getCurrentRole();
-        const options = [];
-        if (role === '3') {//GM
-          options.push(
+        //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 start
+        let role = getCurrentRoleNew();
+        const vote = [];
+        if (role === '3') {//CENTER
+          vote.push(
             {
-              value: this.$store.getters.userinfo.userinfo.groupid,
-              lable: this.$store.getters.userinfo.userinfo.groupname,
+              value: this.$store.getters.userinfo.userinfo.centerid,
+              lable: this.$store.getters.userinfo.userinfo.centername,
             },
           );
-        } else if (role === '2') {//Center长
-          if (this.$store.getters.userinfo.userid) {
-            let centerId = this.$store.getters.userinfo.userinfo.centerid;
-            let orgs = getDownOrgInfo(centerId);
-            if (orgs) {
-              for (let org of orgs) {
-                // console.log(org);
-                options.push(
-                  {
-                    value: org._id,
-                    lable: org.companyname,
-                  },
-                );
-              }
-            }
-          }
-        } else if (role === '1') {//总经理
-          if (this.$store.getters.userinfo.userid) {
-            let centerId = this.$store.getters.userinfo.userinfo.centerid;
-            let orgs = getDownOrgInfo(centerId);
-            if (orgs) {
-              for (let center of orgs) {
-                let centers = getDownOrgInfo(center._id);
-                if (centers) {
-                  for (let group of centers) {
-                    options.push(
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid)
+              {
+                this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.centerid === others.centerid) {
+                    vote.push(
                       {
-                        value: group._id,
-                        lable: group.companyname,
+                        value: item.centerid,
+                        lable: item.centername,
                       },
                     );
                   }
-                }
+                })
               }
             }
           }
+          //add ccm 0112 兼职部门
+        } else if (role === '2') {//副总经理
+          this.$store.getters.orgGroupList.filter((item) => {
+            if (item.virtualuser === this.$store.getters.userinfo.userid) {
+              vote.push(
+                {
+                  value: item.centerid,
+                  lable: item.centername,
+                },
+              );
+            }
+          })
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid)
+              {
+                this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.centerid === others.centerid) {
+                    vote.push(
+                      {
+                        value: item.centerid,
+                        lable: item.centername,
+                      },
+                    );
+                  }
+                })
+              }
+            }
+          }
+          //add ccm 0112 兼职部门
         }
-        this.grp_options = options;
+        const vote1 = [];
+        if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+          || this.$store.getters.roles.indexOf("11") != -1 //总经理
+          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+          || this.$store.getters.roles.indexOf("18") != -1//企划部长
+          || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+        {
+          this.$store.getters.orgGroupList.filter((item) => {
+            vote1.push(
+              {
+                value: item.centerid,
+                lable: item.centername,
+              },
+            );
+          })
+          this.grp_options = vote1;
+        }
+        else
+        {
+          this.grp_options = vote;
+        }
+        //去重
+        let letoptionsdata = [];
+        let arrId = [];
+        for(var item of this.grp_options){
+          if(arrId.indexOf(item['lable']) == -1){
+            arrId.push(item['lable']);
+            letoptionsdata.push(item);
+          }
+        }
+        this.grp_options = letoptionsdata;
+        //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
         this.loading = false;
       },
       getlisttheme() {
