@@ -665,6 +665,7 @@
                   center_id: this.form.new_center_id,
                   group_id: this.form.new_group_id,
                   team_id:this.form.new_team_id,
+                  budgetnumber:this.form.new_budgetunit,
                   purchase_id:this.rowid,
                 };
                 this.$store
