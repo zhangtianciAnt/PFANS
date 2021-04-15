@@ -60,7 +60,6 @@
     },
     data() {
       return {
-        status: "",
         modifyby: "",
         loading: false,
         dialogFormVisible: false,
