@@ -275,6 +275,7 @@
         this.rowid = row.businessplanid;
         this.year = row.year;
         this.groupid = row.group_id;
+        this.centerid = row.center_id;
       },
       buttonClick(val) {
         [];
@@ -320,7 +321,7 @@
             params: {
               _id: this.rowid,
               year: this.year,
-              groupid: this.groupid,
+              centerid: this.centerid,
               disabled: true,
             },
           });
