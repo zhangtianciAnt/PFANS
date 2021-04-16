@@ -61,14 +61,14 @@
             code: 'bpname',
             label: 'label.PFANS6008VIEW_BPNAME',
             width: 120,
-            fix: false,
+            fix: true,
             filter: true,
           },
           {
             code: 'bpcompany',
             label: 'label.PFANS6008VIEW_BPCOMPANY',
             width: 120,
-            fix: false,
+            fix: true,
             filter: true,
           },
           {

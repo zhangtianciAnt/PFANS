@@ -195,7 +195,8 @@
             code: 'bpcompany',
             label: 'label.PFANS6009VIEW_BPCOMPANY',
             width: 160,
-            fix: false,
+            fix: true,
+            filter: true
           },
           {
             code: 'four',
