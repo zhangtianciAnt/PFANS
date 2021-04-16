@@ -16,10 +16,10 @@
                :visible.sync="dialogVisible"
                :title="$t('button.carryforward')"
                width="50%">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw">
+      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
         <el-row>
           <div style=
-                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
         </el-row>
         <el-row>
           <el-col :span="8" style="margin-left: 0.5vw">
