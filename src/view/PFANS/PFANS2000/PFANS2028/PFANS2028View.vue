@@ -276,7 +276,7 @@
           {
             code: 'totalwages',
             label: 'label.PFANS2006VIEW_ARSENAL',
-            width: 176,
+            width: 190,
             fix: false,
             filter: true,
           },
