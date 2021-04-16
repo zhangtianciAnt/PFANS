@@ -972,7 +972,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getCurrentRoleNew,getDownOrgInfo,getDictionaryInfo,getCooperinterviewListByAccount,getOrgInfo} from '../../../../utils/customize';
+  import {getCurrentRoleNew,getOrgInfo,getDictionaryInfo,getCooperinterviewListByAccount} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",

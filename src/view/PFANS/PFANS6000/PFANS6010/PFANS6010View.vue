@@ -20,7 +20,7 @@
     getUserInfo,
     getorgGroupList,
     getCurrentRole8,
-    getDownOrgInfo,
+    getOrgInfo,
     getCurrentRoleNew,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
@@ -212,7 +212,7 @@
         //       for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
         //         if (others.centerid) {
         //           let centerId = others.centerid;
-        //           let orgs = getDownOrgInfo(centerId);
+        //           let orgs = getOrgInfo(centerId);
         //           if (orgs) {
         //             for (let org of orgs) {
         //               if (others.groupid) {
@@ -366,7 +366,7 @@
           {
             if (this.$store.getters.userinfo.userinfo.centerid) {
               let centerId = this.$store.getters.userinfo.userinfo.centerid;
-              let orgs = getDownOrgInfo(centerId);
+              let orgs = getOrgInfo(centerId);
               if (orgs) {
                 for (let org of orgs) {
                     if (org.user === this.$store.getters.userinfo.userid) {

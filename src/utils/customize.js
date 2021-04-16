@@ -267,51 +267,6 @@ export function getOrgInfo(orgid, data) {
   }
 }
 
-//add by lin start 根据groupid获取centerid
-export function getUpOrgInfo(orgid, data, dataUp) {
-  let list = store.getters.orgList;
-  if (data) {
-    list = data;
-  }
-
-  if (list && list.length > 0) {
-    for (let org of list) {
-      if (org._id === orgid) {
-        return dataUp;
-      } else if (org.orgs && org.orgs.length > 0) {
-        var rst = getUpOrgInfo(orgid, org.orgs, org);
-
-        if (rst) {
-          return rst;
-        }
-      }
-    }
-  }
-}
-
-//add by lin end
-
-export function getDownOrgInfo(orgid, data) {
-  let list = store.getters.orgList;
-  if (data) {
-    list = data;
-  }
-
-  if (list && list.length > 0) {
-    for (let org of list) {
-      if (org._id === orgid) {
-        return org.orgs;
-      } else if (org.orgs && org.orgs.length > 0) {
-        var rst = getDownOrgInfo(orgid, org.orgs);
-
-        if (rst) {
-          return rst;
-        }
-      }
-    }
-  }
-}
-
 export function getOrgInfoByUserId(userid) {
   var orgs = {};
   let userinfo = getUserInfo(userid);

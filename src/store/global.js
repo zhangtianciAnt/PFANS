@@ -12,9 +12,7 @@ const global = {
     userList:[],
     workflowUrl:"",
     orgList:[],
-    orgCenterList:[],
     orgGroupList:[],
-    orgGroupallList:[],
     dictionaryList:[],
     days:[],
     fileToken:"",
@@ -91,7 +89,6 @@ const global = {
       //     for (let j = 0; j < infos[i].orgs.length; j++) {
       //       if (infos[i].orgs[j].orgs != null) {
       //         if (infos[i].orgs[j].type === "1") {
-      //           state.orgCenterList.push(infos[i].orgs[j]);
       //           //group
       //           for (let x = 0; x < infos[i].orgs[j].orgs.length; x++) {
       //             if (infos[i].orgs[j].orgs[x].orgs != null) {
@@ -106,17 +103,6 @@ const global = {
       //                   redirict:infos[i].orgs[j].orgs[x].redirict
       //                 });
       //               }
-      //             }
-      //             if (infos[i].orgs[j].orgs[x].type === "2") {
-      //               state.orgGroupallList.push({
-      //                 centerid: infos[i].orgs[j]._id,
-      //                 centername: infos[i].orgs[j].companyname,
-      //                 groupid: infos[i].orgs[j].orgs[x]._id,
-      //                 groupname: infos[i].orgs[j].orgs[x].companyname,
-      //                 companyen: infos[i].orgs[j].orgs[x].companyen,
-      //                 encoding: infos[i].orgs[j].orgs[x].encoding,
-      //                 redirict:infos[i].orgs[j].orgs[x].redirict
-      //               });
       //             }
       //           }
       //         }

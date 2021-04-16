@@ -964,8 +964,6 @@
     getCurrentRole,
     getOrgInfo,
     getDictionaryInfo,
-    getDownOrgInfo,
-    getUpOrgInfo,
     getUserInfo,
     getCurrentRoleNew
   } from '@/utils/customize';
@@ -1832,7 +1830,7 @@
         this.groupdata(this.refform.group_id);
       },
       groupChange(val) {
-        let orgInfo = getUpOrgInfo(val);
+        let orgInfo = getOrgInfo(val);
         this.refform.group_id = val;
         this.refform.center_id = orgInfo._id;
         this.groupdata(val);
