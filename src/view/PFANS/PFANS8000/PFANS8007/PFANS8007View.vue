@@ -113,14 +113,24 @@
           </el-aside>
           <el-main>
             <el-row>
-              <el-select @change="dateChange(1)" style="width:7rem;" v-model="yearsModel">
-                <el-option
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                  v-for="item in years">
-                </el-option>
-              </el-select>
+              <!--// update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start-->
+<!--              <el-select @change="dateChange(1)" style="width:7rem;" v-model="yearsModel">-->
+<!--                <el-option-->
+<!--                  :key="item.value"-->
+<!--                  :label="item.label"-->
+<!--                  :value="item.value"-->
+<!--                  v-for="item in years">-->
+<!--                </el-option>-->
+<!--              </el-select>-->
+              <el-date-picker
+                clearable
+                v-model="yearsModel"
+                type="year"
+                @change="dateChange(1)"
+                style="width:7rem;"
+                placeholder="选择年">
+              </el-date-picker>
+              <!--// update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 end-->
             </el-row>
             <div>&nbsp;</div>
             <el-row>
@@ -263,7 +273,10 @@
         List5: [],
         List6: [],
         year: [],
-        yearsModel: null,
+        //update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start
+        //yearsModel: null,
+        yearsModel:  moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
+        //update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 end
         years: [],
         one: 1,
         dada: [],
@@ -286,7 +299,9 @@
     },
     mounted() {
       this.getDay();
-      this.init();
+      // update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start
+      //this.init();
+      // update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 end
       this.locale = this.$i18n.locale === 'zh_CN' ? 'ja' : 'ja';
     },
     methods: {
@@ -353,7 +368,10 @@
         // add-ws-修改工作日设置check修改
         else {
           this.params.workingdate = moment(this.day).format('YYYY-MM-DD');
-          this.params.years = this.yearsModel;
+          // update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start
+          //this.params.years = this.yearsModel;
+          this.params.years = parseInt(moment(this.yearsModel).format('YYYY'));
+          // update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start
           this.loading = true;
           this.$store
             .dispatch('PFANS8007Store/deleteUser', {workingdate: this.params.workingdate})
@@ -529,7 +547,10 @@
       }
       ,
       dateChange() {
-        this.year = this.yearsModel;
+        // update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 start
+        //this.year = this.yearsModel;
+        this.year = parseInt(moment(this.yearsModel).format('YYYY'));
+        // update gbb 20210316 NT_PFANS_20210227_BUG_035 更换年组件 end
         this.defaultDate1 = this.year + 1 + '-01-01';
         this.defaultDate2 = this.year + 1 + '-02-01';
         this.defaultDate3 = this.year + 1 + '-03-01';
