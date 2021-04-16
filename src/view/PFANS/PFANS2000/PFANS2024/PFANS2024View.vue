@@ -47,53 +47,62 @@
     <el-container>
       <el-dialog center
                  :visible.sync="dialogVisible1"
-                 width="60%">
-        <el-form :model="form1" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+                 :title="$t('button.carryforward')"
+                 width="50%">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
           <el-row>
-            <el-col :span="8">
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="8" style="margin-left: 0.5vw">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:13vw" v-model="centername"></el-input>
+                <el-input :disabled="true" style="width:15vw" v-model="centername"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:13vw" v-model="groupname"></el-input>
+                <el-input :disabled="true" style="width:15vw" v-model="groupname"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="7">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:13vw" v-model="teamname"></el-input>
+                <el-input :disabled="true" style="width:15vw" v-model="teamname"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="8" style="margin-left: 0.5vw; margin-bottom: -1vw;">
               <el-form-item :label="$t('label.center')" prop="new_center_id"
                             :error="error_center">
                 <org :orglist="form1.new_center_id"
                      orgtype="1"
-                     style="width: 10vw"
+                     style="width: 13vw"
                      @getOrgids="getCenterid"
                      :error="error_center"
                 ></org>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="8" style="margin-bottom: -1vw;">
               <el-form-item :label="$t('label.group')" prop="new_group_id"
                             :error="error_group">
                 <org :orglist="form1.new_group_id"
                      orgtype="2"
-                     style="width: 10vw"
+                     style="width: 13vw"
                      @getOrgids="getGroupid"
                      :error="error_group"
                 ></org>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="7" style="margin-bottom: -1vw;">
               <el-form-item :label="$t('label.team')">
                 <org :orglist="form1.new_team_id"
                      orgtype="3"
-                     style="width: 10vw"
+                     style="width: 13.5vw"
                      @getOrgids="getTeamid"
                 ></org>
               </el-form-item>
@@ -101,7 +110,7 @@
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit1">确 定</el-button>
+            <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
           </span>
       </el-dialog>
     </el-container>

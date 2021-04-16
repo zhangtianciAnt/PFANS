@@ -39,12 +39,16 @@
           </el-col>
         </el-row>
         <el-row>
+          <div style=
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
           <el-col :span="8" style="margin-left: 0.5vw; margin-bottom: -1vw;">
             <el-form-item :label="$t('label.center')" prop="new_center_id"
                           :error="error_center">
               <org :orglist="form.new_center_id"
                    orgtype="1"
-                   style="width: 14vw"
+                   style="width: 13vw"
                    @getOrgids="getCenterid"
                    :error="error_center"
               ></org>
@@ -55,7 +59,7 @@
                           :error="error_group">
               <org :orglist="form.new_group_id"
                    orgtype="2"
-                   style="width: 14vw"
+                   style="width: 13vw"
                    @getOrgids="getGroupid"
                    :error="error_group"
               ></org>
@@ -65,7 +69,7 @@
             <el-form-item :label="$t('label.team')">
               <org :orglist="form.new_team_id"
                    orgtype="3"
-                   style="width: 14vw"
+                   style="width: 13.5vw"
                    @getOrgids="getTeamid"
               ></org>
             </el-form-item>
