@@ -49,7 +49,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item :label="$t('label.center')" prop="new_group_id"
+          <el-form-item :label="$t('label.group')" prop="new_group_id"
                         :error="error_group">
             <org :orglist="form.new_group_id"
                  orgtype="2"
@@ -60,7 +60,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="8">
-          <el-form-item :label="$t('label.center')">
+          <el-form-item :label="$t('label.team')">
             <org :orglist="form.new_team_id"
                  orgtype="3"
                  style="width: 10vw"
@@ -230,6 +230,7 @@
             filter: true,
           },
         ],
+        buttonList:[ ],
         buttonListAll: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -388,7 +389,6 @@
                 }
               }
             }
-
             this.data = response;
             this.tableList = response;
             this.loading = false;
@@ -402,16 +402,17 @@
             this.loading = false;
           });
       },
-      //按钮显示
+      //add    数据转结按钮显示  from
       getdate(){
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
-        if(this.mounth = 4 && this.date >= 10 || this.mounth > 4){
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30){
           this.buttonList = this.buttonListAll
         } else {
           this.buttonList = this.buttonListial;
         }
       },
+      //add    数据转结按钮显示  to
       submit(){
         this.loading = true;
         this.$refs['form'].validate(valid =>{
@@ -422,12 +423,11 @@
               team_id:this.form.new_team_id,
               staffexitprocedure_id:this.rowid,
             };
-            console.log(parameter)
             this.$store
               .dispatch('PFANS2026Store/change', parameter)
               .then(response => {
-                this.data = response;
-
+                // this.data = response;
+                this.getList();
                 Message({
                   message: this.$t('normal.success_07'),
                   type: 'success',

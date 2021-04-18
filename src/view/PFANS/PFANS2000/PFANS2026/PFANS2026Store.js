@@ -1,4 +1,4 @@
-import {get, getList2,get3,selectById, update, insert,get2, selectById2, update2, insert2, deletesta,generatesta,getList,change} from './PFANS2026Api';
+import {get, getList2,get3,selectById, update, insert,get2, selectById2, update2, insert2, deletesta,generatesta,getList,change,change2} from './PFANS2026Api';
 
 
 const PFANS2026Store = {
@@ -139,10 +139,24 @@ const PFANS2026Store = {
         });
       });
     },
-    //数据转结
+    //离职申请数据转结
     change({commit}, data) {
       return new Promise((resolve, reject) => {
         change(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //退职者调书&离职手续数据转结
+    change2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -26,12 +26,20 @@ export function update(data) {
     data: data
   })
 }
-//数据转结
+//离职申请数据转结
 export function change(data) {
   return request({
     url: 'staffexitprocedure/change',
     method: 'post',
-    params: data
+    data: data
+  })
+}
+//退职者调书&离职手续数据转结
+export function change2(data) {
+  return request({
+    url: 'staffexitprocedure/change2',
+    method: 'post',
+    data: data
   })
 }
 //新建insert
