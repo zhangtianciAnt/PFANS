@@ -964,8 +964,6 @@
     getCurrentRole,
     getOrgInfo,
     getDictionaryInfo,
-    getDownOrgInfo,
-    getUpOrgInfo,
     getUserInfo,
     getCurrentRoleNew
   } from '@/utils/customize';
