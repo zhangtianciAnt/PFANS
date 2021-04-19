@@ -153,6 +153,7 @@
       let role3 = getCurrentRole3();
       if (role3 === '0') {
         this.buttonList[3].disabled = false;
+        this.buttonList[1].disabled = true;
       }
       // if (this.$store.getters.userinfo.userid) {
       //   let group = getUserInfo(this.$store.getters.userinfo.userid);
