@@ -5079,6 +5079,7 @@
                         .dispatch("PFANS2005Store/save", this.baseInfo)
                         .then(response => {
                             this.data = response;
+                            this.getListdata();
                             this.loading = false;
                         })
                         .catch(error => {
