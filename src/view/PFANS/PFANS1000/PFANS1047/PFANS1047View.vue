@@ -478,6 +478,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === "sealapp") {
           this.selectedlist = this.$refs.roletable.selectedList;

@@ -425,6 +425,9 @@
                   return;
                 }
                 this.dialogVisible = true;
+                this.form.new_center_id= '';
+                this.form.new_group_id='';
+                this.form.new_team_id= '';
                 let center = getOrgInfo(this.rows.center_id);
                 if(center){
                   this.centername = center.companyname;

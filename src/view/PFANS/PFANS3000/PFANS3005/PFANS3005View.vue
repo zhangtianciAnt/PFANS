@@ -169,7 +169,7 @@
                     {
                       required: true,
                       message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                      trigger: 'change'
+                      trigger: 'blur'
                     },
                   ],
                 },
@@ -856,6 +856,10 @@
                     this.form.last_budgetunit = this.rowInfo.budgetnumber;
                   }
                   this.dialogVisible = true;
+                  this.form.new_center_id = '';
+                  this.form.new_group_id = '';
+                  this.form.new_team_id = '';
+                  this.form.new_budgetunit = '';
                 }
                 if (val === 'export2') {
                     if (this.$refs.roletable.selectedList.length === 0) {
