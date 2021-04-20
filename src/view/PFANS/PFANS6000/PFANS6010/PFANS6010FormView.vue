@@ -85,7 +85,7 @@
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {Message} from 'element-ui';
-    import {getSupplierinfor,getorgGroupList} from '@/utils/customize';
+    import {getSupplierinfor,getorgGroupList,getOrgInformation} from '@/utils/customize';
     import moment from "moment";
     export default {
         name: 'PFANS6010FormView',
@@ -127,9 +127,9 @@
                         let groupnamelist = [];
                         groupnamelist = groupidlist.split(",");
                         for (let j = 0; j < groupnamelist.length; j++) {
-                            let group = getorgGroupList(groupnamelist[j]);
+                            let group = getOrgInformation(groupnamelist[j]);
                             if (group) {
-                                this.groupnamelist.push(group.companyen);
+                                this.groupnamelist.push(group.data.companyen);
                             }
                         }
                         this.tableData = response;

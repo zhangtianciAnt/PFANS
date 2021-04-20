@@ -176,6 +176,36 @@
           {
               this.optionsdata = vote;
           }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of this.optionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0) {
+          for (let item of incfmyList) {
+            this.optionsdata = this.optionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for (let item of incfmyList) {
+            if (item) {
+              if (getOrgInfo(item).orgs.length != 0) {
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for (let item of groInfo) {
+            this.optionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
           //去重
           let groupidList = "";
           let arrId = [];
@@ -186,6 +216,8 @@
                   groupidList = groupidList + ',' + item['value'];
               }
           }
+
+          console.log(groupidList)
         // let groupid = this.$store.getters.userinfo.userinfo.groupid;
         // let letRole2 = this.getCurrentRole2();
         // if (letRole2 !== '4') {
