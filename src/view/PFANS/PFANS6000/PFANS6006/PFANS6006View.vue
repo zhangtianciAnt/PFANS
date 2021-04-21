@@ -32,12 +32,12 @@
               </el-col>
             </el-row>
             <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start-->
-           <!-- <el-row style="margin-top: 20px">
+            <el-row style="margin-top: 20px">
               <plx-table-grid :datas="taxdata" border
                               header-cell-class-name="sub_bg_color_blue"
                               use-virtual :pagination-show="paginationShow"
                               style="width: 100%;" :row-height="rowheight">
-                &lt;!&ndash;4月&ndash;&gt;
+                <!--4月-->
                 <plx-table-column
                   :label="$t('label.April')"
                   align="center">
@@ -78,7 +78,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;5月&ndash;&gt;
+                <!--5月-->
                 <plx-table-column
                   :label="$t('label.May')"
                   align="center">
@@ -119,7 +119,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;6月&ndash;&gt;
+                <!--6月-->
                 <plx-table-column
                   :label="$t('label.June')"
                   align="center">
@@ -160,7 +160,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;7月&ndash;&gt;
+                <!--7月-->
                 <plx-table-column
                   :label="$t('label.July')"
                   align="center">
@@ -201,7 +201,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;8月&ndash;&gt;
+                <!--8月-->
                 <plx-table-column
                   :label="$t('label.August')"
                   align="center">
@@ -242,7 +242,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;9月&ndash;&gt;
+                <!--9月-->
                 <plx-table-column
                   :label="$t('label.September')"
                   align="center">
@@ -283,7 +283,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;10月&ndash;&gt;
+                <!--10月-->
                 <plx-table-column
                   :label="$t('label.October')"
                   align="center">
@@ -324,7 +324,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;11月&ndash;&gt;
+                <!--11月-->
                 <plx-table-column
                   :label="$t('label.November')"
                   align="center">
@@ -365,7 +365,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;12月&ndash;&gt;
+                <!--12月-->
                 <plx-table-column
                   :label="$t('label.December')"
                   align="center">
@@ -406,7 +406,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;1月&ndash;&gt;
+                <!--1月-->
                 <plx-table-column
                   :label="$t('label.January')"
                   align="center">
@@ -447,7 +447,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;2月&ndash;&gt;
+                <!--2月-->
                 <plx-table-column
                   :label="$t('label.February')"
                   align="center">
@@ -488,7 +488,7 @@
                     </template>
                   </plx-table-column>
                 </plx-table-column>
-                &lt;!&ndash;3月&ndash;&gt;
+                <!--3月-->
                 <plx-table-column
                   :label="$t('label.March')"
                   align="center">
@@ -530,8 +530,8 @@
                   </plx-table-column>
                 </plx-table-column>
               </plx-table-grid>
-            </el-row>-->
-            <el-row style="margin-top: 20px">
+            </el-row>
+            <el-row style="margin-top: 180px">
             <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end-->
               <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
                         header-cell-class-name="sub_bg_color_blue" stripe height="400" header-row-class-name="height"
@@ -1039,7 +1039,7 @@
         disabled: false,
         disable: true,
         //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
-        // taxdata:[],
+        taxdata:[],
         multiple: false,
         //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
         buttonList: [
@@ -1132,40 +1132,40 @@
                   year: responsex[j].year,
               })
             }
-            // if(response.delegainformationtaxList != null){
-            //     this.taxdata = response.delegainformationtaxList;
-            // }
-            // else{
-            //     this.taxdata = [{
-            //         delegainformationtax_id: '',
-            //         year: this.year,
-            //         group_id: this.group_id,
-            //         april: '',
-            //         apriltax: '',
-            //         may: '',
-            //         maytax: '',
-            //         june: '',
-            //         junetax: '',
-            //         july: '',
-            //         julytax: '',
-            //         august: '',
-            //         augusttax: '',
-            //         september: '',
-            //         septembertax: '',
-            //         october: '',
-            //         octobertax: '',
-            //         november: '',
-            //         novembertax: '',
-            //         december: '',
-            //         decembertax: '',
-            //         january: '',
-            //         januarytax: '',
-            //         february: '',
-            //         februarytax: '',
-            //         march: '',
-            //         marchtax: '',
-            //     }]
-            // }
+            if(response.delegainformationtaxList != null){
+                this.taxdata = response.delegainformationtaxList;
+            }
+            else{
+                this.taxdata = [{
+                    delegainformationtax_id: '',
+                    year: this.year,
+                    group_id: this.group_id,
+                    april: '',
+                    apriltax: '',
+                    may: '',
+                    maytax: '',
+                    june: '',
+                    junetax: '',
+                    july: '',
+                    julytax: '',
+                    august: '',
+                    augusttax: '',
+                    september: '',
+                    septembertax: '',
+                    october: '',
+                    octobertax: '',
+                    november: '',
+                    novembertax: '',
+                    december: '',
+                    decembertax: '',
+                    january: '',
+                    januarytax: '',
+                    february: '',
+                    februarytax: '',
+                    march: '',
+                    marchtax: '',
+                }]
+            }
             //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             this.multipleSelection = [];
             this.tableData = tabledate;
@@ -1354,18 +1354,18 @@
                   return;
               }
           //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
-          // this.taxdata[0].group_id = this.group_id;
-          // this.taxdata[0].year = this.year;
+          this.taxdata[0].group_id = this.group_id;
+          this.taxdata[0].year = this.year;
           let vo = {
               delegainformationList: this.multipleSelection,
-          //     delegainformationtaxList: this.taxdata,
+              delegainformationtaxList: this.taxdata,
           };
           //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
           this.loading = true;
           this.$store
           //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start
           //.dispatch('PFANS6006Store/updateDeleginformation', this.multipleSelection)
-             .dispatch('PFANS6006Store/updateDeleginformation', vo)
+              .dispatch('PFANS6006Store/updateDeleginformation', vo)
             //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             .then(response => {
               this.data = response;
