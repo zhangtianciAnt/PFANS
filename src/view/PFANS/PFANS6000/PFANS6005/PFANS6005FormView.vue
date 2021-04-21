@@ -67,6 +67,7 @@
             :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
             align="center"
             width="65"
+            fixed="left"
             prop="graduation1"
           ></plx-table-column>
           <!-- 会社名-->
@@ -74,8 +75,18 @@
             :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
             align="left"
             prop="company"
+            fixed="left"
             width="160"
           ></plx-table-column>
+          <!-- 開発総単価-->
+          <plx-table-column
+            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
+            align="center"
+            prop="totalunit"
+            fixed="left"
+            width="100"
+          >
+          </plx-table-column>
           <!-- 查定时间-->
           <!--<plx-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">-->
             <!--<template slot-scope="scope">-->
@@ -371,14 +382,6 @@
               ></el-input-number>
             </template>
           </plx-table-column>
-          <!-- 開発総単価-->
-          <plx-table-column
-            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
-            align="center"
-            prop="totalunit"
-            width="100"
-          >
-          </plx-table-column>
           <!-- 共通費用-->
           <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
@@ -519,7 +522,6 @@ export default {
       ];
     }
   },
-
   methods: {
     getById() {
       this.loading = true;
@@ -722,36 +724,6 @@ export default {
           }
       }
       //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 end
-      //针对经营管理统计到group修改 start
-      let incfmyList = [];
-      for(let item of letoptionsdata){
-        if(getOrgInfo(item.value).encoding == ''){
-          incfmyList.push(item.value)
-        }
-      }
-      if(incfmyList.length > 0){
-        for(let item of incfmyList){
-          letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
-        }
-        let orgInfo = [];
-        for(let item of incfmyList){
-          if(item){
-            if(getOrgInfo(item).orgs.length != 0){
-              orgInfo.push(getOrgInfo(item).orgs)
-            }
-          }
-        }
-        let groInfo = orgInfo[0].filter(item => item.type == '2');
-        for(let item of groInfo){
-          letoptionsdata.push(
-            {
-              value: item._id,
-              lable: item.title,
-            },
-          );
-        }
-      }
-      //针对经营管理统计到group修改 end
       this.optionsdata = letoptionsdata;
       if(this.optionsdata.length > 0){
           this.form.main.group_id = this.optionsdata[0].value;
