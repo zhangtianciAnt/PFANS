@@ -329,11 +329,13 @@
                                 this.row = [];
                                 // update gbb 20210315 NT_PFANS_20210305_BUG_098 代办列表【已读】后刷新 emd
                                 this.getStatus('0');
-                                Message({
+                                this.selectedlist = [];
+                              Message({
                                     message: this.$t("normal.success_03"),
                                     type: 'success',
                                     duration: 5 * 1000
                                 });
+                                this.$refs['dataTable'].$refs['eltable'].clearSelection();
                                 this.loading = false;
                             })
                             .catch(err => {
