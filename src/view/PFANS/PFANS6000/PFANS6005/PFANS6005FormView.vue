@@ -724,6 +724,36 @@ export default {
           }
       }
       //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 end
+      //针对经营管理统计到group修改 start
+      let incfmyList = [];
+      for(let item of letoptionsdata){
+        if(getOrgInfo(item.value).encoding == ''){
+          incfmyList.push(item.value)
+        }
+      }
+      if(incfmyList.length > 0){
+        for(let item of incfmyList){
+          letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+        }
+        let orgInfo = [];
+        for(let item of incfmyList){
+          if(item){
+            if(getOrgInfo(item).orgs.length != 0){
+              orgInfo.push(getOrgInfo(item).orgs)
+            }
+          }
+        }
+        let groInfo = orgInfo[0].filter(item => item.type == '2');
+        for(let item of groInfo){
+          letoptionsdata.push(
+            {
+              value: item._id,
+              lable: item.title,
+            },
+          );
+        }
+      }
+      //针对经营管理统计到group修改 end
       this.optionsdata = letoptionsdata;
       if(this.optionsdata.length > 0){
           this.form.main.group_id = this.optionsdata[0].value;
