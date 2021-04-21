@@ -478,9 +478,9 @@
           {
             code: 'suppliername',
             label: 'label.PFANS6007VIEW_BPCLUBNAME',
-            width: 120,
-            fix: false,
-            filter: false,
+            width: 160,
+            fix: true,
+            filter: true,
           },
           {
             code: 'SERVICE1',
@@ -746,9 +746,9 @@
           {
             code: 'suppliername',
             label: 'label.PFANS6007VIEW_BPCLUBNAME',
-            width: 120,
-            fix: false,
-            filter: false,
+            width: 160,
+            fix: true,
+            filter: true,
           },
           {
             code: 'SERVICEC1',
