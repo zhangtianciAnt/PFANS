@@ -71,6 +71,7 @@
             :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
             align="center"
             width="65"
+            fixed="left"
             prop="graduation1"
           ></plx-table-column>
           <!-- 会社名-->
@@ -78,8 +79,18 @@
             :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
             align="left"
             prop="company"
+            fixed="left"
             width="160"
           ></plx-table-column>
+          <!-- 開発総単価-->
+          <plx-table-column
+            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
+            align="center"
+            prop="totalunit"
+            fixed="left"
+            width="100"
+          >
+          </plx-table-column>
           <!-- 查定时间-->
           <!--<plx-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">-->
             <!--<template slot-scope="scope">-->
@@ -375,14 +386,6 @@
               ></el-input-number>
             </template>
           </plx-table-column>
-          <!-- 開発総単価-->
-          <plx-table-column
-            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
-            align="center"
-            prop="totalunit"
-            width="100"
-          >
-          </plx-table-column>
           <!-- 共通費用-->
           <plx-table-column
             :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
@@ -525,7 +528,6 @@ export default {
       ];
     }
   },
-
   methods: {
     inputChange(){
       if (this.filterName === "") {

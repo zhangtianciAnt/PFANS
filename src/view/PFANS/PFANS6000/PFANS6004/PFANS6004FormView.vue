@@ -223,6 +223,20 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <!--              新加的-->
+          <!--                更衣柜号-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LOCKERNUMBER')" prop="lockernumber">
+                <el-input
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  v-model="form.lockernumber" maxlength="20">
+                </el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
@@ -542,6 +556,7 @@
                     whetherentry: '',
                     countermeasure: '',
                     exits: '1',
+                    lockernumber:'',
                 },
                 tableData: [{
                     group_id: '',
