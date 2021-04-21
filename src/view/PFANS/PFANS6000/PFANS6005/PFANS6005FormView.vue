@@ -11,15 +11,14 @@
     >
       <div slot="customize" style="width: 100%">
         <el-row style="padding-top: 30px">
-          <el-col :span="5">
+          <div align="right">
+          <el-col :span="12">
             <el-date-picker
               v-model="form.main.pd_date" @change="change"
               type="month">
             </el-date-picker>
           </el-col>
           <el-col :span="6">
-            <div align="right">
-
                 <el-select v-model="form.main.group_id" style="width: 20vw"
                            @change="changeGroup">
                   <el-option
@@ -29,9 +28,14 @@
                     :value="item.value">
                   </el-option>
                 </el-select>
-
-            </div>
           </el-col>
+            <el-col :span="6">
+              <el-input :placeholder="$t('label.PFANS6006VIEW_BPINFO')"  style="width: 20vw"
+                        v-model="filterName">
+                <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+              </el-input>
+            </el-col>
+          </div>
         </el-row>
         <el-row style="padding-top: 20px">
         <plx-table-grid
@@ -470,6 +474,8 @@ export default {
       baseInfo: {},
       scope: "",
       row: "",
+      filterName: "",
+      responseDataInit: [],
       arr: [], //二维数组初始化变量服务于更改和计算
       tableData: [],
       optionsdata:[],
@@ -521,6 +527,16 @@ export default {
   },
 
   methods: {
+    inputChange(){
+      if (this.filterName === "") {
+        this.tableData = this.responseDataInit;
+      } else {
+        this.tableData = this.responseDataInit.filter(item => {
+          return item.username.toLowerCase().indexOf(this.filterName) != -1
+            || item.company.toLowerCase().indexOf(this.filterName) != -1  ;
+        });
+      }
+    },
     getById() {
       this.loading = true;
       //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 start
@@ -902,6 +918,7 @@ export default {
           this.form.main.group_id = val;
           tablegroup = response.detail.filter(item => item.group_id === this.form.main.group_id);
           this.tableData = tablegroup;
+          this.responseDataInit = tablegroup;
           this.loading = false;
         })
         .catch(error => {
