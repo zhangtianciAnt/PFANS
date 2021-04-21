@@ -122,7 +122,7 @@
             <el-col :span="8">
               <el-form-item :error="errorgroup" :label="$t('label.department')" prop="group_id">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="1" style="width:20vw"></org>
+                     orgtype="4" style="width:20vw"></org>
                 <!--                    add_ccm_06/04  &#45;&#45;添加履历-->
                 <el-button
                   type="text"

@@ -2211,7 +2211,7 @@
 </template>
 
 <script>
-  import {getDictionaryInfo, getDownOrgInfo, getOrgInfo, getUserInfo,getCurrentRole,getCurrentRole3,getCurrentRole14} from '../../../../utils/customize';
+  import {getDictionaryInfo,getOrgInfo, getUserInfo,getCurrentRole,getCurrentRole3,getCurrentRole14} from '../../../../utils/customize';
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect";
   import EasyNormalTable from "@/components/EasyNormalTable";
@@ -2476,16 +2476,16 @@
           //let centerId = '5e7858a08f4316308435112c';
           let centerId = this.$store.getters.orgtreeId;
           //update gbb 20210329 2021组织架构变更 end
-          let orgs = getDownOrgInfo(centerId);
+          let orgs = getOrgInfo(centerId);
           if (orgs) {
             if (orgs.length > 0) {
-              if (getDownOrgInfo(orgs[0]._id).length > 0) {
-                this.group_idAnt = getDownOrgInfo(orgs[0]._id)[0]._id;
+              if (getOrgInfo(orgs[0]._id).length > 0) {
+                this.group_idAnt = getOrgInfo(orgs[0]._id)[0]._id;
               }
             }
 
             for (let center of orgs) {
-              let centers = getDownOrgInfo(center._id);
+              let centers = getOrgInfo(center._id);
               if (centers) {
                 for (let group of centers) {
                   vote1.push(

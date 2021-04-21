@@ -20,7 +20,7 @@
     getUserInfo,
     getorgGroupList,
     getCurrentRole8,
-    getDownOrgInfo,
+    getOrgInfo,
     getCurrentRoleNew,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
@@ -176,6 +176,36 @@
           {
               this.optionsdata = vote;
           }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of this.optionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0) {
+          for (let item of incfmyList) {
+            this.optionsdata = this.optionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for (let item of incfmyList) {
+            if (item) {
+              if (getOrgInfo(item).orgs.length != 0) {
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for (let item of groInfo) {
+            this.optionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
           //去重
           let groupidList = "";
           let arrId = [];
@@ -186,6 +216,8 @@
                   groupidList = groupidList + ',' + item['value'];
               }
           }
+
+          console.log(groupidList)
         // let groupid = this.$store.getters.userinfo.userinfo.groupid;
         // let letRole2 = this.getCurrentRole2();
         // if (letRole2 !== '4') {
@@ -212,7 +244,7 @@
         //       for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
         //         if (others.centerid) {
         //           let centerId = others.centerid;
-        //           let orgs = getDownOrgInfo(centerId);
+        //           let orgs = getOrgInfo(centerId);
         //           if (orgs) {
         //             for (let org of orgs) {
         //               if (others.groupid) {
@@ -366,7 +398,7 @@
           {
             if (this.$store.getters.userinfo.userinfo.centerid) {
               let centerId = this.$store.getters.userinfo.userinfo.centerid;
-              let orgs = getDownOrgInfo(centerId);
+              let orgs = getOrgInfo(centerId);
               if (orgs) {
                 for (let org of orgs) {
                     if (org.user === this.$store.getters.userinfo.userid) {
