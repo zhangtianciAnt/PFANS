@@ -12,9 +12,8 @@ const global = {
     userList:[],
     workflowUrl:"",
     orgList:[],
-    orgCenterList:[],
+    orgallList:[],
     orgGroupList:[],
-    orgGroupallList:[],
     dictionaryList:[],
     days:[],
     fileToken:"",
@@ -54,6 +53,11 @@ const global = {
     SET_WORKFLOWURL(state, url) {
       state.workflowUrl = url
     },
+    //add gbb 20210421 获取所有组织信息 start
+    SET_ORGALLLIST(state, infos) {
+      state.orgallList = infos
+    },
+    //add gbb 20210421 获取所有组织信息 end
     SET_ORGLIST(state, infos) {
       state.orgList = infos
       //add gbb 20210329 2021组织架构变更 start
@@ -91,7 +95,6 @@ const global = {
       //     for (let j = 0; j < infos[i].orgs.length; j++) {
       //       if (infos[i].orgs[j].orgs != null) {
       //         if (infos[i].orgs[j].type === "1") {
-      //           state.orgCenterList.push(infos[i].orgs[j]);
       //           //group
       //           for (let x = 0; x < infos[i].orgs[j].orgs.length; x++) {
       //             if (infos[i].orgs[j].orgs[x].orgs != null) {
@@ -106,17 +109,6 @@ const global = {
       //                   redirict:infos[i].orgs[j].orgs[x].redirict
       //                 });
       //               }
-      //             }
-      //             if (infos[i].orgs[j].orgs[x].type === "2") {
-      //               state.orgGroupallList.push({
-      //                 centerid: infos[i].orgs[j]._id,
-      //                 centername: infos[i].orgs[j].companyname,
-      //                 groupid: infos[i].orgs[j].orgs[x]._id,
-      //                 groupname: infos[i].orgs[j].orgs[x].companyname,
-      //                 companyen: infos[i].orgs[j].orgs[x].companyen,
-      //                 encoding: infos[i].orgs[j].orgs[x].encoding,
-      //                 redirict:infos[i].orgs[j].orgs[x].redirict
-      //               });
       //             }
       //           }
       //         }

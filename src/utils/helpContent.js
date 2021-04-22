@@ -142,5 +142,13 @@ export function helpContent() {
       'id': 'PFANS2001View',
       'help': '1.审批正常结束的数据可以直接创建应聘者信息',
     },
+    {
+      'id': 'PFANS6001FormView',
+      'help': '外注统计使用：除经营管理center下的外注人员，其他外注人员所属部门均选择所属center，经营管理center下人员请选择所属group。',
+    },
+    {
+      'id': 'PFANS6004FormView',
+      'help': '外注统计使用：除经营管理center下的外注人员，其他外注人员所属部门均选择所属center，经营管理center下人员请选择所属group。',
+    },
   ];
 }

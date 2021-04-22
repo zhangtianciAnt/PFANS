@@ -73,13 +73,24 @@ export function getDepartmentById(id) {
   departmentName = [];
   if (id) {
     let arr = id.split(',');
-    let org = store.getters.orgList[0];
-    if (arr.includes(org._id)) {
-      departmentName.push(org.title);
-    }
-    if (org.orgs !== null && org.orgs !== undefined) {
-      departmentId(org.orgs, arr);
-    }
+    //add gbb 20210421 获取所有组织信息 start
+    // let org = store.getters.orgList[0];
+    // if (arr.includes(org._id)) {
+    //   departmentName.push(org.title);
+    // }
+    // if (org.orgs !== null && org.orgs !== undefined) {
+    //   departmentId(org.orgs, arr);
+    // }
+      let orgall = store.getters.orgallList[0];
+      for (let org of orgall) {
+        if (arr.includes(org._id)) {
+          departmentName.push(org.title);
+        }
+        if (org.orgs !== null && org.orgs !== undefined) {
+          departmentId(org.orgs, arr);
+        }
+      }
+    //add gbb 20210421 获取所有组织信息 end
   }
   return departmentName.join();
 }
@@ -247,7 +258,10 @@ export function getUserInfoName(custmname) {
 }
 
 export function getOrgInfo(orgid, data) {
-  let list = store.getters.orgList;
+  //add gbb 20210421 获取所有组织信息 start
+  //let list = store.getters.orgList;
+  let list = store.getters.orgallList[0];
+  //add gbb 20210421 获取所有组织信息 end
   if (data) {
     list = data;
   }
@@ -258,52 +272,6 @@ export function getOrgInfo(orgid, data) {
         return org;
       } else if (org.orgs && org.orgs.length > 0) {
         var rst = getOrgInfo(orgid, org.orgs);
-
-        if (rst) {
-          return rst;
-        }
-      }
-    }
-  }
-}
-
-//add by lin start 根据groupid获取centerid
-export function getUpOrgInfo(orgid, data, dataUp) {
-  let list = store.getters.orgList;
-  if (data) {
-    list = data;
-  }
-
-  if (list && list.length > 0) {
-    for (let org of list) {
-      if (org._id === orgid) {
-        return dataUp;
-      } else if (org.orgs && org.orgs.length > 0) {
-        var rst = getUpOrgInfo(orgid, org.orgs, org);
-
-        if (rst) {
-          return rst;
-        }
-      }
-    }
-  }
-}
-
-//add by lin end
-
-export function getDownOrgInfo(orgid, data) {
-  let list = store.getters.orgList;
-  if (data) {
-    list = data;
-  }
-
-  if (list && list.length > 0) {
-    for (let org of list) {
-      if (org._id === orgid) {
-        return org.orgs;
-      } else if (org.orgs && org.orgs.length > 0) {
-        var rst = getDownOrgInfo(orgid, org.orgs);
-
         if (rst) {
           return rst;
         }

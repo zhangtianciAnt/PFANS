@@ -30,3 +30,11 @@ export function updateStatus(data) {
     params: data
   })
 }
+//add gbb 20210421 获取所有组织信息 start
+export function getOrgAll() {
+  return request({
+    url: 'OrgTree/getOrgAll',
+    method: 'get'
+  })
+}
+//add gbb 20210421 获取所有组织信息 end
