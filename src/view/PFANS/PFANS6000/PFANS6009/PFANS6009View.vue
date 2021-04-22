@@ -163,9 +163,9 @@
     getDictionaryInfo,
     getSupplierinfor,
     getCurrentRoleNew,
-    getDownOrgInfo,
+    getOrgInfo,
+    getCurrentRole9
   } from '@/utils/customize';
-  import {getCurrentRole9, getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS6009View',

@@ -960,7 +960,7 @@
   import EasyWorkFlow from '@/components/EasyWorkFlow';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getCurrentRoleNew, getDictionaryInfo, getDownOrgInfo, getUpOrgInfo, getUserInfo} from '@/utils/customize';
+  import {getCurrentRoleNew, getDictionaryInfo, getDownOrgInfo, getOrgInfo, getUserInfo} from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
@@ -1820,9 +1820,9 @@
         });
       },
       groupChange(val) {
-        let orgInfo = getUpOrgInfo(val);
-        this.refform.group_id = val;
-        this.refform.center_id = orgInfo._id;
+        let orgInfo = getOrgInfo(val);
+        this.refform.center_id = val;
+        // this.refform.center_id = orgInfo._id;
         this.groupdata(val);
       },
       deleteRowF(index, rows) {

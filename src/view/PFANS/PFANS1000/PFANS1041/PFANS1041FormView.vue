@@ -964,9 +964,8 @@
     getCurrentRole,
     getOrgInfo,
     getDictionaryInfo,
-    getDownOrgInfo,
-    getUpOrgInfo,
     getUserInfo,
+    getCurrentRoleNew
   } from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';

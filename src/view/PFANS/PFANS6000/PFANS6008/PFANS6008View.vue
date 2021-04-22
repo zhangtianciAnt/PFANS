@@ -36,7 +36,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import moment from "moment";
-  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRoleNew,getDownOrgInfo} from '@/utils/customize';
+  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRoleNew} from '@/utils/customize';
   import {getCurrentRole9, getOrgInfo} from "../../../../utils/customize";
   export default {
     name: 'PFANS6008View',
