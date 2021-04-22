@@ -13,13 +13,6 @@
       v-show="showTable1"
       :showSelection="true"
     >
-      <el-select @change="monthChange" slot="customize" v-model="activeTime" style="width: 8vw">
-        <el-option :label="$t('label.PFANS8002VIEW_WEEKIN')" value="first"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_MONTHIN')" value="second"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_THREEMONTHIN')" value="third"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_HALFYEARIN')" value="fourth"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_YEARIN')" value="fifth"></el-option>
-      </el-select>
       <el-select @change="handleClick" slot="customize" v-model="activeName" style="width: 8vw">
         <el-option :label="$t('label.node_step4')" value="first"></el-option>
         <el-option :label="$t('label.PFANS8002VIEW_JS')" value="second"></el-option>
@@ -35,13 +28,6 @@
       v-loading="loading"
       v-show="!showTable1"
     >
-      <el-select @change="monthChange" slot="customize" v-model="activeTime" style="width: 8vw">
-        <el-option :label="$t('label.PFANS8002VIEW_WEEKIN')" value="first"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_MONTHIN')" value="second"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_THREEMONTHIN')" value="third"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_HALFYEARIN')" value="fourth"></el-option>
-        <el-option :label="$t('label.PFANS8002VIEW_YEARIN')" value="fifth"></el-option>
-      </el-select>
       <el-select @change="handleClick" slot="customize" v-model="activeName" style="width: 8vw">
         <el-option :label="$t('label.node_step4')" value="first"></el-option>
         <el-option :label="$t('label.PFANS8002VIEW_JS')" value="second"></el-option>
@@ -128,46 +114,13 @@
         mounted() {
             this.$store.commit("global/SET_CURRENTURL", "/PFANS8002View");
             this.$store.commit("global/SET_WORKFLOWURL", "/PFANS8002View");
-            var thisday = moment();
-            this.thatday = thisday.subtract(7, 'days').format('YYYY-MM-DD');
-            this.getStatus(this.status,this.thatday);
-            // this.getStatus('1');
-            let menus = menu().filter(item => item._id === "homePage")[0].menus;
-            menus.map(item=>{
-              if(!item.children || item.children.length === 0){
-                this.menuList.push(item)
-              }else{
-                item.children.map(
-                  citem=>{
-                    if(!citem.children || citem.children.length === 0){
-                      // this.menuList.push(citem)
-                    }else{
-                      citem.children.map(
-                        ccitem=>{
-                          if (!ccitem.children || ccitem.children.length === 0) {
-                            // this.menuList.push(ccitem)
-                          } else {
-                            ccitem.children.map(
-                              cccitem => {
-                                if (!cccitem.children || cccitem.children.length === 0) {
-                                  // this.menuList.push(cccitem)
-                                }
-                              }
-                            )
-                          }
-                        }
-                      )
-                    }
-                  }
-                )
-              }
-            })
+            this.getStatus('0');
         },
         methods: {
-            getStatus(data1,data2) {
+            getStatus(data1) {
               this.loading = true;
                 this.$store
-                    .dispatch('indexStore/getStatus', {status: data1, createon: data2})
+                    .dispatch('indexStore/getStatus', {status: data1})
                     .then(response => {
                         if (response != undefined) {
                             if (data1 === '0') {
@@ -237,29 +190,12 @@
             },
             handleClick() {
                 if (this.activeName === 'second') {
-                    this.showTable1 = false;
-                    this.status = '1';
-                    this.getStatus(this.status,this.thatday);
+                  this.showTable1 = false;
+                  this.getStatus('1');
                 } else if (this.activeName === 'first') {
-                    this.showTable1 = true;
-                    this.status = '0';
-                    this.getStatus(this.status,this.thatday);
+                  this.showTable1 = true;
+                  this.getStatus('0');
                 }
-            },
-            monthChange() {
-                let thisday = moment();
-                if (this.activeTime === 'first') {
-                    this.thatday = thisday.subtract(7, 'days').format('YYYY-MM-DD');
-                } else if (this.activeTime === 'second') {
-                    this.thatday = thisday.subtract(1, 'month').format('YYYY-MM-DD');
-                } else if (this.activeTime === 'third') {
-                    this.thatday = thisday.subtract(3, 'month').format('YYYY-MM-DD')
-                } else if (this.activeTime === 'fourth') {
-                    this.thatday = thisday.subtract(6, 'month').format('YYYY-MM-DD');
-                } else if (this.activeTime === 'fifth') {
-                    this.thatday = thisday.subtract(12, 'month').format('YYYY-MM-DD');
-                }
-                this.getStatus(this.status,this.thatday);
             },
             rowclick(row) {
                 // add_fjl_05/25   -- 添加审批驳回的数据就行删除按钮的显示
@@ -273,7 +209,7 @@
             },
             buttonClick(val) {
                 if (val === "open") {
-                    if (!this.row || this.row.noticeid === '') {
+                    if (this.row.length === 0) {
                         Message({
                             message: this.$t('normal.info_01'),
                             type: 'info',
