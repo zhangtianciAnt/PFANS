@@ -2211,7 +2211,7 @@
 </template>
 
 <script>
-  import {getDictionaryInfo, getDownOrgInfo, getOrgInfo, getUserInfo,getCurrentRole,getCurrentRole3,getCurrentRole14} from '../../../../utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getUserInfo,getCurrentRole,getCurrentRole3,getCurrentRole14} from '@/utils/customize';
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect";
   import EasyNormalTable from "@/components/EasyNormalTable";
