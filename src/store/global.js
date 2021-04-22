@@ -12,6 +12,7 @@ const global = {
     userList:[],
     workflowUrl:"",
     orgList:[],
+    orgallList:[],
     orgGroupList:[],
     dictionaryList:[],
     days:[],
@@ -52,6 +53,11 @@ const global = {
     SET_WORKFLOWURL(state, url) {
       state.workflowUrl = url
     },
+    //add gbb 20210421 获取所有组织信息 start
+    SET_ORGALLLIST(state, infos) {
+      state.orgallList = infos
+    },
+    //add gbb 20210421 获取所有组织信息 end
     SET_ORGLIST(state, infos) {
       state.orgList = infos
       //add gbb 20210329 2021组织架构变更 start
