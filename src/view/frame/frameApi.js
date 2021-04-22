@@ -37,8 +37,8 @@ export function updatenoticesstatus (data) {
 export function delToDoNotice(data) {
   return request({
     url: '/ToDoNotice/delToDoNotice',
-    method: 'post',
-    data: data
+    method: 'get',
+    params: data
   })
 }
 

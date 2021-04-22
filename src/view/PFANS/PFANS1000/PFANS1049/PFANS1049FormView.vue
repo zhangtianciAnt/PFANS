@@ -429,6 +429,8 @@
     getCurrentRole,
     getOrgInfo,
     getDictionaryInfo,
+    getDownOrgInfo,
+    getUpOrgInfo,
     getUserInfo,
   } from '@/utils/customize';
   import org from '../../../components/org';

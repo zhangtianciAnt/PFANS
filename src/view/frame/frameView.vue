@@ -560,25 +560,6 @@
             })
           })
       },
-      //add gbb 20210421 获取所有组织信息 start
-      getOrgAllList() {
-        this.$store
-          .dispatch('orgTreeStore/getOrgAll')
-          .then(response => {
-            if (response) {
-              this.$store.commit("global/SET_ORGALLLIST", [response]);
-              this.data = [response];
-            }
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            })
-          })
-      },
-      //add gbb 20210421 获取所有组织信息 end
       //add-ws-12/10-汇率字典
       getMonthlyrate() {
         this.$store
@@ -674,7 +655,6 @@
       //add-ws-12/10-汇率字典
       this.getUserList();
       this.getOrgList();
-      this.getOrgAllList();
       this.$store.commit("usersStore/SET_ORGS",this.$refs.treeCom.$refs.treeCom);
       this.getDictionaryList();
       this.getDay();

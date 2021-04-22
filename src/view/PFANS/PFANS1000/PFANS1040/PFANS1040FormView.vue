@@ -25,8 +25,8 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item :label="$t('label.PFANS1039FORMVIEW_CENTER')" prop="group">
-                <el-select v-model="refform.center_id" style="width: 20vw" :disabled="disabledT"
+              <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')" prop="group">
+                <el-select v-model="refform.group_id" style="width: 20vw" :disabled="disabledT"
                            @change="groupChange">
                   <el-option
                     v-for="item in grp_options"
@@ -960,7 +960,7 @@
   import EasyWorkFlow from '@/components/EasyWorkFlow';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getCurrentRoleNew, getDictionaryInfo, getDownOrgInfo, getOrgInfo, getUserInfo} from '@/utils/customize';
+  import {getCurrentRoleNew, getDictionaryInfo, getDownOrgInfo, getUpOrgInfo, getUserInfo} from '@/utils/customize';
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
@@ -1004,12 +1004,12 @@
               trigger: 'blur',
             },
           ],
-          center_id: [
+          group_id: [
             {
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.PFANS1039FORMVIEW_CENTER'),
+                this.$t('label.PFANS1039FORMVIEW_GROUP'),
               trigger: 'change',
             },
           ],
@@ -1139,7 +1139,7 @@
               }
             }
             this.$nextTick(() => {
-              this.groupdata(this.refform.center_id);
+              this.groupdata(this.refform.group_id);
             });
             this.loading = false;
           })
@@ -1156,9 +1156,9 @@
         this.disabledT = false;
         this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         this.refform.group_id = this.$route.params.group_id;
-        // this.refform.center_id = this.$route.params.center_id;
+        this.refform.center_id = this.$route.params.center_id;
         this.$nextTick(() => {
-          this.groupdata(this.refform.center_id);
+          this.groupdata(this.refform.group_id);
         });
         this.loading = false;
       }
@@ -1511,7 +1511,6 @@
             }
         }
         this.grp_options = letoptionsdata;
-        this.refform.center_id = this.grp_options[0].value;
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
         this.loading = false;
       },
@@ -1521,7 +1520,7 @@
           val = moment(value).format('YYYY');
         }
         this.refform.year = val;
-        this.groupdata(this.refform.center_id);
+        this.groupdata(this.refform.group_id);
       },
       groupdata(val) {
         let parameter = {
@@ -1821,9 +1820,9 @@
         });
       },
       groupChange(val) {
-        let orgInfo = getOrgInfo(val);
-        this.refform.center_id = val;
-        // this.refform.center_id = orgInfo._id;
+        let orgInfo = getUpOrgInfo(val);
+        this.refform.group_id = val;
+        this.refform.center_id = orgInfo._id;
         this.groupdata(val);
       },
       deleteRowF(index, rows) {
@@ -1992,10 +1991,10 @@
               return false;
             }
           });
-          if (!this.refform.center_id) {
+          if (!this.refform.group_id) {
             Message({
               message: this.$t('normal.error_09') +
-                this.$t('label.PFANS1039FORMVIEW_CENTER'),
+                this.$t('label.PFANS1039FORMVIEW_GROUP'),
               type: 'error',
               duration: 5 * 1000,
             });

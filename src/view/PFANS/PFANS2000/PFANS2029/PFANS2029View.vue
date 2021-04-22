@@ -94,7 +94,8 @@
   import {
     Decrypt,
     getCooperinterviewListByAccount,
-    getDepartmentById,
+    getorgGroupList,
+    getUserInfo,
     getCurrentRole9
   } from '@/utils/customize';
 
@@ -253,7 +254,10 @@
               }
               //所属group
               if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-                response[j].group_id = getDepartmentById(response[j].group_id);
+                let group = getorgGroupList(response[j].group_id);
+                if (group) {
+                  response[j].group_id = group.centername;
+                }
               }
               if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {
                 response[j].punchcardrecord_date = moment(response[j].punchcardrecord_date).format("YYYY-MM-DD");

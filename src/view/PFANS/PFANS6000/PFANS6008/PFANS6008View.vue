@@ -36,7 +36,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import {Message} from 'element-ui';
   import moment from "moment";
-  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRoleNew} from '@/utils/customize';
+  import {getCooperinterviewList,getDictionaryInfo,getSupplierinfor,getCurrentRoleNew,getDownOrgInfo} from '@/utils/customize';
   import {getCurrentRole9, getOrgInfo} from "../../../../utils/customize";
   export default {
     name: 'PFANS6008View',
@@ -61,14 +61,14 @@
             code: 'bpname',
             label: 'label.PFANS6008VIEW_BPNAME',
             width: 120,
-            fix: true,
+            fix: false,
             filter: true,
           },
           {
             code: 'bpcompany',
             label: 'label.PFANS6008VIEW_BPCOMPANY',
             width: 120,
-            fix: true,
+            fix: false,
             filter: true,
           },
           {
@@ -976,36 +976,6 @@
                 letoptionsdata.push(item);
             }
         }
-        //针对经营管理统计到group修改 start
-        let incfmyList = [];
-        for(let item of letoptionsdata){
-          if(getOrgInfo(item.value).encoding == ''){
-            incfmyList.push(item.value)
-          }
-        }
-        if(incfmyList.length > 0) {
-          for (let item of incfmyList) {
-            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
-          }
-          let orgInfo = [];
-          for (let item of incfmyList) {
-            if (item) {
-              if (getOrgInfo(item).orgs.length != 0) {
-                orgInfo.push(getOrgInfo(item).orgs)
-              }
-            }
-          }
-          let groInfo = orgInfo[0].filter(item => item.type == '2');
-          for (let item of groInfo) {
-            letoptionsdata.push(
-              {
-                value: item._id,
-                lable: item.title,
-              },
-            );
-          }
-        }
-        //针对经营管理统计到group修改 end
         this.optionsdata = letoptionsdata;
         if(this.optionsdata.length > 0){
             this.form.group_id = this.optionsdata[0].value;

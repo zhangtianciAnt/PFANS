@@ -800,7 +800,7 @@ import user from '../../../components/user.vue';
 import org from '../../../components/org';
 import {getDictionaryInfo} from '@/utils/customize';
 import {getOrgInfoByUserId} from '../../../../utils/customize';
-import {getOrgInfo, getCurrentRole, getCurrentRole3,getCurrentRoleNew} from '@/utils/customize';
+import {getDownOrgInfo, getCurrentRole, getCurrentRole3,getCurrentRoleNew} from '@/utils/customize';
 
 export default {
   name: 'PFANS1042FormView',
@@ -1003,10 +1003,10 @@ export default {
       //     } else {
       //         centerId = this.$store.getters.userinfo.userinfo.centerid;
       //     }
-      //     let orgs = getOrgInfo(centerId);
+      //     let orgs = getDownOrgInfo(centerId);
       //     if (orgs) {
       //         for (let center of orgs) {
-      //             let centers = getOrgInfo(center._id);
+      //             let centers = getDownOrgInfo(center._id);
       //             if (centers) {
       //                 for (let group of centers) {
       //                     vote.push(
@@ -1023,7 +1023,7 @@ export default {
       //
       // } else if (role === '2') {
       //     let centerId = this.$store.getters.userinfo.userinfo.centerid;
-      //     let orgs = getOrgInfo(centerId);
+      //     let orgs = getDownOrgInfo(centerId);
       //     if (orgs) {
       //         for (let org of orgs) {
       //             vote.push(

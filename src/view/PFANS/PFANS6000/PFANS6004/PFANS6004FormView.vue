@@ -122,7 +122,7 @@
             <el-col :span="8">
               <el-form-item :error="errorgroup" :label="$t('label.department')" prop="group_id">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="4" style="width:20vw"></org>
+                     orgtype="1" style="width:20vw"></org>
                 <!--                    add_ccm_06/04  &#45;&#45;添加履历-->
                 <el-button
                   type="text"
@@ -223,20 +223,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--              新加的-->
-          <!--                更衣柜号-->
-          <el-row>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANSUSERFORMVIEW_LOCKERNUMBER')" prop="lockernumber">
-                <el-input
-                  :disabled="!disabled"
-                  style="width:20vw"
-                  v-model="form.lockernumber" maxlength="20">
-                </el-input>
-              </el-form-item>
-            </el-col>
-          </el-row>
-
           <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_SPECIALITY')">
@@ -556,7 +542,6 @@
                     whetherentry: '',
                     countermeasure: '',
                     exits: '1',
-                    lockernumber:'',
                 },
                 tableData: [{
                     group_id: '',

@@ -112,16 +112,16 @@
             }
         },
         mounted() {
-            // if (this.$store.getters.userinfo.userid) {
-            //     let group = getUserInfo(this.$store.getters.userinfo.userid);
-            //     if (group.userinfo.groupid === "" || group.userinfo.groupid === null) {
-            //         this.buttonList[1].disabled = true;
-            //         this.buttonList[2].disabled = true;
-            //     } else {
-            //         this.buttonList[1].disabled = false;
-            //         this.buttonList[2].disabled = false;
-            //     }
-            // }
+            if (this.$store.getters.userinfo.userid) {
+                let group = getUserInfo(this.$store.getters.userinfo.userid);
+                if (group.userinfo.groupid === "" || group.userinfo.groupid === null) {
+                    this.buttonList[1].disabled = true;
+                    this.buttonList[2].disabled = true;
+                } else {
+                    this.buttonList[1].disabled = false;
+                    this.buttonList[2].disabled = false;
+                }
+            }
             this.loading = true;
             this.$store
                 .dispatch("PFANS1038Store/getAll")

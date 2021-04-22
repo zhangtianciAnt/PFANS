@@ -12,16 +12,15 @@
                 <span class="collapse_Title">{{$t('title.PFANS1008VIEW')}}</span>
               </template>
               <el-row>
-                <!--PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.center')">
-                    <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                    <el-input :disabled="!disabled" style="width:20vw" v-model="centerid"></el-input>
                     <el-input v-show='false' v-model="form.center_id" :disabled="true" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.group')">
-                    <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                    <el-input :disabled="!disabled" style="width:20vw" v-model="groupid"></el-input>
                     <el-input v-show='false' v-model="form.group_id" :disabled="true" style="width:20vw"></el-input>
                   </el-form-item>
                 </el-col>
@@ -32,7 +31,6 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <!--//PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc end-->
                   <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
                     <user :disabled="true" :error="erroruser" :selectType="selectType" :userlist="userlist"
                           @getUserids="getUserids" style="width: 20vw"></user>
@@ -62,7 +60,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
-                    <org :orglist="form.ferryteam_id" orgtype="3" :disabled="true" style="width:20vw"
+                    <org :orglist="form.ferryteam_id" orgtype="3" :disabled="!disabled" style="width:20vw"
                          @getOrgids="getTeamId1"></org>
                   </el-form-item>
                 </el-col>
@@ -103,14 +101,12 @@
               </template>
 
               <el-row>
-                <!--//PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.team')">
-                    <org :orglist="form.tubeteam_id" orgtype="3" :disabled="true" style="width:20vw"
+                    <org :orglist="form.tubeteam_id" orgtype="3" :disabled="!disabled" style="width:20vw"
                          @getOrgids="getTeamId2"></org>
                   </el-form-item>
                 </el-col>
-                <!--//PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc end-->
                 <el-col :span="8">
                   <el-form-item :error="errortubegroup" :label="$t('label.group')" prop="tubegroup_id">
                     <org :orglist="form.tubegroup_id" orgtype="2" :disabled="!disabled" :error="errortubegroup"
@@ -355,13 +351,6 @@
         selectType: "Single",
         title: "title.PFANS1008VIEW",
         buttonList: [],
-        //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
-        workflowAnt: {
-          menuUrl: '',
-          dataId: ''
-        },
-        workflowAntDate: [],
-        //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc end
         tabIndex: 0,
         multiple: false,
         form: {
@@ -533,7 +522,6 @@
           .dispatch('PFANS1008Store/selectById', {"softwaretransferid": this.$route.params._id})
           .then(response => {
             this.form = response.softwaretransfer;
-            this.$store.commit('global/SET_OPERATEOWNER', this.form.user_id);
             let rst = getOrgInfoByUserId(response.softwaretransfer.user_id);
             if (rst) {
               this.centerid = rst.centerNmae;
@@ -546,36 +534,13 @@
             this.tubecenterorglist = this.form.tubecenter_id;
             this.tubegrouporglist = this.form.tubegroup_id;
             this.tubeteamorglist = this.form.tubeteam_id;
-            //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
-            //有暂借款编号绑定暂借款信息
-            this.workflowAnt.dataId = this.$route.params._id;
-            this.workflowAnt.menuUrl = '/PFANS1008FormView';
-            this.$store
-              .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
-              this.workflowAntDate = response.data;
-              let dic = '';
-              if(this.workflowAntDate.length != 0){
-                dic = this.workflowAntDate.filter(item => item.result === '进行中')[0].nodename;
-              }else{
-                dic = '0'
+            if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
+              let groupInfo = getOrgInfo(this.form.tubegroup_id);
+              if (groupInfo) {
+                this.userlistLc.push(groupInfo.user);
               }
-              if(dic === '转入部门GM'){
-                if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
-                  let groupInfo = getOrgInfo(this.form.tubegroup_id);
-                  if (groupInfo) {
-                    this.userlistLc.push(groupInfo.user);
-                  }
-                }
-              }else if(dic === '转出部门GM' || dic === '0'){
-                if (this.form.ferrygroup_id != null && this.form.ferrygroup_id != '') {
-                  let groupInfo = getOrgInfo(this.form.ferrygroup_id);
-                  if (groupInfo) {
-                    this.userlistLc.push(groupInfo.user);
-                  }
-                }
-              }
-            });
-            //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
+            }
+            this.$store.commit('global/SET_OPERATEOWNER', this.form.user_id);
             //add-ws-7/2-禅道任务192
             this.getFebud(this.form.ferrycenter_id);
             this.getbud(this.form.tubegroup_id);

@@ -8,7 +8,7 @@
           <el-col :span="24">
             <el-table
               :data="tableData" :summary-method="getSummaries" border header-cell-class-name="sub_bg_color_blue"
-              show-summary height="calc(100vh - 60px -  10rem)"
+              show-summary
               stripe style="width: 85vw">
               <el-table-column :label="$t('NO')"
                                type="index"
@@ -85,7 +85,7 @@
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {Message} from 'element-ui';
-    import {getSupplierinfor,getorgGroupList,getOrgInformation} from '@/utils/customize';
+    import {getSupplierinfor,getorgGroupList} from '@/utils/customize';
     import moment from "moment";
     export default {
         name: 'PFANS6010FormView',
@@ -127,9 +127,9 @@
                         let groupnamelist = [];
                         groupnamelist = groupidlist.split(",");
                         for (let j = 0; j < groupnamelist.length; j++) {
-                            let group = getOrgInformation(groupnamelist[j]);
+                            let group = getorgGroupList(groupnamelist[j]);
                             if (group) {
-                                this.groupnamelist.push(group.data.companyen);
+                                this.groupnamelist.push(group.companyen);
                             }
                         }
                         this.tableData = response;

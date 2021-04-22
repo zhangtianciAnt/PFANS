@@ -17,14 +17,6 @@
               <el-col :span="4">
                 <dicselect :code="code14" @change="changeType" size="mini"></dicselect>
               </el-col>
-              <el-col :span="2">
-              </el-col>
-              <el-col :span="4">
-                <el-select @change="changed" size="mini" v-model="region" v-if="description">
-                  <el-option :label="$t('label.PFANS2027VIEW_WHOLE')" value="1"></el-option>
-                  <el-option :label="$t('label.PFANS2027VIEW_HEADQUARTERS')" value="2"></el-option>
-                </el-select>
-              </el-col>
             </el-row>
             <el-row style="padding-top: 10px">
               <div id="eagleMapContainer" @Scroll="hanldeScroll">
@@ -62,7 +54,7 @@
                       :label="$t('label.PFANS2027VIEW_NAME')"
                       prop="userName"
                       fixed="left"
-                      width="90"
+                      width="70"
                     ></plx-table-column>
                     <plx-table-column :label="$t('label.PFANS2027VIEW_RN')" prop="rnName" width="60">
                     </plx-table-column>
@@ -706,9 +698,6 @@
         role: getCurrentRole10(),  //人事 / 工资
         role1: getCurrentRole17(), //总经理
         R: 1,
-        region: '1',
-        description:false,
-        groupid:'',
         showState: false,
         isShow: false,
         disabled: true,
@@ -988,11 +977,6 @@
       }
     },
     mounted() {
-      //人事总务部长和工资计算担当
-      if (this.role === '0') {
-        this.description = true;
-        this.groupid = this.$store.getters.userinfo.userinfo.groupid;
-      }
       this.loading = true;
       this.$store
         .dispatch("PFANS2027Store/getOne", {
@@ -1298,121 +1282,30 @@
           }
         }
       },
-      //人事用【本部、全部】数据筛选
-      changed(val){
-        this.region = val;
-        if (this.ShowType === "PJ101004") {
-          if(val === '2'){
-            this.data1 = this.listData1.filter(item => item.rn <= "PR021003" && item.group_id === this.groupid);
-          }
-          else{
-            this.data1 = this.listData1.filter(item => item.rn <= "PR021003");
-          }
-          this.showState = false;
-        } else if (this.ShowType === "PJ101003") {
-          this.showState = false;
-          if(val === '2'){
-            this.data1 = this.listData1.filter(
-              item =>
-                (item.rn === "PR021004" ||
-                item.rn === "PR021005" ||
-                (item.rn >= "PR021006" && item.occupationtype === "PR055001")) && item.group_id === this.groupid
-
-            );
-          }
-          else{
-            this.data1 = this.listData1.filter(
-              item =>
-                item.rn === "PR021004" ||
-                item.rn === "PR021005" ||
-                (item.rn >= "PR021006" && item.occupationtype === "PR055001")
-
-            );
-          }
-        } else if (this.ShowType === "PJ101002") {
-          this.showState = true;
-          if(val === '2'){
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055002" && item.group_id === this.groupid
-            );
-          }
-          else{
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055002"
-            );
-          }
-        } else if (this.ShowType === "PJ101001") {
-          this.showState = true;
-          if(val === '2'){
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055003" && item.group_id === this.groupid
-            );
-          }
-          else{
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055003"
-            );
-          }
-        }
-        this.isShow = false;
-        this.$nextTick(() => {
-          this.isShow = true;
-        });
-      },
       changeType(val) {
         this.ShowType = val;
         if (this.ShowType === "PJ101004") {
-          if(this.region === '2'){
-            this.data1 = this.listData1.filter(item => item.rn <= "PR021003" && item.group_id === this.groupid);
-          }
-          else{
-            this.data1 = this.listData1.filter(item => item.rn <= "PR021003");
-          }
+          this.data1 = this.listData1.filter(item => item.rn <= "PR021003");
           this.showState = false;
         } else if (this.ShowType === "PJ101003") {
           this.showState = false;
-          if(this.region === '2'){
-            this.data1 = this.listData1.filter(
-              item =>
-                (item.rn === "PR021004" ||
-                item.rn === "PR021005" ||
-                (item.rn >= "PR021006" && item.occupationtype === "PR055001")) && item.group_id === this.groupid
+          this.data1 = this.listData1.filter(
+            item =>
+              item.rn === "PR021004" ||
+              item.rn === "PR021005" ||
+              (item.rn >= "PR021006" && item.occupationtype === "PR055001")
 
-            );
-          }
-          else{
-            this.data1 = this.listData1.filter(
-              item =>
-                item.rn === "PR021004" ||
-                item.rn === "PR021005" ||
-                (item.rn >= "PR021006" && item.occupationtype === "PR055001")
-
-            );
-          }
+          );
         } else if (this.ShowType === "PJ101002") {
           this.showState = true;
-          if(this.region === '2'){
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055002" && item.group_id === this.groupid
-            );
-          }
-          else{
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055002"
-            );
-          }
+          this.data1 = this.listData1.filter(
+            item => item.rn >= "PR021006" && item.occupationtype === "PR055002"
+          );
         } else if (this.ShowType === "PJ101001") {
           this.showState = true;
-          if(this.region === '2'){
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055003" && item.group_id === this.groupid
-            );
-          }
-          else{
-            this.data1 = this.listData1.filter(
-              item => item.rn >= "PR021006" && item.occupationtype === "PR055003"
-            );
-          }
+          this.data1 = this.listData1.filter(
+            item => item.rn >= "PR021006" && item.occupationtype === "PR055003"
+          );
         }
         this.isShow = false;
         this.$nextTick(() => {

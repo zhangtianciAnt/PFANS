@@ -66,7 +66,7 @@
       };
     },
     mounted() {
-      this.getlistname(this.year);
+      this.getlistname(moment(new Date()).format('YYYY'));
     },
     methods: {
       showData() {

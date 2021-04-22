@@ -124,7 +124,6 @@
     getCooperinterviewListByAccount,
     getDictionaryInfo,
     getOrgInfo,
-    getDepartmentById,
     Decrypt
   } from '../../../../utils/customize';
 
@@ -456,7 +455,10 @@
                   }
                 }
                 if (response[j].group_id) {
-                  response[j].groupname = getDepartmentById(response[j].group_id);
+                  let group = getOrgInfo(response[j].group_id);
+                  if (group) {
+                    response[j].groupname = group.companyname;
+                  }
                 }
                 // if(response[j].project_id  === 'PP024001')
                 // {

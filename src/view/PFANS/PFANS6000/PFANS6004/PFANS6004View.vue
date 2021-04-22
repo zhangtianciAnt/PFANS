@@ -129,33 +129,33 @@
                         filter: false,
                     },
                     {
-                        //作业场所
-                        code: 'operationform',
-                        label: 'label.PFANS6004FORMVIEW_OPERATIONFORM',
+                        //性别
+                        code: 'sex',
+                        label: 'label.sex',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //作业分类
-                        code: 'jobclassification',
-                        label: 'label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM',
+                        //年龄
+                        code: 'age',
+                        label: 'label.PFANSUSERFORMVIEW_AGE',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //入场时间
-                        code: 'admissiontime',
-                        label: 'label.PFANS6004FORMVIEW_ADMISSIONTIME',
+                        //学历
+                        code: 'education',
+                        label: 'label.PFANS2026VIEW_EDUCATIONALBACKGROUND',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //退场时间
-                        code: 'exitime',
-                        label: 'label.PFANS6004FORMVIEW_EXITIME',
+                        //毕业院校
+                        code: 'graduateschool',
+                        label: 'label.PFANS6001VIEW_GRADUATESCHOOL',
                         width: 120,
                         fix: false,
                         filter: false,

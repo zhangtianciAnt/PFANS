@@ -9,9 +9,6 @@ const getters = {
   userList: state => state.global.userList,
   workflowUrl: state => state.global.workflowUrl,
   orgList: state => state.global.orgList,
-  //add gbb 20210421 获取所有组织信息 start
-  orgallList: state => state.global.orgallList,
-  //add gbb 20210421 获取所有组织信息 end
   //add gbb 20210329 2021组织架构变更 start
   orguserList: state => state.global.orguserList,
   orgtreeId: state => state.global.orgtreeId,
@@ -23,6 +20,7 @@ const getters = {
   cooperinterviewList: state => state.global.cooperinterviewList,
   supplierinforList: state => state.global.supplierinforList,
   orgId: state => state.global.orgId,
+  orgCenterList: state => state.global.orgCenterList,
   orgGroupList: state => state.global.orgGroupList,
   orgGroupallList: state => state.global.orgGroupallList,
   operateOwner: state => state.global.operateOwner,
