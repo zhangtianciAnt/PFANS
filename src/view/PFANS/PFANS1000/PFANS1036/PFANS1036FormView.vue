@@ -2588,7 +2588,6 @@
             if (response[0]) this.tableC = JSON.parse(response[0]);
             if (response[1]) this.tableD = JSON.parse(response[1]);
             if (response[2]) this.tableA = [JSON.parse(response[2])];
-
             // if (response[2]) this.tableB = [JSON.parse(response[2])];
             let actual = JSON.parse(response[3]);
             actual.forEach(
