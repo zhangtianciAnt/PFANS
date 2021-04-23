@@ -547,7 +547,6 @@
             this.tubegrouporglist = this.form.tubegroup_id;
             this.tubeteamorglist = this.form.tubeteam_id;
             //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
-            //有暂借款编号绑定暂借款信息
             this.workflowAnt.dataId = this.$route.params._id;
             this.workflowAnt.menuUrl = '/PFANS1008FormView';
             this.$store

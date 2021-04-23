@@ -216,8 +216,6 @@
                   groupidList = groupidList + ',' + item['value'];
               }
           }
-
-          console.log(groupidList)
         // let groupid = this.$store.getters.userinfo.userinfo.groupid;
         // let letRole2 = this.getCurrentRole2();
         // if (letRole2 !== '4') {

@@ -223,7 +223,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--              新加的-->
           <!--                更衣柜号-->
           <el-row>
             <el-col :span="8">
