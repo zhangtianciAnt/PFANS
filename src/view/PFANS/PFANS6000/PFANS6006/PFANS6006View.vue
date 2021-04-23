@@ -1521,7 +1521,7 @@
     background-color: transparent !important;
   }
   .el-table /deep/ .current-row{
-    background-color: #000000;
+    background-color: #BDD8EE;
   }
   /*.current-row .arow--currentaa{*/
   /*  background-color: #E5575E;*/

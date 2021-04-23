@@ -47,6 +47,7 @@
           cell-class-name = "row_height_left" :row-height="rowheight"
           highlight-current-row
           header-cell-class-name="sub_bg_color_blue"
+          :rowClassName="rowClassName"
         >
           <!--checkbox-->
           <!--<plx-table-column type="selection" width="55"></plx-table-column>-->
@@ -114,7 +115,7 @@
                 :no="scope.row"
                 :code="code1"
                 :data="scope.row.technical"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changetechnical"
                 style="width: 100%"
               ></dicselect>
@@ -140,7 +141,7 @@
                 :no="scope.row"
                 :code="code2"
                 :data="scope.row.management"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changemanagement"
                 style="width: 100%"
               ></dicselect>
@@ -166,7 +167,7 @@
                 :no="scope.row"
                 :code="code3"
                 :data="scope.row.fieldskills"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changefieldskills"
                 style="width: 100%"
               ></dicselect>
@@ -192,7 +193,7 @@
                 :no="scope.row"
                 :code="code4"
                 :data="scope.row.language"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changelanguage"
                 style="width: 100%"
               ></dicselect>
@@ -218,7 +219,7 @@
                 :no="scope.row"
                 :code="code5"
                 :data="scope.row.workskills"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changeworkskills"
                 style="width: 100%"
               ></dicselect>
@@ -244,7 +245,7 @@
                 :no="scope.row"
                 :code="code6"
                 :data="scope.row.evaluation"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changeevaluation"
                 style="width: 100%"
               ></dicselect>
@@ -272,7 +273,7 @@
                   :no="scope.row"
                   :code="code7"
                   :data="scope.row.psdcdscale"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changepsdcdscale"
                   style="width: 100%"
                 ></dicselect>
@@ -298,7 +299,7 @@
                   :no="scope.row"
                   :code="code8"
                   :data="scope.row.contribution"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changecontribution"
                   style="width: 100%"
                 ></dicselect>
@@ -327,7 +328,7 @@
                   :no="scope.row"
                   :code="code9"
                   :data="scope.row.staffpsdcdrank"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changestaffpsdcdrank"
                   style="width: 100%"
                 ></dicselect>
@@ -353,7 +354,7 @@
                   :no="scope.row"
                   :code="code8"
                   :data="scope.row.butionevaluation"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changebutionevaluation"
                   style="width: 100%"
                 ></dicselect>
@@ -377,7 +378,7 @@
             <template slot-scope="scope">
               <el-input-number
                 size="mini"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 controls-position="right"
                 :min="-100000" :max="100000"
                 v-model="scope.row.unitprice"
@@ -408,7 +409,7 @@
                 :no="scope.row"
                 :code="code9"
                 :data="scope.row.psdcdrank"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changepsdcdrank"
                 style="width: 100%"
               ></dicselect>
@@ -425,7 +426,7 @@
               <el-input
                 size="mini"
                 :no="scope.row"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 v-model="scope.row.remarks"
                 style="width: 100%"
               ></el-input>
@@ -1065,7 +1066,27 @@ export default {
       for(let item of this.tableData){
         item.common = Number(item.scalevalue)*Number(item.coefficient);
       }
-    }
+    },
+    //add-退场人员信息背景色
+    rowClassName({row, rowIndex}) {
+      if (row.user_id)
+      {
+        let expname = getCooperinterviewList(row.user_id);
+        if (expname)
+        {
+          if (expname.exitime !=null && expname.exitime != "" && expname.exitime != undefined)
+          {
+            if (moment(this.form.main.pd_date).format('YYYY-MM') >= moment(expname.exitime).add(1, 'months').format('YYYY-MM'))
+            {
+              row.flag = '1';
+              return "sub_bg_color_Darkgreyaa";
+            }
+          }
+        }
+      }
+    },
+    //add-退场人员信息背景色
+
   },
 };
 </script>
@@ -1079,5 +1100,8 @@ export default {
   }
   .el-table /deep/ .current-row{
     background-color: #BDD8EE;
+  }
+  .sub_bg_color_Darkgreyaa{
+    background-color: #CCCCCC !important;
   }
 </style>
