@@ -377,38 +377,18 @@
         this.letstatus = row.status;
         this.groupid = row.groupid;
         //upd-ws-01/13-修改审批驳回问题
-        let checkgroupid = '';
+        //let checkgroupid = this.$store.getters.userinfo.userinfo.groupid != null ? this.$store.getters.userinfo.userinfo.groupid : this.$store.getters.userinfo.userinfo.centerid;
+        let checkgroupid = this.$store.getters.userinfo.userinfo.groupid + ',' + this.$store.getters.userinfo.userinfo.centerid;
         let checkgroupid2 = '';
         if (this.$store.getters.userinfo.userinfo.otherorgs) {
-          for (let i = 0; i < this.$store.getters.userinfo.userinfo.otherorgs.length; i++) {
-            checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',';
-          }
-          checkgroupid = checkgroupid2 + ',' + this.$store.getters.userinfo.userinfo.groupid;
-        } else {
-          //upd 20210127 王聪 没有发起审批修改
-          // checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
-          let groupid = this.$store.getters.userinfo.userinfo.groupid;
-          if(groupid)
-          {
-            checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
-          }
-          else
-          {
-            if (this.$store.getters.userinfo.userinfo.centerid) {
-              let centerId = this.$store.getters.userinfo.userinfo.centerid;
-              let orgs = getOrgInfo(centerId);
-              if (orgs) {
-                for (let org of orgs) {
-                    if (org.user === this.$store.getters.userinfo.userid) {
-                      checkgroupid = checkgroupid + ',' + org._id;
-                    }
-                }
-              }
+          if(this.$store.getters.userinfo.userinfo.otherorgs.length != 0){
+            for (let i = 0; i < this.$store.getters.userinfo.userinfo.otherorgs.length; i++) {
+              //checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',';
+              checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',' + this.$store.getters.userinfo.userinfo.otherorgs[i].centerid;
             }
+            checkgroupid = checkgroupid + ',' + checkgroupid2;
           }
-          //upd 20210127 王聪 没有发起审批修改
         }
-
         if (checkgroupid.indexOf(this.groupid) !== -1
           && (row.status === '0' || row.status === '3' || row.status === '4')) {
           this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);
