@@ -232,7 +232,7 @@
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
+              <el-form-item :error="errorgroup" :label="$t('label.PFANS6001VIEW_GROUP')" prop="group_id">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
                      orgtype="4" style="width:20vw"></org>
               </el-form-item>
