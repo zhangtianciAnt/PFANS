@@ -156,7 +156,7 @@
                   :orglist="form.interviewdep"
                   :error="errorinterviewdep"
                   @getOrgids="getInterviewDep"
-                  orgtype="1"
+                  orgtype="4"
                   style="width: 20vw">
                 </org>
               </el-form-item>
@@ -234,7 +234,7 @@
             <el-col :span="8">
               <el-form-item :error="errorgroup" :label="$t('label.group')" prop="group_id">
                 <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="1" style="width:20vw"></org>
+                     orgtype="4" style="width:20vw"></org>
               </el-form-item>
             </el-col>
 

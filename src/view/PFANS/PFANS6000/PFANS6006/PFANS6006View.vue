@@ -6,30 +6,34 @@
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
           <el-form-item>
             <el-row style="margin-top: 20px">
-              <el-col :span="18">
-                <div align="right">
-                  <el-date-picker
-                    :placeholder="$t('normal.error_09')"
-                    @change="yearChange"
-                    format="yyyy"
-                    type="year"
-                    v-model="year">
-                  </el-date-picker>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div align="right">
-                  <el-select v-model="group_id" style="width: 20vw"
-                             @change="changeGroup">
-                    <el-option
-                      v-for="item in optionsdata"
-                      :key="item.value"
-                      :label="item.lable"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-              </el-col>
+              <div align="right">
+                <el-col :span="12">
+                    <el-date-picker
+                      :placeholder="$t('normal.error_09')"
+                      @change="yearChange"
+                      format="yyyy"
+                      type="year"
+                      v-model="year">
+                    </el-date-picker>
+                </el-col>
+                <el-col :span="6">
+                    <el-select v-model="group_id" style="width: 20vw"
+                               @change="changeGroup">
+                      <el-option
+                        v-for="item in optionsdata"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span="6">
+                    <el-input :placeholder="$t('label.PFANS6006VIEW_BPINFO')"  style="width: 20vw"
+                              v-model="filterName">
+                      <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+                    </el-input>
+                </el-col>
+              </div>
             </el-row>
             <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start-->
             <el-row style="margin-top: 20px">
@@ -990,6 +994,8 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
+        filterName: "",
+        responseDataInit: [],
         year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         group_id:'',
         row: '',
@@ -1058,6 +1064,16 @@
       };
     },
     methods: {
+      inputChange(){
+        if (this.filterName === "") {
+          this.tableData = this.responseDataInit;
+        } else {
+          this.tableData = this.responseDataInit.filter(item => {
+            return item.suppliername.toLowerCase().indexOf(this.filterName) != -1
+              || item.expname.toLowerCase().indexOf(this.filterName) != -1  ;
+          });
+        }
+      },
       getList() {
         this.loading = true;
         this.$store
@@ -1168,6 +1184,7 @@
             }
             //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             this.multipleSelection = [];
+            this.responseDataInit = tabledate;
             this.tableData = tabledate;
             this.loading = false;
           })
@@ -1277,6 +1294,36 @@
                     letoptionsdata.push(item);
                 }
             }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of letoptionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0) {
+          for (let item of incfmyList) {
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for (let item of incfmyList) {
+            if (item) {
+              if (getOrgInfo(item).orgs.length != 0) {
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for (let item of groInfo) {
+            letoptionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
             this.optionsdata = letoptionsdata;
             if(this.optionsdata.length > 0){
                 this.group_id = this.optionsdata[0].value;

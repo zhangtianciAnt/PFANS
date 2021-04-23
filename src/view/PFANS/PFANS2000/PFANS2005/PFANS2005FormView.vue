@@ -5485,5 +5485,10 @@
         }
     };
 </script>
-<style scoped>
+<style rel="stylesheet/scss" lang="scss">
+.org_company{
+  .el-input-number.is-controls-right .el-input__inner{
+    background-color:#FFFF37;
+  }
+}
 </style>

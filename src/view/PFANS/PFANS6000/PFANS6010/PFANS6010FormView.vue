@@ -8,7 +8,7 @@
           <el-col :span="24">
             <el-table
               :data="tableData" :summary-method="getSummaries" border header-cell-class-name="sub_bg_color_blue"
-              show-summary
+              show-summary height="calc(100vh - 60px -  10rem)"
               stripe style="width: 85vw">
               <el-table-column :label="$t('NO')"
                                type="index"

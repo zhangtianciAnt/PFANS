@@ -20,158 +20,154 @@
           ref="reff"
           style="padding: 2vw"
         >
-          <el-tabs v-model="activeName" type="border-card">
-            <el-tab-pane :label="$t('label.PFANS5004VIEW_CLOSEAPPLICAT')" name="first">
-              <div>
-                <el-collapse>
-                  <el-collapse-item>
-                    <template slot="title">
-                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_CLOSEAPPLICAT')}}</span>
-                    </template>
-                    <el-row>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
-                          <el-input :disabled="true" style="width:20vw" v-model="form.project_name"></el-input>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')">
-                          <dicselect
-                            :code="code2"
-                            :data="form.projecttype"
-                            :disabled="true"
-                            :multiple="multiple"
-                            style="width: 20vw"
-                          ></dicselect>
-                        </el-form-item>
-                      </el-col>
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_FIELD')">-->
-<!--                          <dicselect-->
-<!--                            :code="code3"-->
-<!--                            :data="form.field"-->
-<!--                            :disabled="true"-->
-<!--                            :multiple="multiple"-->
-<!--                            style="width: 20vw"-->
-<!--                          ></dicselect>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_LEADERID')">
-                          <!--<el-input :disabled="true" style="width:20vw" v-model="form.managerid"></el-input>-->
-                          <user
-                            :disabled="true"
-                            :error="errorManager"
-                            :userlist="userlist"
-                            @getUserids="getUserids"
-                            style="width: 20vw"
-                          ></user>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-                    <el-row>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
-                          <el-date-picker
-                            :disabled="true"
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.startdate"
-                          ></el-date-picker>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="8">
-                        <el-form-item :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" prop="enddate">
-                          <el-date-picker
-                            :disabled=this.flags
-                            style="width: 20vw"
-                            type="date"
-                            v-model="form.nowdate"
-                          ></el-date-picker>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-                  </el-collapse-item>
-                </el-collapse>
-<!--                <el-collapse>-->
-<!--                  <el-collapse-item>-->
-<!--                    <template slot="title">-->
-<!--                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_RESULT')}}</span>-->
-<!--                    </template>-->
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANS5004VIEW_ASSETADDRESS')" prop="assetaddress">-->
-<!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
-<!--                                    v-model="form.assetaddress"></el-input>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')">-->
-<!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
-<!--                                    v-model="form.instructions"></el-input>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANS5004VIEW_EXPRENCE')">-->
-<!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
-<!--                                    v-model="form.exprence"></el-input>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
+          <div>
+            <el-collapse>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+                    <el-input :disabled="true" style="width:20vw" v-model="form.project_name"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_PROJECTTYPE')">
+                    <dicselect
+                      :code="code2"
+                      :data="form.projecttype"
+                      :disabled="true"
+                      :multiple="multiple"
+                      style="width: 20vw"
+                    ></dicselect>
+                  </el-form-item>
+                </el-col>
+                <!--                      <el-col :span="8">-->
+                <!--                        <el-form-item :label="$t('label.PFANS5001FORMVIEW_FIELD')">-->
+                <!--                          <dicselect-->
+                <!--                            :code="code3"-->
+                <!--                            :data="form.field"-->
+                <!--                            :disabled="true"-->
+                <!--                            :multiple="multiple"-->
+                <!--                            style="width: 20vw"-->
+                <!--                          ></dicselect>-->
+                <!--                        </el-form-item>-->
+                <!--                      </el-col>-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_LEADERID')">
+                    <!--<el-input :disabled="true" style="width:20vw" v-model="form.managerid"></el-input>-->
+                    <user
+                      :disabled="true"
+                      :error="errorManager"
+                      :userlist="userlist"
+                      @getUserids="getUserids"
+                      style="width: 20vw"
+                    ></user>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5001FORMVIEW_STARTDATE')" prop="startdate">
+                    <el-date-picker
+                      :disabled="true"
+                      style="width: 20vw"
+                      type="date"
+                      v-model="form.startdate"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS5009FORMVIEW_ACTUALENDTIME')" prop="enddate">
+                    <el-date-picker
+                      :disabled=this.flags
+                      style="width: 20vw"
+                      type="date"
+                      v-model="form.nowdate"
+                    ></el-date-picker>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-collapse>
+            <!--                <el-collapse>-->
+            <!--                  <el-collapse-item>-->
+            <!--                    <template slot="title">-->
+            <!--                      <span class="collapse_Title">{{$t('label.PFANS5004VIEW_RESULT')}}</span>-->
+            <!--                    </template>-->
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.PFANS5004VIEW_ASSETADDRESS')" prop="assetaddress">-->
+            <!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
+            <!--                                    v-model="form.assetaddress"></el-input>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EXPLAIN')">-->
+            <!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
+            <!--                                    v-model="form.instructions"></el-input>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.PFANS5004VIEW_EXPRENCE')">-->
+            <!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
+            <!--                                    v-model="form.exprence"></el-input>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
 
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANS5004VIEW_ADVISE')">-->
-<!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
-<!--                                    v-model="form.advise"></el-input>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.remarks')">-->
-<!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
-<!--                                    v-model="form.note"></el-input>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANS5004VIEW_MESSAGE')">-->
-<!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
-<!--                                    v-model="form.message"></el-input>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
-<!--                    <el-row>-->
-<!--                      <el-col :span="8">-->
-<!--                        <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')">-->
-<!--                          <el-upload-->
-<!--                            v-model="form.uploadfile"-->
-<!--                            :action="upload"-->
-<!--                            :file-list="fileList"-->
-<!--                            :on-remove="fileRemove"-->
-<!--                            :on-preview="fileDownload"-->
-<!--                            :on-success="fileSuccess"-->
-<!--                            :on-error="fileError"-->
-<!--                            class="upload-demo"-->
-<!--                            drag-->
-<!--                            ref="upload">-->
-<!--                            <i class="el-icon-upload"></i>-->
-<!--                            <div class="el-upload__text">-->
-<!--                              {{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>-->
-<!--                          </el-upload>-->
-<!--                        </el-form-item>-->
-<!--                      </el-col>-->
-<!--                    </el-row>-->
-<!--                  </el-collapse-item>-->
-<!--                </el-collapse>-->
-              </div>
-            </el-tab-pane>
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.PFANS5004VIEW_ADVISE')">-->
+            <!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
+            <!--                                    v-model="form.advise"></el-input>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.remarks')">-->
+            <!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
+            <!--                                    v-model="form.note"></el-input>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.PFANS5004VIEW_MESSAGE')">-->
+            <!--                          <el-input :disabled="!disable" style="width:72vw" type="textarea"-->
+            <!--                                    v-model="form.message"></el-input>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
+            <!--                    <el-row>-->
+            <!--                      <el-col :span="8">-->
+            <!--                        <el-form-item :label="$t('label.PFANS5004VIEW_UPLOADFILE')">-->
+            <!--                          <el-upload-->
+            <!--                            v-model="form.uploadfile"-->
+            <!--                            :action="upload"-->
+            <!--                            :file-list="fileList"-->
+            <!--                            :on-remove="fileRemove"-->
+            <!--                            :on-preview="fileDownload"-->
+            <!--                            :on-success="fileSuccess"-->
+            <!--                            :on-error="fileError"-->
+            <!--                            class="upload-demo"-->
+            <!--                            drag-->
+            <!--                            ref="upload">-->
+            <!--                            <i class="el-icon-upload"></i>-->
+            <!--                            <div class="el-upload__text">-->
+            <!--                              {{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em></div>-->
+            <!--                          </el-upload>-->
+            <!--                        </el-form-item>-->
+            <!--                      </el-col>-->
+            <!--                    </el-row>-->
+            <!--                  </el-collapse-item>-->
+            <!--                </el-collapse>-->
+          </div>
+<!--          <el-tabs v-model="activeName" type="border-card">-->
+<!--            <el-tab-pane :label="$t('label.PFANS5004VIEW_CLOSEAPPLICAT')" name="first">-->
+<!--              -->
+<!--            </el-tab-pane>-->
 
 <!--            <el-tab-pane :label="$t('label.PFANS5004VIEW_PROJECTSECORE')" name="second">-->
 <!--              <el-table :data="source"-->
@@ -306,7 +302,7 @@
 <!--                </el-row>-->
 <!--              </el-form-item>-->
 <!--            </el-tab-pane>-->
-          </el-tabs>
+<!--          </el-tabs>-->
         </el-form>
       </div>
     </EasyNormalContainer>
