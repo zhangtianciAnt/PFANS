@@ -1270,6 +1270,22 @@
                 }
                 //add ccm 0112 兼职部门
             }
+            else if (role === '4') //GM
+            {
+              let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+              if (centers)
+              {
+                if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+                {
+                  vote.push(
+                    {
+                      value: this.$store.getters.userinfo.userinfo.groupid,
+                      lable: this.$store.getters.userinfo.userinfo.groupname,
+                    },
+                  );
+                }
+              }
+            }
             const vote1 = [];
             if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
                 || this.$store.getters.roles.indexOf("11") != -1 //总经理
