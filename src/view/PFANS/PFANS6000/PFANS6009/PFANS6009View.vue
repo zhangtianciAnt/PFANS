@@ -1545,7 +1545,7 @@
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 start
         let role = getCurrentRoleNew();
         const vote = [];
-        if (role === '3') {//CENTER
+        if (role === '3' ) {//CENTER
             vote.push(
                 {
                     value: this.$store.getters.userinfo.userinfo.centerid,
@@ -1606,6 +1606,23 @@
             }
             //add ccm 0112 兼职部门
         }
+        else if (role === '4') //GM
+        {
+          let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+          if (centers)
+          {
+            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+            {
+              vote.push(
+                {
+                  value: this.$store.getters.userinfo.userinfo.groupid,
+                  lable: this.$store.getters.userinfo.userinfo.groupname,
+                },
+              );
+            }
+          }
+        }
+
         const vote1 = [];
         if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
             || this.$store.getters.roles.indexOf("11") != -1 //总经理
@@ -1666,7 +1683,26 @@
           }
         }
         //针对经营管理统计到group修改 end
-        this.optionsdata = letoptionsdata;
+        this.optionsdata =[];
+        if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+          || this.$store.getters.roles.indexOf("11") != -1 //总经理
+          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+          || this.$store.getters.roles.indexOf("18") != -1//企划部长
+          || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+        {
+          this.optionsdata.push(
+            {
+              value: 'all',
+              lable: this.$t('label.PFANS6009VIEW_QUANSHE'),
+            }
+          );
+        }
+        for (let item of letoptionsdata) {
+          this.optionsdata.push(
+            {value: item.value,
+              lable: item.lable,},
+          );
+        }
         if(this.optionsdata.length > 0){
             this.form.group_id = this.optionsdata[0].value;
         }

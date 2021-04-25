@@ -25,6 +25,7 @@
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
+  import {getDepartmentById} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS6010View',
@@ -158,6 +159,22 @@
               }
               //add ccm 0112 兼职部门
           }
+          else if (role === '4') //GM
+          {
+            let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+            if (centers)
+            {
+              if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+              {
+                vote.push(
+                  {
+                    value: this.$store.getters.userinfo.userinfo.groupid,
+                    lable: this.$store.getters.userinfo.userinfo.groupname,
+                  },
+                );
+              }
+            }
+          }
           const vote1 = [];
           let letRole2 = this.getCurrentRole2();
           if (letRole2 === '4')//外注管理担当
@@ -281,10 +298,11 @@
             let dates = moment(now1).format('M');
             for (let j = 0; j < response.length; j++) {
               if (response[j].groupid) {
-                let group = getorgGroupList(response[j].groupid);
-                if (group) {
-                  response[j].groupname = group.centername;
-                }
+                // let group = getorgGroupList(response[j].groupid);
+                // if (group) {
+                //   response[j].groupname = group.centername;
+                // }
+                response[j].groupname = getDepartmentById(response[j].groupid);
               }
               if (response[j].status === null || response[j].status === '' || response[j].status === '3') {
                 response[j].letstatus = '0';//未开始

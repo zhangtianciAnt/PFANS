@@ -683,6 +683,22 @@ export default {
           // }
           //update gbb 20210331 之后的代码有判断，此处重复 end
       }
+      else if (role === '4') //GM
+      {
+        let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+        if (centers)
+        {
+          if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+          {
+            vote.push(
+              {
+                value: this.$store.getters.userinfo.userinfo.groupid,
+                lable: this.$store.getters.userinfo.userinfo.groupname,
+              },
+            );
+          }
+        }
+      }
       const vote1 = [];
         //let role9 = getCurrentRole9();
         // if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
