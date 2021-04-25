@@ -175,7 +175,6 @@
               }
             }
           }
-          debugger;
           const vote1 = [];
           let letRole2 = this.getCurrentRole2();
           if (letRole2 === '4')//外注管理担当
