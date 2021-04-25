@@ -8,8 +8,8 @@
           <el-col :span="24">
             <el-table
               :data="tableData" :summary-method="getSummaries" border header-cell-class-name="sub_bg_color_blue"
-              show-summary height="calc(100vh - 60px -  10rem)"
-              stripe style="width: 85vw">
+              show-summary :height="letheight"
+              stripe :style="{width: '85vw'}">
               <el-table-column :label="$t('NO')"
                                type="index"
                                width="50" fixed="left"></el-table-column>
@@ -107,7 +107,8 @@
                 coststatistics:[],
                 canStart: false,
                 workflowCode: 'W0094',
-                letstatus:''
+                letstatus:'',
+                letheight:'calc(100vh - 60px -  10rem)'
             };
         },
         mounted() {
@@ -135,6 +136,7 @@
                         this.tableData = response;
                     }
                     this.loading = false;
+                    this.letheight='calc(100vh - 230px - 2rem)'
                 })
                 .catch(error => {
                     Message({
@@ -302,5 +304,14 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+  .el-table {
+    .el-table__fixed { // 左固定列
+      height: auto !important;
+      bottom: 18px; // 改为自动高度后，设置与父容器的底部距离，高度会动态改变，值可以设置比滚动条的高度稍微大一些
+    }
+    .el-table__fixed-right { // 右固定列
+      height: auto !important;
+      bottom: 18px; // 改为自动高度后，设置与父容器的底部距离，高度会动态改变，值可以设置比滚动条的高度稍微大一些
+    }
+  }
 </style>
