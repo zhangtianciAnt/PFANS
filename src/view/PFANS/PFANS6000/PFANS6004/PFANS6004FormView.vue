@@ -424,7 +424,7 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import moment from 'moment';
-    import {getDictionaryInfo, getorgGroupList, getUserInfo} from '../../../../utils/customize';
+    import {getDictionaryInfo, getorgGroupList, getUserInfo,getOrgInfo} from '../../../../utils/customize';
     import org from '../../../components/org';
 
     export default {
@@ -788,9 +788,9 @@
                                         letexpData.exdatestr = moment(response[g].exdatestr).format("YYYY-MM-DD");
                                     }
                                     letexpData.group_id = response[g].group_id;
-                                    let group = getorgGroupList(response[g].group_id);
+                                    let group = getOrgInfo(response[g].group_id);
                                     if (group) {
-                                        letexpData.groupname = group.centername;
+                                        letexpData.groupname = group.title;
                                     }
                                     this.expData.push(letexpData);
                                 }
