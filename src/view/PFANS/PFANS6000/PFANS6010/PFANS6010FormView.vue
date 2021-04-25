@@ -85,7 +85,7 @@
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {Message} from 'element-ui';
-    import {getSupplierinfor,getorgGroupList,getOrgInformation} from '@/utils/customize';
+    import {getSupplierinfor,getorgGroupList,getOrgInformation,getOrgInfo} from '@/utils/customize';
     import moment from "moment";
     export default {
         name: 'PFANS6010FormView',
@@ -272,7 +272,7 @@
                             bpcompany: this.coststatistics[i].bpcompany,
                             bpcostcount: this.coststatistics[i].bpcostcount,
                             groupid: this.$route.params._id.split(",")[0],
-                            groupname: getorgGroupList(this.$route.params._id.split(",")[0]).companyen,
+                            groupname: getOrgInfo(this.$route.params._id.split(",")[0]).companyen,
                             dates:moment(tempDate).format('YYYY-MM')
                         },
                     );
