@@ -8,17 +8,36 @@
   >
     <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" label-position="top" label-width="8vw" ref="form">
-        <div class="block">
-          <el-date-picker
-            v-model="form.years"
-            type="year"
-            @change="yearChange"
-            format="yyyy"
-            :placeholder="$t('normal.error_09')">
-          </el-date-picker>
-        </div>
+        <el-row style="padding-top: 2%;padding-bottom: 2%">
+          <el-col :span="6">
+            <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')" prop="year">
+              <div class="block">
+                <el-date-picker
+                  v-model="form.years"
+                  type="year"
+                  :disabled="true"
+                  format="yyyy"
+                  :placeholder="$t('normal.error_09')">
+                </el-date-picker>
+              </div>
+            </el-form-item>
+          </el-col>
+          <el-col :span="6">
+            <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')">
+              <el-select v-model="form.centerid" style="width: 20vw" :disabled="disabledC"
+                         @change="groupChange">
+                <el-option
+                  v-for="item in grp_options"
+                  :key="item.value"
+                  :label="item.lable"
+                  :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+        </el-row>
 
-        <el-tabs v-model="activeName" type="border-card">
+        <el-tabs v-model="activeName"  type="border-card">
           <!--现时点人员-->
           <el-tab-pane
             :label="$t('label.PFANS1038VIEW_REALISTIC')"
@@ -28,7 +47,7 @@
             <el-table
               :data="tableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'900px':'1240px'),marginLeft:(this.$route.params.type === 0?'11%':'6%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'80VW':'75VW'),marginLeft:'0%',marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -87,14 +106,14 @@
                 :label="getNextYearLevel"
                 width="180"
                 align="center"
-                v-if="this.$route.params.type === 0 ? false : true"
+                v-if="this.$route.params.type === 1 ? true : false"
               >
                 <template slot-scope="scope">
                   <el-select size="small"
                   clearable
                   v-model="scope.row.nextyear"
                   :disabled="disabled"
-                  :placeholder="$t('normal.error_09')">
+                  >
                     <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -110,21 +129,21 @@
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
-                v-if="show2"
+                v-if="this.$route.params.type === 0 ? true : false"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="winterplanpc"
                 :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
                 width="180"
-                v-if="show2"
+                v-if="this.$route.params.type === 0 ? true : false"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="unitprice"
                 :label="$t('label.PFANS1038VIEW_UNITPRICE')"
                 width="180"
-                v-if="show3"
+                v-if="this.$route.params.type === 1 ? true : false"
                 align="center">
               </el-table-column>
               <!--              add-lyt-21/1/29-禅道任务648-end-->
@@ -144,7 +163,7 @@
             <el-table
               :data="newTableData"
               border stripe
-              :style="{width:(this.$route.params.type === 0?'80vw':'75vw'),marginLeft:(this.$route.params.type === 0?'1%':'0%'),marginTop: '1%'}"
+              :style="{width:(this.$route.params.type === 0?'80vw':'75vw'),marginLeft:'0%',marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
               <el-table-column
                 label="No."
@@ -258,21 +277,21 @@
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
-                v-if="show2"
+                v-if="this.$route.params.type === 0 ? true : false"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="winterplanpc"
                 :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
                 width="180"
-                v-if="show2"
+                v-if="this.$route.params.type === 0 ? true : false"
                 align="center">
               </el-table-column>
               <el-table-column
                 prop="unitprice"
                 :label="$t('label.PFANS3005VIEW_UNITPRICE')"
                 width="180"
-                v-if="show3"
+                v-if="this.$route.params.type === 1 ? true : false"
                 align="center">
               </el-table-column>
               <!--              add-lyt-21/1/29-禅道任务648-end-->
@@ -307,9 +326,9 @@
 <script>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import {Message} from 'element-ui';
-    import {getOrgInfoByUserId} from '@/utils/customize';
+    import {getOrgInfoByUserId,getCurrentRoleNew,getDepartmentById} from '@/utils/customize';
     import moment from "moment";
-    import {getDictionaryInfo} from "../../../../utils/customize";
+    import {getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
 
     export default {
         name: 'PFANS1038FormView',
@@ -318,8 +337,10 @@
         },
         data() {
             return {
+              grp_options: [],
                 enterMouth: "",
-                disabled: "true",
+                disabled: true,
+              disabledC:false,
                 options: [{
                     value: 'PR021001',
                     label: 'R3'
@@ -384,6 +405,7 @@
                     //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
                   years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
                   //,"YYYY-MM-DD").valueOf() >= moment(moment(new Date(),"YYYY") + "04-01").valueOf() ? parseInt(moment(new Date(),"YYYY")) +1+"" : moment(new Date(),"YYYY")+"",
+                  centerid:'',
                 }
             };
         },
@@ -421,21 +443,30 @@
                 this.show = false;
             }
             if (this.$route.params._id) {
+                this.disabledC = true;
                 this.getOne(this.$route.params._id);
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
+                  this.disabledC = false;
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.$route.params.type === 0 ? this.getPersonalCost(rst.centerId || "") : this.getExpatriatesinfor(rst.centerId || "")
+                    //UPD CCM 20210422
+                    // this.$route.params.type === 0 ? this.getPersonalCost(rst.centerId || "") : this.getExpatriatesinfor(rst.centerId || "")
+                    this.$route.params.type === 0 ? this.getPersonalCost() : this.getExpatriatesinfor()
+                    //UPD CCM 20210422
                 }
             }
         },
         methods: {
-            yearChange(value) {
-                this.form.years = moment(value).format('YYYY');
-                this.newTableData[0].entermouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
-                this.enterMouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
-            },
+            // yearChange(value) {
+            //     this.form.years = moment(value).format('YYYY');
+            //     this.newTableData[0].entermouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
+            //     this.enterMouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
+            // },
+          groupChange(val) {
+            this.form.centerid = val;
+            this.$route.params.type === 0 ? this.getPersonalCost() : this.getExpatriatesinfor()
+          },
             checkRequire() {
                 for (let i = 0; i < this.tableData.length; i++) {
                     if (this.tableData[i].nextyear === undefined) {
@@ -444,15 +475,167 @@
                 }
             },
           // add-lyt-21/1/29-禅道任务648-start
-          getPersonalCost(id) {
+          getorglistname()
+          {
+            let role = getCurrentRoleNew();
+            const vote = [];
+
+            if (role === '3') {//CENTER
+              vote.push(
+                {
+                  value: this.$store.getters.userinfo.userinfo.centerid,
+                  lable: this.$store.getters.userinfo.userinfo.centername,
+                },
+              );
+              //add ccm 0112 兼职部门
+              if (this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                  if (others.centerid)
+                  {
+                    this.$store.getters.orgGroupList.filter((item) => {
+                      if (item.centerid === others.centerid) {
+                        vote.push(
+                          {
+                            value: item.centerid,
+                            lable: item.centername,
+                          },
+                        );
+                      }
+                    })
+                  }
+                }
+              }
+              //add ccm 0112 兼职部门
+            } else if (role === '2') {//副总经理
+              this.$store.getters.orgGroupList.filter((item) => {
+                if (item.virtualuser === this.$store.getters.userinfo.userid) {
+                  vote.push(
+                    {
+                      value: item.centerid,
+                      lable: item.centername,
+                    },
+                  );
+                }
+              })
+              //add ccm 0112 兼职部门
+              if (this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+                {
+                  if (others.centerid)
+                  {
+                    this.$store.getters.orgGroupList.filter((item) => {
+                      if (item.centerid === others.centerid) {
+                        vote.push(
+                          {
+                            value: item.centerid,
+                            lable: item.centername,
+                          },
+                        );
+                      }
+                    })
+                  }
+                }
+              }
+              //add ccm 0112 兼职部门
+            }
+            else if (role === '4') //GM
+            {
+              let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+              if (centers)
+              {
+                if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+                {
+                  vote.push(
+                    {
+                      value: this.$store.getters.userinfo.userinfo.groupid,
+                      lable: this.$store.getters.userinfo.userinfo.groupname,
+                    },
+                  );
+                }
+              }
+            }
+            const vote1 = [];
+            if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+              || this.$store.getters.roles.indexOf("11") != -1 //总经理
+              || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+            {
+              this.$store.getters.orgGroupList.filter((item) => {
+                vote1.push(
+                  {
+                    value: item.centerid,
+                    lable: item.centername,
+                  },
+                );
+              })
+              this.grp_options = vote1;
+            }
+            else
+            {
+              this.grp_options = vote;
+            }
+            //去重
+            let letoptionsdata = [];
+            let arrId = [];
+            for(var item of this.grp_options){
+              if(arrId.indexOf(item['lable']) == -1){
+                arrId.push(item['lable']);
+                letoptionsdata.push(item);
+              }
+            }
+            //针对经营管理统计到group修改 start
+            let incfmyList = [];
+            for(let item of letoptionsdata){
+              if(getOrgInfo(item.value).encoding == ''){
+                incfmyList.push(item.value)
+              }
+            }
+            if(incfmyList.length > 0){
+              for(let item of incfmyList){
+                letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+              }
+              let orgInfo = [];
+              for(let item of incfmyList){
+                if(item){
+                  if(getOrgInfo(item).orgs.length != 0){
+                    orgInfo.push(getOrgInfo(item).orgs)
+                  }
+                }
+              }
+              let groInfo = orgInfo[0].filter(item => item.type == '2');
+              for(let item of groInfo){
+                letoptionsdata.push(
+                  {
+                    value: item._id,
+                    lable: item.title,
+                  },
+                );
+              }
+            }
+            //针对经营管理统计到group修改 end
+            this.grp_options = letoptionsdata;
+            if (!this.form.centerid)
+            {
+              this.form.centerid = this.grp_options[0].value;
+            }
+
+            //UPD CCM 20210422
+          },
+          //UPD CCM 20210422
+          // getPersonalCost(id) {
+          getPersonalCost() {
+            this.getorglistname();
             this.show2=true;
             let params={
-              groupid : id,
+              groupid : this.form.centerid,
               years : this.form.years,
             };
             this.$store
               .dispatch('PFANS1038Store/getPersonalCost',params)
               .then(response => {
+                this.tableData = [];
                 for (var i = 0; i < response.length; i++){
                   if(response[i].ltrank == "" || response[i].ltrank == null || response[i].ltrank == undefined){
                     response[i].ltrank = response[i].exrank;
@@ -501,12 +684,19 @@
                         });
                     })
             },
-            getExpatriatesinfor(id) {
+            getExpatriatesinfor() {
+              this.getorglistname();
+              let id = this.form.centerid;
                 this.show3=true;
                 this.$store
                     .dispatch('PFANS1038Store/getExpatriatesinfor', id)
                     .then(response => {
+                      this.tableData = [];
                         if (response.length > 0) {
+                          for (let i=0;i < response.length;i++)
+                          {
+                              response[i].nextyear = response[i].thisyear;
+                          }
                             this.tableData = response;
                         }
                     })
@@ -544,6 +734,19 @@
                         this.loading = false;
                         this.form = response;
                         this.form.years = response.years+ "";
+                        if (response.centerid)
+                        {
+                          this.grp_options = [];
+                          let user = getDepartmentById(response.centerid);
+                          if (user) {
+                            this.grp_options.push({
+                              value: response.centerid,
+                              lable: user,
+                            },)
+                            this.form.centerid = response.centerid;
+                          }
+                        }
+                        // this.form.center_id = response.center_id;
                         this.tableData = JSON.parse(this.form.employed);
                         this.newTableData = JSON.parse(this.form.newentry);
                     })
@@ -597,11 +800,11 @@
                 this.form.employed = JSON.stringify(this.tableData);
                 this.form.newentry = JSON.stringify(this.newTableData);
                 this.form.type = this.$route.params.type;
-                if (this.userlist !== null && this.userlist !== '') {
-                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.centerid = rst.centerId;
-                    this.form.groupid = rst.groupId;
-                }
+                // if (this.userlist !== null && this.userlist !== '') {
+                //     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                //     this.form.centerid = rst.centerId;
+                //     this.form.groupid = rst.groupId;
+                // }
                 let error = false;
                 let error1 = false;
                 if (this.$route.params.type === 0) {
@@ -610,11 +813,11 @@
                             error = true;
                         }
                     }
-                    for (let i = 0; i < this.newTableData.length; i++) {
-                        if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined) {
-                            error1 = true;
-                        }
-                    }
+                    // for (let i = 0; i < this.newTableData.length; i++) {
+                    //     if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined) {
+                    //         error1 = true;
+                    //     }
+                    // }
                 }
                 if (this.$route.params.type !== 0) {
                     for (let i = 0; i < this.tableData.length; i++) {
@@ -622,11 +825,11 @@
                             error = true;
                         }
                     }
-                    for (let i = 0; i < this.newTableData.length; i++) {
-                        if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === "") {
-                            error1 = true;
-                        }
-                    }
+                    // for (let i = 0; i < this.newTableData.length; i++) {
+                    //     if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === "") {
+                    //         error1 = true;
+                    //     }
+                    // }
                 }
 
                 if (error) {
@@ -638,13 +841,13 @@
                         type: 'error',
                         duration: 5 * 1000,
                     });
-                } else if (error1) {
-                  this.activeName = 'second';
-                    Message({
-                        message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
+                // } else if (error1) {
+                //   this.activeName = 'second';
+                //     Message({
+                //         message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
+                //         type: 'error',
+                //         duration: 5 * 1000,
+                //     });
                 } else if (!this.$route.params._id) {
                     this.loading = true;
                     this.$store
