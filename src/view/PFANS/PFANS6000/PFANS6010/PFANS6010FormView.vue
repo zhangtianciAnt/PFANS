@@ -304,5 +304,8 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+  /*列锁定之后滚动条拖不动问题处理*/
+  .el-table--scrollable-y .el-table__body-wrapper{
+    z-index: 1;
+  }
 </style>
