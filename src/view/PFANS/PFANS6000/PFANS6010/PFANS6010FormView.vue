@@ -304,14 +304,8 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-  .el-table {
-    .el-table__fixed { // 左固定列
-      height: auto !important;
-      bottom: 18px; // 改为自动高度后，设置与父容器的底部距离，高度会动态改变，值可以设置比滚动条的高度稍微大一些
-    }
-    .el-table__fixed-right { // 右固定列
-      height: auto !important;
-      bottom: 18px; // 改为自动高度后，设置与父容器的底部距离，高度会动态改变，值可以设置比滚动条的高度稍微大一些
-    }
+  /*列锁定之后滚动条拖不动问题处理*/
+  .el-table--scrollable-y .el-table__body-wrapper{
+    z-index: 1;
   }
 </style>
