@@ -38,7 +38,7 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import {getDictionaryInfo, getUserInfo} from '../../../../utils/customize';
+  import {getDictionaryInfo, getUserInfo, getCurrentRole} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS2010FormView',
@@ -892,39 +892,49 @@
         this.$store
           .dispatch('personalCenterStore/getPersonalCenterinfo', {'userid': userid})
           .then(response => {
-            let roles = '';
-            let num = 0;
-            let numz = 0;
-            if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
-              for (let role of response.userAccount.roles) {
-                roles = roles + role.description;
-              }
-              if (this.$i18n) {
-                if (roles.indexOf('总经理') != -1) {
-                  numz++;
-                  num++;
-                } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
-                  num++;
-                } else if (roles.toUpperCase().indexOf('GM') != -1) {
-                  num++;
-                } else if (roles.toUpperCase().indexOf('TL') != -1) {
-                  num++;
-                }
-              }
-            }
-            if (num === 0) {
-              //普通社員审批
-              //upd by lin 都是一次上司审批 start
-              // this.workflowCode = 'W0002'
-              this.workflowCode = 'W0069';
-              //upd by lin 都是一次上司审批 end
-            } else if (numz === 0) {
-              //领导审批
-              this.workflowCode = 'W0069';
-            } else {
-              //总经理的考勤管理人事部长审批
+            // UPD CCM 20210426 FR
+            // let roles = '';
+            // let num = 0;
+            // let numz = 0;
+            // if (response.userAccount && response.userAccount.roles && response.userAccount.roles.length > 0) {
+            //   for (let role of response.userAccount.roles) {
+            //     roles = roles + role.description;
+            //   }
+            //   if (this.$i18n) {
+            //     if (roles.indexOf('总经理') != -1) {
+            //       numz++;
+            //       num++;
+            //     } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+            //       num++;
+            //     } else if (roles.toUpperCase().indexOf('GM') != -1) {
+            //       num++;
+            //     } else if (roles.toUpperCase().indexOf('TL') != -1) {
+            //       num++;
+            //     }
+            //   }
+            // }
+            // if (num === 0) {
+            //   //普通社員审批
+            //   //upd by lin 都是一次上司审批 start
+            //   // this.workflowCode = 'W0002'
+            //   this.workflowCode = 'W0069';
+            //   //upd by lin 都是一次上司审批 end
+            // } else if (numz === 0) {
+            //   //领导审批
+            //   this.workflowCode = 'W0069';
+            // } else {
+            //   //总经理的考勤管理人事部长审批
+            //   this.workflowCode = 'W0083';
+            // }
+            let roles = getCurrentRole();
+            if (roles == '1') {
               this.workflowCode = 'W0083';
             }
+            else
+            {
+              this.workflowCode = 'W0069';
+            }
+            // UPD CCM 20210426 TO
             this.loading = false;
           });
       }
