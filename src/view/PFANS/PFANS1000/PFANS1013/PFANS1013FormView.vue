@@ -2501,6 +2501,8 @@
             if (accinfo) {
               row.accountcode = accinfo.value1;
               row.subjectnumber = accinfo.value2;
+              this.accountcodeflg = accinfo.value1;
+              this.subjectnumberflg = accinfo.value2;
             }
           }
           //add_fjl_0721   对应科目代码  end
@@ -2866,7 +2868,7 @@
           invoicenumber: '',
           plsummary: this.plsummaryflg,
           accountcode: this.accountcodeflg,
-          subjectnumber: this.subjectnumberflg,
+          subjectnumber: this.tableT[0].subjectnumber,
           departmentname: this.tableT[0].departmentname,
           taxes: '',
           // costitem: '',
