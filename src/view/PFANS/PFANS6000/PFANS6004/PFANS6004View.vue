@@ -177,10 +177,10 @@
                     //   filter: true,
                     // },
                     {
-                        //RN
-                        code: 'rn',
-                        label: 'label.PFANS2003FORMVIEW_RN',
-                        width: 80,
+                        //更衣柜号
+                        code: 'lockernumber',
+                        label: 'label.PFANSUSERFORMVIEW_LOCKERNUMBER',
+                        width: 120,
                         fix: false,
                         filter: false,
                     },
@@ -410,6 +410,7 @@
                                     businessimpact: response[j].businessimpact,
                                     countermeasure: response[j].countermeasure,
                                     accountname: response[j].accountname,
+                                    lockernumber: response[j].lockernumber,
                                 })
                             }
                         }
@@ -559,6 +560,7 @@
                             this.$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT'),
                             this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
                             this.$t('label.remarks'),
+                            this.$t('label.PFANSUSERFORMVIEW_LOCKERNUMBER'),
                         ];
                         const filterVal = [
                             'expname',
@@ -589,6 +591,7 @@
                             'businessimpact',
                             'countermeasure',
                             'remarks',
+                            'lockernumber',
                         ];
                         const list = this.selectedlist;
                         for (let h = 0; h < list.length; h++) {
