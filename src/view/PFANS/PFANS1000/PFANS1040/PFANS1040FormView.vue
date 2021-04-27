@@ -16,8 +16,7 @@
                 <div class="block">
                   <el-date-picker
                     type="year"
-                    @change="yearChange"
-                    :disabled="disabledT"
+                    :disabled="true"
                     style="width: 18vw"
                     v-model="refform.year">
                   </el-date-picker>
@@ -25,7 +24,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item :label="$t('label.PFANS1039FORMVIEW_CENTER')" prop="group">
+              <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="center_id">
                 <el-select v-model="refform.center_id" style="width: 20vw" :disabled="disabledT"
                            @change="groupChange">
                   <el-option
@@ -1009,8 +1008,8 @@
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.PFANS1039FORMVIEW_CENTER'),
-              trigger: 'change',
+                this.$t('label.PFANS2036VIEW_DEPARTMENT'),
+              trigger: 'blur',
             },
           ],
         },
@@ -1158,7 +1157,10 @@
         this.refform.group_id = this.$route.params.group_id;
         // this.refform.center_id = this.$route.params.center_id;
         this.$nextTick(() => {
-          this.groupdata(this.refform.center_id);
+          if(this.refform.center_id)
+          {
+            this.groupdata(this.refform.center_id);
+          }
         });
         this.loading = false;
       }
@@ -1480,12 +1482,26 @@
             }
             //add ccm 0112 兼职部门
         }
+        else if (role === '4') //GM
+        {
+          let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+          if (centers)
+          {
+            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+            {
+              vote.push(
+                {
+                  value: this.$store.getters.userinfo.userinfo.groupid,
+                  lable: this.$store.getters.userinfo.userinfo.groupname,
+                },
+              );
+            }
+          }
+        }
         const vote1 = [];
         if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
             || this.$store.getters.roles.indexOf("11") != -1 //总经理
-            || this.$store.getters.roles.indexOf("16") != -1 //财务部长
-            || this.$store.getters.roles.indexOf("18") != -1//企划部长
-            || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+          || this.$store.getters.roles.indexOf("16") != -1) //财务部长
         {
             this.$store.getters.orgGroupList.filter((item) => {
                 vote1.push(
@@ -1510,19 +1526,53 @@
                 letoptionsdata.push(item);
             }
         }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of letoptionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0){
+          for(let item of incfmyList){
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for(let item of incfmyList){
+            if(item){
+              if(getOrgInfo(item).orgs.length != 0){
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for(let item of groInfo){
+            letoptionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
         this.grp_options = letoptionsdata;
-        this.refform.center_id = this.grp_options[0].value;
+        if (!this.refform.center_id && this.grp_options.length > 0)
+        {
+          this.refform.center_id = this.grp_options[0].value;
+        }
+
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
         this.loading = false;
       },
-      yearChange(value) {
-        let val = value;
-        if (value) {
-          val = moment(value).format('YYYY');
-        }
-        this.refform.year = val;
-        this.groupdata(this.refform.center_id);
-      },
+      // yearChange(value) {
+      //   let val = value;
+      //   if (value) {
+      //     val = moment(value).format('YYYY');
+      //   }
+      //   this.refform.year = val;
+      //   this.groupdata(this.refform.center_id);
+      // },
       groupdata(val) {
         let parameter = {
           year: moment(this.refform.year).format('YYYY'),
@@ -1562,222 +1612,234 @@
             let wpersonnel2 = 0;
             let wpersonnel3 = 0;
             if (data1.length > 0) {
-              this.newentry = JSON.parse(data1[0].newentry);
-              this.wnewentry = JSON.parse(data1[0].employed);
-              amountpersonnel = data1[0].moneyavg;
-              personnel4 = this.wnewentry.length;
-              personnel5 = this.wnewentry.length;
-              personnel6 = this.wnewentry.length;
-              personnel7 = this.wnewentry.length;
-              personnel8 = this.wnewentry.length;
-              personnel9 = this.wnewentry.length;
-              personnel10 = this.wnewentry.length;
-              personnel11 = this.wnewentry.length;
-              personnel12 = this.wnewentry.length;
-              personnel1 = this.wnewentry.length;
-              personnel2 = this.wnewentry.length;
-              personnel3 = this.wnewentry.length;
-              for (let i = 0; i < this.newentry.length; i++) {
-                if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-                  personnel4 = personnel4 + 1;
-                  personnel5 = personnel5 + 1;
-                  personnel6 = personnel6 + 1;
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-                  personnel5 = personnel5 + 1;
-                  personnel6 = personnel6 + 1;
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-                  personnel6 = personnel6 + 1;
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
+              if (data1[0].employed != null)
+              {
+                this.wnewentry = JSON.parse(data1[0].employed);
+                amountpersonnel = data1[0].moneyavg;
+                personnel4 = this.wnewentry.length;
+                personnel5 = this.wnewentry.length;
+                personnel6 = this.wnewentry.length;
+                personnel7 = this.wnewentry.length;
+                personnel8 = this.wnewentry.length;
+                personnel9 = this.wnewentry.length;
+                personnel10 = this.wnewentry.length;
+                personnel11 = this.wnewentry.length;
+                personnel12 = this.wnewentry.length;
+                personnel1 = this.wnewentry.length;
+                personnel2 = this.wnewentry.length;
+                personnel3 = this.wnewentry.length;
+              }
+              if (data1[0].newentry != null)
+              {
+                this.newentry = JSON.parse(data1[0].newentry);
+                for (let i = 0; i < this.newentry.length; i++) {
+                  if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
+                    personnel4 = personnel4 + 1;
+                    personnel5 = personnel5 + 1;
+                    personnel6 = personnel6 + 1;
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
+                    personnel5 = personnel5 + 1;
+                    personnel6 = personnel6 + 1;
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
+                    personnel6 = personnel6 + 1;
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  }
                 }
               }
             }
             if (data2.length > 0) {
-              this.employed = JSON.parse(data2[0].newentry);
-              this.wemployed = JSON.parse(data1[0].employed);
-              amountwpersonnel = data2[0].moneyavg;
-              wpersonnel4 = this.wemployed.length;
-              wpersonnel5 = this.wemployed.length;
-              wpersonnel6 = this.wemployed.length;
-              wpersonnel7 = this.wemployed.length;
-              wpersonnel8 = this.wemployed.length;
-              wpersonnel9 = this.wemployed.length;
-              wpersonnel10 = this.wemployed.length;
-              wpersonnel11 = this.wemployed.length;
-              wpersonnel12 = this.wemployed.length;
-              wpersonnel1 = this.wemployed.length;
-              wpersonnel2 = this.wemployed.length;
-              wpersonnel3 = this.wemployed.length;
-              for (let i = 0; i < this.employed.length; i++) {
-                if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 1) {
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 2) {
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 3) {
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 4) {
-                  wpersonnel4 = wpersonnel4 + 1;
-                  wpersonnel5 = wpersonnel5 + 1;
-                  wpersonnel6 = wpersonnel6 + 1;
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 5) {
-                  wpersonnel5 = wpersonnel5 + 1;
-                  wpersonnel6 = wpersonnel6 + 1;
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 6) {
-                  wpersonnel6 = wpersonnel6 + 1;
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 7) {
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 8) {
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 9) {
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 10) {
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 11) {
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 12) {
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
+              if (data2[0].employed !=null)
+              {
+                this.wemployed = JSON.parse(data2[0].employed);
+                amountwpersonnel = data2[0].moneyavg;
+                wpersonnel4 = this.wemployed.length;
+                wpersonnel5 = this.wemployed.length;
+                wpersonnel6 = this.wemployed.length;
+                wpersonnel7 = this.wemployed.length;
+                wpersonnel8 = this.wemployed.length;
+                wpersonnel9 = this.wemployed.length;
+                wpersonnel10 = this.wemployed.length;
+                wpersonnel11 = this.wemployed.length;
+                wpersonnel12 = this.wemployed.length;
+                wpersonnel1 = this.wemployed.length;
+                wpersonnel2 = this.wemployed.length;
+                wpersonnel3 = this.wemployed.length;
+              }
+              if (data2[0].newentry !=null)
+              {
+                this.employed = JSON.parse(data2[0].newentry);
+                for (let i = 0; i < this.employed.length; i++) {
+                  if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 1) {
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 2) {
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 3) {
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 4) {
+                    wpersonnel4 = wpersonnel4 + 1;
+                    wpersonnel5 = wpersonnel5 + 1;
+                    wpersonnel6 = wpersonnel6 + 1;
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 5) {
+                    wpersonnel5 = wpersonnel5 + 1;
+                    wpersonnel6 = wpersonnel6 + 1;
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 6) {
+                    wpersonnel6 = wpersonnel6 + 1;
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 7) {
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 8) {
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 9) {
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 10) {
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 11) {
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 12) {
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  }
                 }
               }
             }
@@ -1995,7 +2057,7 @@
           if (!this.refform.center_id) {
             Message({
               message: this.$t('normal.error_09') +
-                this.$t('label.PFANS1039FORMVIEW_CENTER'),
+                this.$t('label.PFANS2036VIEW_DEPARTMENT'),
               type: 'error',
               duration: 5 * 1000,
             });
