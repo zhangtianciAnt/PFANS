@@ -7,10 +7,10 @@
     v-loading="loading"
   >
     <div slot="customize" style="margin-top:2vw">
-      <el-form :model="form" label-position="top" label-width="8vw" ref="form">
+      <el-form :model="form" label-position="top" label-width="8vw" ref="form" :rules="rules">
         <el-row style="padding-top: 2%;padding-bottom: 2%">
           <el-col :span="6">
-            <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')" prop="year">
+            <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')">
               <div class="block">
                 <el-date-picker
                   v-model="form.years"
@@ -23,7 +23,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')">
+            <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="centerid">
               <el-select v-model="form.centerid" style="width: 20vw" :disabled="disabledC"
                          @change="groupChange">
                 <el-option
@@ -406,7 +406,18 @@
                   years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
                   //,"YYYY-MM-DD").valueOf() >= moment(moment(new Date(),"YYYY") + "04-01").valueOf() ? parseInt(moment(new Date(),"YYYY")) +1+"" : moment(new Date(),"YYYY")+"",
                   centerid:'',
-                }
+                },
+              rules: {
+                centerid: [
+                  {
+                    required: true,
+                    message:
+                      this.$t('normal.error_09') +
+                      this.$t('label.PFANS2036VIEW_DEPARTMENT'),
+                    trigger: 'blur',
+                  },
+                ],
+              },
             };
         },
         computed: {
@@ -452,7 +463,11 @@
                     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
                     //UPD CCM 20210422
                     // this.$route.params.type === 0 ? this.getPersonalCost(rst.centerId || "") : this.getExpatriatesinfor(rst.centerId || "")
+                  this.getorglistname();
+                  if (this.form.centerid)
+                  {
                     this.$route.params.type === 0 ? this.getPersonalCost() : this.getExpatriatesinfor()
+                  }
                     //UPD CCM 20210422
                 }
             }
@@ -616,7 +631,7 @@
             }
             //针对经营管理统计到group修改 end
             this.grp_options = letoptionsdata;
-            if (!this.form.centerid)
+            if (!this.form.centerid && this.grp_options.length > 0)
             {
               this.form.centerid = this.grp_options[0].value;
             }
@@ -626,7 +641,7 @@
           //UPD CCM 20210422
           // getPersonalCost(id) {
           getPersonalCost() {
-            this.getorglistname();
+
             this.show2=true;
             let params={
               groupid : this.form.centerid,
@@ -685,7 +700,6 @@
                     })
             },
             getExpatriatesinfor() {
-              this.getorglistname();
               let id = this.form.centerid;
                 this.show3=true;
                 this.$store
@@ -748,7 +762,11 @@
                         }
                         // this.form.center_id = response.center_id;
                         this.tableData = JSON.parse(this.form.employed);
-                        this.newTableData = JSON.parse(this.form.newentry);
+                        if (this.form.newentry)
+                        {
+                          this.newTableData = JSON.parse(this.form.newentry);
+                        }
+
                     })
                     .catch(error => {
                         Message({
@@ -796,105 +814,131 @@
                 }
             },
             buttonClick(val) {
-                this.checkRequire();
-                this.form.employed = JSON.stringify(this.tableData);
-                this.form.newentry = JSON.stringify(this.newTableData);
-                this.form.type = this.$route.params.type;
-                // if (this.userlist !== null && this.userlist !== '') {
-                //     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                //     this.form.centerid = rst.centerId;
-                //     this.form.groupid = rst.groupId;
-                // }
-                let error = false;
-                let error1 = false;
-                if (this.$route.params.type === 0) {
+              this.$refs['form'].validate(valid => {
+                if (valid) {
+                  this.checkRequire();
+                  this.form.employed = JSON.stringify(this.tableData);
+                  let newTableDatalinshi = null;
+                  if (this.newTableData)
+                  {
+                    for (let i=0;i<this.newTableData.length;i++)
+                    {
+                      if (this.newTableData[0].nextyear!=null && this.newTableData[0].nextyear!='' && this.newTableData[0].nextyear != undefined)
+                      {
+                        newTableDatalinshi.push({});
+                      }
+                    }
+                  }
+                  if (newTableDatalinshi !=null)
+                  {
+                    this.form.newentry = JSON.stringify(newTableDatalinshi);
+                  }
+
+                  this.form.type = this.$route.params.type;
+                  // if (this.userlist !== null && this.userlist !== '') {
+                  //     let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                  //     this.form.centerid = rst.centerId;
+                  //     this.form.groupid = rst.groupId;
+                  // }
+                  let error = false;
+                  let error1 = false;
+                  if (this.$route.params.type === 0) {
                     for (let i = 0; i < this.tableData.length; i++) {
-                        if (this.tableData[i].nextyear == undefined) {
-                            error = true;
-                        }
+                      if (this.tableData[i].nextyear == undefined) {
+                        error = true;
+                      }
                     }
                     // for (let i = 0; i < this.newTableData.length; i++) {
                     //     if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined) {
                     //         error1 = true;
                     //     }
                     // }
-                }
-                if (this.$route.params.type !== 0) {
+                  }
+                  if (this.$route.params.type !== 0) {
                     for (let i = 0; i < this.tableData.length; i++) {
-                        if (this.tableData[i].nextyear == undefined) {
-                            error = true;
-                        }
+                      if (this.tableData[i].nextyear == undefined) {
+                        error = true;
+                      }
                     }
                     // for (let i = 0; i < this.newTableData.length; i++) {
                     //     if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === "") {
                     //         error1 = true;
                     //     }
                     // }
-                }
+                  }
 
-                if (error) {
-                  this.activeName = 'first';
+                  if (error) {
+                    this.activeName = 'first';
                     Message({
-                        message: this.$t('normal.error_08') +
-                            this.$t('label.PFANS1038VIEW_REALISTIC') +
-                            this.$t('label.PFANS1038VIEW_NEWHIRES2'),
-                        type: 'error',
-                        duration: 5 * 1000,
+                      message: this.$t('normal.error_08') +
+                        this.$t('label.PFANS1038VIEW_REALISTIC') +
+                        this.$t('label.PFANS1038VIEW_NEWHIRES2'),
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
-                // } else if (error1) {
-                //   this.activeName = 'second';
-                //     Message({
-                //         message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
-                //         type: 'error',
-                //         duration: 5 * 1000,
-                //     });
-                } else if (!this.$route.params._id) {
+                    // } else if (error1) {
+                    //   this.activeName = 'second';
+                    //     Message({
+                    //         message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
+                    //         type: 'error',
+                    //         duration: 5 * 1000,
+                    //     });
+                  } else if (!this.$route.params._id) {
                     this.loading = true;
                     this.$store
-                        .dispatch("PFANS1038Store/insert", this.form)
-                        .then(response => {
-                            this.loading = false;
-                            this.$message({
-                                message: this.$t("normal.success_01"),
-                                type: "success"
-                            });
-                            if (this.$store.getters.historyUrl) {
-                                this.$router.push(this.$store.getters.historyUrl);
-                            }
-                        })
-                        .catch(err => {
-                            this.loading = false;
-                            Message({
-                                message: err,
-                                type: "error",
-                                duration: 5 * 1000
-                            });
+                      .dispatch("PFANS1038Store/insert", this.form)
+                      .then(response => {
+                        this.loading = false;
+                        this.$message({
+                          message: this.$t("normal.success_01"),
+                          type: "success"
                         });
-                } else {
+                        if (this.$store.getters.historyUrl) {
+                          this.$router.push(this.$store.getters.historyUrl);
+                        }
+                      })
+                      .catch(err => {
+                        this.loading = false;
+                        Message({
+                          message: err,
+                          type: "error",
+                          duration: 5 * 1000
+                        });
+                      });
+                  } else {
                     this.loading = true;
                     this.$store
-                        .dispatch("PFANS1038Store/update", this.form)
-                        .then(response => {
-                            this.loading = false;
-                            this.$message({
-                                message: this.$t("normal.success_02"),
-                                type: "success"
-                            });
-                            if (val !== "update") {
-                                if (this.$store.getters.historyUrl) {
-                                    this.$router.push(this.$store.getters.historyUrl);
-                                }
-                            }
-                        })
-                        .catch(err => {
-                            this.loading = false;
-                            Message({
-                                message: err,
-                                type: "error",
-                                duration: 5 * 1000
-                            });
+                      .dispatch("PFANS1038Store/update", this.form)
+                      .then(response => {
+                        this.loading = false;
+                        this.$message({
+                          message: this.$t("normal.success_02"),
+                          type: "success"
                         });
+                        if (val !== "update") {
+                          if (this.$store.getters.historyUrl) {
+                            this.$router.push(this.$store.getters.historyUrl);
+                          }
+                        }
+                      })
+                      .catch(err => {
+                        this.loading = false;
+                        Message({
+                          message: err,
+                          type: "error",
+                          duration: 5 * 1000
+                        });
+                      });
+                  }
+                }else {
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.error_12'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
                 }
+              })
             }
         }
     };
