@@ -1,9 +1,9 @@
 import request from '../../utils/request'
-import requestnew from '../../utils/requestnew'
+// import requestnew from '../../utils/requestnew'
 
 // 是否可以发起审批
 export function isStartWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/isStartWorkflow',
     method: 'post',
     data: data
@@ -12,7 +12,7 @@ export function isStartWorkflow (data) {
 
 // 是否可以进行审批
 export function isOperationWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/isOperationWorkflow',
     method: 'post',
     data: data
@@ -21,7 +21,7 @@ export function isOperationWorkflow (data) {
 
 // 查询租户下的所有人
 export function selectUserByTenantId (data) {
-  return requestnew({
+  return request({
     url: '/Organization/user/selectAllUser',
     method: 'get',
     params: data
@@ -30,7 +30,7 @@ export function selectUserByTenantId (data) {
 
 // 是否可以查看审批日志
 export function isViewWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/isViewWorkflow',
     method: 'post',
     data: data
@@ -39,7 +39,7 @@ export function isViewWorkflow (data) {
 
 // 审批日志
 export function viewWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/ViewWorkflow',
     method: 'post',
     data: data
@@ -48,7 +48,7 @@ export function viewWorkflow (data) {
 
 // 审批日志
 export function viewWorkflow2 (data) {
-  return requestnew({
+  return request({
     url: '/workflow/ViewWorkflow2',
     method: 'post',
     data: data
@@ -57,7 +57,7 @@ export function viewWorkflow2 (data) {
 
 // 进行审批
 export function operationWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/OperationWorkflow',
     method: 'post',
     data: data
@@ -66,7 +66,7 @@ export function operationWorkflow (data) {
 
 // 发起审批
 export function startWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/StartWorkflow',
     method: 'post',
     data: data
@@ -75,7 +75,7 @@ export function startWorkflow (data) {
 
 // 是否可以撤销审批
 export function isDelWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/isDelWorkflow',
     method: 'post',
     data: data
@@ -84,7 +84,7 @@ export function isDelWorkflow (data) {
 
 // 撤销审批
 export function delWorkflow (data) {
-  return requestnew({
+  return request({
     url: '/workflow/DelWorkflow',
     method: 'post',
     params: data
