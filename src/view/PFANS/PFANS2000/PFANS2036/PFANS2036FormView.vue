@@ -9,8 +9,6 @@
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 30px">
           <el-form-item>
-            <div id="eagleMapContainer" @scroll="hanldeScroll">
-              <div id="table_list">
                 <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_RBSYJH')" name="show_first" v-if="this.rolesshow1">
                     <!--add-lyt-21/1/25-禅道任务645 -start-->
@@ -889,12 +887,18 @@
 
                   <!--部门汇总-->
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_BMHZSYJH')" name="show_second" v-if="this.rolesshow2">
-                    <el-table
-                      :data="tableBm"
+                    <plx-table-grid
+                      :datas="tableBm"
+                      :height-change="false"
+                      :pagination-show="false"
+                      :row-height="40"
                       border stripe
-                      header-cell-class-name="sub_bg_color_blue">
+                      header-cell-class-name="sub_bg_color_blue"
+                      highlight-current-row
+                      style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                      use-virtual>
                      <!--部门简称-->
-                      <el-table-column
+                      <plx-table-column
                         prop="departshortBmSum"
                         :label="$t('label.PFANS2036VIEW_BMJC')"
                         width="180"
@@ -909,9 +913,9 @@
                           >
                           </el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--Rn-->
-                      <el-table-column
+                      <plx-table-column
                         prop="exrankBmSum"
                         :label="$t('label.PFANS2036VIEW_RN')"
                         width="180"
@@ -923,9 +927,9 @@
                             v-model="scope.row.exrankBmSum"
                           ></el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--人数-->
-                      <el-table-column
+                      <plx-table-column
                         prop="peopleBmSum"
                         :label="$t('label.PFANS2036VIEW_RS')"
                         width="155"
@@ -939,9 +943,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthBmSum"
                         :label="$t('label.PFANS2036VIEW_YGZ')"
                         width="155"
@@ -955,9 +959,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--基本工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="basicBmSum"
                         :label="$t('label.PFANS2036VIEW_JBGZ')"
                         width="155"
@@ -971,9 +975,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--职责工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="balityBmSum"
                         :label="$t('label.PFANS2036VIEW_ZZGZ')"
                         width="155"
@@ -987,9 +991,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--补贴总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalsubsidiesBmSum"
                         :label="$t('label.PFANS2036VIEW_BTZJ')"
                         width="155"
@@ -1003,9 +1007,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthlybonusBmSum"
                         :label="$t('label.PFANS2036VIEW_YDJJ')"
                         width="155"
@@ -1019,9 +1023,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--年度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="annualbonusBmSum"
                         :label="$t('label.PFANS2036VIEW_NDJJ')"
                         width="155"
@@ -1035,9 +1039,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工资总额-->
-                      <el-table-column
+                      <plx-table-column
                         prop="tradeunionfundsBmSum"
                         :label="$t('label.PFANS2036VIEW_GZZE')"
                         width="155"
@@ -1051,9 +1055,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工会经费-->
-                      <el-table-column
+                      <plx-table-column
                         prop="sbgsajBmSum"
                         :label="$t('label.PFANS2036VIEW_GHJF')"
                         width="155"
@@ -1067,9 +1071,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（4-6）社保公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_APTOJUSBGSFDZJ')"
                         width="155"
@@ -1083,9 +1087,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（4-6）公积金公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_APTOJUGJJGSFDZJ')"
                         width="155"
@@ -1099,9 +1103,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（4-6）人件费总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="aptojuBmSum"
                         :label="$t('label.PFANS2036VIEW_APTOJURJFZJ')"
                         width="155"
@@ -1115,9 +1119,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（7-3）社保公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMASBGSFDZJ')"
                         width="155"
@@ -1131,9 +1135,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（7-3）公积金公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMAGJJGSFDZJ')"
                         width="155"
@@ -1147,9 +1151,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（7-3）人件费总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="aptojuBmSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMARJFZJ')"
                         width="155"
@@ -1163,9 +1167,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--加班费时给-->
-                      <el-table-column
+                      <plx-table-column
                         prop="overtimepayBmSum"
                         :label="$t('label.PFANS2036VIEW_JBFSG')"
                         width="155"
@@ -1179,8 +1183,8 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
-                    </el-table>
+                      </plx-table-column>
+                    </plx-table-grid>
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageBm" :page-size="listQuery.limitBm"
@@ -1195,12 +1199,18 @@
 
                   <!--公司汇总-->
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_GSHZSYJH')" name="show_third" v-if="this.rolesshow3">
-                    <el-table
-                      :data="tableGs"
+                    <plx-table-grid
+                      :datas="tableGs"
+                      :height-change="false"
+                      :pagination-show="false"
+                      :row-height="40"
                       border stripe
-                      header-cell-class-name="sub_bg_color_blue">
+                      header-cell-class-name="sub_bg_color_blue"
+                      highlight-current-row
+                      style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                      use-virtual>
                       <!--Rn-->
-                      <el-table-column
+                      <plx-table-column
                         prop="exrankGsSum"
                         :label="$t('label.PFANS2036VIEW_RN')"
                         width="180"
@@ -1212,9 +1222,9 @@
                             v-model="scope.row.exrankGsSum"
                           ></el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--人数-->
-                      <el-table-column
+                      <plx-table-column
                         prop="peopleGsSum"
                         :label="$t('label.PFANS2036VIEW_RS')"
                         width="155"
@@ -1228,9 +1238,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthGsSum"
                         :label="$t('label.PFANS2036VIEW_YGZ')"
                         width="155"
@@ -1244,9 +1254,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--基本工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="basicGsSum"
                         :label="$t('label.PFANS2036VIEW_JBGZ')"
                         width="155"
@@ -1260,9 +1270,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--职责工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="balityGsSum"
                         :label="$t('label.PFANS2036VIEW_ZZGZ')"
                         width="155"
@@ -1276,9 +1286,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--职责工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalsubsidiesGsSum"
                         :label="$t('label.PFANS2036VIEW_BTZJ')"
                         width="155"
@@ -1292,9 +1302,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--补贴总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalsubsidiesGsSum"
                         :label="$t('label.PFANS2036VIEW_BTZJ')"
                         width="155"
@@ -1308,9 +1318,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthlybonusGsSum"
                         :label="$t('label.PFANS2036VIEW_YDJJ')"
                         width="155"
@@ -1324,9 +1334,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--年度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="annualbonusGsSum"
                         :label="$t('label.PFANS2036VIEW_NDJJ')"
                         width="155"
@@ -1340,9 +1350,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工会经费1212-->
-                      <el-table-column
+                      <plx-table-column
                         prop="tradeunionfundsGsSum"
                         :label="$t('label.PFANS2036VIEW_GHJF')"
                         width="155"
@@ -1356,9 +1366,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--社保公司-->
-                      <el-table-column
+                      <plx-table-column
                         prop="sbgsajGsSum"
                         :label="$t('label.PFANS2036VIEW_SBGSAJ')"
                         width="155"
@@ -1372,9 +1382,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--公积金公司负担-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajGsSum"
                         :label="$t('label.PFANS2036VIEW_GJJGSFDAJ')"
                         width="155"
@@ -1388,9 +1398,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--4月-6月-->
-                      <el-table-column
+                      <plx-table-column
                         prop="aptojuGsSum"
                         :label="$t('label.PFANS2036VIEW_APTOJU')"
                         width="155"
@@ -1404,9 +1414,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--社保公司-->
-                      <el-table-column
+                      <plx-table-column
                         prop="sbgsjmGsSum"
                         :label="$t('label.PFANS2036VIEW_SBGSJM')"
                         width="155"
@@ -1420,9 +1430,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--公积金公司负担-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdjmGsSum"
                         :label="$t('label.PFANS2036VIEW_GJJGSFDJM')"
                         width="155"
@@ -1436,9 +1446,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--7月-3月-->
-                      <el-table-column
+                      <plx-table-column
                         prop="jutomaGsSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMA')"
                         width="155"
@@ -1452,9 +1462,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--加班费时给-->
-                      <el-table-column
+                      <plx-table-column
                         prop="overtimepayGsSum"
                         :label="$t('label.PFANS2036VIEW_JBFSG')"
                         width="155"
@@ -1468,8 +1478,8 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
-                    </el-table>
+                      </plx-table-column>
+                    </plx-table-grid>
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageGs" :page-size="listQuery.limitGs"
@@ -1483,18 +1493,24 @@
                   </el-tab-pane>
 
                   <!--人别-->
-                  <!--<el-tab-pane :label="$t('label.PFANS2036VIEW_RB')" name="show_fourth" v-if="this.rolesshow4">-->
-                    <!--<el-table-->
-                      <!--:data="tableRb"-->
-                      <!--border stripe-->
-                      <!--header-cell-class-name="sub_bg_color_blue">-->
-                      <!--&lt;!&ndash;姓名&ndash;&gt;-->
-                      <!--<el-table-column-->
-                        <!--prop="useridRb"-->
-                        <!--:label="$t('label.PFANS2036VIEW_USERID')"-->
-                        <!--width="180"-->
-                        <!--align="center">-->
-                        <!--<template slot-scope="scope">-->
+                  <el-tab-pane :label="$t('label.PFANS2036VIEW_RB')" name="show_fourth" v-if="this.rolesshow4">
+                    <plx-table-grid
+                      :datas="tableRb"
+                      :height-change="false"
+                      :pagination-show="false"
+                      :row-height="40"
+                      border stripe
+                      header-cell-class-name="sub_bg_color_blue"
+                      highlight-current-row
+                      style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                      use-virtual>
+                      <!--姓名-->
+                      <plx-table-column
+                        prop="useridRb"
+                        :label="$t('label.PFANS2036VIEW_USERID')"
+                        width="130"
+                        align="center">
+                        <template slot-scope="scope">
                           <!--<user-->
                             <!--:disabled="!disabled"-->
                             <!--:no="scope.row"-->
@@ -1503,706 +1519,726 @@
                             <!--:multiple="multiple"-->
                             <!--style="width: 18vw"-->
                           <!--&gt;</user>-->
-                        <!--</template>-->
-                      <!--</el-table-column>-->
-                      <!--&lt;!&ndash;部门简称&ndash;&gt;-->
-                      <!--<el-table-column-->
-                        <!--prop="departshortRb"-->
-                        <!--:label="$t('label.PFANS2036VIEW_BMJC')"-->
-                        <!--width="180"-->
-                        <!--align="center">-->
-                        <!--<template slot-scope="scope">-->
-                          <!--<el-input-->
-                            <!--:no="scope.row"-->
-                            <!--:disabled="true"-->
-                            <!--v-model="scope.row.departshortRb"-->
-                          <!--&gt;-->
-                          <!--</el-input>-->
-                        <!--</template>-->
-                      <!--</el-table-column>-->
-                      <!--&lt;!&ndash;RN&ndash;&gt;-->
-                      <!--<el-table-column-->
-                        <!--prop="ltrankRb"-->
-                        <!--:label="$t('label.PFANS2036VIEW_RN')"-->
-                        <!--width="180"-->
-                        <!--align="center">-->
-                        <!--<template slot-scope="scope">-->
-                          <!--<el-input-->
-                            <!--:no="scope.row"-->
-                            <!--:disabled="true"-->
-                            <!--v-model="scope.row.ltrankRb"-->
-                          <!--&gt;</el-input>-->
-                        <!--</template>-->
-                      <!--</el-table-column>-->
-                      <!--&lt;!&ndash;工资总额&ndash;&gt;-->
-                      <!--<el-table-column-->
-                        <!--prop="totalwagesRb"-->
-                        <!--:label="$t('label.PFANS2036VIEW_GZZE')"-->
-                        <!--width="155"-->
-                        <!--align="center">-->
-                        <!--<template slot-scope="scope">-->
-                          <!--<el-input-number-->
-                            <!--:disabled="!disabled"-->
-                            <!--:no="scope.row"-->
-                            <!--v-model="scope.row.totalwagesRb"-->
-                            <!--:precision="2"-->
-                            <!--controls-position="right" size="mini">-->
-                          <!--</el-input-number>-->
-                        <!--</template>-->
-                      <!--</el-table-column>-->
-                      <!--&lt;!&ndash;加班费&ndash;&gt;-->
-                      <!--<el-table-column-->
-                        <!--prop="overtimepayRb"-->
-                        <!--:label="$t('label.PFANS2036VIEW_JBF')"-->
-                        <!--width="155"-->
-                        <!--align="center">-->
-                        <!--<template slot-scope="scope">-->
-                          <!--<el-input-number-->
-                            <!--:disabled="!disabled"-->
-                            <!--:no="scope.row"-->
-                            <!--v-model="scope.row.overtimepayRb"-->
-                            <!--:precision="2"-->
-                            <!--controls-position="right" size="mini">-->
-                          <!--</el-input-number>-->
-                        <!--</template>-->
-                      <!--</el-table-column>-->
+                          <el-input
+                            :no="scope.row"
+                            v-show="false"
+                            v-model="scope.row.useridRb"
+                          >
+                          </el-input>
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.usernameRb"
+                          >
+                          </el-input>
+                        </template>
+                      </plx-table-column>
+                      <!--部门简称-->
+                      <plx-table-column
+                        prop="departshortRb"
+                        :label="$t('label.PFANS2036VIEW_BMJC')"
+                        width="120"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.departshortRb"
+                          >
+                          </el-input>
+                        </template>
+                      </plx-table-column>
+                      <!--RN-->
+                      <plx-table-column
+                        prop="ltrankRb"
+                        :label="$t('label.PFANS2036VIEW_RN')"
+                        width="90"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.ltrankRb"
+                          ></el-input>
+                        </template>
+                      </plx-table-column>
+                      <!--工资总额-->
+                      <plx-table-column
+                        prop="totalwagesRb"
+                        :label="$t('label.PFANS2036VIEW_GZZE')"
+                        width="155"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input-number
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            v-model="scope.row.totalwagesRb"
+                            :precision="2"
+                            controls-position="right" size="mini">
+                          </el-input-number>
+                        </template>
+                      </plx-table-column>
+                      <!--加班费-->
+                      <plx-table-column
+                        prop="overtimepayRb"
+                        :label="$t('label.PFANS2036VIEW_JBF')"
+                        width="155"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input-number
+                            :disabled="!disabled"
+                            :no="scope.row"
+                            v-model="scope.row.overtimepayRb"
+                            :precision="2"
+                            controls-position="right" size="mini">
+                          </el-input-number>
+                        </template>
+                      </plx-table-column>
 
-                      <!--<el-table-column :label="$t('label.PFANS2036VIEW_BASMONTHAPTOJU')"-->
-                                       <!--width="150">-->
-                        <!--&lt;!&ndash;养老保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="oldylbxjajRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_OLDYLBXJAJ')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.oldylbxjajRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;失业保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="lossybxjajRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_LOSSYBXJAJ')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.lossybxjajRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;工伤保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="gsbxjajRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_GSBXJAJ')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.gsbxjajRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;医疗保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="ylbxjajRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_YLBXJAJ')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.ylbxjajRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;生育保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="sybxjajRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_SYBXJAJ')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.sybxjajRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;公积金基数&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="gjjjsajRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_GJJJSAJ')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.gjjjsajRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
+                      <plx-table-column :label="$t('label.PFANS2036VIEW_BASMONTHAPTOJU')"
+                                       width="150">
+                        <!--养老保险基-->
+                        <plx-table-column
+                          prop="oldylbxjajRb"
+                          :label="$t('label.PFANS2036VIEW_OLDYLBXJAJ')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.oldylbxjajRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--失业保险基-->
+                        <plx-table-column
+                          prop="lossybxjajRb"
+                          :label="$t('label.PFANS2036VIEW_LOSSYBXJAJ')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.lossybxjajRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--工伤保险基-->
+                        <plx-table-column
+                          prop="gsbxjajRb"
+                          :label="$t('label.PFANS2036VIEW_GSBXJAJ')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.gsbxjajRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--医疗保险基-->
+                        <plx-table-column
+                          prop="ylbxjajRb"
+                          :label="$t('label.PFANS2036VIEW_YLBXJAJ')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.ylbxjajRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--生育保险基-->
+                        <plx-table-column
+                          prop="sybxjajRb"
+                          :label="$t('label.PFANS2036VIEW_SYBXJAJ')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.sybxjajRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--公积金基数-->
+                        <plx-table-column
+                          prop="gjjjsajRb"
+                          :label="$t('label.PFANS2036VIEW_GJJJSAJ')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.gjjjsajRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                      </plx-table-column>
 
-                      <!--<el-table-column :label="$t('label.PFANS2036VIEW_BASMONTHJUTOMA')"-->
-                                       <!--width="150">-->
-                        <!--&lt;!&ndash;养老保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="oldylbxjjmRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_OLDYLBXJJM')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.oldylbxjjmRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;失业保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="lossybxjjmRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_LOSSYBXJJM')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.lossybxjjmRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;工伤保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="gsbxjjmRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_GSBXJJM')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.gsbxjjmRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;医疗保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="ylbxjjmRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_YLBXJJM')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.ylbxjjmRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;生育保险基&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="sybxjjmRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_SYBXJJM')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.sybxjjmRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;公积金基数&ndash;&gt;-->
-                        <!--<el-table-column-->
-                          <!--prop="gjjjsjmRb"-->
-                          <!--:label="$t('label.PFANS2036VIEW_GJJJSJM')"-->
-                          <!--width="155"-->
-                          <!--align="center">-->
-                          <!--<template slot-scope="scope">-->
-                            <!--<el-input-number-->
-                              <!--:disabled="!disabled"-->
-                              <!--:no="scope.row"-->
-                              <!--v-model="scope.row.gjjjsjmRb"-->
-                              <!--:precision="2"-->
-                              <!--controls-position="right" size="mini">-->
-                            <!--</el-input-number>-->
-                          <!--</template>-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--<el-table-column :label="$t('label.PFANS2036VIEW_PERSONALCOST')"-->
-                                       <!--width="150">-->
-                        <!--&lt;!&ndash;四月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_SY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="aprilPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.aprilPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="aprilTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.aprilTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;五月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_WY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="mayPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.mayPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="mayTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.mayTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;六月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_LY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="junePlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.junePlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="juneTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.juneTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;七月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_QY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="julyPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.julyPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="julyTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.julyTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;八月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_BY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="augPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.augPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="augTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.augTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;九月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_JY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="sepPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.sepPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="sepTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.sepTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;十月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_TY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="octPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.octPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="octTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.octTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;十一月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_SYY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="novePlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.novePlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="noveTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.noveTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;十二月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_SEY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="decePlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.decePlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="deceTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.deceTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;一月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_YY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="janPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.janPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="janTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.janTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;二月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_EY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="febPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.febPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="febTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.febTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                        <!--&lt;!&ndash;三月&ndash;&gt;-->
-                        <!--<el-table-column :label="$t('label.PFANS2036VIEW_STY')"-->
-                                         <!--width="150">-->
-                          <!--<el-table-column-->
-                            <!--prop="marPlan"-->
-                            <!--:label="$t('label.PFANS2036VIEW_PLAN')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.marPlan"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                          <!--<el-table-column-->
-                            <!--prop="marTrue"-->
-                            <!--:label="$t('label.PFANS2036VIEW_TRUE')"-->
-                            <!--width="155"-->
-                            <!--align="center">-->
-                            <!--<template slot-scope="scope">-->
-                              <!--<el-input-number-->
-                                <!--:disabled="!disabled"-->
-                                <!--:no="scope.row"-->
-                                <!--v-model="scope.row.marTrue"-->
-                                <!--:precision="2"-->
-                                <!--controls-position="right" size="mini">-->
-                              <!--</el-input-number>-->
-                            <!--</template>-->
-                          <!--</el-table-column>-->
-                        <!--</el-table-column>-->
-                      <!--</el-table-column>-->
-                      <!--&lt;!&ndash;操作&ndash;&gt;-->
-                      <!--<el-table-column :label="$t('label.operation')" align="center" width="200">-->
-                        <!--<template slot-scope="scope">-->
-                          <!--<el-button-->
-                            <!--:disabled="!disabled"-->
-                            <!--@click.native.prevent="deleteRowRb(scope.$index, tableRb)"-->
-                            <!--plain-->
-                            <!--size="small"-->
-                            <!--type="danger"-->
-                          <!--&gt;{{$t('button.delete')}}-->
-                          <!--</el-button>-->
-                          <!--<el-button-->
-                            <!--:disabled="!disabled"-->
-                            <!--@click="addRowRb()"-->
-                            <!--plain-->
-                            <!--size="small"-->
-                            <!--type="primary"-->
-                          <!--&gt;{{$t('button.insert')}}-->
-                          <!--</el-button>-->
-                        <!--</template>-->
-                      <!--</el-table-column>-->
-                    <!--</el-table>-->
-                  <!--</el-tab-pane>-->
+                      <plx-table-column :label="$t('label.PFANS2036VIEW_BASMONTHJUTOMA')"
+                                       width="150">
+                        <!--养老保险基-->
+                        <plx-table-column
+                          prop="oldylbxjjmRb"
+                          :label="$t('label.PFANS2036VIEW_OLDYLBXJJM')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.oldylbxjjmRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--失业保险基-->
+                        <plx-table-column
+                          prop="lossybxjjmRb"
+                          :label="$t('label.PFANS2036VIEW_LOSSYBXJJM')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.lossybxjjmRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--工伤保险基-->
+                        <plx-table-column
+                          prop="gsbxjjmRb"
+                          :label="$t('label.PFANS2036VIEW_GSBXJJM')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.gsbxjjmRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--医疗保险基-->
+                        <plx-table-column
+                          prop="ylbxjjmRb"
+                          :label="$t('label.PFANS2036VIEW_YLBXJJM')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.ylbxjjmRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--生育保险基-->
+                        <plx-table-column
+                          prop="sybxjjmRb"
+                          :label="$t('label.PFANS2036VIEW_SYBXJJM')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.sybxjjmRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                        <!--公积金基数-->
+                        <plx-table-column
+                          prop="gjjjsjmRb"
+                          :label="$t('label.PFANS2036VIEW_GJJJSJM')"
+                          width="155"
+                          align="center">
+                          <template slot-scope="scope">
+                            <el-input-number
+                              :disabled="!disabled"
+                              :no="scope.row"
+                              v-model="scope.row.gjjjsjmRb"
+                              :precision="2"
+                              controls-position="right" size="mini">
+                            </el-input-number>
+                          </template>
+                        </plx-table-column>
+                      </plx-table-column>
+                      <plx-table-column :label="$t('label.PFANS2036VIEW_PERSONALCOST')"
+                                       width="150">
+                        <!--四月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_SY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="aprilPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.aprilPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="aprilTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.aprilTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--五月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_WY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="mayPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.mayPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="mayTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.mayTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--六月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_LY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="junePlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.junePlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="juneTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.juneTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--七月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_QY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="julyPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.julyPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="julyTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.julyTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--八月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_BY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="augPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.augPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="augTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.augTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--九月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_JY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="sepPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.sepPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="sepTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.sepTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--十月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_TY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="octPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.octPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="octTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.octTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--十一月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_SYY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="novePlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.novePlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="noveTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.noveTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--十二月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_SEY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="decePlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.decePlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="deceTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.deceTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--一月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_YY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="janPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.janPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="janTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.janTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--二月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_EY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="febPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.febPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="febTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.febTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                        <!--三月-->
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_STY')"
+                                         width="150">
+                          <plx-table-column
+                            prop="marPlan"
+                            :label="$t('label.PFANS2036VIEW_PLAN')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.marPlan"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                          <plx-table-column
+                            prop="marTrue"
+                            :label="$t('label.PFANS2036VIEW_TRUE')"
+                            width="155"
+                            align="center">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disabled"
+                                :no="scope.row"
+                                v-model="scope.row.marTrue"
+                                :precision="2"
+                                controls-position="right" size="mini">
+                              </el-input-number>
+                            </template>
+                          </plx-table-column>
+                        </plx-table-column>
+                      </plx-table-column>
+                      <!--操作-->
+                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                        <template slot-scope="scope">
+                          <el-button
+                            :disabled="!disabled"
+                            @click.native.prevent="deleteRowRb(scope.$index, tableRb)"
+                            plain
+                            size="small"
+                            type="danger"
+                          >{{$t('button.delete')}}
+                          </el-button>
+                          <el-button
+                            :disabled="!disabled"
+                            @click="addRowRb()"
+                            plain
+                            size="small"
+                            type="primary"
+                          >{{$t('button.insert')}}
+                          </el-button>
+                        </template>
+                      </el-table-column>
+                    </plx-table-grid>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination :current-page.sync="listQuery.pageRb" :page-size="listQuery.limitRb"
+                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeRb"
+                                     @size-change="handleSizeChangeRb" layout="slot,sizes, ->,prev, pager, next, jumper">
+                        <slot><span class="front Content_front"
+                                    style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                      </el-pagination>
+                    </div>
+                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end-->
+                  </el-tab-pane>
                 </el-tabs>
-              </div>
-            </div>
           </el-form-item>
         </el-form>
       </div>
@@ -2237,6 +2273,8 @@
           limitBm: 10,
           pageGs: 1,
           limitGs: 10,
+          pageRb: 1,
+          limitRb: 10,
         },
         total: 0,
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
@@ -2266,6 +2304,7 @@
         tableDataCopy:[],
         tableGsCopy:[],
         tableBmCopy:[],
+        tableRbCopy:[],
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
         ranksList: {},
         multiple: false,
@@ -2390,6 +2429,15 @@
         this.listQuery.pageBm = val;
         this.cutList()
       },
+
+      handleSizeChangeRb(val){
+        this.listQuery.limitRb = val;
+        this.cutList()
+      },
+      handleCurrentChangeRb(val) {
+        this.listQuery.pageRb = val;
+        this.cutList()
+      },
       cutList() {
         this.loading = true;
         if (this.activeName === 'show_first' && this.tableData) {
@@ -2412,6 +2460,13 @@
           let pList = this.tableGsCopy.slice(start, end);
           this.tableGs = pList;
           this.total = this.tableGsCopy.length
+        }
+        else if (this.activeName === 'show_fourth' && this.tableRb) {
+          let start = (this.listQuery.pageRb - 1) * this.listQuery.limitRb;
+          let end = this.listQuery.pageRb * this.listQuery.limitRb;
+          let pList = this.tableRbCopy.slice(start, end);
+          this.tableRb = pList;
+          this.total = this.tableRbCopy.length
         }
         this.loading = false
       },
@@ -2513,62 +2568,6 @@
         }
         this.loading = false;
       },
-      hanldeScroll(e) {
-        // 获取eagleMapContainer的真实高度
-        const boxHeight = document.getElementById('eagleMapContainer').offsetHeight
-        // 获取table_list的真实高度（浮动内容的真实高度）
-        const tableHeight = document.getElementById('table_list').offsetHeight
-        // boxHeight和滑块浮动的高度相差小于50 && 不在加载中 && 不是最后一页
-        alert(this.tableList.length)
-        if (tableHeight - (e.target.scrollTop + boxHeight) < 50 && !this.loading && this.listPage < (this.tableList.length / 300)) {
-          // 第一次触发时，记录滑块高度
-          // data里scrollTop，listPage默认为0
-          if (!this.scrollTop) {
-            this.scrollTop = e.target.scrollTop
-          }
-          // 触发下拉加载更多
-          this.queryMoreStat(true, tableHeight, boxHeight)
-        } else if (e.target.scrollTop === 0 && !this.loading) {
-          // 如果滑块上拉到顶部，则向上加载300条
-          this.queryMoreStat(false, tableHeight, boxHeight)
-        }
-      },
-      queryMoreStat(type, tableHeight, boxHeight) {
-        this.loading = true
-        // 触底加载
-        if (type) {
-          this.listPage = this.listPage + 1
-          const centerPage = this.listPage * 300
-          const startPage = centerPage >= 300 ? centerPage - 300 : centerPage
-          const endPage = centerPage + 600
-          const newList = this.tableList.slice(startPage, endPage)
-          if (this.listPage > 0) {
-            const box = document.getElementById('eagleMapContainer')
-            // 视图跳到触发的数据，补回50的高度差值
-            box.scrollTop = this.scrollTop + 50
-          }
-          this.list = newList
-        } else {
-          // 置顶加载
-          if (this.listPage > 0) {
-            this.listPage = this.listPage - 1
-            const centerPage = this.listPage * 300
-            const startPage = centerPage >= 300 ? centerPage - 300 : centerPage
-            const endPage = centerPage + 600
-            const newList = this.tableList.slice(startPage, endPage)
-            if (this.listPage > 0) {
-              const box = document.getElementById('eagleMapContainer')
-              box.scrollTop = tableHeight - this.scrollTop - boxHeight
-            }
-            this.list = newList
-          } else {
-            this.list = this.tableList.slice(0, 300)
-          }
-        }
-        this.$nextTick(() => {
-          this.loading = false
-        })
-      },
       // 合并合计第一行
       arraySpanMethod({ row, column, rowIndex, columnIndex }) {
         if (rowIndex === 0) {
@@ -2654,7 +2653,15 @@
         this.$store
           .dispatch("PFANS2036Store/gettableRb", {yearsantid: this.$route.params._id})
           .then(response => {
+            for(let i = 0; i < response.length;i ++){
+              let ltrankinfo = getDictionaryInfo(response[i].ltrankRb);
+              if (ltrankinfo != null) {
+                response[i].ltrankRb = ltrankinfo.value1;
+              }
+            }
             this.tableRb = response;
+            this.tableRbCopy = response;
+            this.cutList();
             this.loading = false;
           })
           .catch(err => {
@@ -2832,6 +2839,7 @@
         } else {
           this.tableRb = [{
             useridRb: '',
+            usernameRb: '',
             departshortRb: '',
             ltrankRb: '',
             totalwagesRb: '',
@@ -2878,6 +2886,7 @@
       addRowRb() {
         this.tableRb.push({
           useridRb: '',
+          usernameRb: '',
           departshortRb: '',
           ltrankRb: '',
           totalwagesRb: '',
@@ -2920,15 +2929,15 @@
           marTrue: '',
         });
       },
-      getCitationUserid(userlist, row) {
-        row.useridRb = userlist;
-        if (row.useridRb != null && row.useridRb !== '') {
-          let lst = getUserInfo(row.useridRb);
-          row.ltrankRb = lst.userinfo.rank;
-          let orglst = getOrgInfo(lst.userinfo.groupid)
-          row.departshortRb = orglst.companyen;
-        }
-      },
+      // getCitationUserid(userlist, row) {
+      //   row.useridRb = userlist;
+      //   if (row.useridRb != null && row.useridRb !== '') {
+      //     let lst = getUserInfo(row.useridRb);
+      //     row.ltrankRb = lst.userinfo.rank;
+      //     let orglst = getOrgInfo(lst.userinfo.groupid)
+      //     row.departshortRb = orglst.companyen;
+      //   }
+      // },
       changeRank(val, row) {
         row.changerank = val;
         if(val === 'PR069002'){
@@ -2994,29 +3003,4 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
-  #eagleMapContainer {
-    overflow-y: auto;
-    margin-top: 10px;
-    min-height: 150px;
-    max-height: 600px;
-  }
-
-  #eagleMapContainer::-webkit-scrollbar {
-    width: 6px; /*对垂直流动条有效*/
-    height: 6px;
-  }
-
-  #eagleMapContainer::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-
-  #eagleMapContainer::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.2);
-  }
-
-  /*定义右下角汇合处的样式*/
-  #eagleMapContainer::-webkit-scrollbar-corner {
-    background: rgba(0, 0, 0, 0.2);
-  }
 </style>
