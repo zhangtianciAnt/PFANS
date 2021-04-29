@@ -865,8 +865,12 @@
               this.change('PR001002');
           }
           //ADD_FJL_06/30 -- 添加周末加班的check end
+        let resultLista = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
         if (moment(letreserveovertimedate).format('MM-DD') === '05-04') {
-          this.change('PR001007');
+          //工作日设定中【五四青年节】当天五其他类型假期判断
+          if(resultLista.length === 0){
+            this.change('PR001007');
+          }
           // DEL_FJL_05/13   --暂时注释掉无用代码
           // if (
           //     this.form.reserveovertimedate.getDay() === 0 ||
