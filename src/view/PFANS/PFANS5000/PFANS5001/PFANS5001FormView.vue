@@ -1226,7 +1226,7 @@
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
+  import {downLoadUrl,getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS5001FormView',
