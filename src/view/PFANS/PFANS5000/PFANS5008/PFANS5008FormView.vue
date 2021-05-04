@@ -1413,6 +1413,14 @@
                             } else {
                               this.companyform.has_project = '01';
                             }
+                            //insert gbb 20210514 日志数据区分本社和外协 start
+                            if(this.$store.getters.userinfo.userid){
+                              this.companyform.tenantid = "0";//本社
+                            }
+                            else{
+                              this.companyform.tenantid = "1";//外协
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 end
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
@@ -1641,6 +1649,14 @@
                             } else {
                               this.companyform.has_project = '01';
                             }
+                            //insert gbb 20210514 日志数据区分本社和外协 start
+                            if(this.$store.getters.userinfo.userid){
+                              this.companyform.tenantid = "0";//本社
+                            }
+                            else{
+                              this.companyform.tenantid = "1";//外协
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 end
                             this.loading = true;
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
