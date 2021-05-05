@@ -1081,34 +1081,42 @@
         }
       },
       workflowState(val) {
-        if (this.form.checkedcenter == true) {
-          let a = this.getCurrentRole2();
-          if (a == 5) {
-            if (this.tableData[5].checked == true) {
-              this.tableData[8].checked = true;
-              this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
-              this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+        //发起或者进行中时执行
+        if(val.state != '1'){
+          if (this.form.checkedcenter == true) {
+            let a = this.getCurrentRole2();
+            if (a == 5) {
+              if (this.tableData[5].checked == true) {
+                this.tableData[8].checked = true;
+                this.tableData[8].condate = moment(new Date()).format('YYYY-MM-DD');
+                this.tableData[8].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+              } else {
+                this.tableData[5].checked = true;
+                this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
+                this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+              }
             } else {
-              this.tableData[5].checked = true;
-              this.tableData[5].condate = moment(new Date()).format('YYYY-MM-DD');
-              this.tableData[5].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+              if(a != undefined){
+                this.tableData[a].checked = true;
+                this.tableData[a].condate = moment(new Date()).format('YYYY-MM-DD');
+                this.tableData[a].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+              }
             }
           } else {
-            this.tableData[a].checked = true;
-            this.tableData[a].condate = moment(new Date()).format('YYYY-MM-DD');
-            this.tableData[a].person = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-          }
-        } else {
-          let b = this.getCurrentRole3();
-          if (b == 1) {
-            this.form.checkedgm = true;
-          } else if (b == 2) {
-            this.form.checkedgm = true;
-            this.form.checkedcenter = true;
+            let b = this.getCurrentRole3();
+            if (b == 1) {
+              this.form.checkedgm = true;
+            } else if (b == 2) {
+              this.form.checkedgm = true;
+              this.form.checkedcenter = true;
+            }
           }
         }
         if (val.state === '1') {
           this.form.status = '3';
+          //驳回是取消【GM审批通过】和【CENTER审批通过】
+          this.form.checkedgm = null;
+          this.form.checkedcenter = null;
         } else if (val.state === '2') {
           this.form.status = '4';
         }
