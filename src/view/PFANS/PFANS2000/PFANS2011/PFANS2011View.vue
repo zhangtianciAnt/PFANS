@@ -212,6 +212,7 @@
         }
         //add-ws-9/4-加班申请可删除任务
         this.rowid = row.overtimeid;
+        this.$store.commit('global/SET_OPERATEOWNER', row.userid);
       },
       //add-ws-9/4-加班申请可删除任务
       getovertime() {
