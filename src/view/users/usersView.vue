@@ -847,12 +847,14 @@ export default {
                 if(list[h].gridData !== '' && list[h].gridData !== null && list[h].gridData !== undefined && list[h].gridData.length > 0 ){
                     for (let d = 0; d < list[h].gridData.length; d++) {
                         // add_fjl_05/25  -- 添加工资履历的长度赋值
-                        if (list[h].gridData.length >= 2) {
-                            list[h].after = list[h].gridData[1].basic;
-                            list[h].before = list[h].gridData[1].duty;
+                        if (list[h].gridData.length >= 1) {
+                            list[h].after = list[h].gridData[0].basic;
+                            list[h].before = list[h].gridData[0].duty;
+                            list[h].date = list[h].gridData[0].date;
                         } else {
                             list[h].after = '';
                             list[h].before = '';
+                            list[h].date = '';
                         }
                         // add_fjl_05/25  -- 添加工资履历的长度赋值
                         //del_fjl_0922
