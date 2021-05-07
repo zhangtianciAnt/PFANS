@@ -29,15 +29,43 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <div style="padding-bottom: 0.5%;padding-left: 73%">
-            <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{this.form.year +' '+ this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')}}</span>
-            <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{(this.org.redirict === '0' ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('label.PFANS1036FORMVIEW_JJDEPARTMENT'))||''}}</span>
-            <el-divider direction="vertical"></el-divider>
-            <span style="color:#f47f31">{{(this.org.companyen)||''}}</span>
-            <el-divider direction="vertical"></el-divider>
-          </div>
+          <el-row style="padding-top: 2%;padding-bottom: 1%">
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')">
+                <div class="block">
+                  <el-date-picker
+                    v-model="form.year"
+                    type="year"
+                    :disabled="true"
+                    format="yyyy"
+                    :placeholder="$t('normal.error_09')">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="centerid">
+                <el-select v-model="form.centerid" style="width: 20vw" :disabled="disabledC"
+                           @change="groupChange">
+                  <el-option
+                    v-for="item in grp_options"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+<!--          <div style="padding-bottom: 0.5%;padding-left: 73%">-->
+<!--            <el-divider direction="vertical"></el-divider>-->
+<!--            <span style="color:#f47f31">{{this.form.year +' '+ this.$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')}}</span>-->
+<!--            <el-divider direction="vertical"></el-divider>-->
+<!--            <span style="color:#f47f31">{{(this.org.redirict === '0' ? this.$t('label.PFANS1036FORMVIEW_ZJJJDEPARTMENT') : this.$t('label.PFANS1036FORMVIEW_JJDEPARTMENT'))||''}}</span>-->
+<!--            <el-divider direction="vertical"></el-divider>-->
+<!--            <span style="color:#f47f31">{{(this.org.companyen)||''}}</span>-->
+<!--            <el-divider direction="vertical"></el-divider>-->
+<!--          </div>-->
           <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_PERSONNELPLAN')" style="margin-top: 2%" name="first">
               <div>
@@ -2189,7 +2217,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import user from '../../../components/user.vue';
   import {Message} from 'element-ui';
-  import {getOrgInfoByUserId, getDictionaryInfo, getOrgInfo, getCurrentRole14} from '@/utils/customize';
+  import {getOrgInfoByUserId, getDictionaryInfo, getOrgInfo, getCurrentRole14,getCurrentRoleNew} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import AssetsComponent from './AssetsComponent';
   import TrustComponent from './TrustComponent';
@@ -2219,6 +2247,8 @@
         }
       };
       return {
+        grp_options: [],
+        disabledC:false,
         workflowCode: 'W0010',
         role: '',
         org: [],
@@ -2337,7 +2367,7 @@
         ],
         baseInfo: {},
         form: {
-          center_id: '',
+          centerid: '',
           group_id: '',
           user_id: '',
           year: '',
@@ -2375,7 +2405,8 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
-            let group = getOrgInfo(this.form.center_id);
+            this.disabledC = true;
+            let group = getOrgInfo(this.form.centerid);
             if (group) {
               this.org.redirict = group.redirict;
               this.org.companyen = group.companyen;
@@ -2417,42 +2448,39 @@
       } else {
         this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        this.form.center_id = rst.centerId || '';
-        this.form.group_id = rst.groupId || '';
-
+        // this.form.center_id = rst.centerId || '';
+        // this.form.group_id = rst.groupId || '';
+        this.getorglistname();
+        this.disabledC = false;
         this.form.user_id = this.$store.getters.userinfo.userid;
         let parameter = {
           year: this.form.year,
+          groupid: this.form.centerid
         };
         this.loading = true;
         this.$store
           .dispatch('PFANS1036Store/getgroupcompanyen', parameter)
           .then(response => {
-
             if (response) {
-              this.orgtree = response;
-              if (this.orgtree) {
-                this.checkList = this.orgtree;
-                for (let i = 0; i < this.checkList.length; i++) {
-                  if (this.checkList[i].id === this.form.center_id) {
-                    this.org = this.checkList[i];
-                    this.form.encoding = this.org.encoding;
-                  }
+              this.org = response;
+              if (this.org) {
+                for (let i = 0; i < this.org.length; i++) {
+                    this.form.encoding = this.org[i].encoding;
                 }
               }
-              if (this.orgtree[0].type === '1') {
-                let data1 = JSON.parse(this.orgtree[0].equipment_lodyear);
-                let data2 = JSON.parse(this.orgtree[0].assets_lodyear);
-                let data3 = data1.filter(item => (item.companyen == this.org.companyen));
-                let data4 = data2.filter(item => (item.companyen == this.org.companyen));
-                this.equipment_lodyear = data3;
-                this.assets_lodyear = data4;
-              } else {
-                if (this.orgtree.length > 0) {
-                  for (let i = 0; i < this.orgtree.length; i++) {
+              // if (this.org[0].type === '1') {
+              //   let data1 = JSON.parse(this.org[0].equipment_lodyear);
+              //   let data2 = JSON.parse(this.org[0].assets_lodyear);
+              //   let data3 = data1.filter(item => (item.companyen == this.org.companyen));
+              //   let data4 = data2.filter(item => (item.companyen == this.org.companyen));
+              //   this.equipment_lodyear = data3;
+              //   this.assets_lodyear = data4;
+              // } else {
+              if (this.org.length > 0) {
+                  for (let i = 0; i < this.org.length; i++) {
                     this.equipment_lodyear.push({
-                      encoding: this.orgtree[i].encoding,
-                      companyen: this.orgtree[i].companyen,
+                      encoding: this.org[i].encoding,
+                      companyen: this.org[i].companyen,
                       money4: 0,
                       money5: 0,
                       money6: 0,
@@ -2467,8 +2495,8 @@
                       money3: 0,
                     });
                     this.assets_lodyear.push({
-                      encoding: this.orgtree[i].encoding,
-                      companyen: this.orgtree[i].companyen,
+                      encoding: this.org[i].encoding,
+                      companyen: this.org[i].companyen,
                       money4: 0,
                       money5: 0,
                       money6: 0,
@@ -2484,7 +2512,7 @@
                     });
                   }
                 }
-              }
+              // }
             }
             this.loading = false;
           })
@@ -2498,14 +2526,14 @@
           });
 
         this.loading = true;
-        if (this.form.center_id) {
-          this.getgroupA1(this.form.center_id);
+        if (this.form.centerid) {
+          this.getgroupA1(this.form.centerid);
         }
         this.getgroupA2();
         this.getgroupB1();
         this.getgroupB2();
         this.getgroupB3();
-        if (this.form.center_id) {
+        if (this.form.centerid) {
           this.getPersonTable(rst.centerId, this.form.year);
         }
 
@@ -2559,6 +2587,158 @@
       }
     },
     methods: {
+      groupChange(val) {
+        this.form.centerid = val;
+        this.getPersonTable(this.form.centerid, this.form.year);
+      },
+      getorglistname()
+      {
+        let role = getCurrentRoleNew();
+        const vote = [];
+
+        if (role === '3') {//CENTER
+          vote.push(
+            {
+              value: this.$store.getters.userinfo.userinfo.centerid,
+              lable: this.$store.getters.userinfo.userinfo.centername,
+            },
+          );
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid)
+              {
+                this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.centerid === others.centerid) {
+                    vote.push(
+                      {
+                        value: item.centerid,
+                        lable: item.centername,
+                      },
+                    );
+                  }
+                })
+              }
+            }
+          }
+          //add ccm 0112 兼职部门
+        } else if (role === '2') {//副总经理
+          this.$store.getters.orgGroupList.filter((item) => {
+            if (item.virtualuser === this.$store.getters.userinfo.userid) {
+              vote.push(
+                {
+                  value: item.centerid,
+                  lable: item.centername,
+                },
+              );
+            }
+          })
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid)
+              {
+                this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.centerid === others.centerid) {
+                    vote.push(
+                      {
+                        value: item.centerid,
+                        lable: item.centername,
+                      },
+                    );
+                  }
+                })
+              }
+            }
+          }
+          //add ccm 0112 兼职部门
+        }
+        else if (role === '4') //GM
+        {
+          let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+          if (centers)
+          {
+            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+            {
+              vote.push(
+                {
+                  value: this.$store.getters.userinfo.userinfo.groupid,
+                  lable: this.$store.getters.userinfo.userinfo.groupname,
+                },
+              );
+            }
+          }
+        }
+        const vote1 = [];
+        if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+          || this.$store.getters.roles.indexOf("11") != -1 //总经理
+          || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+        {
+          this.$store.getters.orgGroupList.filter((item) => {
+            vote1.push(
+              {
+                value: item.centerid,
+                lable: item.centername,
+              },
+            );
+          })
+          this.grp_options = vote1;
+        }
+        else
+        {
+          this.grp_options = vote;
+        }
+        //去重
+        let letoptionsdata = [];
+        let arrId = [];
+        for(var item of this.grp_options){
+          if(arrId.indexOf(item['lable']) == -1){
+            arrId.push(item['lable']);
+            letoptionsdata.push(item);
+          }
+        }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of letoptionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0){
+          for(let item of incfmyList){
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for(let item of incfmyList){
+            if(item){
+              if(getOrgInfo(item).orgs.length != 0){
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for(let item of groInfo){
+            letoptionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
+        this.grp_options = letoptionsdata;
+        if (!this.form.centerid && this.grp_options.length > 0)
+        {
+          this.form.centerid = this.grp_options[0].value;
+        }
+
+        //UPD CCM 20210422
+      },
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';
