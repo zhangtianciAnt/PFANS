@@ -860,7 +860,7 @@
           plantype: [
             {
               required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_PLANTYPE'),
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1036FORMVIEW_PLANTYPE'),
               trigger: 'change',
             },
           ],
