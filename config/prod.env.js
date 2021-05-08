@@ -9,8 +9,8 @@ module.exports = merge(prodEnv, {
 //10.194.144.208  正式
   NODE_ENV: '"production"',
   //正式环境
-  BASE_API: '"http://10.194.144.208:5556/"',
-  WS_API: '"ws://10.194.144.208:5556/"',
+  BASE_API: '"http://10.194.144.208:5555/"',
+  WS_API: '"ws://10.194.144.208:5555/"',
   UPLOAD_URL:'"http://10.194.144.212:80/kodexplorer/?explorer/fileUpload&accessToken={1}&upload_to=/opt/lampp/htdocs/kodexplorer/data/User/admin/home/document/"',
   DOWN_URL:'"http://10.194.144.212:80/kodexplorer/?explorer/fileDownload&accessToken={1}"'
 

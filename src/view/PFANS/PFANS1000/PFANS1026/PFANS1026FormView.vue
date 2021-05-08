@@ -3162,7 +3162,7 @@
             rowindex: '',
           },
         ];
-        this.form.tableclaimtype = [];
+        //this.form.tableclaimtype = [];
         // if (this.form.claimtype === 'HT001001') {
         //   this.addRowclaimtype();
         //   this.form.tableclaimtype[0].claimtype = letclaimtypeone;
@@ -3229,7 +3229,24 @@
         //   this.optionscompound.push(option3);
         //   this.optionscompound.push(option4);
         // }
-        for (let i = 0; i < this.form.claimtype; i++) {
+        //add gbb 20210508 合同觉书的情况带入旧合同回数 start
+        if (this.checked) {
+          for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+            let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+            this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+            this.form.tableclaimtype[i].contractnumbercount_id = '';
+            this.form.tableclaimtype[i].contractnumber = this.letcontractnumber;
+            this.form.tableclaimtype[i].book = false;
+            let option = [];
+            option.code = letclaimtypeone;
+            option.value = letclaimtypeone;
+            this.optionscompound.push(option);
+          }
+        }
+        else{
+          this.form.tableclaimtype = [];
+        }
+        for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
           let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype1(this.form.tableclaimtype);
           this.form.tableclaimtype[i].claimtype = letclaimtypeone;
@@ -3238,7 +3255,7 @@
           option.value = letclaimtypeone;
           this.optionscompound.push(option);
         }
-
+        //add gbb 20210508 合同觉书的情况带入旧合同回数 end
         //请求金额
         this.claimamount1 = '';
         this.claimamount2 = '';

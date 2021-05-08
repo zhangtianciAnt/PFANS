@@ -964,6 +964,7 @@
         }
       };
       return {
+        tableclaimtypeold:[],
         //add-ws-01/06-禅道任务710
         search1: '',
         //add-ws-01/06-禅道任务710
@@ -1408,6 +1409,7 @@
             }
             if (contractnumbercount.length > 0) {
               this.form.tableclaimtype = contractnumbercount;
+              this.tableclaimtypeold = contractnumbercount;
             }
             this.loading = false;
           })
@@ -1424,7 +1426,9 @@
       }
       //333
       let userid = this.$store.getters.userinfo.userid;
-      this.buttonList[3].disabled = true;
+      if(this.buttonList.length >= 3){
+        this.buttonList[3].disabled = true;
+      }
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
@@ -2298,7 +2302,6 @@
           }
         }
         this.addRowdata(isClone);
-        this.form.tableclaimtype = [];
 
         // if (this.form.claimtype === 'HT001001') {
         //   this.addRowclaimtype();
@@ -2326,15 +2329,33 @@
         //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
         //   this.form.tableclaimtype[3].claimtype = letclaimtypefour;
         // }
-
-        for (let i = 0; i < this.form.claimtype; i++) {
-          let letclaimtypeone = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+        //add gbb 20210508 合同觉书的情况带入旧合同回数 start
+        let tableclaimtypenew = [];
+        if (this.checked) {
+          for (let i = 0; i < this.tableclaimtypeold.length; i++) {
+            if(i < this.form.claimtype){
+              let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+              this.tableclaimtypeold[i].claimtype = letclaimtypeone;
+              this.tableclaimtypeold[i].contractnumbercount_id = '';
+              this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
+              tableclaimtypenew.push(this.tableclaimtypeold[i]);
+            }
+          }
+          this.form.tableclaimtype = tableclaimtypenew;
+        }
+        else{
+          this.form.tableclaimtype = [];
+          this.tableclaimtypeold = [];
+        }
+        for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
+          let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype();
           this.form.tableclaimtype[i].claimtype = letclaimtypeone;
           if (this.$route.params.bpcostcount) {
             this.form.tableclaimtype[0].claimamount = this.$route.params.bpcostcount;
           }
         }
+        //add gbb 20210508 合同觉书的情况带入旧合同回数 end
         if (this.form.contracttype === 'HT014001') {
           this.titleType = this.titleType1;
         } else if (this.form.contracttype === 'HT014002') {
