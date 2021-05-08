@@ -866,9 +866,9 @@ export default {
                 }
                 //add_fjl_0922
                 //給料変更日
-                if (list[h].date !== '' && list[h].date !== null && list[h].date !== undefined) {
-                    list[h].date = moment(list[h].date).format('YYYY-MM-DD');
-                }
+                // if (list[h].date !== '' && list[h].date !== null && list[h].date !== undefined) {
+                //     list[h].date = moment(list[h].date).format('YYYY-MM-DD');
+                // }
                 //add_fjl_0922
                 //去年年休数(残)
                 for (let t = 0; t < this._tableList.length; t++) {
