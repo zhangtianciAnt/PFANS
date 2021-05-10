@@ -1566,6 +1566,7 @@
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.getCompanyProjectList();
       this.checkOption();
+      // this.IDname = this.$route.params._id;
       if (this.params_id) {
         this.loading = true;
         this.$store
