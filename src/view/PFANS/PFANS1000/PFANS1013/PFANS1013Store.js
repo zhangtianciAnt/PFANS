@@ -1,4 +1,4 @@
-import {exportjs, create, get, selectById, gettravelcostvo, update, getdate, getLoanApplication} from './PFANS1013Api'
+import {exportjs, create, get, selectByIdone2, selectById, gettravelcostvo, update, getdate, getLoanApplication} from './PFANS1013Api'
 
 const PFANS1013Store = {
   namespaced: true,
@@ -102,6 +102,19 @@ const PFANS1013Store = {
     getLoanApplication({commit}, data) {
       return new Promise((resolve, reject) => {
         getLoanApplication(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectByIdone2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectByIdone2(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
