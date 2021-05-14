@@ -1,5 +1,4 @@
 import request from '../../../../utils/request'
-// import requestnew from '../../../../utils/requestnew'
 import requestDownload from "../../../../utils/requestDownload";
 
 

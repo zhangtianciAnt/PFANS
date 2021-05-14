@@ -222,7 +222,7 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem"
                                 v-show="show6">
-                    <el-input :disabled="!disabled" style="width: 70vw;" type="textarea"
+                    <el-input :disabled="!disabled" style="width: 58vw;" type="textarea"
                               v-model="form.reasonsforquotation"></el-input>
                   </el-form-item>
                 </el-col>
@@ -340,7 +340,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.remarks')">
-                    <el-input :disabled="!disable" type="textarea" style="width:72vw" v-model="form.remarks"></el-input>
+                    <el-input :disabled="!disable" type="textarea" style="width:58vw" v-model="form.remarks"></el-input>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -369,7 +369,7 @@
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_EQUIPMENTURL')">
-                    <el-input :disabled="!disable" style="width:72vw" type='textarea'
+                    <el-input :disabled="!disable" style="width: 58vw" type='textarea'
                               v-model="form.equipmenturl"></el-input>
                   </el-form-item>
                 </el-col>
@@ -584,7 +584,7 @@
               <el-row>
                 <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS3005VIEW_YUSUANBUZUFORQUOTATION')" label-width="6rem">
-                    <el-input :disabled="acceptShow1" style="width: 70vw;" type="textarea"
+                    <el-input :disabled="acceptShow1" style="width: 58vw;" type="textarea"
                               v-model="form.yusuanbuzu"></el-input>
                   </el-form-item>
                 </el-col>
