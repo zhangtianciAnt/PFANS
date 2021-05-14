@@ -843,25 +843,6 @@
       },
       changeReserveovertimedate() {
           this.form.overtimetype = '';
-        if(this.varworktime.length > 0) {
-            for (let j = 0; j < this.varworktime.length; j++) {
-                if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.varworktime[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === this.varworktime[j].user_id) {
-                    let timeend = moment(this.varworktime[j].time_end).format('HH:mm').replace(':', '.');
-                    // let worktime = Number(this.varworktime[j].worktime);
-                    let timeflg1 = timeend.substring(0, 2);
-                    let timeflg2 = timeend.substring(timeend.length - 2);
-                    let timeflg3 = timeflg2 / 60;
-                    // if ((Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2) > 0) {
-                    //     this.form.worktime = (Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2);
-                    if ((Number(timeflg1) + Number(timeflg3) - 18).toFixed(2) > 0) {
-                        this.form.worktime = (Number(timeflg1) + Number(timeflg3) - 18).toFixed(2);
-                    } else {
-                        this.form.worktime = 0.00;
-                    }
-                    break;
-                }
-            }
-        }
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
           'YYYY-MM-DD',
         );
