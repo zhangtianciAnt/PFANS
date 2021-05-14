@@ -1,4 +1,4 @@
-import {exportjs, create, get, selectById, gettravelcostvo, update, getdate, getLoanApplication} from './PFANS1013Api'
+import {exportjs, create, get, selectById, gettravelcostvo, update, getdate, getLoanApplication,selectByIdone2} from './PFANS1013Api'
 
 const PFANS1013Store = {
   namespaced: true,
