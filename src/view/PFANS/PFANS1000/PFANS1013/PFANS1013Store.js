@@ -111,6 +111,19 @@ const PFANS1013Store = {
           reject(error);
         })
       })
+    },
+    selectByIdone2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectByIdone2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
     }
 
   }
