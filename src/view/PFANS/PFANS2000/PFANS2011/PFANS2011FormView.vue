@@ -498,7 +498,7 @@
       this.getDateList();
       this.getOvertimeDay();
       this.getOvertimeMen();
-      this.getWorktime();
+      //this.getWorktime();//重复接口删除【getDateList】
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -777,6 +777,10 @@
         this.$store
           .dispatch('PFANS2011Store/getDataList', {})
           .then(response => {
+            //整合getWorktime方法
+            if(response.length > 0){
+              this.varworktime = response;
+            }
             for (let i = 0; i < response.length; i++) {
               if (this.$store.getters.userinfo.userid === response[i].user_id && moment(this.form.applicationdate).format('YYYY-MM-DD') === moment(response[i].punchcardrecord_date).format('YYYY-MM-DD')) {
                 this.timeend = response[i].time_end;
@@ -854,6 +858,7 @@
                     } else {
                         this.form.worktime = 0.00;
                     }
+                    break;
                 }
             }
         }
