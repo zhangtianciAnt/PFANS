@@ -856,7 +856,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disabled"
-                            @click.native.prevent="deleteRow(scope.$index, tableData)"
+                            @click.native.prevent="deleteRow(scope.$rowIndex, tableData)"
                             plain
                             size="small"
                             type="danger"
@@ -2696,6 +2696,7 @@
         this.dateAnt = moment(val).format('YYYY');
       },
       deleteRow(index, rows) {
+        debugger;
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
@@ -2751,10 +2752,11 @@
         }
       },
       addRow() {
+        debugger;
         this.tableData.push({
           userid: '',
-          username: '',
-          departshort: '',
+          username: '新人',
+          departshort: this.tableData[0].departshort,
           allotment: '',
           newpersonaldate: '',
           exrank: '',

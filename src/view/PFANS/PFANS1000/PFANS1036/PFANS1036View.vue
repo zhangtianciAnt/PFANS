@@ -133,7 +133,7 @@
           // },
           {
             code: "department",
-            label: "label.ASSETS1001VIEW_USEDEPARTMENT",
+            label: "label.department",
             width: 120,
             fix: false,
             filter: true,
@@ -309,7 +309,7 @@
             params: {
               _id: this.rowid,
               year: this.year,
-              groupid: this.groupid,
+              center_id: this.centerid,
               disabled: false,
             },
           });
@@ -336,7 +336,7 @@
             params: {
               _id: this.rowid,
               year: this.year,
-              centerid: this.centerid,
+              center_id: this.centerid,
               disabled: true,
             },
           });

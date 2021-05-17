@@ -97,9 +97,16 @@
             fix: false,
             filter: true,
           },
+          // {
+          //   code: 'group_id',
+          //   label: 'label.PFANS1039FORMVIEW_GROUP',
+          //   width: 120,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
-            code: 'group_id',
-            label: 'label.PFANS1039FORMVIEW_GROUP',
+            code: 'department',
+            label: 'label.department',
             width: 120,
             fix: false,
             filter: true,

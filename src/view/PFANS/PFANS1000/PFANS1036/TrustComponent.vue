@@ -2,7 +2,7 @@
   <el-table :data="tableTrust" :summary-method="getSummaries" show-summary stripe
             header-cell-class-name="sub_bg_color_blue">
     <el-table-column>
-      <el-table-column v-if="this.check" :label="$t('label.department')" align="center" width="110" prop="groupname">
+      <el-table-column v-if="this.check" :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" align="center" width="110" prop="groupname" tooltip-effect="dark">
         <template slot-scope="scope">
           <el-input :disabled="disabled" maxlength="100" style="width: 100%"
                     v-model="scope.row.groupname"></el-input>
@@ -15,15 +15,15 @@
         </template>
       </el-table-column>
     </el-table-column>
-    <el-table-column v-if="this.check">
-      <el-table-column :label="$t('label.PFANS1036FORMVIEW_DEVELOPMENTRATE')" align="center"
-                       width="140" prop="commission">
-        <template slot-scope="scope">
-          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right" :disabled="disabled"
-                           :step="1000" v-model="scope.row.commission"></el-input-number>
-        </template>
-      </el-table-column>
-    </el-table-column>
+<!--    <el-table-column v-if="this.check">-->
+<!--      <el-table-column :label="$t('label.PFANS1036FORMVIEW_DEVELOPMENTRATE')" align="center"-->
+<!--                       width="140" prop="commission">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right" :disabled="disabled"-->
+<!--                           :step="1000" v-model="scope.row.commission"></el-input-number>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+<!--    </el-table-column>-->
     <el-table-column :label="$t('label.April')" align="center" width="130">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130" prop="number4"
                        v-if="this.check">

@@ -765,8 +765,11 @@
                         if (this.form.newentry)
                         {
                           this.newTableData = JSON.parse(this.form.newentry);
+                          if (this.newTableData =='')
+                          {
+                            this.newTableData.push({"name": "", "isoutside": false, "entermouth": this.enterMouth});
+                          }
                         }
-
                     })
                     .catch(error => {
                         Message({
@@ -818,18 +821,18 @@
                 if (valid) {
                   this.checkRequire();
                   this.form.employed = JSON.stringify(this.tableData);
-                  let newTableDatalinshi = null;
+                  let newTableDatalinshi = [];
                   if (this.newTableData)
                   {
                     for (let i=0;i<this.newTableData.length;i++)
                     {
-                      if (this.newTableData[0].nextyear!=null && this.newTableData[0].nextyear!='' && this.newTableData[0].nextyear != undefined)
+                      if (this.newTableData[i].nextyear!=null && this.newTableData[i].nextyear!='' && this.newTableData[i].nextyear != undefined)
                       {
-                        newTableDatalinshi.push({});
+                        newTableDatalinshi.push(this.newTableData[i]);
                       }
                     }
                   }
-                  if (newTableDatalinshi !=null)
+                  if (newTableDatalinshi !=[])
                   {
                     this.form.newentry = JSON.stringify(newTableDatalinshi);
                   }

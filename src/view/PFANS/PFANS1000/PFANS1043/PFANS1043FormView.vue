@@ -197,7 +197,7 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" v-show="show3" :error="errorgroup"
                           prop="toolsorgs">
-              <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="2"
+              <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="4"
                    @getOrgids="setToolsorgs"
                    style="width:20vw"></org>
             </el-form-item>
@@ -588,6 +588,7 @@ export default {
         .then(response => {
           for (let i = 0; i < response.length; i++) {
             var vote = {};
+            vote.supplierinfor_id = response[i].supplierinfor_id;
             vote.suppliername = response[i].supchinese;
             vote.payeename = response[i].payeename;
             vote.suppliercode = response[i].suppliercode;

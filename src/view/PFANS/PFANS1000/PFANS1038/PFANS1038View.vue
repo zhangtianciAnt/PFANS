@@ -37,7 +37,7 @@
     import {Message} from "element-ui";
     import {getUserInfo} from '@/utils/customize'
     import moment from "moment";
-    import {getOrgInfo} from "../../../../utils/customize";
+    import {getOrgInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1037View',

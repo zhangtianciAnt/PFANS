@@ -76,7 +76,7 @@
     </el-tab-pane>
     <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_NEWBUSINESSYEAR')" name="second">
       <el-table :data="tableNewYear" header-cell-class-name="sub_bg_color_blue" style="width: 100%" class="tableClass"
-                :span-method="objectSpanMethod" ref="table">
+                 ref="table">
         <el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="200"
                            prop="assetsname">
@@ -426,7 +426,7 @@
     </el-tab-pane>
     <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_LASTBUSINESSYEAR')" name="third">
       <el-table :data="tableLastYear" header-cell-class-name="sub_bg_color_blue" style="width: 100%" class="tableClass"
-                :span-method="objectLastYearSpanMethod" ref="table">
+                 ref="table">
         <el-table-column>
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_ASSETNAME')" align="center" width="200"
                            prop="assetsname">
@@ -583,33 +583,13 @@
           <el-table-column align="center" width="110" prop="type" :formatter="formatterDir">
           </el-table-column>
         </el-table-column>
-        <el-table-column :label="$t('label.December')" align="center" width="110">
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money12" align="center" width="110">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column :label="$t('label.January')" align="center" width="110">
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money1" align="center" width="110">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column :label="$t('label.February')" align="center" width="110">
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money2" align="center" width="110">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column :label="$t('label.March')" align="center" width="110">
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money3" align="center" width="110">
-          </el-table-column>
-        </el-table-column>
+
         <el-table-column :label="$t('label.April')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" prop="money4" width="110">
           </el-table-column>
         </el-table-column>
         <el-table-column :label="$t('label.May')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money5" align="center" width="110">
-          </el-table-column>
-        </el-table-column>
-        <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="moneyfirsthalf" align="center"
-                           width="110">
           </el-table-column>
         </el-table-column>
         <el-table-column :label="$t('label.June')" align="center" width="110">
@@ -628,12 +608,33 @@
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money9" align="center" width="110">
           </el-table-column>
         </el-table-column>
+        <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="moneyfirsthalf" align="center"
+                           width="110">
+          </el-table-column>
+        </el-table-column>
         <el-table-column :label="$t('label.October')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money10" align="center" width="110">
           </el-table-column>
         </el-table-column>
         <el-table-column :label="$t('label.November')" align="center" width="110">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money11" align="center" width="110">
+          </el-table-column>
+        </el-table-column>
+        <el-table-column :label="$t('label.December')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money12" align="center" width="110">
+          </el-table-column>
+        </el-table-column>
+        <el-table-column :label="$t('label.January')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money1" align="center" width="110">
+          </el-table-column>
+        </el-table-column>
+        <el-table-column :label="$t('label.February')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money2" align="center" width="110">
+          </el-table-column>
+        </el-table-column>
+        <el-table-column :label="$t('label.March')" align="center" width="110">
+          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" prop="money3" align="center" width="110">
           </el-table-column>
         </el-table-column>
         <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
@@ -925,7 +926,8 @@
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         let group_id = rst.groupId || '';
         let grouplist = this.$store.getters.orgGroupList.filter(item => item.groupid === group_id);
-        let filtable = table.filter(item => item.companyen === grouplist.companyen);
+        // let filtable = table.filter(item => item.companyen === grouplist.companyen);
+        let filtable = table;
         if (filtable.length > 0) {
           let totalExpect = {};
           totalExpect.money1 = filtable[0].money1 === undefined ? 0 : filtable[0].money1;
@@ -940,9 +942,9 @@
           totalExpect.money10 = filtable[0].money10 === undefined ? 0 : filtable[0].money10;
           totalExpect.money11 = filtable[0].money11 === undefined ? 0 : filtable[0].money11;
           totalExpect.money12 = filtable[0].money12 === undefined ? 0 : filtable[0].money12;
-          totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(5);
-          totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(5);
-          totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
+          totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(3);
+          totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(3);
+          totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(3);
           this.tableLodYearTotal = [totalExpect];
         }
         this.getTableTotal();
@@ -984,81 +986,167 @@
         totalExpect.money1 += totalExpect.money12;
         totalExpect.money2 += totalExpect.money1;
         totalExpect.money3 += totalExpect.money2;
-        totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(5);
-        totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(5);
-        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
+        totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(3);
+        totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(3);
+        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(3);
+        totalExpect.money4 = totalExpect.money4.toFixed(3) || 0;
+        totalExpect.money5 = totalExpect.money5.toFixed(3) || 0;
+        totalExpect.money6 = totalExpect.money6.toFixed(3) || 0;
+        totalExpect.money7 = totalExpect.money7.toFixed(3) || 0;
+        totalExpect.money8 = totalExpect.money8.toFixed(3) || 0;
+        totalExpect.money9 = totalExpect.money9.toFixed(3) || 0;
+        totalExpect.money10 = totalExpect.money10.toFixed(3) || 0;
+        totalExpect.money11 = totalExpect.money11.toFixed(3) || 0;
+        totalExpect.money12 = totalExpect.money12.toFixed(3) || 0;
+        totalExpect.money1 = totalExpect.money1.toFixed(3) || 0;
+        totalExpect.money2 = totalExpect.money2.toFixed(3) || 0;
+        totalExpect.money3 = totalExpect.money3.toFixed(3) || 0;
         this.tableNewYearTotal = [totalExpect];
         this.getTableTotal();
       },
       getLastYearSummaries(table) {
         let totalExpect = {};
         let totalActual = {};
+        let sum121 = 0;
+        let sum123 = 0;
+        let sum125 = 0;
+
+        let sum11 = 0;
+        let sum13 = 0;
+        let sum15 = 0;
+
+        let sum21 = 0;
+        let sum23 = 0;
+        let sum25 = 0;
+
+        let sum31 = 0;
+        let sum33 = 0;
+        let sum35 = 0;
+
         table.forEach(
           row => {
-            let sum = 0;
+
+            if (row.assetstype1 === '1')
+            {
+              sum121 = Math.round((row['money12'] || 0) / 12 * 100000) / 100000;
+              sum11 = Math.round((row['money1'] || 0) / 12 * 100000) / 100000;
+              sum21 = Math.round((row['money2'] || 0) / 12 * 100000) / 100000;
+              sum31 = Math.round((row['money3'] || 0) / 12 * 100000) / 100000;
+            }
+            else if (row.assetstype1 === '2')
+            {
+              sum123 = Math.round((row['money12'] || 0) / 36 * 100000) / 100000;
+              sum13 = Math.round((row['money1'] || 0) / 36 * 100000) / 100000;
+              sum23 = Math.round((row['money2'] || 0) / 36 * 100000) / 100000;
+              sum33 = Math.round((row['money3'] || 0) / 36 * 100000) / 100000;
+            }
+            else if (row.assetstype1 === '3')
+            {
+              sum125 = Math.round((row['money12'] || 0) / 60 * 100000) / 100000;
+              sum15 = Math.round((row['money1'] || 0) / 60 * 100000) / 100000;
+              sum25 = Math.round((row['money2'] || 0) / 60 * 100000) / 100000;
+              sum35 = Math.round((row['money3'] || 0) / 60 * 100000) / 100000;
+            }
+
             for (let i = 1; i <= 12; i++) {
-              if (row.assetstype1 === '1') {
-                sum = Math.round((row['money' + i] || 0) / 12 * 100000) / 100000;
-              } else if (row.assetstype1 === '2') {
-                sum = Math.round((row['money' + i] || 0) / 36 * 100000) / 100000;
-              } else if (row.assetstype1 === '3') {
-                sum = Math.round((row['money' + i] || 0) / 60 * 100000) / 100000;
+              if (i == 1 && row.assetstype1 === '1')
+              {
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum11;
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum21;
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum31;
               }
-              if (row.assetstype === '0') {
-                totalExpect['money' + i] = sum + (totalExpect['money' + i] || 0);
-              } else {
-                totalActual['money' + i] = sum + (totalActual['money' + i] || 0);
+              else if(i == 2 && row.assetstype1 === '1')
+              {
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum21;
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum31;
               }
+              else if(i == 3 && row.assetstype1 === '1')
+              {
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum31;
+              }
+              else if(row.assetstype1 === '1')
+              {
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum121;
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum11;
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum21;
+                totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum31;
+              }
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum123;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum125;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum13;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum15;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum23;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum25;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum33;
+              totalExpect['money' + i] = (totalExpect['money' + i] || 0) + sum35;
             }
-            if (row.assetstype === '0') {
-              totalExpect.numberfirsthalf += row.numberfirsthalf;
-              totalExpect.numbersecondhalf += row.numbersecondhalf;
-              totalExpect.numberAnnual += row.numberAnnual;
-            } else {
-              totalActual.numberfirsthalf += row.numberfirsthalf;
-              totalActual.numbersecondhalf += row.numbersecondhalf;
-              totalActual.numberAnnual += row.numberAnnual;
-            }
+            //
+            //
+            //
+            //
+            // for (let i = 1; i <= 12; i++) {
+            //   if (row.assetstype1 === '1') {
+            //     sum = Math.round((row['money' + i] || 0) / 12 * 100000) / 100000;
+            //   } else if (row.assetstype1 === '2') {
+            //     sum = Math.round((row['money' + i] || 0) / 36 * 100000) / 100000;
+            //   } else if (row.assetstype1 === '3') {
+            //     sum = Math.round((row['money' + i] || 0) / 60 * 100000) / 100000;
+            //   }
+            //   if (row.assetstype === '0') {
+            //     totalExpect['money' + i] = sum + (totalExpect['money' + i] || 0);
+            //   } else {
+            //     totalActual['money' + i] = sum + (totalActual['money' + i] || 0);
+            //   }
+            // }
+            // if (row.assetstype === '0') {
+            //   totalExpect.numberfirsthalf += row.numberfirsthalf;
+            //   totalExpect.numbersecondhalf += row.numbersecondhalf;
+            //   totalExpect.numberAnnual += row.numberAnnual;
+            // } else {
+            //   totalActual.numberfirsthalf += row.numberfirsthalf;
+            //   totalActual.numbersecondhalf += row.numbersecondhalf;
+            //   totalActual.numberAnnual += row.numberAnnual;
+            // }
           },
         );
-        for (let i = 5; i <= 12; i++) {
-          totalExpect['money' + i] += totalExpect['money' + (i - 1)];
-        }
-        totalExpect.money1 += totalExpect.money12;
-        totalExpect.money2 += totalExpect.money1;
-        totalExpect.money3 += totalExpect.money2;
-        totalExpect.money4 += totalExpect.money3;
-        totalExpect.money5 += totalExpect.money4;
-        totalExpect.money6 += totalExpect.money5;
-        totalExpect.money7 += totalExpect.money6;
-        totalExpect.money8 += totalExpect.money7;
-        totalExpect.money9 += totalExpect.money8;
-        totalExpect.money10 += totalExpect.money9;
-        totalExpect.money11 += totalExpect.money10;
-        totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(5);
-        totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(5);
-        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(5);
+
+
+        totalExpect.moneyfirsthalf = ((totalExpect.money4 || 0) + (totalExpect.money5 || 0)+ (totalExpect.money6 || 0) + (totalExpect.money7 || 0) + (totalExpect.money8 || 0) + (totalExpect.money9 || 0)).toFixed(3);
+        totalExpect.moneysecondhalf = ((totalExpect.money10 || 0) + (totalExpect.money11 || 0) + (totalExpect.money12 || 0) + (totalExpect.money1 || 0) + (totalExpect.money2 || 0) + (totalExpect.money3 || 0)).toFixed(3);
+        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(3);
+        totalExpect.money4 = totalExpect.money4.toFixed(3) || 0;
+        totalExpect.money5 = totalExpect.money5.toFixed(3) || 0;
+        totalExpect.money6 = totalExpect.money6.toFixed(3) || 0;
+        totalExpect.money7 = totalExpect.money7.toFixed(3) || 0;
+        totalExpect.money8 = totalExpect.money8.toFixed(3) || 0;
+        totalExpect.money9 = totalExpect.money9.toFixed(3) || 0;
+        totalExpect.money10 = totalExpect.money10.toFixed(3) || 0;
+        totalExpect.money11 = totalExpect.money11.toFixed(3) || 0;
+        totalExpect.money12 = totalExpect.money12.toFixed(3) || 0;
+        totalExpect.money1 = totalExpect.money1.toFixed(3) || 0;
+        totalExpect.money2 = totalExpect.money2.toFixed(3) || 0;
+        totalExpect.money3 = totalExpect.money3.toFixed(3) || 0;
         this.tableLastYearTotal = [totalExpect];
         this.getTableTotal();
       },
       getTableTotal() {
         let totalExpect = {};
         for (let val in this.tableNewYearTotal[0]) {
-          totalExpect[val] = (parseFloat(this.tableNewYearTotal[0][val]) + parseFloat((this.tableLastYearTotal[0][val] || 0)) + parseFloat((this.tableLodYearTotal[0][val] || 0))).toFixed(5);
+          totalExpect[val] = (parseFloat(this.tableNewYearTotal[0][val]) + parseFloat((this.tableLastYearTotal[0][val] || 0)) + parseFloat((this.tableLodYearTotal[0][val] || 0))).toFixed(3);
         }
         this.tableTotal = [totalExpect];
         this.$emit('assets', this.tableTotal);
       },
 
       deleteRowF2(index, rows) {
-        if (rows.length > 2) {
-          rows.splice(index, 2);
+        if (rows.length > 1) {
+          rows.splice(index, 1);
           this.getLastYearSummaries(this.tableLastYear);
         }
       },
       deleteRowF1(index, rows) {
-        if (rows.length > 2) {
-          rows.splice(index, 2);
+        if (rows.length > 1) {
+          rows.splice(index, 1);
           this.getSummaries(this.tableNewYear);
         }
       },
