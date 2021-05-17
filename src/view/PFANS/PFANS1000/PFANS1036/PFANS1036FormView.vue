@@ -2935,10 +2935,10 @@
                 }
               },
             );
+            this.buttonList[0].disabled = false;
             this.loading = false;
           })
           .catch(error => {
-            debugger;
             if(this.buttonList.length > 0)
             {
               this.buttonList[0].disabled = true;
