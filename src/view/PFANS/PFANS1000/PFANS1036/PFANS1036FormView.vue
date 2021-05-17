@@ -1040,7 +1040,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -1272,7 +1272,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -1504,7 +1504,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -1736,7 +1736,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect

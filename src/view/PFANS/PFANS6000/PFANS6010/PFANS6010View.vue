@@ -401,8 +401,9 @@
         if (this.$store.getters.userinfo.userinfo.otherorgs) {
           if(this.$store.getters.userinfo.userinfo.otherorgs.length != 0){
             for (let i = 0; i < this.$store.getters.userinfo.userinfo.otherorgs.length; i++) {
-              //checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',';
-              checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',' + this.$store.getters.userinfo.userinfo.otherorgs[i].centerid;
+              //update gbb 20210510 副总兼职center是可以发起审批 start
+              checkgroupid2 = checkgroupid2 + this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',' + this.$store.getters.userinfo.userinfo.otherorgs[i].centerid;
+              //update gbb 20210510 副总兼职center是可以发起审批 end
             }
             checkgroupid = checkgroupid + ',' + checkgroupid2;
           }
