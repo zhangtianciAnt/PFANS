@@ -9,7 +9,7 @@
       @end="end" @start="start" @workflowState="workflowState" :workflowCode="workflowCode"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" employedref="refform"
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" employedref="refform" ref="form"
                  style="padding: 1.5vw">
           <el-row v-show="false">
             <el-col :span="8">
@@ -2400,6 +2400,14 @@
             validator: checkuser,
             trigger: 'change',
           }],
+          center_id: [
+            {
+              required: true,
+              message:
+                this.$t('normal.error_09') +
+                this.$t('label.PFANS2036VIEW_DEPARTMENT'),
+              trigger: 'blur',
+            }],
         },
         multiple: false,
         canStart: false,
@@ -3835,6 +3843,8 @@
             params: {},
           });
         }
+        this.$refs['form'].validate(valid => {
+            if (valid) {
         if (val === 'save') {
           this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
           this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
@@ -4011,6 +4021,15 @@
               });
           }
         }
+            }else {
+              this.loading = false;
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+        })
       },
     },
     watch: {
