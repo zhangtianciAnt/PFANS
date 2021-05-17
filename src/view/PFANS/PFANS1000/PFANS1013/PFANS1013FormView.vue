@@ -1286,6 +1286,7 @@
         // add-ws-8/12-禅道任务446
         enableSave: false,
         role2: '',
+        fromname: '',
         acceptShow: true,
         options2: [
           {
@@ -2003,6 +2004,9 @@
       //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       this.params_id = this.$route.params._id;
       //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      if(this.$route.params._fromname != "" && this.$route.params._fromname != null && this.$route.params._fromname != undefined){
+        this.fromname = this.$route.params._fromname;
+      }
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
@@ -3636,20 +3640,30 @@
       buttonClick(val) {
         //add-ws-8/29-禅道bug066
         if (val === 'back') {
-          if (this.$route.params._typecheck) {
+          if(this.fromname != '' && this.fromname != null && this.fromname != undefined){
             this.$router.push({
-              name: 'PFANS1001FormView',
+              name: 'PFANS1035FormView',
               params: {
-                title: 1,
+                disabled: true,
+                _id: this.form.business_id,
               },
             });
-          } else {
-            this.$router.push({
-              name: 'PFANS1001FormView',
-              params: {
-                title: 2,
-              },
-            });
+          }else{
+            if (this.$route.params._typecheck) {
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: 1,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: 2,
+                },
+              });
+            }
           }
         }
         //add-ws-8/29-禅道bug066
