@@ -7,15 +7,21 @@
                :visible.sync="daoru">
       <div>
         <div>
+          <el-form>
           <el-row>
-            <el-radio v-model="radio" label="1">{{$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')}}</el-radio>
-            <el-radio v-model="radio" label="2">{{$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')}}</el-radio>
+            <el-col :span="14">
+              <el-form-item :label="$t('label.PFANS1006FORMVIEW_DISTINGUISH')">
+                <el-radio style="margin-left: 50px" v-model="radio" label="1">{{$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')}}</el-radio>
+                <el-radio v-model="radio" label="2">{{$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')}}</el-radio>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-button @click="checkliste" type="primary">
+                {{$t('button.confirm')}}
+              </el-button>
+            </el-col>
           </el-row>
-        </div>
-        <div style="margin-top: 1rem;margin-left: 14.5rem">
-          <el-button @click="checkliste" type="primary">
-            {{$t('button.confirm')}}
-          </el-button>
+          </el-form>
         </div>
       </div>
     </el-dialog>
@@ -184,7 +190,7 @@
                 // response[j].center = rst.userinfo.centername;
                 // response[j].group = rst.userinfo.groupname;
               }
-              if (response[j].center)
+              if (response[j].center_id)
               {
                 let orgInfo_cnt = getOrgInfo(response[j].center_id);
                 if (orgInfo_cnt) {
