@@ -150,7 +150,12 @@
       };
     },
     mounted() {
-      this.getGivingList();
+      //只有张建波、冷美琴、康奕凝
+      if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+        || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+        || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+        this.getGivingList();
+      }
     },
     methods: {
       getGivingList() {
