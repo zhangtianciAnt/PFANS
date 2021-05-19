@@ -9,6 +9,8 @@
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 30px">
           <el-form-item>
+            <div id="eagleMapContainer" @scroll="hanldeScroll">
+              <div id="table_list">
                 <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_RBSYJH')" name="show_first" v-if="this.rolesshow1">
                     <!--add-lyt-21/1/25-禅道任务645 -start-->
@@ -49,30 +51,31 @@
                       </el-col>
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_NAME')">
-<!--                          add-lyt-1/22-禅道任务645-start-->
+                          <!--                          add-lyt-1/22-禅道任务645-start-->
                           <el-input v-model="form.username"
                                     style="width: 8vw">
                           </el-input>
-<!--                            add-lyt-1/22-禅道任务645-end-->
+                          <!--                            add-lyt-1/22-禅道任务645-end-->
                         </el-form-item>
                       </el-col>
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_RN')">
                           <dicselect
-                                     v-model="form.rnAnt"
-                                     :code="code1"
-                                     style="width: 8vw"
-                                     @change="changeRnAnt">
+                            v-model="form.rnAnt"
+                            :code="code1"
+                            style="width: 8vw"
+                            @change="changeRnAnt">
                           </dicselect>
                         </el-form-item>
                       </el-col>
                       <!--                          add-lyt-1/22-禅道任务645-start-->
                       <el-col :span="2">
-                        <el-form-item >
+                        <el-form-item>
                           <el-button type="primary"
                                      plain
                                      style="width:5vw;margin-top: 2.2rem"
-                                     @click="SearchBar">{{$t('button.search')}}</el-button>
+                                     @click="SearchBar">{{$t('button.search')}}
+                          </el-button>
                         </el-form-item>
                       </el-col>
                       <!--                            add-lyt-1/22-禅道任务645-end-->
@@ -105,6 +108,7 @@
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.username"
+                            size="mini"
                           >
                           </el-input>
                         </template>
@@ -484,13 +488,20 @@
                         width="155"
                         align="center">
                         <template slot-scope="scope">
-                          <el-input-number
+                          <el-input
                             :disabled="true"
                             :no="scope.row"
+                            v-show='false'
                             v-model="scope.row.indalian"
-                            :precision="2"
-                            controls-position="right" size="mini">
-                          </el-input-number>
+                            >
+                          </el-input>
+                          <el-input
+                            :disabled="true"
+                            :no="scope.row"
+                            v-model="scope.row.indalianShow"
+                            size="mini"
+                            >
+                          </el-input>
                         </template>
                       </plx-table-column>
                       <plx-table-column :label="$t('label.PFANS2036VIEW_MONTHAPTOJU')"
@@ -856,7 +867,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disabled"
-                            @click.native.prevent="deleteRow(scope.$rowIndex, tableData)"
+                            @click="deleteRow(scope.$rowIndex, tableData)"
                             plain
                             size="small"
                             type="danger"
@@ -897,7 +908,7 @@
                       highlight-current-row
                       style="width: 100%;height: calc(100vh - 260px - 2rem)"
                       use-virtual>
-                     <!--部门简称-->
+                      <!--部门简称-->
                       <plx-table-column
                         prop="departshortBmSum"
                         :label="$t('label.PFANS2036VIEW_BMJC')"
@@ -910,6 +921,7 @@
                             :disabled="true"
                             :index="indexFun"
                             v-model="scope.row.departshortBmSum"
+                            size="mini"
                           >
                           </el-input>
                         </template>
@@ -925,6 +937,7 @@
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.exrankBmSum"
+                            size="mini"
                           ></el-input>
                         </template>
                       </plx-table-column>
@@ -1188,8 +1201,10 @@
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageBm" :page-size="listQuery.limitBm"
-                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeBm"
-                                     @size-change="handleSizeChangeBm" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     @current-change="handleCurrentChangeBm"
+                                     @size-change="handleSizeChangeBm"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
@@ -1220,6 +1235,7 @@
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.exrankGsSum"
+                            size="mini"
                           ></el-input>
                         </template>
                       </plx-table-column>
@@ -1483,8 +1499,10 @@
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageGs" :page-size="listQuery.limitGs"
-                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeGs"
-                                     @size-change="handleSizeChangeGs" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     @current-change="handleCurrentChangeGs"
+                                     @size-change="handleSizeChangeGs"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
@@ -1508,42 +1526,29 @@
                       <plx-table-column
                         prop="useridRb"
                         :label="$t('label.PFANS2036VIEW_USERID')"
-                        width="130"
-                        align="center">
-                        <template slot-scope="scope">
-                          <!--<user-->
-                            <!--:disabled="!disabled"-->
-                            <!--:no="scope.row"-->
-                            <!--:userlist="scope.row.useridRb"-->
-                            <!--@getUserids="getCitationUserid"-->
-                            <!--:multiple="multiple"-->
-                            <!--style="width: 18vw"-->
-                          <!--&gt;</user>-->
-                          <el-input
-                            :no="scope.row"
-                            v-show="false"
-                            v-model="scope.row.useridRb"
-                          >
-                          </el-input>
-                          <el-input
-                            :no="scope.row"
-                            :disabled="true"
-                            v-model="scope.row.usernameRb"
-                          >
-                          </el-input>
-                        </template>
-                      </plx-table-column>
-                      <!--部门简称-->
-                      <plx-table-column
-                        prop="departshortRb"
-                        :label="$t('label.PFANS2036VIEW_BMJC')"
                         width="120"
                         align="center">
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
                             :disabled="true"
+                            v-model="scope.row.useridRb"
+                            size="mini"
+                          ></el-input>
+                        </template>
+                      </plx-table-column>
+                      <!--部门简称-->
+                      <plx-table-column
+                        prop="departshortRb"
+                        :label="$t('label.PFANS2036VIEW_BMJC')"
+                        width="100"
+                        align="center">
+                        <template slot-scope="scope">
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
                             v-model="scope.row.departshortRb"
+                            size="mini"
                           >
                           </el-input>
                         </template>
@@ -1552,13 +1557,20 @@
                       <plx-table-column
                         prop="ltrankRb"
                         :label="$t('label.PFANS2036VIEW_RN')"
-                        width="90"
+                        width="80"
                         align="center">
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
-                            :disabled="true"
+                            v-show="false"
                             v-model="scope.row.ltrankRb"
+                          >
+                          </el-input>
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.ltrankRbshow"
+                            size="mini"
                           ></el-input>
                         </template>
                       </plx-table-column>
@@ -1595,8 +1607,9 @@
                         </template>
                       </plx-table-column>
 
-                      <plx-table-column :label="$t('label.PFANS2036VIEW_BASMONTHAPTOJU')"
-                                       width="150">
+                      <plx-table-column
+                        :label="$t('label.PFANS2036VIEW_BASMONTHAPTOJU')"
+                        width="150">
                         <!--养老保险基-->
                         <plx-table-column
                           prop="oldylbxjajRb"
@@ -1696,7 +1709,7 @@
                       </plx-table-column>
 
                       <plx-table-column :label="$t('label.PFANS2036VIEW_BASMONTHJUTOMA')"
-                                       width="150">
+                                        width="150">
                         <!--养老保险基-->
                         <plx-table-column
                           prop="oldylbxjjmRb"
@@ -1795,10 +1808,10 @@
                         </plx-table-column>
                       </plx-table-column>
                       <plx-table-column :label="$t('label.PFANS2036VIEW_PERSONALCOST')"
-                                       width="150">
+                                        width="150">
                         <!--四月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_SY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="aprilPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -1832,7 +1845,7 @@
                         </plx-table-column>
                         <!--五月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_WY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="mayPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -1866,7 +1879,7 @@
                         </plx-table-column>
                         <!--六月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_LY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="junePlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -1900,7 +1913,7 @@
                         </plx-table-column>
                         <!--七月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_QY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="julyPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -1934,7 +1947,7 @@
                         </plx-table-column>
                         <!--八月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_BY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="augPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -1968,7 +1981,7 @@
                         </plx-table-column>
                         <!--九月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_JY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="sepPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2002,7 +2015,7 @@
                         </plx-table-column>
                         <!--十月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_TY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="octPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2036,7 +2049,7 @@
                         </plx-table-column>
                         <!--十一月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_SYY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="novePlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2070,7 +2083,7 @@
                         </plx-table-column>
                         <!--十二月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_SEY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="decePlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2104,7 +2117,7 @@
                         </plx-table-column>
                         <!--一月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_YY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="janPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2138,7 +2151,7 @@
                         </plx-table-column>
                         <!--二月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_EY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="febPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2172,7 +2185,7 @@
                         </plx-table-column>
                         <!--三月-->
                         <plx-table-column :label="$t('label.PFANS2036VIEW_STY')"
-                                         width="150">
+                                          width="150">
                           <plx-table-column
                             prop="marPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
@@ -2206,11 +2219,11 @@
                         </plx-table-column>
                       </plx-table-column>
                       <!--操作-->
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <plx-table-column :label="$t('label.operation')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disabled"
-                            @click.native.prevent="deleteRowRb(scope.$index, tableRb)"
+                            @click.native.prevent="deleteRowRb(scope.$rowIndex, tableRb)"
                             plain
                             size="small"
                             type="danger"
@@ -2225,20 +2238,22 @@
                           >{{$t('button.insert')}}
                           </el-button>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                     </plx-table-grid>
-                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageRb" :page-size="listQuery.limitRb"
-                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeRb"
-                                     @size-change="handleSizeChangeRb" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     @current-change="handleCurrentChangeRb"
+                                     @size-change="handleSizeChangeRb"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
                     </div>
-                    <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end-->
                   </el-tab-pane>
                 </el-tabs>
+              </div>
+            </div>
           </el-form-item>
         </el-form>
       </div>
@@ -2247,7 +2262,13 @@
 </template>
 
 <script>
-  import {getDictionaryInfo,getOrgInfo, getUserInfo,getCurrentRole,getCurrentRole3,getCurrentRole14} from '../../../../utils/customize';
+  import {
+    getCurrentRole,
+    getCurrentRole14,
+    getCurrentRole3,
+    getDictionaryInfo,
+    getOrgInfo
+  } from '../../../../utils/customize';
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect";
   import EasyNormalTable from "@/components/EasyNormalTable";
@@ -2301,10 +2322,10 @@
         tableBm: [],
         tableGs: [],
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
-        tableDataCopy:[],
-        tableGsCopy:[],
-        tableBmCopy:[],
-        tableRbCopy:[],
+        tableDataCopy: [],
+        tableGsCopy: [],
+        tableBmCopy: [],
+        tableRbCopy: [],
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
         ranksList: {},
         multiple: false,
@@ -2314,7 +2335,7 @@
         rolesshow2: true,
         rolesshow3: true,
         rolesshow4: true,
-        form:{
+        form: {
           yearsantid: '',
           allotmentAnt: '',
           username: '',
@@ -2352,21 +2373,19 @@
       let role = getCurrentRole();
       let role3 = getCurrentRole3();
       let role14 = getCurrentRole14();
-      if(role3 === '0' ){   //财务部长
-        this.rolesshow1=false;
-        this.rolesshow2=false;
-        this.rolesshow3=false;
-      }
-      else if (role14 === '0' ){  //人事总务部长
-        this.rolesshow1=true;
-        this.rolesshow2=true;
-        this.rolesshow3=true;
-        this.rolesshow4=true;
-      }
-      else if(role === '3') {  //GM
-        this.rolesshow1=false;
-        this.rolesshow3=false;
-        this.rolesshow4=false;
+      if (role3 === '0') {   //财务部长
+        this.rolesshow1 = false;
+        this.rolesshow2 = false;
+        this.rolesshow3 = false;
+      } else if (role14 === '0') {  //人事总务部长
+        this.rolesshow1 = true;
+        this.rolesshow2 = true;
+        this.rolesshow3 = true;
+        this.rolesshow4 = true;
+      } else if (role === '3') {  //GM
+        this.rolesshow1 = false;
+        this.rolesshow3 = false;
+        this.rolesshow4 = false;
       }
       //add-lyt-21/1/22-禅道任务645-end
     },
@@ -2405,7 +2424,7 @@
       //   this.getChangeRanks();
       // },
       // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
-      handleSizeChange(val){
+      handleSizeChange(val) {
         this.listQuery.limitData = val;
         this.cutList();
       },
@@ -2413,7 +2432,7 @@
         this.listQuery.pageData = val;
         this.cutList();
       },
-      handleSizeChangeGs(val){
+      handleSizeChangeGs(val) {
         this.listQuery.limitGs = val;
         this.cutList()
       },
@@ -2421,7 +2440,7 @@
         this.listQuery.pageGs = val;
         this.cutList()
       },
-      handleSizeChangeBm(val){
+      handleSizeChangeBm(val) {
         this.listQuery.limitBm = val;
         this.cutList()
       },
@@ -2429,8 +2448,7 @@
         this.listQuery.pageBm = val;
         this.cutList()
       },
-
-      handleSizeChangeRb(val){
+      handleSizeChangeRb(val) {
         this.listQuery.limitRb = val;
         this.cutList()
       },
@@ -2446,22 +2464,19 @@
           let pList = this.tableDataCopy.slice(start, end);
           this.tableData = pList;
           this.total = this.tableDataCopy.length
-        }
-        else if (this.activeName === 'show_second' && this.tableBm){
+        } else if (this.activeName === 'show_second' && this.tableBm) {
           let start = (this.listQuery.pageBm - 1) * this.listQuery.limitBm;
           let end = this.listQuery.pageBm * this.listQuery.limitBm;
           let pList = this.tableBmCopy.slice(start, end);
           this.tableBm = pList;
           this.total = this.tableBmCopy.length
-        }
-        else if (this.activeName === 'show_third' && this.tableGs) {
+        } else if (this.activeName === 'show_third' && this.tableGs) {
           let start = (this.listQuery.pageGs - 1) * this.listQuery.limitGs;
           let end = this.listQuery.pageGs * this.listQuery.limitGs;
           let pList = this.tableGsCopy.slice(start, end);
           this.tableGs = pList;
           this.total = this.tableGsCopy.length
-        }
-        else if (this.activeName === 'show_fourth' && this.tableRb) {
+        } else if (this.activeName === 'show_fourth' && this.tableRb) {
           let start = (this.listQuery.pageRb - 1) * this.listQuery.limitRb;
           let end = this.listQuery.pageRb * this.listQuery.limitRb;
           let pList = this.tableRbCopy.slice(start, end);
@@ -2471,7 +2486,7 @@
         this.loading = false
       },
       // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
-      getChangeRanks(){
+      getChangeRanks() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/getChangeRanks")
@@ -2537,25 +2552,25 @@
             );
           })
           let incfmyList = [];
-          for(let item of letoptionsdata){
-            if(getOrgInfo(item.value).encoding == ''){
+          for (let item of letoptionsdata) {
+            if (getOrgInfo(item.value).encoding == '') {
               incfmyList.push(item.value)
             }
           }
-          if(incfmyList.length > 0){
-            for(let item of incfmyList){
+          if (incfmyList.length > 0) {
+            for (let item of incfmyList) {
               letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
             }
             let orgInfo = [];
-            for(let item of incfmyList){
-              if(item){
-                if(getOrgInfo(item).orgs.length != 0){
+            for (let item of incfmyList) {
+              if (item) {
+                if (getOrgInfo(item).orgs.length != 0) {
                   orgInfo.push(getOrgInfo(item).orgs)
                 }
               }
             }
             let groInfo = orgInfo[0].filter(item => item.type == '2');
-            for(let item of groInfo){
+            for (let item of groInfo) {
               letoptionsdata.push(
                 {
                   value: item._id,
@@ -2568,8 +2583,64 @@
         }
         this.loading = false;
       },
+      hanldeScroll(e) {
+        // 获取eagleMapContainer的真实高度
+        const boxHeight = document.getElementById('eagleMapContainer').offsetHeight
+        // 获取table_list的真实高度（浮动内容的真实高度）
+        const tableHeight = document.getElementById('table_list').offsetHeight
+        // boxHeight和滑块浮动的高度相差小于50 && 不在加载中 && 不是最后一页
+        alert(this.tableList.length)
+        if (tableHeight - (e.target.scrollTop + boxHeight) < 50 && !this.loading && this.listPage < (this.tableList.length / 300)) {
+          // 第一次触发时，记录滑块高度
+          // data里scrollTop，listPage默认为0
+          if (!this.scrollTop) {
+            this.scrollTop = e.target.scrollTop
+          }
+          // 触发下拉加载更多
+          this.queryMoreStat(true, tableHeight, boxHeight)
+        } else if (e.target.scrollTop === 0 && !this.loading) {
+          // 如果滑块上拉到顶部，则向上加载300条
+          this.queryMoreStat(false, tableHeight, boxHeight)
+        }
+      },
+      queryMoreStat(type, tableHeight, boxHeight) {
+        this.loading = true
+        // 触底加载
+        if (type) {
+          this.listPage = this.listPage + 1
+          const centerPage = this.listPage * 300
+          const startPage = centerPage >= 300 ? centerPage - 300 : centerPage
+          const endPage = centerPage + 600
+          const newList = this.tableList.slice(startPage, endPage)
+          if (this.listPage > 0) {
+            const box = document.getElementById('eagleMapContainer')
+            // 视图跳到触发的数据，补回50的高度差值
+            box.scrollTop = this.scrollTop + 50
+          }
+          this.list = newList
+        } else {
+          // 置顶加载
+          if (this.listPage > 0) {
+            this.listPage = this.listPage - 1
+            const centerPage = this.listPage * 300
+            const startPage = centerPage >= 300 ? centerPage - 300 : centerPage
+            const endPage = centerPage + 600
+            const newList = this.tableList.slice(startPage, endPage)
+            if (this.listPage > 0) {
+              const box = document.getElementById('eagleMapContainer')
+              box.scrollTop = tableHeight - this.scrollTop - boxHeight
+            }
+            this.list = newList
+          } else {
+            this.list = this.tableList.slice(0, 300)
+          }
+        }
+        this.$nextTick(() => {
+          this.loading = false
+        })
+      },
       // 合并合计第一行
-      arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+      arraySpanMethod({row, column, rowIndex, columnIndex}) {
         if (rowIndex === 0) {
           if (columnIndex === 0) {
             return [0, 0];
@@ -2578,28 +2649,27 @@
           }
         }
       },
-      indexFun (index) {
+      indexFun(index) {
         return index;
       },
       handleClick() {
         if (this.activeName === 'show_fourth') {
           this.gettableRb();
           this.buttonList[1].disabled = false;
-        }else if(this.activeName === 'show_second'){
+        } else if (this.activeName === 'show_second') {
           this.gettableBm();
           this.buttonList[1].disabled = true;
-        }else if(this.activeName === 'show_third'){
+        } else if (this.activeName === 'show_third') {
           this.gettableGs();
           this.buttonList[1].disabled = true;
         }
       },
-      gettableBm(){
+      gettableBm() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/gettableBm", {yearsantid: this.$route.params._id})
           .then(response => {
-            console.log(response)
-            for(let u = 0; u < response.length;u ++) {
+            for (let u = 0; u < response.length; u++) {
               let exrankinfo = getDictionaryInfo(response[u].exrankBmSum);
               if (exrankinfo != null) {
                 response[u].exrankBmSum = exrankinfo.value1;
@@ -2621,12 +2691,12 @@
             });
           });
       },
-      gettableGs(){
+      gettableGs() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/gettableGs", {yearsantid: this.$route.params._id})
           .then(response => {
-            for(let i = 0; i < response.length;i ++){
+            for (let i = 0; i < response.length; i++) {
               let exrankinfo = getDictionaryInfo(response[i].exrankGsSum);
               if (exrankinfo != null) {
                 response[i].exrankGsSum = exrankinfo.value1;
@@ -2648,15 +2718,15 @@
             });
           });
       },
-      gettableRb(){
+      gettableRb() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/gettableRb", {yearsantid: this.$route.params._id})
           .then(response => {
-            for(let i = 0; i < response.length;i ++){
-              let ltrankinfo = getDictionaryInfo(response[i].ltrankRb);
+            for (let u = 0; u < response.length; u++) {
+              let ltrankinfo = getDictionaryInfo(response[u].ltrankRb);
               if (ltrankinfo != null) {
-                response[i].ltrankRb = ltrankinfo.value1;
+                response[u].ltrankRbshow = ltrankinfo.value1;
               }
             }
             this.tableRb = response;
@@ -2696,7 +2766,6 @@
         this.dateAnt = moment(val).format('YYYY');
       },
       deleteRow(index, rows) {
-        debugger;
         if (rows.length > 1) {
           rows.splice(index, 1);
         } else {
@@ -2752,11 +2821,10 @@
         }
       },
       addRow() {
-        debugger;
         this.tableData.push({
           userid: '',
           username: '新人',
-          departshort: this.tableData[0].departshort,
+          departshort: '',
           allotment: '',
           newpersonaldate: '',
           exrank: '',
@@ -2803,19 +2871,19 @@
           jutoma: '',
         });
       },
- // add-lyt-1/22-禅道任务645-start
-      SearchBar(){
+      // add-lyt-1/22-禅道任务645-start
+      SearchBar() {
         this.loading = true;
-          let params = {
+        let params = {
           yearsantid: this.form.yearsantid,
-          username:this.form.username,
-          rnAnt:this.form.rnAnt,
-          allotmentAnt:this.form.allotmentAnt,
-          group_id:this.form.group_id,
+          username: this.form.username,
+          rnAnt: this.form.rnAnt,
+          allotmentAnt: this.form.allotmentAnt,
+          group_id: this.form.group_id,
         };
         this.$store
           .dispatch('PFANS2036Store/getFuzzyQuery', params)
-          .then(response =>{
+          .then(response => {
             for (let u = 0; u < response.length; u++) {
               let ltrankinfo = getDictionaryInfo(response[u].ltrank);
               if (ltrankinfo != null) {
@@ -2824,6 +2892,23 @@
               let exrankinfo = getDictionaryInfo(response[u].exrank);
               if (exrankinfo != null) {
                 response[u].exrankshow = exrankinfo.value1;
+              }
+              let changerankinfo = getDictionaryInfo(response[u].changerank);
+              if (changerankinfo != null) {
+                response[u].changerank = changerankinfo.value1;
+              }
+              let allotmentinfo = getDictionaryInfo(response[u].allotment);
+              if (allotmentinfo != null) {
+                response[u].allotment = allotmentinfo.value1;
+              }
+              if(response[u].indalian != null && response[u].indalian != '' && response[u].indalian != undefined){
+                if(response[u].indalian === '0'){
+                  response[u].indalianShow = '否';
+                }else{
+                  response[u].indalianShow = '是';
+                }
+              }else{
+                response[u].indalianShow = '否';
               }
             }
             this.tableData = response;
@@ -2841,7 +2926,6 @@
         } else {
           this.tableRb = [{
             useridRb: '',
-            usernameRb: '',
             departshortRb: '',
             ltrankRb: '',
             totalwagesRb: '',
@@ -2888,7 +2972,6 @@
       addRowRb() {
         this.tableRb.push({
           useridRb: '',
-          usernameRb: '',
           departshortRb: '',
           ltrankRb: '',
           totalwagesRb: '',
@@ -2931,18 +3014,9 @@
           marTrue: '',
         });
       },
-      // getCitationUserid(userlist, row) {
-      //   row.useridRb = userlist;
-      //   if (row.useridRb != null && row.useridRb !== '') {
-      //     let lst = getUserInfo(row.useridRb);
-      //     row.ltrankRb = lst.userinfo.rank;
-      //     let orglst = getOrgInfo(lst.userinfo.groupid)
-      //     row.departshortRb = orglst.companyen;
-      //   }
-      // },
       changeRank(val, row) {
         row.changerank = val;
-        if(val === 'PR069002'){
+        if (val === 'PR069002') {
           // let ltrankant = '';
           // for(row.exrank in this.ranksMap){
           //   ltrankant = this.ranksMap[]; //注意是 [  ]
@@ -2950,7 +3024,7 @@
           let ranksListAnt = this.ranksList.filter(item => item.value1 == row.exrankshow);
           row.ltrankshow = getDictionaryInfo(ranksListAnt[0].value11).value1;
           row.ltrank = ranksListAnt[0].value11;
-        }else{
+        } else {
           row.ltrankshow = row.exrankshow;
           row.ltrank = row.exrank
         }
@@ -2977,7 +3051,7 @@
                 duration: 5 * 1000
               });
             });
-        }else if(val === "recalculation"){
+        } else if (val === "recalculation") {
           this.loading = true;
           this.$store
             .dispatch("PFANS2036Store/upPersonalCostRb")
@@ -3005,4 +3079,29 @@
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+  #eagleMapContainer {
+    overflow-y: auto;
+    margin-top: 10px;
+    min-height: 150px;
+    max-height: 600px;
+  }
+
+  #eagleMapContainer::-webkit-scrollbar {
+    width: 6px; /*对垂直流动条有效*/
+    height: 6px;
+  }
+
+  #eagleMapContainer::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+
+  #eagleMapContainer::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  /*定义右下角汇合处的样式*/
+  #eagleMapContainer::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.2);
+  }
 </style>
