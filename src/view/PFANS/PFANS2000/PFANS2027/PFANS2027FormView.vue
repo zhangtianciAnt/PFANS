@@ -981,7 +981,7 @@
           {
             key: "commit",
             name: "button.commit",
-            disabled: true,
+            disabled: false,
             icon: "el-icon-upload2"
           }
         ];
@@ -1042,19 +1042,19 @@
                 } else if (this.role1 === '0' && item.process !== "4") {
                   this.R *= 0;
                 } else {
-                  if (this.$route.params.evaluatenum === "一次評価") {
+                  if (this.$route.params.evaluatenum === "PJ104001") {
                     if (item.process === "1") {
                       this.R *= 1;
                     } else {
                       this.R *= 0;
                     }
-                  } else if (this.$route.params.evaluatenum === "二次評価") {
+                  } else if (this.$route.params.evaluatenum === "PJ104002") {
                     if (item.process === "2") {
                       this.R *= 1;
                     } else {
                       this.R *= 0;
                     }
-                  } else if (this.$route.params.evaluatenum === "最终評価") {
+                  } else if (this.$route.params.evaluatenum === "PJ104003") {
                     if (item.process === "3") {
                       this.R *= 1;
                     } else {
@@ -1063,12 +1063,18 @@
                   }
                 }
               }
-              this.course();
             }
-
-
             this.listData1 = response.lunardetail.sort();
           }
+          if (this.R === 0 ) {
+            this.buttonList[1].disabled = true;
+          } else if (this.R === 1) {
+            this.buttonList[1].disabled = false;
+          }
+          if(response.submitFlg === '0'){
+            this.buttonList[1].disabled = true;
+          }
+          alert(this.buttonList[1].disabled);
           this.loading = false;
         })
         .catch(err => {
@@ -1081,14 +1087,6 @@
         });
     },
     methods: {
-      // 判断是否可以提交
-      course() {
-        if (this.R === 0 ) {
-          this.buttonList[1].disabled = true;
-        } else if (this.R === 1) {
-          this.buttonList[1].disabled = false;
-        }
-      },
       // 判断是否可以更改数据（上一级未提交的数据不可更改）
       getdisabled(scope) {
         if (this.$route.params.disabled1 === false) {
@@ -1101,11 +1099,11 @@
               if (this.role === '0' && scope.process === "4") {
                 return false;
               } else {
-                if (this.$route.params.evaluatenum === "一次評価" && scope.process === "1") {
+                if (this.$route.params.evaluatenum === "PJ104001" && scope.process === "1") {
                   return false;
-                } else if (this.$route.params.evaluatenum === "二次評価" && scope.process === "2") {
+                } else if (this.$route.params.evaluatenum === "PJ104002" && scope.process === "2") {
                   return false;
-                } else if (this.$route.params.evaluatenum === "最终評価" && scope.process === "3") {
+                } else if (this.$route.params.evaluatenum === "PJ104003" && scope.process === "3") {
                   return false;
                 } else {
                   return true;
@@ -1360,6 +1358,7 @@
         });
       },
       changeType(val) {
+        this.loading = true;
         this.ShowType = val;
         if (this.ShowType === "PJ101004") {
           if(this.region === '2'){
@@ -1418,37 +1417,14 @@
         this.$nextTick(() => {
           this.isShow = true;
         });
+        this.loading = false;
       },
       buttonClick(val) {
         if (val === 'save') {
-          let form = {
-            lunarbasic: this.data2,
-            lunarbonus: this.data,
-            lunardetail: this.listData1
-          };
-          this.loading = true;
-          this.$store
-            .dispatch("PFANS2027Store/update", form)
-            .then(response => {
-              Message({
-                message: this.$t("normal.success_02"),
-                type: "success",
-                duration: 5 * 1000
-              });
-              if (this.$store.getters.historyUrl) {
-                this.$router.push(this.$store.getters.historyUrl);
-              }
-            })
-            .catch(err => {
-              this.loading = false;
-              Message({
-                message: err,
-                type: "error",
-                duration: 5 * 1000
-              });
-            });
+          this.save(0);
         }
         if (val === 'commit') {
+          this.save(1);
           let lunarbonus = {
             lunarbonus_id: this.$route.params._id,
             evaluatenum: this.$route.params.evaluatenum,
@@ -1487,6 +1463,36 @@
             });
           });
         }
+      },
+      save(flg){
+        let form = {
+          lunarbasic: this.data2,
+          lunarbonus: this.data,
+          lunardetail: this.listData1
+        };
+        this.loading = true;
+        this.$store
+          .dispatch("PFANS2027Store/update", form)
+          .then(response => {
+            if(flg === 0){
+              Message({
+                message: this.$t("normal.success_02"),
+                type: "success",
+                duration: 5 * 1000
+              });
+            }
+            if (this.$store.getters.historyUrl) {
+              this.$router.push(this.$store.getters.historyUrl);
+            }
+          })
+          .catch(err => {
+            this.loading = false;
+            Message({
+              message: err,
+              type: "error",
+              duration: 5 * 1000
+            });
+          });
       },
       getTableColumnName(val) {
         let dic = getDictionaryInfo(val);

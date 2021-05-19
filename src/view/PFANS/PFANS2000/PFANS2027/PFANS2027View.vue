@@ -18,22 +18,22 @@
                 :code="code14"
                 :data="form.subjectmon"
                 @change="changecommentarymonths"
-                style="width: 10rem"
+                style="width: 15rem"
               >
               </dicselect>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')" prop="evaluatenum">
-              <dicselect
-                :code="code15"
-                :data="form.evaluatenum"
-                @change="changeevaluationtime"
-                style="width: 10rem"
-              >
-              </dicselect>
-            </el-form-item>
-          </el-col>
+<!--          <el-col :span="8">-->
+<!--            <el-form-item :label="$t('label.PFANS2027VIEW_EVALUATIONTIME')" prop="evaluatenum">-->
+<!--              <dicselect-->
+<!--                :code="code15"-->
+<!--                :data="form.evaluatenum"-->
+<!--                @change="changeevaluationtime"-->
+<!--                style="width: 10rem"-->
+<!--              >-->
+<!--              </dicselect>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
         </el-row>
         <div align="center" class="dialog-footer">
           <span class="dialog-footer" slot="footer">
@@ -69,13 +69,11 @@
         code15: 'PJ104',
         disabled: false,
         name: '',
-        examinationobjects: [],
         form: {
           evaluationday: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y') : moment(new Date()),
           evaluatenum: '',
           subjectmon: '',
           subject: '',
-          examinationobject_id: '',
           user_id: this.$store.getters.userinfo.userid,
         },
         columns: [
@@ -101,7 +99,7 @@
             filter: true
           },
           {
-            code: 'evaluatenum',
+            code: 'evaluatenumname',
             label: 'label.PFANS2027VIEW_EVALUATIONTIME',
             width: 120,
             fix: false,
@@ -138,11 +136,11 @@
             message: this.$t('normal.error_09') + this.$t('label.PFANS2027VIEW_COMMENTARYMONTHS'),
             trigger: 'change',
           }],
-          evaluatenum: [{
-            required: true,
-            message: this.$t('normal.error_09') + this.$t('label.PFANS2027VIEW_EVALUATIONTIME'),
-            trigger: 'change',
-          }]
+          // evaluatenum: [{
+          //   required: true,
+          //   message: this.$t('normal.error_09') + this.$t('label.PFANS2027VIEW_EVALUATIONTIME'),
+          //   trigger: 'change',
+          // }]
         }
       };
     },
@@ -167,39 +165,7 @@
         this.form.subjectmon = 'PJ103003';
         this.form.subject = 'PJ103003';
       }
-      let user = getUserInfo(this.form.user_id);
-      //获取本用户的职位
-      // let postcode = user.userinfo.post;
-      // if (postcode === 'PG021005') {
-      //   this.form.evaluatenum = 'PJ104001';
-      // }
-      // if (postcode === 'PG021003') {
-      //   this.form.evaluatenum = 'PJ104002';
-      // }
-      // if (postcode === 'PG021002') {
-      //   this.form.evaluatenum = 'PJ104003';
-      // }
-
-      this.$store
-        .dispatch("PFANS2027Store/getExaminationobject")
-        .then(response => {
-          for (let i = 0; i < response.length; i++) {
-            this.examinationobjects.push(response[i]);
-          }
-        })
-        .catch(err => {
-          this.loading = false;
-          Message({
-            message: err,
-            type: "error",
-            duration: 5 * 1000
-          });
-        });
     },
-
-    /*beforeUpdate(){
-        this.get();
-    },*/
     methods: {
       statusss() {
         let role = getCurrentRole10();
@@ -266,13 +232,6 @@
           }
         );
       },
-      changeExamination(val) {
-        for (let i = 0; i < this.examinationobjects.length; i++) {
-          if (val === this.examinationobjects[i].name) {
-            this.form.examinationobject_id = this.examinationobjects[i].examinationobject_id;
-          }
-        }
-      },
       get() {
         this.loading = true;
         this.$store
@@ -305,7 +264,7 @@
                 if (response[j].evaluatenum !== null && response[j].evaluatenum !== "") {
                   let letUsetype = getDictionaryInfo(response[j].evaluatenum);
                   if (letUsetype != null) {
-                    response[j].evaluatenum = letUsetype.value1;
+                    response[j].evaluatenumname = letUsetype.value1;
                   }
                 }
                 //add_fjl_06/10 start --添加評価実施日
@@ -386,14 +345,14 @@
             });
             return;
           }
-          if (this.evaluatenum !== "一次評価") {
-            Message({
-              message: this.$t('normal.info_24'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
+          // if (this.evaluatenum !== "PJ104001") {
+          //   Message({
+          //     message: this.$t('normal.info_24'),
+          //     type: 'info',
+          //     duration: 2 * 1000
+          //   });
+          //   return;
+          // }
           this.$confirm(this.$t('normal.info_20'), this.$t('normal.info'), {
             confirmButtonText: this.$t('button.confirm'),
             cancelButtonText: this.$t('button.cancel'),
@@ -442,14 +401,14 @@
             });
             return;
           }
-          if (this.evaluatenum !== "最终評価") {
-            Message({
-              message: this.$t('normal.info_25'),
-              type: 'info',
-              duration: 2 * 1000
-            });
-            return;
-          }
+          // if (this.evaluatenum !== "最终評価") {
+          //   Message({
+          //     message: this.$t('normal.info_25'),
+          //     type: 'info',
+          //     duration: 2 * 1000
+          //   });
+          //   return;
+          // }
           this.$confirm(this.$t('normal.info_22'), this.$t('normal.info'), {
             confirmButtonText: this.$t('button.confirm'),
             cancelButtonText: this.$t('button.cancel'),

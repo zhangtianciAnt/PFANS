@@ -1,4 +1,4 @@
-import {getLunarbonus,getLunardetails,update,insertLunarbonus,getExaminationobject,getStatus,getOne, createTodonotice,overTodonotice} from './PFANS2027Api'
+import {getLunarbonus,getLunardetails,update,insertLunarbonus,getOne, createTodonotice,overTodonotice} from './PFANS2027Api'
 import {getPfans2016One} from "../PFANS2016/PFANS2016Api";
 
 const PFANS2027Store = {
@@ -99,32 +99,6 @@ const PFANS2027Store = {
     insertLunarbonus({commit}, data) {
       return new Promise((resolve, reject) => {
         insertLunarbonus(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    getExaminationobject({commit}, data) {
-      return new Promise((resolve, reject) => {
-        getExaminationobject(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-    getStatus({commit}, data) {
-      return new Promise((resolve, reject) => {
-        getStatus(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
