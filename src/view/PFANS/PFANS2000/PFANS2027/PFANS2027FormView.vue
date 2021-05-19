@@ -1074,7 +1074,6 @@
           if(response.submitFlg === '0'){
             this.buttonList[1].disabled = true;
           }
-          alert(this.buttonList[1].disabled);
           this.loading = false;
         })
         .catch(err => {
