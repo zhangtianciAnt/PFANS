@@ -377,7 +377,7 @@
             scope.moneysecondhalf = ((Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0)).toFixed(2);
           }
           scope.numberAnnual = (scope.numberfirsthalf || 0) + (scope.numbersecondhalf || 0);
-          scope.moneyAnnual = ((scope.moneyfirsthalf || 0) + (scope.moneysecondhalf || 0)).toFixed(2);
+          scope.moneyAnnual = (Number((scope.moneyfirsthalf || 0)) + Number((scope.moneysecondhalf || 0))).toFixed(2);
           this.getSummaries(this.tableBusiness);
         }
       },

@@ -30,7 +30,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.number4">
+                           v-model="scope.row.number4" >
           </el-input-number>
         </template>
       </el-table-column>
@@ -38,7 +38,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money4">
+                           v-model="scope.row.money4" @change="handleChange(scope.row,4)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -56,7 +56,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money5">
+                           v-model="scope.row.money5" @change="handleChange(scope.row,5)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -74,7 +74,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money6">
+                           v-model="scope.row.money6" @change="handleChange(scope.row,6)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -92,7 +92,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money7">
+                           v-model="scope.row.money7" @change="handleChange(scope.row,7)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -110,7 +110,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money8">
+                           v-model="scope.row.money8" @change="handleChange(scope.row,8)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -128,7 +128,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money9">
+                           v-model="scope.row.money9" @change="handleChange(scope.row,9)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -145,7 +145,7 @@
       </el-table-column>
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneyfirst">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
+          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
                            :precision="1" :step="1"
                            v-model="scope.row.moneyfirst">
           </el-input-number>
@@ -165,7 +165,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money10">
+                           v-model="scope.row.money10"  @change="handleChange(scope.row,10)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -183,7 +183,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money11">
+                           v-model="scope.row.money11"  @change="handleChange(scope.row,11)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -201,7 +201,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money12">
+                           v-model="scope.row.money12"  @change="handleChange(scope.row,12)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -219,7 +219,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money1">
+                           v-model="scope.row.money1"  @change="handleChange(scope.row,1)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -237,7 +237,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money2">
+                           v-model="scope.row.money2"  @change="handleChange(scope.row,2)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -255,7 +255,7 @@
         <template slot-scope="scope">
           <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
                            :precision="1" :step="1"
-                           v-model="scope.row.money3">
+                           v-model="scope.row.money3"  @change="handleChange(scope.row,3)">
           </el-input-number>
         </template>
       </el-table-column>
@@ -272,7 +272,7 @@
       </el-table-column>
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneysecond">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
+          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
                            :precision="1" :step="1"
                            v-model="scope.row.moneysecond">
           </el-input-number>
@@ -291,7 +291,7 @@
       </el-table-column>
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneytotal">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="disabled" :min="0" controls-position="right"
+          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
                            :precision="1" :step="1"
                            v-model="scope.row.moneytotal">
           </el-input-number>
@@ -340,6 +340,18 @@
         } else {
           return row[column.property];
         }
+      },
+      handleChange(scope, index) {
+          if (index >= 4 && index <= 9) {
+            scope.moneyfirst = ((Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0)).toFixed(2);
+          } else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
+            scope.moneysecond = ((Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0)).toFixed(2);
+          } else {
+            scope.moneyfirst = ((Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0)).toFixed(2);
+            scope.moneysecond = ((Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0)).toFixed(2);
+          }
+          scope.moneytotal = (Number((scope.moneyfirst || 0)) + Number((scope.moneysecond || 0))).toFixed(2);
+          this.getSummaries(this.tableTrust);
       },
       getSummaries(param) {
         const {columns, data} = param;
