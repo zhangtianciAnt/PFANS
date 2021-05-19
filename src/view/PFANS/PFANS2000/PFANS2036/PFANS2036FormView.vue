@@ -2331,10 +2331,10 @@
         multiple: false,
         selectType: "Single",
         //add-lyt-21/1/22-禅道任务645-start
-        rolesshow1: true,
-        rolesshow2: true,
-        rolesshow3: true,
-        rolesshow4: true,
+        rolesshow1: false,
+        rolesshow2: false,
+        rolesshow3: false,
+        rolesshow4: false,
         form: {
           yearsantid: '',
           allotmentAnt: '',
@@ -2374,18 +2374,14 @@
       let role3 = getCurrentRole3();
       let role14 = getCurrentRole14();
       if (role3 === '0') {   //财务部长
-        this.rolesshow1 = false;
-        this.rolesshow2 = false;
-        this.rolesshow3 = false;
+        this.rolesshow2 = true;
       } else if (role14 === '0') {  //人事总务部长
         this.rolesshow1 = true;
         this.rolesshow2 = true;
         this.rolesshow3 = true;
         this.rolesshow4 = true;
-      } else if (role === '3') {  //GM
-        this.rolesshow1 = false;
-        this.rolesshow3 = false;
-        this.rolesshow4 = false;
+      } else if (role === '3' || role === '2') {  //GM
+        this.rolesshow4 = true;
       }
       //add-lyt-21/1/22-禅道任务645-end
     },
@@ -2533,15 +2529,15 @@
       // },
       getById() {
         this.loading = true;
-        let vote1 = [];
-        vote1.push(
-          {
-            value: '全部',
-            lable: '全部',
-          }
-        );
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
           || this.$store.getters.userinfo.userid === '5e78b22c4e3b194874180f5f') {
+          let vote1 = [];
+          vote1.push(
+            {
+              value: '全部',
+              lable: '全部',
+            }
+          );
           let letoptionsdata = [];
           this.$store.getters.orgGroupList.filter((item) => {
             letoptionsdata.push(
@@ -2655,7 +2651,10 @@
       handleClick() {
         if (this.activeName === 'show_fourth') {
           this.gettableRb();
-          this.buttonList[1].disabled = false;
+          let role14 = getCurrentRole14();
+          if (role14 === '0'){
+            this.buttonList[1].disabled = false;
+          }
         } else if (this.activeName === 'show_second') {
           this.gettableBm();
           this.buttonList[1].disabled = true;
@@ -2729,8 +2728,10 @@
                 response[u].ltrankRbshow = ltrankinfo.value1;
               }
             }
-            this.tableRb = response;
-            this.tableRbCopy = response;
+            let sortAnt = this.$store.getters.userinfo.userinfo.budgetunit;
+            let rbList = response.filter(item => item.departshortRb == sortAnt)
+            this.tableRb = rbList;
+            this.tableRbCopy = rbList;
             this.cutList();
             this.loading = false;
           })
