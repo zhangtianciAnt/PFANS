@@ -86,3 +86,11 @@ export function getFuzzyQuery(data) {
   })
 }
 
+export function exportinfo(data) {
+  return request({
+    url: 'personalcost/exportinfo',
+    method: 'get',
+    params: data
+  })
+}
+
