@@ -1274,12 +1274,14 @@
             // this.userInfo.userAccount.password = this.form.adfield;
             this.userInfo.userAccount.usertype = '0';
             // add_fjl_05/22  --去除间接部门空的数据
-            if (this.form.otherorgs.length > 0) {
-              this.form.otherorgs = this.form.otherorgs.filter(item => {
-                return ((item.centerid !== '' && item.centerid !== null)
-                  || (item.groupid !== '' && item.groupid !== null)
-                  || (item.teamid !== '' && item.teamid !== null));
-              });
+            if (this.form.otherorgs!=null) {
+              if (this.form.otherorgs.length > 0){
+                this.form.otherorgs = this.form.otherorgs.filter(item => {
+                  return ((item.centerid !== '' && item.centerid !== null)
+                    || (item.groupid !== '' && item.groupid !== null)
+                    || (item.teamid !== '' && item.teamid !== null));
+                });
+              }
             }
             // add_fjl_05/22  --去除间接部门空的数据
             this.userInfo.customerInfo.userinfo = this.form;
