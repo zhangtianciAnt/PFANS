@@ -20,11 +20,12 @@
     getUserInfo,
     getorgGroupList,
     getCurrentRole8,
-    getDownOrgInfo,
+    getOrgInfo,
     getCurrentRoleNew,
   } from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
+  import {getDepartmentById} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS6010View',
@@ -158,6 +159,22 @@
               }
               //add ccm 0112 兼职部门
           }
+          else if (role === '4') //GM
+          {
+            let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+            if (centers)
+            {
+              if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+              {
+                vote.push(
+                  {
+                    value: this.$store.getters.userinfo.userinfo.groupid,
+                    lable: this.$store.getters.userinfo.userinfo.groupname,
+                  },
+                );
+              }
+            }
+          }
           const vote1 = [];
           let letRole2 = this.getCurrentRole2();
           if (letRole2 === '4')//外注管理担当
@@ -176,6 +193,36 @@
           {
               this.optionsdata = vote;
           }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of this.optionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0) {
+          for (let item of incfmyList) {
+            this.optionsdata = this.optionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for (let item of incfmyList) {
+            if (item) {
+              if (getOrgInfo(item).orgs.length != 0) {
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for (let item of groInfo) {
+            this.optionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
           //去重
           let groupidList = "";
           let arrId = [];
@@ -212,7 +259,7 @@
         //       for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
         //         if (others.centerid) {
         //           let centerId = others.centerid;
-        //           let orgs = getDownOrgInfo(centerId);
+        //           let orgs = getOrgInfo(centerId);
         //           if (orgs) {
         //             for (let org of orgs) {
         //               if (others.groupid) {
@@ -251,10 +298,11 @@
             let dates = moment(now1).format('M');
             for (let j = 0; j < response.length; j++) {
               if (response[j].groupid) {
-                let group = getorgGroupList(response[j].groupid);
-                if (group) {
-                  response[j].groupname = group.centername;
-                }
+                // let group = getorgGroupList(response[j].groupid);
+                // if (group) {
+                //   response[j].groupname = group.centername;
+                // }
+                response[j].groupname = getDepartmentById(response[j].groupid);
               }
               if (response[j].status === null || response[j].status === '' || response[j].status === '3') {
                 response[j].letstatus = '0';//未开始
@@ -347,38 +395,19 @@
         this.letstatus = row.status;
         this.groupid = row.groupid;
         //upd-ws-01/13-修改审批驳回问题
-        let checkgroupid = '';
+        //let checkgroupid = this.$store.getters.userinfo.userinfo.groupid != null ? this.$store.getters.userinfo.userinfo.groupid : this.$store.getters.userinfo.userinfo.centerid;
+        let checkgroupid = this.$store.getters.userinfo.userinfo.groupid + ',' + this.$store.getters.userinfo.userinfo.centerid;
         let checkgroupid2 = '';
         if (this.$store.getters.userinfo.userinfo.otherorgs) {
-          for (let i = 0; i < this.$store.getters.userinfo.userinfo.otherorgs.length; i++) {
-            checkgroupid2 = this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',';
-          }
-          checkgroupid = checkgroupid2 + ',' + this.$store.getters.userinfo.userinfo.groupid;
-        } else {
-          //upd 20210127 王聪 没有发起审批修改
-          // checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
-          let groupid = this.$store.getters.userinfo.userinfo.groupid;
-          if(groupid)
-          {
-            checkgroupid = this.$store.getters.userinfo.userinfo.groupid;
-          }
-          else
-          {
-            if (this.$store.getters.userinfo.userinfo.centerid) {
-              let centerId = this.$store.getters.userinfo.userinfo.centerid;
-              let orgs = getDownOrgInfo(centerId);
-              if (orgs) {
-                for (let org of orgs) {
-                    if (org.user === this.$store.getters.userinfo.userid) {
-                      checkgroupid = checkgroupid + ',' + org._id;
-                    }
-                }
-              }
+          if(this.$store.getters.userinfo.userinfo.otherorgs.length != 0){
+            for (let i = 0; i < this.$store.getters.userinfo.userinfo.otherorgs.length; i++) {
+              //update gbb 20210510 副总兼职center是可以发起审批 start
+              checkgroupid2 = checkgroupid2 + this.$store.getters.userinfo.userinfo.otherorgs[i].groupid + ',' + this.$store.getters.userinfo.userinfo.otherorgs[i].centerid;
+              //update gbb 20210510 副总兼职center是可以发起审批 end
             }
+            checkgroupid = checkgroupid + ',' + checkgroupid2;
           }
-          //upd 20210127 王聪 没有发起审批修改
         }
-
         if (checkgroupid.indexOf(this.groupid) !== -1
           && (row.status === '0' || row.status === '3' || row.status === '4')) {
           this.$store.commit('global/SET_OPERATEOWNER', this.$store.getters.userinfo.userid);

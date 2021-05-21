@@ -153,17 +153,18 @@
       let role3 = getCurrentRole3();
       if (role3 === '0') {
         this.buttonList[3].disabled = false;
+        this.buttonList[1].disabled = true;
       }
-      if (this.$store.getters.userinfo.userid) {
-        let group = getUserInfo(this.$store.getters.userinfo.userid);
-        if (group.userinfo.groupid === '' || group.userinfo.groupid === null) {
-          this.buttonList[1].disabled = true;
-          this.buttonList[2].disabled = true;
-        } else {
-          this.buttonList[1].disabled = false;
-          this.buttonList[2].disabled = false;
-        }
-      }
+      // if (this.$store.getters.userinfo.userid) {
+      //   let group = getUserInfo(this.$store.getters.userinfo.userid);
+      //   if (group.userinfo.groupid === '' || group.userinfo.groupid === null) {
+      //     this.buttonList[1].disabled = true;
+      //     this.buttonList[2].disabled = true;
+      //   } else {
+      //     this.buttonList[1].disabled = false;
+      //     this.buttonList[2].disabled = false;
+      //   }
+      // }
       this.loading = true;
       this.$store
         .dispatch('PFANS1036Store/get')
@@ -275,6 +276,7 @@
         this.rowid = row.businessplanid;
         this.year = row.year;
         this.groupid = row.group_id;
+        this.centerid = row.center_id;
       },
       buttonClick(val) {
         [];
@@ -320,7 +322,7 @@
             params: {
               _id: this.rowid,
               year: this.year,
-              groupid: this.groupid,
+              centerid: this.centerid,
               disabled: true,
             },
           });

@@ -44,7 +44,7 @@
                 stripe style="width: 100%;" v-loading='loading'>
         <el-table-column reserve-selection type="selection" v-if="showSelection" width="55" :selectable="selectable">
         </el-table-column>
-        <el-table-column label="NO" type="index" v-if="showIndex" width="55">
+        <el-table-column label="NO" type="index" v-if="showIndex" width="55" fixed>
         </el-table-column>
         <el-table-column :key="item.code" :label="$t(item.label)" :label-class-name="item.labelClass"
                          v-for="item in this.columns" v-if="item.child && item.child.length > 0">

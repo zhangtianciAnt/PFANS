@@ -11,15 +11,14 @@
     >
       <div slot="customize" style="width: 100%">
         <el-row style="padding-top: 30px">
-          <el-col :span="5">
+          <div align="right">
+          <el-col :span="12">
             <el-date-picker
               v-model="form.main.pd_date" @change="change"
               type="month">
             </el-date-picker>
           </el-col>
           <el-col :span="6">
-            <div align="right">
-
                 <el-select v-model="form.main.group_id" style="width: 20vw"
                            @change="changeGroup">
                   <el-option
@@ -29,9 +28,14 @@
                     :value="item.value">
                   </el-option>
                 </el-select>
-
-            </div>
           </el-col>
+            <el-col :span="6">
+              <el-input :placeholder="$t('label.PFANS6006VIEW_BPINFO')"  style="width: 20vw"
+                        v-model="filterName">
+                <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+              </el-input>
+            </el-col>
+          </div>
         </el-row>
         <el-row style="padding-top: 20px">
         <plx-table-grid
@@ -43,6 +47,7 @@
           cell-class-name = "row_height_left" :row-height="rowheight"
           highlight-current-row
           header-cell-class-name="sub_bg_color_blue"
+          :rowClassName="rowClassName"
         >
           <!--checkbox-->
           <!--<plx-table-column type="selection" width="55"></plx-table-column>-->
@@ -67,6 +72,7 @@
             :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
             align="center"
             width="65"
+            fixed="left"
             prop="graduation1"
           ></plx-table-column>
           <!-- 会社名-->
@@ -74,8 +80,18 @@
             :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
             align="left"
             prop="company"
+            fixed="left"
             width="160"
           ></plx-table-column>
+          <!-- 開発総単価-->
+          <plx-table-column
+            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
+            align="center"
+            prop="totalunit"
+            fixed="left"
+            width="100"
+          >
+          </plx-table-column>
           <!-- 查定时间-->
           <!--<plx-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">-->
             <!--<template slot-scope="scope">-->
@@ -99,7 +115,7 @@
                 :no="scope.row"
                 :code="code1"
                 :data="scope.row.technical"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changetechnical"
                 style="width: 100%"
               ></dicselect>
@@ -125,7 +141,7 @@
                 :no="scope.row"
                 :code="code2"
                 :data="scope.row.management"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changemanagement"
                 style="width: 100%"
               ></dicselect>
@@ -151,7 +167,7 @@
                 :no="scope.row"
                 :code="code3"
                 :data="scope.row.fieldskills"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changefieldskills"
                 style="width: 100%"
               ></dicselect>
@@ -177,7 +193,7 @@
                 :no="scope.row"
                 :code="code4"
                 :data="scope.row.language"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changelanguage"
                 style="width: 100%"
               ></dicselect>
@@ -203,7 +219,7 @@
                 :no="scope.row"
                 :code="code5"
                 :data="scope.row.workskills"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changeworkskills"
                 style="width: 100%"
               ></dicselect>
@@ -229,7 +245,7 @@
                 :no="scope.row"
                 :code="code6"
                 :data="scope.row.evaluation"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changeevaluation"
                 style="width: 100%"
               ></dicselect>
@@ -257,7 +273,7 @@
                   :no="scope.row"
                   :code="code7"
                   :data="scope.row.psdcdscale"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changepsdcdscale"
                   style="width: 100%"
                 ></dicselect>
@@ -283,7 +299,7 @@
                   :no="scope.row"
                   :code="code8"
                   :data="scope.row.contribution"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changecontribution"
                   style="width: 100%"
                 ></dicselect>
@@ -312,7 +328,7 @@
                   :no="scope.row"
                   :code="code9"
                   :data="scope.row.staffpsdcdrank"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changestaffpsdcdrank"
                   style="width: 100%"
                 ></dicselect>
@@ -338,7 +354,7 @@
                   :no="scope.row"
                   :code="code8"
                   :data="scope.row.butionevaluation"
-                  :disabled="!disabled"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                   @change="changebutionevaluation"
                   style="width: 100%"
                 ></dicselect>
@@ -362,7 +378,7 @@
             <template slot-scope="scope">
               <el-input-number
                 size="mini"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 controls-position="right"
                 :min="-100000" :max="100000"
                 v-model="scope.row.unitprice"
@@ -370,14 +386,6 @@
                 style="width: 100%"
               ></el-input-number>
             </template>
-          </plx-table-column>
-          <!-- 開発総単価-->
-          <plx-table-column
-            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
-            align="center"
-            prop="totalunit"
-            width="100"
-          >
           </plx-table-column>
           <!-- 共通費用-->
           <plx-table-column
@@ -401,7 +409,7 @@
                 :no="scope.row"
                 :code="code9"
                 :data="scope.row.psdcdrank"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 @change="changepsdcdrank"
                 style="width: 100%"
               ></dicselect>
@@ -418,7 +426,7 @@
               <el-input
                 size="mini"
                 :no="scope.row"
-                :disabled="!disabled"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
                 v-model="scope.row.remarks"
                 style="width: 100%"
               ></el-input>
@@ -470,6 +478,8 @@ export default {
       baseInfo: {},
       scope: "",
       row: "",
+      filterName: "",
+      responseDataInit: [],
       arr: [], //二维数组初始化变量服务于更改和计算
       tableData: [],
       optionsdata:[],
@@ -519,8 +529,17 @@ export default {
       ];
     }
   },
-
   methods: {
+    inputChange(){
+      if (this.filterName === "") {
+        this.tableData = this.responseDataInit;
+      } else {
+        this.tableData = this.responseDataInit.filter(item => {
+          return item.username.toLowerCase().indexOf(this.filterName) != -1
+            || item.company.toLowerCase().indexOf(this.filterName) != -1  ;
+        });
+      }
+    },
     getById() {
       this.loading = true;
       //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 start
@@ -664,6 +683,22 @@ export default {
           // }
           //update gbb 20210331 之后的代码有判断，此处重复 end
       }
+      else if (role === '4') //GM
+      {
+        let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+        if (centers)
+        {
+          if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+          {
+            vote.push(
+              {
+                value: this.$store.getters.userinfo.userinfo.groupid,
+                lable: this.$store.getters.userinfo.userinfo.groupname,
+              },
+            );
+          }
+        }
+      }
       const vote1 = [];
         //let role9 = getCurrentRole9();
         // if (this.$store.getters.userinfo.userid ==='5e78fefff1560b363cdd6db7'
@@ -722,6 +757,36 @@ export default {
           }
       }
       //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 end
+      //针对经营管理统计到group修改 start
+      let incfmyList = [];
+      for(let item of letoptionsdata){
+        if(getOrgInfo(item.value).encoding == ''){
+          incfmyList.push(item.value)
+        }
+      }
+      if(incfmyList.length > 0){
+        for(let item of incfmyList){
+          letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+        }
+        let orgInfo = [];
+        for(let item of incfmyList){
+          if(item){
+            if(getOrgInfo(item).orgs.length != 0){
+              orgInfo.push(getOrgInfo(item).orgs)
+            }
+          }
+        }
+        let groInfo = orgInfo[0].filter(item => item.type == '2');
+        for(let item of groInfo){
+          letoptionsdata.push(
+            {
+              value: item._id,
+              lable: item.title,
+            },
+          );
+        }
+      }
+      //针对经营管理统计到group修改 end
       this.optionsdata = letoptionsdata;
       if(this.optionsdata.length > 0){
           this.form.main.group_id = this.optionsdata[0].value;
@@ -872,6 +937,7 @@ export default {
           this.form.main.group_id = val;
           tablegroup = response.detail.filter(item => item.group_id === this.form.main.group_id);
           this.tableData = tablegroup;
+          this.responseDataInit = tablegroup;
           this.loading = false;
         })
         .catch(error => {
@@ -1016,7 +1082,27 @@ export default {
       for(let item of this.tableData){
         item.common = Number(item.scalevalue)*Number(item.coefficient);
       }
-    }
+    },
+    //add-退场人员信息背景色
+    rowClassName({row, rowIndex}) {
+      if (row.user_id)
+      {
+        let expname = getCooperinterviewList(row.user_id);
+        if (expname)
+        {
+          if (expname.exitime !=null && expname.exitime != "" && expname.exitime != undefined)
+          {
+            if (moment(this.form.main.pd_date).format('YYYY-MM') >= moment(expname.exitime).add(1, 'months').format('YYYY-MM'))
+            {
+              row.flag = '1';
+              return "sub_bg_color_Darkgreyaa";
+            }
+          }
+        }
+      }
+    },
+    //add-退场人员信息背景色
+
   },
 };
 </script>
@@ -1030,5 +1116,8 @@ export default {
   }
   .el-table /deep/ .current-row{
     background-color: #BDD8EE;
+  }
+  .sub_bg_color_Darkgreyaa{
+    background-color: #CCCCCC !important;
   }
 </style>

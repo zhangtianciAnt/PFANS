@@ -129,33 +129,41 @@
                         filter: false,
                     },
                     {
-                        //性别
-                        code: 'sex',
-                        label: 'label.sex',
+                        //作业场所
+                        code: 'operationform',
+                        label: 'label.PFANS6004FORMVIEW_OPERATIONFORM',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //年龄
-                        code: 'age',
-                        label: 'label.PFANSUSERFORMVIEW_AGE',
+                        //作业分类
+                        code: 'jobclassification',
+                        label: 'label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //学历
-                        code: 'education',
-                        label: 'label.PFANS2026VIEW_EDUCATIONALBACKGROUND',
+                        //入场时间
+                        code: 'admissiontime',
+                        label: 'label.PFANS6004FORMVIEW_ADMISSIONTIME',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
+                   {
+                    //预计退场时间
+                    code: 'yjexitime',
+                    label: 'label.PFANS2002FORMVIEW_YJEXITTIME',
+                    width: 140,
+                    fix: false,
+                    filter: false,
+                   },
                     {
-                        //毕业院校
-                        code: 'graduateschool',
-                        label: 'label.PFANS6001VIEW_GRADUATESCHOOL',
+                        //退场时间
+                        code: 'exitime',
+                        label: 'label.PFANS6004FORMVIEW_EXITIME',
                         width: 120,
                         fix: false,
                         filter: false,
@@ -177,10 +185,10 @@
                     //   filter: true,
                     // },
                     {
-                        //RN
-                        code: 'rn',
-                        label: 'label.PFANS2003FORMVIEW_RN',
-                        width: 80,
+                        //更衣柜号
+                        code: 'lockernumber',
+                        label: 'label.PFANSUSERFORMVIEW_LOCKERNUMBER',
+                        width: 120,
                         fix: false,
                         filter: false,
                     },
@@ -300,6 +308,11 @@
                             } else {
                                 response[j].admissiontime = moment(new Date()).format('YYYY-MM-DD');
                             }
+                          //预计退场时间
+                          if (response[j].yjexitime !== null && response[j].yjexitime !== '') {
+                            response[j].yjexitime = moment(response[j].yjexitime).format('YYYY-MM-DD');
+                          }
+
                             if (response[j].birth !== null && response[j].birth !== '') {
                                 response[j].birth = moment(response[j].birth).format('YYYY-MM-DD');
                             }
@@ -325,6 +338,7 @@
                                     if (response[j].exitime !== null && response[j].exitime !== '') {
                                         response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
                                     }
+
                                     if (response[j].exitreason !== null && response[j].exitreason !== '') {
                                         let exitreason = getDictionaryInfo(response[j].exitreason);
                                         if (exitreason != null) {
@@ -403,6 +417,8 @@
                                     admissiontime: response[j].admissiontime,
                                     speciality: response[j].speciality,
                                     exits: response[j].exits,
+                                    //预计退场时间
+                                    yjexitime:response[j].yjexitime,
                                     exitime: response[j].exitime,
                                     exitreason: response[j].exitreason,
                                     alltechnology: response[j].alltechnology,
@@ -410,6 +426,7 @@
                                     businessimpact: response[j].businessimpact,
                                     countermeasure: response[j].countermeasure,
                                     accountname: response[j].accountname,
+                                    lockernumber: response[j].lockernumber,
                                 })
                             }
                         }
@@ -559,6 +576,7 @@
                             this.$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT'),
                             this.$t('label.PFANS6004FORMVIEW_COUNTERMEASURE'),
                             this.$t('label.remarks'),
+                            this.$t('label.PFANSUSERFORMVIEW_LOCKERNUMBER'),
                         ];
                         const filterVal = [
                             'expname',
@@ -589,6 +607,7 @@
                             'businessimpact',
                             'countermeasure',
                             'remarks',
+                            'lockernumber',
                         ];
                         const list = this.selectedlist;
                         for (let h = 0; h < list.length; h++) {

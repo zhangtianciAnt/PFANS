@@ -621,7 +621,7 @@
               </el-col>
               <el-col :span="8">
                 <el-form-item
-                  :label="$t('label.PFANS2002FORMVIEW_OTHER3')"
+                  :label="$t('label.PFANS2002FORMVIEW_OTHER')"
                   prop="other3"
                   v-show="other3_show"
                 >

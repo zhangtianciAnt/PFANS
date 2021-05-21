@@ -658,7 +658,7 @@
                     });
                     this.optionsdategroup.push({
                       value: response[i].comproject_id,
-                      lable: response[i].center_id,
+                      lable: response[i].group_id,
                     });
                   }
                   this.loading = false;
@@ -698,7 +698,7 @@
               });
               this.optionsdategroup.push({
                 value: response[i].companyprojects_id,
-                lable: response[i].center_id,
+                lable: response[i].group_id,
               });
             }
             this.$store
@@ -711,7 +711,7 @@
                   });
                   this.optionsdategroup.push({
                     value: response[i].comproject_id,
-                    lable: response[i].center_id,
+                    lable: response[i].group_id,
                   });
                 }
                 this.loading = false;
@@ -1413,6 +1413,14 @@
                             } else {
                               this.companyform.has_project = '01';
                             }
+                            //insert gbb 20210514 日志数据区分本社和外协 start
+                            if(this.$store.getters.userinfo.userid){
+                              this.companyform.tenantid = "0";//本社
+                            }
+                            else{
+                              this.companyform.tenantid = "1";//外协
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 end
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)
                               .then(response => {
@@ -1641,6 +1649,14 @@
                             } else {
                               this.companyform.has_project = '01';
                             }
+                            //insert gbb 20210514 日志数据区分本社和外协 start
+                            if(this.$store.getters.userinfo.userid){
+                              this.companyform.tenantid = "0";//本社
+                            }
+                            else{
+                              this.companyform.tenantid = "1";//外协
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 end
                             this.loading = true;
                             this.$store
                               .dispatch('PFANS5008Store/createNewUser', this.companyform)

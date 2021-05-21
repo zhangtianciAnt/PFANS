@@ -51,30 +51,31 @@
                       </el-col>
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_NAME')">
-<!--                          add-lyt-1/22-禅道任务645-start-->
+                          <!--                          add-lyt-1/22-禅道任务645-start-->
                           <el-input v-model="form.username"
                                     style="width: 8vw">
                           </el-input>
-<!--                            add-lyt-1/22-禅道任务645-end-->
+                          <!--                            add-lyt-1/22-禅道任务645-end-->
                         </el-form-item>
                       </el-col>
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_RN')">
                           <dicselect
-                                     v-model="form.rnAnt"
-                                     :code="code1"
-                                     style="width: 8vw"
-                                     @change="changeRnAnt">
+                            v-model="form.rnAnt"
+                            :code="code1"
+                            style="width: 8vw"
+                            @change="changeRnAnt">
                           </dicselect>
                         </el-form-item>
                       </el-col>
                       <!--                          add-lyt-1/22-禅道任务645-start-->
                       <el-col :span="2">
-                        <el-form-item >
+                        <el-form-item>
                           <el-button type="primary"
                                      plain
                                      style="width:5vw;margin-top: 2.2rem"
-                                     @click="SearchBar">{{$t('button.search')}}</el-button>
+                                     @click="SearchBar">{{$t('button.search')}}
+                          </el-button>
                         </el-form-item>
                       </el-col>
                       <!--                            add-lyt-1/22-禅道任务645-end-->
@@ -107,6 +108,7 @@
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.username"
+                            size="mini"
                           >
                           </el-input>
                         </template>
@@ -486,13 +488,20 @@
                         width="155"
                         align="center">
                         <template slot-scope="scope">
-                          <el-input-number
+                          <el-input
                             :disabled="true"
                             :no="scope.row"
+                            v-show='false'
                             v-model="scope.row.indalian"
-                            :precision="2"
-                            controls-position="right" size="mini">
-                          </el-input-number>
+                            >
+                          </el-input>
+                          <el-input
+                            :disabled="true"
+                            :no="scope.row"
+                            v-model="scope.row.indalianShow"
+                            size="mini"
+                            >
+                          </el-input>
                         </template>
                       </plx-table-column>
                       <plx-table-column :label="$t('label.PFANS2036VIEW_MONTHAPTOJU')"
@@ -858,7 +867,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disabled"
-                            @click.native.prevent="deleteRow(scope.$index, tableData)"
+                            @click="deleteRow(scope.$rowIndex, tableData)"
                             plain
                             size="small"
                             type="danger"
@@ -889,12 +898,18 @@
 
                   <!--部门汇总-->
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_BMHZSYJH')" name="show_second" v-if="this.rolesshow2">
-                    <el-table
-                      :data="tableBm"
+                    <plx-table-grid
+                      :datas="tableBm"
+                      :height-change="false"
+                      :pagination-show="false"
+                      :row-height="40"
                       border stripe
-                      header-cell-class-name="sub_bg_color_blue">
-                     <!--部门简称-->
-                      <el-table-column
+                      header-cell-class-name="sub_bg_color_blue"
+                      highlight-current-row
+                      style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                      use-virtual>
+                      <!--部门简称-->
+                      <plx-table-column
                         prop="departshortBmSum"
                         :label="$t('label.PFANS2036VIEW_BMJC')"
                         width="180"
@@ -906,12 +921,13 @@
                             :disabled="true"
                             :index="indexFun"
                             v-model="scope.row.departshortBmSum"
+                            size="mini"
                           >
                           </el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--Rn-->
-                      <el-table-column
+                      <plx-table-column
                         prop="exrankBmSum"
                         :label="$t('label.PFANS2036VIEW_RN')"
                         width="180"
@@ -921,11 +937,12 @@
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.exrankBmSum"
+                            size="mini"
                           ></el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--人数-->
-                      <el-table-column
+                      <plx-table-column
                         prop="peopleBmSum"
                         :label="$t('label.PFANS2036VIEW_RS')"
                         width="155"
@@ -939,9 +956,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthBmSum"
                         :label="$t('label.PFANS2036VIEW_YGZ')"
                         width="155"
@@ -955,9 +972,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--基本工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="basicBmSum"
                         :label="$t('label.PFANS2036VIEW_JBGZ')"
                         width="155"
@@ -971,9 +988,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--职责工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="balityBmSum"
                         :label="$t('label.PFANS2036VIEW_ZZGZ')"
                         width="155"
@@ -987,9 +1004,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--补贴总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalsubsidiesBmSum"
                         :label="$t('label.PFANS2036VIEW_BTZJ')"
                         width="155"
@@ -1003,9 +1020,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthlybonusBmSum"
                         :label="$t('label.PFANS2036VIEW_YDJJ')"
                         width="155"
@@ -1019,9 +1036,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--年度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="annualbonusBmSum"
                         :label="$t('label.PFANS2036VIEW_NDJJ')"
                         width="155"
@@ -1035,9 +1052,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工资总额-->
-                      <el-table-column
+                      <plx-table-column
                         prop="tradeunionfundsBmSum"
                         :label="$t('label.PFANS2036VIEW_GZZE')"
                         width="155"
@@ -1051,9 +1068,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工会经费-->
-                      <el-table-column
+                      <plx-table-column
                         prop="sbgsajBmSum"
                         :label="$t('label.PFANS2036VIEW_GHJF')"
                         width="155"
@@ -1067,9 +1084,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（4-6）社保公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_APTOJUSBGSFDZJ')"
                         width="155"
@@ -1083,9 +1100,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（4-6）公积金公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_APTOJUGJJGSFDZJ')"
                         width="155"
@@ -1099,9 +1116,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（4-6）人件费总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="aptojuBmSum"
                         :label="$t('label.PFANS2036VIEW_APTOJURJFZJ')"
                         width="155"
@@ -1115,9 +1132,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（7-3）社保公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMASBGSFDZJ')"
                         width="155"
@@ -1131,9 +1148,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（7-3）公积金公司负担总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajBmSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMAGJJGSFDZJ')"
                         width="155"
@@ -1147,9 +1164,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--（7-3）人件费总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="aptojuBmSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMARJFZJ')"
                         width="155"
@@ -1163,9 +1180,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--加班费时给-->
-                      <el-table-column
+                      <plx-table-column
                         prop="overtimepayBmSum"
                         :label="$t('label.PFANS2036VIEW_JBFSG')"
                         width="155"
@@ -1179,13 +1196,15 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
-                    </el-table>
+                      </plx-table-column>
+                    </plx-table-grid>
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageBm" :page-size="listQuery.limitBm"
-                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeBm"
-                                     @size-change="handleSizeChangeBm" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     @current-change="handleCurrentChangeBm"
+                                     @size-change="handleSizeChangeBm"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
@@ -1195,12 +1214,18 @@
 
                   <!--公司汇总-->
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_GSHZSYJH')" name="show_third" v-if="this.rolesshow3">
-                    <el-table
-                      :data="tableGs"
+                    <plx-table-grid
+                      :datas="tableGs"
+                      :height-change="false"
+                      :pagination-show="false"
+                      :row-height="40"
                       border stripe
-                      header-cell-class-name="sub_bg_color_blue">
+                      header-cell-class-name="sub_bg_color_blue"
+                      highlight-current-row
+                      style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                      use-virtual>
                       <!--Rn-->
-                      <el-table-column
+                      <plx-table-column
                         prop="exrankGsSum"
                         :label="$t('label.PFANS2036VIEW_RN')"
                         width="180"
@@ -1210,11 +1235,12 @@
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.exrankGsSum"
+                            size="mini"
                           ></el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--人数-->
-                      <el-table-column
+                      <plx-table-column
                         prop="peopleGsSum"
                         :label="$t('label.PFANS2036VIEW_RS')"
                         width="155"
@@ -1228,9 +1254,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthGsSum"
                         :label="$t('label.PFANS2036VIEW_YGZ')"
                         width="155"
@@ -1244,9 +1270,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--基本工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="basicGsSum"
                         :label="$t('label.PFANS2036VIEW_JBGZ')"
                         width="155"
@@ -1260,9 +1286,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--职责工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="balityGsSum"
                         :label="$t('label.PFANS2036VIEW_ZZGZ')"
                         width="155"
@@ -1276,9 +1302,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--职责工资-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalsubsidiesGsSum"
                         :label="$t('label.PFANS2036VIEW_BTZJ')"
                         width="155"
@@ -1292,9 +1318,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--补贴总计-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalsubsidiesGsSum"
                         :label="$t('label.PFANS2036VIEW_BTZJ')"
                         width="155"
@@ -1308,9 +1334,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--月度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="monthlybonusGsSum"
                         :label="$t('label.PFANS2036VIEW_YDJJ')"
                         width="155"
@@ -1324,9 +1350,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--年度奖金-->
-                      <el-table-column
+                      <plx-table-column
                         prop="annualbonusGsSum"
                         :label="$t('label.PFANS2036VIEW_NDJJ')"
                         width="155"
@@ -1340,9 +1366,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工会经费1212-->
-                      <el-table-column
+                      <plx-table-column
                         prop="tradeunionfundsGsSum"
                         :label="$t('label.PFANS2036VIEW_GHJF')"
                         width="155"
@@ -1356,9 +1382,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--社保公司-->
-                      <el-table-column
+                      <plx-table-column
                         prop="sbgsajGsSum"
                         :label="$t('label.PFANS2036VIEW_SBGSAJ')"
                         width="155"
@@ -1372,9 +1398,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--公积金公司负担-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdajGsSum"
                         :label="$t('label.PFANS2036VIEW_GJJGSFDAJ')"
                         width="155"
@@ -1388,9 +1414,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--4月-6月-->
-                      <el-table-column
+                      <plx-table-column
                         prop="aptojuGsSum"
                         :label="$t('label.PFANS2036VIEW_APTOJU')"
                         width="155"
@@ -1404,9 +1430,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--社保公司-->
-                      <el-table-column
+                      <plx-table-column
                         prop="sbgsjmGsSum"
                         :label="$t('label.PFANS2036VIEW_SBGSJM')"
                         width="155"
@@ -1420,9 +1446,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--公积金公司负担-->
-                      <el-table-column
+                      <plx-table-column
                         prop="gjjgsfdjmGsSum"
                         :label="$t('label.PFANS2036VIEW_GJJGSFDJM')"
                         width="155"
@@ -1436,9 +1462,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--7月-3月-->
-                      <el-table-column
+                      <plx-table-column
                         prop="jutomaGsSum"
                         :label="$t('label.PFANS2036VIEW_JUTOMA')"
                         width="155"
@@ -1452,9 +1478,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--加班费时给-->
-                      <el-table-column
+                      <plx-table-column
                         prop="overtimepayGsSum"
                         :label="$t('label.PFANS2036VIEW_JBFSG')"
                         width="155"
@@ -1468,13 +1494,15 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
-                    </el-table>
+                      </plx-table-column>
+                    </plx-table-grid>
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageGs" :page-size="listQuery.limitGs"
-                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChangeGs"
-                                     @size-change="handleSizeChangeGs" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     @current-change="handleCurrentChangeGs"
+                                     @size-change="handleSizeChangeGs"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
                       </el-pagination>
@@ -1484,58 +1512,70 @@
 
                   <!--人别-->
                   <el-tab-pane :label="$t('label.PFANS2036VIEW_RB')" name="show_fourth" v-if="this.rolesshow4">
-                    <el-table
-                      :data="tableRb"
+                    <plx-table-grid
+                      :datas="tableRb"
+                      :height-change="false"
+                      :pagination-show="false"
+                      :row-height="40"
                       border stripe
-                      header-cell-class-name="sub_bg_color_blue">
+                      header-cell-class-name="sub_bg_color_blue"
+                      highlight-current-row
+                      style="width: 100%;height: calc(100vh - 260px - 2rem)"
+                      use-virtual>
                       <!--姓名-->
-                      <el-table-column
+                      <plx-table-column
                         prop="useridRb"
                         :label="$t('label.PFANS2036VIEW_USERID')"
-                        width="180"
+                        width="120"
                         align="center">
                         <template slot-scope="scope">
-                          <user
-                            :disabled="!disabled"
+                          <el-input
                             :no="scope.row"
-                            :userlist="scope.row.useridRb"
-                            @getUserids="getCitationUserid"
-                            :multiple="multiple"
-                            style="width: 18vw"
-                          ></user>
+                            :disabled="true"
+                            v-model="scope.row.useridRb"
+                            size="mini"
+                          ></el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--部门简称-->
-                      <el-table-column
+                      <plx-table-column
                         prop="departshortRb"
                         :label="$t('label.PFANS2036VIEW_BMJC')"
-                        width="180"
+                        width="100"
                         align="center">
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
                             :disabled="true"
                             v-model="scope.row.departshortRb"
+                            size="mini"
                           >
                           </el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--RN-->
-                      <el-table-column
+                      <plx-table-column
                         prop="ltrankRb"
                         :label="$t('label.PFANS2036VIEW_RN')"
-                        width="180"
+                        width="80"
                         align="center">
                         <template slot-scope="scope">
                           <el-input
                             :no="scope.row"
-                            :disabled="true"
+                            v-show="false"
                             v-model="scope.row.ltrankRb"
+                          >
+                          </el-input>
+                          <el-input
+                            :no="scope.row"
+                            :disabled="true"
+                            v-model="scope.row.ltrankRbshow"
+                            size="mini"
                           ></el-input>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--工资总额-->
-                      <el-table-column
+                      <plx-table-column
                         prop="totalwagesRb"
                         :label="$t('label.PFANS2036VIEW_GZZE')"
                         width="155"
@@ -1549,9 +1589,9 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
                       <!--加班费-->
-                      <el-table-column
+                      <plx-table-column
                         prop="overtimepayRb"
                         :label="$t('label.PFANS2036VIEW_JBF')"
                         width="155"
@@ -1565,12 +1605,13 @@
                             controls-position="right" size="mini">
                           </el-input-number>
                         </template>
-                      </el-table-column>
+                      </plx-table-column>
 
-                      <el-table-column :label="$t('label.PFANS2036VIEW_BASMONTHAPTOJU')"
-                                       width="150">
+                      <plx-table-column
+                        :label="$t('label.PFANS2036VIEW_BASMONTHAPTOJU')"
+                        width="150">
                         <!--养老保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="oldylbxjajRb"
                           :label="$t('label.PFANS2036VIEW_OLDYLBXJAJ')"
                           width="155"
@@ -1584,9 +1625,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--失业保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="lossybxjajRb"
                           :label="$t('label.PFANS2036VIEW_LOSSYBXJAJ')"
                           width="155"
@@ -1600,9 +1641,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--工伤保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="gsbxjajRb"
                           :label="$t('label.PFANS2036VIEW_GSBXJAJ')"
                           width="155"
@@ -1616,9 +1657,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--医疗保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="ylbxjajRb"
                           :label="$t('label.PFANS2036VIEW_YLBXJAJ')"
                           width="155"
@@ -1632,9 +1673,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--生育保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="sybxjajRb"
                           :label="$t('label.PFANS2036VIEW_SYBXJAJ')"
                           width="155"
@@ -1648,9 +1689,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--公积金基数-->
-                        <el-table-column
+                        <plx-table-column
                           prop="gjjjsajRb"
                           :label="$t('label.PFANS2036VIEW_GJJJSAJ')"
                           width="155"
@@ -1664,13 +1705,13 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
-                      </el-table-column>
+                        </plx-table-column>
+                      </plx-table-column>
 
-                      <el-table-column :label="$t('label.PFANS2036VIEW_BASMONTHJUTOMA')"
-                                       width="150">
+                      <plx-table-column :label="$t('label.PFANS2036VIEW_BASMONTHJUTOMA')"
+                                        width="150">
                         <!--养老保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="oldylbxjjmRb"
                           :label="$t('label.PFANS2036VIEW_OLDYLBXJJM')"
                           width="155"
@@ -1684,9 +1725,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--失业保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="lossybxjjmRb"
                           :label="$t('label.PFANS2036VIEW_LOSSYBXJJM')"
                           width="155"
@@ -1700,9 +1741,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--工伤保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="gsbxjjmRb"
                           :label="$t('label.PFANS2036VIEW_GSBXJJM')"
                           width="155"
@@ -1716,9 +1757,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--医疗保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="ylbxjjmRb"
                           :label="$t('label.PFANS2036VIEW_YLBXJJM')"
                           width="155"
@@ -1732,9 +1773,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--生育保险基-->
-                        <el-table-column
+                        <plx-table-column
                           prop="sybxjjmRb"
                           :label="$t('label.PFANS2036VIEW_SYBXJJM')"
                           width="155"
@@ -1748,9 +1789,9 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
+                        </plx-table-column>
                         <!--公积金基数-->
-                        <el-table-column
+                        <plx-table-column
                           prop="gjjjsjmRb"
                           :label="$t('label.PFANS2036VIEW_GJJJSJM')"
                           width="155"
@@ -1764,14 +1805,14 @@
                               controls-position="right" size="mini">
                             </el-input-number>
                           </template>
-                        </el-table-column>
-                      </el-table-column>
-                      <el-table-column :label="$t('label.PFANS2036VIEW_PERSONALCOST')"
-                                       width="150">
+                        </plx-table-column>
+                      </plx-table-column>
+                      <plx-table-column :label="$t('label.PFANS2036VIEW_PERSONALCOST')"
+                                        width="150">
                         <!--四月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_SY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_SY')"
+                                          width="150">
+                          <plx-table-column
                             prop="aprilPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1785,8 +1826,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="aprilTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -1800,12 +1841,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--五月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_WY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_WY')"
+                                          width="150">
+                          <plx-table-column
                             prop="mayPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1819,8 +1860,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="mayTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -1834,12 +1875,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--六月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_LY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_LY')"
+                                          width="150">
+                          <plx-table-column
                             prop="junePlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1853,8 +1894,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="juneTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -1868,12 +1909,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--七月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_QY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_QY')"
+                                          width="150">
+                          <plx-table-column
                             prop="julyPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1887,8 +1928,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="julyTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -1902,12 +1943,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--八月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_BY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_BY')"
+                                          width="150">
+                          <plx-table-column
                             prop="augPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1921,8 +1962,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="augTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -1936,12 +1977,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--九月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_JY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_JY')"
+                                          width="150">
+                          <plx-table-column
                             prop="sepPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1955,8 +1996,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="sepTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -1970,12 +2011,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--十月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_TY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_TY')"
+                                          width="150">
+                          <plx-table-column
                             prop="octPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -1989,8 +2030,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="octTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -2004,12 +2045,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--十一月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_SYY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_SYY')"
+                                          width="150">
+                          <plx-table-column
                             prop="novePlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -2023,8 +2064,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="noveTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -2038,12 +2079,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--十二月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_SEY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_SEY')"
+                                          width="150">
+                          <plx-table-column
                             prop="decePlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -2057,8 +2098,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="deceTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -2072,12 +2113,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--一月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_YY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_YY')"
+                                          width="150">
+                          <plx-table-column
                             prop="janPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -2091,8 +2132,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="janTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -2106,12 +2147,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--二月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_EY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_EY')"
+                                          width="150">
+                          <plx-table-column
                             prop="febPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -2125,8 +2166,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="febTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -2140,12 +2181,12 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
                         <!--三月-->
-                        <el-table-column :label="$t('label.PFANS2036VIEW_STY')"
-                                         width="150">
-                          <el-table-column
+                        <plx-table-column :label="$t('label.PFANS2036VIEW_STY')"
+                                          width="150">
+                          <plx-table-column
                             prop="marPlan"
                             :label="$t('label.PFANS2036VIEW_PLAN')"
                             width="155"
@@ -2159,8 +2200,8 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                          <el-table-column
+                          </plx-table-column>
+                          <plx-table-column
                             prop="marTrue"
                             :label="$t('label.PFANS2036VIEW_TRUE')"
                             width="155"
@@ -2174,15 +2215,15 @@
                                 controls-position="right" size="mini">
                               </el-input-number>
                             </template>
-                          </el-table-column>
-                        </el-table-column>
-                      </el-table-column>
+                          </plx-table-column>
+                        </plx-table-column>
+                      </plx-table-column>
                       <!--操作-->
-                      <el-table-column :label="$t('label.operation')" align="center" width="200">
+                      <plx-table-column :label="$t('label.operation')" align="center" width="200">
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disabled"
-                            @click.native.prevent="deleteRowRb(scope.$index, tableRb)"
+                            @click.native.prevent="deleteRowRb(scope.$rowIndex, tableRb)"
                             plain
                             size="small"
                             type="danger"
@@ -2197,8 +2238,18 @@
                           >{{$t('button.insert')}}
                           </el-button>
                         </template>
-                      </el-table-column>
-                    </el-table>
+                      </plx-table-column>
+                    </plx-table-grid>
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination :current-page.sync="listQuery.pageRb" :page-size="listQuery.limitRb"
+                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     @current-change="handleCurrentChangeRb"
+                                     @size-change="handleSizeChangeRb"
+                                     layout="slot,sizes, ->,prev, pager, next, jumper">
+                        <slot><span class="front Content_front"
+                                    style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                      </el-pagination>
+                    </div>
                   </el-tab-pane>
                 </el-tabs>
               </div>
@@ -2211,7 +2262,13 @@
 </template>
 
 <script>
-  import {getDictionaryInfo, getDownOrgInfo, getOrgInfo, getUserInfo,getCurrentRole,getCurrentRole3,getCurrentRole14} from '../../../../utils/customize';
+  import {
+    getCurrentRole,
+    getCurrentRole14,
+    getCurrentRole3,
+    getDictionaryInfo,
+    getOrgInfo
+  } from '../../../../utils/customize';
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect";
   import EasyNormalTable from "@/components/EasyNormalTable";
@@ -2232,11 +2289,13 @@
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
         listQuery: {
           pageData: 1,
-          limitData: 5,
+          limitData: 10,
           pageBm: 1,
-          limitBm: 5,
+          limitBm: 10,
           pageGs: 1,
-          limitGs: 5,
+          limitGs: 10,
+          pageRb: 1,
+          limitRb: 10,
         },
         total: 0,
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
@@ -2263,9 +2322,10 @@
         tableBm: [],
         tableGs: [],
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
-        tableDataCopy:[],
-        tableGsCopy:[],
-        tableBmCopy:[],
+        tableDataCopy: [],
+        tableGsCopy: [],
+        tableBmCopy: [],
+        tableRbCopy: [],
         // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
         ranksList: {},
         multiple: false,
@@ -2275,7 +2335,7 @@
         rolesshow2: true,
         rolesshow3: true,
         rolesshow4: true,
-        form:{
+        form: {
           yearsantid: '',
           allotmentAnt: '',
           username: '',
@@ -2313,21 +2373,19 @@
       let role = getCurrentRole();
       let role3 = getCurrentRole3();
       let role14 = getCurrentRole14();
-      if(role3 === '0' ){   //财务部长
-        this.rolesshow1=false;
-        this.rolesshow2=false;
-        this.rolesshow3=false;
-      }
-      else if (role14 === '0' ){  //人事总务部长
-        this.rolesshow1=true;
-        this.rolesshow2=true;
-        this.rolesshow3=true;
-        this.rolesshow4=true;
-      }
-      else if(role === '3') {  //GM
-        this.rolesshow1=false;
-        this.rolesshow3=false;
-        this.rolesshow4=false;
+      if (role3 === '0') {   //财务部长
+        this.rolesshow1 = false;
+        this.rolesshow2 = false;
+        this.rolesshow3 = false;
+      } else if (role14 === '0') {  //人事总务部长
+        this.rolesshow1 = true;
+        this.rolesshow2 = true;
+        this.rolesshow3 = true;
+        this.rolesshow4 = true;
+      } else if (role === '3') {  //GM
+        this.rolesshow1 = false;
+        this.rolesshow3 = false;
+        this.rolesshow4 = false;
       }
       //add-lyt-21/1/22-禅道任务645-end
     },
@@ -2366,7 +2424,7 @@
       //   this.getChangeRanks();
       // },
       // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
-      handleSizeChange(val){
+      handleSizeChange(val) {
         this.listQuery.limitData = val;
         this.cutList();
       },
@@ -2374,7 +2432,7 @@
         this.listQuery.pageData = val;
         this.cutList();
       },
-      handleSizeChangeGs(val){
+      handleSizeChangeGs(val) {
         this.listQuery.limitGs = val;
         this.cutList()
       },
@@ -2382,12 +2440,20 @@
         this.listQuery.pageGs = val;
         this.cutList()
       },
-      handleSizeChangeBm(val){
+      handleSizeChangeBm(val) {
         this.listQuery.limitBm = val;
         this.cutList()
       },
       handleCurrentChangeBm(val) {
         this.listQuery.pageBm = val;
+        this.cutList()
+      },
+      handleSizeChangeRb(val) {
+        this.listQuery.limitRb = val;
+        this.cutList()
+      },
+      handleCurrentChangeRb(val) {
+        this.listQuery.pageRb = val;
         this.cutList()
       },
       cutList() {
@@ -2398,25 +2464,29 @@
           let pList = this.tableDataCopy.slice(start, end);
           this.tableData = pList;
           this.total = this.tableDataCopy.length
-        }
-        else if (this.activeName === 'show_second' && this.tableBm){
+        } else if (this.activeName === 'show_second' && this.tableBm) {
           let start = (this.listQuery.pageBm - 1) * this.listQuery.limitBm;
           let end = this.listQuery.pageBm * this.listQuery.limitBm;
           let pList = this.tableBmCopy.slice(start, end);
           this.tableBm = pList;
           this.total = this.tableBmCopy.length
-        }
-        else if (this.activeName === 'show_third' && this.tableGs) {
+        } else if (this.activeName === 'show_third' && this.tableGs) {
           let start = (this.listQuery.pageGs - 1) * this.listQuery.limitGs;
           let end = this.listQuery.pageGs * this.listQuery.limitGs;
           let pList = this.tableGsCopy.slice(start, end);
           this.tableGs = pList;
           this.total = this.tableGsCopy.length
+        } else if (this.activeName === 'show_fourth' && this.tableRb) {
+          let start = (this.listQuery.pageRb - 1) * this.listQuery.limitRb;
+          let end = this.listQuery.pageRb * this.listQuery.limitRb;
+          let pList = this.tableRbCopy.slice(start, end);
+          this.tableRb = pList;
+          this.total = this.tableRbCopy.length
         }
         this.loading = false
       },
       // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-end
-      getChangeRanks(){
+      getChangeRanks() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/getChangeRanks")
@@ -2472,33 +2542,44 @@
         );
         if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
           || this.$store.getters.userinfo.userid === '5e78b22c4e3b194874180f5f') {
-          //update gbb 20210329 2021组织架构变更 start
-          //let centerId = '5e7858a08f4316308435112c';
-          let centerId = this.$store.getters.orgtreeId;
-          //update gbb 20210329 2021组织架构变更 end
-          let orgs = getDownOrgInfo(centerId);
-          if (orgs) {
-            if (orgs.length > 0) {
-              if (getDownOrgInfo(orgs[0]._id).length > 0) {
-                this.group_idAnt = getDownOrgInfo(orgs[0]._id)[0]._id;
-              }
+          let letoptionsdata = [];
+          this.$store.getters.orgGroupList.filter((item) => {
+            letoptionsdata.push(
+              {
+                value: item.centerid,
+                lable: item.companyen,
+              },
+            );
+          })
+          let incfmyList = [];
+          for (let item of letoptionsdata) {
+            if (getOrgInfo(item.value).encoding == '') {
+              incfmyList.push(item.value)
             }
-
-            for (let center of orgs) {
-              let centers = getDownOrgInfo(center._id);
-              if (centers) {
-                for (let group of centers) {
-                  vote1.push(
-                    {
-                      value: group._id,
-                      lable: group.companyen,
-                    },
-                  );
+          }
+          if (incfmyList.length > 0) {
+            for (let item of incfmyList) {
+              letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+            }
+            let orgInfo = [];
+            for (let item of incfmyList) {
+              if (item) {
+                if (getOrgInfo(item).orgs.length != 0) {
+                  orgInfo.push(getOrgInfo(item).orgs)
                 }
               }
             }
+            let groInfo = orgInfo[0].filter(item => item.type == '2');
+            for (let item of groInfo) {
+              letoptionsdata.push(
+                {
+                  value: item._id,
+                  lable: item.companyen,
+                },
+              );
+            }
           }
-          this.optionsGroupdata = vote1;
+          this.optionsGroupdata = vote1.concat(letoptionsdata);
         }
         this.loading = false;
       },
@@ -2508,6 +2589,7 @@
         // 获取table_list的真实高度（浮动内容的真实高度）
         const tableHeight = document.getElementById('table_list').offsetHeight
         // boxHeight和滑块浮动的高度相差小于50 && 不在加载中 && 不是最后一页
+        alert(this.tableList.length)
         if (tableHeight - (e.target.scrollTop + boxHeight) < 50 && !this.loading && this.listPage < (this.tableList.length / 300)) {
           // 第一次触发时，记录滑块高度
           // data里scrollTop，listPage默认为0
@@ -2558,7 +2640,7 @@
         })
       },
       // 合并合计第一行
-      arraySpanMethod({ row, column, rowIndex, columnIndex }) {
+      arraySpanMethod({row, column, rowIndex, columnIndex}) {
         if (rowIndex === 0) {
           if (columnIndex === 0) {
             return [0, 0];
@@ -2567,28 +2649,27 @@
           }
         }
       },
-      indexFun (index) {
+      indexFun(index) {
         return index;
       },
       handleClick() {
         if (this.activeName === 'show_fourth') {
           this.gettableRb();
           this.buttonList[1].disabled = false;
-        }else if(this.activeName === 'show_second'){
+        } else if (this.activeName === 'show_second') {
           this.gettableBm();
           this.buttonList[1].disabled = true;
-        }else if(this.activeName === 'show_third'){
+        } else if (this.activeName === 'show_third') {
           this.gettableGs();
           this.buttonList[1].disabled = true;
         }
       },
-      gettableBm(){
+      gettableBm() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/gettableBm", {yearsantid: this.$route.params._id})
           .then(response => {
-            console.log(response)
-            for(let u = 0; u < response.length;u ++) {
+            for (let u = 0; u < response.length; u++) {
               let exrankinfo = getDictionaryInfo(response[u].exrankBmSum);
               if (exrankinfo != null) {
                 response[u].exrankBmSum = exrankinfo.value1;
@@ -2610,12 +2691,12 @@
             });
           });
       },
-      gettableGs(){
+      gettableGs() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/gettableGs", {yearsantid: this.$route.params._id})
           .then(response => {
-            for(let i = 0; i < response.length;i ++){
+            for (let i = 0; i < response.length; i++) {
               let exrankinfo = getDictionaryInfo(response[i].exrankGsSum);
               if (exrankinfo != null) {
                 response[i].exrankGsSum = exrankinfo.value1;
@@ -2637,12 +2718,20 @@
             });
           });
       },
-      gettableRb(){
+      gettableRb() {
         this.loading = true;
         this.$store
           .dispatch("PFANS2036Store/gettableRb", {yearsantid: this.$route.params._id})
           .then(response => {
+            for (let u = 0; u < response.length; u++) {
+              let ltrankinfo = getDictionaryInfo(response[u].ltrankRb);
+              if (ltrankinfo != null) {
+                response[u].ltrankRbshow = ltrankinfo.value1;
+              }
+            }
             this.tableRb = response;
+            this.tableRbCopy = response;
+            this.cutList();
             this.loading = false;
           })
           .catch(err => {
@@ -2734,7 +2823,7 @@
       addRow() {
         this.tableData.push({
           userid: '',
-          username: '',
+          username: '新人',
           departshort: '',
           allotment: '',
           newpersonaldate: '',
@@ -2782,19 +2871,19 @@
           jutoma: '',
         });
       },
- // add-lyt-1/22-禅道任务645-start
-      SearchBar(){
+      // add-lyt-1/22-禅道任务645-start
+      SearchBar() {
         this.loading = true;
-          let params = {
+        let params = {
           yearsantid: this.form.yearsantid,
-          username:this.form.username,
-          rnAnt:this.form.rnAnt,
-          allotmentAnt:this.form.allotmentAnt,
-          group_id:this.form.group_id,
+          username: this.form.username,
+          rnAnt: this.form.rnAnt,
+          allotmentAnt: this.form.allotmentAnt,
+          group_id: this.form.group_id,
         };
         this.$store
           .dispatch('PFANS2036Store/getFuzzyQuery', params)
-          .then(response =>{
+          .then(response => {
             for (let u = 0; u < response.length; u++) {
               let ltrankinfo = getDictionaryInfo(response[u].ltrank);
               if (ltrankinfo != null) {
@@ -2803,6 +2892,23 @@
               let exrankinfo = getDictionaryInfo(response[u].exrank);
               if (exrankinfo != null) {
                 response[u].exrankshow = exrankinfo.value1;
+              }
+              let changerankinfo = getDictionaryInfo(response[u].changerank);
+              if (changerankinfo != null) {
+                response[u].changerank = changerankinfo.value1;
+              }
+              let allotmentinfo = getDictionaryInfo(response[u].allotment);
+              if (allotmentinfo != null) {
+                response[u].allotment = allotmentinfo.value1;
+              }
+              if(response[u].indalian != null && response[u].indalian != '' && response[u].indalian != undefined){
+                if(response[u].indalian === '0'){
+                  response[u].indalianShow = '否';
+                }else{
+                  response[u].indalianShow = '是';
+                }
+              }else{
+                response[u].indalianShow = '否';
               }
             }
             this.tableData = response;
@@ -2908,18 +3014,9 @@
           marTrue: '',
         });
       },
-      getCitationUserid(userlist, row) {
-        row.useridRb = userlist;
-        if (row.useridRb != null && row.useridRb !== '') {
-          let lst = getUserInfo(row.useridRb);
-          row.ltrankRb = lst.userinfo.rank;
-          let orglst = getOrgInfo(lst.userinfo.groupid)
-          row.departshortRb = orglst.companyen;
-        }
-      },
       changeRank(val, row) {
         row.changerank = val;
-        if(val === 'PR069002'){
+        if (val === 'PR069002') {
           // let ltrankant = '';
           // for(row.exrank in this.ranksMap){
           //   ltrankant = this.ranksMap[]; //注意是 [  ]
@@ -2927,7 +3024,7 @@
           let ranksListAnt = this.ranksList.filter(item => item.value1 == row.exrankshow);
           row.ltrankshow = getDictionaryInfo(ranksListAnt[0].value11).value1;
           row.ltrank = ranksListAnt[0].value11;
-        }else{
+        } else {
           row.ltrankshow = row.exrankshow;
           row.ltrank = row.exrank
         }
@@ -2954,7 +3051,7 @@
                 duration: 5 * 1000
               });
             });
-        }else if(val === "recalculation"){
+        } else if (val === "recalculation") {
           this.loading = true;
           this.$store
             .dispatch("PFANS2036Store/upPersonalCostRb")

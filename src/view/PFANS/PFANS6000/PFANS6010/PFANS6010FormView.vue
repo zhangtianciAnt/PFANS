@@ -8,8 +8,8 @@
           <el-col :span="24">
             <el-table
               :data="tableData" :summary-method="getSummaries" border header-cell-class-name="sub_bg_color_blue"
-              show-summary
-              stripe style="width: 85vw">
+              show-summary :height="letheight"
+              stripe :style="{width: '85vw'}">
               <el-table-column :label="$t('NO')"
                                type="index"
                                width="50" fixed="left"></el-table-column>
@@ -85,7 +85,7 @@
 <script>
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import {Message} from 'element-ui';
-    import {getSupplierinfor,getorgGroupList} from '@/utils/customize';
+    import {getSupplierinfor,getorgGroupList,getOrgInformation,getOrgInfo} from '@/utils/customize';
     import moment from "moment";
     export default {
         name: 'PFANS6010FormView',
@@ -107,7 +107,8 @@
                 coststatistics:[],
                 canStart: false,
                 workflowCode: 'W0094',
-                letstatus:''
+                letstatus:'',
+                letheight:'calc(100vh - 60px -  10rem)'
             };
         },
         mounted() {
@@ -127,14 +128,15 @@
                         let groupnamelist = [];
                         groupnamelist = groupidlist.split(",");
                         for (let j = 0; j < groupnamelist.length; j++) {
-                            let group = getorgGroupList(groupnamelist[j]);
+                            let group = getOrgInformation(groupnamelist[j]);
                             if (group) {
-                                this.groupnamelist.push(group.companyen);
+                                this.groupnamelist.push(group.data.companyen);
                             }
                         }
                         this.tableData = response;
                     }
                     this.loading = false;
+                    this.letheight='calc(100vh - 230px - 2rem)'
                 })
                 .catch(error => {
                     Message({
@@ -272,7 +274,7 @@
                             bpcompany: this.coststatistics[i].bpcompany,
                             bpcostcount: this.coststatistics[i].bpcostcount,
                             groupid: this.$route.params._id.split(",")[0],
-                            groupname: getorgGroupList(this.$route.params._id.split(",")[0]).companyen,
+                            groupname: getOrgInfo(this.$route.params._id.split(",")[0]).companyen,
                             dates:moment(tempDate).format('YYYY-MM')
                         },
                     );
@@ -302,5 +304,8 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+  /*列锁定之后滚动条拖不动问题处理*/
+  .el-table--scrollable-y .el-table__body-wrapper{
+    z-index: 1;
+  }
 </style>

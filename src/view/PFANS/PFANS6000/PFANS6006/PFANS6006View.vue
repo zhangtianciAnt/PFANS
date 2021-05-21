@@ -6,538 +6,542 @@
         <el-form label-position="top" label-width="8vw" ref="reff" style="padding-top: 10px">
           <el-form-item>
             <el-row style="margin-top: 20px">
-              <el-col :span="18">
-                <div align="right">
-                  <el-date-picker
-                    :placeholder="$t('normal.error_09')"
-                    @change="yearChange"
-                    format="yyyy"
-                    type="year"
-                    v-model="year">
-                  </el-date-picker>
-                </div>
-              </el-col>
-              <el-col :span="6">
-                <div align="right">
-                  <el-select v-model="group_id" style="width: 20vw"
-                             @change="changeGroup">
-                    <el-option
-                      v-for="item in optionsdata"
-                      :key="item.value"
-                      :label="item.lable"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </div>
-              </el-col>
+              <div align="right">
+                <el-col :span="12">
+                    <el-date-picker
+                      :placeholder="$t('normal.error_09')"
+                      @change="yearChange"
+                      format="yyyy"
+                      type="year"
+                      v-model="year">
+                    </el-date-picker>
+                </el-col>
+                <el-col :span="6">
+                    <el-select v-model="group_id" style="width: 20vw"
+                               @change="changeGroup">
+                      <el-option
+                        v-for="item in optionsdata"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                </el-col>
+                <el-col :span="6">
+                    <el-input :placeholder="$t('label.PFANS6006VIEW_BPINFO')"  style="width: 20vw"
+                              v-model="filterName">
+                      <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+                    </el-input>
+                </el-col>
+              </div>
             </el-row>
             <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 start-->
-            <el-row style="margin-top: 20px">
-              <plx-table-grid :datas="taxdata" border
-                              header-cell-class-name="sub_bg_color_blue"
-                              use-virtual :pagination-show="paginationShow"
-                              style="width: 100%;" :row-height="rowheight">
-                <!--4月-->
-                <plx-table-column
-                  :label="$t('label.April')"
-                  align="center">
-                <plx-table-column
-                  :label="$t('label.taxtotal')"
-                  align="center"
-                  width="130"
-                  prop="april">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      size="mini"
-                      :max="9999999999"
-                      :min="0"
-                      :precision="2"
-                      :step="0.01"
-                      controls-position="right"
-                      style="width:90%"
-                      v-model.trim="scope.row.april">
-                    </el-input-number>
-                  </template>
-                </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.apriltax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--5月-->
-                <plx-table-column
-                  :label="$t('label.May')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.may">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.maytax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--6月-->
-                <plx-table-column
-                  :label="$t('label.June')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.june">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.junetax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--7月-->
-                <plx-table-column
-                  :label="$t('label.July')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.july">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.julytax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--8月-->
-                <plx-table-column
-                  :label="$t('label.August')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.august">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.augusttax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--9月-->
-                <plx-table-column
-                  :label="$t('label.September')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.september">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.septembertax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--10月-->
-                <plx-table-column
-                  :label="$t('label.October')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.october">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.octobertax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--11月-->
-                <plx-table-column
-                  :label="$t('label.November')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.november">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.novembertax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--12月-->
-                <plx-table-column
-                  :label="$t('label.December')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.december">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.decembertax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--1月-->
-                <plx-table-column
-                  :label="$t('label.January')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.january">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.januarytax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--2月-->
-                <plx-table-column
-                  :label="$t('label.February')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.february">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.februarytax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-                <!--3月-->
-                <plx-table-column
-                  :label="$t('label.March')"
-                  align="center">
-                  <plx-table-column
-                    :label="$t('label.taxtotal')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.march">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                  <plx-table-column
-                    :label="$t('label.tax')"
-                    align="center"
-                    width="130"
-                    prop="april">
-                    <template slot-scope="scope">
-                      <el-input-number
-                        size="mini"
-                        :max="9999999999"
-                        :min="0"
-                        :precision="2"
-                        :step="0.01"
-                        controls-position="right"
-                        style="width:90%"
-                        v-model.trim="scope.row.marchtax">
-                      </el-input-number>
-                    </template>
-                  </plx-table-column>
-                </plx-table-column>
-              </plx-table-grid>
-            </el-row>
-            <el-row style="margin-top: 180px">
+<!--            <el-row style="margin-top: 20px">-->
+<!--              <plx-table-grid :datas="taxdata" border-->
+<!--                              header-cell-class-name="sub_bg_color_blue"-->
+<!--                              use-virtual :pagination-show="paginationShow"-->
+<!--                              style="width: 100%;" :row-height="rowheight">-->
+<!--                &lt;!&ndash;4月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.April')"-->
+<!--                  align="center">-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.taxtotal')"-->
+<!--                  align="center"-->
+<!--                  width="130"-->
+<!--                  prop="april">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number-->
+<!--                      size="mini"-->
+<!--                      :max="9999999999"-->
+<!--                      :min="0"-->
+<!--                      :precision="2"-->
+<!--                      :step="0.01"-->
+<!--                      controls-position="right"-->
+<!--                      style="width:90%"-->
+<!--                      v-model.trim="scope.row.april">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.apriltax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;5月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.May')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.may">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.maytax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;6月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.June')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.june">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.junetax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;7月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.July')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.july">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.julytax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;8月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.August')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.august">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.augusttax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;9月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.September')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.september">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.septembertax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;10月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.October')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.october">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.octobertax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;11月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.November')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.november">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.novembertax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;12月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.December')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.december">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.decembertax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;1月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.January')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.january">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.januarytax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;2月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.February')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.february">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.februarytax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--                &lt;!&ndash;3月&ndash;&gt;-->
+<!--                <plx-table-column-->
+<!--                  :label="$t('label.March')"-->
+<!--                  align="center">-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.taxtotal')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.march">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                  <plx-table-column-->
+<!--                    :label="$t('label.tax')"-->
+<!--                    align="center"-->
+<!--                    width="130"-->
+<!--                    prop="april">-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        size="mini"-->
+<!--                        :max="9999999999"-->
+<!--                        :min="0"-->
+<!--                        :precision="2"-->
+<!--                        :step="0.01"-->
+<!--                        controls-position="right"-->
+<!--                        style="width:90%"-->
+<!--                        v-model.trim="scope.row.marchtax">-->
+<!--                      </el-input-number>-->
+<!--                    </template>-->
+<!--                  </plx-table-column>-->
+<!--                </plx-table-column>-->
+<!--              </plx-table-grid>-->
+<!--            </el-row>-->
+            <el-row style="margin-top: 0px">
             <!--insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end-->
               <plx-table-grid :datas="tableData" :header-cell-style="getRowClass" border
-                        header-cell-class-name="sub_bg_color_blue" stripe height="400" header-row-class-name="height"
+                        header-cell-class-name="sub_bg_color_blue" height="400" header-row-class-name="height"
                               use-virtual :pagination-show="paginationShow" big-data-checkbox highlight-current-row
                               style="width: 100%;height: calc(100vh - 200px - 2rem)" cell-class-name = "row_height_left" :row-height="rowheight"
-                        @selection-change="handleSelectionChange" @row-click="handleRowClick">
+                        @selection-change="handleSelectionChange" @row-click="handleRowClick" :rowClassName="rowClassName">
 
                 <plx-table-column
                   type="selection"
@@ -665,7 +669,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(4)"
+                        :disabled="disabledfunc(4,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -684,7 +688,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(5)"
+                        :disabled="disabledfunc(5,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -703,7 +707,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(6)"
+                        :disabled="disabledfunc(6,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -722,7 +726,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(7)"
+                        :disabled="disabledfunc(7,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -741,7 +745,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(8)"
+                        :disabled="disabledfunc(8,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -760,7 +764,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(9)"
+                        :disabled="disabledfunc(9,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -779,7 +783,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(10)"
+                        :disabled="disabledfunc(10,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -798,7 +802,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(11)"
+                        :disabled="disabledfunc(11,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -817,7 +821,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(12)"
+                        :disabled="disabledfunc(12,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -836,7 +840,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(1)"
+                        :disabled="disabledfunc(1,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -855,7 +859,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(2)"
+                        :disabled="disabledfunc(2,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -874,7 +878,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         size="mini"
-                        :disabled="disabledfunc(3)"
+                        :disabled="disabledfunc(3,scope.row.flag)"
                         :max="9999999999"
                         :min="0"
                         :precision="2"
@@ -972,7 +976,7 @@
   import moment from "moment";
   import {Message} from 'element-ui';
   import user from "../../../components/user.vue";
-  import {getCurrentRoleNew,getDownOrgInfo,getDictionaryInfo,getCooperinterviewListByAccount,getOrgInfo} from '../../../../utils/customize';
+  import {getCurrentRoleNew,getOrgInfo,getDictionaryInfo,getCooperinterviewListByAccount} from '../../../../utils/customize';
 
   export default {
     name: "PFANS6006View",
@@ -990,6 +994,8 @@
         buttonList: [],
         baseInfo: {},
         scope: '',
+        filterName: "",
+        responseDataInit: [],
         year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         group_id:'',
         row: '',
@@ -1058,6 +1064,16 @@
       };
     },
     methods: {
+      inputChange(){
+        if (this.filterName === "") {
+          this.tableData = this.responseDataInit;
+        } else {
+          this.tableData = this.responseDataInit.filter(item => {
+            return item.suppliername.toLowerCase().indexOf(this.filterName) != -1
+              || item.expname.toLowerCase().indexOf(this.filterName) != -1  ;
+          });
+        }
+      },
       getList() {
         this.loading = true;
         this.$store
@@ -1091,7 +1107,13 @@
               let exp = getCooperinterviewListByAccount(responsex[j].account);
               if (exp)
               {
-                responsex[j].exittime = exp.exitime;
+                if(exp.exitime != null){
+                  var date = new Date(exp.exitime);
+                  var YY = date.getFullYear() + '-';
+                  var MM = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+                  var DD = (date.getDate() < 10 ? '0' + (date.getDate()) : date.getDate());
+                  responsex[j].exittime = YY + MM + DD;
+                }
               }
               tabledate.push({
                   delegainformation_id: responsex[j].delegainformation_id,
@@ -1168,6 +1190,7 @@
             }
             //insert gbb 20210223 PSDCD_PFANS_20201117_XQ_011 外协委托信息添加【总额税金】和【税率】 end
             this.multipleSelection = [];
+            this.responseDataInit = tabledate;
             this.tableData = tabledate;
             this.loading = false;
           })
@@ -1247,6 +1270,22 @@
                 }
                 //add ccm 0112 兼职部门
             }
+            else if (role === '4') //GM
+            {
+              let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+              if (centers)
+              {
+                if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+                {
+                  vote.push(
+                    {
+                      value: this.$store.getters.userinfo.userinfo.groupid,
+                      lable: this.$store.getters.userinfo.userinfo.groupname,
+                    },
+                  );
+                }
+              }
+            }
             const vote1 = [];
             if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
                 || this.$store.getters.roles.indexOf("11") != -1 //总经理
@@ -1277,6 +1316,36 @@
                     letoptionsdata.push(item);
                 }
             }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of letoptionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0) {
+          for (let item of incfmyList) {
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for (let item of incfmyList) {
+            if (item) {
+              if (getOrgInfo(item).orgs.length != 0) {
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for (let item of groInfo) {
+            letoptionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
             this.optionsdata = letoptionsdata;
             if(this.optionsdata.length > 0){
                 this.group_id = this.optionsdata[0].value;
@@ -1300,10 +1369,17 @@
       handleSelectionChange(val) {
         this.multipleSelection = val;
       },
-      disabledfunc(item){
+      disabledfunc(item,val){
           if(item === this.nowm){
               if(this.nowd <= this.dictionary){
+                if (val != undefined && val === '1')
+                {
+                  return true;
+                }
+                else
+                {
                   return false;
+                }
               }
               else{
                   return true;
@@ -1432,11 +1508,12 @@
       },
       //add-退场人员信息背景色
       rowClassName({row, rowIndex}) {
-        if (row.exittime !==null && row.exittime !=='' && row.exittime !==undefined)
+        if (row.exittime !=null && row.exittime != "" && row.exittime != undefined)
         {
           if (moment(new Date()).format('YYYY-MM') >= moment(row.exittime).add(2, 'months').format('YYYY-MM'))
           {
-            return "sub_bg_color_Darkgrey";
+            row.flag = '1';
+            return "sub_bg_color_Darkgreyaa";
           }
         }
       },
@@ -1461,5 +1538,14 @@
   }
   .el-table /deep/ .current-row{
     background-color: #BDD8EE;
+  }
+  /*.current-row .arow--currentaa{*/
+  /*  background-color: #E5575E;*/
+  /*}*/
+  /*.el-table .current-row{*/
+  /*  background-color: #E5575E;*/
+  /*}*/
+  .sub_bg_color_Darkgreyaa{
+      background-color: #CCCCCC !important;
   }
 </style>

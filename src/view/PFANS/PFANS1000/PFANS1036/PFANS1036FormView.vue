@@ -993,7 +993,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -1225,7 +1225,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -1457,7 +1457,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -1689,7 +1689,7 @@
                                            v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
-                      <el-table-column :label="$t('label.PFANS1002VIEW_PLANTYPE')" align="center" width="135"
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
                                        prop="type">
                         <template slot-scope="scope">
                           <dicselect
@@ -2375,7 +2375,7 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
-            let group = getOrgInfo(this.form.group_id);
+            let group = getOrgInfo(this.form.center_id);
             if (group) {
               this.org.redirict = group.redirict;
               this.org.companyen = group.companyen;
@@ -2403,6 +2403,7 @@
                 this.tableP[val.type] = val;
               },
             );
+            this.getPersonTable(this.$route.params.centerid, this.$route.params.year);
             this.loading = false;
           })
           .catch(error => {
@@ -2413,7 +2414,6 @@
             });
             this.loading = false;
           });
-        this.getPersonTable(this.$route.params.groupid, this.$route.params.year);
       } else {
         this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -2434,7 +2434,7 @@
               if (this.orgtree) {
                 this.checkList = this.orgtree;
                 for (let i = 0; i < this.checkList.length; i++) {
-                  if (this.checkList[i].id === this.form.group_id) {
+                  if (this.checkList[i].id === this.form.center_id) {
                     this.org = this.checkList[i];
                     this.form.encoding = this.org.encoding;
                   }
@@ -2498,15 +2498,15 @@
           });
 
         this.loading = true;
-        if (this.form.group_id) {
-          this.getgroupA1(this.form.group_id);
+        if (this.form.center_id) {
+          this.getgroupA1(this.form.center_id);
         }
         this.getgroupA2();
         this.getgroupB1();
         this.getgroupB2();
         this.getgroupB3();
-        if (this.form.group_id) {
-          this.getPersonTable(rst.groupId, this.form.year);
+        if (this.form.center_id) {
+          this.getPersonTable(rst.centerId, this.form.year);
         }
 
         this.loading = false;
@@ -3330,42 +3330,94 @@
         }
         if (column.property === 'type') {
           if (index === 0) {
-            return this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE');
-          } else if (index === 2) {
+          //   return this.$t('label.PFANS1013FORMVIEW_CHUXIANGZHE');
+          // } else if (index === 2) {
             return this.$t('label.PFANSUSERVIEW_MEMBERS');
           }
         } else if (column.property === 'level') {
-          if (index === 0) {
-            return this.$t('label.PFANS1036FORMVIEW_COUNSELORUP');
-          } else if (index === 1) {
-            return this.$t('label.PFANS1036FORMVIEW_CHANCELLORDOWN');
-          } else if (index === 2) {
-            return 'R11A';
-          } else if (index === 3) {
+          if (row.code === 'PR021013')
+          {
             return 'R11B';
-          } else if (index === 4) {
+          }
+          else if (row.code === 'PR021012')
+          {
+            return 'R11A';
+          }
+          else if (row.code === 'PR021011')
+          {
             return 'R10';
-          } else if (index === 5) {
-            return 'R9A';
-          } else if (index === 6) {
+          }
+          else if (row.code === 'PR021010')
+          {
             return 'R9B';
-          } else if (index === 7) {
+          }
+          else if (row.code === 'PR021009')
+          {
+            return 'R9A';
+          }
+          else if (row.code === 'PR021008')
+          {
             return 'R8A';
-          } else if (index === 8) {
+          }
+          else if (row.code === 'PR021007')
+          {
             return 'R8B';
-          } else if (index === 9) {
+          }
+          else if (row.code === 'PR021006')
+          {
             return 'R8C';
-          } else if (index === 10) {
+          }
+          else if (row.code === 'PR021005')
+          {
             return 'R7';
-          } else if (index === 11) {
+          }
+          else if (row.code === 'PR021004')
+          {
             return 'R6';
-          } else if (index === 12) {
+          }
+          else if (row.code === 'PR021003')
+          {
             return 'R5';
-          } else if (index === 13) {
+          }
+          else if (row.code === 'PR021002')
+          {
             return 'R4';
-          } else if (index === 14) {
+          }
+          else if (row.code === 'PR021001')
+          {
             return 'R3';
           }
+          // if (index === 0) {
+          //   return this.$t('label.PFANS1036FORMVIEW_COUNSELORUP');
+          // } else if (index === 1) {
+          //   return this.$t('label.PFANS1036FORMVIEW_CHANCELLORDOWN');
+          // } else if (index === 2) {
+          //   return 'R11A';
+          // } else if (index === 3) {
+          //   return 'R11B';
+          // } else if (index === 4) {
+          //   return 'R10';
+          // } else if (index === 5) {
+          //   return 'R9A';
+          // } else if (index === 6) {
+          //   return 'R9B';
+          // } else if (index === 7) {
+          //   return 'R8A';
+          // } else if (index === 8) {
+          //   return 'R8B';
+          // } else if (index === 9) {
+          //   return 'R8C';
+          // } else if (index === 10) {
+          //   return 'R7';
+          // } else if (index === 11) {
+          //   return 'R6';
+          // } else if (index === 12) {
+          //   return 'R5';
+          // } else if (index === 13) {
+          //   return 'R4';
+          // } else if (index === 14) {
+          //   return 'R3';
+          // }
         }
       },
       getPrecent(param) {

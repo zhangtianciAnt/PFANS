@@ -36,7 +36,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import moment from 'moment';
-  import {getCooperinterviewList, getDepartmentById, getStatus, getUserInfo} from '@/utils/customize';
+  import {getCooperinterviewList, getStatus, getUserInfo} from '@/utils/customize';
   import {Message} from 'element-ui'
 
   export default {
@@ -276,7 +276,7 @@
           {
             code: 'totalwages',
             label: 'label.PFANS2006VIEW_ARSENAL',
-            width: 176,
+            width: 190,
             fix: false,
             filter: true,
           },
@@ -550,14 +550,6 @@
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
               response[j].giving_id = moment(response[j].createon).format('YYYY-MM');
-
-              if (response[j].department_id !== null && response[j].department_id !== "") {
-                let user = getDepartmentById(response[j].department_id);
-                if (user) {
-                  response[j].department_id = user.coopername;
-                }
-              }
-
               if (response[j].user_id !== null && response[j].user_id !== '') {
                 let rst = getUserInfo(response[j].user_id);
                 if (rst) {

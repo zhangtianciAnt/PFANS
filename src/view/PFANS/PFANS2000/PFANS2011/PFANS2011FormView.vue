@@ -498,7 +498,7 @@
       this.getDateList();
       this.getOvertimeDay();
       this.getOvertimeMen();
-      this.getWorktime();
+      //this.getWorktime();//重复接口删除【getDateList】
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
@@ -777,6 +777,10 @@
         this.$store
           .dispatch('PFANS2011Store/getDataList', {})
           .then(response => {
+            //整合getWorktime方法
+            if(response.length > 0){
+              this.varworktime = response;
+            }
             for (let i = 0; i < response.length; i++) {
               if (this.$store.getters.userinfo.userid === response[i].user_id && moment(this.form.applicationdate).format('YYYY-MM-DD') === moment(response[i].punchcardrecord_date).format('YYYY-MM-DD')) {
                 this.timeend = response[i].time_end;
@@ -839,24 +843,6 @@
       },
       changeReserveovertimedate() {
           this.form.overtimetype = '';
-        if(this.varworktime.length > 0) {
-            for (let j = 0; j < this.varworktime.length; j++) {
-                if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.varworktime[j].punchcardrecord_date).format('YYYY-MM-DD') && this.$store.getters.userinfo.userid === this.varworktime[j].user_id) {
-                    let timeend = moment(this.varworktime[j].time_end).format('HH:mm').replace(':', '.');
-                    // let worktime = Number(this.varworktime[j].worktime);
-                    let timeflg1 = timeend.substring(0, 2);
-                    let timeflg2 = timeend.substring(timeend.length - 2);
-                    let timeflg3 = timeflg2 / 60;
-                    // if ((Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2) > 0) {
-                    //     this.form.worktime = (Number(timeflg1) + Number(timeflg3) - Number(worktime) - 18).toFixed(2);
-                    if ((Number(timeflg1) + Number(timeflg3) - 18).toFixed(2) > 0) {
-                        this.form.worktime = (Number(timeflg1) + Number(timeflg3) - 18).toFixed(2);
-                    } else {
-                        this.form.worktime = 0.00;
-                    }
-                }
-            }
-        }
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
           'YYYY-MM-DD',
         );
@@ -865,8 +851,12 @@
               this.change('PR001002');
           }
           //ADD_FJL_06/30 -- 添加周末加班的check end
+        let resultLista = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
         if (moment(letreserveovertimedate).format('MM-DD') === '05-04') {
-          this.change('PR001007');
+          //工作日设定中【五四青年节】当天五其他类型假期判断
+          if(resultLista.length === 0){
+            this.change('PR001007');
+          }
           // DEL_FJL_05/13   --暂时注释掉无用代码
           // if (
           //     this.form.reserveovertimedate.getDay() === 0 ||

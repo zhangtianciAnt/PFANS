@@ -751,4 +751,7 @@
     text-align: left;
     background-color: transparent !important;
   }
+  .el-table--scrollable-x .el-table__body-wrapper{
+    z-index: 1;
+  }
 </style>

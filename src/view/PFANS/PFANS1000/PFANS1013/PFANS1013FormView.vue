@@ -1286,6 +1286,7 @@
         // add-ws-8/12-禅道任务446
         enableSave: false,
         role2: '',
+        fromname: '',
         acceptShow: true,
         options2: [
           {
@@ -1566,6 +1567,7 @@
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.getCompanyProjectList();
       this.checkOption();
+      // this.IDname = this.$route.params._id;
       if (this.params_id) {
         this.loading = true;
         this.$store
@@ -1830,8 +1832,19 @@
             this.loading = false;
           });
       } else {
-        this.getBusInside();
-        this.getBusOuter();
+        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+        this.busInt();
+        if(this.form.type === '0'){
+        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          this.getBusInside();
+       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+        }
+        else{
+       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          this.getBusOuter();
+       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+        }
+        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
         this.checkmoney = true;
         this.checktaxes = true;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
@@ -1991,6 +2004,9 @@
       //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       this.params_id = this.$route.params._id;
       //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+      if(this.$route.params._fromname != "" && this.$route.params._fromname != null && this.$route.params._fromname != undefined){
+        this.fromname = this.$route.params._fromname;
+      }
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
@@ -2490,6 +2506,8 @@
             if (accinfo) {
               row.accountcode = accinfo.value1;
               row.subjectnumber = accinfo.value2;
+              this.accountcodeflg = accinfo.value1;
+              this.subjectnumberflg = accinfo.value2;
             }
           }
           //add_fjl_0721   对应科目代码  end
@@ -2855,7 +2873,7 @@
           invoicenumber: '',
           plsummary: this.plsummaryflg,
           accountcode: this.accountcodeflg,
-          subjectnumber: this.subjectnumberflg,
+          subjectnumber: this.tableT[0].subjectnumber,
           departmentname: this.tableT[0].departmentname,
           taxes: '',
           // costitem: '',
@@ -3622,20 +3640,30 @@
       buttonClick(val) {
         //add-ws-8/29-禅道bug066
         if (val === 'back') {
-          if (this.$route.params._typecheck) {
+          if(this.fromname != '' && this.fromname != null && this.fromname != undefined){
             this.$router.push({
-              name: 'PFANS1001FormView',
+              name: 'PFANS1035FormView',
               params: {
-                title: 1,
+                disabled: true,
+                _id: this.form.business_id,
               },
             });
-          } else {
-            this.$router.push({
-              name: 'PFANS1001FormView',
-              params: {
-                title: 2,
-              },
-            });
+          }else{
+            if (this.$route.params._typecheck) {
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: 1,
+                },
+              });
+            } else {
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: 2,
+                },
+              });
+            }
           }
         }
         //add-ws-8/29-禅道bug066

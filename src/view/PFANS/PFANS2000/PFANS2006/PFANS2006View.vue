@@ -586,6 +586,12 @@
                 fix: false,
                 filter: true,
               }, {
+                code: 'socialsecurity',
+                label: 'label.PFANS2005FORMVIEW_SOCIALSECURITY',
+                width: 124,
+                fix: false,
+                filter: true,
+              }, {
                 code: 'comaccumulationfund',
                 label: 'label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND',
                 width: 124,
@@ -815,11 +821,11 @@
               , this.$t('label.PFANS2006VIEW_ACCUMULATED'), this.$t('label.PFANS2006VIEW_UNACCUMULATED'), this.$t('label.PFANS2006VIEW_ANNUAL'), this.$t('label.PFANS2006VIEW_RESIDENTIALTAX'), this.$t('label.PFANS2006VIEW_COMPANYBOSS')
               , this.$t('label.PFANS2006VIEW_OTHER5'), this.$t('label.PFANS2006VIEW_RESPONSIBLE'), this.$t('label.PFANS2006VIEW_CUMULATIVE'), this.$t('label.PFANS2006VIEW_INCOME'), this.$t('label.PFANS2006VIEW_THISMONTH')
               , this.$t('label.PFANS2005VIEW_ACTUAL'), this.$t('label.PFANS2006VIEW_OLDC'), this.$t('label.PFANS2006VIEW_MEDICALC'), this.$t('label.PFANS2005FORMVIEW_COMUNEMPLOYMENTINSURANCEC'), this.$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCEC')
-              , this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
+              , this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_SOCIALSECURITY'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
               , this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY'), this.$t('label.PFANS2005FORMVIEW_TOTALWAGES'), this.$t('label.PFANS2005FORMVIEW_GAUGE'), this.$t('label.PFANS2005FORMVIEW_TOTALGAUGE'), this.$t('label.PFANS2005FORMVIEW_OTHER6')];
 
            let filterVal = ['workdate','sex','onlychild','type','bonus','sociology','registered'
-              , 'yanglaojs', 'shiyejs', 'gongshangjs', 'yiliaojs', 'shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'thisbasic', 'thismonthduty', 'rnbasesalary'
+              , 'yanglaojs', 'shiyejs', 'gongshangjs', 'yiliaojs', 'shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'basethismonthbasic', 'thismonthduty', 'rnbasesalary'
               , 'birthrest', 'thismonthbasic', 'shortillness','longillness', 'owediligence', 'owingcontrol', 'actualamount'
               , 'ykbzjs', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
               , 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
@@ -827,7 +833,7 @@
               , 'socialinsurance', 'accumulationfund', 'disciplinarycontrol', 'thismonthterm', 'thismonthadditional', 'thismonthdutyfree'
               , 'lastdutyfree', 'housingmoneys', 'other4', 'other5', 'shouldwages', 'shouldcumulative', 'shouldpaytaxes'
               , 'thismonthadjustment', 'realwages', 'comendowmentinsurance', 'commedicalinsurance', 'comunemploymentinsurance', 'cominjuryinsurance'
-              , 'combirthinsurance', 'comheating', 'comaccumulationfund', 'total', 'labourunionbase', 'labourunionfunds', 'comtotalwages'
+              , 'combirthinsurance', 'comheating','socialsecurity', 'comaccumulationfund', 'total', 'labourunionbase', 'labourunionfunds', 'comtotalwages'
               , 'bonusmoney', 'totalbonus', 'other6'];
 
             let csvData = [];
@@ -852,7 +858,7 @@
                 [heads[15]]: obj.accumulation,
                 [heads[16]]: parseFloat(obj.lastmonthbasic).toFixed(2),
                 [heads[17]]: parseFloat(obj.lastmonthduty).toFixed(2),
-                [heads[18]]: parseFloat(obj.thisbasic).toFixed(2),
+                [heads[18]]: parseFloat(obj.basethismonthbasic).toFixed(2),
                 [heads[19]]: parseFloat(obj.thismonthduty).toFixed(2),
                 [heads[20]]: obj.rnbasesalary,
                 [heads[21]]: obj.birthrest,
@@ -901,13 +907,14 @@
                 [heads[64]]: parseFloat(obj.combirthinsurance).toFixed(2),
                 [heads[65]]: parseFloat(obj.comheating).toFixed(2),
                 [heads[66]]: parseFloat(obj.comaccumulationfund).toFixed(2),
-                [heads[67]]: parseFloat(obj.total).toFixed(2),
-                [heads[68]]: parseFloat(obj.labourunionbase).toFixed(2),
-                [heads[69]]: parseFloat(obj.labourunionfunds).toFixed(2),
-                [heads[70]]: parseFloat(obj.comtotalwages).toFixed(2),
-                [heads[71]]: parseFloat(obj.bonusmoney).toFixed(2),
-                [heads[72]]: parseFloat(obj.totalbonus).toFixed(2),
-                [heads[73]]: obj.other6,
+                [heads[67]]: parseFloat(obj.socialsecurity).toFixed(2),
+                [heads[68]]: parseFloat(obj.total).toFixed(2),
+                [heads[69]]: parseFloat(obj.labourunionbase).toFixed(2),
+                [heads[70]]: parseFloat(obj.labourunionfunds).toFixed(2),
+                [heads[71]]: parseFloat(obj.comtotalwages).toFixed(2),
+                [heads[72]]: parseFloat(obj.bonusmoney).toFixed(2),
+                [heads[73]]: parseFloat(obj.totalbonus).toFixed(2),
+                [heads[74]]: obj.other6,
               });
             }
 

@@ -590,7 +590,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>
-                  <el-input :disabled="!disabled3" v-model="scope.row.claimtype">
+                  <el-input :disabled="scope.row.book ? true : !disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </el-form-item>
               </template>
@@ -600,7 +600,7 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.deliverydate"
+                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -610,7 +610,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'"
                               :rules='rules.completiondate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.completiondate"
+                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.completiondate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -618,7 +618,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimdate'" :rules='rules.claimdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.claimdate"
+                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.claimdate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -627,7 +627,7 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.supportdate'" :rules='rules.supportdate'>
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.supportdate"
+                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.supportdate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -637,7 +637,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimamount'" :rules='rules.claimamount'>
                   <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                   :disabled="!disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                                   :disabled="scope.row.book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -645,7 +645,7 @@
                              width="245">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
-                  <el-input :disabled="!disabled" v-model="scope.row.remarksqh" style="width:13vw">
+                  <el-input :disabled="scope.row.book ? true : !disabled" v-model="scope.row.remarksqh" style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
@@ -964,6 +964,7 @@
         }
       };
       return {
+        tableclaimtypeold:[],
         //add-ws-01/06-禅道任务710
         search1: '',
         //add-ws-01/06-禅道任务710
@@ -1407,7 +1408,14 @@
               }
             }
             if (contractnumbercount.length > 0) {
+              for (let i = 0; i < contractnumbercount.length; i++) {
+                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
+                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
+                  contractnumbercount[i].book = true;
+                }
+              }
               this.form.tableclaimtype = contractnumbercount;
+              this.tableclaimtypeold = contractnumbercount;
             }
             this.loading = false;
           })
@@ -1424,7 +1432,9 @@
       }
       //333
       let userid = this.$store.getters.userinfo.userid;
-      this.buttonList[3].disabled = true;
+      if(this.buttonList.length >= 3){
+        this.buttonList[3].disabled = true;
+      }
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
@@ -2298,7 +2308,6 @@
           }
         }
         this.addRowdata(isClone);
-        this.form.tableclaimtype = [];
 
         // if (this.form.claimtype === 'HT001001') {
         //   this.addRowclaimtype();
@@ -2326,15 +2335,38 @@
         //   this.form.tableclaimtype[2].claimtype = letclaimtypethree;
         //   this.form.tableclaimtype[3].claimtype = letclaimtypefour;
         // }
-
-        for (let i = 0; i < this.form.claimtype; i++) {
-          let letclaimtypeone = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+        //add gbb 20210508 合同觉书的情况带入旧合同回数 start
+        let letint = 0;
+        let tableclaimtypenew = [];
+        if (this.checked) {
+          for (let i = 0; i < this.tableclaimtypeold.length; i++) {
+            if(i < this.form.claimtype){
+              if(!this.tableclaimtypeold[i].book){
+                letint = letint + 1;
+                let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+                this.tableclaimtypeold[i].claimtype = letclaimtypeone;
+              }
+              this.tableclaimtypeold[i].contractnumbercount_id = '';
+              this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
+              tableclaimtypenew.push(this.tableclaimtypeold[i]);
+            }
+          }
+          this.form.tableclaimtype = tableclaimtypenew;
+        }
+        else{
+          this.form.tableclaimtype = [];
+          this.tableclaimtypeold = [];
+        }
+        for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
+          letint = letint + 1;
+          let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype();
           this.form.tableclaimtype[i].claimtype = letclaimtypeone;
           if (this.$route.params.bpcostcount) {
             this.form.tableclaimtype[0].claimamount = this.$route.params.bpcostcount;
           }
         }
+        //add gbb 20210508 合同觉书的情况带入旧合同回数 end
         if (this.form.contracttype === 'HT014001') {
           this.titleType = this.titleType1;
         } else if (this.form.contracttype === 'HT014002') {
