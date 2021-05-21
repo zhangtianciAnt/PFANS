@@ -68,11 +68,11 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
+            <el-form-item :label="$t('label.department')" :label-width="formLabelWidth" prop="grouporglist"
                           :error="errorgroup">
               <org
                 :orglist="form1.grouporglist"
-                orgtype="2"
+                orgtype="4"
                 :error="errorgroup"
                 style="width: 20vw"
                 @getOrgids="getGroupId"
@@ -561,7 +561,7 @@
                   <el-table :data="tableD" :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
                             v-loading='loading'>
                     <el-table-column property="user_id" :label="$t('label.applicant')" width="120"></el-table-column>
-                    <el-table-column property="deployment" :label="$t('label.group')" width="120"></el-table-column>
+                    <el-table-column property="deployment" :label="$t('label.department')" width="120"></el-table-column>
                     <el-table-column property="contractnumber" :label="$t('label.PFANS1024VIEW_CONTRACTNUMBER')"
                                      width="120"></el-table-column>
                     <el-table-column property="contracttype" :label="$t('label.PFANS1024VIEW_CONTRACTTYPE')"
@@ -655,6 +655,7 @@
     getSupplierinfor,
     getStatus,
     getOrgInfoByUserId,
+    getOrgInformation,
   } from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
@@ -675,8 +676,8 @@
     data() {
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
-          callback(new Error(this.$t('normal.error_08') + 'group'));
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           callback();
         }
@@ -1019,7 +1020,7 @@
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         if (lst !== null && lst !== '') {
-          this.form1.grouporglist = lst.groupId;
+          this.form1.grouporglist = lst.centerId;
           this.getGroupId(this.form1.grouporglist);
           this.checkGroupId = true;
         } else {
@@ -1305,12 +1306,31 @@
       getGroupId(val) {
         this.form1.grouporglist = val;
         this.grouporglist = val;
-        let group = getOrgInfo(val);
+        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
+        let group = getOrgInformation(val);
         if (group) {
-          this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
+          if(group.data.type === '2'){
+            this.form1.grouporglist = group.parent.data._id;
+            this.grouporglist = group.parent.data._id;
+            this.groupinfo = [
+              group.parent.data._id,
+              group.parent.data.companyen === undefined ? "" : group.parent.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.parent.data.companyname === undefined ? "" : group.parent.data.companyname
+            ];
+          }
+          else{
+            this.groupinfo = [
+              val,
+              group.data.companyen === undefined ? "" : group.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.data.companyname === undefined ? "" : group.data.companyname
+            ];
+          }
         }
+        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 end
         if (!val || this.form1.grouporglist === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           this.errorgroup = '';
         }
@@ -1573,7 +1593,18 @@
               this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
             } else {
               if (this.groupinfo[2] !== null) {
-                this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + letbook;
+                //选择group是判断组织编码为空时不可以创建合同
+                if(this.groupinfo[2].trim() !== "") {
+                  this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + '0000' + letbook;
+                }
+                else{
+                  Message({
+                    message: this.$t('normal.error_14'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               } else {
                 Message({
                   message: this.$t('normal.error_14'),

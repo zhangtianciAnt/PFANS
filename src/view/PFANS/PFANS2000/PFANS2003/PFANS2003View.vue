@@ -8,7 +8,7 @@
     import {Message} from 'element-ui'
     import moment from 'moment'
     import {getUserInfo} from '@/utils/customize'
-    import {getDictionaryInfo, getOrgInfo,getDepartmentById,getorgGroupList} from "../../../../utils/customize";
+    import {getDictionaryInfo, getOrgInfo,getDepartmentById} from "../../../../utils/customize";
 
     export default {
         name: 'PFANS2003View',
@@ -94,11 +94,6 @@
                 .then(response => {
                     console.log("response",response)
                     for (let j = 0; j < response.length; j++) {
-                        // if(response.interviewdep){
-                        //     let group = getorgGroupList(response[j].interviewdep);
-                        //     let groupname = group.groupname
-                        //     response[j].interviewdep = groupname
-                        // }
                         if(response[j].interviewdep){
                             response[j].interviewdep = getDepartmentById(response[j].interviewdep);
                         }

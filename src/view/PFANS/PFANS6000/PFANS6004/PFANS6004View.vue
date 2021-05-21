@@ -540,7 +540,7 @@
                             this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
                             this.$t('label.PFANS2003FORMVIEW_RN'),
                             this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            this.$t('label.group'),
+                            this.$t('label.department'),
                             this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
                             this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
                             this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),

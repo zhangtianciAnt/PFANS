@@ -4582,7 +4582,7 @@
                                 if (this.$i18n) {
                                     if (response.base[j].sex === "PR019001") {
                                         response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                                    } else {
+                                    } else if (response.base[j].sex === "PR019002"){
                                         response.base[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
                                     }
                                 }

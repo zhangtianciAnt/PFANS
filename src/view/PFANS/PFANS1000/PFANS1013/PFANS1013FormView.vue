@@ -1623,12 +1623,12 @@
                 if (this.tableT[i].departmentname !== '' && this.tableT[i].departmentname !== null && this.tableT[i].departmentname !== undefined) {
                   //ADD_FJL
                   this.tableT[i].optionsT = [];
-                  if (this.tableT[i].departmentname) {
-                    let butinfo = getOrgInfo(this.tableT[i].departmentname).encoding;
+                  if (getOrgInfo(this.tableT[i].departmentname)) {
+                    let butinfo = (getOrgInfo(this.tableT[i].departmentname).encoding).substring(0,3);
                     let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                     if (dic.length > 0) {
                       for (let j = 0; j < dic.length; j++) {
-                        if (butinfo === dic[j].value1) {
+                        if (butinfo === (dic[j].value1).substring(0,3)) {
                           this.tableT[i].optionsT.push({
                             lable: dic[j].value2 + '_' + dic[j].value3,
                             value: dic[j].code,
@@ -1693,12 +1693,12 @@
                 if (this.tableA[i].departmentname !== '' && this.tableA[i].departmentname !== null && this.tableA[i].departmentname !== undefined) {
                   //ADD_FJL
                   this.tableA[i].optionsA = [];
-                  if (this.tableA[i].departmentname) {
-                    let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
+                  if (getOrgInfo(this.tableA[i].departmentname)) {
+                    let butinfoA = (getOrgInfo(this.tableA[i].departmentname).encoding).substring(0,3);
                     let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                     if (dicA.length > 0) {
                       for (let j = 0; j < dicA.length; j++) {
-                        if (butinfoA === dicA[j].value1) {
+                        if (butinfoA === (dicA[j].value1).substring(0,3)) {
                           this.tableA[i].optionsA.push({
                             lable: dicA[j].value2 + '_' + dicA[j].value3,
                             value: dicA[j].code,
@@ -1763,12 +1763,12 @@
                 }
                 if (this.tableR[i].departmentname !== '' && this.tableR[i].departmentname !== null && this.tableR[i].departmentname !== undefined) {
                   this.tableR[i].optionsR = [];
-                  if (this.tableA[i].departmentname) {
-                    let butinfoR = getOrgInfo(this.tableA[i].departmentname).encoding;
+                  if (getOrgInfo(this.tableA[i].departmentname)) {
+                    let butinfoR = (getOrgInfo(this.tableA[i].departmentname).encoding).substring(0,3);
                     let dicR = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                     if (dicR.length > 0) {
                       for (let j = 0; j < dicR.length; j++) {
-                        if (butinfoR === dicR[j].value1) {
+                        if (butinfoR === (dicR[j].value1).substring(0,3)) {
                           this.tableR[i].optionsR.push({
                             lable: dicR[j].value2 + '_' + dicR[j].value3,
                             value: dicR[j].code,
@@ -1846,13 +1846,13 @@
           this.groupId = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableT[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableT[0].optionsT = [];
-          if (this.tableT[0].departmentname) {
-            let butinfo = getOrgInfo(this.tableT[0].departmentname).encoding;
+          if (getOrgInfo(this.tableT[0].departmentname)) {
+            let butinfo = (getOrgInfo(this.tableT[0].departmentname).encoding).substring(0,3);
             if (butinfo) {
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if (dic.length > 0) {
                 for (let j = 0; j < dic.length; j++) {
-                  if (butinfo === dic[j].value1) {
+                  if (butinfo === (dic[j].value1).substring(0,3)) {
                     this.tableT[0].optionsT.push({
                       lable: dic[j].value2 + '_' + dic[j].value3,
                       value: dic[j].code,
@@ -1869,13 +1869,13 @@
           //add-ws-5/14-其他费用明细添加
           this.tableR[0].departmentname = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId;
           this.tableR[0].optionsR = [];
-          if (this.tableR[0].departmentname) {
-            let butinfoR = getOrgInfo(this.tableR[0].departmentname).encoding;
+          if (getOrgInfo(this.tableR[0].departmentname)) {
+            let butinfoR = (getOrgInfo(this.tableR[0].departmentname).encoding).substring(0,3);
             if (butinfoR) {
               let dicR = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if (dicR.length > 0) {
                 for (let j = 0; j < dicR.length; j++) {
-                  if (butinfoR === dicR[j].value1) {
+                  if (butinfoR === (dicR[j].value1).substring(0,3)) {
                     this.tableR[0].optionsR.push({
                       lable: dicR[j].value2 + '_' + dicR[j].value3,
                       value: dicR[j].code,
@@ -2458,18 +2458,22 @@
         row.optionsT = [];
         row.budgetcoding = '';
         row.subjectnumber = '';
-        let butinfo = getOrgInfo(row.departmentname).encoding;
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === dic[i].value1) {
-              row.optionsT.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        // update center取预算单位横展 start
+        if(getOrgInfo(row.departmentname)){
+            let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.optionsT.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
+        // update center取预算单位横展 end
         //ADD_FJL  修改人员预算编码
         let group = getOrgInfo(orglist);
         if (group) {
@@ -2505,18 +2509,22 @@
         row.optionsR = [];
         row.budgetcoding = '';
         row.subjectnumber = '';
-        let butinfo = getOrgInfo(row.departmentname).encoding;
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === dic[i].value1) {
-              row.optionsR.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        // update center取预算单位横展 start
+        if(getOrgInfo(row.departmentname)){
+            let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.optionsR.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
+        // update center取预算单位横展 end
         let group = getOrgInfo(orglist);
         if (group) {
           //add_fjl_0721   对应科目代码  start
@@ -2547,18 +2555,22 @@
           row.optionsA = [];
         row.budgetcoding = '';
         row.subjectnumber = '';
-        let butinfo = getOrgInfo(row.departmentname).encoding;
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === dic[i].value1) {
-              row.optionsA.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        // update center取预算单位横展 start
+        if(getOrgInfo(row.departmentname)){
+            let butinfo = (getOrgInfo(row.departmentname).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        row.optionsA.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
+        // update center取预算单位横展 end
         //ADD_FJL  修改人员预算编码
         let group = getOrgInfo(orglist);
         if (group) {
@@ -3278,12 +3290,12 @@
         }
         for (let i = 0; i < this.tableA.length; i++) {
           this.tableA[i].optionsA = [];
-          if (this.tableA[i].departmentname) {
-            let butinfoA = getOrgInfo(this.tableA[i].departmentname).encoding;
+          if (getOrgInfo(this.tableA[i].departmentname)) {
+            let butinfoA = (getOrgInfo(this.tableA[i].departmentname).encoding).substring(0,3);
             let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
             if (dicA.length > 0) {
               for (let j = 0; j < dicA.length; j++) {
-                if (butinfoA === dicA[j].value1) {
+                if (butinfoA === (dicA[j].value1).substring(0,3)) {
                   this.tableA[i].optionsA.push({
                     lable: dicA[j].value2 + '_' + dicA[j].value3,
                     value: dicA[j].code,

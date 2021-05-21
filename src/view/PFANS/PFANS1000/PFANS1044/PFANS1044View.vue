@@ -245,7 +245,7 @@
           },
           {
             code: 'deployment',
-            label: 'label.group',
+            label: 'label.department',
             width: 120,
             fix: false,
             filter: true,
@@ -362,7 +362,7 @@
           },
           {
             code: 'deployment',
-            label: 'label.group',
+            label: 'label.department',
             width: 120,
             fix: false,
             filter: true,
@@ -474,7 +474,7 @@
           },
           {
             code: 'deployment',
-            label: 'label.group',
+            label: 'label.department',
             width: 120,
             fix: false,
             filter: true,
@@ -873,7 +873,9 @@
               }
             }
             const data = this.formatJson(filterVal, output);
-            excel.export_json_to_excel(tHeader, data, '契约一览');
+            let dateAnt = moment(new Date()).format('YYYY-MM-DD');
+            let excelName = this.$t('label.PFANS5001FORMVIEW_CONTRACT2') + dateAnt;
+            excel.export_json_to_excel(tHeader, data, excelName);
           });
 
         } else if (val === 'export1') {
@@ -941,7 +943,7 @@
                     for (let n = 0; n < contractapplication.length; n++) {
                       if (contractapplication[n].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
                         //M
-                        if (contractapplication[n].contracttype === 'HT008002' || contractapplication[n].contracttype === 'HT008004'
+                          if (contractapplication[n].contracttype === 'HT008002' || contractapplication[n].contracttype === 'HT008004'
                           || contractapplication[n].contracttype === 'HT008006' || contractapplication[n].contracttype === 'HT008008') {
                           if (contractcompound.length > 0) {
                             if (contractnumbercount.length > 0) {
@@ -1206,6 +1208,7 @@
                                           owner: '',
                                           outputmanager: '',
                                           outnumber: '',
+                                          group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                         });
                                       }
                                     } else if (this.month2) {
@@ -1335,6 +1338,7 @@
                                           owner: '',
                                           outputmanager: '',
                                           outnumber: '',
+                                          group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                         });
                                       }
                                       //add-ws-01/21-禅道任务748
@@ -1465,6 +1469,7 @@
                                           owner: '',
                                           outputmanager: '',
                                           outnumber: '',
+                                          group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                         });
                                       }
                                     }
@@ -1595,6 +1600,7 @@
                                         owner: '',
                                         outputmanager: '',
                                         outnumber: '',
+                                        group_id: getOrgInfo(contractcompound[d].group_id).encoding,
                                       });
                                     }
                                   }
@@ -1730,6 +1736,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                               } else if (this.month) {
@@ -1857,6 +1864,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                               } else if (this.month2) {
@@ -1984,6 +1992,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                                 //add-ws-01/21-禅道任务748
@@ -2112,6 +2121,7 @@
                                     owner: '',
                                     outputmanager: '',
                                     outnumber: '',
+                                    group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                   });
                                 }
                               }
@@ -2240,6 +2250,7 @@
                                   owner: '',
                                   outputmanager: '',
                                   outnumber: '',
+                                  group_id: getOrgInfo(contractapplication[n].group_id).companyen,
                                 });
                               }
                             }
@@ -2287,6 +2298,7 @@
                   owner: '',
                   outputmanager: '',
                   outnumber: '',
+                  group_id: '',
                 });
                 this.totalcostvalue3 = this.totalcostvalue.concat(this.totalcostvalue2);
                 let heads = [
@@ -2329,19 +2341,20 @@
                     [heads[24]]: obj.group_id,
                     [heads[25]]: obj.claim,
                     [heads[26]]: obj.placechinese,
-                    [heads[27]]: obj.periods,
-                    [heads[28]]: obj.papercontract,
-                    [heads[29]]: obj.pageSize,
-                    [heads[30]]: obj.owners,
-                    [heads[31]]: obj.owner,
-                    [heads[32]]: obj.outputmanager,
+                    [heads[27]]: obj.group_id,
+                    [heads[28]]: obj.periods,
+                    [heads[29]]: obj.papercontract,
+                    [heads[30]]: obj.pageSize,
+                    [heads[31]]: obj.owners,
+                    [heads[32]]: obj.owner,
+                    [heads[33]]: obj.outputmanager,
                     [heads[33]]: obj.outnumber,
                   });
                 }
                 let filterVal = ['varto', '', 'applicationdate', 'start', 'currencyposition', 'type', 'theme', 'tenantid', 'temaid',
                   'supportdate', 'status', 'businesscode', 'state', 'sidegroup', 'secondjudge'
                   , 'rowindex', 'responphone', 'careeryear', 'responerglish', 'responemail', 'remarks', 'qingremarks', '', '', 'group_id'
-                  , 'claim', 'placechinese', 'periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
+                  , 'claim', 'placechinese', 'group_id','periods', 'papercontract', 'pageSize', 'owners', 'owner', 'outputmanager', 'outnumber'];
                 const parser = new Parser({header: false});
                 const result = parser.parse(csvData);
                 let aaa = result.replace(new RegExp('"', 'gm'), '');
@@ -2352,7 +2365,7 @@
                 let csvContent = 'data:text/csv;charset=utf-8,\ufeff' + eee;
                 const link = document.createElement('a');
                 link.href = csvContent;
-                link.download = this.$t('label.PFANS5001FORMVIEW_CONTRACT2') + fff + '.csv';
+                link.download = this.$t('label.PFANS5001FORMVIEW_CONTRACT2') + '.csv';
                 document.body.appendChild(link);
                 link.click();
                 document.body.removeChild(link);

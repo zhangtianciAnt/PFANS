@@ -13,7 +13,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <org :disabled="true"
+                      <org :disabled="!disable"
                            :orglist="form.center_id"
                            @getOrgids="getCenterid"
                            orgtype="1"
@@ -23,7 +23,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <org :disabled="checkGro"
+                      <org :disabled="!disable"
                            :orglist="form.group_id"
                            @getOrgids="getGroupId"
                            orgtype="2"
@@ -1025,19 +1025,19 @@
               }
 
               this.namelist = this.form.user_name;
-              let rst = getOrgInfoByUserId(response.user_id);
-              if (rst) {
-                //upd_fjl_0927
-                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                  this.checkGro = true;
-                } else {
-                  this.checkGro = false;
-                }
-                // this.centerid = rst.centerNmae;
-                // this.groupid = rst.groupNmae;
-                // this.teamid = rst.teamNmae;
-                //upd_fjl_0927
-              }
+              // let rst = getOrgInfoByUserId(response.user_id);
+              // if (rst) {
+              //   //upd_fjl_0927
+              //   if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+              //     this.checkGro = true;
+              //   } else {
+              //     this.checkGro = false;
+              //   }
+              //   // this.centerid = rst.centerNmae;
+              //   // this.groupid = rst.groupNmae;
+              //   // this.teamid = rst.teamNmae;
+              //   //upd_fjl_0927
+              // }
               this.userlist = this.form.user_id;
               if (this.form.paymentmethod === 'PJ015001') {
                 this.show9 = true;
@@ -1055,7 +1055,7 @@
                 this.show3 = true;
                 this.show7 = true;
               }
-              this.getBudt(this.form.group_id);
+              this.getBudt(this.form.center_id);
               if (this.form.uploadfile != '' && this.form.uploadfile != null && this.form.uploadfile != undefined) {
                 let uploadfile = this.form.uploadfile.split(';');
                 for (var i = 0; i < uploadfile.length; i++) {
@@ -1203,16 +1203,17 @@
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-            // this.form.group_id = rst.groupId;
+            this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
+            this.getBudt(this.form.center_id);
             //add_fjl_0927
-            if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-              this.form.group_id = rst.groupId;
-              this.getBudt(this.form.group_id);
-              this.checkGro = true;
-            } else {
-              this.checkGro = false;
-            }
+            // if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+            //   this.form.group_id = rst.groupId;
+            //   this.getBudt(this.form.group_id);
+            //   this.checkGro = true;
+            // } else {
+            //   this.checkGro = false;
+            // }
             //add_fjl_0927
           }
 
@@ -1282,14 +1283,49 @@
       }
     },
     methods: {
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+          } = org);
+        }
+      },
       //add_fjl_0927
       getCenterid(val) {
         this.form.center_id = val;
+        this.form.budgetnumber = '';
+        this.getBudt(val);
+        if(val === ""){
+          this.form.group_id = "";
+        }
       },
       getGroupId(val) {
         this.form.group_id = val;
-        this.form.budgetunit = '';
-        this.getBudt(val);
+        this.form.budgetnumber = '';
+        if(val != ""){
+          this.getOrgInformation(val);
+          this.getBudt(val);
+        }else{
+          this.getBudt(this.form.center_id);
+        }
       },
       getTeamid(val) {
         this.form.team_id = val;
@@ -1319,15 +1355,33 @@
         }
         //ADD_FJL  修改人员预算编码
         // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-        let butinfo = getOrgInfo(val).encoding;
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === dic[i].value1) {
-              this.options1.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        if(getOrgInfo(val)){
+            let butinfo = (getOrgInfo(val).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
+                        this.options1.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
+            }
+          if(this.options1.length === 0) {
+            if (getOrgInfo(this.form.group_id).encoding) {
+              let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                  if (butinfo === (dic[i].value1).substring(0, 3)) {
+                    this.options1.push({
+                      lable: dic[i].value2 + '_' + dic[i].value3,
+                      value: dic[i].code,
+                    });
+                  }
+                }
+              }
             }
           }
         }

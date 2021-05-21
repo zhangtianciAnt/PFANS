@@ -25,7 +25,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.center')">
-                      <org :disabled="true"
+                      <org :disabled="!disable"
                            :orglist="form.center_id"
                            @getOrgids="getCenterid"
                            orgtype="1"
@@ -35,7 +35,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.group')">
-                      <org :disabled="checkGro"
+                      <org :disabled="!disable"
                            :orglist="form.group_id"
                            @getOrgids="getGroupId"
                            orgtype="2"
@@ -999,19 +999,19 @@
                 this.form.checkch = '0';
               }
             }
-            let rst = getOrgInfoByUserId(response.business.user_id);
-            if (rst) {
-                //upd_fjl_0806
-                if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-                    this.checkGro = true;
-                } else {
-                    this.checkGro = false;
-                }
-                // this.centerid = rst.centerNmae;
-                // this.groupid = rst.groupNmae;
-                // this.teamid = rst.teamNmae;
-                //upd_fjl_0806
-            }
+            // let rst = getOrgInfoByUserId(response.business.user_id);
+            // if (rst) {
+            //     //upd_fjl_0806
+            //     if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
+            //         this.checkGro = true;
+            //     } else {
+            //         this.checkGro = false;
+            //     }
+            //     // this.centerid = rst.centerNmae;
+            //     // this.groupid = rst.groupNmae;
+            //     // this.teamid = rst.teamNmae;
+            //     //upd_fjl_0806
+            // }
             if (response.travelcontent.length > 0) {
               this.tablePD = [];
               for (let i = 0; i < response.travelcontent.length; i++) {
@@ -1031,7 +1031,7 @@
               }
             }
             this.userlist = this.form.user_id;
-              this.getBudt(this.form.group_id);
+            this.getBudt(this.form.center_id);
             this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
             if (this.form.objectivetype === 'PJ018005') {
               this.show = true;
@@ -1149,24 +1149,25 @@
         if (this.userlist !== null && this.userlist !== ''&& this.userlist !== undefined) {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
           //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc start
-          if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
-              this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
-          }
+          // if(getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)){
+          //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
+          // }
           //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc end
           if (rst) {
             this.centerid = rst.centerNmae;
             this.groupid = rst.groupNmae;
             this.teamid = rst.teamNmae;
             this.form.center_id = rst.centerId;
-              // this.form.group_id = rst.groupId;
+            this.form.group_id = rst.groupId;
             this.form.team_id = rst.teamId;
-              if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined){
-                  this.form.group_id = rst.groupId;
-                  this.getBudt(this.form.group_id);
-                  this.checkGro = true;
-              } else {
-                  this.checkGro = false;
-              }
+            this.getBudt(this.form.center_id);
+              // if (rst.groupId !== null && rst.groupId !== ''&& rst.groupId !== undefined){
+              //     this.form.group_id = rst.groupId;
+              //     this.getBudt(this.form.group_id);
+              //     this.checkGro = true;
+              // } else {
+              //     this.checkGro = false;
+              // }
               //add_fjl_0806
           }
           this.form.user_id = this.$store.getters.userinfo.userid;
@@ -1303,14 +1304,51 @@
         },
         //add_fjl_0806  查看详情
         //add_fjl_0806
+      // update center取预算单位横展 start 0404
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            center_id: this.form.center_id,
+            group_id: this.form.group_id,
+          } = org);
+        }
+      },
         getCenterid(val) {
-            this.form.center_id = val;
+          this.form.center_id = val;
+          this.form.budgetunit = '';
+          this.getBudt(val);
+          if(val === ""){
+            this.form.group_id = "";
+          }
         },
         getGroupId(val) {
-            this.form.group_id = val;
-            this.form.budgetunit = '';
+          this.form.group_id = val;
+          this.form.budgetunit = '';
+          if(val != ""){
+            this.getOrgInformation(val);
             this.getBudt(val);
+          }else{
+            this.getBudt(this.form.center_id);
+          }
         },
+      // update center取预算单位横展 end 0404
         getTeamid(val) {
             this.form.team_id = val;
         },
@@ -1431,25 +1469,42 @@
       //add_fjl_07/29_修改项目查看  end
       //add-ws-4/24-项目名称所取数据源变更
       getBudt(val) {
-          if (val === '' || val === null) {
-              return;
-          }
-          this.options = [];
+        this.options = [];
+        if (val === '' || val === null) {
+          return;
+        }
         //ADD_FJL  修改人员预算编码
           // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
-          let butinfo = getOrgInfo(val).encoding;
-          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-          if (dic.length > 0) {
-            for (let i = 0; i < dic.length; i++) {
-              if (butinfo === dic[i].value1) {
-                this.options.push({
-                  lable: dic[i].value2 + '_' + dic[i].value3,
-                  value: dic[i].code,
-                });
+          if(getOrgInfo(val)){
+              let butinfo = (getOrgInfo(val).encoding).substring(0,3);
+              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dic.length > 0) {
+                  for (let i = 0; i < dic.length; i++) {
+                      if (butinfo === (dic[i].value1).substring(0,3)) {
+                          this.options.push({
+                              lable: dic[i].value2 + '_' + dic[i].value3,
+                              value: dic[i].code,
+                          });
+                      }
+                  }
+              }
+            if(this.options.length === 0) {
+              if (getOrgInfo(this.form.group_id)) {
+                let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                if (dic.length > 0) {
+                  for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0, 3)) {
+                      this.options.push({
+                        lable: dic[i].value2 + '_' + dic[i].value3,
+                        value: dic[i].code,
+                      });
+                    }
+                  }
+                }
               }
             }
           }
-          // }
         //ADD_FJL  修改人员预算编码
       },
       change(val) {
@@ -1499,9 +1554,9 @@
         this.userlist = val;
         let rst = getOrgInfoByUserId(val);
         //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc start
-        if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
-            this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
-        }
+        // if(getOrgInfo(getOrgInfoByUserId(val).groupId)){
+        //     this.form.budgetunit = getOrgInfo(getOrgInfoByUserId(val).groupId).encoding;
+        // }
         //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc end
         if (rst) {
           this.centerid = rst.centerNmae;

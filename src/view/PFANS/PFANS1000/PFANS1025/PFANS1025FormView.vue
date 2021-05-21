@@ -371,7 +371,7 @@
                                  :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
                     <org :orglist="scope.row.depart"
-                         orgtype="2"
+                         orgtype="4"
                          :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
                          :error="errorgroup"
                          style="width: 9rem"
@@ -802,19 +802,21 @@
                   if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
                     //ADD_FJL
                     this.tableT[i].options1 = [];
-                    let butinfo = getOrgInfo(this.tableT[i].depart).encoding;
-                    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-                    if (dic.length > 0) {
-                      for (let j = 0; j < dic.length; j++) {
-                        if (butinfo === dic[j].value1) {
-                          this.tableT[i].options1.push({
-                            lable: dic[j].value2 + '_' + dic[j].value3,
-                            value: dic[j].code,
-                          });
+                    if (getOrgInfo(this.tableT[i].depart)) {
+                      let butinfo = (getOrgInfo(this.tableT[i].depart).encoding).substring(0, 3);
+                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                      if (dic.length > 0) {
+                        for (let j = 0; j < dic.length; j++) {
+                          if (butinfo === (dic[j].value1).substring(0, 3)) {
+                            this.tableT[i].options1.push({
+                              lable: dic[j].value2 + '_' + dic[j].value3,
+                              value: dic[j].code,
+                            });
+                          }
                         }
                       }
+                      //ADD_FJL  修改人员预算编码
                     }
-                    //ADD_FJL  修改人员预算编码
                   }
                 }
               }
@@ -1137,22 +1139,25 @@
         this.form.individual = val;
       },
       //修改人员预算编码
+      // update center取预算单位横展 start 0404
       getGroupId(orglist, row) {
         row.depart = orglist;
         //ADD_FJL
         row.options1 = [];
         row.budgetcode = '';
-        let butinfo = getOrgInfo(row.depart).encoding;
-        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-        if (dic.length > 0) {
-          for (let i = 0; i < dic.length; i++) {
-            if (butinfo === dic[i].value1) {
-              row.options1.push({
-                lable: dic[i].value2 + '_' + dic[i].value3,
-                value: dic[i].code,
-              });
+        if(getOrgInfo(row.depart)){
+            let butinfo = (getOrgInfo(row.depart).encoding).substring(0,3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+                for (let i = 0; i < dic.length; i++) {
+                    if (butinfo === (dic[i].value1).substring(0.3)) {
+                        row.options1.push({
+                            lable: dic[i].value2 + '_' + dic[i].value3,
+                            value: dic[i].code,
+                        });
+                    }
+                }
             }
-          }
         }
         //ADD_FJL  修改人员预算编码
         // let group = getOrgInfo(orglist);
@@ -1160,6 +1165,7 @@
         //   row.budgetcode = group.encoding;
         // }
       },
+      // update center取预算单位横展 end 0404
       workflowState(val) {
         if (val.state === '1') {
           this.form.status = '3';

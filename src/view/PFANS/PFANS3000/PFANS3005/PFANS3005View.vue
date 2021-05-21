@@ -315,6 +315,7 @@
                         let lst = getOrgInfoByUserId(response[j].user_id);
                         if (lst) {
                             response[j].group_id1 = response[j].group_id;
+                            response[j].center_id1 = response[j].center_id;
                             response[j].center_id = lst.centerNmae;
                             // response[j].group_id = lst.groupNmae;
                             response[j].team_id = lst.teamNmae;
@@ -559,7 +560,7 @@
                         ];
                         const filterVal = [
                             'application_date',
-                            'group_id',
+                            'center_id',
                             'user_id',
                             'linenumber',
                             'setplace',
@@ -861,7 +862,7 @@
                     let k = 0;
                     for (let i = 0; i < this.selectedlist.length; i++) {
                         if (gid != '') {
-                            if (this.selectedlist[i].group_id === gid) {
+                            if (this.selectedlist[i].center_id1 === gid) {
                                 continue;
                             } else {
                                 Message({
@@ -873,7 +874,7 @@
                             }
                         }
                         k++;
-                        gid = this.selectedlist[i].group_id;
+                        gid = this.selectedlist[i].center_id1;
                     }
                     //采购合同重复check
                     this.$store
@@ -885,7 +886,7 @@
                                     name: 'PFANS1033FormView',
                                     params: {
                                         _id: '',
-                                        _applicantdeptcode: this.selectedlist[0].group_id1,
+                                        _applicantdeptcode: this.selectedlist[0].center_id1,
                                         _caigouhetongTable: this.caigouhetongTable,
                                         disabled: true,
                                     },

@@ -39,7 +39,7 @@ export function getDataList(data) {
   return request({
     url: 'talentplan/getDataList',
     method: 'post',
-    data: data
+    params: data
   })
 }
 //add-ws-6/4-禅道031-人才育成修改

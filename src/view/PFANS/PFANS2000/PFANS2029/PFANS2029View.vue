@@ -155,7 +155,7 @@
           },
           {
             code: 'group_id',
-            label: 'label.group',
+            label: 'label.department',
             width: 160,
             fix: false,
             filter: false
@@ -256,7 +256,7 @@
               if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
                 let group = getorgGroupList(response[j].group_id);
                 if (group) {
-                  response[j].group_id = group.groupname;
+                  response[j].group_id = group.centername;
                 }
               }
               if (response[j].punchcardrecord_date !== null && response[j].punchcardrecord_date !== "") {

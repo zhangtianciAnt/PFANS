@@ -658,7 +658,7 @@
                     });
                     this.optionsdategroup.push({
                       value: response[i].comproject_id,
-                      lable: response[i].group_id,
+                      lable: response[i].center_id,
                     });
                   }
                   this.loading = false;
@@ -698,7 +698,7 @@
               });
               this.optionsdategroup.push({
                 value: response[i].companyprojects_id,
-                lable: response[i].group_id,
+                lable: response[i].center_id,
               });
             }
             this.$store
@@ -711,7 +711,7 @@
                   });
                   this.optionsdategroup.push({
                     value: response[i].comproject_id,
-                    lable: response[i].group_id,
+                    lable: response[i].center_id,
                   });
                 }
                 this.loading = false;

@@ -774,6 +774,11 @@
               } else {
                 R *= 1;
               }
+              //PSDCD_PFANS_20201124_XQ_031 ztc start 需求未实现重新对应
+              if(this.$store.getters.roles.indexOf("47") != -1) {
+                R = 1;
+              }
+              //PSDCD_PFANS_20201124_XQ_031 ztc end 需求未实现重新对应
             }
             if (R === 0) {
               Message({

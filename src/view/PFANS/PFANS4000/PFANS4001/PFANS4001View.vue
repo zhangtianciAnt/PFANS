@@ -57,6 +57,7 @@
         sealdetaildate: '',
         sealdetail: '',
         user: '',
+        userAnt: '',
         insertnamedialog: false,
         loading: false,
         title: 'title.PFANS4001VIEW',
@@ -168,6 +169,7 @@
               this.userlist = response.sealdetail[0].sealdetailname;
               if (getUserInfo(response.sealdetail[0].sealdetailname)) {
                 this.user = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
+                this.userAnt = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
               }
               if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
                 let claimdatetime = response.sealdetail[0].sealdetaildate;
@@ -268,7 +270,7 @@
               }
               //add-ws-12/21-印章盖印
             }
-            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.user + this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.sealdetail;
+            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.userAnt  +'   '+ this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.sealdetail;
             this.data = response.seal;
             this.loading = false;
           })
@@ -443,22 +445,22 @@
             });
             return;
           }
-          // this.$router.push({
-          //   name: 'PFANS4001FormView',
-          //   params: {
-          //     _id: this.rowid,
-          //     disabled: false,
-          //   },
-          // });
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: this.rowid,
+              disabled: false,
+            },
+          });
         }
         if (val === 'insert') {
-          // this.$router.push({
-          //   name: 'PFANS4001FormView',
-          //   params: {
-          //     _id: '',
-          //     disabled: true,
-          //   },
-          // });
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: '',
+              disabled: true,
+            },
+          });
         }
         if (val === 'edit') {
           if (this.rowid === '') {
@@ -469,13 +471,13 @@
             });
             return;
           }
-          // this.$router.push({
-          //   name: 'PFANS4001FormView',
-          //   params: {
-          //     _id: this.rowid,
-          //     disabled: true,
-          //   },
-          // });
+          this.$router.push({
+            name: 'PFANS4001FormView',
+            params: {
+              _id: this.rowid,
+              disabled: true,
+            },
+          });
         }
         if (val === 'insertname') {
           this.insertnamedialog = true;

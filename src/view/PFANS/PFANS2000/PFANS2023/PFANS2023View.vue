@@ -1,6 +1,15 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
                    :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+<!--   add-lyt-2021/4/4-添加年份检索栏-start-->
+    <el-date-picker
+      v-model="yearvalue"
+      type="year"
+      @change="changed"
+      slot="customize"
+      placeholder="选择年">
+    </el-date-picker>
+<!--    add-lyt-2021/4/4-添加年份检索栏-end-->
   </EasyNormalTable>
 </template>
 
@@ -22,6 +31,9 @@
         title: "title.PFANS2023VIEW",
         // 表格数据源
         data: [],
+        // add-lyt-2021/4/4-添加年份检索栏-start
+        yearvalue: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
+        // add-lyt-2021/4/4-添加年份检索栏-end
         // 列属性
         columns: [
           {
@@ -95,7 +107,9 @@
       //gbb 禅道 609 2.0-目标管理增加按钮控制是都可填写 20201211
       this.getCurrentRole2();
       this.$store
-        .dispatch('PFANS2023Store/getFpans2023List', {})
+      // add-lyt-2021/4/4-添加年份检索栏-start
+        .dispatch('PFANS2023Store/getFpans2023List', {'years': this.yearvalue})
+        // add-lyt-2021/4/4-添加年份检索栏-end
         .then(response => {
           for (let j = 0; j < response.length; j++) {
             if (response[j].user_id !== null && response[j].user_id !== "") {
@@ -200,97 +214,154 @@
         }
         if (val === 'open') {
             let formdis = {
-                code : 'PR066001',
-                value1  : '1'
-            };
-            this.loading = true;
-            this.$store
-                .dispatch('dictionaryStore/updateDictionary', formdis)
-                .then(response => {
-                    this.loading = false;
-                    this.buttonList[2].disabled = false;
-                    this.buttonList[3].disabled = true;
-                    this.buttonList[4].disabled = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
+            code: 'PR066001',
+            value1: '1'
+          };
+          this.loading = true;
+          this.$store
+            .dispatch('dictionaryStore/updateDictionary', formdis)
+            .then(response => {
+              this.loading = false;
+              this.buttonList[2].disabled = false;
+              this.buttonList[3].disabled = true;
+              this.buttonList[4].disabled = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
         if (val === 'close') {
-            let formdis = {
-                code : 'PR066001',
-                value1  : '0'
-            };
-            this.loading = true;
-            this.$store
-                .dispatch('dictionaryStore/updateDictionary', formdis)
-                .then(response => {
-                    this.loading = false;
-                    this.buttonList[2].disabled = true;
-                    this.buttonList[3].disabled = false;
-                    this.buttonList[4].disabled = true;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
+          let formdis = {
+            code: 'PR066001',
+            value1: '0'
+          };
+          this.loading = true;
+          this.$store
+            .dispatch('dictionaryStore/updateDictionary', formdis)
+            .then(response => {
+              this.loading = false;
+              this.buttonList[2].disabled = true;
+              this.buttonList[3].disabled = false;
+              this.buttonList[4].disabled = true;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       },
       //获取角色
       getCurrentRole2() {
+        let letStage = getDictionaryInfo("PR066001");
+        if (letStage != null) {
+          letStage = letStage.value1;
+          if (letStage == '0') {
+            this.buttonList[2].disabled = true;
+          } else {
+            this.buttonList[2].disabled = false;
+          }
+        }
+        let roles = '';
+        if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
+          for (let role of this.$store.getters.useraccount.roles) {
+            roles = roles + role.description;
+          }
+          if (roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
+            // 目标管理开放
             let letStage = getDictionaryInfo("PR066001");
-            if(letStage != null){
-                letStage = letStage.value1;
-                if(letStage == '0'){
-                    this.buttonList[2].disabled = true;
-                }
-                else{
-                    this.buttonList[2].disabled = false;
-                }
+            if (letStage != null) {
+              letStage = letStage.value1;
+              if (letStage == '0') {
+                this.buttonList = [
+                  {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                  {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                  {'key': 'edit', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
+                  {'key': 'open', 'name': 'button.open1', 'disabled': false,},
+                  {'key': 'close', 'name': 'button.close1', 'disabled': true,},
+                ]
+              } else {
+                this.buttonList = [
+                  {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                  {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                  {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                  {'key': 'open', 'name': 'button.open1', 'disabled': true,},
+                  {'key': 'close', 'name': 'button.close1', 'disabled': false,},
+                ]
+              }
             }
-            let roles = '';
-            if (this.$store.getters.useraccount && this.$store.getters.useraccount.roles && this.$store.getters.useraccount.roles.length > 0) {
-                for (let role of this.$store.getters.useraccount.roles) {
-                    roles = roles + role.description;
+          }
+        }
+      },
+      // add-lyt-2021/4/4-添加年份检索栏-start
+      changed() {
+        if (this.yearvalue !== '' && this.yearvalue !== null && this.yearvalue !== undefined) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS2023Store/getFpans2023List', {'years':moment(this.yearvalue).format('YYYY')})
+            .then(response => {
+              for (let j = 0; j < response.length; j++) {
+                if (response[j].user_id !== null && response[j].user_id !== "") {
+                  let user = getUserInfo(response[j].user_id);
+                  let nameflg = getOrgInfoByUserId(response[j].user_id);
+                  if (nameflg) {
+                    response[j].center_name = nameflg.centerNmae;
+                    response[j].group_name = nameflg.groupNmae;
+                    response[j].team_name = nameflg.teamNmae;
+                  }
+                  if (user) {
+                    response[j].user_name = user.userinfo.customername;
+                  }
                 }
-                if (roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
-                    // 目标管理开放
-                    let letStage = getDictionaryInfo("PR066001");
-                    if(letStage != null){
-                        letStage = letStage.value1;
-                        if(letStage == '0'){
-                            this.buttonList = [
-                                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                                {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                                {'key': 'edit', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
-                                {'key': 'open', 'name': 'button.open1', 'disabled': false,},
-                                {'key': 'close', 'name': 'button.close1', 'disabled': true,},
-                            ]
-                        }
-                        else{
-                            this.buttonList = [
-                                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                                {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                                {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                                {'key': 'open', 'name': 'button.open1', 'disabled': true,},
-                                {'key': 'close', 'name': 'button.close1', 'disabled': false,},
-                            ]
-                        }
+                response[j].status = getStatus(response[j].status);
+                if (response[j].createon !== null && response[j].createon !== "") {
+                  response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
+                }
+                if (response[j].stage !== null && response[j].stage !== "") {
+                  let letStage = getDictionaryInfo(response[j].stage);
+                  if (letStage != null) {
+                    response[j].stage = letStage.value1;
+                  }
+                }
+                if (this.$i18n) {
+                  if (response[j].stage !== null && response[j].stage !== "") {
+                    if (response[j].stage == '0') {
+                      response[j].stage = this.$t('label.PFANS2023FORMVIEW_TARGETGOALSYEAR');
+                    } else if (response[j].stage == '1') {
+                      response[j].stage = this.$t('label.PFANS2023FORMVIEW_TARGETGOALSSEP');
+                    } else if (response[j].stage == '2') {
+                      response[j].stage = this.$t('label.PFANS2023FORMVIEW_TARGETGOALSDEC');
+                    } else if (response[j].stage == '3') {
+                      response[j].stage = this.$t('label.PFANS2023FORMVIEW_TARGETGOALSMAR');
                     }
+                  }
                 }
-            }
-        },
+
+              }
+              this.data = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            })
+        }
+      }
     }
   }
+      // add-lyt-2021/4/4-添加年份检索栏-end
 </script>
 
 <style lang="scss" rel="stylesheet/scss">

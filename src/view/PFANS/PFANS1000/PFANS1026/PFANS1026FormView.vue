@@ -66,10 +66,10 @@
                          :disabled="!disabled2">
               </dicselect>
             </el-form-item>
-            <el-form-item :label="$t('label.group')" :label-width="formLabelWidth" prop="grouporglist"
+            <el-form-item :label="$t('label.department')" :label-width="formLabelWidth" prop="grouporglist"
                           :error="errorgroup">
               <org :orglist="form1.grouporglist"
-                   orgtype="2"
+                   orgtype="4"
                    style="width: 20vw"
                    :error="errorgroup"
                    @getOrgids="getGroupId"
@@ -1003,12 +1003,12 @@
               </template>
             </el-table-column>
             <el-table-column
-              :label="$t('label.group')"
+              :label="$t('label.department')"
               align="center"
               width="240">
               <template slot-scope="scope">
                 <org :no="scope.row" :orglist="scope.row.group_id" @getOrgids="getEntrustgroupId"
-                     orgtype="2" style="width:90%"></org>
+                     orgtype="4" style="width:90%"></org>
               </template>
             </el-table-column>
             <el-table-column
@@ -1107,7 +1107,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getUserInfo, getOrgInfoByUserId,getOrgInformation} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1358,8 +1358,8 @@
       // };
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
-          callback(new Error(this.$t('normal.error_08') + 'group'));
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           callback();
         }
@@ -1969,8 +1969,9 @@
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        if (lst.groupId !== null && lst.groupId !== '') {
-          this.form1.grouporglist = lst.groupId;
+        if (lst.centerId !== null && lst.centerId !== '') {
+          this.form1.grouporglist = lst.centerId;
+
           this.getGroupId(this.form1.grouporglist);
           this.checkGroupId = true;
         } else {
@@ -2496,21 +2497,31 @@
       getGroupId(val) {
         this.form1.grouporglist = val;
         this.grouporglist = val;
-        let group = getOrgInfo(val);
+        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
+        let group = getOrgInformation(val);
         if (group) {
-          this.groupinfo = [val, group.companyen, group.orgname, group.companyname];
+          if(group.data.type === '2'){
+            this.form1.grouporglist = group.parent.data._id;
+            this.grouporglist = group.parent.data._id;
+            this.groupinfo = [
+              group.parent.data._id,
+              group.parent.data.companyen === undefined ? "" : group.parent.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.parent.data.companyname === undefined ? "" : group.parent.data.companyname
+            ];
+          }
+          else{
+            this.groupinfo = [
+              val,
+              group.data.companyen === undefined ? "" : group.data.companyen,
+              group.data.orgname === undefined ? "" : group.data.orgname,
+              group.data.companyname === undefined ? "" : group.data.companyname
+            ];
+          }
         }
+        //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 end
         if (!val || this.form1.grouporglist === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'group';
-        } else {
-          this.errorgroup = '';
-        }
-      },
-      getGroupId1(val) {
-        this.grouporglist = val;
-        this.form.group_id = val;
-        if (this.form.group_id === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'group';
+          this.errorgroup = this.$t('normal.error_08') + this.$t('label.department');
         } else {
           this.errorgroup = '';
         }
@@ -3103,7 +3114,18 @@
           this.letcontractnumber = this.form.contractnumber.split('-')[0] + letbook;
         } else {
           if (this.groupinfo[2] !== null) {
-            this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + letbook;
+            //选择group是判断组织编码为空时不可以创建合同
+            if(this.groupinfo[2].trim() !== ""){
+              this.letcontractnumber = abbreviation + applicationdate + entrycondition + this.groupinfo[2] + letbook;
+            }
+            else{
+              Message({
+                message: this.$t('normal.error_14'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              return;
+            }
           } else {
             Message({
               message: this.$t('normal.error_14'),
