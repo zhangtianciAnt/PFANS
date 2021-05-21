@@ -1018,7 +1018,6 @@
                   this.errorexitime = '';
                   this.erroryjexitime = '';
                 }
-              alert(this.form.exits)
             },
             selectById(val) {
                 this.loading = true;
