@@ -961,6 +961,7 @@
         this.$store
           .dispatch('usersStore/getById', params)
           .then(response => {
+            debugger;
             this.form = response.customerInfo.userinfo;
             //add-ws-7/10-禅道141问提修改
             if(response.customerInfo.userinfo.resignation_date!=null&&response.customerInfo.userinfo.resignation_date!=""){
@@ -1274,12 +1275,14 @@
             // this.userInfo.userAccount.password = this.form.adfield;
             this.userInfo.userAccount.usertype = '0';
             // add_fjl_05/22  --去除间接部门空的数据
-            if (this.form.otherorgs.length > 0) {
-              this.form.otherorgs = this.form.otherorgs.filter(item => {
-                return ((item.centerid !== '' && item.centerid !== null)
-                  || (item.groupid !== '' && item.groupid !== null)
-                  || (item.teamid !== '' && item.teamid !== null));
-              });
+            if (this.form.otherorgs!=null) {
+              if (this.form.otherorgs.length > 0){
+                this.form.otherorgs = this.form.otherorgs.filter(item => {
+                  return ((item.centerid !== '' && item.centerid !== null)
+                    || (item.groupid !== '' && item.groupid !== null)
+                    || (item.teamid !== '' && item.teamid !== null));
+                });
+              }
             }
             // add_fjl_05/22  --去除间接部门空的数据
             this.userInfo.customerInfo.userinfo = this.form;
@@ -1303,6 +1306,7 @@
                 this.form.centerid,
               ];
             }
+            debugger;
             this.$store
               .dispatch('usersStore/userSave', this.userInfo)
               .then(response => {
