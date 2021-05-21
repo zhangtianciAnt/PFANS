@@ -736,6 +736,7 @@
           regulations: '',
           reason: '',
           otherexplanation: '',
+          publicexpense_id: '',
           loanapno:'',
           loanapplication_id:'',
         },

@@ -234,7 +234,19 @@
                 </el-input>
               </el-form-item>
             </el-col>
+            <!--            预计退场时间-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="yjexitime">
+                <el-date-picker
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.yjexitime">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
+
 
           <el-row>
             <el-col :span="24">
@@ -548,6 +560,7 @@
                     jobclassification: '',
                     admissiontime: moment(new Date()).format('YYYY-MM-DD'),
                     exitime: moment(new Date()).format('YYYY-MM-DD'),
+                    yjexitime: '',
                     exitreason: '',
                     alltechnology: '',
                     sitevaluation: '',
