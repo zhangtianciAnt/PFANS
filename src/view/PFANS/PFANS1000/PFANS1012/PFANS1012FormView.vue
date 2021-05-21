@@ -2184,6 +2184,11 @@
                               value: dicnew[a].code,
                               lable: dicnew[a].value1,
                             });
+                          }else if(dicnew[a].code === 'PJ119004'){
+                            this.tableP[i].accoundoptionsdateP.push({
+                              value: dicnew[a].code,
+                              lable: dicnew[a].value1,
+                            });
                           }
                         }
                       } else if (this.tableP[i].plsummary === 'PJ111010') {
@@ -2201,6 +2206,11 @@
                         let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
                         for (let a = 0; a < dicnew.length; a++) {
                           if (dicnew[a].code === 'PJ132003') {
+                            this.tableP[i].accoundoptionsdateP.push({
+                              value: dicnew[a].code,
+                              lable: dicnew[a].value1,
+                            });
+                          }else if (dicnew[a].code === 'PJ132004') {
                             this.tableP[i].accoundoptionsdateP.push({
                               value: dicnew[a].code,
                               lable: dicnew[a].value1,
@@ -3705,6 +3715,11 @@
                   value: dicnew[a].code,
                   lable: dicnew[a].value1,
                 });
+              }else if(dicnew[a].code === 'PJ119004'){
+                row.accoundoptionsdateP.push({
+                  value: dicnew[a].code,
+                  lable: dicnew[a].value1,
+                });
               }
             }
           } else if (row.plsummary === 'PJ111010') {
@@ -3723,6 +3738,11 @@
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let a = 0; a < dicnew.length; a++) {
               if (dicnew[a].code === 'PJ132003') {
+                row.accoundoptionsdateP.push({
+                  value: dicnew[a].code,
+                  lable: dicnew[a].value1,
+                });
+              }else if (dicnew[a].code === 'PJ132004') {
                 row.accoundoptionsdateP.push({
                   value: dicnew[a].code,
                   lable: dicnew[a].value1,
