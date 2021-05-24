@@ -151,6 +151,7 @@
     getCurrentRole18,
     getUserInfoBudgetunit,
     getCurrentRole20,
+    getCurrentRoleGiving,
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
 
@@ -353,6 +354,24 @@
       this.getDepartmentData();
     },
     created() {
+      //add ccm 20210524 fr
+      let roleGiving = getCurrentRoleGiving();
+      if (roleGiving === '0')
+      {
+        this.buttonList[0].disabled = false;
+        this.buttonList[1].disabled = false;
+        this.buttonList[2].disabled = false;
+        this.buttonList[4].disabled = false;
+      }
+      else
+      {
+        this.buttonList[0].disabled = true;
+        this.buttonList[1].disabled = true;
+        this.buttonList[2].disabled = true;
+        this.buttonList[4].disabled = true;
+      }
+      //add ccm 20210524 to
+
       this.initWebSocket();
     },
     destroyed() {
