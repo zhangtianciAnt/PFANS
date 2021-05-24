@@ -1,7 +1,8 @@
 import {
   saveTree,
   getOrgTree,
-  getTreeYears
+  getTreeYears,
+  updateStatus
 } from './orgTreeApi'
 
 const orgTreeStore = {
@@ -47,6 +48,21 @@ const orgTreeStore = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    updateStatus({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        updateStatus(data).then(response => {
+          const result = response;
+          if (result.code === 0) {
+            resolve(result.message)
+          } else {
+            reject(result.message);
+          }
+          resolve()
         }).catch(error => {
           reject(error)
         })

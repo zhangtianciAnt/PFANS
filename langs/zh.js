@@ -127,13 +127,14 @@ module.exports = {
     contract1: '全组织',
     importwages: '历史工资导入',
     generate: '自动生成',
-    orginsert: '新建组织',
+    orginsert: '下一年度组织',
     orgresume: '组织履历',
     orgchange: '组织变更',
     recalculation: '重新计算社保公积金基数',
     startEvaluate: '开始评价',
     overEvaluate: '关闭评价',
-    commit: '提交'
+    commit: '提交',
+    applicate: '应用'
   },
   table: {
     detail: '一览',
@@ -238,6 +239,7 @@ module.exports = {
     error_priceset: 'group修改后,会在新设定的group下重新生成单价, 是否继续？',
     error_napalmpetition: '该纳品回数的书类已经在印章中或已经有项目使用该合同，不能删除！',
     error_judgement: '该合同的决裁书已经进行中或是审批完成，不能删除！',
+    error_application: '请先申请至少一条契约番号！'
   },
   menu: {
     homePageManagement: '首页',

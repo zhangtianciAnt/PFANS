@@ -22,3 +22,11 @@ export function getTreeYears(data) {
     params: data
   })
 }
+
+export function updateStatus(data) {
+  return request({
+    url: 'OrgTree/updateStatus',
+    method: 'get',
+    params: data
+  })
+}
