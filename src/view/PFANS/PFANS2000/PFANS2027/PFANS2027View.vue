@@ -376,6 +376,7 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
+              this.get();
             })
             .catch(error => {
               Message({
@@ -391,7 +392,7 @@
               message: this.$t('normal.info_21'),
             });
             this.loading = false;
-          })
+          });
         } else if (val === 'over') {
           if (this.rowid === '') {
             Message({

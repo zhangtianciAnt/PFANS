@@ -3,13 +3,42 @@
     <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
     </EasyNormalTable>
-    <el-dialog :visible.sync="daoru" width="50%">
+    <el-dialog width="40%"
+               :visible.sync="daoru">
+      <div>
+        <div>
+          <el-form>
+            <el-row>
+              <el-col :span="16">
+              <el-form-item :label="$t('label.PFANS2009VIEW_JUNE')">
+                <el-date-picker
+                  type="month"
+                  :disabled="false"
+                  @change="monthChange"
+                  style="width: 15vw"
+                  v-model="yearmonth">
+                </el-date-picker>
+              </el-form-item>
+              </el-col>
+              <el-col :span="4">
+              <el-form-item>
+                <el-button @click="checkliste" type="primary">
+                  {{$t('button.confirm')}}
+                </el-button>
+              </el-form-item>
+              </el-col>
+            </el-row>
+          </el-form>
+        </div>
+      </div>
+    </el-dialog>
+    <el-dialog :visible.sync="show" width="50%">
       <div>
         <div style="margin-top: 1rem;margin-left: 28%">
           <el-upload
             drag
             ref="uploader"
-            :action="postAction"
+            :action="UploadUrl()"
             :on-success="handleSuccess"
             :before-upload="handleChange"
             :headers="authHeader"
@@ -53,6 +82,8 @@
   import {Message} from 'element-ui';
   import {Decrypt} from '@/utils/customize';
   import {getToken} from '@/utils/auth';
+  import moment from "moment";
+  import {getCurrentRole3, getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS1048View',
@@ -73,6 +104,8 @@
         cuowu: '',
         createy: '',
         daoru: false,
+        show:false,
+        yearmonth:moment(new Date().setMonth(new Date().getMonth() - 1)).format('YYYY-MM'),
         checkTableData: [],
         authHeader: {'x-auth-token': getToken()},
         postAction: process.env.BASE_API + '/projectincome/importUser',
@@ -97,15 +130,8 @@
             fix: false,
             filter: true,
           },
-          // {
-          //   code: 'group_id',
-          //   label: 'label.PFANS1039FORMVIEW_GROUP',
-          //   width: 120,
-          //   fix: false,
-          //   filter: true,
-          // },
           {
-            code: 'department',
+            code: 'groupid',
             label: 'label.department',
             width: 120,
             fix: false,
@@ -129,6 +155,27 @@
       this.$store
         .dispatch('PFANS1048Store/get')
         .then(response => {
+          for (let j = 0; j < response.length; j++)
+          {
+            if (response[j].group_id)
+            {
+              let orgInfo_cnt = getOrgInfo(response[j].group_id);
+              if (orgInfo_cnt) {
+                response[j].groupid = orgInfo_cnt.companyname;
+              }
+            }
+          }
+          let role3 = getCurrentRole3();
+          if (role3 === '0') //财务部长
+          {
+            this.buttonList[3].disabled = false;
+            this.buttonList[4].disabled = false;
+          }
+          else
+          {
+            this.buttonList[3].disabled = true;
+            this.buttonList[4].disabled = true;
+          }
           this.data = response;
           this.loading = false;
         })
@@ -142,6 +189,21 @@
         });
     },
     methods: {
+      UploadUrl: function() {
+        return process.env.BASE_API + '/projectincome/importUser?yearmonth=' + this.yearmonth;
+      },
+      checkliste() {
+        this.daoru = false;
+        this.show = true;
+        this.clear(false);
+      },
+      monthChange(value) {
+        let val = value;
+        if (value) {
+          val = moment(value).format('YYYY-MM');
+        }
+        this.yearmonth = val;
+      },
       handleSizeChange(val) {
         this.listQuery.limit = val;
         this.getList();

@@ -873,7 +873,7 @@
           }
         }
       },
-      handleChange(scope, index) {getCurrentRole13
+      handleChange(scope, index) {
         if (scope.prices > 0) {
           scope['money' + index] = scope.prices * scope['number' + index];
           if (index >= 4 && index <= 9) {

@@ -1041,26 +1041,6 @@
                   this.R *= 1;
                 } else if (this.role1 === '0' && item.process !== "4") {
                   this.R *= 0;
-                } else {
-                  if (this.$route.params.evaluatenum === "PJ104001") {
-                    if (item.process === "1") {
-                      this.R *= 1;
-                    } else {
-                      this.R *= 0;
-                    }
-                  } else if (this.$route.params.evaluatenum === "PJ104002") {
-                    if (item.process === "2") {
-                      this.R *= 1;
-                    } else {
-                      this.R *= 0;
-                    }
-                  } else if (this.$route.params.evaluatenum === "PJ104003") {
-                    if (item.process === "3") {
-                      this.R *= 1;
-                    } else {
-                      this.R *= 0;
-                    }
-                  }
                 }
               }
             }
@@ -1073,6 +1053,8 @@
           }
           if(response.submitFlg === '0'){
             this.buttonList[1].disabled = true;
+          } else if(response.submitFlg === '1'){
+            this.buttonList[1].disabled = false;
           }
           this.loading = false;
         })
@@ -1479,10 +1461,11 @@
                 type: "success",
                 duration: 5 * 1000
               });
+              if (this.$store.getters.historyUrl) {
+                this.$router.push(this.$store.getters.historyUrl);
+              }
             }
-            if (this.$store.getters.historyUrl) {
-              this.$router.push(this.$store.getters.historyUrl);
-            }
+            this.loading = false;
           })
           .catch(err => {
             this.loading = false;

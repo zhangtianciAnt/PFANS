@@ -10,36 +10,36 @@
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="refform" :model="refform" :rules="rules"
                  style="padding: 2vw">
-          <el-row style="padding-top: 2%;padding-bottom: 2%">
-            <el-col :span="8">
+          <el-row style="padding-top: 0.5%;padding-bottom: 0.5%">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1036FORMVIEW_BUSINESSYEAR')" prop="year">
                 <div class="block">
                   <el-date-picker
                     type="year"
                     @change="yearChange"
                     :disabled="true"
-                    style="width: 20vw"
+                    style="width: 15vw"
                     v-model="refform.year">
                   </el-date-picker>
                 </div>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS2009VIEW_JUNE')" prop="month">
                 <div class="block">
                   <el-date-picker
                     type="month"
                     @change="monthChange"
                     :disabled="true"
-                    style="width: 20vw"
+                    style="width: 15vw"
                     v-model="refform.month">
                   </el-date-picker>
                 </div>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1039FORMVIEW_GROUP')" prop="group">
-                <el-select v-model="refform.group_id" style="width: 20vw" :disabled="!disabled"
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="group_id">
+                <el-select v-model="refform.group_id" style="width: 20vw" :disabled="departmentshow"
                            @change="groupChange">
                   <el-option
                     v-for="item in grp_options"
@@ -52,70 +52,77 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS1045VIEW_SPAN18')">
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
+                          v-model="refform.sumtatole10"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN6')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
                           v-model="refform.sumtatole1"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN7')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
                           v-model="refform.sumtatole2"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+          </el-row>
+          <el-row>
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN8')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="15" style="width:15vw"
                           v-model="refform.sumtatole3"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN9')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="15" style="width:15vw"
                           v-model="refform.sumtatole4"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN10')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="15" style="width:15vw"
                           v-model="refform.sumtatole5"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+
+          </el-row>
+          <el-row>
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN11')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
                           v-model="refform.sumtatole6"></el-input>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN12')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
                           v-model="refform.sumtatole7"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN13')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
                           v-model="refform.sumtatole8"></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="6">
               <el-form-item :label="$t('label.PFANS1045VIEW_SPAN14')">
-                <el-input :disabled="true" maxlength="20" style="width:20vw"
+                <el-input :disabled="true" maxlength="20" style="width:15vw"
                           v-model="refform.sumtatole9"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-table :data="dataNList" border ref="multipleTable"
-                      header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod"
+                      header-cell-class-name="sub_bg_color_blue" :span-method="objectSpanMethod" height="85vh" width="100%"
             >
-              <el-table-column prop="name1" :formatter="formatterDir" align="center" width="70" fixed>
+              <el-table-column prop="name1" :formatter="formatterDir" align="center" width="80" fixed>
               </el-table-column>
               <el-table-column prop="name" :label="$t('label.user_name')" :formatter="formatterDir"
                                width="180" fixed align="center">
@@ -143,11 +150,6 @@
                     autocomplete="off"
                     show-password
                   ></el-input>
-                  <!--                  <el-input-number :min="0" :precision="2" :max="9999999" v-else show-password-->
-                  <!--                                   controls-position="right" :no="scope.row" :disabled="true"-->
-                  <!--                                   :step="1" v-model="scope.row.money" style="width: 100%"-->
-                  <!--                  ></el-input-number>-->
-
                 </template>
               </el-table-column>
               <el-table-column :key="index" :label="$t(item.companyproject)"
@@ -161,15 +163,6 @@
                 <el-table-column :label="$t('label.PFANS6008VIEW_COST')"
                                  :property="`cost${index}`"
                                  width="100"></el-table-column>
-                <!--                <template slot="header" slot-scope="scope">-->
-                <!--                  <el-popover trigger="hover" placement="top">-->
-                <!--                    <span>{{item.companyproject}}</span>-->
-                <!--                    <div slot="reference"-->
-                <!--                         style="width: 120px;padding: 0px;overflow:hidden;text-overflow:ellipsis;white-space: nowrap;">-->
-                <!--                      <span>{{item.companyproject}}</span>-->
-                <!--                    </div>-->
-                <!--                  </el-popover>-->
-                <!--                </template>-->
               </el-table-column>
             </el-table>
           </el-row>
@@ -184,7 +177,7 @@ import EasyNormalContainer from '@/components/EasyNormalContainer';
 import EasyWorkFlow from '@/components/EasyWorkFlow';
 import {Message} from 'element-ui';
 import dicselect from '../../../components/dicselect';
-import {getOrgInfoByUserId} from '@/utils/customize';
+import {getOrgInfoByUserId,getCurrentRoleNew,getOrgInfo} from '@/utils/customize';
 import org from '../../../components/org';
 import moment from 'moment';
 
@@ -198,6 +191,7 @@ export default {
   },
   data() {
     return {
+      departmentshow:false,
       passwordType: 'password',
       project1: [],
       project2: [],
@@ -225,9 +219,9 @@ export default {
           message: this.$t('normal.error_08') + this.$t('label.PFANS2009VIEW_JUNE'),
           trigger: 'change',
         }],
-        group: [{
+        group_id: [{
           required: true,
-          message: this.$t('normal.error_08') + this.$t('label.PFANS1039FORMVIEW_GROUP'),
+          message: this.$t('normal.error_08') + this.$t('label.PFANS2036VIEW_DEPARTMENT'),
           trigger: 'blur',
         }],
       },
@@ -245,6 +239,7 @@ export default {
         sumtatole7: '',
         sumtatole8: '',
         sumtatole9: '',
+        sumtatole10: '',
       },
     };
   },
@@ -290,6 +285,7 @@ export default {
           this.objectSpan3 = this.dataList.filter(item => (item.type == '0'));
           this.grp_options = JSON.parse(response.projectincomevo4);
           this.dataNList = JSON.parse(response.projectincomevo5);
+          this.departmentshow = true;
           this.loading = false;
         })
         .catch(error => {
@@ -301,7 +297,9 @@ export default {
           this.loading = false;
         });
     } else {
+      this.getorglistname();
       this.getprojects();
+      this.departmentshow = false;
     }
   },
   watch: {
@@ -350,7 +348,7 @@ export default {
       if (span3 === 0) {
         for (let j = 0; j < this.dataHeader.length; j++) {
           this.$set(this.dataNList[index1], 'works' + [j], '0.00');
-          this.$set(this.dataNList[index1], 'radio' + [j], '----------');
+          this.$set(this.dataNList[index1], 'radio' + [j], '-');
           this.$set(this.dataNList[index1], 'cost' + [j], '0.00');
         }
       } else {
@@ -362,7 +360,7 @@ export default {
             sumcost += parseFloat(this.dataNList[i]['cost' + j]);
           }
           this.$set(this.dataNList[index1], 'works' + [j], sumworks.toFixed(2) || '0.00');
-          this.$set(this.dataNList[index1], 'radio' + [j], '----------');
+          this.$set(this.dataNList[index1], 'radio' + [j], '-');
           this.$set(this.dataNList[index1], 'cost' + [j], sumcost.toFixed(2) || '0.00');
         }
       }
@@ -376,7 +374,7 @@ export default {
         }
 
         this.$set(this.dataNList[index], 'works' + [j], sumworks.toFixed(2) || '0.00');
-        this.$set(this.dataNList[index], 'radio' + [j], '----------');
+        this.$set(this.dataNList[index], 'radio' + [j], '-');
         this.$set(this.dataNList[index], 'cost' + [j], sumcost.toFixed(2) || '0.00');
       }
       //经费比率
@@ -385,11 +383,11 @@ export default {
         jfsumworks += parseFloat(this.dataNList[index]['works' + j]);
       }
       for (let j = 0; j < this.dataHeader.length; j++) {
-        let jfdsumworks = 0;
         for (let i = 0; i < span1; i++) {
+          let jfdsumworks = 0;
           jfdsumworks = this.dataNList[index]['works' + j];
           if (jfsumworks > 0) {
-            let radio = Math.round(Number(jfdsumworks) / Number(jfsumworks) * 100);
+            let radio = Number(Number(jfdsumworks) / Number(jfsumworks)*100).toFixed(2);
             let radios = radio + '%';
             this.$set(this.dataNList[i], 'radio' + [j], radios || '0.00%');
           } else {
@@ -417,8 +415,8 @@ export default {
         for (let i = 0; i < span1; i++) {
           sumcost += parseFloat(this.dataNList[i]['cost' + j]);
         }
-        this.$set(this.dataNList[index2], 'works' + [j], '----------');
-        this.$set(this.dataNList[index2], 'radio' + [j], '----------');
+        this.$set(this.dataNList[index2], 'works' + [j], '-');
+        this.$set(this.dataNList[index2], 'radio' + [j], '-');
         this.$set(this.dataNList[index2], 'cost' + [j], sumcost.toFixed(2) || '0.00');
       }
       //合计支出
@@ -439,21 +437,21 @@ export default {
           wsumcost += parseFloat(this.dataNList[i]['cost' + j]);
         }
         let costcum = Number(wsumcost) + Number(rsumcost) + Number(jsumcost);
-        this.$set(this.dataNList[index3], 'works' + [j], '----------');
-        this.$set(this.dataNList[index3], 'radio' + [j], '----------');
+        this.$set(this.dataNList[index3], 'works' + [j], '-');
+        this.$set(this.dataNList[index3], 'radio' + [j], '-');
         this.$set(this.dataNList[index3], 'cost' + [j], costcum.toFixed(2) || '0.00');
       }
       //合计收入
       for (let j = 0; j < this.dataHeader.length; j++) {
-        this.$set(this.dataNList[index4], 'works' + [j], '----------');
-        this.$set(this.dataNList[index4], 'radio' + [j], '----------');
+        this.$set(this.dataNList[index4], 'works' + [j], '-');
+        this.$set(this.dataNList[index4], 'radio' + [j], '-');
         this.$set(this.dataNList[index4], 'cost' + [j], Number(this.dataHeader[j].contractamount).toFixed(2) || '0.00');
       }
 
       //本月总成本
       let costsum = 0;
       for (let j = 0; j < this.dataHeader.length; j++) {
-        costsum += parseFloat(this.dataNList[index4]['cost' + j]);
+        costsum += parseFloat(this.dataNList[index3]['cost' + j]);
       }
       this.refform.sumtatole1 = costsum.toFixed(2);
       //本月共通结转
@@ -468,7 +466,8 @@ export default {
       let wcostsum1 = 0;
       let jcostsum1 = 0;
       for (let j = 0; j < this.dataHeader.length; j++) {
-        if (this.dataHeader[j].type === 0) {
+
+        if (this.dataHeader[j].type === '0') {
           rcostsum1 += parseFloat(this.dataNList[index]['cost' + j]);
           wcostsum1 += parseFloat(this.dataNList[index1]['cost' + j]);
           jcostsum1 += parseFloat(this.dataNList[index2]['cost' + j]);
@@ -478,22 +477,25 @@ export default {
       this.refform.sumtatole4 = wcostsum1.toFixed(2);
       this.refform.sumtatole5 = jcostsum1.toFixed(2);
       //本月完工成本
-      this.refform.sumtatole6 = (Number(rcostsum1) + Number(wcostsum1) + Number(jcostsum1)).toFixed(2);
+      this.refform.sumtatole6 = (Number(rcostsum1) + Number(wcostsum1) + Number(jcostsum1) + Number(sumtotale)).toFixed(2);
       //本月在库记上
       this.refform.sumtatole7 = (Number(this.refform.sumtatole1) - Number(this.refform.sumtatole6)).toFixed(2);
       //本月营业利润
       let contractamount = 0;
       for (let j = 0; j < this.dataHeader.length; j++) {
-        if (this.dataHeader[j].type === 0) {
+        if (this.dataHeader[j].type === '0') {
           contractamount += parseFloat(this.dataNList[index4]['cost' + j]);
         }
       }
-      this.refform.sumtatole8 = (Number(contractamount) - Number(this.refform.sumtatole6)).toFixed(2);
+      //本月完工收入
+      this.refform.sumtatole10 = (Number(contractamount)).toFixed(2);
+      //本月营业利润
+      this.refform.sumtatole8 = (Number(contractamount) - Number(this.refform.sumtatole6)) < 0 ? '0.00':(Number(contractamount) - Number(this.refform.sumtatole6)).toFixed(2);
       //本月完工PJ营业利润（配付除外）
       if (contractamount === 0) {
-        this.refform.sumtatole9 = Number(0).toFixed(2);
+        this.refform.sumtatole9 = Number(0).toFixed(2)+'%';
       } else {
-        this.refform.sumtatole9 = Math.round(Number(this.refform.sumtatole8) / Number(contractamount)).toFixed(2);
+        this.refform.sumtatole9 = Math.round(Number(this.refform.sumtatole8) / Number(contractamount) * 100).toFixed(2) +'%';
       }
     },
     objectSpanMethod({row, column, rowIndex, columnIndex}) {
@@ -601,9 +603,9 @@ export default {
       }
     },
     getprojects() {
-      if (this.refform.group_id === '') {
-        this.refform.group_id = getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId || '';
-      }
+      // if (this.refform.group_id === '') {
+      //   this.refform.group_id = getOrgInfoByUserId(this.$store.getters.userinfo.userid).group_id || '';
+      // }
       let parameter = {
         groupid: this.refform.group_id,
         userid: this.$store.getters.userinfo.userid,
@@ -631,13 +633,25 @@ export default {
             this.objectSpan3 = this.dataList.filter(item => (item.type == '0'));
           }
           if (response.projectincomevo4.length > 0) {
-            this.grp_options = response.projectincomevo4;
+            const grp =[];
+            for (let g= 0; g < this.grp_options.length;g++)
+            {
+              let grpli = response.projectincomevo4.filter(item => item.groupid == this.grp_options[g].groupid);
+              if (grpli)
+              {
+                grp.push(grpli[0]);
+              }
+            }
+            this.grp_options = grp;
+            let grpliencoding = response.projectincomevo4.filter(item => item.groupid == this.refform.group_id);
+            this.refform.encoding = grpliencoding[0].encoding;
             if (this.refform.group_id == '') {
               this.refform.group_id = response.projectincomevo4[0].groupid;
               this.refform.encoding = response.projectincomevo4[0].encoding;
             }
           }
           if (response.projectincomevo5.length > 0) {
+            this.dataNList = [];
             this.dataNList = response.projectincomevo5;
           }
           this.loading = false;
@@ -651,8 +665,166 @@ export default {
           this.loading = false;
         });
     },
+    getorglistname() {
+      let role = getCurrentRoleNew();
+      const vote = [];
+
+      if (role === '3') {//CENTER
+        vote.push(
+          {
+            groupid: this.$store.getters.userinfo.userinfo.centerid,
+            groupname: this.$store.getters.userinfo.userinfo.centername,
+          },
+        );
+        //add ccm 0112 兼职部门
+        if (this.$store.getters.userinfo.userinfo.otherorgs)
+        {
+          for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            if (others.centerid)
+            {
+              this.$store.getters.orgGroupList.filter((item) => {
+                if (item.centerid === others.centerid) {
+                  vote.push(
+                    {
+                      groupid: item.centerid,
+                      groupname: item.centername,
+                    },
+                  );
+                }
+              })
+            }
+          }
+        }
+        //add ccm 0112 兼职部门
+      } else if (role === '2') {//副总经理
+        this.$store.getters.orgGroupList.filter((item) => {
+          if (item.virtualuser === this.$store.getters.userinfo.userid) {
+            vote.push(
+              {
+                groupid: item.centerid,
+                groupname: item.centername,
+              },
+            );
+          }
+        })
+        //add ccm 0112 兼职部门
+        if (this.$store.getters.userinfo.userinfo.otherorgs)
+        {
+          for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            if (others.centerid)
+            {
+              this.$store.getters.orgGroupList.filter((item) => {
+                if (item.centerid === others.centerid) {
+                  vote.push(
+                    {
+                      groupid: item.centerid,
+                      groupname: item.centername,
+                    },
+                  );
+                }
+              })
+            }
+          }
+        }
+        //add ccm 0112 兼职部门
+      }
+      else if (role === '4') //GM
+      {
+        let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+        if (centers)
+        {
+          if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+          {
+            vote.push(
+              {
+                groupid: this.$store.getters.userinfo.userinfo.groupid,
+                groupname: this.$store.getters.userinfo.userinfo.groupname,
+              },
+            );
+          }
+        }
+      }
+      const vote1 = [];
+      if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+        || this.$store.getters.roles.indexOf("11") != -1 //总经理
+        || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+      {
+        this.$store.getters.orgGroupList.filter((item) => {
+          vote1.push(
+            {
+              groupid: item.centerid,
+              groupname: item.centername,
+            },
+          );
+        })
+        this.grp_options = vote1;
+      }
+      else
+      {
+        this.grp_options = vote;
+      }
+      //去重
+      let letoptionsdata = [];
+      let arrId = [];
+      for(var item of this.grp_options){
+        if(arrId.indexOf(item['groupname']) == -1){
+          arrId.push(item['groupname']);
+          letoptionsdata.push(item);
+        }
+      }
+      //针对经营管理统计到group修改 start
+      let incfmyList = [];
+      for(let item of letoptionsdata){
+        if(getOrgInfo(item.groupid).encoding == ''){
+          incfmyList.push(item.groupid)
+        }
+      }
+      if(incfmyList.length > 0){
+        for(let item of incfmyList){
+          letoptionsdata = letoptionsdata.filter(letitem => letitem.groupid != item)
+        }
+        let orgInfo = [];
+        for(let item of incfmyList){
+          if(item){
+            if(getOrgInfo(item).orgs.length != 0){
+              orgInfo.push(getOrgInfo(item).orgs)
+            }
+          }
+        }
+        let groInfo = orgInfo[0].filter(item => item.type == '2');
+        for(let item of groInfo){
+          letoptionsdata.push(
+            {
+              groupid: item._id,
+              groupname: item.title,
+            },
+          );
+        }
+      }
+      //针对经营管理统计到group修改 end
+      this.grp_options = letoptionsdata;
+      if (this.grp_options.length > 0)
+      {
+        this.refform.group_id = this.grp_options[0].groupid;
+      }
+
+      //UPD CCM 20210422
+    },
     buttonClick(val) {
+      this.$refs['refform'].validate(valid => {
+        if (valid) {
       this.loading = true;
+      for (let i=0; i< this.project2.length;i++)
+      {
+        let pro2 = this.dataNList.filter(item => item.type != '3' && item.name === this.project2[i].name)
+        if (pro2.length>0)
+        {
+          this.project2[i].money = pro2[0].money;
+        }
+      }
+
       this.refform.projectincomevo1 = JSON.stringify(this.project1);
       this.refform.projectincomevo2 = JSON.stringify(this.project2);
       this.refform.projectincomevo4 = JSON.stringify(this.project4);
@@ -679,6 +851,15 @@ export default {
           });
           this.loading = false;
         });
+        }else {
+          this.loading = false;
+          Message({
+            message: this.$t('normal.error_12'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+        }
+      })
     },
     yearChange(value) {
       let val = value;
