@@ -236,7 +236,7 @@
             </el-col>
             <!--            预计退场时间-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="yjexitime">
+              <el-form-item :label="$t('label.PFANS2002FORMVIEW_YJEXITTIME')" prop="yjexitime">
                 <el-date-picker
                   :disabled="!disabled"
                   style="width:20vw"
