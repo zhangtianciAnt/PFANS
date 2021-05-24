@@ -128,6 +128,7 @@
         },
         buttonList: [
             { key: 'back', name: 'button.back', disabled: false, icon: 'el-icon-back' },
+            { key: 'applicate', name: 'button.applicate', disabled: false, icon: 'el-icon-check' },
         ],
         nameflag: false,
         namelessflag: false,
@@ -200,7 +201,30 @@
           })
       },
       buttonClick (val) {
+        if (val === 'back') {
           this.cancelForm();
+        } else if (val === 'applicate') {
+          debugger;
+          this.$store
+            .dispatch('orgTreeStore/updateStatus', {"Years": this.years})
+            .then((response) => {
+              Message({
+                message: this.$t('normal.success_03'),
+                type: 'success',
+                duration: 2 * 1000
+              });
+              this.loading = false;
+              this.cancelForm();
+            })
+            .catch((error) => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 2 * 1000
+              });
+              this.loading = false
+            })
+        }
       },
       changeflag (flag, type) {
         switch (flag) {

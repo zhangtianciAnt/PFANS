@@ -53,6 +53,13 @@
           <div slot="header" class="clearfix" style="height: 2rem">
             <easy-button-bar @buttonClick="buttonClick" :data="buttonList"></easy-button-bar>
           </div>
+          <div>{{"年份"}}
+            <el-date-picker
+              :disabled="true"
+              v-model="years"
+              type="year">
+            </el-date-picker>
+          </div>
           <div>
             <el-tabs v-model="activeNam">
               <el-tab-pane label="基本信息" name="first">
@@ -145,6 +152,7 @@
         },
         data () {
             return {
+                years:  moment(new Date()).format('MM') < 4 ? moment(new Date()).format('YYYY') : moment(new Date()).add(1, 'y').format("YYYY"),
                 showFilter:true,
                 companyFormcheck: {},
                 treeshow: true,
@@ -264,7 +272,7 @@
                 var months = moment(new Date()).format('M');
                 var years = months === '1' || months === '2' || months === '3' ?  moment(new Date()).format("YYYY") : moment(new Date()).add(1, 'y').format('YYYY');
                 this.$store
-                    .dispatch('orgTreeStore/getTreeYears', {"Years": this.year,"Status": '1'})
+                    .dispatch('orgTreeStore/getTreeYears', {"Years": this.years,"Status": '1'})
                     .then(response => {
                         if (response) {
                             this.data = [response]

@@ -127,13 +127,14 @@ module.exports = {
     contract1: '全组织',
     importwages: '历史工资导入',
     generate: '自动生成',
-    orginsert: '新建组织',
+    orginsert: '下一年度组织',
     orgresume: '组织履历',
     orgchange: '组织变更',
     recalculation: '重新计算社保公积金基数',
     startEvaluate: '开始评价',
     overEvaluate: '关闭评价',
-    commit: '提交'
+    commit: '提交',
+    applicate: '应用'
   },
   table: {
     detail: '一览',
