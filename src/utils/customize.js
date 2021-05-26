@@ -821,6 +821,18 @@ export function getCurrentRoleGiving() {
   }
   return '1';
 }
+export function getCurrentRoleeditnapin() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('纳品编辑') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
 //add ccm 20210524 to
 import CryptoJS from 'crypto-js/crypto-js';
 

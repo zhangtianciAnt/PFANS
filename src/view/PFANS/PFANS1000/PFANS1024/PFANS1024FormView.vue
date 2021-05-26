@@ -1413,6 +1413,10 @@
                 if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
                   contractnumbercount[i].book = true;
                 }
+                else
+                {
+                  contractnumbercount[i].book = false;
+                }
               }
               this.form.tableclaimtype = contractnumbercount;
               this.tableclaimtypeold = contractnumbercount;
@@ -2472,10 +2476,30 @@
           } else if (this.form.contracttype === 'HT014004') {
             o.maketype = '4';
           }
+
+          let counttype = 0;
+          for (let t = 0; t < this.form.tableclaimtype.length; t++)
+          {
+            if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+            {
+              counttype = counttype+1;
+            }
+          }
+
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+              if (counttype === this.form.tableclaimtype.length || counttype ===0)
+              {
+                letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+              }
+              else
+              {
+                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                {
+                  letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                }
+              }
             }
             o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
