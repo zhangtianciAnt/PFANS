@@ -558,16 +558,10 @@
               }else{
                 dic = '0'
               }
-              if(dic === '转入部门GM'){
+              // if(dic === 'GM'){
+              if(dic.indexOf('GM') != -1){
                 if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
                   let groupInfo = getOrgInfo(this.form.tubegroup_id);
-                  if (groupInfo) {
-                    this.userlistLc.push(groupInfo.user);
-                  }
-                }
-              }else if(dic === '转出部门GM' || dic === '0'){
-                if (this.form.ferrygroup_id != null && this.form.ferrygroup_id != '') {
-                  let groupInfo = getOrgInfo(this.form.ferrygroup_id);
                   if (groupInfo) {
                     this.userlistLc.push(groupInfo.user);
                   }
