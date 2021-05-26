@@ -287,7 +287,7 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
+                <!--<el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005FORMVIEW_CAREERPLANAMOUNT')" prop="businessplanamount">
                     <el-input-number v-model="form.businessplanamount"
                                      controls-position="right"
@@ -298,7 +298,7 @@
                                      style="width:20vw"
                     ></el-input-number>
                   </el-form-item>
-                </el-col>
+                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_PURCHASEPURPOSE')" prop="purchasepurpose">
                     <el-input :disabled="!disable" style="width:20vw" v-model="form.purchasepurpose"></el-input>
@@ -360,7 +360,7 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005VIEW_MODEL')">
+                  <el-form-item :label="$t('label.PFANS3005VIEW_MODEL')" prop="model">
                     <el-input :disabled="!disable" style="width:20vw" maxlength='20' v-model="form.model"></el-input>
                   </el-form-item>
                 </el-col>
@@ -403,8 +403,8 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005VIEW_TOTALAMOUNT')" prop="totalamount">
-                    <el-input-number :disabled="true" :precision="2" style="width:20vw" controls-position="right"
+                  <el-form-item :label="$t('label.PFANS3005VIEW_TOTALAMOUNT')+$t('label.PFANS3005VIEW_FARE')" prop="totalamount">
+                    <el-input-number :disabled="!disable" :precision="2" style="width:20vw" controls-position="right"
                                      v-model="form.totalamount">
                     </el-input-number>
                   </el-form-item>
@@ -801,7 +801,7 @@
           usertime: '',
           user: '',
           budgetnumber: '',
-          businessplanamount: '',
+          /*businessplanamount: '',*/
           purchasepurpose: '',
           fixedassetsno: '',
           outassetsno: '',
@@ -994,13 +994,13 @@
               trigger: 'change',
             },
           ],
-          businessplanamount: [
+         /* businessplanamount: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_CAREERPLANAMOUNT'),
               trigger: 'change',
             },
-          ],
+          ],*/
           purchasepurpose: [
             {
               required: true,
@@ -1029,6 +1029,16 @@
               trigger: 'change',
             },
           ],
+          /*型号*/
+          model: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3005VIEW_MODEL'),
+              trigger: 'change',
+            },
+          ],
+
+
           unitprice: [
             {
               required: true,
