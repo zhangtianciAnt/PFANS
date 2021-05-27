@@ -167,6 +167,39 @@
                   <!--                    </el-form-item>-->
                   <!--                  </el-col>-->
                 </el-row>
+                <!--       add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数-->
+                <el-row>
+                  <el-col :span="8">
+                    <template>
+                      <el-form-item :label="$t('label.PFANS1013VIEW_REALSTARTDATE')" prop="realstartdate">
+                        <el-date-picker
+                          :disabled="!disable"
+                          style="width:20vw"
+                          type="date"
+                          @change="dateCom"
+                          v-model="form.realstartdate">
+                        </el-date-picker>
+                      </el-form-item>
+                    </template>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REALENDDATE')" prop="realenddate">
+                      <el-date-picker
+                        :disabled="!disable"
+                        style="width:20vw"
+                        type="date"
+                        @change="dateCom"
+                        v-model="form.realenddate">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REALDATENUMBER')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.realdatenumber"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <!--       add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数-->
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
@@ -1332,6 +1365,7 @@
         accountcodeValue: '',
         relations: [],
         Todaysum: [],
+        realTodaysum: [],
         taxrateValue: '',
         loans: [],
         selectType: 'Single',
@@ -1371,6 +1405,9 @@
           startdate: '',
           enddate: '',
           datenumber: '',
+          realstartdate: '',
+          realenddate: '',
+          realdatenumber: '',
           // budgetunit: '',
           loan: '',
           loanamount: '',
@@ -1501,6 +1538,18 @@
           //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
           //   trigger: 'change',
           // }],
+          // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          realstartdate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALSTARTDATE'),
+            trigger: 'change',
+          }],
+          realenddate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALENDDATE'),
+            trigger: 'change',
+          }],
+          // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
         },
         code1: 'PG002',
         code2: 'PJ036',
@@ -2064,6 +2113,119 @@
       }
     },
     methods: {
+      //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+      dateCom() {
+        if (this.form.realstartdate != '' && this.form.realstartdate != null && this.form.realenddate != '' && this.form.realenddate != null) {
+          if (moment(this.form.realstartdate).format('YYYY-MM-DD') < moment(this.form.realenddate).format('YYYY-MM-DD')) {
+            this.form.realdatenumber = moment(this.form.realenddate).diff(moment(this.form.realstartdate), 'days') + 1;
+          } else if (moment(this.form.realstartdate).format('YYYY-MM-DD') === moment(this.form.realenddate).format('YYYY-MM-DD')) {
+            this.form.realdatenumber = 1;
+          } else {
+            this.form.realdatenumber = 0;
+          }
+          let moneys = 0;
+          if (this.form.type === '0') {
+            moneys = getDictionaryInfo('PJ035001').value7;
+          } else if (this.form.type === '1') {
+            moneys = getDictionaryInfo('PJ035002').value8;
+          }
+          this.tableA = [];
+          this.realTodaysum = [];
+          if (this.form.realstartdate != '' && this.form.realenddate != '' && moment(this.form.realstartdate).format('YYYY-MM-DD') != moment(this.form.realenddate).format('YYYY-MM-DD')) {
+            var getDate = function(str) {
+              var tempDate = new Date();
+              var list = str.split('-');
+              tempDate.setFullYear(list[0]);
+              tempDate.setMonth(list[1] - 1);
+              tempDate.setDate(list[2]);
+              return tempDate;
+            };
+            var date1 = getDate(moment(this.form.realstartdate).format('YYYY-MM-DD'));
+            var date2 = getDate(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            if (date1 > date2) {
+              var tempDate = date1;
+              date1 = date2;
+              date2 = tempDate;
+            }
+            date1.setDate(date1.getDate() + 1);
+            var realdateArr = [];
+            var i = 0;
+            while (!(date1.getFullYear() == date2.getFullYear()
+              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                .getDate())) {
+              var dayStr = date1.getDate().toString();
+              if (dayStr.length == 1) {
+                dayStr = '0' + dayStr;
+              }
+              var monthStr = (date1.getMonth() + 1).toString();
+              if (monthStr.length == 1) {
+                monthStr = '0' + monthStr;
+              }
+              realdateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                + dayStr;
+              i++;
+              date1.setDate(date1.getDate() + 1);
+            }
+            realdateArr.splice(0, 0, moment(this.form.realstartdate).format('YYYY-MM-DD'));
+            realdateArr.push(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            this.realTodaysum = realdateArr;
+          } else {
+            var realdateArr = [];
+            dateArr.push(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            this.realTodaysum = realdateArr;
+          }
+          for (let i = 0; i < this.realTodaysum.length; i++) {
+            this.tableA.push({
+              // code20: this.Redirict === '0' ? 'PJ119' : 'PJ132',
+              accountcode: this.newaccountcodeflg,
+              subsidies: moneys,
+              evectionid: '',
+              accommodationdetails_id: '',
+              accommodationdate: this.realTodaysum[i],
+              invoicenumber: '',
+              plsummary: this.plsummaryflg,
+              budgetcoding: '',
+              subjectnumber: this.accflg,
+              departmentname: this.groupId,
+              activitycontent: '',
+              city: this.region,
+              region: this.region,
+              facilitytype: '',
+              facilityname: '',
+              currency: '',
+              rmb: '',
+              travel: '',
+              annexno: '',
+              rowindex: '',
+              taxes: '',
+              Redirict: this.Redirict,
+            });
+          }
+          for (let i = 0; i < this.tableA.length; i++) {
+            this.tableA[i].optionsA = [];
+            if (getOrgInfo(this.tableA[i].departmentname)) {
+              let butinfoA = (getOrgInfo(this.tableA[i].departmentname).encoding).substring(0, 3);
+              let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dicA.length > 0) {
+                for (let j = 0; j < dicA.length; j++) {
+                  if (butinfoA === (dicA[j].value1).substring(0, 3)) {
+                    this.tableA[i].optionsA.push({
+                      lable: dicA[j].value2 + '_' + dicA[j].value3,
+                      value: dicA[j].code,
+                    });
+                  }
+                }
+              }
+            }
+            if (this.form.arrivenight === '1') {
+              this.tableA[0].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[0].subsidies = parseFloat(moneys);
+            }
+          }
+        }
+      },
+      //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
       changeereimbursementdate(value) {
         if (value) {
           this.month3 = moment(value).format('YYYY-MM');
@@ -3262,6 +3424,11 @@
           dateArr.splice(0, 0, moment(this.form.startdate).format('YYYY-MM-DD'));
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
           this.Todaysum = dateArr;
+          //region   add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          this.form.realstartdate = moment(this.form.startdate).format('YYYY-MM-DD');
+          this.form.realenddate = moment(this.form.enddate).format('YYYY-MM-DD');
+          this.form.realdatenumber =  moment(this.form.realenddate).diff(moment(this.form.realstartdate), 'days') + 1;
+          //endregion    add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
         } else {
           var dateArr = [];
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
@@ -3653,7 +3820,16 @@
         }
         //add-ws-8/29-禅道bug066
         if (val === 'save') {
-
+          //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          if (moment(this.form.realenddate).format('YYYY-MM-DD') < moment(this.form.realstartdate).format('YYYY-MM-DD')) {
+            Message({
+              message: this.$t('label.PFANS1013FORMVIEW_CHECKREALDATENUMBER'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
           this.$refs['refform'].validate(valid => {
               if (valid) {
                 if (this.form.type === '0') {
