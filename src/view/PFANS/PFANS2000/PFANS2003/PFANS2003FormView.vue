@@ -291,6 +291,9 @@
                   v-model="form.email"></el-input>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
+            <!--RN-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2003FORMVIEW_RN')">
                 <dicselect
@@ -301,6 +304,32 @@
                   @change="changern"
                   style="width:20vw">
                 </dicselect>
+              </el-form-item>
+            </el-col>
+            <!--基本给-->
+            <el-col :span="8">
+              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_SALARY') + this.$t('label.yuan')">
+                <el-input-number
+                  :disabled="!disabled"
+                  :max="1000000000"
+                  :min="0"
+                  :precision="2"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.salary"></el-input-number>
+              </el-form-item>
+            </el-col>
+            <!--职责给-->
+            <el-col :span="8">
+              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')">
+                <el-input-number
+                  :disabled="!disabled"
+                  :max="1000000000"
+                  :min="0"
+                  :precision="2"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.dutysalary"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -320,18 +349,6 @@
                   @change="changesupplement"
                   style="width:20vw">
                 </dicselect>
-              </el-form-item>
-            </el-col>
-            <el-col :span="8">
-              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_SALARY') + this.$t('label.yuan')">
-                <el-input-number
-                  :disabled="!disabled"
-                  :max="1000000000"
-                  :min="0"
-                  :precision="2"
-                  controls-position="right"
-                  style="width:20vw"
-                  v-model="form.salary"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
@@ -536,6 +553,7 @@
           contactinformation: '',
           email: '',
           salary: '',
+          dutysalary: '',
           technology: '',
           speciality: '',
           result: '1',

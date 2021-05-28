@@ -589,10 +589,11 @@
                   ></dicselect>
                 </el-form-item>
               </el-col>
+              <!--基本给-->
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')">
                   <el-input-number
-                    :disabled="true"
+                    :disabled="disabled"
                     :max="1000000"
                     :min="0"
                     :precision="2"
@@ -600,6 +601,22 @@
                     class="width"
                     style="width:20vw"
                     v-model="form.giving"
+                  ></el-input-number>
+                  <span style="margin-left:3%">{{$t('label.PFANS2002FORMVIEW_YUAN')}}</span>
+                </el-form-item>
+              </el-col>
+              <!--职责给-->
+              <el-col :span="8">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')">
+                  <el-input-number
+                    :disabled="disabled"
+                    :max="1000000"
+                    :min="0"
+                    :precision="2"
+                    :step="100"
+                    class="width"
+                    style="width:20vw"
+                    v-model="form.dutygiving"
                   ></el-input-number>
                   <span style="margin-left:3%">{{$t('label.PFANS2002FORMVIEW_YUAN')}}</span>
                 </el-form-item>
@@ -828,6 +845,7 @@
                     health: false,
                     interview: '',
                     giving: '0',
+                    dutygiving:'0',
                     adoption: '',
                     others: '',
                     status: '0',
@@ -1001,6 +1019,7 @@
                             vote.member = response[i].member
                             vote.rn = response[i].rn
                             vote.salary = response[i].salary
+                            vote.dutysalary = response[i].dutysalary
                             vote.result = response[i].result
 // wxl 4/8 面试官通过选人带出来 end
                             this.gridData.push(vote);
@@ -1087,7 +1106,8 @@
                 this.form.other3 = this.currentRow6//其他
                 this.form.others = this.currentRow7//推荐人
                 this.form.level = this.rn //rn
-                this.form.giving = this.salary //薪资
+                this.form.giving = this.salary //基本給
+                this.form.dutygiving = this.dutysalary //职责給
 
 
 // wxl 4/8 面试官通过选人带出来 end
@@ -1105,7 +1125,8 @@
                 this.currentRow6 = val.other;//其他
                 this.currentRow7 = val.member;//推荐人
                 this.rn = val.rn;//rn
-                this.salary = val.salary;//薪资
+                this.salary = val.salary;//基本给
+                this.dutysalary = val.dutysalary;//职责给
 // wxl 4/8 面试官通过选人带出来 end
             },
             arraySpanMethod({row, column, rowIndex, columnIndex}) {
