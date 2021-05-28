@@ -2965,22 +2965,24 @@
         //   this.claimamount4 = val.claimamount;
         // }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
+        //PSDCD_PFANS_20210519_BUG_003 ztc 金额相关BUG对应 fr
         for (let i = 0; i < this.form.tabledata.length; i++) {
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let sumclaimamount = 0;
-            for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-              this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+              sumclaimamount = sumclaimamount + Number(this.form.tableclaimtype[j].claimamount);
             }
+            this.form.tabledata[i].claimamount = sumclaimamount
           }
         }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
         for (let i = 0; i < this.form.tablecompound.length; i++) {
           for (let j = 0; j < this.form.tableclaimtype.length; j++) {
             if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
-              this.form.tablecompound[i].claimamount = this.this.form.tableclaimtype[j].claimamount;
+              this.form.tablecompound[i].claimamount = this.form.tableclaimtype[j].claimamount;
             }
           }
-
+        //PSDCD_PFANS_20210519_BUG_003 ztc 金额相关BUG对应 to
           // if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_TWO')) != -1) {
           //   this.form.tablecompound[i].claimamount = this.claimamount2;
           // }
