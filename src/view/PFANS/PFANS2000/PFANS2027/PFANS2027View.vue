@@ -433,6 +433,7 @@
                 type: 'success',
                 duration: 5 * 1000,
               });
+              this.get();
             })
             .catch(error => {
               Message({

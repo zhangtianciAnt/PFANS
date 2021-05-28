@@ -1961,7 +1961,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money4" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money4}}</span>
                         </template>
@@ -1983,7 +1983,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money5" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money5}}</span>
                         </template>
@@ -2005,7 +2005,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money6" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money6}}</span>
                         </template>
@@ -2027,7 +2027,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money7" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money7}}</span>
                         </template>
@@ -2049,7 +2049,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money8" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money8}}</span>
                         </template>
@@ -2071,7 +2071,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money9" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money9}}</span>
                         </template>
@@ -2095,7 +2095,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money10" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money10}}</span>
                         </template>
@@ -2117,7 +2117,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money11" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money11}}</span>
                         </template>
@@ -2139,7 +2139,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money12" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money12}}</span>
                         </template>
@@ -2161,7 +2161,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money1" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money1}}</span>
                         </template>
@@ -2183,7 +2183,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money2" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money2}}</span>
                         </template>
@@ -2205,7 +2205,7 @@
                         <template slot-scope="scope">
                           <el-input-number :precision="2" size="small" v-model="scope.row.money3" :controls="false"
                                            :min="0" style="width:5vw"
-                                           v-if="[40,44,45,48,54,55,56,57].includes(scope.$index)"
+                                           v-if="[40,44,45,48,54,55,56,57,58].includes(scope.$index)"
                                            @change="computedSum"></el-input-number>
                           <span v-else>{{scope.row.money3}}</span>
                         </template>
@@ -2333,10 +2333,10 @@
         tableC: [],//3
         tableD: [],//4
         tableK: [{}, {}, {}, {}, {}, {}],
-        tableO1: [{}],
-        tableO2: [{}],
-        tableO3: [{}],
-        tableO: [{}],
+        tableO1: [],
+        tableO2: [],
+        tableO3: [],
+        tableO: [],
         tableP: [{name1: 'PJ086001'}, {name1: 'PJ086002'}, {name1: 'PJ086003'},
           {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE3')}
           , {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE4')}, {name1: 'PJ073001'},
@@ -2882,59 +2882,59 @@
             if (response[2]) this.tableA = [JSON.parse(response[2])];
             // if (response[2]) this.tableB = [JSON.parse(response[2])];
             let actual = JSON.parse(response[3]);
-            actual.forEach(
-              val => {
-                if (val.code === 'PJ111001') {
-                  Object.assign(this.tableP[11], val);
-                } else if (val.code === 'PJ111002') {
-                  Object.assign(this.tableP[16], val);
-                } else if (val.code === 'PJ111003') {
-                  Object.assign(this.tableP[17], val);
-                } else if (val.code === 'PJ111004') {
-                  Object.assign(this.tableP[18], val);
-                } else if (val.code === 'PJ111005') {
-                  Object.assign(this.tableP[19], val);
-                } else if (val.code === 'PJ111006') {
-                  Object.assign(this.tableP[21], val);
-                } else if (val.code === 'PJ111007') {
-                  Object.assign(this.tableP[31], val);
-                } else if (val.code === 'PJ111008') {
-                  Object.assign(this.tableP[32], val);
-                } else if (val.code === 'PJ111009') {
-                  Object.assign(this.tableP[33], val);
-                } else if (val.code === 'PJ111010') {
-                  Object.assign(this.tableP[34], val);
-                } else if (val.code === 'PJ111011') {
-                  Object.assign(this.tableP[35], val);
-                } else if (val.code === 'PJ111012') {
-                  Object.assign(this.tableP[36], val);
-                } else if (val.code === 'PJ111013') {
-                  Object.assign(this.tableP[37], val);
-                } else if (val.code === 'PJ111014') {
-                  Object.assign(this.tableP[38], val);
-                } else if (val.code === 'HT008006') {
-                  Object.assign(this.tableP[0], val);
-                } else if (val.code === 'HT008007') {
-                  Object.assign(this.tableP[1], val);
-                } else if (val.code === 'HT008008') {
-                  Object.assign(this.tableP[2], val);
-                } else if (val.code === 'neibu') {
-                  Object.assign(this.tableP[3], val);
-                  Object.assign(this.tableP[23], val);
-                } else if (val.code === 'neibuhetong') {
-                  Object.assign(this.tableP[24], val);
-                } else if (val.code === 'worktime') {
-                  Object.assign(this.tableP[53], val);
-                  // Object.assign(this.tableP[52], val);
-                } else if (val.code === 'worktime0') {
-                  Object.assign(this.tableP[54], val);
-                  //   Object.assign(this.tableP[53], val);
-                } else if (val.code === 'worktime1') {
-                  Object.assign(this.tableP[55], val);
-                  // Object.assign(this.tableP[54], val);
-                }
-              },
-            );
+            // actual.forEach(
+            //   val => {
+            //     if (val.code === 'PJ111001') {
+            //       Object.assign(this.tableP[11], val);
+            //     } else if (val.code === 'PJ111002') {
+            //       Object.assign(this.tableP[16], val);
+            //     } else if (val.code === 'PJ111003') {
+            //       Object.assign(this.tableP[17], val);
+            //     } else if (val.code === 'PJ111004') {
+            //       Object.assign(this.tableP[18], val);
+            //     } else if (val.code === 'PJ111005') {
+            //       Object.assign(this.tableP[19], val);
+            //     } else if (val.code === 'PJ111006') {
+            //       Object.assign(this.tableP[21], val);
+            //     } else if (val.code === 'PJ111007') {
+            //       Object.assign(this.tableP[31], val);
+            //     } else if (val.code === 'PJ111008') {
+            //       Object.assign(this.tableP[32], val);
+            //     } else if (val.code === 'PJ111009') {
+            //       Object.assign(this.tableP[33], val);
+            //     } else if (val.code === 'PJ111010') {
+            //       Object.assign(this.tableP[34], val);
+            //     } else if (val.code === 'PJ111011') {
+            //       Object.assign(this.tableP[35], val);
+            //     } else if (val.code === 'PJ111012') {
+            //       Object.assign(this.tableP[36], val);
+            //     } else if (val.code === 'PJ111013') {
+            //       Object.assign(this.tableP[37], val);
+            //     } else if (val.code === 'PJ111014') {
+            //       Object.assign(this.tableP[38], val);
+            //     } else if (val.code === 'HT008006') {
+            //       Object.assign(this.tableP[0], val);
+            //     } else if (val.code === 'HT008007') {
+            //       Object.assign(this.tableP[1], val);
+            //     } else if (val.code === 'HT008008') {
+            //       Object.assign(this.tableP[2], val);
+            //     } else if (val.code === 'neibu') {
+            //       Object.assign(this.tableP[3], val);
+            //       Object.assign(this.tableP[23], val);
+            //     } else if (val.code === 'neibuhetong') {
+            //       Object.assign(this.tableP[24], val);
+            //     } else if (val.code === 'worktime') {
+            //       Object.assign(this.tableP[53], val);
+            //       // Object.assign(this.tableP[52], val);
+            //     } else if (val.code === 'worktime0') {
+            //       Object.assign(this.tableP[54], val);
+            //       //   Object.assign(this.tableP[53], val);
+            //     } else if (val.code === 'worktime1') {
+            //       Object.assign(this.tableP[55], val);
+            //       // Object.assign(this.tableP[54], val);
+            //     }
+            //   },
+            // );
             this.buttonList[0].disabled = false;
             this.loading = false;
           })
@@ -2954,19 +2954,22 @@
       },
       computedSum() {
         this.loading = true;
-        let tableOTotal = {};
-        let tableOTotal1 = {};
-        let tableOTotal2 = {};
-        let tableOTotal3 = {};
-        let tableOTotal4 = {};
-        let tableOtotal5 = {};
-        let tableOtotal6 = {};
-        let tableOtotal7 = {}; //消耗品费
-        let _tableO3 = {}; //交通费
-        let _tableO2 = {};
-        let _tableO1 = {};
-        let _travel = {};
-        //研修
+        let tableOTotal = {}; //共同事務費
+        let tableOTotal1 = {}; //オフィス家賃
+        let tableOTotal2 = {}; // 研究材料费
+        let tableOTotal3 = {};//リース費
+        let tableOTotal4 = {};//原動費
+        let tableOtotal5 = {};// 通信費
+        let tableOtotal6 = {};//消耗品費
+        let tableOtotal7 = {};//厚生費
+        let tableOtotal8 = {};//その他(固定費)
+        let tableOtotal9 = {};//出向者賃借料
+        let tableOtotal10 = {};//ブランド使用料
+        let _tableO3 = {}; // 通信
+        let _tableO2 = {}; //その他(経費)
+        let _tableO1 = {}; //研修
+        let _travel = {}; //旅费交通费
+        //通信
         this.tableO3.forEach(
           val => {
             if (val.type === 'PJ108001') {
@@ -2976,7 +2979,7 @@
             }
           },
         );
-        //通信
+        //研修
         this.tableO1.forEach(
           val => {
             if (val.type === 'PJ106001') {
@@ -3000,6 +3003,7 @@
                 _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //その他(経費)
             if (val.type === 'PJ107002') {
               for (let i = 1; i <= 12; i++) {
                 _tableO2['money' + i] = (Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
@@ -3010,70 +3014,95 @@
         //各种经费
         this.tableO.forEach(
           val => {
+            //共同事務費
             if (val.type === 'PJ111012') {
               for (let i = 1; i <= 12; i++) {
                 tableOTotal['money' + i] = (Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //旅费交通费
             if (val.type === 'PJ111008') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal1['money' + i] = (Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            // 研究材料费
             if (val.type === 'PJ111006') {
               for (let i = 1; i <= 12; i++) {
                 tableOTotal2['money' + i] = (Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //リース費
             if (val.type === 'PJ111003') {
               for (let i = 1; i <= 12; i++) {
                 tableOTotal3['money' + i] = (Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //原動費
             if (val.type === 'PJ111007') {
               for (let i = 1; i <= 12; i++) {
                 tableOTotal4['money' + i] = (Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            // 通信費
             if (val.type === 'PJ111009') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal5['money' + i] = (Number(tableOtotal5['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                _tableO3['money' + i] = (Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //消耗品費
             if (val.type === 'PJ111010') {
               for (let i = 1; i <= 12; i++) {
                 tableOtotal6['money' + i] = (Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
-            if (val.type === 'PJ111001') { //消耗品费
+            //厚生費
+            if (val.type === 'PJ111001') {
               for (let i = 1; i <= 12; i++) {
                 tableOtotal7['money' + i] = (Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //研修
             if (val.type === 'PJ111011') {
               for (let i = 1; i <= 12; i++) {
                 _tableO1['money' + i] = (Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //その他(固定費)
             if (val.type === 'PJ111005') {
               for (let i = 1; i <= 12; i++) {
-                _tableO3['money' + i] = (Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOtotal8['money' + i] = (Number(tableOtotal8['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //オフィス家賃
             if (val.type === 'PJ111002') {
               for (let i = 1; i <= 12; i++) {
-                _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOTotal1['money' + i] = (Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //出向者賃借料
             if (val.type === 'PJ111004') {
               for (let i = 1; i <= 12; i++) {
+                tableOtotal9['money' + i] = (Number(tableOtotal9['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //その他経費
+            if (val.type === 'PJ111014') {
+              for (let i = 1; i <= 12; i++) {
                 _tableO2['money' + i] = (Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //ブランド使用料
+            if (val.type === 'PJ111013') {
+              for (let i = 1; i <= 12; i++) {
+                tableOtotal10['money' + i] = (Number(tableOtotal10['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
           },
         );
 
         for (let i = 0; i < this.arr.length; i++) {
+          //構外外注(工数)
           this.$set(this.tableP[52], 'actual' + this.arr[i], this.tableP[52]['actual' + this.arr[i]] || '0.00');
           // this.$set(this.tableP[51], 'actual' + this.arr[i], this.tableP[51]['actual' + this.arr[i]] || '0.00');
           //项目计划得支出 - 構外委託（B2）最下方合计
@@ -3086,6 +3115,7 @@
               // this.$set(this.tableP[51], 'money' + this.arr[i], Number(this.sumB2[2 * i + 4] || 0).toFixed(2));
             }
           }
+          //構内外注（名）
           this.tableP[53]['actual' + this.arr[i]] = this.tableP[53]['actual' + this.arr[i]] || '0.00';
           //this.tableP[52]['actual' + this.arr[i]] = this.tableP[52]['actual' + this.arr[i]] || '0.00';
           //项目计划得支出 - 構内委託（B1）最下方合计
@@ -3098,6 +3128,7 @@
               // this.$set(this.tableP[52], 'money' + this.arr[i], Number(this.sumB1[2 * i + 4] || 0).toFixed(2));
             }
           }
+          //社員（名）
           this.$set(this.tableP[54], 'actual' + this.arr[i], this.tableP[54]['actual' + this.arr[i]] || '0.00');
           // this.$set(this.tableP[53], 'actual' + this.arr[i], this.tableP[53]['actual' + this.arr[i]] || '0.00');
           //人员计划合计上半个
@@ -3160,18 +3191,20 @@
           this.$set(this.tableP[10], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[10], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[11], 'actual' + this.arr[i], '0.00');
-          if (i === 0) {
-            this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2);
-            // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
-          } else {
-            if (i === 4) {
-              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]])) + Number(this.tableP[54]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
-              // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
-            } else {
-              this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]]))).toFixed(2);
-              // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
-            }
-          }
+          // if (i === 0) {
+          //this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2);
+          //厚生费1
+          this.$set(this.tableP[11], 'money' + this.arr[i], Number(tableOtotal7['money' + this.arr[i]] || 0).toFixed(2));
+          // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2);
+          // } else {
+          //   if (i === 4) {
+          //     this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]])) + Number(this.tableP[54]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+          //     // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]])) + Number(this.tableP[53]['money' + this.arr[i]] * Number(getDictionaryInfo('PJ109002').value2))).toFixed(2);
+          //   } else {
+          //     this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[54]['money' + this.arr[i]]) - Number(this.tableP[54]['money' + this.arr[i - 1]]))).toFixed(2);
+          //     // this.tableP[11]['money' + this.arr[i]] = (Number(getDictionaryInfo('PJ109001').value2) * (Number(this.tableP[53]['money' + this.arr[i]]) - Number(this.tableP[53]['money' + this.arr[i - 1]]))).toFixed(2);
+          //   }
+          // }
           this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[12], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[13], 'actual' + this.arr[i], (Number(this.tableP[6]['actual' + this.arr[i]]) + Number(this.tableP[11]['actual' + this.arr[i]])).toFixed(2));
@@ -3190,29 +3223,37 @@
           } else {
             this.$set(this.tableP[15], 'money' + this.arr[i], '0.00');
           }
+          //オフィス家賃1
           this.$set(this.tableP[16], 'actual' + this.arr[i], this.tableP[16]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[16], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[16], 'money' + this.arr[i], Number(tableOTotal1['money' + this.arr[i]] || 0).toFixed(2));
+          //リース費1
           this.$set(this.tableP[17], 'actual' + this.arr[i], this.tableP[17]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[17], 'money' + this.arr[i], Number(tableOTotal1['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[17], 'money' + this.arr[i], Number(tableOTotal3['money' + this.arr[i]] || 0).toFixed(2));
+          //出向者賃借料1
           this.$set(this.tableP[18], 'actual' + this.arr[i], this.tableP[18]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[18], 'money' + this.arr[i], Number(tableOTotal2['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[18], 'money' + this.arr[i], Number(tableOtotal9['money' + this.arr[i]] || 0).toFixed(2));
+          //その他(固定費)1
           this.$set(this.tableP[19], 'actual' + this.arr[i], this.tableP[19]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[19], 'money' + this.arr[i], Number(tableOTotal3['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[19], 'money' + this.arr[i], Number(tableOtotal9['money' + this.arr[i]] || 0).toFixed(2));
+          //固定資産費用小計
           this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[20], 'actual' + this.arr[i], (Number(this.tableP[14]['actual' + this.arr[i]]) + Number(this.tableP[15]['actual' + this.arr[i]]) + Number(this.tableP[16]['actual' + this.arr[i]]) + Number(this.tableP[17]['actual' + this.arr[i]]) + Number(this.tableP[18]['actual' + this.arr[i]]) + Number(this.tableP[19]['actual' + this.arr[i]])).toFixed(2));
+          //研究材料費1
           this.$set(this.tableP[21], 'actual' + this.arr[i], this.tableP[21]['actual' + this.arr[i]] || '0.00');
           //项目计划支出 - 特别经费（C)  (千元）合计
           if (this.sumC1.length > 0) {
             if (i <= 5) {
-              this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[3 + 2 * i] || 0).toFixed(2));
+              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[3 + 2 * i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)).toFixed(2));
             } else {
-              this.$set(this.tableP[21], 'money' + this.arr[i], Number(this.sumC1[5 + 2 * i] || 0).toFixed(2));
+              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[5 + 2 * i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)).toFixed(2));
             }
           } else {
-            this.$set(this.tableP[21], 'money' + this.arr[i], '0.00');
+            this.$set(this.tableP[21], 'money' + this.arr[i], Number(tableOTotal2['money' + this.arr[i]] || 0).toFixed(2));
           }
+          //調査費
           this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[22], 'actual' + this.arr[i], '0.00');
+          //内部委託支出
           this.$set(this.tableP[23], 'actual' + this.arr[i], this.tableP[23]['actual' + this.arr[i]] || '0.00');
           //项目计划支出 - 構内委託（B3）合计
           if (this.sumB3.length > 0) {
@@ -3224,6 +3265,7 @@
           } else {
             this.$set(this.tableP[23], 'money' + this.arr[i], '0.00');
           }
+          //外注費
           this.$set(this.tableP[24], 'actual' + this.arr[i], this.tableP[24]['actual' + this.arr[i]] || '0.00');
           if (this.sumB1.length > 0 && this.sumB2.length > 0) {
             if (i <= 5) {
@@ -3234,51 +3276,73 @@
           } else {
             this.$set(this.tableP[24], 'money' + this.arr[i], '0.00');
           }
+          //その他(ソフト費)
           this.$set(this.tableP[25], 'actual' + this.arr[i], '0.00');
           this.$set(this.tableP[25], 'money' + this.arr[i], '0.00');
+          //研究開発費・ソフト費用小計
           this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[26], 'actual' + this.arr[i], (Number(this.tableP[21]['actual' + this.arr[i]]) + Number(this.tableP[22]['actual' + this.arr[i]]) + Number(this.tableP[23]['actual' + this.arr[i]]) + Number(this.tableP[24]['actual' + this.arr[i]]) + Number(this.tableP[25]['actual' + this.arr[i]])).toFixed(2));
+          //管理・共通部門配賦
           this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]])).toFixed(2));
           this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['actual' + this.arr[i]])).toFixed(2));
           // this.$set(this.tableP[27], 'money' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['money' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['money' + this.arr[i]])).toFixed(2));
           // this.$set(this.tableP[27], 'actual' + this.arr[i], (Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[51]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[52]['actual' + this.arr[i]]) + Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[53]['actual' + this.arr[i]])).toFixed(2));
+          //振替１
           this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[28], 'actual' + this.arr[i], '0.00');
+          //振替2
           this.$set(this.tableP[29], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[29], 'actual' + this.arr[i], '0.00');
+          //配賦部門費小計
           this.$set(this.tableP[30], 'money' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
           this.$set(this.tableP[30], 'actual' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
+          //原動費1
           this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[31], 'actual' + this.arr[i], this.tableP[31]['actual' + this.arr[i]] || '0.00');
+          //旅費交通費1
           this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[32], 'actual' + this.arr[i], this.tableP[32]['actual' + this.arr[i]] || '0.00');
+          //通信費1
           this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[33], 'actual' + this.arr[i], this.tableP[33]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal7['money' + this.arr[i]] || 0).toFixed(2));
+          //消耗品費1
+          this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[34], 'actual' + this.arr[i], this.tableP[34]['actual' + this.arr[i]] || '0.00');
+          //会議費/交際費/研修費1
           this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[35], 'actual' + this.arr[i], this.tableP[35]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOtotal5['money' + this.arr[i]] || 0).toFixed(2));
+          //共同事務費1
+          this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[36], 'actual' + this.arr[i], this.tableP[36]['actual' + this.arr[i]] || '0.00');
-          this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(2));
+          //ブランド使用料1
+          this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal10['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[37], 'actual' + this.arr[i], this.tableP[37]['actual' + this.arr[i]] || '0.00');
+          //その他経費1
           this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
           this.$set(this.tableP[38], 'actual' + this.arr[i], this.tableP[38]['actual' + this.arr[i]] || '0.00');
 
           ['money', 'actual'].forEach(
             val => {
-              this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
-                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[5][val + this.arr[i]]) * 0.75).toFixed(2));
+              //仕掛品
+              this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) -(Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
+                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.75).toFixed(2));
 
+              //その他諸経費小計
               this.$set(this.tableP[41], val + this.arr[i], (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
                 Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[39][val + this.arr[i]]) + Number(this.tableP[40][val + this.arr[i]] || 0)).toFixed(2));
+              //总计
               this.$set(this.tableP[42], val + this.arr[i], (Number(this.tableP[13][val + this.arr[i]]) + Number(this.tableP[20][val + this.arr[i]]) + Number(this.tableP[26][val + this.arr[i]]) + Number(this.tableP[30][val + this.arr[i]]) + Number(this.tableP[41][val + this.arr[i]])).toFixed(2)); //合计
 
+              //営業利益
               this.$set(this.tableP[43], val + this.arr[i], (Number(this.tableP[5][val + this.arr[i]]) - Number(this.tableP[42][val + this.arr[i]])).toFixed(2));
+              //営業外損益
               this.$set(this.tableP[46], val + this.arr[i], (Number(this.tableP[44][val + this.arr[i]] || 0) + Number(this.tableP[45][val + this.arr[i]] || 0)).toFixed(2));
+              //税引前利益
               this.$set(this.tableP[47], val + this.arr[i], (Number(this.tableP[43][val + this.arr[i]] || 0) - Number(this.tableP[46][val + this.arr[i]] || 0)).toFixed(2));
+              //税引後利益
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
               //add
+              //界线利益率
               if (Number(this.tableP[5][val + this.arr[i]] || 0) > 0) {
                 this.$set(this.tableP[51], val + this.arr[i], ((Number(this.tableP[5][val + this.arr[i]] || 0) - Number(this.tableP[13][val + this.arr[i]] || 0) - Number(this.tableP[24][val + this.arr[i]] || 0) - Number(this.tableP[32][val + this.arr[i]] || 0) - Number(this.tableP[21][val + this.arr[i]] || 0)) / (Number(this.tableP[5][val + this.arr[i]] || 0))).toFixed(2));
               } else {
@@ -3296,7 +3360,7 @@
               //   this.$set(this.tableP[58], val + this.arr[i], '0%');
               // }
               if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+                this.$set(this.tableP[60], val + this.arr[i], Math.round(Number(this.tableP[56][val + this.arr[i]] || 0) / (Number(this.tableP[52][val + this.arr[i]] || 1) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[60], val + this.arr[i], '0%');
               }
@@ -3305,8 +3369,8 @@
               // } else {
               //   this.$set(this.tableP[59], val + this.arr[i], '0%');
               // }
-              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
+              if (Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[61], val + this.arr[i], Math.round(Number(this.tableP[57][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]] || 1) * 100) + '%');
               } else {
                 this.$set(this.tableP[61], val + this.arr[i], '0%');
               }
@@ -3315,8 +3379,9 @@
               // } else {
               //   this.$set(this.tableP[60], val + this.arr[i], '0%');
               // }
-              if (Number(this.tableP[54][val + this.arr[i]]) > 0) {
-                this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]]) * 100) + '%');
+
+              if (Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[62], val + this.arr[i], Math.round(Number(this.tableP[58][val + this.arr[i]] || 0) / Number(this.tableP[54][val + this.arr[i]] || 1) * 100) + '%');
               } else {
                 this.$set(this.tableP[62], val + this.arr[i], '0%');
               }
@@ -3325,8 +3390,10 @@
               // } else {
               //   this.$set(this.tableP[61], val + this.arr[i], '0%');
               // }
-              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(this.tableP[51][val + this.arr[i]] || 0) + Number(this.tableP[52][val + this.arr[i]]) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
+             if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+               let table51 = 1;
+               table51 = (Number(this.tableP[51][val + this.arr[i]]) === '' || Number(this.tableP[51][val + this.arr[i]])) === 0 ? 1:this.tableP[51][val + this.arr[i]];
+                this.$set(this.tableP[63], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[55][val + this.arr[i]] || 0)) / (Number(table51 || 1) + Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[63], val + this.arr[i], '0%');
               }
@@ -3335,8 +3402,8 @@
               // } else {
               //   this.$set(this.tableP[62], val + this.arr[i], '0%');
               // }
-              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]]) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
+              if (Number(this.tableP[52][val + this.arr[i]] || 0) + Number(this.tableP[53][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0) > 0) {
+                this.$set(this.tableP[64], val + this.arr[i], Math.round((Number(this.tableP[58][val + this.arr[i]] || 0) + Number(this.tableP[56][val + this.arr[i]] || 0)) / (Number(this.tableP[52][val + this.arr[i]] || 1) + Number(this.tableP[53][val + this.arr[i]] || 0) + Number(this.tableP[54][val + this.arr[i]] || 0)) * 100) + '%');
               } else {
                 this.$set(this.tableP[64], val + this.arr[i], '0%');
               }
@@ -3817,16 +3884,16 @@
         }
       },
       addRow1() {
-        this.tableO1.push([{}]);
+        this.tableO1.push({});
       },
       addRow2() {
-        this.tableO2.push([{}]);
+        this.tableO2.push({});
       },
       addRow3() {
-        this.tableO3.push([{}]);
+        this.tableO3.push({});
       },
       addRow4() {
-        this.tableO.push([{}]);
+        this.tableO.push({});
       },
       deleteRow(index, rows) {
         if (rows.length > 1) {
@@ -4042,25 +4109,25 @@
       },
       // tableO1: {
       //   handler(newValue, oldValue) {
-      //     this.computedSum();
+      //     this.tableO1 = newValue;
       //   },
       //   deep: true,
       // },
       // tableO2: {
       //   handler(newValue, oldValue) {
-      //     this.computedSum();
+      //     this.tableO2 = newValue;
       //   },
       //   deep: true,
       // },
       // tableO3: {
       //   handler(newValue, oldValue) {
-      //     this.computedSum();
+      //     this.tableO3 = newValue;
       //   },
       //   deep: true,
       // },
-      // tableO4: {
+      // tableO: {
       //   handler(newValue, oldValue) {
-      //     this.computedSum();
+      //     this.tableO = newValue;
       //   },
       //   deep: true,
       // },
