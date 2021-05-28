@@ -405,6 +405,7 @@
                                 }
                                 break;
                             }
+                            //PSDCD_PFANS_20210519_BUG_006 修改供应商编码 供应商地点错误 fr
                             if (error == 0) {
                                 this.selectedlist = this.$refs.roletable.selectedList;
                                 let sum = 0;
@@ -421,7 +422,18 @@
                                                 } else if (this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_PPAYMENT')) {
                                                     this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_OFFICE');
                                                 } else if (this.selectedlist[i].paymentmethod === '') {
-                                                    this.selectedlist[i].paymentmethod = '';
+                                                  this.selectedlist[i].paymentmethod = '';
+                                                }
+                                                if (this.selectedlist[i].loantype != '' && this.selectedlist[i].loantype != null && this.selectedlist[i].loantype != undefined) {
+                                                  let lype = this.selectedlist[i].loantype.split(',')[0];
+                                                  if(lype === '0'){
+                                                    this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_OFFICE');
+                                                  }else if(lype === '1'){
+                                                    this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_COST');
+                                                  }
+                                                  if(response[m].vendorcode == '' || response[m].vendorcode == null || response[m].vendorcode == undefined){
+                                                    response[m].vendorcode = this.selectedlist[i].loantype.split(',')[1];
+                                                  }
                                                 }
                                             }
                                             if (response[m].invoicedate !== null && response[m].invoicedate !== '') {
@@ -557,6 +569,8 @@
                                 let csvData = [];
                                 for (let i = 0; i < this.startoptionvalue.length; i++) {
                                     let obj = this.startoptionvalue[i];
+                                    obj.vendorcode = '\t' + obj.vendorcode;
+                                  //PSDCD_PFANS_20210519_BUG_006 修改供应商编码 供应商地点错误 to
                                     csvData.push({
                                         invoicenumber: obj.invoicenumber,
                                         number: obj.number,
