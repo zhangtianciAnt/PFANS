@@ -2274,7 +2274,7 @@
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if (dic.length > 0) {
                 for (let i = 0; i < dic.length; i++) {
-                  if (butinfo === (dic[i].value1).substring(0, 3)) {
+                  if (butinfo === (dic[i].value1).substring(0,3)) {
                     this.options.push({
                       lable: dic[i].value2 + '_' + dic[i].value3,
                       value: dic[i].code,

@@ -4932,19 +4932,21 @@
                   }
                   sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
                   sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                  //PSDCD_PFANS_20210519_BUG_007 bug修改 fr
                   if (sumtaxes < 0) {
-                    if (taxesm === 0) {
+                    if (taxesm === 0 && sumtaxesT === 0) {
                       this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
                     } else {
                       this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
                     }
                   } else if (sumtaxes > 0) {
-                    if (taxesm === 0) {
+                    if (taxesm === 0 && sumtaxesT === 0) {
                       this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
                     } else {
                       this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
                     }
                   }
+                  //PSDCD_PFANS_20210519_BUG_007 bug修改 to
                   //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  end
                   sum += this.tableF[i].invoiceamount;
                   if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
