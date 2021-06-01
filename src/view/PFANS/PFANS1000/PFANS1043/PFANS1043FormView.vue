@@ -379,7 +379,10 @@ export default {
             this.show3 = true;
           }
           if (this.$route.params.type) {
-            this.form.year = moment(new Date()).add(1, 'y').format('YYYY');
+            //upd ccm 20210601 年度转换 fr
+            // this.form.year = moment(new Date()).add(1, 'y').format('YYYY');
+            this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+            //upd ccm 20210601 年度转换 to
           }
           this.loading = false;
         })
@@ -407,6 +410,9 @@ export default {
     buttonClick(val) {
       this.$refs['reff'].validate(valid => {
         if (valid) {
+          //add ccm 20210601 年度转格式 fr
+          this.form.year = moment(this.form.year).format('YYYY');
+          //add ccm 20210601 年度转格式 to
           if (this.$route.params._id) {
             if (this.$route.params.type) {
               this.$store
