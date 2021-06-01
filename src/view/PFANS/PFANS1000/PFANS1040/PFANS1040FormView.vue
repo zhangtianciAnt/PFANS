@@ -269,7 +269,7 @@
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
-                               align="center" width="230">
+                               align="center" width="230" fixed>
                 <template slot-scope="scope">
                   <el-form-item>
                     <div>
@@ -413,7 +413,7 @@
               <!--本事业年度-->
               <el-table-column :label="$t('label.April')" align="center" width="280">
 
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel4" controls-position="right"
                                      style="width: 100%"
@@ -422,16 +422,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel4" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+<!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel4" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
 
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
@@ -446,7 +447,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.May')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel5" controls-position="right"
                                      style="width: 100%"
@@ -455,16 +456,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel5" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel5" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount5"
@@ -477,7 +479,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.June')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel6" controls-position="right"
                                      style="width: 100%"
@@ -486,16 +488,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel6" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel6" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount6"
@@ -509,7 +512,7 @@
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel1" controls-position="right"
                                      style="width: 100%"
@@ -518,16 +521,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel1" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel1" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount1" controls-position="right"
@@ -541,7 +545,7 @@
 
 
               <el-table-column :label="$t('label.July')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel7" controls-position="right"
                                      style="width: 100%"
@@ -550,17 +554,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel7"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel7"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount7"
@@ -573,7 +578,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.August')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel8" controls-position="right"
                                      style="width: 100%"
@@ -582,17 +587,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel8"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel8"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount8"
@@ -605,7 +611,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.September')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel9" controls-position="right"
                                      style="width: 100%"
@@ -614,17 +620,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel9"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel9"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount9"
@@ -637,7 +644,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel2" controls-position="right"
                                      style="width: 100%"
@@ -646,16 +653,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel2" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel2" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount2" controls-position="right"
@@ -669,7 +677,7 @@
 
 
               <el-table-column :label="$t('label.October')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum2(scope.row)" v-model="scope.row.personnel10"
                                      controls-position="right"
@@ -679,17 +687,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel10"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel10"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount10"
@@ -702,7 +711,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.November')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum2(scope.row)" v-model="scope.row.personnel11"
                                      controls-position="right"
@@ -712,17 +721,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel11"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel11"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount11"
@@ -735,7 +745,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.December')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum2(scope.row)" v-model="scope.row.personnel12"
                                      controls-position="right"
@@ -745,17 +755,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel12"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel12"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount12"
@@ -768,7 +779,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel3" controls-position="right"
                                      style="width: 100%"
@@ -777,16 +788,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel3" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel3" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount3" controls-position="right"
@@ -799,7 +811,7 @@
               </el-table-column>
 
               <el-table-column :label="$t('label.January')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel1" controls-position="right"
                                      style="width: 100%"
@@ -808,17 +820,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel1"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel1"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount1"
@@ -831,7 +844,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.February')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel2" controls-position="right"
                                      style="width: 100%"
@@ -840,17 +853,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel2"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel2"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount2"
@@ -863,7 +877,7 @@
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.March')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel3" controls-position="right"
                                      style="width: 100%"
@@ -872,17 +886,18 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel3"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel3"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount3"
@@ -896,7 +911,7 @@
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel4" controls-position="right"
                                      style="width: 100%"
@@ -905,16 +920,17 @@
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel4" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel4" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount4" controls-position="right"
