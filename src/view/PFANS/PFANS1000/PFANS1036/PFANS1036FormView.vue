@@ -3445,7 +3445,7 @@
       },
       rowClass({row, rowIndex}) {
         if ([4, 5, 13, 20, 26, 30, 41].includes(rowIndex)) {
-          return '3';
+          return 'row3';
         } else if ([42].includes(rowIndex)) {
           return 'row2';
         }
@@ -4178,6 +4178,10 @@
 
   .el-table .row2 {
     color: red;
+  }
+
+  .el-table .row3 {
+    color: #7465ff;
   }
 
   .el-table {
