@@ -292,7 +292,6 @@
               </el-form-item>
             </el-col>
           </el-row>
-          </el-row>
           <el-row>
             <!--RN-->
             <el-col :span="8">
