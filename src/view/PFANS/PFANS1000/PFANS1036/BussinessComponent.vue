@@ -9,7 +9,7 @@
           <el-table-column>
             <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="120" prop="prices">
               <template slot-scope="scope">
-                <el-input-number :disabled="disabled" size="small" v-model="scope.row.prices" controls-position="right" @change="handleChange(scope.row)"  :min="0"  style="width:6vw"></el-input-number>
+                <el-input-number :disabled="disabled" size="small" v-model="scope.row.prices" controls-position="right" @change="handleChange(scope.row)"  :min="0"  style="width:7vw"></el-input-number>
               </template>
             </el-table-column>
           </el-table-column>
@@ -472,4 +472,5 @@
   .el-table__body .el-table__row.hover-row td{
     background-color: #fafafa;
   }
+
 </style>
