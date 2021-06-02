@@ -995,10 +995,10 @@
                     <TrustComponent :disabled="true" :tableTrust="groupA2" @sum="getSumA2"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B1')" name="second">
-                    <TrustComponent :tableTrust="groupB1" @sum="getSumB1" :disabled="true"></TrustComponent>
+                    <TrustComponent :disabled="true" :tableTrust="groupB1" @sum="getSumB1"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B2')" name="third">
-                    <TrustComponent :tableTrust="groupB2" @sum="getSumB2" :disabled="true"></TrustComponent>
+                    <TrustComponent  :disabled="true"  :tableTrust="groupB2" @sum="getSumB2"></TrustComponent>
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_B3')" name="forth">
                     <TrustComponent :disabled="true" :tableTrust="groupB3" @sum="getSumB3"></TrustComponent>
@@ -1050,9 +1050,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money4">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money4"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                style="width:7vw"
+                                :step="1"
+                                v-model="scope.row.money4">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1060,9 +1066,14 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money5">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money5"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                style="width:7vw"
+                                v-model="scope.row.money5">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1070,9 +1081,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money6">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money6"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money6">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1080,9 +1097,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money7">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money7"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money7">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1090,9 +1113,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money8">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money8"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money8">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1100,9 +1129,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money9">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money9"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money9">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1112,9 +1147,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money10">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money10"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money10">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1122,9 +1163,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money11">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money11"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money11">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1132,9 +1179,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money12">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money12"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money12">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1142,9 +1195,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money1">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money1"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money1">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1152,9 +1211,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money2">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money2"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money2">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -1162,9 +1227,15 @@
                           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
                                            prop="money3">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                               :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                               v-model="scope.row.money3"></el-input-number>
+                              <el-input-number
+                                size="small"
+                                controls-position="right"
+                                @change="changeSum2(scope.row)"
+                                :min="0"
+                                :step="1"
+                                style="width:7vw"
+                                v-model="scope.row.money3">
+                              </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
@@ -2555,37 +2626,37 @@
       tableSZTotal: function() {
         if (this.sumA1.length > 0) {
           this.tableK[0].number1 = '0.00';
-          this.tableK[0].money1 = (Number(this.sumA1[2] || 0) + Number(this.sumA1[3] || 0) + Number(this.sumA1[4] || 0)).toFixed(2);
+          this.tableK[0].money1 = (Number(this.sumA1[2] || 0) + Number(this.sumA1[3] || 0) + Number(this.sumA1[4] || 0)).toFixed(3);
           this.tableK[0].number2 = '0.00';
-          this.tableK[0].money2 = (Number(this.sumA1[5] || 0) + Number(this.sumA1[6] || 0) + Number(this.sumA1[7] || 0)).toFixed(2);
+          this.tableK[0].money2 = (Number(this.sumA1[5] || 0) + Number(this.sumA1[6] || 0) + Number(this.sumA1[7] || 0)).toFixed(3);
           this.tableK[0].numberfirst = '0.00';
-          this.tableK[0].moneyfirst = (Number(this.tableK[0].money1) + Number(this.tableK[0].money2)).toFixed(2);
+          this.tableK[0].moneyfirst = (Number(this.tableK[0].money1) + Number(this.tableK[0].money2)).toFixed(3);
           this.tableK[0].number3 = '0.00';
-          this.tableK[0].money3 = (Number(this.sumA1[9] || 0) + Number(this.sumA1[10] || 0) + Number(this.sumA1[11] || 0)).toFixed(2);
+          this.tableK[0].money3 = (Number(this.sumA1[9] || 0) + Number(this.sumA1[10] || 0) + Number(this.sumA1[11] || 0)).toFixed(3);
           this.tableK[0].number4 = '0.00';
-          this.tableK[0].money4 = (Number(this.sumA1[12] || 0) + Number(this.sumA1[13] || 0) + Number(this.sumA1[14] || 0)).toFixed(2);
+          this.tableK[0].money4 = (Number(this.sumA1[12] || 0) + Number(this.sumA1[13] || 0) + Number(this.sumA1[14] || 0)).toFixed(3);
           this.tableK[0].numbersecond = '0.00';
-          this.tableK[0].moneysecond = (Number(this.tableK[0].money3) + Number(this.tableK[0].money4)).toFixed(2);
+          this.tableK[0].moneysecond = (Number(this.tableK[0].money3) + Number(this.tableK[0].money4)).toFixed(3);
           this.tableK[0].numbertotal = '0.00';
-          this.tableK[0].moneytotal = (Number(this.tableK[0].moneyfirst) + Number(this.tableK[0].moneysecond)).toFixed(2);
+          this.tableK[0].moneytotal = (Number(this.tableK[0].moneyfirst) + Number(this.tableK[0].moneysecond)).toFixed(3);
         }
         ['sumA2', 'sumB1', 'sumB2', 'sumB3', 'sumC1'].forEach(
           (val, index) => {
             if (this[val].length > 0) {
               this.tableK[index + 1].number1 = (Number(this[val][2] || 0) + Number(this[val][4] || 0) + Number(this[val][6] || 0)).toFixed(2);
-              this.tableK[index + 1].money1 = (Number(this[val][3] || 0) + Number(this[val][5] || 0) + Number(this[val][7] || 0)).toFixed(2);
+              this.tableK[index + 1].money1 = (Number(this[val][3] || 0) + Number(this[val][5] || 0) + Number(this[val][7] || 0)).toFixed(3);
               this.tableK[index + 1].number2 = (Number(this[val][8] || 0) + Number(this[val][10] || 0) + Number(this[val][12] || 0)).toFixed(2);
-              this.tableK[index + 1].money2 = (Number(this[val][9] || 0) + Number(this[val][11] || 0) + Number(this[val][13] || 0)).toFixed(2);
+              this.tableK[index + 1].money2 = (Number(this[val][9] || 0) + Number(this[val][11] || 0) + Number(this[val][13] || 0)).toFixed(3);
               this.tableK[index + 1].numberfirst = (Number(this.tableK[index + 1].number1) + Number(this.tableK[index + 1].number2)).toFixed(2);
-              this.tableK[index + 1].moneyfirst = (Number(this.tableK[index + 1].money1) + Number(this.tableK[index + 1].money2)).toFixed(2);
+              this.tableK[index + 1].moneyfirst = (Number(this.tableK[index + 1].money1) + Number(this.tableK[index + 1].money2)).toFixed(3);
               this.tableK[index + 1].number3 = (Number(this[val][16] || 0) + Number(this[val][18] || 0) + Number(this[val][20] || 0)).toFixed(2);
-              this.tableK[index + 1].money3 = (Number(this[val][17] || 0) + Number(this[val][19] || 0) + Number(this[val][21] || 0)).toFixed(2);
+              this.tableK[index + 1].money3 = (Number(this[val][17] || 0) + Number(this[val][19] || 0) + Number(this[val][21] || 0)).toFixed(3);
               this.tableK[index + 1].number4 = (Number(this[val][22] || 0) + Number(this[val][24] || 0) + Number(this[val][26] || 0)).toFixed(2);
-              this.tableK[index + 1].money4 = (Number(this[val][23] || 0) + Number(this[val][25] || 0) + Number(this[val][27] || 0)).toFixed(2);
+              this.tableK[index + 1].money4 = (Number(this[val][23] || 0) + Number(this[val][25] || 0) + Number(this[val][27] || 0)).toFixed(3);
               this.tableK[index + 1].numbersecond = (Number(this.tableK[index + 1].number3) + Number(this.tableK[index + 1].number4)).toFixed(2);
-              this.tableK[index + 1].moneysecond = (Number(this.tableK[index + 1].money3) + Number(this.tableK[index + 1].money4)).toFixed(2);
+              this.tableK[index + 1].moneysecond = (Number(this.tableK[index + 1].money3) + Number(this.tableK[index + 1].money4)).toFixed(3);
               this.tableK[index + 1].numbertotal = (Number(this.tableK[index + 1].numberfirst) + Number(this.tableK[index + 1].numbersecond)).toFixed(2);
-              this.tableK[index + 1].moneytotal = (Number(this.tableK[index + 1].moneyfirst) + Number(this.tableK[index + 1].moneysecond)).toFixed(2);
+              this.tableK[index + 1].moneytotal = (Number(this.tableK[index + 1].moneyfirst) + Number(this.tableK[index + 1].moneysecond)).toFixed(3);
             }
           },
         );
@@ -2972,85 +3043,85 @@
             //共同事務費
             if (val.type === 'PJ111012') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal['money' + i] = (Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOTotal['money' + i] = (Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //旅费交通费
             if (val.type === 'PJ111008') {
               for (let i = 1; i <= 12; i++) {
-                _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             // 研究材料费
             if (val.type === 'PJ111006') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal2['money' + i] = (Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOTotal2['money' + i] = (Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //リース費
             if (val.type === 'PJ111003') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal3['money' + i] = (Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOTotal3['money' + i] = (Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //原動費
             if (val.type === 'PJ111007') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal4['money' + i] = (Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOTotal4['money' + i] = (Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             // 通信費
             if (val.type === 'PJ111009') {
               for (let i = 1; i <= 12; i++) {
-                _tableO3['money' + i] = (Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                _tableO3['money' + i] = (Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //消耗品費
             if (val.type === 'PJ111010') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal6['money' + i] = (Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOtotal6['money' + i] = (Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //厚生費
             if (val.type === 'PJ111001') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal7['money' + i] = (Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOtotal7['money' + i] = (Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //研修
             if (val.type === 'PJ111011') {
               for (let i = 1; i <= 12; i++) {
-                _tableO1['money' + i] = (Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                _tableO1['money' + i] = (Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //その他(固定費)
             if (val.type === 'PJ111005') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal8['money' + i] = (Number(tableOtotal8['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOtotal8['money' + i] = (Number(tableOtotal8['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //オフィス家賃
             if (val.type === 'PJ111002') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal1['money' + i] = (Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOTotal1['money' + i] = (Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //出向者賃借料
             if (val.type === 'PJ111004') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal9['money' + i] = (Number(tableOtotal9['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOtotal9['money' + i] = (Number(tableOtotal9['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //その他経費
             if (val.type === 'PJ111014') {
               for (let i = 1; i <= 12; i++) {
-                _tableO2['money' + i] = (Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                _tableO2['money' + i] = (Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
             //ブランド使用料
             if (val.type === 'PJ111013') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal10['money' + i] = (Number(tableOtotal10['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+                tableOtotal10['money' + i] = (Number(tableOtotal10['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
               }
             }
           },
@@ -3252,28 +3323,28 @@
           this.$set(this.tableP[30], 'money' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
           this.$set(this.tableP[30], 'actual' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
           //原動費1
-          this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[31], 'actual' + this.arr[i], this.tableP[31]['actual' + this.arr[i]] || '0.00');
           //旅費交通費1
-          this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[32], 'actual' + this.arr[i], this.tableP[32]['actual' + this.arr[i]] || '0.00');
           //通信費1
-          this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[33], 'actual' + this.arr[i], this.tableP[33]['actual' + this.arr[i]] || '0.00');
           //消耗品費1
-          this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[34], 'actual' + this.arr[i], this.tableP[34]['actual' + this.arr[i]] || '0.00');
           //会議費/交際費/研修費1
-          this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[35], 'actual' + this.arr[i], this.tableP[35]['actual' + this.arr[i]] || '0.00');
           //共同事務費1
-          this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[36], 'actual' + this.arr[i], this.tableP[36]['actual' + this.arr[i]] || '0.00');
           //ブランド使用料1
-          this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal10['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal10['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[37], 'actual' + this.arr[i], this.tableP[37]['actual' + this.arr[i]] || '0.00');
           //その他経費1
-          this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
+          this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(3));
           this.$set(this.tableP[38], 'actual' + this.arr[i], this.tableP[38]['actual' + this.arr[i]] || '0.00');
 
           ['money', 'actual'].forEach(
@@ -3779,7 +3850,7 @@
           } else if ([1, 2, 3, 4, 5].includes(index) && ['C', 'D'].includes(table)) {
             sums[index] = '-';
             return;
-          } else if ([1, 2, 3, 4].includes(index) && ['o1', 'o2', 'o3', 'o4'].includes(table)) {
+          } else if ([1, 2, 3].includes(index) && ['o1', 'o2', 'o3', 'o4'].includes(table)) {
             sums[index] = '-';
             return;
           }
@@ -3787,13 +3858,13 @@
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留三位小数 start
               if (!isNaN(value)) {
-                return Math.round((prev + curr) * 100) / 100;
+                return Math.round((prev + curr) * 1000) / 1000;
               } else {
-                return Math.round(prev * 100) / 100;
+                return Math.round(prev * 1000) / 1000;
               }
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留三位小数 end
             }, 0);
           } else {
             sums[index] = '';
@@ -3814,29 +3885,48 @@
           this.error = '';
         }
       },
+      //add lsg 20210601 获取月份金额 start
+      changeSum2(scope, index){
+        if(index >= 4 && index <= 9){
+          scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+        }
+        else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
+          scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
+        }
+        scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0)
+          + Number(scope.money6 || 0) + Number(scope.money7 || 0)
+          + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+        scope.moneysecond = (Number(scope.money10 || 0) +
+          Number(scope.money11 || 0) + Number(scope.money12 || 0)
+          + Number(scope.money1 || 0) + Number(scope.money2 || 0)
+          + Number(scope.money3 || 0)).toFixed(3);
+        scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
+      },
+      //add lsg 20210601 获取月份金额 end
       changeSum(scope, index) {
-        if (scope.price > 0) {
-          scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(2);
+      if (scope.price > 0) {
+         scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
-            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
+            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
           } else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
             scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
-            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(2);
+            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
           } else {
             for (let par in scope) {
               if (par.substring(0, 5) === 'money') {
-                scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(2);
+                scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(3);
               }
             }
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
-            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
+            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
             scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
-            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(2);
+            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
           }
           scope.numbertotal = (Number(scope.numberfirst || 0) + Number(scope.numbersecond || 0)).toFixed(1);
-          scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(2);
-        }
+          scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
+       }
+
       },
       addRow1() {
         this.tableO1.push({});
