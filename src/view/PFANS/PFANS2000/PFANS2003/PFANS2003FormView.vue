@@ -301,7 +301,7 @@
                   :data="form.rn"
                   :disabled="!disabled"
                   :multiple="multiple"
-                  @change="changern"
+                  @change="changedutysalary"
                   style="width:20vw">
                 </dicselect>
               </el-form-item>
@@ -321,9 +321,9 @@
             </el-col>
             <!--职责给-->
             <el-col :span="8">
-              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')">
+              <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')" >
                 <el-input-number
-                  :disabled="!disabled"
+                  :disabled="!disablelevel"
                   :max="1000000000"
                   :min="0"
                   :precision="2"
@@ -572,6 +572,7 @@
         code5: 'PR023',
         menuList: [],
         result1: false,
+        disablelevel: false,
         show1: false,
         show2: false,
         show3: false,
@@ -615,6 +616,7 @@
     created() {
       this.disabled = this.$route.params.disabled;
       this.result1 = this.$route.params.disabled;
+      // this.disablelevel = this.$.params.disabled;
       if (this.disabled) {
         this.buttonList = [
           {
@@ -667,6 +669,7 @@
               // this.tableData = this.form.interview;
             }
 // wxl 4/8  end
+            this.changedutysalary(this.form.rn);
             // upd_fjl_05/27  --添加面试官手动输入
             this.getsource(this.form.source);
             this.userlist = this.form.member;
@@ -962,6 +965,14 @@
       },
       changern(val) {
         this.form.rn = val;
+      },
+      changedutysalary(val){
+        this.form.rn = val;
+        if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003' ){
+          this.disablelevel = false;
+        }else {
+          this.disablelevel = true;
+        }
       },
       changewhetherentry(val) {
         if (val === '1') {

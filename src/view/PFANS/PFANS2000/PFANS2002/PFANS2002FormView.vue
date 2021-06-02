@@ -591,7 +591,7 @@
               </el-col>
               <!--基本给-->
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
                     :disabled="disabled"
                     :max="1000000"
@@ -607,9 +607,9 @@
               </el-col>
               <!--职责给-->
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')" >
                   <el-input-number
-                    :disabled="disabled"
+                    :disabled="!disablelevel"
                     :max="1000000"
                     :min="0"
                     :precision="2"
@@ -765,6 +765,7 @@
                 result: '',
                 show1: false,
                 show2: false,
+                show3: false,
                 code_sex: 'PR019',
                 gridData: [],
               userlist: [],
@@ -858,6 +859,7 @@
                 },
                 enableSave: false,
                 disable: false,
+                disablelevel:false,
                 disEntrytime: false,
                 disEntrydivision: false,
                 canStart: false,
@@ -1105,7 +1107,8 @@
                 this.changeUsing(this.form.adoption)
                 this.form.other3 = this.currentRow6//其他
                 this.form.others = this.currentRow7//推荐人
-                this.form.level = this.rn //rn
+                this.form.level = this.rn//rn
+                this.changeLevel(this.form.level)
                 this.form.giving = this.salary //基本給
                 this.form.dutygiving = this.dutysalary //职责給
 
@@ -1334,6 +1337,11 @@
             },
             changeLevel(val) {
                 this.form.level = val;
+              if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003' ){
+                this.disablelevel = false;
+              }else {
+                this.disablelevel = true;
+              }
             },
             changeentrydivision(val) {
               this.form.entrydivision = val;
