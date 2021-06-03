@@ -501,7 +501,7 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
+                                :disabled="!disable"
                                 maxlength="20"
                                 v-model="scope.row.position"
                                 style="width: 100%">
