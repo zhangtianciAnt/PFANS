@@ -323,7 +323,7 @@
             <el-col :span="8">
               <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')" >
                 <el-input-number
-                  :disabled="!disablelevel"
+                  :disabled="disablelevel"
                   :max="1000000000"
                   :min="0"
                   :precision="2"
@@ -967,10 +967,10 @@
       },
       changedutysalary(val){
         this.form.rn = val;
-        if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003'|| val === '' || val === null || val === undefined){
-          this.disablelevel = false;
-        }else {
+        if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003'){
           this.disablelevel = true;
+        }else {
+          this.disablelevel = false;
         }
       },
       changewhetherentry(val) {
