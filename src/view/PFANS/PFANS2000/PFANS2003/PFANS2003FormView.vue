@@ -1053,7 +1053,6 @@
                               });
                               if (this.$store.getters.historyUrl) {
                                   this.$router.push(this.$store.getters.historyUrl);
-                                  this.changeLevel(this.form.level);
                               }
                           })
                           .catch(error => {
