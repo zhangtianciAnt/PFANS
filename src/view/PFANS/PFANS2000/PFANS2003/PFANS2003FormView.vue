@@ -1072,6 +1072,9 @@
                       name: this.form.name,
                       sex: this.form.sex,
                       birthday: this.form.birthday,
+                      rn: this.form.rn,
+                      salary:this.form.salary,
+                      dutysalary:this.form.dutysalary,
                       interview: this.form.interview,
                       interviewrecord_id: this.form.interviewrecord_id,
                   });

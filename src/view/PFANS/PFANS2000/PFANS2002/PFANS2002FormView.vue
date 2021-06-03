@@ -593,7 +593,7 @@
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
-                    :disabled="true"
+                    :disabled="!disabled"
                     :max="1000000"
                     :min="0"
                     :precision="2"
@@ -948,6 +948,9 @@
                 this.form.name = this.$route.params._user[0].name;
                 this.form.sex = this.$route.params._user[0].sex;
                 this.form.birthday = this.$route.params._user[0].birthday;
+                this.form.level = this.$route.params._user[0].rn;
+                this.form.giving = this.$route.params._user[0].salary;
+                this.form.dutygiving = this.$route.params._user[0].dutysalary;
                 this.form.interviewrecord_id = this.$route.params._user[0].interviewrecord_id;
                 this.tableData = JSON.parse(this.$route.params._user[0].interview);
             }
@@ -1337,7 +1340,7 @@
             },
             changeLevel(val) {
                 this.form.level = val;
-              if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003'|| this.form.level === '' || this.form.level === null || this.form.level === undefined ){
+              if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003'){
                 this.disablelevel = false;
               }else {
                 this.disablelevel = true;
