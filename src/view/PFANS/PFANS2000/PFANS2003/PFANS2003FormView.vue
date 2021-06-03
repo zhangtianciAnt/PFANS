@@ -669,7 +669,6 @@
               // this.tableData = this.form.interview;
             }
 // wxl 4/8  end
-            this.changedutysalary(this.form.rn);
             // upd_fjl_05/27  --添加面试官手动输入
             this.getsource(this.form.source);
             this.userlist = this.form.member;
@@ -968,7 +967,7 @@
       },
       changedutysalary(val){
         this.form.rn = val;
-        if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003' ){
+        if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003'|| val === '' || val === null || val === undefined){
           this.disablelevel = false;
         }else {
           this.disablelevel = true;
