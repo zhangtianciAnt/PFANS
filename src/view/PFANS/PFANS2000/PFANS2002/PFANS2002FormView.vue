@@ -609,7 +609,7 @@
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')" >
                   <el-input-number
-                    :disabled="!disablelevel"
+                    :disabled="disablelevel"
                     :max="1000000"
                     :min="0"
                     :precision="2"
