@@ -593,7 +593,7 @@
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
-                    :disabled="disabled"
+                    :disabled="true"
                     :max="1000000"
                     :min="0"
                     :precision="2"
@@ -1337,7 +1337,7 @@
             },
             changeLevel(val) {
                 this.form.level = val;
-              if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003' ){
+              if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003'|| this.form.level === '' || this.form.level === null || this.form.level === undefined ){
                 this.disablelevel = false;
               }else {
                 this.disablelevel = true;
