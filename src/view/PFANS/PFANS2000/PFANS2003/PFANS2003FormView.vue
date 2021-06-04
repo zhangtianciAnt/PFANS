@@ -324,7 +324,6 @@
               <el-form-item :label="this.$t('label.PFANS2003FORMVIEW_DUTYSALARY') + this.$t('label.yuan')" >
                 <el-input-number
                   :disabled="!disablelevel"
-                  :max="1000000000"
                   :min="0"
                   :precision="2"
                   controls-position="right"
@@ -699,6 +698,9 @@
               this.result1 = false;
             }
             this.modelresult = this.form.result;
+            //内部R5及以下职责给BUG -fr
+            this.changedutysalary(this.form.rn);
+            //内部R5及以下职责给BUG -to
             this.loading = false;
           })
           .catch(error => {
@@ -969,6 +971,9 @@
         this.form.rn = val;
         if(val === 'PR021001' || val === 'PR021002' || val === 'PR021003'){
           this.disablelevel = false;
+          //内部R5及以下职责给BUG -fr
+          this.form.dutysalary = '0';
+          //内部R5及以下职责给BUG -to
         }else {
           this.disablelevel = true;
         }

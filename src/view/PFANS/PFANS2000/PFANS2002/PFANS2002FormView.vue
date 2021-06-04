@@ -594,7 +594,6 @@
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
                     :disabled="!disabled"
-                    :max="1000000"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -610,7 +609,6 @@
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')" >
                   <el-input-number
                     :disabled="!disablelevel"
-                    :max="1000000"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -1208,6 +1206,9 @@
                                 this.show1 = false;
                                 this.form.remark2 = '';
                             }
+                            //内部R5及以下职责给BUG -fr
+                            this.changeLevel(this.form.level);
+                            //内部R5及以下职责给BUG -to
                             this.loading = false;
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
@@ -1342,6 +1343,9 @@
                 this.form.level = val;
               if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003'){
                 this.disablelevel = false;
+                //内部R5及以下职责给BUG -fr
+                this.form.dutysalary = '0';
+                //内部R5及以下职责给BUG -to
               }else {
                 this.disablelevel = true;
               }
