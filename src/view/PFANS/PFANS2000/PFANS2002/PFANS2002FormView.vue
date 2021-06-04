@@ -1207,7 +1207,9 @@
                                 this.form.remark2 = '';
                             }
                             //内部R5及以下职责给BUG -fr
-                            this.changeLevel(this.form.level);
+                            if(this.form.level != '' && this.form.level != undefined && this.form.level != null){
+                              this.changeLevel(this.form.level);
+                            }
                             //内部R5及以下职责给BUG -to
                             this.loading = false;
                         }

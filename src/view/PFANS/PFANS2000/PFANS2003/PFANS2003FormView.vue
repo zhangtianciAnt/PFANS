@@ -699,7 +699,9 @@
             }
             this.modelresult = this.form.result;
             //内部R5及以下职责给BUG -fr
-            this.changedutysalary(this.form.rn);
+            if(this.form.rn != '' && this.form.rn != undefined && this.form.rn != null){
+              this.changedutysalary(this.form.rn);
+            }
             //内部R5及以下职责给BUG -to
             this.loading = false;
           })
