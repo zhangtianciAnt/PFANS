@@ -447,13 +447,13 @@
                       :label="$t('label.PFANS2026FORMVIEW_CONFIRMPERSON')"
                       align="center"
                       prop="confirmperson"
-                      width="150">
+                      width="100">
                     </el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2026FORMVIEW_CONFIRMEDATA')"
                       align="center"
                       prop="confirmdata"
-                      width="605">
+                      width="500">
                     </el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2026FORMVIEW_CONFIRMMARK')"
@@ -474,9 +474,17 @@
                     <el-table-column
                       :label="$t('label.PFANS2026FORMVIEW_CONPERSON')"
                       align="center"
-                      width="150">
+                      width="130">
                       <template slot-scope="scope">
                         <el-input :disabled="true" v-model="scope.row.person" :on="scope.row"></el-input>
+                      </template>
+                    </el-table-column>
+                    <el-table-column
+                      :label="$t('label.PFANS2026FORMVIEW_CONPERSON1')"
+                      align="center"
+                      width="130">
+                      <template slot-scope="scope">
+                        <el-input :disabled="true" v-model="scope.row.personname" :on="scope.row"></el-input>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -602,14 +610,16 @@
         centerid: '',
         groupid: '',
         teamid: '',
-        tableData: [{
-          ordernumber: '1',
-          confirmperson: this.$t('label.PFANS2026FORMVIEW_UNIONMEMBER'),
-          confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA4'),
-          checked: '',
-          condate: '',
-          person: '',
-        },
+        tableData: [
+          {
+            ordernumber: '1',
+            confirmperson: this.$t('label.PFANS2026FORMVIEW_UNIONMEMBER'),
+            confirmdata: this.$t('label.PFANS2026FORMVIEW_DATA4'),
+            checked: '',
+            condate: '',
+            person: '',
+            personname: getUserInfo('5e78b2264e3b194874180f35').userinfo.customername,//王磊
+          },
           {
             ordernumber: '2',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_FINANCE'),
@@ -617,6 +627,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b2254e3b194874180f31').userinfo.customername,//祁美英
           }, {
             ordernumber: '3',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_LEGALAFFAIRS'),
@@ -624,6 +635,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b2004e3b194874180e21').userinfo.customername,//阚文颖
           }, {
             ordernumber: '4',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL1'),
@@ -631,6 +643,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b2044e3b194874180e43').userinfo.customername,//张楠楠
           }, {
             ordernumber: '5',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL2'),
@@ -638,6 +651,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b2034e3b194874180e37').userinfo.customername,//康奕凝
           },
           {
             ordernumber: '6',
@@ -646,6 +660,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b2284e3b194874180f47').userinfo.customername,//曹金钰
           }, {
             ordernumber: '7',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL5'),
@@ -653,6 +668,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b22c4e3b194874180f5f').userinfo.customername,//冷美琴
           }, {
             ordernumber: '8',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_INFORMATIONSYSTEM'),
@@ -660,6 +676,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname: getUserInfo('5e78b22e4e3b194874180f6f').userinfo.customername,//李娜
           }, {
             ordernumber: '9',
             confirmperson: this.$t('label.PFANS2026FORMVIEW_AFFAIRSPERSONNEL3'),
@@ -667,6 +684,7 @@
             checked: '',
             condate: '',
             person: '',
+            personname:getUserInfo('5e78b2484e3b19487418102d').userinfo.customername,//梁升龙
           },
         ],
         workflowCode: 'W0081',
