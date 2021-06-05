@@ -1090,6 +1090,7 @@
                       salary:this.form.salary,
                       dutysalary:this.form.dutysalary,
                       interview: this.form.interview,
+                      source: this.form.source,
                       interviewrecord_id: this.form.interviewrecord_id,
                   });
                   this.$router.push({
