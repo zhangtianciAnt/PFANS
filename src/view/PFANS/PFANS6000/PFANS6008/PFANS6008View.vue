@@ -841,9 +841,6 @@
               this.loading = false;
             })
             .catch(error => {
-              this.loading = false;
-            })
-            .catch(error => {
               Message({
                 message: error,
                 type: 'error',

@@ -1,5 +1,4 @@
 import request from '../../utils/request'
-// import requestnew from '../../utils/requestnew'
 
 // 是否可以发起审批
 export function isStartWorkflow (data) {
