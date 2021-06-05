@@ -1874,25 +1874,22 @@
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
                   contractnumbercount[i].letrecoverystatus = contractnumbercount[i].recoverystatus;
                 }
-                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
-                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
-                  let rolecaneditnapin = getCurrentRoleeditnapin();
-                  if(contractnumbercount[i].bookStatus === true || rolecaneditnapin === '1')
-                  {
-                    contractnumbercount[i].npbook = true;
-                  }
-                  else
-                  {
-                    contractnumbercount[i].npbook = false;
-                  }
+                //决裁书已经进行中或是结束，编辑后，合同不可编辑
+                if (contractnumbercount[i].bookStatus === true ) {
+                  this.bookStatuss = true;
+                  contractnumbercount[i].npbook = true;
+                  this.disabled3 = false;
+                  this.disabled = false;
+                  // let rolecaneditnapin = getCurrentRoleeditnapin();
+                  // if(rolecaneditnapin === '0')
+                  // {
+                  //   contractnumbercount[i].npbook = false;
+                  // }
                 }
                 else
                 {
                   contractnumbercount[i].npbook = false;
-                }
-                if (contractnumbercount[i].bookStatus === true)
-                {
-                  this.bookStatuss = true;
+                  this.bookStatuss = false;
                 }
               }
               this.form.tableclaimtype = contractnumbercount;
@@ -3135,7 +3132,7 @@
           if (valid) {
             if (this.form.tableclaimtype.length != 0) {
               for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-                if (this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003') {
+                if (this.form.tableclaimtype[i].tenantid == '0') {
                   this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
                 }
               }
@@ -3148,6 +3145,8 @@
             if (this.$route.params._id) {
               this.handleClick();
               this.bookStatuss = false;
+              this.disabled = true;
+              this.disabled3 = false;
             } else {
               if (this.form.tabledata.length > 0) {
                 this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
@@ -3158,6 +3157,9 @@
                   this.form.tabledata = [];
                   this.form.tableclaimtype = [];
                   this.handleClick();
+                  this.bookStatuss = false;
+                  this.disabled = true;
+                  this.disabled3 = false;
                 }).catch(() => {
                   this.$message({
                     type: 'info',
@@ -3167,6 +3169,9 @@
                 });
               } else {
                 this.handleClick();
+                this.bookStatuss = false;
+                this.disabled = true;
+                this.disabled3 = false;
               }
             }
           } else {
@@ -3249,7 +3254,7 @@
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
             this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            if (this.form.tabledata[0].deliverycondition == 'HT009002') {
+            if (this.form.tabledata[0].deliveryconditionqh == 'HT009003') {
               isClone = true;
             }
           }
@@ -3344,32 +3349,36 @@
           let rolecaneditnapin = getCurrentRoleeditnapin();
           for (let i = 0; i < this.form.tableclaimtype.length; i++) {
             let a = '0';
-            this.form.tableclaimtype[i].npbook = false;
-            for (let x = 0; x < this.DataList.length; x++) {
-              if(this.DataList[x].award === this.$t('title.PFANS1031VIEW')){
-                if (this.DataList[x].awardtype === this.form.tableclaimtype[i].claimtype) {
-                  a = '1';
-                  if (rolecaneditnapin === '0')
-                  {
-                    this.form.tableclaimtype[i].npbook = false;
-                  }
-                  else
-                  {
-                    this.form.tableclaimtype[i].npbook = true;
-                  }
-                }
-              }
-            }
-            if(a === '0'){
-                letint = letint + 1;
-                let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-                this.form.tableclaimtype[i].claimtype = letclaimtypeone;
-            }
-            // if(!this.form.tableclaimtype[i].book){
-            //   letint = letint + 1;
-            //   let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-            //   this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+            // this.form.tableclaimtype[i].npbook = false;
+            // for (let x = 0; x < this.DataList.length; x++) {
+            //   if(this.DataList[x].award === this.$t('title.PFANS1031VIEW')){
+            //     if (this.DataList[x].awardtype === this.form.tableclaimtype[i].claimtype) {
+            //       a = '1';
+            //       if (rolecaneditnapin === '0')
+            //       {
+            //         this.form.tableclaimtype[i].npbook = false;
+            //       }
+            //       else
+            //       {
+            //         this.form.tableclaimtype[i].npbook = true;
+            //       }
+            //     }
+            //   }
             // }
+            // if(a === '0'){
+            //     letint = letint + 1;
+            //     let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+            //     this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+            // }
+            if(this.form.tableclaimtype[i].tenantid === null){
+              letint = letint + 1;
+              let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+              this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+            }
+            else
+            {
+              this.form.claimtype = this.form.claimtype + 1;
+            }
             this.form.tableclaimtype[i].contractnumbercount_id = '';
             this.form.tableclaimtype[i].contractnumber = this.letcontractnumber;
             let option = [];
@@ -3381,6 +3390,7 @@
         else{
           this.form.tableclaimtype = [];
         }
+
         for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
           letint = letint + 1;
           let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
