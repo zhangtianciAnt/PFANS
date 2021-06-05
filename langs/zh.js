@@ -1080,6 +1080,7 @@ module.exports = {
     PFANS1013VIEW_TRAFFIC: '交通费明细',
     PFANS1017VIEW_MINGXI: '明细',
     PFANS1013VIEW_YESYJDA: '是否夜间到达',
+    PFANS1013VIEW_YESYJFH: '是否夜间返回',
     PFANS1013VIEW_ACCOMMODATION: '住宿费明细',
     PFANS1013VIEW_OTHER: '其他费用（会议费/签证费/保险、税）',
     PFANS1013VIEW_RELATION: '出差申请关联',

@@ -214,13 +214,27 @@
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="4">
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
                       <el-switch
                         @change="changearrivenight"
                         :disabled="!disable"
                         v-model="form.arrivenight"
+                        active-value="1"
+                        inactive-value="0"
+                      >
+                      </el-switch>
+                      <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="4">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJFH')">
+                      <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
+                      <el-switch
+                        @change="changebacknight"
+                        :disabled="!disable"
+                        v-model="form.backnight"
                         active-value="1"
                         inactive-value="0"
                       >
@@ -1390,6 +1404,7 @@
           // add-ws-8/12-禅道任务446
           remark: '',
           arrivenight: '',
+          backnight: '',
           external: '',
           level: '',
           abroadbusiness: '',
@@ -2222,6 +2237,12 @@
             } else {
               this.tableA[0].subsidies = parseFloat(moneys);
             }
+            let i = this.tableA.length - 1;
+            if (this.form.backnight === '1') {
+              this.tableA[i].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[i].subsidies = parseFloat(moneys);
+            }
           }
         }
       },
@@ -2301,6 +2322,22 @@
         }
       },
       //add-ws-6/18-禅道任务15
+      //region add_qhr_20210528 添加出差夜间返回选项
+      changebacknight(val) {
+        let moneys1 = 0;
+        if (this.form.type === '0') {
+          moneys1 = getDictionaryInfo('PJ035001').value7;
+        } else if (this.form.type === '1') {
+          moneys1 = getDictionaryInfo('PJ035002').value8;
+        }
+        let i = this.tableA.length - 1;
+        if (val === '1') {
+          this.tableA[i].subsidies = parseFloat(moneys1) + 100;
+        } else {
+          this.tableA[i].subsidies = parseFloat(moneys1);
+        }
+      },
+      //endregion add_qhr_20210528 添加出差夜间返回选项
       changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
           if (row.invoicenumber == this.tableF[j].invoicenumber) {
@@ -2398,6 +2435,7 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    backnight: response[i].backnight,
                     regionname: response[i].regionname,
                     loanapplication_id: response[i].loanapplication_id,
                   });
@@ -2416,6 +2454,7 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    backnight: response[i].backnight,
                     regionname: response[i].regionname,
                     loanapplication_id: response[i].loanapplication_id,
                   });
@@ -2455,6 +2494,7 @@
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    backnight: response[i].backnight,
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -2475,6 +2515,7 @@
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    backnight: response[i].backnight,
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -3362,6 +3403,7 @@
             this.form.startdate = '';
             this.form.enddate = '';
             this.form.arrivenight = '';
+            this.form.backnight = '';
             //add_fjl_0911  添加初始化值 start
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
@@ -3378,6 +3420,7 @@
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
             this.form.arrivenight = this.relations[i].arrivenight;
+            this.form.backnight = this.relations[i].backnight;
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
@@ -3488,6 +3531,12 @@
             this.tableA[0].subsidies = parseFloat(moneys) + 100;
           } else {
             this.tableA[0].subsidies = parseFloat(moneys);
+          }
+          let i = this.tableA.length - 1;
+          if (this.form.backnight === '1') {
+            this.tableA[i].subsidies = parseFloat(moneys) + 100;
+          } else {
+            this.tableA[i].subsidies = parseFloat(moneys);
           }
         }
       },
