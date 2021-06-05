@@ -66,7 +66,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS2026VIEW_RESIGNATIONDATE')" prop="resignation_date">
-                    <el-date-picker :disabled="true" style="width:20vw" v-model="form.resignation_date">
+                    <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.resignation_date">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
@@ -1117,6 +1117,15 @@
           //驳回是取消【GM审批通过】和【CENTER审批通过】
           this.form.checkedgm = null;
           this.form.checkedcenter = null;
+          // let arrSOFAnt = [];
+          // for (let i = 0; i < this.tableData.length; i++) {
+          //   arrSOFAnt.push({
+          //     jud1: '',
+          //     jud2: '',
+          //     jud3: '',
+          //   });
+          // }
+          this.form.condate = null;
         } else if (val.state === '2') {
           this.form.status = '4';
         }
