@@ -1135,15 +1135,6 @@
           //驳回是取消【GM审批通过】和【CENTER审批通过】
           this.form.checkedgm = null;
           this.form.checkedcenter = null;
-          // let arrSOFAnt = [];
-          // for (let i = 0; i < this.tableData.length; i++) {
-          //   arrSOFAnt.push({
-          //     jud1: '',
-          //     jud2: '',
-          //     jud3: '',
-          //   });
-          // }
-          this.form.condate = null;
         } else if (val.state === '2') {
           this.form.status = '4';
         }
