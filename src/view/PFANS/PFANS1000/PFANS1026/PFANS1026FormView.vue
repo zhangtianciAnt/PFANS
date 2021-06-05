@@ -741,7 +741,7 @@
                               :rules='rules.claimdatetimeqh'>
                   <el-date-picker unlink-panels
                                   class="bigWidth"
-                                  :disabled="scope.row.book ? true : !disabled"
+                                  :disabled="scope.row.npbook ? true : !disabled"
                                   v-model="scope.row.claimdatetimeqh"
                                   type="daterange"
                                   :end-placeholder="$t('label.enddate')"
@@ -779,7 +779,7 @@
                       :multiple="multiple"
                       @change="getDeliveryqh"
                       style="width: 11rem"
-                      :disabled="scope.row.book ? true : !disabled">
+                      :disabled="scope.row.npbook ? true : !disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -813,7 +813,7 @@
                       :multiple="multiple"
                       @change="getClaimqh"
                       style="width: 11rem"
-                      :disabled="scope.row.book ? true : !disabled">
+                      :disabled="scope.row.npbook ? true : !disabled">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -824,7 +824,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
+                  <el-date-picker :disabled="scope.row.npbook ? true : !disabled" type="date" v-model="scope.row.deliverydate"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -834,7 +834,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'"
                               :rules='rules.completiondate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.completiondate"
+                  <el-date-picker :disabled="scope.row.npbook ? true : !disabled" type="date" v-model="scope.row.completiondate"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -845,7 +845,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliveryfinshdate'"
                               :rules='rules.deliveryfinshdate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.deliveryfinshdate"
+                  <el-date-picker :disabled="scope.row.npbook ? true : !disabled" type="date" v-model="scope.row.deliveryfinshdate"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -854,7 +854,7 @@
                              width="200" prop="loadingjudge">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.loadingjudge'" :rules='rules.loadingjudge'>
-                  <user :disabled="scope.row.book ? true : !disabled" :no="scope.row" :selectType="selectType"
+                  <user :disabled="scope.row.npbook ? true : !disabled" :no="scope.row" :selectType="selectType"
                         :userlist="scope.row.loadingjudge"
                         @getUserids="getJudge" style="width: 10.15rem"></user>
                 </el-form-item>
@@ -863,7 +863,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimdate'" :rules='rules.claimdate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.claimdate"
+                  <el-date-picker :disabled="scope.row.npbook ? true : !disabled" type="date" v-model="scope.row.claimdate"
                                   style="width: 9.5rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -872,7 +872,7 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.supportdate'" :rules='rules.supportdate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.supportdate"
+                  <el-date-picker :disabled="scope.row.npbook ? true : !disabled" type="date" v-model="scope.row.supportdate"
                                   style="width: 9.5rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -882,7 +882,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimamount'" :rules='rules.claimamount'>
                   <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                   :disabled="scope.row.book ? true : !disabled" :min="0" :max="1000000000" :precision="2"
+                                   :disabled="scope.row.npbook ? true : !disabled" :min="0" :max="1000000000" :precision="2"
                                    @change="changeclaimamount(scope.row)"></el-input-number>
                 </el-form-item>
               </template>
@@ -891,7 +891,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.qingremarksqh'">
-                  <el-input :disabled="scope.row.book ? true : !disabled" v-model="scope.row.qingremarksqh">
+                  <el-input :disabled="scope.row.npbook ? true : !disabled" v-model="scope.row.qingremarksqh">
                   </el-input>
                 </el-form-item>
               </template>
@@ -930,7 +930,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarksqh" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
-                  <el-input :disabled="scope.row.book ? true : !disabled" v-model="scope.row.remarksqh">
+                  <el-input :disabled="scope.row.npbook ? true : !disabled" v-model="scope.row.remarksqh">
                   </el-input>
                 </el-form-item>
               </template>
@@ -963,7 +963,7 @@
                 <el-button
                   @click.native.prevent="deleteRowclaimtype1(scope.$index, form.tableclaimtype)"
                   plain
-                  :disabled="scope.row.book"
+                  :disabled="scope.row.npbook"
                   size="small"
                   type="danger"
                 >{{$t('button.delete')}}
@@ -971,7 +971,7 @@
                 <el-button
                   @click="addRowclaimtype1(form.tableclaimtype)"
                   plain
-                  :disabled="scope.row.book"
+                  :disabled="scope.row.npbook"
                   size="small"
                   type="primary"
                 >{{$t('button.insert')}}
@@ -991,7 +991,7 @@
               width="200">
               <template slot-scope="scope">
                 <el-select clearable v-model="scope.row.claimtype"
-                           :placeholder="$t('normal.error_09')" @change="changeclaimtype(scope.row)">
+                           :placeholder="$t('normal.error_09')" @change="changeclaimtype(scope.row)" :disabled="bookStatuss ? true : !disabled">
                   <el-option
                     clearable
                     v-for="item in optionscompound"
@@ -1008,7 +1008,7 @@
               width="240">
               <template slot-scope="scope">
                 <org :no="scope.row" :orglist="scope.row.group_id" @getOrgids="getEntrustgroupId"
-                     orgtype="4" style="width:90%"></org>
+                     orgtype="4" style="width:90%" :disabled="bookStatuss ? true : !disabled"></org>
               </template>
             </el-table-column>
             <el-table-column
@@ -1031,6 +1031,7 @@
                   controls-position="right"
                   style="width: 100%"
                   v-model="scope.row.contractrequestamount"
+                  :disabled="bookStatuss ? true : !disabled"
                 ></el-input-number>
               </template>
             </el-table-column>
@@ -1044,6 +1045,7 @@
                   plain
                   size="small"
                   type="danger"
+                  :disabled="bookStatuss ? true : !disabled"
                 >{{$t('button.delete')}}
                 </el-button>
                 <el-button
@@ -1051,6 +1053,7 @@
                   plain
                   size="small"
                   type="primary"
+                  :disabled="bookStatuss ? true : !disabled"
                 >{{$t('button.insert')}}
                 </el-button>
               </template>
@@ -1114,6 +1117,7 @@
   import ElInput from '../../../../../node_modules/element-ui/packages/input/src/input.vue';
   import ElFormItem from '../../../../../node_modules/element-ui/packages/form/src/form-item.vue';
   import monthlyrate from '../../../components/monthlyrate';
+  import {getCurrentRole,getCurrentRoleeditnapin} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS1026View',
@@ -1374,6 +1378,7 @@
       };
       return {
         judgementdisable: false,
+        bookStatuss:false,
         //add-ws-6/22-禅道152任务
         show10: true,
         IDname: '',
@@ -1869,9 +1874,22 @@
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
                   contractnumbercount[i].letrecoverystatus = contractnumbercount[i].recoverystatus;
                 }
-                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
-                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
-                  contractnumbercount[i].book = true;
+                //决裁书已经进行中或是结束，编辑后，合同不可编辑
+                if (contractnumbercount[i].bookStatus === true ) {
+                  this.bookStatuss = true;
+                  contractnumbercount[i].npbook = true;
+                  this.disabled3 = false;
+                  this.disabled = false;
+                  // let rolecaneditnapin = getCurrentRoleeditnapin();
+                  // if(rolecaneditnapin === '0')
+                  // {
+                  //   contractnumbercount[i].npbook = false;
+                  // }
+                }
+                else
+                {
+                  contractnumbercount[i].npbook = false;
+                  this.bookStatuss = false;
                 }
               }
               this.form.tableclaimtype = contractnumbercount;
@@ -1933,17 +1951,45 @@
                 //   this.claimamount3 = contractnumbercount[2].claimamount;
                 //   this.claimamount4 = contractnumbercount[3].claimamount;
                 // }
+                let lengthjue = 0;
                 for (let k = 0; k < contractnumbercount.length; k++) {
-                  let letclaimtypeone = contractnumbercount[k].claimtype;
-                  let option1 = {};
-                  option1.code = letclaimtypeone;
-                  option1.value = letclaimtypeone;
+                  if (contractnumbercount[k].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                  {
+                    lengthjue = lengthjue+1;
+                  }
+                }
+                if (lengthjue != contractnumbercount.length && lengthjue!=0 )
+                {
+                  for (let k = 0; k < contractnumbercount.length; k++) {
+                    if (contractnumbercount[k].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                    {
+                      let letclaimtypeone = contractnumbercount[k].claimtype;
+                      let option1 = {};
+                      option1.code = letclaimtypeone;
+                      option1.value = letclaimtypeone;
 
-                  this.optionscompound.push(option1);
-                  let op = [];
-                  op.claimtype = contractnumbercount[k].claimtype;
-                  op.claimamount = contractnumbercount[k].claimamount;
-                  this.tempMountList.push(op);
+                      this.optionscompound.push(option1);
+                      let op = [];
+                      op.claimtype = contractnumbercount[k].claimtype;
+                      op.claimamount = contractnumbercount[k].claimamount;
+                      this.tempMountList.push(op);
+                    }
+                  }
+                }
+                else
+                {
+                  for (let k = 0; k < contractnumbercount.length; k++) {
+                    let letclaimtypeone = contractnumbercount[k].claimtype;
+                    let option1 = {};
+                    option1.code = letclaimtypeone;
+                    option1.value = letclaimtypeone;
+
+                    this.optionscompound.push(option1);
+                    let op = [];
+                    op.claimtype = contractnumbercount[k].claimtype;
+                    op.claimamount = contractnumbercount[k].claimamount;
+                    this.tempMountList.push(op);
+                  }
                 }
               }
             }
@@ -2799,7 +2845,7 @@
       addRowclaimtype1(rows) {
         let letclaimtype = '';
         if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0) {
-          if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+          if (this.form.tableclaimtype[this.form.tableclaimtype.length-1].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
             letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
           }
         }
@@ -2813,10 +2859,25 @@
           }
         }
         if (flag == 0) {
+          let lengthjue = 0;
+          if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0)
+          {
+            for (let h = 0; h < this.form.tableclaimtype.length; h++) {
+              if (this.form.tableclaimtype[h].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+              {
+                lengthjue = lengthjue+1;
+              }
+            }
+          }
+          let letclaimtypejue = rows.length + 1;
+          if (lengthjue != 0)
+          {
+            letclaimtypejue = lengthjue+1;
+          }
           this.form.tableclaimtype.push({
             contractnumbercount_id: '',
             contractnumber: this.letcontractnumber,
-            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letclaimtypejue + this.$t('label.PFANS1026FORMVIEW_H'),
             deliverydate: '',
             bookStatus: false,
             completiondate: '',
@@ -2867,8 +2928,24 @@
               } else {
                 if (rows.length > 1) {
                   rows.splice(index, 1);
+                  let lengthjue = 0;
+                  if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0)
+                  {
+                    for (let h = 0; h < this.form.tableclaimtype.length; h++) {
+                      if (this.form.tableclaimtype[h].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) === -1)
+                      {
+                        lengthjue = lengthjue+1;
+                      }
+                    }
+                  }
                   for (let i = index; i < rows.length; i++) {
-                    this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+                    if (this.form.tableclaimtype[i].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+                      this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1024VIEW_LETTERS') + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1 - lengthjue) + this.$t('label.PFANS1026FORMVIEW_H');
+                    }
+                    else
+                    {
+                      this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1 - lengthjue) + this.$t('label.PFANS1026FORMVIEW_H');
+                    }
                   }
                 } else {
                   let letclaimtype = '';
@@ -2965,24 +3042,49 @@
         //   this.claimamount4 = val.claimamount;
         // }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
-        //PSDCD_PFANS_20210519_BUG_003 ztc 金额相关BUG对应 fr
+        let counttype = 0;
+        for (let t = 0; t < this.form.tableclaimtype.length; t++)
+        {
+          if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+          {
+            counttype = counttype+1;
+          }
+        }
         for (let i = 0; i < this.form.tabledata.length; i++) {
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let sumclaimamount = 0;
-            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              sumclaimamount = sumclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+            for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+              if (counttype === this.form.tableclaimtype.length || counttype ===0)
+              {
+                this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+              }
+              else
+              {
+                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                {
+                  this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+                }
+              }
             }
-            this.form.tabledata[i].claimamount = sumclaimamount
           }
         }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
         for (let i = 0; i < this.form.tablecompound.length; i++) {
           for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-            if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
-              this.form.tablecompound[i].claimamount = this.form.tableclaimtype[j].claimamount;
+            if (counttype === this.form.tableclaimtype.length || counttype ===0)
+            {
+              if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
+                this.form.tablecompound[i].claimamount = this.this.form.tableclaimtype[j].claimamount;
+              }
+            }
+            else
+            {
+              if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS') + this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
+                this.form.tablecompound[i].claimamount = this.this.form.tableclaimtype[j].claimamount;
+              }
             }
           }
-        //PSDCD_PFANS_20210519_BUG_003 ztc 金额相关BUG对应 to
+
           // if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_TWO')) != -1) {
           //   this.form.tablecompound[i].claimamount = this.claimamount2;
           // }
@@ -3030,7 +3132,7 @@
           if (valid) {
             if (this.form.tableclaimtype.length != 0) {
               for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-                if (this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003') {
+                if (this.form.tableclaimtype[i].tenantid == '0') {
                   this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
                 }
               }
@@ -3042,6 +3144,9 @@
             this.form.entrycondition = this.form1.entrycondition;
             if (this.$route.params._id) {
               this.handleClick();
+              this.bookStatuss = false;
+              this.disabled = true;
+              this.disabled3 = false;
             } else {
               if (this.form.tabledata.length > 0) {
                 this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
@@ -3052,6 +3157,9 @@
                   this.form.tabledata = [];
                   this.form.tableclaimtype = [];
                   this.handleClick();
+                  this.bookStatuss = false;
+                  this.disabled = true;
+                  this.disabled3 = false;
                 }).catch(() => {
                   this.$message({
                     type: 'info',
@@ -3061,6 +3169,9 @@
                 });
               } else {
                 this.handleClick();
+                this.bookStatuss = false;
+                this.disabled = true;
+                this.disabled3 = false;
               }
             }
           } else {
@@ -3143,7 +3254,7 @@
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
             this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            if (this.form.tabledata[0].deliverycondition == 'HT009002') {
+            if (this.form.tabledata[0].deliveryconditionqh == 'HT009003') {
               isClone = true;
             }
           }
@@ -3235,23 +3346,51 @@
         //add gbb 20210508 合同觉书的情况带入旧合同回数 start
         let letint = 0;
         if (this.checked) {
+          let rolecaneditnapin = getCurrentRoleeditnapin();
           for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-            if(!this.form.tableclaimtype[i].book){
+            let a = '0';
+            // this.form.tableclaimtype[i].npbook = false;
+            // for (let x = 0; x < this.DataList.length; x++) {
+            //   if(this.DataList[x].award === this.$t('title.PFANS1031VIEW')){
+            //     if (this.DataList[x].awardtype === this.form.tableclaimtype[i].claimtype) {
+            //       a = '1';
+            //       if (rolecaneditnapin === '0')
+            //       {
+            //         this.form.tableclaimtype[i].npbook = false;
+            //       }
+            //       else
+            //       {
+            //         this.form.tableclaimtype[i].npbook = true;
+            //       }
+            //     }
+            //   }
+            // }
+            // if(a === '0'){
+            //     letint = letint + 1;
+            //     let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+            //     this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+            // }
+            if(this.form.tableclaimtype[i].tenantid === null){
               letint = letint + 1;
               let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
               this.form.tableclaimtype[i].claimtype = letclaimtypeone;
             }
+            else
+            {
+              this.form.claimtype = this.form.claimtype + 1;
+            }
             this.form.tableclaimtype[i].contractnumbercount_id = '';
             this.form.tableclaimtype[i].contractnumber = this.letcontractnumber;
             let option = [];
-            option.code = letclaimtypeone;
-            option.value = letclaimtypeone;
+            option.code = this.form.tableclaimtype[i].claimtype;
+            option.value = this.form.tableclaimtype[i].claimtype;
             this.optionscompound.push(option);
           }
         }
         else{
           this.form.tableclaimtype = [];
         }
+
         for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
           letint = letint + 1;
           let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
@@ -3804,9 +3943,30 @@
             });
             // PSDCD_PFANS_20210310_BUG_030 ztc start
             let datamountMap = new Map();
-            for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-              datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
+            let counttype = 0;
+            for (let t = 0; t < this.form.tableclaimtype.length; t++)
+            {
+              if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+              {
+                counttype = counttype+1;
+              }
             }
+            if (counttype === this.form.tableclaimtype.length || counttype ===0)
+            {
+              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
+                datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
+              }
+            }
+            else
+            {
+              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
+                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                {
+                  datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
+                }
+              }
+            }
+
             let scanList = [];
             let scanMap = new Map();
             for (let h = 0; h < letone.length; h++) {
