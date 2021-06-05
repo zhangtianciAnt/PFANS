@@ -591,10 +591,9 @@
               </el-col>
               <!--基本给-->
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
-                    :disabled="disabled"
-                    :max="1000000"
+                    :disabled="!disabled"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -607,10 +606,9 @@
               </el-col>
               <!--职责给-->
               <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')">
+                <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')" >
                   <el-input-number
-                    :disabled="disabled"
-                    :max="1000000"
+                    :disabled="!disablelevel"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -765,6 +763,7 @@
                 result: '',
                 show1: false,
                 show2: false,
+                show3: false,
                 code_sex: 'PR019',
                 gridData: [],
               userlist: [],
@@ -858,6 +857,7 @@
                 },
                 enableSave: false,
                 disable: false,
+                disablelevel:false,
                 disEntrytime: false,
                 disEntrydivision: false,
                 canStart: false,
@@ -946,8 +946,13 @@
                 this.form.name = this.$route.params._user[0].name;
                 this.form.sex = this.$route.params._user[0].sex;
                 this.form.birthday = this.$route.params._user[0].birthday;
+                this.form.level = this.$route.params._user[0].rn;
+                this.form.giving = this.$route.params._user[0].salary;
+                this.form.dutygiving = this.$route.params._user[0].dutysalary;
+                this.form.adoption = this.$route.params._user[0].source;
                 this.form.interviewrecord_id = this.$route.params._user[0].interviewrecord_id;
                 this.tableData = JSON.parse(this.$route.params._user[0].interview);
+                this.changeLevel(this.form.level)
             }
             //add_fjl_0731  添加应聘者信息管理画面跳转  end
         },
@@ -1105,7 +1110,8 @@
                 this.changeUsing(this.form.adoption)
                 this.form.other3 = this.currentRow6//其他
                 this.form.others = this.currentRow7//推荐人
-                this.form.level = this.rn //rn
+                this.form.level = this.rn//rn
+                this.changeLevel(this.form.level)
                 this.form.giving = this.salary //基本給
                 this.form.dutygiving = this.dutysalary //职责給
 
@@ -1202,6 +1208,11 @@
                                 this.show1 = false;
                                 this.form.remark2 = '';
                             }
+                            //内部R5及以下职责给BUG -fr
+                            if(this.form.level != '' && this.form.level != undefined && this.form.level != null){
+                              this.changeLevel(this.form.level);
+                            }
+                            //内部R5及以下职责给BUG -to
                             this.loading = false;
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
@@ -1334,6 +1345,14 @@
             },
             changeLevel(val) {
                 this.form.level = val;
+              if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003'){
+                this.disablelevel = false;
+                //内部R5及以下职责给BUG -fr
+                this.form.dutysalary = '0';
+                //内部R5及以下职责给BUG -to
+              }else {
+                this.disablelevel = true;
+              }
             },
             changeentrydivision(val) {
               this.form.entrydivision = val;
