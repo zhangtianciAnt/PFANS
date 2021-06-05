@@ -1190,7 +1190,7 @@
         this.$refs['reff'].validate(valid => {
           if (valid) {
             //离职相关手续的字段拼接
-            for (let i = 0; i < this.tableData.length-1; i++) {
+            for (let i = 0; i < this.tableData.length; i++) {
               this.arrSOF.push({
                 jud1: this.tableData[i].checked,
                 jud2: this.tableData[i].condate,
