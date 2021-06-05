@@ -431,10 +431,10 @@
                                                   }else if(lype === '1'){
                                                     this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_COST');
                                                   }
-                                                  if(response[m].vendorcode == '' || response[m].vendorcode == null || response[m].vendorcode == undefined){
-                                                    response[m].vendorcode = this.selectedlist[i].loantype.split(',')[1];
-                                                  }
                                                 }
+                                            }
+                                            if(response[m].vendorcode == '' || response[m].vendorcode == null || response[m].vendorcode == undefined){
+                                              response[m].vendorcode = this.selectedlist[i].loantype.split(',')[1];
                                             }
                                             if (response[m].invoicedate !== null && response[m].invoicedate !== '') {
                                                 let date;
