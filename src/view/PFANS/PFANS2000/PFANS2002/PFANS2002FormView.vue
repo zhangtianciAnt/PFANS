@@ -949,8 +949,10 @@
                 this.form.level = this.$route.params._user[0].rn;
                 this.form.giving = this.$route.params._user[0].salary;
                 this.form.dutygiving = this.$route.params._user[0].dutysalary;
+                this.form.adoption = this.$route.params._user[0].source;
                 this.form.interviewrecord_id = this.$route.params._user[0].interviewrecord_id;
                 this.tableData = JSON.parse(this.$route.params._user[0].interview);
+                this.changeLevel(this.form.level)
             }
             //add_fjl_0731  添加应聘者信息管理画面跳转  end
         },

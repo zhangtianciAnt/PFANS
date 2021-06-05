@@ -698,6 +698,13 @@
               this.result1 = false;
             }
             this.modelresult = this.form.result;
+            if(this.buttonList[1] != undefined){
+              if (this.modelresult === '0') {
+                this.buttonList[1].disabled = false;
+              } else {
+                this.buttonList[1].disabled = true;
+              }
+            }
             //内部R5及以下职责给BUG -fr
             if(this.form.rn != '' && this.form.rn != undefined && this.form.rn != null){
               this.changedutysalary(this.form.rn);
@@ -716,15 +723,15 @@
       }
     },
     //add_fjl_0803
-    watch: {
-      modelresult(newName, oldName) {
-        if (newName === '0') {
-          this.buttonList[1].disabled = false;
-        } else {
-          this.buttonList[1].disabled = true;
-        }
-      },
-    },
+    // watch: {
+      // modelresult(newName, oldName) {
+      //   if (newName === '0') {
+      //     this.buttonList[1].disabled = false;
+      //   } else {
+      //     this.buttonList[1].disabled = true;
+      //   }
+      // },
+    // },
     //add_fjl_0803
     methods: {
       // add-ws-8/4-禅道任务296
@@ -1083,6 +1090,7 @@
                       salary:this.form.salary,
                       dutysalary:this.form.dutysalary,
                       interview: this.form.interview,
+                      source: this.form.source,
                       interviewrecord_id: this.form.interviewrecord_id,
                   });
                   this.$router.push({
