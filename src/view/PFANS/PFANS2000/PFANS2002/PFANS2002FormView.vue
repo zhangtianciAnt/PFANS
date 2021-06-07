@@ -13,6 +13,7 @@
     v-loading="loading"
     :enableSave="enableSave"
     :workflowCode="workflowCode"
+    :noback="true"
   >
     <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
@@ -766,7 +767,7 @@
                 show3: false,
                 code_sex: 'PR019',
                 gridData: [],
-              userlist: [],
+                userlist: [],
                 num: 0,
                 activeName: 'first',
                 tableData: [
@@ -861,7 +862,9 @@
                 disEntrytime: false,
                 disEntrydivision: false,
                 canStart: false,
-                buttonList: [],
+                buttonList: [
+                  {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
+                ],
                 fileList: [],
                 upload: uploadUrl(),
                 rules: {
@@ -914,15 +917,22 @@
         },
 
         created() {
-            this.disabled = this.$route.params.disabled;
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.disabled = this.$route.params.disabled;
             if (!this.disabled) {
                 this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
+                  {
+                    key: 'back',
+                    name: 'button.back',
+                    disabled: false,
+                    icon: 'el-icon-back'
+                  },
+                  {
+                    key: 'save',
+                    name: 'button.save',
+                    disabled: false,
+                    icon: 'el-icon-check'
+                  },
                 ];
             }
         },
@@ -1491,6 +1501,23 @@
             },
 
             buttonClick(val) {
+              if (val === 'back') {
+                if (this.$route.params._user) {
+                  this.$router.push({
+                    name: 'PFANS2003FormView',
+                    params: {
+                      _id: this.$route.params._user[0].interviewrecord_id,
+                      disabled: true,
+                    },
+                  });
+                } else {
+                  this.$router.push({
+                    name: 'PFANS2002View',
+                    params: {},
+                  });
+                }
+                return;
+              }
                 this.checkRequire();
                 this.$refs['form'].validate(valid => {
                     if (valid) {

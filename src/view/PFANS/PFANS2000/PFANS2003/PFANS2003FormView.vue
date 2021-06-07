@@ -724,15 +724,15 @@
       }
     },
     //add_fjl_0803
-    // watch: {
-      // modelresult(newName, oldName) {
-      //   if (newName === '0') {
-      //     this.buttonList[1].disabled = false;
-      //   } else {
-      //     this.buttonList[1].disabled = true;
-      //   }
-      // },
-    // },
+    watch: {
+      modelresult(newName, oldName) {
+        if (newName === '0') {
+          this.buttonList[1].disabled = false;
+        } else {
+          this.buttonList[1].disabled = true;
+        }
+      },
+    },
     //add_fjl_0803
     methods: {
       changgeResult(val) {
@@ -1006,6 +1006,12 @@
         }
       },
       buttonClick(val) {
+        if (val === 'back') {
+            this.$router.push({
+              name: 'PFANS2003View',
+              params: {},
+            });
+        };
         this.$refs['refform'].validate(valid => {
           if (valid) {
               // upd_fjl_05/27  --添加面试官手动输入
