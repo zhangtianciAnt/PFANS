@@ -1011,6 +1011,9 @@
           .then(response => {
             this.data = response;
             this.loading = false;
+            // zy NT_PFANS_20210527_BUG_011 start
+            this.disactualovertime = false;
+            // zy NT_PFANS_20210527_BUG_011 end
             if (val === 'end') {
               if (this.$store.getters.historyUrl) {
                 this.$router.push(this.$store.getters.historyUrl);
@@ -1311,11 +1314,13 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
+                  // zy NT_PFANS_20210527_BUG_011 start
+//                  Message({
+//                    message: this.$t('normal.success_02'),
+//                    type: 'success',
+//                    duration: 5 * 1000,
+//                  });
+                  // zy NT_PFANS_20210527_BUG_011 end
                   if (val !== 'save' && val !== 'StartWorkflow') {
                     Message({
                       message: this.$t('normal.success_02'),
@@ -1330,7 +1335,9 @@
                     this.showovertimetype = true;
                     this.disovertimelength = true;
                     this.showovertimelength = true;
-                    this.disactualovertime = false;
+                    // zy NT_PFANS_20210527_BUG_011 start
+//                    this.disactualovertime = false;
+                    // zy NT_PFANS_20210527_BUG_011 end
                     this.$refs.container.$refs.workflow.startWorkflow();
                   }
                 })
