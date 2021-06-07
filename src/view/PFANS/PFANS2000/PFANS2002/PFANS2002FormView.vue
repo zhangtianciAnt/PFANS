@@ -594,7 +594,6 @@
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
                     :disabled="!disabled"
-                    :max="1000000"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -610,7 +609,6 @@
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_DUTYGIVING')" >
                   <el-input-number
                     :disabled="!disablelevel"
-                    :max="1000000"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -951,8 +949,10 @@
                 this.form.level = this.$route.params._user[0].rn;
                 this.form.giving = this.$route.params._user[0].salary;
                 this.form.dutygiving = this.$route.params._user[0].dutysalary;
+                this.form.adoption = this.$route.params._user[0].source;
                 this.form.interviewrecord_id = this.$route.params._user[0].interviewrecord_id;
                 this.tableData = JSON.parse(this.$route.params._user[0].interview);
+                this.changeLevel(this.form.level)
             }
             //add_fjl_0731  添加应聘者信息管理画面跳转  end
         },
@@ -1208,6 +1208,11 @@
                                 this.show1 = false;
                                 this.form.remark2 = '';
                             }
+                            //内部R5及以下职责给BUG -fr
+                            if(this.form.level != '' && this.form.level != undefined && this.form.level != null){
+                              this.changeLevel(this.form.level);
+                            }
+                            //内部R5及以下职责给BUG -to
                             this.loading = false;
                         }
                         if (this.form.status === '2' || this.form.status === '4') {
@@ -1342,6 +1347,9 @@
                 this.form.level = val;
               if(this.form.level === 'PR021001' ||this.form.level === 'PR021002' ||this.form.level === 'PR021003'){
                 this.disablelevel = false;
+                //内部R5及以下职责给BUG -fr
+                this.form.dutysalary = '0';
+                //内部R5及以下职责给BUG -to
               }else {
                 this.disablelevel = true;
               }

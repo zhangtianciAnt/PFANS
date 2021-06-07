@@ -62,6 +62,12 @@ export function exportjs(data) {
 }
 
 
-
+export function selectByIdone2(data) {
+  return request({
+    url: 'evection/one2',
+    method: 'post',
+    data: data
+  })
+}
 
 

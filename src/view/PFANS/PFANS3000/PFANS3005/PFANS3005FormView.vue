@@ -222,7 +222,7 @@
                 <el-col :span="24">
                   <el-form-item :label="$t('label.PFANS1004VIEW_REASONSFORQUOTATION')" label-width="6rem"
                                 v-show="show6">
-                    <el-input :disabled="!disabled" style="width: 70vw;" type="textarea"
+                    <el-input :disabled="!disabled" style="width: 58vw;" type="textarea"
                               v-model="form.reasonsforquotation"></el-input>
                   </el-form-item>
                 </el-col>

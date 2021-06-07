@@ -734,11 +734,11 @@
             this.loading = false;
           });
       },
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disable = val;
-        }
-      },
+      // setdisabled(val) {
+      //   if (this.$route.params.disabled) {
+      //     this.disable = val;
+      //   }
+      // },
       getTime(val) {
         let sum = val * 60;
         let hours = Math.floor(sum / 60);

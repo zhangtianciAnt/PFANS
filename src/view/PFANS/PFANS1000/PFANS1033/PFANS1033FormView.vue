@@ -589,7 +589,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <!--                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>-->
-                <el-input :disabled="scope.row.book ? true : !disabled3" v-model="scope.row.claimtype">
+                <el-input :disabled="book ? true : !disabled3" v-model="scope.row.claimtype">
                 </el-input>
                 <!--                </el-form-item>-->
               </template>
@@ -597,27 +597,27 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                              width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"
                              width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.completiondate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.completiondate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.claimdate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.claimdate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"
                              width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.supportdate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.supportdate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
@@ -625,7 +625,7 @@
                              width="190">
               <template slot-scope="scope">
                 <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                 :disabled="scope.row.book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                                 :disabled="book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS3005VIEW_NUMBERS')" align="center" prop="purnumbers" width="190"
@@ -741,6 +741,7 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
+        book:false,
         rules1: {
           claimtype: [
             {
@@ -1002,9 +1003,15 @@
                 this.showCG = false;
               }
               for (let i = 0; i < contractnumbercount.length; i++) {
-                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
-                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
-                  contractnumbercount[i].book = true;
+                //决裁书已经进行中或是结束，编辑后，合同不可编辑
+                if (contractnumbercount[i].bookStatus === true ) {
+                  this.book = true;
+                  this.disabled3 = false;
+                  this.disabled = false;
+                }
+                else
+                {
+                  this.book = false;
                 }
               }
               this.tableclaimtype = contractnumbercount;
@@ -1661,11 +1668,9 @@
             if (this.checked) {
               for (let i = 0; i < this.tableclaimtypeold.length; i++) {
                 if(i < this.form.claimtype){
-                  if(!this.tableclaimtypeold[i].book){
-                    letint = letint + 1;
-                    let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-                    this.tableclaimtypeold[i].claimtype = letclaimtypeone;
-                  }
+                  letint = letint + 1;
+                  let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+                  this.tableclaimtypeold[i].claimtype = letclaimtypeone;
                   this.tableclaimtypeold[i].contractnumbercount_id = '';
                   this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
                   tableclaimtypenew.push(this.tableclaimtypeold[i]);
@@ -1700,6 +1705,9 @@
 
             this.addRowfourth();
             this.getChecked(false);
+            this.book = false;
+            this.disabled = true;
+            this.disabled3 = false;
             this.dialogVisibleC = false;
           } else {
             Message({

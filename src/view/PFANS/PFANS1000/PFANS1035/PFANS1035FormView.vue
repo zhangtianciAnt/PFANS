@@ -736,6 +736,7 @@
           regulations: '',
           reason: '',
           otherexplanation: '',
+          publicexpense_id: '',
           loanapno:'',
           loanapplication_id:'',
         },
@@ -1106,7 +1107,7 @@
               //有精算报销编号绑定精算信息
               if (this.form.publicexpense_id) {
                   this.$store
-                      .dispatch('PFANS1012Store/selectByIdone2', {'publicexpenseid': this.form.publicexpense_id})
+                      .dispatch('PFANS1013Store/selectByIdone2', {'publicexpense_id': this.form.publicexpense_id})
                       .then(response => {
                           if (response !== null && response !== '' && response !== undefined) {
                             for (var i = 0; i < response.length; i++)
@@ -1114,10 +1115,10 @@
                               let status = getStatus(response[i].status);
                               this.tableB.push({
                                 invoiceno: response[i].invoiceno,
-                                moneys: response[i].moneys,
-                                remarks: response[i].preparefor,
+                                moneys: response[i].totalpay,
+                                remarks: response[i].remark,
                                 status: status,
-                                publicexpense_id: response[i].publicexpenseid,
+                                evectionid: response[i].evectionid,
                               });
                             }
                           }
@@ -1285,11 +1286,11 @@
         },
         rowClick1(row) {
             this.$store.commit('global/SET_HISTORYURL', '');
-            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1012FormView');
+            this.$store.commit('global/SET_WORKFLOWURL', '/FFFF1013FormView');
             this.$router.push({
-                name: 'PFANS1012FormView',
+                name: 'PFANS1013FormView',
                 params: {
-                    _id: row.publicexpense_id,
+                    _id: row.evectionid,
                     disabled: false,
                     _checkid: this.$route.params._id,
                     _check2: true,
@@ -1494,7 +1495,7 @@
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if (dic.length > 0) {
                   for (let i = 0; i < dic.length; i++) {
-                    if (butinfo === (dic[i].value1).substring(0, 3)) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
                       this.options.push({
                         lable: dic[i].value2 + '_' + dic[i].value3,
                         value: dic[i].code,
