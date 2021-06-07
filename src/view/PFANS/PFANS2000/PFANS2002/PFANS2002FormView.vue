@@ -442,7 +442,7 @@
                 <span v-show="form.entrydivision ==='PR065003'">
                   <el-form-item
                     :label="$t('label.PFANS2002FORMVIEW_UNEMPLOYEDREASON')" prop="unemployedreason">
-                    <el-input type="textarea" v-model="form.unemployedreason" :disabled="false"></el-input>
+                    <el-input type="textarea" v-model="form.unemployedreason" :disabled="disEntrydivision"></el-input>
                   </el-form-item>
                 </span>
                 <span v-show ="form.entrydivision !='PR065003'">
@@ -1366,7 +1366,7 @@
                 this.form.dutysalary = '0';
                 //内部R5及以下职责给BUG -to
               }else {
-                if (this.form.status === '2' || this.form.status === '4'){
+                if (this.form.status === '2' || this.form.status === '4' || this.disabled){
                   this.disablelevel = false;
                 }else {
                   this.disablelevel = true;
