@@ -593,7 +593,7 @@
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
-                    :disabled="!disabled"
+                    :disabled="true"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -1230,6 +1230,11 @@
                         } else {
                             this.enableSave = true;
                         }
+
+                        if(this.disabled) {
+                          this.disEntrytime = true;
+                          this.disEntrydivision = true;
+                        }
                     })
                     .catch(error => {
                         Message({
@@ -1351,7 +1356,11 @@
                 this.form.dutysalary = '0';
                 //内部R5及以下职责给BUG -to
               }else {
-                this.disablelevel = true;
+                if (this.form.status === '2' || this.form.status === '4'){
+                  this.disablelevel = false;
+                }else {
+                  this.disablelevel = true;
+                }
               }
             },
             changeentrydivision(val) {
