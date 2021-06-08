@@ -213,7 +213,7 @@
                     :multiple="multiple"
                     @change="getEntrycondition"
                     style="width: 11rem"
-                    :disabled="bookStatuss ? false : !disabled">
+                    :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled">
                   </dicselect>
                 </el-form-item>
               </template>
@@ -222,7 +222,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.entrypayment'">
-                  <el-date-picker :disabled="bookStatuss ? false : !disabled" type="date" v-model="scope.row.entrypayment"
+                  <el-date-picker :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" type="date" v-model="scope.row.entrypayment"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -652,7 +652,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarks" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.remarks'">
-                  <el-input :disabled="bookStatuss ? false : !disabled" v-model="scope.row.remarks">
+                  <el-input :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.remarks">
                   </el-input>
                 </el-form-item>
               </template>
@@ -1379,6 +1379,7 @@
       return {
         judgementdisable: false,
         bookStatuss:false,
+        bookStatussawardafter:true,
         //add-ws-6/22-禅道152任务
         show10: true,
         IDname: '',
@@ -2042,6 +2043,7 @@
     },
     created() {
       this.disabled = this.$route.params.disabled;
+      this.bookStatussawardafter = this.$route.params.disabled;
       //add-ws-6/22-禅道152任务
       if (this.disabled) {
         this.show10 = true;
