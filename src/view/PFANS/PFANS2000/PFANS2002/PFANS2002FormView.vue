@@ -1549,6 +1549,12 @@
                                     });
                                     if (this.$store.getters.historyUrl) {
                                         this.$router.push(this.$store.getters.historyUrl);
+                                    }else{
+                                      this.$router.push({
+                                          name: 'PFANS2002View',
+                                          params: {},
+                                        }
+                                      );
                                     }
                                 })
                                 .catch(err => {
@@ -1589,6 +1595,12 @@
                                         });
                                         if (this.$store.getters.historyUrl) {
                                             this.$router.push(this.$store.getters.historyUrl);
+                                        }else{
+                                          this.$router.push({
+                                              name: 'PFANS2002View',
+                                              params: {},
+                                            }
+                                          );
                                         }
                                     }
                                 })
