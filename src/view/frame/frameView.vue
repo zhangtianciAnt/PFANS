@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container>
+    <el-container style="overflow-y:scroll;">
       <el-header class="main_bg_color" style="padding: 0">
         <el-col :span="4">
           <EasyLogo :logo="basselogo" maxheight="4rem" title @ToIndex="ToIndex"></EasyLogo>
