@@ -1554,16 +1554,16 @@
           //   trigger: 'change',
           // }],
           // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
-          realstartdate: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALSTARTDATE'),
-            trigger: 'change',
-          }],
-          realenddate: [{
-            required: true,
-            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALENDDATE'),
-            trigger: 'change',
-          }],
+          // realstartdate: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALSTARTDATE'),
+          //   trigger: 'change',
+          // }],
+          // realenddate: [{
+          //   required: true,
+          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALENDDATE'),
+          //   trigger: 'change',
+          // }],
           // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
         },
         code1: 'PG002',
