@@ -13,6 +13,7 @@
     v-loading="loading"
     :enableSave="enableSave"
     :workflowCode="workflowCode"
+    :noback="true"
   >
     <div slot="customize" style="margin-top:2vw">
       <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form">
@@ -441,7 +442,7 @@
                 <span v-show="form.entrydivision ==='PR065003'">
                   <el-form-item
                     :label="$t('label.PFANS2002FORMVIEW_UNEMPLOYEDREASON')" prop="unemployedreason">
-                    <el-input type="textarea" v-model="form.unemployedreason" :disabled="false"></el-input>
+                    <el-input type="textarea" v-model="form.unemployedreason" :disabled="disEntrydivision"></el-input>
                   </el-form-item>
                 </span>
                 <span v-show ="form.entrydivision !='PR065003'">
@@ -593,7 +594,7 @@
               <el-col :span="8">
                 <el-form-item :label="$t('label.PFANS2002FORMVIEW_GIVING')" >
                   <el-input-number
-                    :disabled="!disabled"
+                    :disabled="true"
                     :min="0"
                     :precision="2"
                     :step="100"
@@ -766,7 +767,7 @@
                 show3: false,
                 code_sex: 'PR019',
                 gridData: [],
-              userlist: [],
+                userlist: [],
                 num: 0,
                 activeName: 'first',
                 tableData: [
@@ -861,7 +862,9 @@
                 disEntrytime: false,
                 disEntrydivision: false,
                 canStart: false,
-                buttonList: [],
+                buttonList: [
+                  {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
+                ],
                 fileList: [],
                 upload: uploadUrl(),
                 rules: {
@@ -914,15 +917,22 @@
         },
 
         created() {
-            this.disabled = this.$route.params.disabled;
+          this.$store.commit('global/SET_HISTORYURL', '');
+          this.disabled = this.$route.params.disabled;
             if (!this.disabled) {
                 this.buttonList = [
-                    {
-                        key: 'save',
-                        name: 'button.save',
-                        disabled: false,
-                        icon: 'el-icon-check',
-                    },
+                  {
+                    key: 'back',
+                    name: 'button.back',
+                    disabled: false,
+                    icon: 'el-icon-back'
+                  },
+                  {
+                    key: 'save',
+                    name: 'button.save',
+                    disabled: false,
+                    icon: 'el-icon-check'
+                  },
                 ];
             }
         },
@@ -1230,6 +1240,11 @@
                         } else {
                             this.enableSave = true;
                         }
+
+                        if(this.disabled) {
+                          this.disEntrytime = true;
+                          this.disEntrydivision = true;
+                        }
                     })
                     .catch(error => {
                         Message({
@@ -1351,7 +1366,11 @@
                 this.form.dutysalary = '0';
                 //内部R5及以下职责给BUG -to
               }else {
-                this.disablelevel = true;
+                if (this.form.status === '2' || this.form.status === '4' || this.disabled){
+                  this.disablelevel = false;
+                }else {
+                  this.disablelevel = true;
+                }
               }
             },
             changeentrydivision(val) {
@@ -1482,6 +1501,23 @@
             },
 
             buttonClick(val) {
+              if (val === 'back') {
+                if (this.$route.params._user) {
+                  this.$router.push({
+                    name: 'PFANS2003FormView',
+                    params: {
+                      _id: this.$route.params._user[0].interviewrecord_id,
+                      disabled: true,
+                    },
+                  });
+                } else {
+                  this.$router.push({
+                    name: 'PFANS2002View',
+                    params: {},
+                  });
+                }
+                return;
+              }
                 this.checkRequire();
                 this.$refs['form'].validate(valid => {
                     if (valid) {
@@ -1513,6 +1549,12 @@
                                     });
                                     if (this.$store.getters.historyUrl) {
                                         this.$router.push(this.$store.getters.historyUrl);
+                                    }else{
+                                      this.$router.push({
+                                          name: 'PFANS2002View',
+                                          params: {},
+                                        }
+                                      );
                                     }
                                 })
                                 .catch(err => {
@@ -1553,6 +1595,12 @@
                                         });
                                         if (this.$store.getters.historyUrl) {
                                             this.$router.push(this.$store.getters.historyUrl);
+                                        }else{
+                                          this.$router.push({
+                                              name: 'PFANS2002View',
+                                              params: {},
+                                            }
+                                          );
                                         }
                                     }
                                 })

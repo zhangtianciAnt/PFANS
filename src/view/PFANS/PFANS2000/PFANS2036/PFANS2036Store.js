@@ -1,5 +1,4 @@
-import {getGroupId,getChangeRanks, getPersonalCost,gettableBm,gettableGs,gettableRb,getFuzzyQuery, getYears, insertPenalcost,upPersonalCost,getYearsantid,exportinfo} from './PFANS2036Api'
-import {getPortPromise} from "portfinder";
+import {getGroupId,getChangeRanks, getPersonalCost,gettableBm,gettableGs,gettableRb,getFuzzyQuery, getYears, insertPenalcost,upPersonalCost,exportinfo} from './PFANS2036Api'
 
 const PFANS2036Store = {
   namespaced: true,
