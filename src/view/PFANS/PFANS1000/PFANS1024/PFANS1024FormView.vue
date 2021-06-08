@@ -252,7 +252,7 @@
                     :multiple="multiple"
                     @change="getEntrycondition"
                     style="width: 11rem"
-                    :disabled="!disabled">
+                    :disabled="book ? false : !disabled">
                   </dicselect>
                 </el-form-item>
               </template>
@@ -261,7 +261,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.entrypayment'">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment"
+                  <el-date-picker :disabled="book ? false : !disabled" type="date" v-model="scope.row.entrypayment"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -578,7 +578,7 @@
                              width="245">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarks'">
-                  <el-input :disabled="!disabled" v-model="scope.row.remarks" style="width:13vw">
+                  <el-input :disabled="book ? false : !disabled" v-model="scope.row.remarks" style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
