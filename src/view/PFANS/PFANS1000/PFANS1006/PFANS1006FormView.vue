@@ -1671,6 +1671,24 @@
         let _judgements_type =  this.$route.params._judgements_type;
         let _re_title = '';
         if(_judgements_type) {
+          if (_judgements_type === this.$t('label.PFANS1012VIEW_CHECKLIST')) {
+            this.$router.push({
+              name: 'PFANS1025View',
+              params: {
+              },
+            });
+            return;
+          }
+
+          if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSES')) {
+            this.$router.push({
+              name: 'PFANS3005View',
+              params: {
+              },
+            });
+            return;
+          }
+
           if (_judgements_type === this.$t('title.PFANS1002VIEW')) {
             _re_title = 1;
           } else if (_judgements_type === this.$t('title.PFANS1035VIEW')) {
