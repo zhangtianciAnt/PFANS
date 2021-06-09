@@ -622,6 +622,7 @@
         } else if (val === 'import') {
           this.daoru = true;
         } else if (val === 'delete') {
+          /*   upd  只能删除自己日志   from   */
           for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
             if (this.$refs.roletable.selectedList[i].createby.trim() !== this.$store.getters.userinfo.userid.trim()) {
               Message({
@@ -642,6 +643,7 @@
           }
           this.delete();
         }
+        /*   upd  只能删除自己日志   to   */
         // add-ws-5/26-No.68
         else if (val === 'data') {
           this.checkdata = true;
