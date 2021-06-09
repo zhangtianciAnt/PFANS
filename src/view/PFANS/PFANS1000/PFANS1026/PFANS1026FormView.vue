@@ -1893,10 +1893,10 @@
                   contractnumbercount[i].npbook = false;
                   this.bookStatuss = false;
                 }
-                // if(contractnumbercount[i].tenantid === '0')
-                // {
-                //   contractnumbercount[i].npbook = true;
-                // }
+                if(contractnumbercount[i].tenantid === '0')
+                {
+                  contractnumbercount[i].npbook = true;
+                }
 
               }
               this.form.tableclaimtype = contractnumbercount;
