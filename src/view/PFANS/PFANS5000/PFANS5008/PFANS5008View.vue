@@ -623,7 +623,7 @@
           this.daoru = true;
         } else if (val === 'delete') {
           for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
-            if (this.$refs.roletable.selectedList[i].createby !== this.$store.getters.userinfo.userid) {
+            if (this.$refs.roletable.selectedList[i].createby.trim() !== this.$store.getters.userinfo.userid.trim()) {
               Message({
                 message: this.$t('normal.error_26'),
                 type: 'info',
@@ -632,17 +632,9 @@
               return;
             }
           }
-          if (this.row === '') {
+          if (this.$refs.roletable.selectedList.length === 0) {
             Message({
               message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          if(this.createy != this.$store.getters.userinfo.userid){
-            Message({
-              message: this.$t('normal.error_26'),
               type: 'info',
               duration: 2 * 1000,
             });
