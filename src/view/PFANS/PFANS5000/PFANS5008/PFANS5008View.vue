@@ -622,9 +622,27 @@
         } else if (val === 'import') {
           this.daoru = true;
         } else if (val === 'delete') {
+          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+            if (this.$refs.roletable.selectedList[i].createby !== this.$store.getters.userinfo.userid) {
+              Message({
+                message: this.$t('normal.error_26'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
           if (this.row === '') {
             Message({
               message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          if(this.createy != this.$store.getters.userinfo.userid){
+            Message({
+              message: this.$t('normal.error_26'),
               type: 'info',
               duration: 2 * 1000,
             });
