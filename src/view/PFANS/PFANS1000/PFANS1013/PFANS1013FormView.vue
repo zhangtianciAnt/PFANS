@@ -1554,16 +1554,16 @@
           //   trigger: 'change',
           // }],
           // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
-          // realstartdate: [{
-          //   required: true,
-          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALSTARTDATE'),
-          //   trigger: 'change',
-          // }],
-          // realenddate: [{
-          //   required: true,
-          //   message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALENDDATE'),
-          //   trigger: 'change',
-          // }],
+          realstartdate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALSTARTDATE'),
+            trigger: 'change',
+          }],
+          realenddate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALENDDATE'),
+            trigger: 'change',
+          }],
           // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
         },
         code1: 'PG002',
@@ -1908,6 +1908,10 @@
           this.showrow3 = true;
           this.showrow2 = false;
           // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+          //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+          this.form.realstartdate = this.form.startdate;
+          this.form.realenddate = this.form.enddate;
+          //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
         }
         else{
           // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
@@ -1920,6 +1924,10 @@
           this.showrow2 = true;
           this.showrow3 = false;
           // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+          //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+          this.form.realstartdate = this.form.startdate;
+          this.form.realenddate = this.form.enddate;
+          //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
         }
           // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
         this.checkmoney = true;
