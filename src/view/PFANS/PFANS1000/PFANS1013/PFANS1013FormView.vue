@@ -1608,7 +1608,6 @@
       //add-ws-7/10-禅道249    if (this.role1 === '0') {
       this.role1 = getCurrentRole();
       //add-ws-7/10-禅道249
-      this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
       let plsummaryinfo = getDictionaryInfo('PJ111008');
       if (plsummaryinfo) {
         // this.tableA[0].plsummary = plsummaryinfo.value1;
@@ -1807,6 +1806,7 @@
                   }
                 }
               }
+              this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
             }
             //add-ws-5/14-其他费用明细添加
             if (response.otherdetails.length > 0) {
@@ -2022,6 +2022,7 @@
         } else {
           this.showAout = true;
         }
+        this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
         if (this.Redirict == '0') {
           // --add-ws-5/14-其他费用明细添加--
           let oldplsummaryinfo = getDictionaryInfo('PJ119007');
@@ -2430,6 +2431,7 @@
             this.form.type = '0';
           }
           this.form.business_id = this.$route.params._name[0].value;
+          this.form.loanamount = this.$route.params._loanmoney;
           this.$nextTick(function() {
             this.changebusiness(this.form.business_id);
           });
@@ -3448,6 +3450,7 @@
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
             //add_fjl_0810  添加出差申请自动带出暂借款
+            //this.form.loanamount = this.relations[i].loanmoney;
             this.change2(this.relations[i].loanapplication_id);
             //add_fjl_0810  添加出差申请自动带出暂借款
           }
@@ -3566,7 +3569,7 @@
 
       change2(val) {
         this.form.loan = val;
-        this.form.loanamount = '';
+        //this.form.loanamount = '';
         this.loading = true;
         this.$store
           .dispatch('PFANS1013Store/getLoanApplication')
@@ -3578,7 +3581,6 @@
                 label: this.$t('menu.PFANS1006') + '_' + response[0].loanapno,
                 moneys: response[0].moneys,
               });
-              this.form.loanamount = response[0].moneys;
             }
             this.loading = false;
           })
@@ -3907,7 +3909,7 @@
                 if (this.form.type === '0') {
                   this.form.balance = this.form.loanamount - this.form.totalpay;
                 } else {
-                  let sumoutold = 0;
+                 /* let sumoutold = 0;
                   let Newsumout = 0;
                   let summoneyt = 0;
                   let summoneya = 0;
@@ -3966,7 +3968,8 @@
                     sumoutold += parseFloat(sumout);
                   }
                   Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
-                  this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;
+                  this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;*/
+                  this.form.balance = this.form.exchangermb - this.form.loanamount;
                 }
                 this.baseInfo = {};
                 this.form.user_id = this.userlist;
