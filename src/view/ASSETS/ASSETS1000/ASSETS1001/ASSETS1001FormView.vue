@@ -120,12 +120,12 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')">
-                    <el-date-picker style="width:20vw" type="date"
-                                    v-model="form.purchasetime"></el-date-picker>
-                  </el-form-item>
-                </el-col>
+<!--                <el-col :span="8">--><!--“购入时间”与“启用日期”含义重复，删掉”购入时间”字段 scc-->
+<!--                  <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')">-->
+<!--                    <el-date-picker style="width:20vw" type="date"-->
+<!--                                    v-model="form.purchasetime"></el-date-picker>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_ACTIVITIONDATE')">
                     <el-date-picker style="width:20vw" type="date"
