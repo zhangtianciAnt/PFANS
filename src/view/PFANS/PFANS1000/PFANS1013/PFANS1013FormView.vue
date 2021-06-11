@@ -3136,6 +3136,9 @@
       deleteRow6(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+          //region add_qhr_20210611 修改结余计算逻辑
+          this.getbalance();
+          //endegion add_qhr_20210611 修改结余计算逻辑
         } else {
           this.tableW = [{
             evectionid: '',
@@ -3146,8 +3149,10 @@
             exchangermb: '',
             currencyexchangerate: '',
           }];
+          //region add_qhr_20210611 修改结余计算逻辑
+          this.form.balance = 0;
+          //endegion add_qhr_20210611 修改结余计算逻辑
         }
-        this.getbalance();
       },
       addRow() {
         //add_fjl_0710 禅道任务264 start
@@ -3975,6 +3980,20 @@
             });
             return;
           }
+          //region add_qhr_20210611 添加【币种】必填项
+          if (this.tableW.length > 0) {
+            for (let i = 0; i < this.tableW.length; i++) {
+              if (this.tableW[i].currency === '' || this.tableW[i].currency === null) {
+                Message({
+                  message: this.$t('label.PFANS1013FORMVIEW_CHECKCURRENCY'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+            }
+          }
+          //endregion add_qhr_20210611 添加【币种】必填项
           //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
           this.$refs['refform'].validate(valid => {
               if (valid) {
