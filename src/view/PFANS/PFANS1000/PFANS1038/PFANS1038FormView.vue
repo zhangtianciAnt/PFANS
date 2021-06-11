@@ -174,19 +174,55 @@
               <el-table-column
                 prop="supchinese"
                 :label="$t('label.PFANS1038VIEW_STATIONED')"
-                width="160"
+                width="210"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
-                  <el-select clearable size="small" v-model="scope.row.supchinese" :disabled="disabled"
-                             :placeholder="$t('normal.error_09')">
-                    <el-option
-                      v-for="item in externalOption"
-                      :key="item.supplierinfor_id"
-                      :label="item.supchinese"
-                      :value="item.supplierinfor_id">
-                    </el-option>
-                  </el-select>
+                  <el-col :span="8">
+                    <div class="dpSupIndex" style="width:16vw">
+                      <el-container>
+                        <input class="content bg" v-model="scope.row.supchinese"
+                               :disabled="disabled" style="min-width: 50%;width: 50%"></input>
+                        <el-button :disabled="disabled" icon="el-icon-search" @click="handleClickE(scope.$index)"
+                                   size="small"></el-button>
+                        <el-dialog :visible.sync="dialogVisibleE" center
+                                   size="50%"
+                                   top="8vh" lock-scroll
+                                   append-to-body>
+                          <div style="text-align: center">
+                            <el-row style="text-align: center;height: 90%;overflow: hidden">
+                              <el-table
+                                :data="externalOption.filter(data => !search || data.supchinese.toLowerCase().includes(search.toLowerCase()))"
+                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                @row-click="rowClickE">
+                                <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                            width="150"></el-table-column>
+                                  <el-table-column property="abbreviation" :label="$t('label.PFANS6001VIEW_ABBREVIATION')"
+                                                   width="120"></el-table-column>
+                                  <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                                   width="80"></el-table-column>
+                                  <el-table-column property="protelephone" :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                                   width="120"></el-table-column>
+                                  <el-table-column
+                                    align="right" width="230">
+                                    <template slot="header" slot-scope="scope">
+                                      <el-input
+                                        v-model="search"
+                                        size="mini"
+                                        placeholder="请输入供应商关键字搜索"/>
+                                    </template>
+                                  </el-table-column>
+                              </el-table>
+                            </el-row>
+                            <span slot="footer" class="dialog-footer">
+                                  <el-button type="primary"
+                                             @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
+                                </span>
+                          </div>
+                        </el-dialog>
+                      </el-container>
+                    </div>
+                  </el-col>
                 </template>
               </el-table-column>
               <el-table-column
@@ -326,9 +362,10 @@
 <script>
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import {Message} from 'element-ui';
-    import {getOrgInfoByUserId,getCurrentRoleNew,getDepartmentById} from '@/utils/customize';
+    import {getOrgInfoByUserId,getCurrentRoleNew,getDepartmentById,getUserInfo} from '@/utils/customize';
     import moment from "moment";
     import {getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
+    import user from "../../../components/user";
 
     export default {
         name: 'PFANS1038FormView',
@@ -389,13 +426,19 @@
                 }],
 
                 loading: false,
-                externalOption: "",
+                externalOption: [],
                 newTableData: [{"name": "", "isoutside": false, "entermouth": null}],
                 tableData: [],
                 activeName: "first",
                 buttonList: [],
                 show: false,
                 show1: false,
+                dialogVisibleE: false,
+                search:'',
+                currentRow1: '',
+                currentRow2: '',
+                currentRow3: '',
+                currentRow4: '',
                 // add-lyt-21/1/29-禅道任务648-start
                 show2:false,
                 show3:false,
@@ -473,6 +516,24 @@
             }
         },
         methods: {
+          handleClickE() {
+            this.dialogVisibleE = true;
+          },
+          rowClickE(row) {
+            this.currentRow = row.supplierinfor_id;
+            this.currentRow1 = row.supchinese;
+            this.currentRow2 = row.abbreviation;
+            this.currentRow3 = row.liableperson;
+            this.currentRow4 = row.protelephone;
+          },
+          submit(row) {
+            row.supplierinfor_id = this.currentRow;
+            row.supchinese = this.currentRow1;
+            row.abbreviation = this.currentRow2;
+            row.liableperson = this.currentRow3;
+            row.protelephone = this.currentRow4;
+            this.dialogVisibleE = false;
+          },
             // yearChange(value) {
             //     this.form.years = moment(value).format('YYYY');
             //     this.newTableData[0].entermouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
@@ -728,7 +789,22 @@
                     .then(response => {
                         this.$store.commit("global/SET_SUPPLIERINFOR", response);
                         if (response.length > 0) {
-                            this.externalOption = response;
+                          for (let j = 0; j < response.length; j++)
+                          {
+                            if (response[j].liableperson !== null && response[j].liableperson !== '') {
+                              let liableperson = getUserInfo(response[j].liableperson);
+                              if (liableperson) {
+                                response[j].liableperson = user.userinfo.customername;
+                              }
+                            }
+                            if (response[j].protelephone !== null && response[j].protelephone !== '') {
+                              let protelephone = getUserInfo(response[j].protelephone);
+                              if (protelephone) {
+                                response[j].protelephone = user.userinfo.customername;
+                              }
+                            }
+                          }
+                          this.externalOption = response;
                         }
                     })
                     .catch(error => {
@@ -822,20 +898,7 @@
                   this.checkRequire();
                   this.form.employed = JSON.stringify(this.tableData);
                   let newTableDatalinshi = [];
-                  if (this.newTableData)
-                  {
-                    for (let i=0;i<this.newTableData.length;i++)
-                    {
-                      if (this.newTableData[i].nextyear!=null && this.newTableData[i].nextyear!='' && this.newTableData[i].nextyear != undefined)
-                      {
-                        newTableDatalinshi.push(this.newTableData[i]);
-                      }
-                    }
-                  }
-                  if (newTableDatalinshi !=[])
-                  {
-                    this.form.newentry = JSON.stringify(newTableDatalinshi);
-                  }
+
 
                   this.form.type = this.$route.params.type;
                   // if (this.userlist !== null && this.userlist !== '') {
@@ -851,11 +914,11 @@
                         error = true;
                       }
                     }
-                    // for (let i = 0; i < this.newTableData.length; i++) {
-                    //     if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined) {
-                    //         error1 = true;
-                    //     }
-                    // }
+                    for (let i = 0; i < this.newTableData.length; i++) {
+                        if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined) {
+                            error1 = true;
+                        }
+                    }
                   }
                   if (this.$route.params.type !== 0) {
                     for (let i = 0; i < this.tableData.length; i++) {
@@ -863,11 +926,30 @@
                         error = true;
                       }
                     }
-                    // for (let i = 0; i < this.newTableData.length; i++) {
-                    //     if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === "") {
-                    //         error1 = true;
-                    //     }
-                    // }
+                    for (let i = 0; i < this.newTableData.length; i++) {
+                        if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === "") {
+                            error1 = true;
+                        }
+                    }
+                  }
+
+                  if (this.newTableData)
+                  {
+                    for (let i=0;i<this.newTableData.length;i++)
+                    {
+                      if (this.newTableData[i].nextyear!=null && this.newTableData[i].nextyear!='' && this.newTableData[i].nextyear != undefined)
+                      {
+                        newTableDatalinshi.push(this.newTableData[i]);
+                      }
+                    }
+                  }
+                  if (newTableDatalinshi !=[])
+                  {
+                    this.form.newentry = JSON.stringify(newTableDatalinshi);
+                  }
+                  else
+                  {
+                    this.form.newentry = newTableDatalinshi;
                   }
 
                   if (error) {
@@ -879,13 +961,13 @@
                       type: 'error',
                       duration: 5 * 1000,
                     });
-                    // } else if (error1) {
-                    //   this.activeName = 'second';
-                    //     Message({
-                    //         message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
-                    //         type: 'error',
-                    //         duration: 5 * 1000,
-                    //     });
+                    } else if (error1) {
+                      this.activeName = 'second';
+                        Message({
+                            message: this.$t('label.PFANS1038VIEW_INFORMATIONSUCCESS'),
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
                   } else if (!this.$route.params._id) {
                     this.loading = true;
                     this.$store

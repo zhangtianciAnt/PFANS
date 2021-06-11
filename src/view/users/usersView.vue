@@ -327,10 +327,6 @@ export default {
           value: "1",
           label: this.$t("label.USERSVIEW_LEAVE")
         },
-        {
-          value: "2",
-          label: this.$t("label.USERSVIEW_NOTLEAVEYET")
-        }
       ]
       //ADD-LXX
     };
@@ -355,16 +351,24 @@ export default {
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
                   return (
-                    moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD')
-                    && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
-                    && (item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD'))
+                    moment(this.starttime).format('YYYY-MM-DD')
+                    <= moment(item.enterday).format('YYYY-MM-DD')
+                    && moment(item.enterday).format('YYYY-MM-DD')
+                    <= moment(this.endTime).format('YYYY-MM-DD')
+                    && (item.resignation_date === null
+                    || item.resignation_date === ""
+                    ||moment(item.resignation_date).format('YYYY-MM-DD')
+                    >=moment(new Date()).format('YYYY-MM-DD'))
                   )
                 });
               }
             }
             else {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date === null
+                  || item.resignation_date === ""
+                  ||moment(item.resignation_date).format('YYYY-MM-DD')
+                  >=moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
@@ -376,14 +380,32 @@ export default {
                 this.endTime = this.working.substring(13, 23);
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
-                  return ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD') &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
+                  return(( moment(this.starttime).format('YYYY-MM-DD')
+                    <=  moment(item.resignation_date).format('YYYY-MM-DD')
+                    &&  moment(item.resignation_date).format('YYYY-MM-DD')
+                    <= moment(this.endTime).format('YYYY-MM-DD')
+                    && moment(item.resignation_date).format('YYYY-MM-DD')
+                    <moment(new Date()).format('YYYY-MM-DD')))
+                    // //待离职
+                    ||  moment(this.starttime).format('YYYY-MM-DD')
+                    <=  moment(item.resignation_date).format('YYYY-MM-DD')
+                    &&  moment(item.resignation_date).format('YYYY-MM-DD')
+                    <= moment(this.endTime).format('YYYY-MM-DD')
+                    && moment(item.resignation_date).format('YYYY-MM-DD')
+                    >moment(new Date()).format('YYYY-MM-DD')
                 });
               }
             }
             else
             {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date !== null
+                  || item.resignation_date !== ""
+                  && moment(item.resignation_date).format('YYYY-MM-DD')
+                  <moment(new Date()).format('YYYY-MM-DD')
+                // //待离职
+                // || moment(item.resignation_date).format('YYYY-MM-DD')
+                // >=moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }

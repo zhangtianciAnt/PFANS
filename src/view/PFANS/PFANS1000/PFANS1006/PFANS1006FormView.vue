@@ -1374,7 +1374,7 @@
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if (dic.length > 0) {
                 for (let i = 0; i < dic.length; i++) {
-                  if (butinfo === (dic[i].value1).substring(0, 3)) {
+                  if (butinfo === (dic[i].value1).substring(0,3)) {
                     this.options1.push({
                       lable: dic[i].value2 + '_' + dic[i].value3,
                       value: dic[i].code,
@@ -1667,12 +1667,56 @@
         this.buttonClick('update');
       },
       paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1001FormView',
-          params: {
-            title: 6,
-          },
-        });
+        // add_zy_210608  暂借款申请返回按钮到一览画面  start
+        let _judgements_type =  this.$route.params._judgements_type;
+        let _re_title = '';
+        if(_judgements_type) {
+          if (_judgements_type === this.$t('label.PFANS1012VIEW_CHECKLIST')) {
+            this.$router.push({
+              name: 'PFANS1025View',
+              params: {
+              },
+            });
+            return;
+          }
+
+          if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSES')) {
+            this.$router.push({
+              name: 'PFANS3005View',
+              params: {
+              },
+            });
+            return;
+          }
+
+          if (_judgements_type === this.$t('title.PFANS1002VIEW')) {
+            _re_title = 1;
+          } else if (_judgements_type === this.$t('title.PFANS1035VIEW')) {
+            _re_title = 2;
+          } else if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSESWC')) {
+            _re_title = 3;
+          } else if (_judgements_type === this.$t('title.PFANS1004VIEW')) {
+            _re_title = 4;
+          } else if (_judgements_type === this.$t('menu.PFANS1005')) {
+            _re_title = 5;
+          } else if (_judgements_type === this.$t('menu.PFANS1010')) {
+            _re_title = 10;
+          }
+          this.$router.push({
+            name: 'PFANS1001FormView',
+            params: {
+              title: _re_title,
+            },
+          });
+        }else{
+          this.$router.push({
+            name: 'PFANS1001FormView',
+            params: {
+              title: 6,
+            },
+          });
+        }
+        // add_zy_210608  暂借款申请返回按钮到一览画面  end
       },
       //add-fjl-0816-暂借款中，点击决裁，跳转画面
       //upd-ws-02/19-NT_PFANS_20210204_BUG_015-from

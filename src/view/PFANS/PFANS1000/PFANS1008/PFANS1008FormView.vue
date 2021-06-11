@@ -209,7 +209,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import {Message} from 'element-ui'
-  import {getOrgInfo, getOrgInfoByUserId,getUserInfoName} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName} from '@/utils/customize';
   import org from "../../../components/org";
   import moment from "moment";
 
@@ -547,27 +547,12 @@
             this.tubegrouporglist = this.form.tubegroup_id;
             this.tubeteamorglist = this.form.tubeteam_id;
             //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
-            this.workflowAnt.dataId = this.$route.params._id;
-            this.workflowAnt.menuUrl = '/PFANS1008FormView';
-            this.$store
-              .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
-              this.workflowAntDate = response.data;
-              let dic = '';
-              if(this.workflowAntDate.length != 0){
-                dic = this.workflowAntDate.filter(item => item.result === '进行中')[0].nodename;
-              }else{
-                dic = '0'
+            if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
+              let groupInfo = getOrgInfo(this.form.tubegroup_id);
+              if (groupInfo) {
+                this.userlistLc.push(groupInfo.user);
               }
-              // if(dic === 'GM'){
-              if(dic.indexOf('GM') != -1){
-                if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
-                  let groupInfo = getOrgInfo(this.form.tubegroup_id);
-                  if (groupInfo) {
-                    this.userlistLc.push(groupInfo.user);
-                  }
-                }
-              }
-            });
+            }
             //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
             //add-ws-7/2-禅道任务192
             this.getFebud(this.form.ferrycenter_id);
@@ -622,7 +607,7 @@
             }
             if (this.assetsList[i].principal !== null && this.assetsList[i].principal !== '') {
               let userinfo = getUserInfoName(this.assetsList[i].principal)
-              if(userinfo != '-1'){
+              if (userinfo != '-1') {
                 vote.person = userinfo.userid;
               }
             }
@@ -700,7 +685,7 @@
         if (val != "") {
           this.getOrgInformation(val);
           this.getFebud(val);
-        }else{
+        } else {
           this.getFebud(this.form.ferrycenter_id);
         }
         if (this.form.ferrycenter_id === "") {
@@ -722,21 +707,21 @@
         if (val !== '' && val !== null) {
           this.options = [];
           // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-          if(getOrgInfo(val)){
-              let butinfo = (getOrgInfo(val).encoding).substring(0,3);
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                  for (let i = 0; i < dic.length; i++) {
-                      if (butinfo === (dic[i].value1).substring(0,3)) {
-                          this.options.push({
-                              lable: dic[i].value3,
-                              value: dic[i].code,
-                          })
-                      }
-                  }
+          if (getOrgInfo(val)) {
+            let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+              for (let i = 0; i < dic.length; i++) {
+                if (butinfo === (dic[i].value1).substring(0, 3)) {
+                  this.options.push({
+                    lable: dic[i].value3,
+                    value: dic[i].code,
+                  })
+                }
               }
+            }
           }
-          if(this.options.length === 0) {
+          if (this.options.length === 0) {
             if (getOrgInfo(this.form.ferrygroup_id)) {
               let butinfo = (getOrgInfo(this.form.ferrygroup_id).encoding).substring(0, 3);
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
@@ -762,25 +747,25 @@
         if (val !== '' && val !== null) {
           this.options1 = [];
           // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-          if(getOrgInfo(val)){
-              let butinfo = (getOrgInfo(val).encoding).substring(0,3);
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                  for (let i = 0; i < dic.length; i++) {
-                      if (butinfo === (dic[i].value1).substring(0,3)) {
-                          this.options1.push({
-                              lable: dic[i].value3,
-                              value: dic[i].code,
-                          })
-                      }
-                  }
+          if (getOrgInfo(val)) {
+            let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            if (dic.length > 0) {
+              for (let i = 0; i < dic.length; i++) {
+                if (butinfo === (dic[i].value1).substring(0, 3)) {
+                  this.options1.push({
+                    lable: dic[i].value3,
+                    value: dic[i].code,
+                  })
+                }
               }
-            if(this.options1.length === 0){
-              let butinfo = (getOrgInfo(this.form.tubegroup_id).encoding).substring(0,3);
+            }
+            if (this.options1.length === 0) {
+              let butinfo = (getOrgInfo(this.form.tubegroup_id).encoding).substring(0, 3);
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if (dic.length > 0) {
                 for (let i = 0; i < dic.length; i++) {
-                  if (butinfo === (dic[i].value1).substring(0,3)) {
+                  if (butinfo === (dic[i].value1).substring(0, 3)) {
                     this.options1.push({
                       lable: dic[i].value2 + '_' + dic[i].value3,
                       value: dic[i].code,
@@ -879,7 +864,7 @@
         if (val != "") {
           this.getOrgInformation2(val);
           this.getFebud1(val);
-        }else{
+        } else {
           this.getFebud1(this.form.tubecenter_id);
         }
         if (this.form.tubecenter_id === "") {

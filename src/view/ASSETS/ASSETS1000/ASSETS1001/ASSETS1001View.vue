@@ -336,6 +336,9 @@
         rowid: '',
         row_id: 'assets_id',
         selectedlist: [],
+        //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
+        _count: 0
+        //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 end
       };
     },
     computed: {
@@ -511,6 +514,17 @@
         this.$store
           .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
           .then(response => {
+            //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
+            this._count = 0;
+            let p = 0;
+            response.filter((item) => {
+              if (item.principal === this.$store.getters.userinfo.userid) {
+                p++;
+              }
+            });
+            this._count = p;
+            //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 end
+
             for (let j = 0; j < response.length; j++) {
               // response[j].principal1 = response[j].principal;
               response[j].psdcdreturnconfirmation1 = response[j].psdcdreturnconfirmation;
@@ -805,13 +819,35 @@
               }
               //PSDCD_PFANS_20201124_XQ_031 ztc end 需求未实现重新对应
             }
+            //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
+            let _p = 0;
+            let _flag = false;
+            if(this.$store.getters.userinfo.userinfo.resignation_date) {
+              _flag = true;
+              this.$refs.roletable.selectedList.filter((item) => {
+                if (getUserInfoName(item.principal).userid === this.$store.getters.userinfo.userid) {
+                  _p++;
+                }
+              })
+            }
+            //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 end
             if (R === 0) {
               Message({
                 message: this.$t('normal.error_23'),
                 type: 'error',
                 duration: 3 * 1000,
               });
-            } else {
+            }
+            //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
+            else if(_flag && this._count !== _p) {
+              Message({
+                message: this.$t('normal.error_27'),
+                type: 'error',
+                duration: 3 * 1000,
+              });
+            }
+            //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 end
+            else {
               this.pop_assettransfer = true;
             }
           }

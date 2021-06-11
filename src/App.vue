@@ -1,5 +1,5 @@
 <template>
-  <div class="theme_panasonic">
+  <div class="theme_panasonic" style="overflow-y: scroll">
     <transition name="el-fade-in">
       <router-view style="font-family: 'Helvetica Neue', 'Arial'"/>
     </transition>

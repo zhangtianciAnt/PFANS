@@ -2184,6 +2184,11 @@
                               value: dicnew[a].code,
                               lable: dicnew[a].value1,
                             });
+                          }else if(dicnew[a].code === 'PJ119004'){
+                            this.tableP[i].accoundoptionsdateP.push({
+                              value: dicnew[a].code,
+                              lable: dicnew[a].value1,
+                            });
                           }
                         }
                       } else if (this.tableP[i].plsummary === 'PJ111010') {
@@ -2201,6 +2206,11 @@
                         let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
                         for (let a = 0; a < dicnew.length; a++) {
                           if (dicnew[a].code === 'PJ132003') {
+                            this.tableP[i].accoundoptionsdateP.push({
+                              value: dicnew[a].code,
+                              lable: dicnew[a].value1,
+                            });
+                          }else if (dicnew[a].code === 'PJ132004') {
                             this.tableP[i].accoundoptionsdateP.push({
                               value: dicnew[a].code,
                               lable: dicnew[a].value1,
@@ -3705,6 +3715,11 @@
                   value: dicnew[a].code,
                   lable: dicnew[a].value1,
                 });
+              }else if(dicnew[a].code === 'PJ119004'){
+                row.accoundoptionsdateP.push({
+                  value: dicnew[a].code,
+                  lable: dicnew[a].value1,
+                });
               }
             }
           } else if (row.plsummary === 'PJ111010') {
@@ -3723,6 +3738,11 @@
             let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ132');
             for (let a = 0; a < dicnew.length; a++) {
               if (dicnew[a].code === 'PJ132003') {
+                row.accoundoptionsdateP.push({
+                  value: dicnew[a].code,
+                  lable: dicnew[a].value1,
+                });
+              }else if (dicnew[a].code === 'PJ132004') {
                 row.accoundoptionsdateP.push({
                   value: dicnew[a].code,
                   lable: dicnew[a].value1,
@@ -4789,10 +4809,35 @@
             }
           } else {
             //add-ws-9/25-禅道任务567
-            this.$router.push({
-              name: 'PFANS1012View',
-              params: {},
-            });
+            // add_zy_210608  精算返回按钮到一览画面  start
+            let _re_title = '';
+            let _name = [];
+            _name =  this.$route.params._name;
+            if(_name) {
+              let _judgements_type = _name[0].judgements_type;
+              if (_judgements_type === this.$t('menu.PFANS1010')) {
+                _re_title = 10;
+              } else if (_judgements_type === this.$t('title.PFANS1004VIEW')) {
+                _re_title = 4;
+              } else if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSESWC')) {
+                _re_title = 3;
+              } else if (_judgements_type === this.$t('menu.PFANS1005')) {
+                _re_title = 5;
+              }
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: _re_title,
+                },
+              });
+            }else{
+              this.$router.push({
+                name: 'PFANS1012View',
+                params: {
+                },
+              });
+            }
+            // add_zy_210608  精算返回按钮到一览画面  end
           }
           //add-fjl-0813-精算中，点击决裁，跳转画面
         }
@@ -4912,19 +4957,21 @@
                   }
                   sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
                   sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                  //PSDCD_PFANS_20210519_BUG_007 bug修改 fr
                   if (sumtaxes < 0) {
-                    if (taxesm === 0) {
+                    if (taxesm === 0 && sumtaxesT === 0) {
                       this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
                     } else {
                       this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
                     }
                   } else if (sumtaxes > 0) {
-                    if (taxesm === 0) {
+                    if (taxesm === 0 && sumtaxesT === 0) {
                       this.tableR[taxesn].taxes = (Number(this.tableR[taxesn].taxes) - Number(sumtaxes)).toFixed(2);
                     } else {
                       this.tableP[taxesm].taxes = (Number(this.tableP[taxesm].taxes) - Number(sumtaxes)).toFixed(2);
                     }
                   }
+                  //PSDCD_PFANS_20210519_BUG_007 bug修改 to
                   //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  end
                   sum += this.tableF[i].invoiceamount;
                   if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
