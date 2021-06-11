@@ -474,7 +474,11 @@
               }, []);
               for (let i = 0; i < filtersrst.length; i++) {
                 if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
-                  filtersrst[i].code = '全部';
+                  // let temp = "";
+                  //设备管理部门选择下拉框，'全部'为首选项 scc 2021.6.11
+                  filtersrst[i].code = filtersrst[i-1].code;
+                  filtersrst[i-1].code = '全部';
+                  // filtersrst[i].code = '全部';
                 }
               }
               this.options = filtersrst;
