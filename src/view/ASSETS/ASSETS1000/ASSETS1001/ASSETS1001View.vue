@@ -477,7 +477,10 @@
               }, []);
               for (let i = 0; i < filtersrst.length; i++) {
                 if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
-                  filtersrst[i].code = '全部';
+                  // filtersrst[i].code = '全部';
+                  //设备管理页面，部门下拉框'全部'为首选  add scc
+                  filtersrst[i].code = filtersrst[i-1].code;
+                  filtersrst[i-1].code = '全部';
                 }
               }
               this.options = filtersrst;
