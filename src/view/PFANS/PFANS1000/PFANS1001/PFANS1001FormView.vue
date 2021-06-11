@@ -1414,6 +1414,11 @@
               //del ccm 0813 决裁到暂借款，精算  check去掉
               if (loan != null && loan != '' && loan != undefined) {
                 loan = loan.substring(0, loan.length - 1);
+                let loanmoneyAnt = 0
+                if(this.selectedlist[0].loanmoney != null && this.selectedlist[0].loanmoney != ''
+                  && this.selectedlist[0].loanmoney != undefined){
+                  loanmoneyAnt = this.selectedlist[0].loanmoney
+                }
                 if (loan != null && loan != '' && loan != undefined) {
                   this.$router.push({
                     name: 'PFANS1013FormView',
@@ -1421,6 +1426,7 @@
                       _name: optionsSEL,
                       _typecheck: type,
                       _haveLoanapp: loanid,
+                      _loanmoney: loanmoneyAnt,
                       disabled: true,
                     },
                   });

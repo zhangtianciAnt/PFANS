@@ -419,7 +419,7 @@
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row" :disabled="!disable"
                                              :precision="2" :step="1"
-                                             controls-position="right" style="width: 100%"
+                                             controls-position="right" style="width: 100%" @change="getbalance"
                                              v-model="scope.row.exchangermb">
                             </el-input-number>
                           </template>
@@ -2152,6 +2152,77 @@
       }
     },
     methods: {
+      getbalance() {
+        if (this.form.type === '0') {
+          this.form.balance = this.form.loanamount - this.form.totalpay;
+        } else {
+          /* let sumoutold = 0;
+           let Newsumout = 0;
+           let summoneyt = 0;
+           let summoneya = 0;
+           let summoneyr = 0;
+           for (let i = 0; i < this.tableT.length; i++) {
+             if (this.tableT[i].currency === '') {
+               summoneyt += this.tableT[i].rmb;
+             }
+           }
+           for (let i = 0; i < this.tableA.length; i++) {
+             if (this.tableA[i].currency === '') {
+               summoneya += this.tableA[i].rmb;
+             }
+           }
+           for (let i = 0; i < this.tableR.length; i++) {
+             if (this.tableR[i].currency === '') {
+               summoneyr += this.tableR[i].rmb;
+             }
+           }
+
+           for (let j = 0; j < this.tableW.length; j++) {
+             let summoney = 0;
+             let summoneyT = 0;
+             let sumMoney = 0;
+             let sumout = 0;
+             let exchangerate = 0;
+             for (let i = 0; i < this.tableT.length; i++) {
+               if (this.tableT[i].currency !== '') {
+                 if (this.tableT[i].currency == this.tableW[j].currency) {
+                   if (this.tableT[i].foreigncurrency != '0') {
+                     summoneyT += this.tableT[i].foreigncurrency;
+                   }
+                 }
+               }
+             }
+             for (let i = 0; i < this.tableA.length; i++) {
+               if (this.tableA[i].currency !== '') {
+                 if (this.tableA[i].currency == this.tableW[j].currency) {
+                   if (this.tableA[i].travel != '0') {
+                     summoney += this.tableA[i].travel;
+                   }
+                 }
+               }
+             }
+             for (let i = 0; i < this.tableR.length; i++) {
+               if (this.tableR[i].currency !== '') {
+                 if (this.tableR[i].currency == this.tableW[j].currency) {
+                   if (this.tableR[i].foreigncurrency != '0') {
+                     sumMoney += this.tableR[i].foreigncurrency;
+                   }
+                 }
+               }
+             }
+             exchangerate = this.tableW[j].exchangerate;
+             sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
+             sumoutold += parseFloat(sumout);
+           }
+           Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
+           this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;*/
+          let exchangermb = 0;
+          for (let i = 0; i < this.tableW.length; i++) {
+            exchangermb += Number(this.tableW[i].exchangermb);
+          }
+          this.form.balance = exchangermb - Number(this.form.loanamount);
+        }
+      },
       //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
       dateCom() {
         if (this.form.realstartdate != '' && this.form.realstartdate != null && this.form.realenddate != '' && this.form.realenddate != null) {
@@ -2958,6 +3029,7 @@
         } else {
           row.exchangermb = 0.00;
         }
+        this.getbalance();
       },
       changesummoney(row) {
         row.facetax = row.invoiceamount - row.excludingtax;
@@ -3075,6 +3147,7 @@
             currencyexchangerate: '',
           }];
         }
+        this.getbalance();
       },
       addRow() {
         //add_fjl_0710 禅道任务264 start
@@ -3450,7 +3523,6 @@
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
             //add_fjl_0810  添加出差申请自动带出暂借款
-            //this.form.loanamount = this.relations[i].loanmoney;
             this.change2(this.relations[i].loanapplication_id);
             //add_fjl_0810  添加出差申请自动带出暂借款
           }
@@ -3906,71 +3978,7 @@
           //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
           this.$refs['refform'].validate(valid => {
               if (valid) {
-                if (this.form.type === '0') {
-                  this.form.balance = this.form.loanamount - this.form.totalpay;
-                } else {
-                 /* let sumoutold = 0;
-                  let Newsumout = 0;
-                  let summoneyt = 0;
-                  let summoneya = 0;
-                  let summoneyr = 0;
-                  for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].currency === '') {
-                      summoneyt += this.tableT[i].rmb;
-                    }
-                  }
-                  for (let i = 0; i < this.tableA.length; i++) {
-                    if (this.tableA[i].currency === '') {
-                      summoneya += this.tableA[i].rmb;
-                    }
-                  }
-                  for (let i = 0; i < this.tableR.length; i++) {
-                    if (this.tableR[i].currency === '') {
-                      summoneyr += this.tableR[i].rmb;
-                    }
-                  }
 
-                  for (let j = 0; j < this.tableW.length; j++) {
-                    let summoney = 0;
-                    let summoneyT = 0;
-                    let sumMoney = 0;
-                    let sumout = 0;
-                    let exchangerate = 0;
-                    for (let i = 0; i < this.tableT.length; i++) {
-                      if (this.tableT[i].currency !== '') {
-                        if (this.tableT[i].currency == this.tableW[j].currency) {
-                          if (this.tableT[i].foreigncurrency != '0') {
-                            summoneyT += this.tableT[i].foreigncurrency;
-                          }
-                        }
-                      }
-                    }
-                    for (let i = 0; i < this.tableA.length; i++) {
-                      if (this.tableA[i].currency !== '') {
-                        if (this.tableA[i].currency == this.tableW[j].currency) {
-                          if (this.tableA[i].travel != '0') {
-                            summoney += this.tableA[i].travel;
-                          }
-                        }
-                      }
-                    }
-                    for (let i = 0; i < this.tableR.length; i++) {
-                      if (this.tableR[i].currency !== '') {
-                        if (this.tableR[i].currency == this.tableW[j].currency) {
-                          if (this.tableR[i].foreigncurrency != '0') {
-                            sumMoney += this.tableR[i].foreigncurrency;
-                          }
-                        }
-                      }
-                    }
-                    exchangerate = this.tableW[j].exchangerate;
-                    sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
-                    sumoutold += parseFloat(sumout);
-                  }
-                  Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
-                  this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;*/
-                  this.form.balance = this.form.exchangermb - this.form.loanamount;
-                }
                 this.baseInfo = {};
                 this.form.user_id = this.userlist;
                 this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
