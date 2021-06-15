@@ -128,4 +128,12 @@ export function selectConnumList(data) {
   })
 }
 
+export function report(data) {
+  return request({
+    url: 'companyprojects/report',
+    method: 'get',
+    params: data
+  })
+}
+
 
