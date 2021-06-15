@@ -188,12 +188,13 @@
                   <!--                  ADD_FJL_0819  添加区分-->
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.accountnumber"></el-input>
-                    </el-form-item>
-                  </el-col>
+                  <!--与财务王颖确认此项在系统中没有用 ztc-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>-->
+<!--                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"-->
+<!--                                v-model="form.accountnumber"></el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <!--add-ws-8/12-禅道任务446-->
                   <el-col :span="8" v-if="this.role2==='0'">
                     <el-form-item :label="$t('label.status')">
@@ -712,7 +713,7 @@
         ],
         // add-ws-8/12-禅道任务446
         gridData: [],
-        flag: false,
+        // flag: false,
         role1: '',
         centerid: '',
         groupid: '',
@@ -966,9 +967,9 @@
       this.getsupplierinfor();
       let userid = this.$store.getters.userinfo.userid;
       let groupid = getUserInfo(userid).userinfo.groupid;
-      if (groupid === '91B253A1C605E9CA814462FB4C4D2605F43F') {
-        this.flag = true;
-      }
+      // if (groupid === '91B253A1C605E9CA814462FB4C4D2605F43F') {
+      //   this.flag = true;
+      // }
       this.IDname = this.$route.params._id;
       //add_fjl_0929  查询公共费用中的暂借款 start
       this.getpublice();
