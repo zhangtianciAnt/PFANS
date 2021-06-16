@@ -80,12 +80,13 @@
                                 v-model="form.moduleidApp" v-if="show9"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="account_number">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.accountnumber"></el-input>
-                    </el-form-item>
-                  </el-col>
+                  <!--与财务王颖确认此项在系统中没有用 ztc-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="account_number">-->
+<!--                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"-->
+<!--                                v-model="form.accountnumber"></el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
                       <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
