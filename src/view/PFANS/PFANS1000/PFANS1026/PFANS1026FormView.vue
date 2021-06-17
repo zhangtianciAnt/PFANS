@@ -718,7 +718,7 @@
             </el-table-column>
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
-                    :header-cell-style="getRowClass1" style="padding-top: 2vw"
+                    :header-cell-style="getRowClass1" style="padding-top: 2vw" :default-sort = "{prop: 'claimtype', order: 'ascending'}"
                     @selection-change="handleSelectionChange">
             <el-table-column
               type="selection"
@@ -779,7 +779,7 @@
                       :multiple="multiple"
                       @change="getDeliveryqh"
                       style="width: 11rem"
-                      :disabled="scope.row.npbook ? true : !disabled">
+                      :disabled="scope.row.napinbook ? true : !bookStatussawardafter">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -813,7 +813,7 @@
                       :multiple="multiple"
                       @change="getClaimqh"
                       style="width: 11rem"
-                      :disabled="scope.row.npbook ? true : !disabled">
+                      :disabled="scope.row.napinbook ? true : !bookStatussawardafter">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -891,7 +891,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.qingremarksqh'">
-                  <el-input :disabled="scope.row.npbook ? true : !disabled" v-model="scope.row.qingremarksqh">
+                  <el-input :disabled="scope.row.napinbook ? true : !bookStatussawardafter" v-model="scope.row.qingremarksqh">
                   </el-input>
                 </el-form-item>
               </template>
@@ -930,7 +930,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarksqh" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
-                  <el-input :disabled="scope.row.npbook ? true : !disabled" v-model="scope.row.remarksqh">
+                  <el-input :disabled="scope.row.napinbook ? true : !bookStatussawardafter" v-model="scope.row.remarksqh">
                   </el-input>
                 </el-form-item>
               </template>
@@ -1117,7 +1117,6 @@
   import ElInput from '../../../../../node_modules/element-ui/packages/input/src/input.vue';
   import ElFormItem from '../../../../../node_modules/element-ui/packages/form/src/form-item.vue';
   import monthlyrate from '../../../components/monthlyrate';
-  import {getCurrentRole,getCurrentRoleeditnapin} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS1026View',
@@ -1750,6 +1749,7 @@
         claimamount4: '',
         peid: '',
         tempMountList: [],
+        NaPpinAftercount:[],
       };
     },
     mounted() {
@@ -1893,13 +1893,63 @@
                   contractnumbercount[i].npbook = false;
                   this.bookStatuss = false;
                 }
-                if(contractnumbercount[i].tenantid === '0')
-                {
-                  contractnumbercount[i].npbook = true;
-                }
-
+                contractnumbercount[i].napinbook = false;
               }
-              this.form.tableclaimtype = contractnumbercount;
+              //add ccm
+              this.NaPpinAftercount = [];
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS1026Store/getNaPpinAftercount', {'contractnumber': this.$route.params._id})
+                .then(response => {
+                  if (response.length > 0) {
+                    for (let i = 0; i < response.length; i++) {
+                      response[i].napinbook = true;
+                      response[i].npbook = true;
+                    }
+                  }
+                  this.NaPpinAftercount = response;
+                  if (this.NaPpinAftercount.length>0)
+                  {
+                    for (let c = 0; c < this.NaPpinAftercount.length; c++)
+                    {
+                      let cl = contractnumbercount.filter(item => item.claimtype === this.NaPpinAftercount[c].claimtype);
+                      if (cl === null || cl === undefined || cl.length === 0)
+                      {
+                        this.NaPpinAftercount[c].npbook = true;
+                        this.NaPpinAftercount[c].napinbook = true;
+                        this.NaPpinAftercount[c].flag = true;
+                        let cll = this.form.tableclaimtype.filter(item => item.claimtype === this.NaPpinAftercount[c].claimtype);
+                        if (cll === null || cll === undefined || cll.length === 0)
+                        {
+                          let claimdatetime = this.NaPpinAftercount[c].claimdatetimeqh;
+                          let claimdatetim = claimdatetime.slice(0, 10);
+                          let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                          this.NaPpinAftercount[c].claimdatetimeqh = [claimdatetim, claimdatetime1];
+                          this.NaPpinAftercount[c].letrecoverystatus = this.NaPpinAftercount[c].recoverystatus;
+                          this.form.tableclaimtype.push(this.NaPpinAftercount[c]);
+                        }
+                      }
+                    }
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+              for (let k = 0; k < contractnumbercount.length; k++)
+              {
+                contractnumbercount[k].flag = false;
+                this.form.tableclaimtype.push(contractnumbercount[k]);
+              }
+
+              //add ccm
+
               if (this.displaycompound) {
                 this.optionscompound = [];
 
@@ -1958,45 +2008,17 @@
                 //   this.claimamount3 = contractnumbercount[2].claimamount;
                 //   this.claimamount4 = contractnumbercount[3].claimamount;
                 // }
-                let lengthjue = 0;
                 for (let k = 0; k < contractnumbercount.length; k++) {
-                  if (contractnumbercount[k].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-                  {
-                    lengthjue = lengthjue+1;
-                  }
-                }
-                if (lengthjue === contractnumbercount.length || lengthjue===0 )
-                {
-                  for (let k = 0; k < contractnumbercount.length; k++) {
-                    let letclaimtypeone = contractnumbercount[k].claimtype;
-                    let option1 = {};
-                    option1.code = letclaimtypeone;
-                    option1.value = letclaimtypeone;
+                  let letclaimtypeone = contractnumbercount[k].claimtype;
+                  let option1 = {};
+                  option1.code = letclaimtypeone;
+                  option1.value = letclaimtypeone;
 
-                    this.optionscompound.push(option1);
-                    let op = [];
-                    op.claimtype = contractnumbercount[k].claimtype;
-                    op.claimamount = contractnumbercount[k].claimamount;
-                    this.tempMountList.push(op);
-                  }
-                }
-                else
-                {
-                  for (let k = 0; k < contractnumbercount.length; k++) {
-                    if (contractnumbercount[k].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-                    {
-                      let letclaimtypeone = contractnumbercount[k].claimtype;
-                      let option1 = {};
-                      option1.code = letclaimtypeone;
-                      option1.value = letclaimtypeone;
-
-                      this.optionscompound.push(option1);
-                      let op = [];
-                      op.claimtype = contractnumbercount[k].claimtype;
-                      op.claimamount = contractnumbercount[k].claimamount;
-                      this.tempMountList.push(op);
-                    }
-                  }
+                  this.optionscompound.push(option1);
+                  let op = [];
+                  op.claimtype = contractnumbercount[k].claimtype;
+                  op.claimamount = contractnumbercount[k].claimamount;
+                  this.tempMountList.push(op);
                 }
               }
             }
@@ -2860,20 +2882,31 @@
         let flag = 0;
         let con = rows.length + 1;
         let cla = 0;
-        for (let h = 0; h < this.tableclaimtypeAnt.length; h++) {
-          if (this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1) {
-            flag++;
-            cla = h;
-          }
-        }
+        // for (let h = 0; h < this.tableclaimtypeAnt.length; h++) {
+        //   if (this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1) {
+        //     flag++;
+        //     cla = h;
+        //   }
+        // }
         if (flag == 0) {
           let lengthjue = 0;
           if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0)
           {
-            for (let h = 0; h < this.form.tableclaimtype.length; h++) {
-              if (this.form.tableclaimtype[h].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+            let claimtypelinshi = this.form.tableclaimtype.filter(item => item.flag != true);
+            for (let h = 0; h < claimtypelinshi.length; h++) {
+              if (claimtypelinshi[h].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
               {
                 lengthjue = lengthjue+1;
+              }
+              claimtypelinshi[h].napinbook = false;
+            }
+            //
+            for (let d = 0; d < this.form.tableclaimtype.length; d++)
+            {
+              let claimtypefanlinshi = claimtypelinshi.filter(item => item.claimtype === this.form.tableclaimtype[d].claimtype);
+              if (claimtypefanlinshi)
+              {
+                this.form.tableclaimtype.napinbook = false;
               }
             }
           }
@@ -2906,6 +2939,7 @@
             remarksqh: '',
             recoverystatus: '0',
             recoverydate: '',
+            napinbook:false,
           });
 
           let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letclaimtypejue + this.$t('label.PFANS1026FORMVIEW_H');
@@ -2913,15 +2947,11 @@
           option1.code = letclaimtypeone;
           option1.value = letclaimtypeone;
 
-          this.optionscompound.push(option1);
-
-        } else {
-          this.tableclaimtypeAnt[cla].claimtype = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length + 1) + this.$t('label.PFANS1026FORMVIEW_H');
-          this.tableclaimtypeAnt[cla].contractnumbercount_id = '';
-          this.tableclaimtypeAnt[cla].contractnumber = this.letcontractnumber;
-          this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
+          if (this.optionscompound.indexOf(option1)==-1)
+          {
+            this.optionscompound.push(option1);
+          }
         }
-
       },
       deleteRowclaimtype1(index, rows) {
         let datainfo = {};
@@ -2952,6 +2982,7 @@
                       {
                         lengthjue = lengthjue+1;
                       }
+                      this.form.tableclaimtype[h].napinbook = false;
                     }
                   }
                   for (let i = index; i < rows.length; i++) {
@@ -2995,8 +3026,10 @@
                       remarksqh: '',
                       recoverystatus: '',
                       recoverydate: '',
+                      napinbook : false,
                     },
                   ];
+                  this.optionscompound=[];
                 }
               }
             }
@@ -3058,53 +3091,24 @@
         //   this.claimamount4 = val.claimamount;
         // }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
-        let counttype = 0;
-        for (let t = 0; t < this.form.tableclaimtype.length; t++)
-        {
-          if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-          {
-            counttype = counttype+1;
-          }
-        }
+        let tabletype = this.form.tableclaimtype.filter(item => item.flag!=true);
         for (let i = 0; i < this.form.tabledata.length; i++) {
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-            this.form.tabledata[i].claimamount = 0;
-            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              if (counttype === this.form.tableclaimtype.length || counttype ===0)
-              {
-                this.form.tabledata[i].claimamount = Number(this.form.tabledata[i].claimamount) + Number(this.form.tableclaimtype[j].claimamount);
-              }
-              else
-              {
-                if(this.form.tableclaimtype[j].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-                {
-                  this.form.tabledata[i].claimamount = Number(this.form.tabledata[i].claimamount) + Number(this.form.tableclaimtype[j].claimamount);
-                }
-              }
+            let sumclaimamount = 0;
+            for (let i = 0; i < tabletype.length; i++) {
+              sumclaimamount = sumclaimamount + Number(tabletype[i].claimamount);
             }
+            this.form.tabledata[i].claimamount = sumclaimamount;
           }
         }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
         for (let i = 0; i < this.form.tablecompound.length; i++) {
-          // for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-          //   if (counttype === this.form.tableclaimtype.length || counttype ===0)
-          //   {
-          //     if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
-          //       this.form.tablecompound[i].claimamount = this.form.tableclaimtype[j].claimamount;
-          //     }
-          //   }
-          //   else
-          //   {
-          //     if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS') + this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
-          //       this.form.tablecompound[i].claimamount = this.form.tableclaimtype[j].claimamount;
-          //     }
-          //   }
-          // }
-          let tablelin = this.form.tableclaimtype.filter(item => item.claimtype === this.form.tablecompound[i].claimtype);
-          if (tablelin.length>0)
-          {
-            this.form.tablecompound[i].claimamount = tablelin[0].claimamount;
+          for (let j = 0; j < tabletype.length; j++) {
+            if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
+              this.form.tablecompound[i].claimamount = tabletype[j].claimamount;
+            }
           }
+
           // if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_TWO')) != -1) {
           //   this.form.tablecompound[i].claimamount = this.claimamount2;
           // }
@@ -3115,15 +3119,6 @@
           //   this.form.tablecompound[i].claimamount = this.claimamount4;
           // }
         }
-        for (let n = 0; n < this.tempMountList.length;n++)
-        {
-          let tablelin = this.form.tablecompound.filter(item => item.claimtype === this.tempMountList[n].claimtype);
-            if (tablelin.length>0)
-            {
-              this.tempMountList[n].claimamount = tablelin[0].claimamount;
-            }
-        }
-
       },
       //复合请求方式
       changeclaimtype(val) {
@@ -3135,7 +3130,8 @@
           val.claimamount = datamount[0].claimamount;
         } else {
           //新建
-          datamount = this.form.tableclaimtype.filter(item => item.claimtype == val.claimtype);
+          let tabletype = this.form.tableclaimtype.filter(item => item.flag!=true);
+          datamount = tabletype.filter(item => item.claimtype == val.claimtype);
           if (datamount.length > 0) {
             val.claimamount = datamount[0].claimamount;
           }
@@ -3159,13 +3155,13 @@
         this.tableclaimtypeAnt = [];
         this.$refs['refform1'].validate(valid => {
           if (valid) {
-            if (this.form.tableclaimtype.length != 0) {
-              for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-                if (this.form.tableclaimtype[i].tenantid == '0') {
-                  this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
-                }
-              }
-            }
+            // if (this.form.tableclaimtype.length != 0) {
+            //   for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+            //     if (this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003') {
+            //       this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
+            //     }
+            //   }
+            // }
             this.form.claimtype = this.form1.claimtype;
             this.form.contractnumber = this.form1.contractnumber;
             this.form.contracttype = this.form1.contracttype;
@@ -3283,7 +3279,7 @@
         if (this.checked) {
           for (let i = 0; i < this.form.tabledata.length; i++) {
             this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-            if (this.form.tabledata[0].deliveryconditionqh == 'HT009003') {
+            if (this.form.tabledata[0].deliverycondition == 'HT009002') {
               isClone = true;
             }
           }
@@ -3374,44 +3370,46 @@
         // }
         //add gbb 20210508 合同觉书的情况带入旧合同回数 start
         let letint = 0;
-        let a = 0;
+        let tableclaimtypenew = [];
+        let tableclaimtypefilter = [];
         if (this.checked) {
-          let rolecaneditnapin = getCurrentRoleeditnapin();
           for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-            if(this.form.tableclaimtype[i].tenantid === null){
+            if (this.form.tableclaimtype[i].tenantid === '0')
+            {
+              this.form.tableclaimtype[i].flag = true;
+              this.form.tableclaimtype[i].napinbook = true;
+              tableclaimtypenew.push(this.form.tableclaimtype[i]);
+            }
+          }
+
+          tableclaimtypefilter = this.form.tableclaimtype.filter(item => item.tenantid != '0');
+          for (let t = 0; t < tableclaimtypefilter.length; t++)
+          {
+            if(t < this.form.claimtype){
               letint = letint + 1;
               let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-              this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+              tableclaimtypefilter[t].claimtype = letclaimtypeone;
+              tableclaimtypefilter[t].contractnumbercount_id = '';
+              tableclaimtypefilter[t].contractnumber = this.letcontractnumber;
+              tableclaimtypefilter[t].napinbook = false;
+              tableclaimtypefilter[t].npbook = false;
+              tableclaimtypenew.push(tableclaimtypefilter[t]);
               let option = [];
-              option.code = this.form.tableclaimtype[i].claimtype;
-              option.value = this.form.tableclaimtype[i].claimtype;
+              option.code = letclaimtypeone;
+              option.value = letclaimtypeone;
               this.optionscompound.push(option);
             }
-            else
-            {
-              a = a + 1;
-              this.form.claimtype = this.form.claimtype + 1;
-              this.form.tableclaimtype[i].npbook = true;
-            }
-            this.form.tableclaimtype[i].contractnumbercount_id = '';
-            this.form.tableclaimtype[i].contractnumber = this.letcontractnumber;
-
           }
+          this.form.tableclaimtype = tableclaimtypenew;
         }
         else{
           this.form.tableclaimtype = [];
         }
-
-        if (this.form.tableclaimtype.length > this.form.claimtype)
-        {
-          this.form.tableclaimtype.length = this.form.claimtype;
-        }
-
-        for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
+        for (let i = tableclaimtypefilter.length; i < this.form.claimtype; i++) {
           letint = letint + 1;
           let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype1(this.form.tableclaimtype);
-          this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+          // this.form.tableclaimtype[i].claimtype = letclaimtypeone;
           // let option = [];
           // option.code = letclaimtypeone;
           // option.value = letclaimtypeone;
@@ -3743,29 +3741,10 @@
           //add-ws-4/17-契约番号废弃状态有效变无效修改
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
-            let lengthjue = 0;
-            for (let k = 0; k < this.form.tableclaimtype.length; k++) {
-              if (this.form.tableclaimtype[k].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+              if (this.form.tableclaimtype[j].flag!=true)
               {
-                lengthjue = lengthjue+1;
-              }
-            }
-            if (lengthjue === this.form.tableclaimtype.length || lengthjue===0 )
-            {
-              for (let j = 0; j < this.form.tableclaimtype.length; j++) {
                 letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
-                //请求番号
-                let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
-                this.form.tableclaimtype[j].claimnumber = claimnumber;
-              }
-            }
-            else
-            {
-              for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-                if (this.form.tableclaimtype[j].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-                {
-                  letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
-                }
                 //请求番号
                 let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
                 this.form.tableclaimtype[j].claimnumber = claimnumber;
@@ -3786,10 +3765,11 @@
 //              baseInfo.contractapplication = this.tabledata;
         //UPD_FJL  start
         //回数详情table
-        for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+        let tableType = this.form.tableclaimtype.filter(item=>item.flag!=true);
+        for (let i = 0; i < tableType.length; i++) {
           let p = {};
-          Object.assign(p, this.form.tableclaimtype[i]);
-          p.claimdatetimeqh = this.getclaimdatetime(this.form.tableclaimtype[i].claimdatetimeqh);
+          Object.assign(p, tableType[i]);
+          p.claimdatetimeqh = this.getclaimdatetime(tableType[i].claimdatetimeqh);
           baseInfo.contractnumbercount.push(p);
         }
         //UPD_FJL   end
@@ -3860,20 +3840,21 @@
             let checkdate = 0;
             let checkdate1 = 0;
             let error = 0;
-            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              if (parseFloat(this.form.tableclaimtype[j].claimamount) === 0
-                || this.form.tableclaimtype[j].claimamount === ''
-                || this.form.tableclaimtype[j].claimamount === undefined) {
+            let tableType = this.form.tableclaimtype.filter(item=>item.flag!=true);
+            for (let j = 0; j < tableType.length; j++) {
+              if (parseFloat(tableType[j].claimamount) === 0
+                || tableType[j].claimamount === ''
+                || tableType[j].claimamount === undefined) {
                 checksum = checksum + 1;
               }
               // add_fjl 纳品预定日必填check  start
-              if (this.form.tableclaimtype[j].deliverydate === '' ||
-                this.form.tableclaimtype[j].deliverydate === null) {
+              if (tableType[j].deliverydate === '' ||
+                tableType[j].deliverydate === null) {
                 checkdate = 1;
               }
               //请求日
-              if (this.form.tableclaimtype[j].claimdate === '' ||
-                this.form.tableclaimtype[j].claimdate === null) {
+              if (tableType[j].claimdate === '' ||
+                tableType[j].claimdate === null) {
                 checkdate1 = 1;
               }
               // add_fjl 纳品预定日必填check  end
@@ -3933,8 +3914,8 @@
                   checkgroup = checkgroup + 1;
                 }
               }
-              for (let y = 0; y < this.form.tableclaimtype.length; y++) {
-                if (this.form.tablecompound[x].claimtype === this.form.tableclaimtype[y].claimtype) {
+              for (let y = 0; y < tableType.length; y++) {
+                if (this.form.tablecompound[x].claimtype === tableType[y].claimtype) {
                   let op = [];
                   op.claimtype = this.form.tablecompound[x].claimtype;
                   op.contractrequestamount = this.form.tablecompound[x].contractrequestamount;
@@ -3981,30 +3962,9 @@
             });
             // PSDCD_PFANS_20210310_BUG_030 ztc start
             let datamountMap = new Map();
-            let counttype = 0;
-            for (let t = 0; t < this.form.tableclaimtype.length; t++)
-            {
-              if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-              {
-                counttype = counttype+1;
-              }
+            for (let t = 0; t < tableType.length; t++) {
+              datamountMap.set(tableType[t].claimtype, tableType[t].claimamount);
             }
-            if (counttype === this.form.tableclaimtype.length || counttype ===0)
-            {
-              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-                datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
-              }
-            }
-            else
-            {
-              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
-                {
-                  datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
-                }
-              }
-            }
-
             let scanList = [];
             let scanMap = new Map();
             for (let h = 0; h < letone.length; h++) {
@@ -4044,9 +4004,9 @@
             // 复合合同分配金额校验
             if(this.form.contracttype === 'HT008002' || this.form.contracttype === 'HT008004'
               || this.form.contracttype === 'HT008006' || this.form.contracttype === 'HT008008'){
-              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-                let dataMapChild = datamountMap.get(this.form.tableclaimtype[t].claimtype);
-                let scanMapChild = scanMap.get(this.form.tableclaimtype[t].claimtype);
+              for (let t = 0; t < tableType.length; t++) {
+                let dataMapChild = datamountMap.get(tableType[t].claimtype);
+                let scanMapChild = scanMap.get(tableType[t].claimtype);
                 if (dataMapChild != scanMapChild) {
                   Message({
                     message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
