@@ -507,11 +507,14 @@
       },
       getListData() {
         this.loading = true;
+        let getDep = '';
         if (this.department == '全部') {
-          this.department = undefined;
+          getDep = undefined
+        }else{
+          getDep = this.department;
         }
         this.$store
-          .dispatch('ASSETS1001Store/getList', {usedepartment: this.department})
+          .dispatch('ASSETS1001Store/getList', {usedepartment: getDep})
           .then(response => {
             //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
             this._count = 0;
