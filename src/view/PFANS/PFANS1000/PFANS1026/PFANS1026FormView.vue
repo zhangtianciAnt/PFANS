@@ -570,7 +570,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placejapanese">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -579,7 +579,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placeenglish">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -588,7 +588,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placechinese">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -599,7 +599,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responjapanese">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -608,7 +608,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responerglish">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -616,7 +616,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responphone">
+                    <el-input maxlength="100" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -624,7 +624,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input maxlength="100" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
