@@ -4449,7 +4449,7 @@
                       }
                     }
                   }
-                  sumout = summoney + sumMoney + summoneyT;
+                  sumout = parseFloat(((summoney + sumMoney + summoneyT) * 100).toFixed(2)) / 100;
                   if (sumout != this.tableF[j].invoiceamount) {
                     errorFLG = errorFLG + 1;
                     this.activeName = 'first';
