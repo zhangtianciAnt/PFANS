@@ -13,10 +13,9 @@ import {
   getindividual,
   generatesta,
   getworkfolwPurchaseData,
-  getNapinQinqiu
+  getNapinQinqiu,
+  getNaPpinAftercount
   } from './PFANS1026Api';
-
-
 
 const PFANS1026Store = {
   namespaced: true,
@@ -210,6 +209,7 @@ const PFANS1026Store = {
 
     getNapinQinqiu({commit}, data) {
       return new Promise((resolve, reject) => {
+        debugger;
         getNapinQinqiu(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
@@ -221,6 +221,23 @@ const PFANS1026Store = {
         });
       });
     },
+
+    //add ccm
+    getNaPpinAftercount({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getNaPpinAftercount(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add ccm
+
   },
 };
 

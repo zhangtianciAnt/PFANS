@@ -125,3 +125,13 @@ export function getNapinQinqiu(data) {
     data: data
   })
 }
+
+//add ccm
+export function getNaPpinAftercount(data) {
+  return request({
+    url: 'contractapplication/getNaPpinAftercount',
+    method: 'get',
+    params: data
+  })
+}
+//add ccm
