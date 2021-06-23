@@ -86,7 +86,7 @@
         </el-table-column>
         <!--        add_fjl_书类使用，不可更改disabled-->
         <!--        add-ws-12/21-印章盖印-->
-        <el-table-column :label="$t('label.PFANS4001FORMVIEW_ACCEPTSTATE')" align="center" width="110vw" v-if="handles">
+        <el-table-column :label="$t('label.PFANS4001FORMVIEW_ACCEPTSTATE')" align="center" width="130vw" v-if="handles">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.acceptstate"

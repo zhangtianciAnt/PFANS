@@ -398,7 +398,7 @@ export default {
                   return(
                     ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD')
                       &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
-                      && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD') )
+                      && moment(item.resignation_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD') )
                     && (item.resignation_date !== null && item.resignation_date !== "")
                   )
 
@@ -407,7 +407,7 @@ export default {
             }
             else {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
