@@ -190,7 +190,7 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
                     <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-date-picker
-                      :disabled="!disable"
+                      :disabled="this.form.type === '1' ?true:!disable"
                       unlink-panels
                       class="bigWidth"
                       v-model="form.yearss"
