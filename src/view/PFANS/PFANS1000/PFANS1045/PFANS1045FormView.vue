@@ -837,7 +837,6 @@
       },
       //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
       buttonClick2() {
-        debugger;
         this.form.user_id = this.userlist;
         if (this.checkstatus == 1) {
           this.form.yearss = this.getworkinghours(this.form.yearss);
