@@ -119,7 +119,6 @@
                     <el-input-number
                       :disabled="true"
                       :max="999999999"
-                      :min="0"
                       :precision="2"
                       :step="1"
                       controls-position="right"
@@ -170,6 +169,17 @@
                     </el-input-number>
                   </el-form-item>
                 </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_AVBLEAMOUNT')">
+                    <el-input-number
+                      :disabled="true"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.avbleamount">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
               </el-row>
               <el-row>
                 <!--               UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from -->
@@ -190,7 +200,7 @@
                   <el-form-item :label="$t('label.PFANS1045VIEW_CYCLE')" prop="yearss">
                     <!--                    NT_PFANS_20210304_BUG_090 更改组件活性-->
                     <el-date-picker
-                      :disabled="this.form.type === '1' ?true:!disable"
+                      :disabled="!disable"
                       unlink-panels
                       class="bigWidth"
                       v-model="form.yearss"
@@ -384,7 +394,6 @@
     },
     data() {
       return {
-        modifiedamount: '',
         defaultStart: false,
         workflowCode: 'W0095',
         //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
@@ -455,6 +464,7 @@
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // cycle: '',
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+          avbleamount: '',
           applicationdate: new Date(),
           amountcase: '',
           modifiedamount: '',
@@ -510,7 +520,6 @@
           .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': this.$route.params._id})
           .then(response => {
             this.form = response.policycontract;
-            this.modifiedamount = response.policycontract.modifiedamount;
 
             if (response.policycontractdetails.length > 0) {
               this.tableF = response.policycontractdetails;
@@ -621,15 +630,14 @@
           },
         });
       },
-      //add    修改后金额计算   from
-      changeSum(row) {
-        let money = 0;
+      changeSum(row) {//1111
+        let moneyAnt = 0;
         for (let i = 0; i < this.tableF.length; i++) {
-          money = this.tableF[i].money;
+          moneyAnt += Number(this.tableF[i].money);
         }
-        this.form.modifiedamount = Number(this.modifiedamount) + money;
+        moneyAnt += Number(this.form.avbleamount)
+        this.form.modifiedamount = moneyAnt;
       },
-      //add    修改后金额计算   to
       getamountcase(val) {
         this.form.modifiedamount = val;
       },
@@ -993,7 +1001,7 @@
                 return;
               }
               //add   请求金额与修改后金额check    from
-              if (this.form.status === '4') {
+              if (this.form.status === '3' || this.form.status === '4') {
                 for (let i = 0; i < this.tableF.length; i++) {
                   if(this.tableF[i].money === 0){
                     Message({
@@ -1003,24 +1011,22 @@
                     });
                     return;
                   }
-                  let ckecksum = 0;
-                  ckecksum = this.tableF[i].money;
-                  if(ckecksum < (0 - Number(this.modifiedamount))){
-                    Message({
-                      message: this.$t('label.PFANS1045VIEW_CHECK8'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
-                  if ((ckecksum + Number(this.modifiedamount)) < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
-                    Message({
-                      message: this.$t('label.PFANS1045VIEW_CHECK6'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    return;
-                  }
+                }
+                if(Number(this.form.modifiedamount) < 0){
+                  Message({
+                    message: this.$t('label.PFANS1045VIEW_CHECK8'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                if (Number(this.form.modifiedamount) < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                  Message({
+                    message: this.$t('label.PFANS1045VIEW_CHECK6'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
                 }
               }
               //add   请求金额与修改后金额check    to
@@ -1038,6 +1044,7 @@
                   money: this.tableF[i].money,
                   remark: this.tableF[i].remark,
                 });
+
               }
               this.loading = true;
 

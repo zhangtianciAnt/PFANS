@@ -256,7 +256,7 @@
                   response.seal[j].modifyby = true;
                 }
               }
-              if (roles === '0' && response.seal[j].status == this.$t('label.PFANS5004VIEW_OVERTIME')) {
+              if (roles === '0' && response.seal[j].status == this.$t('label.node_step4')) {
                 response.seal[j].modifyon = false;
                 if (this.userlist === this.$store.getters.userinfo.userid) {
                   response.seal[j].modifyby = false;
