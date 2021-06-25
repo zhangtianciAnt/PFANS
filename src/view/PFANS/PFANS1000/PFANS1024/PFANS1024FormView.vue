@@ -1027,6 +1027,7 @@
         disabled3: false,
         disabled4: false,
         book:false,
+        bookawardafter:true,
         ruleSet: {
         // , 'theme'
           'save': ['contractnumber', 'theme'],
@@ -1542,6 +1543,7 @@
       }
       //add-ws-7/22-禅道341任务
       this.disabled = this.$route.params.disabled;
+      this.bookawardafter = this.$route.params.disabled;
       //add-ws-6/22-禅道152任务
       if (this.disabled) {
         this.show10 = true;
