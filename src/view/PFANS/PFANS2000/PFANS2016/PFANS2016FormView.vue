@@ -61,47 +61,6 @@
                 </dicselect>
               </el-form-item>
             </el-col>
-            <el-col :span="8"
-                    v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
-              <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
-                <el-input-number
-                  v-if="form.errortype === 'PR013001'"
-                  :disabled="dislengthtime"
-                  step-strictly
-                  :max="1000000000"
-                  :min="0"
-                  :precision="2"
-                  :step="0.01"
-                  controls-position="right"
-                  style="width:20vw"
-                  v-model="form.lengthtime"
-                ></el-input-number>
-                <el-input-number
-                  v-else-if="form.errortype === 'PR013006' && form.occurrencedate === form.finisheddate"
-                  :disabled="dislengthtime"
-                  step-strictly
-                  :max="7.75"
-                  :min="0"
-                  :precision="2"
-                  :step="0.25"
-                  controls-position="right"
-                  style="width:20vw"
-                  v-model="form.lengthtime"
-                ></el-input-number>
-                <el-input-number
-                  v-else
-                  :disabled="dislengthtime"
-                  step-strictly
-                  :max="1000000000"
-                  :min="0"
-                  :precision="2"
-                  :step="0.25"
-                  controls-position="right"
-                  style="width:20vw"
-                  v-model="form.lengthtime"
-                ></el-input-number>
-              </el-form-item>
-            </el-col>
             <!--不为  年休 代休-特别休日-->
             <el-col :span="8"
                     v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && (form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7')">
@@ -214,6 +173,49 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row>
+            <el-col>
+              <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
+                <el-input-number
+                  v-if="form.errortype === 'PR013001'"
+                  :disabled="dislengthtime"
+                  step-strictly
+                  :max="1000000000"
+                  :min="0"
+                  :precision="2"
+                  :step="0.01"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.lengthtime"
+                ></el-input-number>
+                <el-input-number
+                  v-else-if="form.errortype === 'PR013006' && form.occurrencedate === form.finisheddate"
+                  :disabled="dislengthtime"
+                  step-strictly
+                  :max="7.75"
+                  :min="0"
+                  :precision="2"
+                  :step="0.25"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.lengthtime"
+                ></el-input-number>
+                <el-input-number
+                  v-else
+                  :disabled="dislengthtime"
+                  step-strictly
+                  :max="1000000000"
+                  :min="0"
+                  :precision="2"
+                  :step="0.25"
+                  controls-position="right"
+                  style="width:20vw"
+                  v-model="form.lengthtime"
+                ></el-input-number>
+              </el-form-item>
+            </el-col>
+          </el-row>
+
           <el-row
             v-if="form.status === '4' || form.status === '5' || form.status === '6' || form.status === '7' ">
             <el-col :span="8">
