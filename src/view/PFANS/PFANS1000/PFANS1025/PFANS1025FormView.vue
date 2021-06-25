@@ -501,10 +501,10 @@
               </el-table>
             </el-tab-pane>
             <!--            //add-ws-添加上传附件功能-->
-            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" prop="enclosurecontent" name="thrid">
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -860,6 +860,9 @@
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
             }
+            if(this.form.policycontract_id){
+              this.getpolicycontractMoney(this.form.policycontract_id);
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -1000,6 +1003,24 @@
           }
         }
       },
+      getpolicycontractMoney(val) {
+        this.$store
+          .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': val})
+          .then(response => {
+            if(response.policycontract.avbleamount){
+              this.modifiedamount = response.policycontract.avbleamount;
+              this.numbers = response.policycontract.policynumbers;
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       policycontractlist() {
         let parameter = {
           outsourcingcompany: this.form.custochinese,
@@ -1013,7 +1034,7 @@
                 this.optionsdata.push({
                   value: response[i].policycontract_id,
                   lable: response[i].policynumbers,
-                  moneys: response[i].modifiedamount,
+                  moneys: response[i].avbleamount,
                 });
               }
               //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
@@ -1596,87 +1617,7 @@
                     return;
                   }
                 }
-//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
-//               this.$store
-//                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
-//                 .then(response => {
-//                   if (response.length == 1) {
-//                     if (this.params_id) {     //郛冶ｾ�
-//                       this.$store
-//                         .dispatch('PFANS1025Store/update', this.baseInfo)
-//                         .then(response => {
-//                           this.data = response;
-//                           this.loading = false;
-//                           Message({
-//                             message: this.$t('normal.success_02'),
-//                             type: 'success',
-//                             duration: 5 * 1000,
-//                           });
-//                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
-//                           if (val === 'StartWorkflow') {
-//                             this.$refs.container.$refs.workflow.startWorkflow();
-//                           } else {
-//                             this.paramsTitle();
-//                           }
-//                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-//                         })
-//                         .catch(error => {
-//                           Message({
-//                             message: error,
-//                             type: 'error',
-//                             duration: 5 * 1000,
-//                           });
-//                           this.loading = false;
-//                         });
-//                     }
-//                   } else {
-//                     if (this.form.policycontract_id) {
-//                       Message({
-//                         message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
-//                         type: 'error',
-//                         duration: 5 * 1000,
-//                       });
-//                       this.loading = false;
-//                     } else {
-//                       if (this.params_id) {     //郛冶ｾ�
-//                         this.$store
-//                           .dispatch('PFANS1025Store/update', this.baseInfo)
-//                           .then(response => {
-//                             this.data = response;
-//                             this.loading = false;
-//                             Message({
-//                               message: this.$t('normal.success_02'),
-//                               type: 'success',
-//                               duration: 5 * 1000,
-//                             });
-//                             //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
-//                             if (val === 'StartWorkflow') {
-//                               this.$refs.container.$refs.workflow.startWorkflow();
-//                             } else {
-//                               this.paramsTitle();
-//                             }
-//                             //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-//                           })
-//                           .catch(error => {
-//                             Message({
-//                               message: error,
-//                               type: 'error',
-//                               duration: 5 * 1000,
-//                             });
-//                             this.loading = false;
-//                           });
-//                       }
-//                     }
-//                   }
-//                 }).catch(error => {
-//                 Message({
-//                   message: error,
-//                   type: 'error',
-//                   duration: 5 * 1000,
-//                 });
-//
-//               });
-                if (this.params_id) {     //郛冶ｾ�
+                if (this.params_id) {
                   this.$store
                     .dispatch('PFANS1025Store/update', this.baseInfo)
                     .then(response => {
@@ -1717,8 +1658,7 @@
         }
       },
     },
-  }
-  ;
+  };
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">

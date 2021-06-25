@@ -119,7 +119,6 @@
                     <el-input-number
                       :disabled="true"
                       :max="999999999"
-                      :min="0"
                       :precision="2"
                       :step="1"
                       controls-position="right"
@@ -167,6 +166,17 @@
                       controls-position="right"
                       style="width: 20vw"
                       v-model="form.summonet">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_AVBLEAMOUNT')">
+                    <el-input-number
+                      :disabled="true"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.avbleamount">
                     </el-input-number>
                   </el-form-item>
                 </el-col>
@@ -243,7 +253,7 @@
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable2"
-                        :min="0" :precision="2"
+                        :precision="2"
                         :max="999999999"
                         controls-position="right"
                         :no="scope.row"
@@ -454,6 +464,7 @@
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // cycle: '',
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+          avbleamount: '',
           applicationdate: new Date(),
           amountcase: '',
           modifiedamount: '',
@@ -619,10 +630,13 @@
           },
         });
       },
-      changeSum(row) {
+      changeSum(row) {//1111
+        let moneyAnt = 0;
         for (let i = 0; i < this.tableF.length; i++) {
-          this.form.modifiedamount = this.tableF[i].money;
+          moneyAnt += Number(this.tableF[i].money);
         }
+        moneyAnt += Number(this.form.avbleamount)
+        this.form.modifiedamount = moneyAnt;
       },
       getamountcase(val) {
         this.form.modifiedamount = val;
@@ -986,12 +1000,27 @@
                 });
                 return;
               }
-              if (this.form.status === '4') {
-                let ckecksum = 0;
+              //add   请求金额与修改后金额check    from
+              if (this.form.status === '3' || this.form.status === '4') {
                 for (let i = 0; i < this.tableF.length; i++) {
-                  ckecksum = this.tableF[i].money;
+                  if(this.tableF[i].money === 0){
+                    Message({
+                      message: this.$t('label.PFANS1045VIEW_CHECK7'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
-                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                if(Number(this.form.modifiedamount) < 0){
+                  Message({
+                    message: this.$t('label.PFANS1045VIEW_CHECK8'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                if (Number(this.form.modifiedamount) < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
                   Message({
                     message: this.$t('label.PFANS1045VIEW_CHECK6'),
                     type: 'error',
@@ -1000,6 +1029,7 @@
                   return;
                 }
               }
+              //add   请求金额与修改后金额check    to
               this.form.user_id = this.userlist;
               //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
               this.form.yearss = this.getworkinghours(this.form.yearss);
