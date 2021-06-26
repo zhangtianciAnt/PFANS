@@ -526,7 +526,12 @@
 
         this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.onlypeo')
       }
-      this.getTaxestotal();
+      //只有张建波、冷美琴、康奕凝
+      if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+        || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+        || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+        this.getTaxestotal();
+      }
     },
     methods: {
       // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 start

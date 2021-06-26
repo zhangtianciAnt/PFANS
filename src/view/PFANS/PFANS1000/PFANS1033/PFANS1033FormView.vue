@@ -262,14 +262,14 @@
                   :multiple="multiple"
                   @change="getEntrycondition"
                   style="width: 11rem"
-                  :disabled="!disabled">
+                  :disabled="book ? (!bookawardafter ? true:false) : !disabled">
                 </dicselect>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"
                              width="200">
               <template slot-scope="scope">
-                <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment"
+                <el-date-picker :disabled="book ? (!bookawardafter ? true:false) : !disabled" type="date" v-model="scope.row.entrypayment"
                                 style="width: 11rem"></el-date-picker>
               </template>
             </el-table-column>
@@ -472,21 +472,21 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placejapanese">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placejapanese">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="placeenglish"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placeenglish">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placeenglish">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="placechinese"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placechinese">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placechinese">
                   </el-input>
                 </template>
               </el-table-column>
@@ -495,26 +495,26 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responjapanese">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responjapanese">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center" prop="responerglish"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responerglish">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responerglish">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responphone">
+                  <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responphone">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
+                  <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responemail">
                   </el-input>
                 </template>
               </el-table-column>
@@ -742,6 +742,7 @@
         disabled3: false,
         disabled4: false,
         book:false,
+        bookawardafter:true,
         rules1: {
           claimtype: [
             {
@@ -1061,6 +1062,7 @@
     created() {
       this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1033View');
       this.disabled = this.$route.params.disabled;
+      this.bookawardafter = this.$route.params.disabled;
       if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
         this.buttonList = [];
       }
