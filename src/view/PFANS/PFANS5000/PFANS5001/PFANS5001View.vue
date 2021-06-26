@@ -1,12 +1,42 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
-                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
-  </EasyNormalTable>
+  <div>
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
+                     :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+    </EasyNormalTable>
+    <el-container>
+      <el-dialog :visible.sync="dialogTableVisible_h" center
+                 size="50%"
+                 top="8vh" lock-scroll
+                 append-to-body>
+        <div style="text-align: center">
+          <el-row>
+            <el-col :span="24">
+              <el-date-picker
+                v-model="perioDate"
+                class="bigWidth"
+                :disabled="false"
+                type="daterange"
+                unlink-panels
+                style="width:20vw"
+                :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                :start-placeholder="$t('label.startdate')"
+                :end-placeholder="$t('label.enddate')"
+              >
+              </el-date-picker>
+            </el-col>
+          </el-row>
+          <span slot="footer" class="dialog-footer">
+            <el-button style="width:20vw" type="primary" @click="submitTime()">{{$t('button.confirm')}}</el-button>
+            </span>
+        </div>
+      </el-dialog>
+    </el-container>
+  </div>
 </template>
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo,getCurrentRole21} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
 
@@ -90,13 +120,23 @@
                 buttonList: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+                    {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                    {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'}
                 ],
                 rowid: '',
                 row:'companyprojects_id',
+                dialogTableVisible_h: false,
+                perioDate: '',
+                reportList: [],
             };
         },
         mounted() {
+          let role = getCurrentRole21();
+          if(role === '0'){
+            this.buttonList[3].disabled = false
+          }else {
+            this.buttonList[3].disabled = true
+          }
             this.loading = true;
             this.$store
                 .dispatch('PFANS5001Store/getFpans5001List', {})
@@ -204,7 +244,74 @@
                         }
                     })
                 }
+              if(val === 'report'){
+                this.dialogTableVisible_h = true;
+              }
             },
+          formatJson(filterVal, jsonData) {
+            return jsonData.map(v => filterVal.map(j => {
+              if (j === 'timestamp') {
+                return parseTime(v[j]);
+              } else {
+                return v[j];
+              }
+            }));
+          },
+          submitTime() {
+            if (this.perioDate === '' || this.perioDate === null || this.perioDate === undefined) {
+              Message({
+                message: this.$t('label.PFANS5001VIEW_WARNING'),
+                type: 'warning',
+                duration: 5 * 1000,
+              });
+            }else{
+              let params = {
+                start: moment(this.perioDate[0]).format('YYYY-MM-DD'),
+                end: moment(this.perioDate[1]).format('YYYY-MM-DD'),
+              };
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS5001Store/report', params)
+                .then(response => {
+                  this.reportList = response;
+                  import('@/vendor/Export2Excel').then(excel => {
+                    const tHeader = [
+                      this.$t('label.PFANS5001VIEW_REPORT_GROUP'),//部门
+                      this.$t('label.PFANS5001VIEW_REPORT_PJNAME'),//PJ名
+                      this.$t('label.PFANS5001VIEW_REPORT_CONT'),//合同名
+                      this.$t('label.PFANS5001VIEW_REPORT_AMOUNT'),//分配金额
+                      this.$t('label.PFANS5001VIEW_REPORT_MONTH'),//月份
+                      this.$t('label.PFANS5001VIEW_REPORT_INNUMBER'),//工数（员工）
+                      this.$t('label.PFANS5001VIEW_REPORT_OUTNUMBER'),//工数（外注）
+                      this.$t('label.PFANS5001VIEW_REPORT_FUNDS'),//经费
+                      this.$t('label.PFANS5001VIEW_REPORT_REMARK'),//经费
+                    ];
+                    const filterVal = [
+                      'orgname',
+                      'name',
+                      'contract',
+                      'contractamount',
+                      'month',
+                      'personType0',
+                      'personType1',
+                      'moneys',
+                    ];
+                    const list = this.reportList;
+                    const data = this.formatJson(filterVal, list);
+                    excel.export_json_to_excel(tHeader, data, this.$t('label.PFANS5001VIEW_PROCONREPORT'));
+                  });
+                  this.loading = false;
+                }).catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+              this.dialogTableVisible_h = false;
+            }
+          }
         }
     }
 </script>
