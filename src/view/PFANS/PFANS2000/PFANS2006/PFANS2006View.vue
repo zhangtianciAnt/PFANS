@@ -4,7 +4,8 @@
 
     <EasyNormalTable :buttonList="buttonList" :columns="columns1" :data="data" :showSelection="isShow" :title="title"
                      @buttonClick="buttonClick"
-                     ref="roletable" v-loading="loading" v-show="showTable1">
+                     ref="roletable" v-loading="loading" v-show="showTable1" :showSelectByCondition="displayOrNot">
+
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -17,6 +18,10 @@
         type="month"
         v-model="months">
       </el-date-picker>
+      <el-input :placeholder="$t('label.PFANS2006VIEW_EMPLOYEESNAME')"  style="width: 20vw"
+                v-model="filterName" slot="customize">
+        <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+      </el-input>
       <!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
       <!--                      :start-placeholder="$t('label.startdate')"-->
       <!--                      @change="clickdata"-->
@@ -28,9 +33,11 @@
       <!--      ></el-date-picker>-->
     </EasyNormalTable>
 
+
+
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="datatada" :showSelection="isShow"
                      :title="title" @buttonClick="buttonClick"
-                     ref="rolet" v-loading="loading" v-show="!showTable1">
+                     ref="rolet" v-loading="loading" v-show="!showTable1" :showSelectByCondition="displayOrNot">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -43,6 +50,10 @@
         type="month"
         v-model="months">
       </el-date-picker>
+      <el-input :placeholder="$t('label.PFANS2006VIEW_EMPLOYEESNAME')"  style="width: 20vw"
+                v-model="filterName" slot="customize">
+        <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+      </el-input>
       <!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
       <!--                      :start-placeholder="$t('label.startdate')"-->
       <!--                      @change="clickdata"-->
@@ -71,6 +82,9 @@
     },
     data() {
       return {
+        filterName: "",
+        displayOrNot: false,
+        data1: [],
         isShow: true,
         months: moment(new Date()).format('YYYY-MM'),
         selectedList: [],
@@ -760,6 +774,27 @@
       }
     },
     methods: {
+      inputChange(){
+        // alert(this.region);
+        if(this.region === '1'){
+          if(this.filterName === ""){
+            this.data = this.data1;
+          }else{
+            this.data = this.data1.filter(item => {
+              return item.user_id === this.filterName;
+            });
+          }
+        }
+        if(this.region === '2'){
+          if(this.filterName === ""){
+            this.datatada = this.data1;
+          }else{
+            this.datatada = this.data1.filter(item => {
+              return item.user_id === this.filterName;
+            });
+          }
+        }
+      },
       changeddate(val) {
         this.months = moment(val).format('YYYY-MM');
         if (this.region === '2') {
@@ -793,194 +828,194 @@
           }
         }));
       },
-      buttonClick(val) {
-        if (val === 'export') {
-          if (this.Taxestotal === 1) {
-            if (this.$refs.roletable.selectedList.length === 0) {
-              Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
-                duration: 2 * 1000,
-              });
-              return;
-            }
-            this.selectedlist = this.$refs.roletable.selectedList;
-            let heads = [
-              this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'), this.$t('label.PFANS2006VIEW_CLUB'), this.$t('label.PFANS2006VIEW_LASTNAME')
-              , this.$t('label.PFANS2006VIEW_JOINED'),this.$t('label.PFANS2006VIEW_SEX'),this.$t('label.PFANS2006VIEW_SINGLECHILD')
-              , this.$t('label.PFANS2006VIEW_ENTRYTYPE'),this.$t('label.PFANS2006VIEW_SCHOLARSHIP'),this.$t('label.PFANS2006VIEW_SOCIETY')
-              , this.$t('label.PFANS2006VIEW_REGISTER')
-              , this.$t('label.PFANS2005FORMVIEW_YANGLAOJS'), this.$t('label.PFANS2005FORMVIEW_SHIYEJS'), this.$t('label.PFANS2005FORMVIEW_GONGSHANGJS')
-              , this.$t('label.PFANS2005FORMVIEW_YILIAOJS'), this.$t('label.PFANS2005FORMVIEW_SHENGYUJS')
-              , this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY')
-              , this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY')
-              , this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_RANK')
-              , this.$t('label.PFANS2006VIEW_BIRTHREST'), this.$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')
-              , this.$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME'),this.$t('label.PFANS2005FORMVIEW_LONGDURATIONTIME')
-              , this.$t('label.PFANS2005FORMVIEW_ABSENCETIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK')
-              , this.$t('label.PFANS2006VIEW_BASICSALARY'), this.$t('label.PFANS2006VIEW_YKBZJB'), this.$t('label.PFANS2006VIEW_YKBT')
-              , this.$t('label.PFANS2006VIEW_KASUKE'), this.$t('label.PFANS2006VIEW_OTHER1'), this.$t('label.PFANS2006VIEW_SUBTOTAL1'), this.$t('label.PFANS2006VIEW_OTHER2')
-              , this.$t('label.PFANS2006VIEW_MONTHLYBONUS'), this.$t('label.PFANS2006VIEW_OTHER3'), this.$t('label.PFANS2006VIEW_SUBTOTAL2'), this.$t('label.PFANS2006VIEW_INDUSTRY'), this.$t('label.PFANS2006VIEW_HEATING')
-              , this.$t('label.PFANS2006VIEW_OLONECHILD'), this.$t('label.PFANS2006VIEW_SUBTOTAL3'), this.$t('label.PFANS2006VIEW_ARSENAL'), this.$t('label.PFANS2006VIEW_OLD'), this.$t('label.PFANS2006VIEW_MEDICAL')
-              , this.$t('label.PFANS2006VIEW_UNEMPLOYMENT'), this.$t('label.PFANS2006VIEW_SOCIALSECURITY'), this.$t('label.PFANS2006VIEW_PUBLICMONEY'), this.$t('label.PFANS2006VIEW_SECURITYMON'), this.$t('label.PFANS2006VIEW_EXCLUSIVE')
-              , this.$t('label.PFANS2006VIEW_ACCUMULATED'), this.$t('label.PFANS2006VIEW_UNACCUMULATED'), this.$t('label.PFANS2006VIEW_ANNUAL'), this.$t('label.PFANS2006VIEW_RESIDENTIALTAX'), this.$t('label.PFANS2006VIEW_COMPANYBOSS')
-              , this.$t('label.PFANS2006VIEW_OTHER5'), this.$t('label.PFANS2006VIEW_RESPONSIBLE'), this.$t('label.PFANS2006VIEW_CUMULATIVE'), this.$t('label.PFANS2006VIEW_INCOME'), this.$t('label.PFANS2006VIEW_THISMONTH')
-              , this.$t('label.PFANS2005VIEW_ACTUAL'), this.$t('label.PFANS2006VIEW_OLDC'), this.$t('label.PFANS2006VIEW_MEDICALC'), this.$t('label.PFANS2005FORMVIEW_COMUNEMPLOYMENTINSURANCEC'), this.$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCEC')
-              , this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_SOCIALSECURITY'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
-              , this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY'), this.$t('label.PFANS2005FORMVIEW_TOTALWAGES'), this.$t('label.PFANS2005FORMVIEW_GAUGE'), this.$t('label.PFANS2005FORMVIEW_TOTALGAUGE'), this.$t('label.PFANS2005FORMVIEW_OTHER6')];
-
-           let filterVal = ['workdate','sex','onlychild','type','bonus','sociology','registered'
-              , 'yanglaojs', 'shiyejs', 'gongshangjs', 'yiliaojs', 'shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'basethismonthbasic', 'thismonthduty', 'rnbasesalary'
-              , 'birthrest', 'thismonthbasic', 'shortillness','longillness', 'owediligence', 'owingcontrol', 'actualamount'
-              , 'ykbzjs', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
-              , 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
-              , 'heating', 'onlychildmoney', 'total3', 'totalwages', 'endowmentinsurance', 'medicalinsurance', 'unemploymentinsurance'
-              , 'socialinsurance', 'accumulationfund', 'disciplinarycontrol', 'thismonthterm', 'thismonthadditional', 'thismonthdutyfree'
-              , 'lastdutyfree', 'housingmoneys', 'other4', 'other5', 'shouldwages', 'shouldcumulative', 'shouldpaytaxes'
-              , 'thismonthadjustment', 'realwages', 'comendowmentinsurance', 'commedicalinsurance', 'comunemploymentinsurance', 'cominjuryinsurance'
-              , 'combirthinsurance', 'comheating','socialsecurity', 'comaccumulationfund', 'total', 'labourunionbase', 'labourunionfunds', 'comtotalwages'
-              , 'bonusmoney', 'totalbonus', 'other6'];
-
-            let csvData = [];
-            for (let i = 0; i < this.selectedlist.length; i++) {
-              let obj = this.selectedlist[i];
-              csvData.push({
-                [heads[0]]: obj.jobnumber,
-                [heads[1]]: obj.department_id,
-                [heads[2]]: obj.user_id,
-                [heads[3]]: obj.workdate,
-                [heads[4]]: obj.sex,
-                [heads[5]]: obj.onlychild,
-                [heads[6]]: obj.type,
-                [heads[7]]: obj.bonus,
-                [heads[8]]: obj.sociology,
-                [heads[9]]: obj.registered,
-                [heads[10]]: obj.yanglaojs,
-                [heads[11]]: obj.shiyejs,
-                [heads[12]]: obj.gongshangjs,
-                [heads[13]]: obj.yiliaojs,
-                [heads[14]]: obj.shengyujs,
-                [heads[15]]: obj.accumulation,
-                [heads[16]]: parseFloat(obj.lastmonthbasic).toFixed(2),
-                [heads[17]]: parseFloat(obj.lastmonthduty).toFixed(2),
-                [heads[18]]: parseFloat(obj.basethismonthbasic).toFixed(2),
-                [heads[19]]: parseFloat(obj.thismonthduty).toFixed(2),
-                [heads[20]]: obj.rnbasesalary,
-                [heads[21]]: obj.birthrest,
-                [heads[22]]: obj.thismonthbasic,
-                [heads[23]]: obj.shortillness,
-                [heads[24]]: obj.longillness,
-                [heads[25]]: parseFloat(obj.owediligence).toFixed(2),
-                [heads[26]]: parseFloat(obj.owingcontrol).toFixed(2),
-                [heads[27]]: parseFloat(obj.actualamount).toFixed(2),
-                [heads[28]]: obj.ykbzjs,
-                [heads[29]]: parseFloat(obj.ykbz).toFixed(2),
-                [heads[30]]: parseFloat(obj.overtimesubsidy).toFixed(2),
-                [heads[31]]: obj.other1,
-                [heads[32]]: parseFloat(obj.total1).toFixed(2),
-                [heads[33]]: obj.other2,
-                [heads[34]]: obj.appreciation,
-                [heads[35]]: obj.other3,
-                [heads[36]]: obj.total2,
-                [heads[37]]: parseFloat(obj.taxestotal).toFixed(2),
-                [heads[38]]: obj.heating,
-                [heads[39]]: obj.onlychildmoney,
-                [heads[40]]: obj.total3,
-                [heads[41]]: parseFloat(obj.totalwages).toFixed(2),
-                [heads[42]]: parseFloat(obj.endowmentinsurance).toFixed(2),
-                [heads[43]]: parseFloat(obj.medicalinsurance).toFixed(2),
-                [heads[44]]: parseFloat(obj.unemploymentinsurance).toFixed(2),
-                [heads[45]]: parseFloat(obj.socialinsurance).toFixed(2),
-                [heads[46]]: parseFloat(obj.accumulationfund).toFixed(2),
-                [heads[47]]: parseFloat(obj.disciplinarycontrol).toFixed(2),
-                [heads[48]]: parseFloat(obj.thismonthterm).toFixed(2),
-                [heads[49]]: obj.thismonthadditional,
-                [heads[50]]: obj.thismonthdutyfree,
-                [heads[51]]: parseFloat(obj.lastdutyfree).toFixed(2),
-                [heads[52]]: parseFloat(obj.housingmoneys).toFixed(2),
-                [heads[53]]: parseFloat(obj.other4).toFixed(2),
-                [heads[54]]: parseFloat(obj.other5).toFixed(2),
-                [heads[55]]: parseFloat(obj.shouldwages).toFixed(2),
-                [heads[56]]: parseFloat(obj.shouldcumulative).toFixed(2) ,
-                [heads[57]]: parseFloat(obj.shouldpaytaxes).toFixed(2),
-                [heads[58]]: parseFloat(obj.thismonthadjustment).toFixed(2),
-                [heads[59]]: parseFloat(obj.realwages).toFixed(2),
-                [heads[60]]: parseFloat(obj.comendowmentinsurance).toFixed(2),
-                [heads[61]]: parseFloat(obj.commedicalinsurance).toFixed(2),
-                [heads[62]]: parseFloat(obj.comunemploymentinsurance).toFixed(2),
-                [heads[63]]: parseFloat(obj.cominjuryinsurance).toFixed(2),
-                [heads[64]]: parseFloat(obj.combirthinsurance).toFixed(2),
-                [heads[65]]: parseFloat(obj.comheating).toFixed(2),
-                [heads[66]]: parseFloat(obj.comaccumulationfund).toFixed(2),
-                [heads[67]]: parseFloat(obj.socialsecurity).toFixed(2),
-                [heads[68]]: parseFloat(obj.total).toFixed(2),
-                [heads[69]]: parseFloat(obj.labourunionbase).toFixed(2),
-                [heads[70]]: parseFloat(obj.labourunionfunds).toFixed(2),
-                [heads[71]]: parseFloat(obj.comtotalwages).toFixed(2),
-                [heads[72]]: parseFloat(obj.bonusmoney).toFixed(2),
-                [heads[73]]: parseFloat(obj.totalbonus).toFixed(2),
-                [heads[74]]: obj.other6,
-              });
-            }
-
-            const result = json2csv.parse(csvData, {
-              excelStrings: true,
-            });
-            let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
-            const link = document.createElement('a');
-            link.href = csvContent;
-            link.download = this.$t('title.PFANS2006VIEW') + '.csv';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          } else if (this.Bonus === 1) {
-            if (this.$refs.rolet.selectedList.length === 0) {
-              Message({
-                message: this.$t('normal.info_01'),
-                type: 'info',
-                duration: 2 * 1000,
-              });
-              return;
-            }
-            this.selectedList = this.$refs.rolet.selectedList;
-            let heads = [this.$t('label.PFANS2007VIEW_YEAR'), this.$t('label.PFANS2007VIEW_NAME'), this.$t('label.PFANS2007VIEW_GOLDLEAF'), this.$t('label.PFANS2007VIEW_TAXMETHOD'), this.$t('label.PFANS2007VIEW_COMBINEDTAX'), this.$t('label.PFANS2007VIEW_KOZO'), this.$t('label.PFANS2007VIEW_TAX'),
-              this.$t('label.PFANS2006VIEW_MONTHLYAVERAGE'), this.$t('label.PFANS2007VIEW_CASH'),
-              this.$t('label.PFANS2007VIEW_ARITHMETIC'), this.$t('label.PFANS2007VIEW_GOLD'), this.$t('label.PFANS2007VIEW_IEMIKANE'), this.$t('label.remarks')];
-            let filterVal = ['years', 'user_id', 'totalbonus1', 'method', 'taxable', 'amount', 'payable', 'income', 'taxrate', 'deductions', 'bonustax', 'received', 'remarks'];
-            let csvData = [];
-            for (let i = 0; i < this.selectedList.length; i++) {
-              let obj = this.selectedList[i];
-              csvData.push({
-                [heads[0]]: obj.years,
-                [heads[1]]: obj.user_id,
-                // update gbb 20210312 NT_PFANS_20210308_BUG_165 导出值为Nan处理 start
-                [heads[2]]: obj.totalbonus1 === null ? "" :parseFloat(obj.totalbonus1).toFixed(2),
-                [heads[3]]: obj.method,
-                [heads[4]]: obj.taxable=== null ? "" : parseFloat(obj.taxable).toFixed(2),
-                [heads[5]]: obj.amount=== null ? "" : parseFloat(obj.amount).toFixed(2),
-                [heads[6]]: obj.payable=== null ? "" : parseFloat(obj.payable).toFixed(2),
-                [heads[7]]: obj.income=== null ? "" : parseFloat(obj.income).toFixed(2),
-                [heads[8]]: obj.taxrate,
-                [heads[9]]: obj.deductions=== null ? "" : parseFloat(obj.deductions).toFixed(2),
-                [heads[10]]: obj.bonustax=== null ? "" : parseFloat(obj.bonustax).toFixed(2),
-                [heads[11]]: obj.received=== null ? "" : parseFloat(obj.received).toFixed(2),
-                // update gbb 20210312 NT_PFANS_20210308_BUG_165 导出值为Nan处理 start
-                [heads[12]]: obj.remarks,
-              });
-            }
-            const result = json2csv.parse(csvData, {
-              excelStrings: true,
-            });
-            let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
-            const link = document.createElement('a');
-            link.href = csvContent;
-            link.download = this.$t('label.PFANS2006VIEW_BONUS') + '.csv';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-          }
-        }
-      },
+      // buttonClick(val) {
+      //   if (val === 'export') {
+      //     if (this.Taxestotal === 1) {
+      //       if (this.$refs.roletable.selectedList.length === 0) {
+      //         Message({
+      //           message: this.$t('normal.info_01'),
+      //           type: 'info',
+      //           duration: 2 * 1000,
+      //         });
+      //         return;
+      //       }
+      //       this.selectedlist = this.$refs.roletable.selectedList;
+      //       let heads = [
+      //         this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'), this.$t('label.PFANS2006VIEW_CLUB'), this.$t('label.PFANS2006VIEW_LASTNAME')
+      //         , this.$t('label.PFANS2006VIEW_JOINED'),this.$t('label.PFANS2006VIEW_SEX'),this.$t('label.PFANS2006VIEW_SINGLECHILD')
+      //         , this.$t('label.PFANS2006VIEW_ENTRYTYPE'),this.$t('label.PFANS2006VIEW_SCHOLARSHIP'),this.$t('label.PFANS2006VIEW_SOCIETY')
+      //         , this.$t('label.PFANS2006VIEW_REGISTER')
+      //         , this.$t('label.PFANS2005FORMVIEW_YANGLAOJS'), this.$t('label.PFANS2005FORMVIEW_SHIYEJS'), this.$t('label.PFANS2005FORMVIEW_GONGSHANGJS')
+      //         , this.$t('label.PFANS2005FORMVIEW_YILIAOJS'), this.$t('label.PFANS2005FORMVIEW_SHENGYUJS')
+      //         , this.$t('label.PFANS2005FORMVIEW_HOUSINGFUNDBASE'), this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEY')
+      //         , this.$t('label.PFANS2005FORMVIEW_LASTMONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEY')
+      //         , this.$t('label.PFANS2005FORMVIEW_MONTHPAYMENTMONEYTO'), this.$t('label.PFANS2005FORMVIEW_RANK')
+      //         , this.$t('label.PFANS2006VIEW_BIRTHREST'), this.$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')
+      //         , this.$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME'),this.$t('label.PFANS2005FORMVIEW_LONGDURATIONTIME')
+      //         , this.$t('label.PFANS2005FORMVIEW_ABSENCETIME'), this.$t('label.PFANS2005FORMVIEW_ABSENCEOFWORK')
+      //         , this.$t('label.PFANS2006VIEW_BASICSALARY'), this.$t('label.PFANS2006VIEW_YKBZJB'), this.$t('label.PFANS2006VIEW_YKBT')
+      //         , this.$t('label.PFANS2006VIEW_KASUKE'), this.$t('label.PFANS2006VIEW_OTHER1'), this.$t('label.PFANS2006VIEW_SUBTOTAL1'), this.$t('label.PFANS2006VIEW_OTHER2')
+      //         , this.$t('label.PFANS2006VIEW_MONTHLYBONUS'), this.$t('label.PFANS2006VIEW_OTHER3'), this.$t('label.PFANS2006VIEW_SUBTOTAL2'), this.$t('label.PFANS2006VIEW_INDUSTRY'), this.$t('label.PFANS2006VIEW_HEATING')
+      //         , this.$t('label.PFANS2006VIEW_OLONECHILD'), this.$t('label.PFANS2006VIEW_SUBTOTAL3'), this.$t('label.PFANS2006VIEW_ARSENAL'), this.$t('label.PFANS2006VIEW_OLD'), this.$t('label.PFANS2006VIEW_MEDICAL')
+      //         , this.$t('label.PFANS2006VIEW_UNEMPLOYMENT'), this.$t('label.PFANS2006VIEW_SOCIALSECURITY'), this.$t('label.PFANS2006VIEW_PUBLICMONEY'), this.$t('label.PFANS2006VIEW_SECURITYMON'), this.$t('label.PFANS2006VIEW_EXCLUSIVE')
+      //         , this.$t('label.PFANS2006VIEW_ACCUMULATED'), this.$t('label.PFANS2006VIEW_UNACCUMULATED'), this.$t('label.PFANS2006VIEW_ANNUAL'), this.$t('label.PFANS2006VIEW_RESIDENTIALTAX'), this.$t('label.PFANS2006VIEW_COMPANYBOSS')
+      //         , this.$t('label.PFANS2006VIEW_OTHER5'), this.$t('label.PFANS2006VIEW_RESPONSIBLE'), this.$t('label.PFANS2006VIEW_CUMULATIVE'), this.$t('label.PFANS2006VIEW_INCOME'), this.$t('label.PFANS2006VIEW_THISMONTH')
+      //         , this.$t('label.PFANS2005VIEW_ACTUAL'), this.$t('label.PFANS2006VIEW_OLDC'), this.$t('label.PFANS2006VIEW_MEDICALC'), this.$t('label.PFANS2005FORMVIEW_COMUNEMPLOYMENTINSURANCEC'), this.$t('label.PFANS2005FORMVIEW_EMPLOYMENTINJURYINSURANCEC')
+      //         , this.$t('label.PFANS2005FORMVIEW_COMBIRTHINSURANCE'), this.$t('label.PFANS2005FORMVIEW_HEATINGCOST'), this.$t('label.PFANS2005FORMVIEW_SOCIALSECURITY'), this.$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND'), this.$t('label.PFANS2005FORMVIEW_TOTAL'), this.$t('label.PFANS2005FORMVIEW_LABORUNIONFUNDBASE')
+      //         , this.$t('label.PFANS2009VIEW_INDUSTRIALPARTY'), this.$t('label.PFANS2005FORMVIEW_TOTALWAGES'), this.$t('label.PFANS2005FORMVIEW_GAUGE'), this.$t('label.PFANS2005FORMVIEW_TOTALGAUGE'), this.$t('label.PFANS2005FORMVIEW_OTHER6')];
+      //
+      //      let filterVal = ['workdate','sex','onlychild','type','bonus','sociology','registered'
+      //         , 'yanglaojs', 'shiyejs', 'gongshangjs', 'yiliaojs', 'shengyujs', 'accumulation', 'lastmonthbasic', 'lastmonthduty', 'basethismonthbasic', 'thismonthduty', 'rnbasesalary'
+      //         , 'birthrest', 'thismonthbasic', 'shortillness','longillness', 'owediligence', 'owingcontrol', 'actualamount'
+      //         , 'ykbzjs', 'ykbz', 'overtimesubsidy', 'other1', 'total1'
+      //         , 'other2', 'appreciation', 'other3', 'total2', 'taxestotal'
+      //         , 'heating', 'onlychildmoney', 'total3', 'totalwages', 'endowmentinsurance', 'medicalinsurance', 'unemploymentinsurance'
+      //         , 'socialinsurance', 'accumulationfund', 'disciplinarycontrol', 'thismonthterm', 'thismonthadditional', 'thismonthdutyfree'
+      //         , 'lastdutyfree', 'housingmoneys', 'other4', 'other5', 'shouldwages', 'shouldcumulative', 'shouldpaytaxes'
+      //         , 'thismonthadjustment', 'realwages', 'comendowmentinsurance', 'commedicalinsurance', 'comunemploymentinsurance', 'cominjuryinsurance'
+      //         , 'combirthinsurance', 'comheating','socialsecurity', 'comaccumulationfund', 'total', 'labourunionbase', 'labourunionfunds', 'comtotalwages'
+      //         , 'bonusmoney', 'totalbonus', 'other6'];
+      //
+      //       let csvData = [];
+      //       for (let i = 0; i < this.selectedlist.length; i++) {
+      //         let obj = this.selectedlist[i];
+      //         csvData.push({
+      //           [heads[0]]: obj.jobnumber,
+      //           [heads[1]]: obj.department_id,
+      //           [heads[2]]: obj.user_id,
+      //           [heads[3]]: obj.workdate,
+      //           [heads[4]]: obj.sex,
+      //           [heads[5]]: obj.onlychild,
+      //           [heads[6]]: obj.type,
+      //           [heads[7]]: obj.bonus,
+      //           [heads[8]]: obj.sociology,
+      //           [heads[9]]: obj.registered,
+      //           [heads[10]]: obj.yanglaojs,
+      //           [heads[11]]: obj.shiyejs,
+      //           [heads[12]]: obj.gongshangjs,
+      //           [heads[13]]: obj.yiliaojs,
+      //           [heads[14]]: obj.shengyujs,
+      //           [heads[15]]: obj.accumulation,
+      //           [heads[16]]: parseFloat(obj.lastmonthbasic).toFixed(2),
+      //           [heads[17]]: parseFloat(obj.lastmonthduty).toFixed(2),
+      //           [heads[18]]: parseFloat(obj.basethismonthbasic).toFixed(2),
+      //           [heads[19]]: parseFloat(obj.thismonthduty).toFixed(2),
+      //           [heads[20]]: obj.rnbasesalary,
+      //           [heads[21]]: obj.birthrest,
+      //           [heads[22]]: obj.thismonthbasic,
+      //           [heads[23]]: obj.shortillness,
+      //           [heads[24]]: obj.longillness,
+      //           [heads[25]]: parseFloat(obj.owediligence).toFixed(2),
+      //           [heads[26]]: parseFloat(obj.owingcontrol).toFixed(2),
+      //           [heads[27]]: parseFloat(obj.actualamount).toFixed(2),
+      //           [heads[28]]: obj.ykbzjs,
+      //           [heads[29]]: parseFloat(obj.ykbz).toFixed(2),
+      //           [heads[30]]: parseFloat(obj.overtimesubsidy).toFixed(2),
+      //           [heads[31]]: obj.other1,
+      //           [heads[32]]: parseFloat(obj.total1).toFixed(2),
+      //           [heads[33]]: obj.other2,
+      //           [heads[34]]: obj.appreciation,
+      //           [heads[35]]: obj.other3,
+      //           [heads[36]]: obj.total2,
+      //           [heads[37]]: parseFloat(obj.taxestotal).toFixed(2),
+      //           [heads[38]]: obj.heating,
+      //           [heads[39]]: obj.onlychildmoney,
+      //           [heads[40]]: obj.total3,
+      //           [heads[41]]: parseFloat(obj.totalwages).toFixed(2),
+      //           [heads[42]]: parseFloat(obj.endowmentinsurance).toFixed(2),
+      //           [heads[43]]: parseFloat(obj.medicalinsurance).toFixed(2),
+      //           [heads[44]]: parseFloat(obj.unemploymentinsurance).toFixed(2),
+      //           [heads[45]]: parseFloat(obj.socialinsurance).toFixed(2),
+      //           [heads[46]]: parseFloat(obj.accumulationfund).toFixed(2),
+      //           [heads[47]]: parseFloat(obj.disciplinarycontrol).toFixed(2),
+      //           [heads[48]]: parseFloat(obj.thismonthterm).toFixed(2),
+      //           [heads[49]]: obj.thismonthadditional,
+      //           [heads[50]]: obj.thismonthdutyfree,
+      //           [heads[51]]: parseFloat(obj.lastdutyfree).toFixed(2),
+      //           [heads[52]]: parseFloat(obj.housingmoneys).toFixed(2),
+      //           [heads[53]]: parseFloat(obj.other4).toFixed(2),
+      //           [heads[54]]: parseFloat(obj.other5).toFixed(2),
+      //           [heads[55]]: parseFloat(obj.shouldwages).toFixed(2),
+      //           [heads[56]]: parseFloat(obj.shouldcumulative).toFixed(2) ,
+      //           [heads[57]]: parseFloat(obj.shouldpaytaxes).toFixed(2),
+      //           [heads[58]]: parseFloat(obj.thismonthadjustment).toFixed(2),
+      //           [heads[59]]: parseFloat(obj.realwages).toFixed(2),
+      //           [heads[60]]: parseFloat(obj.comendowmentinsurance).toFixed(2),
+      //           [heads[61]]: parseFloat(obj.commedicalinsurance).toFixed(2),
+      //           [heads[62]]: parseFloat(obj.comunemploymentinsurance).toFixed(2),
+      //           [heads[63]]: parseFloat(obj.cominjuryinsurance).toFixed(2),
+      //           [heads[64]]: parseFloat(obj.combirthinsurance).toFixed(2),
+      //           [heads[65]]: parseFloat(obj.comheating).toFixed(2),
+      //           [heads[66]]: parseFloat(obj.comaccumulationfund).toFixed(2),
+      //           [heads[67]]: parseFloat(obj.socialsecurity).toFixed(2),
+      //           [heads[68]]: parseFloat(obj.total).toFixed(2),
+      //           [heads[69]]: parseFloat(obj.labourunionbase).toFixed(2),
+      //           [heads[70]]: parseFloat(obj.labourunionfunds).toFixed(2),
+      //           [heads[71]]: parseFloat(obj.comtotalwages).toFixed(2),
+      //           [heads[72]]: parseFloat(obj.bonusmoney).toFixed(2),
+      //           [heads[73]]: parseFloat(obj.totalbonus).toFixed(2),
+      //           [heads[74]]: obj.other6,
+      //         });
+      //       }
+      //
+      //       const result = json2csv.parse(csvData, {
+      //         excelStrings: true,
+      //       });
+      //       let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
+      //       const link = document.createElement('a');
+      //       link.href = csvContent;
+      //       link.download = this.$t('title.PFANS2006VIEW') + '.csv';
+      //       document.body.appendChild(link);
+      //       link.click();
+      //       document.body.removeChild(link);
+      //     } else if (this.Bonus === 1) {
+      //       if (this.$refs.rolet.selectedList.length === 0) {
+      //         Message({
+      //           message: this.$t('normal.info_01'),
+      //           type: 'info',
+      //           duration: 2 * 1000,
+      //         });
+      //         return;
+      //       }
+      //       this.selectedList = this.$refs.rolet.selectedList;
+      //       let heads = [this.$t('label.PFANS2007VIEW_YEAR'), this.$t('label.PFANS2007VIEW_NAME'), this.$t('label.PFANS2007VIEW_GOLDLEAF'), this.$t('label.PFANS2007VIEW_TAXMETHOD'), this.$t('label.PFANS2007VIEW_COMBINEDTAX'), this.$t('label.PFANS2007VIEW_KOZO'), this.$t('label.PFANS2007VIEW_TAX'),
+      //         this.$t('label.PFANS2006VIEW_MONTHLYAVERAGE'), this.$t('label.PFANS2007VIEW_CASH'),
+      //         this.$t('label.PFANS2007VIEW_ARITHMETIC'), this.$t('label.PFANS2007VIEW_GOLD'), this.$t('label.PFANS2007VIEW_IEMIKANE'), this.$t('label.remarks')];
+      //       let filterVal = ['years', 'user_id', 'totalbonus1', 'method', 'taxable', 'amount', 'payable', 'income', 'taxrate', 'deductions', 'bonustax', 'received', 'remarks'];
+      //       let csvData = [];
+      //       for (let i = 0; i < this.selectedList.length; i++) {
+      //         let obj = this.selectedList[i];
+      //         csvData.push({
+      //           [heads[0]]: obj.years,
+      //           [heads[1]]: obj.user_id,
+      //           // update gbb 20210312 NT_PFANS_20210308_BUG_165 导出值为Nan处理 start
+      //           [heads[2]]: obj.totalbonus1 === null ? "" :parseFloat(obj.totalbonus1).toFixed(2),
+      //           [heads[3]]: obj.method,
+      //           [heads[4]]: obj.taxable=== null ? "" : parseFloat(obj.taxable).toFixed(2),
+      //           [heads[5]]: obj.amount=== null ? "" : parseFloat(obj.amount).toFixed(2),
+      //           [heads[6]]: obj.payable=== null ? "" : parseFloat(obj.payable).toFixed(2),
+      //           [heads[7]]: obj.income=== null ? "" : parseFloat(obj.income).toFixed(2),
+      //           [heads[8]]: obj.taxrate,
+      //           [heads[9]]: obj.deductions=== null ? "" : parseFloat(obj.deductions).toFixed(2),
+      //           [heads[10]]: obj.bonustax=== null ? "" : parseFloat(obj.bonustax).toFixed(2),
+      //           [heads[11]]: obj.received=== null ? "" : parseFloat(obj.received).toFixed(2),
+      //           // update gbb 20210312 NT_PFANS_20210308_BUG_165 导出值为Nan处理 start
+      //           [heads[12]]: obj.remarks,
+      //         });
+      //       }
+      //       const result = json2csv.parse(csvData, {
+      //         excelStrings: true,
+      //       });
+      //       let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
+      //       const link = document.createElement('a');
+      //       link.href = csvContent;
+      //       link.download = this.$t('label.PFANS2006VIEW_BONUS') + '.csv';
+      //       document.body.appendChild(link);
+      //       link.click();
+      //       document.body.removeChild(link);
+      //     }
+      //   }
+      // },
       getTaxestotal() {
         this.loading = true;
         this.$store
@@ -1035,6 +1070,7 @@
               }
             }
             this.data = response;
+            this.data1 = response;
             this.DATA = response;
             this.loading = false;
           })
@@ -1064,6 +1100,7 @@
               }
             }
             this.datatada = response;
+            this.data1 = response;
             this.DATATADA = response;
             this.loading = false;
           })
