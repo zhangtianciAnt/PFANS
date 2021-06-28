@@ -45,9 +45,10 @@
                     align="center"
                   >-->
                   <plx-table-column
+                    sortable
                     prop="no"
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    width="70"
                     align="center"
                     fixed="left"
                   >
@@ -70,6 +71,7 @@
                     fixed="left"
                   ></plx-table-column>
                   <plx-table-column
+                    sortable
                     prop="workdate"
                     :label="$t('label.PFANS2006VIEW_JOINED')"
                     width="110"
@@ -930,9 +932,10 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  sortable
                   align="center"
                   prop="rowindex"
-                  width="50"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
@@ -1066,6 +1069,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                  sortable
                   align="center"
                   prop="workdate"
                   width="126"
@@ -1106,7 +1110,8 @@
                     >
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_NO')"
-                        width="50"
+                        sortable
+                        width="70"
                         align="center"
                         prop="rowindex"
                         fixed="left"
@@ -1132,6 +1137,7 @@
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                        sortable
                         align="center"
                         prop="workdate"
                       ></el-table-column>
@@ -1235,6 +1241,7 @@
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                        sorttable
                         align="center"
                         prop="workdate"
                       ></el-table-column>
@@ -1313,7 +1320,8 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
                       fixed="left"
@@ -1451,7 +1459,8 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
                       fixed="left"
@@ -1585,7 +1594,8 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
                       fixed="left"
@@ -1739,9 +1749,10 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  sortable
                   align="center"
                   prop="rowindex"
-                  width="50"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
@@ -1765,6 +1776,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                  sortable
                   align="center"
                   prop="worddate"
                   width="110"
@@ -1840,9 +1852,10 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  sortable
                   align="center"
                   prop="rowindex"
-                  width="50"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
@@ -1928,7 +1941,8 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  width="50"
+                  sortable
+                  width="70"
                   align="center"
                   prop="rowindex"
                   fixed="left"
@@ -2227,7 +2241,8 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  width="50"
+                  sortable
+                  width="70"
                   align="center"
                   prop="rowindex"
                   fixed="left"
@@ -2433,7 +2448,8 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
                       fixed="left"
@@ -2576,7 +2592,8 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  width="50"
+                  sortable
+                  width="70"
                   align="center"
                   prop="rowindex"
                   fixed="left"
@@ -2812,7 +2829,8 @@
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    sortable
+                    width="70"
                     align="center"
                     prop="number"
                   ></el-table-column>
@@ -2868,25 +2886,24 @@
                 <el-row>
                   <el-table
                     :data="tableFJKC"
+                    :summary-method="getSummaries"
+                    show-summary
                     header-cell-class-name="sub_bg_color_blue"
                     border
-                    show-summary
-                    :summary-method="getSummaries"
                     height='calc(100vh - 230px - 2rem)'
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
                       width="120"
                       align="center"
                       prop="user_name"
-                      fixed="left"
                     ></el-table-column>
                     <!--                    <plx-table-column-->
                     <!--                      prop="user_name"-->
@@ -3023,7 +3040,8 @@
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    sortable
+                    width="70"
                     align="center"
                     prop="rowindex"
                   ></el-table-column>
@@ -3086,9 +3104,10 @@
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
+                    sortable
                     align="center"
                     prop="rowindex"
-                    width="50"
+                    width="70"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
@@ -3167,10 +3186,10 @@
                 >
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    sortable
+                    width="70"
                     align="center"
                     prop="rowindex"
-                    fixed="left"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_CLUB')"
@@ -3255,7 +3274,7 @@
                 status:'0',
                 workflowCode:'W0089',
                 responseDataInit: [], // responseDataInit 初始化值
-                filterName: "", //  过滤用户姓名
+                filterName: "", //  过滤用户姓名和部门简称
                 tableData: [], // 工资画面显示总数据
                 filterSex: [
                     {label: "男", value: "男"},
@@ -3556,17 +3575,18 @@
                 this.buttonList[1].disabled = true;
             }
         },
-        // zqu start 监听过滤名称
+        // zqu start 监听过滤名称和部门
         watch: {
-            filterName: function () {
-                if (this.filterName === "") {
-                    this.totaldata = this.responseDataInit;
-                } else {
-                    this.totaldata = this.responseDataInit.filter(item => {
-                        return item.user_name === this.filterName;
-                    });
-                }
+          filterName: function () {
+            if (this.filterName === "") {
+              this.totaldata = this.responseDataInit;
+            } else {
+              this.totaldata = this.responseDataInit.filter(item => {
+                return item.user_name === this.filterName
+                  || item.department_id === this.filterName;
+              });
             }
+          }
         },
         // zqu end
         methods: {
