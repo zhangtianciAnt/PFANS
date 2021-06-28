@@ -26,7 +26,7 @@
           </el-popover></span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
-                  style="width: 25%;vertical-align:top" v-model="searchValue">
+                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectByCondition">
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
@@ -195,6 +195,11 @@
       showSelection: {
         type: Boolean,
         default: false,
+      },
+      //工资详细页面是否显示条件搜索框
+      showSelectByCondition: {
+        type: Boolean,
+        default: true,
       },
       // 操作按钮
       handleShow: {

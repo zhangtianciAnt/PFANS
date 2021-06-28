@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns1" :data="data" :title="title" v-loading="loading"
-                     v-show="showTable1">
+                     v-show="showTable1" :showSelectByCondition="displayOrNot">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -16,7 +16,7 @@
       </el-date-picker>
     </EasyNormalTable>
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
-                     v-show="!showTable1">
+                     v-show="!showTable1" :showSelectByCondition="displayOrNot">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -46,6 +46,7 @@
     },
     data() {
       return {
+        displayOrNot: false,
         months: moment(new Date()).format('YYYY-MM'),
         region: '1',
         loading: false,
@@ -554,7 +555,8 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
-              response[j].giving_id = moment(response[j].createon).format('YYYY-MM');
+              // response[j].giving_id = moment(response[j].createon).format('YYYY-MM');
+              response[j].giving_id = moment(response[j].createonym).format('YYYY-MM');
               if (response[j].user_id !== null && response[j].user_id !== '') {
                 let rst = getUserInfo(response[j].user_id);
                 if (rst) {
