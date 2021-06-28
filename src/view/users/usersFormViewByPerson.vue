@@ -3603,7 +3603,6 @@
         }
       },
       Personal() {
-        debugger;
         //给料
         if (moment(this.feedingchangeday).format('YYYY-MM-DD') !== '' && moment(this.feedingchangeday).format('YYYY-MM-DD') !== null
           && Number(this.form.duty) + Number(this.form.basic) > 0) {

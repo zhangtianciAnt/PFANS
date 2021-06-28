@@ -173,7 +173,8 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
+          <el-row :span="8"
+                    v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
             <el-col>
               <el-form-item :label="$t('label.PFANS2016FORMVIEW_LENGTHTIME')" label-width="9rem" prop="lengthtime">
                 <el-input-number
@@ -254,9 +255,6 @@
                 </div>
               </el-form-item>
             </el-col>
-          </el-row>
-          <el-row :span="8"
-                  v-show="(form.errortype != 'PR013005' && form.errortype != 'PR013007') && form.status != '4' && form.status != '5' && form.status != '6' && form.status != '7'&& form.status != '8'">
           </el-row>
           <el-row>
             <el-col :span="8">
