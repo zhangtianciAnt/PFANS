@@ -72,7 +72,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import moment from 'moment';
   import {Message} from 'element-ui';
-  import {getDepartmentById, getUserInfo} from '@/utils/customize';
+  import {getDepartmentById, getUserInfo,getCurrentRole6} from '@/utils/customize';
   import json2csv from 'json2csv';
 
   export default {
@@ -82,6 +82,7 @@
     },
     data() {
       return {
+        roles: '',
         filterName: "",
         displayOrNot: false,
         data1: [],
@@ -761,15 +762,18 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRole6();
       this.Taxestotal = 1;
       if (this.$i18n) {
 
         this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany');
       }
       //只有张建波、冷美琴、康奕凝
-      if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
-        || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
-        || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+      // if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+      //   || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+      //   || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37")
+      if(this.roles === '0')
+      {
         this.getTaxestotal();
       }
     },

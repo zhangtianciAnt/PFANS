@@ -299,7 +299,7 @@
   import user from '../../../components/user.vue';
   import {getOrgInfoByUserId, getCurrentRole, getUserInfo} from '@/utils/customize';
   import moment from 'moment';
-  import {downLoadUrl, getDictionaryInfo, uploadUrl} from '../../../../utils/customize';
+  import {downLoadUrl, getDictionaryInfo, uploadUrl,getCurrentRoleNew} from '../../../../utils/customize';
 
   export default {
     name: 'PFANS2016FormView',
@@ -604,6 +604,7 @@
       };
       //add ccm 0720
       return {
+        roles: '',
         //add ccm 0806 剩余年休
         remaningAnnual: [],
         //add ccm 0806 剩余年休
@@ -805,6 +806,7 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRoleNew();
       this.getAbNormalParent();
       this.getSickleave();
       // this.getAttendance();
@@ -895,7 +897,8 @@
               }
             }
             if (this.form.status === '0' || this.form.status === '3') {
-              if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              // if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              if(this.roles === '1'){
                 if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
                   || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
@@ -923,7 +926,8 @@
                 this.disableupload = true;
               }
             } else if (this.form.status === '4' || this.form.status === '6') {
-              if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              // if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              if(this.roles === '1'){
                 if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
                   || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
@@ -965,7 +969,8 @@
               this.disableupload = true;
             } else if (this.form.status === '7') {
               this.disrevacationtype = true;
-              if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              // if (this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              if(this.roles === '1'){
                 if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
                   || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
                   || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
@@ -1029,7 +1034,8 @@
         }
         this.getOvertimelist();
         // this.getWorktime();
-        if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
+        // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
+        if(this.roles === '1'){
           if (this.form.errortype === 'PR013009' || this.form.errortype === 'PR013010'
             || this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012'
             || this.form.errortype === 'PR013013' || this.form.errortype === 'PR013015'
@@ -2862,7 +2868,8 @@
         //add-ws-6/8-禅道035
         if (this.$route.params._id) {
           //总经理审批自动通过
-          // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+          // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {//失效
+          //  if (getCurrentRole() === '1' && this.form.status === '4' && this.roles === '1') {//变更
           //   this.form.status = '7';
           // }
           this.form.abnormalid = this.$route.params._id;
@@ -2932,7 +2939,8 @@
 
       buttonClick2(val) {
         //总经理审批自动通过
-        // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+        // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {//失效
+        //if (getCurrentRole() === '1' && this.roles === '1' ) {//变更
         //   this.form.status = '7';
         // }
         this.$store.commit('global/SET_HISTORYURL', 'PFANS2016View');

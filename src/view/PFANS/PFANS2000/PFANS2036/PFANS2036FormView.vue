@@ -2267,7 +2267,8 @@
     getCurrentRole14,
     getCurrentRole3,
     getDictionaryInfo,
-    getOrgInfo
+    getOrgInfo,
+    getCurrentRole19
   } from '../../../../utils/customize';
   import EasyNormalContainer from "@/components/EasyNormalContainer";
   import dicselect from "../../../components/dicselect";
@@ -2286,8 +2287,9 @@
     },
     data() {
       return {
-        // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
-        listQuery: {
+          roles: '',
+           // add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start
+          listQuery: {
           pageData: 1,
           limitData: 10,
           pageBm: 1,
@@ -2366,6 +2368,7 @@
       }
     },
     mounted() {
+      this.roles = getCurrentRole19();
       this.form.yearsantid = this.$route.params._id;
       this.getById();
       this.getChangeRanks();
@@ -2529,8 +2532,9 @@
       // },
       getById() {
         this.loading = true;
-        if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
-          || this.$store.getters.userinfo.userid === '5e78b22c4e3b194874180f5f') {
+        // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7'
+        //   || this.$store.getters.userinfo.userid === '5e78b22c4e3b194874180f5f') {
+        if(this.roles === '0'){
           let vote1 = [];
           vote1.push(
             {
