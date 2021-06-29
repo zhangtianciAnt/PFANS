@@ -230,7 +230,7 @@
             filter: true,
           },
         ],
-        buttonList: [
+        buttonListAll: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
@@ -250,8 +250,28 @@
           {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
           // add-ccm 7/20 离职工资对比 to
           // add-ccm  数据转结 fr
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit', },
           // add-ccm  数据转结 to
+        ],
+        buttonListial:[
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
+          //add-ws-6/16-禅道106
+          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+          {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
+          //add-ws-6/16-禅道106
+          // add-ccm 7/9 离职考勤对比 fr
+          {
+            'key': 'resignationAttendCompare',
+            'name': 'button.resignationAttendCompare',
+            'disabled': true,
+            'icon': 'el-icon-view',
+          },
+          // add-ccm 7/9 离职考勤对比 to
+          // add-ccm 7/20 离职工资对比 fr
+          {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
+          // add-ccm 7/20 离职工资对比 to
         ],
         userid: '',
         //add-ws-9/23-禅道任务548
@@ -272,10 +292,13 @@
         row_resignation_year: '',
         row_resignation_months: '',
         // add-ccm 7/9 离职考勤对比 to
+        mounth: '',
+        date: '',
       };
     },
     mounted() {
       this.getList();
+      this.getdate();
     },
     methods: {
       getCenterid(val){
@@ -365,6 +388,7 @@
                 }
               }
             }
+
             this.data = response;
             this.tableList = response;
             this.loading = false;
@@ -377,6 +401,16 @@
             });
             this.loading = false;
           });
+      },
+      //按钮显示
+      getdate(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth = 4 && this.date >= 10 || this.mounth > 4){
+          this.buttonList = this.buttonListAll
+        } else {
+          this.buttonList = this.buttonListial;
+        }
       },
       submit(){
         this.loading = true;
@@ -393,6 +427,7 @@
               .dispatch('PFANS2026Store/change', parameter)
               .then(response => {
                 this.data = response;
+
                 Message({
                   message: this.$t('normal.success_07'),
                   type: 'success',
