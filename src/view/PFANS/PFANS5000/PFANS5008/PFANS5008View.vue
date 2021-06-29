@@ -643,7 +643,6 @@
           }
           this.delete();
         }
-        /*   upd  只能删除自己日志   to   */
         // add-ws-5/26-No.68
         else if (val === 'data') {
           this.checkdata = true;

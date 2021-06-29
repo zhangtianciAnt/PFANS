@@ -153,7 +153,7 @@
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
-          // {'key': 'pubilc', 'name': 'label.PFANS1025FORMVIEW_CHECKERROR', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         status: '',
@@ -540,86 +540,86 @@
           });
           //upd-ws-9/3-禅道任务493
         }
-        // if (val === 'pubilc') {
-        //   this.selectedlist = this.$refs.roletable.selectedList;
-        //   if (this.$refs.roletable.selectedList.length === 0) {
-        //     Message({
-        //       message: this.$t('normal.info_01'),
-        //       type: 'info',
-        //       duration: 2 * 1000,
-        //     });
-        //     return;
-        //   } else {
-        //     let n = 0;
-        //     let checksum =  this.selectedlist.length
-        //     for (let i = 0; i <  this.selectedlist.length; i++) {
-        //       if ( this.selectedlist[i].loanapno == null ||  this.selectedlist[i].loanapno == ''||  this.selectedlist[i].loanapno == undefined ) {
-        //         n = n + 1
-        //       }
-        //     }
-        //     if(n!=checksum){
-        //       if(n!=0){
-        //         Message({
-        //           message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
-        //           type: 'info',
-        //           duration: 2 * 1000
-        //         });
-        //         return;
-        //       }
-        //     }
-        //     for (let i = 0; i < this.selectedlist.length; i++) {
-        //       if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
-        //         Message({
-        //           message: this.$t('label.PFANS1025VIEW_PUBLIC4'),
-        //           type: 'info',
-        //           duration: 2 * 1000,
-        //         });
-        //         return;
-        //       }
-        //     }
-        //     for (let i = 0; i < this.selectedlist.length; i++) {
-        //       if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-        //         Message({
-        //           message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
-        //           type: 'info',
-        //           duration: 2 * 1000,
-        //         });
-        //         return;
-        //       }
-        //     }
-        //     let chek = this.selectedlist;
-        //     for (let citem of this.selectedlist) {
-        //       chek = chek.filter(item => citem.custochinese == item.custochinese);
-        //     }
-        //     if (chek.length != this.selectedlist.length) {
-        //       Message({
-        //         message: this.$t('label.PFANS1025VIEW_PUBLIC2'),
-        //         type: 'info',
-        //         duration: 2 * 1000,
-        //       });
-        //       return;
-        //     }
-        //   }
-        //   for (let i = 0; i < this.selectedlist.length; i++) {
-        //     var vote = {};
-        //     vote.value = this.selectedlist[i].award_id;
-        //     vote.label = this.selectedlist[i].contractnumber;
-        //     vote.remarks = this.selectedlist[i].remarks;
-        //     vote.judgements_moneys = this.selectedlist[i].claimamount;
-        //     if (this.$i18n) {
-        //       vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
-        //     }
-        //     this.listjudgement.push(vote);
-        //   }
-        //   this.$router.push({
-        //     name: 'PFANS1012FormView',
-        //     params: {
-        //       _name: this.listjudgement,
-        //       _type: 'PJ001002',
-        //       disabled: true,
-        //     },
-        //   });
-        // }
+        if (val === 'pubilc') {
+          this.selectedlist = this.$refs.roletable.selectedList;
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          } else {
+            let n = 0;
+            let checksum =  this.selectedlist.length;
+            for (let i = 0; i <  this.selectedlist.length; i++) {
+              if ( this.selectedlist[i].loanapno == null ||  this.selectedlist[i].loanapno == ''||  this.selectedlist[i].loanapno == undefined ) {
+                n = n + 1
+              }
+            }
+            if(n!=checksum){
+              if(n!=0){
+                Message({
+                  message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
+                  type: 'info',
+                  duration: 2 * 1000
+                });
+                return;
+              }
+            }
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_PUBLIC4'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+                Message({
+                  message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            let chek = this.selectedlist;
+            for (let citem of this.selectedlist) {
+              chek = chek.filter(item => citem.custochinese == item.custochinese);
+            }
+            if (chek.length != this.selectedlist.length) {
+              Message({
+                message: this.$t('label.PFANS1025VIEW_PUBLIC2'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
+          for (let i = 0; i < this.selectedlist.length; i++) {
+            var vote = {};
+            vote.value = this.selectedlist[i].award_id;
+            vote.label = this.selectedlist[i].contractnumber;
+            vote.remarks = this.selectedlist[i].remarks;
+            vote.judgements_moneys = this.selectedlist[i].claimamount;
+            if (this.$i18n) {
+              vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
+            }
+            this.listjudgement.push(vote);
+          }
+          this.$router.push({
+            name: 'PFANS1012FormView',
+            params: {
+              _name: this.listjudgement,
+              _type: 'PJ001002',
+              disabled: true,
+            },
+          });
+        }
         if (val === 'viewseal') {
           if (this.rowid === '') {
             Message({

@@ -198,8 +198,8 @@
           project_name: '',
           wbs_id: '',
         }],
-        optionsdata: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
-        optionsdate: [],
+        //optionsdata: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
+        optionsdata: [],
         optionsdategroup: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         optionsdategroup: [],
         buttonList: [],
@@ -630,7 +630,13 @@
       }
     },
     methods: {
+
       getCompanyProjectList() {
+        if(this.$store.getters.useraccount.account.toUpperCase().indexOf('KK-') != -1){
+          this.optionsdata = [];
+        }else{
+          this.optionsdata.push({value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')})
+        }
         //upd_fjl_0805  查看时显示项目name  start
         if (this.disable) {
           this.loading = true;
