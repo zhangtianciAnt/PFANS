@@ -1,4 +1,5 @@
 <template>
+  <div>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     <el-date-picker
@@ -14,27 +15,149 @@
       @change="filterInfo"
     ></el-date-picker>
   </EasyNormalTable>
+  <el-dialog center
+             :visible.sync="dialogVisible"
+             width="60%">
+    <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+    <el-row>
+      <el-col :span="8">
+          <el-form-item :label="$t('label.center')">
+            <el-input :disabled="true" style="width:13vw" v-model="form.last_center_id"></el-input>
+          </el-form-item>
+      </el-col>
+      <el-col :span="8">
+          <el-form-item :label="$t('label.group')">
+            <el-input :disabled="true" style="width:13vw" v-model="form.last_group_id"></el-input>
+          </el-form-item>
+      </el-col>
+      <el-col :span="8">
+          <el-form-item :label="$t('label.team')">
+            <el-input :disabled="true" style="width:13vw" v-model="form.last_team_id"></el-input>
+          </el-form-item>
+      </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="8">
+          <el-form-item :label="$t('label.center')" prop="new_center_id"
+                        :error="error_center">
+            <org :orglist="form.new_center_id"
+                 orgtype="1"
+                 style="width: 10vw"
+                 @getOrgids="getCenterid"
+                 :error="error_center"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item :label="$t('label.center')" prop="new_group_id"
+                        :error="error_group">
+            <org :orglist="form.new_group_id"
+                 orgtype="2"
+                 style="width: 10vw"
+                 @getOrgids="getGroupid"
+                 :error="error_group"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item :label="$t('label.center')">
+            <org :orglist="form.new_team_id"
+                 orgtype="3"
+                 style="width: 10vw"
+                 @getOrgids="getTeamid"
+            ></org>
+          </el-form-item>
+        </el-col>
+    </el-row>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submit">确 定</el-button>
+  </span>
+  </el-dialog>
+  </div>
 </template>
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getStatus, getUserInfo, getDictionaryInfo,getUserInfoName, getOrgInfoByUserId,getCurrentRolegongzijisuan} from '@/utils/customize';
+  import org from '@/view/components/org';
+  import {getStatus, getUserInfo, getDictionaryInfo,getUserInfoName, getOrgInfoByUserId,getCurrentRolegongzijisuan,getDepartmentById} from '@/utils/customize';
 
   export default {
     name: 'PFANS2026View',
     components: {
       EasyNormalTable,
+      org,
     },
     data() {
+      var centerId = (rule, value, callback) => {
+        if (!this.form.new_center_id || this.form.new_center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
+          this.error_center = this.$t('normal.error_08') + this.$t('label.center');
+        } else {
+          callback();
+        }
+      };
+      // var groupId = (rule, value, callback) => {
+      //   if (!this.form.new_group_id || this.form.new_group_id === '') {
+      //     callback(new Error(this.$t('normal.error_08') + this.$t('label.group')));
+      //     this.error_group = this.$t('normal.error_08') + this.$t('label.group');
+      //   } else {
+      //     callback();
+      //   }
+      // };
+      // var teamId = (rule, value, callback) => {
+      //   if (!this.form.new_center_id || this.form.new_center_id === '') {
+      //     callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+      //     this.error_team = this.$t('normal.error_08') + this.$t('label.department');
+      //   } else {
+      //     callback();
+      //   }
+      // };
       return {
+        rules: {
+          new_center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            }
+          ],
+          // new_group_id: [
+          //   {
+          //     required: true,
+          //     validator: groupId,
+          //     trigger: 'blur',
+          //   }
+          // ],
+          // new_team_id: [
+          //   {
+          //     required: true,
+          //     validator: teamId,
+          //     trigger: 'blur',
+          //   }
+          // ],
+        },
+        form: {
+          last_center_id: '',
+          last_group_id: '',
+          last_team_id: '',
+          new_center_id: '',
+          new_group_id: '',
+          new_team_id: '',
+          org: '',
+        },
+        dialogVisible: false,
         workinghours: '',
         checktype: 0,
         loading: false,
         title: 'title.PFANS2026VIEW',
         data: [],
         tableList: [],
+        rowInfo: [],
+        error_group: '',
+        error_center: '',
         columns: [
           {
             code: 'user_id',
@@ -126,6 +249,9 @@
           // add-ccm 7/20 离职工资对比 fr
           {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
           // add-ccm 7/20 离职工资对比 to
+          // add-ccm  数据转结 fr
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
+          // add-ccm  数据转结 to
         ],
         userid: '',
         //add-ws-9/23-禅道任务548
@@ -152,6 +278,18 @@
       this.getList();
     },
     methods: {
+      getCenterid(val){
+        this.form.new_center_id = val
+      },
+      getGroupid(val){
+        this.form.new_group_id = val
+      },
+      getTeamid(val){
+        this.form.new_team_id = val
+      },
+      setOrg(val) {
+        this.form.org = val;
+      },
       getworkinghours(workinghours) {
         if (workinghours != null) {
           if (workinghours.length > 0) {
@@ -194,13 +332,9 @@
                     response[j].starank = letbudge.value1;
                   }
                 }
-                let rst = getUserInfo(response[j].user_id);
-                let nameflg = getOrgInfoByUserId(response[j].user_id);
-                if (nameflg) {
-                  response[j].center_name = nameflg.centerNmae;
-                  response[j].group_name = nameflg.groupNmae;
-                  response[j].team_name = nameflg.teamNmae;
-                }
+                response[j].center_name = getDepartmentById(response[j].center_id);
+                response[j].group_name = getDepartmentById(response[j].group_id);
+                response[j].team_name = getDepartmentById(response[j].team_id);
                 let postinfo = getDictionaryInfo(response[j].position);
                 if (postinfo) {
                   response[j].position = postinfo.value1;
@@ -209,6 +343,7 @@
                 //保存离职者的用户id
                 response[j].userid1 = response[j].user_id;
                 // add-ccm 7/9 离职考勤对比 to
+                let rst = getUserInfo(response[j].user_id);
                 if (rst) {
                   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                 }
@@ -242,6 +377,38 @@
             });
             this.loading = false;
           });
+      },
+      submit(){
+        this.loading = true;
+        this.$refs['form'].validate(valid =>{
+          if(valid){
+            let parameter = {
+              center_id: this.form.new_center_id,
+              group_id: this.form.new_group_id,
+              team_id:this.form.new_team_id,
+              staffexitprocedure_id:this.rowid,
+            };
+            console.log(parameter)
+            this.$store
+              .dispatch('PFANS2026Store/change', parameter)
+              .then(response => {
+                this.data = response;
+                Message({
+                  message: this.$t('normal.success_07'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                this.dialogVisible = false;
+              })
+          }else{
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+        this.loading = false;
       },
       rowClick(row) {
         //add-ws-9/23-禅道任务548
@@ -318,6 +485,7 @@
         }
         //add-ws-6/16-禅道106
         this.rowid = row.staffexitprocedure_id;
+        this.rowInfo = row;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -355,6 +523,20 @@
               disabled: true,
             },
           });
+        } else if(val === 'carryforward'){
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }else{
+            this.form.last_center_id = this.rowInfo.center_name;
+            this.form.last_group_id = this.rowInfo.group_name;
+            this.form.last_team_id = this.rowInfo.team_name;
+          }
+          this.dialogVisible = true;
         } else if (val === 'update') {
           if (this.rowid === '') {
             Message({

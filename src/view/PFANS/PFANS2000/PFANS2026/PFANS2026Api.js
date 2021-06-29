@@ -26,6 +26,14 @@ export function update(data) {
     data: data
   })
 }
+//数据转结
+export function change(data) {
+  return request({
+    url: 'staffexitprocedure/change',
+    method: 'post',
+    params: data
+  })
+}
 //新建insert
 export function insert(data) {
   return request({

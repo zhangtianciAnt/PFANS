@@ -1,4 +1,4 @@
-import {get, getList2,get3,selectById, update, insert,get2, selectById2, update2, insert2, deletesta,generatesta,getList} from './PFANS2026Api';
+import {get, getList2,get3,selectById, update, insert,get2, selectById2, update2, insert2, deletesta,generatesta,getList,change} from './PFANS2026Api';
 
 
 const PFANS2026Store = {
@@ -129,6 +129,20 @@ const PFANS2026Store = {
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //数据转结
+    change({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
