@@ -16,8 +16,10 @@
         <el-form label-position="top" label-width="8vw" ref="form">
           <el-row type="flex" justify="end" style="margin-bottom:1vh">
             <el-col :span="6">
-              <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')" prefix-icon="el-icon-search"
-                        v-model="filterName"></el-input>
+              <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                        v-model="filterName">
+                <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+              </el-input>
             </el-col>
           </el-row>
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
@@ -3576,8 +3578,8 @@
             }
         },
         // zqu start 监听过滤名称和部门
-        watch: {
-          filterName: function () {
+        methods: {
+          inputChange(){
             if (this.filterName === "") {
               this.totaldata = this.responseDataInit;
             } else {
@@ -3586,10 +3588,8 @@
                   || item.department_id === this.filterName;
               });
             }
-          }
-        },
-        // zqu end
-        methods: {
+          },
+          // zqu end
             workflowState(val) {
                 if (val.state === '1') {
                     this.status = '3';
