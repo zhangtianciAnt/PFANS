@@ -5693,6 +5693,16 @@
                 } else if (val === "save") {
                     this.responseDataInit[0].status = this.status;
                     this.responseDataInit[0].actual = "0";//预计工资
+                  //region add_qhr_20210628 工资计算保存时判断计算的值
+                    for (let i = 0; i < this.responseDataInit.length; i++) {
+                      if (this.responseDataInit[i].comtotalwages === null || this.responseDataInit[i].comtotalwages === "") {
+                        this.responseDataInit[i].comtotalwages = "0";
+                      }
+                      if (this.responseDataInit[i].totalbonus === null || this.responseDataInit[i].totalbonus === "") {
+                        this.responseDataInit[i].totalbonus = "0";
+                      }
+                    };
+                  //endregion add_qhr_20210628 工资计算保存时判断计算的值
                     this.loading = true;
                     // 插入工资数据
                     this.$store
