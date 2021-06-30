@@ -23,7 +23,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui'
-    import {getUserInfo, getStatus} from "@/utils/customize";
+    import {getUserInfo, getStatus,getCurrentRoleNew} from "@/utils/customize";
     import moment from "moment";
     export default {
         name: 'PFANS2010View',
@@ -32,7 +32,8 @@
         },
         data() {
             return {
-              workflow:[],
+                roles: '',
+                workflow:[],
                 montvalue:moment(new Date()).format("YYYY-MM"),
                 region: '1',
                 loading: false,
@@ -112,6 +113,7 @@
             };
         },
       mounted() {
+        this.roles = getCurrentRoleNew();
         this.getWorkflow();
         //await this.getlist();
         },
@@ -179,14 +181,16 @@
                           // //总经理承认不需要审批
                           // if (response[j].recognitionstate === this.$t('label.PFANS2010VIEW_RECOGNITION0'))
                           // {
-                          //   if (response[j].user_id==='5e78fefff1560b363cdd6db7')
+                          //   if (response[j].user_id==='5e78fefff1560b363cdd6db7')//失效
+                          //    if(this.roles === '1')//变更
                           //   {
                           //     response[j].workflowstates = '进行中';
                           //   }
                           // }
                           // else
                           // {
-                          //   if (response[j].user_id==='5e78fefff1560b363cdd6db7')
+                          //   if (response[j].user_id==='5e78fefff1560b363cdd6db7')//失效
+                         //    if(this.roles  === '1')//变更
                           //   {
                           //     response[j].workflowstates = '通过';
                           //   }

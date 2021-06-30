@@ -1089,7 +1089,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListJS.page"
                   :page-size="listQueryListJS.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalBase"
                   @current-change="handleCurrentChangeJS"
                   @size-change="handleSizeChangeJS"
@@ -1200,7 +1200,7 @@
                       <el-pagination
                         :current-page.sync="listQueryListQT1Woman.page"
                         :page-size="listQueryListQT1Woman.limit"
-                        :page-sizes="[10,30,50,100,300,500]"
+                        :page-sizes="[20,30,50,100,300,500]"
                         :total="totalOtherOne"
                         @current-change="handleCurrentChangeQT1Woman"
                         @size-change="handleSizeChangeQT1Woman"
@@ -1301,7 +1301,7 @@
                       <el-pagination
                         :current-page.sync="listQueryListQT1Woman.page"
                         :page-size="listQueryListQT1Woman.limit"
-                        :page-sizes="[10,30,50,100,300,500]"
+                        :page-sizes="[20,30,50,100,300,500]"
                         :total="totalOtherOne"
                         @current-change="handleCurrentChangeQT1Woman"
                         @size-change="handleSizeChangeQT1Woman"
@@ -1385,7 +1385,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListQT2.page"
                       :page-size="listQueryListQT2.limit"
-                      :page-sizes="[10,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500]"
                       :total="totalQT2"
                       @current-change="handleCurrentChangeQT2"
                       @size-change="handleSizeChangeQT2"
@@ -1447,7 +1447,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[10,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -1526,7 +1526,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListQT4.page"
                       :page-size="listQueryListQT4.limit"
-                      :page-sizes="[10,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500]"
                       :total="totalQT4"
                       @current-change="handleCurrentChangeQT4"
                       @size-change="handleSizeChangeQT4"
@@ -1588,7 +1588,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[10,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -1690,7 +1690,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListQT5.page"
                       :page-size="listQueryListQT5.limit"
-                      :page-sizes="[10,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500]"
                       :total="totalQT5"
                       @current-change="handleCurrentChangeQT5"
                       @size-change="handleSizeChangeQT5"
@@ -1752,7 +1752,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[10,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -1867,7 +1867,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListRZ.page"
                   :page-size="listQueryListRZ.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalRZ"
                   @current-change="handleCurrentChangeRZ"
                   @size-change="handleSizeChangeRZ"
@@ -1964,7 +1964,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListTZ.page"
                   :page-size="listQueryListTZ.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalTZ"
                   @current-change="handleCurrentChangeTZ"
                   @size-change="handleSizeChangeTZ"
@@ -2272,7 +2272,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListQQ.page"
                   :page-size="listQueryListQQ.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalQQ"
                   @current-change="handleCurrentChangeQQ"
                   @size-change="handleSizeChangeQQ"
@@ -2485,7 +2485,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListCY.page"
                   :page-size="listQueryListCY.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalCY"
                   @current-change="handleCurrentChangeCY"
                   @size-change="handleSizeChangeCY"
@@ -2573,7 +2573,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListYDSY.page"
                       :page-size="listQueryListYDSY.limit"
-                      :page-sizes="[10,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500]"
                       :total="totalYDSY"
                       @current-change="handleCurrentChangeYDSY"
                       @size-change="handleSizeChangeYDSY"
@@ -2635,7 +2635,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[10,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -2883,7 +2883,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListZHSR.page"
                   :page-size="listQueryListZHSR.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalZHSR"
                   @current-change="handleCurrentChangeZHSR"
                   @size-change="handleSizeChangeZHSR"
@@ -2955,7 +2955,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListZXKC.page"
                   :page-size="listQueryListZXKC.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalZXKC"
                   @current-change="handleCurrentChangeZXKC"
                   @size-change="handleSizeChangeZXKC"
@@ -3044,7 +3044,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListFJKC.page"
                       :page-size="listQueryListFJKC.limit"
-                      :page-sizes="[10,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500]"
                       :total="totalFJKC"
                       @current-change="handleCurrentChangeFJKC"
                       @size-change="handleSizeChangeFJKC"
@@ -3106,7 +3106,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[10,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -3182,7 +3182,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListMS.page"
                   :page-size="listQueryListMS.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalDutyfreeVo"
                   @current-change="handleCurrentChangeMS"
                   @size-change="handleSizeChangeMS"
@@ -3272,7 +3272,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListLJSJ.page"
                   :page-size="listQueryListLJSJ.limit"
-                  :page-sizes="[10,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500]"
                   :total="totalAccumulatedTax"
                   @current-change="handleCurrentChangeLJSJ"
                   @size-change="handleSizeChangeLJSJ"
@@ -3353,7 +3353,7 @@
                   <el-pagination
                     :current-page.sync="listQueryListGRDB.page"
                     :page-size="listQueryListGRDB.limit"
-                    :page-sizes="[10,30,50,100,300,500]"
+                    :page-sizes="[20,30,50,100,300,500]"
                     :total="totalContrast"
                     @current-change="handleCurrentChangeGRDB"
                     @size-change="handleSizeChangeGRDB"
