@@ -183,7 +183,7 @@
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui'
     import moment from "moment";
-    import {Decrypt } from "@/utils/customize";
+    import {Decrypt,getCurrentRole6} from "@/utils/customize";
     export default {
         name: 'PFANS2007FormView',
         components: {
@@ -193,6 +193,7 @@
         },
         data() {
             return {
+                roles: '',
                 // update gbb 20210311 NT_PFANS_20210305_BUG_130 点击送信时判断是否选择了数据 start
                 multipleSelection: [],
                 // update gbb 20210311 NT_PFANS_20210305_BUG_130 点击送信时判断是否选择了数据 end
@@ -265,11 +266,14 @@
             };
         },
         mounted() {
+          this.roles = getCurrentRole6();
           // this.getList();
           //只有张建波、冷美琴、康奕凝
-          if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
-            || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
-            || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+          // if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+          //   || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+          //   || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37")
+          if(this.roles === '0')
+          {
             this.getList(this.years);
           }
         },

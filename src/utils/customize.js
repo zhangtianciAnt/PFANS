@@ -606,6 +606,22 @@ export function getCurrentRole6() {
   return '1';
 }
 
+export function getCurrentRole19() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 ) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
 export function getCurrentRole7() {
   let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {

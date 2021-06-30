@@ -24,6 +24,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import {getCurrentRole6} from "@/utils/customize";
   let moment = require('moment');
   import {Message} from 'element-ui';
   export default {
@@ -34,6 +35,7 @@
     },
     data() {
       return {
+        roles: '',
         loading: false,
         titlewagesestimate: "label.PFANS2030FROMVIEW_WAGESESTIMATE",
         titlewagesactual: "label.PFANS2030FROMVIEW_WAGESACTUAL",
@@ -173,10 +175,12 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRole6();
       //只有张建波、冷美琴、康奕凝
-      if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
-        || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
-        || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+      // if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+      //   || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+      //   || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+      if(this.roles === '0'){
         this.getWages();
       }
     },

@@ -64,7 +64,7 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getStatus, getUserInfo,Decrypt} from '@/utils/customize';
+  import {getStatus, getUserInfo,Decrypt,getCurrentRole6} from '@/utils/customize';
 
   export default {
     name: 'PFANS2005View',
@@ -74,6 +74,7 @@
     },
     data() {
       return {
+        roles: '',
         loading: false,
         title: 'title.PFANS2005VIEW',
         data: [],
@@ -151,9 +152,12 @@
     },
     mounted() {
       //只有张建波、冷美琴、康奕凝
-      if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
-        || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
-        || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+      this.roles = getCurrentRole6();
+      // if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+      //   || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+      //   || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37")
+      if(this.roles === '0')
+      {
         this.getGivingList();
       }
     },

@@ -14,14 +14,16 @@
     >
       <div slot="customize">
         <el-form label-position="top" label-width="8vw" ref="form">
-          <el-row type="flex" justify="end" style="margin-bottom:1vh">
-            <el-col :span="6">
-              <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')" prefix-icon="el-icon-search"
-                        v-model="filterName"></el-input>
-            </el-col>
-          </el-row>
           <el-tabs @tab-click="handleClick" v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GZ')" name="first">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(1)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div style="height: calc(100vh - 230px - 2rem);width: 100%">
                 <plx-table-grid
                   :datas="totaldata"
@@ -45,9 +47,10 @@
                     align="center"
                   >-->
                   <plx-table-column
+                    sortable
                     prop="no"
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    width="70"
                     align="center"
                     fixed="left"
                   >
@@ -70,6 +73,7 @@
                     fixed="left"
                   ></plx-table-column>
                   <plx-table-column
+                    sortable
                     prop="workdate"
                     :label="$t('label.PFANS2006VIEW_JOINED')"
                     width="110"
@@ -919,6 +923,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_JS')" name="second">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(2)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableJS"
                 stripe
@@ -930,9 +942,10 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  sortable
                   align="center"
                   prop="rowindex"
-                  width="50"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
@@ -1066,6 +1079,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                  sortable
                   align="center"
                   prop="workdate"
                   width="126"
@@ -1091,6 +1105,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div>
                 <el-collapse value="women">
                   <el-collapse-item name="women">
@@ -1106,24 +1128,22 @@
                     >
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_NO')"
-                        width="50"
+                        sortable
+                        width="70"
                         align="center"
                         prop="rowindex"
-                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_CLUB')"
                         width="120"
                         align="center"
                         prop="department_id"
-                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_LASTNAME')"
                         width="120"
                         align="center"
                         prop="user_name"
-                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_SEX')"
@@ -1132,6 +1152,7 @@
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                        sortable
                         align="center"
                         prop="workdate"
                       ></el-table-column>
@@ -1212,21 +1233,18 @@
                         width="50"
                         align="center"
                         prop="rowindex"
-                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_CLUB')"
                         width="120"
                         align="center"
                         prop="department_id"
-                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_LASTNAME')"
                         width="120"
                         align="center"
                         prop="user_name"
-                        fixed="left"
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2006VIEW_SEX')"
@@ -1235,6 +1253,7 @@
                       ></el-table-column>
                       <el-table-column
                         :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                        sorttable
                         align="center"
                         prop="workdate"
                       ></el-table-column>
@@ -1301,6 +1320,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT2')" name="fourth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(4)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div>
                 <el-row>
                   <el-table
@@ -1313,7 +1340,8 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
                       fixed="left"
@@ -1439,6 +1467,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT4')" name="fifth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(5)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div>
                 <el-row>
                   <el-table
@@ -1451,10 +1487,10 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_CLUB')"
@@ -1473,7 +1509,6 @@
                       width="120"
                       align="center"
                       prop="user_name"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2009VIEW_DEPARTMENT')"
@@ -1573,6 +1608,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT5')" name="sixth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(6)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div>
                 <el-row>
                   <el-table
@@ -1585,10 +1628,10 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_CLUB')"
@@ -1729,6 +1772,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_RZ')" name="seventh">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(7)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableRZ"
                 :summary-method="getSummaries"
@@ -1739,9 +1790,10 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  sortable
                   align="center"
                   prop="rowindex"
-                  width="50"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
@@ -1765,6 +1817,7 @@
                 ></el-table-column>
                 <el-table-column
                   :label="$t('label.PFANS2022VIEW_JOININGDAY')"
+                  sortable
                   align="center"
                   prop="worddate"
                   width="110"
@@ -1830,6 +1883,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_TZ')" name="eighth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(8)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableTZ"
                 :summary-method="getSummaries"
@@ -1840,9 +1901,10 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
+                  sortable
                   align="center"
                   prop="rowindex"
-                  width="50"
+                  width="70"
                   fixed="left"
                 ></el-table-column>
                 <el-table-column
@@ -1918,6 +1980,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QQ')" name="ninth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(9)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableQQ"
                 :summary-method="getSummaries"
@@ -1928,7 +1998,8 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  width="50"
+                  sortable
+                  width="70"
                   align="center"
                   prop="rowindex"
                   fixed="left"
@@ -2217,6 +2288,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_CY')" name="tenth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(10)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableCY"
                 :summary-method="getSummaries"
@@ -2227,7 +2306,8 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  width="50"
+                  sortable
+                  width="70"
                   align="center"
                   prop="rowindex"
                   fixed="left"
@@ -2421,6 +2501,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_YDSY')" name="eleventh">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(11)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div>
                 <el-row>
                   <el-table
@@ -2433,7 +2521,8 @@
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
                       fixed="left"
@@ -2566,6 +2655,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZHSR')" name="twelfth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(12)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableZHSR"
                 :summary-method="getSummaries"
@@ -2576,7 +2673,8 @@
               >
                 <el-table-column
                   :label="$t('label.PFANS2006VIEW_NO')"
-                  width="50"
+                  sortable
+                  width="70"
                   align="center"
                   prop="rowindex"
                   fixed="left"
@@ -2801,6 +2899,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_ZXKC')" name="thirteenth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(13)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableZXKC"
                 :summary-method="getSummaries"
@@ -2812,7 +2918,8 @@
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    sortable
+                    width="70"
                     align="center"
                     prop="number"
                   ></el-table-column>
@@ -2864,29 +2971,36 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_FJKC')" name="fourteenth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(14)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <div>
                 <el-row>
                   <el-table
                     :data="tableFJKC"
+                    :summary-method="getSummaries"
+                    show-summary
                     header-cell-class-name="sub_bg_color_blue"
                     border
-                    show-summary
-                    :summary-method="getSummaries"
                     height='calc(100vh - 230px - 2rem)'
                   >
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_NO')"
-                      width="50"
+                      sortable
+                      width="70"
                       align="center"
                       prop="rowindex"
-                      fixed="left"
                     ></el-table-column>
                     <el-table-column
                       :label="$t('label.PFANS2006VIEW_LASTNAME')"
                       width="120"
                       align="center"
                       prop="user_name"
-                      fixed="left"
                     ></el-table-column>
                     <!--                    <plx-table-column-->
                     <!--                      prop="user_name"-->
@@ -3012,6 +3126,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_MS')" name="fifteenth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(15)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableMS"
                 :summary-method="getSummaries"
@@ -3023,7 +3145,8 @@
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    sortable
+                    width="70"
                     align="center"
                     prop="rowindex"
                   ></el-table-column>
@@ -3075,6 +3198,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_LJSJ')" name="sixteenth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(16)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-table
                 :data="tableLJSJ"
                 :summary-method="getSummaries"
@@ -3086,9 +3217,10 @@
                 <el-table-column :label="$t('label.PFANS2005FORMVIEW_JB')" align="center" width="170" fixed="left">
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
+                    sortable
                     align="center"
                     prop="rowindex"
-                    width="50"
+                    width="70"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_LASTNAME')"
@@ -3156,6 +3288,14 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_GRDB')" name="seventeenth">
+              <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                <el-col :span="6">
+                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                            v-model="filterName">
+                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(17)"></el-button>
+                  </el-input>
+                </el-col>
+              </el-row>
               <el-row>
                 <el-table
                   :data="tableGRDB"
@@ -3167,10 +3307,10 @@
                 >
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_NO')"
-                    width="50"
+                    sortable
+                    width="70"
                     align="center"
                     prop="rowindex"
-                    fixed="left"
                   ></el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS2006VIEW_CLUB')"
@@ -3255,7 +3395,7 @@
                 status:'0',
                 workflowCode:'W0089',
                 responseDataInit: [], // responseDataInit 初始化值
-                filterName: "", //  过滤用户姓名
+                filterName: "", //  过滤用户姓名和部门简称
                 tableData: [], // 工资画面显示总数据
                 filterSex: [
                     {label: "男", value: "男"},
@@ -3556,20 +3696,213 @@
                 this.buttonList[1].disabled = true;
             }
         },
-        // zqu start 监听过滤名称
-        watch: {
-            filterName: function () {
-                if (this.filterName === "") {
-                    this.totaldata = this.responseDataInit;
-                } else {
-                    this.totaldata = this.responseDataInit.filter(item => {
-                        return item.user_name === this.filterName;
-                    });
-                }
-            }
-        },
-        // zqu end
+        // zqu start 监听过滤名称和部门
         methods: {
+          inputChange(val) {
+            if (val === 1) {
+              if (this.filterName === "") {
+                this.totaldata = this.responseDataInit;
+              } else {
+                this.totaldata = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 2) {
+              if (this.filterName === "") {
+                this.tableJS = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableJS = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 3) {
+              if (this.filterName === "") {
+                this.tableQT1Woman = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableQT1Woman = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 4) {
+              if (this.filterName === "") {
+                this.tableQT2 = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableQT2 = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 5) {
+              if (this.filterName === "") {
+                this.tableQT4 = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableQT4 = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 6) {
+              if (this.filterName === "") {
+                this.tableQT5 = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableQT5 = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 7) {
+              if (this.filterName === "") {
+                this.tableRZ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableRZ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 8) {
+              if (this.filterName === "") {
+                this.tableTZ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableTZ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 9) {
+              if (this.filterName === "") {
+                this.tableQQ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableQQ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 10) {
+              if (this.filterName === "") {
+                this.tableCY = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableCY = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 11) {
+              if (this.filterName === "") {
+                this.tableYDSY = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableYDSY = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 12) {
+              if (this.filterName === "") {
+                this.tableZHSR = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableZHSR = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 13) {
+              if (this.filterName === "") {
+                this.tableZXKC = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableZXKC = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 14) {
+              if (this.filterName === "") {
+                this.tableFJKC = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableFJKC = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 15) {
+              if (this.filterName === "") {
+                this.tableLJSJ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableLJSJ = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else if (val === 16) {
+              if (this.filterName === "") {
+                this.tableJS = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableJS = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            } else {
+              if (this.filterName === "") {
+                this.tableGRDB = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              } else {
+                this.tableGRDB = this.responseDataInit.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+              }
+            }
+          },
+          // zqu end
             workflowState(val) {
                 if (val.state === '1') {
                     this.status = '3';
@@ -5360,6 +5693,16 @@
                 } else if (val === "save") {
                     this.responseDataInit[0].status = this.status;
                     this.responseDataInit[0].actual = "0";//预计工资
+                  //region add_qhr_20210628 工资计算保存时判断计算的值
+                    for (let i = 0; i < this.responseDataInit.length; i++) {
+                      if (this.responseDataInit[i].comtotalwages === null || this.responseDataInit[i].comtotalwages === "") {
+                        this.responseDataInit[i].comtotalwages = "0";
+                      }
+                      if (this.responseDataInit[i].totalbonus === null || this.responseDataInit[i].totalbonus === "") {
+                        this.responseDataInit[i].totalbonus = "0";
+                      }
+                    };
+                  //endregion add_qhr_20210628 工资计算保存时判断计算的值
                     this.loading = true;
                     // 插入工资数据
                     this.$store
