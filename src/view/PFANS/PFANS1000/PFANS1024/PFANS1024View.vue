@@ -352,6 +352,7 @@
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
+                this.form.new_center_id = '';
               })
           }else{
             Message({

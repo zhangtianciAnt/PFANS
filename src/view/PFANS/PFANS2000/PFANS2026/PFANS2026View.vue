@@ -517,6 +517,9 @@
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
+                this.form.new_center_id = '' ;
+                this.form.new_group_id = '' ;
+                this.form.new_team_id = '' ;
               })
           }else{
             Message({
