@@ -54,7 +54,7 @@
             </el-col>
             <el-col :span="7">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:13vw" v-model="form.last_team_id"></el-input>
+                <el-input :disabled="true" style="width:15vw" v-model="form.last_team_id"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
