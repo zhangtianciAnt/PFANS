@@ -11,17 +11,17 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:13vw" v-model="form.last_center_id"></el-input>
+                <el-input :disabled="true" style="width:13vw" v-model="centername"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width:13vw" v-model="form.last_group_id"></el-input>
+                <el-input :disabled="true" style="width:13vw" v-model="groupname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width:13vw" v-model="form.last_team_id"></el-input>
+                <el-input :disabled="true" style="width:13vw" v-model="teamname"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -69,7 +69,7 @@
 
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
-    import {getDictionaryInfo, getStatus, getUserInfo} from '@/utils/customize';
+    import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfo} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
     import org from '@/view/components/org';
@@ -97,7 +97,9 @@
               error_group: '',
               error_center: '',
               rows: {},
-
+              centername: '',
+              groupname: '',
+              teamname: '',
               rules: {
                 new_center_id: [
                   {
@@ -207,9 +209,6 @@
             rowClick(row) {
                 this.rowid = row.comproject_id;
                 this.rows = row;
-                this.getOrgInformation(this.rows.center_id);
-                this.getOrgInformation(this.rows.group_id);
-                this.getOrgInformation(this.rows.team_id);
             },
           getCenterid(val){
             this.form.new_center_id = val
@@ -312,32 +311,6 @@
             });
             this.loading = false;
           },
-          //获取组织信息
-          getOrgInformation(id) {
-            let org = {};
-            let treeCom = this.$store.getters.orgs;
-            if (id && treeCom.getNode(id)) {
-              let node = id;
-              let type = treeCom.getNode(id).data.type || 0;
-              for (let index = parseInt(type); index >= 1; index--) {
-                if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
-                  org.teamname = treeCom.getNode(node).data.departmentname;
-                }
-                if (index === 2) {
-                  org.groupname = treeCom.getNode(node).data.departmentname;
-                }
-                if (index === 1) {
-                  org.centername = treeCom.getNode(node).data.companyname;
-                }
-                node = treeCom.getNode(node).parent.data._id;
-              }
-              ({
-                centername: this.form.last_center_id,
-                groupname: this.form.last_group_id,
-                teamname: this.form.last_team_id,
-              } = org);
-            }
-          },
             //点击上部按钮处理
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -377,6 +350,18 @@
                   return;
                 }
                 this.dialogVisible = true;
+                let center = getOrgInfo(this.rows.center_id);
+                if(center){
+                  this.centername = center.companyname;
+                }
+                let group = getOrgInfo(this.rows.group_id);
+                if(group){
+                  this.groupname = group.companyname;
+                }
+                let team = getOrgInfo(this.rows.team_id);
+                if(team){
+                  this.teamname = team.companyname;
+                }
               }
                 if (val === 'edit') {
                     if (this.rowid === '') {
