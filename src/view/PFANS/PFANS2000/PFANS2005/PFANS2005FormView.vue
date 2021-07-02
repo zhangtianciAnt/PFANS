@@ -3710,159 +3710,193 @@
               if (this.filterName === "") {
                 this.totaldata = this.responseDataInit;
               } else {
-                this.totaldata = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseDataInit !== null && this.responseDataInit !== "undefined") {
+                  this.totaldata = this.responseDataInit.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 2) {
               if (this.filterName === "") {
                 this.tableJS = this.responseJS;
               } else {
-                this.tableJS = this.responseJS.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseJS !== null && this.responseJS !== "undefined") {
+                  this.tableJS = this.responseJS.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 3) {
               if (this.filterName === "") {
                 this.tableQT1Woman = this.responseQT1Woman;
                 this.tableQT1Man = this.responseQT1Man;
               } else {
-                this.tableQT1Woman = this.responseQT1Woman.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
-                this.tableQT1Man = this.responseQT1Man.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if ((this.responseQT1Woman !== null && this.responseQT1Woman !== "undefined") || (this.responseQT1Man !== null && this.responseQT1Man !== "undefined")) {
+                  this.tableQT1Woman = this.responseQT1Woman.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                  this.tableQT1Man = this.responseQT1Man.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 4) {
               if (this.filterName === "") {
                 this.tableQT2 = this.responseQT2;
               } else {
-                this.tableQT2 = this.responseQT2.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQT2 !== null && this.responseQT2 !== "undefined") {
+                  this.tableQT2 = this.responseQT2.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 5) {
               if (this.filterName === "") {
                 this.tableQT4 = this.responseQT4;
               } else {
-                this.tableQT4 = this.responseQT4.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQT4 !== null && this.responseQT4 !== "undefined") {
+                  this.tableQT4 = this.responseQT4.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 6) {
               if (this.filterName === "") {
                 this.tableQT5 = this.responseQT5;
               } else {
-                this.tableQT5 = this.responseQT5.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQT5 !== null && this.responseQT5 !== "undefined") {
+                  this.tableQT5 = this.responseQT5.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 7) {
               if (this.filterName === "") {
                 this.tableRZ = this.responseRZ;
               } else {
-                this.tableRZ = this.responseRZ.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseRZ !== null && this.responseRZ !== "undefined") {
+                  this.tableRZ = this.responseRZ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 8) {
               if (this.filterName === "") {
                 this.tableTZ = this.responseTZ;
               } else {
-                this.tableTZ = this.responseTZ.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseTZ !== null && this.responseTZ !== "undefined") {
+                  this.tableTZ = this.responseTZ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 9) {
               if (this.filterName === "") {
                 this.tableQQ = this.responseQQ;
               } else {
-                this.tableQQ = this.responseQQ.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQQ !== null && this.responseQQ !== "undefined") {
+                  this.tableQQ = this.responseQQ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 10) {
               if (this.filterName === "") {
                 this.tableCY = this.responseCY;
               } else {
-                this.tableCY = this.responseCY.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseCY !== null && this.responseCY !== "undefined") {
+                  this.tableCY = this.responseCY.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 11) {
               if (this.filterName === "") {
                 this.tableYDSY = this.responseYDSY;
               } else {
-                this.tableYDSY = this.responseYDSY.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseYDSY !== null && this.responseYDSY !== "undefined") {
+                  this.tableYDSY = this.responseYDSY.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 12) {
               if (this.filterName === "") {
                 this.tableZHSR = this.responseZHSR;
               } else {
-                this.tableZHSR = this.responseZHSR.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseZHSR !== null && this.responseZHSR !== "undefined") {
+                  this.tableZHSR = this.responseZHSR.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 13) {
               if (this.filterName === "") {
                 this.tableZXKC = this.responseZXKC;
               } else {
-                this.tableZXKC = this.responseZXKC.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseZXKC !== null && this.responseZXKC !== "undefined") {
+                  this.tableZXKC = this.responseZXKC.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 14) {
               if (this.filterName === "") {
                 this.tableFJKC = this.responseFJKC;
               } else {
-                this.tableFJKC = this.responseFJKC.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseFJKC !== null && this.responseFJKC !== "undefined") {
+                  this.tableFJKC = this.responseFJKC.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 15) {
               if (this.filterName === "") {
                 this.tableMS = this.responseMS;
               } else {
-                this.tableMS = this.responseMS.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseMS !== null && this.responseMS !== "undefined") {
+                  this.tableMS = this.responseMS.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 16) {
               if (this.filterName === "") {
                 this.tableLJSJ = this.responseLJSJ;
               } else {
-                this.tableLJSJ = this.responseLJSJ.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseLJSJ !== null && this.responseLJSJ !== "undefined") {
+                  this.tableLJSJ = this.responseLJSJ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else {
               if (this.filterName === "") {
                 this.tableGRDB = this.responseGRDB;
               } else {
-                this.tableGRDB = this.responseGRDB.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseGRDB !== null && this.responseGRDB !== "undefined") {
+                  this.tableGRDB = this.responseGRDB.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             }
           },

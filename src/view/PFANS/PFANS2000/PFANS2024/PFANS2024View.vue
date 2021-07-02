@@ -43,12 +43,74 @@
     <el-button type="primary" @click="submit">确 定</el-button>
   </span>
     </el-dialog>
+    <!--数据结转模态层-->
+    <el-container>
+      <el-dialog center
+                 :visible.sync="dialogVisible1"
+                 width="60%">
+        <el-form :model="form1" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.center')">
+                <el-input :disabled="true" style="width:13vw" v-model="centername"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.group')">
+                <el-input :disabled="true" style="width:13vw" v-model="groupname"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.team')">
+                <el-input :disabled="true" style="width:13vw" v-model="teamname"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.center')" prop="new_center_id"
+                            :error="error_center">
+                <org :orglist="form1.new_center_id"
+                     orgtype="1"
+                     style="width: 10vw"
+                     @getOrgids="getCenterid"
+                     :error="error_center"
+                ></org>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.group')" prop="new_group_id"
+                            :error="error_group">
+                <org :orglist="form1.new_group_id"
+                     orgtype="2"
+                     style="width: 10vw"
+                     @getOrgids="getGroupid"
+                     :error="error_group"
+                ></org>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.team')">
+                <org :orglist="form1.new_team_id"
+                     orgtype="3"
+                     style="width: 10vw"
+                     @getOrgids="getTeamid"
+                ></org>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit1">确 定</el-button>
+          </span>
+      </el-dialog>
+    </el-container>
   </div>
 </template>
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId, getOrgInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '@/view/components/org';
@@ -60,6 +122,14 @@
       org,
     },
     data() {
+      var centerId = (rule, value, callback) => {
+        if (!this.form1.new_center_id || this.form1.new_center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
+          this.error_center = this.$t('normal.error_08') + this.$t('label.center');
+        } else {
+          callback();
+        }
+      };
       return {
         form: {
           year: moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y') : moment(new Date()),
@@ -71,6 +141,30 @@
         yearvalue:moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
         // 表格数据源
         data: [],
+        error_group: '',
+        error_center: '',
+        rows: {},
+        centername: '',
+        groupname: '',
+        teamname: '',
+        rules: {
+          new_center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            }
+          ],
+        },
+        form1: {
+          last_center_id: '',
+          last_group_id: '',
+          last_team_id: '',
+          new_center_id: '',
+          new_group_id: '',
+          new_team_id: '',
+          org: '',
+        },
         // 列属性
         columns: [
           {
@@ -141,15 +235,26 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         rowid: '',
         row: 'talentplan_id',
+        dialogVisible1: false,
       };
     },
     mounted() {
       this.init();
     },
     methods: {
+      getCenterid(val){
+        this.form1.new_center_id = val
+      },
+      getGroupid(val){
+        this.form1.new_group_id = val
+      },
+      getTeamid(val){
+        this.form1.new_team_id = val
+      },
       setOrg(val) {
         this.form.org = val;
       },
@@ -160,13 +265,31 @@
           .dispatch('PFANS2024Store/getDataList', {'years':this.yearvalue})
           .then(response => {
             for (let j = 0; j < response.length; j++) {
+              // if (response[j].user_id !== null && response[j].user_id !== '') {
+              //   let user = getUserInfo(response[j].user_id);
+              //   let nameflg = getOrgInfoByUserId(response[j].user_id);
+              //   if (nameflg) {
+              //     response[j].center_name = nameflg.centerNmae;
+              //     response[j].group_name = nameflg.groupNmae;
+              //     response[j].team_name = nameflg.teamNmae;
+              //   }
+              //   if (user) {
+              //     response[j].user_name = user.userinfo.customername;
+              //   }
+              // }
               if (response[j].user_id !== null && response[j].user_id !== '') {
                 let user = getUserInfo(response[j].user_id);
-                let nameflg = getOrgInfoByUserId(response[j].user_id);
-                if (nameflg) {
-                  response[j].center_name = nameflg.centerNmae;
-                  response[j].group_name = nameflg.groupNmae;
-                  response[j].team_name = nameflg.teamNmae;
+                let center = getOrgInfo(response[j].center_id);
+                if (center) {
+                  response[j].center_name = center.companyname;
+                }
+                let group = getOrgInfo(response[j].group_id);
+                if (group) {
+                  response[j].group_name = group.companyname;
+                }
+                let team = getOrgInfo(response[j].team_id);
+                if (team) {
+                  response[j].team_name = team.companyname;
                 }
                 if (user) {
                   response[j].user_name = user.userinfo.customername;
@@ -218,6 +341,8 @@
       },
       rowClick(row) {
         this.rowid = row.talentplan_id;
+        this.rows = row;
+        console.log(this.rows)
       },
       submit() {
         this.loading = true;
@@ -246,6 +371,42 @@
           });
 
       },
+      //数据结转确定事件
+      submit1(){
+        this.loading = true;
+        this.$refs['form'].validate(valid =>{
+          if(valid){
+            let parameter = {
+              center_id: this.form1.new_center_id,
+              group_id: this.form1.new_group_id,
+              team_id:this.form1.new_team_id,
+              talentplan_id:this.rowid,
+            };
+            console.log(parameter)
+            this.$store
+              .dispatch('PFANS2024Store/dataCarryover', parameter)
+              .then(response => {
+                this.init();
+                Message({
+                  message: this.$t('normal.success_07'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                this.dialogVisible1 = false;
+                this.form1.new_center_id= '';
+                this.form1.new_group_id='';
+                this.form1.new_team_id= '';
+              })
+          }else{
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+        this.loading = false;
+      },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'view') {
@@ -264,6 +425,20 @@
               disabled: false,
             },
           });
+        }
+        if(val === 'carryforward'){
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.dialogVisible1 = true;
+            this.centername = this.rows.center_name;
+            this.groupname = this.rows.group_name;
+            this.teamname = this.rows.team_name;
         }
         if (val === 'insert') {
           // this.$router.push({
