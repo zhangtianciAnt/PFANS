@@ -135,3 +135,11 @@ export function getNaPpinAftercount(data) {
   })
 }
 //add ccm
+
+export function dataCarryover(data) {
+  return request({
+    url: 'contractapplication/dataCarryover',
+    method: 'post',
+    data: data
+  })
+}

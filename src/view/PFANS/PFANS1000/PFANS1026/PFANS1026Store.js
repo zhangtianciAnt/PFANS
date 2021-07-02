@@ -14,7 +14,8 @@ import {
   generatesta,
   getworkfolwPurchaseData,
   getNapinQinqiu,
-  getNaPpinAftercount
+  getNaPpinAftercount,
+  dataCarryover
   } from './PFANS1026Api';
 
 const PFANS1026Store = {
@@ -238,6 +239,19 @@ const PFANS1026Store = {
     },
     //add ccm
 
+    dataCarryover({commit}, data) {
+      return new Promise((resolve, reject) => {
+        dataCarryover(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message);
+      }
+    }).catch(error => {
+        reject(error);
+    });
+    });
+    },
   },
 };
 
