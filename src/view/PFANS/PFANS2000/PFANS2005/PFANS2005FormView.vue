@@ -100,6 +100,7 @@
                   <plx-table-column
                     prop="bonusshow"
                     :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
+                    sortable
                     width="100"
                     align="center"
                   ></plx-table-column>
@@ -136,7 +137,8 @@
                   <plx-table-column
                     prop="yanglaojs"
                     :label="$t('label.PFANS2005FORMVIEW_YANGLAOJS')"
-                    width="100"
+                    sortable
+                    width="130"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
@@ -3696,8 +3698,8 @@
                 this.buttonList[1].disabled = true;
             }
         },
-        // zqu start 监听过滤名称和部门
         methods: {
+          // zqu start 监听过滤名称和部门
           inputChange(val) {
             if (val === 1) {
               if (this.filterName === "") {
@@ -3710,199 +3712,151 @@
               }
             } else if (val === 2) {
               if (this.filterName === "") {
-                this.tableJS = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableJS = this.responseJS;
               } else {
-                this.tableJS = this.responseDataInit.filter(item => {
+                this.tableJS = this.responseJS.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 3) {
               if (this.filterName === "") {
-                this.tableQT1Woman = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT1Woman = this.responseQT1Woman;
               } else {
-                this.tableQT1Woman = this.responseDataInit.filter(item => {
+                this.tableQT1Woman = this.responseQT1Woman.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 4) {
               if (this.filterName === "") {
-                this.tableQT2 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT2 = this.responseQT2;
               } else {
-                this.tableQT2 = this.responseDataInit.filter(item => {
+                this.tableQT2 = this.responseQT2.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 5) {
               if (this.filterName === "") {
-                this.tableQT4 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT4 = this.responseQT4;
               } else {
-                this.tableQT4 = this.responseDataInit.filter(item => {
+                this.tableQT4 = this.responseQT4.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 6) {
               if (this.filterName === "") {
-                this.tableQT5 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT5 = this.responseQT5;
               } else {
-                this.tableQT5 = this.responseDataInit.filter(item => {
+                this.tableQT5 = this.responseQT5.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 7) {
               if (this.filterName === "") {
-                this.tableRZ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableRZ = this.responseRZ;
               } else {
-                this.tableRZ = this.responseDataInit.filter(item => {
+                this.tableRZ = this.responseRZ.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 8) {
               if (this.filterName === "") {
-                this.tableTZ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableTZ = this.responseTZ;
               } else {
-                this.tableTZ = this.responseDataInit.filter(item => {
+                this.tableTZ = this.responseTZ.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 9) {
               if (this.filterName === "") {
-                this.tableQQ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQQ = this.responseQQ;
               } else {
-                this.tableQQ = this.responseDataInit.filter(item => {
+                this.tableQQ = this.responseQQ.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 10) {
               if (this.filterName === "") {
-                this.tableCY = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableCY = this.responseCY;
               } else {
-                this.tableCY = this.responseDataInit.filter(item => {
+                this.tableCY = this.responseCY.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 11) {
               if (this.filterName === "") {
-                this.tableYDSY = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableYDSY = this.responseYDSY;
               } else {
-                this.tableYDSY = this.responseDataInit.filter(item => {
+                this.tableYDSY = this.responseYDSY.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 12) {
               if (this.filterName === "") {
-                this.tableZHSR = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableZHSR = this.responseZHSR;
               } else {
-                this.tableZHSR = this.responseDataInit.filter(item => {
+                this.tableZHSR = this.responseZHSR.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 13) {
               if (this.filterName === "") {
-                this.tableZXKC = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableZXKC = this.responseZXKC;
               } else {
-                this.tableZXKC = this.responseDataInit.filter(item => {
+                this.tableZXKC = this.responseZXKC.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 14) {
               if (this.filterName === "") {
-                this.tableFJKC = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableFJKC = this.responseFJKC;
               } else {
-                this.tableFJKC = this.responseDataInit.filter(item => {
+                this.tableFJKC = this.responseFJKC.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 15) {
               if (this.filterName === "") {
-                this.tableLJSJ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableMS = this.responseMS;
               } else {
-                this.tableLJSJ = this.responseDataInit.filter(item => {
+                this.tableMS = this.responseMS.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else if (val === 16) {
               if (this.filterName === "") {
-                this.tableJS = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableLJSJ = this.responseLJSJ;
               } else {
-                this.tableJS = this.responseDataInit.filter(item => {
+                this.tableLJSJ = this.responseLJSJ.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             } else {
               if (this.filterName === "") {
-                this.tableGRDB = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableGRDB = this.responseGRDB;
               } else {
-                this.tableGRDB = this.responseDataInit.filter(item => {
+                this.tableGRDB = this.responseGRDB.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
               }
             }
           },
-          // zqu end
+          // zqu end   监听过滤名称和部门
             workflowState(val) {
                 if (val.state === '1') {
                     this.status = '3';
@@ -4274,6 +4228,7 @@
                                     response.lackattendance[j].lackattendance_id;
                                 obj.isDirty = false;
                                 datalistqq[j] = obj;
+                                this.responseQQ = datalistqq;
                                 this.tableQQ = datalistqq;
                                 this.totaldataQQ = datalistqq;
                                 this.ListQQ = 8;
@@ -4355,6 +4310,7 @@
                                 obj.residual_id = response.residual[j].residual_id;
                                 obj.isDirty = false;
                                 datalistcy[j] = obj;
+                                this.responseCY = datalistcy;
                                 this.tableCY = datalistcy;
                                 this.totaldataCY = datalistcy;
                                 this.ListCY = 9;
@@ -4390,6 +4346,7 @@
                                 obj.december = response.disciplinaryVo[i].month12;
                                 obj.total = response.disciplinaryVo[i].total;
                                 datalistzxkc[i] = obj;
+                                this.responseZXKC = datalistzxkc;
                                 this.tableZXKC = datalistzxkc;
                                 this.totaldataZXKC = datalistzxkc;
                                 this.ListZXKC = 12;
@@ -4536,7 +4493,9 @@
                             } else if (this.ListOtherOneSex === 2) {
                                 this.totaldataOtherOneMan = lettableQT1Man;
                             }
+                            this.responseQT1Woman = lettableQT1Woman;
                             this.tableQT1Woman = lettableQT1Woman;
+                            this.responseQT1Mman = lettableQT1Man;
                             this.tableQT1Man = lettableQT1Man;
                             this.ListOtherOne = 2;
                             this.getList();
@@ -4566,6 +4525,7 @@
                             Obj.giving_id = response.otherTwo[a].giving_id;
                             Obj.rowindex = a + 1;
                             datalist[a] = Obj;
+                            this.responseQT2 = datalist;
                             this.tableQT2 = datalist;
                             this.totaldataQT2 = datalist;
                             this.ListQt2 = 3;
@@ -4581,6 +4541,7 @@
                                         response.appreciation[j].user_id
                                     ).userinfo.customername;
                                 }
+                                this.responseYDSY = response.appreciation;
                                 this.tableYDSY = response.appreciation;
                                 this.totaldataYDSY = response.appreciation;
                                 this.ListYDSY = 10;
@@ -4596,6 +4557,7 @@
                                     response.otherFour[j].user_id
                                 ).userinfo.customername;
                             }
+                            this.responseQT4 = response.otherFour;
                             this.tableQT4 = response.otherFour;
                             this.totaldataQT4 = response.otherFour;
                             this.ListQT4 = 4;
@@ -4612,6 +4574,7 @@
                                         response.addiTional[j].user_id
                                     ).userinfo.customername;
                                 }
+                                this.responseFJKC = response.addiTional;
                                 this.tableFJKC = response.addiTional;
                                 this.totaldataFJKC = response.addiTional;
                                 this.ListFJKC = 13;
@@ -4627,6 +4590,7 @@
                                     response.otherFive[j].user_id
                                 ).userinfo.customername;
                             }
+                            this.responseQT5 = response.otherFive;
                             this.tableQT5 = response.otherFive;
                             this.totaldataQT5 = response.otherFive;
                             this.ListQt5 = 5;
@@ -4658,6 +4622,7 @@
                                     response.entryVo[j].startdate
                                 ).format("YYYY-MM-DD");
                             }
+                            this.responseRZ = response.entryVo;
                             this.tableRZ = response.entryVo;
                             this.totaldataRZ = response.entryVo;
                             this.ListRZ = 6;
@@ -4685,6 +4650,7 @@
                                     response.retireVo[j].retiredate
                                 ).format("YYYY-MM-DD");
                             }
+                            this.responseTZ = response.retireVo;
                             this.tableTZ = response.retireVo;
                             this.totaldataTZ = response.retireVo;
                             this.ListTZ = 6;
@@ -4785,6 +4751,7 @@
                                     }
                                 }
                             }
+                            this.responseJS = response.base;
                             // this.tableJS = response.base;
                             this.totaldataBase = response.base;
                             this.listBase = 1;
@@ -4816,6 +4783,7 @@
                                 //update 20210319 个人到手差额对比数据格式化 end
                             }
                             datalistgrdb[j] = obj;
+                            this.responseGRDB = datalistgrdb;
                             this.tableGRDB = datalistgrdb;
                             this.totaldataContrast = datalistgrdb;
                             this.listContrast = 16;
@@ -4852,6 +4820,7 @@
                                 obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
                                 obj.balance = response.accumulatedTaxVo[j].balance;
                                 datalistljsj[j] = obj;
+                                this.responseLJSJ = datalistljsj;
                                 this.tableLJSJ = datalistljsj;
                                 this.totaldataAccumulatedTax = datalistljsj;
                                 this.listAccumulatedTax = 15;
@@ -4887,6 +4856,7 @@
                                 obj.december = response.dutyfreeVo[j].december;
                                 obj.total = response.dutyfreeVo[j].total;
                                 datalistms[j] = obj;
+                                this.responseMS = datalistms;
                                 this.tableMS = datalistms;
                                 this.totaldataDutyfreeVo = datalistms;
                                 this.listDutyfreeVo = 14;
@@ -4950,6 +4920,7 @@
                                 obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
                                 obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
                                 datalistzhsr[j] = obj;
+                                this.responseZHSR = datalistzhsr;
                                 this.tableZHSR = datalistzhsr;
                                 this.totaldataZHSR = datalistzhsr;
                                 this.ListZHSR = 11;
