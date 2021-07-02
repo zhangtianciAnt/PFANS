@@ -3704,7 +3704,7 @@
             }
         },
         methods: {
-          // zqu start 监听过滤名称和部门
+          // update   ml    20210702  监听过滤名称和部门  from
           inputChange(val) {
             if (val === 1) {
               if (this.filterName === "") {
@@ -3727,8 +3727,13 @@
             } else if (val === 3) {
               if (this.filterName === "") {
                 this.tableQT1Woman = this.responseQT1Woman;
+                this.tableQT1Man = this.responseQT1Man;
               } else {
                 this.tableQT1Woman = this.responseQT1Woman.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+                this.tableQT1Man = this.responseQT1Man.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
@@ -3861,7 +3866,7 @@
               }
             }
           },
-          // zqu end   监听过滤名称和部门
+          // update   ml    20210702  监听过滤名称和部门  to
             workflowState(val) {
                 if (val.state === '1') {
                     this.status = '3';
@@ -4500,7 +4505,7 @@
                             }
                             this.responseQT1Woman = lettableQT1Woman;
                             this.tableQT1Woman = lettableQT1Woman;
-                            this.responseQT1Mman = lettableQT1Man;
+                            this.responseQT1Man = lettableQT1Man;
                             this.tableQT1Man = lettableQT1Man;
                             this.ListOtherOne = 2;
                             this.getList();
