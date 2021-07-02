@@ -6,22 +6,31 @@
     <el-container>
       <el-dialog center
                  :visible.sync="dialogVisible"
-                 width="30%">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+                 :title="$t('button.carryforward')"
+                 width="22%">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw">
           <el-row>
-            <el-col :span="8">
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:13vw" v-model="department"></el-input>
+                <el-input :disabled="true" style="width:17vw" v-model="department"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
               <el-form-item :label="$t('label.center')" prop="new_center_id"
                             :error="error_center">
                 <org :orglist="form.new_center_id"
                      orgtype="4"
-                     style="width: 10vw"
+                     style="width: 16.5vw"
                      @getOrgids="getCenterid"
                      :error="error_center"
                 ></org>
@@ -30,7 +39,7 @@
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit">确 定</el-button>
+            <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
           </span>
       </el-dialog>
     </el-container>
@@ -174,15 +183,15 @@
       };
     },
     mounted() {
-      this.load();
+      this.loadInfo();
     },
     methods: {
-      load(){
-        debugger;
+      loadInfo(){
         this.loading = true;
         this.$store
           .dispatch('PFANS1026Store/get', {'type': '0'})
           .then(response => {
+            alert(111)
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
@@ -335,36 +344,24 @@
             this.$store
               .dispatch('PFANS1026Store/dataCarryover', parameter)
               .then(response => {
-                  debugger;
+                this.loadInfo();
                 Message({
                   message: this.$t('normal.success_07'),
                   type: 'success',
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
-                this.form.new_center_id= '';
-                this.loading = false;
-                this.load();
               })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
           }else{
             Message({
               message: this.$t('normal.error_12'),
               type: 'error',
               duration: 5 * 1000,
             });
-            this.loading = false;
           }
         });
+        this.loading = false;
       },
-
     },
   };
 </script>

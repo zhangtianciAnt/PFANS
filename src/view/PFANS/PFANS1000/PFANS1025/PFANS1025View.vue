@@ -16,22 +16,31 @@
     <el-container>
       <el-dialog center
                  :visible.sync="dialogVisible"
-                 width="30%">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+                 :title="$t('button.carryforward')"
+                 width="22%">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw">
           <el-row>
-            <el-col :span="8">
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width:13vw" v-model="department"></el-input>
+                <el-input :disabled="true" style="width:17vw" v-model="department"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="8">
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
               <el-form-item :label="$t('label.center')" prop="new_center_id"
                             :error="error_center">
                 <org :orglist="form.new_center_id"
                      orgtype="4"
-                     style="width: 10vw"
+                     style="width: 17vw"
                      @getOrgids="getCenterid"
                      :error="error_center"
                 ></org>
@@ -40,7 +49,7 @@
           </el-row>
         </el-form>
         <span slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="submit">确 定</el-button>
+            <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
           </span>
       </el-dialog>
     </el-container>
