@@ -3600,16 +3600,18 @@
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
                     "12" +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
+              //region add_qhr_20210702 修改工资计算基数中月份显示
                 YEARNOW:
-                    moment().year() +
+                    this.$route.params.generationdate.substring(0, 4) +
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    (moment().month() + 1) +
+                    parseInt(this.$route.params.generationdate.substring(5, 7)).toString() +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
                 YEARLAST:
-                    moment().year() +
+                    this.$route.params.generationdate.substring(0, 4) +
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    moment().month() +
+                    (parseInt(this.$route.params.generationdate.substring(5, 7)) - 1).toString() +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
+              //endregion add_qhr_20210702 修改工资计算基数中月份显示
                 othertwo: [],
                 message: [{hang: "", error: ""}],
                 Messageothertwo: false,
@@ -3678,7 +3680,8 @@
                 tableLJSJ: [],
                 tableGRDB: [],
                 baseInfo: {},
-                givingVo: {}
+                givingVo: {},
+                generationdate: '',
             };
         },
         created() {
@@ -3687,6 +3690,8 @@
             this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
             this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
             this.Giving = this.$route.params._id;
+          //region add_qhr_20210702 向后台传入所选数据日期
+            this.generationdate = this.$route.params.generationdate;
             this.getListdata();
             // todo By Skaixx : 添加滚动条滑动监听事件
             // let element = this.$refs['BasfTable'];
@@ -4099,7 +4104,7 @@
             getListdata() {
                 this.loading = true;
                 this.$store
-                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
+                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving, generationdate: this.generationdate})  //region add_qhr_20210702 向后台传入所选数据日期
                     .then(response => {
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
