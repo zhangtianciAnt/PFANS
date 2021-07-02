@@ -4938,6 +4938,9 @@
                         //   ].$el.children[0].children[0].children[2].scrollTop = location;
                         // });
                         // console.log("End setting");
+                      //region add_qhr_20210702  保存后保留查询项及查询结果
+                        this.inputChange(1);
+                      //endregion add_qhr_20210702 保存后保留查询项及查询结果
                     })
                     .catch(error => {
                         Message({
