@@ -31,6 +31,67 @@
         </div>
       </el-dialog>
     </el-container>
+    <el-container>
+      <el-dialog center
+                 :visible.sync="dialogVisible"
+                 width="60%">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.center')">
+                <el-input :disabled="true" style="width:13vw" v-model="form.last_center_id"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.group')">
+                <el-input :disabled="true" style="width:13vw" v-model="form.last_group_id"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.team')">
+                <el-input :disabled="true" style="width:13vw" v-model="form.last_team_id"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+                    <el-row>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.center')" prop="new_center_id"
+                                      :error="error_center">
+                          <org :orglist="form.new_center_id"
+                               orgtype="1"
+                               style="width: 10vw"
+                               @getOrgids="getCenterid"
+                               :error="error_center"
+                          ></org>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.group')" prop="new_group_id"
+                                      :error="error_group">
+                          <org :orglist="form.new_group_id"
+                               orgtype="2"
+                               style="width: 10vw"
+                               @getOrgids="getGroupid"
+                               :error="error_group"
+                          ></org>
+                        </el-form-item>
+                      </el-col>
+                      <el-col :span="8">
+                        <el-form-item :label="$t('label.team')">
+                          <org :orglist="form.new_team_id"
+                               orgtype="3"
+                               style="width: 10vw"
+                               @getOrgids="getTeamid"
+                          ></org>
+                        </el-form-item>
+                      </el-col>
+                    </el-row>
+        </el-form>
+                <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit">确 定</el-button>
+          </span>
+      </el-dialog>
+    </el-container>
   </div>
 </template>
 
@@ -39,19 +100,50 @@
     import {getDictionaryInfo, getStatus, getUserInfo,getCurrentRole21} from '@/utils/customize';
     import {Message} from 'element-ui';
     import moment from "moment";
+    import org from '@/view/components/org';
 
     export default {
         name: 'PFANS5001View',
         components: {
             EasyNormalTable,
+             org,
         },
         data() {
+          var centerId = (rule, value, callback) => {
+            if (!this.form.new_center_id || this.form.new_center_id === '') {
+              callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
+              this.error_center = this.$t('normal.error_08') + this.$t('label.center');
+            } else {
+              callback();
+            }
+          };
             return {
                 loading: false,
                 title: "title.PFANS5001VIEW",
                 // 表格数据源
                 data: [],
-                // 列属性
+              error_group: '',
+              error_center: '',
+              rows: {},
+              rules: {
+                new_center_id: [
+                  {
+                    required: true,
+                    validator: centerId,
+                    trigger: 'blur',
+                  }
+                ],
+              },
+              form: {
+                last_center_id: '',
+                last_group_id: '',
+                last_team_id: '',
+                new_center_id: '',
+                new_group_id: '',
+                new_team_id: '',
+                org: '',
+              },
+              // 列属性
                 columns: [
                     {
                         code: 'numbers',
@@ -121,83 +213,166 @@
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                     {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'}
+                    {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
+                  {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
                 ],
                 rowid: '',
                 row:'companyprojects_id',
                 dialogTableVisible_h: false,
+               dialogVisible: false,
                 perioDate: '',
                 reportList: [],
             };
         },
         mounted() {
-          let role = getCurrentRole21();
-          if(role === '0'){
-            this.buttonList[3].disabled = false
-          }else {
-            this.buttonList[3].disabled = true
-          }
+         this.load();
+
+    },
+        methods: {
+          rowClick(row) {
+            this.rowid = row.companyprojects_id;
+            this.rows = row;
+            this.getOrgInformation(this.rows.center_id);
+            this.getOrgInformation(this.rows.group_id);
+            this.getOrgInformation(this.rows.team_id);
+          },
+          getCenterid(val){
+            this.form.new_center_id = val
+          },
+          getGroupid(val){
+            this.form.new_group_id = val
+          },
+          getTeamid(val){
+            this.form.new_team_id = val
+          },
+          setOrg(val) {
+            this.form.org = val;
+          },
+          load(){
+            let role = getCurrentRole21();
+            if(role === '0'){
+              this.buttonList[3].disabled = false
+            }else {
+              this.buttonList[3].disabled = true
+            }
             this.loading = true;
             this.$store
-                .dispatch('PFANS5001Store/getFpans5001List', {})
-                //根据user_id取组织架构和user_name
-                .then(response => {
-                    this.data = response.filter(val => Number(val.status) !== 7 && Number(val.status) !== 9 );
-                    for (let j = 0; j < response.length; j++) {
-                        if(response[j].createby !== null && response[j].createby !== "") {
-                            let user = getUserInfo(response[j].createby);
-                            if (user) {
-                                response[j].createby = user.userinfo.customername;
-                            }
-                        }
-                        //项目负责人
-                        if(response[j].leaderid !== null && response[j].leaderid !== "") {
-                            let user = getUserInfo(response[j].leaderid);
-                            if (user) {
-                                response[j].leaderid = user.userinfo.customername;
-                            }
-                        }
-                        //项目类型
-                        if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                            let letStage = getDictionaryInfo(response[j].projecttype);
-                            if (letStage != null) {
-                                response[j].projecttype = letStage.value1;
-                            }
-                        }
-                        //状态
-                        response[j] .status = getStatus(response[j] .status);
-                        // if(response[j].status === "7" || response[j].status === "8" || response[j].status === "9"){
-                        //
-                        // }
-                        // 开始时间
-                        if (response[j].startdate !== null && response[j].startdate !== "") {
-                            response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
-                        }
-                        //预计完成时间
-                        if (response[j].enddate !== null && response[j].enddate !== "") {
-                            response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
-                        }
-                        //申请时间
-                        if (response[j].createon !== null && response[j].createon !== "") {
-                            response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
-                        }
+              .dispatch('PFANS5001Store/getFpans5001List', {})
+              //根据user_id取组织架构和user_name
+              .then(response => {
+                this.data = response.filter(val => Number(val.status) !== 7 && Number(val.status) !== 9 );
+                for (let j = 0; j < response.length; j++) {
+                  if(response[j].createby !== null && response[j].createby !== "") {
+                    let user = getUserInfo(response[j].createby);
+                    if (user) {
+                      response[j].createby = user.userinfo.customername;
                     }
-                    this.loading = false;
-                })
-                .catch(error => {
-                    Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false;
-                })
+                  }
+                  //项目负责人
+                  if(response[j].leaderid !== null && response[j].leaderid !== "") {
+                    let user = getUserInfo(response[j].leaderid);
+                    if (user) {
+                      response[j].leaderid = user.userinfo.customername;
+                    }
+                  }
+                  //项目类型
+                  if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                    let letStage = getDictionaryInfo(response[j].projecttype);
+                    if (letStage != null) {
+                      response[j].projecttype = letStage.value1;
+                    }
+                  }
+                  //状态
+                  response[j] .status = getStatus(response[j] .status);
+                  // if(response[j].status === "7" || response[j].status === "8" || response[j].status === "9"){
+                  //
+                  // }
+                  // 开始时间
+                  if (response[j].startdate !== null && response[j].startdate !== "") {
+                    response[j].startdate = moment(response[j].startdate).format("YYYY-MM-DD");
+                  }
+                  //预计完成时间
+                  if (response[j].enddate !== null && response[j].enddate !== "") {
+                    response[j].enddate = moment(response[j].enddate).format("YYYY-MM-DD");
+                  }
+                  //申请时间
+                  if (response[j].createon !== null && response[j].createon !== "") {
+                    response[j].createon = moment(response[j].createon).format("YYYY-MM-DD");
+                  }
+                }
+                this.loading = false;
 
-        },
-        methods: {
-            rowClick(row) {
-                this.rowid = row.companyprojects_id;
-            },
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
+          submit(){
+            this.loading = true;
+            this.$refs['form'].validate(valid =>{
+              if(valid){
+                let parameter = {
+                  center_id: this.form.new_center_id,
+                  group_id: this.form.new_group_id,
+                  team_id:this.form.new_team_id,
+                  companyprojects_id:this.rowid,
+                };
+                console.log(parameter)
+                this.$store
+                  .dispatch('PFANS5001Store/update1', parameter)
+                  .then(response => {
+                      this.load();
+                    Message({
+                      message: this.$t('normal.success_07'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.dialogVisible = false;
+                    this.form.new_center_id= '';
+                    this.form.new_group_id='';
+                    this.form.new_team_id= '';
+                  })
+              }else{
+                Message({
+                  message: this.$t('normal.error_12'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+            });
+            this.loading = false;
+          },
+          //获取组织信息
+          getOrgInformation(id) {
+            let org = {};
+            let treeCom = this.$store.getters.orgs;
+            if (id && treeCom.getNode(id)) {
+              let node = id;
+              let type = treeCom.getNode(id).data.type || 0;
+              for (let index = parseInt(type); index >= 1; index--) {
+                if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                  org.teamname = treeCom.getNode(node).data.departmentname;
+                }
+                if (index === 2) {
+                  org.groupname = treeCom.getNode(node).data.departmentname;
+                }
+                if (index === 1) {
+                  org.centername = treeCom.getNode(node).data.companyname;
+                }
+                node = treeCom.getNode(node).parent.data._id;
+              }
+              ({
+                centername: this.form.last_center_id,
+                groupname: this.form.last_group_id,
+                teamname: this.form.last_team_id,
+              } = org);
+            }
+          },
             //点击上部按钮处理
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -227,6 +402,17 @@
                         }
                     })
                 }
+              if(val === 'carryforward'){
+                if (this.rowid === '') {
+                  Message({
+                    message: this.$t('normal.info_01'),
+                    type: 'info',
+                    duration: 2 * 1000,
+                  });
+                  return;
+                }
+                this.dialogVisible = true;
+              }
                 if (val === 'edit') {
                     if (this.rowid === '') {
                         Message({
