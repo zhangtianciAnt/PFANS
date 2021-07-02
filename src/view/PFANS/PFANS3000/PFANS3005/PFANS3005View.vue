@@ -1,15 +1,20 @@
 <template>
-  <div>
+  <div class="pfans3005view">
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName"
                      :showSelection="isShow" ref="roletable" :selectable="selectInit">
     </EasyNormalTable>
     <el-dialog center
                :visible.sync="dialogVisible"
-               width="60%">
-      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+               :title="$t('button.carryforward')"
+               width="50%">
+      <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw">
         <el-row>
-          <el-col :span="6">
+          <div style=
+                 "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
+          <el-col :span="6" style="margin-left: 0.5vw">
             <el-form-item :label="$t('label.center')">
               <el-input :disabled="true" style="width:11vw" v-model="form.last_center_id"></el-input>
             </el-form-item>
@@ -24,7 +29,7 @@
               <el-input :disabled="true" style="width:11vw" v-model="form.last_team_id"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5">
             <el-form-item :label="$t('label.budgetunit')" >
               <el-input :disabled="true" style="width:11vw" v-model="form.last_budgetunit"></el-input>
 
@@ -32,7 +37,11 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="6">
+          <div style=
+          "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+        </el-row>
+        <el-row>
+          <el-col :span="6" style="margin-left: 0.5vw; margin-bottom: -1vw;">
             <el-form-item :label="$t('label.center')" prop="new_center_id"
                           :error="error_center">
               <org :orglist="form.new_center_id"
@@ -43,7 +52,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.group')">
               <org :orglist="form.new_group_id"
                    orgtype="2"
@@ -52,7 +61,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="6" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.team')">
               <org :orglist="form.new_team_id"
                    orgtype="3"
@@ -62,7 +71,7 @@
               ></org>
             </el-form-item>
           </el-col>
-          <el-col :span="6">
+          <el-col :span="5" style="margin-bottom: -1vw;">
             <el-form-item :label="$t('label.budgetunit')" prop="new_budgetunit">
               <el-select clearable style="width: 11vw" v-model="form.new_budgetunit"
                          :placeholder="$t('normal.error_09')">
@@ -79,7 +88,7 @@
         </el-row>
       </el-form>
       <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submit">确 定</el-button>
+          <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
         </span>
     </el-dialog>
   </div>
@@ -767,7 +776,6 @@
             rowClick(row) {
               this.rowid = row.purchase_id;
               this.rowInfo = row;
-              console.log(this.rowInfo)
               if(row.trashreason != "" && row.trashreason != null){
                 this.buttonList[2].disabled = true;
               }else{
@@ -1278,5 +1286,12 @@
 </script>
 
 <style lang="scss" rel="stylesheet/scss">
-
+  .pfans3005view{
+    .dialog_row {
+      font-family: 宋体;
+      color: #005BAA;
+      font-size: 0.8rem;
+      font-weight: bold
+    }
+  }
 </style>
