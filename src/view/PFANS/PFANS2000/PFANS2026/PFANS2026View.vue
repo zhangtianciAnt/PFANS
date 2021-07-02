@@ -159,6 +159,7 @@
           new_group_id: '',
           new_team_id: '',
           org: '',
+          hope_exit_date: '', //添加离职考勤对比数据转结
         },
         dialogVisible: false,
         workinghours: '',
@@ -503,6 +504,7 @@
               group_id: this.form.new_group_id,
               team_id:this.form.new_team_id,
               staffexitprocedure_id:this.rowid,
+              hope_exit_date: this.form.hope_exit_date, ////添加离职考勤对比数据转结
             };
             this.$store
               .dispatch('PFANS2026Store/change', parameter)
@@ -651,6 +653,7 @@
             this.form.last_center_id = this.rowInfo.center_name;
             this.form.last_group_id = this.rowInfo.group_name;
             this.form.last_team_id = this.rowInfo.team_name;
+            this.form.hope_exit_date = this.rowInfo.hope_exit_date; //添加离职考勤对比数据转结
           }
           this.dialogVisible = true;
         } else if (val === 'update') {
