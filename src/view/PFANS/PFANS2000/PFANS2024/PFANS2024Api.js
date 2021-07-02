@@ -59,3 +59,11 @@ export function download(data) {
     responseType: 'blob'
   })
 }
+
+export function dataCarryover(data) {
+  return request({
+    url: 'talentplan/dataCarryover',
+    method: 'post',
+    data: data
+  })
+}
