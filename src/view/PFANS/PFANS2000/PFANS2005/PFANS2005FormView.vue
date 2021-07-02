@@ -1107,15 +1107,15 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
-                <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
-                  </el-input>
-                </el-col>
-              </el-row>
               <div>
+                <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                  <el-col :span="6">
+                    <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                              v-model="filterName">
+                      <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
+                    </el-input>
+                  </el-col>
+                </el-row>
                 <el-collapse value="women">
                   <el-collapse-item name="women">
                     <template slot="title">
