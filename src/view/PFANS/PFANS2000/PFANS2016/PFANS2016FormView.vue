@@ -1188,7 +1188,9 @@
       rehandleClick(val) {
         this.form.revacationtype = val;
         this.retypecheck = val;
-        this.form.refinisheddate = this.form.reoccurrencedate;
+        //del   ml  20210702  未休时间显示  from
+        // this.form.refinisheddate = this.form.reoccurrencedate;
+        //del   ml  20210702  未休时间显示  to
         if (val == '0') {
           this.form.relengthtime = 8;
         } else if (val == '1') {
