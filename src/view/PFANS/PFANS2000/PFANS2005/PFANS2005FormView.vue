@@ -1107,15 +1107,15 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
-                <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
-                  </el-input>
-                </el-col>
-              </el-row>
               <div>
+                <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                  <el-col :span="6">
+                    <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                              v-model="filterName">
+                      <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
+                    </el-input>
+                  </el-col>
+                </el-row>
                 <el-collapse value="women">
                   <el-collapse-item name="women">
                     <template slot="title">
@@ -3600,16 +3600,18 @@
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
                     "12" +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
+              //region add_qhr_20210702 修改工资计算基数中月份显示
                 YEARNOW:
-                    moment().year() +
+                    this.$route.params.generationdate.substring(0, 4) +
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    (moment().month() + 1) +
+                    parseInt(this.$route.params.generationdate.substring(5, 7)).toString() +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
                 YEARLAST:
-                    moment().year() +
+                    this.$route.params.generationdate.substring(0, 4) +
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    moment().month() +
+                    (parseInt(this.$route.params.generationdate.substring(5, 7)) - 1).toString() +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
+              //endregion add_qhr_20210702 修改工资计算基数中月份显示
                 othertwo: [],
                 message: [{hang: "", error: ""}],
                 Messageothertwo: false,
@@ -3678,7 +3680,8 @@
                 tableLJSJ: [],
                 tableGRDB: [],
                 baseInfo: {},
-                givingVo: {}
+                givingVo: {},
+                generationdate: '',
             };
         },
         created() {
@@ -3687,6 +3690,8 @@
             this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
             this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
             this.Giving = this.$route.params._id;
+          //region add_qhr_20210702 向后台传入所选数据日期
+            this.generationdate = this.$route.params.generationdate;
             this.getListdata();
             // todo By Skaixx : 添加滚动条滑动监听事件
             // let element = this.$refs['BasfTable'];
@@ -3699,7 +3704,7 @@
             }
         },
         methods: {
-          // zqu start 监听过滤名称和部门
+          // update   ml    20210702  监听过滤名称和部门  from
           inputChange(val) {
             if (val === 1) {
               if (this.filterName === "") {
@@ -3722,8 +3727,13 @@
             } else if (val === 3) {
               if (this.filterName === "") {
                 this.tableQT1Woman = this.responseQT1Woman;
+                this.tableQT1Man = this.responseQT1Man;
               } else {
                 this.tableQT1Woman = this.responseQT1Woman.filter(item => {
+                  return item.user_name === this.filterName
+                    || item.department_id === this.filterName;
+                });
+                this.tableQT1Man = this.responseQT1Man.filter(item => {
                   return item.user_name === this.filterName
                     || item.department_id === this.filterName;
                 });
@@ -3856,7 +3866,7 @@
               }
             }
           },
-          // zqu end   监听过滤名称和部门
+          // update   ml    20210702  监听过滤名称和部门  to
             workflowState(val) {
                 if (val.state === '1') {
                     this.status = '3';
@@ -4099,7 +4109,7 @@
             getListdata() {
                 this.loading = true;
                 this.$store
-                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
+                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving, generationdate: this.generationdate})  //region add_qhr_20210702 向后台传入所选数据日期
                     .then(response => {
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
@@ -4495,7 +4505,7 @@
                             }
                             this.responseQT1Woman = lettableQT1Woman;
                             this.tableQT1Woman = lettableQT1Woman;
-                            this.responseQT1Mman = lettableQT1Man;
+                            this.responseQT1Man = lettableQT1Man;
                             this.tableQT1Man = lettableQT1Man;
                             this.ListOtherOne = 2;
                             this.getList();
@@ -4938,6 +4948,9 @@
                         //   ].$el.children[0].children[0].children[2].scrollTop = location;
                         // });
                         // console.log("End setting");
+                      //region add_qhr_20210702  保存后保留查询项及查询结果
+                        this.inputChange(1);
+                      //endregion add_qhr_20210702 保存后保留查询项及查询结果
                     })
                     .catch(error => {
                         Message({
