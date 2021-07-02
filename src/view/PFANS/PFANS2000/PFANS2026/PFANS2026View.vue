@@ -140,6 +140,9 @@
           // ],
         },
         form: {
+          centername: '',
+          groupname: '',
+          teamname: '',
           last_center_id: '',
           last_group_id: '',
           last_team_id: '',
@@ -302,14 +305,69 @@
       this.getdate();
     },
     methods: {
-      getCenterid(val){
-        this.form.new_center_id = val
+      // getCenterid(val){
+      //   this.form.new_center_id = val
+      // },
+      // getGroupid(val){
+      //   this.form.new_group_id = val
+      // },
+      // getTeamid(val){
+      //   this.form.new_team_id = val
+      // },
+      getCenterid(val) {
+        this.getOrgInformation(val);
+        if (!val || this.form.new_center_id === '') {
+          this.error_center = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error_center = '';
+        }
       },
-      getGroupid(val){
-        this.form.new_group_id = val
+      getGroupid(val) {
+        this.getOrgInformation(val);
+        if (this.form.new_center_id === '') {
+          this.error_group = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error_group = '';
+        }
       },
-      getTeamid(val){
-        this.form.new_team_id = val
+      getTeamid(val) {
+        this.getOrgInformation(val);
+        if (this.form.center_id === '') {
+          this.error_group = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error_group = '';
+        }
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            center_id: this.form.new_center_id,
+            group_id: this.form.new_group_id,
+            team_id: this.form.new_team_id,
+          } = org);
+        }
       },
       setOrg(val) {
         this.form.org = val;

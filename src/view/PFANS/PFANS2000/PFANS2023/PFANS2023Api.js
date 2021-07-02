@@ -27,6 +27,15 @@ export function updatePfans2023(data) {
   })
 }
 
+//目标管理数据转结
+export function change(data) {
+  return request({
+    url: 'goalmanagement/change',
+    method: 'post',
+    data: data
+  })
+}
+
 //获取流程列表
 export function getFpans2023List(data) {
   return request({
