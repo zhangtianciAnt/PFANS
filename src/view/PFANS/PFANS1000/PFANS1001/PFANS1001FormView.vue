@@ -1,30 +1,30 @@
 <template>
   <div>
     <!--境外出差申请 境内出差申請-->
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList2"
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonListAnt"
                      :showSelection="isShow" ref="roletable5" :selectable="selectInit"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加 无偿设备 其他业务决裁-->
-    <EasyNormalTable :buttonList="buttonList3" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit1"
+    <EasyNormalTable :buttonList="buttonListAnt" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit1"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable3" v-loading="loading" v-show="this.showTable===2">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
     <!--    ADD-WS-费用编号添加 千元以下费用申请-->
-    <EasyNormalTable :buttonList="buttonList3" :columns="columns3" :data="data" :rowid="row" :selectable="selectInit"
+    <EasyNormalTable :buttonList="buttonListAnt" :columns="columns3" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable2" v-loading="loading" v-show="this.showTable===3">
     </EasyNormalTable>
     <!--    ADD-WS-费用编号添加 暂借款申请单-->
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
-    <EasyNormalTable :buttonList="buttonList4" :columns="columns4" :data="data" :rowid="row" :selectable="selectInit"
+    <EasyNormalTable :buttonList="buttonListAnt" :columns="columns4" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable4" v-loading="loading" v-show="this.showTable===4">
     </EasyNormalTable>
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
     <!--    add-ws-5/27-No.170 交际费事前决裁-->
-    <EasyNormalTable :buttonList="buttonList3" :columns="columns5" :data="data" :rowid="row" :selectable="selectInit"
+    <EasyNormalTable :buttonList="buttonListAnt" :columns="columns5" :data="data" :rowid="row" :selectable="selectInit"
                      :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable1" v-loading="loading" v-show="this.showTable===5">
     </EasyNormalTable>
@@ -81,7 +81,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="6">
-            <el-form-item :label="$t('label.center')">
+            <el-form-item :label="$t('label.team')">
               <org :orglist="form.new_team_id"
                    orgtype="3"
                    style="width: 9vw"
@@ -605,6 +605,7 @@
             filter: true,
           },
         ],
+        buttonListAnt:[],
         buttonList: [ //事前面谈票
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -616,12 +617,24 @@
           // {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'export1', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-upload2'},
+        ],
+        buttonListCarry4: [ //暂借款申请单
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          // {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'export1', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-upload2'},
           // add-ztc  数据转结 fr
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
           // add-ztc  数据转结 to
-
         ],
         buttonList3: [ //千元以下费用申请
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+        ],
+        buttonListCarry3: [ //千元以下费用申请
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
@@ -644,6 +657,14 @@
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
           // add-ztc  数据转结 to
         ],
+        buttonListCarry2: [ //境外出差申请 境内出差申請
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'qxch', 'name': 'button.qxch', 'disabled': true, 'icon': 'el-icon-edit'},
+          {'key': 'actuarial', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+        ],
         //add-ws-7/7-禅道247
         rowid: '',
         statuss: '',
@@ -655,9 +676,39 @@
     },
     mounted() {
       this.getCompanyProjectList(this.$route.params.title);
+      this.getdateInfo();
     },
     methods: {
       // add-ztc  数据转结 fr
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          if (this.showTable == 1 || this.showTable == 2) {
+            this.buttonListAnt = this.buttonListCarry2;
+          } else if (this.showTable == 3 || this.showTable == 4) {
+            this.buttonListAnt = this.buttonListCarry3;
+          }else if (this.showTable == 5) {
+            this.buttonListAnt = this.buttonListCarry3;
+          }else if (this.showTable == 6) {
+            this.buttonListAnt = this.buttonListCarry4;
+          }else if (this.showTable == 10) {
+            this.buttonListAnt = this.buttonListCarry3;
+          }
+        }else{
+          if (this.showTable == 1 || this.showTable == 2) {
+            this.buttonListAnt = this.buttonList2;
+          } else if (this.showTable == 3 || this.showTable == 4) {
+            this.buttonListAnt = this.buttonList3;
+          }else if (this.showTable == 5) {
+            this.buttonListAnt = this.buttonList3;
+          }else if (this.showTable == 6) {
+            this.buttonListAnt = this.buttonList4;
+          }else if (this.showTable == 10) {
+            this.buttonListAnt = this.buttonList3;
+          }
+        }
+      },
       submit(){
         this.loading = true;
         this.$refs['form'].validate(valid =>{
@@ -775,8 +826,6 @@
             }
           }
         }
-        // }
-        //ADD_FJL  修改人员预算编码
       },
       // add-ztc  数据转结 to
       // // add-ws-7/14-禅道144任务
@@ -1076,6 +1125,10 @@
         this.$store.commit('global/SET_HISTORYURL', '');
         // add-ztc  数据转结 fr
         if(val === 'carryforward'){
+          this.form.new_center_id = '';
+          this.form.new_group_id = '';
+          this.form.new_team_id = '';
+          this.form.new_budgetunit = '';
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -1089,28 +1142,47 @@
               this.form.last_center_id = this.rowInfo.center_id;
               this.form.last_group_id = this.rowInfo.group_id;
               this.form.last_team_id = this.rowInfo.team_id;
+              let letbartype1 = getDictionaryInfo(this.rowInfo.budgetunit);
+              if (letbartype1 != null) {
+                this.form.last_budgetunit = letbartype1.value1;
+              }
             }else if(this.showTable===2){
               // '无偿设备 其他业务决裁'
               this.form.last_center_id = this.rowInfo.center_id;
               this.form.last_group_id = this.rowInfo.group_id;
               this.form.last_team_id = this.rowInfo.team_id;
+              let letbartype1 = getDictionaryInfo(this.rowInfo.thisproject);
+              if (letbartype1 != null) {
+                this.form.last_budgetunit = letbartype1.value1;
+              }
             }else if(this.showTable===3){
               // 千元以下费用申请
               this.form.last_center_id = this.rowInfo.center_id;
               this.form.last_group_id = this.rowInfo.group_id;
               this.form.last_team_id = this.rowInfo.team_id;
+              let letbartype1 = getDictionaryInfo(this.rowInfo.budgetunit);
+              if (letbartype1 != null) {
+                this.form.last_budgetunit = letbartype1.value1;
+              }
             }else if(this.showTable===4){
               // '暂借款申请单'
               this.form.last_center_id = this.rowInfo.center_id;
               this.form.last_group_id = this.rowInfo.group_id;
               this.form.last_team_id = this.rowInfo.team_id;
+              let letbartype1 = getDictionaryInfo(this.rowInfo.budgetunit);
+              if (letbartype1 != null) {
+                this.form.last_budgetunit = letbartype1.value1;
+              }
             }else if(this.showTable===5){
               // '交际费事前决裁'
               this.form.last_center_id = this.rowInfo.center_id;
               this.form.last_group_id = this.rowInfo.group_id;
               this.form.last_team_id = this.rowInfo.team_id;
+              let letbartype1 = getDictionaryInfo(this.rowInfo.budgetunit);
+              if (letbartype1 != null) {
+                this.form.last_budgetunit = letbartype1.value1;
+              }
             }
-
           }
           this.dialogVisible = true;
         }

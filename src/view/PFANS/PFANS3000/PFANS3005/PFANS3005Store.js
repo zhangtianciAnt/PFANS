@@ -1,4 +1,4 @@
-import {getPurchase,getPurchaseOne,updatePurchase,createPurchase,downLoad,getPurchaseList,getworkfolwPurchaseData} from './PFANS3005Api'
+import {getPurchase,getPurchaseOne,updatePurchase,createPurchase,downLoad,getPurchaseList,getworkfolwPurchaseData,change} from './PFANS3005Api'
 
 
 const PFANS3005Store = {
@@ -6,6 +6,19 @@ const PFANS3005Store = {
   state: {},
   mutations: {},
   actions: {
+    change({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     downLoad({commit}, data) {
       return new Promise((resolve, reject) => {
         downLoad(data).then(response => {
