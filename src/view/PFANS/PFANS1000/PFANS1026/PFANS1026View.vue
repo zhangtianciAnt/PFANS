@@ -250,9 +250,9 @@
               } else if (tabledata[i].state === '0' && this.$i18n) {
                 tabledata[i].state = this.$t("label.PFANS8008FORMVIEW_INVALID");
               }
-
             }
             var arr = new Array();
+            this.data = [];
             let o;
             for (var i = 0; i < letcontractnumber.length; i++) {
               if (arr.indexOf(letcontractnumber[i]) == -1) {

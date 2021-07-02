@@ -225,6 +225,7 @@
                   }
                 }
                 var arr= new Array();
+                this.data = [];
                 let o;
                 for(var i = 0; i < letcontractnumber.length; i++){
                   if(arr.indexOf(letcontractnumber[i]) == -1){

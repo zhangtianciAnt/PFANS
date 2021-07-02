@@ -183,15 +183,14 @@
       };
     },
     mounted() {
-      this.loadInfo();
+      this.load();
     },
     methods: {
-      loadInfo(){
+      load(){
         this.loading = true;
         this.$store
           .dispatch('PFANS1026Store/get', {'type': '0'})
           .then(response => {
-            alert(111)
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
@@ -228,6 +227,8 @@
                 tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
               }
             }
+            console.log(tabledata)
+            this.data = []
             var arr = new Array();
             let o;
             for (var i = 0; i < letcontractnumber.length; i++) {
@@ -344,7 +345,7 @@
             this.$store
               .dispatch('PFANS1026Store/dataCarryover', parameter)
               .then(response => {
-                this.loadInfo();
+                this.load();
                 Message({
                   message: this.$t('normal.success_07'),
                   type: 'success',
