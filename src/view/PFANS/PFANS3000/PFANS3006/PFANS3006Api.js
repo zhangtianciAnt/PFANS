@@ -24,6 +24,15 @@ export function updateAppointmentCar(data) {
   })
 }
 
+//数据转结
+export function change(data) {
+  return request({
+    url: 'appointmentcar/change',
+    method: 'post',
+    data: data
+  })
+}
+
 export function createAppointmentCar(data) {
   return request({
     url: 'appointmentcar/create',

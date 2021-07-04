@@ -1,4 +1,4 @@
-import {get, selectById, update,generateJxls,getDataOne,getDataOne2,checkby,getList} from './PFANS1025Api'
+import {get, selectById, update,generateJxls,getDataOne,getDataOne2,checkby,getList,dataCarryover} from './PFANS1025Api'
 
 
 const PFANS1025Store = {
@@ -112,6 +112,20 @@ const PFANS1025Store = {
       })
     },
     //add ccm 0723
+    //其他决裁书数据结转
+    dataCarryover({ commit },data) {
+      return new Promise((resolve, reject) => {
+        dataCarryover(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message)
+      }
+    }).catch(error => {
+        reject(error);
+    })
+    })
+    },
   }
 };
 

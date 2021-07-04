@@ -1,5 +1,5 @@
 import {Listproject2,Listproject,getFpans5013List,selectById,update,insert,getcustomer,getexpat,select,getPjList,
-        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,getMyConProject,getMyConProject2} from './PFANS5013Api'
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,getMyConProject,getMyConProject2,dataCarryover} from './PFANS5013Api'
 
 
 const PFANS5013Store = {
@@ -34,6 +34,20 @@ const PFANS5013Store = {
           reject(error);
         })
       })
+    },
+    //数据结转
+    dataCarryover({commit}, data) {
+      return new Promise((resolve, reject) => {
+        dataCarryover(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message)
+      }
+    }).catch(error => {
+        reject(error);
+    })
+    })
     },
     //获取流程
     getFpans5013List({commit},data) {

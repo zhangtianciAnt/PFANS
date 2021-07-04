@@ -2262,6 +2262,9 @@
                     difference: '1',
                     post: '',
                     rank: '',
+                  //ztc 解决画面新建保存【转正日】没有保存问题BUG fr
+                    enddate: '',
+                  //ztc 解决画面新建保存【转正日】没有保存问题BUG to
                     occupationtype: '',
                     laborcontracttype: '',
                     fixedate: '',
@@ -2819,16 +2822,20 @@
 
           //试用期截止日转换转正日
           changeenddate(value){
+            //ztc 解决画面新建保存【转正日】没有保存问题BUG fr
               if(value === null){
                   this.varenddate = "";
-                  this.userInfo.customerInfo.userinfo.enddate = "";
+                  // this.userInfo.customerInfo.userinfo.enddate = "";
+                  this.form.enddate = "";
                   this.rules.varenddate[0].required = true;
               }
               else{
                   this.rules.varenddate[0].required = false;
                   this.varenddate = moment(value).format("YYYY-MM-DD");
-                  this.userInfo.customerInfo.userinfo.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
+                  // this.userInfo.customerInfo.userinfo.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
+                  this.form.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
               }
+            //ztc 解决画面新建保存【转正日】没有保存问题BUG to
           },
           //        ws-6/28-禅道141任务
           changeclassification (val) {

@@ -864,7 +864,7 @@
         if (val != "") {
           this.getOrgInformation2(val);
           this.getFebud1(val);
-        }else{
+        } else {
           this.getFebud1(this.form.tubecenter_id);
         }
         if (this.form.tubecenter_id === "") {

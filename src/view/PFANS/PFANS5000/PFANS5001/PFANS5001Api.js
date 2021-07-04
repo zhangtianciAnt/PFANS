@@ -39,6 +39,14 @@ export function update(data) {
     data: data
   })
 }
+//更新流程
+export function update1(data) {
+  return request({
+    url: 'companyprojects/update1',
+    method: 'post',
+    data: data
+  })
+}
 
 //获取流程列表
 export function getFpans5001List(data) {
