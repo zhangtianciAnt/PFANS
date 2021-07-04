@@ -92,7 +92,6 @@
             this.$store
                 .dispatch('PFANS2003Store/getinterviewrecord')
                 .then(response => {
-                    console.log("response",response)
                     for (let j = 0; j < response.length; j++) {
                         if(response[j].interviewdep){
                             response[j].interviewdep = getDepartmentById(response[j].interviewdep);

@@ -125,3 +125,11 @@ export function getNapinQinqiu(data) {
     data: data
   })
 }
+
+export function dataCarryover(data) {
+  return request({
+    url: 'contractapplication/dataCarryover',
+    method: 'post',
+    data: data
+  })
+}

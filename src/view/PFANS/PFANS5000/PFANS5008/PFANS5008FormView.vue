@@ -633,7 +633,11 @@
 
       getCompanyProjectList() {
         if(this.$store.getters.useraccount.account.toUpperCase().indexOf('KK-') != -1){
-          this.optionsdata = [];
+          if(moment(this.companyform.log_date).format('YYYY-MM-DD') >= '2021-07-01'){
+            this.optionsdata = [];
+          }else{
+            this.optionsdata.push({value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')})
+          }
         }else{
           this.optionsdata.push({value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')})
         }
@@ -1777,6 +1781,7 @@
         this.companyform.behavior_breakdown = value3;
       },
       clickdata() {
+        this.getCompanyProjectList();
         this.getAttendancelist();
         this.$route.params._id = '';
         this.row = '';

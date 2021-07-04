@@ -1105,15 +1105,15 @@
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2005FORMVIEW_QT1')" name="third">
-              <el-row type="flex" justify="end" style="margin-bottom:1vh">
-                <el-col :span="6">
-                  <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
-                            v-model="filterName">
-                    <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
-                  </el-input>
-                </el-col>
-              </el-row>
               <div>
+                <el-row type="flex" justify="end" style="margin-bottom:1vh">
+                  <el-col :span="6">
+                    <el-input :placeholder="$t('label.PFANS2005FORMVIEW_USERNAME')"  style="width: 20vw"
+                              v-model="filterName">
+                      <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange(3)"></el-button>
+                    </el-input>
+                  </el-col>
+                </el-row>
                 <el-collapse value="women">
                   <el-collapse-item name="women">
                     <template slot="title">
@@ -3696,213 +3696,204 @@
                 this.buttonList[1].disabled = true;
             }
         },
-        // zqu start 监听过滤名称和部门
         methods: {
+          // update   ml    20210702  监听过滤名称和部门  from
           inputChange(val) {
             if (val === 1) {
               if (this.filterName === "") {
                 this.totaldata = this.responseDataInit;
               } else {
-                this.totaldata = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseDataInit !== null && this.responseDataInit !== "undefined") {
+                  this.totaldata = this.responseDataInit.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 2) {
               if (this.filterName === "") {
-                this.tableJS = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableJS = this.responseJS;
               } else {
-                this.tableJS = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseJS !== null && this.responseJS !== "undefined") {
+                  this.tableJS = this.responseJS.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 3) {
               if (this.filterName === "") {
-                this.tableQT1Woman = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT1Woman = this.responseQT1Woman;
+                this.tableQT1Man = this.responseQT1Man;
               } else {
-                this.tableQT1Woman = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if ((this.responseQT1Woman !== null && this.responseQT1Woman !== "undefined") || (this.responseQT1Man !== null && this.responseQT1Man !== "undefined")) {
+                  this.tableQT1Woman = this.responseQT1Woman.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                  this.tableQT1Man = this.responseQT1Man.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 4) {
               if (this.filterName === "") {
-                this.tableQT2 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT2 = this.responseQT2;
               } else {
-                this.tableQT2 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQT2 !== null && this.responseQT2 !== "undefined") {
+                  this.tableQT2 = this.responseQT2.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 5) {
               if (this.filterName === "") {
-                this.tableQT4 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT4 = this.responseQT4;
               } else {
-                this.tableQT4 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQT4 !== null && this.responseQT4 !== "undefined") {
+                  this.tableQT4 = this.responseQT4.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 6) {
               if (this.filterName === "") {
-                this.tableQT5 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQT5 = this.responseQT5;
               } else {
-                this.tableQT5 = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQT5 !== null && this.responseQT5 !== "undefined") {
+                  this.tableQT5 = this.responseQT5.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 7) {
               if (this.filterName === "") {
-                this.tableRZ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableRZ = this.responseRZ;
               } else {
-                this.tableRZ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseRZ !== null && this.responseRZ !== "undefined") {
+                  this.tableRZ = this.responseRZ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 8) {
               if (this.filterName === "") {
-                this.tableTZ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableTZ = this.responseTZ;
               } else {
-                this.tableTZ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseTZ !== null && this.responseTZ !== "undefined") {
+                  this.tableTZ = this.responseTZ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 9) {
               if (this.filterName === "") {
-                this.tableQQ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableQQ = this.responseQQ;
               } else {
-                this.tableQQ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseQQ !== null && this.responseQQ !== "undefined") {
+                  this.tableQQ = this.responseQQ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 10) {
               if (this.filterName === "") {
-                this.tableCY = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableCY = this.responseCY;
               } else {
-                this.tableCY = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseCY !== null && this.responseCY !== "undefined") {
+                  this.tableCY = this.responseCY.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 11) {
               if (this.filterName === "") {
-                this.tableYDSY = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableYDSY = this.responseYDSY;
               } else {
-                this.tableYDSY = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseYDSY !== null && this.responseYDSY !== "undefined") {
+                  this.tableYDSY = this.responseYDSY.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 12) {
               if (this.filterName === "") {
-                this.tableZHSR = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableZHSR = this.responseZHSR;
               } else {
-                this.tableZHSR = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseZHSR !== null && this.responseZHSR !== "undefined") {
+                  this.tableZHSR = this.responseZHSR.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 13) {
               if (this.filterName === "") {
-                this.tableZXKC = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableZXKC = this.responseZXKC;
               } else {
-                this.tableZXKC = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseZXKC !== null && this.responseZXKC !== "undefined") {
+                  this.tableZXKC = this.responseZXKC.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 14) {
               if (this.filterName === "") {
-                this.tableFJKC = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableFJKC = this.responseFJKC;
               } else {
-                this.tableFJKC = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseFJKC !== null && this.responseFJKC !== "undefined") {
+                  this.tableFJKC = this.responseFJKC.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 15) {
               if (this.filterName === "") {
-                this.tableLJSJ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableMS = this.responseMS;
               } else {
-                this.tableLJSJ = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseMS !== null && this.responseMS !== "undefined") {
+                  this.tableMS = this.responseMS.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else if (val === 16) {
               if (this.filterName === "") {
-                this.tableJS = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableLJSJ = this.responseLJSJ;
               } else {
-                this.tableJS = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseLJSJ !== null && this.responseLJSJ !== "undefined") {
+                  this.tableLJSJ = this.responseLJSJ.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             } else {
               if (this.filterName === "") {
-                this.tableGRDB = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                this.tableGRDB = this.responseGRDB;
               } else {
-                this.tableGRDB = this.responseDataInit.filter(item => {
-                  return item.user_name === this.filterName
-                    || item.department_id === this.filterName;
-                });
+                if (this.responseGRDB !== null && this.responseGRDB !== "undefined") {
+                  this.tableGRDB = this.responseGRDB.filter(item => {
+                    return item.user_name === this.filterName
+                      || item.department_id === this.filterName;
+                  });
+                }
               }
             }
           },
-          // zqu end
+          // update   ml    20210702  监听过滤名称和部门  to
             workflowState(val) {
                 if (val.state === '1') {
                     this.status = '3';
@@ -4274,6 +4265,7 @@
                                     response.lackattendance[j].lackattendance_id;
                                 obj.isDirty = false;
                                 datalistqq[j] = obj;
+                                this.responseQQ = datalistqq;
                                 this.tableQQ = datalistqq;
                                 this.totaldataQQ = datalistqq;
                                 this.ListQQ = 8;
@@ -4355,6 +4347,7 @@
                                 obj.residual_id = response.residual[j].residual_id;
                                 obj.isDirty = false;
                                 datalistcy[j] = obj;
+                                this.responseCY = datalistcy;
                                 this.tableCY = datalistcy;
                                 this.totaldataCY = datalistcy;
                                 this.ListCY = 9;
@@ -4390,6 +4383,7 @@
                                 obj.december = response.disciplinaryVo[i].month12;
                                 obj.total = response.disciplinaryVo[i].total;
                                 datalistzxkc[i] = obj;
+                                this.responseZXKC = datalistzxkc;
                                 this.tableZXKC = datalistzxkc;
                                 this.totaldataZXKC = datalistzxkc;
                                 this.ListZXKC = 12;
@@ -4536,7 +4530,9 @@
                             } else if (this.ListOtherOneSex === 2) {
                                 this.totaldataOtherOneMan = lettableQT1Man;
                             }
+                            this.responseQT1Woman = lettableQT1Woman;
                             this.tableQT1Woman = lettableQT1Woman;
+                            this.responseQT1Man = lettableQT1Man;
                             this.tableQT1Man = lettableQT1Man;
                             this.ListOtherOne = 2;
                             this.getList();
@@ -4566,6 +4562,7 @@
                             Obj.giving_id = response.otherTwo[a].giving_id;
                             Obj.rowindex = a + 1;
                             datalist[a] = Obj;
+                            this.responseQT2 = datalist;
                             this.tableQT2 = datalist;
                             this.totaldataQT2 = datalist;
                             this.ListQt2 = 3;
@@ -4581,6 +4578,7 @@
                                         response.appreciation[j].user_id
                                     ).userinfo.customername;
                                 }
+                                this.responseYDSY = response.appreciation;
                                 this.tableYDSY = response.appreciation;
                                 this.totaldataYDSY = response.appreciation;
                                 this.ListYDSY = 10;
@@ -4596,6 +4594,7 @@
                                     response.otherFour[j].user_id
                                 ).userinfo.customername;
                             }
+                            this.responseQT4 = response.otherFour;
                             this.tableQT4 = response.otherFour;
                             this.totaldataQT4 = response.otherFour;
                             this.ListQT4 = 4;
@@ -4612,6 +4611,7 @@
                                         response.addiTional[j].user_id
                                     ).userinfo.customername;
                                 }
+                                this.responseFJKC = response.addiTional;
                                 this.tableFJKC = response.addiTional;
                                 this.totaldataFJKC = response.addiTional;
                                 this.ListFJKC = 13;
@@ -4627,6 +4627,7 @@
                                     response.otherFive[j].user_id
                                 ).userinfo.customername;
                             }
+                            this.responseQT5 = response.otherFive;
                             this.tableQT5 = response.otherFive;
                             this.totaldataQT5 = response.otherFive;
                             this.ListQt5 = 5;
@@ -4658,6 +4659,7 @@
                                     response.entryVo[j].startdate
                                 ).format("YYYY-MM-DD");
                             }
+                            this.responseRZ = response.entryVo;
                             this.tableRZ = response.entryVo;
                             this.totaldataRZ = response.entryVo;
                             this.ListRZ = 6;
@@ -4685,6 +4687,7 @@
                                     response.retireVo[j].retiredate
                                 ).format("YYYY-MM-DD");
                             }
+                            this.responseTZ = response.retireVo;
                             this.tableTZ = response.retireVo;
                             this.totaldataTZ = response.retireVo;
                             this.ListTZ = 6;
@@ -4785,6 +4788,7 @@
                                     }
                                 }
                             }
+                            this.responseJS = response.base;
                             // this.tableJS = response.base;
                             this.totaldataBase = response.base;
                             this.listBase = 1;
@@ -4816,6 +4820,7 @@
                                 //update 20210319 个人到手差额对比数据格式化 end
                             }
                             datalistgrdb[j] = obj;
+                            this.responseGRDB = datalistgrdb;
                             this.tableGRDB = datalistgrdb;
                             this.totaldataContrast = datalistgrdb;
                             this.listContrast = 16;
@@ -4852,6 +4857,7 @@
                                 obj.shouldtax = response.accumulatedTaxVo[j].shouldtax;
                                 obj.balance = response.accumulatedTaxVo[j].balance;
                                 datalistljsj[j] = obj;
+                                this.responseLJSJ = datalistljsj;
                                 this.tableLJSJ = datalistljsj;
                                 this.totaldataAccumulatedTax = datalistljsj;
                                 this.listAccumulatedTax = 15;
@@ -4887,6 +4893,7 @@
                                 obj.december = response.dutyfreeVo[j].december;
                                 obj.total = response.dutyfreeVo[j].total;
                                 datalistms[j] = obj;
+                                this.responseMS = datalistms;
                                 this.tableMS = datalistms;
                                 this.totaldataDutyfreeVo = datalistms;
                                 this.listDutyfreeVo = 14;
@@ -4950,6 +4957,7 @@
                                 obj.totalwithout12 = response.comprehensiveVo[j].totalwithout12;
                                 obj.totalwithin12 = response.comprehensiveVo[j].totalwithin12;
                                 datalistzhsr[j] = obj;
+                                this.responseZHSR = datalistzhsr;
                                 this.tableZHSR = datalistzhsr;
                                 this.totaldataZHSR = datalistzhsr;
                                 this.ListZHSR = 11;

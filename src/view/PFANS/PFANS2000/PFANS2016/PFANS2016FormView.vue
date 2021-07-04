@@ -222,14 +222,14 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.restartdate')" prop="reoccurrencedate">
                 <el-date-picker @change="rechange"
-                                :disabled="disrevacationtype"
+                                :disabled="((form.errortype == 'PR013007' || form.errortype == 'PR013005') && form.status >= 4) ? true: disrevacationtype"
                                 style="width:20vw" type="date" v-model="form.reoccurrencedate"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.reenddate')" prop="refinisheddate">
                 <el-date-picker @change="rechange"
-                                :disabled="disrevacationtype"
+                                :disabled="((form.errortype == 'PR013007' || form.errortype == 'PR013005') && form.status >= 4) ? true: disrevacationtype"
                                 style="width:20vw" type="date" v-model="form.refinisheddate"></el-date-picker>
               </el-form-item>
             </el-col>
@@ -635,10 +635,12 @@
         options: [{
           value: '0',
           label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN'),
-        }, {
+        },
+          {
           value: '1',
           label: this.$t('label.PFANS2011FROMVIEW_HALFDATE'),
-        }, {
+        },
+          {
           value: '2',
           label: this.$t('label.PFANS2016FORMVIEW_UNREST'),
         }],
@@ -850,7 +852,20 @@
                 // }
               }
             }
-
+            //add  ml   20210702  年休或特别休日   from
+            if((this.form.errortype === 'PR013005' || this.form.errortype === 'PR013007') && this.form.status >= 4 ){
+              if(moment(this.form.reoccurrencedate).format('YYYY-MM-DD') !== moment(this.form.refinisheddate).format('YYYY-MM-DD')){
+                this.options = [{
+                  value: '0',
+                  label: this.$t('label.PFANS2016FORMVIEW_QUANTIAN'),
+                },
+                  {
+                    value: '2',
+                    label: this.$t('label.PFANS2016FORMVIEW_UNREST'),
+                  }]
+              }
+            }
+            //add  ml   20210702  年休或特别休日   to
             if (this.form.errortype === 'PR013011' || this.form.errortype === 'PR013012' || this.form.errortype === 'PR013013'
               || this.form.errortype === 'PR013015' || this.form.errortype === 'PR013017' || this.form.errortype === 'PR013020'
               || this.form.errortype === 'PR013021' || this.form.errortype === 'PR013022') {
@@ -1173,7 +1188,9 @@
       rehandleClick(val) {
         this.form.revacationtype = val;
         this.retypecheck = val;
-        this.form.refinisheddate = this.form.reoccurrencedate;
+        //del   ml  20210702  未休时间显示  from
+        // this.form.refinisheddate = this.form.reoccurrencedate;
+        //del   ml  20210702  未休时间显示  to
         if (val == '0') {
           this.form.relengthtime = 8;
         } else if (val == '1') {

@@ -135,3 +135,12 @@ export function Listproject2(data) {
   })
 }
 //add-ws-6/5-禅道075任务，项目名称问题修正
+
+//数据结转
+export function dataCarryover(data) {
+  return request({
+    url: 'comprojects/dataCarryover',
+    method: 'post',
+    data: data
+  })
+}

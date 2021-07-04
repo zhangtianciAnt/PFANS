@@ -96,6 +96,7 @@ module.exports = {
     disclick: '一键驳回',
     resignationAttendCompare: '考勤对比',
     wagescontrast: '工资对比',
+    carryforward:'数据转结',
     recognition: '承认',
     recognitionno: '取消承认',
     application: '契约番号申請',
@@ -210,6 +211,7 @@ module.exports = {
     success_04:'费用统计数据生成成功！',
     success_05:'工资计算完成！',
     success_06:'当月工资发放完成！',
+    success_07: '数据转结成功！',
     error_startTime: '请输入开始时间！',
     error_endTime: '请输入结束时间！',
     error_program: '请选择工作项目！',
@@ -802,6 +804,8 @@ module.exports = {
     PFANS1004VIEW_SALEQUOTATION: '报价单',
     PFANS1004VIEW_REASONSFORQUOTATION: '不足两份报价单理由',
     PFANS3005VIEW_YUSUANBUZUFORQUOTATION: '预算不足原因',
+    PFANS3005VIEW_OLDORGANIZATION: '旧组织',
+    PFANS3005VIEW_NEWORGANIZATION: '新组织',
     PFANS1004VIEW_AMOUNT: '金额',
     PFANS1004VIEW_FREEBORROWINGGIST: '目的・效果・时间・试用责任者等概要\n' +
       '１、　*******開発のため、下記设备が必要です\n' +

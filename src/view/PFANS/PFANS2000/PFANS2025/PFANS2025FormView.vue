@@ -12,7 +12,6 @@
 
 <script>
 import EasyNormalContainer from "@/components/EasyNormalContainer";
-import { debug } from "util";
 import dicselect from "../../../components/dicselect";
 import user from "../../../components/user"
 export default {
