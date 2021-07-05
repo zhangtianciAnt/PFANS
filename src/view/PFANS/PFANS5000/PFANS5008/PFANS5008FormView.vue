@@ -630,8 +630,8 @@
       }
     },
     methods: {
-
       getCompanyProjectList() {
+        this.optionsdata = [];
         if(this.$store.getters.useraccount.account.toUpperCase().indexOf('KK-') != -1){
           this.optionsdata = [];
         }else{
