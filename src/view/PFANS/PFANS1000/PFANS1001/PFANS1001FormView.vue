@@ -960,10 +960,10 @@
           // }
           //add_fjl_0806
           if (response[j].center_id !== null && response[j].center_id !== '' && response[j].center_id !== undefined) {
-            response[j].center_id = getOrgInfo(response[j].center_id);
+            response[j].center_id = getDepartmentById(response[j].center_id);
           }
           if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-            response[j].group_id = getOrgInfo(response[j].group_id);
+            response[j].group_id = getDepartmentById(response[j].group_id);
           }
           //add_fjl_0806
           let user = getUserInfo(response[j].user_id);

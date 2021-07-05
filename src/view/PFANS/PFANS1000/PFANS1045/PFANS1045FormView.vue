@@ -241,14 +241,14 @@
                 <span class="collapse_Title">{{$t('label.PFANS1045VIEW_INFORMATION')}}</span>
                 <el-table :data="tableF" :summary-method="getFsummaries" show-summary
                           header-cell-class-name="sub_bg_color_blue" stripe border style="width: 72.5vw">
-                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
+                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center"
-                                   width="300" prop="money"
+                                   width="233" prop="money"
                   >
                     <template slot-scope="scope">
                       <el-input-number
@@ -264,13 +264,13 @@
                       </el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="445">
+                  <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="475">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable2" style="width: 100%" v-model="scope.row.remark">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="500">
+                  <el-table-column :label="$t('label.operation')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-button
                         :disabled="!disable2"
@@ -630,10 +630,10 @@
           },
         });
       },
-      changeSum(row) {//1111
+      changeSum(row) {
         let moneyAnt = 0;
         for (let i = 0; i < this.tableF.length; i++) {
-          moneyAnt += Number(this.tableF[i].money);
+          moneyAnt = this.tableF[i].money;
         }
         moneyAnt += Number(this.form.avbleamount)
         this.form.modifiedamount = moneyAnt;

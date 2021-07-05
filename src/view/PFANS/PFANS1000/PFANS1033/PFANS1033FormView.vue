@@ -577,7 +577,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_PAPERCONTRACT')" align="center" prop="papercontract"
                              width="120">
               <template slot-scope="scope">
-                <el-input v-model="scope.row.papercontract" :disabled="book ? (!bookawardafter ? true:false) : !disabled">
+                <el-input v-model="scope.row.papercontract" :disabled="!disabled">
                 </el-input>
               </template>
             </el-table-column>

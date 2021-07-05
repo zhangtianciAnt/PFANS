@@ -255,13 +255,52 @@
       this.init();
     },
     methods: {
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form1.centername,
+            groupname: this.form1.groupname,
+            teamname: this.form1.teamname,
+            center_id: this.form1.new_center_id,
+            group_id: this.form1.new_group_id,
+            team_id: this.form1.new_team_id,
+          } = org);
+        }
+      },
       getCenterid(val){
+        this.getOrgInformation(val);
         this.form1.new_center_id = val
+        if (!val || this.form1.new_center_id === '') {
+          this.error_center = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error_center = '';
+        }
       },
       getGroupid(val){
+        this.getOrgInformation(val);
         this.form1.new_group_id = val
       },
       getTeamid(val){
+        this.getOrgInformation(val);
         this.form1.new_team_id = val
       },
       setOrg(val) {
@@ -269,7 +308,6 @@
       },
       init() {
         this.loading = true;
-
         this.$store
           .dispatch('PFANS2024Store/getDataList', {'years':this.yearvalue})
           .then(response => {
@@ -390,7 +428,6 @@
               team_id:this.form1.new_team_id,
               talentplan_id:this.rowid,
             };
-            console.log(parameter)
             this.$store
               .dispatch('PFANS2024Store/dataCarryover', parameter)
               .then(response => {
