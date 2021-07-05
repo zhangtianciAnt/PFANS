@@ -460,7 +460,6 @@
                 }
                 this.dialogVisible = true;
                 let center = getOrgInfo(this.rows.center_id);
-                debugger;
                 if(center){
                   this.form.last_center_id = center.companyname;
                 }
