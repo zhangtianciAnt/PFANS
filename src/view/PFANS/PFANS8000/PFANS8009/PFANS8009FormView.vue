@@ -217,6 +217,14 @@
           //   }
           // }
           // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
+          let num = parseInt(this.letcode.substr(this.letcode.length-3,3));
+          if (num < 9) {
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
+          }else if(num === 10){
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
+          }else{
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
+          }
         } else {
           this.tableD = [
             {
