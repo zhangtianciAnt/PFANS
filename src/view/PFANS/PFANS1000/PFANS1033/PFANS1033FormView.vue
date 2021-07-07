@@ -674,6 +674,13 @@
       project,
     },
     data() {
+      // var validateContractdate =(rule, value, callback) => {
+      //   if (!this.form.contractdate || this.form.contractdate === '') {
+      //     callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE')));
+      //   } else {
+      //     callback();
+      //   }
+      // };
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
@@ -789,6 +796,13 @@
           ],
         },
         rules: {
+          // contractdate: [
+          //   {
+          //     required: true,
+          //     validator: validateContractdate,
+          //     trigger: 'blur',
+          //   },
+          // ],
           group: [
             {
               required: true,
@@ -1772,6 +1786,16 @@
         }
         baseInfo.contractapplication = tabledata;
         baseInfo.contractnumbercount = this.tableclaimtype;
+        //add  ml   20210707    合同期间check   from
+        if(!baseInfo.contractapplication[0].contractdate || baseInfo.contractapplication[0].contractdate === ''){
+          Message({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          return;
+        }
+        //add  ml   20210707    合同期间check   to
         this.$refs['refform'].validate(valid => {
           if (valid) {
             this.loading = true;
@@ -1783,7 +1807,7 @@
                     this.handleSaveNumber(tabledatabook);
                   } else {
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message:  this.$t('normal.success_01'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
@@ -1793,7 +1817,7 @@
                 })
                 .catch(error => {
                   Message({
-                    message: error,
+                    message: this.$t('normal.error_12'),
                     type: 'error',
                     duration: 5 * 1000,
                   });

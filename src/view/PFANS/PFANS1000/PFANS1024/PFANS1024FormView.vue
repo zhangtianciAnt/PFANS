@@ -1030,7 +1030,7 @@
         bookawardafter:true,
         ruleSet: {
         // , 'theme'
-          'save': ['contractnumber', 'theme'],
+          'save': ['contractnumber', 'theme','contractdate'],
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -2476,6 +2476,16 @@
           //     }
           //   }
           // }
+          //add  ml   20210707    合同期间check   from
+          if(!this.form.tabledata[i].contractdate || this.form.tabledata[i].contractdate === ''){
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //add  ml   20210707    合同期间check   to
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           o.contracttype = this.form.contracttype;
           if (this.form.contracttype === 'HT014001') {

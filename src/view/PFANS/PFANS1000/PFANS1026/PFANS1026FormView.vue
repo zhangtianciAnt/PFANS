@@ -1475,7 +1475,7 @@
         rowindex: '',
         ruleSet: {
           // , 'theme'
-          'save': ['contractnumber', 'theme', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
+          'save': ['contractnumber','claimdatetime', 'theme', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
           'makeinto': ['contractnumber'],
           '1': ['supportdate', 'conenglish', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           // 该非判定书
@@ -3691,6 +3691,16 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
+          //add  ml   20210707    合同期间check   from
+          if(!this.form.tabledata[i].claimdatetime || this.form.tabledata[i].claimdatetime === ''){
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1026VIEW_CONTRACTPERIOD'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //add  ml   20210707    合同期间check   to
           // if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
           //   for(let k = 0;k < this.options.length;k++){
           //     if(this.form.tabledata[i].currencyposition === this.options[k].value){
@@ -4231,6 +4241,12 @@
           }
         }
         if (val === 'cancellation') {
+          //add  ml  20210706   契约番号废弃check   from
+          // this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+          //   .then(response => {
+          //
+          //   })
+              //add  ml  20210706   契约番号废弃check   to
           this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
             confirmButtonText: this.$t('button.confirm'),
             cancelButtonText: this.$t('button.cancel'),
