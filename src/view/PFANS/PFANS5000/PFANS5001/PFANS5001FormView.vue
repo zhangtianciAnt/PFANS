@@ -1352,6 +1352,7 @@
         activeName2: 'first',
         buttonList: [],
         themeRow: '',
+        themeinfor_id: '', //add_qhr_20210707 添加参数
         claimamount: '',
         workinghoursRow: '',
         currentRow: '',
@@ -1450,6 +1451,7 @@
             contractamount: '',
             //add-ws-合同关联项目，分配金额
             rowindex: '',
+            themeinfor_id: '', //add_qhr_20210707 添加参数
           },
         ],
         tableAnt: [],
@@ -2233,6 +2235,8 @@
               vote2.claimdatetime = response.contractapplication[i].claimdatetime;
               vote2.entrypayment = response.contractapplication[i].entrypayment;
               vote2.theme = response.contractapplication[i].theme;
+              //add_qhr_20210707 添加字段参数
+              vote2.themeinfor_id = response.contractapplication[i].themeinfor_id;
               vote2.claimamount = response.contractapplication[i].claimamount;
               this.gridData3.push(vote2);
             }
@@ -2477,6 +2481,7 @@
         this.claimamount = val.claimamount;
         this.currentRow = val.contract;
         this.themeRow = val.theme;
+        this.themeinfor_id = val.themeinfor_id;  //add_qhr_20210707 添加参数
         this.workinghoursRow = val.entrypayment;
       },
       //add-ws-6/9-禅道任务080
@@ -2496,6 +2501,7 @@
                 claimtype: table[a].claimtype,
                 contract: table[a].contract,
                 theme: table[a].theme,
+                themeinfor_id: table[a].themeinfor_id,  //add_qhr_20210707 添加参数
                 workinghours: table[a].workinghours,
                 contractrequestamount: table[a].contractrequestamount,
                 contractamount: table[a].contractamount,
@@ -2514,6 +2520,7 @@
             companyprojects_id: '',
             contract: '',
             theme: '',
+            themeinfor_id: '', //add_qhr_20210707 添加参数
             workinghours: '',
             contractrequestamount: '',
             contractamount: '',
@@ -2549,6 +2556,7 @@
                   claimtype: contractnumbercount[i].claimtype,
                   contract: this.currentRow,
                   theme: this.themeRow,
+                  themeinfor_id: this.themeinfor_id,  //add_qhr_20210707 添加参数
                   workinghours: contractnumbercount[i].claimdatetimeqh,
                   contractrequestamount: contractnumbercount[i].claimamount,
                   contractamount: '',
@@ -2862,6 +2870,7 @@
           companyprojects_id: '',
           contract: '',
           theme: '',
+          themeinfor_id: '',  //add_qhr_20210707 添加参数
           workinghours: '',
           //add-ws-合同关联项目，分配金额
           contractrequestamount: '',
@@ -2892,6 +2901,7 @@
             companyprojects_id: '',
             contract: '',
             theme: '',
+            themeinfor_id: '',  //add_qhr_20210707 添加参数
             workinghours: '',
             //add-ws-合同关联项目，分配金额
             contractrequestamount: '',
@@ -3088,6 +3098,7 @@
                 //add-ws-6/9-禅道任务080
                 contract: '',
                 theme: '',
+                themeinfor_id: '',  //add_qhr_20210707 添加参数
                 workinghours: '',
                 //add-ws-合同关联项目，分配金额
                 contractrequestamount: '',
@@ -3282,6 +3293,7 @@
                     //add-ws-合同关联项目，分配金额
                     contract: this.tableD[i].contract,
                     theme: this.tableD[i].theme,
+                    themeinfor_id: this.tableD[i].themeinfor_id,  //add_qhr_20210707 添加参数
                     workinghours: this.tableD[i].workinghours,
                   });
                 }
