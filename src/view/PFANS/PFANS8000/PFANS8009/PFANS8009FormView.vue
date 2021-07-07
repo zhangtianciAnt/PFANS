@@ -82,8 +82,9 @@
                 <!--       人件费 需要添加 1228 ccm         -->
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
+                    <!--数据字典编辑首页，类别说明行删除按钮禁用 scc-->
                     <el-button
-                      :disabled="!disable"
+                      :disabled="scope.row.code.toString().length < 6 ? true : !disable"
                       @click.native.prevent="deleteRow(scope.$index, tableD)"
                       plain
                       size="small"
@@ -173,7 +174,9 @@
         this.data = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS8009Store/getDictionary', {"pcode": this.$route.params.code})
+          // .dispatch('PFANS8009Store/getDictionary', {"pcode": this.$route.params.code})
+          //新增数据字典编辑页面的首行类别信息介绍 scc
+          .dispatch('PFANS8009Store/getDictionary', {"code": this.$route.params.code,"pcode":this.$route.params.code})
           .then(response => {
             if (response.length > 0) {
               this.letcode = response[response.length - 1].code;
@@ -206,14 +209,22 @@
         if (rows.length > 1) {
           rows.splice(index, 1);
           // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
-          for (let i = 0; i < rows.length; i++) {
-            if (i < 9) {
-              this.tableD[i].code = this.letcode.substring(0, 5) + "00" + (i + 1);
-            } else if (i >= 9) {
-              this.tableD[i].code = this.letcode.substring(0, 5) + "0" + (i + 1);
-            }
-          }
+          // for (let i = 0; i < rows.length; i++) {
+          //   if (i < 9) {
+          //     this.tableD[i].code = this.letcode.substring(0, 5) + "00" + (i + 1);
+          //   } else if (i >= 9) {
+          //     this.tableD[i].code = this.letcode.substring(0, 5) + "0" + (i + 1);
+          //   }
+          // }
           // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
+          let num = parseInt(this.letcode.substr(this.letcode.length-3,3));
+          if (num < 9) {
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
+          }else if(num === 10){
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
+          }else{
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
+          }
         } else {
           this.tableD = [
             {
@@ -237,11 +248,18 @@
       },
       // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
       addRow(index, rows) {
-        if (rows.length < 9) {
-          this.letcode = this.letcode.substring(0, 5) + "00" + (rows.length + 1);
-        } else if (rows.length >= 9) {
-          this.letcode = this.letcode.substring(0, 5) + "0" + (rows.length + 1);
-          // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
+        // if (rows.length < 9) {
+        //   //新增行，编码显示修正 scc
+        //   this.letcode = this.letcode.substring(0, 5) + "00" + (rows.length );
+        // } else if (rows.length >= 9) {
+        //   this.letcode = this.letcode.substring(0, 5) + "0" + (rows.length );
+        //   // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
+        // }
+        let num = parseInt(this.letcode.substr(this.letcode.length-3,3));
+        if (num < 9) {
+          this.letcode = this.letcode.substring(0, 5) + "00" + (num + 1);
+        }else{
+          this.letcode = this.letcode.substring(0, 5) + "0" + (num + 1);
         }
         this.tableD.push({
           code: this.letcode,
