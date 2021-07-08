@@ -946,6 +946,15 @@
           callback();
         }
       };
+      //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+      var valiEntrustednumber = (rule, value, callback) => {
+        if (value === '' && value != null && value != undefined) {
+          callback(new Error(this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')));
+        } else {
+          callback();
+        }
+      };
+      //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
@@ -1030,7 +1039,9 @@
         bookawardafter:true,
         ruleSet: {
         // , 'theme'
-          'save': ['contractnumber', 'theme'],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+          'save': ['contractnumber', 'theme','entrustednumber'],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -1171,6 +1182,11 @@
           claimamount: [
             {validator: validateClaimamount},
           ],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+          entrustednumber: [
+            {validator: valiEntrustednumber},
+          ],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
         },
         buttonList: [
           {
