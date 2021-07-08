@@ -1041,7 +1041,7 @@
         ruleSet: {
         // , 'theme'
           //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
-          'save': ['contractnumber', 'theme','entrustednumber'],
+          'save': ['contractnumber', 'theme','contractdate','entrustednumber'],
           //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
