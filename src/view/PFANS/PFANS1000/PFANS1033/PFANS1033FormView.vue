@@ -1754,19 +1754,25 @@
         baseInfo.contractnumbercount = [];
         let tabledata = [];
         tabledata = this.tablefourth;
+        let contractdatetemp =[];
         for (let i = 0; i < tabledata.length; i++) {
           if (this.$route.params._applicantdeptcode) {
             tabledata[i].checkindivdual = '1';
           }
           //tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
           //add  ml   20210707    合同期间check   from
-          if(!tabledata[i].contractdate || tabledata[i].contractdate === ''){
+          if(!tabledata[i].contractdate || tabledata[i].contractdate === '' || tabledata[i].contractdate.length===0){
+            tabledata[0].contractdate = contractdatetemp;
             Message({
               message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
               type: 'error',
               duration: 5 * 1000,
             });
             return;
+          }
+          else
+          {
+            contractdatetemp = tabledata[0].contractdate;
           }
           //add  ml   20210707    合同期间check   to
           tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
