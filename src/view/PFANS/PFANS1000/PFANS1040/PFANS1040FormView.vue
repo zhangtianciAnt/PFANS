@@ -1068,6 +1068,7 @@
             group_id: '',
             year: '',
             themename: '',
+            themeinfor_id: '',
             remarks: '',
             branch: '',
             kind: 'PJ064001',
@@ -1360,6 +1361,8 @@
           this.tableDataA[this.index].show = false;
         }
         this.tableDataA[this.index].themename = val.themename;
+        //add_qhr_20210707  增加将themeinfor_id取出
+        this.tableDataA[this.index].themeinfor_id = val.themeinfor_id;
         this.tableDataA[this.index].month = val.data;
         this.tableDataA[this.index].branch = val.divide;
         this.tableDataA[this.index].contracttype = val.contract;
@@ -1407,6 +1410,8 @@
                   contractvalue1: this.contractvalue1,
                   currencyvalue1: this.currencyvalue1,
                   themename: response[j].themename,
+                  //add_qhr_20210707  增加将themeinfor_id取出
+                  themeinfor_id: response[j].themeinfor_id,
                   data: response[j].data,
                   divide: response[j].divide,
                   contract: response[j].contract,

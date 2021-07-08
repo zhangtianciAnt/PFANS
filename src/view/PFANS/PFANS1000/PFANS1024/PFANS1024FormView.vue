@@ -343,10 +343,11 @@
                            size="40%"
                            append-to-body>
                   <div>
-                    <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
-                      <el-option :label="$t(titleC)" value="2"></el-option>
-                    </el-select>
+<!--                    add_qhr_20210707 取消theme区分-->
+<!--                    <el-select @change="changed" v-model="region">-->
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+<!--                    </el-select>-->
                     <el-table
                       :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))"
                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
@@ -1310,7 +1311,8 @@
         projectResult: [],
         recordDataD: [],
         dialogVisibleD: false,
-
+        //add_qhr_20210707 添加年份参数
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {
@@ -1474,7 +1476,8 @@
       this.getsupplierinfor();
       //テーマ
       //upd-ws-01/06-禅道任务710
-      this.getdata('0');
+      //add_qhr_20210707 去掉参数
+      this.getdata();
       //upd-ws-01/06-禅道任务710
       //get project
       this.getProjectList();
@@ -1745,20 +1748,23 @@
       handleClickChange(row) {
         this.recordDataB.theme = row.themename;
         this.recordDataB.temaid = row.themeplandetail_id;
+        //add_qhr_20210707 添加themeinfor_id字段
+        this.recordDataB.themeinfor_id = row.themeinfor_id;
         this.dialogVisibleB = false;
       },
-      changed() {
-        if (this.region === '2') {
-          this.getdata('1');
-        } else if (this.region === '1') {
-          this.getdata('0');
-        }
-      },
-      getdata(type) {
+      //add_qhr_20210707 取消theme区分
+      // changed() {
+      //   if (this.region === '2') {
+      //     this.getdata('1');
+      //   } else if (this.region === '1') {
+      //     this.getdata('0');
+      //   }
+      // },
+      getdata() {
         this.tableB = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS1043Store/themenametype', {'type': type})
+          .dispatch('PFANS1043Store/themenametype', {'year': this.year}) //add_qhr_20210707 修改传参
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].branch != '' && response[j].branch != null) {
@@ -1782,6 +1788,8 @@
               this.tableB.push(
                 {
                   themeplandetail_id: response[j].themeplandetail_id,
+                  //add_qhr_20210707 添加字段值
+                  themeinfor_id: response[j].themeinfor_id,
                   themename: response[j].themename,
                   divide: response[j].branch,
                   contract: response[j].contracttype,
@@ -2492,6 +2500,16 @@
           //     }
           //   }
           // }
+          //add  ml   20210707    合同期间check   from
+          if(!this.form.tabledata[i].contractdate || this.form.tabledata[i].contractdate === ''){
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //add  ml   20210707    合同期间check   to
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           o.contracttype = this.form.contracttype;
           if (this.form.contracttype === 'HT014001') {

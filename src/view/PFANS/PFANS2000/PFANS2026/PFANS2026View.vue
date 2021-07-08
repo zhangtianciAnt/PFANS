@@ -2,6 +2,15 @@
   <div>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+    <!--add  ml   20210708    离职流程提示   from-->
+    <el-alert
+      slot="customize"
+      type="info"
+      v-html="description"
+      show-icon
+      style="text-align: left;margin-bottom: 5px;font-size:smaller;font-weight: bold">
+    </el-alert>
+    <!--add  ml   20210708    离职流程提示   to-->
     <el-date-picker
       unlink-panels
       class="bigWidth"
@@ -161,6 +170,7 @@
           org: '',
           hope_exit_date: '', //添加离职考勤对比数据转结
         },
+        description:this.$t('label.PFANS2026FORMVIEW_PROCEDURE'),//add  ml   20210708    离职流程提示
         dialogVisible: false,
         workinghours: '',
         checktype: 0,
