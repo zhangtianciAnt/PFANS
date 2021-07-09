@@ -160,14 +160,22 @@
             filter: true,
           },
         ],
-        buttonList: [
+        buttonList: [],
+        buttonListAnt: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
+        buttonListOld: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+        ],
         selectedlist: [],
         rowid: '',
+        mounth: '',
+        date: '',
         row_id: 'award_id',
         pjnameflg: [],
         handleShow: true,
@@ -177,8 +185,18 @@
     },
     mounted() {
       this.getPjanme();
+      this.getdateInfo();
     },
     methods: {
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          this.buttonList = this.buttonListAnt;
+        }else{
+          this.buttonList = this.buttonListOld;
+        }
+      },
       handleEdit(row) {
         if(row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL'))
         {
@@ -460,6 +478,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === "sealapp") {
           this.selectedlist = this.$refs.roletable.selectedList;

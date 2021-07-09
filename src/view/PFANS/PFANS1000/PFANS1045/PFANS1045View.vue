@@ -56,14 +56,14 @@
           {
             code: 'modifiedamount',
             label: 'label.PFANS1045VIEW_MODIFIEDAMOUNT',
-            width: 130,
+            width: 120,
             fix: false,
             filter: true,
           },
           {
             code: 'newamountcase',
             label: 'label.PFANS1045VIEW_NEWAMOUNTCASE',
-            width: 140,
+            width: 120,
             fix: false,
             filter: true,
           },

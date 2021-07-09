@@ -240,6 +240,7 @@
       //   this.form.new_team_id = val
       // },
       getCenterid(val) {
+        this.form.new_center_id = val;
         this.getOrgInformation(val);
         if (!val || this.form.new_center_id === '') {
           this.error_center = this.$t('normal.error_08') + 'center';
@@ -248,20 +249,12 @@
         }
       },
       getGroupid(val) {
+        this.form.new_group_id = val;
         this.getOrgInformation(val);
-        if (this.form.new_center_id === '') {
-          this.error_group = this.$t('normal.error_08') + 'center';
-        } else {
-          this.error_group = '';
-        }
       },
       getTeamid(val) {
+        this.form.new_team_id = val;
         this.getOrgInformation(val);
-        if (this.form.center_id === '') {
-          this.error_group = this.$t('normal.error_08') + 'center';
-        } else {
-          this.error_group = '';
-        }
       },
       getOrgInformation(id) {
         let org = {};
@@ -368,12 +361,19 @@
               .then(response => {
                 // this.data = response;
                 this.getList();
+                this.form.new_center_id = '';
+                this.form.new_group_id = '';
+                this.form.new_team_id = '';
                 Message({
                   message: this.$t('normal.success_07'),
                   type: 'success',
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
+                this.form.new_center_id = '' ;
+                this.form.new_group_id = '' ;
+                this.form.new_team_id = '' ;
+                this.rowid = '';
               })
           }else{
             Message({
@@ -449,6 +449,8 @@
             this.form.last_team_id = this.rowInfo.team_name;
           }
           this.dialogVisible = true;
+          this.form.new_center_id = '' ;
+          this.form.new_group_id = '';
         }
         if (val === 'insert') {
           this.$router.push({

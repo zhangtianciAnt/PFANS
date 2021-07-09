@@ -177,12 +177,19 @@
           },
           //add-ws-4/17-添加审批时间
         ],
-        buttonList: [
+        buttonList: [],
+        buttonListAnt: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
+        buttonListOld: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+        ],
         rowid: '',
+        mounth: '',
+        date: '',
         row_id: 'award_id',
         dialogVisible: false,
         pjnameflg: [],
@@ -190,8 +197,18 @@
     },
     mounted() {
       this.getPjanme();
+      this.getdateInfo();
     },
     methods: {
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          this.buttonList = this.buttonListAnt;
+        }else{
+          this.buttonList = this.buttonListOld;
+        }
+      },
       getPjanme() {
         this.loading = true;
         this.$store
@@ -376,6 +393,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === 'view') {
           if (this.rowid === '') {
@@ -405,7 +423,7 @@
               maketype: this.rows.maketype,
               award_id:this.rowid,
             };
-            console.log(parameter)
+            // console.log(parameter)
             this.$store
               .dispatch('PFANS1025Store/dataCarryover', parameter)
               .then(response => {

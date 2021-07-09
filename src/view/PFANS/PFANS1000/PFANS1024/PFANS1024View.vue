@@ -170,13 +170,22 @@
           },
         ],
         buttonList: [
+        ],
+        buttonListAnt: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
+        buttonListOld: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+        ],
         rowid: '',
         contractnumber: '',
+        month: '',
+        date: '',
         state: '',
         row: 'contractapplication_id ',
         dialogVisible: false,
@@ -184,8 +193,18 @@
     },
     mounted() {
       this.load();
+      this.getdateInfo();
     },
     methods: {
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          this.buttonList = this.buttonListAnt;
+        }else{
+          this.buttonList = this.buttonListOld;
+        }
+      },
       load(){
         this.loading = true;
         this.$store
@@ -227,7 +246,6 @@
                 tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
               }
             }
-            console.log(tabledata)
             this.data = []
             var arr = new Array();
             let o;
@@ -265,7 +283,6 @@
         this.rows = row;
         this.groupid = row.group_id;
         this.department = row.deployment;
-        // console.log(row)
       },
       getCenterid(val){
         this.form.new_center_id = val
@@ -305,6 +322,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === 'view') {
           if (this.rowid === '') {

@@ -222,7 +222,8 @@
 
           //add-ws-7/20-禅道任务342
         ],
-        buttonList: [
+        buttonList: [],
+        buttonListAnt: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
@@ -231,7 +232,17 @@
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
+        buttonListOld: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
+          {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+        ],
         status: '',
+        mounth: '',
+        date: '',
         rowid: '',
         sealstatus: '',
         row_id: 'award_id',
@@ -244,8 +255,18 @@
       this.check();
       //add-ws-7/20-禅道任务342
       this.getPjanme();
+      this.getdateInfo();
     },
     methods: {
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          this.buttonList = this.buttonListAnt;
+        }else{
+          this.buttonList = this.buttonListOld;
+        }
+      },
       //add-ws-7/20-禅道任务342
       check() {
         if (this.$route.params._id) {
@@ -542,6 +563,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === 'view') {
           if (this.rowid === '') {

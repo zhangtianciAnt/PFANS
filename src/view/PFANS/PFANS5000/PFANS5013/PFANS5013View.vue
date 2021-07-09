@@ -201,35 +201,94 @@
                     }
                 ],
                 buttonList: [
-                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                  {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+                  {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                  {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                  {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                 ],
                 rowid: '',
+              mounth: '',
+              date: '',
                 row:'comproject_id',
               dialogVisible: false,
             };
         },
         mounted() {
             this.load();
+          this.getdate();
         },
         methods: {
+          getdate(){
+            this.mounth = new Date().getMonth() + 1;
+            this.date = new Date().getDate();
+            if(this.mounth === 4 && this.date >= 10 && this.date <= 30){
+              this.buttonList = [
+                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+              ]
+            } else {
+              this.buttonList = [
+                {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+              ]
+            }
+          },
             rowClick(row) {
                 this.rowid = row.comproject_id;
                 this.rows = row;
             },
           getCenterid(val){
             this.form.new_center_id = val
+            this.getOrgInformation(val);
+            if (!val || this.form.new_center_id === '') {
+              this.error_center = this.$t('normal.error_08') + 'center';
+            } else {
+              this.error_center = '';
+            }
           },
           getGroupid(val){
             this.form.new_group_id = val
+            this.getOrgInformation(val);
           },
           getTeamid(val){
             this.form.new_team_id = val
+            this.getOrgInformation(val);
           },
           setOrg(val) {
             this.form.org = val;
+          },
+          getOrgInformation(id) {
+            let org = {};
+            let treeCom = this.$store.getters.orgs;
+            if (id && treeCom.getNode(id)) {
+              let node = id;
+              let type = treeCom.getNode(id).data.type || 0;
+              for (let index = parseInt(type); index >= 1; index--) {
+                if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                  org.teamname = treeCom.getNode(node).data.departmentname;
+                  org.team_id = treeCom.getNode(node).data._id;
+                }
+                if (index === 2) {
+                  org.groupname = treeCom.getNode(node).data.departmentname;
+                  org.group_id = treeCom.getNode(node).data._id;
+                }
+                if (index === 1) {
+                  org.centername = treeCom.getNode(node).data.companyname;
+                  org.center_id = treeCom.getNode(node).data._id;
+                }
+                node = treeCom.getNode(node).parent.data._id;
+              }
+              ({
+                centername: this.form.centername,
+                groupname: this.form.groupname,
+                teamname: this.form.teamname,
+                center_id: this.form.new_center_id,
+                group_id: this.form.new_group_id,
+                team_id: this.form.new_team_id,
+              } = org);
+            }
           },
           load(){
             this.loading = true;
@@ -359,6 +418,9 @@
                   return;
                 }
                 this.dialogVisible = true;
+                this.form.new_center_id= '';
+                this.form.new_group_id='';
+                this.form.new_team_id= '';
                 let center = getOrgInfo(this.rows.center_id);
                 if(center){
                   this.centername = center.companyname;

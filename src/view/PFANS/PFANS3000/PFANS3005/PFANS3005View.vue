@@ -169,7 +169,7 @@
                     {
                       required: true,
                       message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
-                      trigger: 'change'
+                      trigger: 'blur'
                     },
                   ],
                 },
@@ -476,6 +476,8 @@
                   // add-ztc  数据转结 to
                 ],
                 rowid: '',
+                mounth: '',
+                date: '',
                 row: 'purchase_id',
                 caigouhetongTable: [],
             };
@@ -663,6 +665,7 @@
                   center_id: this.form.new_center_id,
                   group_id: this.form.new_group_id,
                   team_id:this.form.new_team_id,
+                  budgetnumber:this.form.new_budgetunit,
                   purchase_id:this.rowid,
                 };
                 this.$store
@@ -854,6 +857,10 @@
                     this.form.last_budgetunit = this.rowInfo.budgetnumber;
                   }
                   this.dialogVisible = true;
+                  this.form.new_center_id = '';
+                  this.form.new_group_id = '';
+                  this.form.new_team_id = '';
+                  this.form.new_budgetunit = '';
                 }
                 if (val === 'export2') {
                     if (this.$refs.roletable.selectedList.length === 0) {
