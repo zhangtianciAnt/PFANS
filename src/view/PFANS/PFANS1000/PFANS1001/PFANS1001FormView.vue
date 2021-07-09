@@ -694,28 +694,24 @@
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
         if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
-          if (this.showTable == 1 || this.showTable == 2) {
+          if (this.showTable === 1) {
             this.buttonListAnt = this.buttonListCarry2;
-          } else if (this.showTable == 3 || this.showTable == 4) {
+          } else if (this.showTable === 2 || this.showTable === 3 || this.showTable === 5) {
             this.buttonListAnt = this.buttonListCarry3;
-          }else if (this.showTable == 5) {
-            this.buttonListAnt = this.buttonListCarry3;
-          }else if (this.showTable == 6) {
+          }else if (this.showTable === 4) {
             this.buttonListAnt = this.buttonListCarry4;
-          }else if (this.showTable == 10) {
-            this.buttonListAnt = this.buttonListCarry3;
+          }else if (this.showTable === 6) {
+            this.buttonListAnt = this.buttonList;
           }
         }else{
-          if (this.showTable == 1 || this.showTable == 2) {
+          if (this.showTable === 1) {
             this.buttonListAnt = this.buttonList2;
-          } else if (this.showTable == 3 || this.showTable == 4) {
+          } else if (this.showTable === 2 || this.showTable === 3 || this.showTable === 5) {
             this.buttonListAnt = this.buttonList3;
-          }else if (this.showTable == 5) {
-            this.buttonListAnt = this.buttonList3;
-          }else if (this.showTable == 6) {
+          }else if (this.showTable === 4) {
             this.buttonListAnt = this.buttonList4;
-          }else if (this.showTable == 10) {
-            this.buttonListAnt = this.buttonList3;
+          }else if (this.showTable === 6) {
+            this.buttonListAnt = this.buttonList;
           }
         }
       },

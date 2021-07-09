@@ -201,10 +201,9 @@
                     }
                 ],
                 buttonList: [
-                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                  {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+                  {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                  {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                  {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                 ],
                 rowid: '',
               mounth: '',
@@ -226,19 +225,13 @@
                 {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                 {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                 {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                {'key': 'open', 'name': 'button.open1', 'disabled': true,},
-                {'key': 'close', 'name': 'button.close1', 'disabled': false,},
-                // add-ccm  数据转结 fr
                 {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
-                // add-ccm  数据转结 to
               ]
             } else {
               this.buttonList = [
                 {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                 {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                 {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                {'key': 'open', 'name': 'button.open1', 'disabled': true,},
-                {'key': 'close', 'name': 'button.close1', 'disabled': false,}
               ]
             }
           },
