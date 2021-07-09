@@ -797,7 +797,7 @@
                   style="width: 90vw"
                   v-show="form.toolstype === '0' || !form.toolstype"
                 >
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center" width="260%">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:20vw">
@@ -882,7 +882,7 @@
                       </el-col>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_THEME')" align="center"  width="150">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_THEME')" align="center"  width="180">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -904,10 +904,10 @@
                   <!--                   add-ws-6/9-禅道任务080-->
                   <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center"
-                                   width="200">
+                                   width="154px">
                     <template slot-scope="scope">
                       <el-date-picker :disabled="true" type="date" v-model="scope.row.deliveryfinshdate"
-                                      style="width: 11rem"></el-date-picker>
+                                      style="width: 100%"></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                   add-ws-6/9-禅道任务080-->
@@ -915,7 +915,7 @@
                     :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
                     align="center"
                     prop="claimdatetime"
-                    width="370"
+                    width="280"
                   >
                     <template slot-scope="scope">
                       <el-date-picker
@@ -927,11 +927,12 @@
                         :end-placeholder="$t('label.enddate')"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                         :start-placeholder="$t('label.startdate')"
+                        style="width: 100%"
                       ></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="true"
@@ -944,7 +945,7 @@
                       ></el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -959,7 +960,7 @@
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
-                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-button
                         :disabled="scope.row.type === '0' ? true : false"
@@ -1021,7 +1022,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
-                                   width="190">
+                                   width="215">
                     <template slot-scope="scope">
                       <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
                                        :disabled="!disabled" :min="0" :max="1000000000"
@@ -1248,6 +1249,10 @@
         currentRow5: '',
         adddisabled: false,
         disable: true,
+        //合同时间check
+        time: [],
+        nowtime: '',
+        //合同时间check
         centerorglist: '',
         grouporglist: '',
         claimamount: '',
@@ -1914,7 +1919,9 @@
       },
       //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
       getcontract() {
-        this.contractapplication = {};
+        this.contractapplication = {
+          state: '有效' //只获取审批状态为有效的合同
+        };
         // this.contractapplication.entrycondition = [];
         // this.contractapplication.entrycondition = 'HT004007';//契約締結完了
         this.loading = true;
@@ -1979,6 +1986,15 @@
         let checktable = 0;
         let checktable1 = 0;
         this.dialogTableVisible3 = true;
+        //获取当前表中已有合同回数的时间 scc
+        for(let i = 0; i < this.tableD.length; i++){
+          if(!this.tableD[i].workinghours){
+            continue;
+          }else{
+            this.time[i] = this.tableD[i].workinghours;
+          }
+        }
+        //获取当前表中已有合同回数的时间 scc
         for (let a = 0; a < table.length; a++) {
           if (row.contract != '') {
             if (table[a].contract != row.contract) {
@@ -2028,6 +2044,9 @@
           .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
           .then(response => {
             let contractnumbercount = response.contractnumbercount;
+            //判断此次选中合同中的回数 scc
+            var intercept = response.contractnumbercount.length;
+            //判断此次选中合同中的回数 scc
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {
                   if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
@@ -2049,6 +2068,49 @@
               }
               tabled = this.tableD;
               this.tableD = tabled.concat(table);
+            }
+            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+            let contradeta = response.contractapplication;
+            if(contradeta.length > 0){
+                let time = contradeta[0].contractdate;//字符串
+                let extensdate = contradeta[0].extensiondate;
+                if(extensdate){
+                  let time1 = time.split('~');//数组
+                  this.nowtime = time1[0] + "~" + extensdate;
+                } else{
+                  this.nowtime = time;
+                }
+            }
+            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+            if(this.nowtime) {
+              var areatime = this.nowtime.split('~');
+              var opentime = areatime[0];
+              var closetime = areatime[1];
+              //合同日期
+              var date1 = new Date(opentime);
+              var date2 = new Date(closetime);
+            }
+            for(let i = 0; i < this.time.length; i++){
+              //每条回数的时间
+              let date3 = new Date(this.time[i][0]);
+              let date4 = new Date(this.time[i][1]);
+              //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内
+              let e1 = ((date1 > date3 && date1 < date4) || (date2 > date3 && date2 < date4));
+              //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合
+              let e2 = (date1 === date3 || date1 === date4 || date2 === date3 || date2 === date4);
+              //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间
+              let e3 = ((date1 < date3 && date2 > date4) || (date1 > date3 && date2 < date4));
+              //判断上述条件是否为真
+              let e4 = (e1 || e2 || e3 );
+              if(e4){
+                      Message({
+                      message: this.$t('normal.info_19'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.tableD.splice(this.tableD.length - intercept, intercept);
+                    break;
+              }
             }
             this.loading = false;
           });
@@ -2412,7 +2474,7 @@
             //add-ws-01/16-禅道任务710
             for (let i = 0; i < this.tableD.length; i++) {
               // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check start
-              if(this.tableD[i].contractamount === 0 && this.form.toolstype != '1'){
+              if(this.tableD[i].contractamount === 0){
                   this.activeName = 'fifth';
                   Message({
                       message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
