@@ -393,6 +393,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === 'view') {
           if (this.rowid === '') {
@@ -422,7 +423,7 @@
               maketype: this.rows.maketype,
               award_id:this.rowid,
             };
-            console.log(parameter)
+            // console.log(parameter)
             this.$store
               .dispatch('PFANS1025Store/dataCarryover', parameter)
               .then(response => {

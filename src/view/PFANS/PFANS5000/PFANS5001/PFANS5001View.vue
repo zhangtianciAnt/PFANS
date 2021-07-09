@@ -222,11 +222,10 @@
                     }
                 ],
                 buttonList: [
-                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
-                  {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+                  {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                  {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+                  {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                  {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
                 ],
                 rowid: '',
                 row:'companyprojects_id',
@@ -251,19 +250,15 @@
                 {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                 {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                 {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                {'key': 'open', 'name': 'button.open1', 'disabled': true,},
-                {'key': 'close', 'name': 'button.close1', 'disabled': false,},
-                // add-ccm  数据转结 fr
+                {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
                 {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
-                // add-ccm  数据转结 to
               ]
             } else {
               this.buttonList = [
                 {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                 {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
                 {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                {'key': 'open', 'name': 'button.open1', 'disabled': true,},
-                {'key': 'close', 'name': 'button.close1', 'disabled': false,}
+                {'key': 'report', 'name': 'button.report', 'disabled': true, 'icon': 'el-icon-download'},
               ]
             }
           },
@@ -459,6 +454,9 @@
                   return;
                 }
                 this.dialogVisible = true;
+                this.form.new_center_id= '';
+                this.form.new_group_id='';
+                this.form.new_team_id= '';
                 let center = getOrgInfo(this.rows.center_id);
                 if(center){
                   this.form.last_center_id = center.companyname;

@@ -2,6 +2,15 @@
   <div>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+    <!--add  ml   20210708    离职流程提示   from-->
+    <el-alert
+      slot="customize"
+      type="info"
+      v-html="description"
+      show-icon
+      style="text-align: left;margin-bottom: 5px;font-size:smaller;font-weight: bold">
+    </el-alert>
+    <!--add  ml   20210708    离职流程提示   to-->
     <el-date-picker
       unlink-panels
       class="bigWidth"
@@ -161,6 +170,7 @@
           org: '',
           hope_exit_date: '', //添加离职考勤对比数据转结
         },
+        description:this.$t('label.PFANS2026FORMVIEW_PROCEDURE'),//add  ml   20210708    离职流程提示
         dialogVisible: false,
         workinghours: '',
         checktype: 0,
@@ -325,6 +335,7 @@
       //   this.form.new_team_id = val
       // },
       getCenterid(val) {
+        this.form.new_center_id = val;
         this.getOrgInformation(val);
         if (!val || this.form.new_center_id === '') {
           this.error_center = this.$t('normal.error_08') + 'center';
@@ -333,20 +344,12 @@
         }
       },
       getGroupid(val) {
+        this.form.new_group_id = val;
         this.getOrgInformation(val);
-        if (this.form.new_center_id === '') {
-          this.error_group = this.$t('normal.error_08') + 'center';
-        } else {
-          this.error_group = '';
-        }
       },
       getTeamid(val) {
+        this.form.new_team_id = val;
         this.getOrgInformation(val);
-        if (this.form.center_id === '') {
-          this.error_group = this.$t('normal.error_08') + 'center';
-        } else {
-          this.error_group = '';
-        }
       },
       getOrgInformation(id) {
         let org = {};
@@ -520,6 +523,7 @@
                 this.form.new_center_id = '' ;
                 this.form.new_group_id = '' ;
                 this.form.new_team_id = '' ;
+                this.rowid = '';
               })
           }else{
             Message({
@@ -659,6 +663,8 @@
             this.form.hope_exit_date = this.rowInfo.hope_exit_date; //添加离职考勤对比数据转结
           }
           this.dialogVisible = true;
+          this.form.new_center_id = '' ;
+          this.form.new_group_id = '';
         } else if (val === 'update') {
           if (this.rowid === '') {
             Message({

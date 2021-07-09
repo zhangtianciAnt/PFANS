@@ -946,6 +946,15 @@
           callback();
         }
       };
+      //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+      var valiEntrustednumber = (rule, value, callback) => {
+        if (value === '' && value != null && value != undefined) {
+          callback(new Error(this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')));
+        } else {
+          callback();
+        }
+      };
+      //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
@@ -1030,7 +1039,7 @@
         bookawardafter:true,
         ruleSet: {
         // , 'theme'
-          'save': ['contractnumber', 'theme'],
+          'save': ['contractnumber', 'theme','contractdate','entrustednumber'],
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -1171,6 +1180,11 @@
           claimamount: [
             {validator: validateClaimamount},
           ],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+          entrustednumber: [
+            {validator: valiEntrustednumber},
+          ],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
         },
         buttonList: [
           {
@@ -2476,6 +2490,16 @@
           //     }
           //   }
           // }
+          //add  ml   20210707    合同期间check   from
+          if(!this.form.tabledata[i].contractdate || this.form.tabledata[i].contractdate === ''){
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //add  ml   20210707    合同期间check   to
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           o.contracttype = this.form.contracttype;
           if (this.form.contracttype === 'HT014001') {

@@ -322,6 +322,7 @@
             return;
           }
           this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === 'view') {
           if (this.rowid === '') {
