@@ -236,6 +236,7 @@ module.exports = {
     confirm_iscontinue1: '请确认是否已读!',
     confirm_iscontinue2: '提交后无法更改，是否继续？',
     confirm_tipis: '提交已取消',
+    confirm_discardcontractsp:'合同废弃前发起审批，审批通过后，合同自动废弃，合同废弃后无法找回，请谨慎操作。确认发起审批吗？',
     confirm_discardcontract:'合同废弃后无法找回，请谨慎操作。确认废弃吗？',
     error_norestdays: '剩余休假天数不足！',
     error_pfans5001: '外协员工的入离场时间不能为空',
