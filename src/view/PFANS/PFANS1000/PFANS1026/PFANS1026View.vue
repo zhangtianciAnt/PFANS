@@ -206,7 +206,7 @@
         mounth: '',
         date: '',
         state: '',
-        row: 'contractapplication_id ',
+        row: 'contractnumber',
         dialogVisible: false
       };
     },
@@ -292,7 +292,6 @@
           })
       },
       rowClick(row) {
-        this.rowid = row.contractapplication_id;
         this.contractnumber = row.contractnumber;
         this.state = row.state;
         this.rows = row;
@@ -308,7 +307,7 @@
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'update') {
-          if (this.rowid === '') {
+          if (this.contractnumber === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -322,12 +321,12 @@
               _id: this.contractnumber,
               contractnumbercount: this.contractnumbercount,
               state: this.state,
-              disabled: true
+              disabled: true,
             }
           })
         }
         if(val === 'carryforward'){
-          if (this.rowid === '') {
+          if (this.contractnumber === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -339,7 +338,7 @@
           this.form.new_center_id= '';
         }
         if (val === 'view') {
-          if (this.rowid === '') {
+          if (this.contractnumber === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
