@@ -4289,6 +4289,7 @@
                   cancelButtonText: this.$t('button.cancel'),
                   type: 'warning',
                 }).then(() => {
+                    this.$store.commit('global/SET_OPERATEID', this.IDname);
                     this.$refs.container.$refs.workflow.startWorkflow();
                 }).catch(() => {
                   this.$message({
