@@ -2136,8 +2136,8 @@
       //         });
       //     }
       // },
+      //add  ml  20210715  合同番号废弃check   from
       workflowState(val) {
-        debugger;
         if (val.state === '1') {
           this.form.tabledata[0].status = '3';
         } else if (val.state === '2') {
@@ -2157,6 +2157,7 @@
         this.form.tabledata[0].status = '0';
         // this.buttonClick("cancellation");
       },
+      //add  ml  20210715  合同番号废弃check   to
       onRecoverystatus(val) {
         if (val.recoverystatus === '1') {
           val.recoverydate = moment(new Date()).format('YYYY-MM-DD');
@@ -4291,6 +4292,11 @@
                 }).then(() => {
                     this.$store.commit('global/SET_OPERATEID', this.IDname);
                     this.$refs.container.$refs.workflow.startWorkflow();
+                  // for (let i = 0; i < this.form.tabledata.length; i++) {
+                  //   this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                  //   this.form.tabledata[i].entrycondition = 'HT004001';
+                  // }
+                  // this.handleSave('cancellation');
                 }).catch(() => {
                   this.$message({
                     type: 'info',
