@@ -1641,11 +1641,6 @@
             disabled: false,
           },
           {
-            key: 'cancellation',
-            name: 'button.cancellation',
-            disabled: false,
-          },
-          {
             key: 'save',
             name: 'button.save',
             disabled: false,
@@ -1653,6 +1648,11 @@
           {
             key: 'makeinto',
             name: 'button.makeinto',
+            disabled: false,
+          },
+          {
+            key: 'cancellation',
+            name: 'button.cancellation',
             disabled: false,
           },
         ],
@@ -4292,12 +4292,7 @@
                 }).then(() => {
                     this.$store.commit('global/SET_OPERATEID', this.IDname);
                     this.$refs.container.$refs.workflow.startWorkflow();
-                  // for (let i = 0; i < this.form.tabledata.length; i++) {
-                  //   this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-                  //   this.form.tabledata[i].entrycondition = 'HT004001';
-                  // }
-                  // this.handleSave('cancellation');
-                }).catch(() => {
+                  }).catch(() => {
                   this.$message({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
