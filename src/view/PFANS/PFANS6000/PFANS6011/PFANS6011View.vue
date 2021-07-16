@@ -1,144 +1,164 @@
 <template>
-  <div style="min-height: 100%">
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :title="title"
-                     ref="container" :showSelection="isShow"
-                     @buttonClick="buttonClick" v-loading="loading">
-      <div slot="customize">
-        <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 1.5vw">
-          <el-form-item>
-            <el-row style="margin-top: 20px">
-              <div align="right">
-                <el-col :span="12">
-                  <el-date-picker
-                    :placeholder="$t('normal.error_09')"
-                    @change="changeYear"
-                    format="yyyy"
-                    type="year"
-                    slot="customize"
-                    v-model="form.year" style="width:8vw ">
-                  </el-date-picker>
-                </el-col>
-                <el-col :span="6">
-                  <el-select v-model="form.group_id" style="width: 13vw"
-                         @change="changeGroup">
-                    <el-option
-                      v-for="item in optionsdata"
-                      :key="item.value"
-                      :label="item.lable"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
-                </el-col>
-              </div>
-            </el-row>
-            <el-row style="margin-top: 0px">
-              <plx-table-grid
-                :data="tableData"
-                style="width: 100%;margin-bottom: 20px;"
-                row-key="1"
-                border
-                default-expand-all
-                :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-                <plx-table-column
-                  prop="theme"
-                  :label="$t('label.PFANS6011VIEW_THEME')"
-                  sortable
-                  width="180">
-                </plx-table-column>
-                <plx-table-column
-                  prop="entrusttype"
-                  :label="$t('label.PFANS6011VIEW_ENTRUSTTYPE')"
-                  sortable
-                  width="180">
-                </plx-table-column>
-                <plx-table-column
-                  prop="entrust"
-                  :label="$t('label.PFANS6011VIEW_ENTRUST')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="pj"
-                  :label="$t('label.PFANS6011VIEW_PJ')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="sscompany"
-                  :label="$t('label.PFANS6011VIEW_SSCOMPANY')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="april"
-                  :label="$t('label.PFANS6011VIEW_APRIL')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="may"
-                  :label="$t('label.PFANS6011VIEW_MAY')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="june"
-                  :label="$t('label.PFANS6011VIEW_JUNE')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="july"
-                  :label="$t('label.PFANS6011VIEW_JULY')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="august"
-                  :label="$t('label.PFANS6011VIEW_AUGUST')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="september"
-                  :label="$t('label.PFANS6011VIEW_SEPTEMBER')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="october"
-                  :label="$t('label.PFANS6011VIEW_OCTOBER')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="november"
-                  :label="$t('label.PFANS6011VIEW_NOVEMBER')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="december"
-                  :label="$t('label.PFANS6011VIEW_DECEMBER')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="january"
-                  :label="$t('label.PFANS6011VIEW_JANUARY')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="febtuary"
-                  :label="$t('label.PFANS6011VIEW_FEBTUARY')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="march"
-                  :label="$t('label.PFANS6011VIEW_MARCH')">
-                </plx-table-column>
-                <plx-table-column
-                  prop="total"
-                  :label="$t('label.PFANS6011VIEW_TOTAL')">
-                </plx-table-column>
-              </plx-table-grid>
-            </el-row>
-          </el-form-item>
+    <EasyNormalContainer :buttonList="buttonList" :title="title"
+                         ref="container" :showSelection="isShow"
+                         @buttonClick="buttonClick" v-loading="loading"
+                         :noback="noback">
+      <div slot="customize" style="width: 100%">
+        <el-form :model="form" label-position="top" label-width="8vw" employedref="refform" ref="form"
+                 style="padding: 0.5vw">
+          <el-row style="padding-top: 3%">
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS6011VIEW_YEARS')">
+                <el-date-picker
+                  :placeholder="$t('normal.error_09')"
+                  @change="changeYear"
+                  type="year"
+                  v-model="form.year"
+                  style="width:10vw">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="6">
+              <el-form-item :label="$t('label.PFANS6011VIEW_GROUP')" prop="center_id">
+                <el-select v-model="form.group_id" style="width: 15vw"
+                           @change="changeGroup">
+                  <el-option
+                    v-for="item in optionsdata"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row style="padding-bottom: 0.5%">
+            <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
+                      row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
+                      highlight-current-row @current-change="handleCurrentChange">
+              <el-table-column
+                show-overflow-tooltip
+                prop="themename"
+                :label="$t('label.PFANS6011VIEW_THEME')"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="divide"
+                :label="$t('label.PFANS6011VIEW_ENTRUSTTYPE')"
+                width="140">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="toolsorgs"
+                :label="$t('label.PFANS6011VIEW_ENTRUST')"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="project_name"
+                :label="$t('label.PFANS6011VIEW_PJ')"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                align="center"
+                prop="company"
+                :label="$t('label.PFANS6011VIEW_SSCOMPANY')"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                prop="april"
+                align="center"
+                :label="$t('label.PFANS6011VIEW_APRIL')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="may"
+                :label="$t('label.PFANS6011VIEW_MAY')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="june"
+                :label="$t('label.PFANS6011VIEW_JUNE')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="july"
+                :label="$t('label.PFANS6011VIEW_JULY')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="august"
+                :label="$t('label.PFANS6011VIEW_AUGUST')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="september"
+                :label="$t('label.PFANS6011VIEW_SEPTEMBER')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="october"
+                :label="$t('label.PFANS6011VIEW_OCTOBER')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="november"
+                :label="$t('label.PFANS6011VIEW_NOVEMBER')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="december"
+                :label="$t('label.PFANS6011VIEW_DECEMBER')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="january"
+                :label="$t('label.PFANS6011VIEW_JANUARY')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="february"
+                :label="$t('label.PFANS6011VIEW_FEBRUARY')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="march"
+                :label="$t('label.PFANS6011VIEW_MARCH')">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                prop="total"
+                :label="$t('label.PFANS6011VIEW_TOTAL')">
+              </el-table-column>
+            </el-table>
+          </el-row>
         </el-form>
       </div>
-    </EasyNormalTable>
-  </div>
+    </EasyNormalContainer>
 </template>
 
 <script>
-  import {getToken} from '@/utils/auth';
-  import EasyNormalTable from '@/components/EasyNormalTable';
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from "../../../components/dicselect.vue";
   import {Message} from 'element-ui';
-  import {getUserInfo, getDictionaryInfo, Decrypt} from '@/utils/customize';
+  import {getCurrentRoleNew, getDictionaryInfo, getOrgInfo} from '../../../../utils/customize';
   import moment from 'moment';
-  import {getTableinfo} from './PFANS6011Api';
+  import json2csv from 'json2csv';
 
   export default {
     name: 'PFANS6011View',
     components: {
-      EasyNormalTable,
+      dicselect,
+      EasyNormalContainer,
     },
     data() {
       return {
+        currentRow: null,
+        hasChildren: true,
+        noback: true,
+        loading: false,
         form: {
           year: moment(new Date()).format('YYYY'),
           group_id: '',
@@ -146,54 +166,354 @@
         title: 'title.PFANS6011VIEW',
         optionsdata: [],
         buttonList: [
-          // {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-          // {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-          // {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          // {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
-          // {'key': 'import', 'name': 'button.import', 'disabled': false, icon: 'el-icon-download'},
-          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
+          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
         ],
         rowid: '',
         row: '',
         isShow: false,
         tableData: [{
+          wai_id: '',
+          theme: '',
+          divide: '',
+          toolsorgs: '',
+          project_name: '',
+          company: '—',
+          april: '—',
+          may: '—',
+          june: '—',
+          july: '—',
+          august: '—',
+          september: '—',
+          october: '—',
+          november: '—',
+          december: '—',
+          january: '—',
+          february: '—',
+          march: '—',
+          total: '—',
           children: [{
-            id: 1,
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            id: 2,
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            id: 3,
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄',
-          },]
+            wai_id: '',
+            theme: '',
+            divide: '',
+            toolsorgs: '',
+            project_name: '',
+            company: '',
+            april: '',
+            may: '',
+            june: '',
+            july: '',
+            august: '',
+            september: '',
+            october: '',
+            november: '',
+            december: '',
+            january: '',
+            february: '',
+            march: '',
+            total: ''
+          }],
         }],
       };
     },
     mounted() {
+      this.getById();
       this.getTableinfo();
     },
     methods: {
+      //region 选择行高亮
+      handleCurrentChange(val) {
+        this.currentRow = val;
+      },
+      //endregion 选择行高亮
+      getById() {
+        this.loading = true;
+        //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 start
+        let role = getCurrentRoleNew();
+        const vote = [];
+        if (role === '3') {//CENTER
+          vote.push(
+            {
+              value: this.$store.getters.userinfo.userinfo.centerid,
+              lable: this.$store.getters.userinfo.userinfo.centername,
+            },
+          );
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              if (others.centerid != null)
+              {
+                // let groupname = getOrgInfo(others.groupid);
+                // if (groupname) {
+                //   vote.push(
+                //     {
+                //       value: others.groupid,
+                //       lable: groupname.companyname,
+                //     },
+                //   );
+                // }
+                this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.centerid === others.centerid) {
+                    vote.push(
+                      {
+                        value: item.centerid,
+                        lable: item.centername,
+                      },
+                    );
+                  }
+                })
+              }
+            }
+          }
+          //add ccm 0112 兼职部门
+          this.form.group_id = this.$store.getters.userinfo.userinfo.centerid;
+        } else if (role === '2') {//副总经理
+          this.$store.getters.orgGroupList.filter((item) => {
+            if (item.virtualuser === this.$store.getters.userinfo.userid) {
+              vote.push(
+                {
+                  value: item.centerid,
+                  lable: item.centername,
+                },
+              );
+            }
+          })
+          // let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          // let orgs = getDownOrgInfo(centerId);
+          // if (orgs){
+          //   if(orgs.length > 0){
+          //     this.group_id = orgs[0]._id;
+          //   }
+          //   for (let org of orgs) {
+          //     console.log(org)
+          //     vote.push(
+          //       {
+          //         value: org._id,
+          //         lable: org.companyname,
+          //       },
+          //     );
+          //   }
+          // }
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+            for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+            {
+              // if (others.groupid)
+              // {
+              //   // let groupname = getOrgInfo(others.groupid);
+              //   // if (groupname) {
+              //   //   vote.push(
+              //   //     {
+              //   //       value: others.groupid,
+              //   //       lable: groupname.companyname,
+              //   //     },
+              //   //   );
+              //   // }
+              // }
+              // else
+              if (others.centerid)
+              {
+                // let centerId = others.centerid;
+                // let orgs = getDownOrgInfo(centerId);
+                // if (orgs){
+                //   for (let org of orgs) {
+                //     vote.push(
+                //       {
+                //         value: org._id,
+                //         lable: org.companyname,
+                //       },
+                //     );
+                //   }
+                // }
+                this.$store.getters.orgGroupList.filter((item) => {
+                  if (item.centerid === others.centerid) {
+                    vote.push(
+                      {
+                        value: item.centerid,
+                        lable: item.centername,
+                      },
+                    );
+                  }
+                })
+              }
+            }
+          }
+          //add ccm 0112 兼职部门
+        } else if (role === '1') {//总经理
+          //update gbb 20210331 之后的代码有判断，此处重复(总经理) start
+          // let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          // let orgs = getDownOrgInfo(centerId);
+          // if (orgs){
+          //   if(orgs.length > 0){
+          //     if(getDownOrgInfo(orgs[0]._id).length > 0){
+          //       this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+          //     }
+          //   }
+          //   for (let center of orgs) {
+          //     let centers = getDownOrgInfo(center._id);
+          //     if (centers){
+          //       for (let group of centers) {
+          //         vote.push(
+          //           {
+          //             value: group._id,
+          //             lable: group.companyname,
+          //           },
+          //         );
+          //       }
+          //     }
+          //
+          //   }
+          // }
+          //update gbb 20210331 之后的代码有判断，此处重复 end
+        }
+        else if (role === '4') //GM
+        {
+          let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+          if (centers)
+          {
+            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+            {
+              vote.push(
+                {
+                  value: this.$store.getters.userinfo.userinfo.groupid,
+                  lable: this.$store.getters.userinfo.userinfo.groupname,
+                },
+              );
+            }
+          }
+        }
+        const vote1 = [];
+        //let role9 = getCurrentRole9();
+        //
+        if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+          || this.$store.getters.roles.indexOf("11") != -1 //总经理
+          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+          || this.$store.getters.roles.indexOf("18") != -1//企划部长
+          || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+        {
+          this.$store.getters.orgGroupList.filter((item) => {
+            vote1.push(
+              {
+                value: item.centerid,
+                lable: item.centername,
+              },
+            );
+          })
+          // let orgs = getDownOrgInfo(centerId);
+          // if (orgs){
+          //   if(orgs.length > 0){
+          //     if(getDownOrgInfo(orgs[0]._id).length > 0){
+          //       this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+          //     }
+          //   }
+          //   for (let center of orgs) {
+          //     let centers = getDownOrgInfo(center._id);
+          //     if (centers){
+          //       for (let group of centers) {
+          //         vote1.push(
+          //           {
+          //             value: group._id,
+          //             lable: group.companyname,
+          //           },
+          //         );
+          //       }
+          //     }
+          //   }
+          // }
+          this.optionsdata = vote1;
+        }
+        else
+        {
+          this.optionsdata = vote;
+        }
+        //去重
+        let letoptionsdata = [];
+        let arrId = [];
+        for(var item of this.optionsdata){
+          if(arrId.indexOf(item['lable']) == -1){
+            arrId.push(item['lable']);
+            letoptionsdata.push(item);
+          }
+        }
+        //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 end
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of letoptionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0){
+          for(let item of incfmyList){
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for(let item of incfmyList){
+            if(item){
+              if(getOrgInfo(item).orgs.length != 0){
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for(let item of groInfo){
+            letoptionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
+        this.optionsdata = letoptionsdata;
+        if(this.optionsdata.length > 0){
+          this.form.group_id = this.optionsdata[0].value;
+        }
+        this.loading = false;
+      },
+      changeYear(val) {
+        this.tableData = [];
+        this.form.year = val;
+        this.getTableinfo();
+      },
       changeGroup(val) {
+        this.tableData = [];
         this.form.group_id = val;
         this.getTableinfo();
       },
       getTableinfo() {
         this.loading = true;
-        this.$store.dispatch('PFANS6011Store/getTableinfo', this.form)
+        this.$store.dispatch('PFANS6011Store/getTableinfo', {'year': this.form.year, 'group_id': this.form.group_id})
           .then(response => {
-          for (let j = 0; j < response.length; j++) {
-
-          }
-          this.data = response;
-          this.loading = false;
-        })
+            debugger;
+            let n = 1;
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].divide !== null && response[i].divide !== '') {
+                let divide = getDictionaryInfo(response[i].divide);
+                if (divide != null) {
+                  response[i].divide = divide.value1;
+                }
+              }
+            }
+            this.tableData = response;
+            for (let j = 0; j < this.tableData.length; j++) {
+              this.tableData[j].children = this.tableData[j].pjExternalInjectionList;
+              this.tableData[j].wai_id = this.tableData[j].companyprojects_id;
+              if (this.tableData[j].children !== undefined && this.tableData[j].children !== null) {
+                for (let l = 0; l < this.tableData[j].children.length; l++) {
+                  this.tableData[j].children[l].wai_id = n;
+                  n++;
+                  this.tableData[j].children[l].themename = '';
+                  this.tableData[j].children[l].toolsorgs = '';
+                  this.tableData[j].children[l].divide = '';
+                }
+              }
+            }
+            this.loading = false;
+          })
           .catch(error => {
             Message({
               message: error,
@@ -203,211 +523,120 @@
             this.loading = false;
           });
       },
-      handleChange(file, fileList) {
-        this.clear(true);
-      },
-      handleSuccess(response, file, fileList) {
-        if (response.code !== 0) {
-          this.cuowu = response.message;
-          this.Message = true;
-        } else {
-          response.data = JSON.parse(Decrypt(response.data));
-          let datalist = [];
-          for (let c = 0; c < response.data.length; c++) {
-            let error = response.data[c];
-            error = error.substring(0, 3);
-            if (error === this.$t('label.PFANS2005FORMVIEW_SB')) {
-              this.errorCount = response.data[c].substring(4);
-              this.resultShow = true;
-            }
-            if (error === this.$t('label.PFANS2005FORMVIEW_CG')) {
-              this.successCount = response.data[c].substring(4);
-              this.resultShow = true;
-            }
-            if (error === this.$t('label.PFANS2017VIEW_D')) {
-              let obj = {};
-              var str = response.data[c];
-              var aPos = str.indexOf(this.$t('label.PFANS2017VIEW_BAN'));
-              var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
-              var r = str.substr(aPos + 1, bPos - aPos - 1);
-              obj.hang = r;
-              obj.error = response.data[c].substring(6);
-              datalist[c] = obj;
-            }
-            this.message = datalist;
-            this.totaldata = this.message;
-            if (this.errorCount === '0') {
-              this.result = false;
-            } else {
-              this.result = true;
-            }
-            this.getList();
-            this.getcommodity();
-          }
-        }
-      },
-      clear(safe) {
-        this.file = null;
-        this.resultShow = false;
-        this.Message = false;
-        this.result = false;
-        if (!safe) {
-          this.$refs.uploader.clearFiles();
-        }
-      },
-      formatJson(filterVal, jsonData) {
-        return jsonData.map(v => filterVal.map(j => {
-          if (j === 'timestamp') {
-            return parseTime(v[j]);
-          } else {
-            return v[j];
-          }
-        }));
-      },
       buttonClick(val) {
-        if (val === 'import') {
-          this.daoru = true;
-          this.clear(false);
-        } else if (val === 'export') {
-          if (this.$refs.roletable.selectedList.length === 0) {
+        if (val === 'export') {
+          debugger;
+          if (this.tableData.length === 0) {
             Message({
-              message: this.$t('normal.info_01'),
+              message: this.$t('normal.info_16'),
               type: 'info',
               duration: 2 * 1000,
             });
             return;
           }
-          this.selectedlist = this.$refs.roletable.selectedList;
-          import('@/vendor/Export2Excel').then(excel => {
-            const tHeader = [
-              this.$t('label.PFANS6011VIEW_CUSTCHINESE'),
-              this.$t('label.PFANS6011VIEW_CUSTENGLISH'),
-              this.$t('label.PFANS6011VIEW_ADDRESS'),
-              this.$t('label.PFANS6011VIEW_SUPPLIER'),
-              this.$t('label.PFANS6011VIEW_PURCHASETIME'),
-              this.$t('label.PFANS6011VIEW_RELEASE1'),
-              this.$t('label.PFANS6011VIEW_SALE'),
-              this.$t('label.PFANS6011VIEW_REMARKS'),
-              // this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-              // this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-              // this.$t('label.PFANS6002VIEW_COMMONTPERSON'),
-              // this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-              // this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-              // this.$t('label.PFANS6002VIEW_ADDRESSC'),
-              // this.$t('label.PFANS6002VIEW_ADDRESSJ'),
-              // this.$t('label.PFANS6002VIEW_ADDRESSE'),
-              // this.$t('label.PFANS6002VIEW_PERSCALE'),
-              // this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
-              // this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
-              // this.$t('label.PFANS6002FORMVIEW_WEBSITE'),
-              // this.$t('label.remarks'),
-            ];
-            const filterVal = [
-              'custchinese',
-              'custenglish',
-              'address',
-              'supplier',
-              'purchasetime',
-              'release1',
-              'sale',
-              'remarks',
-              // 'protelephone',
-              // 'protemail',
-              // 'commontperson',
-              // 'comtelephone',
-              // 'comnemail',
-              // 'addchinese',
-              // 'addjapanese',
-              // 'addenglish',
-              // 'perscale',
-              // 'thecompany',
-              // 'causecode',
-              // 'website',
-              // 'remarks'
-
-            ];
-            const list = this.selectedlist;
-            const data = this.formatJson(filterVal, list);
-            excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6011'));
-          });
-        }
-        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
-        if (val === 'update') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS6011FormView',
-            params: {
-              _id: this.rowid,
-              disabled: true,
-            },
-          });
-        }
-        if (val === 'view') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.$router.push({
-            name: 'PFANS6011FormView',
-            params: {
-              _id: this.rowid,
-              disabled: false,
-            },
-          });
-        }
-        if (val === 'insert') {
-          this.$router.push({
-            name: 'PFANS6011FormView',
-            params: {
-              _id: '',
-              disabled: true,
-            },
-          });
-        }
-        if (val === 'delete') {
-          if (this.rowid === '') {
-            Message({
-              message: this.$t('normal.info_01'),
-              type: 'info',
-              duration: 2 * 1000,
-            });
-            return;
-          }
-          this.delete();
+          this.exportdata(this.tableData);
         }
       },
+      exportdata(vardata) {
+        debugger;
+        let heads = [
+          this.$t('label.PFANS6011VIEW_THEME'),this.$t('label.PFANS6011VIEW_ENTRUSTTYPE')
+          ,this.$t('label.PFANS6011VIEW_ENTRUST'), this.$t('label.PFANS6011VIEW_PJ'),this.$t('label.PFANS6011VIEW_SSCOMPANY'), this.$t('label.PFANS6011VIEW_APRIL')
+          ,this.$t('label.PFANS6011VIEW_MAY'), this.$t('label.PFANS6011VIEW_JUNE'), this.$t('label.PFANS6011VIEW_JULY')
+          ,this.$t('label.PFANS6011VIEW_AUGUST'),this.$t('label.PFANS6011VIEW_SEPTEMBER'), this.$t('label.PFANS6011VIEW_OCTOBER')
+          ,this.$t('label.PFANS6011VIEW_NOVEMBER'), this.$t('label.PFANS6011VIEW_DECEMBER'), this.$t('label.PFANS6011VIEW_JANUARY')
+          ,this.$t('label.PFANS6011VIEW_FEBRUARY'),this.$t('label.PFANS6011VIEW_MARCH'), this.$t('label.PFANS6011VIEW_TOTAL')];
+        let csvData = [];
+        for (let i = 0; i < vardata.length; i++) {
+          debugger;
+          let obj = vardata[i];
+          csvData.push({
+            [heads[0]]: obj.themename,
+            [heads[1]]: obj.divide,
+            [heads[2]]: obj.toolsorgs,
+            [heads[3]]: obj.project_name,
+            [heads[4]]: obj.company,
+            [heads[5]]: obj.april,
+            [heads[6]]: obj.may,
+            [heads[7]]: obj.june,
+            [heads[8]]: obj.july,
+            [heads[9]]: obj.august,
+            [heads[10]]: obj.september,
+            [heads[11]]: obj.october,
+            [heads[12]]: obj.november,
+            [heads[13]]: obj.december,
+            [heads[14]]: obj.january,
+            [heads[15]]: obj.february,
+            [heads[16]]: obj.march,
+            [heads[17]]: obj.total,
+          });
+          for (let j = 0; j < obj.children.length; j++) {
+            let objc = obj.children[j];
+            csvData.push({
+              [heads[0]]: objc.themename,
+              [heads[1]]: objc.divide,
+              [heads[2]]: objc.toolsorgs,
+              [heads[3]]: objc.project_name,
+              [heads[4]]: objc.company,
+              [heads[5]]: objc.april,
+              [heads[6]]: objc.may,
+              [heads[7]]: objc.june,
+              [heads[8]]: objc.july,
+              [heads[9]]: objc.august,
+              [heads[10]]: objc.september,
+              [heads[11]]: objc.october,
+              [heads[12]]: objc.november,
+              [heads[13]]: objc.december,
+              [heads[14]]: objc.january,
+              [heads[15]]: objc.february,
+              [heads[16]]: objc.march,
+              [heads[17]]: objc.total,
+            });
+          }
+        }
+        const result = json2csv.parse(csvData, {
+          excelStrings: true,
+        });
+        let csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + result;
+        const link = document.createElement('a');
+        link.href = csvContent;
+        link.download = this.form.year + this.$t('label.year') + this.$t('title.PFANS6011VIEW') + '.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     },
   };
 </script>
 
-<style lang="scss">
-  .row_height_left {
-    font-size: 0.75rem;
-    padding: 0px;
-    text-align: left;
-    background-color: transparent !important;
+<style rel="stylesheet/scss" lang="scss">
+
+  .el-table {
+    overflow-x: auto;
+    overflow-y: auto;
+    height:600px;
   }
-  .el-table /deep/ .current-row{
-    background-color: #BDD8EE;
+
+  .el-table__header-wrapper,
+  .el-table__body-wrapper,
+  .el-table__footer-wrapper {
+
   }
-  /*.current-row .arow--currentaa{*/
-  /*  background-color: #E5575E;*/
-  /*}*/
-  /*.el-table .current-row{*/
-  /*  background-color: #E5575E;*/
-  /*}*/
-  .sub_bg_color_Darkgreyaa{
-    background-color: #CCCCCC !important;
+
+  .el-table::after {
+    //position: relative;
   }
+
+  .el-table--scrollable-x .el-table__body-wrapper {
+
+  }
+
+  .tableClass {
+    .el-table__fixed-right {
+      height: 100% !important;
+    }
+  }
+
+
 </style>
+

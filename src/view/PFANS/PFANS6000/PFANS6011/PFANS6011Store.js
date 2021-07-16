@@ -9,7 +9,7 @@ const PFANS6011Store = {
   actions: {
     getTableinfo({commit}, data) {
       return new Promise((resolve, reject) => {
-        getTableinfo().then(response => {
+        getTableinfo(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
