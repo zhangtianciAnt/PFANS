@@ -2136,7 +2136,7 @@
       //         });
       //     }
       // },
-      //add  ml  20210715  合同番号废弃check   from
+      //add    ml   20210716  审批状态   from
       workflowState(val) {
         if (val.state === '1') {
           this.form.tabledata[0].status = '3';
@@ -2157,7 +2157,7 @@
         this.form.tabledata[0].status = '0';
         // this.buttonClick("cancellation");
       },
-      //add  ml  20210715  合同番号废弃check   to
+      //add    ml   20210716  审批状态   to
       onRecoverystatus(val) {
         if (val.recoverystatus === '1') {
           val.recoverydate = moment(new Date()).format('YYYY-MM-DD');
@@ -4282,6 +4282,14 @@
         }
         //add  ml  20210706   契约番号废弃check   from
         if (val === 'cancellation') {
+          if( this.form.tabledata[0].user_id !== this.$store.getters.userinfo.userid ){
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
           this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
             .then(response => {
               if( response == true){

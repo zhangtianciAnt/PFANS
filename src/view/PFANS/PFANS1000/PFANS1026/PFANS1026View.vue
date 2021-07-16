@@ -206,7 +206,7 @@
         mounth: '',
         date: '',
         state: '',
-        row: 'contractnumber',
+        row: 'contractnumber',//update   ml   20210716   主键改为合同号
         dialogVisible: false
       };
     },
@@ -304,6 +304,7 @@
       setOrg(val) {
         this.form.org = val;
       },
+      //update   ml   20210716   主键判断改为合同号判断  from
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'update') {
@@ -366,6 +367,7 @@
           })
         }
       },
+      //update   ml   20210716   主键判断改为合同号判断  to
       submit(){
         this.loading = true;
         this.$refs['form'].validate(valid =>{
