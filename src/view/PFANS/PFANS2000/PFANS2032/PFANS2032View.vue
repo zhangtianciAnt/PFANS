@@ -304,11 +304,11 @@
                 let group = getOrgInfo(response[j].group_id);
                 if (group) {
                   response[j].group_name = group.companyname;
-                }
+                }else{response[j].group_name = ''}//如果group为空，那页面分组筛选时，应该在一起
                 let team = getOrgInfo(response[j].team_id);
                 if (team) {
                   response[j].team_name = team.companyname;
-                }
+                }else{response[j].team_name = ''}//如果team为空，那页面分组筛选时，应该在一起
                 let postinfo = getDictionaryInfo(response[j].position);
                 if (postinfo) {
                   response[j].position = postinfo.value1;
