@@ -2049,10 +2049,10 @@
             this.loading = false;
           });
       } else {
-        this.buttonList[1].disabled = true;
+        this.buttonList[3].disabled = true;
       }
       if (this.buttonList.length > 2) {
-        this.buttonList[3].disabled = true;
+        this.buttonList[2].disabled = true;
       }
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
