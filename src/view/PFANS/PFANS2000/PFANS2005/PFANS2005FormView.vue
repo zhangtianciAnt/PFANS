@@ -3600,18 +3600,8 @@
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
                     "12" +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
-              //region add_qhr_20210702 修改工资计算基数中月份显示
-                YEARNOW:
-                    this.$route.params.generationdate.substring(0, 4) +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    parseInt(this.$route.params.generationdate.substring(5, 7)).toString() +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEARLAST:
-                    this.$route.params.generationdate.substring(0, 4) +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    (parseInt(this.$route.params.generationdate.substring(5, 7)) - 1).toString() +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-              //endregion add_qhr_20210702 修改工资计算基数中月份显示
+                YEARNOW: "",
+                YEARLAST: "",
                 othertwo: [],
                 message: [{hang: "", error: ""}],
                 Messageothertwo: false,
@@ -3680,8 +3670,7 @@
                 tableLJSJ: [],
                 tableGRDB: [],
                 baseInfo: {},
-                givingVo: {},
-                generationdate: '',
+                givingVo: {}
             };
         },
         created() {
@@ -3690,8 +3679,6 @@
             this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
             this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
             this.Giving = this.$route.params._id;
-          //region add_qhr_20210702 向后台传入所选数据日期
-            this.generationdate = this.$route.params.generationdate;
             this.getListdata();
             // todo By Skaixx : 添加滚动条滑动监听事件
             // let element = this.$refs['BasfTable'];
@@ -4143,8 +4130,18 @@
             getListdata() {
                 this.loading = true;
                 this.$store
-                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving, generationdate: this.generationdate})  //region add_qhr_20210702 向后台传入所选数据日期
+                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
                     .then(response => {
+                      //region add_qhr_20210702 修改工资计算基数中月份显示
+                        this.YEARLAST = response.yearOfLastMonth +
+                          this.$t("label.PFANS2005FORMVIEW_YEAR") +
+                          response.monthOfLastMonth +
+                          this.$t("label.PFANS2005FORMVIEW_MONTH");
+                        this.YEARNOW = response.yearOfThisMonth +
+                          this.$t("label.PFANS2005FORMVIEW_YEAR") +
+                          response.monthOfThisMonth +
+                          this.$t("label.PFANS2005FORMVIEW_MONTH");
+                      //endregion add_qhr_20210702 修改工资计算基数中月份显示
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
                         let datalist = [];
