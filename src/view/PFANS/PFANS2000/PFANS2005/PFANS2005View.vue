@@ -251,7 +251,7 @@
               type: 'info',
               duration: 2 * 1000
             });
-            return;_id
+            return;
           }
           if(this.status === '2' || this.status === '4'){
               this.status = '2'

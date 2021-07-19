@@ -3598,16 +3598,8 @@
                     this.$t("label.PFANS2005FORMVIEW_YEAR") +
                     "12" +
                     this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEARNOW:
-                    moment().year() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    (moment().month() + 1) +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
-                YEARLAST:
-                    moment().year() +
-                    this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                    moment().month() +
-                    this.$t("label.PFANS2005FORMVIEW_MONTH"),
+                YEARNOW: "",
+                YEARLAST: "",
                 othertwo: [],
                 message: [{hang: "", error: ""}],
                 Messageothertwo: false,
@@ -4138,6 +4130,16 @@
                 this.$store
                     .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
                     .then(response => {
+                      //region add_qhr_20210702 修改工资计算基数中月份显示
+                        this.YEARLAST = response.yearOfLastMonth +
+                          this.$t("label.PFANS2005FORMVIEW_YEAR") +
+                          response.monthOfLastMonth +
+                          this.$t("label.PFANS2005FORMVIEW_MONTH");
+                        this.YEARNOW = response.yearOfThisMonth +
+                          this.$t("label.PFANS2005FORMVIEW_YEAR") +
+                          response.monthOfThisMonth +
+                          this.$t("label.PFANS2005FORMVIEW_MONTH");
+                      //endregion add_qhr_20210702 修改工资计算基数中月份显示
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
                         let datalist = [];
