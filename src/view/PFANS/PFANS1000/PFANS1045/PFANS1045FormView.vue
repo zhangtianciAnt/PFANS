@@ -475,6 +475,7 @@
           policynumbers: '',
           uploadfile: '',
           type: '0',
+          workhoursAnt: [],
         },
         buttonList: [
           {
@@ -536,7 +537,6 @@
                   let o = {};
                   o.name = uploadfile[i].split(',')[0];
                   o.url = uploadfile[i].split(',')[1];
-                  console.log(o);
                   this.fileList.push(o);
                 }
               }
@@ -556,6 +556,7 @@
               let claimdatetim = claimdatetime.slice(0, 7);
               let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 7);
               this.form.yearss = [claimdatetim, claimdatetime1];
+              this.workhoursAnt = this.form.yearss;
             }
             //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
             this.loading = false;
@@ -1031,9 +1032,13 @@
               }
               //add   请求金额与修改后金额check    to
               this.form.user_id = this.userlist;
-              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
-              this.form.yearss = this.getworkinghours(this.form.yearss);
-              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from\
+              if(this.form.yearss.indexOf('~') != -1){
+                this.form.yearss = this.getworkinghours(this.workhoursAnt);
+              }else if(this.form.yearss){
+                this.form.yearss = this.getworkinghours(this.form.yearss);
+              }
+                //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               this.baseInfo = {};
               this.baseInfo.policycontract = [];
               this.baseInfo.policycontractdetails = [];
