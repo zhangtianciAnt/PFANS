@@ -153,3 +153,13 @@ export function dataCarryover(data) {
     data: data
   })
 }
+
+//获取合同时间，用于合同check scc
+export function getContranumber(data) {
+  return request({
+    url: 'companyprojects/getcontra',
+    method: 'get',
+    params: data
+  })
+}
+//获取合同时间，用于合同check scc
