@@ -358,6 +358,15 @@ export function menu() {
                     },
                   ],
                 },
+                {
+                  '_id': 'PFANS1050',
+                  'name': 'menu.PFANS1050',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1050View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [],
+                },
               ],
             },
             {
