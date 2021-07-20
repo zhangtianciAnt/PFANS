@@ -222,6 +222,22 @@ const PFANS1026Store = {
         });
       });
     },
+    //add  ml  20210706   契约番号废弃check   from
+    getProject({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getProject(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add  ml  20210706   契约番号废弃check   to
+
     dataCarryover({commit}, data) {
       return new Promise((resolve, reject) => {
         dataCarryover(data).then(response => {

@@ -126,6 +126,16 @@ export function getNapinQinqiu(data) {
   })
 }
 
+//add  ml  20210706   契约番号废弃check   from
+export function getProject(data) {
+  return request({
+    url: 'contractapplication/getProject',
+    method: 'get',
+    params: data
+  })
+}
+//add  ml  20210706   契约番号废弃check   to
+
 export function dataCarryover(data) {
   return request({
     url: 'contractapplication/dataCarryover',

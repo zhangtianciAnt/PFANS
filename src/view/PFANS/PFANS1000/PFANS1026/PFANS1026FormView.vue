@@ -3,6 +3,12 @@
     <EasyNormalContainer ref="container"
                          :title="title"
                          @buttonClick="buttonClick"
+                         @end="end" @start="start"
+                         @workflowState="workflowState"
+                         @StartWorkflow="buttonClick"
+                         :enableSave="enableSave"
+                         :workflowCode="workflowCode"
+                         :canStart="canStart"
                          v-loading="loading"
                          :buttonList="buttonList">
       <div slot="customize">
@@ -1377,6 +1383,11 @@
         }
       };
       return {
+        //add  ml  20210719  审批流程  from
+        enableSave: false,
+        canStart: false,
+        workflowCode: 'W0142',
+        //add  ml  20210719  审批流程  to
         judgementdisable: false,
         bookStatuss:false,
         //add-ws-6/22-禅道152任务
@@ -1631,11 +1642,6 @@
             disabled: false,
           },
           {
-            key: 'cancellation',
-            name: 'button.cancellation',
-            disabled: false,
-          },
-          {
             key: 'save',
             name: 'button.save',
             disabled: false,
@@ -1643,6 +1649,11 @@
           {
             key: 'makeinto',
             name: 'button.makeinto',
+            disabled: false,
+          },
+          {
+            key: 'cancellation',
+            name: 'button.cancellation',
             disabled: false,
           },
         ],
@@ -2008,9 +2019,6 @@
             this.loading = false;
           });
       } else {
-        this.buttonList[1].disabled = true;
-      }
-      if (this.buttonList.length > 2) {
         this.buttonList[3].disabled = true;
       }
       let userid = this.$store.getters.userinfo.userid;
@@ -2093,6 +2101,28 @@
       //         });
       //     }
       // },
+      //add    ml   20210716  审批状态   from
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.tabledata[0].status = '3';
+        } else if (val.state === '2') {
+          this.form.tabledata[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.form.tabledata[0].status = '2';
+        } else if (val.state === '2') {
+          this.form.tabledata[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      end() {
+        this.form.tabledata[0].status = '0';
+        // this.buttonClick("cancellation");
+      },
+      //add    ml   20210716  审批状态   to
       onRecoverystatus(val) {
         if (val.recoverystatus === '1') {
           val.recoverydate = moment(new Date()).format('YYYY-MM-DD');
@@ -4242,25 +4272,55 @@
             this.getChecked(true);
           }
         }
+        //add  ml  20210706   契约番号废弃check   from
         if (val === 'cancellation') {
-          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
-            confirmButtonText: this.$t('button.confirm'),
-            cancelButtonText: this.$t('button.cancel'),
-            type: 'warning',
-          }).then(() => {
-            for (let i = 0; i < this.form.tabledata.length; i++) {
-              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-              this.form.tabledata[i].entrycondition = 'HT004001';
-            }
-            this.handleSave('cancellation');
-          }).catch(() => {
-            this.$message({
+          if( this.form.tabledata[0].user_id !== this.$store.getters.userinfo.userid ){
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
               type: 'info',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+              duration: 2 * 1000,
             });
             return;
-          });
+          }
+          this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+            .then(response => {
+              if( response == true){
+                this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                    this.$store.commit('global/SET_OPERATEID', this.IDname);
+                    this.$refs.container.$refs.workflow.startWorkflow();
+                  }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              } else {
+                this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  for (let i = 0; i < this.form.tabledata.length; i++) {
+                    this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                    this.form.tabledata[i].entrycondition = 'HT004001';
+                  }
+                  this.handleSave('cancellation');
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              }
+            })
         }
+        //add  ml  20210706   契约番号废弃check   to
         // this.display = false;
         // this.checkeddisplay = false;
         // this.dialogFormVisible = true;

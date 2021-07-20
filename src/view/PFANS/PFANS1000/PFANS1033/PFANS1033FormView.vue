@@ -3,6 +3,12 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
+                         @end="end" @start="start"
+                         @workflowState="workflowState"
+                         @StartWorkflow="buttonClick"
+                         :enableSave="enableSave"
+                         :workflowCode="workflowCode"
+                         :canStart="canStart"
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -691,6 +697,12 @@
         }
       };
       return {
+        //add  ml  20210719  审批流程  from
+        enableSave: false,
+        canStart: false,
+        workflowCode: 'W0144',
+        dataID: '',
+        //add  ml  20210719  审批流程  to
         //add-ws-01/06-禅道任务710
         search1: '',
         //add-ws-01/06-禅道任务710
@@ -804,11 +816,6 @@
             disabled: false,
           },
           {
-            key: 'cancellation',
-            name: 'button.cancellation',
-            disabled: false,
-          },
-          {
             key: 'save',
             name: 'button.save',
             disabled: false,
@@ -816,6 +823,11 @@
           {
             key: 'makeinto',
             name: 'button.makeinto',
+            disabled: false,
+          },
+          {
+            key: 'cancellation',
+            name: 'button.cancellation',
             disabled: false,
           },
         ],
@@ -901,6 +913,7 @@
       };
     },
     mounted() {
+      this.dataID = this.$route.params._id;  //add  ml  20210719  设置审批流程的DATAID
       if (this.$route.params.contractnumbercount) {
         this.contractnumbercount = this.$route.params.contractnumbercount;
       }
@@ -1029,7 +1042,7 @@
             this.loading = false;
           });
       } else {
-        this.buttonList[1].disabled = true;
+        this.buttonList[3].disabled = true;
       }
 
       let userid = this.$store.getters.userinfo.userid;
@@ -1069,11 +1082,33 @@
       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-start
        //画面没有 makeinto按钮，删除
       if(this.$route.params._id === ''){
-          this.buttonList[3].disabled = true;
+          this.buttonList[2].disabled = true;
       }
       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-end
     },
     methods: {
+      //add    ml   20210716  审批状态   from
+      workflowState(val) {
+        if (val.state === '1') {
+          this.tablefourth[0].status = '3';
+        } else if (val.state === '2') {
+          this.tablefourth[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.tablefourth[0].status = '2';
+        } else if (val.state === '2') {
+          this.tablefourth[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      end() {
+        this.tablefourth[0].status = '0';
+        // this.buttonClick("cancellation");
+      },
+      //add    ml   20210716  审批状态   to
       getProjectList() {
         this.loading = true;
         this.$store
@@ -1249,7 +1284,7 @@
             }
             this.dataA = response;
             if (this.enableButton === false && this.buttonList.length > 3) {
-              this.buttonList[3].disabled = false;
+              this.buttonList[2].disabled = false;
             }
             this.loading = false;
           })
@@ -1307,7 +1342,7 @@
             }
 //            this.contractnumbercount = (letcontractnumber.length + 1);
             if (this.enableButton === false && this.buttonList.length > 3) {
-              this.buttonList[3].disabled = false;
+              this.buttonList[2].disabled = false;
             }
             this.loading = false;
           })
@@ -1879,30 +1914,55 @@
 
           }
         }
+        //add  ml  20210706   契约番号废弃check   from
         if (val === 'cancellation') {
-          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
-            confirmButtonText: this.$t('button.confirm'),
-            cancelButtonText: this.$t('button.cancel'),
-            type: 'warning',
-          }).then(() => {
-            this.$message({
-              type: 'success',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
-            });
-          }).then(() => {
-            for (let i = 0; i < this.tablefourth.length; i++) {
-              this.tablefourth[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-              this.tablefourth[i].entrycondition = 'HT004001';
-            }
-            this.handleSaveLin('cancellation');
-          }).catch(() => {
-            this.$message({
+          if( this.tablefourth[0].user_id !== this.$store.getters.userinfo.userid ){
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
               type: 'info',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+              duration: 2 * 1000,
             });
             return;
-          });
+          }
+          this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+            .then(response => {
+              if( response == true){
+                this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  this.$store.commit('global/SET_OPERATEID', this.dataID);
+                  this.$refs.container.$refs.workflow.startWorkflow();
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              } else {
+                this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  for (let i = 0; i < this.tablefourth.length; i++) {
+                    this.tablefourth[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                    this.tablefourth[i].entrycondition = 'HT004001';
+                  }
+                  this.handleSave('cancellation');
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              }
+            })
         }
+        //add  ml  20210706   契约番号废弃check   to
         if (val === 'save') {
           this.handleSaveLin('save');
         }
