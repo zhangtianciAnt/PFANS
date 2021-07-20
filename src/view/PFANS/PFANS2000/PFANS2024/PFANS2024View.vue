@@ -324,24 +324,32 @@
               //     response[j].user_name = user.userinfo.customername;
               //   }
               // }
+              //改动group页面排序混乱 scc
               if (response[j].user_id !== null && response[j].user_id !== '') {
                 let user = getUserInfo(response[j].user_id);
-                let center = getOrgInfo(response[j].center_id);
-                if (center) {
-                  response[j].center_name = center.companyname;
-                }
-                let group = getOrgInfo(response[j].group_id);
-                if (group) {
-                  response[j].group_name = group.companyname;
-                }
-                let team = getOrgInfo(response[j].team_id);
-                if (team) {
-                  response[j].team_name = team.companyname;
-                }
                 if (user) {
                   response[j].user_name = user.userinfo.customername;
                 }
               }
+              if (response[j].center_id !== null && response[j].center_id !== '') {
+                let center = getOrgInfo(response[j].center_id);
+                if (center) {
+                  response[j].center_name = center.companyname;
+                }
+              }
+              if (response[j].group_id !== null && response[j].group_id !== '') {
+                let group = getOrgInfo(response[j].group_id);
+                if (group) {
+                  response[j].group_name = group.companyname;
+                }
+              }else{response[j].group_name = '';}
+              if (response[j].team_id !== null && response[j].team_id !== '') {
+                let team = getOrgInfo(response[j].team_id);
+                if (team) {
+                  response[j].team_name = team.companyname;
+                }
+              }else{response[j].team_name = '';}
+              //改动group页面排序混乱 scc
               if (response[j].status !== null && response[j].status !== '') {
                 response[j].status = getStatus(response[j].status);
               }
