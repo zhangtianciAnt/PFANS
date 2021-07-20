@@ -296,7 +296,9 @@
           // });
 
           this.dictionarylist = [];
-          for (let i = 0; i < this.tableD.length; i++) {
+          //ztc 解决修改字典，其余字典被清空 BUG fr
+          for (let i = 1; i < this.tableD.length; i++) {
+            //ztc 解决修改字典，其余字典被清空 BUG to
             this.dictionarylist.push({
               code: this.tableD[i].code,
               type: this.tableD[i].type,
