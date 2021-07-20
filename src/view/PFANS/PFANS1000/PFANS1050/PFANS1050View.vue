@@ -37,7 +37,7 @@
       </div>
     </EasyNormalContainer>
     <lb-table :column="tableData.columns"
-              :data="tableData.data" :title="title" style="margin-top: -300px;"
+              :data="tableData.data" style="margin-top: -300px;"
               :merge="['themename', 'divide', 'toolsorgs', 'numbers','staffnum']"
               header-cell-class-name="sub_bg_color_blue" stripe
               border>
