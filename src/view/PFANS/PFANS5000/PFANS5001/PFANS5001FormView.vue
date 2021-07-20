@@ -1314,6 +1314,7 @@
         //add-12/24-审批check
         workcode: '',
         //合同时间check
+        contra: [],
         time: [],
         nowtime: '',
         //合同时间check
@@ -2492,21 +2493,47 @@
         this.workinghoursRow = val.entrypayment;
       },
       //add-ws-6/9-禅道任务080
+      //根据合同号查询合同期间 scc
+      findCon(){
+        if(this.contra.length > 0) {
+          let contra = "";
+          for (let i = 0; i < this.contra.length; i++) {
+            if (i === this.contra.length - 1) {
+              contra += this.contra[i];
+            } else {
+              contra += this.contra[i] + ",";
+            }
+          }
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1026Store/getContranumber', {'contra': contra})
+            .then(response => {
+              if (response.length > 0) {
+                for (let i = 0; i < response.length; i++) {
+                  this.time[i] = response[i];
+                }
+              }
+            });
+          this.loading = false;
+        }
+      },
+      //根据合同号查询合同期间 scc
       changecontract(row) {
         let table = this.tableD;
         let check = [];
         let checktable = 0;
         let checktable1 = 0;
         this.dialogTableVisible3 = true;
-        //获取当前表中已有合同回数的时间 scc
+        //获取当前表中已有合同 scc
         for(let i = 0; i < this.tableD.length; i++){
-          if(!this.tableD[i].workinghours){
+          if(!this.tableD[i].contract){
             continue;
-          }else{
-            this.time[i] = this.tableD[i].workinghours;
           }
+          this.contra = this.contra.filter(item => item != this.tableD[i].contract);
+          this.contra[this.contra.length] = this.tableD[i].contract;
         }
-        //获取当前表中已有合同回数的时间 scc
+        this.findCon();
+        //获取当前表中已有合同 scc
         for (let a = 0; a < table.length; a++) {
           if (row.contract != '') {
             if (table[a].contract != row.contract) {
@@ -2587,46 +2614,54 @@
             //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
             let contradeta = response.contractapplication;
             if(contradeta.length > 0){
-              let time = contradeta[0].contractdate;//字符串
+              let timec = "";
+              if(contradeta[0].contractdate) {
+                timec = contradeta[0].contractdate;//字符串
+              }else{
+                timec = contradeta[0].claimdatetime;//字符串
+              }
               let extensdate = contradeta[0].extensiondate;
               if(extensdate){
-                let time1 = time.split('~');//数组
+                let time1 = timec.split('~');//数组
                 this.nowtime = time1[0] + "~" + extensdate;
               } else{
-                this.nowtime = time;
+                this.nowtime = timec;
               }
             }
             //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
-            if(this.nowtime) {
-              var areatime = this.nowtime.split('~');
-              var opentime = areatime[0];
-              var closetime = areatime[1];
-              //合同日期
-              var date1 = new Date(opentime);
-              var date2 = new Date(closetime);
-            }
-            for(let i = 0; i < this.time.length; i++){
-              //每条回数的时间
-              let date3 = new Date(this.time[i][0]);
-              let date4 = new Date(this.time[i][1]);
-              //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内
-              let e1 = ((date1 > date3 && date1 < date4) || (date2 > date3 && date2 < date4));
-              //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合
-              let e2 = (date1 === date3 || date1 === date4 || date2 === date3 || date2 === date4);
-              //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间
-              let e3 = ((date1 < date3 && date2 > date4) || (date1 > date3 && date2 < date4));
-              //判断上述条件是否为真
-              let e4 = (e1 || e2 || e3 );
-              if(e4){
-                  Message({
-                  message: this.$t('normal.info_19'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.tableD.splice(this.tableD.length - intercept, intercept);
-                break;
+              if (this.nowtime) {
+                var areatime = this.nowtime.split('~');
+                var opentime = areatime[0];
+                var closetime = areatime[1];
+                //合同日期
+                var date1 = new Date(opentime);
+                var date2 = new Date(closetime);
               }
-            }
+              if(this.time.length > 0) {
+                for (let i = 0; i < this.time.length; i++) {
+                  let contra = this.time[i].split("~");
+                  //每条合同的时间点
+                  let date3 = new Date(contra[0]);
+                  let date4 = new Date(contra[1]);
+                  //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内
+                  let e1 = ((date1.getTime() > date3.getTime() && date1.getTime() < date4.getTime()) || (date2.getTime() > date3.getTime() && date2.getTime() < date4.getTime()));
+                  //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合
+                  let e2 = (date1.getTime() === date3.getTime() || date1.getTime() === date4.getTime() || date2.getTime() === date3.getTime() || date2.getTime() === date4.getTime());
+                  //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间
+                  let e3 = ((date1.getTime() < date3.getTime() && date2.getTime() > date4.getTime()));
+                  //判断上述条件是否为真
+                  let e4 = (e1 || e2 || e3);
+                  if (e4) {
+                    Message({
+                      message: this.$t('normal.info_19'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.tableD.splice(this.tableD.length - intercept, intercept);
+                    break;
+                  }
+                }
+              }
             this.loading = false;
           });
         for (let a = 0; a < this.tableD.length; a++) {
