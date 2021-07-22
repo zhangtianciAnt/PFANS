@@ -1,5 +1,24 @@
 <template>
   <div style="height: calc(100vh - 60px - 2rem)">
+<!--add ccm 20210722 首页提示离职者处理财务相关手续    fr-->
+    <el-row style="height: 90px;padding: 5px" v-if="this.$store.getters.userinfo.userinfo.resignation_date ? true : false">
+      <el-card shadow="hover" style="height: 100%">
+        <div
+          style="width: 100%;
+              text-align: left;
+              margin-top: -8px;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              float: left;
+              line-height: 1.2rem"
+        >
+          <span style="font-size:1.0rem;color: #fb6e52;font-weight: bolder">{{$t('label.INDEX_DSPSX3')}}</span><br>
+          <span style="font-size:0.8rem;color: #fb6e52">{{$t('label.INDEX_DSPSX1')}}</span><br>
+          <span style="font-size:0.8rem;color: #fb6e52">{{$t('label.INDEX_DSPSX2')}}</span>
+        </div>
+      </el-card>
+    </el-row>
+<!--add ccm 20210722 首页提示离职者处理财务相关手续    to    -->
     <el-row>
       <el-col :span="12" style="padding: 5px;padding-top: 25px">
         <el-row style="height: 120px;max-height: 120px">
