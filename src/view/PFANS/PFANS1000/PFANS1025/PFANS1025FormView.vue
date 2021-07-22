@@ -370,24 +370,30 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170"
                                  :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <org :orglist="scope.row.depart"
                          orgtype="4"
-                         :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                         :disabled="false"
                          :error="errorgroup"
                          style="width: 9rem"
                          :no="scope.row"
                          @getOrgids="getGroupId"></org>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
+                  <!--     region   add_qhr_20210722 修改【部门】栏宽度-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="200">
+                  <!--     endregion   add_qhr_20210722 修改【部门】栏宽度-->
                   <template slot-scope="scope">
-                    <project :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
-                             style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
+                    <project :disabled="false"
+                             style="width: 100%" :date="scope.row.projects" :no="scope.row"
                              @change="changePro">
                     </project>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="600">
+                  <!--  region   add_qhr_20210721 隐藏表格项目列-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="600" v-if="false">
+                  <!--  endregion   add_qhr_20210721 隐藏表格项目列-->
                   <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member"
                                    v-if="checkdisable">
                     <template slot-scope="scope">
@@ -451,8 +457,9 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber"
                                  width="150">
                   <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <el-input-number
-                      :disabled="true"
+                      :disabled="false"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -466,8 +473,9 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney"
                                  width="150">
                   <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <el-input-number
-                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?!disable:true"
+                      :disabled="false"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -1125,9 +1133,11 @@
       getBudgetunit(val, row) {
         row.budgetcode = val;
       },
+      //region add_qhr_20210722 修改部门带入值
       changePro(val, row) {
-        row.projects = val;
+        row.projects = val.companyprojects_id;
       },
+      //endregion add_qhr_20210722 修改部门带入值
       changeSum(row) {
         row.worknumber = row.outsource;
         row.awardmoney = row.outsource * row.outcommunity;
