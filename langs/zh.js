@@ -675,7 +675,7 @@ module.exports = {
     INDEX_DAYDQ: '当前日期',
     INDEX_DSPSX: '条待办事项',
     INDEX_DSPSX1:' 离职前请联络财务部门清偿债务，必须将自己管理的资产在P-fans上办理转移手续',
-    INDEX_DSPSX2:' 请参考《资产使用者变更指南》，路劲在Garoon上：ファイル管理(ルート) 　→　 PSDCD　→　財務推進室　→　関連規定下',
+    INDEX_DSPSX2:' 请参考《资产使用者变更指南》，文件在Garoon上，路径：ファイル管理(ルート) 　→　 PSDCD　→　財務推進室　→　関連規定下',
     INDEX_DSPSX3:'离职员工请注意：',
     INDEX_YSPSX: '已审批事项',
     INDEX_YBHSX: '已驳回事项',
