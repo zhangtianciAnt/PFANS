@@ -910,8 +910,9 @@
       } else {
         this.checkdisable = false;
       }
-      //region  upd  ml  20210722  保存按钮可用性以及页面可编辑性  from
       if (!this.$route.params.disabled) {
+        //region  upd  ml  20210722  保存按钮可用性以及页面可编辑性  from
+        // this.buttonList = [];
         this.buttonList = [
           {
             key: 'save',
@@ -920,6 +921,7 @@
             icon: 'el-icon-check',
           },
         ]
+        //endregion  upd  ml  20210722  保存按钮可用性以及页面可编辑性  to
       }
       this.disable = this.$route.params.disabled;
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
@@ -930,11 +932,16 @@
                   {
                       key: 'save',
                       name: 'button.save',
+                      //region  upd  ml  20210722  保存按钮可用性以及页面可编辑性  from
+                      // disabled: false,
                       disabled: false,
+                      //endregion  upd  ml  20210722  保存按钮可用性以及页面可编辑性  to
                       icon: 'el-icon-check',
                   },
               ]
-          }else{
+          }
+          //region  add  ml  20210722  保存按钮可用性以及页面可编辑性  from
+          else{
             this.buttonList = [
               {
                 key: 'save',
@@ -946,7 +953,7 @@
             this.disable = !this.$route.params.disabled;
             this.disable1 = !this.$route.params.disabled;
           }
-        //endregion  upd  ml  20210722  保存按钮可用性以及页面可编辑性  to
+        //endregion  add  ml  20210722  保存按钮可用性以及页面可编辑性  to
       }
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
     },
