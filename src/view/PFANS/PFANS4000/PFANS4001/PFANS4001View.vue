@@ -6,27 +6,34 @@
     >
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
-    <el-drawer :visible.sync="insertnamedialog" size="40%" :show-close="false" :withHeader="false" append-to-body>
-      <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
+    <el-drawer :visible.sync="insertnamedialog" size="30%" :show-close="false" :withHeader="false" append-to-body :wrapperClosable="wrapperClosable">
+      <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw" :rules="rules">
         <el-row>
           <el-form-item :error="error" :label="$t('label.PFANS4001FORMVIEW_SEALDETAILNAME')">
-            <user :disabled="false" :error="error" :selectType="selectType" :userlist="userlist"
+            <user :error="error" :selectType="selectType" :userlist="userlist"
                   @getUserids="getUserids" style="width:20vw"></user>
           </el-form-item>
         </el-row>
-        <div></div>
         <el-row>
-          <el-form-item :label="$t('label.PFANS4001FORMVIEW_SEALDETAILDATE')">
+          <el-form-item :label="$t('label.PFANS4001FORMVIEW_SEALDETAILDATE')" prop="sealdetaildate">
             <el-date-picker
               v-model="sealdetaildate"
               type="daterange"
               :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
               :start-placeholder="$t('label.startdate')"
-              :end-placeholder="$t('label.enddate')">
+              :end-placeholder="$t('label.enddate')"
+              style="width: 20rem">
             </el-date-picker>
           </el-form-item>
         </el-row>
+        <el-table :data="gridData" height="380" class="gridDate_font">
+          <el-table-column property="sealdetailname" width="130" :label="$t('label.PFANS4001FORMVIEW_REGULATOR')"></el-table-column>
+          <el-table-column property="sealdetaildate" :label="$t('label.PFANS4001FORMVIEW_SEALDETAILDATE')"></el-table-column>
+        </el-table>
       </el-form>
+<!--      <div :label="$t('label.PFANS4001FORMVIEW_SEALDETAILNAME')">-->
+<!--        <el-button type="primary" @click="submit" style="margin-left: 80px">{{this.$t('button.confirm')}}</el-button>-->
+<!--      </div>-->
     </el-drawer>
     <!--    add-ws-12/21-印章盖印-->
   </div>
@@ -45,6 +52,35 @@
       EasyNormalTable,
     },
     data() {
+      var validateDate = (rule, value, callback) => {
+        if (this.sealdetaildate) {
+          this.$store
+            .dispatch('PFANS4001Store/selectEffective', {
+              'sealdetaildate': moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
+                + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD')
+            })
+            .then(response => {
+              this.effectiveData = response;
+              if (this.effectiveData === 1) {
+                callback(this.$t('normal.error_effective'));
+                this.wrapperClosable = false;
+              } else {
+                callback();
+                this.wrapperClosable = true;
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          callback();
+        }
+      };
       return {
         alertshow: true,
         description:'',
@@ -54,7 +90,7 @@
         userlist: '',
         error: '',
         selectType: 'Single',
-        sealdetaildate: '',
+        sealdetaildate: [],
         sealdetail: '',
         user: '',
         userAnt: '',
@@ -62,6 +98,9 @@
         loading: false,
         title: 'title.PFANS4001VIEW',
         data: [],
+        gridData: [],
+        effectiveData: '',
+        wrapperClosable: true,
         columns: [
           {
             code: 'username',
@@ -141,6 +180,16 @@
         rowid: '',
         row_id: 'sealid',
         handlsealid: '',
+        drawDisabled: false,
+        rules: {
+          sealdetaildate: [
+            {
+              required: true,
+              validator: validateDate,
+              trigger: 'change',
+            }
+          ],
+        },
       };
     },
     //add-ws-12/21-印章盖印
@@ -157,6 +206,12 @@
       this.getList();
     },
     methods: {
+      // submit() {
+      //   this.drawDisabled = true;
+      //   setTimeout(() => {
+      //     this.insertnamedialogs();
+      //   }, 1500);
+      // },
       //add-ws-12/21-印章盖印
       getList() {
         this.loading = true;
@@ -189,6 +244,12 @@
                   this.sealdetail = claimdatetim + '~' + claimdatetime1;
                 }
               }
+              this.gridData = response.sealdetail;
+              this.gridData.forEach(list =>{
+                if (list.sealdetailname) {
+                  list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
+                }
+              })
             }
             if (this.userlist === this.$store.getters.userinfo.userid) {
               this.buttonList[4].disabled = false;
@@ -284,7 +345,6 @@
           });
       },
       handleacceptstate1(row) {
-
         if (row.regulatorstate) {
           if (this.handlsealid != '') {
             this.handlsealid = this.handlsealid + ',' + row.sealid;
@@ -348,7 +408,7 @@
       },
       insertnamedialogs() {
         if (!this.insertnamedialog) {
-          if (this.sealdetaildate == '') {
+          if (this.sealdetaildate === '' || this.sealdetaildate === null || this.sealdetaildate === undefined) {
             Message({
               message: this.$t('label.PFANS4001FORMVIRW_RRROR2'),
               type: 'error',
@@ -356,7 +416,7 @@
             });
             return;
           }
-          if (this.userlist == '') {
+          if (this.userlist === '' || this.userlist === null || this.userlist === undefined) {
             Message({
               message: this.$t('label.PFANS4001FORMVIRW_ERROR1'),
               type: 'error',
@@ -379,6 +439,7 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
+              this.insertnamedialog = false;
             })
             .catch(error => {
               Message({
@@ -387,9 +448,10 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
+              this.insertnamedialog = false;
             });
-        } else {
-          {
+        }
+        else {
             this.loading = true;
             this.$store
               .dispatch('PFANS4001Store/selectcognition')
@@ -420,7 +482,6 @@
                 }
                 this.loading = false;
               });
-          }
         }
       },
       getUserids(val) {
@@ -518,4 +579,8 @@
   };
 </script>
 <style scoped>
+  .gridDate_font{
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
 </style>

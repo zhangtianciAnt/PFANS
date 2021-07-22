@@ -608,8 +608,8 @@
     },
   };
 </script>
-
-<style rel="stylesheet/scss" lang="scss">
+<!--add_qhr_20210721 修改样式作用域-->
+<style rel="stylesheet/scss" lang="scss" scoped>
 
   .el-table {
     overflow-x: auto;

@@ -6,7 +6,8 @@ import {
   getPfans4001One,
   createbook,
   insertnamedialog,
-  selectcognition
+  selectcognition,
+  selectEffective
 } from './PFANS4001Api';
 
 const PFANS4001store = {
@@ -122,6 +123,21 @@ const PFANS4001store = {
         });
       });
     },
+
+    selectEffective({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectEffective(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
   },
 };
 
