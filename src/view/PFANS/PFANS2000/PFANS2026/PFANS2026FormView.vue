@@ -1114,7 +1114,6 @@
         }
         //region  add  ml  20210721  离职报告页面返回至调书页面   from
         if(val === 'back') {
-
           if (this.check != null && this.check!= '' && this.check!= undefined) {
             if (this.check) {
               this.checkparams();
