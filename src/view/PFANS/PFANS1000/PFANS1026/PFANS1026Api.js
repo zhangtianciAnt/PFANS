@@ -126,6 +126,16 @@ export function getNapinQinqiu(data) {
   })
 }
 
+//add  ml  20210706   契约番号废弃check   from
+export function getProject(data) {
+  return request({
+    url: 'contractapplication/getProject',
+    method: 'get',
+    params: data
+  })
+}
+//add  ml  20210706   契约番号废弃check   to
+
 export function dataCarryover(data) {
   return request({
     url: 'contractapplication/dataCarryover',
@@ -133,3 +143,13 @@ export function dataCarryover(data) {
     data: data
   })
 }
+
+//获取合同时间，用于合同check scc
+export function getContranumber(data) {
+  return request({
+    url: 'companyprojects/getcontra',
+    method: 'get',
+    params: data
+  })
+}
+//获取合同时间，用于合同check scc

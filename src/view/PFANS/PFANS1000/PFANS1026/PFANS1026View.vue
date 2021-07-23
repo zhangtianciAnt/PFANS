@@ -206,7 +206,7 @@
         mounth: '',
         date: '',
         state: '',
-        row: 'contractapplication_id ',
+        row: 'contractnumber',//update   ml   20210716   主键改为合同号
         dialogVisible: false
       };
     },
@@ -305,10 +305,11 @@
       setOrg(val) {
         this.form.org = val;
       },
+      //update   ml   20210716   主键判断改为合同号判断  from
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'update') {
-          if (this.rowid === '') {
+          if (this.contractnumber === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -327,7 +328,7 @@
           })
         }
         if(val === 'carryforward'){
-          if (this.rowid === '') {
+          if (this.contractnumber === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -339,7 +340,7 @@
           this.form.new_center_id= '';
         }
         if (val === 'view') {
-          if (this.rowid === '') {
+          if (this.contractnumber === '') {
             Message({
               message: this.$t('normal.info_01'),
               type: 'info',
@@ -367,6 +368,7 @@
           })
         }
       },
+      //update   ml   20210716   主键判断改为合同号判断  to
       submit(){
         this.loading = true;
         this.$refs['form'].validate(valid =>{

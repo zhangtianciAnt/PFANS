@@ -14,7 +14,10 @@ import {
   generatesta,
   getworkfolwPurchaseData,
   getNapinQinqiu,
-  dataCarryover
+  getNaPpinAftercount,
+  dataCarryover,
+  getProject,
+  getContranumber
   } from './PFANS1026Api';
 
 
@@ -222,6 +225,22 @@ const PFANS1026Store = {
         });
       });
     },
+    //add  ml  20210706   契约番号废弃check   from
+    getProject({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getProject(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add  ml  20210706   契约番号废弃check   to
+
     dataCarryover({commit}, data) {
       return new Promise((resolve, reject) => {
         dataCarryover(data).then(response => {
@@ -235,6 +254,22 @@ const PFANS1026Store = {
         });
       });
     },
+
+    //获取合同时间，用于合同check scc
+    getContranumber({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getContranumber(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //获取合同时间，用于合同check scc
   },
 };
 

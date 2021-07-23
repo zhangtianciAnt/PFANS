@@ -176,6 +176,12 @@
 
                     this.canStartWorkflow = true;
                     this.$emit('canStartWorkflow', true)
+                    if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                      || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                      || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                      this.canStartWorkflow = false;
+                      this.$emit('canStartWorkflow', false)
+                    }
                   }else{
                     this.canStartWorkflow = false;
                     this.$emit('canStartWorkflow', false)
@@ -202,6 +208,12 @@
 
                         this.canStartWorkflow = true;
                         this.$emit('canStartWorkflow', true)
+                        if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                          || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                          || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                          this.canStartWorkflow = false;
+                          this.$emit('canStartWorkflow', false)
+                        }
                       }else{
                         this.canStartWorkflow = false;
                         this.$emit('canStartWorkflow', false)
@@ -236,12 +248,22 @@
               if (Object.keys(response.data).length > 0) {
                 if (response.data.can === "0") {
                   this.$emit('canStartWorkflow', true)
+                  if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                    || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                    || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                    this.$emit('canStartWorkflow', false)
+                  }
                 } else {
                   if (response.data.can === "1") {
                     this.$emit('canStartWorkflow', false)
                   } else {
                     if (this.canStart && response.data.can === "2") {
                       this.$emit('canStartWorkflow', true)
+                      if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                        || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                        || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                        this.$emit('canStartWorkflow', false)
+                      }
                     } else {
                       this.$emit('canStartWorkflow', false)
                     }

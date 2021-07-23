@@ -216,15 +216,6 @@
           //     this.tableD[i].code = this.letcode.substring(0, 5) + "0" + (i + 1);
           //   }
           // }
-          // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
-          let num = parseInt(this.letcode.substr(this.letcode.length-3,3));
-          if (num < 9) {
-            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
-          }else if(num === 10){
-            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
-          }else{
-            this.letcode = this.letcode.substring(0, 5) + "00" + (num - 1);
-          }
         } else {
           this.tableD = [
             {
@@ -255,12 +246,20 @@
         //   this.letcode = this.letcode.substring(0, 5) + "0" + (rows.length );
         //   // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增
         // }
-        let num = parseInt(this.letcode.substr(this.letcode.length-3,3));
-        if (num < 9) {
-          this.letcode = this.letcode.substring(0, 5) + "00" + (num + 1);
-        }else{
-          this.letcode = this.letcode.substring(0, 5) + "0" + (num + 1);
+        //scc
+        if(rows.length === 1){//如果只有一条记录，必定是行信息介绍
+          this.letcode = this.letcode.substring(0, 5) + "001";
         }
+        if(rows.length > 1) {
+          this.letcode = rows[rows.length - 1].code;//每次新增取当前页面最后一条记录的letcode
+          let num = parseInt(this.letcode.substr(this.letcode.length - 3, 3));//获取后三位数字类型最大值，新增记录使用
+          if (num < 9) {
+            this.letcode = this.letcode.substring(0, 5) + "00" + (num + 1);
+          } else {
+            this.letcode = this.letcode.substring(0, 5) + "0" + (num + 1);
+          }
+        }
+        //scc
         this.tableD.push({
           code: this.letcode,
           type: "",

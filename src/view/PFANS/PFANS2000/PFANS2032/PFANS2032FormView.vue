@@ -495,7 +495,8 @@
         </el-form>
       </div>
     </EasyNormalContainer>
-    <PFANS2026Pop :params="urlparams" ref="PFANS2026Pop" :url="url"></PFANS2026Pop>
+    <!--del  ml  2021721  调书页面跳转离职页面-->
+<!--    <PFANS2026Pop :params="urlparams" ref="PFANS2026Pop" :url="url"></PFANS2026Pop>-->
   </div>
 </template>
 
@@ -509,7 +510,7 @@
   import dicselect from '../../../components/dicselect';
   import {getCurrentRole,getCurrentRole12} from '../../../../utils/customize';
   import {getDictionaryInfo} from '../../../../utils/customize';
-  import PFANS2026Pop from '@/components/EasyPop/PFANS2026Pop';
+  // import PFANS2026Pop from '@/components/EasyPop/PFANS2026Pop';     //del  ml  2021721  调书页面跳转离职页面
 
   export default {
     name: 'PFANS2032FormView',
@@ -517,7 +518,7 @@
       dicselect,
       EasyNormalContainer,
       user,
-      PFANS2026Pop
+      // PFANS2026Pop    //del  ml  2021721  调书页面跳转离职页面
     },
     data() {
       var validateDay = (rule, value, callback) => {
@@ -910,7 +911,17 @@
         this.checkdisable = false;
       }
       if (!this.$route.params.disabled) {
-        this.buttonList = [];
+        //region  upd  ml  20210722  保存按钮可用性以及页面可编辑性  from
+        // this.buttonList = [];
+        this.buttonList = [
+          {
+            key: 'save',
+            name: 'button.save',
+            disabled: true,
+            icon: 'el-icon-check',
+          },
+        ]
+        //endregion  upd  ml  20210722  保存按钮可用性以及页面可编辑性  to
       }
       this.disable = this.$route.params.disabled;
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 start
@@ -921,11 +932,28 @@
                   {
                       key: 'save',
                       name: 'button.save',
+                      //region  upd  ml  20210722  保存按钮可用性以及页面可编辑性  from
                       // disabled: false,
+                      disabled: false,
+                      //endregion  upd  ml  20210722  保存按钮可用性以及页面可编辑性  to
                       icon: 'el-icon-check',
                   },
               ]
           }
+          //region  add  ml  20210722  保存按钮可用性以及页面可编辑性  from
+          else{
+            this.buttonList = [
+              {
+                key: 'save',
+                name: 'button.save',
+                disabled: true,
+                icon: 'el-icon-check',
+              },
+            ]
+            this.disable = !this.$route.params.disabled;
+            this.disable1 = !this.$route.params.disabled;
+          }
+        //endregion  add  ml  20210722  保存按钮可用性以及页面可编辑性  to
       }
       // update gbb 20210315 NT_PFANS_20210228_BUG_044 数据【未开始】和【驳回】是可保存 end
     },
@@ -963,17 +991,34 @@
           this.loading = false;
         });
       },
+      //region  upd  ml  2021721  调书页面跳转离职页面  from
+      // submitForm(ruleFormNew) {
+      //   this.url = '';
+      //   // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+      //   //this.urlparams = '';
+      //   this.urlparams = {};
+      //   // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
+      //   this.url = 'PFANS2026FormView';
+      //   this.urlparams = {'_id': this.listsums.staffexitprocedure.staffexitprocedure_id, 'disabled': false};
+      //   this.$refs.PFANS2026Pop.open = true;
+      //   this.loading = false;
+      // },
       submitForm(ruleFormNew) {
-        this.url = '';
-        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
-        //this.urlparams = '';
-        this.urlparams = {};
-        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
-        this.url = 'PFANS2026FormView';
-        this.urlparams = {'_id': this.listsums.staffexitprocedure.staffexitprocedure_id, 'disabled': false};
-        this.$refs.PFANS2026Pop.open = true;
-        this.loading = false;
+        this.$store.commit('global/SET_HISTORYURL', '');
+        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS2026FormView');
+        this.$router.push({
+          name: 'PFANS2026FormView',
+          params: {
+            _id: this.listsums.staffexitprocedure.staffexitprocedure_id,
+            disabled: false,
+            _checkid: this.params_id,
+            _check: true,
+            _fromname: 'PFANS2032FormView',
+            _disabledstatus: this.disable,
+          },
+        });
       },
+      //endregion  upd  ml  2021721  调书页面跳转离职页面  to
       checkRequire() {
         this.activeName = 'second';
       },
@@ -1235,13 +1280,15 @@
                     name: 'PFANS2032View',
                   });
                   this.loading = false;
-                  if (val !== 'update') {
+                  //region  upd  ml  20210722  调书详细页返回至一览不提示更新成功   from
+                  if (val !== 'update' && val !== 'back') {
                     Message({
                       message: this.$t('normal.success_02'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
                   }
+                  //endregion  upd  ml  20210722  调书详细页返回至一览不提示更新成功   to
                 })
                 .catch(error => {
                   Message({
