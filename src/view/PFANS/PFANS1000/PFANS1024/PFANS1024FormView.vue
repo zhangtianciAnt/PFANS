@@ -1234,6 +1234,9 @@
           vendornum: '',
         },
         form: {
+          //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+          supplierinfor_id: '',
+          //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
           tabledata: [],
           tabledata2: undefined,
           contractnumber: '',
@@ -1363,6 +1366,9 @@
 
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
+                //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+                this.form.supplierinfor_id = contractapplication[i].supplierinfor_id;
+                //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
                 /* //555 this.currencyposition
                let currencyposition =  contractapplication[i].currencyposition;
                this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
@@ -1501,6 +1507,9 @@
         if (this.$route.params._checkindivdual === '1') {
           this.checkindivdual = 1;
           if (this.$route.params.supplierinfor_id) {
+            //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+            this.form.supplierinfor_id = this.$route.params.supplierinfor_id;
+            //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
             this.dates = this.$route.params.dates,
               this.dialogVisibleC = true;
             this.checknumber = true;
@@ -2587,6 +2596,9 @@
 
             o.projectname = this.form.tabledata[i].conchinese;
             //add-ws-7/22-禅道341任务
+            //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+            o.supplierinfor_id = this.form.supplierinfor_id;
+            //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
           }
           // DEL_FJL  start
           // if (Array.isArray(this.form.tabledata[i].conchinese)) {
@@ -2741,6 +2753,9 @@
                   _checkname: true,
                   _id: response.awardlist2,
                   disabled: true,
+                  //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+                  supplierinfor_id: this.form.supplierinfor_id,
+                  //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
                 },
               });
             }
