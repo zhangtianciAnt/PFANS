@@ -440,7 +440,7 @@
             // 盖印监管者增加履历 ztc 0723 fr
             .then(response => {
               this.effectiveData = response;
-              if(this.user === getUserInfo(this.userlist).userinfo.customername
+              if(this.userAnt === getUserInfo(this.userlist).userinfo.customername
                 && moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
                 + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD') === this.sealdetail){
                 return
