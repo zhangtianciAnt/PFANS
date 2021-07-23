@@ -235,7 +235,7 @@
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                 this.sealdetaildate = [claimdatetim, claimdatetime1];
-                this.sealdetail = claimdatetim + '~' + claimdatetime1
+                this.sealdetail = claimdatetim + ' ~ ' + claimdatetime1
               }
             }else{
               this.userlist = this.$store.getters.userinfo.userid;
@@ -245,20 +245,15 @@
               }
               let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
               this.sealdetaildate = [];
-              this.sealdetail = claimdatetim + '~'
+              this.sealdetail = claimdatetim + ' ~ '
             }
+            this.getList();
           }).catch(error => {
           Message({
             message: error,
             type: 'error',
             duration: 5 * 1000,
           });
-          this.gridData = response.sealdetail;
-          this.gridData.forEach(list =>{
-            if (list.sealdetailname) {
-              list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
-            }
-          })
           this.loading = false;
         });
         this.loading = false;
@@ -442,8 +437,14 @@
               'sealdetaildate': moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
                 + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD')
             })
+            // 盖印监管者增加履历 ztc 0723 fr
             .then(response => {
               this.effectiveData = response;
+              if(this.user === getUserInfo(this.userlist).userinfo.customername
+                && moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
+                + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD') === this.sealdetail){
+                return
+              }
               if (this.effectiveData === 1) {
                 Message({
                   message: this.$t('normal.error_effective'),
@@ -451,7 +452,6 @@
                   duration: 5 * 1000,
                 });
               }else{
-                // 盖印监管者增加履历 ztc 0723 fr
                 this.insertSeal();
                 // 盖印监管者增加履历 ztc 0723 to
               }
