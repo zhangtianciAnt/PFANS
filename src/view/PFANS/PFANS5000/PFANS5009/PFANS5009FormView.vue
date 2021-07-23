@@ -2526,7 +2526,7 @@
             //add-ws-01/16-禅道任务710
             for (let i = 0; i < this.tableD.length; i++) {
               // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check start
-              if(this.tableD[i].contractamount === 0){
+              if(this.tableD[i].contractamount === 0 && this.form.toolstype != '1'){
                   this.activeName = 'fifth';
                   Message({
                       message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
