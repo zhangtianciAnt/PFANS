@@ -6,7 +6,9 @@
     >
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
-    <el-drawer :visible.sync="insertnamedialog" size="30%" :show-close="false" :withHeader="false" append-to-body :wrapperClosable="wrapperClosable">
+    <!--    盖印监管者增加履历 ztc 0723 fr-->
+    <el-drawer :visible.sync="insertnamedialog" size="30%" :show-close="false" :withHeader="false" append-to-body>
+      <!--    盖印监管者增加履历 ztc 0723 to-->
       <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
         <el-row>
           <el-form-item :error="error" :label="$t('label.PFANS4001FORMVIEW_SEALDETAILNAME')">
@@ -101,7 +103,6 @@
         data: [],
         gridData: [],
         effectiveData: '',
-        wrapperClosable: true,
         columns: [
           {
             code: 'username',
@@ -209,9 +210,60 @@
     },
     //add-ws-12/21-印章盖印
     mounted() {
+      // 盖印监管者增加履历 ztc 0723 fr
+      this.getEffSeal();
+      // 盖印监管者增加履历 ztc 0723 to
       this.getList();
     },
     methods: {
+      // 盖印监管者增加履历 ztc 0723 fr
+      getEffSeal(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS4001Store/getEffSeal', {
+            sealdetaildate: moment(new Date()).format('YYYY-MM-DD')
+          })
+          .then(response => {
+            if(response != null){
+              if (getUserInfo(response.sealdetailname)) {
+                this.userlist = getUserInfo(response.sealdetailname).userinfo.customername;
+                this.getUserids(response.sealdetailname);
+                this.userAnt = getUserInfo(response.sealdetailname).userinfo.customername;
+              }
+              if (response.sealdetaildate !== '' && response.sealdetaildate !== null) {
+                let claimdatetime = response.sealdetaildate;
+                let claimdatetim = claimdatetime.slice(0, 10);
+                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                this.sealdetaildate = [claimdatetim, claimdatetime1];
+                this.sealdetail = claimdatetim + '~' + claimdatetime1
+              }
+            }else{
+              this.userlist = this.$store.getters.userinfo.userid;
+              if (getUserInfo(this.$store.getters.userinfo.userid)) {
+                this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+                this.userAnt = getUserInfo('5e78b1fd4e3b194874180e0d').userinfo.customername;
+              }
+              let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
+              this.sealdetaildate = [];
+              this.sealdetail = claimdatetim + '~'
+            }
+          }).catch(error => {
+          Message({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.gridData = response.sealdetail;
+          this.gridData.forEach(list =>{
+            if (list.sealdetailname) {
+              list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
+            }
+          })
+          this.loading = false;
+        });
+        this.loading = false;
+      },
+      // 盖印监管者增加履历 ztc 0723 to
       //add-ws-12/21-印章盖印
       getList() {
         this.loading = true;
@@ -220,31 +272,9 @@
           .then(response => {
             //add-ws-12/21-印章盖印
             if (response.sealdetail.length > 0) {
-              this.userlist = response.sealdetail[0].sealdetailname;
-              if (getUserInfo(response.sealdetail[0].sealdetailname)) {
-                this.user = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
-                this.userAnt = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
-              }
-              if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
-                let claimdatetime = response.sealdetail[0].sealdetaildate;
-                let claimdatetim = claimdatetime.slice(0, 10);
-                let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                this.sealdetaildate = [claimdatetim, claimdatetime1];
-                this.sealdetail = claimdatetim + '~' + claimdatetime1;
-                if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
-                  this.userlist = this.$store.getters.userinfo.userid;
-                  if (getUserInfo(this.$store.getters.userinfo.userid)) {
-                    this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-                    this.userAnt = getUserInfo('5e78b1fd4e3b194874180e0d').userinfo.customername;
-                  }
-                  let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
-                  let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
-                  let claimdatetime2 = claimdatetime1 + '-03-31';
-                  this.sealdetaildate = [];
-                  this.sealdetail = claimdatetim + '~' + claimdatetime2;
-                }
-              }
-              this.gridData = response.sealResume;
+              // 盖印监管者增加履历 ztc 0723 fr
+              this.gridData = response.sealdetail;
+              // 盖印监管者增加履历 ztc 0723 to
               this.gridData.forEach(list =>{
                 if (list.sealdetailname) {
                   list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
@@ -254,12 +284,10 @@
             let roles = getCurrentRole17();
             if (this.userlist === this.$store.getters.userinfo.userid) {
               this.buttonList[4].disabled = false;
-
             }
             if (roles === '0') {
               this.buttonList[3].disabled = false;
               this.buttonList[4].disabled = false;
-
             }
             //add-ws-12/21-印章盖印
             for (let j = 0; j < response.seal.length; j++) {
@@ -417,14 +445,15 @@
             .then(response => {
               this.effectiveData = response;
               if (this.effectiveData === 1) {
-                this.wrapperClosable = false;
                 Message({
                   message: this.$t('normal.error_effective'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
               }else{
-                this.wrapperClosable = true;
+                // 盖印监管者增加履历 ztc 0723 fr
+                this.insertSeal();
+                // 盖印监管者增加履历 ztc 0723 to
               }
             })
             .catch(error => {
@@ -434,7 +463,6 @@
                 duration: 5 * 1000,
               });
               this.loading = false;
-              this.wrapperClosable = false;
             });
         }
       },
@@ -454,7 +482,6 @@
               duration: 5 * 1000,
             });
             this.loading = false;
-            this.insertnamedialog = false;
           })
           .catch(error => {
             Message({
@@ -463,7 +490,6 @@
               duration: 5 * 1000,
             });
             this.loading = false;
-            this.insertnamedialog = false;
           });
       },
       insertnamedialogs() {
@@ -487,44 +513,16 @@
           if(this.userlist === this.$store.getters.userinfo.userid){
             return;
           }
+          // 盖印监管者增加履历 ztc 0723 fr
+          this.checkSeal();
+          // 盖印监管者增加履历 ztc 0723 to
         }
         else {
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS4001Store/selectcognition')
-              .then(response => {
-                if (response.length > 0) {
-                  this.userlist = response.sealdetail[0].sealdetailname;
-                  if (getUserInfo(response.sealdetail[0].sealdetailname)) {
-                    this.user = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
-                  }
-                  if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
-                    let claimdatetime = response.sealdetail[0].sealdetaildate;
-                    let claimdatetim = claimdatetime.slice(0, 10);
-                    let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                    this.sealdetaildate = [claimdatetim, claimdatetime1];
-                    this.sealdetail = claimdatetim + '~' + claimdatetime1;
-                    if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
-                      this.userlist = this.$store.getters.userinfo.userid;
-                      if (getUserInfo(this.$store.getters.userinfo.userid)) {
-                        this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
-                      }
-                      let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
-                      let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
-                      let claimdatetime2 = claimdatetime1 + '-03-31';
-                      this.sealdetaildate = [];
-                      this.sealdetail = claimdatetim + '~' + claimdatetime1;
-                    }
-                  }
-                }
-                this.gridData = response.sealResume;
-                this.gridData.forEach(list =>{
-                  if (list.sealdetailname) {
-                    list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
-                  }
-                })
-                this.loading = false;
-              });
+          // 盖印监管者增加履历 ztc 0723 fr
+          this.loading = true;
+          this.getEffSeal();
+          this.loading = false;
+          // 盖印监管者增加履历 ztc 0723 to
         }
       },
       getUserids(val) {

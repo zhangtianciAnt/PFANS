@@ -73,3 +73,13 @@ export function selectEffective(data) {
   });
 }
 
+// 盖印监管者增加履历 ztc 0723 fr
+export function getEffSeal(data) {
+  return request({
+    url: 'seal/getEffSeal',
+    method: 'post',
+    params: data,
+  });
+}
+// 盖印监管者增加履历 ztc 0723 to
+

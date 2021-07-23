@@ -7,7 +7,10 @@ import {
   createbook,
   insertnamedialog,
   selectcognition,
-  selectEffective
+  selectEffective,
+  // 盖印监管者增加履历 ztc 0723 fr
+  getEffSeal
+  // 盖印监管者增加履历 ztc 0723 to
 } from './PFANS4001Api';
 
 const PFANS4001store = {
@@ -132,6 +135,22 @@ const PFANS4001store = {
           } else {
             reject(response.message);
           }
+          // 盖印监管者增加履历 ztc 0723 fr
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+
+    getEffSeal({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getEffSeal(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+          // 盖印监管者增加履历 ztc 0723 to
         }).catch(error => {
           reject(error);
         });
