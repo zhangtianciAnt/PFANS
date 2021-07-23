@@ -149,7 +149,6 @@
         this.dialogVisible = true;
       },
       getdate(val) {
-        debugger;
         this.multipleSelection = this.pjTableData.filter(item => item.companyprojects_id === val);
       },
     },
@@ -157,9 +156,9 @@
       date: {
         handler(newVal, oldVal) {
           if (newVal != '') {
-            debugger;
             this.newid = newVal;
           }
+          this.getdate(newVal);
         },
         deep: true,
         immediate: true,
