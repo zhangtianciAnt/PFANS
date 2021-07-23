@@ -409,7 +409,6 @@
       },
       checkSeal(){
         if (this.sealdetaildate) {
-          debugger;
           this.$store
             .dispatch('PFANS4001Store/selectEffective', {
               'sealdetaildate': moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
@@ -488,10 +487,8 @@
           if(this.userlist === this.$store.getters.userinfo.userid){
             return;
           }
-          this.
         }
         else {
-          debugger;
             this.loading = true;
             this.$store
               .dispatch('PFANS4001Store/selectcognition')
