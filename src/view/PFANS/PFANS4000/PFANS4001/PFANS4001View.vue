@@ -7,7 +7,7 @@
     </EasyNormalTable>
     <!--    add-ws-12/21-印章盖印-->
     <el-drawer :visible.sync="insertnamedialog" size="30%" :show-close="false" :withHeader="false" append-to-body :wrapperClosable="wrapperClosable">
-      <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw" :rules="rules">
+      <el-form label-position="top" label-width="8vw" ref="reff" style="padding: 2vw">
         <el-row>
           <el-form-item :error="error" :label="$t('label.PFANS4001FORMVIEW_SEALDETAILNAME')">
             <user :error="error" :selectType="selectType" :userlist="userlist"
@@ -15,14 +15,15 @@
           </el-form-item>
         </el-row>
         <el-row>
-          <el-form-item :label="$t('label.PFANS4001FORMVIEW_SEALDETAILDATE')" prop="sealdetaildate">
+          <el-form-item :label="$t('label.PFANS4001FORMVIEW_SEALDETAILDATE')">
             <el-date-picker
               v-model="sealdetaildate"
               type="daterange"
               :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
               :start-placeholder="$t('label.startdate')"
               :end-placeholder="$t('label.enddate')"
-              style="width: 20rem">
+              style="width: 20rem"
+              :picker-options="pickerOptions">
             </el-date-picker>
           </el-form-item>
         </el-row>
@@ -52,35 +53,35 @@
       EasyNormalTable,
     },
     data() {
-      var validateDate = (rule, value, callback) => {
-        if (this.sealdetaildate) {
-          this.$store
-            .dispatch('PFANS4001Store/selectEffective', {
-              'sealdetaildate': moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
-                + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD')
-            })
-            .then(response => {
-              this.effectiveData = response;
-              if (this.effectiveData === 1) {
-                callback(this.$t('normal.error_effective'));
-                this.wrapperClosable = false;
-              } else {
-                callback();
-                this.wrapperClosable = true;
-              }
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        } else {
-          callback();
-        }
-      };
+      // var validateDate = (rule, value, callback) => {
+      //   if (this.sealdetaildate) {
+      //     this.$store
+      //       .dispatch('PFANS4001Store/selectEffective', {
+      //         'sealdetaildate': moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
+      //           + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD')
+      //       })
+      //       .then(response => {
+      //         this.effectiveData = response;
+      //         if (this.effectiveData === 1) {
+      //           callback(this.$t('normal.error_effective'));
+      //           this.wrapperClosable = false;
+      //         } else {
+      //           callback();
+      //           this.wrapperClosable = true;
+      //         }
+      //       })
+      //       .catch(error => {
+      //         Message({
+      //           message: error,
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //       });
+      //   } else {
+      //     callback();
+      //   }
+      // };
       return {
         alertshow: true,
         description:'',
@@ -88,12 +89,12 @@
         spanshow: true,
         handles: true,
         userlist: '',
+        userAnt: '',
         error: '',
         selectType: 'Single',
         sealdetaildate: [],
         sealdetail: '',
         user: '',
-        userAnt: '',
         insertnamedialog: false,
         loading: false,
         title: 'title.PFANS4001VIEW',
@@ -181,15 +182,20 @@
         row_id: 'sealid',
         handlsealid: '',
         drawDisabled: false,
-        rules: {
-          sealdetaildate: [
-            {
-              required: true,
-              validator: validateDate,
-              trigger: 'change',
-            }
-          ],
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7;
+          },
         },
+        // rules: {
+        //   sealdetaildate: [
+        //     {
+        //       required: true,
+        //       validator: validateDate,
+        //       trigger: 'change',
+        //     }
+        //   ],
+        // },
       };
     },
     //add-ws-12/21-印章盖印
@@ -206,12 +212,6 @@
       this.getList();
     },
     methods: {
-      // submit() {
-      //   this.drawDisabled = true;
-      //   setTimeout(() => {
-      //     this.insertnamedialogs();
-      //   }, 1500);
-      // },
       //add-ws-12/21-印章盖印
       getList() {
         this.loading = true;
@@ -219,7 +219,6 @@
           .dispatch('PFANS4001Store/getFpans4001List', {})
           .then(response => {
             //add-ws-12/21-印章盖印
-            let roles = getCurrentRole17();
             if (response.sealdetail.length > 0) {
               this.userlist = response.sealdetail[0].sealdetailname;
               if (getUserInfo(response.sealdetail[0].sealdetailname)) {
@@ -236,21 +235,23 @@
                   this.userlist = this.$store.getters.userinfo.userid;
                   if (getUserInfo(this.$store.getters.userinfo.userid)) {
                     this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+                    this.userAnt = getUserInfo('5e78b1fd4e3b194874180e0d').userinfo.customername;
                   }
                   let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
                   let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
                   let claimdatetime2 = claimdatetime1 + '-03-31';
-                  this.sealdetaildate = [claimdatetim, claimdatetime2];
-                  this.sealdetail = claimdatetim + '~' + claimdatetime1;
+                  this.sealdetaildate = [];
+                  this.sealdetail = claimdatetim + '~' + claimdatetime2;
                 }
               }
-              this.gridData = response.sealdetail;
+              this.gridData = response.sealResume;
               this.gridData.forEach(list =>{
                 if (list.sealdetailname) {
                   list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
                 }
               })
             }
+            let roles = getCurrentRole17();
             if (this.userlist === this.$store.getters.userinfo.userid) {
               this.buttonList[4].disabled = false;
 
@@ -406,6 +407,66 @@
           return '';
         }
       },
+      checkSeal(){
+        if (this.sealdetaildate) {
+          debugger;
+          this.$store
+            .dispatch('PFANS4001Store/selectEffective', {
+              'sealdetaildate': moment(this.sealdetaildate[0]).format('YYYY-MM-DD')
+                + ' ~ ' + moment(this.sealdetaildate[1]).format('YYYY-MM-DD')
+            })
+            .then(response => {
+              this.effectiveData = response;
+              if (this.effectiveData === 1) {
+                this.wrapperClosable = false;
+                Message({
+                  message: this.$t('normal.error_effective'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }else{
+                this.wrapperClosable = true;
+              }
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              this.wrapperClosable = false;
+            });
+        }
+      },
+      insertSeal(){
+        let sealdetaildate = this.getsealdetaildate(this.sealdetaildate);
+        let parameter = {
+          sealdetaildate: sealdetaildate,
+          sealdetailname: this.userlist,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS4001Store/insertnamedialog', parameter)
+          .then(response => {
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            this.insertnamedialog = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            this.insertnamedialog = false;
+          });
+      },
       insertnamedialogs() {
         if (!this.insertnamedialog) {
           if (this.sealdetaildate === '' || this.sealdetaildate === null || this.sealdetaildate === undefined) {
@@ -424,45 +485,24 @@
             });
             return;
           }
-          let sealdetaildate = this.getsealdetaildate(this.sealdetaildate);
-          let parameter = {
-            sealdetaildate: sealdetaildate,
-            sealdetailname: this.userlist,
-          };
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS4001Store/insertnamedialog', parameter)
-            .then(response => {
-              Message({
-                message: this.$t('normal.success_02'),
-                type: 'success',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-              this.insertnamedialog = false;
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-              this.insertnamedialog = false;
-            });
+          if(this.userlist === this.$store.getters.userinfo.userid){
+            return;
+          }
+          this.
         }
         else {
+          debugger;
             this.loading = true;
             this.$store
               .dispatch('PFANS4001Store/selectcognition')
               .then(response => {
                 if (response.length > 0) {
-                  this.userlist = response[0].sealdetailname;
-                  if (getUserInfo(response[0].sealdetailname)) {
-                    this.user = getUserInfo(response[0].sealdetailname).userinfo.customername;
+                  this.userlist = response.sealdetail[0].sealdetailname;
+                  if (getUserInfo(response.sealdetail[0].sealdetailname)) {
+                    this.user = getUserInfo(response.sealdetail[0].sealdetailname).userinfo.customername;
                   }
-                  if (response[0].sealdetaildate !== '' && response[0].sealdetaildate !== null) {
-                    let claimdatetime = response[0].sealdetaildate;
+                  if (response.sealdetail[0].sealdetaildate !== '' && response.sealdetail[0].sealdetaildate !== null) {
+                    let claimdatetime = response.sealdetail[0].sealdetaildate;
                     let claimdatetim = claimdatetime.slice(0, 10);
                     let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
                     this.sealdetaildate = [claimdatetim, claimdatetime1];
@@ -475,11 +515,17 @@
                       let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
                       let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
                       let claimdatetime2 = claimdatetime1 + '-03-31';
-                      this.sealdetaildate = [claimdatetim, claimdatetime2];
+                      this.sealdetaildate = [];
                       this.sealdetail = claimdatetim + '~' + claimdatetime1;
                     }
                   }
                 }
+                this.gridData = response.sealResume;
+                this.gridData.forEach(list =>{
+                  if (list.sealdetailname) {
+                    list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
+                  }
+                })
                 this.loading = false;
               });
         }
