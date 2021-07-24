@@ -347,7 +347,7 @@
                   response.seal[j].modifyby = true;
                 }
               }
-              if (roles === '0' && response.seal[j].status == this.$t('label.node_step4') && response.seal[j].acceptor != null) {
+              if (roles === '1' && response.seal[j].status == this.$t('label.node_step4') && response.seal[j].acceptor != null) {
                 response.seal[j].modifyon = false;
                 if (this.userlist === this.$store.getters.userinfo.userid) {
                   response.seal[j].modifyby = false;
@@ -363,6 +363,7 @@
             }
             this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.userAnt  +'   '+ this.$t('label.PFANS4001FORMVIEW_EFFSEALDETA') + ':' + this.sealdetail;
             this.data = response.seal;
+            this.flag = '0'
             this.loading = false;
           })
           .catch(error => {
