@@ -917,6 +917,7 @@
                             <el-dialog :visible.sync="dialogTableVisible3" center
                                        size="50%"
                                        top="8vh" lock-scroll
+                                       width="72%"
                                        append-to-body>
                               <div style="text-align: center">
                                 <el-row style="text-align: center;height: 90%;overflow: hidden">
@@ -2223,11 +2224,18 @@
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.contractapplication[i].claimdatetime = [claimdatetim + '~' + claimdatetime1];
+                response.contractapplication[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
 
                 response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
               }
+              //resign  add  scc  20200202  选择合同页面显示合同时间 from
+              else if (response.contractapplication[i].contractdate !== '' && response.contractapplication[i].contractdate !== null && response.contractapplication[i].contractdate !== undefined){
+                let contractdate = response.contractapplication[i].contractdate;
+                let contractdate_st_end = contractdate.split('~');
+                response.contractapplication[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+              }
+              //end resign  add  scc  20200202  选择合同页面显示合同时间 to
               //add-ws-value1非空判断
               let letbudge = getDictionaryInfo(response.contractapplication[i].contracttype);
               if (letbudge) {

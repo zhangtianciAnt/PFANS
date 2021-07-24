@@ -815,6 +815,7 @@
                               center
                               size="50%"
                               top="8vh"
+                              width="75%"
                               lock-scroll
                               append-to-body
                             >
@@ -856,7 +857,7 @@
                                     <el-table-column
                                       property="claimdatetime"
                                       :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')"
-                                      width="110"
+                                      width="200"
                                     ></el-table-column>
                                     <el-table-column align="right" width="230">
                                       <template slot="header" slot-scope="scope">
@@ -1936,11 +1937,18 @@
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.contractapplication[i].claimdatetime = [claimdatetim + '~' + claimdatetime1];
+                response.contractapplication[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
 
                 response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
               }
+              //resign  add  scc  20200202  选择合同页面显示合同时间 from
+            else if (response.contractapplication[i].contractdate !== '' && response.contractapplication[i].contractdate !== null && response.contractapplication[i].contractdate !== undefined){
+                let contractdate = response.contractapplication[i].contractdate;
+                let contractdate_st_end = contractdate.split('~');
+                response.contractapplication[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+              }
+              //end resign  add  scc  20200202  选择合同页面显示合同时间 to
               var vote2 = {};
               vote2.contract = response.contractapplication[i].contractnumber;
               vote2.deployment = response.contractapplication[i].deployment;

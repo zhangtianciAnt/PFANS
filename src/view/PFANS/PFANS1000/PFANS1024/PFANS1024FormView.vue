@@ -2831,11 +2831,13 @@
             this.loading = false;
           });
       },
-      paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1024View',
-        });
-      },
+      //resign  del scc   20210722  存在同名方法 from
+      // paramsTitle() {
+      //   this.$router.push({
+      //     name: 'PFANS1024View',
+      //   });
+      // },
+      // end resign del scc 20210722  存在同名方法 to
       checkparamsTitle() {
         let letparamslist = this.$route.params.letparams;
         this.$router.push({
