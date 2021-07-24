@@ -306,9 +306,11 @@
                               v-model="scope.row.companyend"></el-input>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
+                <!--     region   add_qhr_20210722 修改【部门】栏宽度-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="200">
+                  <!--     endregion   add_qhr_20210722 修改【部门】栏宽度-->
                   <template slot-scope="scope">
-                    <project style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                    <project style="width: 100%" :date="scope.row.projects" :no="scope.row"
                              :disabled="scope.row.budgetcode ===$t('label.PFANS6008VIEW_EXPENSE')?true:!disable"
                              @change="changePro">
                     </project>
@@ -1505,9 +1507,11 @@
         let checkpjrate = parseFloat((this.form.sarmb - this.form.membercost - this.form.total)) / this.form.sarmb;
         this.form.pjrate = checkpjrate * 100;
       },
+      //region update_qhr_20210723 修改组件方法
       changePro(val, row) {
-        row.projects = val;
+        row.projects = val.companyprojects_id;
       },
+      //endregion update_qhr_20210723 修改组件方法
       changeSum(row) {
         row.worknumber = row.member + row.outsource;
         row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
@@ -1688,6 +1692,7 @@
           budgetcode: '',
           companyend: '',
           depart: '',
+          projects: '123',   //update_qhr_20210723 修改组件属性
           member: '',
           community: '',
           outsource: '',
