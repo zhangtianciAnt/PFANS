@@ -49,6 +49,7 @@ module.exports = {
     confirm: '确定',
     index: '好的,知道了！',
     cancel: '取消',
+    submitting: '提交中 ...',
     save: '保存',
     open: '跳转',
     open1: '开放',
@@ -246,7 +247,8 @@ module.exports = {
     error_priceset: '部门修改后,会在新设定的部门下重新生成单价, 是否继续？',
     error_napalmpetition: '该纳品回数的书类已经在印章中或已经有项目使用该合同，不能删除！',
     error_judgement: '该合同的决裁书已经进行中或是审批完成，不能删除！',
-    error_application: '请先申请至少一条契约番号！'
+    error_application: '请先申请至少一条契约番号！',
+    error_effective: '当前时间段存在盖印监管者！',
   },
   menu: {
     homePageManagement: '首页',
@@ -3465,6 +3467,7 @@ module.exports = {
     PFANS4001FORMVIEW_REGULATORSTATE: '盖印监管者承认',
     PFANS4001FORMVIEW_REGULATOR: '盖印监管者',
     PFANS4001FORMVIEW_SEALDETAILNAME: '盖印监管者',
+    PFANS4001FORMVIEW_EFFSEALDETA: '有效期间',
     PFANS2026FORMVIEW_PROCEDURE: '离职本人离职手续办理流程: <br/>' +
       '　　登陆P-FANS　→　人事总务　→　入退社管理　→　离职申请　→　新建　→　保存　→　发起审批　→　审批结束　→　一次上司创建【调书】　→　P-Fans首页代办提醒　→　入退社管理　→　离职申请　→　本人离职信息　→　查看　→　页面右侧蓝色小电脑图标　→　【退职者调书&离职手续】查看　→　【离职手续】页　→　离职者主动找各节点负责人审批确认<br/>' +
       '<br/>'+
