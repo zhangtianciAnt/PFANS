@@ -45,7 +45,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId, getCurrentRole17} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getUserInfo, getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
   import user from '../../../components/user.vue';
 
   export default {
@@ -280,11 +280,13 @@
                 this.sealdetail = this.gridData[0].sealdetaildate.slice(this.gridData[0].sealdetaildate.length - 10) + ' ~ '
               }
             }
-            let roles = getCurrentRole17();
+            //印章 监管者只能总经理授权 ztc fr
+            let roles = getCurrentRole();
+            //印章 监管者只能总经理授权 ztc to
             if (this.userlist === this.$store.getters.userinfo.userid) {
               this.buttonList[4].disabled = false;
             }
-            if (roles === '0') {
+            if (roles === '1') {
               this.buttonList[3].disabled = false;
               this.buttonList[4].disabled = false;
             }
