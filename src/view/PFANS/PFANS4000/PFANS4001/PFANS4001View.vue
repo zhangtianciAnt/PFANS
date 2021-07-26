@@ -180,13 +180,13 @@
                 if (moment(claimdatetim).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD') || moment(new Date()).format('YYYY-MM-DD') > moment(claimdatetime1).format('YYYY-MM-DD')) {
                   this.userlist = this.$store.getters.userinfo.userid;
                   if (getUserInfo(this.$store.getters.userinfo.userid)) {
-                    this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
+                    this.user = '张建波';
                   }
                   let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
                   let claimdatetime1 = moment(new Date()).add(1, 'y').format('YYYY');
                   let claimdatetime2 = claimdatetime1 + '-03-31';
                   this.sealdetaildate = [claimdatetim, claimdatetime2];
-                  this.sealdetail = claimdatetim + '~' + claimdatetime1;
+                  this.sealdetail = claimdatetim + '~' + claimdatetime2;
                 }
               }
             }

@@ -90,6 +90,7 @@
   import EasyButtonBar from '@/components/EasyButtonBar'
   import {orderBy} from '@/utils/customize'
   import EasyWorkFlow from '@/components/EasyWorkFlow'
+  import {Message} from 'element-ui';
 
   let moment = require('moment');
   export default {
@@ -221,7 +222,31 @@
         return 'row_height_left';
       },
       buttonClick(val) {
-        this.$emit('buttonClick', val)
+        if (val == 'update' || val == 'insert'
+          || val == 'import' || val == 'conapp'
+          || val == 'conapp' || val == 'conapp'
+          || val == 'temLoanApp' || val == 'actuarial'
+          || val == 'sealapp' || val == 'delete'
+          || val == 'insertLots' || val == 'assettransfer'
+          || val == 'importwages' || val == 'startEvaluate'
+          || val == 'overEvaluate' || val == 'createdecision'
+          || val == 'release' || val == 'cancelrelease'
+          || val == 'submyin' || val == 'submmon'
+          || val == 'crAccount' || val == 'crAccount2'
+          || val == 'makeinto' || val == 'cancellation'
+          || val == 'application' || val == 'recognition'
+          || val == 'qxjp' || val == 'qxch'
+          || val == 'history'
+        ) {
+          Message({
+            message: this.$t('normal.info_exsystem'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
+        } else {
+          this.$emit('buttonClick', val);
+        }
       },
       // 表格排序
       sortChange(column, prop, order) {

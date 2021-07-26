@@ -134,7 +134,8 @@ module.exports = {
     startEvaluate: '开始评价',
     overEvaluate: '关闭评价',
     commit: '提交',
-    applicate: '应用'
+    applicate: '应用',
+    reset: '重置密码'
   },
   table: {
     detail: '一览',
@@ -202,6 +203,7 @@ module.exports = {
     info_24: '请选择【一次評価】开始评价',
     info_25: '请选择【最終評価】结束评价',
     info_26: '请选择一条数据进行导出',
+    info_exsystem: '系统不支持此项操作！',
     success_01: '数据创建成功！',
     success_02: '数据更新成功！',
     success_03: '操作成功！',
@@ -3896,6 +3898,7 @@ module.exports = {
     PFANSUSERFORMVIEW_MARRIED: '已婚',
     PFANSUSERFORMVIEW_YES: '有',
     PFANSUSERFORMVIEW_NO: '无',
+    PFANSUSERFORMVIEW_RESETPASSWORD: '重置密码成功!',
     PFANSUSERFORMVIEW_SAVEANDROLE: '保存并设置角色',
     PFANSUSERFORMVIEW_EMAILADDRESS: '邮箱地址',
     PFANSUSERFORMVIEW_TRUEEMAILADDRESS: '请输入正确的邮箱地址',

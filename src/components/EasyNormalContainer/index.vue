@@ -36,6 +36,7 @@
   import EasyWorkFlow from '@/components/EasyWorkFlow'
   import {helpContent} from "@/utils/helpContent";
   import {getDictionaryInfo} from '@/utils/customize'
+  import {Message} from 'element-ui';
 
   export default {
     name: 'index',
@@ -124,6 +125,21 @@
           } else {
             this.$emit('buttonClick', val)
           }
+        } else if (
+          val == 'save' || val == 'startWorkflow' ||
+          val == 'delWorkflow' || val == 'insertgenerate' ||
+          val == 'trash' || val == 'recognition' ||
+          val == 'recognitionno' || val == 'application' ||
+          val == 'recognitionno' || val == 'cancellation' ||
+          val == 'makeinto' || val == 'cancellation'
+
+        ) {
+          Message({
+            message: this.$t('normal.info_exsystem'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          return;
         } else {
           this.$emit('buttonClick', val)
         }
