@@ -58,13 +58,17 @@
                         fix: false,
                         filter: false
                     },
+                  //region  upd  ml  20210723  学习经历改为Rn  from
                     {
-                        code: "education1",
-                        label: "label.PFANS2002VIEW_EDUCATION",
+                        // code: "education1",
+                        // label: "label.PFANS2002VIEW_EDUCATION",
+                        code: "level",
+                        label: "label.PFANS2003FORMVIEW_RN",
                         width: 150,
                         fix: false,
                         filter: true
                     },
+                  //endregion  upd  ml  20210723  学习经历改为Rn  to
                     {
                         code: "center",
                         label: "label.center",
@@ -86,20 +90,27 @@
                         fix: false,
                         filter: true
                     },
+                  //region  upd  ml  20210723  生年月日改为预计入职时间、面试官改为实际入职时间  from
                     {
-                        code: "birthday",
-                        label: "label.PFANS2002VIEW_BIRTHDAY",
+                        // code: "birthday",
+                        // label: "label.PFANS2002VIEW_BIRTHDAY",
+                        code: "expectedtime",
+                        label: "label.PFANS2002FORMVIEW_EXPECTEDTIME",
                         width: 150,
                         fix: false,
                         filter: false
                     },
                     {
-                        code: "_interview",
-                        label: "label.PFANS2002VIEW_INTERVIEW",
+                        // code: "_interview",
+                        // label: "label.PFANS2002VIEW_INTERVIEW",
+                        code: "entrytime",
+                        label: "label.PFANS2002FORMVIEW_REALINTIME",
                         width: 150,
                         fix: false,
-                        filter: true
+                        // filter: true
+                        filter: false
                     },
+                  //endregion  upd  ml  20210723  出生年月改为预计入职时间、面试官改为实际入职时间  to
                     {
                         code: "createon",
                         label: "label.PFANS2002VIEW_CREATEON",
@@ -137,12 +148,20 @@
                         if (getOrgInfo(this.data[j].center_id)) this.data[j].center = getOrgInfo(this.data[j].center_id).companyname;
                         if (getOrgInfo(this.data[j].group_id)) this.data[j].group = getOrgInfo(this.data[j].group_id).companyname;
                         if (getOrgInfo(this.data[j].team_id)) this.data[j].team = getOrgInfo(this.data[j].team_id).departmentname;
-                        if (response[j].education1 !== null && response[j].education1 !== "") {
-                            let letStage = getDictionaryInfo(response[j].education1);
-                            if (letStage != null) {
-                                response[j].education1 = letStage.value1;
-                            }
+                      //region  upd  ml  20210723  学习经历改为Rn  from
+                      //   if (response[j].education1 !== null && response[j].education1 !== "") {
+                      //       let letStage = getDictionaryInfo(response[j].education1);
+                      //       if (letStage != null) {
+                      //           response[j].education1 = letStage.value1;
+                      //       }
+                      //   }
+                      if (response[j].level !== null && response[j].level !== "") {
+                        let letStage = getDictionaryInfo(response[j].level);
+                        if (letStage != null) {
+                          response[j].level = letStage.value1;
                         }
+                      }
+                      //endregion  upd  ml  20210723  学习经历改为Rn  to
                       if (response[j].entrydivision !== null && response[j].entrydivision !== "") {
                         let letStage = getDictionaryInfo(response[j].entrydivision);
                         if (letStage != null) {
@@ -158,11 +177,29 @@
                                 }
                             }
                         }
-                        this.data[j]._interview = interview.substring(0, interview.length - 1);
-                        this.data[j].status = getStatus(this.data[j].status);
-                        this.data[j].birthday = moment(this.data[j].birthday).format(
-                            "YYYY-MM-DD"
+                      //region  upd  ml  20210723  面试官改为实际入职时间  from
+                      //   this.data[j]._interview = interview.substring(0, interview.length - 1);
+                      if (this.data[j].entrytime !== null && this.data[j].entrytime !== "" && this.data[j].entrytime !== undefined) {
+                        this.data[j].entrytime = moment(this.data[j].entrytime).format(
+                          "YYYY-MM-DD"
                         );
+                      }else{
+                        this.data[j].entrytime = "";
+                      }
+                      //endregion  upd  ml  20210723  面试官改为实际入职时间  to
+                        this.data[j].status = getStatus(this.data[j].status);
+                      //region  upd  ml  20210723  生年月日改为预计入职时间  from
+                      //   this.data[j].birthday = moment(this.data[j].birthday).format(
+                      //       "YYYY-MM-DD"
+                      //   );
+                      if (this.data[j].expectedtime !== null && this.data[j].expectedtime !== "" && this.data[j].expectedtime !== undefined) {
+                        this.data[j].expectedtime = moment(this.data[j].expectedtime).format(
+                          "YYYY-MM-DD"
+                        );
+                      }else {
+                        this.data[j].expectedtime = "";
+                      }
+                      //endregion  upd  ml  20210723  生年月日改为预计入职时间  to
                         this.data[j].createon = moment(this.data[j].createon).format(
                             "YYYY-MM-DD"
                         );
