@@ -38,242 +38,16 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row>
-            <el-table :data="datatotal" border
-                      header-cell-class-name="sub_bg_color_blue"  height="85vh" width="100%"
-            >
-              <el-table-column
-                :label = "$t('label.PFANS1051THEMENAME')"
-                prop="themename"
-                width="150px"
-                show-overflow-tooltip
-              >
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051TOOLSTYPE')"
-                prop="contract"
-                width="100px"
-                show-overflow-tooltip
-              >
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051TOOLS')"
-                prop="toolsorgs"
-                width="240px"
-                show-overflow-tooltip
-              >
 
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051CONTRACTMOUNT')"
-                prop="amount"
-                width="200px"
-                show-overflow-tooltip
-              >
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH4')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan4"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual4">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH5')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan5"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual5">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH6')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan6"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual6">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1045VIEW_CYCLE3')"
-                prop="totalactual1q">
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH7')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan7"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual7">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH8')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan8"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual8">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH9')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan9"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual9">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1045VIEW_CYCLE4')"
-                prop="totalactual2q">
-
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH10')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan10"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual10">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH11')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan11"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual11">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH12')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan12"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual12">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1045VIEW_CYCLE5')"
-                prop="totalactual3q">
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH1')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan1">
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual1">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH2')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan2">
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual2">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051MONTH3')"
-              >
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
-                  prop="moneyplan3"
-                >
-
-                </el-table-column>
-                <el-table-column
-                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual3">
-
-                </el-table-column>
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1045VIEW_CYCLE6')"
-                prop="totalactual4q">
-
-              </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1051TOTAL')"
-                prop="totalactual">
-
-              </el-table-column>
-            </el-table>
-          </el-row>
+        <lb-table :column="tableData.columns"
+                  :data="tableData.data" style="margin-top: -300px;"
+                  :merge="['themename', 'contract', 'toolsorgs', 'toolsorgs']"
+                  header-cell-class-name="sub_bg_color_blue"
+                  :overflow-x = auto
+                  :overflow-y = auto
+                  :height = 500
+                  border>
+        </lb-table>
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -284,12 +58,14 @@
   import EasyNormalContainer from '@/components/EasyNormalContainer';
   import {getDictionaryInfo,getOrgInfo, getUserInfo,getCurrentRoleNew} from '@/utils/customize';
   import {Message} from 'element-ui';
+  import LbTable from '@/components/EasyMergeTable';
 
   let moment = require('moment');
   export default {
     name: 'PFANS1051View',
     components: {
       EasyNormalContainer,
+      LbTable,
     },
     data() {
       return {
@@ -305,6 +81,215 @@
           year:parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
           group_id:'',
         },
+        tableData: {
+          columns: [
+            {
+              prop: 'themename',
+              label: 'THEME名',
+              width: 120,
+            },
+            {
+              prop: 'contract',
+              label: '分类',
+              width: 120,
+            },
+            {
+              prop: 'toolsorgs',
+              label: '委托元',
+              width: 160,
+            },
+            {
+              prop: 'amount',
+              label: '合同号 【金额】',
+              width: 120,
+            },
+            {
+              label: '4月',
+              child: [
+                {
+                  prop: 'moneyplan4',
+                  label: '计划',
+
+                },
+                {
+                  prop: 'moneyactual4',
+                  label: '实际',
+
+                },
+              ]
+            },
+            {
+              label: '5月',
+              child: [
+                {
+                  prop: 'moneyplan5',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual5',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '6月',
+              child: [
+                {
+                  prop: 'moneyplan6',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual6',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              prop: 'totalactual1q',
+              label: '第一季度',
+
+            },
+            {
+              label: '7月',
+              child: [
+                {
+                  prop: 'moneyplan7',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual7',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '8月',
+              child: [
+                {
+                  prop: 'moneyplan8',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual8',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '9月',
+              child: [
+                {
+                  prop: 'moneyplan9',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual9',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              prop: 'totalactual2q',
+              label: '第二季度',
+
+            },
+            {
+              label: '10月',
+              child: [
+                {
+                  prop: 'moneyplan10',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual10',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '11月',
+              child: [
+                {
+                  prop: 'moneyplan11',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual11',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '12月',
+              child: [
+                {
+                  prop: 'moneyplan12',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual12',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              prop: 'totalactual3q',
+              label: '第三季度',
+
+            },
+            {
+              label: '1月',
+              child: [
+                {
+                  prop: 'moneyplan1',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual1',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '2月',
+              child: [
+                {
+                  prop: 'moneyplan2',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual2',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              label: '3月',
+              child: [
+                {
+                  prop: 'moneyplan3',
+                  label: '计划',
+                },
+                {
+                  prop: 'moneyactual3',
+                  label: '实际',
+                }
+              ]
+            },
+            {
+              prop: 'totalactual4q',
+              label: '第四季度',
+
+            },
+            {
+              prop: 'totalactual',
+              label: '全年合计',
+
+            },
+
+          ],
+          data: []
+        }
       };
     },
     mounted() {
@@ -480,7 +465,7 @@
 
               }
             }
-            this.datatotal = response;
+            this.tableData.data = response;
             this.loading = false;
           })
           .catch(error => {
@@ -491,7 +476,7 @@
             });
             this.loading = false;
           });
-          resolve(this.datatotal)
+          resolve(this.tableData)
         });
       },
       groupChange(val) {
