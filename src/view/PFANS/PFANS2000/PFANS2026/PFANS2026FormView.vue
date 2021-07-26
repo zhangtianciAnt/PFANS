@@ -533,11 +533,13 @@
             // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
             if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -547,11 +549,13 @@
             }
             else {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -564,11 +568,13 @@
             this.enableSave = true;
             if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -578,11 +584,13 @@
             }
             else {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -594,11 +602,13 @@
         } else { //离职申请未结束不能生成调书
           this.enableSave = false;
           this.buttonList = [
-            {
-              key: 'generate',
-              name: 'button.insertgenerate',
-              disabled: true,
-            },
+            //ztc 0726 离职者报告调整位置 fr
+            // {
+            //   key: 'generate',
+            //   name: 'button.insertgenerate',
+            //   disabled: true,
+            // },
+            //ztc 0726 离职者报告调整位置 to
             {
               key: 'insertsta',
               name: 'button.insertsta',
