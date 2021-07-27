@@ -41,10 +41,9 @@
 
         <lb-table :column="tableData.columns"
                   :data="tableData.data" style="margin-top: -300px;"
-                  :merge="['themename', 'contract', 'toolsorgs', 'toolsorgs']"
+                  :merge="['themename', 'contract', 'toolsorgs','moneyplan4','moneyplan5','moneyplan6','moneyplan7',
+                  'moneyplan8','moneyplan9','moneyplan10','moneyplan11','moneyplan12','moneyplan1','moneyplan2','moneyplan3',]"
                   header-cell-class-name="sub_bg_color_blue"
-                  :overflow-x = auto
-                  :overflow-y = auto
                   :height = 500
                   border>
         </lb-table>
@@ -101,11 +100,11 @@
             {
               prop: 'amount',
               label: '合同号 【金额】',
-              width: 120,
+              width: 280,
             },
             {
               label: '4月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan4',
                   label: '计划',
@@ -120,7 +119,7 @@
             },
             {
               label: '5月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan5',
                   label: '计划',
@@ -133,7 +132,7 @@
             },
             {
               label: '6月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan6',
                   label: '计划',
@@ -151,7 +150,7 @@
             },
             {
               label: '7月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan7',
                   label: '计划',
@@ -164,7 +163,7 @@
             },
             {
               label: '8月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan8',
                   label: '计划',
@@ -177,7 +176,7 @@
             },
             {
               label: '9月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan9',
                   label: '计划',
@@ -195,7 +194,7 @@
             },
             {
               label: '10月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan10',
                   label: '计划',
@@ -208,7 +207,7 @@
             },
             {
               label: '11月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan11',
                   label: '计划',
@@ -221,7 +220,7 @@
             },
             {
               label: '12月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan12',
                   label: '计划',
@@ -239,7 +238,7 @@
             },
             {
               label: '1月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan1',
                   label: '计划',
@@ -252,7 +251,7 @@
             },
             {
               label: '2月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan2',
                   label: '计划',
@@ -265,7 +264,7 @@
             },
             {
               label: '3月',
-              child: [
+              children: [
                 {
                   prop: 'moneyplan3',
                   label: '计划',
@@ -460,7 +459,6 @@
           .dispatch('PFANS1051Store/selectBygroupid',parameter)
           .then(response => {
             if (response.length > 0) {
-              debugger;
               for (let i = 0; i < response.length; i++) {
 
               }
