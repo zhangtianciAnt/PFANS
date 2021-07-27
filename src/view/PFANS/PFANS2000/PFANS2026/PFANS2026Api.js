@@ -80,7 +80,9 @@ export function generatesta(data) {
   return requestPdf({
     url: 'staffexitprocedure/generatesta',
     method: 'post',
-    data: data,
+    //ztc 离职者报告调整位置 fr
+    params: data,
+    //ztc 离职者报告调整位置 to
     responseType: 'blob'
   })
 }

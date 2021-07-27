@@ -1,8 +1,10 @@
 <template>
   <div>
+<!--    //ztc 0726 0726 离职者报告调整位置 fr-->
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelection="true" ref="roletable" >
     <!--add  ml   20210708    离职流程提示   from-->
+<!--    //ztc 0726 离职者报告调整位置 to-->
     <el-alert
       slot="customize"
       type="info"
@@ -276,6 +278,14 @@
           // add-ccm  数据转结 fr
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit', },
           // add-ccm  数据转结 to
+          //ztc 0726 离职者报告调整位置 fr
+          {
+            'key': 'generate',
+            'name': 'button.insertgenerate',
+            'disabled': false,
+            'icon': 'el-icon-printer'
+          },
+          //ztc 0726 离职者报告调整位置 to
         ],
         buttonListial:[
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -296,6 +306,14 @@
           // add-ccm 7/20 离职工资对比 fr
           {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
           // add-ccm 7/20 离职工资对比 to
+          //ztc 0726 离职者报告调整位置 fr
+          {
+            'key': 'generate',
+            'name': 'button.insertgenerate',
+            'disabled': false,
+            'icon': 'el-icon-printer'
+          },
+          //ztc 0726 离职者报告调整位置 to
         ],
         userid: '',
         //add-ws-9/23-禅道任务548
@@ -303,6 +321,9 @@
         //add-ws-9/23-禅道任务548
         rowid: '',
         status: '',
+        //ztc 0726 离职者报告调整位置 fr
+        selectedlist: [],
+        //ztc 0726 离职者报告调整位置 to
         row_id: 'staffexitprocedure_id',
         // add-ccm 7/9 离职考勤对比 fr
         url: '',
@@ -753,8 +774,53 @@
               disabled: false,
             },
           });
+          //ztc 0726 离职者报告调整位置 fr
+        } else if(val === 'generate'){
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+            if (this.$refs.roletable.selectedList[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+              Message({
+                message: this.$t('label.PFANS2026FORMVIEW_MESSAGESTU'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
+          this.selectedlist = this.$refs.roletable.selectedList;
+          this.export1(0);
+          //ztc 0726 离职者报告调整位置 to
         }
       },
+      //ztc 0726 离职者报告调整位置 fr
+      export1(val){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2026Store/generatesta', {staffexitprocedure_id: this.$refs.roletable.selectedList[val].staffexitprocedure_id})
+          .then(response => {
+            this.loading = false;
+            if (val < this.$refs.roletable.selectedList.length - 1) {
+              val = val + 1;
+              this.export1(val);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //ztc 0726 离职者报告调整位置 to
       //add-ws-6/16-禅道106
       delete() {
         this.loading = true;
