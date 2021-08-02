@@ -632,6 +632,7 @@
     methods: {
 
       getCompanyProjectList() {
+        this.optionsdata = [];
         if(this.$store.getters.useraccount.account.toUpperCase().indexOf('KK-') != -1){
           if(moment(this.companyform.log_date).format('YYYY-MM-DD') >= '2021-07-01'){
             this.optionsdata = [];
