@@ -61,12 +61,14 @@
                 <el-table-column
                   show-overflow-tooltip
                   prop="username"
+                  width="100px"
                   :label="$t('label.PFANS5016FORMVIEW_NAME')"
                 >
                 </el-table-column>
                 <el-table-column
                   show-overflow-tooltip
                   align="center"
+                  width="200px"
                   prop="groupname"
                   :label="$t('label.PFANS5016FORMVIEW_DEPART')"
                 >
@@ -75,6 +77,7 @@
                   show-overflow-tooltip
                   align="center"
                   prop="company"
+                  width="100px"
                   :label="$t('label.PFANS5016FORMVIEW_COMPANY')"
                 >
                 </el-table-column>
@@ -82,6 +85,7 @@
                   show-overflow-tooltip
                   align="center"
                   prop="ratio"
+                  width="100px"
                   :label="$t('label.PFANS5016FORMVIEW_RATIO')"
                 >
                 </el-table-column>
@@ -94,17 +98,18 @@
                 <el-table-column
                   prop="general"
                   align="center"
+                  width="150px"
                   :label="$t('label.PFANS5016FORMVIEW_GENERAL')">
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5016FORMVIEW_TIMETOADJUST')" align="center" prop="adjust"
-                                 width="190">
+                                 width="150px">
                   <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.adjust" controls-position="right" style="width: 11rem"
+                    <el-input-number v-model="scope.row.adjust" controls-position="right" style="width:9vw"
                                      :disabled="fillIn()"
-                                     v-show=scope.row.adjust :min="0" :max="1000000000" :precision="2"
+                                     v-show="scope.row.project != '—'" :min="0" :max="1000000000" :precision="2"
                                      @change="changeAdj(scope.row)"></el-input-number>
-                    <el-input :disabled="true" style="width:13vw" v-model="scope.row.change"
-                              v-show=!scope.row.adjust></el-input>
+                    <el-input :disabled="true" style="width:9vw" v-model="scope.row.change"
+                              v-show="scope.row.project == '—'"></el-input>
                   </template>
                 </el-table-column>
               </el-table>
