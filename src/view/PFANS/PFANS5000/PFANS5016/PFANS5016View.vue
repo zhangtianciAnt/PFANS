@@ -77,7 +77,7 @@
                   show-overflow-tooltip
                   align="center"
                   prop="company"
-                  width="100px"
+                  width="150px"
                   :label="$t('label.PFANS5016FORMVIEW_COMPANY')"
                 >
                 </el-table-column>
@@ -98,7 +98,7 @@
                 <el-table-column
                   prop="general"
                   align="center"
-                  width="150px"
+                  width="120px"
                   :label="$t('label.PFANS5016FORMVIEW_GENERAL')">
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS5016FORMVIEW_TIMETOADJUST')" align="center" prop="adjust"
@@ -281,13 +281,33 @@ export default {
       }
     },
     buttonClick(val) {
+      Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
+        var m = Math.pow(10, digit);
+        return Math.round(f * m, 10) / m;
+      }
       if (val === 'save') {
         if(this.tableData.length > 0 && this.tableData != null) {
           this.loading = true;
           this.$store
             .dispatch('PFANS5016Store/updateByVoId', this.tableData)
             .then(response => {
-              this.getDepartInfo();
+              // this.getDepartInfo();
+              this.tableData2 = JSON.parse(JSON.stringify(this.tableData1));
+              this.tableData1 = JSON.parse(JSON.stringify(this.tableData));
+              for(let i = 0; i < this.tableData2.length; i++){
+                for(let j = 0; j < this.tableData1.length; j++){
+                  if(this.tableData2[i].username == this.tableData1[j].username){
+                    this.tableData2[i].children = this.tableData1[j].children;
+                  }
+                }
+                let sum = 0.00;
+                for (let k = 0; k < this.tableData2[i].children.length; k++) {
+                  sum += Number(this.tableData2[i].children[k].adjust);
+                }
+                this.tableData2[i].change = Math.formatFloat(sum,2);//保留两位小数
+              }
+              this.tableData1 = this.tableData2;
+              this.loading = false;
             })
             .catch(error => {
               Message({
