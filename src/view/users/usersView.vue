@@ -695,13 +695,13 @@ export default {
                   this.$t("label.PFANSUSERVIEW_RANK"),//RANK
                   this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),//职级类型
                   this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
-                  this.$t("label.PFANSUSERFORMVIEW_OFFICIALDATE"),//试用期截止日(转正日)
+                  this.$t("label.PFANSUSERFORMVIEW_OFFICIALDATE"),//试用期截止日(转正日-1)
                   this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
                   this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),//毕业年月日
                   this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),//最终毕业学校
                   this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),//专业
                   this.$t("label.PFANSUSERFORMVIEW_DEGREE"),//最终学位
-                  this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
+                  // this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
                   this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),//今年年休数
                   this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE"),//劳动合同类型
                   this.$t("label.PFANSUSERFORMVIEW_FIXEDATE"),//固定期限締切日
@@ -763,7 +763,7 @@ export default {
                   "graduation",//最终毕业学校
                   "specialty",//专业
                   "degree",//最终学位
-                  "annualyearto",//今年年休数(残)
+                  //"annualyearto",//今年年休数(残)
                   "annualyear",//今年年休数
                   "laborcontracttype",//劳动合同类型
                   "fixedate",//固定期限締切日
