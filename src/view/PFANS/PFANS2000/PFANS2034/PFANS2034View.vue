@@ -159,19 +159,21 @@
                   width="200"
                   align="center"
                 ></el-table-column>
-                <el-table-column
+                  <!--region add_qhr_20210730 隐藏本月入/退職/産休基本工资、本月入/退職/産休基本給列-->
+                <el-table-column v-if="false"
                   prop="thismonthbasicbasic"
                   :label="$t('label.PFANS2006VIEW_THISMONTHBASICBASIC')"
                   width="200"
                   align="center"
                 ></el-table-column>
-                <el-table-column
+                <el-table-column v-if="false"
                   prop="thismonthbasic"
                   :label="$t('label.PFANS2005FORMVIEW_MONTHLYPOSTALTEMPORARY')"
                   width="200"
                   align="center"
                 ></el-table-column>
-                <el-table-column
+                  <!--endregion add_qhr_20210730 隐藏本月入/退職/産休基本工资、本月入/退職/産休基本給列-->
+                  <el-table-column
                   prop="shortillness"
                   :label="$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME')"
                   width="150"
