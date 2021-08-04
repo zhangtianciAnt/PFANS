@@ -167,6 +167,39 @@
                   <!--                    </el-form-item>-->
                   <!--                  </el-col>-->
                 </el-row>
+                <!--       add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数-->
+                <el-row>
+                  <el-col :span="8">
+                    <template>
+                      <el-form-item :label="$t('label.PFANS1013VIEW_REALSTARTDATE')" prop="realstartdate">
+                        <el-date-picker
+                          :disabled="!disable"
+                          style="width:20vw"
+                          type="date"
+                          @change="dateCom"
+                          v-model="form.realstartdate">
+                        </el-date-picker>
+                      </el-form-item>
+                    </template>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REALENDDATE')" prop="realenddate">
+                      <el-date-picker
+                        :disabled="!disable"
+                        style="width:20vw"
+                        type="date"
+                        @change="dateCom"
+                        v-model="form.realenddate">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_REALDATENUMBER')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.realdatenumber"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <!--       add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数-->
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
@@ -181,7 +214,8 @@
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+<!--                  update 2021/05/28 是否夜间返回-修改组件间距-->
+                  <el-col :span="4">
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
                       <el-switch
@@ -195,6 +229,22 @@
                       <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
                     </el-form-item>
                   </el-col>
+                  <!--region  add_qhr_2021/05/28 添加夜间返回组件-->
+                  <el-col :span="4">
+                    <el-form-item :label="$t('label.PFANS1013VIEW_YESYJFH')">
+                      <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
+                      <el-switch
+                        @change="changebacknight"
+                        :disabled="!disable"
+                        v-model="form.backnight"
+                        active-value="1"
+                        inactive-value="0"
+                      >
+                      </el-switch>
+                      <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <!--endregion  add_qhr_2021/05/28 添加夜间返回组件-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
                       <el-select :disabled="true" clearable style="width: 20vw" v-model="form.project_id">
@@ -1357,6 +1407,9 @@
           // add-ws-8/12-禅道任务446
           remark: '',
           arrivenight: '',
+          //region  add_qhr_2021/05/28 添加夜间返回组件
+          backnight: '',
+          //endregion  add_qhr_2021/05/28 添加夜间返回组件
           external: '',
           level: '',
           abroadbusiness: '',
@@ -1372,6 +1425,9 @@
           startdate: '',
           enddate: '',
           datenumber: '',
+          realstartdate: '',
+          realenddate: '',
+          realdatenumber: '',
           // budgetunit: '',
           loan: '',
           loanamount: '',
@@ -1502,6 +1558,18 @@
           //   message: this.$t('normal.error_09') + this.$t('label.budgetunit'),
           //   trigger: 'change',
           // }],
+          // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          realstartdate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALSTARTDATE'),
+            trigger: 'change',
+          }],
+          realenddate: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1013VIEW_REALENDDATE'),
+            trigger: 'change',
+          }],
+          // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
         },
         code1: 'PG002',
         code2: 'PJ036',
@@ -1837,12 +1905,20 @@
         if(this.form.type === '0'){
         // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
           this.getBusInside();
-       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+          // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+          //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+          this.form.realstartdate = this.form.startdate;
+          this.form.realenddate = this.form.enddate;
+          //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
         }
         else{
        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
           this.getBusOuter();
        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+          //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+          this.form.realstartdate = this.form.startdate;
+          this.form.realenddate = this.form.enddate;
+          //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
         }
         // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
         this.checkmoney = true;
@@ -2069,6 +2145,125 @@
       }
     },
     methods: {
+      //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+      dateCom() {
+        if (this.form.realstartdate != '' && this.form.realstartdate != null && this.form.realenddate != '' && this.form.realenddate != null) {
+          if (moment(this.form.realstartdate).format('YYYY-MM-DD') < moment(this.form.realenddate).format('YYYY-MM-DD')) {
+            this.form.realdatenumber = moment(this.form.realenddate).diff(moment(this.form.realstartdate), 'days') + 1;
+          } else if (moment(this.form.realstartdate).format('YYYY-MM-DD') === moment(this.form.realenddate).format('YYYY-MM-DD')) {
+            this.form.realdatenumber = 1;
+          } else {
+            this.form.realdatenumber = 0;
+          }
+          let moneys = 0;
+          if (this.form.type === '0') {
+            moneys = getDictionaryInfo('PJ035001').value7;
+          } else if (this.form.type === '1') {
+            moneys = getDictionaryInfo('PJ035002').value8;
+          }
+          this.tableA = [];
+          this.realTodaysum = [];
+          if (this.form.realstartdate != '' && this.form.realenddate != '' && moment(this.form.realstartdate).format('YYYY-MM-DD') != moment(this.form.realenddate).format('YYYY-MM-DD')) {
+            var getDate = function(str) {
+              var tempDate = new Date();
+              var list = str.split('-');
+              tempDate.setFullYear(list[0]);
+              tempDate.setMonth(list[1] - 1);
+              tempDate.setDate(list[2]);
+              return tempDate;
+            };
+            var date1 = getDate(moment(this.form.realstartdate).format('YYYY-MM-DD'));
+            var date2 = getDate(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            if (date1 > date2) {
+              var tempDate = date1;
+              date1 = date2;
+              date2 = tempDate;
+            }
+            date1.setDate(date1.getDate() + 1);
+            var realdateArr = [];
+            var i = 0;
+            while (!(date1.getFullYear() == date2.getFullYear()
+              && date1.getMonth() == date2.getMonth() && date1.getDate() == date2
+                .getDate())) {
+              var dayStr = date1.getDate().toString();
+              if (dayStr.length == 1) {
+                dayStr = '0' + dayStr;
+              }
+              var monthStr = (date1.getMonth() + 1).toString();
+              if (monthStr.length == 1) {
+                monthStr = '0' + monthStr;
+              }
+              realdateArr[i] = date1.getFullYear() + '-' + monthStr + '-'
+                + dayStr;
+              i++;
+              date1.setDate(date1.getDate() + 1);
+            }
+            realdateArr.splice(0, 0, moment(this.form.realstartdate).format('YYYY-MM-DD'));
+            realdateArr.push(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            this.realTodaysum = realdateArr;
+          } else {
+            var realdateArr = [];
+            dateArr.push(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            this.realTodaysum = realdateArr;
+          }
+          for (let i = 0; i < this.realTodaysum.length; i++) {
+            this.tableA.push({
+              // code20: this.Redirict === '0' ? 'PJ119' : 'PJ132',
+              accountcode: this.newaccountcodeflg,
+              subsidies: moneys,
+              evectionid: '',
+              accommodationdetails_id: '',
+              accommodationdate: this.realTodaysum[i],
+              invoicenumber: '',
+              plsummary: this.plsummaryflg,
+              budgetcoding: '',
+              subjectnumber: this.accflg,
+              departmentname: this.groupId,
+              activitycontent: '',
+              city: this.region,
+              region: this.region,
+              facilitytype: '',
+              facilityname: '',
+              currency: '',
+              rmb: '',
+              travel: '',
+              annexno: '',
+              rowindex: '',
+              taxes: '',
+              Redirict: this.Redirict,
+            });
+          }
+          for (let i = 0; i < this.tableA.length; i++) {
+            this.tableA[i].optionsA = [];
+            if (getOrgInfo(this.tableA[i].departmentname)) {
+              let butinfoA = (getOrgInfo(this.tableA[i].departmentname).encoding).substring(0, 3);
+              let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+              if (dicA.length > 0) {
+                for (let j = 0; j < dicA.length; j++) {
+                  if (butinfoA === (dicA[j].value1).substring(0, 3)) {
+                    this.tableA[i].optionsA.push({
+                      lable: dicA[j].value2 + '_' + dicA[j].value3,
+                      value: dicA[j].code,
+                    });
+                  }
+                }
+              }
+            }
+            if (this.form.arrivenight === '1') {
+              this.tableA[0].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[0].subsidies = parseFloat(moneys);
+            }
+            let i = this.tableA.length - 1;
+            if (this.form.backnight === '1') {
+              this.tableA[i].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[i].subsidies = parseFloat(moneys);
+            }
+          }
+        }
+      },
+      //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
       changeereimbursementdate(value) {
         if (value) {
           this.month3 = moment(value).format('YYYY-MM');
@@ -2144,6 +2339,22 @@
         }
       },
       //add-ws-6/18-禅道任务15
+      //region add_qhr_20210528 添加出差夜间返回选项
+      changebacknight(val) {
+        let moneys1 = 0;
+        if (this.form.type === '0') {
+          moneys1 = getDictionaryInfo('PJ035001').value7;
+        } else if (this.form.type === '1') {
+          moneys1 = getDictionaryInfo('PJ035002').value8;
+        }
+        let i = this.tableA.length - 1;
+        if (val === '1') {
+          this.tableA[i].subsidies = parseFloat(moneys1) + 100;
+        } else {
+          this.tableA[i].subsidies = parseFloat(moneys1);
+        }
+      },
+      //endregion add_qhr_20210528 添加出差夜间返回选项
       changeinvoicenumber(row, val) {
         for (let j = 0; j < this.tableF.length; j++) {
           if (row.invoicenumber == this.tableF[j].invoicenumber) {
@@ -2241,6 +2452,9 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
+                    backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     regionname: response[i].regionname,
                     loanapplication_id: response[i].loanapplication_id,
                   });
@@ -2259,6 +2473,9 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
+                    backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     regionname: response[i].regionname,
                     loanapplication_id: response[i].loanapplication_id,
                   });
@@ -2298,6 +2515,9 @@
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
+                    backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -2318,6 +2538,9 @@
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
+                    backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -3205,6 +3428,9 @@
             this.form.startdate = '';
             this.form.enddate = '';
             this.form.arrivenight = '';
+            //region  add_qhr_2021/05/28 添加夜间返回组件
+            this.form.backnight = '';
+            //endregion  add_qhr_2021/05/28 添加夜间返回组件
             //add_fjl_0911  添加初始化值 start
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
@@ -3221,6 +3447,9 @@
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
             this.form.arrivenight = this.relations[i].arrivenight;
+            //region  add_qhr_2021/05/28 添加夜间返回组件
+            this.form.backnight = this.relations[i].backnight;
+            //endregion  add_qhr_2021/05/28 添加夜间返回组件
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
@@ -3267,6 +3496,11 @@
           dateArr.splice(0, 0, moment(this.form.startdate).format('YYYY-MM-DD'));
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
           this.Todaysum = dateArr;
+          //region   add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          this.form.realstartdate = moment(this.form.startdate).format('YYYY-MM-DD');
+          this.form.realenddate = moment(this.form.enddate).format('YYYY-MM-DD');
+          this.form.realdatenumber =  moment(this.form.realenddate).diff(moment(this.form.realstartdate), 'days') + 1;
+          //endregion    add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
         } else {
           var dateArr = [];
           dateArr.push(moment(this.form.enddate).format('YYYY-MM-DD'));
@@ -3327,6 +3561,14 @@
           } else {
             this.tableA[0].subsidies = parseFloat(moneys);
           }
+          //region  add_qhr_2021/05/28 添加夜间返回组件
+          let i = this.tableA.length - 1;
+          if (this.form.backnight === '1') {
+            this.tableA[i].subsidies = parseFloat(moneys) + 100;
+          } else {
+            this.tableA[i].subsidies = parseFloat(moneys);
+          }
+          //endregion  add_qhr_2021/05/28 添加夜间返回组件
         }
       },
 
@@ -3668,7 +3910,32 @@
         }
         //add-ws-8/29-禅道bug066
         if (val === 'save') {
-
+          //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          if (moment(this.form.realenddate).format('YYYY-MM-DD') < moment(this.form.realstartdate).format('YYYY-MM-DD')) {
+            Message({
+              message: this.$t('label.PFANS1013FORMVIEW_CHECKREALDATENUMBER'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //region add_qhr_20210611 添加【币种】必填项
+          if (this.form.type === '1') {
+            if (this.tableW.length > 0) {
+              for (let i = 0; i < this.tableW.length; i++) {
+                if (this.tableW[i].currency === '' || this.tableW[i].currency === null) {
+                  Message({
+                    message: this.$t('label.PFANS1013FORMVIEW_CHECKCURRENCY'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+            }
+          }
+          //endregion add_qhr_20210611 添加【币种】必填项
+          //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
           this.$refs['refform'].validate(valid => {
               if (valid) {
                 if (this.form.type === '0') {
