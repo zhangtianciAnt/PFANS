@@ -102,30 +102,32 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')" prop="rmbexpenditure">
-                      <el-input-number
+                      <!--                      设置千分位符-->
+                      <el-input
                         :disabled="true"
                         :min="0"
-                        :precision="2"
                         @change="getMoney"
                         style="width:20vw"
                         controls-position="right"
                         v-model="form.rmbexpenditure"
-                      ></el-input-number>
+                      ></el-input>
+                      <!--                      设置千分位符-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYEXPENDITURE')"
                                   v-if="this.form.type === 'PJ001001'?false:true">
-                      <el-input-number
+                      <!--                      设置千分位符-->
+                      <el-input
                         :disabled="true"
                         :max="1000000000"
                         :min="0"
-                        :precision="2"
                         @change="getforeigncurrency"
                         controls-position="right"
                         style="width:20vw"
                         v-model="form.foreigncurrency"
-                      ></el-input-number>
+                      ></el-input>
+                      <!--                      设置千分位符-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -139,15 +141,16 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TORMB')"
                                   v-if="this.form.type === 'PJ001001'?false:true">
-                      <el-input-number
+                      <!--                      设置千分位符-->
+                      <el-input
                         :disabled="true"
                         :max="1000000000"
                         :min="0"
-                        :precision="2"
                         controls-position="right"
                         style="width:20vw"
                         v-model="form.tormb"
-                      ></el-input-number>
+                      ></el-input>
+                      <!--                      设置千分位符-->
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -558,9 +561,10 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" width="150"
                                      prop="creditamount">
                       <template slot-scope="scope">
-                        <el-input-number
+                        <!--                        设置千分位符-->
+                        <el-input
                           :disabled="true"
-                          :min="0" :precision="2"
+                          :min="0"
                           :max="9999999"
                           controls-position="right"
                           :no="scope.row"
@@ -568,7 +572,8 @@
                           v-model="scope.row.facetax"
                           @change="changeSum(scope.row)"
                           style="width: 100%">
-                        </el-input-number>
+                        </el-input>
+                        <!--                        设置千分位符-->
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -943,15 +948,16 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
                                          width="150" prop="tormb">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <!--                            设置千分位符-->
+                            <el-input
                               :disabled="true"
                               :max="1000000000"
                               :min="0"
-                              :precision="2"
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.tormb"
-                            ></el-input-number>
+                            ></el-input>
+                            <!--                            设置千分位符-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
@@ -1186,15 +1192,16 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
                                          width="150" prop="tormb">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <!--                            设置千分位符-->
+                            <el-input
                               :disabled="true"
                               :max="1000000000"
                               :min="0"
-                              :precision="2"
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.tormb"
-                            ></el-input-number>
+                            ></el-input>
+                            <!--                            设置千分位符-->
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
@@ -2015,7 +2022,8 @@
                       obj.judgement = judgement[i];
                       obj.judgement_name = judgementname[d];
                       obj.remarks = remarks[i];
-                      obj.judgements_moneys = judgements_moneys[i];
+                      // 设置千分位符
+                      obj.judgements_moneys = Number(judgements_moneys[i]).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       obj.judgements_type = judgements_type[i];
                       datalist[i] = obj;
                     }
@@ -2743,7 +2751,8 @@
               obj.judgement = judgement[i];
               obj.judgement_name = judgementname[d];
               obj.remarks = remarks[i];
-              obj.judgements_moneys = judgements_moneys[i];
+              // 设置千分位符
+              obj.judgements_moneys = Number(judgements_moneys[i]).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
               obj.judgements_type = judgements_type[i];
               datalist[i] = obj;
             }
@@ -2883,23 +2892,31 @@
           if (this.form.type === 'PJ001002') {
             let tableptormb = 0;
             let tablertormb = 0;
+            // 设置千分位符
+            let nump = 0;
+            let numr = 0;
             if (this.tableP.length > 0) {
               for (let j = 0; j < this.tableP.length; j++) {
-                if (this.tableP[j].tormb > 0) {
-                  tableptormb += parseFloat(this.tableP[j].tormb);
+                // 设置千分位符
+                nump = Number(this.tableP[j].tormb.replace(/,/g,''));
+                if (nump > 0) {
+                  tableptormb += parseFloat(nump);
                 }
               }
             }
 
             if (this.tableR.length > 0) {
               for (let i = 0; i < this.tableR.length; i++) {
-                if (this.tableR[i].tormb > 0) {
-                  tablertormb += parseFloat(this.tableR[i].tormb);
+                // 设置千分位符
+                numr = Number(this.tableR[i].tormb.replace(/,/g,''));
+                if (numr > 0) {
+                  tablertormb += parseFloat(numr);
                 }
               }
             }
             this.tormbT = Number(tablertormb) + Number(tableptormb);
-            this.form.tormb = this.tormbT;
+            // 设置千分位符
+            this.form.tormb = this.tormbT.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           }
         }
       },
@@ -3952,7 +3969,8 @@
         }
       },
       changesummoney(row) {
-        row.facetax = row.invoiceamount - row.excludingtax;
+        // 设置千分位符
+        row.facetax = (row.invoiceamount - row.excludingtax).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       },
       getrate(row) {
         let taxratevalue = 0;
@@ -3963,8 +3981,9 @@
           }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
-        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
-        row.excludingtax = row.invoiceamount - row.facetax;
+        // 设置千分位符
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        row.excludingtax = row.invoiceamount - Number(row.facetax.replace(/,/g,''));
         //add-ws-6/2-No.221-专票税率发生变化，自动将明细此专票下税金重新计算
         for (let j = 0; j < this.tableP.length; j++) {
           if (row.invoicenumber == this.tableP[j].invoicenumber) {
@@ -3993,8 +4012,9 @@
           }
         }
         taxratevalue = 1 + Number(this.taxrateValue);
-        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2);
-        row.excludingtax = row.invoiceamount - row.facetax;
+        // 设置千分位符
+        row.facetax = parseFloat((row.invoiceamount / (taxratevalue) * this.taxrateValue)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        row.excludingtax = row.invoiceamount - Number(row.facetax.replace(/,/g,''));
         for (let j = 0; j < this.tableF.length; j++) {
           if (this.tableF[j].invoiceamount != 0) {
             this.form.tormb = '';
@@ -4051,11 +4071,22 @@
             sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
             return;
           }
-          const values = data.map(item => Number(item[column.property]));
+          // 设置千分位符
+          let values = [];
+          if (index === 2) {
+            values = data.map(item => item[column.property]);
+            for (let i = 0; i < values.length; i++) {
+              values[i] = values[i].replace(/,/g, '');
+            }
+          } else {
+            values = data.map(item => Number(item[column.property]));
+          }
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+              // 设置千分位符
+              curr = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
@@ -4069,6 +4100,8 @@
             sums[3] = '--';
           }
         });
+        // 设置千分位符
+        sums[2] = sums[2].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         return sums;
       },
       // 禅道597 ztc 决裁精算金额合计-end
@@ -4313,7 +4346,8 @@
           if (dictionaryInfo) {
             row.currencyrate = dictionaryInfo.exchangerate;
           }
-          row.tormb = Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100;
+          // 设置千分位符
+          row.tormb = (Math.round((row.foreigncurrency * row.currencyrate) * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           // this.tormbT = Number(this.tormbT) + row.tormb;
           // this.form.tormb = this.tormbT;
           this.form.currency = getMonthlyrateInfo2(val, this.month4).currencyname;
@@ -4548,11 +4582,22 @@
             sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
             return;
           }
-          const values = data.map(item => Number(item[column.property]));
+          // 设置千分位符
+          let values = [];
+          if (index === 11) {
+            values = data.map(item => item[column.property]);
+            for (let i = 0; i < values.length; i++) {
+              values[i] = values[i].replace(/,/g, '');
+            }
+          } else {
+            values = data.map(item => Number(item[column.property]));
+          }
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+              // 设置千分位符
+              curr = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
@@ -4570,9 +4615,10 @@
             sums[index] = '--';
           }
         });
-        sums[7] = Math.round(sums[7] * 100) / 100;
-        sums[8] = Math.round(sums[8] * 100) / 100;
-        sums[11] = Math.round(sums[11] * 100) / 100;
+        // 设置千分位符
+        sums[7] = (Math.round(sums[7] * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        sums[8] = (Math.round(sums[8] * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        sums[11] = (Math.round(sums[11] * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         sums[12] = Math.round(sums[12] * 100) / 100;
         this.tablePValue = sums;
         return sums;
@@ -4585,11 +4631,22 @@
             sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
             return;
           }
-          const values = data.map(item => Number(item[column.property]));
+          // 设置千分位符
+          let values = [];
+          if (index === 11) {
+            values = data.map(item => item[column.property]);
+            for (let i = 0; i < values.length; i++) {
+              values[i] = values[i].replace(/,/g, '');
+            }
+          } else {
+            values = data.map(item => Number(item[column.property]));
+          }
           if (!values.every(value => isNaN(value))) {
             sums[index] = values.reduce((prev, curr) => {
               const value = Number(curr);
-                // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+              // 设置千分位符
+              curr = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
                 return Math.round((prev + curr) * 100) / 100;
               } else {
@@ -4597,11 +4654,12 @@
               }
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
+            // 设置千分位符
             if (index == 7) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
+              sums[index] = (Math.round((sums[index]) * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
             if (index == 8) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
+              sums[index] = (Math.round((sums[index]) * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
             if (index == 9) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -4610,7 +4668,7 @@
               sums[index] = Math.round((sums[index]) * 100) / 100;
             }
             if (index == 11) {
-              sums[index] = Math.round((sums[index]) * 100) / 100;
+              sums[index] = (Math.round((sums[index]) * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
             if (index == 12) {
               sums[index] = Math.round((sums[index]) * 100) / 100;
@@ -4624,21 +4682,34 @@
         return sums;
       },
       getMoney(sums) {
+        // 设置千分位符
+        let num1 = 0, num2 = 0;
         if (this.form.type === 'PJ001001') {
-          this.form.rmbexpenditure = sums[8];
+          num1 = Number(sums[8].replace(/,/g, ''));
+          this.form.rmbexpenditure = num1.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else if (this.checktime) {
-          this.form.rmbexpenditure = this.tablePValue[7] + sums[8];
+          num1 = Number(this.tablePValue[7].replace(/,/g, ''));
+          num2 = Number(sums[8].replace(/,/g, ''));
+          this.form.rmbexpenditure = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else {
-          this.form.rmbexpenditure = this.tablePValue[7] + sums[7];
+          num1 = Number(this.tablePValue[7].replace(/,/g, ''));
+          num2 = Number(sums[7].replace(/,/g, ''));
+          this.form.rmbexpenditure = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
       },
       getforeigncurrency(sums) {
+        // 设置千分位符
+        let num1 = 0, num2 = 0;
         if (this.form.type === 'PJ001001') {
           this.form.foreigncurrency = '0';
         } else if (this.checktime) {
-          this.form.foreigncurrency = this.tablePValue[8] + sums[9];
+          num1 = Number(this.tablePValue[8].replace(/,/g, ''));
+          num2 = Number(sums[9].replace(/,/g, ''));
+          this.form.foreigncurrency = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else {
-          this.form.foreigncurrency = this.tablePValue[8] + sums[8];
+          num1 = Number(this.tablePValue[8].replace(/,/g, ''));
+          num2 = Number(sums[8].replace(/,/g, ''));
+          this.form.foreigncurrency = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
       },
       changeRMB(newValue) {
@@ -4688,7 +4759,8 @@
         if (dictionaryInfo) {
           newValue.currencyrate = dictionaryInfo.exchangerate;
         }
-        newValue.tormb = Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100;
+        // 设置千分位符
+        newValue.tormb = (Math.round((newValue.foreigncurrency * newValue.currencyrate) * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         // this.tormbT = Number(this.tormbT) + newValue.tormb;
         // this.form.tormb = this.tormbT;
       },
@@ -4854,16 +4926,20 @@
                   let tablertormb = 0;
                   if (this.tableP.length > 0) {
                     for (let j = 0; j < this.tableP.length; j++) {
-                      if (this.tableP[j].tormb > 0) {
-                        tableptormb += parseFloat(this.tableP[j].tormb);
+                      // 设置千分位符
+                      let moneyp = Number(this.tableP[j].tormb.replace(/,/g,''));
+                      if (moneyp > 0) {
+                        tableptormb += parseFloat(moneyp);
                       }
                     }
                   }
 
                   if (this.tableR.length > 0) {
                     for (let i = 0; i < this.tableR.length; i++) {
-                      if (this.tableR[i].tormb > 0) {
-                        tablertormb += parseFloat(this.tableR[i].tormb);
+                      // 设置千分位符
+                      let moneyr = Number(this.tableR[i].tormb.replace(/,/g,''));
+                      if (moneyr > 0) {
+                        tablertormb += parseFloat(moneyr);
                       }
                     }
                   }
@@ -4893,7 +4969,9 @@
                   }
                 }
 // add-ws-8/20-禅道469
-                this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
+                // 设置千分位符
+                let rmbex = Number(this.form.rmbexpenditure.replace(/,/g,''));
+                this.form.moneys = Math.round((rmbex + this.form.tormb) * 100) / 100;
                 this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
                 //add-ws-4/27-BS科目根据收款方编码值，赋01
                 if (this.form.payeecode != '' && this.form.payeecode != null) {
@@ -4904,7 +4982,6 @@
                   }
                 }
                 //add-ws-4/27-BS科目根据收款方编码值，赋01
-                this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                 let sum = 0;
                 for (let i = 0; i < this.tableF.length; i++) {
                   //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  start
@@ -4931,7 +5008,9 @@
                     }
                   }
                   sumtaxesF = Number(sumtaxesT) + Number(sumtaxesA);
-                  sumtaxes = Number(sumtaxesF) - Number(this.tableF[i].facetax);
+                  // 设置千分位符
+                  let facem = Number(this.tableF[i].facetax.replace(/,/g,''));
+                  sumtaxes = Number(sumtaxesF) - Number(facem);
                   //PSDCD_PFANS_20210519_BUG_007 bug修改 fr
                   if (sumtaxes < 0) {
                     if (taxesm === 0 && sumtaxesT === 0) {
@@ -4949,8 +5028,9 @@
                   //PSDCD_PFANS_20210519_BUG_007 bug修改 to
                   //add_fjl_0723_分录传票的发票税金需要与后面明细同种发票的税金和相同  end
                   sum += this.tableF[i].invoiceamount;
+                  // 设置千分位符
                   if (this.tableF[i].invoicenumber !== '' || this.tableF[i].invoicetype !== '' || this.tableF[i].invoiceamount > 0 || this.tableF[i].taxrate !== ''
-                    || this.tableF[i].excludingtax > 0 || this.tableF[i].facetax > 0) {
+                    || this.tableF[i].excludingtax > 0 || facem > 0) {
                     this.baseInfo.invoice.push(
                       {
                         invoice_id: this.tableF[i].invoice_id,
@@ -4960,7 +5040,7 @@
                         invoiceamount: this.tableF[i].invoiceamount,
                         taxrate: this.tableF[i].taxrate,
                         excludingtax: this.tableF[i].excludingtax,
-                        facetax: this.tableF[i].facetax,
+                        facetax: facem,
                       },
                     );
                   }
@@ -5013,7 +5093,8 @@
                           accountcode: this.tableP[i].accountcode,
                           currency: this.tableP[i].currency,
                           currencyrate: this.tableP[i].currencyrate,
-                          tormb: this.tableP[i].tormb,
+                          // 设置千分位符
+                          tormb: Number(this.tableP[i].tormb.replace(/,/g,'')),
                           purchasedetailsdate: this.tableP[i].purchasedetailsdate,
                           procurementdetails: this.tableP[i].procurementdetails,
                           subjectnumber: this.tableP[i].subjectnumber,
@@ -5047,7 +5128,8 @@
                           servicehours: this.tableR[i].servicehours,
                           currency: this.tableR[i].currency,
                           currencyrate: this.tableR[i].currencyrate,
-                          tormb: this.tableR[i].tormb,
+                          // 设置千分位符
+                          tormb: Number(this.tableR[i].tormb.replace(/,/g,'')),
                           subjectnumber: this.tableR[i].subjectnumber,
                           budgetcoding: this.tableR[i].budgetcoding,
                           remarks: this.tableR[i].remarks,
@@ -5067,6 +5149,8 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  // 设置千分位符
+                  this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                   return;
                 }
                 let error = 0;
@@ -5080,6 +5164,8 @@
                       type: 'error',
                       duration: 5 * 1000,
                     });
+                    // 设置千分位符
+                    this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     return;
                   } else {
                     if (moment(this.form.expectedpaydate).format('DD') != 15 && moment(this.form.expectedpaydate).format('DD') != 25) {
@@ -5089,6 +5175,8 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
+                      // 设置千分位符
+                      this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       return;
                     }
                   }
@@ -5105,6 +5193,8 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
+                      // 设置千分位符
+                      this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       break;
                     }
                   }
@@ -5119,6 +5209,8 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
+                      // 设置千分位符
+                      this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       break;
                     }
                   }
@@ -5136,6 +5228,8 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
+                        // 设置千分位符
+                        this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                       if (this.tableT[i].accountcode === '') {
@@ -5146,6 +5240,8 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
+                        // 设置千分位符
+                        this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                     }
@@ -5161,6 +5257,8 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
+                        // 设置千分位符
+                        this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                       //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
@@ -5173,6 +5271,8 @@
                             type: 'error',
                             duration: 5 * 1000,
                           });
+                          // 设置千分位符
+                          this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                         if (this.tableR[i].plsummary === '') {
@@ -5183,6 +5283,8 @@
                             type: 'error',
                             duration: 5 * 1000,
                           });
+                          // 设置千分位符
+                          this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                       }
@@ -5199,6 +5301,8 @@
                           type: 'error',
                           duration: 5 * 1000,
                         });
+                        // 设置千分位符
+                        this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                       //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
@@ -5211,6 +5315,8 @@
                             type: 'error',
                             duration: 5 * 1000,
                           });
+                          // 设置千分位符
+                          this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                         if (this.tableP[i].plsummary === '') {
@@ -5221,6 +5327,8 @@
                             type: 'error',
                             duration: 5 * 1000,
                           });
+                          // 设置千分位符
+                          this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                       }
@@ -5271,10 +5379,16 @@
                         type: 'error',
                         duration: 5 * 1000,
                       });
+                      // 设置千分位符
+                      this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       break;
                     }
                   }
                 }
+                // 设置千分位符
+                this.form.rmbexpenditure = Number(this.form.rmbexpenditure.replace(/,/g,''));
+                this.form.foreigncurrency = Number(this.form.foreigncurrency.replace(/,/g,''));
+                this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
                 if (error == '0') {
                   //add-ws-6/11-禅道任务090
                   for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {
@@ -5359,7 +5473,11 @@
         if (this.form.tormb === undefined) {
           this.form.tormb = '';
         }
-        this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
+        // 设置千分位符
+        this.form.rmbexpenditure = Number(this.form.rmbexpenditure.replace(/,/g,''));
+        this.form.foreigncurrency = Number(this.form.foreigncurrency.replace(/,/g,''));
+        let tormb = Number(this.form.tormb.replace(/,/g,''));
+        this.form.moneys = Math.round((this.form.rmbexpenditure + tormb) * 100) / 100;
         this.form.reimbursementdate = moment(this.form.reimbursementdate).format('YYYY-MM-DD');
         this.baseInfo.publicexpense = JSON.parse(JSON.stringify(this.form));
         let sum = 0;
@@ -5376,7 +5494,8 @@
                 invoiceamount: this.tableF[i].invoiceamount,
                 taxrate: this.tableF[i].taxrate,
                 excludingtax: this.tableF[i].excludingtax,
-                facetax: this.tableF[i].facetax,
+                // 设置千分位符
+                facetax: Number(this.tableF[i].facetax.replace(/,/g,'')),
               },
             );
           }
@@ -5423,7 +5542,8 @@
                   accountcode: this.tableP[i].accountcode,
                   currency: this.tableP[i].currency,
                   currencyrate: this.tableP[i].currencyrate,
-                  tormb: this.tableP[i].tormb,
+                  // 设置千分位符
+                  tormb: Number(this.tableP[i].tormb.replace(/,/g,'')),
                   purchasedetailsdate: this.tableP[i].purchasedetailsdate,
                   procurementdetails: this.tableP[i].procurementdetails,
                   subjectnumber: this.tableP[i].subjectnumber,
@@ -5451,7 +5571,8 @@
                   servicehours: this.tableR[i].servicehours,
                   currency: this.tableR[i].currency,
                   currencyrate: this.tableR[i].currencyrate,
-                  tormb: this.tableR[i].tormb,
+                  // 设置千分位符
+                  tormb: Number(this.tableR[i].tormb.replace(/,/g,'')),
                   subjectnumber: this.tableR[i].subjectnumber,
                   budgetcoding: this.tableR[i].budgetcoding,
                   remarks: this.tableR[i].remarks,
