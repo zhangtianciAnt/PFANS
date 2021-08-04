@@ -13,6 +13,13 @@ export function getOvertimeOne(data) {
     data: data
   })
 }
+export function getDataList() {
+  return request({
+    url: 'punchcardrecord/getDataList',
+    method: 'post',
+  })
+}
+
 export function updateOvertime(data) {
   return request({
     url: 'overtime/update',
@@ -27,9 +34,38 @@ export function createOvertime(data) {
     data: data
   })
 }
+export function getList(data) {
+  return request({
+    url: 'workingday/getList',
+    method: 'post',
+    data: data
+  })
+}
 
+export function getOvertimeDay(data) {
+  return request({
+    url: 'overtime/getOvertimeDay',
+    method: 'post',
+    data: data
+  })
+}
 
+export function getOvertimeOneday(data) {
+  return request({
+    url: 'overtime/getOvertimeOneday',
+    method: 'post',
+    data: data
+  })
+}
 
-
+//add-ws-9/4-加班申请可删除任务
+export function deleteLog(data) {
+  return request({
+    url: 'overtime/deleteLog',
+    method: 'post',
+    data: data,
+  });
+}
+//add-ws-9/4-加班申请可删除任务
 
 

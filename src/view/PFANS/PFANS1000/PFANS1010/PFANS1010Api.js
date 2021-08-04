@@ -1,6 +1,5 @@
 import request from '../../../../utils/request'
 
-//获取流程列表
 export function getCommunication() {
   return request({
     url: 'communication/get',
@@ -8,7 +7,6 @@ export function getCommunication() {
   })
 }
 
-//获取详细
 export function getCommunicationOne(data) {
   return request({
     url: 'communication/one',
@@ -17,7 +15,6 @@ export function getCommunicationOne(data) {
   })
 }
 
-//更新流程
 export function updateCommunication(data) {
   return request({
     url: 'communication/update',

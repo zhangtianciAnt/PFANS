@@ -1,4 +1,5 @@
 import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestDownload';
 
 //创建申请insertBase
 export function creategiving(data) {
@@ -84,3 +85,81 @@ export function deleteotherfour(data) {
     data: data,
   });
 }
+
+// 本月加班数据变更时，重新计算加班费合计
+export function thisMonthOvertimeChange(data) {
+  return request({
+    url: 'giving/thisMonthOvertimeChange',
+    method: 'post',
+    data: data,
+  });
+}
+
+// 本月欠勤数据变更时，重新计算欠勤费合计
+export function thisMonthLacktimeChange(data) {
+  return request({
+    url: 'giving/thisMonthLacktimeChange',
+    method: 'post',
+    data: data,
+  });
+}
+
+//zqu start insert update wages
+export function insertWages(data) {
+  return request({
+    url: 'wages/insertWages',
+    method: 'post',
+    data: data,
+  })
+}
+//zqu end
+
+//gbb start insert update wagesdepartment
+export function getWagesdepartment(data) {
+  return request({
+    url: 'wages/getWagesdepartment',
+    method: 'get',
+    params: data
+  });
+}
+//gbb end
+
+//gbb start insert update wagescompany
+export function getWagecompany() {
+  return request({
+    url: 'wages/getWagecompany',
+    method: 'get',
+  });
+}
+//gbb end
+
+//gbb 0721 工资发放按钮 start
+export function updatestate(data) {
+  return request({
+    url: 'giving/updatestate',
+    method: 'get',
+    params: data,
+  });
+}
+//gbb 0721 工资发放按钮 end
+
+//gbb 0720 离职工资对比 start
+export function getWagesByResign(data) {
+  return request({
+    url: 'wages/getWagesByResign',
+    method: 'get',
+    params: data,
+  });
+}
+//gbb 0720 离职工资对比 end
+
+//gbb 0724 模板下载 start
+export function download(data) {
+  return requestDownload({
+    url: 'wages/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+//gbb 0724 模板下载 end

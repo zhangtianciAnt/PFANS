@@ -38,7 +38,6 @@ const PFANS3003Store = {
       })
     },
     updateBusinessCard({commit}, data) {
-      debugger;
       return new Promise((resolve, reject) => {
         updateBusinessCard(data).then(response => {
           if (response.code === 0) {
@@ -54,7 +53,6 @@ const PFANS3003Store = {
     createBusinessCard({commit}, data) {
       return new Promise((resolve, reject) => {
         createBusinessCard(data).then(response => {
-          debugger
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -1,5 +1,5 @@
 <template>
-  <div :class="logoclass"  style="cursor: pointer">
+  <div :class="logoclass" @click="click" style="cursor: pointer">
     <el-row :style="{height:maxheight,width:maxwidth}">
       <el-col :span="24" :style="{height:maxheight,textAlign: 'left',verticalAlign:'middle'}">
         <el-col :span="8" :style="{height:maxheight,textAlign: 'center',verticalAlign:'middle'}">
@@ -37,12 +37,15 @@
       logoclass: {
         type: Object
       },
-      mainPage:{
-        type:String,
-        default:"/index"
+      mainPage: {
+        type: String,
+        default: "/index"
       }
     },
     methods: {
+      click() {
+        this.$emit("ToIndex", this.mainPage);
+      }
     },
     mounted() {
 

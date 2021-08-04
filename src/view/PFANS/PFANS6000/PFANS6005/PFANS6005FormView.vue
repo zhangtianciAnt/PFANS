@@ -1,0 +1,1119 @@
+<template>
+  <div style="min-height: 100%">
+    <EasyNormalContainer
+      :buttonList="buttonList"
+      :title="title"
+      @buttonClick="buttonClick"
+      :noback="noback"
+      @disabled="setdisabled"
+      ref="container"
+      v-loading="loading"
+    >
+      <div slot="customize" style="width: 100%">
+        <el-row style="padding-top: 30px">
+          <div align="right">
+          <el-col :span="12">
+            <el-date-picker
+              v-model="form.main.pd_date" @change="change"
+              type="month">
+            </el-date-picker>
+          </el-col>
+          <el-col :span="6">
+                <el-select v-model="form.main.group_id" style="width: 20vw"
+                           @change="changeGroup">
+                  <el-option
+                    v-for="item in optionsdata"
+                    :key="item.value"
+                    :label="item.lable"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+          </el-col>
+            <el-col :span="6">
+              <el-input :placeholder="$t('label.PFANS6006VIEW_BPINFO')"  style="width: 20vw"
+                        v-model="filterName">
+                <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+              </el-input>
+            </el-col>
+          </div>
+        </el-row>
+        <el-row style="padding-top: 20px">
+        <plx-table-grid
+          :datas="tableData"
+          border ref="plx"
+          stripe use-virtual :pagination-show="paginationShow"
+          style="width: 100%;height: calc(100vh - 200px - 2rem)"
+          tooltip-effect="dark"
+          cell-class-name = "row_height_left" :row-height="rowheight"
+          highlight-current-row
+          header-cell-class-name="sub_bg_color_blue"
+          :rowClassName="rowClassName"
+        >
+          <!--checkbox-->
+          <!--<plx-table-column type="selection" width="55"></plx-table-column>-->
+          <!-- 序号-->
+          <plx-table-column
+            :label="$t('label.PFANS2026FORMVIEW_ORDERNUMBER')"
+            align="center"
+            type="index"
+            fixed="left"
+            width="50"
+          ></plx-table-column>
+          <!-- 名前-->
+          <plx-table-column
+            :label="$t('label.PFANS2007VIEW_NAME')"
+            align="center"
+            prop="username"
+            fixed="left"
+            width="70"
+          ></plx-table-column>
+          <!-- 卒業年-->
+          <plx-table-column
+            :label="$t('label.PFANS2024VIEW_GRADUATIONYEAR')"
+            align="center"
+            width="65"
+            fixed="left"
+            prop="graduation1"
+          ></plx-table-column>
+          <!-- 会社名-->
+          <plx-table-column sortable
+            :label="$t('label.PFANS1036FORMVIEW_CLUBNAME')"
+            align="left"
+            prop="company"
+            fixed="left"
+            width="160"
+          ></plx-table-column>
+          <!-- 開発総単価-->
+          <plx-table-column
+            :label="$t('label.PFANS6005VIEW_SUMPRICE')"
+            align="center"
+            prop="totalunit"
+            fixed="left"
+            width="100"
+          >
+          </plx-table-column>
+          <!-- 查定时间-->
+          <!--<plx-table-column :label="$t('label.PFANS6005VIEW_CHECKTIME')" align="center" width="250">-->
+            <!--<template slot-scope="scope">-->
+              <!--<el-date-picker-->
+                <!--:disabled="!disabled"-->
+                <!--v-model="scope.row.assesstime"-->
+                <!--type="datetime"-->
+                <!--placeholder="选择日期时间"-->
+              <!--&gt;</el-date-picker>-->
+            <!--</template>-->
+          <!--</plx-table-column>-->
+          <!-- 技術スキル-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGY')"
+            align="center"
+            width="250"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code1"
+                :data="scope.row.technical"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changetechnical"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!-- 技術価値-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_TECHNOLOGYVALUE')"
+            align="center"
+            prop="technology"
+            width="100"
+          ></plx-table-column>
+          <!-- 管理スキル-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTSKILLS')"
+            align="center"
+            prop="management"
+            width="250"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code2"
+                :data="scope.row.management"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changemanagement"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!-- 管理価値-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_MANAGEMENTVALUE')"
+            align="center"
+            prop="value"
+            width="100"
+          ></plx-table-column>
+          <!--   分野スキル-->
+          <plx-table-column
+            :label="$t('label.PFANS2026FORMVIEW_FIELDSKILLS')"
+            align="center"
+            prop="fieldskills"
+            width="250"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code3"
+                :data="scope.row.fieldskills"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changefieldskills"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!-- 分野価値-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_FIELDVALUE')"
+            align="center"
+            prop="field"
+            width="100"
+          ></plx-table-column>
+          <!-- 語学スキル-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_LANGUAGESKILLS')"
+            align="center"
+            prop="language"
+            width="250"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code4"
+                :data="scope.row.language"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changelanguage"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!--  語学価値-->
+          <plx-table-column
+            :label="$t('label.PFANS2026FORMVIEW_LANGUAGEVALUE')"
+            align="center"
+            prop="languagevalue"
+            width="100"
+          ></plx-table-column>
+          <!-- 勤務スキル-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_JOBSKILLS')"
+            align="center"
+            prop="workskills"
+            width="250"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code5"
+                :data="scope.row.workskills"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changeworkskills"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!--  勤務価値-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_WORKVALUE')"
+            align="center"
+            prop="service"
+            width="100"
+          ></plx-table-column>
+          <!-- 勤続評価-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_WORKTIME')"
+            align="center"
+            prop="evaluation"
+            width="250"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code6"
+                :data="scope.row.evaluation"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changeevaluation"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!--  勤続価値-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_WORKVALUE1')"
+            align="center"
+            prop="rvicevalue"
+            width="100"
+          ></plx-table-column>
+          <!-- 責任者激励-->
+          <plx-table-column :label="$t('label.PFANS6005FORMVIEW_INCENTIVELEADER')" align="center">
+            <!-- PSDCD駐在規模-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_SERVINGSIZE')"
+              align="center"
+              prop="psdcdscale"
+              width="250"
+            >
+              <template slot-scope="scope">
+                <dicselect
+                  size="mini"
+                  :no="scope.row"
+                  :code="code7"
+                  :data="scope.row.psdcdscale"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                  @change="changepsdcdscale"
+                  style="width: 100%"
+                ></dicselect>
+              </template>
+            </plx-table-column>
+            <!-- 規模価値-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
+              align="center"
+              prop="scalevalue"
+              width="100"
+            ></plx-table-column>
+            <!-- 貢献評価-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_CONEVALUATION')"
+              align="center"
+              prop="contribution"
+              width="200"
+            >
+              <template slot-scope="scope">
+                <dicselect
+                  size="mini"
+                  :no="scope.row"
+                  :code="code8"
+                  :data="scope.row.contribution"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                  @change="changecontribution"
+                  style="width: 100%"
+                ></dicselect>
+              </template>
+            </plx-table-column>
+            <!-- 貢献係数-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
+              align="center"
+              prop="coefficient"
+              width="100"
+            ></plx-table-column>
+          </plx-table-column>
+          <!--  出向者激励-->
+          <plx-table-column :label="$t('label.PFANS6005FORMVIEW_OUTBOUNDMOTIVATION')" align="center">
+            <!--出项者PSDCD相当ランク-->
+            <plx-table-column
+              :label="$t('label.PFANS6005VIEW_PSDCDGRADE')"
+              align="center"
+              prop="staffpsdcdrank"
+              width="250"
+            >
+              <template slot-scope="scope">
+                <dicselect
+                  size="mini"
+                  :no="scope.row"
+                  :code="code9"
+                  :data="scope.row.staffpsdcdrank"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                  @change="changestaffpsdcdrank"
+                  style="width: 100%"
+                ></dicselect>
+              </template>
+            </plx-table-column>
+            <!--  ランク価値-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_LEVELVALUE')"
+              align="center"
+              prop="rankvalue"
+              width="100"
+            ></plx-table-column>
+            <!--  貢献評価-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_CONCOEFFICIENT')"
+              align="center"
+              prop="butionevaluation"
+              width="200"
+            >
+              <template slot-scope="scope">
+                <dicselect
+                  size="mini"
+                  :no="scope.row"
+                  :code="code8"
+                  :data="scope.row.butionevaluation"
+                  :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                  @change="changebutionevaluation"
+                  style="width: 100%"
+                ></dicselect>
+              </template>
+            </plx-table-column>
+            <!-- 貢献係数-->
+            <plx-table-column
+              :label="$t('label.PFANS6005FORMVIEW_SIZEVALUE')"
+              align="center"
+              prop="butioncoefficient"
+              width="100"
+            ></plx-table-column>
+          </plx-table-column>
+          <!-- 開発単価微調整-->
+          <plx-table-column
+            :label="$t('label.PFANS6005VIEW_PRICEADJUST')"
+            align="center"
+            prop="unitprice"
+            width="130"
+          >
+            <template slot-scope="scope">
+              <el-input-number
+                size="mini"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                controls-position="right"
+                :min="-100000" :max="100000"
+                v-model="scope.row.unitprice"
+                @change="unitpriceBuler"
+                style="width: 100%"
+              ></el-input-number>
+            </template>
+          </plx-table-column>
+          <!-- 共通費用-->
+          <plx-table-column
+            :label="$t('label.PFANS6005FORMVIEW_COMMONCOST')"
+            v-if="false"
+            align="center"
+            prop="common"
+            width="100"
+          >
+          </plx-table-column>
+          <!-- PSDCD相当ランク-->
+          <plx-table-column
+            :label="$t('label.PFANS6005VIEW_PSDCDGRADE')"
+            align="center"
+            prop="psdcdrank"
+            width="150"
+          >
+            <template slot-scope="scope">
+              <dicselect
+                size="mini"
+                :no="scope.row"
+                :code="code9"
+                :data="scope.row.psdcdrank"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                @change="changepsdcdrank"
+                style="width: 100%"
+              ></dicselect>
+            </template>
+          </plx-table-column>
+          <!--  備考-->
+          <plx-table-column
+            :label="$t('label.PFANS6007VIEW_REMARKS')"
+            align="center"
+            prop="remarks"
+            width="280"
+          >
+            <template slot-scope="scope">
+              <el-input
+                size="mini"
+                :no="scope.row"
+                :disabled="scope.row.flag != undefined && scope.row.flag === '1' ? true :false"
+                v-model="scope.row.remarks"
+                style="width: 100%"
+              ></el-input>
+            </template>
+          </plx-table-column>
+          <!-- 前年単価-->
+          <!--<plx-table-column-->
+            <!--:label="$t('label.PFANS6005VIEW_LASTYEARPRICE')"-->
+            <!--align="center"-->
+            <!--prop="yearunit"-->
+            <!--width="90"-->
+          <!--&gt;-->
+          <!--</plx-table-column>-->
+        </plx-table-grid>
+        </el-row>
+      </div>
+    </EasyNormalContainer>
+  </div>
+</template>
+
+<script>
+import EasyNormalContainer from "@/components/EasyNormalContainer";
+import dicselect from "../../../components/dicselect.vue";
+import { Message } from "element-ui";
+import { getDictionaryInfo, getOrgInfoByUserId } from "@/utils/customize";
+import moment from "moment";
+import {
+  getCurrentRole,
+  getCurrentRoleNew,
+  getDownOrgInfo,
+  getCurrentRole9,
+  getUserInfo,
+  getCooperinterviewList,
+  getOrgInfo
+} from "../../../../utils/customize";
+
+export default {
+  name: "PFANS6005FormView",
+  components: {
+    dicselect,
+    EasyNormalContainer
+  },
+  data() {
+    return {
+      rowheight:40,
+      paginationShow:false,
+      noback: true,
+      loading: false,
+      baseInfo: {},
+      scope: "",
+      row: "",
+      filterName: "",
+      responseDataInit: [],
+      arr: [], //二维数组初始化变量服务于更改和计算
+      tableData: [],
+      optionsdata:[],
+      code1: "BP015",
+      code2: "BP016",
+      code3: "BP017",
+      code4: "BP018",
+      code5: "BP019",
+      code6: "BP020",
+      code7: "BP021",
+      code8: "BP022",
+      code9: "BP023",
+      title: "title.PFANS6005VIEW",
+      disabled: false,
+      form:{
+        main:{
+          pricesetgroup_id:'',
+          pd_date:new Date(),
+          group_id:''
+        },
+        drtail:[]
+      },
+      buttonList: [
+        {
+          key: "save",
+          name: "button.save",
+          disabled: false,
+          icon: "el-icon-check"
+        }
+      ]
+    };
+  },
+  mounted() {
+    this.getById();
+    this.getpriceset(this.form.main.group_id);
+  },
+  created() {
+    this.disabled = true;
+    if (this.disable) {
+      this.buttonList = [
+        {
+          key: "save",
+          name: "button.save",
+          disabled: false,
+          icon: "el-icon-check"
+        }
+      ];
+    }
+  },
+  methods: {
+    inputChange(){
+      if (this.filterName === "") {
+        this.tableData = this.responseDataInit;
+      } else {
+        this.tableData = this.responseDataInit.filter(item => {
+          return item.username.toLowerCase().indexOf(this.filterName) != -1
+            || item.company.toLowerCase().indexOf(this.filterName) != -1  ;
+        });
+      }
+    },
+    getById() {
+      this.loading = true;
+      //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 start
+      let role = getCurrentRoleNew();
+      const vote = [];
+      if (role === '3') {//CENTER
+          vote.push(
+              {
+                  value: this.$store.getters.userinfo.userinfo.centerid,
+                  lable: this.$store.getters.userinfo.userinfo.centername,
+              },
+          );
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+              for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                  if (others.centerid != null)
+                  {
+                      // let groupname = getOrgInfo(others.groupid);
+                      // if (groupname) {
+                      //   vote.push(
+                      //     {
+                      //       value: others.groupid,
+                      //       lable: groupname.companyname,
+                      //     },
+                      //   );
+                      // }
+                      this.$store.getters.orgGroupList.filter((item) => {
+                          if (item.centerid === others.centerid) {
+                              vote.push(
+                                  {
+                                      value: item.centerid,
+                                      lable: item.centername,
+                                  },
+                              );
+                          }
+                      })
+                  }
+              }
+          }
+          //add ccm 0112 兼职部门
+          this.group_id = this.$store.getters.userinfo.userinfo.centerid;
+      } else if (role === '2') {//副总经理
+          this.$store.getters.orgGroupList.filter((item) => {
+              if (item.virtualuser === this.$store.getters.userinfo.userid) {
+                  vote.push(
+                      {
+                          value: item.centerid,
+                          lable: item.centername,
+                      },
+                  );
+              }
+          })
+          // let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          // let orgs = getDownOrgInfo(centerId);
+          // if (orgs){
+          //   if(orgs.length > 0){
+          //     this.group_id = orgs[0]._id;
+          //   }
+          //   for (let org of orgs) {
+          //     console.log(org)
+          //     vote.push(
+          //       {
+          //         value: org._id,
+          //         lable: org.companyname,
+          //       },
+          //     );
+          //   }
+          // }
+          //add ccm 0112 兼职部门
+          if (this.$store.getters.userinfo.userinfo.otherorgs)
+          {
+              for(let others of this.$store.getters.userinfo.userinfo.otherorgs)
+              {
+                  // if (others.groupid)
+                  // {
+                  //   // let groupname = getOrgInfo(others.groupid);
+                  //   // if (groupname) {
+                  //   //   vote.push(
+                  //   //     {
+                  //   //       value: others.groupid,
+                  //   //       lable: groupname.companyname,
+                  //   //     },
+                  //   //   );
+                  //   // }
+                  // }
+                  // else
+                  if (others.centerid)
+                  {
+                      // let centerId = others.centerid;
+                      // let orgs = getDownOrgInfo(centerId);
+                      // if (orgs){
+                      //   for (let org of orgs) {
+                      //     vote.push(
+                      //       {
+                      //         value: org._id,
+                      //         lable: org.companyname,
+                      //       },
+                      //     );
+                      //   }
+                      // }
+                      this.$store.getters.orgGroupList.filter((item) => {
+                          if (item.centerid === others.centerid) {
+                              vote.push(
+                                  {
+                                      value: item.centerid,
+                                      lable: item.centername,
+                                  },
+                              );
+                          }
+                      })
+                  }
+              }
+          }
+          //add ccm 0112 兼职部门
+      } else if (role === '1') {//总经理
+          //update gbb 20210331 之后的代码有判断，此处重复(总经理) start
+          // let centerId = this.$store.getters.userinfo.userinfo.centerid;
+          // let orgs = getDownOrgInfo(centerId);
+          // if (orgs){
+          //   if(orgs.length > 0){
+          //     if(getDownOrgInfo(orgs[0]._id).length > 0){
+          //       this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+          //     }
+          //   }
+          //   for (let center of orgs) {
+          //     let centers = getDownOrgInfo(center._id);
+          //     if (centers){
+          //       for (let group of centers) {
+          //         vote.push(
+          //           {
+          //             value: group._id,
+          //             lable: group.companyname,
+          //           },
+          //         );
+          //       }
+          //     }
+          //
+          //   }
+          // }
+          //update gbb 20210331 之后的代码有判断，此处重复 end
+      }
+      else if (role === '4') //GM
+      {
+        let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+        if (centers)
+        {
+          if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+          {
+            vote.push(
+              {
+                value: this.$store.getters.userinfo.userinfo.groupid,
+                lable: this.$store.getters.userinfo.userinfo.groupname,
+              },
+            );
+          }
+        }
+      }
+      const vote1 = [];
+        //let role9 = getCurrentRole9();
+        //
+      if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
+        || this.$store.getters.roles.indexOf("11") != -1 //总经理
+        || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+        || this.$store.getters.roles.indexOf("18") != -1//企划部长
+        || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+      {
+        this.$store.getters.orgGroupList.filter((item) => {
+            vote1.push(
+                {
+                    value: item.centerid,
+                    lable: item.centername,
+                },
+            );
+        })
+        // let orgs = getDownOrgInfo(centerId);
+        // if (orgs){
+        //   if(orgs.length > 0){
+        //     if(getDownOrgInfo(orgs[0]._id).length > 0){
+        //       this.group_id = getDownOrgInfo(orgs[0]._id)[0]._id;
+        //     }
+        //   }
+        //   for (let center of orgs) {
+        //     let centers = getDownOrgInfo(center._id);
+        //     if (centers){
+        //       for (let group of centers) {
+        //         vote1.push(
+        //           {
+        //             value: group._id,
+        //             lable: group.companyname,
+        //           },
+        //         );
+        //       }
+        //     }
+        //   }
+        // }
+        this.optionsdata = vote1;
+      }
+      else
+      {
+        this.optionsdata = vote;
+      }
+      //去重
+      let letoptionsdata = [];
+      let arrId = [];
+      for(var item of this.optionsdata){
+          if(arrId.indexOf(item['lable']) == -1){
+              arrId.push(item['lable']);
+              letoptionsdata.push(item);
+          }
+      }
+      //update gbb 20210331 2021组织架构变更-group下拉变为center下拉 end
+      //针对经营管理统计到group修改 start
+      let incfmyList = [];
+      for(let item of letoptionsdata){
+        if(getOrgInfo(item.value).encoding == ''){
+          incfmyList.push(item.value)
+        }
+      }
+      if(incfmyList.length > 0){
+        for(let item of incfmyList){
+          letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+        }
+        let orgInfo = [];
+        for(let item of incfmyList){
+          if(item){
+            if(getOrgInfo(item).orgs.length != 0){
+              orgInfo.push(getOrgInfo(item).orgs)
+            }
+          }
+        }
+        let groInfo = orgInfo[0].filter(item => item.type == '2');
+        for(let item of groInfo){
+          letoptionsdata.push(
+            {
+              value: item._id,
+              lable: item.title,
+            },
+          );
+        }
+      }
+      //针对经营管理统计到group修改 end
+      this.optionsdata = letoptionsdata;
+      if(this.optionsdata.length > 0){
+          this.form.main.group_id = this.optionsdata[0].value;
+      }
+      if (this.form.main.group_id) {
+        this.getpriceset(this.form.main.group_id);
+      }
+      this.loading = false;
+    },
+    changeGroup(val) {
+      this.form.main.group_id = val;
+      if (this.form.main.group_id) {
+        this.getpriceset(this.form.main.group_id);
+      }
+    },
+    change(){
+      this.tableData = [];
+      this.getpriceset(this.form.main.group_id);
+    },
+    setdisabled(val) {
+      if (this.$route.params.disabled) {
+        this.disabled = val;
+      }
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+    countTotalunit(index) {
+      let sum = 0;
+      for (let i = 0; i < 6; i++) {
+        if (this.arr[index][i] !== "" && this.arr[index][i] !== null)
+          sum += this.arr[index][i];
+      }
+      this.tableData[index].totalunit =
+      sum + this.arr[index][6] * this.arr[index][7] + this.arr[index][8] * this.arr[index][9] + this.arr[index][10];
+      //sum + this.arr[index][8] * this.arr[index][9];
+      this.tableData[index].common = this.arr[index][6] * this.arr[index][7];
+    },
+    unitpriceBuler(index) {
+      this.sum();
+    },
+    getRowClass({ row, column, rowIndex, columnIndex }) {
+      if (column.level === 2 && columnIndex >= 0 && columnIndex < 4) {
+        return {
+          color: "white",
+          background: "#99CCFF !important",
+          "border-bottom": "1px solid #99CCFF",
+          "border-right": "1px solid #73B9FF"
+        };
+      }
+      if (column.level === 2 && columnIndex >= 4 && columnIndex < 8) {
+        return {
+          color: "white",
+          background: "#99CC99 !important",
+          "border-bottom": "1px solid #99CCFF",
+          "border-right": "1px solid #73CC73"
+        };
+      }
+      if (column.level === 1 && columnIndex >= 0 && columnIndex < 26) {
+        return {
+          color: "white",
+          background: "#005BAA !important"
+        };
+      } else {
+        return {
+          color: "black",
+          background: "white !important"
+        };
+      }
+    },
+    getpriceset(val) {
+      this.loading = true;
+      let params = {
+            pddate: moment(this.form.main.pd_date).format("YYYY-MM"),
+            groupid: this.form.main.group_id,
+          }
+      this.$store
+        .dispatch("PFANS6005Store/getpriceset",params)
+        .then(response => {
+          this.form = response[0];
+          if(response[0].detail){
+            response = response[0];
+            for (let j = 0; j < response.detail.length; j++) {
+              response.detail[j].assesstime = moment(new Date()).format(
+                "YYYY-MM-DD HH:mm:ss"
+              );
+              if(response.detail[j].graduation){
+                response.detail[j].graduation1 = moment(response.detail[j].graduation).format(
+                  "YYYY"
+                );
+              }
+
+              this.arr[j] = [];
+              this.arr[j][0] = parseInt(
+                response.detail[j].technology == null ? 0 : response.detail[j].technology
+              );
+              this.arr[j][1] = parseInt(
+                response.detail[j].value == null ? 0 : response.detail[j].value
+              );
+              this.arr[j][2] = parseInt(
+                response.detail[j].field == null ? 0 : response.detail[j].field
+              );
+              this.arr[j][3] = parseInt(
+                response.detail[j].languagevalue == null ? 0 : response.detail[j].languagevalue
+              );
+              this.arr[j][4] = parseInt(
+                response.detail[j].service == null ? 0 : response.detail[j].service
+              );
+              this.arr[j][5] = parseInt(
+                response.detail[j].rvicevalue == null ? 0 : response.detail[j].rvicevalue
+              );
+              this.arr[j][6] = parseInt(
+                response.detail[j].scalevalue == null ? 0 : response.detail[j].scalevalue
+              );
+              this.arr[j][7] = parseFloat(
+                response.detail[j].coefficient == null ? 0 : response.detail[j].coefficient
+              );
+              this.arr[j][8] = parseInt(
+                response.detail[j].rankvalue == null ? 0 : response.detail[j].rankvalue
+              );
+              this.arr[j][9] = parseFloat(
+                response.detail[j].butioncoefficient == null
+                  ? 0
+                  : response.detail[j].butioncoefficient
+              );
+              this.arr[j][10] = parseInt(
+                response.detail[j].unitprice == null ? 0 : response.detail[j].unitprice
+              );
+
+              // if(response.detail[j].user_id)
+              // {
+              //   let co = getCooperinterviewList(response.detail[j].user_id);
+              //   if (co)
+              //   {
+              //     response.detail[j].group_id = co.group_id;
+              //     // if (co.group_id)
+              //     // {
+              //     //   let group = getOrgInfo(co.group_id);
+              //     //   if (group) {
+              //     //     response.detail[j].groupname = group.companyname;
+              //     //   }
+              //     // }
+              //   }
+              // }
+            }
+          }
+          let tablegroup = [];
+          this.form.main.group_id = val;
+          tablegroup = response.detail.filter(item => item.group_id === this.form.main.group_id);
+          this.tableData = tablegroup;
+          this.responseDataInit = tablegroup;
+          this.loading = false;
+        })
+        .catch(error => {
+          Message({
+            message: error,
+            type: "error",
+            duration: 5 * 1000
+          });
+          this.loading = false;
+        });
+    },
+    buttonClick(val) {
+      if (val === "save") {
+        // if (this.multipleSelection) {
+          this.loading = true;
+          this.$store
+            .dispatch("PFANS6005Store/updatepriceset", this.form)
+            .then(response => {
+              Message({
+                message: this.$t("normal.success_02"),
+                type: "success",
+                duration: 5 * 1000
+              });
+              this.loading = false;
+              // this.getpriceset();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: "error",
+                duration: 5 * 1000
+              });
+              this.loading = false;
+            });
+          // this.getpriceset();
+        // } else {
+        //   Message({
+        //     message: this.$t("normal.info_01"),
+        //     type: "error",
+        //     duration: 5 * 1000
+        //   });
+        // }
+      }
+    },
+    changetechnical(val, row) {
+      row.technical = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.technology = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changemanagement(val, row) {
+      row.management = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.value = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changefieldskills(val, row) {
+      row.fieldskills = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.field = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changelanguage(val, row) {
+      row.language = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.languagevalue = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changeworkskills(val, row) {
+      row.workskills = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.service = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changeevaluation(val, row) {
+      row.evaluation = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.rvicevalue = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changepsdcdscale(val, row) {
+      row.psdcdscale = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.scalevalue = dictionaryInfo.value2;
+      }
+      this.sum1();
+    },
+    changecontribution(val, row) {
+      row.contribution = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.coefficient = dictionaryInfo.value2;
+      }
+      this.sum1();
+    },
+    changestaffpsdcdrank(val, row) {
+      row.staffpsdcdrank = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.rankvalue = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changebutionevaluation(val, row) {
+      row.butionevaluation = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.butioncoefficient = dictionaryInfo.value2;
+      }
+      this.sum();
+    },
+    changepsdcdrank(val, row) {
+      row.psdcdrank = val;
+      let dictionaryInfo = getDictionaryInfo(val);
+      if (dictionaryInfo) {
+        row.psdcdrank = dictionaryInfo.value1;
+      }
+      this.sum();
+    },
+    sum(){
+      for(let item of this.tableData){
+        item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
+          + Number(item.rvicevalue)+ Number(item.scalevalue)*Number(item.coefficient) + Number(item.rankvalue)*Number(item.butioncoefficient) + Number(item.unitprice)
+        // item.totalunit = Number(item.technology) + Number(item.value) + Number(item.field) + Number(item.languagevalue) + Number(item.service)
+        //   + Number(item.rvicevalue)+ Number(item.rankvalue)*Number(item.butioncoefficient)
+      }
+    },
+    sum1(){
+      for(let item of this.tableData){
+        item.common = Number(item.scalevalue)*Number(item.coefficient);
+      }
+    },
+    //add-退场人员信息背景色
+    rowClassName({row, rowIndex}) {
+      if (row.user_id)
+      {
+        let expname = getCooperinterviewList(row.user_id);
+        if (expname)
+        {
+          if (expname.exitime !=null && expname.exitime != "" && expname.exitime != undefined)
+          {
+            if (moment(this.form.main.pd_date).format('YYYY-MM') >= moment(expname.exitime).add(1, 'months').format('YYYY-MM'))
+            {
+              row.flag = '1';
+              return "sub_bg_color_Darkgreyaa";
+            }
+          }
+        }
+      }
+    },
+    //add-退场人员信息背景色
+
+  },
+};
+</script>
+
+<style lang="scss">
+  .row_height_left {
+    font-size: 0.75rem;
+    padding: 0px;
+    text-align: left;
+    background-color: transparent !important;
+  }
+  .el-table /deep/ .current-row{
+    background-color: #BDD8EE;
+  }
+  .sub_bg_color_Darkgreyaa{
+    background-color: #CCCCCC !important;
+  }
+</style>

@@ -31,8 +31,15 @@ export function createBusiness(data) {
     data: data
   })
 }
-
-
+//add-ws-7/10-禅道247
+export function list(data) {
+  return request({
+    url: 'business/list',
+    method: 'post',
+    data: data
+  })
+}
+//add-ws-7/10-禅道247
 
 
 

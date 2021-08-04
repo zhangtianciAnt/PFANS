@@ -1,4 +1,4 @@
-.theme_base{
+.theme_panasonic{
   .front{
     color: #2a2a2a;
     font-family: Helvetica Arial;
@@ -7,7 +7,7 @@
     font-size: 1.25rem !important;
   }
   .Title_front{
-    font-size: 1.125rem !important;
+    font-size: 1rem !important;
   }
   .Menu_front{
     font-size: 1rem !important;
@@ -35,9 +35,18 @@
   }
   .main_bg_color{
     background-color: #005BAA;
+    //background-image: linear-gradient(to right, #005BAA , #ffd04b);
   }
   .sub_bg_color_blue{
-    background-color: #005BAA;
+    background-color: #005BAA !important;
+    height: 40px;
+    padding: 0px;
+    color: white;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .sub_login_color_blue{
+    background-color: #81b2ec;
   }
   .sub_bg_color_green{
     background-color: #009966;
@@ -51,4 +60,40 @@
   .sub_bg_color_grey{
     background-color: #f7f8fd;
   }
+  .sub_bg_color_Darkgrey{
+    background-color: #CCCCCC;
+  }
+  .sub_bg_color_Ral{
+    background-color: #9E9E9E;
+  }
+
+  //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
+  .sub_bg_color_lightblue {
+    background-color: #c5e2fd;
+  }
+
+  .sub_bg_color_lightgray {
+    background-color: #e7eaf0;
+  }
+
+  //add_fjl_05/19  --设置受理状态和审批状态改变行的背景色
+  .collapse_Title{
+    font-size: 0.85rem !important;
+    color: #005BAA;
+    font-weight: bold;
+  }
+  //add ccm 考勤对比
+  .sub_bg_color_bai{
+    background-color: #FFFFFF !important;
+    color: #1a50f1;
+  }
+  .sub_bg_color_Darkgreyy{
+    background-color: #CCCCCC !important;
+    color: #1a50f1;
+  }
+  .sub_bg_color_Rall{
+    background-color: #9E9E9E !important;
+    color: #1a50f1;
+  }
+  //add ccm 考勤对比
 }

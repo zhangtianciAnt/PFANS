@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestPdf from "../../../../utils/requestPdf";
 
 export function getFixedassets() {
   return request({
@@ -30,3 +31,21 @@ export function createFixedassets(data) {
     data: data
   })
 }
+
+export function getAssetsnameList(data) {
+  return request({
+    url: 'fixedassets/getAssetsnameList',
+    method: 'POST',
+    data: data
+  })
+}
+
+export function downLoad(data) {
+  return requestPdf({
+    url: 'fixedassets/downLoad1',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+

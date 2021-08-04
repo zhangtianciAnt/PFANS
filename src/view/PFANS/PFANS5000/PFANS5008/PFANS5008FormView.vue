@@ -1,1351 +1,1888 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" :buttonList="buttonList"
+                         @disabled="setdisabled"
                          v-loading="loading">
-      <div slot="customize" style="margin-top: 4rem;">
-        <el-form ref="form" label-width="8rem" label-position="left" style="padding: 2rem">
-          <el-tabs v-model="activeName">
-            <el-tab-pane :label="$t('label.PFANS5008VIEW_PROGRAM')" name="first">
-              <el-form :model="companyform" ref="companyform" label-width="7.5rem"
-                       class="demo-ruleForm" :rules="rules">
-                <el-container>
-                  <el-aside style="width: 58%;height: 30rem">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')"
-                                  style="width: 5%" prop="log_date">
+      <div slot="customize" style="margin-top: 0.5rem;">
+        <el-form ref="form" label-width="8vw" label-position="top" style="padding: 2vw">
+          <el-form :model="companyform" ref="companyform"
+                   class="demo-ruleForm" :rules="rules">
+            <el-row>
+              <div class="sub_color_red">请于每个月第二个工作日24时之前把上一个月的日志填写完成</div>
+            </el-row>
+            <el-container>
+              <el-aside style="width: 58%;height: 32rem">
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" prop="log_date">
                       <el-date-picker
                         @change="clickdata"
                         v-model="companyform.log_date"
                         :disabled="!disable"
                         type="date"
-                        style="width:  8.5rem"
+                        style="width:16vw"
                       >
                       </el-date-picker>
                     </el-form-item>
-                    <el-row>
-                      <el-col :span="11">
-                        <el-form-item :label="$t('label.start')"
-                                      prop="time_start">
-                          <el-time-picker
-                            v-model="companyform.time_start"
-                            :disabled="!disable"
-                            format='HH:mm'
-                            style="width:  8.5rem">
-                          </el-time-picker>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="10">
-                        <el-form-item :label="$t('label.end')"
-                                      prop="time_end">
-                          <el-time-picker
-                            v-model="companyform.time_end"
-                            :disabled="!disable"
-                            format='HH:mm'
-                            style="width:  8.5rem">
-                          </el-time-picker>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-                    <el-row>
-                      <div v-show="isShow">
-                        <el-col :span="6">
-                          <el-form-item :label="$t('label.PFANS5008VIEW_XZPROGRAM')" style="width: 16rem"
-                                        prop="project_id">
-                            <el-select v-model="companyform.project_id" :disabled="!disable">
-                              <el-option
-                                v-for="item in optionsdata"
-                                :key="item.value"
-                                :label="item.lable"
-                                :value="item.value">
-                              </el-option>
-                            </el-select>
-                          </el-form-item>
-                        </el-col>
-                        <el-col :span="10">
-                          <el-form-item>
-                            <el-link style="width: 9rem;color: #5d9cec" target="_blank" :underline="false"
-                                     @click="program=true" type="primary">
-                              <span>{{$t('label.PFANS5008FORMVIEW_BIANJI')}}</span>
-                            </el-link>
-                            <el-dialog :visible.sync="program" width="50%">
-                              <table border="0" cellspacing="0" cellpadding="0" width="800rem">
-                                <div style="text-align: center">
-                                  <el-transfer
-                                    style="text-align: left; display: inline-block"
-                                    @change="handleChange"
-                                    v-model="determine.project_name"
-                                    :titles="[$t('label.PFANS5008FORMVIEW_BMXM'),$t('label.PFANS5008FORMVIEW_GRXM')]"
-                                    :button-texts="[$t('label.PFANS5008FORMVIEW_LEFT'),$t('label.PFANS5008FORMVIEW_RIGHT')]"
-                                    :format="{noChecked: '${total}',hasChecked: '${checked}/${total}'}"
-                                    :data="transfer">
-                                  </el-transfer>
-                                  <el-form-item>
-                                    <el-button type="primary" @click="submitForm(determine)">{{$t('button.confirm')}}
-                                    </el-button>
-                                  </el-form-item>
-                                </div>
-                              </table>
-                            </el-dialog>
-                          </el-form-item>
-                        </el-col>
-                      </div>
-                    </el-row>
-                    <el-row>
-                      <el-col :span="11">
-                        <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width: 16rem" prop="work_phase">
-                          <dicselect
-                            :disabled="!disable"
-                            :code="code2"
-                            :multiple="multiple2"
-                            :data="companyform.work_phase"
-                            @change="JDjobs">
-                          </dicselect>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="10">
-                        <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width: 16rem"
-                                      prop="behavior_breakdown">
-                          <dicselect
-                            :disabled="!disable"
-                            :code="code3"
-                            :multiple="multiple3"
-                            :data="companyform.behavior_breakdown"
-                            @change="XWXF">
-                          </dicselect>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-                    <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width: 79%" prop="work_memo">
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008FORMVIEW_SC')" prop="time_start">
+                      <el-input-number v-model="companyform.time_start" :disabled="!disable" controls-position="right"
+                                       :precision="2" :step="0.5" :min="0" :max="24" style="width: 16vw"
+                      ></el-input-number>
+                    </el-form-item>
+                    <div class="sub_color_red">
+                      {{$t('label.PFANS5008FORMVIEW_CHECKTIMELENGTH')+this.checkdata+$t('label.hours')}}
+                    </div>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <div v-show="isShow">
+                    <el-col :span="12">
+                      <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="project_id">
+                        <el-select v-model="companyform.project_id" :disabled="!disable" style="width: 16vw" clearable
+                                   @change="getProject">
+                          <el-option
+                            v-for="item in optionsdata"
+                            :key="item.value"
+                            :label="item.lable"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                      <el-form-item :label="$t('label.PFANS5008VIEW_PROGRAMNAME')" style="width:17vw"
+                                    prop="project_name">
+                        {{companyform.project_name}}
+                      </el-form-item>
+                    </el-col>
+                  </div>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width:17vw" prop="work_phase">
+                      <dicselect
+                        :disabled="!disable"
+                        :code="code2"
+                        :multiple="multiple2"
+                        :data="companyform.work_phase"
+                        @change="JDjobs"
+                        style="width: 16vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:  17vw"
+                                  prop="behavior_breakdown">
+                      <dicselect
+                        :disabled="!disable"
+                        :code="code3"
+                        :multiple="multiple3"
+                        :data="companyform.behavior_breakdown"
+                        @change="XWXF"
+                        style="width: 16vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="12">
+                    <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width:  16vw" prop="work_memo">
                       <el-input
                         type="textarea"
-                        :rows="7"
-                        v-model="companyform.work_memo" :disabled="!disable">
+                        :rows="2"
+                        v-model="companyform.work_memo" :disabled="!disable"
+                      >
                       </el-input>
                     </el-form-item>
-                  </el-aside>
-                  <el-main>
-                    <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
-                    <template
-                      slot="dateCell"
-                      slot-scope="{date, data}">
-                      <p :class="data.isSelected ? 'is-selected' : ''" @click="riqi">
-                        {{ data.day.split('-').slice(1).join('-') | moment('DD') }}
-                      </p>
-                    </template>
-                  </el-calendar>
-                    <div align="center">
-                      <span> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
-                      <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
-                    </div>
-                    <el-table
-                      :data="DataList"
-                      v-show="xsTable"
-                      @row-click="rowclick"
-                    >
-                      <el-table-column
-                        prop="starttime"
-                        :label="$t('label.start')"
-                        width="80%">
-                      </el-table-column>
-                      <el-table-column
-                        prop="endtime"
-                        :label="$t('label.end')"
-                        width="80%">
-                      </el-table-column>
-                      <el-table-column
-                        prop="shicha"
-                        :label="$t('label.PFANS5008FORMVIEW_SC')"
-                        width="70%">
-                      </el-table-column>
-                      <el-table-column
-                        prop="program"
-                        :label="$t('label.PFANS5008FORMVIEW_GZPROGRAM')"
-                        width="120%">
-                      </el-table-column>
-                    </el-table>
-                  </el-main>
-                </el-container>
-              </el-form>
-            </el-tab-pane>
-            <el-tab-pane :label="$t('label.PFANS5008VIEW_NOPROGRAM')" name="second">
-              <el-form :model="companyform2" ref="companyform2" label-width="7.5rem"
-                       class="demo-ruleForm" :rules="rules">
-                <el-container>
-                  <el-aside style="width: 58%;height: 30rem">
-                    <el-form-item :label="$t('label.PFANS5008VIEW_RIQI')" style="width: 5%"
-                                  prop="log_date">
-                      <el-date-picker
-                        @change="clickdata"
-                        v-model="companyform2.log_date"
-                        :disabled="!disable"
-                        type="date"
-                        style="width: 8.5rem">
-                      </el-date-picker>
-                    </el-form-item>
-                    <el-row>
-                      <el-col :span="11">
-                        <el-form-item :label="$t('label.start')" style="width: 8.5rem"
-                                      prop="time_start">
-                          <el-time-picker
-                            v-model="companyform2.time_start"
-                            :disabled="!disable"
-                            format='HH:mm'
-                            style="width:  8.5rem">
-                          </el-time-picker>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="10">
-                        <el-form-item :label="$t('label.end')"
-                                      prop="time_end">
-                          <el-time-picker
-                            v-model="companyform2.time_end"
-                            :disabled="!disable"
-                            format='HH:mm'
-                            style="width:  8.5rem">
-                          </el-time-picker>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-                    <el-row>
-                      <el-col :span="11">
-                        <el-form-item :label="$t('label.PFANS5008VIEW_JDJOBS')" style="width: 16rem" prop="work_phase">
-                          <dicselect
-                            :disabled="!disable"
-                            :code="code4"
-                            :multiple="multiple4"
-                            :data="companyform2.work_phase"
-                            @change="JDjobs2">
-                          </dicselect>
-                        </el-form-item>
-                      </el-col>
-                      <el-col :span="10">
-                        <el-form-item :label="$t('label.PFANS5008VIEW_XWXF')" style="width:16rem"
-                                      prop="behavior_breakdown">
-                          <dicselect
-                            :disabled="!disable"
-                            :code="code5"
-                            :multiple="multiple5"
-                            :data="companyform2.behavior_breakdown"
-                            @change="XWXF2">
-                          </dicselect>
-                        </el-form-item>
-                      </el-col>
-                    </el-row>
-                    <el-form-item :label="$t('label.PFANS5008VIEW_GZBZ')" style="width: 79%" prop="work_memo"
-                    >
+                  </el-col>
+                  <el-col :span="12">
+                    <el-form-item label="WBS_ID" style="width:  17vw" prop="wbs_id">
                       <el-input
-                        :disabled="!disable"
-                        type="textarea"
-                        :rows="7"
-                        v-model="companyform2.work_memo">
+                        :rows="2"
+                        v-model="companyform.wbs_id" :disabled="!disable"
+                        style="width: 16vw">
                       </el-input>
                     </el-form-item>
-                  </el-aside>
-                  <el-main>
-                    <el-calendar v-model="companyform2.log_date" :disabled="!disable" class="appManage">
-                      <template
-                        slot="dateCell"
-                        slot-scope="{date, data}">
-                        <p :class="data.isSelected ? 'is-selected' : ''" @click="riqi">
-                          {{ data.day.split('-').slice(1).join('-') | moment('DD') }}
-                        </p>
-                      </template>
-                    </el-calendar>
-                    <div align="center">
-                      <span> {{ this.companyform2.log_date | moment('YYYY-MM-DD')}}</span>
-                      <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
-                    </div>
-                    <el-table
-                      :data="DataList2"
-                      v-show="xsTable2" @row-click="rowclick"
-                    >
-                      <el-table-column
-                        prop="starttime2"
-                        :label="$t('label.start')"
-                        width="100%">
-                      </el-table-column>
-                      <el-table-column
-                        prop="endtime2"
-                        :label="$t('label.end')"
-                        width="100%">
-                      </el-table-column>
-                      <el-table-column
-                        prop="shicha2"
-                        :label="$t('label.PFANS5008FORMVIEW_SC')"
-                        width="120%">
-                      </el-table-column>
-                    </el-table>
-                  </el-main>
-                </el-container>
-              </el-form>
-            </el-tab-pane>
-          </el-tabs>
+                  </el-col>
+                </el-row>
+              </el-aside>
+              <el-main>
+                <el-calendar v-model="companyform.log_date" :disabled="!disable" class="appManage">
+                  <template
+                    slot="dateCell"
+                    slot-scope="{date, data}">
+                    <p>
+                      {{ data.day.split('-').slice(2).join('-') }}
+                    </p>
+                  </template>
+                </el-calendar>
+              </el-main>
+            </el-container>
+            <div align="center" v-show='divfalse' style="margin-top: 1vm">
+              <span v-show="Riqickeck"> {{ this.companyform.log_date | moment('YYYY-MM-DD')}}</span>
+              <span>{{$t('label.PFANS5008FORMVIEW_JL')}}</span>
+            </div>
+            <el-table
+              header-cell-class-name="sub_bg_color_blue" stripe border
+              :data="DataList"
+              v-show="xsTable"
+              @row-click="rowclick"
+            >
+              <el-table-column
+                show-overflow-tooltip
+                prop="project_name"
+                :label="$t('label.PFANS5008FORMVIEW_GZPROGRAM')"
+                width="280px">
+              </el-table-column>
+              <el-table-column
+                prop="start_time"
+                :label="$t('label.PFANS5008FORMVIEW_SC')"
+                width="172px">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="work_phase"
+                :label="$t('label.PFANS5008VIEW_JDJOBS')"
+                width="175px">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="behavior_breakdown"
+                :label="$t('label.PFANS5008VIEW_XWXF')"
+                width="175px">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="wbs_id"
+                :label="$t('label.PFANS5008FORMVIEW_WBSID')"
+                width="175px">
+              </el-table-column>
+            </el-table>
+          </el-form>
         </el-form>
       </div>
     </EasyNormalContainer>
   </div>
 </template>
 <script>
-    import EasyNormalContainer from "@/components/EasyNormalContainer";
-    import dicselect from "../../../components/dicselect.vue";
-    import PFANS5008View from "../PFANS5008/PFANS5008View.vue";
-    import {Message} from 'element-ui'
-    import moment from "moment";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect.vue';
+  import PFANS5008View from '../PFANS5008/PFANS5008View.vue';
+  import {Message} from 'element-ui';
+  import moment from 'moment';
+  import {getDictionaryInfo} from '@/utils/customize';
 
-    export default {
-        name: 'PFANS5008FormView',
-        components: {
-            EasyNormalContainer,
-            dicselect,
-            PFANS5008View
+  export default {
+    name: 'PFANS5008FormView',
+    components: {
+      EasyNormalContainer,
+      dicselect,
+      PFANS5008View,
+    },
+    data() {
+      return {
+        checkerror: 0,
+        divfalse: false,
+        checktimelength: '',
+        checkLenth: '',
+        checkList: [],
+        checkdata: '',
+        checktime: '',
+        loading: false,
+        DataList: [{
+          start_time: '',
+          work_phase: '',
+          behavior_breakdown: '',
+          project_name: '',
+          wbs_id: '',
+        }],
+        //optionsdata: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
+        optionsdata: [],
+        optionsdategroup: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
+        optionsdategroup: [],
+        buttonList: [],
+        disable: false,
+        PFANS5008: this.$route.params.PFANS5008,
+        companyform: {
+          project_id: '',
+          project_name: '',
+          time_start: '',
+          time_end: '',
+          log_date: '',
+          work_phase: '',
+          behavior_breakdown: '',
+          work_memo: '',
+          has_project: '',
+          wbs_id: '',
+          group_id: '',
         },
-        data() {
-            var validatetimestart = (rule, value, callback) => {
-                if (this.companyform.time_start !== '' && this.companyform.time_start !== null && this.companyform.time_end !== '' && this.companyform.time_end !== null) {
-                    if (moment(this.companyform.time_end).format("HH:mm") <= moment(this.companyform.time_start).format("HH:mm")) {
-                        callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
+        User_id: '',
+        Riqickeck: true,
+        xsTable: false,
+        program: false,
+        code2: 'PP008',
+        multiple2: false,
+        data2: '',
+        resignation_date: '',
+        data: '',
+        code3: '',
+        checkuserid: '',
+        multiple3: false,
+        data3: '',
+        activeName: 'first',
+        isShow: true,
+        title: 'title.PFANS5008',
+        rules: {
+          log_date: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5008VIEW_RIQI'),
+            trigger: 'blur',
+          }],
+          project_id: [{
+            required: true,
+            message: this.$t('normal.error_08') + this.$t('label.PFANS5004VIEW_PROJECTNAMW'),
+            trigger: 'change',
+          },
+          ],
+        },
+      };
+    },
+    created() {
+      if (this.$store.getters.userinfo) {
+        if (this.$store.getters.userinfo.userinfo) {
+          this.resignation_date = this.$store.getters.userinfo.userinfo.resignation_date;
+        }
+      }
+      this.disable = this.$route.params.disabled;
+      //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
+      if (this.$store.getters.userinfo.userid !== undefined) {
+        this.checkuserid = 0;
+        this.User_id = this.$store.getters.userinfo.userid;
+      } else {
+        this.checkuserid = 1;
+        this.User_id = this.$store.getters.useraccount._id;
+      }
+      if (this.$route.params._createby != undefined) {
+        this.User_id = this.$route.params._createby;
+      }
+      //add -ws - 工作记录table表格编辑时根据编辑人id获取数据，新建时根据登录人id获取数据
+      this.companyform.log_date = this.$route.params.date;
+      if (this.disable) {
+        this.buttonList = [
+          {
+            key: 'btnSave',
+            name: 'button.confirm',
+            disabled: false,
+          },
+          {
+            key: 'mingtian',
+            name: 'button.mingtian',
+            disabled: false,
+          },
+        ];
+      } else {
+        this.buttonList = [
+          {
+            key: 'btnSave',
+            name: 'button.confirm',
+            disabled: false,
+          },
+        ];
+      }
+
+
+      let c = this.$route.params._id;
+      if (c === '') {
+        this.companyform.log_date = new Date();
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            const data = [];
+            let datalist = [];
+            for (let k = 0; k < response.length; k++) {
+              this.code3 = '';
+              if (response[k].has_project === '01') {
+                if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(new Date()).format('YYYY-MM-DD')) {
+                  if (response[k].work_phase === 'PP008001') {
+                    this.code3 = 'PP009';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
                     }
+                  } else if (response[k].work_phase === 'PP008002') {
+                    this.code3 = 'PP010';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008003') {
+                    this.code3 = 'PP025';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008004') {
+                    this.code3 = 'PP011';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  }
+                  if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                    let letErrortype = getDictionaryInfo(response[k].work_phase);
+                    if (letErrortype != null) {
+                      response[k].work_phase = letErrortype.value1;
+                    }
+                  }
+                  let obj = {};
+                  obj.start_time = response[k].time_start;
+                  obj.work_phase = response[k].work_phase;
+                  let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortypecheck != null) {
+                    obj.behavior_breakdown = letErrortypecheck.value1;
+                  }
+                  obj.project_name = response[k].project_name;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                  obj.logmanagementid = response[k].logmanagement_id;
+                  obj.wbs_id = response[k].wbs_id;
+                  datalist[k] = obj;
+                  this.divfalse = true;
+                  this.xsTable = true;
                 }
-                if (this.companyform2.time_start !== '' && this.companyform2.time_start !== null && this.companyform2.time_end !== '' && this.companyform2.time_end !== null) {
-                    if (moment(this.companyform2.time_end).format("HH:mm") <= moment(this.companyform2.time_start).format("HH:mm")) {
-                        callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-                    }
-                }
-                callback()
-            };
-            var validatetimeend = (rule, value, callback) => {
-                if (this.companyform.time_start !== '' && this.companyform.time_start !== null && this.companyform.time_end !== '' && this.companyform.time_end !== null) {
-                    if (moment(this.companyform.time_end).format("HH:mm") <= moment(this.companyform.time_start).format("HH:mm")) {
-                        callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-                    }
-                }
-                if (this.companyform2.time_start !== '' && this.companyform2.time_start !== null && this.companyform2.time_end !== '' && this.companyform2.time_end !== null) {
-                    if (moment(this.companyform2.time_end).format("HH:mm") <= moment(this.companyform2.time_start).format("HH:mm")) {
-                        callback(new Error(this.$t("label.PFANS5008FORMVIEW_ERROR")))
-                    }
-                }
-                callback()
-            };
-            return {
-                loading: false,
-                DataList: [{
-                    starttime: '',
-                    endtime: '',
-                    shicha: '',
-                    program: '',
-                }],
-                DataList2: [{
-                    starttime2: '',
-                    endtime2: '',
-                    shicha2: '',
-                }],
-                transferData: [],
-                transfer: [],
-                optionsdata: [],
-                optionsdate: [],
-                optiondate: [],
-                buttonList: [],
-                disable: false,
-                PFANS5008: this.$route.params.PFANS5008,
-                companyform: {
-                    project_id: '',
-                    project_name: '',
-                    time_start: '',
-                    time_end: '',
-                    log_date: '',
-                    work_phase: '',
-                    behavior_breakdown: '',
-                    work_memo: '',
-                    has_project: '',
-                },
-                companyform2: {
-                    time_start: '',
-                    time_end: '',
-                    log_date: '',
-                    work_phase: '',
-                    behavior_breakdown: '',
-                    work_memo: '',
-                    has_project: '',
-                },
-                determine: {
-                    user_id: '',
-                    project_id: '',
-                    project_name: [],
-                },
-                xsTable: false,
-                xsTable2: false,
-                program: false,
-                code2: 'PP008',
-                multiple2: false,
-                data2: '',
-                code3: 'PP009',
-                multiple3: false,
-                data3: '',
-                code4: 'PP010',
-                multiple4: false,
-                data4: '',
-                code5: 'PP011',
-                multiple5: false,
-                data5: '',
-                activeName: 'first',
-                isShow: true,
-                title: "title.PFANS5008",
-                rules: {
-                    log_date: [{
-                        required: true,
-                    }
-                    ],
-                    time_start: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.start'),
-                            trigger: 'blur',
-                        },
-                        {validator: validatetimestart, trigger: 'change'}
-                    ],
-                    time_end: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.end'),
-                            trigger: 'blur'
-                        },
-                        {validator: validatetimeend, trigger: 'change'}
-                    ],
-                    project_id: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_08') + this.$t('label.PFANS5008VIEW_XZPROGRAM'),
-                            trigger: 'change'
-                        }
-                    ],
-                },
+              }
+
             }
-        },
-        created() {
-            this.companyform.log_date = this.$route.params.date;
-            this.companyform2.log_date = this.$route.params.date;
-            this.buttonList = [
-                {
-                    key: "btnSave",
-                    name: "button.confirm",
-                },
-                {
-                    key: "mingtian",
-                    name: "button.mingtian",
-                },
-            ];
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS5008Store/getProjectList', {})
-                .then(response => {
-                    const data = [];
-                    for (let i = 0; i < response.length; i++) {
-                        data.push({
-                            key: response[i].project_id,
-                            label: response[i].project_name,
-                        });
-                    }
-                    this.transferData = data;
-                    let log_date = this.companyform.log_date;
-                    this.$store
-                        .dispatch('PFANS5008Store/getDataList', {})
-                        .then(response => {
-                            const data = [];
-                            let datalist = [];
-                            for (let k = 0; k < response.length; k++) {
-                                if (response[k].has_project === '01') {
-                                    let log_date3 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                    if (log_date3 === log_date) {
-                                        for (let i = 0; i < this.transferData.length; i++) {
-                                            if (this.transferData[i].key === response[k].project_id) {
-                                                response[k].project_id = this.transferData[i].label;
-                                            }
-                                        }
-                                        let obj = {};
-                                        let d = new Date(response[k].time_start);
-                                        let Housd = d.getHours() + d.getMinutes() / 60;
-                                        let time = d.getHours() + ':' + d.getMinutes();
-                                        obj.starttime = time;
-                                        let a = new Date(response[k].time_end);
-                                        let Housa = a.getHours() + a.getMinutes() / 60;
-                                        let time2 = a.getHours() + ':' + a.getMinutes();
-                                        obj.endtime = time2;
-                                        let e = Housa - Housd;
-                                        let realVal = parseFloat(e).toFixed(2);
-                                        obj.shicha = realVal;
-                                        obj.program = response[k].project_id;
-                                        obj.logmanagementid = response[k].logmanagement_id;
-                                        this.xsTable = true;
-                                        datalist[k] = obj;
-                                    }
-                                }
-                            }
-                            this.DataList = datalist;
-                        });
-                    let log_date2 = this.companyform2.log_date;
-                    this.$store
-                        .dispatch('PFANS5008Store/getDataList', {})
-                        .then(response => {
-                            let datalist2 = [];
-                            const data2 = [];
-                            for (let k = 0; k < response.length; k++) {
-                                if (response[k].has_project === '02') {
-                                    let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                    if (log_date4 === log_date2) {
-                                        let obj = {};
-                                        let d = new Date(response[k].time_start);
-                                        let Housd = d.getHours() + d.getMinutes() / 60;
-                                        let time = d.getHours() + ':' + d.getMinutes();
-                                        obj.starttime2 = time;
-                                        let a = new Date(response[k].time_end);
-                                        let Housa = a.getHours() + a.getMinutes() / 60;
-                                        let time2 = a.getHours() + ':' + a.getMinutes();
-                                        obj.endtime2 = time2;
-                                        let e = Housa - Housd;
-                                        let realVal = parseFloat(e).toFixed(2);
-                                        obj.shicha2 = realVal;
-                                        this.xsTable2 = true;
-                                        obj.logmanagementid = response[k].logmanagement_id;
-                                        datalist2[k] = obj;
-                                    }
-                                }
-                            }
-                            this.DataList2 = datalist2;
-                        })
-                });
+            this.DataList = datalist;
             this.loading = false;
-            this.disable = this.$route.params.disabled;
-            let c = this.$route.params._id;
-            if (c === "") {
-                if (this.disable) {
-                    this.companyform.log_date = new Date();
-                    this.companyform2.log_date = new Date();
-                    this.buttonList = [
-                        {
-                            key: "btnSave",
-                            name: "button.confirm",
-                        },
-                        {
-                            key: "mingtian",
-                            name: "button.mingtian",
-                        },
-                    ];
-                    this.loading = true;
-                    this.$store
-                        .dispatch('PFANS5008Store/getProjectList', {})
-                        .then(response => {
-                            const data = [];
-                            for (let i = 0; i < response.length; i++) {
-                                data.push({
-                                    key: response[i].project_id,
-                                    label: response[i].project_name,
-                                });
-                            }
-                            this.transferData = data;
-                            this.$store
-                                .dispatch('PFANS5008Store/getDataList', {})
-                                .then(response => {
-                                    const data = [];
-                                    let datalist = [];
-                                    for (let k = 0; k < response.length; k++) {
-                                        if (response[k].has_project === '01') {
-                                            if (moment(response[k].log_date).format("YYYY-MM-DD") === moment(new Date()).format("YYYY-MM-DD")) {
-                                                for (let i = 0; i < this.transferData.length; i++) {
-                                                    if (this.transferData[i].key === response[k].project_id) {
-                                                        response[k].project_id = this.transferData[i].label;
-                                                    }
-                                                }
-                                                let obj = {};
-                                                let d = new Date(response[k].time_start);
-                                                let Housd = d.getHours() + d.getMinutes() / 60;
-                                                let time = d.getHours() + ':' + d.getMinutes();
-                                                obj.starttime = time;
-                                                let a = new Date(response[k].time_end);
-                                                let Housa = a.getHours() + a.getMinutes() / 60;
-                                                let time2 = a.getHours() + ':' + a.getMinutes();
-                                                obj.endtime = time2;
-                                                let e = Housa - Housd;
-                                                let realVal = parseFloat(e).toFixed(2);
-                                                obj.shicha = realVal;
-                                                obj.program = response[k].project_id;
-                                                obj.logmanagementid = response[k].logmanagement_id;
-                                                this.xsTable = true;
-                                                datalist[k] = obj;
-                                            }
-                                        }
-                                    }
-                                    this.DataList = datalist;
-                                });
-                            this.$store
-                                .dispatch('PFANS5008Store/getDataList', {})
-                                .then(response => {
-                                    let datalist2 = [];
-                                    const data2 = [];
-                                    for (let k = 0; k < response.length; k++) {
-                                        if (response[k].has_project === '02') {
-                                            if (moment(response[k].log_date).format("YYYY-MM-DD") === moment(new Date()).format("YYYY-MM-DD")) {
-                                                let obj = {};
-                                                let d = new Date(response[k].time_start);
-                                                let Housd = d.getHours() + d.getMinutes() / 60;
-                                                let time = d.getHours() + ':' + d.getMinutes();
-                                                obj.starttime2 = time;
-                                                let a = new Date(response[k].time_end);
-                                                let Housa = a.getHours() + a.getMinutes() / 60;
-                                                let time2 = a.getHours() + ':' + a.getMinutes();
-                                                obj.endtime2 = time2;
-                                                let e = Housa - Housd;
-                                                let realVal = parseFloat(e).toFixed(2);
-                                                obj.shicha2 = realVal;
-                                                this.xsTable2 = true;
-                                                obj.logmanagementid = response[k].logmanagement_id;
-                                                datalist2[k] = obj;
-                                            }
-                                        }
-                                    }
-                                    this.DataList2 = datalist2;
-                                })
-                        });
-                    this.loading = false;
+          });
+
+      } else {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            let datalist = [];
+            for (let k = 0; k < response.length; k++) {
+              this.code3 = '';
+              if (this.companyform.log_date === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                if (response[k].work_phase === 'PP008001') {
+                  this.code3 = 'PP009';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                } else if (response[k].work_phase === 'PP008002') {
+                  this.code3 = 'PP010';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                } else if (response[k].work_phase === 'PP008003') {
+                  this.code3 = 'PP025';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                } else if (response[k].work_phase === 'PP008004') {
+                  this.code3 = 'PP011';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
                 }
+                if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                  let letErrortype = getDictionaryInfo(response[k].work_phase);
+                  if (letErrortype != null) {
+                    response[k].work_phase = letErrortype.value1;
+                  }
+                }
+                let obj = {};
+                obj.start_time = response[k].time_start;
+                obj.work_phase = response[k].work_phase;
+                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                if (letErrortypecheck != null) {
+                  obj.behavior_breakdown = letErrortypecheck.value1;
+                }
+                obj.project_name = response[k].project_name;
+                this.divfalse = true;
+                this.xsTable = true;
+                obj.logmanagementid = response[k].logmanagement_id;
+                obj.wbs_id = response[k].wbs_id;
+                datalist[k] = obj;
+                this.DataList = datalist;
+                this.divfalse = true;
+                this.xsTable = true;
+              }
             }
-        },
-        mounted() {
-            this.getCompanyProjectList();
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS5008Store/getProjectList', {})
+            this.loading = false;
+          });
+        this.loading = false;
+      }
+    },
+    mounted() {
+      this.getCompanyProjectList();
+      this.checkgetAttendancelist();
+      if (this.companyform.project_id) {
+        this.companyform.work_phase = '';
+      }
+
+      if (this.$route.params._id) {
+        this.companyform.logmanagement_id = this.$route.params._id;
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.$route.params._id})
+          .then(response => {
+            this.checktimelength = response.time_start;
+            this.data = response;
+            // if (response.confirmstatus == '1') {
+            //   this.buttonList[0].disabled = true;
+            //   this.buttonList[1].disabled = true;
+            //   this.disable = false;
+            // } else {
+            //   this.buttonList[0].disabled = false;
+            //   this.buttonList[1].disabled = false;
+            //   this.disable = true;
+            // }
+            if (this.data.has_project === '01') {
+              this.code3 = '';
+              if (this.data.work_phase === 'PP008001') {
+                this.code3 = 'PP009';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              } else if (this.data.work_phase === 'PP008002') {
+                this.code3 = 'PP010';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              } else if (this.data.work_phase === 'PP008003') {
+                this.code3 = 'PP025';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              } else if (this.data.work_phase === 'PP008004') {
+                this.code3 = 'PP011';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              }
+              this.companyform = this.data;
+
+              this.$store
+                .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
                 .then(response => {
-                    this.optionsdata = [];
-                    let user_id = this.$store.getters.userinfo.userid;
-                    for (let i = 0; i < response.length; i++) {
-                        if (user_id === response[i].user_id) {
-                            var vote = {};
-                            vote.value = response[i].project_id,
-                                vote.lable = response[i].project_name,
-                                this.optionsdata.push(vote)
+                  let datalist = [];
+                  for (let k = 0; k < response.length; k++) {
+
+                    this.code3 = '';
+                    if (moment(this.data.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                      if (response[k].work_phase === 'PP008001') {
+                        this.code3 = 'PP009';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
                         }
+                      } else if (response[k].work_phase === 'PP008002') {
+                        this.code3 = 'PP010';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      } else if (response[k].work_phase === 'PP008003') {
+                        this.code3 = 'PP025';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      } else if (response[k].work_phase === 'PP008004') {
+                        this.code3 = 'PP011';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      }
+                      if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                        let letErrortype = getDictionaryInfo(response[k].work_phase);
+                        if (letErrortype != null) {
+                          response[k].work_phase = letErrortype.value1;
+                        }
+                      }
+                      let obj = {};
+                      obj.start_time = response[k].time_start;
+                      obj.work_phase = response[k].work_phase;
+                      let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                      if (letErrortypecheck != null) {
+                        obj.behavior_breakdown = letErrortypecheck.value1;
+                      }
+                      obj.project_name = response[k].project_name;
+                      this.divfalse = true;
+                      this.xsTable = true;
+                      obj.logmanagementid = response[k].logmanagement_id;
+                      obj.wbs_id = response[k].wbs_id;
+                      datalist[k] = obj;
+                      this.divfalse = true;
+                      this.xsTable = true;
                     }
-                    this.loading = false;
+
+                  }
+                  this.DataList = datalist;
+                });
+            } else if (this.data.has_project === '02') {
+              this.code3 = '';
+              if (this.data.work_phase === 'PP008001') {
+                this.code3 = 'PP009';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              } else if (this.data.work_phase === 'PP008002') {
+                this.code3 = 'PP010';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              } else if (this.data.work_phase === 'PP008003') {
+                this.code3 = 'PP025';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              } else if (this.data.work_phase === 'PP008004') {
+                this.code3 = 'PP011';
+                let letErrortype = getDictionaryInfo(this.data.behavior_breakdown);
+                if (letErrortype != null) {
+                  this.data.behavior_breakdown = letErrortype.code;
+                }
+              }
+              this.companyform = this.data;
+
+              this.$store
+                .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                .then(response => {
+                  let datalist = [];
+                  for (let k = 0; k < response.length; k++) {
+
+                    this.code3 = '';
+                    if (moment(this.data.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                      if (response[k].work_phase === 'PP008001') {
+                        this.code3 = 'PP009';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      } else if (response[k].work_phase === 'PP008002') {
+                        this.code3 = 'PP010';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      } else if (response[k].work_phase === 'PP008003') {
+                        this.code3 = 'PP025';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      } else if (response[k].work_phase === 'PP008004') {
+                        this.code3 = 'PP011';
+                        let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                        if (letErrortype != null) {
+                          response[k].behavior_breakdown = letErrortype.code;
+                        }
+                      }
+                      if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                        let letErrortype = getDictionaryInfo(response[k].work_phase);
+                        if (letErrortype != null) {
+                          response[k].work_phase = letErrortype.value1;
+                        }
+                      }
+                      let obj = {};
+                      obj.start_time = response[k].time_start;
+                      obj.work_phase = response[k].work_phase;
+                      let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                      if (letErrortypecheck != null) {
+                        obj.behavior_breakdown = letErrortypecheck.value1;
+                      }
+                      obj.project_name = response[k].project_name;
+                      this.divfalse = true;
+                      this.xsTable = true;
+                      obj.logmanagementid = response[k].logmanagement_id;
+                      obj.wbs_id = response[k].wbs_id;
+                      datalist[k] = obj;
+                      this.divfalse = true;
+                      this.xsTable = true;
+                    }
+
+                  }
+                  this.DataList = datalist;
+                });
+
+            }
+            this.loading = false;
+          });
+      }
+    },
+    methods: {
+
+      getCompanyProjectList() {
+        this.optionsdata = [];
+        if(this.$store.getters.useraccount.account.toUpperCase().indexOf('KK-') != -1){
+          if(moment(this.companyform.log_date).format('YYYY-MM-DD') >= '2021-07-01'){
+            this.optionsdata = [];
+          }else{
+            this.optionsdata.push({value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')})
+          }
+        }else{
+          this.optionsdata.push({value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')})
+        }
+        //upd_fjl_0805  查看时显示项目name  start
+        if (this.disable) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5009Store/getSiteList5', {})
+            .then(response => {
+              for (let i = 0; i < response.length; i++) {
+                this.optionsdata.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].numbers + '_' + response[i].project_name,
+                });
+                this.optionsdategroup.push({
+                  value: response[i].companyprojects_id,
+                  lable: response[i].group_id,
+                });
+              }
+
+              this.$store
+                .dispatch('PFANS5013Store/getMyConProject2', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    this.optionsdata.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].numbers + '_' + response[i].project_name,
+                    });
+                    this.optionsdategroup.push({
+                      value: response[i].comproject_id,
+                      lable: response[i].group_id,
+                    });
+                  }
+                  this.loading = false;
                 })
                 .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        } else {
+          this.listAll();
+        }
+      },
+      listAll() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5013Store/Listproject2', {})
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              this.optionsdata.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].numbers + '_' + response[i].project_name,
+              });
+              this.optionsdategroup.push({
+                value: response[i].companyprojects_id,
+                lable: response[i].group_id,
+              });
+            }
+            this.$store
+              .dispatch('PFANS5013Store/Listproject', {})
+              .then(response => {
+                for (let i = 0; i < response.length; i++) {
+                  this.optionsdata.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].numbers + '_' + response[i].project_name,
+                  });
+                  this.optionsdategroup.push({
+                    value: response[i].comproject_id,
+                    lable: response[i].group_id,
+                  });
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //upd_fjl_0805  查看时显示项目name  end
+      checklistgettable() {
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            let checklenth = 0;
+            for (let j = 0; j < response.length; j++) {
+
+              if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                checklenth += parseFloat(response[j].time_start);
+              }
+
+            }
+            this.checkLenth = checklenth;
+          });
+      },
+      checkgetAttendancelist() {
+        let parameter = {
+          user_id: this.User_id,
+        };
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2010Store/getAttendancelist', parameter)
+          .then(response => {
+            //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
+            if (response.length === 0) {
+              this.$store
+                .dispatch('PFANS5008Store/getAttendancepdlist', parameter)
+                .then(response => {
+                  this.checkList = response;
+                  this.getAttendancelist();
+                  this.loading = false;
+                });
+            } else {
+              this.checkList = response;
+              this.getAttendancelist();
+            }
+            //add-ws-当前人的登陆id在设内表中未查到的时候，去社外表查询用社外的数据否则就用社内的数据
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      getAttendancelist() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+
+            let sumtime = 0;
+            for (let j = 0; j < response.length; j++) {
+              if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                sumtime += parseFloat(response[j].time_start);
+              }
+            }
+            let sumoutgoinghours = 0;
+            for (let j = 0; j < this.checkList.length; j++) {
+              if (moment(this.checkList[j].dates).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                if (this.checkList[j].outgoinghours === null) {
+                  sumoutgoinghours = 0;
+                } else if (this.checkList[j].outgoinghours === '') {
+                  sumoutgoinghours = 0;
+                } else {
+                  sumoutgoinghours = parseFloat(this.checkList[j].outgoinghours);
+                }
+              }
+            }
+            this.checkdata = (sumoutgoinghours - sumtime).toFixed(2);
+            //add ccm 小于0时等于0 from
+            if (this.checkdata < 0) {
+              this.checkdata = '0.00';
+            }
+            //add ccm 小于0时等于0 to
+            this.checktime = sumoutgoinghours;
+          });
+      },
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
+          this.disabled = val;
+        }
+      },
+      getProject(val) {
+        this.checkerror = 0;
+        if (val) {
+          this.companyform.work_phase = '';
+          this.companyform.behavior_breakdown = '';
+          this.code3 = '0';
+        }
+        for (let item of this.optionsdata) {
+          if (item.value === val) {
+            this.companyform.project_name = item.lable;
+          }
+        }
+        for (let item of this.optionsdategroup) {
+          if (item.value === val) {
+            this.companyform.group_id = item.lable;
+          }
+        }
+        this.companyform.project_id = val;
+        if (val != 'PP024001') {
+          this.form = {};
+          this.form.log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5008Store/getListcheck', this.companyform)
+            .then(response => {
+              this.$store
+                .dispatch('PFANS5008Store/CheckList', {})
+                .then(response => {
+                  for (let i = 0; i < response.length; i++) {
+                    if (val === response[i].companyprojects_id) {
+                      if (moment(this.companyform.log_date).format('YYYY-MM-DD') < moment(response[i].admissiontime).format('YYYY-MM-DD') || moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[i].exitime).format('YYYY-MM-DD')) {
+                        this.checkerror = 1;
+                        Message({
+                          message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATAERROR'),
+                          type: 'error',
+                          duration: 5 * 1000,
+                        });
+                        break;
+                      }
+                    }
+                  }
+                });
+              for (let k = 0; k < response.length; k++) {
+                if (response[k].estimatedendtime != null) {
+                  if (moment(this.companyform.log_date).format('YYYY-MM-DD') < moment(response[k].estimatedstarttime).format('YYYY-MM-DD') || moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].estimatedendtime).format('YYYY-MM-DD')) {
+                    this.checkerror = 1;
                     Message({
-                        message: error,
+                      message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    break;
+                  }
+                  break;
+                } else {
+                  if (response[k].extensiondate != null) {
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].extensiondate).format('YYYY-MM-DD')) {
+                      this.checkerror = 1;
+                      Message({
+                        message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                         type: 'error',
-                        duration: 5 * 1000
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  } else {
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].claimdatetime).format('YYYY-MM-DD')) {
+                      this.checkerror = 1;
+                      Message({
+                        message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      break;
+                    }
+                  }
+                }
+                break;
+              }
+              this.loading = false;
+              return;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
+      rowclick(row, event, column) {
+        this.row = row.logmanagementid;
+        this.companyform.logmanagement_id = row.logmanagementid;
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getDataOne', {'logmanagement_id': this.row})
+          .then(response => {
+            this.checktimelength = response.time_start;
+            // if (response.confirmstatus == '1') {
+            //   this.buttonList[0].disabled = true;
+            //   this.buttonList[1].disabled = true;
+            //   this.disable = false;
+            // } else {
+            //   this.buttonList[0].disabled = false;
+            //   this.buttonList[1].disabled = false;
+            //   this.disable = true;
+            // }
+            this.code3 = '';
+            if (response.work_phase === 'PP008001') {
+              this.code3 = 'PP009';
+              let letErrortype = getDictionaryInfo(response.behavior_breakdown);
+              if (letErrortype != null) {
+                response.behavior_breakdown = letErrortype.code;
+              }
+            } else if (response.work_phase === 'PP008002') {
+              this.code3 = 'PP010';
+              let letErrortype = getDictionaryInfo(response.behavior_breakdown);
+              if (letErrortype != null) {
+                response.behavior_breakdown = letErrortype.code;
+              }
+            } else if (response.work_phase === 'PP008003') {
+              this.code3 = 'PP025';
+              let letErrortype = getDictionaryInfo(response.behavior_breakdown);
+              if (letErrortype != null) {
+                response.behavior_breakdown = letErrortype.code;
+              }
+            } else if (response.work_phase === 'PP008004') {
+              this.code3 = 'PP011';
+              let letErrortype = getDictionaryInfo(response.behavior_breakdown);
+              if (letErrortype != null) {
+                response.behavior_breakdown = letErrortype.code;
+              }
+            }
+            this.companyform = response;
+            this.loading = false;
+          });
+      },
+      changedate() {
+        this.getAttendancelist();
+        this.$route.params._id = '';
+        this.row = '';
+        this.companyform.logmanagement_id = '';
+        this.companyform.time_start = '';
+        this.companyform.wbs_id = '';
+        this.companyform.behavior_breakdown = '';
+        this.companyform.work_phase = '';
+        this.companyform.work_memo = '';
+        if (this.companyform.log_date == null) {
+          this.Riqickeck = false;
+        } else {
+          this.Riqickeck = true;
+        }
+        this.divfalse = false;
+        this.xsTable = false;
+        this.loading = true;
+
+        let log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            const data = [];
+            let datalist = [];
+            for (let k = 0; k < response.length; k++) {
+
+              if (response[k].has_project === '01') {
+                let log_date3 = moment(response[k].log_date).format('YYYY-MM-DD');
+                if (log_date3 === log_date) {
+                  if (response[k].work_phase === 'PP008001') {
+                    this.code3 = 'PP009';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008002') {
+                    this.code3 = 'PP010';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008003') {
+                    this.code3 = 'PP025';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008004') {
+                    this.code3 = 'PP011';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  }
+                  if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                    let letErrortype = getDictionaryInfo(response[k].work_phase);
+                    if (letErrortype != null) {
+                      response[k].work_phase = letErrortype.value1;
+                    }
+                  }
+                  let obj = {};
+                  obj.start_time = response[k].time_start;
+                  obj.work_phase = response[k].work_phase;
+                  let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortypecheck != null) {
+                    obj.behavior_breakdown = letErrortypecheck.value1;
+                  }
+                  obj.project_name = response[k].project_name;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                  obj.logmanagementid = response[k].logmanagement_id;
+                  obj.wbs_id = response[k].wbs_id;
+                  datalist[k] = obj;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                }
+              }
+
+            }
+            this.DataList = datalist;
+          });
+
+        this.loading = false;
+      },
+      riqi() {
+        this.getAttendancelist();
+        this.$route.params._id = '';
+        this.row = '';
+        this.companyform.logmanagement_id = '';
+        this.companyform.time_start = '';
+        this.companyform.wbs_id = '';
+        this.companyform.behavior_breakdown = '';
+        this.companyform.work_phase = '';
+        this.companyform.work_memo = '';
+        if (this.companyform.log_date == null) {
+          this.Riqickeck = false;
+        } else {
+          this.Riqickeck = true;
+        }
+        this.divfalse = false;
+        this.xsTable = false;
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            let datalist = [];
+            for (let k = 0; k < response.length; k++) {
+
+              this.code3 = '';
+              if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                if (response[k].work_phase === 'PP008001') {
+                  this.code3 = 'PP009';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                } else if (response[k].work_phase === 'PP008002') {
+                  this.code3 = 'PP010';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                } else if (response[k].work_phase === 'PP008003') {
+                  this.code3 = 'PP025';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                } else if (response[k].work_phase === 'PP008004') {
+                  this.code3 = 'PP011';
+                  let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[k].behavior_breakdown = letErrortype.code;
+                  }
+                }
+                if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                  let letErrortype = getDictionaryInfo(response[k].work_phase);
+                  if (letErrortype != null) {
+                    response[k].work_phase = letErrortype.value1;
+                  }
+                }
+                let obj = {};
+                obj.start_time = response[k].time_start;
+                obj.work_phase = response[k].work_phase;
+                let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                if (letErrortypecheck != null) {
+                  obj.behavior_breakdown = letErrortypecheck.value1;
+                }
+                obj.project_name = response[k].project_name;
+                this.divfalse = true;
+                this.xsTable = true;
+                obj.logmanagementid = response[k].logmanagement_id;
+                obj.wbs_id = response[k].wbs_id;
+                datalist[k] = obj;
+                this.divfalse = true;
+                this.xsTable = true;
+              }
+
+            }
+            this.DataList = datalist;
+            this.loading = false;
+          });
+      },
+      buttonClick(val) {
+        this.checklistgettable();
+        if (val === 'mingtian') {
+          this.$route.params._id = '';
+          this.row = '';
+          this.companyform.logmanagement_id = '';
+          this.divfalse = false;
+          this.xsTable = false;
+          this.companyform.log_date = moment(this.companyform.log_date).add(1, 'days').format('YYYY-MM-DD');
+          this.getAttendancelist();
+          this.companyform.time_start = '';
+          this.companyform.wbs_id = '';
+          this.companyform.behavior_breakdown = '';
+          this.companyform.work_phase = '';
+          this.companyform.work_memo = '';
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+            .then(response => {
+              const data = [];
+              let datalist = [];
+              for (let k = 0; k < response.length; k++) {
+
+                this.code3 = '';
+                if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                  if (response[k].work_phase === 'PP008001') {
+                    this.code3 = 'PP009';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008002') {
+                    this.code3 = 'PP010';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008003') {
+                    this.code3 = 'PP025';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008004') {
+                    this.code3 = 'PP011';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  }
+                  if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                    let letErrortype = getDictionaryInfo(response[k].work_phase);
+                    if (letErrortype != null) {
+                      response[k].work_phase = letErrortype.value1;
+                    }
+                  }
+                  let obj = {};
+                  obj.start_time = response[k].time_start;
+                  obj.work_phase = response[k].work_phase;
+                  let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortypecheck != null) {
+                    obj.behavior_breakdown = letErrortypecheck.value1;
+                  }
+                  obj.project_name = response[k].project_name;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                  obj.logmanagementid = response[k].logmanagement_id;
+                  obj.wbs_id = response[k].wbs_id;
+                  datalist[k] = obj;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                }
+
+              }
+              this.DataList = datalist;
+              this.loading = false;
+            });
+        }
+        if (val === 'btnSave') {
+          this.$refs['companyform'].validate(valid => {
+            if (valid) {
+              this.getAttendancelist();
+              this.loading = true;
+              let error = 0;
+              let check = 0;
+              // update gbb 20210316 NT_PFANS_20210315_BUG_145 日志填写【时长】字段为空check start
+              //if (Number(this.companyform.time_start) <= 0) {
+              if (Number(this.companyform.time_start) <= 0 || this.companyform.time_start === undefined) {
+              // update gbb 20210316 NT_PFANS_20210315_BUG_145 日志填写【时长】字段为空check end
+                check = check + 1;
+                Message({
+                  message: this.$t('label.PFANS5008VIEW_CHECKDATA0'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+                return;
+              }
+              //add-ws-日志截止日期check添加
+
+              let log_date = moment(this.companyform.log_date).format('DD');
+              let date = getDictionaryInfo('BP027001').value1;
+              let checkdate = date < 10 ? '0' + date : date;
+              if (moment(this.companyform.log_date).format('YYYY') < moment(new Date()).format('YYYY')) {
+                if (moment(this.companyform.log_date).format('MM') > moment(new Date()).format('MM')) {
+                  if (checkdate < moment(new Date()).format('DD')) {
+                    check = check + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
                     this.loading = false;
-                });
-            if (this.$route.params._id) {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getDataOne', {"logmanagement_id": this.$route.params._id})
-                    .then(response => {
-                        this.data = response;
-                        if (this.data.has_project === '01') {
-                            this.companyform = this.data;
-                            this.$store
-                                .dispatch('PFANS5008Store/getProjectList', {})
-                                .then(response => {
-                                    const data = [];
-                                    for (let i = 0; i < response.length; i++) {
-                                        data.push({
-                                            key: response[i].project_id,
-                                            label: response[i].project_name,
-                                        });
-                                    }
-                                    this.transferData = data;
-                                    let log_date = moment(this.data.log_date).format("YYYY-MM-DD");
-                                    this.$store
-                                        .dispatch('PFANS5008Store/getDataList', {})
-                                        .then(response => {
-                                            const data = [];
-                                            let datalist = [];
-                                            for (let k = 0; k < response.length; k++) {
-                                                if (response[k].has_project === '01') {
-                                                    let log_date3 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                                    if (log_date3 === log_date) {
-                                                        for (let i = 0; i < this.transferData.length; i++) {
-                                                            if (this.transferData[i].key === response[k].project_id) {
-                                                                response[k].project_id = this.transferData[i].label;
-                                                            }
-                                                        }
-                                                        let obj = {};
-                                                        let d = new Date(response[k].time_start);
-                                                        let Housd = d.getHours() + d.getMinutes() / 60;
-                                                        let time = d.getHours() + ':' + d.getMinutes();
-                                                        obj.starttime = time;
-                                                        let a = new Date(response[k].time_end);
-                                                        let Housa = a.getHours() + a.getMinutes() / 60;
-                                                        let time2 = a.getHours() + ':' + a.getMinutes();
-                                                        obj.endtime = time2;
-                                                        let e = Housa - Housd;
-                                                        let realVal = parseFloat(e).toFixed(2);
-                                                        obj.shicha = realVal;
-                                                        obj.program = response[k].project_id;
-                                                        obj.logmanagementid = response[k].logmanagement_id;
-                                                        this.xsTable = true;
-                                                        datalist[k] = obj;
-                                                    }
-                                                }
-                                            }
-                                            this.DataList = datalist;
-                                        })
-                                })
-                        } else if (this.data.has_project === '02') {
-                            this.companyform2 = this.data;
-                            let log_date2 = moment(this.data.log_date).format("YYYY-MM-DD");
-                            this.$store
-                                .dispatch('PFANS5008Store/getDataList', {})
-                                .then(response => {
-                                    let datalist2 = [];
-                                    const data2 = [];
-                                    for (let k = 0; k < response.length; k++) {
-                                        if (response[k].has_project === '02') {
-                                            let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                            if (log_date4 === log_date2) {
-                                                let obj = {};
-                                                let d = new Date(response[k].time_start);
-                                                let Housd = d.getHours() + d.getMinutes() / 60;
-                                                let time = d.getHours() + ':' + d.getMinutes();
-                                                obj.starttime2 = time;
-                                                let a = new Date(response[k].time_end);
-                                                let Housa = a.getHours() + a.getMinutes() / 60;
-                                                let time2 = a.getHours() + ':' + a.getMinutes();
-                                                obj.endtime2 = time2;
-                                                let e = Housa - Housd;
-                                                let realVal = parseFloat(e).toFixed(2);
-                                                obj.shicha2 = realVal;
-                                                this.xsTable2 = true;
-                                                obj.logmanagementid = response[k].logmanagement_id;
-                                                datalist2[k] = obj;
-                                            }
-                                        }
-                                    }
-                                    this.DataList2 = datalist2;
-                                })
-                        }
-                        this.loading = false;
-                    })
-            }
-        },
-        methods: {
-            rowclick(row, event, column) {
-                this.row = row.logmanagementid;
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getDataOne', {"logmanagement_id": this.row})
-                    .then(response => {
-                        this.data = response;
-                        if (this.data.has_project === '01') {
-                            this.companyform = this.data;
-                        } else if (this.data.has_project === '02') {
-                            this.companyform2 = this.data;
-                        }
-                        this.loading = false;
-                    })
-            },
-            riqi() {
-                this.xsTable = false;
-                this.xsTable2 = false;
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getDataList', {})
-                    .then(response => {
-                        const data = [];
-                        let datalist = [];
-                        let log_date = moment(this.companyform.log_date).format("YYYY-MM-DD");
-                        for (let k = 0; k < response.length; k++) {
-                            if (response[k].has_project === '01') {
-                                let log_date3 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                if (log_date3 === log_date) {
-                                    for (let i = 0; i < this.transferData.length; i++) {
-                                        if (this.transferData[i].key === response[k].project_id) {
-                                            response[k].project_id = this.transferData[i].label;
-                                        }
-                                    }
-                                    let obj = {};
-                                    let d = new Date(response[k].time_start);
-                                    let Housd = d.getHours() + d.getMinutes() / 60;
-                                    let time = d.getHours() + ':' + d.getMinutes();
-                                    obj.starttime = time;
-                                    let a = new Date(response[k].time_end);
-                                    let Housa = a.getHours() + a.getMinutes() / 60;
-                                    let time2 = a.getHours() + ':' + a.getMinutes();
-                                    obj.endtime = time2;
-                                    let e = Housa - Housd;
-                                    let realVal = parseFloat(e).toFixed(2);
-                                    obj.shicha = realVal;
-                                    obj.program = response[k].project_id;
-                                    this.xsTable = true;
-                                    obj.logmanagementid = response[k].logmanagement_id;
-                                    datalist[k] = obj;
-                                }
-                            }
-                        }
-                        this.DataList = datalist;
-                        this.loading = false;
+                  }
+                }
+              } else if (moment(this.companyform.log_date).format('MM') < moment(new Date()).format('MM')) {
+                if (checkdate < moment(new Date()).format('DD')) {
+                  check = check + 1;
+                  Message({
+                    message: this.$t('label.PFANS5008VIEW_CHECKDATA'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                }
+              }
+              //add-ws-日志截止日期check添加
+              if (check === 0) {
+                if (this.checkuserid === 0) {
+                  if (this.resignation_date !== null && this.resignation_date !== '') {
+                    if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(this.resignation_date).format('YYYY-MM-DD')) {
+                      error = error + 1;
+                      Message({
+                        message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.loading = false;
+                    }
+                  } else if (moment(this.companyform.log_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')) {
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATA'),
+                      type: 'error',
+                      duration: 5 * 1000,
                     });
-                this.$store
-                    .dispatch('PFANS5008Store/getDataList', {})
+                    this.loading = false;
+                  } else if (this.companyform.time_start == '0') {
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_CKECKTIME'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                  this.$store
+                    .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
                     .then(response => {
-                        let log_date2 = moment(this.companyform2.log_date).format("YYYY-MM-DD");
-                        let datalist2 = [];
-                        const data2 = [];
-                        for (let k = 0; k < response.length; k++) {
-                            if (response[k].has_project === '02') {
-                                let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                if (log_date4 === log_date2) {
-                                    let obj = {};
-                                    let d = new Date(response[k].time_start);
-                                    let Housd = d.getHours() + d.getMinutes() / 60;
-                                    let time = d.getHours() + ':' + d.getMinutes();
-                                    obj.starttime2 = time;
-                                    let a = new Date(response[k].time_end);
-                                    let Housa = a.getHours() + a.getMinutes() / 60;
-                                    let time2 = a.getHours() + ':' + a.getMinutes();
-                                    obj.endtime2 = time2;
-                                    let e = Housa - Housd;
-                                    let realVal = parseFloat(e).toFixed(2);
-                                    obj.shicha2 = realVal;
-                                    this.xsTable2 = true;
-                                    obj.logmanagementid = response[k].logmanagement_id;
-                                    datalist2[k] = obj;
-                                }
-                            }
+                      let checklenth = 0;
+                      for (let j = 0; j < response.length; j++) {
+                        if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                          checklenth += parseFloat(response[j].time_start);
                         }
-                        this.DataList2 = datalist2;
-                        this.loading = false;
-                    })
-            },
-            handleChange(value, direction, movedKeys) {
-                this.optionsdate = [];
-                if (direction === "right") {
-                    for (var k = 0; k < movedKeys.length; k++) {
-                        var vote = {};
-                        vote.value = movedKeys[k];
-                        this.optionsdate.push(vote)
-                    }
-                    this.determine.project_id = this.optionsdate;
-                }
-            },
-            submitForm(determine) {
-                determine.user_id = this.$store.getters.userinfo.userid;
-                const data = [];
-                for (let i = 0; i < this.transfer.length; i++) {
-                    for (var m = 0; m < determine.project_id.length; m++) {
-                        if (this.transfer[i].key === determine.project_id[m].value) {
-                            data.push({
-                                project_id: determine.project_id[m].value,
-                                project_name: this.transfer[i].label,
-                                user_id: determine.user_id,
-                            });
-                        }
-                    }
-                }
-                this.optiondate = data;
-                this.loading = true;
-                for (let i = 0; i < this.optiondate.length; i++) {
-                    this.$store
-                        .dispatch('PFANS5008Store/createProject', this.optiondate[i])
-                        .then(response => {
-                            this.List = response;
-                            this.$store
-                                .dispatch('PFANS5008Store/getProjectList', {})
-                                .then(response => {
-                                    this.optionsdata = [];
-                                    let user_id = this.$store.getters.userinfo.userid;
-                                    for (let i = 0; i < response.length; i++) {
-                                        if (user_id === response[i].user_id) {
-
-                                            var vote = {};
-                                            vote.value = response[i].project_id,
-                                                vote.lable = response[i].project_name,
-                                                this.optionsdata.push(vote)
-                                        }
-                                    }
-                                    this.loading = false;
-                                })
-                                .catch(error => {
-                                    Message({
-                                        message: error,
-                                        type: 'error',
-                                        duration: 5 * 1000
-                                    });
-                                    this.loading = false;
-                                });
-                            this.data = response;
-                            this.loading = false;
-                        })
-                        .catch(error => {
+                      }
+                      if (this.companyform.logmanagement_id) {
+                        if (this.resignation_date == null || this.resignation_date == '') {
+                          //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                          // this.checkLenth = checklenth;
+                          // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                          this.checkLenth = checklenth.toFixed(2);
+                          if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength)).toFixed(2) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
+                            error = error + 1;
                             Message({
-                                message: error,
-                                type: 'error',
-                                duration: 5 * 1000
+                              message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                              type: 'error',
+                              duration: 5 * 1000,
                             });
                             this.loading = false;
-                        })
-                }
-                this.program = false;
-            },
-            getCompanyProjectList() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getCompanyProjectList', {})
-                    .then(response => {
-                        const data = [];
-                        for (let i = 0; i < response.length; i++) {
-                            data.push({
-                                key: response[i].companyprojects_id,
-                                label: response[i].project_name,
-                            });
+                          }
                         }
-                        this.transfer = data;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                        this.loading = false;
-                    })
-            },
-            buttonClick(val) {
-                if (val === 'mingtian') {
-                    this.xsTable = false;
-                    this.xsTable2 = false;
-                    if (this.activeName === 'first') {
-                        this.companyform.log_date = moment(this.companyform.log_date).add(1, 'days').format("YYYY-MM-DD");
-                        this.companyform.time_start = '';
-                        this.companyform.time_end = '';
-                        this.companyform.behavior_breakdown = '';
-                        this.companyform.work_phase = '';
-                        this.companyform.work_memo = '';
-                    } else if (this.activeName === 'second') {
-                        this.companyform2.log_date = moment(this.companyform2.log_date).add(1, 'days').format("YYYY-MM-DD");
-                        this.companyform2.time_start = '';
-                        this.companyform2.time_end = '';
-                        this.companyform2.behavior_breakdown = '';
-                        this.companyform2.work_phase = '';
-                        this.companyform2.work_memo = '';
-                    }
-                    this.loading = true;
-                    let log_date = moment(this.companyform.log_date).format("YYYY-MM-DD");
-                    this.$store
-                        .dispatch('PFANS5008Store/getDataList', {})
-                        .then(response => {
-                            const data = [];
-                            let datalist = [];
-                            for (let k = 0; k < response.length; k++) {
-                                if (response[k].has_project === '01') {
-                                    let log_date3 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                    if (log_date3 === log_date) {
-                                        for (let i = 0; i < this.transferData.length; i++) {
-                                            if (this.transferData[i].key === response[k].project_id) {
-                                                response[k].project_id = this.transferData[i].label;
-                                            }
+                      } else {
+                        if (this.resignation_date == null || this.resignation_date == '') {
+                          this.checkLenth = checklenth;
+                          //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                          // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                          if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start)).toFixed(2) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
+                            error = error + 1;
+                            Message({
+                              message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          }
+                        }
+                      }
+                      if (error == 0) {
+                        // this.getProject(this.companyform.project_id);
+                        if (this.checkerror == 0) {
+                          if (this.$route.params._id || this.row) {
+                            this.$store
+                              .dispatch('PFANS5008Store/updateNewUser', this.companyform)
+                              .then(response => {
+                                this.companyform.time_start = '';
+                                this.data = response;
+                                Message({
+                                  message: this.$t('normal.success_02'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                                });
+                                this.$store
+                                  .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                                  .then(response => {
+                                    let datalist = [];
+                                    for (let k = 0; k < response.length; k++) {
+                                      if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                                        if (response[k].work_phase === 'PP008001') {
+                                          this.code3 = 'PP009';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008002') {
+                                          this.code3 = 'PP010';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008003') {
+                                          this.code3 = 'PP025';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008004') {
+                                          this.code3 = 'PP011';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        }
+                                        if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                          let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                          if (letErrortype != null) {
+                                            response[k].work_phase = letErrortype.value1;
+                                          }
                                         }
                                         let obj = {};
-                                        let d = new Date(response[k].time_start);
-                                        let Housd = d.getHours() + d.getMinutes() / 60;
-                                        let time = d.getHours() + ':' + d.getMinutes();
-                                        obj.starttime = time;
-                                        let a = new Date(response[k].time_end);
-                                        let Housa = a.getHours() + a.getMinutes() / 60;
-                                        let time2 = a.getHours() + ':' + a.getMinutes();
-                                        obj.endtime = time2;
-                                        let e = Housa - Housd;
-                                        let realVal = parseFloat(e).toFixed(2);
-                                        obj.shicha = realVal;
-                                        obj.program = response[k].project_id;
+                                        obj.start_time = response[k].time_start;
+                                        obj.work_phase = response[k].work_phase;
+                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortypecheck != null) {
+                                          obj.behavior_breakdown = letErrortypecheck.value1;
+                                        }
+                                        obj.project_name = response[k].project_name;
+                                        this.divfalse = true;
                                         this.xsTable = true;
                                         obj.logmanagementid = response[k].logmanagement_id;
+                                        obj.wbs_id = response[k].wbs_id;
                                         datalist[k] = obj;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
+                                      }
+
                                     }
-                                }
+                                    this.getAttendancelist();
+                                    this.DataList = datalist;
+                                    this.loading = false;
+                                  });
+                              })
+                              .catch(error => {
+                                Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                                });
+                                this.loading = false;
+                              });
+                          } else {
+                            if (this.companyform.project_id === '') {
+                              this.companyform.has_project = '02';
+                            } else {
+                              this.companyform.has_project = '01';
                             }
-                            this.DataList = datalist;
-                            this.loading = false;
-                        });
-                    this.loading = true;
-                    let log_date2 = moment(this.companyform2.log_date).format("YYYY-MM-DD");
-                    this.$store
-                        .dispatch('PFANS5008Store/getDataList', {})
-                        .then(response => {
-                            let datalist2 = [];
-                            const data2 = [];
-                            for (let k = 0; k < response.length; k++) {
-                                if (response[k].has_project === '02') {
-                                    let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                    if (log_date4 === log_date2) {
+                            //insert gbb 20210514 日志数据区分本社和外协 start
+                            if(this.$store.getters.userinfo.userid){
+                              this.companyform.tenantid = "0";//本社
+                            }
+                            else{
+                              this.companyform.tenantid = "1";//外协
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 end
+                            this.$store
+                              .dispatch('PFANS5008Store/createNewUser', this.companyform)
+                              .then(response => {
+                                this.companyform.time_start = '';
+                                this.data = response;
+                                Message({
+                                  message: this.$t('normal.success_01'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                                });
+                                this.$store
+                                  .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                                  .then(response => {
+                                    let datalist = [];
+                                    for (let k = 0; k < response.length; k++) {
+
+                                      if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                                        if (response[k].work_phase === 'PP008001') {
+                                          this.code3 = 'PP009';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008002') {
+                                          this.code3 = 'PP010';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008003') {
+                                          this.code3 = 'PP025';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008004') {
+                                          this.code3 = 'PP011';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        }
+                                        if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                          let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                          if (letErrortype != null) {
+                                            response[k].work_phase = letErrortype.value1;
+                                          }
+                                        }
                                         let obj = {};
-                                        let d = new Date(response[k].time_start);
-                                        let Housd = d.getHours() + d.getMinutes() / 60;
-                                        let time = d.getHours() + ':' + d.getMinutes();
-                                        obj.starttime2 = time;
-                                        let a = new Date(response[k].time_end);
-                                        let Housa = a.getHours() + a.getMinutes() / 60;
-                                        let time2 = a.getHours() + ':' + a.getMinutes();
-                                        obj.endtime2 = time2;
-                                        let e = Housa - Housd;
-                                        let realVal = parseFloat(e).toFixed(2);
-                                        obj.shicha2 = realVal;
-                                        this.xsTable2 = true;
+                                        obj.start_time = response[k].time_start;
+                                        obj.work_phase = response[k].work_phase;
+                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortypecheck != null) {
+                                          obj.behavior_breakdown = letErrortypecheck.value1;
+                                        }
+                                        obj.project_name = response[k].project_name;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
                                         obj.logmanagementid = response[k].logmanagement_id;
-                                        datalist2[k] = obj;
+                                        obj.wbs_id = response[k].wbs_id;
+                                        datalist[k] = obj;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
+                                      }
+
                                     }
-                                }
-                            }
-                            this.DataList2 = datalist2;
-                            this.loading = false;
-                        })
-                }
-                if (val === 'btnSave') {
-                    if (this.$route.params._id) {
-                        this.companyform.logmanagement_id = this.$route.params._id;
-                        if (this.companyform.has_project === '01') {
-                            this.loading = true;
-                            this.$refs["companyform"].validate(valid => {
-                                if (valid) {
-                                    this.$store
-                                        .dispatch('PFANS5008Store/updateNewUser', this.companyform)
-                                        .then(response => {
-                                            this.data = response;
-                                            Message({
-                                                message: this.$t("normal.success_02"),
-                                                type: 'success',
-                                                duration: 5 * 1000
-                                            });
-                                            this.$store
-                                                .dispatch('PFANS5008Store/getDataList', {})
-                                                .then(response => {
-                                                    let datalist = [];
-                                                    const data = [];
-                                                    let log_date = moment(this.companyform.log_date).format("YYYY-MM-DD");
-                                                    for (let k = 0; k < response.length; k++) {
-                                                        for (let i = 0; i < this.transferData.length; i++) {
-                                                            if (this.transferData[i].key === response[k].project_id) {
-                                                                response[k].project_id = this.transferData[i].label;
-                                                            }
-                                                        }
-                                                        if (response[k].has_project === '01') {
-                                                            let log_date2 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                                            if (log_date2 === log_date) {
-                                                                let obj = {};
-                                                                let d = new Date(response[k].time_start);
-                                                                let Housd = d.getHours() + d.getMinutes() / 60;
-                                                                let time = d.getHours() + ':' + d.getMinutes();
-                                                                obj.starttime = time;
-                                                                let a = new Date(response[k].time_end);
-                                                                let Housa = a.getHours() + a.getMinutes() / 60;
-                                                                let time2 = a.getHours() + ':' + a.getMinutes();
-                                                                obj.endtime = time2;
-                                                                let e = Housa - Housd;
-                                                                let realVal = parseFloat(e).toFixed(2);
-                                                                obj.shicha = realVal;
-                                                                obj.program = response[k].project_id;
-                                                                datalist[k] = obj;
-                                                                obj.logmanagementid = response[k].logmanagement_id;
-                                                                this.xsTable = true;
-                                                            }
-                                                        }
-                                                    }
-                                                    this.DataList = datalist;
-                                                    this.loading = false;
-                                                })
-                                        })
-                                        .catch(error => {
-                                            Message({
-                                                message: error,
-                                                type: 'error',
-                                                duration: 5 * 1000
-                                            });
-                                            this.loading = false;
-                                        })
-                                }
-                            });
-                        } else if (this.companyform2.has_project === '02') {
-                            this.companyform2.logmanagement_id = this.$route.params._id;
-                            this.$refs["companyform2"].validate(valid => {
-                                if (valid) {
-                                    this.$store
-                                        .dispatch('PFANS5008Store/updateNewUser', this.companyform2)
-                                        .then(response => {
-                                            this.data = response;
-                                            Message({
-                                                message: this.$t("normal.success_02"),
-                                                type: 'success',
-                                                duration: 5 * 1000
-                                            });
-                                            let log_date3 = moment(this.companyform2.log_date).format("YYYY-MM-DD");
-                                            this.$store
-                                                .dispatch('PFANS5008Store/getDataList', {})
-                                                .then(response => {
-                                                    let datalist = [];
-                                                    const data2 = [];
-                                                    for (let k = 0; k < response.length; k++) {
-                                                        if (response[k].has_project === '02') {
-                                                            let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                                            if (log_date4 === log_date3) {
-                                                                let obj = {};
-                                                                let d = new Date(response[k].time_start);
-                                                                let Housd = d.getHours() + d.getMinutes() / 60;
-                                                                let time = d.getHours() + ':' + d.getMinutes();
-                                                                obj.starttime2 = time;
-                                                                let a = new Date(response[k].time_end);
-                                                                let Housa = a.getHours() + a.getMinutes() / 60;
-                                                                let time2 = a.getHours() + ':' + a.getMinutes();
-                                                                obj.endtime2 = time2;
-                                                                let e = Housa - Housd;
-                                                                let realVal = parseFloat(e).toFixed(2);
-                                                                obj.shicha2 = realVal;
-                                                                datalist[k] = obj;
-                                                                obj.logmanagementid = response[k].logmanagement_id;
-                                                                this.xsTable2 = true;
-                                                            }
-                                                        }
-                                                    }
-                                                    this.DataList2 = datalist;
-                                                    this.loading = false;
-                                                })
-                                        })
-                                        .catch(error => {
-                                            Message({
-                                                message: error,
-                                                type: 'error',
-                                                duration: 5 * 1000
-                                            });
-                                            this.loading = false;
-                                        })
-                                }
-                            });
+                                    this.getAttendancelist();
+                                    this.DataList = datalist;
+                                    this.loading = false;
+                                  });
+                              })
+                              .catch(error => {
+                                Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                                });
+                                this.loading = false;
+                              });
+                          }
+                        } else {
+                          this.loading = false;
                         }
-                    } else if (this.activeName === 'first') {
-                        this.companyform.has_project = '01';
-                        this.$refs["companyform"].validate(valid => {
-                            if (valid) {
-                                this.loading = true;
-                                this.$store
-                                    .dispatch('PFANS5008Store/createNewUser', this.companyform)
-                                    .then(response => {
-                                        this.data = response;
-                                        Message({
-                                            message: this.$t("normal.success_01"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        this.$store
-                                            .dispatch('PFANS5008Store/getDataList', {})
-                                            .then(response => {
-                                                let datalist = [];
-                                                const data = [];
-                                                let log_date = moment(this.companyform.log_date).format("YYYY-MM-DD");
-                                                for (let k = 0; k < response.length; k++) {
-                                                    for (let i = 0; i < this.transferData.length; i++) {
-                                                        if (this.transferData[i].key === response[k].project_id) {
-                                                            response[k].project_id = this.transferData[i].label;
-                                                        }
-                                                    }
-                                                    if (response[k].has_project === '01') {
-                                                        let log_date2 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                                        if (log_date2 === log_date) {
-                                                            let obj = {};
-                                                            let d = new Date(response[k].time_start);
-                                                            let Housd = d.getHours() + d.getMinutes() / 60;
-                                                            let time = d.getHours() + ':' + d.getMinutes();
-                                                            obj.starttime = time;
-                                                            let a = new Date(response[k].time_end);
-                                                            let Housa = a.getHours() + a.getMinutes() / 60;
-                                                            let time2 = a.getHours() + ':' + a.getMinutes();
-                                                            obj.endtime = time2;
-                                                            let e = Housa - Housd;
-                                                            let realVal = parseFloat(e).toFixed(2);
-                                                            obj.shicha = realVal;
-                                                            obj.program = response[k].project_id;
-                                                            datalist[k] = obj;
-                                                            obj.logmanagementid = response[k].logmanagement_id;
-                                                            this.xsTable = true;
-                                                        }
-                                                    }
-                                                }
-                                                this.DataList = datalist;
-                                                this.loading = false;
-                                            })
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
-                            }
-                        });
-                    } else if (this.activeName === 'second') {
-                        this.companyform2.has_project = '02';
-                        this.$refs["companyform2"].validate(valid => {
-                            if (valid) {
-                                this.loading = true;
-                                this.$store
-                                    .dispatch('PFANS5008Store/createNewUser', this.companyform2)
-                                    .then(response => {
-                                        this.data = response;
-                                        Message({
-                                            message: this.$t("normal.success_01"),
-                                            type: 'success',
-                                            duration: 5 * 1000
-                                        });
-                                        let log_date3 = moment(this.companyform2.log_date).format("YYYY-MM-DD");
-                                        this.$store
-                                            .dispatch('PFANS5008Store/getDataList', {})
-                                            .then(response => {
-                                                let datalist = [];
-                                                const data2 = [];
-                                                for (let k = 0; k < response.length; k++) {
-                                                    if (response[k].has_project === '02') {
-                                                        let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                                        if (log_date4 === log_date3) {
-                                                            let obj = {};
-                                                            let d = new Date(response[k].time_start);
-                                                            let Housd = d.getHours() + d.getMinutes() / 60;
-                                                            let time = d.getHours() + ':' + d.getMinutes();
-                                                            obj.starttime2 = time;
-                                                            let a = new Date(response[k].time_end);
-                                                            let Housa = a.getHours() + a.getMinutes() / 60;
-                                                            let time2 = a.getHours() + ':' + a.getMinutes();
-                                                            obj.endtime2 = time2;
-                                                            let e = Housa - Housd;
-                                                            let realVal = parseFloat(e).toFixed(2);
-                                                            obj.shicha2 = realVal;
-                                                            datalist[k] = obj;
-                                                            obj.logmanagementid = response[k].logmanagement_id;
-                                                            this.xsTable2 = true;
-                                                        }
-                                                    }
-                                                }
-                                                this.DataList2 = datalist;
-                                                this.loading = false;
-                                            })
-                                    })
-                                    .catch(error => {
-                                        Message({
-                                            message: error,
-                                            type: 'error',
-                                            duration: 5 * 1000
-                                        });
-                                        this.loading = false;
-                                    })
-                            }
-                        });
-                    }
-                }
-            },
-            JDjobs(value1) {
-                this.companyform.work_phase = value1;
-            },
-            XWXF(value3) {
-                this.companyform.behavior_breakdown = value3;
-            },
-            XWXF2(value4) {
-                this.companyform2.behavior_breakdown = value4;
-            },
-            JDjobs2(value5) {
-                this.companyform2.work_phase = value5;
-            },
-            clickdata() {
-                this.xsTable2 = false;
-                this.xsTable = false;
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getProjectList', {})
-                    .then(response => {
-                        const data = [];
-                        for (let i = 0; i < response.length; i++) {
-                            data.push({
-                                key: response[i].project_id,
-                                label: response[i].project_name,
-                            });
-                        }
-                        this.transferData = data;
-                        let log_date = moment(this.companyform.log_date).format("YYYY-MM-DD");
-                        this.$store
-                            .dispatch('PFANS5008Store/getDataList', {})
-                            .then(response => {
-                                const data = [];
-                                let datalist = [];
-                                for (let k = 0; k < response.length; k++) {
-                                    if (response[k].has_project === '01') {
-                                        let log_date3 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                        if (log_date3 === log_date) {
-                                            for (let i = 0; i < this.transferData.length; i++) {
-                                                if (this.transferData[i].key === response[k].project_id) {
-                                                    response[k].project_id = this.transferData[i].label;
-                                                }
-                                            }
-                                            let obj = {};
-                                            let d = new Date(response[k].time_start);
-                                            let Housd = d.getHours() + d.getMinutes() / 60;
-                                            let time = d.getHours() + ':' + d.getMinutes();
-                                            obj.starttime = time;
-                                            let a = new Date(response[k].time_end);
-                                            let Housa = a.getHours() + a.getMinutes() / 60;
-                                            let time2 = a.getHours() + ':' + a.getMinutes();
-                                            obj.endtime = time2;
-                                            let e = Housa - Housd;
-                                            let realVal = parseFloat(e).toFixed(2);
-                                            obj.shicha = realVal;
-                                            obj.program = response[k].project_id;
-                                            obj.logmanagementid = response[k].logmanagement_id;
-                                            this.xsTable = true;
-                                            datalist[k] = obj;
-                                        }
-                                    }
-                                }
-                                this.DataList = datalist;
-                            });
-                        let log_date2 = moment(this.companyform2.log_date).format("YYYY-MM-DD");
-                        this.$store
-                            .dispatch('PFANS5008Store/getDataList', {})
-                            .then(response => {
-                                let datalist2 = [];
-                                const data2 = [];
-                                for (let k = 0; k < response.length; k++) {
-                                    if (response[k].has_project === '02') {
-                                        let log_date4 = moment(response[k].log_date).format("YYYY-MM-DD");
-                                        if (log_date4 === log_date2) {
-                                            let obj = {};
-                                            let d = new Date(response[k].time_start);
-                                            let Housd = d.getHours() + d.getMinutes() / 60;
-                                            let time = d.getHours() + ':' + d.getMinutes();
-                                            obj.starttime2 = time;
-                                            let a = new Date(response[k].time_end);
-                                            let Housa = a.getHours() + a.getMinutes() / 60;
-                                            let time2 = a.getHours() + ':' + a.getMinutes();
-                                            obj.endtime2 = time2;
-                                            let e = Housa - Housd;
-                                            let realVal = parseFloat(e).toFixed(2);
-                                            obj.shicha2 = realVal;
-                                            this.xsTable2 = true;
-                                            obj.logmanagementid = response[k].logmanagement_id;
-                                            datalist2[k] = obj;
-                                        }
-                                    }
-                                }
-                                this.DataList2 = datalist2;
-                            })
+
+                      }
                     });
-                this.loading = false;
-            },
+                } else if (this.checkuserid === 1) {
+                  if (this.companyform.time_start == '0') {
+                    error = error + 1;
+                    Message({
+                      message: this.$t('label.PFANS5008FORMVIEW_CKECKTIME'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  }
+                  this.$store
+                    .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                    .then(response => {
+                      let checklenth = 0;
+                      for (let j = 0; j < response.length; j++) {
+                        if (moment(response[j].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                          checklenth += parseFloat(response[j].time_start);
+                        }
+                      }
+                      if (this.companyform.logmanagement_id) {
+                        if (this.resignation_date == null || this.resignation_date == '') {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                            // this.checkLenth = checklenth;
+                            // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength) > this.checktime) {
+                            this.checkLenth = checklenth.toFixed(2);
+                            if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) - parseFloat(this.checktimelength)).toFixed(2) > this.checktime) {
+                              //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
+                            error = error + 1;
+                            Message({
+                              message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          }
+                        }
+                      } else {
+                        if (this.resignation_date == null || this.resignation_date == '') {
+                          this.checkLenth = checklenth;
+                          //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-from
+                          // if (parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start) > this.checktime) {
+                          if ((parseFloat(this.checkLenth) + parseFloat(this.companyform.time_start)).toFixed(2) > this.checktime) {
+                            //upd-ws-2021/03/03-PSDCD_PFANS_20210302_BUG_023-to
+                            error = error + 1;
+                            Message({
+                              message: this.$t('label.PFANS5008VIEW_CHECKLENTHLOGDATA'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                            this.loading = false;
+                          }
+                        }
+                      }
+                      if (error == 0) {
+                        if (this.checkerror == 0) {
+                          if (this.$route.params._id || this.row) {
+                            this.loading = true;
+                            this.$store
+                              .dispatch('PFANS5008Store/updateNewUser', this.companyform)
+                              .then(response => {
+                                this.companyform.time_start = '';
+                                this.data = response;
+                                Message({
+                                  message: this.$t('normal.success_02'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                                });
+                                this.$store
+                                  .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                                  .then(response => {
+                                    let datalist = [];
+                                    for (let k = 0; k < response.length; k++) {
+
+                                      if (moment(response[k].log_date).format('YYYY-MM-DD') === moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                                        if (response[k].work_phase === 'PP008001') {
+                                          this.code3 = 'PP009';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008002') {
+                                          this.code3 = 'PP010';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008003') {
+                                          this.code3 = 'PP025';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008004') {
+                                          this.code3 = 'PP011';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        }
+                                        if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                          let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                          if (letErrortype != null) {
+                                            response[k].work_phase = letErrortype.value1;
+                                          }
+                                        }
+                                        let obj = {};
+                                        obj.start_time = response[k].time_start;
+                                        obj.work_phase = response[k].work_phase;
+                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortypecheck != null) {
+                                          obj.behavior_breakdown = letErrortypecheck.value1;
+                                        }
+                                        obj.project_name = response[k].project_name;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
+                                        obj.logmanagementid = response[k].logmanagement_id;
+                                        obj.wbs_id = response[k].wbs_id;
+                                        datalist[k] = obj;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
+                                      }
+
+                                    }
+                                    this.getAttendancelist();
+                                    this.DataList = datalist;
+                                    this.loading = false;
+                                  });
+                              })
+                              .catch(error => {
+                                Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                                });
+                                this.loading = false;
+                              });
+                          } else {
+                            if (this.companyform.project_id === '') {
+                              this.companyform.has_project = '02';
+                            } else {
+                              this.companyform.has_project = '01';
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 start
+                            if(this.$store.getters.userinfo.userid){
+                              this.companyform.tenantid = "0";//本社
+                            }
+                            else{
+                              this.companyform.tenantid = "1";//外协
+                            }
+                            //insert gbb 20210514 日志数据区分本社和外协 end
+                            this.loading = true;
+                            this.$store
+                              .dispatch('PFANS5008Store/createNewUser', this.companyform)
+                              .then(response => {
+                                this.companyform.time_start = '';
+                                this.data = response;
+                                Message({
+                                  message: this.$t('normal.success_01'),
+                                  type: 'success',
+                                  duration: 5 * 1000,
+                                });
+                                this.$store
+                                  .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+                                  .then(response => {
+                                    let datalist = [];
+                                    for (let k = 0; k < response.length; k++) {
+
+                                      if (moment(this.companyform.log_date).format('YYYY-MM-DD') === moment(response[k].log_date).format('YYYY-MM-DD')) {
+                                        if (response[k].work_phase === 'PP008001') {
+                                          this.code3 = 'PP009';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008002') {
+                                          this.code3 = 'PP010';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008003') {
+                                          this.code3 = 'PP025';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        } else if (response[k].work_phase === 'PP008004') {
+                                          this.code3 = 'PP011';
+                                          let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                                          if (letErrortype != null) {
+                                            response[k].behavior_breakdown = letErrortype.code;
+                                          }
+                                        }
+                                        if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                                          let letErrortype = getDictionaryInfo(response[k].work_phase);
+                                          if (letErrortype != null) {
+                                            response[k].work_phase = letErrortype.value1;
+                                          }
+                                        }
+                                        let obj = {};
+                                        obj.start_time = response[k].time_start;
+                                        obj.work_phase = response[k].work_phase;
+                                        let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                                        if (letErrortypecheck != null) {
+                                          obj.behavior_breakdown = letErrortypecheck.value1;
+                                        }
+                                        obj.project_name = response[k].project_name;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
+                                        obj.logmanagementid = response[k].logmanagement_id;
+                                        obj.wbs_id = response[k].wbs_id;
+                                        datalist[k] = obj;
+                                        this.divfalse = true;
+                                        this.xsTable = true;
+                                      }
+
+                                    }
+                                    this.getAttendancelist();
+                                    this.DataList = datalist;
+                                    this.loading = false;
+                                  });
+                              })
+                              .catch(error => {
+                                Message({
+                                  message: error,
+                                  type: 'error',
+                                  duration: 5 * 1000,
+                                });
+                                this.loading = false;
+                              });
+                          }
+                        } else {
+                          this.loading = false;
+                        }
+                      }
+                    });
+                }
+              }
+            } else {
+              Message({
+                message: this.$t('normal.error_12'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          });
         }
-    }
+      },
+      JDjobs(value1) {
+        this.companyform.work_phase = value1;
+        if (value1 === 'PP008001') {
+          this.code3 = 'PP009';
+        } else if (value1 === 'PP008002') {
+          this.code3 = 'PP010';
+        } else if (value1 === 'PP008003') {
+          this.code3 = 'PP025';
+        } else if (value1 === 'PP008004') {
+          this.code3 = 'PP011';
+        }
+      },
+      XWXF(value3) {
+        this.companyform.behavior_breakdown = value3;
+      },
+      clickdata() {
+        this.getCompanyProjectList();
+        this.getAttendancelist();
+        this.$route.params._id = '';
+        this.row = '';
+        this.companyform.logmanagement_id = '';
+        this.companyform.time_start = '';
+        this.companyform.wbs_id = '';
+        this.companyform.behavior_breakdown = '';
+        this.companyform.work_phase = '';
+        this.companyform.work_memo = '';
+        if (this.companyform.log_date == null) {
+          this.Riqickeck = false;
+        } else {
+          this.Riqickeck = true;
+        }
+        this.divfalse = false;
+        this.xsTable = false;
+        this.loading = true;
+
+        let log_date = moment(this.companyform.log_date).format('YYYY-MM-DD');
+        this.$store
+          .dispatch('PFANS5008Store/getCheckList', {'createby': this.User_id})
+          .then(response => {
+            const data = [];
+            let datalist = [];
+            for (let k = 0; k < response.length; k++) {
+
+              if (response[k].has_project === '01') {
+                let log_date3 = moment(response[k].log_date).format('YYYY-MM-DD');
+                if (log_date3 === log_date) {
+                  if (response[k].work_phase === 'PP008001') {
+                    this.code3 = 'PP009';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008002') {
+                    this.code3 = 'PP010';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008003') {
+                    this.code3 = 'PP025';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  } else if (response[k].work_phase === 'PP008004') {
+                    this.code3 = 'PP011';
+                    let letErrortype = getDictionaryInfo(response[k].behavior_breakdown);
+                    if (letErrortype != null) {
+                      response[k].behavior_breakdown = letErrortype.code;
+                    }
+                  }
+                  if (response[k].work_phase !== null && response[k].work_phase !== '') {
+                    let letErrortype = getDictionaryInfo(response[k].work_phase);
+                    if (letErrortype != null) {
+                      response[k].work_phase = letErrortype.value1;
+                    }
+                  }
+                  let obj = {};
+                  obj.start_time = response[k].time_start;
+                  obj.work_phase = response[k].work_phase;
+                  let letErrortypecheck = getDictionaryInfo(response[k].behavior_breakdown);
+                  if (letErrortypecheck != null) {
+                    obj.behavior_breakdown = letErrortypecheck.value1;
+                  }
+                  obj.project_name = response[k].project_name;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                  obj.logmanagementid = response[k].logmanagement_id;
+                  obj.wbs_id = response[k].wbs_id;
+                  datalist[k] = obj;
+                  this.divfalse = true;
+                  this.xsTable = true;
+                }
+              }
+
+            }
+            this.DataList = datalist;
+          });
+
+        this.loading = false;
+      },
+    },
+    watch: {
+      'companyform.log_date'(val) {
+        this.riqi();
+      },
+    },
+  };
 </script>
 <style lang="scss">
   .appManage {
     .el-calendar-day {
-      height: 3rem;
+      height: 2.6rem;
+      width: 2.6rem;
     }
   }
+
   .el-form-item__error {
     width: 15rem;
   }

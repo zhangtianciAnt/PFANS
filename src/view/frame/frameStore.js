@@ -2,7 +2,8 @@ import {
   getAppData,
   getAppMenu,
   getmessage,
-  updatenoticesstatus
+  updatenoticesstatus,
+  delToDoNotice
 } from './frameApi'
 
 
@@ -72,6 +73,23 @@ const frameStore = {
         })
       })
     },
+//    ADD_FJL_05/25  -- 删除无用代办
+    delToDoNotice({commit}, data) {
+      return new Promise((resolve, reject) => {
+        delToDoNotice(data).then(response => {
+          const result = response;
+          if (result.code === 0) {
+            resolve(result.data)
+          } else {
+            reject(result.message);
+          }
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    //    ADD_FJL_05/25  -- 删除无用代办
   }
 }
 

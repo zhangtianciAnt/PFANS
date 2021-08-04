@@ -1,5 +1,7 @@
-import {getValueByPath} from 'element-ui/src/utils/util'
-import store from '../store'
+import {getValueByPath} from 'element-ui/src/utils/util';
+import store from '../store';
+
+var departmentName = [];
 
 //table sort all
 export function orderBy(array, sortKey, reverse) {
@@ -11,7 +13,7 @@ export function orderBy(array, sortKey, reverse) {
   } else {
     reverse = reverse && reverse < 0 ? -1 : 1;
   }
-  var getKey = function (value, index) {
+  var getKey = function(value, index) {
     if (sortKey !== '$key') {
       if (isObject(value) && '$value' in value) value = value.$value;
     }
@@ -19,44 +21,109 @@ export function orderBy(array, sortKey, reverse) {
   };
   var compare = function compare(a, b) {
     for (var i = 0, len = a.key.length; i < len; i++) {
-      if (a.key[i] < b.key[i]) {
+      //add_fjl_0909  添加sort时NULL数据的处理  start
+      if (a.key[i] === null) {
         return -1;
+      } else {
+        if (valfloat(a.key[i])) {
+          if (Number(a.key[i]) < Number(b.key[i])) {
+            return -1;
+          }
+          if (Number(a.key[i]) > Number(b.key[i])) {
+            return 1;
+          }
+        } else {
+          if (a.key[i] < b.key[i]) {
+            return -1;
+          }
+          if (a.key[i] > b.key[i]) {
+            return 1;
+          }
+        }
+
       }
-      if (a.key[i] > b.key[i]) {
-        return 1;
-      }
+      //add_fjl_0909  添加sort时NULL数据的处理  end
     }
     return 0;
   };
-  return array.map(function (value, index) {
+  return array.map(function(value, index) {
     return {
       value: value,
       index: index,
-      key: getKey ? getKey(value, index) : null
+      key: getKey ? getKey(value, index) : null,
     };
-  }).sort(function (a, b) {
+  }).sort(function(a, b) {
     var order = compare(a, b);
     if (!order) {
       // make stable https://en.wikipedia.org/wiki/Sorting_algorithm#Stability
       order = a.index - b.index;
     }
     return order * reverse;
-  }).map(function (item) {
+  }).map(function(item) {
     return item.value;
   });
 }
 
+export function valfloat(str) {
+  const reg = /^(\-|\+)?\d+(\.\d+)?$/;
+  return reg.test(str);
+}
+
+export function getDepartmentById(id) {
+  departmentName = [];
+  if (id) {
+    let arr = id.split(',');
+    //add gbb 20210421 获取所有组织信息 start
+    // let org = store.getters.orgList[0];
+    // if (arr.includes(org._id)) {
+    //   departmentName.push(org.title);
+    // }
+    // if (org.orgs !== null && org.orgs !== undefined) {
+    //   departmentId(org.orgs, arr);
+    // }
+      let orgall = store.getters.orgallList[0];
+      for (let org of orgall) {
+        if (arr.includes(org._id)) {
+          departmentName.push(org.title);
+        }
+        if (org.orgs !== null && org.orgs !== undefined) {
+          departmentId(org.orgs, arr);
+        }
+      }
+    //add gbb 20210421 获取所有组织信息 end
+  }
+  return departmentName.join();
+}
+
+export function getOrgInformation(id) {
+  let org = {};
+  let treeCom = store.getters.orgs;
+  org = treeCom.getNode(id);
+  return org;
+}
+
+function departmentId(orgs, arr) {
+  for (let org of orgs) {
+    if (arr.includes(org._id)) {
+      departmentName.push(org.title);
+    }
+    if (org.orgs !== null && org.orgs !== undefined) {
+      departmentId(org.orgs, arr);
+    }
+  }
+}
+
 export function parseTime(time, cFormat) {
   if (arguments.length === 0) {
-    return null
+    return null;
   }
   const format = cFormat || '{y}-{m}-{d} {h}:{i}:{s}';
   let date;
   if (typeof time === 'object') {
-    date = time
+    date = time;
   } else {
     if (('' + time).length === 10) time = parseInt(time) * 1000;
-    date = new Date(time)
+    date = new Date(time);
   }
   const formatObj = {
     y: date.getFullYear(),
@@ -65,23 +132,23 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay()
+    a: date.getDay(),
   };
   const time_str = format.replace(/{(y|m|d|h|i|s|a)+}/g, (result, key) => {
     let value = formatObj[key];
     if (key === 'a') return ['一', '二', '三', '四', '五', '六', '日'][value - 1];
     if (result.length > 0 && value < 10) {
-      value = '0' + value
+      value = '0' + value;
     }
-    return value || 0
+    return value || 0;
   });
-  return time_str
+  return time_str;
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+var _typeof = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol' ? function(obj) {
   return typeof obj;
-} : function (obj) {
-  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+} : function(obj) {
+  return obj && typeof Symbol === 'function' && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
 };
 
 var isObject = function isObject(obj) {
@@ -159,20 +226,42 @@ export function getUUID(len, radix) {
 }
 
 export function getUserInfo(userid) {
+
   let info = null;
   if (store.getters.userList && store.getters.userList.length > 0) {
     for (let user of store.getters.userList) {
       if (user._id === userid || user.userid === userid) {
         info = user;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
+}
+
+export function getUserInfoName(custmname) {
+
+  let info = null;
+  if (store.getters.userList && store.getters.userList.length > 0) {
+    for (let user of store.getters.userList) {
+      if (user.userinfo.customername === custmname) {
+        info = user;
+        break;
+      }
+    }
+  }
+  if (info !== null) {
+    return info;
+  } else {
+    return '-1';
+  }
 }
 
 export function getOrgInfo(orgid, data) {
-  let list = store.getters.orgList;
+  //add gbb 20210421 获取所有组织信息 start
+  //let list = store.getters.orgList;
+  let list = store.getters.orgallList[0];
+  //add gbb 20210421 获取所有组织信息 end
   if (data) {
     list = data;
   }
@@ -180,10 +269,9 @@ export function getOrgInfo(orgid, data) {
   if (list && list.length > 0) {
     for (let org of list) {
       if (org._id === orgid) {
-        return org
+        return org;
       } else if (org.orgs && org.orgs.length > 0) {
         var rst = getOrgInfo(orgid, org.orgs);
-
         if (rst) {
           return rst;
         }
@@ -195,12 +283,12 @@ export function getOrgInfo(orgid, data) {
 export function getOrgInfoByUserId(userid) {
   var orgs = {};
   let userinfo = getUserInfo(userid);
-  orgs.centerNmae = "";
-  orgs.centerId = "";
-  orgs.groupNmae = "";
-  orgs.groupId = "";
-  orgs.teamNmae = "";
-  orgs.teamId = "";
+  orgs.centerNmae = '';
+  orgs.centerId = '';
+  orgs.groupNmae = '';
+  orgs.groupId = '';
+  orgs.teamNmae = '';
+  orgs.teamId = '';
   if (userinfo) {
     orgs.centerNmae = userinfo.userinfo.centername;
     orgs.centerId = userinfo.userinfo.centerid;
@@ -208,6 +296,7 @@ export function getOrgInfoByUserId(userid) {
     orgs.groupId = userinfo.userinfo.groupid;
     orgs.teamNmae = userinfo.userinfo.teamname;
     orgs.teamId = userinfo.userinfo.teamid;
+    orgs.personalcode = userinfo.userinfo.personalcode;
   }
   return orgs;
 }
@@ -219,11 +308,77 @@ export function getDictionaryInfo(code) {
     for (let dictionary of store.getters.dictionaryList) {
       if (dictionary.code === code) {
         info = dictionary;
-        break
+        break;
       }
     }
   }
-  return info
+  return info;
+}
+
+export function getDictionaryInfode(value1, value2, value3) {
+  let info = null;
+  if (store.getters.dictionaryList && store.getters.dictionaryList.length > 0) {
+    for (let dictionary of store.getters.dictionaryList) {
+      if (dictionary.value1 === value1 && dictionary.value2 === value2 && dictionary.value3 === value3) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+
+export function getCooperinterviewList(cooperuserid) {
+  let info = null;
+  if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
+    for (let cooperinterview of store.getters.cooperinterviewList) {
+      if (cooperinterview.expatriatesinfor_id === cooperuserid) {
+        info = cooperinterview;
+        break;
+      }
+    }
+  }
+  return info;
+}
+
+export function getCooperinterviewListByAccount(accountid) {
+  let info = null;
+  if (store.getters.cooperinterviewList && store.getters.cooperinterviewList.length > 0) {
+    for (let cooperinterview of store.getters.cooperinterviewList) {
+      if (cooperinterview.account === accountid) {
+        info = cooperinterview;
+        break;
+      }
+    }
+  }
+  return info;
+}
+
+//无team的部门
+export function getorgGroupList(groupid) {
+  let info = null;
+  if (store.getters.orgGroupList && store.getters.orgGroupList.length > 0) {
+    for (let cooperinterview of store.getters.orgGroupList) {
+      if (cooperinterview.centerid === groupid) {
+        info = cooperinterview;
+        break;
+      }
+    }
+  }
+  return info;
+}
+
+export function getSupplierinfor(id) {
+  let info = null;
+  if (store.getters.supplierinforList && store.getters.supplierinforList.length > 0) {
+    for (let cooperinterview of store.getters.supplierinforList) {
+      if (cooperinterview.supplierinfor_id === id) {
+        info = cooperinterview;
+        break;
+      }
+    }
+  }
+  return info;
 }
 
 //获取数据状态
@@ -231,35 +386,562 @@ export function getStatus(status) {
   let info = null;
 
   if (status === '0') {
-    info = '未开始'
+    info = '未开始';
   } else if (status === '2') {
-    info = '进行中'
+    info = '进行中';
   } else if (status === '3') {
-    info = '驳回'
+    info = '驳回';
   } else if (status === '4') {
-    info = '正常结束'
+    info = '正常结束';
   } else if (status === '5') {
-    info = '进行中'
+    info = '进行中';
   } else if (status === '6') {
-    info = '驳回'
+    info = '驳回';
   } else if (status === '7') {
-    info = '正常结束'
+    info = '正常结束';
   }
-  return info
+  return info;
 }
 
+//add-ws-9/4-加班申请与考勤用
+export function getStatusNum(status) {
+  let info = null;
+
+  if (status === '0') {
+    info = '未开始';
+  } else if (status === '2') {
+    info = '一次进行中';
+  } else if (status === '3') {
+    info = '一次驳回';
+  } else if (status === '4') {
+    info = '一次正常结束';
+  } else if (status === '5') {
+    info = '二次进行中';
+  } else if (status === '6') {
+    info = '二次驳回';
+  } else if (status === '7') {
+    info = '二次正常结束';
+  }
+  return info;
+}
+
+//add-ws-9/4-加班申请与考勤用
+//获取数据状态
 export function uploadUrl() {
-  let url = process.env.UPLOAD_URL
-  if(store.getters.fileToken){
-    url = url.replace("{1}",store.getters.fileToken)
+  let url = process.env.UPLOAD_URL;
+  if (store.getters.fileToken) {
+    url = url.replace('{1}', store.getters.fileToken);
   }
   return url;
 }
 
 export function downLoadUrl(url) {
-  let rst = process.env.DOWN_URL
-  if(store.getters.fileToken){
-    rst = rst.replace("{1}",store.getters.fileToken)
+  let rst = process.env.DOWN_URL;
+  if (store.getters.fileToken) {
+    rst = rst.replace('{1}', store.getters.fileToken);
   }
-  return rst + "&path=" + url;
+  return rst + '&path=' + url;
+}
+
+export function getCurrentRole() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.indexOf('副总经理') != -1) {
+      return '5';
+    } else if (roles.indexOf('总经理') != -1) {
+      return '1';
+    } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+      return '2';
+    } else if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '3';
+    } else if (roles.toUpperCase().indexOf('TL') != -1) {
+      return '4';
+    }
+  }
+  return '5';
+}
+
+//insert gbb 20210331 2021组织架构变更-添加副总经理 start
+export function getCurrentRoleNew() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.indexOf('副总经理') != -1) {
+      return '2';
+    } else if (roles.toUpperCase().indexOf('总经理') != -1) {
+      return '1';
+    } else if (roles.toUpperCase().indexOf('CENTER') != -1) {
+      return '3';
+    } else if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '4';
+    }
+  }
+  return '0';
+}
+//insert gbb 20210331 2021组织架构变更-添加副总经理 end
+export function getCurrentRole2() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210219 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总务担当') != -1 || roles.toUpperCase().indexOf('前台总务') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// ztc 0509 IT担当
+export function getCurrentRole4() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('IT担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+export function getCurrentRoleCar() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('司机') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//add-ws-5/7-财务部长权限添加
+export function getCurrentRole3() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('财务部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//add-ws-5/7-财务部长权限添加
+//add-ws-5/7-财务担当权限添加
+export function getCurrentRole5() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('财务担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//add-ws-5/7-财务担当权限添加
+//离职考勤对比驳回权限
+export function getCurrentRolegongzijisuan() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//ws-8/14-禅道任务450
+export function getCurrentRole6() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+export function getCurrentRole19() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 ) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+export function getCurrentRole7() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1 || roles.toUpperCase().indexOf('招聘担当') != -1 || roles.toUpperCase().indexOf('离职担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+export function getCurrentRole8() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('合同担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//ws-8/14-禅道任务450
+
+export function getCurrentRole9() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('外注管理担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole10() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('人事总务部长') != -1 || roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole11() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('军权_合同，PJ所有') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// 离职担当 设置为新建调书
+export function getCurrentRole12() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('离职担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole13() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('财务部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+// 人事总务部长 薪资担当 打卡记录历史数据维护
+export function getCurrentRole14() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('人事总务部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//财务担当
+export function getCurrentRole15() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('财务担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+//工资计算担当
+export function getCurrentRole16() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('工资计算担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 start
+export function getCurrentRole17() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
+export function getCurrentRole18() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('GM') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 end
+
+//add ccm 20210524 fr
+export function getCurrentRoleGiving() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('资产管理担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+export function getCurrentRoleeditnapin() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('纳品编辑') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//add ccm 20210524 to
+import CryptoJS from 'crypto-js/crypto-js';
+
+
+// 默认的 KEY 与 iv ，可以和后端商议好，只要统一的给16位字符串即可
+const KEY = CryptoJS.enc.Utf8.parse('1234567890123456');
+const IV = CryptoJS.enc.Utf8.parse('1234567890123456');
+
+// AES加密
+export function Encrypt(word, keyStr, ivStr) {
+  let key = KEY;
+  let iv = IV;
+  if (keyStr) {
+    key = CryptoJS.enc.Utf8.parse(keyStr);
+    iv = CryptoJS.enc.Utf8.parse(ivStr);
+  }
+  let srcs = CryptoJS.enc.Utf8.parse(word);
+  var encrypted = CryptoJS.AES.encrypt(srcs, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+  return CryptoJS.enc.Base64.stringify(encrypted.ciphertext);
+}
+
+// AES 解密
+export function Decrypt(word, keyStr, ivStr) {
+  let key = KEY;
+  let iv = IV;
+  if (keyStr) {
+    key = CryptoJS.enc.Utf8.parse(keyStr);
+    iv = CryptoJS.enc.Utf8.parse(ivStr);
+  }
+  let base64 = CryptoJS.enc.Base64.parse(word);
+  let src = CryptoJS.enc.Base64.stringify(base64);
+  var decrypt = CryptoJS.AES.decrypt(src, key, {
+    iv: iv,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+  var decryptedStr = decrypt.toString(CryptoJS.enc.Utf8);
+  return decryptedStr.toString();
+}
+//add-ws-12/10-汇率字典
+export function getMonthlyrateInfo(code) {
+  let info = null;
+  if (store.getters.monthlyrate && store.getters.monthlyrate.length > 0) {
+    for (let dictionary of store.getters.monthlyrate) {
+      if (dictionary.currency === code) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+export function getMonthlyrateInfo2(code, month) {
+  let dic = store.getters.monthlyrate.filter(item => item.month === month);
+  let info = null;
+  if (dic && dic.length > 0) {
+    for (let dictionary of dic) {
+      if (dictionary.currency === code) {
+        info = dictionary;
+        break;
+      }
+    }
+  }
+  return info;
+}
+//add-ws-12/10-汇率字典
+//add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
+export function getCurrentRole20() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('设备管理担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
+export function getCurrentRole21() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('企划部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
 }

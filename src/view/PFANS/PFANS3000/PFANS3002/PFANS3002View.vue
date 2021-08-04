@@ -17,7 +17,7 @@
 <script>
     import EasyNormalTable from "@/components/EasyNormalTable";
     import {Message} from 'element-ui'
-    import {getUserInfo} from "../../../../utils/customize";
+    import {getUserInfo,getOrgInfoByUserId} from "../../../../utils/customize";
     import moment from "moment";
 
     export default {
@@ -70,7 +70,7 @@
                                 labelClass: 'pfans3002view_column_5',
                                 width: 140,
                                 fix: false,
-                                filter: true,
+                                filter: false,
                             },
                             {
                                 code: 'namerome',
@@ -78,7 +78,7 @@
                                 labelClass: 'pfans3002view_column_5',
                                 width: 140,
                                 fix: false,
-                                filter: true
+                                filter: false
                             },
                         ],
                         width: 280,
@@ -90,43 +90,64 @@
                         label: 'label.PFANS3002VIEW_HOTEL',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'checkin',
                         label: 'label.PFANS3002VIEW_CHECKIN',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'checkout',
                         label: 'label.PFANS3002VIEW_CHECKOUT',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'checkindays',
                         label: 'label.PFANS3002VIEW_CHECKINDAYS',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'smoke',
                         label: 'label.PFANS3002VIEW_SMOKE',
                         width: 140,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'remarks',
                         label: 'label.remarks',
                         width: 140,
                         fix: false,
-                        filter: true
-                    }
+                        filter: false
+                    },
+                    {
+                        code: 'acceptstatus',
+                        label: 'label.PFANS3001FORMVIEW_ACCEPTSTATUS',
+                        width: 150,
+                        fix: false,
+                        filter: true,
+                    },
+                    {
+                        code: 'findate',
+                        label: 'label.PFANS3006VIEW_ACCEPTTIME',
+                        width: 150,
+                        fix: false,
+                        filter: true,
+                    },
+                    {
+                        code: 'refusereason',
+                        label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
+                        width: 150,
+                        fix: false,
+                        filter: true,
+                    },
                 ],
                 buttonList: [
                     {
@@ -147,12 +168,14 @@
                         disabled: false,
                         icon: 'el-icon-edit'
                     },
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
                     {
                         key: 'export',
                         name: 'button.export',
                         disabled: false,
-                        icon: 'el-icon-upload2'
+                      icon: 'el-icon-download'
                     }
+                  //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
                 ],
                 rowid: '',
                 row_id: 'hotelreservationid',
@@ -172,16 +195,35 @@
                             response[j].checkout = moment(response[j].checkout).format("YYYY-MM-DD");
                         }
                         let user = getUserInfo(response[j].userid)
+                        let nameflg = getOrgInfoByUserId(response[j].userid);
+                        if (nameflg) {
+                            response[j].centername = nameflg.centerNmae;
+                            response[j].groupname = nameflg.groupNmae;
+                            response[j].teamname = nameflg.teamNmae;
+                        }
                         if (user) {
                             response[j].applicant = user.userinfo.customername;
                         }
-                        response[j].centername = response[j].centerid;
-                        response[j].groupname = response[j].groupid;
-                        response[j].teamname = response[j].teamid;
                         if (response[j].smoke !== null && response[j].smoke !== "") {
                             if (this.$i18n) {
                                 response[j].smoke = response[j].smoke === "1" ? this.$t('label.yes') : this.$t('label.no');
                             }
+                        }
+                        // ADD_FJL   (受理状态)
+                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                            if (this.$i18n) {
+                                if (response[j].acceptstatus === '0') {
+                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                                } else if (response[j].acceptstatus === '1') {
+                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                                } else if (response[j].acceptstatus === '2') {
+                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                                }
+                            }
+                        }
+                        // ADD_FJL   (受理时间)
+                        if (response[j].findate !== null && response[j].findate !== "") {
+                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
                         }
                     }
                     this.data = response;
@@ -255,10 +297,19 @@
                     })
                 }
                 if (val === 'export') {
+                  if(this.$refs.roletable.selectedList.length === 0){
+                    Message({
+                      message: this.$t('normal.info_01'),
+                      type: 'info',
+                      duration: 2 * 1000
+                    });
+                    return;
+                  }
                     this.selectedlist = this.$refs.roletable.selectedList;
                     import('@/vendor/Export2Excel').then(excel => {
                         const tHeader = [this.$t('label.applicant'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.PFANS3002VIEW_NAME'), this.$t('label.PFANS3002VIEW_NAMEROME'), this.$t('label.PFANS3002VIEW_HOTEL'), this.$t('label.PFANS3002VIEW_CHECKIN'), this.$t('label.PFANS3002VIEW_CHECKOUT'), this.$t('label.PFANS3002VIEW_CHECKINDAYS'), this.$t('label.PFANS3002VIEW_SMOKE'), this.$t('label.remarks')];
-                        const filterVal = ['applicant', 'centerid', 'groupid', 'teamid', 'name', 'namerome', 'hotel', 'checkin', 'checkout', 'checkindays', 'smoke', 'remarks'];
+                        //NT_PFANS_20210305_BUG_104    更改导出时部门名字显示code值问题
+                        const filterVal = ['applicant', 'centername', 'groupname', 'teamname', 'name', 'namerome', 'hotel', 'checkin', 'checkout', 'checkindays', 'smoke', 'remarks'];
                         const list = this.selectedlist;
                         const data = this.formatJson(filterVal, list);
                         excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS3002'));

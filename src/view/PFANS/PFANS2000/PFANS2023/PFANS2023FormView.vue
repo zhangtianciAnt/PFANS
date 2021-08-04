@@ -1,38 +1,42 @@
 <template>
   <div>
-    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" :workflowCode="aaaaaa"
+    <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title"
+                         :workflowCode="workflowCode" :enableSave="enableSave"
                          @buttonClick="buttonClick" @end="end" @start="start" @workflowState="workflowState"
-                         ref="container" v-loading="loading">
+                         ref="container" v-loading="loading" @disabled="setdisabled">
       <div slot="customize">
-        <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
-          <el-tabs v-model="activeName">
+        <el-form :model="form" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
+          <el-tabs v-model="activeName" type="border-card">
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_INTELLIGENCE')" name="first">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.center')">
-                        <el-input :disabled="true" style="width: 11rem" v-model="form.center_id"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.center_id"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.group')">
-                        <el-input :disabled="true" style="width:11rem" v-model="form.group_id"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.group_id"></el-input>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.team')">
-                        <el-input :disabled="true" style="width: 11rem" v-model="form.team_id"></el-input>
+                        <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                        <el-input v-show='false' :disabled="true" style="width: 20vw" v-model="form.team_id"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="ruleForm">
+                <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="ruleForm">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :error="error" :label="$t('label.user_name')" prop="user_id">
-                        <user :disabled="!disable" :error="error" :selectType="selectType"
-                              :userlist="userlist" @getUserids="getUserids" style="width:10.1rem"></user>
+                        <user :disabled="true" :error="error" :selectType="selectType"
+                              :userlist="userlist" @getUserids="getUserids" style="width: 20vw"></user>
                       </el-form-item>
                     </el-col>
                     <el-col :span="8">
@@ -43,15 +47,24 @@
                           :disabled="!disable"
                           :multiple="multiple"
                           @change="getErrorType"
-                          style="width:11rem">
+                          style="width: 20vw">
                         </dicselect>
+                      </el-form-item>
+                    </el-col>
+                    <el-col :span="8">
+                      <el-form-item :label="$t('label.PFANS2023VIEW_YEARS')">
+                        <el-date-picker
+                          v-model="form.years"
+                          :disabled="true"
+                          type="year">
+                        </el-date-picker>
                       </el-form-item>
                     </el-col>
                   </el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS2023FORMVIEW_ROLE')" prop="role">
                       <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disable"
-                                maxlength="50" style="width: 57.8rem" type="textarea" v-model="form.role"></el-input>
+                                style="width: 70.8vw" type="textarea" v-model="form.role"></el-input>
                     </el-form-item>
                   </el-col>
                 </el-form>
@@ -59,142 +72,162 @@
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_TARGETGOALSYEAR')" name="second">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSYEAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSYEAR')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  style="width: 70vw;" type="textarea"
                                   v-model="form.specific_goals_year1"></el-input>
-                        <div style="margin: 2rem 0;"></div>
+                        <div style="margin: 1vw 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  style="width: 70vw;" type="textarea"
                                   v-model="form.specific_goals_year2"></el-input>
-                        <div style="margin: 2rem 0;"></div>
+                        <div style="margin: 1vw 0;"></div>
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  style="width: 70vw;" type="textarea"
                                   v-model="form.specific_goals_year3"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSYEAR')">
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSYEAR')" >
                         <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                                  style="width: 70vw" type="textarea"
                                   v-model="form.your_own_goals_year"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
                 </el-form>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSYEAR')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disableyear"
-                                  maxlength="50" style="width: 55rem" type="textarea"
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSYEAR')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!sysyear"
+                                  style="width: 70vw;" type="textarea"
                                   v-model="form.interview_results_year"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_TARGETGOALSSEP')" name="third">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form" >
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSSEP')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_sep1"></el-input>
-                        <div style="margin: 1rem 0;"></div>
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_sep2"></el-input>
-                        <div style="margin: 1rem 0;"></div>
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_sep3"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSSEP')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_sep1"></el-input>
+                        <div style="margin: 1vw 0;"></div>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_sep2"></el-input>
+                        <div style="margin: 1vw 0;"></div>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_sep3"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSSEP')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.your_own_goals_sep"></el-input>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep"
+                                  style="width: 70vw;" type="textarea" v-model="form.your_own_goals_sep"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSSEP')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.business_results_sep"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSSEP')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep"
+                                  style="width: 70vw;" type="textarea" v-model="form.business_results_sep"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSSEP')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablesep" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.interview_results_sep"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSSEP')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!esep"
+                                  style="width: 70vw;" type="textarea" v-model="form.interview_results_sep"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_TARGETGOALSDEC')" name="fourth">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form" >
                   <el-row>
                     <el-col :span="8">
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSDEC')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_dec1"></el-input>
-                        <div style="margin: 1rem 0;"></div>
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_dec2"></el-input>
-                        <div style="margin: 1rem 0;"></div>
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_dec3"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSDEC')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_dec1"></el-input>
+                        <div style="margin: 1vw 0;"></div>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_dec2"></el-input>
+                        <div style="margin: 1vw 0;"></div>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_dec3"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSDEC')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.your_own_goals_dec"></el-input>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec"
+                                  style="width: 70vw;" type="textarea" v-model="form.your_own_goals_dec"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSDEC')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.interview_results_dec"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSDEC')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec"
+                                  style="width: 70vw;" type="textarea" v-model="form.interview_results_dec"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSDEC')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disabledec" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.business_results_dec"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSDEC')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!dec"
+                                  style="width: 70vw;" type="textarea" v-model="form.business_results_dec"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS2023FORMVIEW_TARGETGOALSMAR')" name="fifth">
               <div>
-                <el-form :model="form" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+                <el-form :model="form" label-position="top" label-width="8vw" ref="form">
                   <el-row>
                     <el-col :span="8">
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_SPECIFICGOALSMAR')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_mar1"></el-input>
-                        <div style="margin: 1rem 0;"></div>
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_mar2"></el-input>
-                        <div style="margin: 1rem 0;"></div>
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.specific_goals_mar3"></el-input>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_mar1"></el-input>
+                        <div style="margin: 1vw 0;"></div>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_mar2"></el-input>
+                        <div style="margin: 1vw 0;"></div>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar"
+                                  style="width: 70vw;" type="textarea" v-model="form.specific_goals_mar3"></el-input>
                       </el-form-item>
                       <el-form-item :label="$t('label.PFANS2023FORMVIEW_YOUROWNGOALSMAR')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.your_own_goals_mar"></el-input>
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar"
+                                  style="width: 70vw;" type="textarea" v-model="form.your_own_goals_mar"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSMAR')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.business_results_mar"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_BUSINESSRESULTSMAR')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar"
+                                  style="width: 70vw;" type="textarea" v-model="form.business_results_mar"></el-input>
                       </el-form-item>
-                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSMAR')">
-                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!disablemar" maxlength="50"
-                                  style="width: 55rem" type="textarea" v-model="form.interview_results_mar"></el-input>
+                      <el-form-item :label="$t('label.PFANS2023FORMVIEW_INTERVIEWRESULTSMAR')" >
+                        <el-input :autosize="{ minRows: 3, maxRows: 4}" :disabled="!mar"
+                                  style="width: 70vw;" type="textarea" v-model="form.interview_results_mar"></el-input>
                       </el-form-item>
                     </el-col>
                   </el-row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
+                  <row>
+                    <span class="sub_color_red">{{$t('label.PFANS2023FORMVIEW_WORKFLOWPROMPT')}}</span>
+                  </row>
+                  <!--                  add_fjl_05/13  &#45;&#45;添加审批流程提示-->
                 </el-form>
               </div>
             </el-tab-pane>
@@ -209,8 +242,9 @@
     import user from "../../../components/user.vue";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
-    import {getOrgInfoByUserId} from '@/utils/customize'
-
+    import {getOrgInfoByUserId,getUserInfo} from '@/utils/customize'
+    import {getDictionaryInfo} from '../../../../utils/customize';
+    let moment = require('moment');
     export default {
         name: 'PFANS2023FormView',
         components: {
@@ -229,14 +263,19 @@
                 }
             };
             return {
-                aaaaaa: "W0036",
+              enableSave:false,
+                centerid: '',
+                groupid: '',
+                teamid: '',
+                workflowCode: '',
                 error: "",
                 selectType: "Single",
-                userlist: "",
+                userlist: '',
                 activeName: 'first',
                 buttonList: [],
                 data: [],
                 loading: false,
+                yearCh: '',
                 title: "title.PFANS2023VIEW",
                 rules: {
                     user_id: [{
@@ -263,7 +302,7 @@
                     specific_goals_year1: '',
                     specific_goals_year2: '',
                     specific_goals_year3: '',
-                    stage: '',
+                    stage: '0',
                     status: '',
                     skill_rank: '',
                     center_id: '',
@@ -291,155 +330,44 @@
                     your_own_goals_mar: '',
                     business_results_mar: '',
                     interview_results_mar: '',
+                    // ADD_FJL_05/21   --年度可修改
+                    // years: moment(new Date()).format("YYYY"),
+                  years:moment(new Date()).format('MM') < 4 ? moment(new Date()).add(-1, 'y').format("YYYY") : moment(new Date()).format('YYYY'),
+                    // ADD_FJL_05/21   --年度可修改
                 },
-                code: 'PR015',
+                // code: 'PR015',
+                code: 'PR021',
                 multiple: false,
                 disable: false,
                 disableyear: false,
+                sysyear:false,
                 disablesep: false,
+                esep:false,
                 disabledec: false,
+                dec: false,
                 disablemar: false,
+                mar: false,
                 canStart: true,
             }
         },
         mounted() {
+            this.yearsChk();
             if (this.$route.params._id) {
                 this.loading = true;
                 this.$store
                     .dispatch('PFANS2023Store/getDataOne', {"goalmanagement_id": this.$route.params._id})
                     .then(response => {
                         this.form = response;
-                        this.userlist = this.form.user_id;
-                        if (this.form.stage === 'PR014002' && this.form.status === '0') {
-                            this.aaaaaa = 'W0036';
-                            this.canStart = true;
-                            this.disable = true;
-                            this.disableyear = true;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014002' && this.form.status === '2') {
-                            this.aaaaaa = 'W0036';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014002' && this.form.status === '3') {
-                            this.aaaaaa = 'W0036';
-                            this.canStart = true;
-                            this.disable = true;
-                            this.disableyear = true;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014002' && this.form.status === '4') {
-                            this.aaaaaa = 'W0036';
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = true;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                            this.canStart = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '0') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = true;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '2') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '3') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = true;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014003' && this.form.status === '4') {
-                            this.aaaaaa = 'W0037';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = true;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '0') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = true;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '2') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '3') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = true;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014004' && this.form.status === '4') {
-                            this.aaaaaa = 'W0038';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = true;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '0') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = true;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '2') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '3') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = true;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = true;
-                        } else if (this.form.stage === 'PR014005' && this.form.status === '4') {
-                            this.aaaaaa = 'W0039';
-                            this.canStart = false;
-                            this.disable = false;
-                            this.disableyear = false;
-                            this.disablesep = false;
-                            this.disabledec = false;
-                            this.disablemar = false;
-
+                        let rst = getOrgInfoByUserId(response.user_id);
+                        if(rst){
+                            this.centerid = rst.centerNmae;
+                            this.groupid= rst.groupNmae;
+                            this.teamid= rst.teamNmae;
                         }
+                        let rank = getUserInfo(response.user_id).userinfo.rank;
+                        this.form.skill_rank = rank
+                        this.userlist = this.form.user_id;
+                        this.useDisable();
                         if (!this.$route.params.disabled) {
                             this.disable = this.$route.params.disabled;
                             this.disableyear = this.$route.params.disabled;
@@ -461,10 +389,17 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== "") {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.center_id = lst.centerNmae;
-                    this.form.group_id = lst.groupNmae;
-                    this.form.team_id = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if(rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid= rst.groupNmae;
+                        this.teamid= rst.teamNmae;
+                        this.form.center_id = rst.centerId;
+                        this.form.group_id = rst.groupId;
+                        this.form.team_id = rst.teamId;
+                    }
+                    let rank = getUserInfo(this.$store.getters.userinfo.userid).userinfo.rank;
+                    this.form.skill_rank = rank
                     this.form.user_id = this.$store.getters.userinfo.userid;
                     this.disableyear = true;
                     this.disablesep = false;
@@ -480,14 +415,301 @@
                     {
                         key: "save",
                         name: "button.save",
-                    }
+                    },
+                  {
+                    key: "export",
+                      name: "button.export"
+                  }
                 ];
-                this.form.stage = 'PR014002';
+                this.form.stage = '0';
             }
         },
         methods: {
+            //add_fjl_08/19  --一个事业年度只可以提出一次check
+            yearsChk() {
+                this.loading = true;
+                this.form.user_id = this.$store.getters.userinfo.userid;
+                this.$store
+                    .dispatch('PFANS2023Store/yearsCheck', this.form)
+                    .then(response => {
+                        this.yearCh = response.length;
+                        if (Number(this.yearCh) > 1) {
+                            Message({
+                                message: this.$t('label.PFANS2023FORMVIEW_YEARSCHECK'),
+                                type: 'error',
+                                duration: 5 * 1000,
+                            });
+                        }
+                        this.loading = false;
+                    })
+                    .catch(error => {
+                        Message({
+                            message: error,
+                            type: 'error',
+                            duration: 5 * 1000,
+                        });
+                        this.loading = false;
+                    });
+            },
+            //add_fjl_08/19  --一个事业年度只可以提出一次check
+            useDisable(){
+                if (this.form.stage === '0' && this.form.status === '0') {
+                    this.workflowCode = 'W0036';
+                    this.canStart = true;
+                    this.disable = true;
+                    this.disableyear = true;
+                    this.sysyear = true;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '0' && this.form.status === '2') {
+                    this.workflowCode = 'W0036';
+                    this.canStart = false;
+                    this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                  this.sysyear = false;
+                    //add-ws-6/11-禅道任务082
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '0' && this.form.status === '3') {
+                    this.workflowCode = 'W0036';
+                    this.canStart = true;
+                    this.disable = true;
+                    //add-ws-6/11-禅道任务082
+                    this.sysyear = true;
+                    //add-ws-6/11-禅道任务082
+                    this.disableyear = true;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '0' && this.form.status === '4') {
+                    this.workflowCode = 'W0036';
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = true;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                    this.canStart = true;
+                } else if (this.form.stage === '1' && this.form.status === '0') {
+                    this.workflowCode = 'W0037';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    //add-ws-6/11-禅道任务082
+                    this.sysyear = false;
+                    //add-ws-6/11-禅道任务082
+                    this.disablesep = true;
+                    this.esep = true;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                    //upd_fjl  --为空赋前一个tab里面的值
+                    if (this.form.specific_goals_sep1 === null || this.form.specific_goals_sep1 === '') {
+                        this.form.specific_goals_sep1 = this.form.specific_goals_year1
+                    }
+                    if (this.form.specific_goals_sep2 === null || this.form.specific_goals_sep2 === '') {
+                        this.form.specific_goals_sep2 = this.form.specific_goals_year2
+                    }
+                    if (this.form.specific_goals_sep3 === null || this.form.specific_goals_sep3 === '') {
+                        this.form.specific_goals_sep3 = this.form.specific_goals_year3
+                    }
+                    if (this.form.your_own_goals_sep === null || this.form.your_own_goals_sep === '') {
+                        this.form.your_own_goals_sep = this.form.your_own_goals_year
+                    }
+                    // this.form.specific_goals_sep1 =  this.form.specific_goals_year1
+                    // this.form.specific_goals_sep2 =  this.form.specific_goals_year2
+                    // this.form.specific_goals_sep3 =  this.form.specific_goals_year3
+                    // this.form.your_own_goals_sep =  this.form.your_own_goals_year
+                    // upd_fjl  --为空赋前一个tab里面的值
+                } else if (this.form.stage === '1' && this.form.status === '2') {
+                    this.workflowCode = 'W0037';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '1' && this.form.status === '3') {
+                    this.workflowCode = 'W0037';
+                    this.canStart = true;
+                    this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.esep = true;
+                    //add-ws-6/11-禅道任务082
+                    this.disableyear = false;
+                    this.disablesep = true;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                } else if (this.form.stage === '1' && this.form.status === '4') {
+                    this.workflowCode = 'W0037';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = true;
+                    this.disablemar = false;
+                } else if (this.form.stage === '2' && this.form.status === '0') {
+                    this.workflowCode = 'W0038';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.sysyear = false;
+                    //add-ws-6/11-禅道任务082
+                    this.esep = false;
+                    //add-ws-6/11-禅道任务082
+                    this.disabledec = true;
+                    this.dec = true;
+                    this.disablemar = false;
+                    //upd_fjl  --为空赋前一个tab里面的值
+                    if (this.form.specific_goals_dec1 === null || this.form.specific_goals_dec1 === '') {
+                        this.form.specific_goals_dec1 = this.form.specific_goals_sep1
+                    }
+                    if (this.form.specific_goals_dec2 === null || this.form.specific_goals_dec2 === '') {
+                        this.form.specific_goals_dec2 = this.form.specific_goals_sep2
+                    }
+                    if (this.form.specific_goals_dec3 === null || this.form.specific_goals_dec3 === '') {
+                        this.form.specific_goals_dec3 = this.form.specific_goals_sep3
+                    }
+                    if (this.form.your_own_goals_dec === null || this.form.your_own_goals_dec === '') {
+                        this.form.your_own_goals_dec = this.form.your_own_goals_sep
+                    }
+                    // this.form.specific_goals_dec1 =  this.form.specific_goals_sep1
+                    // this.form.specific_goals_dec2 =  this.form.specific_goals_sep2
+                    // this.form.specific_goals_dec3 =  this.form.specific_goals_sep3
+                    // this.form.your_own_goals_dec =  this.form.your_own_goals_sep
+                    //upd_fjl  --为空赋前一个tab里面的值
+
+                } else if (this.form.stage === '2' && this.form.status === '2') {
+                    this.workflowCode = 'W0038';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.dec = false;
+                    this.disablemar = false;
+                    this.mar = false;
+                } else if (this.form.stage === '2' && this.form.status === '3') {
+                    this.workflowCode = 'W0038';
+                    this.canStart = true;
+                    this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.dec = true;
+                    //add-ws-6/11-禅道任务082
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = true;
+                    this.disablemar = false;
+                } else if (this.form.stage === '2' && this.form.status === '4') {
+                    this.workflowCode = 'W0038';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = true;
+                } else if (this.form.stage === '3' && this.form.status === '0') {
+                    this.workflowCode = 'W0039';
+                    this.canStart = true;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    //add-ws-6/11-禅道任务082
+                    this.dec = false;
+                    //add-ws-6/11-禅道任务082
+                    this.disablemar = true;
+                    this.mar = true;
+                    //upd_fjl  --为空赋前一个tab里面的值
+                    if (this.form.specific_goals_mar1 === null || this.form.specific_goals_mar1 === '') {
+                        this.form.specific_goals_mar1 = this.form.specific_goals_dec1
+                    }
+                    if (this.form.specific_goals_mar2 === null || this.form.specific_goals_mar2 === '') {
+                        this.form.specific_goals_mar2 = this.form.specific_goals_dec2
+                    }
+                    if (this.form.specific_goals_mar3 === null || this.form.specific_goals_mar3 === '') {
+                        this.form.specific_goals_mar3 = this.form.specific_goals_dec3
+                    }
+                    if (this.form.your_own_goals_mar === null || this.form.your_own_goals_mar === '') {
+                        this.form.your_own_goals_mar = this.form.your_own_goals_dec
+                    }
+                    // this.form.specific_goals_mar1 =  this.form.specific_goals_dec1
+                    // this.form.specific_goals_mar2 =  this.form.specific_goals_dec2
+                    // this.form.specific_goals_mar3 =  this.form.specific_goals_dec3
+                    // this.form.your_own_goals_mar =  this.form.your_own_goals_dec
+                    //upd_fjl  --为空赋前一个tab里面的值
+                } else if (this.form.stage === '3' && this.form.status === '2') {
+                    this.workflowCode = 'W0039';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.sysyear = false;
+                    this.disablesep = false;
+                    this.esep = false;
+                    this.disabledec = false;
+                    this.dec = false;
+                    this.disablemar = false;
+                    this.mar = false;
+                } else if (this.form.stage === '3' && this.form.status === '3') {
+                    this.workflowCode = 'W0039';
+                    this.canStart = true;
+                    this.disable = false;
+                    //add-ws-6/11-禅道任务082
+                    this.mar = true;
+                    //add-ws-6/11-禅道任务082
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = true;
+                } else if (this.form.stage === '3' && this.form.status === '4') {
+                    this.workflowCode = 'W0039';
+                    this.canStart = false;
+                    this.disable = false;
+                    this.disableyear = false;
+                    this.disablesep = false;
+                    this.disabledec = false;
+                    this.disablemar = false;
+                    this.mar = false;
+                 this.enableSave = true;
+                }
+            },
+
+          checkRequire(){
+            if(!this.form.user_id || !this.form.skill_rank || !this.form.role){
+                this.activeName = 'first';
+            }
+          },
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.user_id = val;
+                let rst = getOrgInfoByUserId(val);
+                if(rst){
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.center_id = rst.centerId;
+                    this.form.group_id = rst.groupId;
+                    this.form.team_id = rst.teamId;
+                }else{
+                    this.centerid =  '';
+                    this.groupid =  '';
+                    this.teamid =  '';
+                    this.form.center_id = '';
+                    this.form.group_id =  '';
+                    this.form.team_id =  '';
+                }
                 if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
                     this.error = this.$t('normal.error_08') + this.$t('label.user_name');
                 } else {
@@ -497,35 +719,54 @@
             getErrorType(val1) {
                 this.form.skill_rank = val1;
             },
-            workflowState(val) {
-                if (val.state === '1') {
-                    this.form.status = '3';
-                } else if (val.state === '2') {
-                    this.form.status = '4';
-                }
-                this.buttonClick("update");
-            },
-            start() {
-                this.form.status = '2';
-                this.buttonClick("update");
-            },
-            end() {
-                this.form.status = '0';
-                this.buttonClick("update");
-            },
+          workflowState(val) {
+            if (val.state === '1') {
+              this.form.status = '3';
+            } else if (val.state === '2') {
+              this.form.status = '4';
+            }
+            this.buttonClick("update");
+          },
+          start() {
+            this.form.status = '2';
+            if(this.form.stage === '0'){
+              this.form.application_date1 = new Date();
+            }else if(this.form.stage === '1'){
+              this.form.application_date2 = new Date();
+            }else if(this.form.stage === '2'){
+              this.form.application_date3 = new Date();
+            }else if(this.form.stage === '3'){
+              this.form.application_date4 = new Date();
+            }
+            this.buttonClick("update");
+          },
+          end() {
+            this.form.status = '0';
+            this.buttonClick("update");
+          },
             buttonClick(val) {
-                if (val === 'save') {
+                // ADD_FJL_05/21   --年度可修改
+                this.form.years = moment(this.form.years).format("YYYY");
+                // ADD_FJL_05/21   --年度可修改
+                if (val === 'update') {
+                  this.checkRequire();
                     this.$refs["ruleForm"].validate(valid => {
                         if (valid) {
-                            if (this.form.stage === 'PR014002' && this.form.status === '4') {
-                                this.form.stage = 'PR014003';
+                            if (this.form.stage === '0' && this.form.status === '4' && val !== 'save') {
+                              if (this.form.user_id !== null && this.form.user_id !== '') {
+                                this.form.stage = '1';
                                 this.form.status = '0';
-                            } else if (this.form.stage === 'PR014003' && this.form.status === '4') {
-                                this.form.stage = 'PR014004';
+                              }
+                            } else if (this.form.stage === '1' && this.form.status === '4' && val !== 'save') {
+                              if (this.form.user_id !== null && this.form.user_id !== '') {
+                                this.form.stage = '2';
                                 this.form.status = '0';
-                            } else if (this.form.stage === 'PR014004' && this.form.status === '4') {
-                                this.form.stage = 'PR014005';
+                                }
+                            } else if (this.form.stage === '2' && this.form.status === '4' && val !== 'save') {
+                              if (this.form.user_id !== null && this.form.user_id !== '') {
+                                this.form.stage = '3';
                                 this.form.status = '0';
+                              }
                             }
                             if (this.$route.params._id) {
                                 this.form.goalmanagement_id = this.$route.params._id;
@@ -541,9 +782,10 @@
                                                 type: 'success',
                                                 duration: 5 * 1000
                                             });
-                                            if (this.$store.getters.historyUrl) {
-                                                this.$router.push(this.$store.getters.historyUrl);
-                                            }}
+                                            // if (this.$store.getters.historyUrl) {
+                                            //     this.$router.push(this.$store.getters.historyUrl);
+                                            // }
+                                        }
                                     })
                                     .catch(error => {
                                         Message({
@@ -553,8 +795,20 @@
                                         });
                                         this.loading = false;
                                     })
+                                this.useDisable();
 
-                            } else {
+                            }
+                            else {
+                                //add_fjl_08/19  --一个事业年度只可以提出一次check
+                                if (Number(this.yearCh) >= 1) {
+                                    Message({
+                                        message: this.$t('label.PFANS2023FORMVIEW_YEARSCHECK'),
+                                        type: 'error',
+                                        duration: 5 * 1000,
+                                    });
+                                    return;
+                                }
+                                //add_fjl_08/19  --一个事业年度只可以提出一次check
                                 this.loading = true;
                                 this.$store
                                     .dispatch('PFANS2023Store/createPfans2023', this.form)
@@ -580,7 +834,119 @@
                                     })
                             }
                         }
+                        else{
+                            Message({
+                                message: this.$t("normal.error_12"),
+                                type: 'error',
+                                duration: 5 * 1000
+                            });
+                        }
                     })
+                }
+                else if (val === 'export') {
+                  this.loading = true;
+                  this.$store
+                    .dispatch("PFANS2023Store/download", { goalmanagement_id: this.$route.params._id })
+                    .then(response => {
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: "error",
+                        duration: 5 * 1000
+                      });
+                      this.loading = false;
+                    });
+                }
+                else{
+                        this.checkRequire();
+                  //NT_PFANS_20210305_BUG_128 目标管理仅创建人才可以保存 ztc start
+                  if (this.form.user_id != this.$store.getters.userinfo.userid) {
+                    Message({
+                      message: this.$t('normal.error_24'),
+                      type: 'error',
+                      duration: 5 * 1000
+                    });
+                    return
+                  }
+                  //NT_PFANS_20210305_BUG_128 目标管理仅创建人才可以保存 ztc end
+                        this.$refs["ruleForm"].validate(valid => {
+                            if (valid) {
+                                if (this.$route.params._id) {
+                                    this.form.goalmanagement_id = this.$route.params._id;
+                                    this.loading = true;
+                                    this.$store
+                                        .dispatch('PFANS2023Store/updatePfans2023', this.form)
+                                        .then(response => {
+                                            this.data = response;
+                                            this.loading = false;
+                                            if(val !== "update"){
+                                                Message({
+                                                    message: this.$t("normal.success_02"),
+                                                    type: 'success',
+                                                    duration: 5 * 1000
+                                                });
+                                                if (this.$store.getters.historyUrl) {
+                                                    this.$router.push(this.$store.getters.historyUrl);
+                                                }
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000
+                                            });
+                                            this.loading = false;
+                                        })
+
+                                }
+                                else {
+                                    //add_fjl_08/19  --一个事业年度只可以提出一次check
+                                    if (Number(this.yearCh) >= 1) {
+                                        Message({
+                                            message: this.$t('label.PFANS2023FORMVIEW_YEARSCHECK'),
+                                            type: 'error',
+                                            duration: 5 * 1000,
+                                        });
+                                        return;
+                                    }
+                                    //add_fjl_08/19  --一个事业年度只可以提出一次check
+                                    this.loading = true;
+                                    this.$store
+                                        .dispatch('PFANS2023Store/createPfans2023', this.form)
+                                        .then(response => {
+                                            this.data = response;
+                                            Message({
+                                                message: this.$t("normal.success_01"),
+                                                type: 'success',
+                                                duration: 5 * 1000
+                                            });
+                                            this.loading = false;
+                                            if (this.$store.getters.historyUrl) {
+                                                this.$router.push(this.$store.getters.historyUrl);
+                                            }
+                                        })
+                                        .catch(error => {
+                                            Message({
+                                                message: error,
+                                                type: 'error',
+                                                duration: 5 * 1000
+                                            });
+                                            this.loading = false;
+                                        })
+                                }
+                            }
+                            else{
+                                Message({
+                                    message: this.$t("normal.error_12"),
+                                    type: 'error',
+                                    duration: 5 * 1000
+                                });
+                            }
+                        })
+
                 }
             },
         }

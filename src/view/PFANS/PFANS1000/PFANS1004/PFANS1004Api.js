@@ -24,9 +24,25 @@ export function updateJudgement(data) {
   })
 }
 
+export function updateJudgementDetail(data) {
+  return request({
+    url: 'judgement/updateJudgementDetail',
+    method: 'post',
+    data: data
+  })
+}
+
 export function createJudgement(data) {
   return request({
     url: 'judgement/create',
+    method: 'post',
+    data: data
+  })
+}
+
+export function createJudgementDetail(data) {
+  return request({
+    url: 'judgement/createJudgementDetail',
     method: 'post',
     data: data
   })

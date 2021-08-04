@@ -3,64 +3,109 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       v-loading="loading"
-      :title="title"
+      :title="title" @disabled="setdisabled"
       @buttonClick="buttonClick"
       ref="container"
     >
       <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="10rem" ref="refform"
-                 style="padding: 2rem">
-          <el-row :gutter="32">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
+                 style="padding: 3vw">
+          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                <el-select clearable style="width: 20vw"  v-model="form.acceptstatus" :disabled="acceptShow"
+                           :placeholder="$t('normal.error_09')" @change="changeAcc">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_ACCEPTTIME')">
+                <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="refuseShow">
+              <el-form-item :label="$t('label.PFANS3007FORMVIEW_REFUSEREASON')">
+                <el-input :disabled="acceptShow" maxlength="100" style="width:20vw" v-model="form.refusereason"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 9.2rem"></user>
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
+<!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="true"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+<!--            end(添加申请日期)  fjl 2020/04/08-->
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAME')" prop="name">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model.trim="form.name"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.name"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002FORMVIEW_NAMEROME')" prop="namerome">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem"
-                          v-model.trim="form.namerome"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw"
+                          v-model="form.namerome"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_HOTEL')" prop="hotel">
-                <el-input :disabled="!disable" maxlength="20" style="width: 11rem" v-model.trim="form.hotel"></el-input>
+                <el-input :disabled="!disable" maxlength="20" style="width:20vw" v-model="form.hotel"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3002VIEW_CHECKIN')" prop="checkin">
                   <div class="block">
                     <el-date-picker
                       :disabled="!disable"
-                      style="width: 11rem"
+                      style="width:20vw"
                       type="date"
                       v-model="form.checkin">
                     </el-date-picker>
@@ -74,7 +119,7 @@
                   <div class="block">
                     <el-date-picker
                       :disabled="!disable"
-                      style="width: 11rem"
+                      style="width:20vw"
                       type="date"
                       v-model="form.checkout">
                     </el-date-picker>
@@ -84,11 +129,11 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_CHECKINDAYS')" prop="checkindays">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.checkindays"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="form.checkindays"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3002VIEW_SMOKE')" prop="smoke">
                 <span style="margin-right: 1rem ">{{$t('label.no')}}</span>
@@ -103,10 +148,10 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row >
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input :disabled="!disable" style="width: 100%" type="textarea" v-model="form.remarks"></el-input>
+                <el-input :disabled="!disable" style="width:72vw" type="textarea" v-model="form.remarks"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -121,7 +166,7 @@
     import moment from 'moment'
     import {Message} from 'element-ui'
     import user from '../../../components/user.vue'
-    import {getOrgInfoByUserId} from '@/utils/customize'
+    import {getOrgInfoByUserId,getCurrentRole2} from '@/utils/customize'
 
     export default {
         name: 'PFANS3002FormView',
@@ -144,7 +189,7 @@
                     if (moment(this.form.checkout).format("YYYY-MM-DD") < moment(this.form.checkin).format("YYYY-MM-DD")) {
                         callback(new Error(this.$t("label.PFANS3002FORMVIEW_ERROR")))
                     } else {
-                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days') + 1;
+                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days') ;
                         callback()
                     }
                 } else {
@@ -157,7 +202,7 @@
                     if (moment(this.form.checkout).format("YYYY-MM-DD") < moment(this.form.checkin).format("YYYY-MM-DD")) {
                         callback(new Error(this.$t("label.PFANS3002FORMVIEW_ERROR")))
                     } else {
-                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days') + 1;
+                        this.form.checkindays = moment(this.form.checkout).diff(moment(this.form.checkin), 'days');
                         callback()
                     }
                 } else {
@@ -166,16 +211,36 @@
                 }
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
                 loading: false,
                 selectType: 'Single',
                 userlist: '',
                 title: 'title.PFANS3002VIEW',
                 buttonList: [],
+                options: [
+                    {
+                        value: '0',
+                        label: this.$t('label.PFANS3006VIEW_ACCEPT'),
+                    },
+                    {
+                        value: '1',
+                        label: this.$t('label.PFANS3006VIEW_REFUSE'),
+                    },
+                    {
+                        value: '2',
+                        label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
+                    },
+                ],
+              acceptShow: true,
+                refuseShow: false,
                 form: {
                     centerid: '',
                     groupid: '',
                     teamid: '',
                     userid: '',
+                    applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     name: '',
                     namerome: '',
                     hotel: '',
@@ -184,6 +249,10 @@
                     checkindays: 0,
                     remarks: '',
                     smoke: true,
+                  accept: '0',
+                  acceptstatus: '',
+                    findate: '',
+                  refusereason: '',
                 },
                 rules: {
                     userid: [
@@ -193,6 +262,11 @@
                             trigger: 'change'
                         }
                     ],
+                  applicationdate: [{
+                    required: true,
+                    message: this.$t("normal.error_09") + this.$t("label.application_date"),
+                    trigger: "change"
+                  }],
                     name: [
                         {
                             required: true,
@@ -242,6 +316,30 @@
                     .dispatch('PFANS3002Store/getHotelReservationOne', {'hotelreservationid': this.$route.params._id})
                     .then(response => {
                         this.form = response;
+                        if(this.form.acceptstatus === '1'){
+                            this.refuseShow = true;
+                        } else {
+                            this.refuseShow = false;
+                        }
+                        //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                        let role = getCurrentRole2();
+                        if (role === '0') {
+                            if (this.disable) {
+                                this.form.findate = moment(new Date()).format("YYYY-MM-DD")
+                                this.acceptShow = false;
+                            } else {
+                                this.acceptShow = true;
+                            }
+                        } else {
+                            this.acceptShow = true;
+                        }
+                        //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                        let rst = getOrgInfoByUserId(response.userid);
+                        if(rst){
+                            this.centerid = rst.centerNmae;
+                            this.groupid= rst.groupNmae;
+                            this.teamid= rst.teamNmae;
+                        }
                         this.loading = false;
                         this.userlist = this.form.userid
                     })
@@ -256,10 +354,15 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.centerid = lst.centerNmae;
-                    this.form.groupid = lst.groupNmae;
-                    this.form.teamid = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if(rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid= rst.groupNmae;
+                        this.teamid= rst.teamNmae;
+                        this.form.centerid = rst.centerId;
+                        this.form.groupid = rst.groupId;
+                        this.form.teamid = rst.teamId;
+                    }
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
@@ -278,13 +381,39 @@
             }
         },
         methods: {
+            //change受理状态  add_fjl
+            changeAcc(val){
+                this.form.acceptstatus = val;
+                if(val === '1'){
+                    this.refuseShow = true;
+                } else {
+                    this.refuseShow = false;
+                }
+            },
+          setdisabled(val){
+            if(this.$route.params.disabled){
+              this.disabled = val;
+            }
+          },
             getUserids(val) {
                 this.form.userid = val;
                 this.userlist = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.centerid = lst.centerNmae;
-                this.form.groupid = lst.groupNmae;
-                this.form.teamid = lst.teamNmae;
+                let rst = getOrgInfoByUserId(val);
+                if(rst){
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.centerid = rst.centerId;
+                    this.form.groupid = rst.groupId;
+                    this.form.teamid = rst.teamId;
+                }else{
+                    this.centerid =  '';
+                    this.groupid =  '';
+                    this.teamid =  '';
+                    this.form.centerid = '';
+                    this.form.groupid =  '';
+                    this.form.teamid =  '';
+                }
                 if (!this.form.userid || this.form.userid === '' || val === "undefined") {
                     this.error = this.$t('normal.error_09') + this.$t('label.applicant');
                 } else {
@@ -349,6 +478,13 @@
                                     this.loading = false;
                                 })
                         }
+                    }
+                    else{
+                        Message({
+                            message: this.$t("normal.error_12"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                     }
                 })
             }

@@ -7,14 +7,6 @@ export function getRecruit() {
   })
 }
 
-export function getCompanyProjectList(data) {
-  return request({
-    url: 'logmanagement/getCompanyProjectList',
-    method: 'POST',
-    data: data
-  })
-}
-
 export function getRecruitOne(data) {
   return request({
     url: 'recruit/one',
@@ -38,11 +30,11 @@ export function createRecruit(data) {
     data: data
   })
 }
-
-export function getForSelect (data) {
+//add-ws-8/4-禅道任务296
+export function getRecruit2() {
   return request({
-    url: 'dictionary/getForSelect',
-    method: 'get',
-    params: data
+    url: 'recruit/get2',
+    method: 'get'
   })
 }
+//add-ws-8/4-禅道任务296

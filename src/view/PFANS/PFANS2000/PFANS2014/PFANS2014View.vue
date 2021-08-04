@@ -7,7 +7,7 @@
     import EasyNormalTable from '@/components/EasyNormalTable'
     import {Message} from 'element-ui'
     import moment from 'moment'
-    import {getStatus, getUserInfo} from '@/utils/customize'
+    import {getStatus, getUserInfo,getOrgInfoByUserId} from '@/utils/customize'
 
     export default {
         name: 'PFANS2014View',
@@ -94,13 +94,16 @@
                     }
                     for (let j = 0; j < response.length; j++) {
                         let user = getUserInfo(response[j].user_id);
+                        let nameflg = getOrgInfoByUserId(response[j].user_id);
+                        if (nameflg) {
+                            response[j].center_id = nameflg.centerNmae;
+                            response[j].group_id = nameflg.groupNmae;
+                            response[j].team_id = nameflg.teamNmae;
+                        }
                         if(user)
                         {
                             response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                         }
-                        response[j].center_id = response[j].center_id;
-                        response[j].group_id = response[j].group_id;
-                        response[j].team_id = response[j].team_id;
                         response[j].status = getStatus(response[j].status);
                         if (response[j].implement_date !== null && response[j].implement_date !== '') {
                             response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
@@ -128,7 +131,7 @@
                     if (this.rowid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return
@@ -154,7 +157,7 @@
                     if (this.rowid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return

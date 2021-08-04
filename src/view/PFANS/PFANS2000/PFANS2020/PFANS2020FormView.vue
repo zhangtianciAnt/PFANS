@@ -1,32 +1,32 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         @end="end"
+                         @end="end" @disabled="setdisabled"
                          @start="start" @workflowState="workflowState" ref="container" v-loading="loading">
-      <div slot="customize">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="reff" style="padding: 2rem">
+      <div slot="customize" >
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="reff" style="padding: 3vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.user_name')" prop="user_name">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 9.2rem"></user>
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2020VIEW_JOBNUMBER')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.jobnumber"></el-input>
+                <el-input :disabled="true" maxlength="20" style="width: 20vw" v-model="form.jobnumber"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS2020VIEW_JOB')">
-                <el-input :disabled="true" maxlength="20" style="width: 11rem" v-model="form.job"></el-input>
+                <el-input :disabled="true" maxlength="20" style="width: 20vw" v-model="form.job"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-col :span="24">
             <el-row>
               <el-form-item :label="$t('label.cause')">
-                <el-input :disabled="!disable" style="width: 55rem" type="textarea"
+                <el-input :disabled="!disable" style="width: 72vw"  type="textarea"
                           v-model="form.reason"></el-input>
               </el-form-item>
             </el-row>
@@ -113,9 +113,10 @@
       } else {
         this.userlist = this.$store.getters.userinfo.userid;
         this.form.user_id = this.userlist;
+        this.loading = false;
         if (this.userlist !== null && this.userlist !== "") {
           let lst = getUserInfo(this.$store.getters.userinfo.userid);
-          this.form.jobnumber = lst.userinfo.memberid;
+          this.form.jobnumber = lst.userinfo.jobnumber;
           this.form.job = lst.userinfo.post;
           this.loading = false;
         }
@@ -128,14 +129,22 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      setdisabled(val){
+        if(this.$route.params.disabled){
+          this.disabled = val;
+        }
+      },
       getUserids(val) {
-        this.userlist = val;
         this.form.user_id = val;
         let lst = getUserInfo(val);
-        this.form.jobnumber = lst.userinfo.memberid;
-        this.form.job = lst.userinfo.post;
+        if(lst){
+          this.form.jobnumber = lst.userinfo.jobnumber;
+          this.form.job = lst.userinfo.post;
+        }
         if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
           this.error = this.$t('normal.error_08') + this.$t('label.node_operate_user');
+          this.form.jobnumber='',
+           this.form.job=""
         } else {
           this.error = "";
         }
@@ -148,10 +157,16 @@
         }
         this.buttonClick("update");
       },
-      start() {
-        this.form.status = '2';
+      //add-ws-5-20-流程恒展开
+      start(val) {
+        if (val.state === '0') {
+          this.form.status = '2';
+        }else if (val.state === '2') {
+          this.form.status = '4';
+        }
         this.buttonClick("update");
       },
+      //add-ws-5-20-流程恒展开
       end() {
         this.form.status = '0';
         this.buttonClick("update");
@@ -211,6 +226,13 @@
                   this.loading = false;
                 })
             }
+          }
+          else{
+              Message({
+                  message: this.$t("normal.error_12"),
+                  type: 'error',
+                  duration: 5 * 1000
+              });
           }
         })
       }

@@ -4,14 +4,14 @@
     ref="container"
     :buttonList="buttonList"
     @buttonClick="buttonClick"
+    @disabled="setdisabled"
   >
-    
+
   </EasyNormalContainer>
 </template>
 
 <script>
 import EasyNormalContainer from "@/components/EasyNormalContainer";
-import { debug } from "util";
 import dicselect from "../../../components/dicselect";
 import user from "../../../components/user"
 export default {
@@ -44,9 +44,13 @@ export default {
   },
 
   created() {
-    debugger;
   },
   methods: {
+    setdisabled(val){
+      if(this.$route.params.disabled){
+        this.disabled = val;
+      }
+    },
     change: val => {
       console.log(val);
     },

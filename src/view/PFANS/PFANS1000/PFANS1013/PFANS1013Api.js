@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestPdf from "../../../../utils/requestPdf";
 
 export function get() {
   return request({
@@ -12,6 +13,14 @@ export function selectById(data) {
     url: 'evection/selectById',
     method: 'get',
     params: data
+  })
+}
+
+export function gettravelcostvo(data) {
+  return request({
+    url: 'evection/gettravelcostvo',
+    method: 'post',
+    data: data
   })
 }
 
@@ -30,9 +39,35 @@ export function create(data) {
     data: data
   })
 }
+export function getdate() {
+  return request({
+    url: 'evection/getBusiness',
+    method: 'get',
+  })
+}
+export function getLoanApplication() {
+  return request({
+    url: 'evection/getLoanApplication',
+    method: 'get',
+  })
+}
+
+export function exportjs(data) {
+  return requestPdf({
+    url: 'evection/exportjs',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
 
 
-
-
+export function selectByIdone2(data) {
+  return request({
+    url: 'evection/one2',
+    method: 'post',
+    data: data
+  })
+}
 
 

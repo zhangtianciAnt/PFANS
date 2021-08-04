@@ -1,156 +1,258 @@
 <template>
   <div style="min-height: 100%">
-    <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading" :buttonList="buttonList"
-                         @workflowState="workflowState" :canStart="canStart" @start="start" @end="end">
+    <EasyNormalContainer ref="container" :title="title" @buttonClick="buttonClick" v-loading="loading"
+                         :buttonList="buttonList" :defaultStart="defaultStart" :workflowCode="workflowCode"
+                         @workflowState="workflowState" :canStart="canStart" @start="start" @end="end"
+                         @StartWorkflow="buttonClick"
+                         :enableSave="enableSave">
       <div slot="customize">
-        <el-form :model="form" label-width="8rem" label-position="left" style="padding: 2rem" :rules="rules"
+        <el-form :model="form" label-width="8vw" label-position="top" style="padding: 3vw" :rules="rules"
                  ref="refform">
+          <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
           <el-row>
             <el-col :span="8">
-              <el-form-item  :label="$t('label.center')">
-                <el-input v-model="form.center_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+              <el-form-item :label="$t('label.PFANS1016FORMVIEW_CORRESPONDING')" prop='corresponding'>
+                <span style="margin-right: 1vw ">{{$t('label.PFANS1016FORMVIEW_INCOMPLETE')}}</span>
+                <el-switch
+                  :disabled="acceptShow"
+                  @change="getcorresponding"
+                  active-value="1"
+                  inactive-value="0"
+                  v-model="form.corresponding"
+                ></el-switch>
+                <span style="margin-left: 1vw ">{{$t('label.PFANS1016FORMVIEW_COMPLETE')}}</span>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--//end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.center')">
+                <el-input v-model="form.center_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input v-model="form.group_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+                <el-input v-model="form.group_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.team')" prop="team_id">
-                <el-input v-model="form.team_id" :disabled="true" style="width: 11rem" maxlength='36'></el-input>
+              <el-form-item :label="$t('label.team')">
+                <el-input v-model="form.team_id" :disabled="true" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :error="error"  :label="$t('label.applicant')" prop="user_id">
-                <user :disabled="!disabled" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.15rem"></user>
+              <el-form-item :error="erroruser" :label="$t('label.applicant')" prop="user_id">
+                <user :disabled="true" :error="erroruser" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw"></user>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.pfanstype')" prop="type">
-                <dicselect
-                  :code="code"
-                  :data="form.type"
-                  :multiple="multiple"
-                  @change="getType"
-                  style="width: 11rem"
-                  :disabled="!disabled">
-                </dicselect>
+                <el-input v-model="form.type" :disabled="!disabled1" style="width: 20vw" maxlength='36'></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.subtype')" prop="subtype">
                 <dicselect
-                  :code="code1"
+                  :code="code"
                   :data="form.subtype"
                   :multiple="multiple"
                   @change="getSubtype"
-                  style="width: 11rem"
+                  style="width: 20vw"
                   :disabled="!disabled">
                 </dicselect>
               </el-form-item>
             </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.application_date')" prop="application" >
-                <el-date-picker :disabled="!disabled" type="date" v-model="form.application" style="width: 11rem" ></el-date-picker>
+              <el-form-item :label="$t('label.application_date')" prop="application">
+                <el-date-picker :disabled="true" type="date" v-model="form.application"
+                                style="width: 20vw"></el-date-picker>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1017FORMVIEW_EXTENSION')" prop="extension">
-                <el-input v-model="form.extension" :disabled="!disabled" style="width: 11rem" maxlength='20'></el-input>
+                <el-input v-model="form.extension" :disabled="!disabled" style="width: 20vw" maxlength='20'></el-input>
               </el-form-item>
             </el-col>
-            <el-col :span="16">
+            <el-col :span="8">
               <el-form-item :label="$t('label.email')" prop="email">
-                <el-input v-model="form.email" type="textarea" :disabled="!disabled" style="width: 34rem" maxlength='50'></el-input>
+                <el-input v-model="form.email" :disabled="!disabled" style="width: 20vw" maxlength='100'></el-input>
               </el-form-item>
             </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <el-form-item :label="$t('label.PFANS1021FORMVIEW_REASON')" prop="reason">
-                  <el-input v-model="form.reason" type="textarea" :disabled="!disabled" style="width: 57rem"></el-input>
-                </el-form-item>
-              </el-col>
-            </el-row>
+          </el-row>
           <el-row>
-            <el-table :data="tableD" header-cell-class-name="sub_bg_color_grey height">
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS1021FORMVIEW_REASON')" prop="reason">
+                <el-input v-model="form.reason" type="textarea" :disabled="!disabled" style="width: 71.4vw"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <div class="sub_color_blue">{{$t('label.PFANS1021FORMVIEW_DETAIL')}}</div>
+            </el-col>
+          </el-row>
+
+          <!--明细表-->
+          <el-row>
+            <el-table :data="form.tableD" stripe border header-cell-class-name="sub_bg_color_blue">
               <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" fixed prop="content"
                                type="index"></el-table-column>
-              <el-table-column :label="$t('label.applicant')" align="center" prop="title" width="165">
+              <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200"
+                               v-if="show3">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.title">
+                  <user
+                    :disabled="!disabled"
+                    :no="scope.row"
+                    :userlist="scope.row.title"
+                    @getUserids="getInterviewerids"
+                    selectType="Single"
+                    style="width:90%"
+                  ></user>
+                </template>
+              </el-table-column>
+              <el-table-column :label="$t('label.PFANS3005VIEW_USER')" align="center" prop="title" width="200"
+                               v-if="show">
+                <template slot-scope="scope">
+                  <el-input v-model="scope.row.title" :no="scope.row" :disabled="!disabled"
+                            style="width: 10rem">
                   </el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="165" :error="errordetailcenter">
+              <!--所属公司-->
+              <el-table-column :label="$t('label.PFANS3005VIEW_COMPANY')" align="center" prop="title" width="200"
+                               v-if="show">
                 <template slot-scope="scope">
-                  <org  :orglist="detailcenterorglist" :error="errordetailcenter" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getCenterId"></org>
+                  <el-input v-model="scope.row.company" :no="scope.row" :disabled="!disabled"
+                            style="width: 10rem"></el-input>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="165" :error="errordetailgroup">
+              <el-table-column :label="$t('label.PFANS3005VIEW_TIME')" align="center" prop="title" width="370"
+                               v-if="show">
                 <template slot-scope="scope">
-                  <org  :orglist="detailgrouporglist" :error="errordetailgroup" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getGroupId"></org>
+                  <el-date-picker
+                    v-model="scope.row.timea"
+                    :no="scope.row"
+                    class="bigWidth"
+                    :disabled="!disabled"
+                    type="daterange"
+                    unlink-panels
+                    :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
+                    :start-placeholder="$t('label.startdate')"
+                    :end-placeholder="$t('label.enddate')"
+                    style="width: 20rem">
+                  </el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="165" :error="errordetailteam">
+              <el-table-column :label="$t('label.center')" align="center" prop="detailcenter" width="200" v-if="show3">
                 <template slot-scope="scope">
-                  <org  :orglist="detailteamorglist" :error="errordetailteam" orgtype="1" :disabled="!disabled" style="width: 9rem" @getOrgids="getTeamId"></org>
+                  <org :orglist="scope.row.detailcenter_id"
+                       orgtype="1"
+                       :disabled="!disabled"
+                       style="width: 100%"
+                       :no="scope.row"
+                       @getOrgids="getGroupId"></org>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"  width="165">
+              <el-table-column :label="$t('label.group')" align="center" prop="detailgroup" width="200" v-if="show3">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.phonenumber">
-                  </el-input>
+                  <org :orglist="scope.row.detailgroup_id"
+                       orgtype="2"
+                       :disabled="!disabled"
+                       style="width: 100%"
+                       :no="scope.row"
+                       @getOrgids="getGroupId1"></org>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail"  width="165">
+              <el-table-column :label="$t('label.team')" align="center" prop="detailteam" width="200" v-if="show3">
                 <template slot-scope="scope">
-                  <el-input :disabled="!disabled" maxlength="20" v-model="scope.row.emaildetail">
-                  </el-input>
+                  <org :orglist="scope.row.detailteam_id"
+                       orgtype="3"
+                       :disabled="!disabled"
+                       style="width: 100%"
+                       :no="scope.row"
+                       @getOrgids="getGroupId2"></org>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"  width="165">
+              <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_PHONENUMBER')" align="center" prop="phonenumber"-->
+              <!--                               width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.phonenumber">-->
+              <!--                  </el-input>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+              <!--              <el-table-column :label="$t('label.email')" align="center" prop="emaildetail" width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-input :disabled="!disabled" :no="scope.row" maxlength="20" v-model="scope.row.emaildetail">-->
+              <!--                  </el-input>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_STARTDATE')" align="center" prop="startdate"
+                               width="200">
                 <template slot-scope="scope">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="form.startdate" style="width: 11rem" ></el-date-picker>
+                  <el-date-picker :disabled="!disabled" :no="scope.row" type="date" v-model="scope.row.startdate"
+                                  style="width: 11rem"></el-date-picker>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"  width="165">
+              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FABUILDING')" align="center" prop="fabuilding"
+                               width="200" :error="errorFabuilding">
                 <template slot-scope="scope">
                   <dicselect
-                    :code="code2"
-                    :data="form.fabuilding"
-                    :multiple="multiple"
+                    :error="errorFabuilding"
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.fabuilding"
+                    :multiple="multiplecheck"
                     @change="getFabuilding"
                     style="width: 11rem"
                     :disabled="!disabled">
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="165">
-                <template slot-scope="scope">
-                  <dicselect
-                    :code="code3"
-                    :data="form.fbbuilding"
-                    :multiple="multiple"
-                    @change="getFbbuilding"
-                    style="width: 11rem"
-                    :disabled="!disabled">
-                  </dicselect>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :errorentrymanager="errorentrymanager" width="165">
-                <template slot-scope="scope">
-                  <user :disabled="!disabled" :errorentrymanager="errorentrymanager" :selectType="selectType" :userlist="userlist1"
-                        @getUserids="getUserids1" style="width: 10.15rem"></user>
-                </template>
-              </el-table-column>
-              <el-table-column :label="$t('label.operation')" align="center" width="180">
+              <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_FBBUILDING')" align="center" prop="fbbuilding"  width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <dicselect-->
+              <!--                    :no="scope.row"-->
+              <!--                    :code="code2"-->
+              <!--                    :data="scope.row.fbbuilding"-->
+              <!--                    :multiple="multiple"-->
+              <!--                    @change="getFbbuilding"-->
+              <!--                    style="width: 11rem"-->
+              <!--                    :disabled="!disabled">-->
+              <!--                  </dicselect>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+              <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_SHOWROOM')" align="center" prop="fbbuilding"  width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <dicselect-->
+              <!--                    :no="scope.row"-->
+              <!--                    :code="code2"-->
+              <!--                    :data="scope.row.showroom"-->
+              <!--                    :multiple="multiple"-->
+              <!--                    @change="getshowroom"-->
+              <!--                    style="width: 11rem"-->
+              <!--                    :disabled="!disabled">-->
+              <!--                  </dicselect>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+
+              <!--              <el-table-column :label="$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')" align="center" prop="entrymanager" :error="errorNtrymanager" width="200">-->
+              <!--                <template slot-scope="scope">-->
+              <!--                  <el-form-item :prop="'tableD.' + scope.$index + '.entrymanager'" :rules='rules1.entrymanager'>-->
+              <!--                  <user :disabled="!disabled" :error="errorNtrymanager" :no="scope.row" :selectType="selectType" :userlist="scope.row.entrymanager"-->
+              <!--                        @getUserids="getUserids2" style="width: 10.15rem"></user>-->
+              <!--                  </el-form-item>-->
+              <!--                </template>-->
+              <!--              </el-table-column>-->
+
+              <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
                   <el-button
                     :disabled="!disabled"
-                    @click.native.prevent="deleteRow(scope.$index, tableD)"
+                    @click.native.prevent="deleteRow(scope.$index, form.tableD)"
                     plain
                     size="small"
                     type="danger"
@@ -175,13 +277,14 @@
 </template>
 
 <script>
-  import EasyNormalContainer from "@/components/EasyNormalContainer";
-  import dicselect from "../../../components/dicselect.vue";
-  import user from "../../../components/user.vue";
-  import { Message } from 'element-ui'
-  import {getOrgInfoByUserId} from '@/utils/customize';
-  import {getDictionaryInfo} from "../../../../utils/customize";
-  import moment from "moment";
+  import EasyNormalContainer from '@/components/EasyNormalContainer';
+  import dicselect from '../../../components/dicselect.vue';
+  import user from '../../../components/user.vue';
+  import {Message} from 'element-ui';
+  import {getCurrentRole4, getOrgInfoByUserId, getUserInfo, getUserInfoName, getCurrentRole} from '@/utils/customize';
+  import org from '../../../components/org';
+  import {validateEmail} from '@/utils/validate';
+  import moment from 'moment';
 
   export default {
     name: 'PFANS1021FormView',
@@ -189,101 +292,382 @@
       EasyNormalContainer,
       getOrgInfoByUserId,
       dicselect,
-      user
+      user,
+      org,
     },
     data() {
       var checkuser = (rule, value, callback) => {
-        if(!value || value === '' || value ==="undefined"){
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        if (!value || value === '' || value === 'undefined') {
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
           return callback(new Error(this.$t('normal.error_09') + this.$t('label.applicant')));
-        }else{
-          this.error = "";
+        } else {
+          this.erroruser = '';
           return callback();
         }
 
       };
+      var checktitle = (rule, value, callback) => {
+        if (!value || value === '') {
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS3005VIEW_USER')));
+        } else {
+          return callback();
+        }
+
+      };
+      var checkeFabuilding = (rule, value, callback) => {
+        if (!value || value === '') {
+          this.errorFabuilding = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING')));
+        } else {
+          this.errorFabuilding = '';
+          return callback();
+        }
+
+      };
+      // var checkeNtrymanager = (rule, value, callback) => {
+      //     if(!value || value === ''){
+      //         this.errorNtrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
+      //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')));
+      //     }else{
+      //         this.errorNtrymanager = "";
+      //         return callback();
+      //     }
+      //
+      // };
+      // var checkentrymanager = (rule, value, callback) => {
+      //     if(!value || value === ''){
+      //         this.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
+      //         return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER')));
+      //     }else{
+      //         this.errorentrymanager = "";
+      //         return callback();
+      //     }
+      //
+      // };
+      var checkemail = (rule, value, callback) => {
+        if (this.form.email !== null && this.form.email !== '') {
+          if (!validateEmail(value)) {
+            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
+          } else {
+            callback();
+          }
+        } else {
+          callback();
+        }
+
+      };
       return {
-        userlist: "",
+        //add-ws-7/27-禅道298任务
+        defaultStart: false,
+        userid: '',
+        jude: [],
+        detailcenterid: '',
+        detailgroupid: '',
+        detailteamid: '',
+        workflowCode: '',
+        //add-ws-7/27-禅道298任务
+        baseInfo: {},
+        userlist: '',
         loading: false,
-        error: '',
-        selectType: "Single",
+        erroruser: '',
+        errorFabuilding: '',
+        errorNtrymanager: '',
+        selectType: 'Single',
         title: 'title.PFANS1021VIEW',
         buttonList: [],
+        timea: '',
+        //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+        acceptShow: true,
+        enableSave: false,
+        //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
         multiple: false,
+        multiplecheck: true,
         form: {
-            center_id: '',
-            group_id: '',
-            team_id: '',
-            user_id: '',
-            type: '',
-            subtype: '',
-            application: moment(new Date()).format("YYYY-MM-DD"),
-            extension: '',
-            email: '',
-            reason: '',
+          center_id: '',
+          group_id: '',
+          team_id: '',
+          user_id: '',
+          //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          corresponding: '',
+          //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+          type: this.$t('menu.PFANS1021'),
+          subtype: '',
+          application: moment(new Date()).format('YYYY-MM-DD'),
+          extension: '',
+          email: '',
+          reason: '',
+          antcheck: '',
+          tableD: [
+            {
+              securitydetailid: '',
+              securityid: '',
+              title: '',
+              detailcenter_id: '',
+              detailgroup_id: '',
+              detailteam_id: '',
+              phonenumber: '',
+              emaildetail: '',
+              startdate: '',
+              company: '',
+              timea: [],
+              fabuilding: '',
+              // fbbuilding: ' ',
+              // showroom: ' ',
+              // entrymanager: '',
+            },
+          ],
         },
-          code: 'PR002',
-          code1: 'PR003',
-          disabled: true,
-          menuList: [],
+        tableT: [
+          {
+            securitydetailid: '',
+            securityid: '',
+            title: '',
+            detailcenter_id: '',
+            detailgroup_id: '',
+            detailteam_id: '',
+            phonenumber: '',
+            emaildetail: '',
+            startdate: '',
+            company: '',
+            timea: [],
+            fabuilding: '',
+            // fbbuilding: ' ',
+            // showroom: ' ',
+            // entrymanager: '',
+          },
+        ],
+        code: 'PJ029',
+        code1: 'PJ030',
+        show: false,
+        show3: true,
+        disabled: false,
+        disabled1: false,
+        menuList: [],
+        // rules1: {
+        //   title: [{
+        //     required: true,
+        //     // message: this.$t('normal.error_09') + this.$t('label.applicant'),
+        //     validator: checktitle,
+        //     trigger: 'change',
+        //   }],
+        // entrymanager:[{
+        //   required: true,
+        //   // message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER'),
+        //   validator: checkeNtrymanager,
+        //   trigger: 'change'
+        // }],
+        // fabuilding: [{
+        //   required: true,
+        //   // message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_FABUILDING'),
+        //   validator: checkeFabuilding,
+        //   trigger: 'change',
+        // }],
+        //   startdate: [{
+        //     required: true,
+        //     message: this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_STARTDATE'),
+        //     trigger: 'change',
+        //   }],
+        // },
         rules: {
           user_id: [
             {
               required: true,
               validator: checkuser,
-              trigger: 'change'
+              trigger: 'change',
             },
           ],
-            reason: [
+          title: [
+            {
+              required: true,
+              validator: checktitle,
+              trigger: 'change',
+            },
+          ],
+          // entrymanager: [
+          //     {
+          //         required: true,
+          //         validator: checkentrymanager,
+          //         trigger: 'change'
+          //     },
+          // ],
+          extension: [
+            {
+              required: true,
+              message: this.$t('normal.error_08') + this.$t('label.PFANS3001VIEW_EXTENSIONNUMBER'),
+              trigger: 'change',
+            },
+          ],
+          reason: [
             {
               required: true,
               message: this.$t('normal.error_08') + this.$t('label.PFANS1021FORMVIEW_REASON'),
-              trigger: 'change'
+              trigger: 'change',
+            },
+          ],
+          application: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.application_date'),
+              trigger: 'change',
+            },
+          ],
+          type: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.pfanstype'),
+              trigger: 'change',
+            },
+          ],
+          subtype: [
+            {
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.subtype'),
+              trigger: 'change',
+            },
+          ],
+          email: [
+            {
+              validator: checkemail,
+              trigger: 'change',
             },
           ],
         },
-          canStart:false,
+        canStart: false,
       };
     },
 
     mounted() {
+      this.loading = true;
       if (this.$route.params._id) {
-        this.loading = true;
         this.$store
-          .dispatch('PFANS1004Store/getJudgementOne', {"judgementid": this.$route.params._id})
+          .dispatch('PFANS1021Store/selectById', {'securityid': this.$route.params._id})
           .then(response => {
-            this.form = response;
+            this.form = response.security;
+            let roleLC = getCurrentRole();
+            if (roleLC == '1') {
+              this.workflowCode = 'W0107';//总经理流程
+            // } else if(roleLC == '2' || roleLC == '3') { //GM Center
+            //   this.workflowCode = 'W0124'//新流程
+            }else { //TL 正式员工
+              this.workflowCode = 'W0028'
+            }
+            let rst = getOrgInfoByUserId(response.security.user_id);
+            if (rst) {
+              this.center_id = rst.centerNmae;
+              this.group_id = rst.groupNmae;
+              this.team_id = rst.teamNmae;
+            }
+            if (response.securitydetail.length > 0) {
+              this.form.tableD = response.securitydetail;
+              if (this.form.tableD.length > 0) {
+                for (let m = 0; m < this.form.tableD.length; m++) {
+                  if (this.form.tableD[m].timea != null) {
+                    let timea = this.form.tableD[m].timea;
+                    let serdate = timea.slice(0, 10);
+                    let serdate1 = timea.slice(timea.length - 10);
+                    this.form.tableD[m].timea = [serdate, serdate1];
+                  }
+                  let letstaff = this.form.tableD[m].fabuilding.split(',');
+                  this.form.tableD[m].fabuilding = letstaff;
+                }
+              }
+            }
+            //111
+            if (this.form.subtype == 'PJ029003' || this.form.subtype == 'PJ029004' || this.form.subtype == 'PJ029005') {
+              this.show = true;
+              this.show3 = false;
+            } else {
+              this.show = false;
+              this.show3 = true;
+              this.form.tableD.company = '';
+              this.form.tableD.timea = '';
+            }
             this.userlist = this.form.user_id;
+            //start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
+            let role = getCurrentRole4();
+            if (role === '0') {
+              if (this.form.status === '4') {
+                this.enableSave = true;
+                if (this.disabled) {
+                  this.acceptShow = false;
+                } else {
+                  this.acceptShow = true;
+                }
+              } else {
+                this.acceptShow = true;
+                this.enableSave = false;
+              }
+            }
+            //end(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09
             this.loading = false;
           })
           .catch(error => {
             Message({
               message: error,
               type: 'error',
-              duration: 5 * 1000
+              duration: 5 * 1000,
             });
             this.loading = false;
-          })
+          });
       } else {
+        //add-ws-7/27-禅道298任务  5e78b1f74e3b194874180de1
+        if (this.$route.params._name) {
+          this.form.subtype = 'PJ029001';
+          this.jude = this.$route.params._name;
+          for (var i = 0; i < this.jude.length; i++) {
+            if (i >= 1) {
+              if (getUserInfoName(this.jude[i].customername) !== '-1') {
+                this.userid = getUserInfoName(this.jude[i].customername).userid;
+                let lst = getOrgInfoByUserId(this.userid);
+                this.detailcenterid = lst.centerId;
+                this.detailgroupid = lst.groupId;
+                this.detailteamid = lst.teamId;
+              }
+              this.form.tableD.push({
+                securitydetailid: '',
+                securityid: '',
+                title: this.userid,
+                detailcenter_id: this.detailcenterid,
+                detailgroup_id: this.detailgroupid,
+                detailteam_id: this.detailteamid,
+                phonenumber: '',
+                emaildetail: '',
+                startdate: '',
+                company: '',
+                timea: '',
+                fabuilding: '',
+              });
+            } else {
+              if (getUserInfoName(this.jude[i].customername) !== '-1') {
+                this.userid = getUserInfoName(this.jude[i].customername).userid;
+                this.form.tableD[0].title = this.userid;
+                let lst = getOrgInfoByUserId(this.userid);
+                this.form.tableD[0].detailcenter_id = lst.centerId;
+                this.form.tableD[0].detailgroup_id = lst.groupId;
+                this.form.tableD[0].detailteam_id = lst.teamId;
+              }
+            }
+          }
+
+          // this.form.tableD[i].detailcenter_id = this.jude[i].centername;
+          // this.form.tableD[i].detailgroup_id = this.jude[i].groupname;
+          // this.form.tableD[i].detailteam_id = this.jude[i].teamname;
+        }
+        //add-ws-7/27-禅道298任务
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
-        let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-        this.form.center_id = lst.centerNmae;
-        this.form.group_id = lst.groupNmae;
-        this.form.team_id = lst.teamNmae;
-        this.form.user_id = this.$store.getters.userinfo.userid;
+          let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+          this.form.center_id = lst.centerNmae;
+          this.form.group_id = lst.groupNmae;
+          this.form.team_id = lst.teamNmae;
+          this.form.user_id = this.$store.getters.userinfo.userid;
         }
-          if (this.form.uploadfile != "") {
-              let uploadfile = this.form.uploadfile.split(";");
-              for (var i = 0; i < uploadfile.length; i++) {
-                  if (uploadfile[i].split(",")[0] != "") {
-                      let o = {};
-                      o.name = uploadfile[i].split(",")[0];
-                      o.url = uploadfile[i].split(",")[1];
-                      this.fileList.push(o)
-                  }
-              }
-          }
+        if (this.userlist !== null && this.userlist !== '') {
+          let lst1 = getUserInfo(this.$store.getters.userinfo.userid);
+          this.form.phonenumber = lst1.userinfo.mobilenumber;
+          this.form.emaildetail = lst1.userinfo.email;
+          this.form.user_id = this.$store.getters.userinfo.userid;
+        }
         this.loading = false;
       }
     },
@@ -292,59 +676,23 @@
       if (this.disabled) {
         this.buttonList = [
           {
-            key: "save",
-            name: "button.save",
+            key: 'save',
+            name: 'button.save',
             disabled: false,
-            icon: "el-icon-check"
-          }
+            icon: 'el-icon-check',
+          },
         ];
       }
-        if (this.form.careerplan === '1') {
-            this.show = true;
-            this.show1 = false;
-            this.rules.businessplantype[0].required = true;
-            this.rules.businessplanbalance[0].required = true;
-            this.rules.classificationtype[0].required = false;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        } else {
-            this.show = false;
-            this.show1 = false;
-            this.rules.businessplantype[0].required = false;
-            this.rules.businessplanbalance[0].required = false;
-            this.rules.classificationtype[0].required = false;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        }
-        if (this.form.decisive === "PJ011001") {
-            this.show4 = false;
-            this.show5 = false;
-            this.show6 = true;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        }else if (this.form.decisive === "PJ011002") {
-            this.show4 = true;
-            this.show5 = false;
-            this.show6 = true;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-        }else if (this.form.decisive === "PJ011003") {
-            this.show4 = false;
-            this.show5 = true;
-            this.show6 = false;
-            this.rules.startdate[0].required = true;
-            this.rules.enddate[0].required = true;
-            this.rules.period[0].required = false;
-        }else if (this.form.decisive === "PJ011004") {
-            this.show4 = false;
-            this.show5 = false;
-            this.show6 = false;
-            this.rules.startdate[0].required = false;
-            this.rules.enddate[0].required = false;
-            this.rules.period[0].required = false;
-        }
     },
     methods: {
+      getInterviewerids(userlist, row) {
+        row.title = userlist;
+      },
+      // <!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
+      getcorresponding(val) {
+        this.form.corresponding = val;
+      },
+      //<!--//start(添加角色权限，只有IT担当的人才可以进行受理)  ztc 2020/05/09-->
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -352,268 +700,405 @@
         this.form.center_id = lst.centerNmae;
         this.form.group_id = lst.groupNmae;
         this.form.team_id = lst.teamNmae;
-        if (!this.form.user_id || this.form.user_id === '' || val === "undefined") {
-          this.error = this.$t('normal.error_09') + this.$t('label.applicant');
+        if (!this.form.user_id || this.form.user_id === '' || val === 'undefined') {
+          this.erroruser = this.$t('normal.error_09') + this.$t('label.applicant');
         } else {
-          this.error = "";
+          this.erroruser = '';
         }
       },
-      getType(val) {
-        this.form.type = val;
+      // getUserids1(val,row) {
+      //     row.title = val;
+      //     let lst = getOrgInfoByUserId(val);
+      //     let lst1 = getUserInfo(val);
+      //     row.detailcenter_id = lst.centerNmae;
+      //     row.detailgroup_id = lst.groupNmae;
+      //     row.detailteam_id = lst.teamNmae;
+      //     row.phonenumber = lst1.userinfo.mobilenumber;
+      //     row.emaildetail = lst1.userinfo.email;
+      // },
+      // getUserids2(val,row) {
+      //     this.userlist2 = val;
+      //     row.entrymanager = val;
+      //     if (!row.title || row.title === '' || val === "undefined") {
+      //         row.errorentrymanager = this.$t('normal.error_09') + this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER');
+      //     } else {
+      //         row.errorentrymanager = "";
+      //     }
+      // },
+      getFabuilding(val, row) {
+        row.fabuilding = val;
       },
-        getSubtype(val) {
+      //ztc 依照子分类 更改相应的明细表
+      getSubtype(val) {
         this.form.subtype = val;
-      },
-      getAddbook(val) {
-        this.form.addbook = val;
-        if (val === "PJ010001") {
-          this.show3 = true;
-        }else if (val === "PJ010002") {
-          this.show3 = false;
-        }
-      },
-        getDecisive(val) {
-            this.form.decisive = val;
-            let dictionaryInfo = getDictionaryInfo(val);
-            if (val === "PJ011001") {
-                this.show4 = false;
-                this.show5 = false;
-                this.show6 = true;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011002") {
-                this.show4 = true;
-                this.show5 = false;
-                this.show6 = true;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011003") {
-                this.show4 = true;
-                this.show5 = false;
-                this.show6 = true;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011004") {
-                this.show4 = false;
-                this.show5 = true;
-                this.show6 = false;
-                this.rules.startdate[0].required = true;
-                this.rules.enddate[0].required = true;
-                this.rules.period[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }else if (val === "PJ011005") {
-                this.show4 = false;
-                this.show5 = false;
-                this.show6 = false;
-                this.rules.startdate[0].required = false;
-                this.rules.enddate[0].required = false;
-                this.rules.period[0].required = false;
-                if (dictionaryInfo) {
-                    this.form.period = dictionaryInfo.value2;
-                }
-            }
-        },
-      getSalequotation(val) {
-        this.form.salequotation = val;
-        if (val === "PJ013002") {
-          this.show2 = false;
-        }else if (val === "PJ013001") {
-          this.show2 = true;
-        }else if (val === "PJ013003") {
-          this.show2 = true;
-        }
-      },
-      radiochange(val){
-          this.form.careerplan = val;
-        if (val === '1') {
+        if (val == 'PJ029003' || val == 'PJ029004' || val == 'PJ029005') {
           this.show = true;
-          this.show1 = false;
-          if(this.form.businessplantype === 'PR002005'){
-              this.show1 = true;
-              this.rules.classificationtype[0].required = true;
-          }
-          this.rules.businessplantype[0].required = true;
-          this.rules.businessplanbalance[0].required = true;
-        }else {
+          this.show3 = false;
+          this.form.tableD = [
+            {
+              securitydetailid: '',
+              securityid: '',
+              title: '',
+              detailcenter_id: '',
+              detailgroup_id: '',
+              detailteam_id: '',
+              phonenumber: '',
+              emaildetail: '',
+              startdate: '',
+              company: '',
+              timea: '',
+              fabuilding: '',
+              // fbbuilding: ' ',
+              // showroom: ' ',
+              // entrymanager: '',
+            },
+          ];
+        } else {
           this.show = false;
-          this.show1 = false;
-          this.rules.businessplantype[0].required = false;
-          this.rules.businessplanbalance[0].required = false;
-          this.rules.classificationtype[0].required = false;
+          this.show3 = true;
+          this.form.tableD = [
+            {
+              securitydetailid: '',
+              securityid: '',
+              title: '',
+              detailcenter_id: '',
+              detailgroup_id: '',
+              detailteam_id: '',
+              phonenumber: '',
+              emaildetail: '',
+              startdate: '',
+              company: '',
+              timea: '',
+              fabuilding: '',
+              // fbbuilding: ' ',
+              // showroom: ' ',
+              // entrymanager: '',
+            },
+          ];
+          this.form.tableD.company = '';
+          this.form.tableD.timea = '';
         }
       },
+      // getFbbuilding(val,row) {
+      //     row.fbbuilding = val;
+      // },
+      // getshowroom(val,row) {
+      //     row.showroom = val;
+      // },
       workflowState(val) {
+        this.antcheck = '1';
         if (val.state === '1') {
           this.form.status = '3';
         } else if (val.state === '2') {
           this.form.status = '4';
         }
-        this.buttonClick("update");
+        this.buttonClick2();
       },
       start() {
         this.form.status = '2';
-        this.buttonClick("update");
+        this.buttonClick2();
       },
       end() {
         this.form.status = '0';
-        this.buttonClick("update");
+        this.buttonClick2();
       },
-        fileError(err, file, fileList){
-            Message({
-                message: this.$t("normal.error_04"),
-                type: 'error',
-                duration: 5 * 1000
-            });
-        },
-        fileRemove(file, fileList){
-            this.fileList = [];
-            this.form.uploadfile = "";
-            for (var item of fileList) {
-                let o = {};
-                o.name = item.name;
-                o.url = item.url;
-                this.fileList.push(o);
-                this.form.uploadfile += item.name + "," + item.url + ";"
-            }
-        },
-        fileDownload(file) {
-            if (file.url) {
-                var url = downLoadUrl(file.url);
-                window.open(url);
-            }
-
-        },
-        fileSuccess(response, file, fileList) {
-            this.fileList = [];
-            this.form.uploadfile = "";
-            for (var item of fileList) {
-                let o = {};
-                o.name = item.name;
-                if (!item.url) {
-                    o.url = item.response.info;
-                } else {
-                    o.url = item.url;
-                }
-                this.fileList.push(o);
-                this.form.uploadfile += o.name + "," + o.url + ";"
-            }
-        },
-      paramsTitle(){
-        this.$router.push({
-          name: 'PFANS1001FormView',
-          params: {
-            title: 4,
-          },
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.form.tableD = [
+            {
+              securitydetailid: '',
+              securityid: '',
+              title: '',
+              detailcenter_id: '',
+              detailgroup_id: '',
+              detailteam_id: '',
+              phonenumber: '',
+              emaildetail: '',
+              startdate: '',
+              company: '',
+              timea: '',
+              fabuilding: '',
+              // fbbuilding: ' ',
+              // showroom: ' ',
+              // entrymanager: '',
+            },
+          ];
+        }
+      },
+      getGroupId(orglist, row) {
+        row.detailcenter_id = orglist;
+      },
+      getGroupId1(orglist, row) {
+        row.detailgroup_id = orglist;
+      },
+      getGroupId2(orglist, row) {
+        row.detailteam_id = orglist;
+      },
+      addRow() {
+        this.form.tableD.push({
+          securitydetailid: '',
+          securityid: '',
+          title: '',
+          detailcenter_id: '',
+          detailgroup_id: '',
+          detailteam_id: '',
+          phonenumber: '',
+          emaildetail: '',
+          startdate: '',
+          company: '',
+          timea: '',
+          fabuilding: '',
+          // fbbuilding:' ',
+          // showroom: ' ',
+          // entrymanager:'',
         });
       },
-      buttonClick(val) {
-        if (val === 'back') {
-          this.paramsTitle();
-        } else {
-          this.$refs["refform"].validate(valid => {
-            if (valid) {
-              this.loading = true;
-              if (this.form.careerplan === '0') {
-                this.form.businessplantype = "";
-                this.form.businessplanbalance = "";
-                this.form.classificationtype = "";
+      paramsTitle() {
+        this.$router.push({
+          name: 'PFANS1021View',
+        });
+      },
+      buttonClick2() {
+        this.tableT = this.form.tableD;
+        this.baseInfo = {};
+        this.baseInfo.securitydetail = [];
+        for (let i = 0; i < this.form.tableD.length; i++) {
+          if (this.form.tableD[i].title.trim() === '' || this.form.tableD[i].detailcenter_id !== '' || this.form.tableD[i].detailgroup_id !== '' ||
+            this.form.tableD[i].detailteam_id !== '' || this.form.tableD[i].phonenumber !== '' || this.form.tableD[i].emaildetail !== ''
+            || this.form.tableD[i].startdate !== '' || this.form.tableD[i].fabuilding !== '') {
+            this.form.tableD[i].timea = moment(this.tableT[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.tableT[i].timea[1]).format('YYYY-MM-DD');
+            let checktableD = '';
+            let checktable = '';
+            if (this.form.status === '4' || this.form.status === '3') {
+              if (this.tableT[i].fabuilding != '') {
+                let checktlist = this.tableT[i].fabuilding.splice(',');
+                for (var m = 0; m < checktlist.length; m++) {
+                  checktableD = checktableD + checktlist[m] + ',';
+                }
               }
-              if (this.form.businessplantype === 'PR002001') {
-                  this.form.classificationtype = "";
-              }
-                if (this.form.businessplantype === 'PR002002') {
-                    this.form.classificationtype = "";
+              checktable = checktableD.substring(0, checktableD.length - 1);
+            } else {
+              if (this.form.status != '2' || this.antcheck === '1') {
+                let checktlist = this.tableT[i].fabuilding.splice(',');
+                for (var m = 0; m < checktlist.length; m++) {
+                  checktableD = checktableD + checktlist[m] + ',';
                 }
-                if (this.form.businessplantype === 'PR002003') {
-                    this.form.classificationtype = "";
-                }
-                if (this.form.businessplantype === 'PR002004') {
-                    this.form.classificationtype = "";
-                }
-              if (this.form.salequotation === 'PJ013001') {
-                this.form.reasonsforquotation = "";
-              }
-              if (this.form.salequotation === 'PJ013003') {
-                this.form.reasonsforquotation = "";
-              }
-                if (this.form.decisive === 'PJ011001') {
-                    this.form.startdate = "";
-                    this.form.enddate = "";
-                }
-                if (this.form.decisive === 'PJ011002') {
-                    this.form.startdate = "";
-                    this.form.enddate = "";
-                }
-                if (this.form.decisive === 'PJ011004') {
-                    this.form.startdate = "";
-                    this.form.enddate = "";
-                }
-              this.form.scheduleddate = moment(this.form.scheduleddate).format('YYYY-MM-DD');
-              this.form.equipment = "0";
-              if (this.$route.params._id) {
-                this.form.judgementid = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS1004Store/updateJudgement', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                      if(val !== "update") {
-                          Message({
-                              message: this.$t("normal.success_02"),
-                              type: 'success',
-                              duration: 5 * 1000
-                          });
-                          this.paramsTitle();
-                      }
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                  })
-
+                checktable = checktableD.substring(0, checktableD.length - 1);
               } else {
-                this.$store
-                  .dispatch('PFANS1004Store/createJudgement', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t("normal.success_01"),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                  })
+                checktable = this.tableT[i].fabuilding;
               }
             }
-          });
+            this.baseInfo.securitydetail.push(
+              {
+                securitydetailid: this.form.tableD[i].securitydetailid,
+                securityid: this.form.tableD[i].securityid,
+                title: this.form.tableD[i].title,
+                detailcenter_id: this.form.tableD[i].detailcenter_id,
+                detailgroup_id: this.form.tableD[i].detailgroup_id,
+                detailteam_id: this.form.tableD[i].detailteam_id,
+                phonenumber: this.form.tableD[i].phonenumber,
+                emaildetail: this.form.tableD[i].emaildetail,
+                startdate: this.form.tableD[i].startdate,
+                company: this.form.tableD[i].company,
+                timea: this.form.tableD[i].timea,
+                fabuilding: checktable,
+              },
+            );
+          }
         }
-      }
-    }
-  }
+        console.log(this.baseInfo.securitydetail)
+        this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+        this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.securityid = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS1021Store/update', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_02'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.paramsTitle();
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      buttonClick(val) {
+        this.$refs['refform'].validate(valid => {
+          if (valid) {
+            this.baseInfo = {};
+            this.form.application = moment(this.form.application).format('YYYY-MM-DD');
+            this.baseInfo.security = JSON.parse(JSON.stringify(this.form));
+            this.baseInfo.securitydetail = [];
+            let error1 = 0;
+            let error = 0;
+            let error3 = 0;
+            let timeaAnt = [];
+            for (let i = 0; i < this.form.tableD.length; i++) {
+              timeaAnt.push(this.form.tableD[i].timea);
+                this.form.tableD[i].timea = moment(this.form.tableD[i].timea[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.tableD[i].timea[1]).format('YYYY-MM-DD');
+                let checktableD = '';
+                if (this.form.tableD[i].title == '') {
+                  error = error + 1;
+                }
+              //NT_PFANS_20210305_BUG_131 ztc 修改明细出勤日未填弹出messageBUG start
+              if (this.form.tableD[i].startdate == '' || this.form.tableD[i].startdate == null || this.form.tableD[i].startdate == undefined) {
+                  error3 = error3 + 1;
+                }
+              //NT_PFANS_20210305_BUG_131 ztc 修改明细出勤日未填弹出messageBUG end
+                if (this.form.tableD[i].fabuilding != '') {
+                  let checktlist = this.form.tableD[i].fabuilding.splice(',');
+                  for (var m = 0; m < checktlist.length; m++) {
+                    checktableD = checktableD + checktlist[m] + ',';
+                  }
+                } else {
+                  error1 = error1 + 1;
+                }
+                this.baseInfo.securitydetail.push(
+                  {
+                    securitydetailid: this.form.tableD[i].securitydetailid,
+                    securityid: this.form.tableD[i].securityid,
+                    title: this.form.tableD[i].title,
+                    detailcenter_id: this.form.tableD[i].detailcenter_id,
+                    detailgroup_id: this.form.tableD[i].detailgroup_id,
+                    detailteam_id: this.form.tableD[i].detailteam_id,
+                    phonenumber: this.form.tableD[i].phonenumber,
+                    emaildetail: this.form.tableD[i].emaildetail,
+                    startdate: this.form.tableD[i].startdate,
+                    company: this.form.tableD[i].company,
+                    timea: this.form.tableD[i].timea,
+                    fabuilding: checktableD.substring(0, checktableD.length - 1),
+                    // fbbuilding: this.form.tableD[i].fbbuilding,
+                    // showroom: this.form.tableD[i].showroom,
+                    // entrymanager: this.form.tableD[i].entrymanager,
+                  },
+                );
+            }
+            this.tableT = this.form.tableD;
+            this.form.tableD = [];
+            for (let i = 0; i < this.baseInfo.securitydetail.length; i++) {
+              this.form.tableD.push(
+                {
+                  securitydetailid: this.baseInfo.securitydetail[i].securitydetailid,
+                  securityid: this.baseInfo.securitydetail[i].securityid,
+                  title: this.baseInfo.securitydetail[i].title,
+                  detailcenter_id: this.baseInfo.securitydetail[i].detailcenter_id,
+                  detailgroup_id: this.baseInfo.securitydetail[i].detailgroup_id,
+                  detailteam_id: this.baseInfo.securitydetail[i].detailteam_id,
+                  phonenumber: this.baseInfo.securitydetail[i].phonenumber,
+                  emaildetail: this.baseInfo.securitydetail[i].emaildetail,
+                  startdate: this.baseInfo.securitydetail[i].startdate,
+                  company: this.baseInfo.securitydetail[i].company,
+                  timea: timeaAnt[i],
+                  fabuilding: this.baseInfo.securitydetail[i].fabuilding,
+                },
+              );
+            }
+            if (error != 0) {
+              Message({
+                message: this.$t('normal.error_08') +
+                  this.$t('label.PFANS3005VIEW_USER'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            } else if (error3 != 0) {
+              Message({
+                message: this.$t('normal.error_08') +
+                  this.$t('label.PFANS1021FORMVIEW_STARTDATE'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            } else if (error1 != 0) {
+              Message({
+                message: this.$t('normal.error_08') +
+                  this.$t('label.PFANS1021FORMVIEW_FABUILDING'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+            // else if (error2 != 0) {
+            //   Message({
+            //     message: this.$t('normal.error_08') +
+            //       this.$t('label.PFANS1021FORMVIEW_ENTRYMANAGER'),
+            //     type: 'error',
+            //     duration: 5 * 1000,
+            //   });
+            // }
+            else if (!this.$route.params._id) {
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS1021Store/insert', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  this.paramsTitle();
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            } else {
+              this.baseInfo.securityid = this.$route.params._id;
+              this.$store
+                .dispatch('PFANS1021Store/update', this.baseInfo)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                  }
+                  if (val === 'StartWorkflow') {
+                    this.$refs.container.$refs.workflow.startWorkflow();
+                  } else {
+                    this.paramsTitle();
+                  }
+
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+            }
+
+          } else {
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+      },
+    },
+  };
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

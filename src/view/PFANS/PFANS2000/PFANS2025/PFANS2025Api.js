@@ -6,9 +6,8 @@ export function getInformation(){
         method:'get'
     })
 }
-    
+
     export function insertInformation(data){
-        debugger
         return request({
             url:'informationdelivery/insert',
             method:'post',

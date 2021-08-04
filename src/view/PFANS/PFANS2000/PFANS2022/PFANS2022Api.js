@@ -20,9 +20,9 @@ export function updateCasgiftApply(data) {
     data: data
   })
 }
-export function createCasgiftApply(data) {
+export function insert(data) {
   return request({
-    url: 'casgiftapply/create',
+    url: 'casgiftapply/insert',
     method: 'post',
     data: data
   })
@@ -34,3 +34,12 @@ export function getCasgiftApplyList(data) {
     data: data
   })
 }
+//add gbb 祝礼金申请关联发放 start
+export function updateCasgiftApplyList(data) {
+  return request({
+    url: 'casgiftapply/updateCasgiftApplyList',
+    method: 'post',
+    data: data
+  })
+}
+//add gbb 祝礼金申请关联发放 end

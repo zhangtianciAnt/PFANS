@@ -9,7 +9,7 @@
       :canStart="canStart"
       @start="start"
     >
-      <div slot="customize" style="margin-top: 4rem;">
+      <div slot="customize" style="margin-top: 4vw;">
         <el-row>
           <el-steps :active="active" finish-status="success" align-center>
             <el-step :title="roleid==='' ? '创建角色' : '编辑角色'"></el-step>
@@ -19,17 +19,17 @@
         </el-row>
         <el-row v-show="active === 0">
           <div style="width: 100%; min-height:20rem; margin: 5% auto; border-radius: 0.5rem;">
-            <el-form label-width="8rem" :model="roleForm" ref="roleForm" status-icon>
+            <el-form label-width="8vw" label-position="top" :model="roleForm" ref="roleForm" status-icon>
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item
                     label="角色名称:"
                     prop="rolename"
                     :rules="[
-                                        { required: true, message: '请输入角色名称', trigger: 'blur' }]"
+                             { required: true, message: '请输入角色名称', trigger: 'blur' }]"
                   >
-                    <el-input v-model="roleForm.rolename"></el-input>
                   </el-form-item>
+                    <el-input v-model="roleForm.rolename" style="width:70vw"></el-input>
                 </el-col>
               </el-row>
               <el-row>
@@ -40,14 +40,16 @@
                     :rules="[
                                         { required: true, message: '请输入角色说明', trigger: 'blur' }]"
                   >
-                    <el-input type="textarea" v-model="roleForm.description"></el-input>
                   </el-form-item>
+                    <el-input type="textarea" v-model="roleForm.description" style="width:70vw"></el-input>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :offset="3" :span="16">
                   <el-form-item label="是否默认角色:">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
                     <el-switch v-model="roleForm.defaultrole"></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -95,6 +97,15 @@
                           <el-row style="padding: 1.5rem">
                             <el-col>
                               <el-radio :label="-1">全组织</el-radio>
+                            </el-col>
+                              <el-col>
+                              <el-radio :label="3">本CENTER</el-radio>
+                            </el-col>
+                             <el-col>
+                              <el-radio :label="2">本GROUP</el-radio>
+                            </el-col>
+                            <el-col>
+                              <el-radio :label="5">本级及以下</el-radio>
                             </el-col>
                             <el-col>
                               <el-radio :label="4">仅限本人</el-radio>
@@ -381,7 +392,6 @@ export default {
     }
   },
   mounted() {
-    debugger;
     this.roleid = this.$route.params._id;
     if (this.roleid != "") {
       this.getRoleInfo(this.roleid);

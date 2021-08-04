@@ -1,4 +1,5 @@
 import request from '../../utils/request'
+import requestDownload from '../../utils/requestDownload';
 
 // 保存/更新 用户
 export function userSave(data) {
@@ -18,12 +19,37 @@ export function getUserTableList(params) {
   })
 }
 
+export function getUserTableList2(params) {
+  return request({
+    url: 'user/getAccountCustomer2',
+    method: 'get',
+    params: params
+  })
+}
+
+//add-ws-9/12-财务人员编码处理
+export function getUserTableList3(params) {
+  return request({
+    url: 'user/getAccountCustomer3',
+    method: 'get',
+    params: params
+  })
+}
+//add-ws-9/12-财务人员编码处理
+
 // 根据userid获取该用户的详细信息
 export function getById(params) {
   return request({
     url: 'user/getAccountCustomerById',
     method: 'get',
     params: params
+  })
+}
+
+export function getme() {
+  return request({
+    url: 'user/getme',
+    method: 'get'
   })
 }
 
@@ -60,5 +86,29 @@ export function setRoleToUser(data) {
     url: 'user/setRoleToUser',
     method: 'post',
     data: data
+  })
+}
+
+//下载模板
+export function download(data) {
+  return requestDownload({
+    url: 'user/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+export function getSigninlog() {
+  return request({
+    url: 'user/getSigninlog',
+    method: 'get',
+  });
+}
+// add-lyt-21/2/3-禅道734
+export function checkPassword(data) {
+  return request({
+    url: 'user/checkpassword',
+    method: 'get',
+    params: data
   })
 }

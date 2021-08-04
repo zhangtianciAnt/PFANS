@@ -5,53 +5,151 @@
       :title="title"
       v-loading="loading"
       @buttonClick="buttonClick"
-      :buttonList="buttonList"
+      :buttonList="buttonList" @disabled="setdisabled"
       @workflowState="workflowState"
       :canStart="canStart"
       @start="start"
       @end="end"
+      :workflowCode="workflowCode"
+      :enableSave="enableSave"
     >
       <div slot="customize">
-        <el-form :model="form" label-width="8rem" label-position="left" :rules="rules" style="padding: 2rem"
+        <el-form :model="form" label-width="8vw" label-position="top" :rules="rules" style="padding: 3vw"
                  ref="refform">
-          <el-row :gutter="32">
+          <!--            start  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3001FORMVIEW_ACCEPTSTATUS')">
+                <el-select clearable style="width: 20vw" v-model="form.acceptstatus" :disabled="acceptShow"
+                           :placeholder="$t('normal.error_09')" @change="changeAcc">
+                  <el-option
+                    v-for="item in options"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3006VIEW_ACCEPTTIME')">
+                <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                v-model="form.findate"></el-date-picker>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="refuseShow">
+              <el-form-item :label="$t('label.PFANS3007FORMVIEW_REFUSEREASON')">
+                <el-input :disabled="acceptShow" maxlength="100" style="width:20vw"
+                          v-model="form.refusereason"></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8" v-show="refuseShow1">
+              <el-form-item :label="$t('label.PFANS5004VIEW_FINSHTIME')">
+                <el-date-picker :disabled="acceptShow" style="width:20vw" type="date"
+                                v-model="form.finshtime"></el-date-picker>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
+          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.center')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.centerid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="centerid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.centerid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.group')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.groupid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="groupid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.groupid"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.team')">
-                <el-input :disabled="true" style="width: 11rem" v-model="form.teamid"></el-input>
+                <el-input :disabled="true" style="width:20vw" v-model="teamid"></el-input>
+                <el-input v-show='false' :disabled="true" style="width:20vw" v-model="form.teamid"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row>
+            <!--            start(添加申请日期)  fjl 2020/04/08-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.application_date')" prop="applicationdate">
+                <div class="block">
+                  <el-date-picker
+                    :disabled="true"
+                    style="width:20vw"
+                    type="date"
+                    v-model="form.applicationdate">
+                  </el-date-picker>
+                </div>
+              </el-form-item>
+            </el-col>
+            <!--            end(添加申请日期)  fjl 2020/04/08-->
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.applicant')" prop="userid">
-                <user :disabled="!disable" :error="error" :selectType="selectType" :userlist="userlist"
-                      @getUserids="getUserids" style="width: 10.2rem"></user>
+                <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                      @getUserids="getUserids" style="width: 20vw"></user>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_EUSER_ID')" prop="euser_id">
+                <el-input v-model="form.euser_id" :disabled="!disable" style="width:20vw"
+                          maxlength="20"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_DCENTER')" prop="dcenter">
+                <el-input v-model="form.dcenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_ECENTER')" prop="ecenter">
+                <el-input v-model="form.ecenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_BCENTER')" prop="bcenter">
+                <el-input v-model="form.bcenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS3003VIEW_ACENTER')" prop="acenter">
+                <el-input v-model="form.acenter" :disabled="!disable" style="width:20vw"
+                ></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_OCCUPATIONAL')" prop="occupational">
-                  <el-input v-model.trim="form.occupational" :disabled="!disable" style="width: 11rem"
+                  <el-input v-model="form.occupational" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
             </el-col>
             <el-col :span="8">
               <template>
+                <el-form-item :label="$t('label.PFANS3003VIEW_EOCCUPATIONAL')" prop="eoccupational">
+                  <el-input v-model="form.eoccupational" :disabled="!disable" style="width:20vw"
+                            maxlength="20"></el-input>
+                </el-form-item>
+              </template>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <template>
                 <el-form-item :label="$t('label.PFANS3003VIEW_INSIDELINE')" prop="insideline">
-                  <el-input v-model.trim="form.insideline" :disabled="!disable" style="width: 11rem"
+                  <el-input v-model="form.insideline" :disabled="!disable" style="width:20vw"
                             maxlength="20"></el-input>
                 </el-form-item>
               </template>
@@ -59,13 +157,11 @@
             <el-col :span="8">
               <template>
                 <el-form-item :label="$t('label.email')" prop="email">
-                  <el-input type="email" v-model.trim="form.email" :disabled="!disable" style="width: 11rem"
-                            maxlength="50"></el-input>
+                  <el-input type="email" v-model="form.email" :disabled="!disable" style="width:20vw"
+                            maxlength="100"></el-input>
                 </el-form-item>
               </template>
             </el-col>
-          </el-row>
-          <el-row :gutter="32">
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_PLAN')" prop="plan">
                 <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
@@ -81,11 +177,11 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_TYPE')" prop="type" v-if="show">
                 <dicselect
-                  style="width: 11rem"
+                  style="width:20vw"
                   :disabled="!disable"
                   :code="code"
                   :multiple="multiple"
@@ -98,7 +194,7 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_CLASSIFICATION')" prop="classification" v-if="show2">
                 <dicselect
-                  style="width: 11rem"
+                  style="width:20vw"
                   :disabled="!disable"
                   :code="code2"
                   :multiple="multiple"
@@ -111,14 +207,14 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" prop="balance" v-show="show">
                 <el-input-number v-model="form.balance" :disabled="!disable" controls-position="right" :step="1"
-                                 :min="0" :max="9999999999" :precision="2" style="width: 11rem"></el-input-number>
+                                 :min="0" :max="9999999999" :precision="2" style="width:20vw"></el-input-number>
               </el-form-item>
             </el-col>
           </el-row>
-          <el-row :gutter="32">
+          <el-row>
             <el-col :span="24">
               <el-form-item :label="$t('label.remarks')" prop="remarks">
-                <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width: 100%"></el-input>
+                <el-input type="textarea" v-model="form.remarks" :disabled="!disable" style="width:72vw"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -132,8 +228,9 @@
     import EasyNormalContainer from "@/components/EasyNormalContainer";
     import dicselect from "../../../components/dicselect.vue";
     import {Message} from 'element-ui';
+    import moment from 'moment'
     import user from "../../../components/user.vue";
-    import {getOrgInfoByUserId} from '@/utils/customize'
+    import {getOrgInfoByUserId, getCurrentRole2} from '@/utils/customize'
     import {telephoneNumber, validateEmail} from '@/utils/validate';
 
     export default {
@@ -151,17 +248,6 @@
                 } else {
                     callback();
                     this.error = '';
-                }
-            };
-            var validateTel = (rule, value, callback) => {
-                if (this.form.insideline !== null && this.form.insideline !== '') {
-                    if (telephoneNumber(value)) {
-                        callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS3003VIEW_INSIDELINE')));
-                    } else {
-                        callback();
-                    }
-                } else {
-                    callback();
                 }
             };
             var checkemail = (rule, value, callback) => {
@@ -198,17 +284,46 @@
                 }
             };
             return {
+                centerid: '',
+                groupid: '',
+                teamid: '',
+                workflowCode: 'W0043',
                 loading: false,
                 canStart: false,
+                enableSave: false,
                 selectType: "Single",
                 userlist: "",
                 title: "title.PFANS3003VIEW",
                 buttonList: [],
+                options: [
+                    {
+                        value: '0',
+                        label: this.$t('label.PFANS3006VIEW_ACCEPT'),
+                    },
+                    {
+                        value: '1',
+                        label: this.$t('label.PFANS3006VIEW_REFUSE'),
+                    },
+                    {
+                        value: '2',
+                        label: this.$t('label.PFANS3006VIEW_CARRYOUT'),
+                    },
+                ],
+                acceptShow: true,
+                refuseShow: false,
+              refuseShow1: false,
                 form: {
                     centerid: '',
                     groupid: '',
                     teamid: '',
+                    euser_id: '',
+                    ecenter: '',
+                  dcenter: '',
+                  bcenter: '',
+                  acenter: '',
+                    eoccupational: '',
                     userid: '',
+                    applicationdate: moment(new Date()).format("YYYY-MM-DD"),
                     occupational: '',
                     insideline: '',
                     email: '',
@@ -217,6 +332,10 @@
                     classification: '',
                     balance: '',
                     remarks: '',
+                    accept: '0',
+                    acceptstatus: '',
+                    findate: '',
+                    refusereason: '',
                 },
                 rules: {
                     userid: [{
@@ -224,17 +343,51 @@
                         validator: validateUserid,
                         trigger: 'change'
                     }],
+                    applicationdate: [{
+                        required: true,
+                        message: this.$t("normal.error_09") + this.$t("label.application_date"),
+                        trigger: "change"
+                    }],
                     occupational: [{
                         required: true,
                         message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_OCCUPATIONAL"),
+                        trigger: "blur"
+                    }],
+                    euser_id: [{
+                        required: true,
+                        message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_EUSER_ID"),
+                        trigger: "blur"
+                    }],
+                    ecenter: [{
+                        required: true,
+                        message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_ECENTER"),
+                        trigger: "blur"
+                    }],
+                  dcenter: [{
+                    required: true,
+                    message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_DCENTER"),
+                    trigger: "blur"
+                  }],
+                  bcenter: [{
+                    required: true,
+                    message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_ACENTER"),
+                    trigger: "blur"
+                  }],
+                  acenter: [{
+                    required: true,
+                    message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_BCENTER"),
+                    trigger: "blur"
+                  }],
+                    eoccupational: [{
+                        required: true,
+                        message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_EOCCUPATIONAL"),
                         trigger: "blur"
                     }],
                     insideline: [{
                         required: true,
                         message: this.$t("normal.error_08") + this.$t("label.PFANS3003VIEW_INSIDELINE"),
                         trigger: "blur"
-                    },
-                        {validator: validateTel, trigger: 'blur'}],
+                    }],
                     email: [{
                         required: true,
                         message: this.$t("normal.error_08") + this.$t("label.email"),
@@ -268,6 +421,38 @@
                     .dispatch('PFANS3003Store/getBusinessCardOne', {"businesscardid": this.$route.params._id})
                     .then(response => {
                         this.form = response;
+                        if (this.form.acceptstatus === '1') {
+                          this.refuseShow = true;
+                        } else if (this.form.acceptstatus === '2') {
+                          this.refuseShow = false;
+                          this.refuseShow1 = true;
+                        } else {
+                          this.refuseShow = false;
+                          this.refuseShow1 = false;
+                        }
+                        let rst = getOrgInfoByUserId(response.userid);
+                        if (rst) {
+                            this.centerid = rst.centerNmae;
+                            this.groupid = rst.groupNmae;
+                            this.teamid = rst.teamNmae;
+                        }
+                            //start(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
+                      let role = getCurrentRole2();
+                      if (role === '0') {
+                        if (this.form.status === '4') {
+                          this.enableSave = true;
+                          if (this.disable) {
+                            this.form.findate = moment(new Date()).format("YYYY-MM-DD")
+                            this.acceptShow = false;
+                          } else {
+                            this.acceptShow = true;
+                          }
+                            } else {
+                          this.acceptShow = true;
+                          this.enableSave = false;
+                            }
+                      }
+                            //end(添加角色权限，只有总务的人才可以进行受理)  fjl 2020/04/08
                         this.loading = false;
                         this.userlist = this.form.userid;
                         if (this.form.plan === '1') {
@@ -278,7 +463,7 @@
                             this.form.classification = null;
                             this.form.balance = null;
                         }
-                        if (this.form.type === "PR002005") {
+                        if (this.form.type === "PR002006") {
                             this.show2 = true;
                         } else {
                             this.show2 = false;
@@ -301,10 +486,15 @@
             } else {
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
-                    let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
-                    this.form.centerid = lst.centerNmae;
-                    this.form.groupid = lst.groupNmae;
-                    this.form.teamid = lst.teamNmae;
+                    let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
+                    if (rst) {
+                        this.centerid = rst.centerNmae;
+                        this.groupid = rst.groupNmae;
+                        this.teamid = rst.teamNmae;
+                        this.form.centerid = rst.centerId;
+                        this.form.groupid = rst.groupId;
+                        this.form.teamid = rst.teamId;
+                    }
                     this.form.userid = this.$store.getters.userinfo.userid;
                 }
             }
@@ -323,6 +513,35 @@
             }
         },
         methods: {
+            //change受理状态  add_fjl
+            changeAcc(val) {
+                this.form.acceptstatus = val;
+              // if (val === '1') {
+              //     this.refuseShow = true;
+              // } else {
+              //     this.refuseShow = false;
+              // }
+              if (val === '1') {
+                this.refuseShow = true;
+                this.refuseShow1 = false;
+                this.form.finshtime = null;
+              } else if (val === '2') {
+                this.refuseShow = false;
+                this.refuseShow1 = true;
+                this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
+                this.form.refusereason = null;
+              } else {
+                this.refuseShow = false;
+                this.refuseShow1 = false;
+                this.form.refusereason = null;
+                this.form.finshtime = null;
+              }
+            },
+            setdisabled(val) {
+                if (this.$route.params.disabled) {
+                    this.disabled = val;
+                }
+            },
             workflowState(val) {
                 if (val.state === '1') {
                     this.form.status = '3';
@@ -332,7 +551,12 @@
                 this.buttonClick("update");
             },
             start(val) {
-                this.form.status = '2';
+                if (val.state === '0') {
+                    this.form.status = '2';
+                } else if (val.state === '2') {
+                    this.form.status = '4';
+                }
+                // this.form.status = '2';
                 this.buttonClick("update");
             },
             end(val) {
@@ -342,10 +566,22 @@
             getUserids(val) {
                 this.form.userid = val;
                 this.userlist = val;
-                let lst = getOrgInfoByUserId(val);
-                this.form.centerid = lst.centerNmae;
-                this.form.groupid = lst.groupNmae;
-                this.form.teamid = lst.teamNmae;
+                let rst = getOrgInfoByUserId(val);
+                if (rst) {
+                    this.centerid = rst.centerNmae;
+                    this.groupid = rst.groupNmae;
+                    this.teamid = rst.teamNmae;
+                    this.form.centerid = rst.centerId;
+                    this.form.groupid = rst.groupId;
+                    this.form.teamid = rst.teamId;
+                } else {
+                    this.centerid = '';
+                    this.groupid = '';
+                    this.teamid = '';
+                    this.form.centerid = '';
+                    this.form.groupid = '';
+                    this.form.teamid = '';
+                }
                 if (!this.form.userid || this.form.userid === '' || val === "undefined") {
                     this.error = this.$t('normal.error_09') + this.$t('label.applicant');
                 } else {
@@ -366,7 +602,7 @@
             },
             change2(val) {
                 this.form.type = val;
-                if (val === "PR002005") {
+                if (val === "PR002006") {
                     this.show2 = true;
                 } else {
                     this.show2 = false;
@@ -382,17 +618,13 @@
                     if (valid) {
                         this.loading = true;
                         this.form.userid = this.userlist;
+                        this.form.applicationdate = moment(this.form.applicationdate).format('YYYY-MM-DD')
                         if (this.$route.params._id) {
                             this.$store
                                 .dispatch('PFANS3003Store/updateBusinessCard', this.form)
                                 .then(response => {
                                     this.data = response;
                                     this.loading = false;
-                                    Message({
-                                        message: this.$t("normal.success_02"),
-                                        type: 'success',
-                                        duration: 5 * 1000
-                                    })
                                     if (val !== "update") {
                                         Message({
                                             message: this.$t("normal.success_02"),
@@ -435,6 +667,12 @@
                                     this.loading = false;
                                 })
                         }
+                    } else {
+                        Message({
+                            message: this.$t("normal.error_12"),
+                            type: 'error',
+                            duration: 5 * 1000
+                        });
                     }
                 });
             }

@@ -3,27 +3,19 @@ import request from '../../../../utils/request'
 export function getSecurity() {
   return request({
     url: 'security/get',
-    method: 'get'
+    method: 'get',
   })
 }
 
-export function getCompanyProjectList(data) {
+export function selectById(data) {
   return request({
-    url: 'logmanagement/getCompanyProjectList',
-    method: 'POST',
-    data: data
+    url: 'security/selectById',
+    method: 'get',
+    params: data
   })
 }
 
-export function getSecurityOne(data) {
-  return request({
-    url: 'security/one',
-    method: 'post',
-    data: data
-  })
-}
-
-export function updateSecurity(data) {
+export function update(data) {
   return request({
     url: 'security/update',
     method: 'post',
@@ -31,18 +23,10 @@ export function updateSecurity(data) {
   })
 }
 
-export function createSecurity(data) {
+export function insert(data) {
   return request({
-    url: 'security/create',
+    url: 'security/insert',
     method: 'post',
     data: data
-  })
-}
-
-export function getForSelect (data) {
-  return request({
-    url: 'dictionary/getForSelect',
-    method: 'get',
-    params: data
   })
 }

@@ -10,11 +10,11 @@
         </el-tag>
       </div>
       <el-button :disabled="disabled" @click="openDialog" icon="el-icon-search" size="small"></el-button>
-      <el-dialog :visible.sync="dialogVisible" center size="50%" top="8vh" lock-scroll append-to-body>
+      <el-dialog :visible.sync="dialogVisible" center size="50%" top="8vh" lock-scroll append-to-body destroy-on-close>
         <el-row style="text-align: center;height: 90%;overflow: hidden">
-        <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
-                  :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
-                  @nodeClick="handleClickChange" maxheight="30rem" minheight="80%" ref="treeCom" ></EasyTree>
+          <EasyTree :checktrictly="true" :defaultProps="defaultProps" :defaultlist="data" :renderContent="renderContent"
+                    :showCheckbox="selectType === 'Single'?false:true" :showFilter="false"
+                    @nodeClick="handleClickChange" maxheight="30rem" minheight="80%" ref="treeCom" ></EasyTree>
         </el-row>
         <span slot="footer" class="dialog-footer">
         <el-button :disabled="conConfirm" @click="submit" type="primary">{{$t("button.confirm")}}</el-button>
@@ -37,25 +37,45 @@
       EasyTree
     },
     mounted () {
-      this.$store
-        .dispatch('orgTreeStore/getOrgTree')
-        .then(response => {
-          if(response){
+      // this.$store
+      //   .dispatch('orgTreeStore/getOrgTree')
+      //   .then(response => {
+      //     if(response){
+      //
+      //     this.data = [response]
+      //     }
+      //   })
+      //   .catch(error => {
+      //     Message({
+      //       message: error,
+      //       type: 'error',
+      //       duration: 5 * 1000
+      //     })
+      //   })
+      var orgs = this.$store.getters.orgList;
+      var result = [];
+      if(orgs.length > 0){
+        result = Object.assign({},orgs[0]);
+        result.orgs = []
+      }
 
-          this.data = [response]
+      for(var i_orgs = 0;i_orgs<orgs.length;i_orgs++){
+        let sub1orgs = orgs[i_orgs];
+        for(var i_sub1orgs = 0;i_sub1orgs<sub1orgs.orgs.length;i_sub1orgs++){
+          let sub2orgs = sub1orgs.orgs[i_sub1orgs];
+          if(sub2orgs.virtual === '0'){
+            result.orgs = result.orgs.concat(sub2orgs.orgs);
+          }else{
+            result.orgs.push(sub2orgs);
           }
-        })
-        .catch(error => {
-          Message({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          })
-        })
+        }
+      }
+      this.data = [result];
       this.orglistids = this.orglist
-
-      if (!Array.isArray(this.orglistids)) {
-        this.orglistids = this.orglistids.split(',')
+      if (this.orglistids != null) {
+        if (!Array.isArray(this.orglistids)) {
+          this.orglistids = this.orglistids.split(',')
+        }
       }
       this.checkedList = this.orglistids;
 
@@ -85,6 +105,8 @@
             return true
           }
         }
+      }else{
+        return false
       }
     },
     watch: {
@@ -179,7 +201,7 @@
         this.currentRow = val
         if (this.selectType === 'Single') {
           if (
-            val.type !== this.orgtype
+            this.orgtype != "4" && val.type !== this.orgtype
           ) {
             this.conConfirm = true
           } else {
@@ -226,7 +248,7 @@
         type: String,
         default:
           function () {
-            return 'Mult'
+            return 'Single'
           }
       }
       ,

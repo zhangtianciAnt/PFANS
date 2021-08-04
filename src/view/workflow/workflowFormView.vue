@@ -2,17 +2,17 @@
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :title="title" @buttonClick="buttonClick" ref="container"
                          v-loading="loading">
-      <div slot="customize" style="margin-top: 4rem;">
-        <el-form :model="form" :rules="rules" label-position="left" label-width="8rem" ref="form" style="padding: 2rem">
+      <div slot="customize" style="margin-top: 4vw;">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 2vw">
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.workflow_name')" prop="workflowname">
-                <el-input maxlength="255" style="width: 80%" v-model="form.workflowname"></el-input>
+                <el-input maxlength="255" style="width:20vw" v-model="form.workflowname"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.workflow_page')" prop="formid">
-                <el-select v-model="form.formid">
+                <el-select v-model="form.formid" style="width:20vw">
                   <el-option
                     :key="item.menuurl"
                     :label="$t(item.name)"
@@ -24,36 +24,21 @@
             </el-col>
             <el-col :span="8">
               <el-form-item :label="$t('label.workflow_code')" prop="code">
-                <el-input maxlength="5" style="width: 80%" v-model="form.code"></el-input>
+                <el-input maxlength="5" style="width:20vw" v-model="form.code"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-form-item :label="$t('label.workflow_remarks')">
-              <el-input style="width: 80%" type="textarea" v-model="form.workflowtext"></el-input>
+              <el-input style="width: 72vw" type="textarea" v-model="form.workflowtext"></el-input>
             </el-form-item>
           </el-row>
-          <el-row>
-            <el-upload
-              :action="upload"
-              :auto-upload="false"
-              :file-list="fileList"
-              :on-preview="download"
-              :on-success="success"
-              class="upload-demo"
-              drag
-              ref="upload">
-              <i class="el-icon-upload"></i>
-              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-            </el-upload>
-            <el-button @click="submitUpload" size="small" style="margin-left: 10px;" type="success">上传到服务器</el-button>
-          </el-row>
         </el-form>
-        <el-steps :active="editableTabs.length" align-center style="padding: 4rem">
+        <el-steps :active="editableTabs.length" align-center style="padding: 3vw">
           <el-step :key="item.name" :title="$t(item.title)" v-for="(item, index) in editableTabs"></el-step>
         </el-steps>
 
-        <el-tabs @tab-remove="removeTab" closable style="padding-top: 4rem" type="card" v-model="editableTabsValue">
+        <el-tabs @tab-remove="removeTab" closable type="border-card" v-model="editableTabsValue">
           <el-tab-pane
             :key="item.name"
             :label="$t(item.title)"
@@ -85,6 +70,7 @@
     },
     data() {
       return {
+        datalist:[],
         fileList: [],
         upload: uploadUrl(),
         loading: false,
@@ -133,6 +119,14 @@
                   ccitem => {
                     if (!ccitem.children || ccitem.children.length === 0) {
                       this.menuList.push(ccitem)
+                    } else {
+                      ccitem.children.map(
+                        cccitem => {
+                          if (!cccitem.children || cccitem.children.length === 0) {
+                            this.menuList.push(cccitem)
+                          }
+                        }
+                      )
                     }
                   }
                 )
@@ -174,27 +168,6 @@
       }
     },
     methods: {
-      download(file) {
-        if(file.url){
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-
-      },
-      submitUpload() {
-        this.$refs.upload.submit();
-      },
-      success(response, file, fileList) {
-        this.fileList = [];
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          if (!item.url) {
-            o.url = item.response.info;
-          }
-          this.fileList.push(o)
-        }
-      },
       // 保存,创建
       buttonClick(val) {
         if (val === 'save') {
@@ -204,7 +177,6 @@
             this.$refs[i + 1][0].$refs['form'].validate((valid) => {
               rst = valid;
             });
-            debugger;
             if (!rst) {
               return;
             } else {
@@ -214,55 +186,99 @@
           }
           this.$refs['form'].validate((valid) => {
             if (valid) {
-              if (this.$route.params._id) {
-                this.form.workflowid = this.$route.params._id;
+              //add fr 添加流程名/识别码的重复check
+              if (this.form.code !== "" || this.form.workflowname !== "") {
                 this.loading = true;
                 this.$store
-                  .dispatch('workflowStore/updateWorkflow', this.form)
+                  .dispatch('workflowStore/getWorkflowList', {})
                   .then(response => {
-                    this.data = response;
-                    Message({
-                      message: this.$t('normal.success_02'),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false
-
-                  })
-                  .catch(error => {
-                    Message({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false
-                  })
-
-              } else {
-                this.loading = true;
-                this.$store
-                  .dispatch('workflowStore/createWorkflow', this.form)
-                  .then(response => {
-                    this.data = response;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000
-                    });
-                    this.loading = false;
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl)
+                    this.datalist = response;
+                    let data1 = this.datalist.filter(item => item.workflowname === this.form.workflowname && item.workflowid !== this.$route.params._id);
+                    let data2 = this.datalist.filter(item => item.code === this.form.code && item.workflowid !== this.$route.params._id);
+                    if (data1.length > 0 ) {
+                      Message({
+                        message: this.$t('label.workflow_check2'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    } else if (data2.length > 0) {
+                      Message({
+                        message: this.$t('label.workflow_check1'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
                     }
+                    else
+                    {
+                      if (this.$route.params._id) {
+                        this.form.workflowid = this.$route.params._id;
+                        this.loading = true;
+                        this.$store
+                          .dispatch('workflowStore/updateWorkflow', this.form)
+                          .then(response => {
+                            this.data = response;
+                            Message({
+                              message: this.$t('normal.success_02'),
+                              type: 'success',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false
+
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false
+                          })
+
+                      }
+                      else {
+                        this.loading = true;
+                        this.$store
+                          .dispatch('workflowStore/createWorkflow', this.form)
+                          .then(response => {
+                            this.data = response;
+                            Message({
+                              message: this.$t('normal.success_01'),
+                              type: 'success',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false;
+                            if (this.$store.getters.historyUrl) {
+                              this.$router.push(this.$store.getters.historyUrl)
+                            }
+                          })
+                          .catch(error => {
+                            Message({
+                              message: error,
+                              type: 'error',
+                              duration: 5 * 1000
+                            });
+                            this.loading = false
+                          })
+                      }
+                    }
+                    this.loading = false;
                   })
                   .catch(error => {
                     Message({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000
-                    });
-                    this.loading = false
+                    })
                   })
               }
+              //add to
+            }
+            else{
+                Message({
+                    message: this.$t("normal.error_12"),
+                    type: 'error',
+                    duration: 5 * 1000
+                });
             }
           })
         }

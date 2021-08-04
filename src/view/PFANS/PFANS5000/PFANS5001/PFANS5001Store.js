@@ -1,4 +1,6 @@
-import {getFpans5001List,selectById,update,insert} from './PFANS5001Api'
+import {getFpans5001List,selectById,update,insert,getcustomer,getexpat,select,getPjList,getFpans5001List2,
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,selectAll,selectConnumList,report,update1} from './PFANS5001Api'
+
 
 const PFANS5001Store = {
   namespaced: true,
@@ -33,6 +35,20 @@ const PFANS5001Store = {
         })
       })
     },
+    //数据结转
+    update1({commit}, data) {
+      return new Promise((resolve, reject) => {
+        update1(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message)
+      }
+    }).catch(error => {
+        reject(error);
+    })
+    })
+    },
     //获取流程
     getFpans5001List({commit},data) {
       return new Promise((resolve, reject) => {
@@ -47,9 +63,182 @@ const PFANS5001Store = {
         })
       })
     },
+    getFpans5001List2({commit},data) {
+      return new Promise((resolve, reject) => {
+        getFpans5001List2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     selectById({ commit },data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectAll({ commit }) {
+      return new Promise((resolve, reject) => {
+        selectAll().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    select({ commit },data) {
+      return new Promise((resolve, reject) => {
+        select(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getcustomer({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getcustomer(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getexpat({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getexpat(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getPjList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getPjList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getList2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getList2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getProjectList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getProjectList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getGroupTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getGroupTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    updateTimestart({commit}, data) {
+      return new Promise((resolve, reject) => {
+        updateTimestart(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    selectConnumList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectConnumList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    report({commit}, data) {
+      return new Promise((resolve, reject) => {
+        report(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {

@@ -124,11 +124,12 @@
           type: 'info'
         }).then(() => {
           this.loading = true
+          this.$emit('changeLoading', true);
           this.workflowform.dataId = this.$store.getters.operateId
           this.workflowform.menuUrl = this.$store.getters.workflowUrl
           this.workflowform.dataUrl = this.$route.path
           this.workflowform.workFlowId = this.selectId
-          this.workflowform.userlist = this.userlist;
+          this.workflowform.userList = this.userlist;
 
           this.$store
             .dispatch(
@@ -141,7 +142,7 @@
                   message: this.$t('normal.success_03'),
                   type: 'success'
                 })
-                this.$emit('start')
+                this.$emit('start',response.data)
                 this.startWorkflow = false
               } else {
                 this.$message({
@@ -149,6 +150,7 @@
                   type: 'error'
                 })
                 this.loading = false
+                this.$emit('changeLoading', false);
               }
             })
             .catch(error => {
@@ -157,6 +159,7 @@
                 type: 'error'
               })
               this.loading = false
+              this.$emit('changeLoading', false);
             })
         })
       }

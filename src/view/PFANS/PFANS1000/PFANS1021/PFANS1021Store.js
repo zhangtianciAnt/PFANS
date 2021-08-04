@@ -1,10 +1,8 @@
 import {
   getSecurity,
-  getSecurityOne,
-  updateSecurity,
-  createSecurity,
-  getForSelect,
-  getCompanyProjectList,
+  selectById,
+  update,
+  insert,
   } from './PFANS1021Api'
 
   const PFANS1021Store = {
@@ -25,9 +23,9 @@ import {
           })
         })
       },
-      getSecurityOne({ commit },data) {
+      selectById({ commit },data) {
         return new Promise((resolve, reject) => {
-          getSecurityOne(data).then(response => {
+          selectById(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -38,9 +36,9 @@ import {
           })
         })
       },
-      updateSecurity({ commit },data) {
+      update({ commit },data) {
         return new Promise((resolve, reject) => {
-          updateSecurity(data).then(response => {
+          update(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -51,9 +49,9 @@ import {
           })
         })
       },
-      createSecurity({ commit },data) {
+      insert({ commit },data) {
         return new Promise((resolve, reject) => {
-          createSecurity(data).then(response => {
+          insert(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -61,32 +59,6 @@ import {
             }
           }).catch(error => {
             reject(error);
-          })
-        })
-      },
-      getCompanyProjectList({ commit }, data) {
-        return new Promise((resolve, reject) => {
-          getCompanyProjectList(data).then(response => {
-            if (response.code === 0) {
-              resolve(response.data);
-            } else {
-              reject(response.message)
-            }
-          }).catch(error => {
-            reject(error);
-          })
-        })
-      },
-      getForSelect ({commit}, data) {
-        return new Promise((resolve, reject) => {
-          getForSelect(data).then(response => {
-            if (response.code === 0) {
-              resolve(response.data)
-            } else {
-              reject(response.message)
-            }
-          }).catch(error => {
-            reject(error)
           })
         })
       },

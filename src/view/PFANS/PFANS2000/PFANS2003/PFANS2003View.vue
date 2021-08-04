@@ -8,7 +8,7 @@
     import {Message} from 'element-ui'
     import moment from 'moment'
     import {getUserInfo} from '@/utils/customize'
-    import {getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
+    import {getDictionaryInfo, getOrgInfo,getDepartmentById} from "../../../../utils/customize";
 
     export default {
         name: 'PFANS2003View',
@@ -26,18 +26,18 @@
                         label: 'label.user_name',
                         width: 120,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
                         code: 'accept_date',
                         label: 'label.PFANS2003VIEW_ACCEPTDATE',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                     {
-                        code: 'recommenddep',
-                        label: 'label.PFANS2003VIEW_RECOMMENDDEP',
+                        code: 'interviewdep',
+                        label: 'label.PFANS2003FORMVIEW_INTERVIEWDEP',
                         width: 150,
                         fix: false,
                         filter: true
@@ -75,7 +75,7 @@
                         label: 'label.information_start',
                         width: 150,
                         fix: false,
-                        filter: true
+                        filter: false
                     },
                 ],
                 buttonList: [
@@ -93,6 +93,10 @@
                 .dispatch('PFANS2003Store/getinterviewrecord')
                 .then(response => {
                     for (let j = 0; j < response.length; j++) {
+                        if(response[j].interviewdep){
+                            response[j].interviewdep = getDepartmentById(response[j].interviewdep);
+                        }
+
                         let user = getUserInfo(response[j].member);
                         if (user) {
                             response[j].member = getUserInfo(response[j].member).userinfo.customername;
@@ -139,6 +143,9 @@
                             response[j].recommenddep = recommenddep.companyname;
                         }
                     }
+                  // for (let i = 0; i < response.length; i++) {
+                  //   response[i].recommenddep = getDepartmentById(response[i].recommenddep);
+                  // }
                     this.data = response;
                     this.loading = false
                 })
@@ -161,7 +168,7 @@
                     if (this.rowid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return
@@ -187,7 +194,7 @@
                     if (this.rowid === '') {
                         Message({
                             message: this.$t('normal.info_01'),
-                            type: 'error',
+                            type: 'info',
                             duration: 2 * 1000
                         });
                         return

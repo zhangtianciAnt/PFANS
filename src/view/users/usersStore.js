@@ -2,10 +2,16 @@ import {
   userSave,
   getUserTableList,
   getById,
+  getme,
   mobileCheck,
   disableUser,
   getRoleList,
-  setRoleToUser
+  setRoleToUser,
+  getUserTableList2,
+  getUserTableList3,
+  download,
+  getSigninlog,
+  checkPassword
 } from './usersApi'
 
 const usersStore = {
@@ -47,10 +53,52 @@ const usersStore = {
         })
       })
     },
+    getUserTableList2({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getUserTableList2(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+//add-ws-9/12-财务人员编码处理
+    getUserTableList3({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getUserTableList3(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-9/12-财务人员编码处理
+
     // 根据userid获取该用户的详细信息
     getById({ commit }, params) {
       return new Promise((resolve, reject) => {
         getById(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getme({ commit }) {
+      return new Promise((resolve, reject) => {
+        getme().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -111,6 +159,43 @@ const usersStore = {
             resolve(response.data);
           } else {
             reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // add gbb 0815 获取当前用户登陸信息（IP）
+    getSigninlog() {
+      return new Promise((resolve, reject) => {
+        getSigninlog().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-lyt-21/2/3-禅道734
+    checkPassword({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        checkPassword(params).then(response => {
+          if (response.code === 0) {
+            resolve(response);
+          } else {
+            reject(response)
           }
         }).catch(error => {
           reject(error);

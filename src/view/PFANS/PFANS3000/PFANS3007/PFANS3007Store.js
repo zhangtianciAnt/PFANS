@@ -5,7 +5,6 @@ const PFANS3007Store = {
   state: {},
   mutations: {},
   actions: {
-    //获取流程
     getJapanCondominium() {
       return new Promise((resolve, reject) => {
         getJapanCondominium().then(response => {
@@ -19,7 +18,6 @@ const PFANS3007Store = {
         })
       })
     },
-    //获取详细
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
@@ -33,7 +31,6 @@ const PFANS3007Store = {
         })
       })
     },
-    //更新流程
     updateJapanCondominium({commit}, data) {
       return new Promise((resolve, reject) => {
         updateJapanCondominium(data).then(response => {
@@ -47,7 +44,6 @@ const PFANS3007Store = {
         })
       })
     },
-    //创建流程
     createJapanCondominium({commit}, data) {
       return new Promise((resolve, reject) => {
         createJapanCondominium(data).then(response => {
@@ -61,8 +57,6 @@ const PFANS3007Store = {
         })
       })
     }
-
-
   }
 }
 

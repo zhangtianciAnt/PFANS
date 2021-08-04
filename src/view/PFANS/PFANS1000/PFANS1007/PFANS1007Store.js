@@ -3,6 +3,7 @@ import {
   selectById,
   updateAssetinformation,
   insert,
+  downLoad,
 } from './PFANS1007Api'
 
 const PFANS1007Store = {
@@ -57,6 +58,15 @@ const PFANS1007Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    downLoad({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downLoad(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })

@@ -8,9 +8,25 @@ export function createPfans3001(data) {
   });
 }
 
+export function insert(data) {
+  return request({
+    url: 'tickets/insert',
+    method: 'post',
+    data: data,
+  });
+}
+
 export function updatePfans3001(data) {
   return request({
     url: 'tickets/updateInfo',
+    method: 'post',
+    data: data,
+  });
+}
+
+export function update(data) {
+  return request({
+    url: 'tickets/update',
     method: 'post',
     data: data,
   });
@@ -23,6 +39,13 @@ export function getFpans3001List() {
   });
 }
 
+export function geticketsdetail() {
+  return request({
+    url: 'tickets/geticketsdetail',
+    method: 'post',
+  });
+}
+
 export function getPfans3001One(data) {
   return request({
     url: 'tickets/oneInfo',
@@ -30,3 +53,20 @@ export function getPfans3001One(data) {
     data: data,
   });
 }
+
+export function selectById(data) {
+  return request({
+    url: 'tickets/selectById',
+    method: 'get',
+    params: data
+  });
+}
+//add-ws-7/14-禅道247
+export function selectByIdchange(data) {
+  return request({
+    url: 'tickets/selectByIdchange',
+    method: 'get',
+    params: data
+  });
+}
+//add-ws-7/14-禅道247

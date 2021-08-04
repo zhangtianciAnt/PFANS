@@ -1,7 +1,14 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" :showSelection="isShow">
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid"
+                     :showSelection="isShow">
+      <el-date-picker
+        v-model="month"
+        type="month"
+        slot="customize"
+        @change="showData">
+      </el-date-picker>
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">
       <div>
@@ -26,7 +33,7 @@
           <span v-if="this.resultShow"
           >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
         </el-row>
-        <span v-if="this.Message">{{this.cuowu}}</span>
+        <span v-if="this.Message1">{{this.cuowu}}</span>
         <div v-if="this.result">
           <el-table :data="message">
             <el-table-column :label="$t('label.PFANS2017VIEW_CUHS')" align="center" width="120%" prop="hang">
@@ -34,338 +41,717 @@
             <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
             </el-table-column>
           </el-table>
-          <div class="pagination-container" style="padding-top: 20px">
+          <div class="pagination-container" style="padding-top: 2rem">
             <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
                            :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
                            @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
               <slot><span class="front Content_front"
-                          style="padding-right: 5px;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+                          style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
             </el-pagination>
           </div>
         </div>
       </div>
     </el-dialog>
+    <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+      <el-table
+        :data="downtypes"
+        style="width: 100%">
+        <el-table-column
+          prop="name"
+          :label="$t('label.ASSETS1001VIEW_FILENAME')"
+        >
+        </el-table-column>
+
+        <el-table-column :label="$t('label.operation')">
+          <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="handleDownload(scope.row)"
+            >{{$t('button.download2')}}
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
+    <!--    add-ws-5/26-No.68-->
+    <el-dialog :visible.sync="checkdata" width="50%">
+      <div>
+        <div>
+          <el-row>
+            <el-col :span="8">
+              <el-tag effect="dark" style="width: 7rem;background-color:magenta;border-color:magenta ">
+                {{$t('label.PFANS5008VIEW_VIEWLOGDATE')}}
+              </el-tag>
+            </el-col>
+          </el-row>
+          <el-row style="height: 400px;max-height: 400px">
+            <full-calendar
+              :showNonCurrentDates="showNonCurrentDates"
+              :defaultDate="defaultDate"
+              :dayRender="dayRender"
+              :first-day="firstDay"
+              :header="header"
+              :locale="locale"
+              :plugins="calendarPlugins"
+              defaultView="dayGridMonth"
+              height="parent"
+              ref="fullCalendar1"
+            />
+          </el-row>
+        </div>
+        <div style="margin-top: 1rem;margin-left: 14.5rem">
+          <el-button @click="checklist" type="primary">
+            {{$t('button.index')}}
+          </el-button>
+        </div>
+      </div>
+    </el-dialog>
+    <!--    add-ws-5/26-No.68-->
   </div>
 </template>
 <script>
-    import {getToken} from '@/utils/auth'
-    import EasyNormalTable from "@/components/EasyNormalTable";
-    import {Message} from 'element-ui';
-    import {getOrgInfoByUserId, getUserInfo} from "../../../../utils/customize";
-    let moment = require("moment");
-    export default {
-        name: 'PFANS5008View',
-        components: {
-            EasyNormalTable
-        },
-        data() {
-            return {
-                totaldata: [],
-                listQuery: {
-                    page: 1,
-                    limit: 5
-                },
-                total: 0,
-                message: [{hang: '', error: '',}],
-                daoru: false,
-                checkTableData: [],
-                authHeader: {'x-auth-token': getToken()},
-                postAction: process.env.BASE_API + '/logmanagement/importUser',
-                addActionUrl: '',
-                resultShow: false,
-                file: null,
-                successCount: 0,
-                errorCount: 0,
-                errorList: [],
-                downloadLoading: false,
-                loading: false,
-                title: "title.PFANS5008VIEW",
-                data: [],
-                transferData: [],
-                selectedlist: [],
-                isShow:true,
-                columns: [
-                    {
-                        code: 'username',
-                        label: 'label.user_name',
-                        width: 120,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'center_name',
-                        label: 'label.center',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'group_name',
-                        label: 'label.group',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'team_name',
-                        label: 'label.team',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'project_id',
-                        label: 'label.PFANS5008VIEW_PROGRAM',
-                        width: 120,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'log_date',
-                        label: 'label.PFANS5008VIEW_RIQI',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'time_start',
-                        label: 'label.start',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
+  import FullCalendar from '@fullcalendar/vue';
+  import dayGridPlugin from '@fullcalendar/daygrid';
+  import timeGridPlugin from '@fullcalendar/timegrid';
+  import interactionPlugin from '@fullcalendar/interaction';
+  import {getToken} from '@/utils/auth';
+  import EasyNormalTable from '@/components/EasyBigDataTable';
+  import EasyNumBar from '@/components/EasyNumBar';
+  import {Message} from 'element-ui';
+  import {
+    getOrgInfoByUserId,
+    getUserInfo,
+    getCooperinterviewListByAccount,
+    getDictionaryInfo,
+    getOrgInfo,
+    getDepartmentById,
+    Decrypt
+  } from '../../../../utils/customize';
 
-                        code: 'time_end',
-                        label: 'label.end',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: 'work_memo',
-                        label: 'label.PFANS5008VIEW_GZBZ',
-                        width: 140,
-                        fix: false,
-                        filter: true
-                    },
-                ],
-                buttonList: [
-                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
-                    {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    {'key': 'import', 'name': 'button.import', 'disabled': false,icon: 'el-icon-download'},
-                    {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'}
-                ],
-                row: '',
-                rowid: 'logmanagement_id',
-            };
-        },
-        mounted() {
-            this.getProjectList();
-            this.$store.commit('global/SET_OPERATEID', '');
-        },
-        methods: {
-            handleSizeChange(val) {
-                this.listQuery.limit = val
-                this.getList()
-            },
-            handleCurrentChange(val) {
-                this.listQuery.page = val
-                this.getList()
-            },
-            getList() {
-                this.loading = true
-                let start = (this.listQuery.page - 1) * this.listQuery.limit
-                let end = this.listQuery.page * this.listQuery.limit
-                if (this.totaldata) {
-                    let pList = this.totaldata.slice(start, end)
-                    this.message = pList
-                    this.total = this.totaldata.length
-                }
-                this.loading = false
-            },
-            handleChange(file, fileList) {
-                this.clear(true);
-            },
-            handleSuccess(response, file, fileList) {
-                if (response.code !== 0) {
-                    this.cuowu = response.message;
-                    this.Message = true;
-                } else {
-                    let datalist = [];
-                    for (let c = 0; c < response.data.length; c++) {
-                        let error = response.data[c];
-                        error = error.substring(0, 3);
-                        if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
-                            this.errorCount = response.data[c].substring(4)
-                            this.resultShow = true;
-                        }
-                        if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
-                            this.successCount = response.data[c].substring(4)
-                            this.resultShow = true;
-                        }
-                        if (error === this.$t("label.PFANS2017VIEW_D")) {
-                            let obj = {};
-                            var str = response.data[c];
-                            var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
-                            var bPos = str.indexOf(this.$t("label.PFANS2017VIEW_DE"));
-                            var r = str.substr(aPos + 1, bPos - aPos - 1);
-                            obj.hang = r;
-                            obj.error = response.data[c].substring(6);
-                            datalist[c] = obj;
-                        }
-                        this.message = datalist;
-                        this.totaldata = this.message;
-                        if (this.errorCount === "0") {
-                            this.result = false;
-                        } else {
-                            this.result = true;
-                        }
-                        this.getList();
-                        this.getProjectList();
-                    }
-                }
-            },
-            clear(safe) {
-                this.file = null;
-                this.resultShow = false;
-                this.Message = false;
-                this.result = false;
-                if (!safe) {
-                    this.$refs.uploader.clearFiles();
-                }
-            },
-            rowClick(row) {
-                this.row = row.logmanagement_id;
-            },
-            getProjectList() {
-                this.loading = true;
-                this.$store
-                    .dispatch('PFANS5008Store/getProjectList', {})
-                    .then(response => {
-                        const data = [];
-                        for (let i = 0; i < response.length; i++) {
-                            data.push({
-                                key: response[i].project_id,
-                                label: response[i].project_name,
-                            });
-                        }
-                        this.transferData = data;
-                        this.$store
-                            .dispatch('PFANS5008Store/getDataList', {})
-                            .then(response => {
-                                    let datalist = [];
-                                    for (let j = 0; j < response.length; j++) {
-                                        for (let i = 0; i < this.transferData.length; i++) {
-                                            if (this.transferData[i].key === response[j].project_id) {
-                                                response[j].project_id = this.transferData[i].label;
-                                            }
-                                        }
-                                        let lst = getOrgInfoByUserId(response[j].createby);
-                                        let user = getUserInfo(response[j].createby)
-                                        if (user) {
-                                            response[j].username = user.userinfo.customername;
-                                        }
-                                        response[j].center_name = lst.centerNmae;
-                                        response[j].group_name = lst.groupNmae;
-                                        response[j].team_name = lst.teamNmae;
+  let moment = require('moment');
 
-                                        response[j].log_date = moment(response[j].log_date).format("YYYY-MM-DD");
-                                        if (response[j].time_start !== null && response[j].time_start !== "") {
-                                            response[j].time_start = moment(response[j].time_start).format("HH:mm");
-                                        }
-                                        if (response[j].time_end !== null && response[j].time_end !== "") {
-                                            response[j].time_end = moment(response[j].time_end).format("HH:mm");
-                                        }
-                                    }
-                                    this.data = response;
-                                    this.loading = false;
-                                }
-                            )
-                            .catch(error => {
-                                Message({
-                                    message: error,
-                                    type: 'error',
-                                    duration: 5 * 1000
-                                });
-                                this.loading = false;
-                            })
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        })
-                    })
-            },
-            formatJson(filterVal, jsonData) {
-                return jsonData.map(v => filterVal.map(j => {
-                    if (j === 'timestamp') {
-                        return parseTime(v[j])
-                    } else {
-                        return v[j]
-                    }
-                }))
-            },
-            buttonClick(val) {
-                this.$store.commit('global/SET_HISTORYURL', this.$route.path)
-                if (val === 'update') {
-                    if (this.row === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        })
-                        return;
-                    }
-                    this.$router.push({
-                        name: 'PFANS5008FormView',
-                        params: {
-                            _id: this.row,
-                            disabled: true
-                        }
-                    });
-                } else if (val === 'view') {
-                    if (this.row === '') {
-                        Message({
-                            message: this.$t('normal.info_01'),
-                            type: 'info',
-                            duration: 2 * 1000
-                        })
-                        return;
-                    }
-                    this.$router.push({
-                        name: "PFANS5008FormView",
-                        params: {
-                            _id: this.row,
-                            disabled: false
-                        }
-                    });
-                } else if (val === 'insert') {
-                    this.$router.push({
-                        name: "PFANS5008FormView",
-                        params: {
-                            _id: "",
-                            disabled: true
-                        }
-                    });
-                } else if (val === 'export') {
-                    this.selectedlist = this.$refs.roletable.selectedList;
-                    import('@/vendor/Export2Excel').then(excel => {
-                        const tHeader = [this.$t('label.user_name'), this.$t('label.center'),  this.$t('label.group'),  this.$t('label.team'), this.$t('label.PFANS5008VIEW_PROGRAM'), this.$t('label.PFANS5008VIEW_RIQI'), this.$t('label.start'), this.$t('label.end'),this.$t('label.PFANS5008VIEW_GZBZ')];
-                        const filterVal = ['username', 'center_name', 'group_name', 'team_name', 'project_id', 'log_date', 'time_start', 'time_end', 'work_memo'];
-                        const list = this.selectedlist;
-                        const data = this.formatJson(filterVal, list);
-                        excel.export_json_to_excel(tHeader, data,  this.$t('menu.PFANS5008'));
-                    })
-                }else if (val === 'import') {
-                    this.daoru = true;
-                }
-            },
+  export default {
+    name: 'PFANS5008View',
+    components: {
+      EasyNormalTable,
+      FullCalendar,
+      EasyNumBar,
+    },
+    data() {
+      return {
+            // add-ws-5/26-No.68
+        defaultDate: moment(new Date()).format('YYYY-MM-DD'),
+        locale: 'cn',
+        calendarPlugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+        header: {
+          right: 'prev,next today',
+          center: 'title',
+          left: 'month,agendaWeek,agendaDay',
+        },
+        firstDay: 1,
+        showNonCurrentDates: false,
+        checkdata: false,
+        // add-ws-5/26-No.68
+        month: moment(new Date()).format('YYYY-MM-DD'),
+        pop_download: false,
+        totaldata: [],
+        listQuery: {
+          page: 1,
+          limit: 5,
+        },
+        // confirmstatus0: this.$t('label.PFANS5008VIEW_UNCONFIRM'),
+        // confirmstatus1: this.$t('label.PFANS5008VIEW_CONFIRM'),
+        // confirmstatus2: this.$t('label.PFANS5008VIEW_REFUSE'),
+        total: 0,
+        message: [{hang: '', error: ''}],
+        Message1: true,
+        result: false,
+        cuowu: '',
+        createy: '',
+        daoru: false,
+        checkTableData: [],
+        authHeader: {'x-auth-token': getToken()},
+        postAction: process.env.BASE_API + '/logmanagement/importUser',
+        addActionUrl: '',
+        resultShow: false,
+        file: null,
+        User_id: '',
+        datalistsum: [],
+        successCount: 0,
+        errorCount: 0,
+        errorList: [],
+        downloadLoading: false,
+        loading: false,
+        title: 'title.PFANS5008VIEW',
+        data: [],
+        transferData: [],
+        selectedlist: [],
+        isShow: true,
+        columns: [
+          {
+            code: 'groupname',
+            label: 'label.department',
+            width: 190,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'username',
+            label: 'label.user_name',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+
+          {
+            code: 'project_name',
+            label: 'label.PFANS5008VIEW_PROGRAM',
+            width: 120,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'log_date',
+            label: 'label.PFANS5008VIEW_RIQI',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'time_start',
+            label: 'label.PFANS5008FORMVIEW_SC',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'work_phase',
+            label: 'label.PFANS5008VIEW_JDJOBS',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'behavior_breakdown',
+            label: 'label.PFANS5008VIEW_XWXF',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'wbs_id',
+            label: 'WBS_ID',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'work_memo',
+            label: 'label.PFANS5008VIEW_GZBZ',
+            width: 140,
+            fix: false,
+            filter: false,
+          },
+          // {
+          //   code: 'confirmstatus',
+          //   label: 'label.PFANS5008FORMVIEW_CONFIRMSTATUS',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true,
+          // },
+        ],
+        buttonList: [
+          // add-ws-5/26-No.68
+          {'key': 'data', 'name': 'button.viewlogmement', 'disabled': false, 'icon': 'el-icon-view'},
+          // add-ws-5/26-No.68
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'delete', 'name': 'button.delete', 'disabled': false, 'icon': 'el-icon-delete'},
+          // {'key': 'import', 'name': 'button.import', 'disabled': false,icon: 'el-icon-download'},
+          // {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
+          // {'key': 'export2', 'name': 'button.download2', 'disabled': false, 'icon': 'el-icon-download'},
+        ],
+        row: '',
+        rowid: 'logmanagement_id',
+      };
+    },
+    // add-ws-5/26-No.68
+    created() {
+      if (this.$store.getters.userinfo.userid !== undefined) {
+        this.User_id = this.$store.getters.userinfo.userid;
+      } else {
+
+        this.User_id = this.$store.getters.useraccount._id;
+      }
+    },
+    // add-ws-5/26-No.68
+    mounted() {
+      // add-ws-5/26-No.68
+      this.getlistdata();
+      // add-ws-5/26-No.68
+      this.getProjectList(moment(new Date()).format('YYYY-MM-DD'));
+      this.$store.commit('global/SET_OPERATEID', '');
+    },
+    computed: {
+      downtypes() {
+        return [
+          {name: this.$t('menu.PFANS5008'), type: 0},
+        ];
+      },
+    },
+    methods: {
+      // add-ws-5/26-No.68
+      checklist() {
+        this.checkdata = false;
+      },
+      dayRender: function(info) {
+        if (this.datalistsum != null) {
+          this.loading = true;
+          let response = this.datalistsum;
+          for (let c = 0; c < response.length; c++) {
+            if (moment(response[c].log_date).format('YYYY-MM-DD') === moment(info.date).format('YYYY-MM-DD')) {
+              info.el.bgColor = 'magenta';
+            }
+          }
+          this.loading = false;
         }
-    }
+      },
+      getlistdata() {
+        let parameter = {
+          createby: this.User_id,
+        };
+        this.datalistsum = [];
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getDataList2', parameter)
+          .then(response => {
+              this.datalistsum = response;
+              this.loading = false;
+            },
+          )
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      // add-ws-5/26-No.68
+      showData() {
+        this.getProjectList(this.month);
+        // add-ws-5/26-No.68
+        this.defaultDate = this.month;
+        let calendarApi1 = this.$refs.fullCalendar1.getApi();
+        calendarApi1.gotoDate(this.defaultDate);
+        // add-ws-5/26-No.68
+      },
+      handleDownload(row) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/downloadList', {'type': row.type})
+          .then(response => {
+            this.loading = false;
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      handleSizeChange(val) {
+        this.listQuery.limit = val;
+        this.getList();
+      },
+      handleCurrentChange(val) {
+        this.listQuery.page = val;
+        this.getList();
+      },
+      getList() {
+        this.loading = true;
+        let start = (this.listQuery.page - 1) * this.listQuery.limit;
+        let end = this.listQuery.page * this.listQuery.limit;
+        if (this.totaldata) {
+          let pList = this.totaldata.slice(start, end);
+          this.message = pList;
+          this.total = this.totaldata.length;
+        }
+        this.loading = false;
+      },
+      handleChange(file, fileList) {
+        this.clear(true);
+      },
+      handleSuccess(response, file, fileList) {
+        if (response.code !== 0) {
+          this.cuowu = response.message;
+          this.Message1 = true;
+        } else {
+          response.data = JSON.parse(Decrypt(response.data));
+          let datalist = [];
+          for (let c = 0; c < response.data.length; c++) {
+            let error = response.data[c];
+            error = error.substring(0, 3);
+            if (error === this.$t('label.PFANS2005FORMVIEW_SB')) {
+              this.errorCount = response.data[c].substring(4);
+              this.resultShow = true;
+            }
+            if (error === this.$t('label.PFANS2005FORMVIEW_CG')) {
+              this.successCount = response.data[c].substring(4);
+              this.resultShow = true;
+            }
+            if (error === this.$t('label.PFANS2017VIEW_D')) {
+              let obj = {};
+              var str = response.data[c];
+              var aPos = str.indexOf(this.$t('label.PFANS2017VIEW_BAN'));
+              var bPos = str.indexOf(this.$t('label.PFANS2017VIEW_DE'));
+              var r = str.substr(aPos + 1, bPos - aPos - 1);
+              obj.hang = r;
+              obj.error = response.data[c].substring(6);
+              datalist[c] = obj;
+            }
+            this.message = datalist;
+            this.totaldata = this.message;
+            if (this.errorCount === '0') {
+              this.result = false;
+            } else {
+              this.result = true;
+            }
+            this.getList();
+            this.getProjectList(this.month);
+          }
+        }
+      },
+      clear(safe) {
+        this.file = null;
+        this.resultShow = false;
+        this.Message1 = false;
+        this.result = false;
+        if (!safe) {
+          this.$refs.uploader.clearFiles();
+        }
+      },
+      rowClick(row) {
+        this.createy = row.createby;
+        this.row = row.logmanagement_id;
+      },
+      getProjectList(val) {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5008Store/getDataList1', {log_date: val})
+          .then(response => {
+              for (let j = 0; j < response.length; j++) {
+                let user = getUserInfo(response[j].createby);
+
+                if (user) {
+                  response[j].username = user.userinfo.customername;
+                } else {
+                  let co = getCooperinterviewListByAccount(response[j].createby);
+                  if (co) {
+                    response[j].username = co.expname;
+                  }
+                }
+                if (response[j].group_id) {
+                  response[j].groupname = getDepartmentById(response[j].group_id);
+                }
+                // if(response[j].project_id  === 'PP024001')
+                // {
+                //   let co = getCooperinterviewListByAccount(response[j].createby);
+                //   if (co)
+                //   {
+                //     if (co.group_id)
+                //     {
+                //       let group = getOrgInfo(co.group_id);
+                //       if (group) {
+                //         response[j].groupname = group.companyname;
+                //       }
+                //     }
+                //   }
+                //   if (user)
+                //   {
+                //     response[j].groupname = user.userinfo.groupname;
+                //   }
+                // }
+                // else
+                // {
+                //   if (response[j].group_id)
+                //   {
+                //     let group = getOrgInfo(response[j].group_id);
+                //     if (group) {
+                //       response[j].groupname = group.companyname;
+                //     }
+                //   }
+                //   else
+                //   {
+                //     let co = getCooperinterviewListByAccount(response[j].createby);
+                //     if (co)
+                //     {
+                //       if (co.group_id)
+                //       {
+                //         let group = getOrgInfo(co.group_id);
+                //         if (group) {
+                //           response[j].groupname = group.companyname;
+                //         }
+                //       }
+                //     }
+                //     if (user)
+                //     {
+                //       response[j].groupname = user.userinfo.groupname;
+                //     }
+                //   }
+                // }
+
+                if (response[j].work_phase != '' && response[j].work_phase != null) {
+                  let letErrortype = getDictionaryInfo(response[j].work_phase);
+                  if (letErrortype != null) {
+                    response[j].work_phase = letErrortype.value1;
+                  }
+                }
+                if (response[j].behavior_breakdown != '' && response[j].behavior_breakdown != null) {
+                  let letErrortype = getDictionaryInfo(response[j].behavior_breakdown);
+                  if (letErrortype != null) {
+                    response[j].behavior_breakdown = letErrortype.value1;
+                  }
+                }
+                response[j].log_date = moment(response[j].log_date).format('YYYY-MM-DD');
+                if (response[j].time_end !== null && response[j].time_end !== '') {
+                  response[j].time_end = moment(response[j].time_end).format('HH:mm');
+                }
+                // if (response[j].confirmstatus !== null && response[j].confirmstatus !== '') {
+                //   if (response[j].confirmstatus === '0') {
+                //     response[j].confirmstatus = this.confirmstatus0;
+                //   } else if (response[j].confirmstatus === '1') {
+                //     response[j].confirmstatus = this.confirmstatus1;
+                //   } else {
+                //     response[j].confirmstatus = this.confirmstatus2;
+                //   }
+                // }
+              }
+              this.data = response;
+              this.loading = false;
+            },
+          )
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+
+
+      },
+      formatJson(filterVal, jsonData) {
+        return jsonData.map(v => filterVal.map(j => {
+          if (j === 'timestamp') {
+            return parseTime(v[j]);
+          } else {
+            return v[j];
+          }
+        }));
+      }
+      ,
+      buttonClick(val) {
+        this.$store.commit('global/SET_HISTORYURL', this.$route.path);
+        if (val === 'update') {
+          if (this.row === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS5008FormView',
+            params: {
+              _createby: this.createy,
+              _id: this.row,
+              disabled: true,
+            },
+          });
+        } else if (val === 'view') {
+          if (this.row === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.$router.push({
+            name: 'PFANS5008FormView',
+            params: {
+              _createby: this.createy,
+              _id: this.row,
+              disabled: false,
+            },
+          });
+        } else if (val === 'insert') {
+          this.$router.push({
+            name: 'PFANS5008FormView',
+            params: {
+              _id: '',
+              disabled: true,
+            },
+          });
+        } else if (val === 'export2') {
+          this.pop_download = true;
+        } else if (val === 'export') {
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.selectedlist = this.$refs.roletable.selectedList;
+          import('@/vendor/Export2Excel').then(excel => {
+            const tHeader = [this.$t('label.user_name'), this.$t('label.center'), this.$t('label.group'), this.$t('label.team'), this.$t('label.PFANS5008VIEW_PROGRAM'), this.$t('label.PFANS5008VIEW_RIQI'), this.$t('label.PFANS5008FORMVIEW_SC'), this.$t('label.PFANS5008VIEW_GZBZ')];
+            const filterVal = ['username', 'center_name', 'group_name', 'team_name', 'project_id', 'log_date', 'time_start', 'work_memo'];
+            const list = this.selectedlist;
+            const data = this.formatJson(filterVal, list);
+            excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS5008'));
+          });
+        } else if (val === 'import') {
+          this.daoru = true;
+        } else if (val === 'delete') {
+          /*   upd  只能删除自己日志   from   */
+          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+            if (this.$refs.roletable.selectedList[i].createby.trim() !== this.$store.getters.userinfo.userid.trim()) {
+              Message({
+                message: this.$t('normal.error_26'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.delete();
+        }
+        // add-ws-5/26-No.68
+        else if (val === 'data') {
+          this.checkdata = true;
+        }
+        // add-ws-5/26-No.68
+      },
+      delete() {
+        this.loading = true;
+        this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+          confirmButtonText: this.$t('button.confirm'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+          center: true,
+        }).then(() => {
+          this.$store
+            .dispatch('PFANS5008Store/deleteLog', {logmanagement_id: this.row})
+            .then(response => {
+              this.getProjectList(this.month);
+              this.getlistdata();
+              this.$store.commit('global/SET_OPERATEID', '');
+              Message({
+                message: this.$t('normal.info_03'),
+                type: 'success',
+                duration: 2 * 1000,
+              });
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: this.$t('normal.info_04'),
+          });
+          this.loading = false;
+        });
+      },
+    },
+  };
 </script>
-<style rel="stylesheet/scss" lang="scss">
+<style lang="scss">
+  .fc-row.fc-widget-header {
+    /*background-color: rgb(255, 204, 102);*/
+    background-color: #005baa;
+    font-size: 0.4em;
+    color: white;
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    /*margin-bottom: 1.5em;*/
+    /*background-color: rgb(153, 0, 0);*/
+    font-size: 0.4em;
+    background-color: #005baa;
+  }
+
+  .fc-scroller > .fc-day-grid,
+  .fc-scroller > .fc-time-grid {
+    position: relative;
+    width: 100%;
+    /*background-color: rgb(255, 255, 204);*/
+    background-color: white;
+  }
+
+  .fc-dayGrid-view .fc-body .fc-row {
+    min-height: 0.5em !important;
+  }
+
+  .fc-toolbar.fc-header-toolbar {
+    margin-bottom: 0em !important;
+    /*background-color: rgb(153, 0, 0);*/
+    background-color: #005baa;
+  }
+
+  body .fc {
+    font-size: 0.3em;
+  }
+
+  .fc-ltr .fc-dayGrid-view .fc-day-top .fc-day-number {
+    float: left !important;
+    width: 2.5rem;
+    font-size: 0.6em;
+  }
+
+  .fc-toolbar h2 {
+    font-size: 1.75em;
+    color: white;
+    margin: 0;
+  }
+
+  .el-divider--horizontal {
+    display: block;
+    height: 1px;
+    width: 100%;
+    margin-top: 12px !important;
+    margin-right: 0px !important;
+    margin-bottom: 12px !important;
+    margin-left: 0px !important;
+  }
+
+  //ADD-WS-修改工作日设置日历当天颜色
+  .fc-unthemed td.fc-today {
+    background: cornsilk;
+  }
+
+  //ADD-WS-修改工作日设置日历当天颜色
 </style>

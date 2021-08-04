@@ -6,7 +6,6 @@ export function get() {
   })
 }
 export function getStatus(data) {
-  debugger
   return request({
     url: 'ToDoNotice/getList',
     method: 'get',

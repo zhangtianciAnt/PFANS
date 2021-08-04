@@ -1,6 +1,6 @@
 <template>
     <span>
-        <el-button @click="addworkflow" plain size="mini" style="margin-left:10px" type="primary"
+        <el-button @click="addworkflow" plain size="mini" style="margin-left:10px" type="primary" @changeLoading="changeLoading"
                    v-if="canStartWorkflow">{{$t('button.startWorkflow')}}</el-button>
         <el-button :data="OperationWorkflowData" @click="OperationWorkflow" plain size="mini" style="margin-left:10px"
                    type="primary" v-if="canOperationWorkflow">{{$t('button.operationWorkflow')}}</el-button>
@@ -63,17 +63,38 @@
         default: function () {
           return []
         }
+      },
+      defaultStart:{
+        type:Boolean,
+        default:true
+      },
+      defaultDo:{
+        type:Boolean,
+        default:true
       }
     },
     methods: {
-      start() {
-        this.$emit('start')
+      changeLoading(val){
+        this.$emit('changeLoading', val);
+      },
+      start(val) {
+        this.refresh();
+        this.$emit('start',val)
       },
       workflowState(val) {
         this.$emit('workflowState', val)
       },
       //是否可以插销审批
       isDelWorkflow() {
+
+
+        //add zgd_210326 无画面ID和数据ID时 不能撤销流程 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canDelWorkflow = false
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能撤销流程 end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
@@ -101,6 +122,13 @@
       },
       //是否可以发起审批
       isStartWorkflow() {
+        //add_fjl_0908  添加没有组织结构的人员不能发起审批  start
+        if (!this.$store.getters.userinfo.userinfo.centerid) {
+          this.canStartWorkflow = false;
+          this.$emit('canStartWorkflow', false);
+          return;
+        }
+        //add_fjl_0908  添加没有组织结构的人员不能发起审批  end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
@@ -111,6 +139,7 @@
             if (response && response.code === 0) {
               if (Object.keys(response.data).length > 0) {
                 let workflows = [];
+                console.log(this.workflowCode);
                 if (this.workflowCode && this.workflowCode !== "") {
                   response.data.list.filter((item) => {
                     if (item.code === this.workflowCode) {
@@ -118,20 +147,77 @@
                     }
                   })
                 } else {
-                  workflows = response.data.list;
+                  //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
+                  if(response.data.list.length > 0){
+                    this.$emit('setAlert', "如无审批操作相关按钮，请稍作等待或刷新重试！");
+                    this.$emit('canStartWorkflow', false);
+                    return;
+                  }
+
+                  //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
                 }
                 this.workflowlist = workflows;
+                console.log(this.$store.getters.operateOwner)
+                console.log(this.$store.getters.userinfo.userid)
                 if (response.data.can === "0") {
-                  this.canStartWorkflow = true;
-                  this.$emit('canStartWorkflow', true)
+                  if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
+                    this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
+                  )){
+
+                    //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
+                    if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+                      this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+                      this.canStartWorkflow = false;
+                      this.$emit('setAlert', "获取数据失败，无法进行审批操作，请重试！");
+                      this.$emit('canStartWorkflow', false);
+                      return;
+                    }
+                    //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
+
+                    this.canStartWorkflow = true;
+                    this.$emit('canStartWorkflow', true)
+                    if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                      || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                      || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                      this.canStartWorkflow = false;
+                      this.$emit('canStartWorkflow', false)
+                    }
+                  }else{
+                    this.canStartWorkflow = false;
+                    this.$emit('canStartWorkflow', false)
+                  }
                 } else {
                   if (response.data.can === "1") {
                     this.canStartWorkflow = false;
                     this.$emit('canStartWorkflow', false)
                   } else {
                     if (this.canStart && response.data.can === "2") {
-                      this.canStartWorkflow = true;
-                      this.$emit('canStartWorkflow', true)
+                      if(this.$store.getters.operateOwner && this.$store.getters.userinfo.userid && (
+                        this.$store.getters.operateOwner === this.$store.getters.userinfo.userid
+                      )){
+
+                        //add zgd_210326 无画面ID和数据ID时 不能发起审批 start
+                        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+                          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+                          this.canStartWorkflow = false;
+                          this.$emit('setAlert', "获取数据失败，无法进行审批操作，请重试！");
+                          this.$emit('canStartWorkflow', false);
+                          return;
+                        }
+                        //add zgd_210326 无画面ID和数据ID时 不能发起审批 end
+
+                        this.canStartWorkflow = true;
+                        this.$emit('canStartWorkflow', true)
+                        if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                          || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                          || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                          this.canStartWorkflow = false;
+                          this.$emit('canStartWorkflow', false)
+                        }
+                      }else{
+                        this.canStartWorkflow = false;
+                        this.$emit('canStartWorkflow', false)
+                      }
                     } else {
                       this.canStartWorkflow = false;
                       this.$emit('canStartWorkflow', false)
@@ -162,12 +248,22 @@
               if (Object.keys(response.data).length > 0) {
                 if (response.data.can === "0") {
                   this.$emit('canStartWorkflow', true)
+                  if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                    || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                    || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                    this.$emit('canStartWorkflow', false)
+                  }
                 } else {
                   if (response.data.can === "1") {
                     this.$emit('canStartWorkflow', false)
                   } else {
                     if (this.canStart && response.data.can === "2") {
                       this.$emit('canStartWorkflow', true)
+                      if (this.$router.currentRoute.fullPath === '/PFANS1026FormView'
+                        || this.$router.currentRoute.fullPath === '/PFANS1024FormView'
+                        || this.$router.currentRoute.fullPath === '/PFANS1033FormView') {
+                        this.$emit('canStartWorkflow', false)
+                      }
                     } else {
                       this.$emit('canStartWorkflow', false)
                     }
@@ -187,6 +283,14 @@
       },
       //是否可以进行审批
       isOperationWorkflow() {
+
+        //add zgd_210326 无画面ID和数据ID时 不能进行审批 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canOperationWorkflow = false
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能进行审批 end
         this.$emit('changeLoading', true);
         this.workflow.dataId = this.$store.getters.operateId;
         this.workflow.menuUrl = this.$store.getters.workflowUrl;
@@ -230,6 +334,15 @@
       },
       //是否可以查看流程日志
       isViewWorkflow() {
+
+
+        //add zgd_210326 无画面ID和数据ID时 不能查看流程 start
+        if(this.$store.getters.operateId === '' || this.$store.getters.operateId === undefined ||
+          this.$store.getters.workflowUrl === '' || this.$store.getters.workflowUrl === undefined ){
+          this.canViewWorkflow = false
+          return;
+        }
+        //add zgd_210326 无画面ID和数据ID时 不能查看流程 end
         this.$emit('changeLoading', true);
         this.canViewWorkflow= false;
         this.workflow.dataId = this.$store.getters.operateId;
@@ -276,11 +389,35 @@
       },
       // 发起审批
       addworkflow() {
-        this.$refs.start.startWorkflow = true;
-        this.$refs.start.selectId = this.workflowlist[0].workflowid;
-        this.$refs.start.selectWorkflowstep(
-          this.workflowlist[0].workflowid
-        )
+        if(this.defaultStart){
+          this.startWorkflow()
+        }else{
+          this.$emit("StartWorkflow","StartWorkflow")
+        }
+      },
+      startWorkflow(){
+        if(this.workflowlist.length > 1){
+          this.$refs.start.startWorkflow = true;
+          this.$refs.start.selectId = this.workflowlist[0].workflowid;
+          this.$refs.start.selectWorkflowstep(
+            this.workflowlist[0].workflowid
+          )
+        }else{
+          // this.$refs.start.startWorkflow = false;
+          if(this.workflowlist.length === 0){
+            this.$message({
+              message: this.$t('normal.error_13'),
+              type: 'error'
+            });
+            return;
+          }
+          this.$refs.start.selectId = this.workflowlist[0].workflowid;
+          this.$refs.start.selectWorkflowstep(
+            this.workflowlist[0].workflowid
+          )
+          this.$refs.start.submit();
+
+        }
       },
       //关闭回掉
       refresh() {
@@ -294,9 +431,14 @@
       },
       //打开进行审批画面
       OperationWorkflow() {
-        this.$refs.operation.operationWorkflow = true;
-        this.$refs.operation.getlogDetail();
-        this.$refs.operation.init()
+        if(this.defaultDo){
+          this.$refs.operation.operationWorkflow = true;
+          this.$refs.operation.getlogDetail();
+          this.$refs.operation.init()
+        }else{
+          this.$emit("OperationWorkflow","OperationWorkflow")
+        }
+
       },
       ViewWorkflow() {
         this.$refs.log.viewWorkflow = true;

@@ -2,8 +2,9 @@ import {
   getCasgiftApply,
   getCasgiftApplyOne,
   updateCasgiftApply,
-  createCasgiftApply,
-  getCasgiftApplyList
+  insert,
+  getCasgiftApplyList,
+  updateCasgiftApplyList
   } from './PFANS2022Api'
 
   const PFANS2022Store = {
@@ -50,9 +51,9 @@ import {
           })
         })
       },
-      createCasgiftApply({ commit },data) {
+      insert({ commit },data) {
         return new Promise((resolve, reject) => {
-          createCasgiftApply(data).then(response => {
+          insert(data).then(response => {
             if (response.code === 0) {
               resolve(response.data);
             } else {
@@ -76,6 +77,21 @@ import {
           })
         })
       },
+      //add gbb 祝礼金申请关联发放 start
+      updateCasgiftApplyList({ commit },data) {
+        return new Promise((resolve, reject) => {
+          updateCasgiftApplyList(data).then(response => {
+            if (response.code === 0) {
+              resolve(response.data);
+            } else {
+              reject(response.message)
+            }
+          }).catch(error => {
+            reject(error);
+          })
+        })
+      },
+      //add gbb 祝礼金申请关联发放 end
     }
   };
 

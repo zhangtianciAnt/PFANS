@@ -1,14 +1,63 @@
-import {insert, get, selectById, update,getJudgement,getloanapplication} from './PFANS1012Api'
+import {exportjs,insert, get,loanapplication, selectById,getpublicelist, update,getJudgement,getLoanApplication,getLoanApplicationList2,selectJudgement,selectPurchaseApply,selectByIdone2,selectCommunication,gettotalcost,getLoanApplicationList,getworkfolwPurchaseData} from './PFANS1012Api'
 
 const PFANS1012Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
+    exportjs({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportjs(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     //更新
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectJudgement({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectJudgement(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectPurchaseApply({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectPurchaseApply(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    selectCommunication({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        selectCommunication(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -33,10 +82,66 @@ const PFANS1012Store = {
         })
       })
     },
+
+    selectByIdone2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectByIdone2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
+    getpublicelist({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getpublicelist(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
     //查看列表
     get() {
       return new Promise((resolve, reject) => {
         get().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+// add-ws-8/20-禅道469
+    loanapplication() {
+      return new Promise((resolve, reject) => {
+        loanapplication().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // add-ws-8/20-禅道469
+    gettotalcost({commit}, data) {
+      return new Promise((resolve, reject) => {
+        gettotalcost(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -75,10 +180,10 @@ const PFANS1012Store = {
         })
       })
     },
-    //裁决号
-    getloanapplication({commit}, data) {
+
+    getLoanApplication({commit}, data) {
       return new Promise((resolve, reject) => {
-        getloanapplication(data).then(response => {
+        getLoanApplication(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -89,6 +194,47 @@ const PFANS1012Store = {
         })
       })
     },
+    getLoanApplicationList({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getLoanApplicationList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getLoanApplicationList2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getLoanApplicationList2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //采购业务数据流程查看详情
+    getworkfolwPurchaseData({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getworkfolwPurchaseData(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //采购业务数据流程查看详情
 
 
   }

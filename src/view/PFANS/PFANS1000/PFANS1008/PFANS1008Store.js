@@ -3,6 +3,7 @@ import {
   selectById,
   updateSoftwaretransfer,
   insert,
+  downLoad,
 } from './PFANS1008Api'
 
 const PFANS1008Store = {
@@ -10,7 +11,6 @@ const PFANS1008Store = {
   state: {},
   mutations: {},
   actions: {
-    //获取列表
     getSoftwaretransfer({commit}, data) {
       return new Promise((resolve, reject) => {
         getSoftwaretransfer(data).then(response => {
@@ -24,7 +24,6 @@ const PFANS1008Store = {
         })
       })
     },
-    //获取详细
     selectById({ commit },data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
@@ -38,7 +37,6 @@ const PFANS1008Store = {
         })
       })
     },
-    //更新
     updateSoftwaretransfer({ commit },data) {
       return new Promise((resolve, reject) => {
         updateSoftwaretransfer(data).then(response => {
@@ -52,7 +50,6 @@ const PFANS1008Store = {
         })
       })
     },
-    //创建
     insert({ commit },data) {
       return new Promise((resolve, reject) => {
         insert(data).then(response => {
@@ -61,6 +58,15 @@ const PFANS1008Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    downLoad({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downLoad(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })

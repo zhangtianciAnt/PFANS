@@ -2,10 +2,9 @@ import {getBusiness} from '../PFANS1002/PFANS1002Api';
 import {getJudgement} from '../PFANS1004/PFANS1004Api';
 import {getpurchaseApply} from '../PFANS1005/PFANS1005Api';
 import {getLoanapplication} from '../PFANS1006/PFANS1006Api';
-import {getAssetinformation} from '../PFANS1007/PFANS1007Api';
-import {getSoftwaretransfer} from '../PFANS1008/PFANS1008Api';
-import {getFixedassets} from '../PFANS1009/PFANS1009Api';
 import {getCommunication} from '../PFANS1010/PFANS1010Api';
+import {getOffshore} from '../PFANS1011/PFANS1011Api';
+import {change} from "../../PFANS1000/PFANS1001/PFANS1001Api";
 
 const PFANS1001Store = {
   namespaced: true,
@@ -73,51 +72,6 @@ const PFANS1001Store = {
     },
 
     //获取列变
-    getAssetinformation() {
-      return new Promise((resolve, reject) => {
-        getAssetinformation().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    //获取列变
-    getSoftwaretransfer() {
-      return new Promise((resolve, reject) => {
-        getSoftwaretransfer().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    //获取列变
-    getFixedassets() {
-      return new Promise((resolve, reject) => {
-        getFixedassets().then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-        })
-      })
-    },
-
-    //获取列变
     getCommunication() {
       return new Promise((resolve, reject) => {
         getCommunication().then(response => {
@@ -130,6 +84,33 @@ const PFANS1001Store = {
           reject(error);
         })
       })
+    },
+    //获取列变
+    getOffshore() {
+      return new Promise((resolve, reject) => {
+        getOffshore().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    change({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
   }
 }

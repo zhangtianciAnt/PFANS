@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-dialog :title="$t('title.workflowlog')" :visible.sync="viewWorkflow" @close="refresh" append-to-body center
+    <el-dialog :visible.sync="viewWorkflow" @close="refresh" append-to-body center
                direction="rtl" min-height="100%" size="60%" width="50%">
-      <div v-loading="loading" element-loading-spinner="el-icon-loading">
+      <div element-loading-spinner="el-icon-loading" v-loading="loading">
         <el-steps align-center>
           <el-step :key="item.id"
                    :status="item.stepStatus === $t('label.node_step1') ?'success':((item.stepStatus === $t('label.node_step2') || item.stepStatus === $t('label.node_step3'))?'error':(item.stepStatus === $t('label.node_step4')?'process':'wait'))"
@@ -22,19 +22,19 @@
                 <el-table-column :formatter="formatter" :label="$t('label.end')" property="edata" show-overflow-tooltip
                                  width="80"></el-table-column>
               </el-table>
-              <span slot="reference">
+              <span slot="reference" style="font-size: 10pt">
                                 {{item.title}}
                             </span>
             </el-popover>
           </el-step>
         </el-steps>
 
-        <el-timeline style="padding-top: 30px;max-height: 500px;overflow-y: scroll">
+        <el-timeline style="padding-top: 30px;max-height: 500px;overflow-y: auto">
           <el-timeline-item
             :key="index"
-            :timestamp="(item.sdata)" :type="index.toString() === '0'?'primary':'info'"
+            :timestamp="(item.edata)" :type="index.toString() === '0'?'primary':'info'"
             v-for="(item, index) in logDetail2">
-            {{item.content}}
+            {{item.content}}{{item.remark}}
           </el-timeline-item>
         </el-timeline>
       </div>
@@ -45,11 +45,11 @@
 <script>
   import {getUserInfo} from '../../utils/customize'
 
-  let moment = require('moment')
+  let moment = require('moment');
   export default {
     name: 'Log',
     components: {},
-    data () {
+    data() {
       return {
         workflow: {
           menuUrl: '',
@@ -63,34 +63,40 @@
     },
     props: {},
     methods: {
-      refresh () {
+      refresh() {
         this.$emit('refresh')
       },
-      getlogDetail () {
-        this.loading = true
-        this.workflow.dataId = this.$store.getters.operateId
-        this.workflow.menuUrl = this.$store.getters.workflowUrl
+      getlogDetail() {
+        this.loading = true;
+        this.workflow.dataId = this.$store.getters.operateId;
+        this.workflow.menuUrl = this.$store.getters.workflowUrl;
         this.$store
           .dispatch('EasyWorkflowStore/ViewWorkflow', this.workflow)
           .then(response => {
             if (response && response.code === 0) {
-              this.logDetail = response.data
+              this.logDetail = response.data;
               this.$store
                 .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflow)
                 .then(response => {
                   if (response && response.code === 0) {
-                    this.logDetail2 = response.data
+                    this.logDetail2 = response.data;
                     this.logDetail2.map(item => {
                       if (item.sdata && item.sdata != '') {
                         item.sdata = moment(item.sdata).format('YYYY-MM-DD HH:mm:ss')
                       }
+                      if (item.edata && item.edata != '') {
+                        item.edata = moment(item.edata).format('YYYY-MM-DD HH:mm:ss')
+                      }
                       if (item.isvirtual === '0') {
                         item.content = item.result
                       } else {
-                        let userinfo = getUserInfo(item.userId)
-                        item.content = userinfo.userinfo.customername + ' ' + item.result + this.$t('title.workflow') + '！'
+                        let userinfo = getUserInfo(item.userId);
+                        if (userinfo) {
+
+                          item.content = userinfo.userinfo.customername + ' ' + item.result + this.$t('title.workflow') + '！'
+                        }
                       }
-                    })
+                    });
                     this.loading = false
                   }
                 })
@@ -103,9 +109,9 @@
           })
 
       },
-      formatter (row, column) {
+      formatter(row, column) {
         if (column.property === 'userId') {
-          let userinfo = getUserInfo(row[column.property])
+          let userinfo = getUserInfo(row[column.property]);
           if (userinfo) {
             return userinfo.userinfo.customername
           } else {

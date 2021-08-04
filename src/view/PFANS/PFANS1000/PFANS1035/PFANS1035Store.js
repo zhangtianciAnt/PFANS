@@ -1,11 +1,51 @@
-import {createBusiness, getBusiness, selectById, updateBusiness} from './PFANS1035Api'
+import {createBusiness, getBusiness, selectById, updateBusiness,selectById2,selectById4,selectById3} from './PFANS1035Api'
 
 const PFANS1035Store = {
   namespaced: true,
   state: {},
   mutations: {},
   actions: {
-    //获取流程
+    //add-ws-7/7-禅道153
+    selectById4({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectById4(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    selectById2({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectById2(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    selectById3({commit}, data) {
+      return new Promise((resolve, reject) => {
+        selectById3(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add-ws-7/7-禅道153
     getBusiness() {
       return new Promise((resolve, reject) => {
         getBusiness().then(response => {
@@ -19,7 +59,6 @@ const PFANS1035Store = {
         })
       })
     },
-    //获取详细
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
@@ -33,7 +72,6 @@ const PFANS1035Store = {
         })
       })
     },
-    //更新流程
     updateBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
         updateBusiness(data).then(response => {
@@ -47,7 +85,6 @@ const PFANS1035Store = {
         })
       })
     },
-    //创建流程
     createBusiness({commit}, data) {
       return new Promise((resolve, reject) => {
         createBusiness(data).then(response => {

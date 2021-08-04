@@ -1,4 +1,16 @@
-import {createOvertime, getOvertime, getOvertimeOne, updateOvertime} from './PFANS2011Api'
+import {
+  createOvertime,
+  getOvertime,
+  getOvertimeOne,
+  updateOvertime,
+  getList,
+  getDataList,
+  getOvertimeDay,
+  getOvertimeOneday,
+  deleteLog
+} from './PFANS2011Api'
+import {deleteUser} from "../../PFANS8000/PFANS8007/PFANS8007Api";
+import {getFpans2017List} from "../PFANS2017/PFANS2017Api";
 
 const PFANS2011Store = {
   namespaced: true,
@@ -7,6 +19,21 @@ const PFANS2011Store = {
   mutations: {
   },
   actions: {
+    //add-ws-9/4-加班申请可删除任务
+    deleteLog({ commit },data) {
+      return new Promise((resolve, reject) => {
+        deleteLog(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //add-ws-9/4-加班申请可删除任务
     getOvertime() {
       return new Promise((resolve, reject) => {
         getOvertime().then(response => {
@@ -20,6 +47,21 @@ const PFANS2011Store = {
         })
       })
     },
+
+    getDataList({commit}) {
+      return new Promise((resolve, reject) => {
+        getDataList().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
     getOvertimeOne({ commit },data) {
       return new Promise((resolve, reject) => {
         getOvertimeOne(data).then(response => {
@@ -49,7 +91,6 @@ const PFANS2011Store = {
     createOvertime({ commit },data) {
       return new Promise((resolve, reject) => {
         createOvertime(data).then(response => {
-          debugger
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -59,8 +100,47 @@ const PFANS2011Store = {
           reject(error);
         })
       })
-    }
+    },
+    getList({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getList(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getOvertimeDay({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getOvertimeDay(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getOvertimeOneday({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getOvertimeOneday(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
-}
+};
 
 export default PFANS2011Store;
