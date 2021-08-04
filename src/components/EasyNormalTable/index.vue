@@ -434,10 +434,23 @@
           }
           return item;
         }, []);
-
-        // filtersrst = filtersrst.sort();
+        //region add_qhr_2021/08/04 将筛选框中数据按照日期降序
+        filtersrst = this.ForwardRankingDate(filtersrst, "value");
         return filtersrst;
       },
+      ForwardRankingDate(data, p) {
+        for (let i = 0; i < data.length - 1; i++) {
+          for (let j = 0; j < data.length - 1 - i; j++) {
+            if (Date.parse(data[j][p]) < Date.parse(data[j+1][p])) {
+              var temp = data[j];
+              data[j] = data[j + 1];
+              data[j + 1] = temp;
+            }
+          }
+        }
+        return data;
+      },
+      //endregion add_qhr_2021/08/04 将筛选框中数据按照日期降序
       // 行点击
       rowClick(row) {
         this.$store.commit('global/SET_OPERATEID', row[this.rowid]);
