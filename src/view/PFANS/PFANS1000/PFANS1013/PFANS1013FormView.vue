@@ -2234,6 +2234,21 @@
               Redirict: this.Redirict,
             });
           }
+          //region add_qhr_2021/08/05 更改日期时check夜间返回/夜间到达
+          if (this.tableA.length > 0) {
+            if (this.form.arrivenight === "1") {
+              this.tableA[0].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[0].subsidies = parseFloat(moneys);
+            }
+            let i = this.tableA.length - 1;
+            if (this.form.backnight === "1") {
+              this.tableA[i].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[i].subsidies = parseFloat(moneys);
+            }
+          }
+          //endregion add_qhr_2021/08/05 更改日期时check夜间返回/夜间到达
           for (let i = 0; i < this.tableA.length; i++) {
             this.tableA[i].optionsA = [];
             if (getOrgInfo(this.tableA[i].departmentname)) {
@@ -2250,18 +2265,18 @@
                 }
               }
             }
-            if (this.form.arrivenight === "1") {
-              debugger;
-              this.tableA[0].subsidies = parseFloat(moneys) + 100;
-            } else {
-              this.tableA[0].subsidies = parseFloat(moneys);
-            }
-            let i = this.tableA.length - 1;
-            if (this.form.backnight === "1") {
-              this.tableA[i].subsidies = parseFloat(moneys) + 100;
-            } else {
-              this.tableA[i].subsidies = parseFloat(moneys);
-            }
+            // if (this.form.arrivenight === "1") {
+            //   debugger;
+            //   this.tableA[0].subsidies = parseFloat(moneys) + 100;
+            // } else {
+            //   this.tableA[0].subsidies = parseFloat(moneys);
+            // }
+            // let i = this.tableA.length - 1;
+            // if (this.form.backnight === "1") {
+            //   this.tableA[i].subsidies = parseFloat(moneys) + 100;
+            // } else {
+            //   this.tableA[i].subsidies = parseFloat(moneys);
+            // }
           }
         }
       },
