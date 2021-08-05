@@ -54,7 +54,7 @@
                     {
                         code: "name",
                         label: "label.PFANS2002VIEW_NAME",
-                        width: 150,
+                        width: 100,
                         fix: false,
                         filter: false
                     },
@@ -64,7 +64,7 @@
                         // label: "label.PFANS2002VIEW_EDUCATION",
                         code: "level",
                         label: "label.PFANS2003FORMVIEW_RN",
-                        width: 150,
+                        width: 80,
                         fix: false,
                         filter: true
                     },
@@ -96,7 +96,7 @@
                         // label: "label.PFANS2002VIEW_BIRTHDAY",
                         code: "expectedtime",
                         label: "label.PFANS2002FORMVIEW_EXPECTEDTIME",
-                        width: 150,
+                        width: 130,
                         fix: false,
                         filter: false
                     },
@@ -105,7 +105,7 @@
                         // label: "label.PFANS2002VIEW_INTERVIEW",
                         code: "entrytime",
                         label: "label.PFANS2002FORMVIEW_REALINTIME",
-                        width: 150,
+                        width: 130,
                         fix: false,
                         // filter: true
                         filter: false
@@ -114,14 +114,14 @@
                     {
                         code: "createon",
                         label: "label.PFANS2002VIEW_CREATEON",
-                        width: 150,
+                        width: 120,
                         fix: false,
                         filter: false
                     },
                   {
                     code: "entrydivision",
                     label: "label.PFANS2002FORMVIEW_ENTRYDIVISION",
-                    width: 150,
+                    width: 120,
                     fix: false,
                     filter: false
                   },
