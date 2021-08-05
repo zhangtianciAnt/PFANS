@@ -214,6 +214,7 @@
                       <span style="margin-left: 1vw ">{{$t('label.PFANSUSERFORMVIEW_YES')}}</span>
                     </el-form-item>
                   </el-col>
+<!--                  update 2021/05/28 是否夜间返回-修改组件间距-->
                   <el-col :span="4">
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJDA')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
@@ -228,6 +229,7 @@
                       <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
                     </el-form-item>
                   </el-col>
+                  <!--region  add_qhr_2021/05/28 添加夜间返回组件-->
                   <el-col :span="4">
                     <el-form-item :label="$t('label.PFANS1013VIEW_YESYJFH')">
                       <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
@@ -242,6 +244,7 @@
                       <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
                     </el-form-item>
                   </el-col>
+                  <!--endregion  add_qhr_2021/05/28 添加夜间返回组件-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
                       <el-select :disabled="true" clearable style="width: 20vw" v-model="form.project_id">
@@ -1404,7 +1407,9 @@
           // add-ws-8/12-禅道任务446
           remark: '',
           arrivenight: '',
+          //region  add_qhr_2021/05/28 添加夜间返回组件
           backnight: '',
+          //endregion  add_qhr_2021/05/28 添加夜间返回组件
           external: '',
           level: '',
           abroadbusiness: '',
@@ -2531,7 +2536,9 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
                     backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     regionname: response[i].regionname,
                     loanapplication_id: response[i].loanapplication_id,
                   });
@@ -2550,7 +2557,9 @@
                     datenumber: response[i].datenumber,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
                     backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     regionname: response[i].regionname,
                     loanapplication_id: response[i].loanapplication_id,
                   });
@@ -2590,7 +2599,9 @@
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
                     backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -2611,7 +2622,9 @@
                     abroadbusiness: response[i].abroadbusiness,
                     external: response[i].external,
                     arrivenight: response[i].arrivenight,
+                    //region  add_qhr_2021/05/28 添加夜间返回组件
                     backnight: response[i].backnight,
+                    //endregion  add_qhr_2021/05/28 添加夜间返回组件
                     companyprojectsname: response[i].companyprojectsname,
                     city: response[i].region,
                     startdate: response[i].startdate,
@@ -3506,7 +3519,9 @@
             this.form.startdate = '';
             this.form.enddate = '';
             this.form.arrivenight = '';
+            //region  add_qhr_2021/05/28 添加夜间返回组件
             this.form.backnight = '';
+            //endregion  add_qhr_2021/05/28 添加夜间返回组件
             //add_fjl_0911  添加初始化值 start
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
@@ -3523,7 +3538,9 @@
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
             this.form.external = this.relations[i].external;
             this.form.arrivenight = this.relations[i].arrivenight;
+            //region  add_qhr_2021/05/28 添加夜间返回组件
             this.form.backnight = this.relations[i].backnight;
+            //endregion  add_qhr_2021/05/28 添加夜间返回组件
             this.form.startdate = this.relations[i].startdate;
             this.form.enddate = this.relations[i].enddate;
             this.form.datenumber = this.relations[i].datenumber;
@@ -3635,12 +3652,14 @@
           } else {
             this.tableA[0].subsidies = parseFloat(moneys);
           }
+          //region  add_qhr_2021/05/28 添加夜间返回组件
           let i = this.tableA.length - 1;
           if (this.form.backnight === '1') {
             this.tableA[i].subsidies = parseFloat(moneys) + 100;
           } else {
             this.tableA[i].subsidies = parseFloat(moneys);
           }
+          //endregion  add_qhr_2021/05/28 添加夜间返回组件
         }
       },
 
@@ -3981,15 +4000,17 @@
             return;
           }
           //region add_qhr_20210611 添加【币种】必填项
-          if (this.tableW.length > 0) {
-            for (let i = 0; i < this.tableW.length; i++) {
-              if (this.tableW[i].currency === '' || this.tableW[i].currency === null) {
-                Message({
-                  message: this.$t('label.PFANS1013FORMVIEW_CHECKCURRENCY'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                return;
+          if (this.form.type === '1') {
+            if (this.tableW.length > 0) {
+              for (let i = 0; i < this.tableW.length; i++) {
+                if (this.tableW[i].currency === '' || this.tableW[i].currency === null) {
+                  Message({
+                    message: this.$t('label.PFANS1013FORMVIEW_CHECKCURRENCY'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
               }
             }
           }
