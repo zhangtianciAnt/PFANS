@@ -405,6 +405,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_TOTALAMOUNT')+$t('label.PFANS3005VIEW_FARE')" prop="totalamount">
                     <el-input-number :disabled="!disable" :precision="2" style="width:20vw" controls-position="right"
+                                     :min="0" :max="1000000000"
                                      v-model="form.totalamount">
                     </el-input-number>
                   </el-form-item>
