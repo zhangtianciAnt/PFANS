@@ -2351,7 +2351,11 @@
         if (val === '1') {
           this.tableA[i].subsidies = parseFloat(moneys1) + 100;
         } else {
-          this.tableA[i].subsidies = parseFloat(moneys1);
+          //region update_qhr_2021/08/05 修改夜间返回bug
+          for (let j = 1; j < i; j++) {
+            this.tableA[j].subsidies = parseFloat(moneys1);
+          }
+          //endregion update_qhr_2021/08/05 修改夜间返回bug
         }
       },
       //endregion add_qhr_20210528 添加出差夜间返回选项
