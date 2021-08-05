@@ -536,7 +536,6 @@
   import user from '../../../components/user.vue';
   import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo,getOrgInfo} from '@/utils/customize';
   import ElRow from "element-ui/packages/row/src/row";
-  import {getDepartment} from './ASSETS1001Api';
 
   export default {
     name: 'ASSETS1001FormView',
@@ -712,7 +711,6 @@
         this.form.principal = val;
         this.userlist = val;
         if (this.userlist !== null && this.userlist !== '') {
-          debugger;
           let lst = getOrgInfoByUserId(val);
           if (lst) {
   //upd lsg 20210601  改变管理者生成部门名称，部门代码 from
