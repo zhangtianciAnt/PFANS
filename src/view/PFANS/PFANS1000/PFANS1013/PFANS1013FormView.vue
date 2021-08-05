@@ -1383,6 +1383,7 @@
         accountcodeValue: '',
         relations: [],
         Todaysum: [],
+        realTodaysum: [],
         taxrateValue: '',
         loans: [],
         selectType: 'Single',
@@ -2249,13 +2250,14 @@
                 }
               }
             }
-            if (this.form.arrivenight === '1') {
+            if (this.form.arrivenight === "1") {
+              debugger;
               this.tableA[0].subsidies = parseFloat(moneys) + 100;
             } else {
               this.tableA[0].subsidies = parseFloat(moneys);
             }
             let i = this.tableA.length - 1;
-            if (this.form.backnight === '1') {
+            if (this.form.backnight === "1") {
               this.tableA[i].subsidies = parseFloat(moneys) + 100;
             } else {
               this.tableA[i].subsidies = parseFloat(moneys);
@@ -2352,7 +2354,7 @@
           this.tableA[i].subsidies = parseFloat(moneys1) + 100;
         } else {
           //region update_qhr_2021/08/05 修改夜间返回bug
-          for (let j = 1; j < i; j++) {
+          for (let j = 1; j < i + 1; j++) {
             this.tableA[j].subsidies = parseFloat(moneys1);
           }
           //endregion update_qhr_2021/08/05 修改夜间返回bug
