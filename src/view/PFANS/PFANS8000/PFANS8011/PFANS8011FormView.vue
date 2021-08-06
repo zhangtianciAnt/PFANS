@@ -44,8 +44,8 @@
               <el-table-column :label="$t('label.PFANS8011VIEW_BUSINESSPLANEXCHANGERATE')" align="center" width="150">
                 <template slot-scope="scope">
                   <el-input-number
-                    :disabled="!disable"
-                    :min="0" :precision="2"
+                    :disabled="isDisable"
+                    :min="0" :precision="scope.row.precision"
                     :max="9999999"
                     controls-position="right"
                     :no="scope.row"
@@ -59,7 +59,7 @@
                 <template slot-scope="scope">
                   <el-input-number
                     :disabled="!disable"
-                    :min="0" :precision="2"
+                    :min="0" :precision="scope.row.precision"
                     :max="9999999"
                     controls-position="right"
                     :no="scope.row"
@@ -73,7 +73,7 @@
                 <template slot-scope="scope">
                   <el-input-number
                     :disabled="!disable"
-                    :min="0" :precision="2"
+                    :min="0" :precision="scope.row.precision"
                     :max="9999999"
                     controls-position="right"
                     :no="scope.row"
@@ -157,10 +157,25 @@
             icon: 'el-icon-check',
           },
         ],
+        isDisable: false
       };
     },
     created() {
       this.disable = this.$route.params.disabled;
+      if (this.$route.params._id) {
+        if(this.$route.params.disabled){
+          var date = new Date();
+          let c_month = date.getMonth();
+          let c_year = date.getFullYear();
+          if(c_year.toString().trim() === this.$route.params.year.trim() && c_month<=2){
+            this.isDisable = false;
+          }else {
+            this.isDisable = true;
+          }
+        }else {
+          this.isDisable = true;
+        }
+      }
     },
     methods: {
       getcurrency(val, row) {
@@ -320,6 +335,15 @@
           .dispatch('PFANS8011Store/slectlist', parameter)
           .then(response => {
             this.table = response;
+            response.forEach(function (item) {
+              if(item.currency === 'PG019001' || item.currency === 'PG019004'){
+                item.precision = 4
+              }else if(item.currency === 'PG019002') {
+                item.precision = 6
+              }else if(item.currency === 'PG019003') {
+                item.precision = 0
+              }
+            });
             this.year = response[0].year;
             this.month = response[0].month;
             this.loading = false;

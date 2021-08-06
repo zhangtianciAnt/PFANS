@@ -226,9 +226,15 @@
               }
             }
             // add-ws-8/12-禅道任务446
-            if (response[j].startdate !== null && response[j].startdate !== '') {
-              response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+            //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+            if (response[j].realstartdate !== null && response[j].realstartdate !== '') {
+              response[j].startdate = moment(response[j].realstartdate).format('YYYY-MM-DD');
+            } else {
+              if (response[j].startdate !== null && response[j].startdate !== '') {
+                response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+              }
             }
+            //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
             if (response[j].status != '0') {
               if (response[j].modifyon !== null && response[j].modifyon !== '') {
                 response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
@@ -239,9 +245,15 @@
             if (response[j].status !== null && response[j].status !== '') {
               response[j].status = getStatus(response[j].status);
             }
-            if (response[j].enddate !== null && response[j].enddate !== '') {
-              response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+            //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+            if (response[j].realenddate !== null && response[j].realenddate !== '') {
+              response[j].enddate = moment(response[j].realenddate).format('YYYY-MM-DD');
+            } else {
+              if (response[j].enddate !== null && response[j].enddate !== '') {
+                response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+              }
             }
+            //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
           }
           this.data = response;
           this.loading = false;
