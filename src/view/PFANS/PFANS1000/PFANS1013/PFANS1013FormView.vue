@@ -2236,7 +2236,10 @@
           } else if (moment(this.form.realstartdate).format('YYYY-MM-DD') === moment(this.form.realenddate).format('YYYY-MM-DD')) {
             this.form.realdatenumber = 1;
           } else {
-            this.form.realdatenumber = 0;
+            //region update_qhr_20210809  修改日期选择逻辑
+            this.form.realenddate = this.form.realstartdate;
+            this.form.realdatenumber = 1;
+            //endregion update_qhr_20210809  修改日期选择逻辑
           }
           let moneys = 0;
           if (this.form.type === '0') {
@@ -2286,7 +2289,7 @@
             this.realTodaysum = realdateArr;
           } else {
             var realdateArr = [];
-            dateArr.push(moment(this.form.realenddate).format('YYYY-MM-DD'));
+            realdateArr.push(moment(this.form.realenddate).format('YYYY-MM-DD')); //update_qhr_20210809 修改传值bug
             this.realTodaysum = realdateArr;
           }
           for (let i = 0; i < this.realTodaysum.length; i++) {
@@ -2316,6 +2319,32 @@
               Redirict: this.Redirict,
             });
           }
+          //region add_qhr_2021/08/05 更改日期时check夜间返回/夜间到达
+          if (this.tableA.length > 0) {
+            if (this.form.arrivenight === "1") {
+              this.tableA[0].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[0].subsidies = parseFloat(moneys);
+            }
+            let i = this.tableA.length - 1;
+            if (this.form.backnight === "1") {
+              this.tableA[i].subsidies = parseFloat(moneys) + 100;
+            } else {
+              this.tableA[i].subsidies = parseFloat(moneys);
+            }
+            if (moment(this.form.realstartdate).format('YYYY-MM-DD') === moment(this.form.realenddate).format('YYYY-MM-DD')) {
+              if (this.form.arrivenight === "1" && this.form.backnight === "1") {
+                this.tableA[0].subsidies = parseFloat(moneys) + 200;
+              } else if (this.form.arrivenight === "1" && this.form.backnight !== "1") {
+                this.tableA[0].subsidies = parseFloat(moneys) + 100;
+              } else if (this.form.arrivenight !== "1" && this.form.backnight === "1") {
+                this.tableA[0].subsidies = parseFloat(moneys) + 100;
+              } else {
+                this.tableA[0].subsidies = parseFloat(moneys);
+              }
+            }
+          }
+          //endregion add_qhr_2021/08/05 更改日期时check夜间返回/夜间到达
           for (let i = 0; i < this.tableA.length; i++) {
             this.tableA[i].optionsA = [];
             if (getOrgInfo(this.tableA[i].departmentname)) {
@@ -2331,17 +2360,6 @@
                   }
                 }
               }
-            }
-            if (this.form.arrivenight === '1') {
-              this.tableA[0].subsidies = parseFloat(moneys) + 100;
-            } else {
-              this.tableA[0].subsidies = parseFloat(moneys);
-            }
-            let i = this.tableA.length - 1;
-            if (this.form.backnight === '1') {
-              this.tableA[i].subsidies = parseFloat(moneys) + 100;
-            } else {
-              this.tableA[i].subsidies = parseFloat(moneys);
             }
           }
         }
@@ -2420,6 +2438,19 @@
         } else {
           this.tableA[0].subsidies = parseFloat(moneys);
         }
+        //region 添加同一天出差的夜间到达/返回 check
+        if (moment(this.form.realstartdate).format('YYYY-MM-DD') === moment(this.form.realenddate).format('YYYY-MM-DD')) {
+          if (this.form.arrivenight === "1" && this.form.backnight === "1") {
+            this.tableA[0].subsidies = parseFloat(moneys) + 200;
+          } else if (this.form.arrivenight === "1" && this.form.backnight !== "1") {
+            this.tableA[0].subsidies = parseFloat(moneys) + 100;
+          } else if (this.form.arrivenight !== "1" && this.form.backnight === "1") {
+            this.tableA[0].subsidies = parseFloat(moneys) + 100;
+          } else {
+            this.tableA[0].subsidies = parseFloat(moneys);
+          }
+        }
+        //endregion 添加同一天出差的夜间到达/返回 check
       },
       //add-ws-6/18-禅道任务15
       //region add_qhr_20210528 添加出差夜间返回选项
@@ -2434,8 +2465,25 @@
         if (val === '1') {
           this.tableA[i].subsidies = parseFloat(moneys1) + 100;
         } else {
-          this.tableA[i].subsidies = parseFloat(moneys1);
+          //region update_qhr_2021/08/05 修改夜间返回bug
+          for (let j = 1; j < i + 1; j++) {
+            this.tableA[j].subsidies = parseFloat(moneys1);
+          }
+          //endregion update_qhr_2021/08/05 修改夜间返回bug
         }
+        //region 添加同一天出差的夜间到达/返回 check
+        if (moment(this.form.realstartdate).format('YYYY-MM-DD') === moment(this.form.realenddate).format('YYYY-MM-DD')) {
+          if (this.form.arrivenight === "1" && this.form.backnight === "1") {
+            this.tableA[0].subsidies = parseFloat(moneys1) + 200;
+          } else if (this.form.arrivenight === "1" && this.form.backnight !== "1") {
+            this.tableA[0].subsidies = parseFloat(moneys1) + 100;
+          } else if (this.form.arrivenight !== "1" && this.form.backnight === "1") {
+            this.tableA[0].subsidies = parseFloat(moneys1) + 100;
+          } else {
+            this.tableA[0].subsidies = parseFloat(moneys1);
+          }
+        }
+        //endregion 添加同一天出差的夜间到达/返回 check
       },
       //endregion add_qhr_20210528 添加出差夜间返回选项
       changeinvoicenumber(row, val) {
