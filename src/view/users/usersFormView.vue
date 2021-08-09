@@ -2983,6 +2983,9 @@
                             this.code = 'PR021';
                             this.occupationtypecode = 'PR055';
                             this.rules.occupationtype[0].required = true;
+                            //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                            this.rules.idnumber[0].required = true;
+                            //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         } else if (this.form.type === '1') {
                             // add_fjl-0604 --修改出向者赋值 start
                             // this.code = 'PJ053';
@@ -2991,6 +2994,9 @@
                                 this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
                             }
                             this.rules.occupationtype[0].required = false;
+                          //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                            this.rules.idnumber[0].required = false;
+                          //0809 类别为【出向者】身份证号码不为必填项 ztc to
                             // add_fjl-0604 --修改出向者赋值 end
                         }
                         this.form.occupationtype = '';
@@ -3002,6 +3008,9 @@
                         this.code = 'PR021';
                         this.occupationtypecode = 'PR055';
                         this.rules.occupationtype[0].required = true;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                        this.rules.idnumber[0].required = true;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         if (
                             this.form.rank === 'PR021001' ||
                             this.form.rank === 'PR021002' ||
@@ -3022,6 +3031,9 @@
                             this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
                         }
                         this.rules.occupationtype[0].required = false;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                        this.rules.idnumber[0].required = false;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         // add_fjl-0604 --修改出向者赋值 end
                     }
                 }
