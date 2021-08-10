@@ -1934,7 +1934,7 @@
                 {
                   projectsystem_id: '',
                   companyprojects_id: '',
-                  type: '0',
+                  type: '1',
                   number: '',
                   company: '',
                   name: '',
@@ -1951,7 +1951,7 @@
                 {
                   projectsystem_id: '',
                   companyprojects_id: '',
-                  type: '1',
+                  type: '0',
                   number: '',
                   company: '',
                   name: '',
