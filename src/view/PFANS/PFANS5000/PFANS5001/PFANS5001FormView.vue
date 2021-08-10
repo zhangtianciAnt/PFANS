@@ -651,6 +651,22 @@
                               ></user>
                             </template>
                           </el-table-column>
+                  <!--         region add_qhr_20210810 添加rank字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加rank字段-->
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -665,6 +681,24 @@
                               </el-input>
                             </template>
                           </el-table-column>
+                          <!--         region add_qhr_20210810 添加报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加报告者字段-->
                           <!--                进组时间-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
@@ -822,6 +856,22 @@
                               </el-col>
                             </template>
                           </el-table-column>
+                          <!--         region add_qhr_20210810 添加rank字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加rank字段-->
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -837,6 +887,24 @@
                               </el-input>
                             </template>
                           </el-table-column>
+                          <!--         region add_qhr_20210810 添加报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加报告者字段-->
                           <!--                入场时间-->
                           <el-table-column
                             :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
@@ -1371,6 +1439,8 @@
         currentRow6: '',
         currentRow7: '',
         currentRow8: '',
+        //add_qhr_20210810 添加字段
+        currentRow9: '',
         //项目计划
         tableA: [
           {
@@ -1405,6 +1475,9 @@
             number: '',
             company: '',
             name: this.$store.getters.userinfo.userid,
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: this.$store.getters.userinfo.userinfo.rank,
+            reporter: '',
             position: 'PL',
             admissiontime: '',
             exittime: '',
@@ -1417,6 +1490,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1434,6 +1510,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1859,6 +1938,9 @@
                   number: '',
                   company: '',
                   name: '',
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: '',
+                  reporter: '',
                   position: '',
                   admissiontime: '',
                   exittime: '',
@@ -1873,6 +1955,9 @@
                   number: '',
                   company: '',
                   name: '',
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: '',
+                  reporter: '',
                   position: '',
                   admissiontime: '',
                   exittime: '',
@@ -1891,6 +1976,9 @@
                     number: response.projectsystem[i].number,
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
+                    //add_qhr_20210810 添加rank、报告者字段
+                    rank: response.projectsystem[i].rank,
+                    reporter: response.projectsystem[i].reporter,
                     // nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
@@ -1913,6 +2001,9 @@
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
                     name_id: response.projectsystem[i].name_id,
+                    //add_qhr_20210810 添加rank、报告者字段
+                    rank: response.projectsystem[i].rank,
+                    reporter: response.projectsystem[i].reporter,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
@@ -2032,6 +2123,8 @@
           this.form.group_id = lst.groupId;
           this.form.center_id = lst.centerId;
         }
+        //add_qhr_20210810 添加rank、报告者字段
+        this.tableB[0].rank = getDictionaryInfo(this.tableB[0].rank).value1;
       }
       this.$store
         .dispatch('PFANS5001Store/getcustomer', {})
@@ -2379,15 +2472,24 @@
             if (na.indexOf(us[i]) == -1) {
               //update gbb 20210319 人员职务数据获取 start
               let position = '';
+              //add_qhr_20210810 添加rank、报告者字段
+              let rank = '';
               if (row.name != null && row.name !== '') {
                   let lst = getUserInfo(us[i]);
                   if (lst.userinfo.post) {
                       position = getDictionaryInfo(lst.userinfo.post).value1;
                   }
+                //add_qhr_20210810 添加rank、报告者字段
+                  if (lst.userinfo.rank) {
+                      rank = getDictionaryInfo(lst.userinfo.rank).value1;
+                  }
               }
               //update gbb 20210319 人员职务数据获取 end
+              //add_qhr_20210810 添加rank、报告者字段
               this.tableB.push({
                 name: us[i],
+                rank: rank,
+                reporter: '',
                 position: position,
                 admissiontime: '',
                 exittime: '',
@@ -2412,11 +2514,19 @@
           if (lst.userinfo.post) {
               row.position = getDictionaryInfo(lst.userinfo.post).value1;
           }
+          //add_qhr_20210810 添加rank、报告者字段
+          if (lst.userinfo.rank) {
+              row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+          }
           //update gbb 20210319 人员职务数据获取 end
           row.number = lst.userinfo.jobnumber;
           let lst1 = getOrgInfoByUserId(row.name);
           row.company = lst1.groupNmae;
         }
+      },
+      //add_qhr_20210810 添加rank、报告者字段
+      getReporter(userlist, row) {
+        row.reporter = userlist;
       },
       getUseridsInput(val, row) {
         row.name = val;
@@ -2467,6 +2577,8 @@
         this.currentRow3 = val.post1;
         this.currentRow4 = val.suppliernameid;
         this.currentRow5 = val.expname;
+        //add_qhr_20210810 添加rank、报告者字段
+        this.currentRow9 = val.rank;
       },
       submit(row) {
         row.number = this.currentRow;
@@ -2477,6 +2589,8 @@
         row.company = this.currentRow2;
         row.position = this.currentRow3;
         row.suppliernameid = this.currentRow4;
+        //add_qhr_20210810 添加rank、报告者字段
+        row.rank = getDictionaryInfo(this.currentRow9).value1;
         this.dialogTableVisible1 = false;
       },
       handleClickChange1(val) {
@@ -2927,6 +3041,9 @@
           company: '',
           name: '',
           // nameN: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2937,6 +3054,9 @@
         if (index === 1) {
           rows[1].name = '';
           // rows[1].nameN = '';
+          //add_qhr_20210810 添加rank、报告者字段
+          rows[1].rank = '';
+          rows[1].reporter = '';
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
@@ -2954,6 +3074,9 @@
           number: '',
           company: '',
           name: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           suppliernameid: '',
           position: '',
           admissiontime: '',
@@ -2973,6 +3096,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -3106,6 +3232,8 @@
                 vote1.name_id = response[i].account;
                 vote1.expname = response[i].expname;
                 vote1.suppliername = response[i].suppliername;
+                //add_qhr_20210810 添加rank、报告者字段
+                vote1.rank = response[i].rn;
                 if (response[i].post) {
                   //add-ws-value1-非空判断
                   let postvalue1 = '';
@@ -3336,6 +3464,9 @@
                 this.baseInfo.projectsystem.push({
                   number: this.tableB[i].number,
                   name: this.tableB[i].name,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableB[i].rank,
+                  reporter: this.tableB[i].reporter,
                   type: this.tableB[i].type,
                   company: this.tableB[i].company,
                   position: this.tableB[i].position,
@@ -3364,6 +3495,9 @@
                 this.baseInfo.projectsystem.push({
                   number: this.tableC[i].number,
                   name: this.tableC[i].name,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableC[i].rank,
+                  reporter: this.tableC[i].reporter,
                   suppliernameid: this.tableC[i].suppliernameid,
                   type: this.tableC[i].type,
                   name_id: this.tableC[i].name_id,
