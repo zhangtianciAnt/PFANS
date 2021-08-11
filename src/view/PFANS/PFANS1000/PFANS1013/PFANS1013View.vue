@@ -64,6 +64,15 @@
             filter: false,
           },
           //add-ws-5/11-支出总额添加
+          //region add_qhr_20210810  一览加入项目名称列
+          {
+            code: 'projectname',
+            label: 'label.PFANS5004VIEW_PROJECTNAMW',
+            width: 180,
+            fix: false,
+            filter: false,
+          },
+          //endregion add_qhr_20210810  一览加入项目名称列
           {
             code: 'startdate',
             label: 'label.PFANS1013VIEW_STARTDATE',

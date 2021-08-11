@@ -60,6 +60,15 @@
                       fix: false,
                       filter: false,
                     },
+                  //region add_qhr_20210810  一览加入项目名称列
+                    {
+                      code: 'projectname',
+                      label: 'label.PFANS5004VIEW_PROJECTNAMW',
+                      width: 180,
+                      fix: false,
+                      filter: false,
+                    },
+                  //endregion add_qhr_20210810  一览加入项目名称列
                     {
                         code: 'remark',
                         label: 'label.PFANS1012VIEW_ABSTRACT',
