@@ -2377,6 +2377,7 @@ module.exports = {
     PFANS1051MONTH2:'2月',
     PFANS1051MONTH3:'3月',
     PFANS1051TOTAL:'全年合计',
+    PFANS1051MES:' * PJ支出仅供参考，具体请与财务实际结转为准',
 
     PFANS2001VIEW_NUMBERS: '招聘编号',
     PFANS2001VIEW_RECRUITID: '招聘关联',
