@@ -533,38 +533,42 @@
                 }
               }
             }
-            this.tableData = response;
-            for (let i = 0; i < this.tableData.length - 1; i++) {
-              this.tableData[i].children = this.tableData[i].pjExternalInjectionListVo;
-              this.tableData[i].wai_id = m;
-              m += 2;
-              if (this.tableData[i].children !== undefined && this.tableData[i].children !== null) {
-                for (let j = 0; j < this.tableData[i].children.length - 1; j++) {
-                  this.tableData[i].children[j].children = this.tableData[i].children[j].pjExternalInjectionList;
-                  this.tableData[i].children[j].wai_id = this.tableData[i].children[j].companyprojects_id + m;
-                  this.tableData[i].children[j].themename = '';
-                  this.tableData[i].children[j].toolsorgs = '';
-                  this.tableData[i].children[j].divide = '';
-                  if (this.tableData[i].children[j].children !== undefined && this.tableData[i].children[j].children !== null) {
-                    for (let l = 0; l < this.tableData[i].children[j].children.length; l++) {
-                      this.tableData[i].children[j].children[l].wai_id = n;
-                      n += 2;
-                      this.tableData[i].children[j].children[l].themename = '';
-                      this.tableData[i].children[j].children[l].toolsorgs = '';
-                      this.tableData[i].children[j].children[l].divide = '';
-                      this.tableData[i].children[j].children[l].project_name = '';
+            if (response.length > 0) {
+              this.tableData = response;
+              for (let i = 0; i < this.tableData.length - 1; i++) {
+                this.tableData[i].children = this.tableData[i].pjExternalInjectionListVo;
+                this.tableData[i].wai_id = m;
+                m += 2;
+                if (this.tableData[i].children !== undefined && this.tableData[i].children !== null) {
+                  for (let j = 0; j < this.tableData[i].children.length - 1; j++) {
+                    this.tableData[i].children[j].children = this.tableData[i].children[j].pjExternalInjectionList;
+                    this.tableData[i].children[j].wai_id = this.tableData[i].children[j].companyprojects_id + m;
+                    this.tableData[i].children[j].themename = '';
+                    this.tableData[i].children[j].toolsorgs = '';
+                    this.tableData[i].children[j].divide = '';
+                    if (this.tableData[i].children[j].children !== undefined && this.tableData[i].children[j].children !== null) {
+                      for (let l = 0; l < this.tableData[i].children[j].children.length; l++) {
+                        this.tableData[i].children[j].children[l].wai_id = n;
+                        n += 2;
+                        this.tableData[i].children[j].children[l].themename = '';
+                        this.tableData[i].children[j].children[l].toolsorgs = '';
+                        this.tableData[i].children[j].children[l].divide = '';
+                        this.tableData[i].children[j].children[l].project_name = '';
+                      }
+                      //项目小计
+                      // this.tableData[i].children[j].children[this.tableData[i].children[j].children.length - 1].themename = '小计';
                     }
-                    //项目小计
-                    // this.tableData[i].children[j].children[this.tableData[i].children[j].children.length - 1].themename = '小计';
                   }
+                  //theme合计
+                  this.tableData[i].children[this.tableData[i].children.length - 1].themename = '合计';
+                  this.tableData[i].children[this.tableData[i].children.length - 1].wai_id = this.tableData[i].children[this.tableData[i].children.length - 1].companyprojects_id + 1;
                 }
-                //theme合计
-                this.tableData[i].children[this.tableData[i].children.length - 1].themename = '合计';
-                this.tableData[i].children[this.tableData[i].children.length - 1].wai_id = this.tableData[i].children[this.tableData[i].children.length - 1].companyprojects_id + 1;
               }
+              // theme总计
+              this.tableData[this.tableData.length - 1].wai_id = m + "a";
+            } else {
+              this.tableData = [];
             }
-            // theme总计
-            this.tableData[this.tableData.length - 1].wai_id = m + "a";
             this.loading = false;
           })
           .catch(error => {
