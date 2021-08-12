@@ -55,6 +55,7 @@
                 width="180">
               </el-table-column>
               <el-table-column
+                align="center"
                 show-overflow-tooltip
                 prop="project_name"
                 :label="$t('label.PFANS6011VIEW_PJ')"
@@ -68,66 +69,79 @@
                 width="180">
               </el-table-column>
               <el-table-column
+                width="100"
                 prop="april"
                 align="center"
                 :label="$t('label.PFANS6011VIEW_APRIL')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="may"
                 :label="$t('label.PFANS6011VIEW_MAY')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="june"
                 :label="$t('label.PFANS6011VIEW_JUNE')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="july"
                 :label="$t('label.PFANS6011VIEW_JULY')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="august"
                 :label="$t('label.PFANS6011VIEW_AUGUST')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="september"
                 :label="$t('label.PFANS6011VIEW_SEPTEMBER')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="october"
                 :label="$t('label.PFANS6011VIEW_OCTOBER')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="november"
                 :label="$t('label.PFANS6011VIEW_NOVEMBER')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="december"
                 :label="$t('label.PFANS6011VIEW_DECEMBER')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="january"
                 :label="$t('label.PFANS6011VIEW_JANUARY')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="february"
                 :label="$t('label.PFANS6011VIEW_FEBRUARY')">
               </el-table-column>
               <el-table-column
+                width="100"
                 align="center"
                 prop="march"
                 :label="$t('label.PFANS6011VIEW_MARCH')">
               </el-table-column>
               <el-table-column
+                width="110"
                 align="center"
                 prop="total"
                 :label="$t('label.PFANS6011VIEW_TOTAL')">
@@ -172,11 +186,11 @@
         row: '',
         isShow: false,
         tableData: [{
-          wai_id: '',
+          wai_id: '1',
           theme: '',
           divide: '',
           toolsorgs: '',
-          project_name: '',
+          project_name: '-',
           company: '—',
           april: '—',
           may: '—',
@@ -192,27 +206,48 @@
           march: '—',
           total: '—',
           children: [{
-            wai_id: '',
+            wai_id: '2',
             theme: '',
             divide: '',
             toolsorgs: '',
             project_name: '',
-            company: '',
-            april: '',
-            may: '',
-            june: '',
-            july: '',
-            august: '',
-            september: '',
-            october: '',
-            november: '',
-            december: '',
-            january: '',
-            february: '',
-            march: '',
-            total: ''
+            company: '—',
+            april: '—',
+            may: '—',
+            june: '—',
+            july: '—',
+            august: '—',
+            september: '—',
+            october: '—',
+            november: '—',
+            december: '—',
+            january: '—',
+            february: '—',
+            march: '—',
+            total: '—',
+            children: [{
+              wai_id: '3',
+              theme: '',
+              divide: '',
+              toolsorgs: '',
+              project_name: '',
+              company: '',
+              april: '',
+              may: '',
+              june: '',
+              july: '',
+              august: '',
+              september: '',
+              october: '',
+              november: '',
+              december: '',
+              january: '',
+              february: '',
+              march: '',
+              total: ''
+            }],
           }],
-        }],
+        }]
       };
     },
     mounted() {
@@ -488,8 +523,8 @@
         this.loading = true;
         this.$store.dispatch('PFANS6011Store/getTableinfo', {'year': this.form.year, 'group_id': this.form.group_id})
           .then(response => {
-            debugger;
-            let n = 1;
+            let m = 1;
+            let n = 2;
             for (let i = 0; i < response.length; i++) {
               if (response[i].divide !== null && response[i].divide !== '') {
                 let divide = getDictionaryInfo(response[i].divide);
@@ -499,19 +534,37 @@
               }
             }
             this.tableData = response;
-            for (let j = 0; j < this.tableData.length; j++) {
-              this.tableData[j].children = this.tableData[j].pjExternalInjectionList;
-              this.tableData[j].wai_id = this.tableData[j].companyprojects_id;
-              if (this.tableData[j].children !== undefined && this.tableData[j].children !== null) {
-                for (let l = 0; l < this.tableData[j].children.length; l++) {
-                  this.tableData[j].children[l].wai_id = n;
-                  n++;
-                  this.tableData[j].children[l].themename = '';
-                  this.tableData[j].children[l].toolsorgs = '';
-                  this.tableData[j].children[l].divide = '';
+            for (let i = 0; i < this.tableData.length - 1; i++) {
+              this.tableData[i].children = this.tableData[i].pjExternalInjectionListVo;
+              this.tableData[i].wai_id = m;
+              m += 2;
+              if (this.tableData[i].children !== undefined && this.tableData[i].children !== null) {
+                for (let j = 0; j < this.tableData[i].children.length - 1; j++) {
+                  this.tableData[i].children[j].children = this.tableData[i].children[j].pjExternalInjectionList;
+                  this.tableData[i].children[j].wai_id = this.tableData[i].children[j].companyprojects_id + m;
+                  this.tableData[i].children[j].themename = '';
+                  this.tableData[i].children[j].toolsorgs = '';
+                  this.tableData[i].children[j].divide = '';
+                  if (this.tableData[i].children[j].children !== undefined && this.tableData[i].children[j].children !== null) {
+                    for (let l = 0; l < this.tableData[i].children[j].children.length; l++) {
+                      this.tableData[i].children[j].children[l].wai_id = n;
+                      n += 2;
+                      this.tableData[i].children[j].children[l].themename = '';
+                      this.tableData[i].children[j].children[l].toolsorgs = '';
+                      this.tableData[i].children[j].children[l].divide = '';
+                      this.tableData[i].children[j].children[l].project_name = '';
+                    }
+                    //项目小计
+                    // this.tableData[i].children[j].children[this.tableData[i].children[j].children.length - 1].themename = '小计';
+                  }
                 }
+                //theme合计
+                this.tableData[i].children[this.tableData[i].children.length - 1].themename = '合计';
+                this.tableData[i].children[this.tableData[i].children.length - 1].wai_id = this.tableData[i].children[this.tableData[i].children.length - 1].companyprojects_id + 1;
               }
             }
+            // theme总计
+            this.tableData[this.tableData.length - 1].wai_id = m + "a";
             this.loading = false;
           })
           .catch(error => {
