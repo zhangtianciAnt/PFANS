@@ -6,6 +6,7 @@
                          @StartWorkflow="buttonClick"
                          :defaultStart="defaultStart"
                          @buttonClick="buttonClick"
+                         :canStart="canStart"
                          @end="end" @start="start"
                          @workflowState="workflowState"
                          @disabled="setdisabled"
@@ -136,8 +137,12 @@
                   </el-col>
                 </el-row>
               </div>
-
-              <el-row>
+<!--              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr-->
+              <el-row v-if="this.form.contracttype != 'HT008002'
+                        && this.form.contracttype != 'HT008004'
+                        && this.form.contracttype != 'HT008006'
+                        && this.form.contracttype != 'HT008008'">
+<!--                //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to-->
                 <el-col :span="24">
                   <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 70vw">
                     <el-table-column
@@ -160,6 +165,51 @@
                   </el-table>
                 </el-col>
               </el-row>
+<!--              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr-->
+              <el-row v-if="this.form.contracttype == 'HT008002'
+                        || this.form.contracttype == 'HT008004'
+                        || this.form.contracttype == 'HT008006'
+                        || this.form.contracttype == 'HT008008'">
+                <el-col :span="24">
+                  <el-table :data="tableFS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 100%">
+                    <el-table-column
+                      prop="claimtype"
+                      :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="100"/>
+                    <el-table-column
+                      prop="department"
+                      :label="$t('label.PFANS1030FORMVIEW_DEPARTMENT')" align="center" width="260"/>
+                    <el-table-column
+                      prop="deliverydate"
+                      :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="110"/>
+                    <el-table-column
+                      prop="completiondate"
+                      :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" width="110"/>
+                    <el-table-column
+                      prop="claimdate" :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" width="110"/>
+                    <el-table-column
+                      prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" width="110"/>
+                    <el-table-column
+                      prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" width="120"/>
+                    <el-table-column
+                      prop="distriamount" :label="$t('label.PFANS1030FORMVIEW_DISTRIAMOUNT')" align="center" width="150">
+                      <template slot-scope="scope">
+                        <el-form-item>
+                          <el-input-number
+                            :max="Number(scope.row.claimamount)"
+                            :min="0"
+                            :precision="2"
+                            controls-position="right"
+                            style="width: 100%;margin-top: 15px"
+                            v-model="scope.row.distriamount"
+                            :disabled="distriamt"
+                          ></el-input-number>
+                        </el-form-item>
+                      </template>
+                    </el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
+<!--              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to-->
 
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
@@ -864,6 +914,10 @@
         }],
         activeName: 'first',
         disabled: true,
+        //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+        distriamt: true,
+        canStart: true,
+        //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
         moneysum: '',
         errorcustojapanese: '',
         errorcustochinese: '',
@@ -971,6 +1025,9 @@
           awardmoney: '',
         }],
         tableS: [],
+        //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+        tableFS: [],
+        //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
         tableD: [],
 
         // },
@@ -1158,8 +1215,12 @@
             this.form = response.award;
             if (this.form.status === '4' || this.form.status === '2') {
               this.enableSave = false;
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+              this.distriamt = true;
             } else {
               this.enableSave = true;
+              this.distriamt = false;
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
             }
             if (response.award.custojapanese !== null && response.award.custojapanese !== '') {
               let letUser = getUserInfo(response.award.custojapanese);
@@ -1322,9 +1383,37 @@
                   aa = Number(claimamount) + aa;
                 }
               }
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+              this.tableS = response.numbercounts;
+            }
+            if (response.awardReunites.length > 0) {
+              for (let i = 0; i < response.awardReunites.length; i++) {
+                let deliverydate = response.awardReunites[i].deliverydate;
+                let completiondate = response.awardReunites[i].completiondate;
+                let claimdate = response.awardReunites[i].claimdate;
+                let supportdate = response.awardReunites[i].supportdate;
+
+                if (deliverydate !== '' && deliverydate != null) {
+                  response.awardReunites[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
+                }
+                if (completiondate !== '' && completiondate != null) {
+                  response.awardReunites[i].completiondate = moment(completiondate).format('YYYY-MM-DD');
+                }
+                if (claimdate !== '' && claimdate != null) {
+                  response.awardReunites[i].claimdate = moment(claimdate).format('YYYY-MM-DD');
+                }
+                if (supportdate !== '' && supportdate != null) {
+                  response.awardReunites[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
+                }
+                if (response.awardReunites[i].claimamount) {
+                  let claimamount = response.awardReunites[i].claimamount;
+                  aa = Number(claimamount) + aa;
+                }
+              }
+              this.tableFS = response.awardReunites;
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
             }
             this.form.claimamount = aa;
-            this.tableS = response.numbercounts;
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
@@ -1804,11 +1893,51 @@
           //add-ws-6/22-禅道152任务
         } else if (val === 'save' || val === 'StartWorkflow') {
           this.checkRequire();
+          //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+          if(this.form.contracttype == 'HT008002'
+            || this.form.contracttype == 'HT008004'
+            || this.form.contracttype == 'HT008006'
+            || this.form.contracttype == 'HT008008'){
+            let datamountMap = new Map();
+            for (let t = 0; t < this.tableFS.length; t++) {
+              datamountMap.set(this.tableFS[t].claimtype, this.tableFS[t].claimamount);
+            }
+            let scanMap = new Map();
+            for (let h = 0; h < this.tableFS.length; h++) {
+              if (h == 0) {
+                scanMap.set(this.tableFS[h].claimtype, this.tableFS[h].distriamount)
+              } else {
+                let resultAnt = scanMap.get(this.tableFS[h].claimtype)
+                if (resultAnt == undefined) {
+                  scanMap.set(this.tableFS[h].claimtype, this.tableFS[h].distriamount)
+                } else {
+                  let resultInScanMap = resultAnt + this.tableFS[h].distriamount;
+                  scanMap.set(this.tableFS[h].claimtype, resultInScanMap)
+                }
+              }
+            }
+            for (let t = 0; t < this.tableFS.length; t++) {
+              let dataMapChild = datamountMap.get(this.tableFS[t].claimtype);
+              let scanMapChild = scanMap.get(this.tableFS[t].claimtype);
+              if (dataMapChild != scanMapChild) {
+                Message({
+                  message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                return;
+              }
+            }
+          }
+          //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
           this.$refs['reff'].validate(valid => {
             if (valid) {
               this.loading = true;
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = [];
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+              this.baseInfo.awardReunites = [];
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
               for (let i = 0; i < this.tableT.length; i++) {
                 if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
                   || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' || this.tableT[i].worknumber > '0' || this.tableT[i].awardmoney > '0') {
@@ -1828,6 +1957,23 @@
                   });
                 }
               }
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
+              for (let i = 0; i < this.tableFS.length; i++) {
+               this.baseInfo.awardReunites.push({
+                 awardreunite_id: this.tableFS[i].awardreunite_id,
+                 contractnumber: this.form.contractnumber,
+                 claimtype: this.tableFS[i].claimtype,
+                 department: this.tableFS[i].department,
+                 deliverydate: this.tableFS[i].deliverydate,
+                 completiondate: this.tableFS[i].completiondate,
+                 claimdate: this.tableFS[i].claimdate,
+                 supportdate: this.tableFS[i].supportdate,
+                 claimamount: this.tableFS[i].claimamount,
+                 distriamount: this.tableFS[i].distriamount,
+                 rowindex: this.tableFS[i].rowindex,
+               });
+              }
+              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
               if (this.$route.params._id) {     //编辑
                 this.baseInfo.award.award_id = this.$route.params._id;
                 this.$store
