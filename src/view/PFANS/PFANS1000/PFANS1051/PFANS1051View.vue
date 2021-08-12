@@ -38,15 +38,21 @@
               </el-form-item>
             </el-col>
           </el-row>
-
-        <lb-table :column="tableData.columns"
-                  :data="tableData.data" style="margin-top: -300px;"
-                  :merge="['themename', 'contract', 'toolsorgs','moneyplan4','moneyplan5','moneyplan6','moneyplan7',
+              <lb-table :column="tableData.columns"
+                        :data="tableData.data" style="margin-top: -300px;"
+                        :merge="['themename', 'contract', 'toolsorgs','moneyplan4','moneyplan5','moneyplan6','moneyplan7',
                   'moneyplan8','moneyplan9','moneyplan10','moneyplan11','moneyplan12','moneyplan1','moneyplan2','moneyplan3',]"
-                  header-cell-class-name="sub_bg_color_blue"
-                  :height = 500
-                  border>
-        </lb-table>
+                        header-cell-class-name="sub_bg_color_blue"
+                        :height = 500
+                        border>
+              </lb-table>
+          <el-row>
+            <el-col>
+              <div class="sub_color_red" style="margin-top: 5px">
+                {{$t('label.PFANS1051MES')}}
+              </div>
+            </el-col>
+          </el-row>
         </el-form>
       </div>
     </EasyNormalContainer>

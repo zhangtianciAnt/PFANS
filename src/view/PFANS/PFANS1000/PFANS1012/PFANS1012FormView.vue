@@ -88,7 +88,8 @@
 <!--                    </el-form-item>-->
 <!--                  </el-col>-->
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+<!--                    update_qhr_20210811 添加项目名称必填项-->
+                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="projectname">
                       <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
                         <el-option
                           v-for="item in optionsdate"
@@ -1435,6 +1436,15 @@
       org,
     },
     data() {
+      //region  add_qhr_20210811  添加项目名称必填项
+      var checkprojectname = (rule, value, callback) => {
+          if (this.form.project_id) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5004VIEW_PROJECTNAMW')));
+          }
+      };
+      //endregion  add_qhr_20210811  添加项目名称必填项
       var checkuser = (rule, value, callback) => {
         if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
@@ -1781,6 +1791,13 @@
           accename: '',
         },
         rules: {
+          //region  add_qhr_20210811 添加项目名称必填项
+          projectname: [{
+            required: true,
+            validator: checkprojectname,
+            trigger: 'change',
+          }],
+          //endregion  add_qhr_20210811 添加项目名称必填项
           user_id: [{
             required: true,
             validator: checkuser,
