@@ -523,17 +523,17 @@
         this.loading = true;
         this.$store.dispatch('PFANS6011Store/getTableinfo', {'year': this.form.year, 'group_id': this.form.group_id})
           .then(response => {
-            let m = 1;
-            let n = 2;
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].divide !== null && response[i].divide !== '') {
-                let divide = getDictionaryInfo(response[i].divide);
-                if (divide != null) {
-                  response[i].divide = divide.value1;
+            if (response.length > 0) {
+              let m = 1;
+              let n = 2;
+              for (let i = 0; i < response.length; i++) {
+                if (response[i].divide !== null && response[i].divide !== '') {
+                  let divide = getDictionaryInfo(response[i].divide);
+                  if (divide != null) {
+                    response[i].divide = divide.value1;
+                  }
                 }
               }
-            }
-            if (response.length > 0) {
               this.tableData = response;
               for (let i = 0; i < this.tableData.length - 1; i++) {
                 this.tableData[i].children = this.tableData[i].pjExternalInjectionListVo;
