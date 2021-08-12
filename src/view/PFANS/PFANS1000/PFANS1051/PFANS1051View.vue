@@ -90,206 +90,199 @@
           columns: [
             {
               prop: 'themename',
-              label: 'THEME名',
+              label: 'label.PFANS1051THEMENAME',
               width: 120,
             },
             {
               prop: 'contract',
-              label: '分类',
+              label: 'label.PFANS1051TOOLSTYPE',
               width: 120,
             },
             {
               prop: 'toolsorgs',
-              label: '委托元',
+              label: 'label.PFANS1051TOOLS',
               width: 160,
             },
             {
               prop: 'amount',
-              label: '合同号 【金额】',
+              label: 'label.PFANS1051CONTRACTMOUNT',
               width: 280,
             },
             {
-              label: '4月',
+              label: 'label.PFANS1051MONTH4',
               children: [
                 {
                   prop: 'moneyplan4',
-                  label: '计划',
-
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual4',
-                  label: '实际',
-
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 },
               ]
             },
             {
-              label: '5月',
+              label: 'label.PFANS1051MONTH5',
               children: [
                 {
                   prop: 'moneyplan5',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual5',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '6月',
+              label: 'label.PFANS1051MONTH6',
               children: [
                 {
                   prop: 'moneyplan6',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual6',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
               prop: 'totalactual1q',
-              label: '第一季度',
-
+              label: 'label.PFANS1045VIEW_CYCLE3',
             },
             {
-              label: '7月',
+              label: 'label.PFANS1051MONTH7',
               children: [
                 {
                   prop: 'moneyplan7',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual7',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '8月',
+              label: 'label.PFANS1051MONTH8',
               children: [
                 {
                   prop: 'moneyplan8',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual8',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '9月',
+              label: 'label.PFANS1051MONTH9',
               children: [
                 {
                   prop: 'moneyplan9',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual9',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
               prop: 'totalactual2q',
-              label: '第二季度',
-
+              label: 'label.PFANS1045VIEW_CYCLE4',
             },
             {
-              label: '10月',
+              label: 'label.PFANS1051MONTH10',
               children: [
                 {
                   prop: 'moneyplan10',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual10',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '11月',
+              label: 'label.PFANS1051MONTH11',
               children: [
                 {
                   prop: 'moneyplan11',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual11',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '12月',
+              label: 'label.PFANS1051MONTH12',
               children: [
                 {
                   prop: 'moneyplan12',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual12',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
               prop: 'totalactual3q',
-              label: '第三季度',
-
+              label: 'label.PFANS1045VIEW_CYCLE5',
             },
             {
-              label: '1月',
+              label: 'label.PFANS1051MONTH1',
               children: [
                 {
                   prop: 'moneyplan1',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual1',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '2月',
+              label: 'label.PFANS1051MONTH2',
               children: [
                 {
                   prop: 'moneyplan2',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual2',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
-              label: '3月',
+              label: 'label.PFANS1051MONTH3',
               children: [
                 {
                   prop: 'moneyplan3',
-                  label: '计划',
+                  label: 'label.PFANS1049FORMVIEW_PLANAMOUNT',
                 },
                 {
                   prop: 'moneyactual3',
-                  label: '实际',
+                  label: 'label.PFANS1049FORMVIEW_AMOUNT',
                 }
               ]
             },
             {
               prop: 'totalactual4q',
-              label: '第四季度',
-
+              label: 'label.PFANS1045VIEW_CYCLE6',
             },
             {
               prop: 'totalactual',
-              label: '全年合计',
-
+              label: 'label.PFANS1051TOTAL',
             },
 
           ],
