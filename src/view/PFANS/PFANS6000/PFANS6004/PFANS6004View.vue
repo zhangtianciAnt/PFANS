@@ -152,6 +152,14 @@
                         fix: false,
                         filter: false,
                     },
+                   {
+                    //预计退场时间
+                    code: 'yjexitime',
+                    label: 'label.PFANS2002FORMVIEW_YJEXITTIME',
+                    width: 140,
+                    fix: false,
+                    filter: false,
+                   },
                     {
                         //退场时间
                         code: 'exitime',
@@ -300,6 +308,11 @@
                             } else {
                                 response[j].admissiontime = moment(new Date()).format('YYYY-MM-DD');
                             }
+                          //预计退场时间
+                          if (response[j].yjexitime !== null && response[j].yjexitime !== '') {
+                            response[j].yjexitime = moment(response[j].yjexitime).format('YYYY-MM-DD');
+                          }
+
                             if (response[j].birth !== null && response[j].birth !== '') {
                                 response[j].birth = moment(response[j].birth).format('YYYY-MM-DD');
                             }
@@ -325,6 +338,7 @@
                                     if (response[j].exitime !== null && response[j].exitime !== '') {
                                         response[j].exitime = moment(response[j].exitime).format('YYYY-MM-DD');
                                     }
+
                                     if (response[j].exitreason !== null && response[j].exitreason !== '') {
                                         let exitreason = getDictionaryInfo(response[j].exitreason);
                                         if (exitreason != null) {
@@ -403,6 +417,8 @@
                                     admissiontime: response[j].admissiontime,
                                     speciality: response[j].speciality,
                                     exits: response[j].exits,
+                                    //预计退场时间
+                                    yjexitime:response[j].yjexitime,
                                     exitime: response[j].exitime,
                                     exitreason: response[j].exitreason,
                                     alltechnology: response[j].alltechnology,

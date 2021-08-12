@@ -821,11 +821,12 @@
           {
             yearnomal = moment(this.form.year).format('YYYY');
           }
+          let monthAnt = moment(new Date().setMonth(new Date().getMonth() - 1)).format('MM');
           // ADD CCM 20210330 费用统计添加年度筛选 to
           let params = {
             groupid: groupid,
             // ADD CCM 20210330 费用统计添加年度筛选 fr
-            year:yearnomal
+            year:yearnomal + '-' + monthAnt,
             // ADD CCM 20210330 费用统计添加年度筛选 to
           }
           this.$store
@@ -837,9 +838,6 @@
                 type: "success",
                 duration: 5 * 1000
               });
-              this.loading = false;
-            })
-            .catch(error => {
               this.loading = false;
             })
             .catch(error => {

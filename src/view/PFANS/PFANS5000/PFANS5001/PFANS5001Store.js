@@ -1,5 +1,5 @@
 import {getFpans5001List,selectById,update,insert,getcustomer,getexpat,select,getPjList,getFpans5001List2,
-        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,selectAll,selectConnumList} from './PFANS5001Api'
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,selectAll,selectConnumList,report,update1} from './PFANS5001Api'
 
 
 const PFANS5001Store = {
@@ -34,6 +34,20 @@ const PFANS5001Store = {
           reject(error);
         })
       })
+    },
+    //数据结转
+    update1({commit}, data) {
+      return new Promise((resolve, reject) => {
+        update1(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message)
+      }
+    }).catch(error => {
+        reject(error);
+    })
+    })
     },
     //获取流程
     getFpans5001List({commit},data) {
@@ -222,6 +236,19 @@ const PFANS5001Store = {
       })
     },
 
+    report({commit}, data) {
+      return new Promise((resolve, reject) => {
+        report(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
   }
 };
 

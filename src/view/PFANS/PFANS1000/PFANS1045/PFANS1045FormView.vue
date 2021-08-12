@@ -119,7 +119,6 @@
                     <el-input-number
                       :disabled="true"
                       :max="999999999"
-                      :min="0"
                       :precision="2"
                       :step="1"
                       controls-position="right"
@@ -167,6 +166,17 @@
                       controls-position="right"
                       style="width: 20vw"
                       v-model="form.summonet">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1045VIEW_AVBLEAMOUNT')">
+                    <el-input-number
+                      :disabled="true"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.avbleamount">
                     </el-input-number>
                   </el-form-item>
                 </el-col>
@@ -231,19 +241,19 @@
                 <span class="collapse_Title">{{$t('label.PFANS1045VIEW_INFORMATION')}}</span>
                 <el-table :data="tableF" :summary-method="getFsummaries" show-summary
                           header-cell-class-name="sub_bg_color_blue" stripe border style="width: 72.5vw">
-                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="200">
+                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEN')" align="center" width="100">
                     <template slot-scope="scope">
                       <el-input :disabled="true" style="width: 100%" v-model="scope.row.invoicenumber">
                       </el-input>
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center"
-                                   width="300" prop="money"
+                                   width="233" prop="money"
                   >
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable2"
-                        :min="0" :precision="2"
+                        :precision="2"
                         :max="999999999"
                         controls-position="right"
                         :no="scope.row"
@@ -254,13 +264,13 @@
                       </el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="445">
+                  <el-table-column :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')" align="center" width="475">
                     <template slot-scope="scope">
                       <el-input :disabled="!disable2" style="width: 100%" v-model="scope.row.remark">
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.operation')" align="center" width="500">
+                  <el-table-column :label="$t('label.operation')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-button
                         :disabled="!disable2"
@@ -454,6 +464,7 @@
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
           // cycle: '',
           //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+          avbleamount: '',
           applicationdate: new Date(),
           amountcase: '',
           modifiedamount: '',
@@ -464,6 +475,7 @@
           policynumbers: '',
           uploadfile: '',
           type: '0',
+          workhoursAnt: [],
         },
         buttonList: [
           {
@@ -525,7 +537,6 @@
                   let o = {};
                   o.name = uploadfile[i].split(',')[0];
                   o.url = uploadfile[i].split(',')[1];
-                  console.log(o);
                   this.fileList.push(o);
                 }
               }
@@ -545,6 +556,7 @@
               let claimdatetim = claimdatetime.slice(0, 7);
               let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 7);
               this.form.yearss = [claimdatetim, claimdatetime1];
+              this.workhoursAnt = this.form.yearss;
             }
             //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
             this.loading = false;
@@ -620,9 +632,12 @@
         });
       },
       changeSum(row) {
+        let moneyAnt = 0;
         for (let i = 0; i < this.tableF.length; i++) {
-          this.form.modifiedamount = this.tableF[i].money;
+          moneyAnt = this.tableF[i].money;
         }
+        moneyAnt += Number(this.form.avbleamount)
+        this.form.modifiedamount = moneyAnt;
       },
       getamountcase(val) {
         this.form.modifiedamount = val;
@@ -986,12 +1001,27 @@
                 });
                 return;
               }
-              if (this.form.status === '4') {
-                let ckecksum = 0;
+              //add   请求金额与修改后金额check    from
+              if (this.form.status === '3' || this.form.status === '4') {
                 for (let i = 0; i < this.tableF.length; i++) {
-                  ckecksum = this.tableF[i].money;
+                  if(this.tableF[i].money === 0){
+                    Message({
+                      message: this.$t('label.PFANS1045VIEW_CHECK7'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    return;
+                  }
                 }
-                if (ckecksum < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
+                if(Number(this.form.modifiedamount) < 0){
+                  Message({
+                    message: this.$t('label.PFANS1045VIEW_CHECK8'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+                if (Number(this.form.modifiedamount) < (Number(this.form.summonet) - Number(this.form.newamountcase))) {
                   Message({
                     message: this.$t('label.PFANS1045VIEW_CHECK6'),
                     type: 'error',
@@ -1000,10 +1030,15 @@
                   return;
                 }
               }
+              //add   请求金额与修改后金额check    to
               this.form.user_id = this.userlist;
-              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
-              this.form.yearss = this.getworkinghours(this.form.yearss);
-              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
+              //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from\
+              if(this.form.yearss.indexOf('~') != -1){
+                this.form.yearss = this.getworkinghours(this.workhoursAnt);
+              }else if(this.form.yearss){
+                this.form.yearss = this.getworkinghours(this.form.yearss);
+              }
+                //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
               this.baseInfo = {};
               this.baseInfo.policycontract = [];
               this.baseInfo.policycontractdetails = [];

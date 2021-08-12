@@ -493,6 +493,21 @@
                               ></user>
                             </template>
                           </el-table-column>
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -501,11 +516,28 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="scope.row.updOrinsflg ==='1' ? true : !disable"
+                                :disabled="!disable"
                                 maxlength="20"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
+                            </template>
+                          </el-table-column>
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
                             </template>
                           </el-table-column>
                           <!--                进组时间-->
@@ -705,7 +737,21 @@
                               </el-input>
                             </template>-->
                           </el-table-column>
-
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -719,6 +765,23 @@
                                 v-model="scope.row.position"
                                 style="width: 100%"
                               ></el-input>
+                            </template>
+                          </el-table-column>
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
                             </template>
                           </el-table-column>
                           <!--                入场时间-->
@@ -797,7 +860,7 @@
                   style="width: 90vw"
                   v-show="form.toolstype === '0' || !form.toolstype"
                 >
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center" width="260%">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_CONTRACT')" align="center" width="200">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:20vw">
@@ -815,6 +878,7 @@
                               center
                               size="50%"
                               top="8vh"
+                              width="75%"
                               lock-scroll
                               append-to-body
                             >
@@ -856,7 +920,7 @@
                                     <el-table-column
                                       property="claimdatetime"
                                       :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')"
-                                      width="110"
+                                      width="200"
                                     ></el-table-column>
                                     <el-table-column align="right" width="230">
                                       <template slot="header" slot-scope="scope">
@@ -882,7 +946,7 @@
                       </el-col>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_THEME')" align="center"  width="150">
+                  <el-table-column :label="$t('label.PFANS5009FORMVIEW_THEME')" align="center"  width="180">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -904,10 +968,10 @@
                   <!--                   add-ws-6/9-禅道任务080-->
                   <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center"
-                                   width="200">
+                                   width="154px">
                     <template slot-scope="scope">
                       <el-date-picker :disabled="true" type="date" v-model="scope.row.deliveryfinshdate"
-                                      style="width: 11rem"></el-date-picker>
+                                      style="width: 100%"></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                   add-ws-6/9-禅道任务080-->
@@ -915,7 +979,7 @@
                     :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')"
                     align="center"
                     prop="claimdatetime"
-                    width="370"
+                    width="280"
                   >
                     <template slot-scope="scope">
                       <el-date-picker
@@ -927,11 +991,12 @@
                         :end-placeholder="$t('label.enddate')"
                         :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                         :start-placeholder="$t('label.startdate')"
+                        style="width: 100%"
                       ></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="true"
@@ -944,7 +1009,7 @@
                       ></el-input-number>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center" width="150">
+                  <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center" width="180">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -959,7 +1024,7 @@
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
-                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-button
                         :disabled="scope.row.type === '0' ? true : false"
@@ -1021,7 +1086,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" prop="claimamount"
-                                   width="190">
+                                   width="215">
                     <template slot-scope="scope">
                       <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
                                        :disabled="!disabled" :min="0" :max="1000000000"
@@ -1246,8 +1311,15 @@
           claimamount: 0,
         }],
         currentRow5: '',
+        //add_qhr_20210810 添加rank、报告者字段
+        currentRow9: '',
         adddisabled: false,
         disable: true,
+        //合同时间check
+        time: [],
+        contra: [],
+        nowtime: '',
+        //合同时间check
         centerorglist: '',
         grouporglist: '',
         claimamount: '',
@@ -1332,6 +1404,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1618,6 +1693,9 @@
                   o.number = response.projectsystem[i].number;
                   o.company = response.projectsystem[i].company;
                   o.name = response.projectsystem[i].name;
+                  //add_qhr_20210810 添加rank、报告者字段
+                  o.rank = response.projectsystem[i].rank;
+                  o.reporter = response.projectsystem[i].reporter;
                   o.position = response.projectsystem[i].position;
                   o.admissiontime = response.projectsystem[i].admissiontime;
                   o.exittime = response.projectsystem[i].exittime;
@@ -1635,6 +1713,9 @@
                     o.company = response.projectsystem[i].company;
                     o.name = response.projectsystem[i].name;
                     o.name_id = response.projectsystem[i].name_id;
+                    //add_qhr_20210810 添加rank、报告者字段
+                    o.rank = response.projectsystem[i].rank;
+                    o.reporter = response.projectsystem[i].reporter;
                     o.position = response.projectsystem[i].position;
                     o.admissiontime = response.projectsystem[i].admissiontime;
                     o.exittime = response.projectsystem[i].exittime;
@@ -1758,6 +1839,9 @@
           number: '',
           company: '',
           name: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           suppliernameid: '',
           position: '',
           admissiontime: '',
@@ -1779,6 +1863,9 @@
               number: '',
               company: '',
               name: '',
+              //add_qhr_20210810 添加rank、报告者字段
+              rank: '',
+              reporter: '',
               position: '',
               admissiontime: '',
               exittime: '',
@@ -1914,7 +2001,9 @@
       },
       //ADD gbb 07-16 ,内采项目在现场管理中不显示合同 END
       getcontract() {
-        this.contractapplication = {};
+        this.contractapplication = {
+          state: '有效' //只获取审批状态为有效的合同
+        };
         // this.contractapplication.entrycondition = [];
         // this.contractapplication.entrycondition = 'HT004007';//契約締結完了
         this.loading = true;
@@ -1928,11 +2017,18 @@
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.contractapplication[i].claimdatetime = [claimdatetim + '~' + claimdatetime1];
+                response.contractapplication[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
 
                 response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
               }
+              //resign  add  scc  20200202  选择合同页面显示合同时间 from
+            else if (response.contractapplication[i].contractdate !== '' && response.contractapplication[i].contractdate !== null && response.contractapplication[i].contractdate !== undefined){
+                let contractdate = response.contractapplication[i].contractdate;
+                let contractdate_st_end = contractdate.split('~');
+                response.contractapplication[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+              }
+              //end resign  add  scc  20200202  选择合同页面显示合同时间 to
               var vote2 = {};
               vote2.contract = response.contractapplication[i].contractnumber;
               vote2.deployment = response.contractapplication[i].deployment;
@@ -1973,12 +2069,57 @@
         //add-ws-5/11-合同请求期间数据赋值
       },
       //add-ws-6/9-禅道任务080
+      //根据合同号查询合同期间 scc
+      findCon(){
+        if(this.contra.length > 0) {
+          //获取合同号字符串 scc
+          let contra = "";
+          for (let i = 0; i < this.contra.length; i++) {
+            if (i === this.contra.length - 1) {
+              contra += this.contra[i];
+            } else {
+              contra += this.contra[i] + ",";
+            }
+          }
+          //获取合同号字符串 scc
+          //后台请求合同号对应的合同期间 scc
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1026Store/getContranumber', {'contra': contra})
+            .then(response => {
+              this.time = [];
+              if (response.length > 0) {
+                for (let i = 0; i < response.length; i++) {
+                  this.time[i] = response[i];
+                }
+              }
+            });
+          this.loading = false;
+        }else{
+          this.time = [];
+        }
+        //后台请求合同号对应的合同期间 scc
+      },
+      //根据合同号查询合同期间 scc
       changecontract(row) {
         let table = this.tableD;
         let check = [];
         let checktable = 0;
         let checktable1 = 0;
         this.dialogTableVisible3 = true;
+        this.contra = [];
+        //获取当前表中已有合同 scc
+        for(let i = 0; i < this.tableD.length; i++){
+          if(!this.tableD[i].contract){
+            continue;
+          }
+          //合同号去重 scc
+          this.contra = this.contra.filter(item => item != this.tableD[i].contract);
+          this.contra[this.contra.length] = this.tableD[i].contract;
+          //合同号去重 scc
+        }
+        this.findCon();
+        //获取当前表中已有合同 scc
         for (let a = 0; a < table.length; a++) {
           if (row.contract != '') {
             if (table[a].contract != row.contract) {
@@ -2028,6 +2169,9 @@
           .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
           .then(response => {
             let contractnumbercount = response.contractnumbercount;
+            //判断此次选中合同中的回数 scc
+            var intercept = response.contractnumbercount.length;
+            //判断此次选中合同中的回数 scc
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {
                   if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
@@ -2049,6 +2193,64 @@
               }
               tabled = this.tableD;
               this.tableD = tabled.concat(table);
+            }
+            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+            let contradeta = response.contractapplication;
+            if(contradeta.length > 0){
+              let timec = "";
+              //如果合同没有contractdate，取claimdatetime scc
+              if(contradeta[0].contractdate) {
+                timec = contradeta[0].contractdate;//字符串
+              }else{
+                timec = contradeta[0].claimdatetime;//字符串
+              }
+              //如果合同没有contractdate，取claimdatetime scc
+              //如果存在延止日期，延长合同期限至延止日期 scc
+              let extensdate = contradeta[0].extensiondate;
+              if(extensdate){
+                let time1 = timec.split('~');//数组
+                this.nowtime = time1[0] + "~" + extensdate;
+              } else{
+                this.nowtime = timec;
+              }
+            }
+            //如果存在延止日期，延长合同期限至延止日期 scc
+            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+            if (this.nowtime) {
+              var areatime = this.nowtime.split('~');
+              var opentime = areatime[0];
+              var closetime = areatime[1];
+              //当前选中合同日期转成时间对象 scc
+              var date1 = new Date(opentime);
+              var date2 = new Date(closetime);
+              //当前选中合同日期转成时间对象 scc
+            }
+            if(this.time.length > 0) {
+              for (let i = 0; i < this.time.length; i++) {
+                let contra = this.time[i].split("~");
+                //每条合同的时间点 scc
+                let date3 = new Date(contra[0]);
+                let date4 = new Date(contra[1]);
+                //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内 scc
+                let e1 = ((date1.getTime() > date3.getTime() && date1.getTime() < date4.getTime()) || (date2.getTime() > date3.getTime() && date2.getTime() < date4.getTime()));
+                //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合 scc
+                let e2 = (date1.getTime() === date3.getTime() || date1.getTime() === date4.getTime() || date2.getTime() === date3.getTime() || date2.getTime() === date4.getTime());
+                //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间 scc
+                let e3 = ((date1.getTime() < date3.getTime() && date2.getTime() > date4.getTime()));
+                //判断上述条件是否为真 scc
+                let e4 = (e1 || e2 || e3);
+                //提示错误信息 scc
+                if (e4) {
+                  Message({
+                    message: this.$t('normal.info_27'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.tableD.splice(this.tableD.length - intercept, intercept);
+                  break;
+                }
+                //提示错误信息 scc
+              }
             }
             this.loading = false;
           });
@@ -2088,6 +2290,9 @@
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
+          //add_qhr_20210810 添加rank、报告者字段
+          rows[1].rank = '';
+          rows[1].reporter = '';
         }
         //add-ws-当体制仅有一条删除清空数据项
         if (rows.length > 2) {
@@ -2102,6 +2307,9 @@
           number: '',
           company: '',
           name: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2183,6 +2391,8 @@
         //add-ws-数据库id存的是name名，外协关联修改
         row.name_id = this.currentRow5;
         //add-ws-数据库id存的是name名，外协关联修改
+        //add_qhr_20210810 添加rank、报告者字段
+        row.rank = getDictionaryInfo(this.currentRow9).value1;
         this.dialogTableVisible1 = false;
       },
       handleClickChange(val) {
@@ -2193,6 +2403,8 @@
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.suppliernameid;
         this.currentRow5 = val.expname;
+        //add_qhr_20210810 添加rank、报告者字段
+        this.currentRow9 = val.rank;
       },
       addRow() {
         this.tableA.push({
@@ -2224,9 +2436,16 @@
         row.name = userlist;
         if (row.name != null && row.name !== '') {
           let lst = getUserInfo(row.name);
-          row.position = lst.userinfo.post;
+          //region add_qhr_20210810 添加rank、报告者字段
+          row.position = getDictionaryInfo(lst.userinfo.post).value1;
           row.number = lst.userinfo.jobnumber;
+          row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+          //endregion add_qhr_20210810 添加rank、报告者字段
         }
+      },
+      //add_qhr_20210810 添加rank、报告者字段
+      getReporter(userlist, row) {
+        row.reporter = userlist;
       },
       getcustomer(val) {
         this.result1.forEach(res => {
@@ -2248,6 +2467,8 @@
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               vote1.suppliernameid = response[i].supplierinfor_id;
+              //add_qhr_20210810 添加rank、报告者字段
+              vote1.rank = response[i].rn;
               //vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
@@ -2412,7 +2633,7 @@
             //add-ws-01/16-禅道任务710
             for (let i = 0; i < this.tableD.length; i++) {
               // update gbb 20210316 NT_PFANS_20210305_BUG_124 分配金額大余0check start
-              if(this.tableD[i].contractamount === 0){
+              if(this.tableD[i].contractamount === 0 && this.form.toolstype != '1'){
                   this.activeName = 'fifth';
                   Message({
                       message: this.$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNTERROR'),
@@ -2460,6 +2681,9 @@
                 this.baseInfo.projectsystem.push({
                   number: this.tableB[i].number,
                   name: this.tableB[i].name,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableB[i].rank,
+                  reporter: this.tableB[i].reporter,
                   type: this.tableB[i].type,
                   company: this.tableB[i].company,
                   position: this.tableB[i].position,
@@ -2571,6 +2795,9 @@
                   suppliernameid: this.tableC[i].suppliernameid,
                   type: this.tableC[i].type,
                   name_id: this.tableC[i].name_id,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableC[i].rank,
+                  reporter: this.tableC[i].reporter,
                   company: this.tableC[i].company,
                   admissiontime: this.tableC[i].admissiontime,
                   exittime: this.tableC[i].exittime,

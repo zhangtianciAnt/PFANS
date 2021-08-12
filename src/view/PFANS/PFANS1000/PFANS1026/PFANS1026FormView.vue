@@ -3,6 +3,12 @@
     <EasyNormalContainer ref="container"
                          :title="title"
                          @buttonClick="buttonClick"
+                         @end="end" @start="start"
+                         @workflowState="workflowState"
+                         @StartWorkflow="buttonClick"
+                         :enableSave="enableSave"
+                         :workflowCode="workflowCode"
+                         :canStart="canStart"
                          v-loading="loading"
                          :buttonList="buttonList">
       <div slot="customize">
@@ -213,7 +219,7 @@
                     :multiple="multiple"
                     @change="getEntrycondition"
                     style="width: 11rem"
-                    :disabled="!disabled">
+                    :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled">
                   </dicselect>
                 </el-form-item>
               </template>
@@ -222,7 +228,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.entrypayment'">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment"
+                  <el-date-picker :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" type="date" v-model="scope.row.entrypayment"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -245,10 +251,11 @@
                            size="40%"
                            append-to-body>
                   <div>
-                    <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
-                      <el-option :label="$t(titleC)" value="2"></el-option>
-                    </el-select>
+<!--                    add_qhr_20210707 取消theme区分-->
+<!--                    <el-select @change="changed" v-model="region">-->
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+<!--                    </el-select>-->
                     <el-table
                       :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))"
                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
@@ -570,7 +577,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placejapanese">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -579,7 +586,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placeenglish">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -588,7 +595,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placechinese">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -599,7 +606,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responjapanese">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -608,7 +615,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responerglish">
+                    <el-input maxlength="255" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -616,7 +623,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responphone">
+                    <el-input maxlength="100" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -624,7 +631,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input maxlength="100" :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -652,7 +659,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarks" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.remarks'">
-                  <el-input :disabled="!disabled" v-model="scope.row.remarks">
+                  <el-input :disabled="bookStatuss ? (!bookStatussawardafter ? true:false) : !disabled" v-model="scope.row.remarks">
                   </el-input>
                 </el-form-item>
               </template>
@@ -718,7 +725,7 @@
             </el-table-column>
           </el-table>
           <el-table :data="form.tableclaimtype" stripe header-cell-class-name="sub_bg_color_grey height"
-                    :header-cell-style="getRowClass1" style="padding-top: 2vw"
+                    :header-cell-style="getRowClass1" style="padding-top: 2vw" :default-sort = "{prop: 'claimtype', order: 'ascending'}"
                     @selection-change="handleSelectionChange">
             <el-table-column
               type="selection"
@@ -779,7 +786,7 @@
                       :multiple="multiple"
                       @change="getDeliveryqh"
                       style="width: 11rem"
-                      :disabled="scope.row.npbook ? true : !disabled">
+                      :disabled="scope.row.napinbook ? true : !bookStatussawardafter">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -813,7 +820,7 @@
                       :multiple="multiple"
                       @change="getClaimqh"
                       style="width: 11rem"
-                      :disabled="scope.row.npbook ? true : !disabled">
+                      :disabled="scope.row.napinbook ? true : !bookStatussawardafter">
                     </dicselect>
                   </el-form-item>
                 </template>
@@ -891,7 +898,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.qingremarksqh'">
-                  <el-input :disabled="scope.row.npbook ? true : !disabled" v-model="scope.row.qingremarksqh">
+                  <el-input :disabled="scope.row.napinbook ? true : !bookStatussawardafter" v-model="scope.row.qingremarksqh">
                   </el-input>
                 </el-form-item>
               </template>
@@ -930,7 +937,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_REMARKS')" align="center" prop="remarksqh" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
-                  <el-input :disabled="scope.row.npbook ? true : !disabled" v-model="scope.row.remarksqh">
+                  <el-input :disabled="scope.row.napinbook ? true : !bookStatussawardafter" v-model="scope.row.remarksqh">
                   </el-input>
                 </el-form-item>
               </template>
@@ -963,7 +970,7 @@
                 <el-button
                   @click.native.prevent="deleteRowclaimtype1(scope.$index, form.tableclaimtype)"
                   plain
-                  :disabled="scope.row.book"
+                  :disabled="scope.row.npbook"
                   size="small"
                   type="danger"
                 >{{$t('button.delete')}}
@@ -971,7 +978,7 @@
                 <el-button
                   @click="addRowclaimtype1(form.tableclaimtype)"
                   plain
-                  :disabled="scope.row.book"
+                  :disabled="scope.row.npbook"
                   size="small"
                   type="primary"
                 >{{$t('button.insert')}}
@@ -991,7 +998,7 @@
               width="200">
               <template slot-scope="scope">
                 <el-select clearable v-model="scope.row.claimtype"
-                           :placeholder="$t('normal.error_09')" @change="changeclaimtype(scope.row)">
+                           :placeholder="$t('normal.error_09')" @change="changeclaimtype(scope.row)" :disabled="bookStatuss ? true : !disabled">
                   <el-option
                     clearable
                     v-for="item in optionscompound"
@@ -1008,7 +1015,7 @@
               width="240">
               <template slot-scope="scope">
                 <org :no="scope.row" :orglist="scope.row.group_id" @getOrgids="getEntrustgroupId"
-                     orgtype="4" style="width:90%"></org>
+                     orgtype="4" style="width:90%" :disabled="bookStatuss ? true : !disabled"></org>
               </template>
             </el-table-column>
             <el-table-column
@@ -1031,6 +1038,7 @@
                   controls-position="right"
                   style="width: 100%"
                   v-model="scope.row.contractrequestamount"
+                  :disabled="bookStatuss ? true : !disabled"
                 ></el-input-number>
               </template>
             </el-table-column>
@@ -1044,6 +1052,7 @@
                   plain
                   size="small"
                   type="danger"
+                  :disabled="bookStatuss ? true : !disabled"
                 >{{$t('button.delete')}}
                 </el-button>
                 <el-button
@@ -1051,6 +1060,7 @@
                   plain
                   size="small"
                   type="primary"
+                  :disabled="bookStatuss ? true : !disabled"
                 >{{$t('button.insert')}}
                 </el-button>
               </template>
@@ -1373,7 +1383,14 @@
         }
       };
       return {
+        //add  ml  20210719  审批流程  from
+        enableSave: false,
+        canStart: false,
+        workflowCode: 'W0142',
+        //add  ml  20210719  审批流程  to
         judgementdisable: false,
+        bookStatuss:false,
+        bookStatussawardafter:true,
         //add-ws-6/22-禅道152任务
         show10: true,
         IDname: '',
@@ -1469,8 +1486,8 @@
         multiple: false,
         rowindex: '',
         ruleSet: {
-        // , 'theme'
-          'save': ['contractnumber', 'theme', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
+          // , 'theme'
+          'save': ['contractnumber','claimdatetime', 'theme', 'varto', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'completiondate', 'loadingjudge'],
           'makeinto': ['contractnumber'],
           '1': ['supportdate', 'conenglish', 'deliverydate', 'completiondate', 'deliveryfinshdate', 'custojapanese', 'conchinese', 'conjapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'claimdatetime', 'currencyposition', 'claimamount', 'loadingjudge'],
           // 该非判定书
@@ -1626,11 +1643,6 @@
             disabled: false,
           },
           {
-            key: 'cancellation',
-            name: 'button.cancellation',
-            disabled: false,
-          },
-          {
             key: 'save',
             name: 'button.save',
             disabled: false,
@@ -1638,6 +1650,11 @@
           {
             key: 'makeinto',
             name: 'button.makeinto',
+            disabled: false,
+          },
+          {
+            key: 'cancellation',
+            name: 'button.cancellation',
             disabled: false,
           },
         ],
@@ -1744,6 +1761,9 @@
         claimamount4: '',
         peid: '',
         tempMountList: [],
+        NaPpinAftercount:[],
+        //add_qhr_20210707 添加年份参数
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {
@@ -1780,6 +1800,7 @@
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
             let contractcompound = response.contractcompound;
+
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
                 // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
@@ -1869,12 +1890,80 @@
                   contractnumbercount[i].claimdatetimeqh = [claimdatetim, claimdatetime1];
                   contractnumbercount[i].letrecoverystatus = contractnumbercount[i].recoverystatus;
                 }
-                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
-                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
-                  contractnumbercount[i].book = true;
+                //决裁书已经进行中或是结束，编辑后，合同不可编辑
+                if (contractnumbercount[i].bookStatus === true ) {
+                  this.bookStatuss = true;
+                  contractnumbercount[i].npbook = true;
+                  this.disabled3 = false;
+                  this.disabled = false;
+                  // let rolecaneditnapin = getCurrentRoleeditnapin();
+                  // if(rolecaneditnapin === '0')
+                  // {
+                  //   contractnumbercount[i].npbook = false;
+                  // }
                 }
+                else
+                {
+                  contractnumbercount[i].npbook = false;
+                  this.bookStatuss = false;
+                }
+                contractnumbercount[i].napinbook = false;
               }
-              this.form.tableclaimtype = contractnumbercount;
+              //add ccm
+              this.NaPpinAftercount = [];
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS1026Store/getNaPpinAftercount', {'contractnumber': this.$route.params._id})
+                .then(response => {
+                  if (response.length > 0) {
+                    for (let i = 0; i < response.length; i++) {
+                      response[i].napinbook = true;
+                      response[i].npbook = true;
+                    }
+                  }
+                  this.NaPpinAftercount = response;
+                  if (this.NaPpinAftercount.length>0)
+                  {
+                    for (let c = 0; c < this.NaPpinAftercount.length; c++)
+                    {
+                      let cl = contractnumbercount.filter(item => item.claimtype === this.NaPpinAftercount[c].claimtype);
+                      if (cl === null || cl === undefined || cl.length === 0)
+                      {
+                        this.NaPpinAftercount[c].npbook = true;
+                        this.NaPpinAftercount[c].napinbook = true;
+                        this.NaPpinAftercount[c].flag = true;
+                        let cll = this.form.tableclaimtype.filter(item => item.claimtype === this.NaPpinAftercount[c].claimtype);
+                        if (cll === null || cll === undefined || cll.length === 0)
+                        {
+                          let claimdatetime = this.NaPpinAftercount[c].claimdatetimeqh;
+                          let claimdatetim = claimdatetime.slice(0, 10);
+                          let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
+                          this.NaPpinAftercount[c].claimdatetimeqh = [claimdatetim, claimdatetime1];
+                          this.NaPpinAftercount[c].letrecoverystatus = this.NaPpinAftercount[c].recoverystatus;
+                          this.form.tableclaimtype.push(this.NaPpinAftercount[c]);
+                        }
+                      }
+                    }
+                  }
+                  this.loading = false;
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+
+              for (let k = 0; k < contractnumbercount.length; k++)
+              {
+                contractnumbercount[k].flag = false;
+                this.form.tableclaimtype.push(contractnumbercount[k]);
+              }
+
+              //add ccm
+
               if (this.displaycompound) {
                 this.optionscompound = [];
 
@@ -1962,10 +2051,10 @@
             this.loading = false;
           });
       } else {
-        this.buttonList[1].disabled = true;
+        this.buttonList[3].disabled = true;
       }
       if (this.buttonList.length > 2) {
-        this.buttonList[3].disabled = true;
+        this.buttonList[2].disabled = true;
       }
       let userid = this.$store.getters.userinfo.userid;
       if (userid !== null && userid !== '') {
@@ -1983,13 +2072,15 @@
       this.getcustomerinfor();
       //テーマ
       //upd-ws-01/06-禅道任务710
-      this.getdata('0');
+      //add_qhr_20210707 去掉参数
+      this.getdata();
       //upd-ws-01/06-禅道任务710
       //get project
       this.getProjectList();
     },
     created() {
       this.disabled = this.$route.params.disabled;
+      this.bookStatussawardafter = this.$route.params.disabled;
       //add-ws-6/22-禅道152任务
       if (this.disabled) {
         this.show10 = true;
@@ -2047,6 +2138,28 @@
       //         });
       //     }
       // },
+      //add    ml   20210716  审批状态   from
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.tabledata[0].status = '3';
+        } else if (val.state === '2') {
+          this.form.tabledata[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.form.tabledata[0].status = '2';
+        } else if (val.state === '2') {
+          this.form.tabledata[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      end() {
+        this.form.tabledata[0].status = '0';
+        // this.buttonClick("cancellation");
+      },
+      //add    ml   20210716  审批状态   to
       onRecoverystatus(val) {
         if (val.recoverystatus === '1') {
           val.recoverydate = moment(new Date()).format('YYYY-MM-DD');
@@ -2372,20 +2485,23 @@
       handleClickChange(row) {
         this.recordDataB.theme = row.themename;
         this.recordDataB.temaid = row.themeplandetail_id;
+        //add_qhr_20210707 添加字段值
+        this.recordDataB.themeinfor_id = row.themeinfor_id;
         this.dialogVisibleB = false;
       },
-      changed() {
-        if (this.region === '2') {
-          this.getdata('1');
-        } else if (this.region === '1') {
-          this.getdata('0');
-        }
-      },
-      getdata(type) {
+      //add_qhr_20210707 取消theme区分
+      // changed() {
+      //   if (this.region === '2') {
+      //     this.getdata('1');
+      //   } else if (this.region === '1') {
+      //     this.getdata('0');
+      //   }
+      // },
+      getdata() {
         this.tableB = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS1043Store/themenametype', {'type': type})
+          .dispatch('PFANS1043Store/themenametype', {'year': this.year})//add_qhr_20210707 修改传参
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].branch != '' && response[j].branch != null) {
@@ -2409,6 +2525,8 @@
               this.tableB.push(
                 {
                   themeplandetail_id: response[j].themeplandetail_id,
+                  //add_qhr_20210707 添加字段值
+                  themeinfor_id: response[j].themeinfor_id,
                   themename: response[j].themename,
                   divide: response[j].branch,
                   contract: response[j].contracttype,
@@ -2799,24 +2917,50 @@
       addRowclaimtype1(rows) {
         let letclaimtype = '';
         if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0) {
-          if (this.form.tableclaimtype[0].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+          if (this.form.tableclaimtype[this.form.tableclaimtype.length-1].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
             letclaimtype = this.$t('label.PFANS1024VIEW_LETTERS');
           }
         }
         let flag = 0;
         let con = rows.length + 1;
         let cla = 0;
-        for (let h = 0; h < this.tableclaimtypeAnt.length; h++) {
-          if (this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1) {
-            flag++;
-            cla = h;
-          }
-        }
+        // for (let h = 0; h < this.tableclaimtypeAnt.length; h++) {
+        //   if (this.tableclaimtypeAnt[h].claimtype.indexOf(con) != -1) {
+        //     flag++;
+        //     cla = h;
+        //   }
+        // }
         if (flag == 0) {
+          let lengthjue = 0;
+          if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0)
+          {
+            let claimtypelinshi = this.form.tableclaimtype.filter(item => item.flag != true);
+            for (let h = 0; h < claimtypelinshi.length; h++) {
+              if (claimtypelinshi[h].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+              {
+                lengthjue = lengthjue+1;
+              }
+              claimtypelinshi[h].napinbook = false;
+            }
+            //
+            for (let d = 0; d < this.form.tableclaimtype.length; d++)
+            {
+              let claimtypefanlinshi = claimtypelinshi.filter(item => item.claimtype === this.form.tableclaimtype[d].claimtype);
+              if (claimtypefanlinshi)
+              {
+                this.form.tableclaimtype.napinbook = false;
+              }
+            }
+          }
+          let letclaimtypejue = rows.length + 1;
+          if (lengthjue != 0)
+          {
+            letclaimtypejue = lengthjue+1;
+          }
           this.form.tableclaimtype.push({
             contractnumbercount_id: '',
             contractnumber: this.letcontractnumber,
-            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length + 1) + this.$t('label.PFANS1026FORMVIEW_H'),
+            claimtype: letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letclaimtypejue + this.$t('label.PFANS1026FORMVIEW_H'),
             deliverydate: '',
             bookStatus: false,
             completiondate: '',
@@ -2837,14 +2981,19 @@
             remarksqh: '',
             recoverystatus: '0',
             recoverydate: '',
+            napinbook:false,
           });
-        } else {
-          this.tableclaimtypeAnt[cla].claimtype = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + (rows.length + 1) + this.$t('label.PFANS1026FORMVIEW_H');
-          this.tableclaimtypeAnt[cla].contractnumbercount_id = '';
-          this.tableclaimtypeAnt[cla].contractnumber = this.letcontractnumber;
-          this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
-        }
 
+          let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letclaimtypejue + this.$t('label.PFANS1026FORMVIEW_H');
+          let option1 = {};
+          option1.code = letclaimtypeone;
+          option1.value = letclaimtypeone;
+
+          if (this.optionscompound.indexOf(option1)==-1)
+          {
+            this.optionscompound.push(option1);
+          }
+        }
       },
       deleteRowclaimtype1(index, rows) {
         let datainfo = {};
@@ -2867,8 +3016,25 @@
               } else {
                 if (rows.length > 1) {
                   rows.splice(index, 1);
+                  let lengthjue = 0;
+                  if (this.form.tableclaimtype != null && this.form.tableclaimtype.length > 0)
+                  {
+                    for (let h = 0; h < this.form.tableclaimtype.length; h++) {
+                      if (this.form.tableclaimtype[h].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) === -1)
+                      {
+                        lengthjue = lengthjue+1;
+                      }
+                      this.form.tableclaimtype[h].napinbook = false;
+                    }
+                  }
                   for (let i = index; i < rows.length; i++) {
-                    this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1) + this.$t('label.PFANS1026FORMVIEW_H');
+                    if (this.form.tableclaimtype[i].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
+                      this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1024VIEW_LETTERS') + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1 - lengthjue) + this.$t('label.PFANS1026FORMVIEW_H');
+                    }
+                    else
+                    {
+                      this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1026FORMVIEW_D') + (i + 1 - lengthjue) + this.$t('label.PFANS1026FORMVIEW_H');
+                    }
                   }
                 } else {
                   let letclaimtype = '';
@@ -2902,8 +3068,10 @@
                       remarksqh: '',
                       recoverystatus: '',
                       recoverydate: '',
+                      napinbook : false,
                     },
                   ];
+                  this.optionscompound=[];
                 }
               }
             }
@@ -2965,19 +3133,21 @@
         //   this.claimamount4 = val.claimamount;
         // }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  start
+        let tabletype = this.form.tableclaimtype.filter(item => item.flag!=true);
         for (let i = 0; i < this.form.tabledata.length; i++) {
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let sumclaimamount = 0;
-            for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-              this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+            for (let i = 0; i < tabletype.length; i++) {
+              sumclaimamount = sumclaimamount + Number(tabletype[i].claimamount);
             }
+            this.form.tabledata[i].claimamount = sumclaimamount;
           }
         }
         //add_fjl_0804  合同金额 = 明细【请求金额】合计值  end
         for (let i = 0; i < this.form.tablecompound.length; i++) {
-          for (let j = 0; j < this.form.tableclaimtype.length; j++) {
+          for (let j = 0; j < tabletype.length; j++) {
             if (this.form.tablecompound[i].claimtype.indexOf(this.$t('label.PFANS1026FORMVIEW_D') + (j + 1) + this.$t('label.PFANS1026FORMVIEW_H')) != -1) {
-              this.form.tablecompound[i].claimamount = this.this.form.tableclaimtype[j].claimamount;
+              this.form.tablecompound[i].claimamount = tabletype[j].claimamount;
             }
           }
 
@@ -3002,7 +3172,8 @@
           val.claimamount = datamount[0].claimamount;
         } else {
           //新建
-          datamount = this.form.tableclaimtype.filter(item => item.claimtype == val.claimtype);
+          let tabletype = this.form.tableclaimtype.filter(item => item.flag!=true);
+          datamount = tabletype.filter(item => item.claimtype == val.claimtype);
           if (datamount.length > 0) {
             val.claimamount = datamount[0].claimamount;
           }
@@ -3026,13 +3197,13 @@
         this.tableclaimtypeAnt = [];
         this.$refs['refform1'].validate(valid => {
           if (valid) {
-            if (this.form.tableclaimtype.length != 0) {
-              for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-                if (this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003') {
-                  this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
-                }
-              }
-            }
+            // if (this.form.tableclaimtype.length != 0) {
+            //   for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+            //     if (this.form.tableclaimtype[i].deliveryconditionqh == 'HT009003') {
+            //       this.tableclaimtypeAnt.push(this.form.tableclaimtype[i]);
+            //     }
+            //   }
+            // }
             this.form.claimtype = this.form1.claimtype;
             this.form.contractnumber = this.form1.contractnumber;
             this.form.contracttype = this.form1.contracttype;
@@ -3040,6 +3211,9 @@
             this.form.entrycondition = this.form1.entrycondition;
             if (this.$route.params._id) {
               this.handleClick();
+              this.bookStatuss = false;
+              this.disabled = true;
+              this.disabled3 = false;
             } else {
               if (this.form.tabledata.length > 0) {
                 this.$confirm(this.$t('normal.confirm_iscontinue'), this.$t('normal.info'), {
@@ -3050,6 +3224,9 @@
                   this.form.tabledata = [];
                   this.form.tableclaimtype = [];
                   this.handleClick();
+                  this.bookStatuss = false;
+                  this.disabled = true;
+                  this.disabled3 = false;
                 }).catch(() => {
                   this.$message({
                     type: 'info',
@@ -3059,6 +3236,9 @@
                 });
               } else {
                 this.handleClick();
+                this.bookStatuss = false;
+                this.disabled = true;
+                this.disabled3 = false;
               }
             }
           } else {
@@ -3232,48 +3412,50 @@
         // }
         //add gbb 20210508 合同觉书的情况带入旧合同回数 start
         let letint = 0;
+        let tableclaimtypenew = [];
+        let tableclaimtypefilter = [];
         if (this.checked) {
           for (let i = 0; i < this.form.tableclaimtype.length; i++) {
-            let a = '0';
-            this.form.tableclaimtype[i].npbook = false;
-            for (let x = 0; x < this.DataList.length; x++) {
-              if(this.DataList[x].award === this.$t('title.PFANS1031VIEW')){
-                if (this.DataList[x].awardtype === this.form.tableclaimtype[i].claimtype) {
-                  a = '1';
-                  this.form.tableclaimtype[i].npbook = true;
-                }
-              }
+            if (this.form.tableclaimtype[i].tenantid === '0')
+            {
+              this.form.tableclaimtype[i].flag = true;
+              this.form.tableclaimtype[i].napinbook = true;
+              tableclaimtypenew.push(this.form.tableclaimtype[i]);
             }
-            if(a === '0'){
-                letint = letint + 1;
-                let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-                this.form.tableclaimtype[i].claimtype = letclaimtypeone;
-            }
-            // if(!this.form.tableclaimtype[i].book){
-            //   letint = letint + 1;
-            //   let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-            //   this.form.tableclaimtype[i].claimtype = letclaimtypeone;
-            // }
-            this.form.tableclaimtype[i].contractnumbercount_id = '';
-            this.form.tableclaimtype[i].contractnumber = this.letcontractnumber;
-            let option = [];
-            option.code = letclaimtypeone;
-            option.value = letclaimtypeone;
-            this.optionscompound.push(option);
           }
+
+          tableclaimtypefilter = this.form.tableclaimtype.filter(item => item.tenantid != '0');
+          for (let t = 0; t < tableclaimtypefilter.length; t++)
+          {
+            if(t < this.form.claimtype){
+              letint = letint + 1;
+              let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+              tableclaimtypefilter[t].claimtype = letclaimtypeone;
+              tableclaimtypefilter[t].contractnumbercount_id = '';
+              tableclaimtypefilter[t].contractnumber = this.letcontractnumber;
+              tableclaimtypefilter[t].napinbook = false;
+              tableclaimtypefilter[t].npbook = false;
+              tableclaimtypenew.push(tableclaimtypefilter[t]);
+              let option = [];
+              option.code = letclaimtypeone;
+              option.value = letclaimtypeone;
+              this.optionscompound.push(option);
+            }
+          }
+          this.form.tableclaimtype = tableclaimtypenew;
         }
         else{
           this.form.tableclaimtype = [];
         }
-        for (let i = this.form.tableclaimtype.length; i < this.form.claimtype; i++) {
+        for (let i = tableclaimtypefilter.length; i < this.form.claimtype; i++) {
           letint = letint + 1;
           let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
           this.addRowclaimtype1(this.form.tableclaimtype);
-          this.form.tableclaimtype[i].claimtype = letclaimtypeone;
-          let option = [];
-          option.code = letclaimtypeone;
-          option.value = letclaimtypeone;
-          this.optionscompound.push(option);
+          // this.form.tableclaimtype[i].claimtype = letclaimtypeone;
+          // let option = [];
+          // option.code = letclaimtypeone;
+          // option.value = letclaimtypeone;
+          // this.optionscompound.push(option);
         }
         //add gbb 20210508 合同觉书的情况带入旧合同回数 end
         //请求金额
@@ -3551,6 +3733,16 @@
         for (let i = 0; i < this.form.tabledata.length; i++) {
           let o = {};
           Object.assign(o, this.form.tabledata[i]);
+          //add  ml   20210707    合同期间check   from
+          if(!this.form.tabledata[i].claimdatetime || this.form.tabledata[i].claimdatetime === ''){
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1026VIEW_CONTRACTPERIOD'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //add  ml   20210707    合同期间check   to
           // if(this.form.tabledata[i].currencyposition !== '' && this.form.tabledata[i].currencyposition !== null){
           //   for(let k = 0;k < this.options.length;k++){
           //     if(this.form.tabledata[i].currencyposition === this.options[k].value){
@@ -3602,10 +3794,13 @@
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
-              //请求番号
-              let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
-              this.form.tableclaimtype[j].claimnumber = claimnumber;
+              if (this.form.tableclaimtype[j].flag!=true)
+              {
+                letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                //请求番号
+                let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
+                this.form.tableclaimtype[j].claimnumber = claimnumber;
+              }
             }
             o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
@@ -3622,10 +3817,11 @@
 //              baseInfo.contractapplication = this.tabledata;
         //UPD_FJL  start
         //回数详情table
-        for (let i = 0; i < this.form.tableclaimtype.length; i++) {
+        let tableType = this.form.tableclaimtype.filter(item=>item.flag!=true);
+        for (let i = 0; i < tableType.length; i++) {
           let p = {};
-          Object.assign(p, this.form.tableclaimtype[i]);
-          p.claimdatetimeqh = this.getclaimdatetime(this.form.tableclaimtype[i].claimdatetimeqh);
+          Object.assign(p, tableType[i]);
+          p.claimdatetimeqh = this.getclaimdatetime(tableType[i].claimdatetimeqh);
           baseInfo.contractnumbercount.push(p);
         }
         //UPD_FJL   end
@@ -3649,38 +3845,38 @@
           this.handleIndexDisabled();
         }
         else if (value === 'cancellation') {
-            //废弃
-            this.handleCancellation(baseInfo);
+          //废弃
+          this.handleCancellation(baseInfo);
         }
         else {
           this.handleSaveContract(value, baseInfo);
         }
       },
-        //废弃
+      //废弃
       handleCancellation(baseInfo) {
-          this.loading = true;
-            if (this.$route.params._id) {
-                this.$store.dispatch('PFANS1026Store/update', baseInfo)
-                    .then(response => {
-                        this.data = response;
-                        Message({
-                            message: this.$t('normal.success_02'),
-                            type: 'success',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                        this.paramsTitle();
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            }
-        },
+        this.loading = true;
+        if (this.$route.params._id) {
+          this.$store.dispatch('PFANS1026Store/update', baseInfo)
+            .then(response => {
+              this.data = response;
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              this.paramsTitle();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
 
       // add_fjl_0604 --添加请求书和纳品书的选择生成
       handleSelectionChange(val) {
@@ -3696,20 +3892,21 @@
             let checkdate = 0;
             let checkdate1 = 0;
             let error = 0;
-            for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              if (parseFloat(this.form.tableclaimtype[j].claimamount) === 0
-                || this.form.tableclaimtype[j].claimamount === ''
-                || this.form.tableclaimtype[j].claimamount === undefined) {
+            let tableType = this.form.tableclaimtype.filter(item=>item.flag!=true);
+            for (let j = 0; j < tableType.length; j++) {
+              if (parseFloat(tableType[j].claimamount) === 0
+                || tableType[j].claimamount === ''
+                || tableType[j].claimamount === undefined) {
                 checksum = checksum + 1;
               }
               // add_fjl 纳品预定日必填check  start
-              if (this.form.tableclaimtype[j].deliverydate === '' ||
-                this.form.tableclaimtype[j].deliverydate === null) {
+              if (tableType[j].deliverydate === '' ||
+                tableType[j].deliverydate === null) {
                 checkdate = 1;
               }
               //请求日
-              if (this.form.tableclaimtype[j].claimdate === '' ||
-                this.form.tableclaimtype[j].claimdate === null) {
+              if (tableType[j].claimdate === '' ||
+                tableType[j].claimdate === null) {
                 checkdate1 = 1;
               }
               // add_fjl 纳品预定日必填check  end
@@ -3769,8 +3966,8 @@
                   checkgroup = checkgroup + 1;
                 }
               }
-              for (let y = 0; y < this.form.tableclaimtype.length; y++) {
-                if (this.form.tablecompound[x].claimtype === this.form.tableclaimtype[y].claimtype) {
+              for (let y = 0; y < tableType.length; y++) {
+                if (this.form.tablecompound[x].claimtype === tableType[y].claimtype) {
                   let op = [];
                   op.claimtype = this.form.tablecompound[x].claimtype;
                   op.contractrequestamount = this.form.tablecompound[x].contractrequestamount;
@@ -3817,8 +4014,8 @@
             });
             // PSDCD_PFANS_20210310_BUG_030 ztc start
             let datamountMap = new Map();
-            for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-              datamountMap.set(this.form.tableclaimtype[t].claimtype, this.form.tableclaimtype[t].claimamount);
+            for (let t = 0; t < tableType.length; t++) {
+              datamountMap.set(tableType[t].claimtype, tableType[t].claimamount);
             }
             let scanList = [];
             let scanMap = new Map();
@@ -3859,9 +4056,9 @@
             // 复合合同分配金额校验
             if(this.form.contracttype === 'HT008002' || this.form.contracttype === 'HT008004'
               || this.form.contracttype === 'HT008006' || this.form.contracttype === 'HT008008'){
-              for (let t = 0; t < this.form.tableclaimtype.length; t++) {
-                let dataMapChild = datamountMap.get(this.form.tableclaimtype[t].claimtype);
-                let scanMapChild = scanMap.get(this.form.tableclaimtype[t].claimtype);
+              for (let t = 0; t < tableType.length; t++) {
+                let dataMapChild = datamountMap.get(tableType[t].claimtype);
+                let scanMapChild = scanMap.get(tableType[t].claimtype);
                 if (dataMapChild != scanMapChild) {
                   Message({
                     message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
@@ -4085,25 +4282,55 @@
             this.getChecked(true);
           }
         }
+        //add  ml  20210706   契约番号废弃check   from
         if (val === 'cancellation') {
-          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
-            confirmButtonText: this.$t('button.confirm'),
-            cancelButtonText: this.$t('button.cancel'),
-            type: 'warning',
-          }).then(() => {
-            for (let i = 0; i < this.form.tabledata.length; i++) {
-              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-              this.form.tabledata[i].entrycondition = 'HT004001';
-            }
-            this.handleSave('cancellation');
-          }).catch(() => {
-            this.$message({
+          if( this.form.tabledata[0].user_id !== this.$store.getters.userinfo.userid ){
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
               type: 'info',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+              duration: 2 * 1000,
             });
             return;
-          });
+          }
+          this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+            .then(response => {
+              if( response == true){
+                this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                    this.$store.commit('global/SET_OPERATEID', this.IDname);
+                    this.$refs.container.$refs.workflow.startWorkflow();
+                  }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              } else {
+                this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  for (let i = 0; i < this.form.tabledata.length; i++) {
+                    this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                    this.form.tabledata[i].entrycondition = 'HT004001';
+                  }
+                  this.handleSave('cancellation');
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              }
+            })
         }
+        //add  ml  20210706   契约番号废弃check   to
         // this.display = false;
         // this.checkeddisplay = false;
         // this.dialogFormVisible = true;

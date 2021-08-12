@@ -3,6 +3,12 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
+                         @end="end" @start="start"
+                         @workflowState="workflowState"
+                         @StartWorkflow="buttonClick"
+                         :enableSave="enableSave"
+                         :workflowCode="workflowCode"
+                         :canStart="canStart"
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -262,14 +268,14 @@
                   :multiple="multiple"
                   @change="getEntrycondition"
                   style="width: 11rem"
-                  :disabled="!disabled">
+                  :disabled="book ? (!bookawardafter ? true:false) : !disabled">
                 </dicselect>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_ENTRYPAYMENT')" align="center" prop="entrypayment"
                              width="200">
               <template slot-scope="scope">
-                <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment"
+                <el-date-picker :disabled="book ? (!bookawardafter ? true:false) : !disabled" type="date" v-model="scope.row.entrypayment"
                                 style="width: 11rem"></el-date-picker>
               </template>
             </el-table-column>
@@ -365,10 +371,11 @@
                            size="40%"
                            append-to-body>
                   <div>
-                    <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
-                      <el-option :label="$t(titleC)" value="2"></el-option>
-                    </el-select>
+<!--                    add_qhr_20210707 取消theme区分-->
+<!--                    <el-select @change="changed" v-model="region">-->
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+<!--                    </el-select>-->
                     <el-table
                       :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))"
                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
@@ -472,21 +479,21 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="placejapanese"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placejapanese">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placejapanese">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="placeenglish"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placeenglish">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placeenglish">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="placechinese"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placechinese">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placechinese">
                   </el-input>
                 </template>
               </el-table-column>
@@ -495,26 +502,26 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREJAPANESE')" align="center" prop="responjapanese"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responjapanese">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responjapanese">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_BEFOREENGLISH')" align="center" prop="responerglish"
                                width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responerglish">
+                  <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responerglish">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responphone">
+                  <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responphone">
                   </el-input>
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
-                  <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
+                  <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responemail">
                   </el-input>
                 </template>
               </el-table-column>
@@ -589,7 +596,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <!--                <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>-->
-                <el-input :disabled="scope.row.book ? true : !disabled3" v-model="scope.row.claimtype">
+                <el-input :disabled="book ? true : !disabled3" v-model="scope.row.claimtype">
                 </el-input>
                 <!--                </el-form-item>-->
               </template>
@@ -597,27 +604,27 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" prop="deliverydate"
                              width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" prop="completiondate"
                              width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.completiondate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.completiondate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.claimdate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.claimdate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" prop="supportdate"
                              width="170">
               <template slot-scope="scope">
-                <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.supportdate"
+                <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.supportdate"
                                 style="width: 9rem"></el-date-picker>
               </template>
             </el-table-column>
@@ -625,7 +632,7 @@
                              width="190">
               <template slot-scope="scope">
                 <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                 :disabled="scope.row.book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                                 :disabled="book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS3005VIEW_NUMBERS')" align="center" prop="purnumbers" width="190"
@@ -691,6 +698,12 @@
         }
       };
       return {
+        //add  ml  20210719  审批流程  from
+        enableSave: false,
+        canStart: false,
+        workflowCode: 'W0144',
+        dataID: '',
+        //add  ml  20210719  审批流程  to
         //add-ws-01/06-禅道任务710
         search1: '',
         //add-ws-01/06-禅道任务710
@@ -741,6 +754,8 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
+        book:false,
+        bookawardafter:true,
         rules1: {
           claimtype: [
             {
@@ -802,11 +817,6 @@
             disabled: false,
           },
           {
-            key: 'cancellation',
-            name: 'button.cancellation',
-            disabled: false,
-          },
-          {
             key: 'save',
             name: 'button.save',
             disabled: false,
@@ -814,6 +824,11 @@
           {
             key: 'makeinto',
             name: 'button.makeinto',
+            disabled: false,
+          },
+          {
+            key: 'cancellation',
+            name: 'button.cancellation',
             disabled: false,
           },
         ],
@@ -896,9 +911,12 @@
         enableButton: true,
         disableCG: false,
         //add ccm 0722
+        //add_qhr_20210707添加年份参数
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {
+      this.dataID = this.$route.params._id;  //add  ml  20210719  设置审批流程的DATAID
       if (this.$route.params.contractnumbercount) {
         this.contractnumbercount = this.$route.params.contractnumbercount;
       }
@@ -1002,9 +1020,15 @@
                 this.showCG = false;
               }
               for (let i = 0; i < contractnumbercount.length; i++) {
-                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
-                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
-                  contractnumbercount[i].book = true;
+                //决裁书已经进行中或是结束，编辑后，合同不可编辑
+                if (contractnumbercount[i].bookStatus === true ) {
+                  this.book = true;
+                  this.disabled3 = false;
+                  this.disabled = false;
+                }
+                else
+                {
+                  this.book = false;
                 }
               }
               this.tableclaimtype = contractnumbercount;
@@ -1021,7 +1045,7 @@
             this.loading = false;
           });
       } else {
-        this.buttonList[1].disabled = true;
+        this.buttonList[3].disabled = true;
       }
 
       let userid = this.$store.getters.userinfo.userid;
@@ -1044,7 +1068,8 @@
       this.getsupplierinfor();
       //テーマ
       //upd-ws-01/06-禅道任务710
-      this.getdata('0');
+      //add_qhr_20210707去掉参数
+      this.getdata();
       //upd-ws-01/06-禅道任务710
       //get project
       this.getProjectList();
@@ -1054,17 +1079,40 @@
     created() {
       this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1033View');
       this.disabled = this.$route.params.disabled;
+      this.bookawardafter = this.$route.params.disabled;
       if (!this.disabled || this.$route.params.state === this.$t('label.PFANS8008FORMVIEW_INVALID')) {
         this.buttonList = [];
       }
       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-start
        //画面没有 makeinto按钮，删除
       if(this.$route.params._id === ''){
-          this.buttonList[3].disabled = true;
+          this.buttonList[2].disabled = true;
       }
       //add-lyt-21/3/10-NT_PFANS_20210226_BUG_027-end
     },
     methods: {
+      //add    ml   20210716  审批状态   from
+      workflowState(val) {
+        if (val.state === '1') {
+          this.tablefourth[0].status = '3';
+        } else if (val.state === '2') {
+          this.tablefourth[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.tablefourth[0].status = '2';
+        } else if (val.state === '2') {
+          this.tablefourth[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      end() {
+        this.tablefourth[0].status = '0';
+        // this.buttonClick("cancellation");
+      },
+      //add    ml   20210716  审批状态   to
       getProjectList() {
         this.loading = true;
         this.$store
@@ -1126,20 +1174,23 @@
       handleClickChange(row) {
         this.recordDataB.theme = row.themename;
         this.recordDataB.temaid = row.themeplandetail_id;
+        //add_qhr_20210707添加字段值
+        this.recordDataB.themeinfor_id = row.themeinfor_id;
         this.dialogVisibleB = false;
       },
-      changed() {
-        if (this.region === '2') {
-          this.getdata('1');
-        } else if (this.region === '1') {
-          this.getdata('0');
-        }
-      },
-      getdata(type) {
+      // add_qhr_20210707 取消theme区分
+      // changed() {
+      //   if (this.region === '2') {
+      //     this.getdata('1');
+      //   } else if (this.region === '1') {
+      //     this.getdata('0');
+      //   }
+      // },
+      getdata() {
         this.tableB = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS1043Store/themenametype', {'type': type})
+          .dispatch('PFANS1043Store/themenametype', {'year': this.year})//add_qhr_20210707  修改传参
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].branch != '' && response[j].branch != null) {
@@ -1163,6 +1214,8 @@
               this.tableB.push(
                 {
                   themeplandetail_id: response[j].themeplandetail_id,
+                  //add_qhr_20210707 添加字段值
+                  themeinfor_id: response[j].themeinfor_id,
                   themename: response[j].themename,
                   divide: response[j].branch,
                   contract: response[j].contracttype,
@@ -1240,7 +1293,7 @@
             }
             this.dataA = response;
             if (this.enableButton === false && this.buttonList.length > 3) {
-              this.buttonList[3].disabled = false;
+              this.buttonList[2].disabled = false;
             }
             this.loading = false;
           })
@@ -1298,7 +1351,7 @@
             }
 //            this.contractnumbercount = (letcontractnumber.length + 1);
             if (this.enableButton === false && this.buttonList.length > 3) {
-              this.buttonList[3].disabled = false;
+              this.buttonList[2].disabled = false;
             }
             this.loading = false;
           })
@@ -1661,11 +1714,9 @@
             if (this.checked) {
               for (let i = 0; i < this.tableclaimtypeold.length; i++) {
                 if(i < this.form.claimtype){
-                  if(!this.tableclaimtypeold[i].book){
-                    letint = letint + 1;
-                    let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-                    this.tableclaimtypeold[i].claimtype = letclaimtypeone;
-                  }
+                  letint = letint + 1;
+                  let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+                  this.tableclaimtypeold[i].claimtype = letclaimtypeone;
                   this.tableclaimtypeold[i].contractnumbercount_id = '';
                   this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
                   tableclaimtypenew.push(this.tableclaimtypeold[i]);
@@ -1700,6 +1751,9 @@
 
             this.addRowfourth();
             this.getChecked(false);
+            this.book = false;
+            this.disabled = true;
+            this.disabled3 = false;
             this.dialogVisibleC = false;
           } else {
             Message({
@@ -1730,18 +1784,32 @@
       },
       //保存
       handleSave(tabledatabook) {
-
         let baseInfo = {};
         baseInfo.contractapplication = [];
         baseInfo.contractnumbercount = [];
         let tabledata = [];
         tabledata = this.tablefourth;
-
+        let contractdatetemp =[];
         for (let i = 0; i < tabledata.length; i++) {
           if (this.$route.params._applicantdeptcode) {
             tabledata[i].checkindivdual = '1';
           }
           //tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
+          //add  ml   20210707    合同期间check   from
+          if(!tabledata[i].contractdate || tabledata[i].contractdate === '' || tabledata[i].contractdate.length===0){
+            tabledata[0].contractdate = contractdatetemp;
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          else
+          {
+            contractdatetemp = tabledata[0].contractdate;
+          }
+          //add  ml   20210707    合同期间check   to
           tabledata[i].contractdate = this.getcontractdate(tabledata[i].contractdate);
           tabledata[i].contracttype = this.form.contracttype;
           if (tabledata[i].entrycondition === 'HT004001') {
@@ -1773,7 +1841,7 @@
                     this.handleSaveNumber(tabledatabook);
                   } else {
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message:  this.$t('normal.success_01'),
                       type: 'success',
                       duration: 5 * 1000,
                     });
@@ -1783,7 +1851,7 @@
                 })
                 .catch(error => {
                   Message({
-                    message: error,
+                    message: this.$t('normal.error_12'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -1855,30 +1923,55 @@
 
           }
         }
+        //add  ml  20210706   契约番号废弃check   from
         if (val === 'cancellation') {
-          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
-            confirmButtonText: this.$t('button.confirm'),
-            cancelButtonText: this.$t('button.cancel'),
-            type: 'warning',
-          }).then(() => {
-            this.$message({
-              type: 'success',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis2'),
-            });
-          }).then(() => {
-            for (let i = 0; i < this.tablefourth.length; i++) {
-              this.tablefourth[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-              this.tablefourth[i].entrycondition = 'HT004001';
-            }
-            this.handleSaveLin('cancellation');
-          }).catch(() => {
-            this.$message({
+          if( this.tablefourth[0].user_id !== this.$store.getters.userinfo.userid ){
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
               type: 'info',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+              duration: 2 * 1000,
             });
             return;
-          });
+          }
+          this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+            .then(response => {
+              if( response == true){
+                this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  this.$store.commit('global/SET_OPERATEID', this.dataID);
+                  this.$refs.container.$refs.workflow.startWorkflow();
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              } else {
+                this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  for (let i = 0; i < this.tablefourth.length; i++) {
+                    this.tablefourth[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                    this.tablefourth[i].entrycondition = 'HT004001';
+                  }
+                  this.handleSave('cancellation');
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              }
+            })
         }
+        //add  ml  20210706   契约番号废弃check   to
         if (val === 'save') {
           this.handleSaveLin('save');
         }

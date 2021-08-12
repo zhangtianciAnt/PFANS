@@ -275,7 +275,10 @@
                             bpcostcount: this.coststatistics[i].bpcostcount,
                             groupid: this.$route.params._id.split(",")[0],
                             groupname: getOrgInfo(this.$route.params._id.split(",")[0]).companyen,
-                            dates:moment(tempDate).format('YYYY-MM')
+                            //region  add_qhr_20210616 月度总览存入工数字段
+                            dates:moment(tempDate).format('YYYY-MM'),
+                            manhour: (Number(this.coststatistics[i].ex1manhour0) + Number(this.coststatistics[i].ex2manhour0)).toFixed(2),
+                            //endregion  add_qhr_20210616 月度总览存入工数字段
                         },
                     );
                 }

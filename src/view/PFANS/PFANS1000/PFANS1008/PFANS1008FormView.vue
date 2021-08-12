@@ -81,16 +81,17 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012FORMVIEW_BUDGET')" prop="ferrybudgetunit">
                     <!--                <el-input :disabled="true" style="width:20vw" v-model="form.ferrybudgetunit" maxlength='50'></el-input>-->
-                    <el-select clearable style="width: 20vw" v-model="form.ferrybudgetunit" :disabled="!disabled"
-                               :placeholder="$t('normal.error_09')">
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.lable"
-                        :value="item.value"
-                        @change="changeBut">
-                      </el-option>
-                    </el-select>
+                    <el-input :disabled="true" style="width:20vw" v-model="form.ferrybudgetunit"></el-input>
+<!--                    <el-select clearable style="width: 20vw" v-model="form.ferrybudgetunit" :disabled="!disabled"-->
+<!--                               :placeholder="$t('normal.error_09')">-->
+<!--                      <el-option-->
+<!--                        v-for="item in options"-->
+<!--                        :key="item.value"-->
+<!--                        :label="item.lable"-->
+<!--                        :value="item.value"-->
+<!--                        @change="changeBut">-->
+<!--                      </el-option>-->
+<!--                    </el-select>-->
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -124,18 +125,19 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.budgetunit')" prop="tubebudgetunit">
-                    <!--                <el-input :disabled="!disabled" style="width:20vw" v-model="form.tubebudgetunit" maxlength='50'></el-input>-->
-                    <el-select clearable style="width: 20vw" v-model="form.tubebudgetunit" :disabled="!disabled"
-                               :placeholder="$t('normal.error_09')">
-                      <el-option
-                        v-for="item in options1"
-                        :key="item.value"
-                        :label="item.lable"
-                        :value="item.value"
-                        @change="getTubebudgetunit">
-                      </el-option>
-                    </el-select>
+<!--                  <el-form-item :label="$t('label.budgetunit')" prop="tubebudgetunit">-->
+                  <el-form-item :label="$t('label.budgetunit')" >
+                    <el-input :disabled="true" style="width:20vw" v-model="form.tubebudgetunit"></el-input>
+<!--                    <el-select clearable style="width: 20vw" v-model="form.tubebudgetunit" :disabled="!disabled"-->
+<!--                               :placeholder="$t('normal.error_09')">-->
+<!--                      <el-option-->
+<!--                        v-for="item in options1"-->
+<!--                        :key="item.value"-->
+<!--                        :label="item.lable"-->
+<!--                        :value="item.value"-->
+<!--                        @change="getTubebudgetunit">-->
+<!--                      </el-option>-->
+<!--                    </el-select>-->
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -209,7 +211,7 @@
   import dicselect from "../../../components/dicselect.vue";
   import user from "../../../components/user.vue";
   import {Message} from 'element-ui'
-  import {getOrgInfo, getOrgInfoByUserId,getUserInfoName} from '@/utils/customize';
+  import {getOrgInfo, getOrgInfoByUserId, getUserInfoName} from '@/utils/customize';
   import org from "../../../components/org";
   import moment from "moment";
 
@@ -547,33 +549,12 @@
             this.tubegrouporglist = this.form.tubegroup_id;
             this.tubeteamorglist = this.form.tubeteam_id;
             //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
-            this.workflowAnt.dataId = this.$route.params._id;
-            this.workflowAnt.menuUrl = '/PFANS1008FormView';
-            this.$store
-              .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
-              this.workflowAntDate = response.data;
-              let dic = '';
-              if(this.workflowAntDate.length != 0){
-                dic = this.workflowAntDate.filter(item => item.result === '进行中')[0].nodename;
-              }else{
-                dic = '0'
+            if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
+              let groupInfo = getOrgInfo(this.form.tubegroup_id);
+              if (groupInfo) {
+                this.userlistLc.push(groupInfo.user);
               }
-              if(dic === '转入部门GM'){
-                if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
-                  let groupInfo = getOrgInfo(this.form.tubegroup_id);
-                  if (groupInfo) {
-                    this.userlistLc.push(groupInfo.user);
-                  }
-                }
-              }else if(dic === '转出部门GM' || dic === '0'){
-                if (this.form.ferrygroup_id != null && this.form.ferrygroup_id != '') {
-                  let groupInfo = getOrgInfo(this.form.ferrygroup_id);
-                  if (groupInfo) {
-                    this.userlistLc.push(groupInfo.user);
-                  }
-                }
-              }
-            });
+            }
             //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start
             //add-ws-7/2-禅道任务192
             this.getFebud(this.form.ferrycenter_id);
@@ -628,7 +609,7 @@
             }
             if (this.assetsList[i].principal !== null && this.assetsList[i].principal !== '') {
               let userinfo = getUserInfoName(this.assetsList[i].principal)
-              if(userinfo != '-1'){
+              if (userinfo != '-1') {
                 vote.person = userinfo.userid;
               }
             }
@@ -706,7 +687,7 @@
         if (val != "") {
           this.getOrgInformation(val);
           this.getFebud(val);
-        }else{
+        } else {
           this.getFebud(this.form.ferrycenter_id);
         }
         if (this.form.ferrycenter_id === "") {
@@ -728,32 +709,32 @@
         if (val !== '' && val !== null) {
           this.options = [];
           // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-          if(getOrgInfo(val)){
-              let butinfo = (getOrgInfo(val).encoding).substring(0,3);
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                  for (let i = 0; i < dic.length; i++) {
-                      if (butinfo === (dic[i].value1).substring(0,3)) {
-                          this.options.push({
-                              lable: dic[i].value3,
-                              value: dic[i].code,
-                          })
-                      }
-                  }
-              }
+          if (getOrgInfo(val)) {
+            let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            let dicAnt = dic.filter(item => (item.value2).substring(item.value2.length - 3) == '001');
+            let dicLast = dicAnt.filter(item => (item.value1).substring(0, 3) == butinfo);
+            if (dicLast.length > 0) {
+              // this.options.push({
+              //   lable: dicLast[0].value2,
+              //   value: dicLast[0].code,
+              // });
+              this.form.ferrybudgetunit = dicLast[0].value2;
           }
-          if(this.options.length === 0) {
-            if (getOrgInfo(this.form.ferrygroup_id)) {
-              let butinfo = (getOrgInfo(this.form.ferrygroup_id).encoding).substring(0, 3);
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                for (let i = 0; i < dic.length; i++) {
-                  if (butinfo === (dic[i].value1).substring(0, 3)) {
-                    this.options.push({
-                      lable: dic[i].value2 + '_' + dic[i].value3,
-                      value: dic[i].code,
-                    });
-                  }
+            if (this.options.length === 0) {
+              if (getOrgInfo(this.form.ferrygroup_id)) {
+                let butinfo = (getOrgInfo(this.form.ferrygroup_id).encoding).substring(0, 3);
+                let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                let dicAnt = dic.filter(item => (item.value2).substring(item.value2.length - 3) == '001');
+                let dicLast = dicAnt.filter(item => (item.value1).substring(0, 3) == butinfo);
+                console.log(dicLast)
+                if (dicLast.length > 0) {
+                  // this.options.push({
+                  //   lable: dicLast[0].value2,
+                  //   value: dicLast[0].code,
+                  // });a
+                  this.form.ferrybudgetunit = dicLast[0].value2;
+                  // alert(this.form.ferrybudgetunit)
                 }
               }
             }
@@ -761,45 +742,43 @@
           // }
         } else {
           this.form.ferrybudgetunit = '';
-          this.options = [];
+          // this.options = [];
         }
       },
       getFebud1(val) {
         if (val !== '' && val !== null) {
           this.options1 = [];
           // if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
-          if(getOrgInfo(val)){
-              let butinfo = (getOrgInfo(val).encoding).substring(0,3);
+          if (getOrgInfo(val)) {
+            let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+            let dicAnt = dic.filter(item => (item.value2).substring(item.value2.length - 3) == '001');
+            let dicLast = dicAnt.filter(item => (item.value1).substring(0, 3) == butinfo);
+            if (dicLast.length > 0) {
+              // this.options1.push({
+              //   lable: dicLast[0].value2,
+              //   value: dicLast[0].code,
+              // })
+              this.form.tubebudgetunit = dicLast[0].value2;
+            }
+            if (this.options1.length === 0) {
+              let butinfo = (getOrgInfo(this.form.tubegroup_id).encoding).substring(0, 3);
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                  for (let i = 0; i < dic.length; i++) {
-                      if (butinfo === (dic[i].value1).substring(0,3)) {
-                          this.options1.push({
-                              lable: dic[i].value3,
-                              value: dic[i].code,
-                          })
-                      }
-                  }
-              }
-            if(this.options1.length === 0){
-              let butinfo = (getOrgInfo(this.form.tubegroup_id).encoding).substring(0,3);
-              let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
-              if (dic.length > 0) {
-                for (let i = 0; i < dic.length; i++) {
-                  if (butinfo === (dic[i].value1).substring(0,3)) {
-                    this.options1.push({
-                      lable: dic[i].value2 + '_' + dic[i].value3,
-                      value: dic[i].code,
-                    });
-                  }
-                }
+              let dicAnt = dic.filter(item => (item.value2).substring(item.value2.length - 3) == '001');
+              let dicLast = dicAnt.filter(item => (item.value1).substring(0, 3) == butinfo);
+              if (dicLast.length > 0) {
+                // this.options1.push({
+                //   lable: dicLast[0].value2,
+                //   value: dicLast[0].code,
+                // });
+                this.form.tubebudgetunit = dicLast[0].value2;
               }
             }
           }
           // }
         } else {
           this.form.tubebudgetunit = '';
-          this.options1 = [];
+          // this.options1 = [];
         }
       },
       //ADD_FJL  修改人员预算编码
@@ -885,7 +864,7 @@
         if (val != "") {
           this.getOrgInformation2(val);
           this.getFebud1(val);
-        }else{
+        } else {
           this.getFebud1(this.form.tubecenter_id);
         }
         if (this.form.tubecenter_id === "") {

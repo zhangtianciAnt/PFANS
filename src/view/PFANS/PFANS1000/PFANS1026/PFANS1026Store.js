@@ -13,10 +13,12 @@ import {
   getindividual,
   generatesta,
   getworkfolwPurchaseData,
-  getNapinQinqiu
+  getNapinQinqiu,
+  getNaPpinAftercount,
+  dataCarryover,
+  getProject,
+  getContranumber
   } from './PFANS1026Api';
-
-
 
 const PFANS1026Store = {
   namespaced: true,
@@ -210,6 +212,7 @@ const PFANS1026Store = {
 
     getNapinQinqiu({commit}, data) {
       return new Promise((resolve, reject) => {
+        debugger;
         getNapinQinqiu(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);
@@ -221,6 +224,68 @@ const PFANS1026Store = {
         });
       });
     },
+
+    //add ccm
+    getNaPpinAftercount({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getNaPpinAftercount(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add ccm
+
+    //add  ml  20210706   契约番号废弃check   from
+    getProject({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getProject(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //add  ml  20210706   契约番号废弃check   to
+
+    dataCarryover({commit}, data) {
+      return new Promise((resolve, reject) => {
+        dataCarryover(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message);
+      }
+    }).catch(error => {
+        reject(error);
+    });
+    });
+    },
+
+    //获取合同时间，用于合同check scc
+    getContranumber({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getContranumber(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //获取合同时间，用于合同check scc
   },
 };
 

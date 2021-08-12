@@ -1,4 +1,4 @@
-import {createAppointmentCar, getAppointmentCar, getAppointmentCarOne, updateAppointmentCar,download} from './PFANS3006Api'
+import {createAppointmentCar, getAppointmentCar, getAppointmentCarOne, updateAppointmentCar,download,change} from './PFANS3006Api'
 
 const PFANS3006Store = {
   namespaced: true,
@@ -43,6 +43,20 @@ const PFANS3006Store = {
           reject(error);
         })
       })
+    },
+    //数据转结
+    change({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
     createAppointmentCar({commit}, data) {
       return new Promise((resolve, reject) => {

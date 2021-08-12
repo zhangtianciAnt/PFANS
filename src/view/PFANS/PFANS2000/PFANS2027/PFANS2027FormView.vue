@@ -88,7 +88,7 @@
                     ></plx-table-column>
                     <plx-table-column
                       :label="$t('label.PFANS2027VIEW_FORM')"
-                      prop="differenceName"
+                      prop="isexperienced"
                       width="80"
                     ></plx-table-column>
                     <plx-table-column
@@ -705,7 +705,6 @@
       return {
         role: getCurrentRole10(),  //人事 / 工资
         role1: getCurrentRole17(), //总经理
-        R: 1,
         region: '1',
         description:false,
         groupid:'',
@@ -1025,54 +1024,21 @@
               if (orgs) {
                 item.teamName = orgs.companyname;
               }
-              if (item.difference === "1") {
-                item.differenceName = this.$t("label.PFANS2027VIEW_NEWSTAFF");
-              } else if (item.difference === "2") {
-                item.differenceName = this.$t("label.PFANS2027VIEW_OLDSTAFF");
+              if (item.isexperienced === "1") {
+                item.isexperienced = this.$t("label.PFANS2027VIEW_ISEXPERIENCENO");
+              } else if (item.isexperienced === "0") {
+                item.isexperienced = this.$t("label.PFANS2027VIEW_ISEXPERIENCEYES");
               }
 
               item.enterdayFormat = moment(item.enterday).format("YYYY-MM-DD");
 
-
-              if (this.role === '0') {
-                this.R *= 0;
-              } else {
-                if (this.role1 === '0' && item.process === "4") {
-                  this.R *= 1;
-                } else if (this.role1 === '0' && item.process !== "4") {
-                  this.R *= 0;
-                } else {
-                  if (this.$route.params.evaluatenum === "PJ104001") {
-                    if (item.process === "1") {
-                      this.R *= 1;
-                    } else {
-                      this.R *= 0;
-                    }
-                  } else if (this.$route.params.evaluatenum === "PJ104002") {
-                    if (item.process === "2") {
-                      this.R *= 1;
-                    } else {
-                      this.R *= 0;
-                    }
-                  } else if (this.$route.params.evaluatenum === "PJ104003") {
-                    if (item.process === "3") {
-                      this.R *= 1;
-                    } else {
-                      this.R *= 0;
-                    }
-                  }
-                }
-              }
             }
             this.listData1 = response.lunardetail.sort();
           }
-          if (this.R === 0 ) {
-            this.buttonList[1].disabled = true;
-          } else if (this.R === 1) {
-            this.buttonList[1].disabled = false;
-          }
           if(response.submitFlg === '0'){
             this.buttonList[1].disabled = true;
+          } else if(response.submitFlg === '1'){
+            this.buttonList[1].disabled = false;
           }
           this.loading = false;
         })
@@ -1479,10 +1445,11 @@
                 type: "success",
                 duration: 5 * 1000
               });
+              if (this.$store.getters.historyUrl) {
+                this.$router.push(this.$store.getters.historyUrl);
+              }
             }
-            if (this.$store.getters.historyUrl) {
-              this.$router.push(this.$store.getters.historyUrl);
-            }
+            this.loading = false;
           })
           .catch(err => {
             this.loading = false;

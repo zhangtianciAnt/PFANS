@@ -2262,6 +2262,9 @@
                     difference: '1',
                     post: '',
                     rank: '',
+                  //ztc 解决画面新建保存【转正日】没有保存问题BUG fr
+                    enddate: '',
+                  //ztc 解决画面新建保存【转正日】没有保存问题BUG to
                     occupationtype: '',
                     laborcontracttype: '',
                     fixedate: '',
@@ -2819,16 +2822,20 @@
 
           //试用期截止日转换转正日
           changeenddate(value){
+            //ztc 解决画面新建保存【转正日】没有保存问题BUG fr
               if(value === null){
                   this.varenddate = "";
-                  this.userInfo.customerInfo.userinfo.enddate = "";
+                  // this.userInfo.customerInfo.userinfo.enddate = "";
+                  this.form.enddate = "";
                   this.rules.varenddate[0].required = true;
               }
               else{
                   this.rules.varenddate[0].required = false;
                   this.varenddate = moment(value).format("YYYY-MM-DD");
-                  this.userInfo.customerInfo.userinfo.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
+                  // this.userInfo.customerInfo.userinfo.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
+                  this.form.enddate = moment(value).add(-1,'days').format("YYYY/MM/DD");
               }
+            //ztc 解决画面新建保存【转正日】没有保存问题BUG to
           },
           //        ws-6/28-禅道141任务
           changeclassification (val) {
@@ -2976,6 +2983,9 @@
                             this.code = 'PR021';
                             this.occupationtypecode = 'PR055';
                             this.rules.occupationtype[0].required = true;
+                            //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                            this.rules.idnumber[0].required = true;
+                            //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         } else if (this.form.type === '1') {
                             // add_fjl-0604 --修改出向者赋值 start
                             // this.code = 'PJ053';
@@ -2984,6 +2994,9 @@
                                 this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
                             }
                             this.rules.occupationtype[0].required = false;
+                          //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                            this.rules.idnumber[0].required = false;
+                          //0809 类别为【出向者】身份证号码不为必填项 ztc to
                             // add_fjl-0604 --修改出向者赋值 end
                         }
                         this.form.occupationtype = '';
@@ -2995,6 +3008,9 @@
                         this.code = 'PR021';
                         this.occupationtypecode = 'PR055';
                         this.rules.occupationtype[0].required = true;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                        this.rules.idnumber[0].required = true;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         if (
                             this.form.rank === 'PR021001' ||
                             this.form.rank === 'PR021002' ||
@@ -3015,6 +3031,9 @@
                             this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
                         }
                         this.rules.occupationtype[0].required = false;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                        this.rules.idnumber[0].required = false;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         // add_fjl-0604 --修改出向者赋值 end
                     }
                 }

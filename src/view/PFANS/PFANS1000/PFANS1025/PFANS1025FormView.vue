@@ -370,24 +370,30 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center" width="170"
                                  :error="errorgroup" prop="depart">
                   <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <org :orglist="scope.row.depart"
                          orgtype="4"
-                         :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                         :disabled="false"
                          :error="errorgroup"
                          style="width: 9rem"
                          :no="scope.row"
                          @getOrgids="getGroupId"></org>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="150">
+                  <!--     region   add_qhr_20210722 修改【部门】栏宽度-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="200">
+                  <!--     endregion   add_qhr_20210722 修改【部门】栏宽度-->
                   <template slot-scope="scope">
-                    <project :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
-                             style="width: 100%" :data="scope.row.projects" :no="scope.row"
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
+                    <project :disabled="false"
+                             style="width: 100%" :date="scope.row.projects" :no="scope.row"
                              @change="changePro">
                     </project>
                   </template>
                 </el-table-column>
-                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="600">
+                  <!--  region   add_qhr_20210721 隐藏表格项目列-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="600" v-if="false">
+                  <!--  endregion   add_qhr_20210721 隐藏表格项目列-->
                   <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center" width="150" prop="member"
                                    v-if="checkdisable">
                     <template slot-scope="scope">
@@ -451,8 +457,9 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber"
                                  width="150">
                   <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <el-input-number
-                      :disabled="true"
+                      :disabled="false"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -466,8 +473,9 @@
                 <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney"
                                  width="150">
                   <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <el-input-number
-                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?!disable:true"
+                      :disabled="false"
                       :max="1000000000"
                       :min="0"
                       :no="scope.row"
@@ -501,10 +509,10 @@
               </el-table>
             </el-tab-pane>
             <!--            //add-ws-添加上传附件功能-->
-            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" prop="enclosurecontent" name="thrid">
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="thrid">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -860,6 +868,9 @@
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
             }
+            if(this.form.policycontract_id){
+              this.getpolicycontractMoney(this.form.policycontract_id);
+            }
             this.loading = false;
           })
           .catch(error => {
@@ -1000,6 +1011,24 @@
           }
         }
       },
+      getpolicycontractMoney(val) {
+        this.$store
+          .dispatch('PFANS1006Store/getpolicycontractOne', {'policycontract_id': val})
+          .then(response => {
+            if(response.policycontract.avbleamount){
+              this.modifiedamount = response.policycontract.avbleamount;
+              this.numbers = response.policycontract.policynumbers;
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       policycontractlist() {
         let parameter = {
           outsourcingcompany: this.form.custochinese,
@@ -1013,7 +1042,7 @@
                 this.optionsdata.push({
                   value: response[i].policycontract_id,
                   lable: response[i].policynumbers,
-                  moneys: response[i].modifiedamount,
+                  moneys: response[i].avbleamount,
                 });
               }
               //DEL-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
@@ -1104,9 +1133,11 @@
       getBudgetunit(val, row) {
         row.budgetcode = val;
       },
+      //region add_qhr_20210722 修改部门带入值
       changePro(val, row) {
-        row.projects = val;
+        row.projects = val.companyprojects_id;
       },
+      //endregion add_qhr_20210722 修改部门带入值
       changeSum(row) {
         row.worknumber = row.outsource;
         row.awardmoney = row.outsource * row.outcommunity;
@@ -1150,7 +1181,7 @@
             let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
             if (dic.length > 0) {
                 for (let i = 0; i < dic.length; i++) {
-                    if (butinfo === (dic[i].value1).substring(0.3)) {
+                    if (butinfo === (dic[i].value1).substring(0,3)) {
                         row.options1.push({
                             lable: dic[i].value2 + '_' + dic[i].value3,
                             value: dic[i].code,
@@ -1596,87 +1627,7 @@
                     return;
                   }
                 }
-//UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
-//               this.$store
-//                 .dispatch('PFANS1025Store/checkby', this.baseInfo)
-//                 .then(response => {
-//                   if (response.length == 1) {
-//                     if (this.params_id) {     //郛冶ｾ�
-//                       this.$store
-//                         .dispatch('PFANS1025Store/update', this.baseInfo)
-//                         .then(response => {
-//                           this.data = response;
-//                           this.loading = false;
-//                           Message({
-//                             message: this.$t('normal.success_02'),
-//                             type: 'success',
-//                             duration: 5 * 1000,
-//                           });
-//                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
-//                           if (val === 'StartWorkflow') {
-//                             this.$refs.container.$refs.workflow.startWorkflow();
-//                           } else {
-//                             this.paramsTitle();
-//                           }
-//                           //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-//                         })
-//                         .catch(error => {
-//                           Message({
-//                             message: error,
-//                             type: 'error',
-//                             duration: 5 * 1000,
-//                           });
-//                           this.loading = false;
-//                         });
-//                     }
-//                   } else {
-//                     if (this.form.policycontract_id) {
-//                       Message({
-//                         message: this.$t('label.PFANS1025VIEW_CHECKCYCEL'),
-//                         type: 'error',
-//                         duration: 5 * 1000,
-//                       });
-//                       this.loading = false;
-//                     } else {
-//                       if (this.params_id) {     //郛冶ｾ�
-//                         this.$store
-//                           .dispatch('PFANS1025Store/update', this.baseInfo)
-//                           .then(response => {
-//                             this.data = response;
-//                             this.loading = false;
-//                             Message({
-//                               message: this.$t('normal.success_02'),
-//                               type: 'success',
-//                               duration: 5 * 1000,
-//                             });
-//                             //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修
-//                             if (val === 'StartWorkflow') {
-//                               this.$refs.container.$refs.workflow.startWorkflow();
-//                             } else {
-//                               this.paramsTitle();
-//                             }
-//                             //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
-//                           })
-//                           .catch(error => {
-//                             Message({
-//                               message: error,
-//                               type: 'error',
-//                               duration: 5 * 1000,
-//                             });
-//                             this.loading = false;
-//                           });
-//                       }
-//                     }
-//                   }
-//                 }).catch(error => {
-//                 Message({
-//                   message: error,
-//                   type: 'error',
-//                   duration: 5 * 1000,
-//                 });
-//
-//               });
-                if (this.params_id) {     //郛冶ｾ�
+                if (this.params_id) {
                   this.$store
                     .dispatch('PFANS1025Store/update', this.baseInfo)
                     .then(response => {
@@ -1717,8 +1668,7 @@
         }
       },
     },
-  }
-  ;
+  };
 </script>
 
 <style scoped rel="stylesheet/scss" lang="scss">
