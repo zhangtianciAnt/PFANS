@@ -5255,6 +5255,7 @@
                   });
                   // 设置千分位符
                   this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                  this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                   return;
                 }
                 let error = 0;
@@ -5270,6 +5271,7 @@
                     });
                     // 设置千分位符
                     this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     return;
                   } else {
                     if (moment(this.form.expectedpaydate).format('DD') != 15 && moment(this.form.expectedpaydate).format('DD') != 25) {
@@ -5281,6 +5283,7 @@
                       });
                       // 设置千分位符
                       this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       return;
                     }
                   }
@@ -5299,6 +5302,7 @@
                       });
                       // 设置千分位符
                       this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       break;
                     }
                   }
@@ -5315,6 +5319,7 @@
                       });
                       // 设置千分位符
                       this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       break;
                     }
                   }
@@ -5334,6 +5339,7 @@
                         });
                         // 设置千分位符
                         this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                       if (this.tableT[i].accountcode === '') {
@@ -5346,6 +5352,7 @@
                         });
                         // 设置千分位符
                         this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                     }
@@ -5363,6 +5370,7 @@
                         });
                         // 设置千分位符
                         this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                       //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
@@ -5377,6 +5385,7 @@
                           });
                           // 设置千分位符
                           this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                          this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                         if (this.tableR[i].plsummary === '') {
@@ -5389,6 +5398,7 @@
                           });
                           // 设置千分位符
                           this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                          this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                       }
@@ -5407,6 +5417,7 @@
                         });
                         // 设置千分位符
                         this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                        this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                         break;
                       }
                       //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
@@ -5421,6 +5432,7 @@
                           });
                           // 设置千分位符
                           this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                          this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                         if (this.tableP[i].plsummary === '') {
@@ -5433,6 +5445,7 @@
                           });
                           // 设置千分位符
                           this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                          this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                           break;
                         }
                       }
@@ -5485,6 +5498,7 @@
                       });
                       // 设置千分位符
                       this.form.tormb = this.form.tormb.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                      this.form.rmbexpenditure = this.form.rmbexpenditure.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                       break;
                     }
                   }
