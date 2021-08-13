@@ -3537,6 +3537,7 @@
                     ) {
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
+                        let addflag1 = 0;
                         for (let a = 0; a < this.gridData.length; a++) {
                           // region scc upd 21/8/13 历史履历和当前时间进行比较,每天只能有一条履历 from
                           if (this.gridData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
@@ -3548,8 +3549,13 @@
                                 this.gridData[a].duty = this.form.duty;
                                 this.gridData[a].basic = this.form.basic;
                             }
+                          //region scc add 21/8/13  不变更不提交履历 from
+                          if(Number(this.gridData[a].duty) === this.form.duty && Number(this.gridData[a].basic) === this.form.basic){
+                            addflag1 = 1;
+                          }
+                          //endregion scc add 21/8/13  不变更不提交履历 to
                         }
-                        if (addflg === 0) {
+                        if (addflg === 0 && addflag1 === 0) {
                             this.gridData.push({
                             //region scc upd 21/8/13 插入新履历 from
                                 date: new moment().format('YYYY-MM-DD'),
