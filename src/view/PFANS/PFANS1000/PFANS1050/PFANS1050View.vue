@@ -5,7 +5,7 @@
                          @buttonClick="buttonClick" v-loading="loading"
                          :noback="noback">
       <div slot="customize" style="width: 100%">
-        <el-form :model="form" label-position="top" label-width="8vw" employedref="refform" ref="form"
+        <el-form :model="refform" label-position="top" label-width="8vw" employedref="refform" ref="refform"
                  style="padding: 0.5vw">
           <el-row style="padding-top: 3%">
             <el-col :span="6">
@@ -34,13 +34,141 @@
               </el-form-item>
             </el-col>
           </el-row>
+          <el-row style="padding-bottom: 0.5%">
+            <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
+                      row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
+                      highlight-current-row @current-change="handleCurrentChange">
+              <el-table-column
+                show-overflow-tooltip
+                prop="themename"
+                :label="$t('label.PFANS1050FORMVIEW_THEMENAME')"
+                width="120">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="divide"
+                :label="$t('label.PFANS1050FORMVIEW_DIVIDE')"
+                width="120">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                prop="toolsorgs"
+                :label="$t('label.PFANS1050FORMVIEW_TOOLSORGS')"
+                width="120">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                show-overflow-tooltip
+                prop="contractnumber"
+                :label="$t('label.PFANS1050FORMVIEW_CONTRACTNUMBER')"
+                width="160">
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                align="center"
+                prop="claimamount"
+                :label="$t('label.PFANS1050FORMVIEW_CLAIMAMOUNT')"
+                width="120">
+              </el-table-column>
+              <el-table-column
+                width="130"
+                prop="numbers"
+                align="center"
+                :label="$t('label.PFANS1050FORMVIEW_NUMBERS')">
+              </el-table-column>
+              <el-table-column
+                width="120"
+                align="center"
+                prop="staffnum"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFNUM')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="outstaffnum"
+                :label="$t('label.PFANS1050FORMVIEW_OUTSTAFFNUM')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="outcompany"
+                :label="$t('label.PFANS1050FORMVIEW_OUTCOMPANY')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust04"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST04')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust05"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST05')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust06"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST06')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust07"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST07')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust08"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST08')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust09"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST09')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust10"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST10')">
+              </el-table-column>
+              <el-table-column
+                width="100"
+                align="center"
+                prop="staffcust11"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST11')">
+              </el-table-column>
+              <el-table-column
+                width="110"
+                align="center"
+                prop="staffcust12"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST12')">
+              </el-table-column>
+              <el-table-column
+                width="110"
+                align="center"
+                prop="staffcust01"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST01')">
+              </el-table-column>
+              <el-table-column
+                width="110"
+                align="center"
+                prop="staffcust02"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST02')">
+              </el-table-column>
+              <el-table-column
+                width="110"
+                align="center"
+                prop="staffcust03"
+                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST03')">
+              </el-table-column>
+            </el-table>
+          </el-row>
         </el-form>
-        <lb-table :column="tableData.columns"
-                  :data="tableData.data" style="margin-top: -300px;"
-                  :merge="['themename', 'divide', 'toolsorgs', 'numbers','staffnum']"
-                  header-cell-class-name="sub_bg_color_blue" stripe
-                  border>
-        </lb-table>
       </div>
     </EasyNormalContainer>
   </div>
@@ -48,14 +176,13 @@
 
 <script>
 import EasyNormalContainer from '@/components/EasyNormalContainer';
-import LbTable from '@/components/EasyMergeTable';
 import {getCurrentRoleNew, getDepartmentById, getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
 import moment from "moment";
 import {Message} from "element-ui";
+
 export default {
   name: "PFANS1050View",
   components: {
-    LbTable,
     EasyNormalContainer,
   },
   data () {
@@ -65,6 +192,8 @@ export default {
         year:parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
         group_id: '',
       },
+      currentRow: null,
+      hasChildren: true,
       noback: true,
       loading: false,
       grp_options: [],
@@ -72,116 +201,53 @@ export default {
         {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
       ],
       isShow: false,
-      tableData: {
-        columns: [
-          {
-            prop: 'themename',
-            label: 'label.PFANS1050FORMVIEW_THEMENAME',
-            width: 120,
-          },
-          {
-            prop: 'divide',
-            label: 'label.PFANS1050FORMVIEW_DIVIDE',
-            width: 120,
-          },
-          {
-            prop: 'toolsorgs',
-            label: 'label.PFANS1050FORMVIEW_TOOLSORGS',
-            width: 120,
-          },
-          {
-            prop: 'contractnumber',
-            label: 'label.PFANS1050FORMVIEW_CONTRACTNUMBER',
-            width: 160,
-          },
-          {
-            prop: 'claimamount',
-            label: 'label.PFANS1050FORMVIEW_CLAIMAMOUNT',
-            width: 120,
-          },
-          {
-            prop: 'numbers',
-            label: 'label.PFANS1050FORMVIEW_NUMBERS',
-            width: 130,
-          },
-          {
-            prop: 'staffnum',
-            label: 'label.PFANS1050FORMVIEW_STAFFNUM',
-            width: 120,
-          },
-          {
-            prop: 'outstaffnum',
-            label: 'label.PFANS1050FORMVIEW_OUTSTAFFNUM',
-            width: 120,
-          },
-          {
-            prop: 'outcompany',
-            label: 'label.PFANS1050FORMVIEW_OUTCOMPANY',
-            width: 240,
-          },
-          {
-            prop: 'staffcust04',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST04',
-            width: 80,
-          },
-          {
-            prop: 'staffcust05',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST05',
-            width: 80,
-          },
-          {
-            prop: 'staffcust06',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST06',
-            width: 80,
-          },
-          {
-            prop: 'staffcust07',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST07',
-            width: 80,
-          },
-          {
-            prop: 'staffcust08',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST08',
-            width: 80,
-          },
-          {
-            prop: 'staffcust09',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST09',
-            width: 80,
-          },
-          {
-            prop: 'staffcust10',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST10',
-            width: 80,
-          },
-          {
-            prop: 'staffcust11',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST11',
-            width: 80,
-          },
-          {
-            prop: 'staffcust12',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST12',
-            width: 80,
-          },
-          {
-            prop: 'staffcust01',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST01',
-            width: 80,
-          },
-          {
-            prop: 'staffcust02',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST02',
-            width: 80,
-          },
-          {
-            prop: 'staffcust03',
-            label: 'label.PFANS1050FORMVIEW_STAFFCUST03',
-            width: 80,
-          },
-        ],
-        data: []
-      }
+      tableData: [{
+        wai_id: '1',
+        themename: '',
+        divide: '',
+        toolsorgs: '',
+        contractnumber: '—',
+        claimamount: '—',
+        numbers: '—',
+        staffnum: '—',
+        outstaffnum: '—',
+        staffcust04: '—',
+        staffcust05: '—',
+        staffcust06: '—',
+        staffcust07: '—',
+        staffcust08: '—',
+        staffcust09: '—',
+        staffcust10: '—',
+        staffcust11: '—',
+        staffcust12: '—',
+        staffcust01: '—',
+        staffcust02: '—',
+        staffcust03: '—',
+        children: [{
+          wai_id: '2',
+          themename: '',
+          divide: '',
+          toolsorgs: '',
+          contractnumber: '',
+          claimamount: '',
+          numbers: '',
+          staffnum: '',
+          themeinfor_id: '',
+          outstaffnum: '',
+          staffcust04: '',
+          staffcust05: '',
+          staffcust06: '',
+          staffcust07: '',
+          staffcust08: '',
+          staffcust09: '',
+          staffcust10: '',
+          staffcust11: '',
+          staffcust12: '',
+          staffcust01: '',
+          staffcust02: '',
+          staffcust03: '',
+        }]
+      }]
     }
   },
   mounted() {
@@ -190,19 +256,59 @@ export default {
     });
   },
   methods: {
+    handleCurrentChange(val) {
+      this.currentRow = val;
+    },
     getDepartInfo() {
       this.loading = true;
       this.$store
         .dispatch('PFANS1050Store/getDepartmental',{'years': this.refform.year, 'group_id': this.refform.group_id})
         .then(response => {
-          if(!response) return
-          response.forEach(item => {
-            let letStage = getDictionaryInfo(item.divide);
-            if (letStage != null) {
-              item.divide = letStage.value1;
+          if (response.length > 0) {
+            let m = 1;
+            let n = 2;
+            let c = 0.1;
+            for (let i = 0; i < response.length; i++) {
+              if (response[i].divide !== null && response[i].divide !== '') {
+                let divide = getDictionaryInfo(response[i].divide);
+                if (divide != null) {
+                  response[i].divide = divide.value1;
+                }
+              }
             }
-          });
-          this.tableData.data = response;
+            this.tableData = response;
+            for (let i = 0; i < this.tableData.length; i++) {
+              this.tableData[i].children = this.tableData[i].departmentalList;
+              this.tableData[i].wai_id = m;
+              m += 1;
+              if (this.tableData[i].children !== undefined && this.tableData[i].children !== null) {
+                for (let j = 0; j < this.tableData[i].children.length; j++) {
+                  c += 1;
+                  this.tableData[i].children[j].children = this.tableData[i].children[j].departmentalList;
+                  this.tableData[i].children[j].wai_id = this.tableData[i].children[j].themeinfor_id + c;
+                  this.tableData[i].children[j].themename = '';
+                  this.tableData[i].children[j].toolsorgs = '';
+                  this.tableData[i].children[j].divide = '';
+                  if (this.tableData[i].children[j].children !== undefined && this.tableData[i].children[j].children !== null) {
+                    for (let l = 0; l < this.tableData[i].children[j].children.length; l++) {
+                      this.tableData[i].children[j].children[l].wai_id = n;
+                      n += 1;
+                      this.tableData[i].children[j].children[l].themename = '';
+                      this.tableData[i].children[j].children[l].toolsorgs = '';
+                      this.tableData[i].children[j].children[l].divide = '';
+                    }
+                  }
+                }
+                //theme合计
+                this.tableData[i].children[this.tableData[i].children.length - 1].themename = '合计';
+                this.tableData[i].children[this.tableData[i].children.length - 1].wai_id = this.tableData[i].children[this.tableData[i].children.length - 1].themeinfor_id + 1;
+              }
+            }
+            // theme总计
+            this.tableData[this.tableData.length - 1].wai_id = m + "a";
+          } else {
+            this.tableData = [];
+          }
           this.loading = false
         })
         .catch(error => {
@@ -395,6 +501,31 @@ export default {
 }
 </script>
 
-<style scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
+.el-table {
+  overflow-x: auto;
+  overflow-y: auto;
+  height:600px;
+}
+
+.el-table__header-wrapper,
+.el-table__body-wrapper,
+.el-table__footer-wrapper {
+
+}
+
+.el-table::after {
+//position: relative;
+}
+
+.el-table--scrollable-x .el-table__body-wrapper {
+
+}
+
+.tableClass {
+  .el-table__fixed-right {
+    height: 100% !important;
+  }
+}
 
 </style>
