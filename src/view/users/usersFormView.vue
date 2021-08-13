@@ -3515,8 +3515,8 @@
             },
             Personal() {
                 //给料
-                if (this.feedingchangeday !== '' && this.feedingchangeday !== null
-                    && Number(this.form.duty) + Number(this.form.basic) > 0) {
+              this.feedingchangeday = this.feedingchangeday === '' || this.feedingchangeday === null ? moment(new Date()).format("YYYY-MM-DD") : this.feedingchangeday;
+                if (this.feedingchangeday && Number(this.form.duty) + Number(this.form.basic) > 0) {
                     if (this.gridData === null || this.gridData.length === 0) {
                         this.gridData = [
                             {
@@ -3536,7 +3536,7 @@
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
                         for (let a = 0; a < this.gridData.length; a++) {
-                            if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
+                            if (this.gridData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
                                 addflg = 1;
                                 // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
                                 // this.gridData[a].after = this.form.after;
@@ -3546,7 +3546,7 @@
                         }
                         if (addflg === 0) {
                             this.gridData.push({
-                                date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                                date: new moment().format('YYYY-MM-DD'),
                                 // before: this.gridData[this.gridData.length - 1].after,
                                 // after: this.form.salary,
                                 duty: this.form.duty,
