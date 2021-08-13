@@ -41,6 +41,7 @@
           <el-row>
             <el-table :data="datatotal" border
                       header-cell-class-name="sub_bg_color_blue"  height="85vh" width="100%"
+                      row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
             >
               <el-table-column
                 :label = "$t('label.PFANS1051THEMENAME')"
@@ -97,7 +98,7 @@
                 </el-table-column>
                 <el-table-column
                   :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
-                  prop="moneyactual5">
+                    prop="moneyactual5">
 
                 </el-table-column>
               </el-table-column>
@@ -303,7 +304,78 @@
         noback:true,
         loading:false,
         title: 'title.PFANS1051VIEW',
-        datatotal: [],
+        datatotal: [{
+          wai_id: '1',
+          themename: '',
+          contract: '',
+          toolsorgs: '',
+          amount: '',
+          moneyplan4: '',
+          moneyactual4: '',
+          moneyplan5: '',
+          moneyactual5: '',
+          moneyplan6: '',
+          moneyactual6: '',
+          totalactual1q: '',
+          moneyplan7: '',
+          moneyactual7: '',
+          moneyplan8: '',
+          moneyactual8: '',
+          moneyplan9: '',
+          moneyactual9: '',
+          totalactual2q: '',
+          moneyplan10: '',
+          moneyactual10: '',
+          moneyplan11: '',
+          moneyactual11: '',
+          moneyplan12: '',
+          moneyactual12: '',
+          totalactual3q: '',
+          moneyplan1: '',
+          moneyactual1: '',
+          moneyplan2: '',
+          moneyactual2: '',
+          moneyplan3: '',
+          moneyactual3: '',
+          totalactual4q: '',
+          totalactual: '',
+          children:[{
+            wai_id: '2',
+            themename: '',
+            contract: '',
+            toolsorgs: '',
+            amount: '',
+            moneyplan4: '',
+            moneyactual4: '',
+            moneyplan5: '',
+            moneyactual5: '',
+            moneyplan6: '',
+            moneyactual6: '',
+            totalactual1q: '',
+            moneyplan7: '',
+            moneyactual7: '',
+            moneyplan8: '',
+            moneyactual8: '',
+            moneyplan9: '',
+            moneyactual9: '',
+            totalactual2q: '',
+            moneyplan10: '',
+            moneyactual10: '',
+            moneyplan11: '',
+            moneyactual11: '',
+            moneyplan12: '',
+            moneyactual12: '',
+            totalactual3q: '',
+            moneyplan1: '',
+            moneyactual1: '',
+            moneyplan2: '',
+            moneyactual2: '',
+            moneyplan3: '',
+            moneyactual3: '',
+            totalactual4q: '',
+            totalactual: '',
+          }]
+        }],
         buttonList: [
           {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
         ],
@@ -482,11 +554,23 @@
             .dispatch('PFANS1051Store/selectBygroupid',parameter)
             .then(response => {
               if (response.length > 0) {
+                let m = 1;
+                let n = 2;
+                this.datatotal = response;
                 for (let i = 0; i < response.length; i++) {
-
+                  for (let i = 0; i < this.datatotal.length; i++) {
+                    this.datatotal[i].children = this.datatotal[i].departmentAccountList;
+                    this.tableData[i].wai_id = m;
+                    m += 2;
+                    if (this.datatotal[i].children !== undefined && this.datatotal[i].children !== null) {
+                      for (let j = 0; j < this.datatotal[i].children.length; j++) {
+                        this.tableData[i].children[j].wai_id = n;
+                        n += 2;
+                      }
+                    }
+                  }
                 }
               }
-              this.datatotal = response;
               this.loading = false;
             })
             .catch(error => {

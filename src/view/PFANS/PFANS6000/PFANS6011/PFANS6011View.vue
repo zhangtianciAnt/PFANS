@@ -559,12 +559,12 @@
                       // this.tableData[i].children[j].children[this.tableData[i].children[j].children.length - 1].themename = '小计';
                     }
                   }
-                  //theme合计
-                  this.tableData[i].children[this.tableData[i].children.length - 1].themename = '合计';
+                  //theme小计
+                  this.tableData[i].children[this.tableData[i].children.length - 1].themename = "小计";
                   this.tableData[i].children[this.tableData[i].children.length - 1].wai_id = this.tableData[i].children[this.tableData[i].children.length - 1].companyprojects_id + 1;
                 }
               }
-              // theme总计
+              // theme合计
               this.tableData[this.tableData.length - 1].wai_id = m + "a";
             } else {
               this.tableData = [];
@@ -582,7 +582,6 @@
       },
       buttonClick(val) {
         if (val === 'export') {
-          debugger;
           if (this.tableData.length === 0) {
             Message({
               message: this.$t('normal.info_16'),
@@ -595,7 +594,6 @@
         }
       },
       exportdata(vardata) {
-        debugger;
         let heads = [
           this.$t('label.PFANS6011VIEW_THEME'),this.$t('label.PFANS6011VIEW_ENTRUSTTYPE')
           ,this.$t('label.PFANS6011VIEW_ENTRUST'), this.$t('label.PFANS6011VIEW_PJ'),this.$t('label.PFANS6011VIEW_SSCOMPANY'), this.$t('label.PFANS6011VIEW_APRIL')
@@ -605,7 +603,6 @@
           ,this.$t('label.PFANS6011VIEW_FEBRUARY'),this.$t('label.PFANS6011VIEW_MARCH'), this.$t('label.PFANS6011VIEW_TOTAL')];
         let csvData = [];
         for (let i = 0; i < vardata.length; i++) {
-          debugger;
           let obj = vardata[i];
           csvData.push({
             [heads[0]]: obj.themename,
