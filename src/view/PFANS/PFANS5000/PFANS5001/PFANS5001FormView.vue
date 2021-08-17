@@ -2455,78 +2455,167 @@
           } = org);
         }
       },
+      //upd ccm 20210817 PJ起案体制选择氏名时显示问题修改 fr
+    // getCitationUserid(userlist, row) {
+      //   // add_fjl_05/29  --添加人员多选
+      //   let us = userlist.split(',');
+      //   if (us.length > 1) {
+      //     let na = '';
+      //     for (let nameid of this.tableB) {
+      //       if (us[0] === nameid.name) {
+      //         nameid.name = '';
+      //       } else {
+      //         na = na + nameid.name;
+      //       }
+      //     }
+      //     for (let i = 0; i < us.length; i++) {
+      //       //去除单次选择时，重复的数据
+      //       if (na.indexOf(us[i]) == -1) {
+      //         //update gbb 20210319 人员职务数据获取 start
+      //         let position = '';
+      //         //add_qhr_20210810 添加rank、报告者字段
+      //         let rank = '';
+      //         if (row.name != null && row.name !== '') {
+      //             let lst = getUserInfo(us[i]);
+      //             if (lst.userinfo.post) {
+      //                 position = getDictionaryInfo(lst.userinfo.post).value1;
+      //             }
+      //           //add_qhr_20210810 添加rank、报告者字段
+      //             if (lst.userinfo.rank) {
+      //                 rank = getDictionaryInfo(lst.userinfo.rank).value1;
+      //             }
+      //         }
+      //         //update gbb 20210319 人员职务数据获取 end
+      //         //add_qhr_20210810 添加rank、报告者字段
+      //         this.tableB.push({
+      //           name: us[i],
+      //           rank: rank,
+      //           reporter: '',
+      //           position: position,
+      //           admissiontime: '',
+      //           exittime: '',
+      //           number: '',
+      //           type: '0',
+      //           company: '',
+      //         });
+      //       }
+      //     }
+      //     //保留人名不为空的数据
+      //     this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
+      //   } else {
+      //     row.name = userlist;
+      //   }
+      //
+      //   // add_fjl_05/29  --添加人员多选
+      //   // row.name = userlist;
+      //   if (row.name != null && row.name !== '') {
+      //     let lst = getUserInfo(row.name);
+      //     // row.position = lst.userinfo.post;
+      //     //update gbb 20210319 人员职务数据获取 start
+      //     if (lst.userinfo.post) {
+      //         row.position = getDictionaryInfo(lst.userinfo.post).value1;
+      //     }
+      //     //add_qhr_20210810 添加rank、报告者字段
+      //     if (lst.userinfo.rank) {
+      //         row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+      //     }
+      //     //update gbb 20210319 人员职务数据获取 end
+      //     row.number = lst.userinfo.jobnumber;
+      //     let lst1 = getOrgInfoByUserId(row.name);
+      //     row.company = lst1.groupNmae;
+      //   }
+      // },
+      //
       getCitationUserid(userlist, row) {
-        // add_fjl_05/29  --添加人员多选
+        //人员userid值集合
         let us = userlist.split(',');
         if (us.length > 1) {
-          let na = '';
-          for (let nameid of this.tableB) {
-            if (us[0] === nameid.name) {
-              nameid.name = '';
-            } else {
-              na = na + nameid.name;
+          row.name = null;
+          let newus = [];
+          for (let i = 0; i < us.length; i++)
+          {
+            let tableb = this.tableB.filter(item=>item.name === us[i]);
+            if (tableb.length === 0)
+            {
+              newus.push(us[i]);
             }
           }
-          for (let i = 0; i < us.length; i++) {
-            //去除单次选择时，重复的数据
-            if (na.indexOf(us[i]) == -1) {
-              //update gbb 20210319 人员职务数据获取 start
-              let position = '';
-              //add_qhr_20210810 添加rank、报告者字段
-              let rank = '';
-              if (row.name != null && row.name !== '') {
-                  let lst = getUserInfo(us[i]);
-                  if (lst.userinfo.post) {
-                      position = getDictionaryInfo(lst.userinfo.post).value1;
-                  }
-                //add_qhr_20210810 添加rank、报告者字段
-                  if (lst.userinfo.rank) {
-                      rank = getDictionaryInfo(lst.userinfo.rank).value1;
-                  }
-              }
-              //update gbb 20210319 人员职务数据获取 end
-              //add_qhr_20210810 添加rank、报告者字段
-              this.tableB.push({
-                name: us[i],
-                rank: rank,
-                reporter: '',
-                position: position,
-                admissiontime: '',
-                exittime: '',
-                number: '',
-                type: '0',
-                company: '',
-              });
+          for (let i = 0; i < newus.length; i++)
+          {
+            let position = '';
+            let rank = '';
+            let lst = getUserInfo(newus[i]);
+            if (lst.userinfo.post) {
+              position = getDictionaryInfo(lst.userinfo.post).value1;
             }
+            if (lst.userinfo.rank) {
+              rank = getDictionaryInfo(lst.userinfo.rank).value1;
+            }
+            this.tableB.push({
+              name: newus[i],
+              rank: rank,
+              reporter: '',
+              position: position,
+              admissiontime: '',
+              exittime: '',
+              number: '',
+              type: '0',
+              company: '',
+            });
           }
           //保留人名不为空的数据
           this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
-        } else {
-          row.name = userlist;
-        }
-
-        // add_fjl_05/29  --添加人员多选
-        // row.name = userlist;
-        if (row.name != null && row.name !== '') {
-          let lst = getUserInfo(row.name);
-          // row.position = lst.userinfo.post;
-          //update gbb 20210319 人员职务数据获取 start
-          if (lst.userinfo.post) {
-              row.position = getDictionaryInfo(lst.userinfo.post).value1;
+        } else{
+          if (userlist !='')
+          {
+            if (this.tableB.filter(item=>item.name === userlist).length === 0)
+            {
+              row.name = userlist;
+              if (row.name != null && row.name !== '') {
+                let lst = getUserInfo(row.name);
+                if (lst.userinfo.post) {
+                  row.position = getDictionaryInfo(lst.userinfo.post).value1;
+                }
+                if (lst.userinfo.rank) {
+                  row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+                }
+                row.number = lst.userinfo.jobnumber;
+                let lst1 = getOrgInfoByUserId(row.name);
+                row.company = lst1.groupNmae;
+              }
+            }
           }
-          //add_qhr_20210810 添加rank、报告者字段
-          if (lst.userinfo.rank) {
-              row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+          else
+          {
+            row.name = null;
+            row.position = '';
+            row.rank ='';
           }
-          //update gbb 20210319 人员职务数据获取 end
-          row.number = lst.userinfo.jobnumber;
-          let lst1 = getOrgInfoByUserId(row.name);
-          row.company = lst1.groupNmae;
         }
       },
-      //add_qhr_20210810 添加rank、报告者字段
+      //upd ccm 20210817 PJ起案体制选择氏名时显示问题修改 to
+
       getReporter(userlist, row) {
-        row.reporter = userlist;
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
+        //row.reporter = userlist;
+        if (userlist!=null && userlist !='' && userlist !=undefined)
+        {
+          if(this.tableB.filter(item => item.name === userlist).length > 0)
+          {
+            row.reporter = userlist;
+          }
+          else
+          {
+            row.reporter = null;
+            Message({
+              message: this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return ;
+          }
+        }
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
       getUseridsInput(val, row) {
         row.name = val;

@@ -3763,13 +3763,19 @@
                         this.rankData[this.rankData.length - 1].basic) {
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
+                        let addflg1 = 0;
                         for (let a = 0; a < this.rankData.length; a++) {
                             if (this.rankData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
                                 addflg = 1;
                                 this.rankData[a].basic = this.form.rank;
                             }
+                          //region scc add 21/8/16  不变更不提交履历 from
+                            if(this.rankData[a].basic === this.form.rank || this.rankData[a].basic === getDictionaryInfo(this.form.rank).value1){
+                              addflg1 = 1;
+                            }
+                          //endregion scc add 21/8/16  不变更不提交履历 to
                         }
-                        if (addflg === 0) {
+                        if (addflg === 0 && addflg1 ===0) {
                             this.rankData.push({
                                 date: new moment().format('YYYY-MM-DD'),
                                 basic: this.form.rank,
@@ -3793,13 +3799,19 @@
                         this.postData[this.postData.length - 1].basic) {
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
+                        let addflg1 = 0;
                         for (let a = 0; a < this.postData.length; a++) {
                             if (this.postData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
                                 addflg = 1;
                                 this.postData[a].basic = this.form.post;
                             }
+                          //region scc add 21/8/16  不变更不提交履历 from
+                          if(this.postData[a].basic === this.form.post || this.postData[a].basic === getDictionaryInfo(this.form.post).value1){
+                            addflg1 = 1;
+                          }
+                          //endregion scc add 21/8/16  不变更不提交履历 to
                         }
-                        if (addflg === 0) {
+                        if (addflg === 0 && addflg1 === 0) {
                             this.postData.push({
                                 date: new moment().format('YYYY-MM-DD'),
                                 basic: this.form.post,
