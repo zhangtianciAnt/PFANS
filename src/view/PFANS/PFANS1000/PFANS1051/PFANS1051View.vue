@@ -39,10 +39,13 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-table :data="datatotal" border
+            <!--            ztc 根据数据情况合并table 功能  fr-->
+            <el-table :data="datatotal" border default-expand-all
                       header-cell-class-name="sub_bg_color_blue"  height="85vh" width="100%"
                       row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+                      @current-change="handleCurrentChange" highlight-current-row :span-method="this.listSpanMethod"
             >
+              <!--            ztc 根据数据情况合并table 功能  to-->
               <el-table-column
                 :label = "$t('label.PFANS1051THEMENAME')"
                 prop="themename"
@@ -301,44 +304,53 @@
     },
     data() {
       return {
+        // ztc 根据数据情况合并table 功能  fr
+        mergeAnt:false,
+        unmerge:['收入合计','员工工数(人月)','员工支出','外注工数(人月)','外注支出','经费','差旅费','边界利润率'],
+        merge:[4,6,8,11,13,15,18,20,22,25,27,29],
+        hasChildren: true,
+        currentRow: null,
+        // ztc 根据数据情况合并table 功能  to
         noback:true,
         loading:false,
         title: 'title.PFANS1051VIEW',
+        // ztc 根据数据情况合并table 功能  fr
         datatotal: [{
           wai_id: '1',
           themename: '',
           contract: '',
           toolsorgs: '',
-          amount: '',
-          moneyplan4: '',
-          moneyactual4: '',
-          moneyplan5: '',
-          moneyactual5: '',
-          moneyplan6: '',
-          moneyactual6: '',
-          totalactual1q: '',
-          moneyplan7: '',
-          moneyactual7: '',
-          moneyplan8: '',
-          moneyactual8: '',
-          moneyplan9: '',
-          moneyactual9: '',
-          totalactual2q: '',
-          moneyplan10: '',
-          moneyactual10: '',
-          moneyplan11: '',
-          moneyactual11: '',
-          moneyplan12: '',
-          moneyactual12: '',
-          totalactual3q: '',
-          moneyplan1: '',
-          moneyactual1: '',
-          moneyplan2: '',
-          moneyactual2: '',
-          moneyplan3: '',
-          moneyactual3: '',
-          totalactual4q: '',
-          totalactual: '',
+          amount: '—',
+          moneyplan4: '—',
+          moneyactual4: '—',
+          moneyplan5: '—',
+          moneyactual5: '—',
+          moneyplan6: '—',
+          moneyactual6: '—',
+          totalactual1q: '—',
+          moneyplan7: '—',
+          moneyactual7: '—',
+          moneyplan8: '—',
+          moneyactual8: '—',
+          moneyplan9: '—',
+          moneyactual9: '—',
+          totalactual2q: '—',
+          moneyplan10: '—',
+          moneyactual10: '—',
+          moneyplan11: '—',
+          moneyactual11: '—',
+          moneyplan12: '—',
+          moneyactual12: '—',
+          totalactual3q: '—',
+          moneyplan1: '—',
+          moneyactual1: '—',
+          moneyplan2: '—',
+          moneyactual2: '—',
+          moneyplan3: '—',
+          moneyactual3: '—',
+          totalactual4q: '—',
+          totalactual: '—',
+          // ztc 根据数据情况合并table 功能  to
           children:[{
             wai_id: '2',
             themename: '',
@@ -392,6 +404,54 @@
       });
     },
     methods: {
+      // ztc 根据数据情况合并table 功能  fr
+      flitterData(){
+        let spanOneArr = []
+        let concatOne = 1
+        let conlength = 0
+        this.datatotal.forEach((list) => {
+          concatOne = concatOne + conlength
+          if(list.themename !== '部门共通') {
+            conlength = list.children.length
+            debugger;
+            list.children.forEach((item, index) => {
+              if (index === 0) {
+                spanOneArr.push(0)
+                spanOneArr.push(1)
+                if(concatOne != 1){
+                  concatOne++
+                }
+              } else {
+                if (this.unmerge.indexOf(item.amount) < 0) {
+                  debugger
+                  if (item.moneyplan1 === list.children[index - 1].moneyplan1) {
+                    spanOneArr[concatOne] += 1
+                    spanOneArr.push(0)
+                  }
+                }else{
+                  spanOneArr.push(1)
+                }
+              }
+            })
+          }
+        })
+        return spanOneArr;
+      },
+      listSpanMethod ({ row, column, rowIndex, columnIndex }) {
+        if(!this.mergeAnt)return
+        if(this.merge.includes(columnIndex)) {
+          const _row = this.flitterData(this.datatotal)[rowIndex]
+          const _col = _row > 0 ? 1 : 0
+          return {
+            rowspan: _row,
+            colspan: _col
+          }
+        }
+      },
+      handleCurrentChange(val) {
+        this.currentRow = val;
+      },
+      // ztc 根据数据情况合并table 功能  to
       getorglistname() {
         return new Promise((resolve, reject) => {
 
@@ -553,24 +613,32 @@
           this.$store
             .dispatch('PFANS1051Store/selectBygroupid',parameter)
             .then(response => {
+              // ztc 根据数据情况合并table 功能  fr
               if (response.length > 0) {
                 let m = 1;
-                let n = 2;
+                let c = 0.1;
                 this.datatotal = response;
-                for (let i = 0; i < response.length; i++) {
+                console.log(this.datatotal)
                   for (let i = 0; i < this.datatotal.length; i++) {
                     this.datatotal[i].children = this.datatotal[i].departmentAccountList;
-                    this.tableData[i].wai_id = m;
-                    m += 2;
+                    this.datatotal[i].wai_id = m;
+                    m += 1;
                     if (this.datatotal[i].children !== undefined && this.datatotal[i].children !== null) {
                       for (let j = 0; j < this.datatotal[i].children.length; j++) {
-                        this.tableData[i].children[j].wai_id = n;
-                        n += 2;
+                        c += 1
+                        this.datatotal[i].children[j].children = this.datatotal[i].children[j].departmentAccountList;
+                        this.datatotal[i].children[j].wai_id = this.datatotal[i].children[j].theme_id + c;
+                        this.datatotal[i].children[j].themename = '';
+                        this.datatotal[i].children[j].contract = '';
+                        this.datatotal[i].children[j].toolsorgs = '';
                       }
                     }
                   }
-                }
+              }else{
+                this.datatotal = [];
               }
+              this.mergeAnt = true;
+              // ztc 根据数据情况合并table 功能  to
               this.loading = false;
             })
             .catch(error => {
