@@ -410,21 +410,20 @@
         let concatOne = 1
         let conlength = 0
         this.datatotal.forEach((list) => {
+          spanOneArr.push(1)
           concatOne = concatOne + conlength
           if(list.themename !== '部门共通') {
             conlength = list.children.length
-            debugger;
             list.children.forEach((item, index) => {
+              debugger
               if (index === 0) {
-                spanOneArr.push(0)
                 spanOneArr.push(1)
-                if(concatOne != 1){
-                  concatOne++
-                }
               } else {
                 if (this.unmerge.indexOf(item.amount) < 0) {
-                  debugger
                   if (item.moneyplan1 === list.children[index - 1].moneyplan1) {
+                    if(index === 1 && spanOneArr.length > 2){
+                      concatOne++
+                    }
                     spanOneArr[concatOne] += 1
                     spanOneArr.push(0)
                   }
@@ -433,8 +432,13 @@
                 }
               }
             })
+          }else{
+            for(let i = 0; i < this.unmerge.length; i++){
+              spanOneArr.push(1)
+            }
           }
         })
+        debugger
         return spanOneArr;
       },
       listSpanMethod ({ row, column, rowIndex, columnIndex }) {
