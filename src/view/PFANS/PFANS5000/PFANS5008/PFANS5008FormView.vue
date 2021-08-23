@@ -879,7 +879,10 @@
               for (let k = 0; k < response.length; k++) {
                 if (response[k].estimatedendtime != null) {
                   if (moment(this.companyform.log_date).format('YYYY-MM-DD') < moment(response[k].estimatedstarttime).format('YYYY-MM-DD') || moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].estimatedendtime).format('YYYY-MM-DD')) {
-                    this.checkerror = 1;
+                    //upd ccm 20210819 保存日志时也进行check内容的显示 fr
+                    // this.checkerror = 1;
+                    this.checkerror = 2;
+                    //upd ccm 20210819 保存日志时也进行check内容的显示 to
                     Message({
                       message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                       type: 'error',
@@ -891,7 +894,10 @@
                 } else {
                   if (response[k].extensiondate != null) {
                     if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].extensiondate).format('YYYY-MM-DD')) {
-                      this.checkerror = 1;
+                      //upd ccm 20210819 保存日志时也进行check内容的显示 fr
+                      // this.checkerror = 1;
+                      this.checkerror = 2;
+                      //upd ccm 20210819 保存日志时也进行check内容的显示 to
                       Message({
                         message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                         type: 'error',
@@ -901,7 +907,10 @@
                     }
                   } else {
                     if (moment(this.companyform.log_date).format('YYYY-MM-DD') > moment(response[k].claimdatetime).format('YYYY-MM-DD')) {
-                      this.checkerror = 1;
+                      //upd ccm 20210819 保存日志时也进行check内容的显示 fr
+                      // this.checkerror = 1;
+                      this.checkerror = 2;
+                      //upd ccm 20210819 保存日志时也进行check内容的显示 to
                       Message({
                         message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
                         type: 'error',
@@ -1236,7 +1245,6 @@
                 return;
               }
               //add-ws-日志截止日期check添加
-
               let log_date = moment(this.companyform.log_date).format('DD');
               let date = getDictionaryInfo('BP027001').value1;
               let checkdate = date < 10 ? '0' + date : date;
@@ -1512,13 +1520,32 @@
                                 this.loading = false;
                               });
                           }
-                        } else {
+                        }
+                        else {
+                          //add ccm 20210819 保存日志时也进行check内容的显示 fr
+                          if (this.checkerror == 1)
+                          {
+                            Message({
+                              message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATAERROR'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                          }
+                          else if (this.checkerror == 2)
+                          {
+                            Message({
+                              message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                          }
+                          //add ccm 20210819 保存日志时也进行check内容的显示 to
                           this.loading = false;
                         }
-
                       }
                     });
-                } else if (this.checkuserid === 1) {
+                }
+                else if (this.checkuserid === 1) {
                   if (this.companyform.time_start == '0') {
                     error = error + 1;
                     Message({
@@ -1749,7 +1776,26 @@
                                 this.loading = false;
                               });
                           }
-                        } else {
+                        }
+                        else {
+                          //add ccm 20210819 保存日志时也进行check内容的显示 fr
+                          if (this.checkerror == 1)
+                          {
+                            Message({
+                              message: this.$t('label.PFANS5008FORMVIEW_CKECKLOGDATAERROR'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                          }
+                          else if (this.checkerror == 2)
+                          {
+                            Message({
+                              message: this.$t('label.PFANS5008FORMVIEW_RIZHICHECKL'),
+                              type: 'error',
+                              duration: 5 * 1000,
+                            });
+                          }
+                          //add ccm 20210819 保存日志时也进行check内容的显示 to
                           this.loading = false;
                         }
                       }
