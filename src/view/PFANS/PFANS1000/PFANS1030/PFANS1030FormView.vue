@@ -171,34 +171,27 @@
                         || this.form.contracttype == 'HT008006'
                         || this.form.contracttype == 'HT008008'">
                 <el-col :span="24">
-                  <plx-table-grid
-                                  :datas="tableFS"
-                                  border stripe use-virtual :pagination-show="false"
-                                  style="width: 100%;height: calc(100vh - 200px - 2rem)"
-                                  tooltip-effect="dark"
-                                  cell-class-name = "row_height_left" :row-height="10"
-                                  highlight-current-row
-                                  header-cell-class-name="sub_bg_color_blue">
-                    <plx-table-column
+                  <el-table :data="tableFS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 100%" :cell-style="{padding:'0px'}">
+                    <el-table-column
                       prop="claimtype"
                       :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="100"/>
-                    <plx-table-column
+                    <el-table-column
                       prop="department"
                       :label="$t('label.PFANS1030FORMVIEW_DEPARTMENT')" align="center" width="260"/>
-                    <plx-table-column
+                    <el-table-column
                       prop="deliverydate"
                       :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center" width="110"/>
-                    <plx-table-column
+                    <el-table-column
                       prop="completiondate"
                       :label="$t('label.PFANS1024VIEW_COMPLETIONDATE')" align="center" width="110"/>
-                    <plx-table-column
+                    <el-table-column
                       prop="claimdate" :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" width="110"/>
-                    <plx-table-column
+                    <el-table-column
                       prop="supportdate" :label="$t('label.PFANS1024VIEW_SUPPORTDATE')" align="center" width="110"/>
-                    <plx-table-column
+                    <el-table-column
                       prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" width="120"/>
-                    <plx-table-column
-                      prop="distriamount" :label="$t('label.PFANS1030FORMVIEW_DISTRIAMOUNT')" align="center" width="150">
+                    <el-table-column
+                      prop="distriamount" :label="$t('label.PFANS1030FORMVIEW_DISTRIAMOUNT')" align="center" width="230">
                       <template slot-scope="scope">
                         <el-form-item>
                           <el-input-number
@@ -212,8 +205,8 @@
                           ></el-input-number>
                         </el-form-item>
                       </template>
-                    </plx-table-column>
-                  </plx-table-grid>
+                    </el-table-column>
+                  </el-table>
                 </el-col>
               </el-row>
 <!--              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to-->
