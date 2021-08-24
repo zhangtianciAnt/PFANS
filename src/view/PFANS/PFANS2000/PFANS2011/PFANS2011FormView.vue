@@ -77,14 +77,29 @@
             <el-col :span="8">
               <template>
                 <el-form-item
-                  :label="$t('label.PFANS2011VIEW_RESERVEOVERTIME')"
+                  :label="$t('label.PFANS2011VIEW_TYPECOME')"
+                  prop="overtimetypecome"
+                >
+                  <div class="block">
+                    <el-radio-group v-model="form.overtimetypecome" @change="changeovertimetypecome" style="margin-left: 2vw" :disabled="showovertimetype">
+                      <el-radio label="1">{{$t('label.PFANS2011VIEW_XIURICHUQINCOME')}}</el-radio>
+                      <el-radio label="2">{{$t('label.PFANS2011VIEW_OVERTIMETYPECOME')}}</el-radio>
+                    </el-radio-group>
+                  </div>
+                </el-form-item>
+              </template>
+            </el-col>
+            <el-col :span="3">
+              <template>
+                <el-form-item
+                  :label="showtypecome ? $t('label.PFANS2011VIEW_RESERVEOVERTIME') : $t('label.PFANS2011VIEW_RESERVECOME')"
                   prop="reserveovertimedate"
                 >
                   <div class="block">
                     <el-date-picker
                       :disabled="showovertimetype"
                       @change="changeReserveovertimedate"
-                      style="width:20vw"
+                      style="width:8.5vw"
                       type="date"
                       v-model="form.reserveovertimedate"
                     ></el-date-picker>
@@ -92,24 +107,27 @@
                 </el-form-item>
               </template>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="5">
               <template>
-                <el-form-item :label="$t('label.PFANS2011VIEW_TYPE')" prop="overtimetype">
-                  <dicselect
-                    :code="code"
-                    :data="form.overtimetype"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="change"
-                    style="width:20vw"
-                    v-if="display"
-                  ></dicselect>
+                <el-form-item :label="showtypecome ? $t('label.PFANS2011VIEW_TYPE') : $t('label.PFANS2011VIEW_TYPEATTENCOME')" prop="overtimetype">
+                  <el-select style="width:10.5vw" v-model="form.overtimetype" clearable
+                             @change="change"
+                             :disabled="!disable"
+                             :multiple="multiple"
+                             v-if="display">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </template>
             </el-col>
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIMELENGTH')" prop="overtimelength"
+                <el-form-item :label="showtypecome ? $t('label.PFANS2011FROMVIEW_OVERTIMELENGTH') : $t('label.PFANS2011FROMVIEW_OVERTIMELENGTHCOME')" prop="overtimelength"
                               v-show="form.overtimetype === 'PR001005' || form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008'">
 <!--                 NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制-->
                   <el-select
@@ -130,7 +148,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
+              <el-form-item :label="showtypecome ? $t('label.PFANS2011VIEW_RESERVEOVER') : $t('label.PFANS2011VIEW_RESERVEOVERCOME')" prop="reserveovertime">
                 <el-input-number
                   :disabled="showovertimelength"
                   tep-strictly
@@ -146,7 +164,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')" prop="actualovertime">
+              <el-form-item :label="showtypecome ? $t('label.PFANS2011VIEW_ACTUALOVER') : $t('label.PFANS2011VIEW_ACTUALOVERCOME')" prop="actualovertime">
                 <el-input-number
                   :disabled="!disactualovertime"
                   tep-strictly
@@ -393,6 +411,9 @@
           userid: '',
           worktime: '0.00',
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
+          //add ccm 20210824 添加加班和出勤区分 fr
+          overtimetypecome:'1',
+          //add ccm 20210824 添加加班和出勤区分 to
           reserveovertimedate: '',
           overtimetype: '',
           reserveovertime: 1,
@@ -403,6 +424,10 @@
           cause: '',
           status: '',
         },
+        //add ccm 20210824 添加加班和出勤区分 fr
+        showtypecome:false,
+        optionsdata:[],
+        //add ccm 20210824 添加加班和出勤区分 to
         //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
         age:'',
         //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
@@ -651,6 +676,36 @@
                 // this.disactualovertime = false
               );
             }
+            //add ccm 20210824 添加加班和出勤区分 fr
+            this.optionsdata=[];
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+            if (this.form.overtimetypecome === '2')
+            {
+              this.showtypecome = true;
+              for(let item of dic){
+                if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+                {
+                  var vote = {};
+                  vote.value = item.code;
+                  vote.lable = item.value1;
+                  this.optionsdata.push(vote);
+                }
+              }
+            }
+            else
+            {
+              this.showtypecome = false;
+              for(let item of dic){
+                if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+                {
+                  var vote = {};
+                  vote.value = item.code;
+                  vote.lable = item.value1;
+                  this.optionsdata.push(vote);
+                }
+              }
+            }
+            //add ccm 20210824 添加加班和出勤区分 to
             this.loading = false;
           })
           .catch(error => {
@@ -677,6 +732,36 @@
           }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
+        //add ccm 20210824 添加加班和出勤区分 fr
+        this.optionsdata=[];
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+        if (this.form.overtimetypecome === '2')
+        {
+          this.showtypecome = true;
+          for(let item of dic){
+            if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        else
+        {
+          this.showtypecome = false;
+          for(let item of dic){
+            if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        //add ccm 20210824 添加加班和出勤区分 to
       }
       this.getWorkingday();
       // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {//失效
@@ -1177,6 +1262,51 @@
           this.form.actualsubstitutiondate = null;
         }
       },
+
+      //add ccm 20210824 添加加班和出勤区分 fr
+      changeovertimetypecome(val){
+        this.optionsdata=[];
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+
+        if (val === '2')
+        {
+          //加班申请
+          this.form.reserveovertimedate = '';
+          this.form.overtimetype = '';
+          this.form.reserveovertime = 1;
+          this.form.overtimelength = '';
+          this.showtypecome = true;
+          for(let item of dic){
+            if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        else
+        {
+          //休日出勤申请
+          this.form.reserveovertimedate = '';
+          this.form.overtimetype = '';
+          this.form.reserveovertime = 0;
+          this.form.overtimelength = '';
+          this.showtypecome = false;
+          for(let item of dic){
+            if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+      },
+      //add ccm 20210824 添加加班和出勤区分 to
+
       //新建接口
       insertForm() {
         //总经理审批自动通过
