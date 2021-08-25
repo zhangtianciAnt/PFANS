@@ -274,6 +274,13 @@
               </el-table-column>
             </el-table>
           </el-row>
+          <el-row>
+            <el-col>
+              <div class="sub_color_red" style="margin-top: 5px">
+                {{$t('label.PFANS1051MES')}}
+              </div>
+            </el-col>
+          </el-row>
         </el-form>
       </div>
     </EasyNormalContainer>
