@@ -2568,6 +2568,7 @@
         } else{
           if (userlist !='')
           {
+            row.name = null;
             if (this.tableB.filter(item=>item.name === userlist).length === 0)
             {
               row.name = userlist;
@@ -2584,6 +2585,8 @@
                 row.company = lst1.groupNmae;
               }
             }
+            //保留人名不为空的数据
+            this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
           }
           else
           {
