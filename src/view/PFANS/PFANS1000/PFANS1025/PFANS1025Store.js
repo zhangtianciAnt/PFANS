@@ -1,4 +1,17 @@
-import {get, selectById, update,generateJxls,getDataOne,getDataOne2,checkby,getList,dataCarryover} from './PFANS1025Api'
+import {
+  get,
+  selectById,
+  update,
+  generateJxls,
+  getDataOne,
+  getDataOne2,
+  checkby,
+  getList,
+  dataCarryover,
+  getcompanyen,
+  getRanks,
+  getPersonalBm
+} from './PFANS1025Api'
 
 
 const PFANS1025Store = {
@@ -126,6 +139,49 @@ const PFANS1025Store = {
     })
     })
     },
+    //region scc add 21/8/20 受托合同，详情，部门下拉框数据源
+    getcompanyen({ commit }) {
+      return new Promise((resolve, reject) => {
+        getcompanyen().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //region scc add 21/8/20 受托合同，详情，rank下拉框数据源
+    getRanks({ commit }) {
+      return new Promise((resolve, reject) => {
+        getRanks().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //region scc add 21/8/23 获取成本 from
+    getPersonalBm({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getPersonalBm(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 21/8/23 获取成本 to
   }
 };
 
