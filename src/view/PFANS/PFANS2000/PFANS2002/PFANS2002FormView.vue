@@ -1240,12 +1240,6 @@
                         } else {
                             this.enableSave = true;
                         }
-                        // region scc del scc 21/8/16 招聘决裁审批通过的数据,内定时间等不能修改 from
-                        // if(this.disabled) {
-                        //   this.disEntrytime = true;
-                        //   this.disEntrydivision = true;
-                        // }
-                      // endregion scc del scc 21/8/16 招聘决裁审批通过的数据,内定时间等不能修改 to
                     })
                     .catch(error => {
                         Message({

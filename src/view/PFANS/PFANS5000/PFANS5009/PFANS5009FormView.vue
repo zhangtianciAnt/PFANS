@@ -2465,22 +2465,29 @@
       //add_qhr_20210810 添加rank、报告者字段
       getReporter(userlist, row) {
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
-        //row.reporter = userlist;
+        row.reporter = userlist;
         if (userlist!=null && userlist !='' && userlist !=undefined)
         {
-          if(this.tableB.filter(item => item.name === userlist).length > 0)
+          if(this.tableB.filter(item => item.name === userlist).length === 0)
           {
-            row.reporter = userlist;
-          }
-          else
-          {
-            row.reporter = null;
-            Message({
-              message: this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-              type: 'error',
-              duration: 5 * 1000,
-            });
-            return ;
+            if (row.type === '0')
+            {
+              Message({
+                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+            else
+            {
+              Message({
+                message: this.$t(row.name_id || '')
+                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
           }
         }
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
@@ -2783,6 +2790,22 @@
                       }
                   }
               }
+              //add ccm 20210825 体制报告者在体制中是否存在 fr
+              if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
+              {
+                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
+                {
+                  Message({
+                    message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
+                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'third';
+                  this.loading = false;
+                  return;
+                }
+              }
               // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check end
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';
@@ -2796,6 +2819,24 @@
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
+              //add ccm 20210825 体制报告者在体制中是否存在 fr
+              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
+              {
+                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
+                {
+                  Message({
+                    message: this.$t(this.tableC[i].name_id || '')
+                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'third';
+                  this.loading = false;
+                  return;
+                }
+              }
+              //add ccm 20210825 体制报告者在体制中是否存在 to
+
               if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';
                 this.loading = false;
