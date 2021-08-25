@@ -3515,8 +3515,10 @@
             },
             Personal() {
                 //给料
-                if (this.feedingchangeday !== '' && this.feedingchangeday !== null
-                    && Number(this.form.duty) + Number(this.form.basic) > 0) {
+              // region scc add 21/8/13  当芒果库中没历史履历，可以正常添加履历 from
+              this.feedingchangeday = this.feedingchangeday === '' || this.feedingchangeday === null ? moment(new Date()).format("YYYY-MM-DD") : this.feedingchangeday;
+              // endregion scc add 21/8/13  当芒果库中没历史履历，可以正常添加履历 to
+                if (this.feedingchangeday && Number(this.form.duty) + Number(this.form.basic) > 0) {
                     if (this.gridData === null || this.gridData.length === 0) {
                         this.gridData = [
                             {
@@ -3535,18 +3537,30 @@
                     ) {
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
+                        let addflag1 = 0;
                         for (let a = 0; a < this.gridData.length; a++) {
-                            if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
+                          // region scc upd 21/8/13 历史履历和当前时间进行比较,每天只能有一条履历 from
+                          if (this.gridData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
+                          // endregion scc upd 21/8/13 历史履历和当前时间进行比较,每天只能有一条履历 to
+                            // if (this.gridData[a].date === moment(this.feedingchangeday).format("YYYY-MM-DD")) {
                                 addflg = 1;
                                 // this.gridData[a].before = this.gridData[this.gridData.length - 1].after;
                                 // this.gridData[a].after = this.form.after;
                                 this.gridData[a].duty = this.form.duty;
                                 this.gridData[a].basic = this.form.basic;
                             }
+                          //region scc add 21/8/13  不变更不提交履历 from
+                          if(Number(this.gridData[a].duty) === this.form.duty && Number(this.gridData[a].basic) === this.form.basic){
+                            addflag1 = 1;
+                          }
+                          //endregion scc add 21/8/13  不变更不提交履历 to
                         }
-                        if (addflg === 0) {
+                        if (addflg === 0 && addflag1 === 0) {
                             this.gridData.push({
-                                date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
+                            //region scc upd 21/8/13 插入新履历 from
+                                date: new moment().format('YYYY-MM-DD'),
+                            //endregion scc upd 21/8/13 插入新履历 to
+                                // date: moment(this.feedingchangeday).format("YYYY-MM-DD"),
                                 // before: this.gridData[this.gridData.length - 1].after,
                                 // after: this.form.salary,
                                 duty: this.form.duty,
@@ -3749,13 +3763,19 @@
                         this.rankData[this.rankData.length - 1].basic) {
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
+                        let addflg1 = 0;
                         for (let a = 0; a < this.rankData.length; a++) {
                             if (this.rankData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
                                 addflg = 1;
                                 this.rankData[a].basic = this.form.rank;
                             }
+                          //region scc add 21/8/16  不变更不提交履历 from
+                            if(this.rankData[a].basic === this.form.rank || this.rankData[a].basic === getDictionaryInfo(this.form.rank).value1){
+                              addflg1 = 1;
+                            }
+                          //endregion scc add 21/8/16  不变更不提交履历 to
                         }
-                        if (addflg === 0) {
+                        if (addflg === 0 && addflg1 ===0) {
                             this.rankData.push({
                                 date: new moment().format('YYYY-MM-DD'),
                                 basic: this.form.rank,
@@ -3779,13 +3799,19 @@
                         this.postData[this.postData.length - 1].basic) {
                         // add_fjl_05/19  --添加一天一条履历的判断
                         let addflg = 0;
+                        let addflg1 = 0;
                         for (let a = 0; a < this.postData.length; a++) {
                             if (this.postData[a].date === moment(new Date()).format("YYYY-MM-DD")) {
                                 addflg = 1;
                                 this.postData[a].basic = this.form.post;
                             }
+                          //region scc add 21/8/16  不变更不提交履历 from
+                          if(this.postData[a].basic === this.form.post || this.postData[a].basic === getDictionaryInfo(this.form.post).value1){
+                            addflg1 = 1;
+                          }
+                          //endregion scc add 21/8/16  不变更不提交履历 to
                         }
-                        if (addflg === 0) {
+                        if (addflg === 0 && addflg1 === 0) {
                             this.postData.push({
                                 date: new moment().format('YYYY-MM-DD'),
                                 basic: this.form.post,

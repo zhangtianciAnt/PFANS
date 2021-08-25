@@ -2433,19 +2433,57 @@
         }
       },
       getCitationUserid(userlist, row) {
-        row.name = userlist;
-        if (row.name != null && row.name !== '') {
-          let lst = getUserInfo(row.name);
-          //region add_qhr_20210810 添加rank、报告者字段
-          row.position = getDictionaryInfo(lst.userinfo.post).value1;
-          row.number = lst.userinfo.jobnumber;
-          row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
-          //endregion add_qhr_20210810 添加rank、报告者字段
+        //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 fr
+        // row.name = userlist;
+        // if (row.name != null && row.name !== '') {
+        //   let lst = getUserInfo(row.name);
+        //   //region add_qhr_20210810 添加rank、报告者字段
+        //   row.position = getDictionaryInfo(lst.userinfo.post).value1;
+        //   row.number = lst.userinfo.jobnumber;
+        //   row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+        //   //endregion add_qhr_20210810 添加rank、报告者字段
+        // }
+        if (userlist !='') {
+          if (this.tableB.filter(item => item.name === userlist).length === 0) {
+            row.name = userlist;
+            if (row.name != null && row.name !== '') {
+              let lst = getUserInfo(row.name);
+              row.position = getDictionaryInfo(lst.userinfo.post).value1;
+              row.number = lst.userinfo.jobnumber;
+              row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+            }
+          }
         }
+        else
+        {
+          row.name = null;
+          row.position = '';
+          row.rank ='';
+        }
+        //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 to
       },
       //add_qhr_20210810 添加rank、报告者字段
       getReporter(userlist, row) {
-        row.reporter = userlist;
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
+        //row.reporter = userlist;
+        if (userlist!=null && userlist !='' && userlist !=undefined)
+        {
+          if(this.tableB.filter(item => item.name === userlist).length > 0)
+          {
+            row.reporter = userlist;
+          }
+          else
+          {
+            row.reporter = null;
+            Message({
+              message: this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return ;
+          }
+        }
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
       getcustomer(val) {
         this.result1.forEach(res => {
