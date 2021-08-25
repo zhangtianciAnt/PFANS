@@ -37,7 +37,7 @@
           <el-row style="padding-bottom: 0.5%">
             <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
                       row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
-                      highlight-current-row @current-change="handleCurrentChange" :span-method="this.listSpanMethod">
+                      highlight-current-row @current-change="handleCurrentChange">
               <el-table-column
                 show-overflow-tooltip
                 prop="themename"
@@ -77,94 +77,178 @@
                 :label="$t('label.PFANS1050FORMVIEW_NUMBERS')">
               </el-table-column>
               <el-table-column
-                width="120"
-                align="center"
-                prop="staffnum"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFNUM')">
-              </el-table-column>
-              <el-table-column
-                width="100"
-                align="center"
-                prop="outstaffnum"
-                :label="$t('label.PFANS1050FORMVIEW_OUTSTAFFNUM')">
-              </el-table-column>
-              <el-table-column
-                width="230"
+                width="80"
                 align="left"
-                prop="outcompany"
-                :label="$t('label.PFANS1050FORMVIEW_OUTCOMPANY')">
+                prop="staffrank"
+                :label="$t('label.PFANS1052FORMVIEW_STAFFRANK')">
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust04"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST04')">
+                :label = "$t('label.PFANS1051MONTH4')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan04">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual04">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust05"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST05')">
+                :label = "$t('label.PFANS1051MONTH5')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan05">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual05">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust06"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST06')">
+                :label = "$t('label.PFANS1051MONTH6')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan06">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual06">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust07"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST07')">
+                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                prop="workdifferentfirst">
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust08"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST08')">
+                width="150"
+                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentfirst">
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust09"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST09')">
+                :label = "$t('label.PFANS1051MONTH7')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan07">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual07">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust10"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST10')">
+                :label = "$t('label.PFANS1051MONTH8')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan08">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual08">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="100"
-                align="center"
-                prop="staffcust11"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST11')">
+                :label = "$t('label.PFANS1051MONTH9')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan09">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual09">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="110"
-                align="center"
-                prop="staffcust12"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST12')">
+                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                prop="workdifferentsecond">
               </el-table-column>
               <el-table-column
-                width="110"
-                align="center"
-                prop="staffcust01"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST01')">
+                width="150"
+                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentsecond">
               </el-table-column>
               <el-table-column
-                width="110"
-                align="center"
-                prop="staffcust02"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST02')">
+                :label = "$t('label.PFANS1051MONTH10')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan10">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual10">
+                </el-table-column>
               </el-table-column>
               <el-table-column
-                width="110"
-                align="center"
-                prop="staffcust03"
-                :label="$t('label.PFANS1050FORMVIEW_STAFFCUST03')">
+                :label = "$t('label.PFANS1051MONTH11')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan11">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual11">
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                :label = "$t('label.PFANS1051MONTH12')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan12">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual12">
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                prop="workdifferentthird">
+              </el-table-column>
+              <el-table-column
+                width="150"
+                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentthird">
+              </el-table-column>
+              <el-table-column
+                :label = "$t('label.PFANS1051MONTH1')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan01">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual01">
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                :label = "$t('label.PFANS1051MONTH2')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan02">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual02">
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                :label = "$t('label.PFANS1051MONTH3')">
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_PLANAMOUNT')"
+                  prop="staffcustplan03">
+                </el-table-column>
+                <el-table-column
+                  :label = "$t('label.PFANS1049FORMVIEW_AMOUNT')"
+                  prop="staffcustactual03">
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                prop="workdifferentfourth">
+              </el-table-column>
+              <el-table-column
+                width="150"
+                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                prop="rankdifferentfourth">
               </el-table-column>
             </el-table>
           </el-row>
@@ -181,13 +265,13 @@ import moment from "moment";
 import {Message} from "element-ui";
 
 export default {
-  name: "PFANS1050View",
+  name: "PFANS1052VIEW",
   components: {
     EasyNormalContainer,
   },
   data () {
     return {
-      title: 'title.PFANS1050VIEW',
+      title: 'title.PFANS1052VIEW',
       refform: {
         year:parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
         group_id: '',
@@ -212,43 +296,80 @@ export default {
         contractnumber: '—',
         claimamount: '—',
         numbers: '—',
-        staffnum: '—',
-        outstaffnum: '—',
-        staffcust04: '—',
-        staffcust05: '—',
-        staffcust06: '—',
-        staffcust07: '—',
-        staffcust08: '—',
-        staffcust09: '—',
-        staffcust10: '—',
-        staffcust11: '—',
-        staffcust12: '—',
-        staffcust01: '—',
-        staffcust02: '—',
-        staffcust03: '—',
+        staffrank: '—',
+        staffcustplan04: '—',
+        staffcustactual04: '—',
+        staffcustplan05: '—',
+        staffcustactual05: '—',
+        staffcustplan06: '—',
+        staffcustactual06: '—',
+        workdifferentfirst: '—',
+        rankdifferentfirst: '—',
+        staffcustplan07: '—',
+        staffcustactual07: '—',
+        staffcustplan08: '—',
+        staffcustactual08: '—',
+        staffcustplan09: '—',
+        staffcustactual09: '—',
+        workdifferentsecond: '—',
+        rankdifferentsecond: '—',
+        staffcustplan10: '—',
+        staffcustactual10: '—',
+        staffcustplan11: '—',
+        staffcustactual11: '—',
+        staffcustplan12: '—',
+        staffcustactual12: '—',
+        workdifferentthird: '—',
+        rankdifferentthird: '—',
+        staffcustplan01: '—',
+        staffcustactual01: '—',
+        staffcustplan02: '—',
+        staffcustactual02: '—',
+        staffcustplan03: '—',
+        staffcustactual03: '—',
+        workdifferentfourth: '—',
+        rankdifferentfourth: '—',
         children: [{
           wai_id: '2',
           themename: '',
           divide: '',
           toolsorgs: '',
-          contractnumber: '',
-          claimamount: '',
-          numbers: '',
-          staffnum: '',
-          themeinfor_id: '',
-          outstaffnum: '',
-          staffcust04: '',
-          staffcust05: '',
-          staffcust06: '',
-          staffcust07: '',
-          staffcust08: '',
-          staffcust09: '',
-          staffcust10: '',
-          staffcust11: '',
-          staffcust12: '',
-          staffcust01: '',
-          staffcust02: '',
-          staffcust03: '',
+          contractnumber: ' ',
+          claimamount: ' ',
+          numbers: ' ',
+          staffrank: ' ',
+          staffcustplan04: ' ',
+          staffcustactual04: ' ',
+          staffcustplan05: ' ',
+          staffcustactual05: ' ',
+          staffcustplan06: ' ',
+          staffcustactual06: ' ',
+          workdifferentfirst: ' ',
+          rankdifferentfirst: ' ',
+          staffcustplan07: ' ',
+          staffcustactual07: ' ',
+          staffcustplan08: ' ',
+          staffcustactual08: ' ',
+          staffcustplan09: ' ',
+          staffcustactual09: ' ',
+          workdifferentsecond: ' ',
+          rankdifferentsecond: ' ',
+          staffcustplan10: ' ',
+          staffcustactual10: ' ',
+          staffcustplan11: ' ',
+          staffcustactual11: ' ',
+          staffcustplan12: ' ',
+          staffcustactual12: ' ',
+          workdifferentthird: ' ',
+          rankdifferentthird: ' ',
+          staffcustplan01: ' ',
+          staffcustactual01: ' ',
+          staffcustplan02: ' ',
+          staffcustactual02: ' ',
+          staffcustplan03: ' ',
+          staffcustactual03: ' ',
+          workdifferentfourth: ' ',
+          rankdifferentfourth: ' ',
         }]
       }]
     }
@@ -265,7 +386,7 @@ export default {
     getDepartInfo() {
       this.loading = true;
       this.$store
-        .dispatch('PFANS1050Store/getDepartmental',{'years': this.refform.year, 'group_id': this.refform.group_id})
+        .dispatch('PFANS1052Store/getDepartmentalInsert',{'year': this.refform.year, 'group_id': this.refform.group_id})
         .then(response => {
           if (response.length > 0) {
             let m = 1;
@@ -280,22 +401,21 @@ export default {
               }
             }
             this.tableData = response;
-            console.log(this.tableData)
             for (let i = 0; i < this.tableData.length; i++) {
-              this.tableData[i].children = this.tableData[i].departmentalList;
+              this.tableData[i].children = this.tableData[i].departmentalInsideList;
               this.tableData[i].wai_id = m;
               m += 1;
               if (this.tableData[i].children !== undefined && this.tableData[i].children !== null) {
                 for (let j = 0; j < this.tableData[i].children.length; j++) {
                   c += 1;
-                  this.tableData[i].children[j].children = this.tableData[i].children[j].departmentalList;
+                  this.tableData[i].children[j].children = this.tableData[i].children[j].departmentalInsideList;
                   this.tableData[i].children[j].wai_id = this.tableData[i].children[j].themeinfor_id + c;
                   this.tableData[i].children[j].themename = '';
                   this.tableData[i].children[j].toolsorgs = '';
                   this.tableData[i].children[j].divide = '';
                 }
                 //theme合计
-                this.tableData[i].children[this.tableData[i].children.length - 1].themename = '合计';
+                this.tableData[i].children[this.tableData[i].children.length - 1].themename = '小计';
                 this.tableData[i].children[this.tableData[i].children.length - 1].wai_id = this.tableData[i].children[this.tableData[i].children.length - 1].themeinfor_id + 1;
               }
             }
@@ -315,49 +435,6 @@ export default {
           this.loading = false
         })
     },
-    // flitterData(){
-    //   let spanOneArr = []
-    //   let concatOne = 1
-    //   let conlength = 0
-    //   this.datatotal.forEach((list) => {
-    //     concatOne = concatOne + conlength
-    //     if(list.themename !== '部门共通') {
-    //       conlength = list.children.length
-    //       debugger;
-    //       list.children.forEach((item, index) => {
-    //         if (index === 0) {
-    //           spanOneArr.push(0)
-    //           spanOneArr.push(1)
-    //           if(concatOne != 1){
-    //             concatOne++
-    //           }
-    //         } else {
-    //           if (this.unmerge.indexOf(item.amount) < 0) {
-    //             debugger
-    //             if (item.moneyplan1 === list.children[index - 1].moneyplan1) {
-    //               spanOneArr[concatOne] += 1
-    //               spanOneArr.push(0)
-    //             }
-    //           }else{
-    //             spanOneArr.push(1)
-    //           }
-    //         }
-    //       })
-    //     }
-    //   })
-    //   return spanOneArr;
-    // },
-    // listSpanMethod ({ row, column, rowIndex, columnIndex }) {
-    //   if(!this.mergeAnt)return
-    //   if(this.merge.includes(columnIndex)) {
-    //     const _row = this.flitterData(this.datatotal)[rowIndex]
-    //     const _col = _row > 0 ? 1 : 0
-    //     return {
-    //       rowspan: _row,
-    //       colspan: _col
-    //     }
-    //   }
-    // },
     getorglistname() {
       return new Promise((resolve, reject) => {
         let role = getCurrentRoleNew();
