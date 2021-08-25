@@ -529,15 +529,15 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
-  import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
-  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo,getOrgInfo} from '@/utils/customize';
-  import ElRow from "element-ui/packages/row/src/row";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
+import {Message} from 'element-ui';
+import dicselect from '../../../components/dicselect.vue';
+import user from '../../../components/user.vue';
+import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+import ElRow from "element-ui/packages/row/src/row";
 
-  export default {
+export default {
     name: 'ASSETS1001FormView',
     components: {
       ElRow,
@@ -730,8 +730,7 @@
                    let code1 = this.form.departmentcode;
                    let code2 = code1.slice(0, 5);
                    let code3 = 1;
-                   let code4 = code2+code3;
-                   this.form.departmentcode = [code4];
+                   this.form.departmentcode = code2 + code3;
                  }
                }
               if(center.encoding === null){
@@ -744,8 +743,7 @@
                       let code1 = this.form.departmentcode;
                       let code2 = code1.slice(0, 5);
                       let code3 = 1;
-                      let code4 = code2+code3;
-                      this.form.departmentcode = [code4];
+                      this.form.departmentcode = code2 + code3;
                     }
                   }
                 }

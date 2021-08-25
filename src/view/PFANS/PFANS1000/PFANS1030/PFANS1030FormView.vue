@@ -171,7 +171,7 @@
                         || this.form.contracttype == 'HT008006'
                         || this.form.contracttype == 'HT008008'">
                 <el-col :span="24">
-                  <el-table :data="tableFS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 100%">
+                  <el-table :data="tableFS" header-cell-class-name="sub_bg_color_blue" stripe border style="width: 100%" :cell-style="{padding:'0px'}">
                     <el-table-column
                       prop="claimtype"
                       :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="100"/>
@@ -191,7 +191,7 @@
                     <el-table-column
                       prop="claimamount" :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')" align="center" width="120"/>
                     <el-table-column
-                      prop="distriamount" :label="$t('label.PFANS1030FORMVIEW_DISTRIAMOUNT')" align="center" width="150">
+                      prop="distriamount" :label="$t('label.PFANS1030FORMVIEW_DISTRIAMOUNT')" align="center" width="230">
                       <template slot-scope="scope">
                         <el-form-item>
                           <el-input-number
@@ -1443,7 +1443,9 @@
             if (this.form.status === '4' || this.form.status === '2') {
               this.enableSave = false;
               //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
-              this.distriamt = true;
+              if(this.form.status === '4'){
+                this.distriamt = false;
+              }
             } else {
               this.enableSave = true;
               this.distriamt = false;
@@ -1637,10 +1639,6 @@
                 }
                 if (supportdate !== '' && supportdate != null) {
                   response.awardReunites[i].supportdate = moment(supportdate).format('YYYY-MM-DD');
-                }
-                if (response.awardReunites[i].claimamount) {
-                  let claimamount = response.awardReunites[i].claimamount;
-                  aa = Number(claimamount) + aa;
                 }
               }
               this.tableFS = response.awardReunites;
@@ -2087,6 +2085,13 @@
           .then(response => {
             this.data = response;
             this.loading = false;
+            if (this.$store.getters.historyUrl) {
+              if(this.form.status != '0'){
+                this.$router.push(this.$store.getters.historyUrl);
+              }else{
+                this.distriamt = false
+              }
+            }
           })
           .catch(error => {
             Message({
@@ -2448,7 +2453,9 @@
                       }
                     }
                     if (val === 'StartWorkflow') {
+                      this.$store.commit('global/SET_OPERATEID', this.$route.params._id);
                       this.$refs.container.$refs.workflow.startWorkflow();
+                      this.distriamt = true
                     }
                     //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
                   })
