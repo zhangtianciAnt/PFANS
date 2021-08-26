@@ -640,7 +640,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -655,7 +654,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -670,7 +668,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -685,7 +682,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -700,7 +696,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -715,7 +710,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -730,7 +724,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -745,7 +738,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -760,7 +752,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -775,7 +766,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -790,7 +780,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -805,7 +794,6 @@
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="!disable"
-                          :max="1000000000"
                           :min="0"
                           :no="scope.row"
                           :precision="2"
@@ -1556,20 +1544,25 @@
                 });
               }
             }
-            let data = [];
-            for (let i = 0; i < this.optionsdatedic.length; i++) {
-              let money3 = this.optionsdatedic[i].value3;
-              let money4 = this.optionsdatedic[i].value4;
-              data.push({
-                award_id: '',
-                staffdetail_id: '',
-                attf: getDictionaryInfo(this.optionsdatedic[i].value2).value1,
-                budgetcode: ((money3 * 3) + (money4 * 9)) / 12,
-                depart: '',
-                subtotal: '',
-              });
-            }
-            this.tableD = data;
+
+            //region scc add 8/26 删除详情页面列出初始rank  from
+            // let data = [];
+            // for (let i = 0; i < this.optionsdatedic.length; i++) {
+            //   let money3 = this.optionsdatedic[i].value3;
+            //   let money4 = this.optionsdatedic[i].value4;
+            //   data.push({
+            //     award_id: '',
+            //     staffdetail_id: '',
+            //     attf: getDictionaryInfo(this.optionsdatedic[i].value2).value1,
+            //     budgetcode: ((money3 * 3) + (money4 * 9)) / 12,
+            //     depart: '',
+            //     subtotal: '',
+            //   });
+            // }
+            // this.tableD = data;
+            //endregion scc add 8/26 删除详情页面列出初始rank  to
+
+
             // add-ws-合同人件费修改
             // if (this.form.tablecommunt !== '' && this.form.tablecommunt !== null) {
             //   for (let i = 0; i < JSON.parse(response.award.tablecommunt).length; i++) {
@@ -2182,6 +2175,7 @@
       //endregion scc add 详情增加减行 to
       //region scc add 部门RANK下拉框事件 from
       changeDep(row) {
+        debugger
         //获取年度对应rank的成本 from
         // if(!this.rabm[0][0].contains(row.incondepartment)) {
           if (row.incondepartment) {
