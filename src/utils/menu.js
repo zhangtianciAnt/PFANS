@@ -401,6 +401,15 @@ export function menu() {
                     },
                   ],
                 },
+                {
+                  '_id': 'PFANS1052',
+                  'name': 'menu.PFANS1052',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1052View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [],
+                },
               ],
             },
             {

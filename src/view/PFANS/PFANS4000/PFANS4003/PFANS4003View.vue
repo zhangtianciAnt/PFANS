@@ -296,18 +296,20 @@ export default {
             let item = {
               peoplewareid: '1',
               ranks: '部门平均',
-              month4: Math.formatFloat(month4 / length,5),
-              month5: Math.formatFloat(month5 / length,5),
-              month6: Math.formatFloat(month6 / length,5),
-              month7: Math.formatFloat(month7 / length,5),
-              month8: Math.formatFloat(month8 / length,5),
-              month9: Math.formatFloat(month9 / length,5),
-              month10: Math.formatFloat(month10 / length,5),
-              month11: Math.formatFloat(month11 / length,5),
-              month12: Math.formatFloat(month12 / length,5),
-              month1: Math.formatFloat(month1 / length,5),
-              month2: Math.formatFloat(month2 / length,5),
-              month3: Math.formatFloat(month3 / length,5),
+              //region add scc 8/25 部门平均保留两位小数点 from
+              month4: Math.formatFloat(month4 / length,2),
+              month5: Math.formatFloat(month5 / length,2),
+              month6: Math.formatFloat(month6 / length,2),
+              month7: Math.formatFloat(month7 / length,2),
+              month8: Math.formatFloat(month8 / length,2),
+              month9: Math.formatFloat(month9 / length,2),
+              month10: Math.formatFloat(month10 / length,2),
+              month11: Math.formatFloat(month11 / length,2),
+              month12: Math.formatFloat(month12 / length,2),
+              month1: Math.formatFloat(month1 / length,2),
+              month2: Math.formatFloat(month2 / length,2),
+              month3: Math.formatFloat(month3 / length,2),
+              //endregion add scc 8/25 部门平均保留两位小数点 to
             }
             this.tableData.push(item);
           }
@@ -521,6 +523,9 @@ export default {
       this.resultShow = false;
       this.Message = false;
       this.result = false;
+      //region scc add 21/8/25 导入时清空上次提示信息 from
+      this.errorCount = "";
+      //endregion scc add 21/8/25 导入时清空上次提示信息 to
       if (!safe) {
         if (this.$refs.uploader != undefined) {
           this.$refs.uploader.clearFiles();
