@@ -4745,11 +4745,11 @@
         // 设置千分位符
         let num1 = 0, num2 = 0;
         if (this.form.type === 'PJ001001') {
-          num1 = Number(sums[8].replace(/,/g, ''));
+          num1 = Number(sums[8] + ''.replace(/,/g, ''));
           this.form.rmbexpenditure = num1.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else if (this.checktime) {
           num1 = Number(this.tablePValue[7].replace(/,/g, ''));
-          num2 = Number(sums[8].replace(/,/g, ''));
+          num2 = Number(sums[8] + ''.replace(/,/g, ''));
           this.form.rmbexpenditure = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else {
           //update_qhr_20210809 添加千位分隔符
@@ -4775,7 +4775,7 @@
           //update_qhr_20210809 添加千位分隔符
           if (this.tablePValue[8] !== undefined && sums[8] !== undefined) {
             num1 = Number(this.tablePValue[8].replace(/,/g, ''));
-            num2 = Number(sums[8].replace(/,/g, ''));
+            num2 = Number(sums[8] + ''.replace(/,/g, ''));
             this.form.foreigncurrency = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           } else {
             this.form.foreigncurrency = "0.00";
