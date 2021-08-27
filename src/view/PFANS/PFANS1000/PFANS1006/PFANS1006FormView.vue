@@ -188,12 +188,13 @@
                   <!--                  ADD_FJL_0819  添加区分-->
                 </el-row>
                 <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.accountnumber"></el-input>
-                    </el-form-item>
-                  </el-col>
+                  <!--与财务王颖确认此项在系统中没有用 ztc-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="accountnumber" v-show=flag>-->
+<!--                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"-->
+<!--                                v-model="form.accountnumber"></el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <!--add-ws-8/12-禅道任务446-->
                   <el-col :span="8" v-if="this.role2==='0'">
                     <el-form-item :label="$t('label.status')">
@@ -712,7 +713,7 @@
         ],
         // add-ws-8/12-禅道任务446
         gridData: [],
-        flag: false,
+        // flag: false,
         role1: '',
         centerid: '',
         groupid: '',
@@ -966,9 +967,9 @@
       this.getsupplierinfor();
       let userid = this.$store.getters.userinfo.userid;
       let groupid = getUserInfo(userid).userinfo.groupid;
-      if (groupid === '91B253A1C605E9CA814462FB4C4D2605F43F') {
-        this.flag = true;
-      }
+      // if (groupid === '91B253A1C605E9CA814462FB4C4D2605F43F') {
+      //   this.flag = true;
+      // }
       this.IDname = this.$route.params._id;
       //add_fjl_0929  查询公共费用中的暂借款 start
       this.getpublice();
@@ -1667,12 +1668,56 @@
         this.buttonClick('update');
       },
       paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1001FormView',
-          params: {
-            title: 6,
-          },
-        });
+        // add_zy_210608  暂借款申请返回按钮到一览画面  start
+        let _judgements_type =  this.$route.params._judgements_type;
+        let _re_title = '';
+        if(_judgements_type) {
+          if (_judgements_type === this.$t('label.PFANS1012VIEW_CHECKLIST')) {
+            this.$router.push({
+              name: 'PFANS1025View',
+              params: {
+              },
+            });
+            return;
+          }
+
+          if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSES')) {
+            this.$router.push({
+              name: 'PFANS3005View',
+              params: {
+              },
+            });
+            return;
+          }
+
+          if (_judgements_type === this.$t('title.PFANS1002VIEW')) {
+            _re_title = 1;
+          } else if (_judgements_type === this.$t('title.PFANS1035VIEW')) {
+            _re_title = 2;
+          } else if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSESWC')) {
+            _re_title = 3;
+          } else if (_judgements_type === this.$t('title.PFANS1004VIEW')) {
+            _re_title = 4;
+          } else if (_judgements_type === this.$t('menu.PFANS1005')) {
+            _re_title = 5;
+          } else if (_judgements_type === this.$t('menu.PFANS1010')) {
+            _re_title = 10;
+          }
+          this.$router.push({
+            name: 'PFANS1001FormView',
+            params: {
+              title: _re_title,
+            },
+          });
+        }else{
+          this.$router.push({
+            name: 'PFANS1001FormView',
+            params: {
+              title: 6,
+            },
+          });
+        }
+        // add_zy_210608  暂借款申请返回按钮到一览画面  end
       },
       //add-fjl-0816-暂借款中，点击决裁，跳转画面
       //upd-ws-02/19-NT_PFANS_20210204_BUG_015-from

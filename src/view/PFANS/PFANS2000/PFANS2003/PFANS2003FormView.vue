@@ -92,6 +92,7 @@
                            active-value="0"
                            inactive-value="1"
                            v-model="modelresult"
+                           @change="changgeResult"
                 ></el-switch>
                 <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
               </el-form-item>
@@ -723,17 +724,26 @@
       }
     },
     //add_fjl_0803
-    // watch: {
-      // modelresult(newName, oldName) {
-      //   if (newName === '0') {
-      //     this.buttonList[1].disabled = false;
-      //   } else {
-      //     this.buttonList[1].disabled = true;
-      //   }
-      // },
-    // },
+    watch: {
+      modelresult(newName, oldName) {
+        if (newName === '0') {
+          this.buttonList[1].disabled = false;
+        } else {
+          this.buttonList[1].disabled = true;
+        }
+      },
+    },
     //add_fjl_0803
     methods: {
+      changgeResult(val) {
+        if(this.buttonList[1] != undefined) {
+          if (val == '1') {
+            this.buttonList[1].disabled = true;
+          } else if (val == '0') {
+            this.buttonList[1].disabled = false;
+          }
+        }
+      },
       // add-ws-8/4-禅道任务296
       getrecruitid(val) {
         this.form.recruit_id = val;
@@ -996,6 +1006,12 @@
         }
       },
       buttonClick(val) {
+        if (val === 'back') {
+            this.$router.push({
+              name: 'PFANS2003View',
+              params: {},
+            });
+        };
         this.$refs['refform'].validate(valid => {
           if (valid) {
               // upd_fjl_05/27  --添加面试官手动输入

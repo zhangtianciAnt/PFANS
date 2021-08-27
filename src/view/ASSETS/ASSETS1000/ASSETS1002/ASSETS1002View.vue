@@ -166,7 +166,7 @@
                 type: 'success',
                 duration: 2 * 1000,
               });
-              this.loading = false;
+              // this.loading = false;   取消关闭loading
             })
             .catch(error => {
               Message({

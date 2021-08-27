@@ -1051,7 +1051,9 @@
         bookawardafter:true,
         ruleSet: {
         // , 'theme'
+          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
           'save': ['contractnumber', 'theme','contractdate','entrustednumber'],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -2829,11 +2831,13 @@
             this.loading = false;
           });
       },
-      paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1024View',
-        });
-      },
+      //resign  del scc   20210722  存在同名方法 from
+      // paramsTitle() {
+      //   this.$router.push({
+      //     name: 'PFANS1024View',
+      //   });
+      // },
+      // end resign del scc 20210722  存在同名方法 to
       checkparamsTitle() {
         let letparamslist = this.$route.params.letparams;
         this.$router.push({

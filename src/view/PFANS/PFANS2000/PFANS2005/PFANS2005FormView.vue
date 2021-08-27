@@ -100,6 +100,7 @@
                   <plx-table-column
                     prop="bonusshow"
                     :label="$t('label.PFANS2006VIEW_SCHOLARSHIP')"
+                    sortable
                     width="100"
                     align="center"
                   ></plx-table-column>
@@ -136,7 +137,8 @@
                   <plx-table-column
                     prop="yanglaojs"
                     :label="$t('label.PFANS2005FORMVIEW_YANGLAOJS')"
-                    width="100"
+                    sortable
+                    width="130"
                     align="center"
                   ></plx-table-column>
                   <plx-table-column
