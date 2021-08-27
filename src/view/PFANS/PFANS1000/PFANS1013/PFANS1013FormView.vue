@@ -2225,7 +2225,7 @@
           for (let i = 0; i < this.tableW.length; i++) {
             exchangermb += Number(this.tableW[i].exchangermb);
           }
-          this.form.balance = exchangermb - Number(this.form.loanamount);
+          this.form.balance = exchangermb - Number(this.form.loanamount === undefined ? 0 : this.form.loanamount);
         }
       },
       //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
@@ -2556,6 +2556,7 @@
           }
           this.form.business_id = this.$route.params._name[0].value;
           this.form.loanamount = this.$route.params._loanmoney;
+          this.form.balance = 0 - Number(this.form.loanamount === undefined ? 0 : this.form.loanamount);
           this.$nextTick(function() {
             this.changebusiness(this.form.business_id);
           });
