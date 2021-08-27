@@ -13,8 +13,9 @@
                 <el-date-picker
                   :placeholder="$t('normal.error_09')"
                   @change="changeYear"
+                  value-format="yyyy"
                   type="year"
-                  :disabled="true"
+                  :disabled="false"
                   v-model="refform.year"
                   style="width:10vw">
                 </el-date-picker>
@@ -180,7 +181,7 @@
 import { getToken } from "@/utils/auth";
 import EasyNormalContainer from '@/components/EasyNormalContainer';
 import {getCurrentRoleNew, getDepartmentById, getDictionaryInfo, getOrgInfo,Decrypt} from "../../../../utils/customize";
-import moment from "moment";
+import moment from 'moment';
 import {Message} from "element-ui";
 
 export default {
@@ -478,7 +479,6 @@ export default {
     },
     changeYear(val) {
       this.tableData.data = [];
-      this.refform.years = val;
       this.getDepartInfo();
     },
     groupChange(val) {
