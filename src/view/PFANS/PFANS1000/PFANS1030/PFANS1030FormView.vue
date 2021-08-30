@@ -2175,7 +2175,6 @@
       //endregion scc add 详情增加减行 to
       //region scc add 部门RANK下拉框事件 from
       changeDep(row) {
-        debugger
         //获取年度对应rank的成本 from
         // if(!this.rabm[0][0].contains(row.incondepartment)) {
           if (row.incondepartment) {
@@ -2216,15 +2215,16 @@
       },
       //endregion scc add 部门RANK下拉框事件 to
       //region scc add tableD部门，rank非空验证 from
-      checkTableD(){
+      checkTableD(flag){
         for(let i = 0; i < this.tableD.length; i++){
           if(!this.tableD[i].incondepartment || !this.tableD[i].attf){
+            flag = true;
             Message({
               message: this.$t('normal.info_28'),
               type: 'error',
               duration: 5 * 1000,
             });
-            callback();
+            return flag;
           }
         }
       },
@@ -2345,7 +2345,13 @@
           }
           //add-ws-6/22-禅道152任务
         } else if (val === 'save' || val === 'StartWorkflow') {
-          this.checkTableD();
+          //region scc 8/27 add tableD部门，rank非空验证判断，结束方法 from
+          let flag = false;
+          let flag1 =  this.checkTableD(flag);
+          if(flag1 === true){
+            return;
+          }
+          //endregion scc 8/27 add tableD部门，rank非空验证判断，结束方法 to
           this.checkRequire();
           //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
           if(this.form.contracttype == 'HT008002'
