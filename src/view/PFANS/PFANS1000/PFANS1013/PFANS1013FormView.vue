@@ -127,7 +127,8 @@
                 <el-row>
                   <el-col :span="8">
                     <template>
-                      <el-form-item :label="$t('label.PFANS1013VIEW_STARTDATE')">
+<!--                      update_qhr_20210830 修改申请出差文言-->
+                      <el-form-item :label="$t('label.PFANS1013VIEW_ASKSTARTDATE')">
                         <el-date-picker
                           :disabled="true"
                           style="width:20vw"
@@ -138,7 +139,8 @@
                     </template>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_ENDDATE')">
+<!--                    update_qhr_20210830 修改申请出差文言-->
+                    <el-form-item :label="$t('label.PFANS1013VIEW_ASKENDDATE')">
                       <el-date-picker
                         :disabled="true"
                         style="width:20vw"
@@ -148,7 +150,8 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1013VIEW_DATENUMBER')">
+<!--                    update_qhr_20210830 修改申请出差文言-->
+                    <el-form-item :label="$t('label.PFANS1013VIEW_ASKDATENUMBER')">
                       <el-input :disabled="true" style="width:20vw" v-model="form.datenumber"></el-input>
                     </el-form-item>
                   </el-col>
