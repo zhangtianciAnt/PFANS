@@ -403,7 +403,7 @@
                   this.result = true;
                 }
                 this.getList1();
-                this.getList();
+                this.getList(this.years); //add_qhr_20210830 添加方法调用参数
               }
             }
           },
