@@ -806,9 +806,22 @@
                   <plx-table-column
                     prop="comheating"
                     :label="$t('label.PFANS2005FORMVIEW_HEATINGCOST')"
-                    width="70"
+                    width="120"
                     align="center"
-                  ></plx-table-column>
+                  >
+                    <!-- gbb 0720 工资计算画面调整项目添加 start -->
+<!--                    <template slot-scope="scope">-->
+<!--                      <el-input-number-->
+<!--                        v-model="scope.row.comheating"-->
+<!--                        @change="wagesChange(scope.row,scope.row.no,scope.row.comheating,'comheating')"-->
+<!--                        controls-position="right"-->
+<!--                        :min="-10000000"-->
+<!--                        size="mini"-->
+<!--                        style="width:7rem"-->
+<!--                      ></el-input-number>-->
+<!--                    </template>-->
+                    <!-- gbb 0720 工资计算画面调整项目添加 end -->
+                  </plx-table-column>
                   <plx-table-column
                     prop="comaccumulationfund"
                     :label="$t('label.PFANS2005FORMVIEW_HOUSINGPROVIDENTFUND')"
@@ -3676,8 +3689,10 @@
         created() {
         },
         mounted() {
-            this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
-            this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
+            if (this.$i18n) {
+              this.thismonth = moment(new Date(this.$route.params.generationdate)).format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JULY');
+              this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
+            }
             this.Giving = this.$route.params._id;
             this.getListdata();
             // todo By Skaixx : 添加滚动条滑动监听事件
@@ -3984,6 +3999,19 @@
                     row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
                   }
                 }
+                //暖放费
+                if (prop === 'comheating') {
+                  //公司担负保险总计
+                  row.total = Math.round((Number(row.socialsecurity) + Number(val) + Number(row.comaccumulationfund)) * 100) / 100;
+                  //工资总额(纳税+免税)+福祉+公司負担+工会経費总计
+                  row.comtotalwages = Math.round((Number(row.totalwages) + Number(row.other4) + Number(row.other5) + Number(row.total) + Number(row.labourunionfunds)) * 100) / 100;
+                  //总计+計上奨金
+                  if (new Date().getMonth() + 1 === 4) {
+                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.njjy) + Number(row.bonusmoney)) * 100) / 100;
+                  } else {
+                    row.totalbonus = Math.round((Number(row.comtotalwages) + Number(row.bonusmoney)) * 100) / 100;
+                  }
+                }
                 //公积金ok
                 if (prop === 'comaccumulationfund') {
                     //公司担负保险总计
@@ -4133,14 +4161,16 @@
                     .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
                     .then(response => {
                       //region add_qhr_20210702 修改工资计算基数中月份显示
-                        this.YEARLAST = response.yearOfLastMonth +
-                          this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                          response.monthOfLastMonth +
-                          this.$t("label.PFANS2005FORMVIEW_MONTH");
-                        this.YEARNOW = response.yearOfThisMonth +
-                          this.$t("label.PFANS2005FORMVIEW_YEAR") +
-                          response.monthOfThisMonth +
-                          this.$t("label.PFANS2005FORMVIEW_MONTH");
+                        if (this.$i18n) {
+                          this.YEARLAST = response.yearOfLastMonth +
+                            this.$t("label.PFANS2005FORMVIEW_YEAR") +
+                            response.monthOfLastMonth +
+                            this.$t("label.PFANS2005FORMVIEW_MONTH");
+                          this.YEARNOW = response.yearOfThisMonth +
+                            this.$t("label.PFANS2005FORMVIEW_YEAR") +
+                            response.monthOfThisMonth +
+                            this.$t("label.PFANS2005FORMVIEW_MONTH");
+                        }
                       //endregion add_qhr_20210702 修改工资计算基数中月份显示
                         let lettableQT1Woman = [];
                         let lettableQT1Man = [];
@@ -4699,17 +4729,18 @@
                         }
                         // endregion
                         for (let j = 0; j < response.base.length; j++) {
-                            if (response.base[j].type === "1") {
-                                console.log(this.$t("label.PFANS2005FORMVIEW_SFRZ"));
+                            if (this.$i18n) {
+                              if (response.base[j].type === "1") {
                                 response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFRZ");
-                            } else if (response.base[j].type === "4") {
+                              } else if (response.base[j].type === "4") {
                                 response.base[j].type = this.$t("label.PFANS2005FORMVIEW_SFTZ");
-                            } else if (response.base[j].type === "2") {
+                              } else if (response.base[j].type === "2") {
                                 response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NSFCX");
-                            } else if (response.base[j].type === "3") {
+                              } else if (response.base[j].type === "3") {
                                 response.base[j].type = this.$t("label.PFANS2005FORMVIEW_NVSFCX");
-                            } else {
+                              } else {
                                 response.base[j].type = "-";
+                              }
                             }
                             let user = getUserInfo(response.base[j].user_id);
                             if (user) {
@@ -4746,7 +4777,9 @@
                             ) {
                                 if (this.$i18n) {
                                     if (response.base[j].registered === "1") {
+                                      if (this.$i18n) {
                                         response.base[j].registered = this.$t("label.yes");
+                                      }
                                     } else {
                                         response.base[j].registered = "-";
                                     }
@@ -4774,7 +4807,9 @@
                             ) {
                                 if (this.$i18n) {
                                     if (response.base[j].onlychild === "1") {
-                                        response.base[j].onlychild = this.$t("label.yes");
+                                        if (this.$i18n) {
+                                          response.base[j].onlychild = this.$t("label.yes");
+                                        }
                                     } else {
                                         response.base[j].onlychild = "-";
                                     }
@@ -5382,7 +5417,7 @@
                 }
                 this.loading = false;
             },
-            tabInfoSave() {
+            tabInfoSave(tabFlg) {
                 if(this.$route.params.status === '2' || this.$route.params.status === '4'){
                     return;
                 }
@@ -5419,16 +5454,18 @@
                     this.tab === "8" ||
                     this.tab === "9" ||
                     this.tab === "6" ||
-                    this.tab === "7"
+                    this.tab === "7" ||
+                    tabFlg === '0'
                 ) {
-                    console.log("this.totaldataQQ", this.totaldataQQ);
                     this.loading = true;
                     this.$store
                         .dispatch("PFANS2005Store/save", this.baseInfo)
                         .then(response => {
                             this.data = response;
                             this.getListdata();
-                            this.loading = false;
+                            if(tabFlg !== "0"){
+                              this.loading = false;
+                            }
                         })
                         .catch(error => {
                             Message({
@@ -5464,7 +5501,7 @@
                     return;
                 }
                 //调用保存-lxx
-                this.tabInfoSave();
+                this.tabInfoSave(tab.index);
                 //调用保存-lxx
                 this.tab = tab.index;
                 if (
@@ -5503,8 +5540,10 @@
                 const sums = [];
                 columns.forEach((column, index) => {
                     if (index === 0) {
-                        sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
-                        return;
+                        if (this.$i18n) {
+                          sums[index] = this.$t("label.PFANS2005FORMVIEW_HJ");
+                          return;
+                        }
                     }
                     const values = data.map(item => Number(item[column.property]));
                     if (!values.every(value => isNaN(value))) {
@@ -5553,43 +5592,44 @@
                     for (let c = 0; c < response.data.length; c++) {
                         let error = response.data[c];
                         error = error.substring(0, 3);
-                        if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
+                        if (this.$i18n) {
+                          if (error === this.$t("label.PFANS2005FORMVIEW_SB")) {
                             this.errorCount = response.data[c].substring(4);
                             if (this.tab === "3") {
-                                this.resultShowothertwo = true;
+                              this.resultShowothertwo = true;
                             }
                             if (this.tab === "4") {
-                                this.resultShowotherfour = true;
+                              this.resultShowotherfour = true;
                             }
                             if (this.tab === "5") {
-                                this.resultShowotherfive = true;
+                              this.resultShowotherfive = true;
                             }
                             if (this.tab === "10") {
-                                this.resultShowappreciation = true;
+                              this.resultShowappreciation = true;
                             }
                             if (this.tab === "13") {
-                                this.resultShowfjkc = true;
+                              this.resultShowfjkc = true;
                             }
-                        }
-                        if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
+                          }
+                          if (error === this.$t("label.PFANS2005FORMVIEW_CG")) {
                             this.successCount = response.data[c].substring(4);
                             if (this.tab === "3") {
-                                this.resultShowothertwo = true;
+                              this.resultShowothertwo = true;
                             }
                             if (this.tab === "4") {
-                                this.resultShowotherfour = true;
+                              this.resultShowotherfour = true;
                             }
                             if (this.tab === "5") {
-                                this.resultShowotherfive = true;
+                              this.resultShowotherfive = true;
                             }
                             if (this.tab === "10") {
-                                this.resultShowappreciation = true;
+                              this.resultShowappreciation = true;
                             }
                             if (this.tab === "13") {
-                                this.resultShowfjkc = true;
+                              this.resultShowfjkc = true;
                             }
-                        }
-                        if (error === this.$t("label.PFANS2017VIEW_D")) {
+                          }
+                          if (error === this.$t("label.PFANS2017VIEW_D")) {
                             let obj = {};
                             var str = response.data[c];
                             var aPos = str.indexOf(this.$t("label.PFANS2017VIEW_BAN"));
@@ -5598,6 +5638,7 @@
                             obj.hang = r;
                             obj.error = response.data[c].substring(6);
                             datalist[c] = obj;
+                          }
                         }
                         this.message = datalist;
                         this.getListdata();
@@ -5637,7 +5678,7 @@
                             }
                         }
                     }
-                    this.tabInfoSave();
+                    this.tabInfoSave('');
                 }
                 this.loading = false;
             },
