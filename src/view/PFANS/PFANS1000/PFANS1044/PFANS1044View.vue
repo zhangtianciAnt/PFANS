@@ -757,6 +757,9 @@
               // this.$t('label.PFANS1024VIEW_DELIVERYFINSHDATE'),
               // this.$t('label.PFANS1024VIEW_DELIVERYDATE'),
               this.$t('label.PFANS1044VIEW_KANRYO'),
+              //region  add  ml  20210723  合同导出添加“验收完了日”  from
+              this.$t('label.PFANS1024VIEW_COMPLETIONDATE'),
+              //endregion  add  ml  20210723  合同导出添加“验收完了日”  to
               this.$t('label.PFANS1024VIEW_LOADINGJUDGE'),
               this.$t('label.PFANS1024VIEW_CLAIMDATE'),
               this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
@@ -799,6 +802,9 @@
               // 'deliveryfinshdate',
               // 'deliverydate',
               'deliverydate',
+              //region  add  ml  20210723  合同导出添加“验收完了日”  from
+              'completiondate',
+              //endregion  add  ml  20210723  合同导出添加“验收完了日”  to
               'loadingjudge',
               //add_fjl_0803
               'claimdate',//请求日
@@ -846,6 +852,11 @@
                 // if (citem.deliveryfinshdate != null) {
                 //     citem.deliveryfinshdate = moment(citem.deliveryfinshdate).format('YYYY-MM-DD');
                 // }
+                //region  add  ml  20210723  合同导出添加“验收完了日”  from
+                if (citem.completiondate != null) {
+                  citem.completiondate = moment(citem.completiondate).format('YYYY-MM-DD');
+                }
+                //endregion  add  ml  20210723  合同导出添加“验收完了日”  to
                 if (citem.claimdate != null) {
                   citem.claimdate = moment(citem.claimdate).format('YYYY-MM-DD');
                 }

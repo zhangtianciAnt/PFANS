@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns1" :data="data" :title="title" v-loading="loading"
-                     v-show="showTable1">
+                     v-show="showTable1" :showSelectByCondition="displayOrNot">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -16,7 +16,7 @@
       </el-date-picker>
     </EasyNormalTable>
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="data" :title="title" v-loading="loading"
-                     v-show="!showTable1">
+                     v-show="!showTable1" :showSelectByCondition="displayOrNot">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -36,7 +36,7 @@
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import moment from 'moment';
-  import {getCooperinterviewList, getStatus, getUserInfo} from '@/utils/customize';
+  import {getCooperinterviewList, getStatus, getUserInfo,getCurrentRole6} from '@/utils/customize';
   import {Message} from 'element-ui'
 
   export default {
@@ -46,6 +46,8 @@
     },
     data() {
       return {
+        roles: '',
+        displayOrNot: false,
         months: moment(new Date()).format('YYYY-MM'),
         region: '1',
         loading: false,
@@ -522,11 +524,18 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRole6();
       if (this.$i18n) {
 
         this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.onlypeo')
       }
-      this.getTaxestotal();
+      //只有张建波、冷美琴、康奕凝
+      // if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+      //   || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+      //   || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37"){
+      if(this.roles === '0'){
+        this.getTaxestotal();
+      }
     },
     methods: {
       // update gbb 20210312 NT_PFANS_20210308_BUG_168 添加日期组件 start
@@ -549,7 +558,8 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               response[j].rowindex = j + 1;
-              response[j].giving_id = moment(response[j].createon).format('YYYY-MM');
+              // response[j].giving_id = moment(response[j].createon).format('YYYY-MM');
+              response[j].giving_id = moment(response[j].createonym).format('YYYY-MM');
               if (response[j].user_id !== null && response[j].user_id !== '') {
                 let rst = getUserInfo(response[j].user_id);
                 if (rst) {

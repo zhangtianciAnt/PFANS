@@ -509,9 +509,20 @@
         //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
         params_id: '',
         //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
+        //region  add  ml  20210721  离职报告页面返回至调书页面   from
+        checkids: '',
+        fromname: '',
+        disabledstatus: false,
+        //endregion  add  ml  20210721  离职报告页面返回至调书页面   to
       };
     },
     created() {
+      //region  add  ml  20210721  离职报告页面返回至调书页面   from
+      this.disabledstatus = this.$route.params._disabledstatus;
+      this.checkids = this.$route.params._checkid;
+      this.fromname = this.$route.params._fromname;
+      this.check = this.$route.params._check;
+      //endregion  add  ml  20210721  离职报告页面返回至调书页面   to
       this.checktype = this.$route.params._type;
       // if(this.checktype = 1){
       let role12 = getCurrentRole12();
@@ -522,11 +533,13 @@
             // 本人不能发起离职者调书 离职担当页不能发起任何人的离职调书
             if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -536,11 +549,13 @@
             }
             else {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -553,11 +568,13 @@
             this.enableSave = true;
             if (this.$route.params._userid === this.$store.getters.userinfo.userid || role12 === '0') {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -567,11 +584,13 @@
             }
             else {
               this.buttonList = [
-                {
-                  key: 'generate',
-                  name: 'button.insertgenerate',
-                  disabled: false,
-                },
+                //ztc 0726 离职者报告调整位置 fr
+                // {
+                //   key: 'generate',
+                //   name: 'button.insertgenerate',
+                //   disabled: false,
+                // },
+                //ztc 0726 离职者报告调整位置 to
                 {
                   key: 'insertsta',
                   name: 'button.insertsta',
@@ -583,11 +602,13 @@
         } else { //离职申请未结束不能生成调书
           this.enableSave = false;
           this.buttonList = [
-            {
-              key: 'generate',
-              name: 'button.insertgenerate',
-              disabled: true,
-            },
+            //ztc 0726 离职者报告调整位置 fr
+            // {
+            //   key: 'generate',
+            //   name: 'button.insertgenerate',
+            //   disabled: true,
+            // },
+            //ztc 0726 离职者报告调整位置 to
             {
               key: 'insertsta',
               name: 'button.insertsta',
@@ -958,6 +979,20 @@
           this.loading = false;
         });
       },
+      //region  add  ml  20210721  离职报告页面返回至调书页面   from
+      checkparams() {
+        if (this.fromname === 'PFANS2032FormView') {
+          this.$store.commit('global/SET_WORKFLOWURL', '/' + this.fromname);
+        }
+        this.$router.push({
+          name: this.fromname,
+          params: {
+            _id: this.checkids,
+            disabled: this.disabledstatus,
+          },
+        });
+      },
+      //endregion  add  ml  20210721  离职报告页面返回至调书页面   to
       buttonClick(val) {
         if (val === 'generate') {
           this.baseInfo2 = {};
@@ -1087,6 +1122,15 @@
             }
           });
         }
+        //region  add  ml  20210721  离职报告页面返回至调书页面   from
+        if(val === 'back') {
+          if (this.check != null && this.check!= '' && this.check!= undefined) {
+            if (this.check) {
+              this.checkparams();
+            }
+          }
+        }
+        //endregion  add  ml  20210721  离职报告页面返回至调书页面   to
       },
     },
   };

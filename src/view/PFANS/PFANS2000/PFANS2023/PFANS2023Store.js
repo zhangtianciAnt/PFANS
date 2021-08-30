@@ -1,4 +1,4 @@
-import {createPfans2023, getFpans2023List, updatePfans2023, getDataOne, download, yearsCheck} from './PFANS2023Api'
+import {createPfans2023, getFpans2023List, updatePfans2023, getDataOne, download, yearsCheck,change} from './PFANS2023Api'
 
 const PFANS2023Store = {
   namespaced: true,
@@ -32,6 +32,20 @@ const PFANS2023Store = {
           reject(error);
         })
       })
+    },
+    //目标管理数据转结
+    change({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
     //获取流程
     getFpans2023List({commit},data) {

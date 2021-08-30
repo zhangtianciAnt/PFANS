@@ -1,4 +1,4 @@
-import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create,download,getDataList} from './PFANS2024Api';
+import {createPfans2024, getFpans2024List, updatePfans2024,getDataOne,create,download,getDataList,dataCarryover} from './PFANS2024Api';
 
 const PFANS2024Store = {
   namespaced: true,
@@ -96,6 +96,21 @@ const PFANS2024Store = {
           reject(error);
         })
       })
+    },
+
+    //数据结转
+    dataCarryover({commit},data) {
+      return new Promise((resolve, reject) => {
+        dataCarryover(data).then(response => {
+          if (response.code === 0) {
+        resolve(response.data);
+      } else {
+        reject(response.message)
+      }
+    }).catch(error => {
+        reject(error);
+    })
+    })
     },
   }
 };

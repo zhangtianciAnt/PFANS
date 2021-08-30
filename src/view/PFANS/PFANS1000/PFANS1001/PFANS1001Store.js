@@ -4,6 +4,7 @@ import {getpurchaseApply} from '../PFANS1005/PFANS1005Api';
 import {getLoanapplication} from '../PFANS1006/PFANS1006Api';
 import {getCommunication} from '../PFANS1010/PFANS1010Api';
 import {getOffshore} from '../PFANS1011/PFANS1011Api';
+import {change} from "../../PFANS1000/PFANS1001/PFANS1001Api";
 
 const PFANS1001Store = {
   namespaced: true,
@@ -97,6 +98,19 @@ const PFANS1001Store = {
           reject(error);
         })
       })
+    },
+    change({commit}, data) {
+      return new Promise((resolve, reject) => {
+        change(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
     },
   }
 }

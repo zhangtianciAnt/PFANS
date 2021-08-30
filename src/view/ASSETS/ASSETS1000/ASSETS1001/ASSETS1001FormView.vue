@@ -57,6 +57,7 @@
                 </dicselect>
               </el-form-item>
             </el-col>
+<!--            管理者-->
             <el-col :span="8">
               <el-form-item :error="error" :label="$t('label.ASSETS1001VIEW_PRINCIPAL')">
                 <user :error="error" :selectType="selectType" :userlist="userlist"
@@ -74,6 +75,7 @@
           <el-row>
             <el-form-item v-show="form.typeassets === 'PA001001' || form.typeassets === 'PA001002' || form.typeassets === 'PA001003' || form.typeassets === 'PA001004' || form.typeassets === 'PA001009'">
               <el-row>
+<!--                部门-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_USEDEPARTMENTJIANCHENG')">
                     <el-input style="width:20vw" v-model="form.usedepartment"></el-input>
@@ -118,12 +120,12 @@
                 </el-col>
               </el-row>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')">
-                    <el-date-picker style="width:20vw" type="date"
-                                    v-model="form.purchasetime"></el-date-picker>
-                  </el-form-item>
-                </el-col>
+<!--                <el-col :span="8">--><!--“购入时间”与“启用日期”含义重复，删掉”购入时间”字段 scc-->
+<!--                  <el-form-item :label="$t('label.ASSETS1001VIEW_PURCHASETIME')">-->
+<!--                    <el-date-picker style="width:20vw" type="date"-->
+<!--                                    v-model="form.purchasetime"></el-date-picker>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.ASSETS1001VIEW_ACTIVITIONDATE')">
                     <el-date-picker style="width:20vw" type="date"
@@ -527,15 +529,15 @@
 </template>
 
 <script>
-  import EasyNormalContainer from '@/components/EasyNormalContainer';
-  import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
-  import {Message} from 'element-ui';
-  import dicselect from '../../../components/dicselect.vue';
-  import user from '../../../components/user.vue';
-  import {getDictionaryInfo, getOrgInfoByUserId, getUserInfo,getOrgInfo} from '@/utils/customize';
-  import ElRow from "element-ui/packages/row/src/row";
+import EasyNormalContainer from '@/components/EasyNormalContainer';
+import ASSETS1001View from '../ASSETS1001/ASSETS1001View.vue';
+import {Message} from 'element-ui';
+import dicselect from '../../../components/dicselect.vue';
+import user from '../../../components/user.vue';
+import {getDictionaryInfo, getOrgInfo, getOrgInfoByUserId} from '@/utils/customize';
+import ElRow from "element-ui/packages/row/src/row";
 
-  export default {
+export default {
     name: 'ASSETS1001FormView',
     components: {
       ElRow,
@@ -710,23 +712,49 @@
         this.userlist = val;
         if (this.userlist !== null && this.userlist !== '') {
           let lst = getOrgInfoByUserId(val);
-          if (lst)
-          {
-            if (lst.groupId!=null && lst.groupId!=undefined)
-            {
-              let group = getOrgInfo(lst.groupId);
-              if (group)
-              {
-                this.form.usedepartment = group.companyen;
-                this.form.departmentcode = group.encoding;
+          if (lst) {
+  //upd lsg 20210601  改变管理者生成部门名称，部门代码 from
+  //          if (lst.centerId != null && lst.centerId != undefined ) {
+  //             let center = getOrgInfo(lst.centerId);
+  //             if (center) {
+  //               this.form.usedepartment = center.companyen;
+  //               this.form.departmentcode = center.encoding;
+  //
+  //upd lsg 20210601  改变管理者生成部门名称，部门代码 编号 to
+             if (lst.centerId != null && lst.centerId != undefined ) {
+               let center = getOrgInfo(lst.centerId);
+               if (center) {
+                 this.form.usedepartment = center.companyen;
+                 this.form.departmentcode = center.encoding;
+                 if (this.form.departmentcode !== '' && this.form.departmentcode !== null) {
+                   let code1 = this.form.departmentcode;
+                   let code2 = code1.slice(0, 5);
+                   let code3 = 1;
+                   this.form.departmentcode = code2 + code3;
+                 }
+               }
+              if(center.encoding === null){
+                let lst = getOrgInfoByUserId(val);
+                if (lst) {
+                  if (lst.groupId != null && lst.groupId != undefined) {
+                    let group = getOrgInfo(lst.groupId);
+                    if (group) {
+                      this.form.departmentcode = group.encoding;
+                      let code1 = this.form.departmentcode;
+                      let code2 = code1.slice(0, 5);
+                      let code3 = 1;
+                      this.form.departmentcode = code2 + code3;
+                    }
+                  }
+                }
               }
-            }
+           }
           }
-        }
-        if (!this.form.principal || this.form.principal === '' || val === 'undefined') {
-          this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_PRINCIPAL');
-        } else {
-          this.error = '';
+          if (!this.form.principal || this.form.principal === '' || val === 'undefined') {
+            this.error = this.$t('normal.error_09') + this.$t('label.ASSETS1001VIEW_PRINCIPAL');
+          } else {
+            this.error = '';
+          }
         }
       },
       getStockstatus(val) {

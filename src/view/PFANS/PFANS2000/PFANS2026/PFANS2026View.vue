@@ -1,6 +1,18 @@
 <template>
+  <div>
+<!--    //ztc 0726 0726 离职者报告调整位置 fr-->
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelection="true" ref="roletable" >
+    <!--add  ml   20210708    离职流程提示   from-->
+<!--    //ztc 0726 离职者报告调整位置 to-->
+    <el-alert
+      slot="customize"
+      type="info"
+      v-html="description"
+      show-icon
+      style="text-align: left;margin-bottom: 5px;font-size:smaller;font-weight: bold">
+    </el-alert>
+    <!--add  ml   20210708    离职流程提示   to-->
     <el-date-picker
       unlink-panels
       class="bigWidth"
@@ -14,27 +26,163 @@
       @change="filterInfo"
     ></el-date-picker>
   </EasyNormalTable>
+  <el-dialog center
+             :visible.sync="dialogVisible"
+             :title="$t('button.carryforward')"
+             width="50%">
+    <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
+      <el-row>
+        <div style=
+               "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+      </el-row>
+    <el-row>
+      <el-col :span="8" style="margin-left: 0.5vw">
+          <el-form-item :label="$t('label.center')">
+            <el-input :disabled="true" style="width:15vw" v-model="form.last_center_id"></el-input>
+          </el-form-item>
+      </el-col>
+      <el-col :span="8">
+          <el-form-item :label="$t('label.group')">
+            <el-input :disabled="true" style="width:15vw" v-model="form.last_group_id"></el-input>
+          </el-form-item>
+      </el-col>
+      <el-col :span="7">
+          <el-form-item :label="$t('label.team')">
+            <el-input :disabled="true" style="width:15vw" v-model="form.last_team_id"></el-input>
+          </el-form-item>
+      </el-col>
+      </el-row>
+      <el-row>
+        <div style=
+               "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+      </el-row>
+      <el-row>
+        <el-col :span="8" style="margin-left: 0.5vw; margin-bottom: -1vw;">
+          <el-form-item :label="$t('label.center')" prop="new_center_id"
+                        :error="error_center">
+            <org :orglist="form.new_center_id"
+                 orgtype="1"
+                 style="width: 14vw"
+                 @getOrgids="getCenterid"
+                 :error="error_center"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="8" style="margin-bottom: -1vw;">
+          <el-form-item :label="$t('label.group')" prop="new_group_id"
+                        :error="error_group">
+            <org :orglist="form.new_group_id"
+                 orgtype="2"
+                 style="width: 14vw"
+                 @getOrgids="getGroupid"
+                 :error="error_group"
+            ></org>
+          </el-form-item>
+        </el-col>
+        <el-col :span="7" style="margin-bottom: -1vw;">
+          <el-form-item :label="$t('label.team')">
+            <org :orglist="form.new_team_id"
+                 orgtype="3"
+                 style="width: 14vw"
+                 @getOrgids="getTeamid"
+            ></org>
+          </el-form-item>
+        </el-col>
+    </el-row>
+    </el-form>
+    <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+  </span>
+  </el-dialog>
+  </div>
 </template>
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getStatus, getUserInfo, getDictionaryInfo,getUserInfoName, getOrgInfoByUserId,getCurrentRolegongzijisuan} from '@/utils/customize';
+  import org from '@/view/components/org';
+  import {getOrgInfo,getStatus, getUserInfo, getDictionaryInfo,getUserInfoName, getOrgInfoByUserId,getCurrentRolegongzijisuan,getDepartmentById} from '@/utils/customize';
 
   export default {
     name: 'PFANS2026View',
     components: {
       EasyNormalTable,
+      org,
     },
     data() {
+      var centerId = (rule, value, callback) => {
+        if (!this.form.new_center_id || this.form.new_center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
+          this.error_center = this.$t('normal.error_08') + this.$t('label.center');
+        } else {
+          callback();
+        }
+      };
+      // var groupId = (rule, value, callback) => {
+      //   if (!this.form.new_group_id || this.form.new_group_id === '') {
+      //     callback(new Error(this.$t('normal.error_08') + this.$t('label.group')));
+      //     this.error_group = this.$t('normal.error_08') + this.$t('label.group');
+      //   } else {
+      //     callback();
+      //   }
+      // };
+      // var teamId = (rule, value, callback) => {
+      //   if (!this.form.new_center_id || this.form.new_center_id === '') {
+      //     callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
+      //     this.error_team = this.$t('normal.error_08') + this.$t('label.department');
+      //   } else {
+      //     callback();
+      //   }
+      // };
       return {
+        rules: {
+          new_center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            }
+          ],
+          // new_group_id: [
+          //   {
+          //     required: true,
+          //     validator: groupId,
+          //     trigger: 'blur',
+          //   }
+          // ],
+          // new_team_id: [
+          //   {
+          //     required: true,
+          //     validator: teamId,
+          //     trigger: 'blur',
+          //   }
+          // ],
+        },
+        form: {
+          centername: '',
+          groupname: '',
+          teamname: '',
+          last_center_id: '',
+          last_group_id: '',
+          last_team_id: '',
+          new_center_id: '',
+          new_group_id: '',
+          new_team_id: '',
+          org: '',
+          hope_exit_date: '', //添加离职考勤对比数据转结
+        },
+        description:this.$t('label.PFANS2026FORMVIEW_PROCEDURE'),//add  ml   20210708    离职流程提示
+        dialogVisible: false,
         workinghours: '',
         checktype: 0,
         loading: false,
         title: 'title.PFANS2026VIEW',
         data: [],
         tableList: [],
+        rowInfo: [],
+        error_group: '',
+        error_center: '',
         columns: [
           {
             code: 'user_id',
@@ -107,7 +255,8 @@
             filter: true,
           },
         ],
-        buttonList: [
+        buttonList:[ ],
+        buttonListAll: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
@@ -126,6 +275,45 @@
           // add-ccm 7/20 离职工资对比 fr
           {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
           // add-ccm 7/20 离职工资对比 to
+          // add-ccm  数据转结 fr
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit', },
+          // add-ccm  数据转结 to
+          //ztc 0726 离职者报告调整位置 fr
+          {
+            'key': 'generate',
+            'name': 'button.insertgenerate',
+            'disabled': false,
+            'icon': 'el-icon-printer'
+          },
+          //ztc 0726 离职者报告调整位置 to
+        ],
+        buttonListial:[
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': true, 'icon': 'el-icon-edit'},
+          //add-ws-6/16-禅道106
+          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+          {'key': 'changedata', 'name': 'button.changedata', 'disabled': true, 'icon': 'el-icon-view'},
+          //add-ws-6/16-禅道106
+          // add-ccm 7/9 离职考勤对比 fr
+          {
+            'key': 'resignationAttendCompare',
+            'name': 'button.resignationAttendCompare',
+            'disabled': true,
+            'icon': 'el-icon-view',
+          },
+          // add-ccm 7/9 离职考勤对比 to
+          // add-ccm 7/20 离职工资对比 fr
+          {'key': 'wagescontrast', 'name': 'button.wagescontrast', 'disabled': true, 'icon': 'el-icon-view'},
+          // add-ccm 7/20 离职工资对比 to
+          //ztc 0726 离职者报告调整位置 fr
+          {
+            'key': 'generate',
+            'name': 'button.insertgenerate',
+            'disabled': false,
+            'icon': 'el-icon-printer'
+          },
+          //ztc 0726 离职者报告调整位置 to
         ],
         userid: '',
         //add-ws-9/23-禅道任务548
@@ -133,6 +321,9 @@
         //add-ws-9/23-禅道任务548
         rowid: '',
         status: '',
+        //ztc 0726 离职者报告调整位置 fr
+        selectedlist: [],
+        //ztc 0726 离职者报告调整位置 to
         row_id: 'staffexitprocedure_id',
         // add-ccm 7/9 离职考勤对比 fr
         url: '',
@@ -146,12 +337,75 @@
         row_resignation_year: '',
         row_resignation_months: '',
         // add-ccm 7/9 离职考勤对比 to
+        mounth: '',
+        date: '',
       };
     },
     mounted() {
       this.getList();
+      this.getdate();
     },
     methods: {
+      // getCenterid(val){
+      //   this.form.new_center_id = val
+      // },
+      // getGroupid(val){
+      //   this.form.new_group_id = val
+      // },
+      // getTeamid(val){
+      //   this.form.new_team_id = val
+      // },
+      getCenterid(val) {
+        this.form.new_center_id = val;
+        this.getOrgInformation(val);
+        if (!val || this.form.new_center_id === '') {
+          this.error_center = this.$t('normal.error_08') + 'center';
+        } else {
+          this.error_center = '';
+        }
+      },
+      getGroupid(val) {
+        this.form.new_group_id = val;
+        this.getOrgInformation(val);
+      },
+      getTeamid(val) {
+        this.form.new_team_id = val;
+        this.getOrgInformation(val);
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+              org.team_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.group_id = treeCom.getNode(node).data._id;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.center_id = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centername: this.form.centername,
+            groupname: this.form.groupname,
+            teamname: this.form.teamname,
+            center_id: this.form.new_center_id,
+            group_id: this.form.new_group_id,
+            team_id: this.form.new_team_id,
+          } = org);
+        }
+      },
+      setOrg(val) {
+        this.form.org = val;
+      },
       getworkinghours(workinghours) {
         if (workinghours != null) {
           if (workinghours.length > 0) {
@@ -194,13 +448,23 @@
                     response[j].starank = letbudge.value1;
                   }
                 }
-                let rst = getUserInfo(response[j].user_id);
-                let nameflg = getOrgInfoByUserId(response[j].user_id);
-                if (nameflg) {
-                  response[j].center_name = nameflg.centerNmae;
-                  response[j].group_name = nameflg.groupNmae;
-                  response[j].team_name = nameflg.teamNmae;
+                // upd ccm 20210702 组织信息显示使用共通 fr
+                // response[j].center_name = getDepartmentById(response[j].center_id);
+                // response[j].group_name = getDepartmentById(response[j].group_id);
+                // response[j].team_name = getDepartmentById(response[j].team_id);
+                let center = getOrgInfo(response[j].center_id);
+                if (center) {
+                  response[j].center_name = center.companyname;
                 }
+                let group = getOrgInfo(response[j].group_id);
+                if (group) {
+                  response[j].group_name = group.companyname;
+                }
+                let team = getOrgInfo(response[j].team_id);
+                if (team) {
+                  response[j].team_name = team.companyname;
+                }
+                // upd ccm 20210702 组织信息显示使用共通 to
                 let postinfo = getDictionaryInfo(response[j].position);
                 if (postinfo) {
                   response[j].position = postinfo.value1;
@@ -209,6 +473,7 @@
                 //保存离职者的用户id
                 response[j].userid1 = response[j].user_id;
                 // add-ccm 7/9 离职考勤对比 to
+                let rst = getUserInfo(response[j].user_id);
                 if (rst) {
                   response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
                 }
@@ -242,6 +507,54 @@
             });
             this.loading = false;
           });
+      },
+      //add    数据转结按钮显示  from
+      getdate(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30){
+          this.buttonList = this.buttonListAll
+        } else {
+          this.buttonList = this.buttonListial;
+        }
+      },
+      //add    数据转结按钮显示  to
+      submit(){
+        this.loading = true;
+        this.$refs['form'].validate(valid =>{
+          if(valid){
+            let parameter = {
+              center_id: this.form.new_center_id,
+              group_id: this.form.new_group_id,
+              team_id:this.form.new_team_id,
+              staffexitprocedure_id:this.rowid,
+              hope_exit_date: this.form.hope_exit_date, ////添加离职考勤对比数据转结
+            };
+            this.$store
+              .dispatch('PFANS2026Store/change', parameter)
+              .then(response => {
+                // this.data = response;
+                this.getList();
+                Message({
+                  message: this.$t('normal.success_07'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                this.dialogVisible = false;
+                this.form.new_center_id = '' ;
+                this.form.new_group_id = '' ;
+                this.form.new_team_id = '' ;
+                this.rowid = '';
+              })
+          }else{
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+        this.loading = false;
       },
       rowClick(row) {
         //add-ws-9/23-禅道任务548
@@ -318,6 +631,7 @@
         }
         //add-ws-6/16-禅道106
         this.rowid = row.staffexitprocedure_id;
+        this.rowInfo = row;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -355,6 +669,23 @@
               disabled: true,
             },
           });
+        } else if(val === 'carryforward'){
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }else{
+            this.form.last_center_id = this.rowInfo.center_name;
+            this.form.last_group_id = this.rowInfo.group_name;
+            this.form.last_team_id = this.rowInfo.team_name;
+            this.form.hope_exit_date = this.rowInfo.hope_exit_date; //添加离职考勤对比数据转结
+          }
+          this.dialogVisible = true;
+          this.form.new_center_id = '' ;
+          this.form.new_group_id = '';
         } else if (val === 'update') {
           if (this.rowid === '') {
             Message({
@@ -443,8 +774,53 @@
               disabled: false,
             },
           });
+          //ztc 0726 离职者报告调整位置 fr
+        } else if(val === 'generate'){
+          if (this.$refs.roletable.selectedList.length === 0) {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          for (let i = 0; i < this.$refs.roletable.selectedList.length; i++) {
+            if (this.$refs.roletable.selectedList[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
+              Message({
+                message: this.$t('label.PFANS2026FORMVIEW_MESSAGESTU'),
+                type: 'info',
+                duration: 2 * 1000,
+              });
+              return;
+            }
+          }
+          this.selectedlist = this.$refs.roletable.selectedList;
+          this.export1(0);
+          //ztc 0726 离职者报告调整位置 to
         }
       },
+      //ztc 0726 离职者报告调整位置 fr
+      export1(val){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2026Store/generatesta', {staffexitprocedure_id: this.$refs.roletable.selectedList[val].staffexitprocedure_id})
+          .then(response => {
+            this.loading = false;
+            if (val < this.$refs.roletable.selectedList.length - 1) {
+              val = val + 1;
+              this.export1(val);
+            }
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //ztc 0726 离职者报告调整位置 to
       //add-ws-6/16-禅道106
       delete() {
         this.loading = true;

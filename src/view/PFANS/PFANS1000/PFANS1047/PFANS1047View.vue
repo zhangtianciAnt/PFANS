@@ -14,6 +14,46 @@
                      ref="roletable"
                      :showSelection="isShow">
     </EasyNormalTable>
+    <el-container>
+      <el-dialog center
+                 :visible.sync="dialogVisible"
+                 :title="$t('button.carryforward')"
+                 width="22%">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
+          <el-row>
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw">
+              <el-form-item :label="$t('label.center')">
+                <el-input :disabled="true" style="width:17vw" v-model="department"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
+              <el-form-item :label="$t('label.center')" prop="new_center_id"
+                            :error="error_center">
+                <org :orglist="form.new_center_id"
+                     orgtype="4"
+                     style="width: 17vw"
+                     @getOrgids="getCenterid"
+                     :error="error_center"
+                ></org>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+          </span>
+      </el-dialog>
+    </el-container>
   </div>
 </template>
 
@@ -22,17 +62,52 @@
   import {getDictionaryInfo, getStatus,getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   let moment = require('moment');
+  import org from '@/view/components/org';
 
   export default {
     name: 'PFANS1047View',
     components: {
       EasyNormalTable,
+      org,
     },
     data() {
+      var centerId = (rule, value, callback) => {
+        if (!this.form.new_center_id || this.form.new_center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
+          this.error_center = this.$t('normal.error_08') + this.$t('label.center');
+        } else {
+          callback();
+        }
+      };
       return {
         loading: false,
         title: 'title.PFANS1047VIEW',
         data: [],
+        // groupid: '',
+        department: '',
+        maketype: '',
+        error_group: '',
+        error_center: '',
+        rows: {},
+
+        rules: {
+          new_center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            }
+          ],
+        },
+        form: {
+          last_center_id: '',
+          // last_group_id: '',
+          // last_team_id: '',
+          new_center_id: '',
+          // new_group_id: '',
+          // new_team_id: '',
+          org: '',
+        },
         checkdata: [],
         columns: [
           {
@@ -85,23 +160,43 @@
             filter: true,
           },
         ],
-        buttonList: [
+        buttonList: [],
+        buttonListAnt: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+        ],
+        buttonListOld: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-view'},
         ],
         selectedlist: [],
         rowid: '',
+        mounth: '',
+        date: '',
         row_id: 'award_id',
         pjnameflg: [],
         handleShow: true,
         isShow: true,
+        dialogVisible: false,
       };
     },
     mounted() {
       this.getPjanme();
+      this.getdateInfo();
     },
     methods: {
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          this.buttonList = this.buttonListAnt;
+        }else{
+          this.buttonList = this.buttonListOld;
+        }
+      },
       handleEdit(row) {
         if(row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL'))
         {
@@ -208,6 +303,9 @@
                           owner: response[i].owner,
                           sealstatus:response[i].sealstatus,
                           sealid:response[i].sealid,
+                          contractnumber:response[i].contractnumber,
+                          groupid:response[i].group_id,
+                          maketype:response[i].maketype,
                         });
                       }
                     }
@@ -234,6 +332,9 @@
                         owner: response[m].owner,
                         sealstatus:response[m].sealstatus,
                         sealid:response[m].sealid,
+                        contractnumber:response[m].contractnumber,
+                        groupid:response[m].group_id,
+                        maketype:response[m].maketype,
                       });
                     }
                     //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
@@ -255,7 +356,82 @@
       },
       rowClick(row) {
         this.rowid = row.award_id;
+        this.rows = row;
+        this.department = row.deployment;
+        // this.groupid = row.groupid;
+
       },
+      getCenterid(val){
+        this.form.new_center_id = val
+      },
+      // getGroupid(val){
+      //   this.form.new_group_id = val
+      // },
+      // getTeamid(val){
+      //   this.form.new_team_id = val
+      // },
+      setOrg(val) {
+        this.form.org = val;
+      },
+      submit(){
+        this.loading = true;
+        this.$refs['form'].validate(valid =>{
+          if(valid){
+            let parameter = {
+              group_id: this.form.new_center_id,
+              maketype: this.rows.maketype,
+              award_id:this.rowid,
+            };
+            this.$store
+              .dispatch('PFANS1025Store/dataCarryover', parameter)
+              .then(response => {
+                this.getPjanme();
+                Message({
+                  message: this.$t('normal.success_07'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                this.dialogVisible = false;
+                this.form.new_center_id= '';
+                // this.form.new_group_id='';
+                // this.form.new_team_id= '';
+              })
+          }else{
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+        this.loading = false;
+      },
+      //获取组织信息
+      // getOrgInformation(id) {
+      //   let org = {};
+      //   let treeCom = this.$store.getters.orgs;
+      //   if (id && treeCom.getNode(id)) {
+      //     let node = id;
+      //     let type = treeCom.getNode(id).data.type || 0;
+      //     for (let index = parseInt(type); index >= 1; index--) {
+      //       if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+      //         org.teamname = treeCom.getNode(node).data.departmentname;
+      //       }
+      //       if (index === 2) {
+      //         org.groupname = treeCom.getNode(node).data.departmentname;
+      //       }
+      //       if (index === 1) {
+      //         org.centername = treeCom.getNode(node).data.companyname;
+      //       }
+      //       node = treeCom.getNode(node).parent.data._id;
+      //     }
+      //     ({
+      //       centername: this.form.last_center_id,
+      //       groupname: this.form.last_group_id,
+      //       teamname: this.form.last_team_id,
+      //     } = org);
+      //   }
+      // },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
         if (val === 'update') {
@@ -291,6 +467,18 @@
               disabled: false,
             },
           });
+        }
+        if(val === 'carryforward'){
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.dialogVisible = true;
+          this.form.new_center_id= '';
         }
         if (val === "sealapp") {
           this.selectedlist = this.$refs.roletable.selectedList;

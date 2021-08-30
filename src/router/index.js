@@ -104,6 +104,9 @@ import PFANS1048View from '@/view/PFANS/PFANS1000/PFANS1048/PFANS1048View.vue'
 import PFANS1048FormView from '@/view/PFANS/PFANS1000/PFANS1048/PFANS1048FormView.vue'
 import PFANS1049View from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049View.vue'
 import PFANS1049FormView from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049FormView.vue'
+import PFANS1050View from '@/view/PFANS/PFANS1000/PFANS1050/PFANS1050View.vue'
+import PFANS1051View from '@/view/PFANS/PFANS1000/PFANS1051/PFANS1051View.vue'
+import PFANS1052View from '@/view/PFANS/PFANS1000/PFANS1052/PFANS1052View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -173,6 +176,7 @@ import PFANS4001View from '@/view/PFANS/PFANS4000/PFANS4001/PFANS4001View'
 import PFANS4001FormView from '@/view/PFANS/PFANS4000/PFANS4001/PFANS4001FormView'
 import PFANS4002View from '@/view/PFANS/PFANS4000/PFANS4002/PFANS4002View'
 import PFANS4002FormView from '@/view/PFANS/PFANS4000/PFANS4002/PFANS4002FormView'
+import PFANS4003View from '@/view/PFANS/PFANS4000/PFANS4003/PFANS4003View'
 import PFANS5001View from '@/view/PFANS/PFANS5000/PFANS5001/PFANS5001View.vue'
 import PFANS5001FormView from '@/view/PFANS/PFANS5000/PFANS5001/PFANS5001FormView.vue'
 import PFANS5002View from '@/view/PFANS/PFANS5000/PFANS5002/PFANS5002View.vue'
@@ -211,6 +215,7 @@ import PFANS6008View from '@/view/PFANS/PFANS6000/PFANS6008/PFANS6008View.vue'
 import PFANS6009View from '@/view/PFANS/PFANS6000/PFANS6009/PFANS6009View.vue'
 import PFANS6010View from '@/view/PFANS/PFANS6000/PFANS6010/PFANS6010View.vue'
 import PFANS6010FormView from '@/view/PFANS/PFANS6000/PFANS6010/PFANS6010FormView.vue'
+import PFANS6011View from '@/view/PFANS/PFANS6000/PFANS6011/PFANS6011View.vue'
 import PFANS8001View from '@/view/PFANS/PFANS8000/PFANS8001/PFANS8001View.vue'
 import PFANS8002View from '@/view/PFANS/PFANS8000/PFANS8002/PFANS8002View.vue'
 import PFANS8003View from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003View.vue'
@@ -754,6 +759,11 @@ const routes = [
         component: PFANS1049FormView,
       },
       {
+        path: '/PFANS1050View',
+        name: 'PFANS1050View',
+        component: PFANS1050View,
+      },
+      {
         path: '/PFANS1045FormView',
         name: 'PFANS1045FormView',
         component: PFANS1045FormView,
@@ -767,6 +777,16 @@ const routes = [
         path: '/PFANS1047FormView',
         name: 'PFANS1047FormView',
         component: PFANS1047FormView,
+      },
+      {
+        path: '/PFANS1052View',
+        name: 'PFANS1052View',
+        component: PFANS1052View,
+      },
+      {
+        path: '/PFANS1051View',
+        name: 'PFANS1051View',
+        component: PFANS1051View,
       },
       {
         path: '/PFANS2000View',
@@ -1112,6 +1132,13 @@ const routes = [
         name: 'PFANS4002FormView',
         component: PFANS4002FormView
       },
+      // region scc add 21/8/17 部门rank别人件费 from
+      {
+        path: '/PFANS4003View',
+        name: 'PFANS4003View',
+        component: PFANS4003View,
+      },
+      // endregion scc add 21/8/17 部门rank别人件费 to
       {
         path: '/PFANS5001View',
         name: 'PFANS5001View',
@@ -1304,6 +1331,11 @@ const routes = [
         path: '/PFANS6010FormView',
         name: 'PFANS6010FormView',
         component: PFANS6010FormView
+      },
+      {
+        path: '/PFANS6011View',
+        name: 'PFANS6011View',
+        component: PFANS6011View
       },
       {
         path: '/PFANS8001View',

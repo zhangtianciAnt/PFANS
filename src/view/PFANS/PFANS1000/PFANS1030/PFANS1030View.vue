@@ -9,6 +9,46 @@
                      @rowClick="rowClick"
                      v-loading="loading">
     </EasyNormalTable>
+    <el-container>
+      <el-dialog center
+                 :visible.sync="dialogVisible"
+                 :title="$t('button.carryforward')"
+                 width="22%">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
+          <el-row>
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw">
+              <el-form-item :label="$t('label.center')">
+                <el-input :disabled="true" style="width:17vw" v-model="department"></el-input>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
+            <div style=
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+          </el-row>
+          <el-row>
+            <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
+              <el-form-item :label="$t('label.center')" prop="new_center_id"
+                            :error="error_center">
+                <org :orglist="form.new_center_id"
+                     orgtype="4"
+                     style="width: 17vw"
+                     @getOrgids="getCenterid"
+                     :error="error_center"
+                ></org>
+              </el-form-item>
+            </el-col>
+          </el-row>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
+          </span>
+      </el-dialog>
+    </el-container>
   </div>
 </template>
 
@@ -17,18 +57,52 @@
   import {getDictionaryInfo, getStatus,getMonthlyrateInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   let moment = require('moment');
+  import org from '@/view/components/org';
 
   export default {
     name: 'PFANS1025View',
     components: {
       EasyNormalTable,
+      org,
     },
     data() {
+      var centerId = (rule, value, callback) => {
+        if (!this.form.new_center_id || this.form.new_center_id === '') {
+          callback(new Error(this.$t('normal.error_08') + this.$t('label.center')));
+          this.error_center = this.$t('normal.error_08') + this.$t('label.center');
+        } else {
+          callback();
+        }
+      };
       return {
         loading: false,
         title: 'title.PFANS1025VIEW',
         data: [],
+        groupid: '',
+        department: '',
+        maketype: '',
         checkdata: [],
+        error_group: '',
+        error_center: '',
+        rows: {},
+        rules: {
+          new_center_id: [
+            {
+              required: true,
+              validator: centerId,
+              trigger: 'blur',
+            }
+          ],
+        },
+        form: {
+          last_center_id: '',
+          last_group_id: '',
+          last_team_id: '',
+          new_center_id: '',
+          new_group_id: '',
+          new_team_id: '',
+          org: '',
+        },
         columns: [
           {
             code: 'contractnumber',
@@ -103,19 +177,38 @@
           },
           //add-ws-4/17-添加审批时间
         ],
-        buttonList: [
+        buttonList: [],
+        buttonListAnt: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+        ],
+        buttonListOld: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
         ],
         rowid: '',
+        mounth: '',
+        date: '',
         row_id: 'award_id',
+        dialogVisible: false,
         pjnameflg: [],
       };
     },
     mounted() {
       this.getPjanme();
+      this.getdateInfo();
     },
     methods: {
+      getdateInfo(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+          this.buttonList = this.buttonListAnt;
+        }else{
+          this.buttonList = this.buttonListOld;
+        }
+      },
       getPjanme() {
         this.loading = true;
         this.$store
@@ -207,6 +300,7 @@
                               award_id: response[j].award_id,
                               status:response[j].status,
                               owner: response[j].owner,
+                              maketype:response[j].maketype,
                             });
                           }
                         }
@@ -229,6 +323,7 @@
                             award_id: response[m].award_id,
                             status:response[m].status,
                             owner: response[m].owner,
+                            maketype:response[m].maketype,
                           });
                         }
                       }
@@ -257,6 +352,17 @@
       },
       rowClick(row) {
         this.rowid = row.award_id;
+        this.rows = row;
+        this.groupid = row.groupid;
+        this.department = row.deployment;
+
+
+      },
+      getCenterid(val){
+        this.form.new_center_id = val
+      },
+      setOrg(val) {
+        this.form.org = val;
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -277,6 +383,18 @@
             },
           });
         }
+        if(val === 'carryforward'){
+          if (this.rowid === '') {
+            Message({
+              message: this.$t('normal.info_01'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          this.dialogVisible = true;
+          this.form.new_center_id= '';
+        }
         if (val === 'view') {
           if (this.rowid === '') {
             Message({
@@ -295,6 +413,40 @@
           });
         }
 
+      },
+      submit(){
+        this.loading = true;
+        this.$refs['form'].validate(valid =>{
+          if(valid){
+            let parameter = {
+              group_id: this.form.new_center_id,
+              maketype: this.rows.maketype,
+              award_id:this.rowid,
+            };
+            // console.log(parameter)
+            this.$store
+              .dispatch('PFANS1025Store/dataCarryover', parameter)
+              .then(response => {
+                this.getPjanme();
+                Message({
+                  message: this.$t('normal.success_07'),
+                  type: 'success',
+                  duration: 5 * 1000,
+                });
+                this.dialogVisible = false;
+                this.form.new_center_id= '';
+                this.form.new_group_id='';
+                this.form.new_team_id= '';
+              })
+          }else{
+            Message({
+              message: this.$t('normal.error_12'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          }
+        });
+        this.loading = false;
       },
     },
   };

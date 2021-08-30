@@ -60,6 +60,15 @@
                       fix: false,
                       filter: false,
                     },
+                  //region add_qhr_20210810  一览加入项目名称列
+                    {
+                      code: 'projectname',
+                      label: 'label.PFANS5004VIEW_PROJECTNAMW',
+                      width: 180,
+                      fix: false,
+                      filter: false,
+                    },
+                  //endregion add_qhr_20210810  一览加入项目名称列
                     {
                         code: 'remark',
                         label: 'label.PFANS1012VIEW_ABSTRACT',
@@ -187,6 +196,11 @@
                             {
                               response[j].foreigncurrencytemp = this.$t('label.PFANS1012VIEW_RMB');
                             }
+                            //region  add_qhr_20210616 公共费用金额加入千分位符
+                            if (response[j].moneys !== null && response[j].moneys !== '') {
+                              response[j].moneys = (Number(response[j].moneys)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                            }
+                            //endregion  add_qhr_20210616 公共费用金额加入千分位符
                             //add_fjl_0928  添加外币的场合 币种+外币金额 end
                             //ADD-WS-4/27-精算类型添加
                             if (response[j].type !== null && response[j].type !== '') {
@@ -405,6 +419,7 @@
                                 }
                                 break;
                             }
+                            //PSDCD_PFANS_20210519_BUG_006 修改供应商编码 供应商地点错误 fr
                             if (error == 0) {
                                 this.selectedlist = this.$refs.roletable.selectedList;
                                 let sum = 0;
@@ -421,8 +436,19 @@
                                                 } else if (this.selectedlist[i].paymentmethod === this.$t('label.PFANS1012VIEW_PPAYMENT')) {
                                                     this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_OFFICE');
                                                 } else if (this.selectedlist[i].paymentmethod === '') {
-                                                    this.selectedlist[i].paymentmethod = '';
+                                                  this.selectedlist[i].paymentmethod = '';
                                                 }
+                                                if (this.selectedlist[i].loantype != '' && this.selectedlist[i].loantype != null && this.selectedlist[i].loantype != undefined) {
+                                                  let lype = this.selectedlist[i].loantype.split(',')[0];
+                                                  if(lype === '0'){
+                                                    this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_OFFICE');
+                                                  }else if(lype === '1'){
+                                                    this.selectedlist[i].paymentmethod = this.$t('label.PFANS1012VIEW_COST');
+                                                  }
+                                                }
+                                            }
+                                            if(response[m].vendorcode == '' || response[m].vendorcode == null || response[m].vendorcode == undefined){
+                                              response[m].vendorcode = this.selectedlist[i].loantype.split(',')[1];
                                             }
                                             if (response[m].invoicedate !== null && response[m].invoicedate !== '') {
                                                 let date;
@@ -557,6 +583,8 @@
                                 let csvData = [];
                                 for (let i = 0; i < this.startoptionvalue.length; i++) {
                                     let obj = this.startoptionvalue[i];
+                                    obj.vendorcode = '\t' + obj.vendorcode;
+                                  //PSDCD_PFANS_20210519_BUG_006 修改供应商编码 供应商地点错误 to
                                     csvData.push({
                                         invoicenumber: obj.invoicenumber,
                                         number: obj.number,

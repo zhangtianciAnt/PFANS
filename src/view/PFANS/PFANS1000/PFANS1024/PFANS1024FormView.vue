@@ -3,6 +3,12 @@
     <EasyNormalContainer :buttonList="buttonList"
                          :title="title"
                          @buttonClick="buttonClick"
+                         @end="end" @start="start"
+                         @workflowState="workflowState"
+                         @StartWorkflow="buttonClick"
+                         :enableSave="enableSave"
+                         :workflowCode="workflowCode"
+                         :canStart="canStart"
                          ref="container"
                          v-loading="loading">
       <div slot="customize">
@@ -252,7 +258,7 @@
                     :multiple="multiple"
                     @change="getEntrycondition"
                     style="width: 11rem"
-                    :disabled="!disabled">
+                    :disabled="book ? (!bookawardafter ? true:false) : !disabled">
                   </dicselect>
                 </el-form-item>
               </template>
@@ -261,7 +267,7 @@
                              width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.entrypayment'">
-                  <el-date-picker :disabled="!disabled" type="date" v-model="scope.row.entrypayment"
+                  <el-date-picker :disabled="book ? (!bookawardafter ? true:false) : !disabled" type="date" v-model="scope.row.entrypayment"
                                   style="width: 11rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -343,10 +349,11 @@
                            size="40%"
                            append-to-body>
                   <div>
-                    <el-select @change="changed" v-model="region">
-                      <el-option :label="$t(titleB)" value="1"></el-option>
-                      <el-option :label="$t(titleC)" value="2"></el-option>
-                    </el-select>
+<!--                    add_qhr_20210707 取消theme区分-->
+<!--                    <el-select @change="changed" v-model="region">-->
+<!--                      <el-option :label="$t(titleB)" value="1"></el-option>-->
+<!--                      <el-option :label="$t(titleC)" value="2"></el-option>-->
+<!--                    </el-select>-->
                     <el-table
                       :data="tableB.filter(data => !search1 || data.themename.toLowerCase().includes(search1.toLowerCase()))"
                       height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
@@ -438,7 +445,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placejapanese'" :rules='rules.placejapanese'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placejapanese">
+                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placejapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -447,7 +454,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placeenglish'" :rules='rules.placeenglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placeenglish">
+                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placeenglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -456,7 +463,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.placechinese'" :rules='rules.placechinese'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.placechinese">
+                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.placechinese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -467,7 +474,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responjapanese'">
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responjapanese">
+                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responjapanese">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -476,7 +483,7 @@
                                width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responerglish'" :rules='rules.responerglish'>
-                    <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.responerglish">
+                    <el-input maxlength="255" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responerglish">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -484,7 +491,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_PHONE')" align="center" prop="responphone" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responphone'" :rules='rules.responphone'>
-                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responphone">
+                    <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responphone">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -492,7 +499,7 @@
               <el-table-column :label="$t('label.PFANS1024VIEW_EMAIL')" align="center" prop="responemail" width="200">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.responemail'">
-                    <el-input maxlength="100" :disabled="!disabled" v-model="scope.row.responemail">
+                    <el-input maxlength="100" :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.responemail">
                     </el-input>
                   </el-form-item>
                 </template>
@@ -578,7 +585,7 @@
                              width="245">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarks'">
-                  <el-input :disabled="!disabled" v-model="scope.row.remarks" style="width:13vw">
+                  <el-input :disabled="book ? (!bookawardafter ? true:false) : !disabled" v-model="scope.row.remarks" style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
@@ -590,7 +597,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimtype'" :rules='rules.claimtype'>
-                  <el-input :disabled="scope.row.book ? true : !disabled3" v-model="scope.row.claimtype">
+                  <el-input :disabled="book ? true : !disabled3" v-model="scope.row.claimtype">
                   </el-input>
                 </el-form-item>
               </template>
@@ -600,7 +607,7 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.deliverydate'" :rules='rules.deliverydate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
+                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.deliverydate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -610,7 +617,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.completiondate'"
                               :rules='rules.completiondate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.completiondate"
+                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.completiondate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -618,7 +625,7 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATE')" align="center" prop="claimdate" width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimdate'" :rules='rules.claimdate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.claimdate"
+                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.claimdate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -627,7 +634,7 @@
                              width="170">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.supportdate'" :rules='rules.supportdate'>
-                  <el-date-picker :disabled="scope.row.book ? true : !disabled" type="date" v-model="scope.row.supportdate"
+                  <el-date-picker :disabled="book ? true : !disabled" type="date" v-model="scope.row.supportdate"
                                   style="width: 9rem"></el-date-picker>
                 </el-form-item>
               </template>
@@ -637,7 +644,7 @@
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.claimamount'" :rules='rules.claimamount'>
                   <el-input-number v-model="scope.row.claimamount" controls-position="right" style="width: 11rem"
-                                   :disabled="scope.row.book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
+                                   :disabled="book ? true : !disabled" :min="0" :max="1000000000" :precision="2"></el-input-number>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -645,7 +652,7 @@
                              width="245">
               <template slot-scope="scope">
                 <el-form-item :prop="'tableclaimtype.' + scope.$index + '.remarksqh'">
-                  <el-input :disabled="scope.row.book ? true : !disabled" v-model="scope.row.remarksqh" style="width:13vw">
+                  <el-input :disabled="book ? true : !disabled" v-model="scope.row.remarksqh" style="width:13vw">
                   </el-input>
                 </el-form-item>
               </template>
@@ -946,6 +953,15 @@
           callback();
         }
       };
+      //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+      var valiEntrustednumber = (rule, value, callback) => {
+        if (value === '' && value != null && value != undefined) {
+          callback(new Error(this.$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')));
+        } else {
+          callback();
+        }
+      };
+      //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
       var groupId = (rule, value, callback) => {
         if (!this.form1.grouporglist || this.form1.grouporglist === '') {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.department')));
@@ -964,6 +980,11 @@
         }
       };
       return {
+        //add  ml  20210719  审批流程  from
+        enableSave: false,
+        canStart: false,
+        workflowCode: 'W0143',
+        //add  ml  20210719  审批流程  to
         tableclaimtypeold:[],
         //add-ws-01/06-禅道任务710
         search1: '',
@@ -1026,9 +1047,13 @@
         disabled2: true,
         disabled3: false,
         disabled4: false,
+        book:false,
+        bookawardafter:true,
         ruleSet: {
         // , 'theme'
-          'save': ['contractnumber', 'theme'],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+          'save': ['contractnumber', 'theme','contractdate','entrustednumber'],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
           'makeinto': ['contractnumber'],
           '7': ['custojapanese', 'custochinese', 'placejapanese', 'placechinese', 'deployment', 'contractdate', 'currencyposition', 'claimamount', 'deliverydate', 'claimtype', 'completiondate', 'claimdate', 'supportdate', 'conchinese', 'conjapanese'],
           //add-ws-7/22-禅道341 个别合同
@@ -1169,16 +1194,16 @@
           claimamount: [
             {validator: validateClaimamount},
           ],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 fr [entrustednumber]
+          entrustednumber: [
+            {validator: valiEntrustednumber},
+          ],
+          //ztc 委托合同保存添加，【受託契約番号】必填项 to [entrustednumber]
         },
         buttonList: [
           {
             key: 'application',
             name: 'button.application',
-            disabled: false,
-          },
-          {
-            key: 'cancellation',
-            name: 'button.cancellation',
             disabled: false,
           },
           {
@@ -1189,6 +1214,11 @@
           {
             key: 'makeinto',
             name: 'button.makeinto',
+            disabled: false,
+          },
+          {
+            key: 'cancellation',
+            name: 'button.cancellation',
             disabled: false,
           },
         ],
@@ -1204,6 +1234,9 @@
           vendornum: '',
         },
         form: {
+          //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+          supplierinfor_id: '',
+          //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
           tabledata: [],
           tabledata2: undefined,
           contractnumber: '',
@@ -1292,7 +1325,8 @@
         projectResult: [],
         recordDataD: [],
         dialogVisibleD: false,
-
+        //add_qhr_20210707 添加年份参数
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {
@@ -1332,6 +1366,9 @@
 
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
+                //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+                this.form.supplierinfor_id = contractapplication[i].supplierinfor_id;
+                //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
                 /* //555 this.currencyposition
                let currencyposition =  contractapplication[i].currencyposition;
                this.currencyposition = currencyposition === 'PG019001'?'USB$':'￥';*/
@@ -1409,9 +1446,15 @@
             }
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {
-                //纳品书已做成或验收完了日小于当前时间的情况回数不可变价
-                if (contractnumbercount[i].bookStatus === true || (moment(new Date()).format('YYYY-MM-DD') > moment(contractnumbercount[i].completiondate).format('YYYY-MM-DD'))) {
-                  contractnumbercount[i].book = true;
+                //决裁书已经进行中或是结束，编辑后，合同不可编辑
+                if (contractnumbercount[i].bookStatus === true ) {
+                  this.book = true;
+                  this.disabled3 = false;
+                  this.disabled = false;
+                }
+                else
+                {
+                  this.book = false;
                 }
               }
               this.form.tableclaimtype = contractnumbercount;
@@ -1428,12 +1471,12 @@
             this.loading = false;
           });
       } else {
-        this.buttonList[1].disabled = true;
+        this.buttonList[3].disabled = true;
       }
       //333
       let userid = this.$store.getters.userinfo.userid;
       if(this.buttonList.length >= 3){
-        this.buttonList[3].disabled = true;
+        this.buttonList[2].disabled = true;
       }
       if (userid !== null && userid !== '') {
         let lst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -1450,7 +1493,8 @@
       this.getsupplierinfor();
       //テーマ
       //upd-ws-01/06-禅道任务710
-      this.getdata('0');
+      //add_qhr_20210707 去掉参数
+      this.getdata();
       //upd-ws-01/06-禅道任务710
       //get project
       this.getProjectList();
@@ -1463,6 +1507,9 @@
         if (this.$route.params._checkindivdual === '1') {
           this.checkindivdual = 1;
           if (this.$route.params.supplierinfor_id) {
+            //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+            this.form.supplierinfor_id = this.$route.params.supplierinfor_id;
+            //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
             this.dates = this.$route.params.dates,
               this.dialogVisibleC = true;
             this.checknumber = true;
@@ -1535,6 +1582,7 @@
       }
       //add-ws-7/22-禅道341任务
       this.disabled = this.$route.params.disabled;
+      this.bookawardafter = this.$route.params.disabled;
       //add-ws-6/22-禅道152任务
       if (this.disabled) {
         this.show10 = true;
@@ -1550,6 +1598,28 @@
 //      }
     },
     methods: {
+      //add    ml   20210716  审批状态   from
+      workflowState(val) {
+        if (val.state === '1') {
+          this.form.tabledata[0].status = '3';
+        } else if (val.state === '2') {
+          this.form.tabledata[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      start(val) {
+        if (val.state === '0') {
+          this.form.tabledata[0].status = '2';
+        } else if (val.state === '2') {
+          this.form.tabledata[0].status = '4';
+        }
+        this.buttonClick("save");
+      },
+      end() {
+        this.form.tabledata[0].status = '0';
+        // this.buttonClick("cancellation");
+      },
+      //add    ml   20210716  审批状态   to
       //add-ws-6/22-禅道152任务
       getaward() {
         this.DataList = [];
@@ -1720,20 +1790,23 @@
       handleClickChange(row) {
         this.recordDataB.theme = row.themename;
         this.recordDataB.temaid = row.themeplandetail_id;
+        //add_qhr_20210707 添加themeinfor_id字段
+        this.recordDataB.themeinfor_id = row.themeinfor_id;
         this.dialogVisibleB = false;
       },
-      changed() {
-        if (this.region === '2') {
-          this.getdata('1');
-        } else if (this.region === '1') {
-          this.getdata('0');
-        }
-      },
-      getdata(type) {
+      //add_qhr_20210707 取消theme区分
+      // changed() {
+      //   if (this.region === '2') {
+      //     this.getdata('1');
+      //   } else if (this.region === '1') {
+      //     this.getdata('0');
+      //   }
+      // },
+      getdata() {
         this.tableB = [];
         this.loading = true;
         this.$store
-          .dispatch('PFANS1043Store/themenametype', {'type': type})
+          .dispatch('PFANS1043Store/themenametype', {'year': this.year}) //add_qhr_20210707 修改传参
           .then(response => {
             for (let j = 0; j < response.length; j++) {
               if (response[j].branch != '' && response[j].branch != null) {
@@ -1757,6 +1830,8 @@
               this.tableB.push(
                 {
                   themeplandetail_id: response[j].themeplandetail_id,
+                  //add_qhr_20210707 添加字段值
+                  themeinfor_id: response[j].themeinfor_id,
                   themename: response[j].themename,
                   divide: response[j].branch,
                   contract: response[j].contracttype,
@@ -2168,6 +2243,9 @@
             this.form.entrycondition = this.form1.entrycondition;
             this.form.custojapanese = this.form1.custojapanese;
             if (this.$route.params._id) {
+              this.disabled = true;
+              this.disabled3 = false;
+              this.book = false;
               this.handleClick();
             } else {
               if (this.form.tabledata.length > 0) {
@@ -2178,6 +2256,9 @@
                 }).then(() => {
                   this.form.tabledata = [];
                   this.form.tableclaimtype = [];
+                  this.disabled = true;
+                  this.disabled3 = false;
+                  this.book = false;
                   this.handleClick();
                   this.dialogVisibleC = false;
                 }).catch(() => {
@@ -2188,6 +2269,8 @@
 
                 });
               } else {
+                this.disabled = true;
+                this.disabled3 = false;
                 this.handleClick();
                 this.dialogVisibleC = false;
               }
@@ -2341,11 +2424,9 @@
         if (this.checked) {
           for (let i = 0; i < this.tableclaimtypeold.length; i++) {
             if(i < this.form.claimtype){
-              if(!this.tableclaimtypeold[i].book){
-                letint = letint + 1;
-                let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
-                this.tableclaimtypeold[i].claimtype = letclaimtypeone;
-              }
+              letint = letint + 1;
+              let letclaimtypeone = letclaimtype + this.$t('label.PFANS1026FORMVIEW_D') + letint + this.$t('label.PFANS1026FORMVIEW_H');
+              this.tableclaimtypeold[i].claimtype = letclaimtypeone;
               this.tableclaimtypeold[i].contractnumbercount_id = '';
               this.tableclaimtypeold[i].contractnumber = this.letcontractnumber;
               tableclaimtypenew.push(this.tableclaimtypeold[i]);
@@ -2461,6 +2542,16 @@
           //     }
           //   }
           // }
+          //add  ml   20210707    合同期间check   from
+          if(!this.form.tabledata[i].contractdate || this.form.tabledata[i].contractdate === ''){
+            Message({
+              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CONTRACTDATE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            return;
+          }
+          //add  ml   20210707    合同期间check   to
           o.contractdate = this.getcontractdate(this.form.tabledata[i].contractdate);
           o.contracttype = this.form.contracttype;
           if (this.form.contracttype === 'HT014001') {
@@ -2472,10 +2563,30 @@
           } else if (this.form.contracttype === 'HT014004') {
             o.maketype = '4';
           }
+
+          let counttype = 0;
+          for (let t = 0; t < this.form.tableclaimtype.length; t++)
+          {
+            if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+            {
+              counttype = counttype+1;
+            }
+          }
+
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+              if (counttype === this.form.tableclaimtype.length || counttype ===0)
+              {
+                letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+              }
+              else
+              {
+                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                {
+                  letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                }
+              }
             }
             o.state = this.$t('label.PFANS8008FORMVIEW_EFFECTIVE');
             o.claimamount = letclaimamount;
@@ -2485,6 +2596,9 @@
 
             o.projectname = this.form.tabledata[i].conchinese;
             //add-ws-7/22-禅道341任务
+            //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+            o.supplierinfor_id = this.form.supplierinfor_id;
+            //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
           }
           // DEL_FJL  start
           // if (Array.isArray(this.form.tabledata[i].conchinese)) {
@@ -2639,6 +2753,9 @@
                   _checkname: true,
                   _id: response.awardlist2,
                   disabled: true,
+                  //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
+                  supplierinfor_id: this.form.supplierinfor_id,
+                  //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
                 },
               });
             }
@@ -2714,11 +2831,13 @@
             this.loading = false;
           });
       },
-      paramsTitle() {
-        this.$router.push({
-          name: 'PFANS1024View',
-        });
-      },
+      //resign  del scc   20210722  存在同名方法 from
+      // paramsTitle() {
+      //   this.$router.push({
+      //     name: 'PFANS1024View',
+      //   });
+      // },
+      // end resign del scc 20210722  存在同名方法 to
       checkparamsTitle() {
         let letparamslist = this.$route.params.letparams;
         this.$router.push({
@@ -2753,25 +2872,55 @@
             this.getChecked(true);
           }
         }
+        //add  ml  20210706   契约番号废弃check   from
         if (val === 'cancellation') {
-          this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
-            confirmButtonText: this.$t('button.confirm'),
-            cancelButtonText: this.$t('button.cancel'),
-            type: 'warning',
-          }).then(() => {
-            for (let i = 0; i < this.form.tabledata.length; i++) {
-              this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
-              this.form.tabledata[i].entrycondition = 'HT004001';
-            }
-            this.handleSave('cancellation');
-          }).catch(() => {
-            this.$message({
+          if( this.form.tabledata[0].user_id !== this.$store.getters.userinfo.userid ){
+            Message({
+              message: this.$t('label.PFANS1026FORMVIEW_CANCELLATION'),
               type: 'info',
-              message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+              duration: 2 * 1000,
             });
             return;
-          });
+          }
+          this.$store.dispatch('PFANS1026Store/getProject', {'contractnumber': this.$route.params._id})
+            .then(response => {
+              if( response == true){
+                this.$confirm(this.$t('normal.confirm_discardcontractsp'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  this.$store.commit('global/SET_OPERATEID', this.IDname);
+                  this.$refs.container.$refs.workflow.startWorkflow();
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              } else {
+                this.$confirm(this.$t('normal.confirm_discardcontract'), this.$t('normal.info'), {
+                  confirmButtonText: this.$t('button.confirm'),
+                  cancelButtonText: this.$t('button.cancel'),
+                  type: 'warning',
+                }).then(() => {
+                  for (let i = 0; i < this.form.tabledata.length; i++) {
+                    this.form.tabledata[i].state = this.$t('label.PFANS8008FORMVIEW_INVALID');
+                    this.form.tabledata[i].entrycondition = 'HT004001';
+                  }
+                  this.handleSave('cancellation');
+                }).catch(() => {
+                  this.$message({
+                    type: 'info',
+                    message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
+                  });
+                  return;
+                });
+              }
+            })
         }
+        //add  ml  20210706   契约番号废弃check   to
         if (val === 'save') {
           this.handleSave('save');
         }

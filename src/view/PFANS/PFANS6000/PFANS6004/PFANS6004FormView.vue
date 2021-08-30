@@ -234,7 +234,19 @@
                 </el-input>
               </el-form-item>
             </el-col>
+            <!--            预计退场时间-->
+            <el-col :span="8">
+              <el-form-item :label="$t('label.PFANS2002FORMVIEW_YJEXITTIME')" prop="yjexitime">
+                <el-date-picker
+                  :disabled="!disabled"
+                  style="width:20vw"
+                  type="date"
+                  v-model="form.yjexitime">
+                </el-date-picker>
+              </el-form-item>
+            </el-col>
           </el-row>
+
 
           <el-row>
             <el-col :span="24">
@@ -251,56 +263,39 @@
                 <span class="collapse_Title">{{$t('label.PFANS6004VIEW_EXINTELLIGENCE')}}</span>
               </template>
               <!--          第七行-->
-              <!--<el-row>-->
-                <!--&lt;!&ndash;            退场与否&ndash;&gt;-->
-                <!--<el-col :span="8">-->
-                  <!--<el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">-->
-                    <!--<span style="margin-right: 1vw ">{{$t('label.no')}}</span>-->
-                    <!--<el-switch :disabled="!disabled"-->
-                               <!--v-model="form.exits"-->
-                               <!--active-value="0"-->
-                               <!--inactive-value="1"-->
-                               <!--@change="changeexits"-->
-                    <!--&gt;</el-switch>-->
-                    <!--<span style="margin-left: 1vw ">{{$t('label.yes')}}</span>-->
-                  <!--</el-form-item>-->
-                <!--</el-col>-->
-              <!--          预计退场时间-->
               <el-row>
+                <!--            退场与否-->
                 <el-col :span="8">
-                  <el-form-item :error="erroryjexitime" :label="$t('label.PFANS2002FORMVIEW_YJEXITTIME')" prop="yjexitime"
-                  >
-                    <el-date-picker
-                      :disabled="!disabled"
-                      style="width:20vw"
-                      type="date"
-                      v-model="form.yjexitime"
-                      @change="chyjexitime"
-                    >
-                    </el-date-picker>
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITS')" prop="exits">
+                    <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                    <el-switch :disabled="!disabled"
+                               v-model="form.exits"
+                               active-value="0"
+                               inactive-value="1"
+                               @change="changeexits"
+                    ></el-switch>
+                    <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
               </el-row>
 
               <!--          第八行-->
               <el-row>
-
                 <!--            退场时间-->
                 <el-col :span="8">
-                  <el-form-item :error="errorexitime" :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime">
+                  <el-form-item :error="errorexitime" :label="$t('label.PFANS6004FORMVIEW_EXITIME')" prop="exitime"
+                                v-if="show">
                     <el-date-picker
                       :disabled="!disabled"
                       style="width:20vw"
                       type="date"
-                      v-model="form.exitime"
-                      @change="chexitime"
-                    >
+                      v-model="form.exitime">
                     </el-date-picker>
                   </el-form-item>
                 </el-col>
                 <!--            退场理由-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITREASON')" prop="exitreason" >
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_EXITREASON')" prop="exitreason" v-if="show">
                     <dicselect
                       :code="code6"
                       :data="form.exitreason"
@@ -313,7 +308,7 @@
                 </el-col>
                 <!--            所有技术-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" >
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_ALLTECHNOLOGY')" prop="alltechnology" v-if="show">
                     <!--                    <dicselect-->
                     <!--                      :code="code7"-->
                     <!--                      :data="form.alltechnology"-->
@@ -332,7 +327,7 @@
               <el-row>
                 <!--            現場評価-->
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')" prop="sitevaluation" >
+                  <el-form-item :label="$t('label.PFANS6004FORMVIEW_SITEVALUATION')" prop="sitevaluation" v-if="show">
                     <dicselect
                       :code="code8"
                       :data="form.sitevaluation"
@@ -346,7 +341,7 @@
                 <!--            業務影響-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_BUSINESSIMPACT')" prop="businessimpact"
-                                >
+                                v-if="show">
                     <dicselect
                       :code="code10"
                       :data="form.businessimpact"
@@ -360,7 +355,7 @@
                 <!--            対策-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS6004FORMVIEW_COUNTERMEASURE')" prop="countermeasure"
-                                >
+                                v-if="show">
                     <!--                    <dicselect-->
                     <!--                      :code="code9"-->
                     <!--                      :data="form.countermeasure"-->
@@ -441,7 +436,7 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import moment from 'moment';
-    import {getDictionaryInfo, getUserInfo,getOrgInfo} from '../../../../utils/customize';
+    import {getDictionaryInfo, getorgGroupList, getUserInfo,getOrgInfo} from '../../../../utils/customize';
     import org from '../../../components/org';
 
     export default {
@@ -493,7 +488,7 @@
             };
             var valadmissiontime = (rule, value, callback) => {
                 if (this.form.exits == '0') {
-                    if (this.form.exitime != null && this.form.exitime != '') {
+                    if (this.form.exitime !== null && this.form.exitime !== '') {
                         if (moment(value).format('YYYY-MM-DD') > moment(this.form.exitime).format('YYYY-MM-DD')) {
                             callback(new Error(this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME')));
                             this.erroradmissiontime = this.$t('label.PFANS6004FORMVIEW_ADMISSIONTIME') + this.$t('normal.error_checkTime2') + this.$t('label.PFANS2002FORMVIEW_EXITTIME');
@@ -502,31 +497,14 @@
                             this.erroradmissiontime = '';
                             this.errorexitime = '';
                         }
-                    }else {
-                      callback();
                     }
                 } else {
                     callback();
                     this.erroradmissiontime = '';
                 }
             };
-            var valyjexitime = (rule, value, callback) => {
-              if (this.form.yjexitime != null && this.form.yjexitime != '') {
-                if (moment(value).format('YYYY-MM-DD') < moment(this.form.admissiontime).format('YYYY-MM-DD')) {
-                  callback(new Error(this.$t('label.PFANS2002FORMVIEW_YJEXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')));
-                  this.erroryjexitime = this.$t('label.PFANS2002FORMVIEW_YJEXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
-                } else {
-                  callback();
-                  this.erroradmissiontime = '';
-                  this.erroryjexitime = '';
-                }
-              } else {
-                callback();
-                this.erroryjexitime = '';
-              }
-            };
             var valexitime = (rule, value, callback) => {
-                if (this.form.exitime != null && this.form.exitime != '') {
+                if (this.form.exitime !== null && this.form.exitime !== '') {
                     if (moment(value).format('YYYY-MM-DD') < moment(this.form.admissiontime).format('YYYY-MM-DD')) {
                         callback(new Error(this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2002FORMVIEW_ADMISSIONTIME')));
                         this.errorexitime = this.$t('label.PFANS2002FORMVIEW_EXITTIME') + this.$t('normal.error_checkTime1') + this.$t('label.PFANS2003FORMVIEW_INTERVIEWDATE');
@@ -551,7 +529,6 @@
                 grouporglist: '',
                 grouporglistflg: '',
                 errorexitime: '',
-                erroryjexitime: '',
                 errorgroup: '',
                 errorgraduateschool: '',
                 expData: null,
@@ -583,7 +560,7 @@
                     jobclassification: '',
                     admissiontime: moment(new Date()).format('YYYY-MM-DD'),
                     exitime: moment(new Date()).format('YYYY-MM-DD'),
-                    yjexitime: moment(new Date()).format('YYYY-MM-DD'),
+                    yjexitime: '',
                     exitreason: '',
                     alltechnology: '',
                     sitevaluation: '',
@@ -741,15 +718,6 @@
                             trigger: 'change',
                         },
                     ],
-                    // 预计退场时间
-                    yjexitime: [
-                        {
-                            required: true,
-                            message: this.$t('normal.error_09') + this.$t('label.PFANS2002FORMVIEW_YJEXITTIME'),
-                            trigger: 'change',
-                        },
-                        {validator: valyjexitime, trigger: 'change'},
-                    ],
                     // 退场时间
                     exitime: [
                         {
@@ -871,11 +839,11 @@
                         this.grouporglist = this.form.group_id;
                         this.grouporglistflg = this.form.group_id;
                         this.loading = false;
-                        // if (this.form.exits === '1') {
-                        //     this.show = false;
-                        // } else {
-                        //     this.show = true;
-                        // }
+                        if (this.form.exits === '1') {
+                            this.show = false;
+                        } else {
+                            this.show = true;
+                        }
                     })
                     .catch(error => {
                         Message({
@@ -900,8 +868,7 @@
                 ];
             }
             if (this.form.exits === '1') {
-                //this.show = false;
-                this.rules.yjexitime[0].required = false;
+                this.show = false;
                 this.rules.exitime[0].required = false;
                 this.rules.exitreason[0].required = false;
                 //this.rules.alltechnology[0].required = false;
@@ -909,8 +876,7 @@
                 this.rules.businessimpact[0].required = false;
                 //this.rules.countermeasure[0].required = false;
             } else {
-                //this.show = true;
-                this.rules.yjexitime[0].required = true;
+                this.show = true;
                 this.rules.exitime[0].required = true;
                 this.rules.exitreason[0].required = true;
                 //this.rules.alltechnology[0].required = true;
@@ -972,53 +938,34 @@
                     this.errorgroup = '';
                 }
             },
-            chyjexitime() {
-                this.form.exitreason = null;
-                this.form.alltechnology = null;
-                this.form.sitevaluation = null;
-                this.form.businessimpact = null;
-                this.form.countermeasure = null;
-                this.form.exitime = null;
-                this.rules.exitime[0].required = false;
-                this.form.exits = '1';
-                if (this.form.yjexitime != null && this.form.yjexitime != "" && this.form.yjexitime != undefined) {
-                  //this.form.exitime = null;
-                  this.rules.exitreason[0].required = true;
-                  this.rules.sitevaluation[0].required = true;
-                  this.rules.businessimpact[0].required = true;
+            changeexits(val) {
+
+                this.form.exits = val;
+                if (val === '1') {
+                    this.show = false;
+                    this.rules.exitime[0].required = false;
+                    this.rules.exitreason[0].required = false;
+                    //this.rules.alltechnology[0].required = false;
+                    this.rules.sitevaluation[0].required = false;
+                    this.rules.businessimpact[0].required = false;
+                    //this.rules.countermeasure[0].required = false;
+                    this.erroradmissiontime = '';
+                    this.errorexitime = '';
                 } else {
-                  this.rules.exitreason[0].required = false;
-                  this.rules.sitevaluation[0].required = false;
-                  this.rules.businessimpact[0].required = false;
-                  this.erroradmissiontime = '';
-                  this.errorexitime = '';
-                  this.erroryjexitime = '';
+                    this.show = true;
+                    this.form.exitime = null;
+                    this.form.exitreason = null;
+                    this.form.alltechnology = null;
+                    this.form.sitevaluation = null;
+                    this.form.businessimpact = null;
+                    this.form.countermeasure = null;
+                    this.rules.exitime[0].required = true;
+                    this.rules.exitreason[0].required = true;
+                    //this.rules.alltechnology[0].required = true;
+                    this.rules.sitevaluation[0].required = true;
+                    this.rules.businessimpact[0].required = true;
+                    //this.rules.countermeasure[0].required = true;
                 }
-            },
-            chexitime() {
-                this.form.exitreason = null;
-                this.form.alltechnology = null;
-                this.form.sitevaluation = null;
-                this.form.businessimpact = null;
-                this.form.countermeasure = null;
-                this.form.yjexitime = null;
-                this.rules.exitime[0].required = false;
-                if (this.form.exitime != null && this.form.exitime != "" && this.form.exitime != undefined) {
-                  //this.form.exitime = null;
-                  this.form.exits = '0';
-                  this.rules.exitreason[0].required = true;
-                  this.rules.sitevaluation[0].required = true;
-                  this.rules.businessimpact[0].required = true;
-                } else {
-                  this.form.exits = '1';
-                  this.rules.exitreason[0].required = false;
-                  this.rules.sitevaluation[0].required = false;
-                  this.rules.businessimpact[0].required = false;
-                  this.erroradmissiontime = '';
-                  this.errorexitime = '';
-                  this.erroryjexitime = '';
-                }
-              alert(this.form.exits)
             },
             selectById(val) {
                 this.loading = true;
@@ -1027,10 +974,9 @@
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
                             if (response[j].group_id !== null && response[j].group_id !== '') {
-                                let group = getOrgInfo(response[j].group_id);
-                                debugger
+                                let group = getorgGroupList(response[j].group_id);
                                 if (group) {
-                                    response[j].group_id = group.title;
+                                    response[j].group_id = group.centername;
                                 }
                             }
                             if (response[j].project_name !== null && response[j].project_name !== "") {
@@ -1070,6 +1016,20 @@
                     if (valid) {
                         this.form.expatriatesinfor_id = this.$route.params._id;
                         this.form.admissiontime = moment(this.form.admissiontime).format('YYYY-MM-DD');
+                        if (this.form.exits === '1') {
+                            this.form.exitime = '';
+                            this.form.exitreason = '';
+                            this.form.alltechnology = '';
+                            this.form.sitevaluation = '';
+                            this.form.businessimpact = '';
+                            this.form.countermeasure = '';
+                            this.rules.exitime[0].required = false;
+                            this.rules.exitreason[0].required = false;
+                            //this.rules.alltechnology[0].required = false;
+                            this.rules.sitevaluation[0].required = false;
+                            this.rules.businessimpact[0].required = false;
+                            //this.rules.countermeasure[0].required = false;
+                        }
                         if (this.$route.params._id) {
                             //upd_fjl_0928  添加group修改后的确认框  start
                             if (this.grouporglistflg != null && this.grouporglistflg != '' &&

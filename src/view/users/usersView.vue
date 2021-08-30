@@ -398,7 +398,7 @@ export default {
                   return(
                     ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD')
                       &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
-                      && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD') )
+                      && moment(item.resignation_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD') )
                     && (item.resignation_date !== null && item.resignation_date !== "")
                   )
 
@@ -407,7 +407,7 @@ export default {
             }
             else {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
@@ -671,6 +671,7 @@ export default {
                   this.$t("label.budgetunit"),//预算编码
                   this.$t("label.PFANSUSERVIEW_POST"),//职务
                   this.$t("label.PFANSUSERVIEW_RANK"),//RANK
+                  this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),//职级类型
                   this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
                   this.$t("label.PFANSUSERFORMVIEW_OFFICIALDATE"),//试用期截止日(转正日)
                   this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
@@ -732,6 +733,7 @@ export default {
                   "budgetunit",//预算编码
                   "post",//职务
                   "rank",//RANK
+                  "occupationtype",//职级类型
                   "workday",//仕事开始年月日
                   "enddate",//试用期截止日（转正日）
                   "experience",//是否有工作经验
@@ -863,6 +865,13 @@ export default {
                         // list[h].date = list[h].gridData[0].date;
                         //del_fjl_0922
                     }
+                }
+                //职级类型
+                if(list[h].occupationtype !== '' && list[h].occupationtype !== null) {
+                  let classificationinfo = getDictionaryInfo(list[h].occupationtype);
+                  if (classificationinfo) {
+                    list[h].occupationtype = classificationinfo.value1;
+                  }
                 }
                 //add_fjl_0922
                 //給料変更日

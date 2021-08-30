@@ -1562,7 +1562,7 @@
             let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
             if (dic.length > 0) {
               for (let i = 0; i < dic.length; i++) {
-                if (butinfo === (dic[i].value1).substring(0, 3)) {
+                if (butinfo === (dic[i].value1).substring(0,3)) {
                   this.options.push({
                     lable: dic[i].value2 + '_' + dic[i].value3,
                     value: dic[i].code,
@@ -1743,7 +1743,7 @@
             // add-lyt-21/3/18-NT_PFANS_20210207_BUG_018-end
           }
         }else if(val == 'PJ146008' || val == 'PJ146009' || val == 'PJ146010'
-          || val == 'PJ146011' || val == 'PJ146012' || val == 'PJ146013'){
+          || val == 'PJ146011' || val == 'PJ146013'){
           if(this.role16 == '0'){
             this.form.decision = val;
             if(val == 'PJ146008'){
@@ -2248,7 +2248,7 @@
                 }
               }
               else if(this.form.decision == 'PJ146008' || this.form.decision == 'PJ146009' || this.form.decision == 'PJ146010'
-                || this.form.decision == 'PJ146011' || this.form.decision == 'PJ146012' || this.form.decision == 'PJ146013'){
+                || this.form.decision == 'PJ146011' || this.form.decision == 'PJ146013'){
                 if(this.role16 === '1'&& this.$store.getters.userinfo.userid === this.form.user_id){
                   Message({
                     message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_22'),

@@ -67,3 +67,11 @@ export function getList(data) {
   })
 }
 //add ccm 0723
+//数据结转
+export function dataCarryover(data) {
+  return request({
+    url: 'award/dataCarryover',
+    method: 'post',
+    data: data
+  })
+}

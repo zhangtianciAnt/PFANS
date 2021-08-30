@@ -223,7 +223,7 @@
   import moment from 'moment';
   import {Message} from 'element-ui';
   import user from '../../../components/user.vue';
-  import {getOrgInfoByUserId, getCurrentRole} from '@/utils/customize';
+  import {getOrgInfoByUserId, getCurrentRole,getCurrentRoleNew} from '@/utils/customize';
 
   export default {
     name: 'PFANS2011FormView',
@@ -352,6 +352,7 @@
       //   }
       // };
       return {
+        roles: '',
         varworktime:[],
         disovertimelength: false,
         defaultStart: false,
@@ -494,6 +495,7 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRoleNew();
       this.getAttendance();
       this.getDateList();
       this.getOvertimeDay();
@@ -576,7 +578,8 @@
                 //upd ztc 1224  end
               }
               //总经理预计
-              if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              // if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              if(this.roles === '1')
               {
                 this.workflowCode = 'W0072';
               }
@@ -603,7 +606,8 @@
                 //upd ztc 1224  end
               }
               //总经理
-              if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              // if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              if(this.roles === '1')
               {
                 this.workflowCode = 'W0073';
               }
@@ -631,7 +635,8 @@
                 //upd ztc 1224  end
               }
               //总经理
-              if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              // if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+              if(this.roles === '1')
               {
                 this.workflowCode = 'W0073';
               }
@@ -674,7 +679,8 @@
         }
       }
       this.getWorkingday();
-      // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {
+      // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {//失效
+      //if(this.roles === '1'){//变更
       //   this.workflowCode = '';
       // }
       //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
@@ -734,11 +740,11 @@
             this.loading = false;
           });
       },
-      setdisabled(val) {
-        if (this.$route.params.disabled) {
-          this.disable = val;
-        }
-      },
+      // setdisabled(val) {
+      //   if (this.$route.params.disabled) {
+      //     this.disable = val;
+      //   }
+      // },
       getTime(val) {
         let sum = val * 60;
         let hours = Math.floor(sum / 60);
@@ -1002,7 +1008,8 @@
       },
       uopdateSta(val) {
         //总经理审批自动通过
-        // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+        // if (getCurrentRole() === '1' && this.form.user_id === '5e78fefff1560b363cdd6db7') {//失效
+        //if (getCurrentRole() === '1' && this.roles === '1') {//变更
         //   this.form.status = '7';
         // }
         this.loading = true;
@@ -1092,7 +1099,8 @@
             //upd ztc 1224  end
           }
         }
-        if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+        // if (this.form.userid ==='5e78fefff1560b363cdd6db7')
+        if(this.roles === '1')
         {
           this.workflowCode = 'W0072';
         }
@@ -1302,7 +1310,8 @@
             }
             if (this.$route.params._id) {
               //总经理审批自动通过
-              // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {
+              // if (getCurrentRole() === '1' && this.form.status === '4' && this.form.user_id === '5e78fefff1560b363cdd6db7') {//失效
+              // if (getCurrentRole() === '1' && this.form.status === '4' && this.roles === '1') {//变更
               //   this.form.status = '7';
               // }
               this.loading = true;

@@ -194,6 +194,18 @@
     },
     methods: {
       close(){
+        //add ccm 20210817 点开放大镜不操作直接关闭组件，需要重新获取当前有效值 fr
+        this.userids = "";
+        if(this.multipleSelection){
+          for (let i = 0; i < this.multipleSelection.length; i++) {
+            this.userids += this.multipleSelection[i].userid + ",";
+          }
+        }
+
+        if (this.userids && this.userids.length > 0) {
+          this.userids = this.userids.substr(0, this.userids.length - 1);
+        }
+        //add ccm 20210817 点开放大镜不操作直接关闭组件，需要重新获取当前有效值 to
         this.$emit("close", this.userids,this.no);
       },
       showInput() {

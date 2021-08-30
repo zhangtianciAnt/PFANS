@@ -9,7 +9,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import { Message } from 'element-ui'
   import moment from "moment";
-  import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo} from '@/utils/customize';
+  import {getOrgInfoByUserId,getUserInfo,getStatus,getDictionaryInfo,getCurrentRole16} from '@/utils/customize';
 
   export default {
     name: 'PFANS2022View',
@@ -93,21 +93,42 @@
                 filter: true,
             }
         ],
-        buttonList: [
+        //【关联发放】和【取消发放】按钮仅【工资计算担当】角色可见 ztc fr
+        buttonList: [],
+        buttonListStaff: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+          {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'}
+        ],
+        buttonListBility: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'release', 'name': 'button.release', 'disabled': false, 'icon': 'el-icon-success'},
           {'key': 'cancelrelease', 'name': 'button.cancelrelease', 'disabled': false, 'icon': 'el-icon-error'}
         ],
+        //【关联发放】和【取消发放】按钮仅【工资计算担当】角色可见 ztc to
         rowid: '',
         row : 'casgiftapplyid'
       };
     },
     mounted() {
         this.getCasgiftApply();
+      //【关联发放】和【取消发放】按钮仅【工资计算担当】角色可见 ztc fr
+        this.getPerson();
+      //【关联发放】和【取消发放】按钮仅【工资计算担当】角色可见 ztc to
     },
     methods: {
+      //【关联发放】和【取消发放】按钮仅【工资计算担当】角色可见 ztc fr
+      getPerson(){
+        this.roleBility = getCurrentRole16();
+        if(this.roleBility == '0'){
+          this.buttonList = this.buttonListBility
+        } else {
+          this.buttonList = this.buttonListStaff;
+        }
+      },
+      //【关联发放】和【取消发放】按钮仅【工资计算担当】角色可见 ztc to
       getCasgiftApply(){
           this.loading = true;
           this.$store

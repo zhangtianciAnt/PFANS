@@ -25,8 +25,6 @@ export function insertnamedialog(data) {
   })
 }
 
-
-
 export function updatePfans4001(data) {
   return request({
     url: 'seal/updateInfo',
@@ -66,3 +64,22 @@ export function selectcognition() {
     method: 'get',
   })
 }
+
+export function selectEffective(data) {
+  return request({
+    url: 'seal/selectEffective',
+    method: 'post',
+    data: data,
+  });
+}
+
+// 盖印监管者增加履历 ztc 0723 fr
+export function getEffSeal(data) {
+  return request({
+    url: 'seal/getEffSeal',
+    method: 'post',
+    params: data,
+  });
+}
+// 盖印监管者增加履历 ztc 0723 to
+

@@ -16,6 +16,14 @@ export function getPurchase() {
   })
 }
 
+export function change(data) {
+  return request({
+    url: 'purchase/change',
+    method: 'post',
+    data: data
+  })
+}
+
 export function getPurchaseList() {
   return request({
     url: 'purchase/getlist',

@@ -26,7 +26,7 @@
           </el-popover></span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
-                  style="width: 25%;vertical-align:top" v-model="searchValue">
+                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectByCondition">
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
@@ -86,7 +86,7 @@
         </el-table-column>
         <!--        add_fjl_书类使用，不可更改disabled-->
         <!--        add-ws-12/21-印章盖印-->
-        <el-table-column :label="$t('label.PFANS4001FORMVIEW_ACCEPTSTATE')" align="center" width="110vw" v-if="handles">
+        <el-table-column :label="$t('label.PFANS4001FORMVIEW_ACCEPTSTATE')" align="center" width="130vw" v-if="handles">
           <template slot-scope="scope">
             <el-checkbox
               v-model="scope.row.acceptstate"
@@ -139,6 +139,7 @@
     },
     data() {
       return {
+        description:'',
         showHelp: false,
         helpContent: '',
         total: 0,
@@ -195,6 +196,11 @@
       showSelection: {
         type: Boolean,
         default: false,
+      },
+      //工资详细页面是否显示条件搜索框
+      showSelectByCondition: {
+        type: Boolean,
+        default: true,
       },
       // 操作按钮
       handleShow: {
@@ -429,10 +435,23 @@
           }
           return item;
         }, []);
-
-        // filtersrst = filtersrst.sort();
+        //region add_qhr_2021/08/04 将筛选框中数据按照日期降序
+        filtersrst = this.ForwardRankingDate(filtersrst, "value");
         return filtersrst;
       },
+      ForwardRankingDate(data, p) {
+        for (let i = 0; i < data.length - 1; i++) {
+          for (let j = 0; j < data.length - 1 - i; j++) {
+            if (Date.parse(data[j][p]) < Date.parse(data[j+1][p])) {
+              var temp = data[j];
+              data[j] = data[j + 1];
+              data[j + 1] = temp;
+            }
+          }
+        }
+        return data;
+      },
+      //endregion add_qhr_2021/08/04 将筛选框中数据按照日期降序
       // 行点击
       rowClick(row) {
         this.$store.commit('global/SET_OPERATEID', row[this.rowid]);

@@ -4,7 +4,8 @@
 
     <EasyNormalTable :buttonList="buttonList" :columns="columns1" :data="data" :showSelection="isShow" :title="title"
                      @buttonClick="buttonClick"
-                     ref="roletable" v-loading="loading" v-show="showTable1">
+                     ref="roletable" v-loading="loading" v-show="showTable1" :showSelectByCondition="displayOrNot">
+
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -17,6 +18,10 @@
         type="month"
         v-model="months">
       </el-date-picker>
+      <el-input :placeholder="$t('label.PFANS2006VIEW_EMPLOYEESNAME')"  style="width: 20vw"
+                v-model="filterName" slot="customize">
+        <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+      </el-input>
       <!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
       <!--                      :start-placeholder="$t('label.startdate')"-->
       <!--                      @change="clickdata"-->
@@ -28,9 +33,11 @@
       <!--      ></el-date-picker>-->
     </EasyNormalTable>
 
+
+
     <EasyNormalTable :buttonList="buttonList" :columns="columns2" :data="datatada" :showSelection="isShow"
                      :title="title" @buttonClick="buttonClick"
-                     ref="rolet" v-loading="loading" v-show="!showTable1">
+                     ref="rolet" v-loading="loading" v-show="!showTable1" :showSelectByCondition="displayOrNot">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t('label.PFANS2006VIEW_WAGES')" value="1"></el-option>
         <el-option :label="$t('label.PFANS2006VIEW_BONUS')" value="2"></el-option>
@@ -43,6 +50,10 @@
         type="month"
         v-model="months">
       </el-date-picker>
+      <el-input :placeholder="$t('label.PFANS2006VIEW_EMPLOYEESNAME')"  style="width: 20vw"
+                v-model="filterName" slot="customize">
+        <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
+      </el-input>
       <!--      <el-date-picker :end-placeholder="$t('label.enddate')" :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"-->
       <!--                      :start-placeholder="$t('label.startdate')"-->
       <!--                      @change="clickdata"-->
@@ -61,7 +72,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import moment from 'moment';
   import {Message} from 'element-ui';
-  import {getDepartmentById, getUserInfo} from '@/utils/customize';
+  import {getDepartmentById, getUserInfo,getCurrentRole6} from '@/utils/customize';
   import json2csv from 'json2csv';
 
   export default {
@@ -71,6 +82,10 @@
     },
     data() {
       return {
+        roles: '',
+        filterName: "",
+        displayOrNot: false,
+        data1: [],
         isShow: true,
         months: moment(new Date()).format('YYYY-MM'),
         selectedList: [],
@@ -747,14 +762,43 @@
       };
     },
     mounted() {
+      this.roles = getCurrentRole6();
       this.Taxestotal = 1;
       if (this.$i18n) {
 
         this.title = this.$t('title.PFANS2006VIEW') + this.$t('title.allcompany');
       }
-      this.getTaxestotal();
+      //只有张建波、冷美琴、康奕凝
+      // if(this.$store.getters.userinfo.userid === "5e78fefff1560b363cdd6db7"
+      //   || this.$store.getters.userinfo.userid === "5e78b22c4e3b194874180f5f"
+      //   || this.$store.getters.userinfo.userid === "5e78b2034e3b194874180e37")
+      if(this.roles === '0')
+      {
+        this.getTaxestotal();
+      }
     },
     methods: {
+      inputChange(){
+        // alert(this.region);
+        if(this.region === '1'){
+          if(this.filterName === ""){
+            this.data = this.data1;
+          }else{
+            this.data = this.data1.filter(item => {
+              return item.user_id === this.filterName;
+            });
+          }
+        }
+        if(this.region === '2'){
+          if(this.filterName === ""){
+            this.datatada = this.data1;
+          }else{
+            this.datatada = this.data1.filter(item => {
+              return item.user_id === this.filterName;
+            });
+          }
+        }
+      },
       changeddate(val) {
         this.months = moment(val).format('YYYY-MM');
         if (this.region === '2') {
@@ -1030,6 +1074,7 @@
               }
             }
             this.data = response;
+            this.data1 = response;
             this.DATA = response;
             this.loading = false;
           })
@@ -1059,6 +1104,7 @@
               }
             }
             this.datatada = response;
+            this.data1 = response;
             this.DATATADA = response;
             this.loading = false;
           })

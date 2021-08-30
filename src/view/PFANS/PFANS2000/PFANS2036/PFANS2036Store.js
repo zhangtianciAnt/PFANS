@@ -1,5 +1,4 @@
-import {getGroupId,getChangeRanks, getPersonalCost,gettableBm,gettableGs,gettableRb,getFuzzyQuery, getYears, insertPenalcost,upPersonalCost,getYearsantid} from './PFANS2036Api'
-import {getPortPromise} from "portfinder";
+import {getGroupId,getChangeRanks, getPersonalCost,gettableBm,gettableGs,gettableRb,getFuzzyQuery, getYears, insertPenalcost,upPersonalCost,exportinfo} from './PFANS2036Api'
 
 const PFANS2036Store = {
   namespaced: true,
@@ -153,6 +152,22 @@ const PFANS2036Store = {
         })
       })
     },
+
+    //查看列表
+    exportinfo({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportinfo(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
   }
 };
 export default PFANS2036Store;

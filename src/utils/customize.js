@@ -606,6 +606,22 @@ export function getCurrentRole6() {
   return '1';
 }
 
+export function getCurrentRole19() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 from
+      //roles = roles + role.description;
+      roles = roles + role.rolename;
+      //upd gbb 20210218 PSDCD_PFANS_20210208_BUG_013 改用【角色名称】判断 to
+    }
+    if (roles.toUpperCase().indexOf('总经理') != -1 || roles.toUpperCase().indexOf('人事总务部长') != -1 ) {
+      return '0';
+    }
+  }
+  return '1';
+}
+
 export function getCurrentRole7() {
   let roles = '';
   if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
@@ -808,6 +824,32 @@ export function getCurrentRole18() {
 }
 //insert gbb 20210228 NT_PFANS_20210228_BUG_038 添加角色判断方法 end
 
+//add ccm 20210524 fr
+export function getCurrentRoleGiving() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('资产管理担当') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+export function getCurrentRoleeditnapin() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('纳品编辑') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}
+//add ccm 20210524 to
 import CryptoJS from 'crypto-js/crypto-js';
 
 
@@ -891,3 +933,15 @@ export function getCurrentRole20() {
   return '1';
 }
 //add-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
+export function getCurrentRole21() {
+  let roles = '';
+  if (store.getters.useraccount && store.getters.useraccount.roles && store.getters.useraccount.roles.length > 0) {
+    for (let role of store.getters.useraccount.roles) {
+      roles = roles + role.rolename;
+    }
+    if (roles.toUpperCase().indexOf('企划部长') != -1) {
+      return '0';
+    }
+  }
+  return '1';
+}

@@ -542,6 +542,9 @@
         this.$store
           .dispatch('PFANS1021Store/selectById', {'securityid': this.$route.params._id})
           .then(response => {
+            //人员管理 门禁卡申请后，没有审批按钮功能 ztc fr
+            this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1021View');
+            //人员管理 门禁卡申请后，没有审批按钮功能 ztc to
             this.form = response.security;
             let roleLC = getCurrentRole();
             if (roleLC == '1') {

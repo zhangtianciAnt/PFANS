@@ -651,6 +651,22 @@
                               ></user>
                             </template>
                           </el-table-column>
+                  <!--         region add_qhr_20210810 添加rank字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加rank字段-->
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -659,12 +675,30 @@
                             <template slot-scope="scope">
                               <el-input
                                 :no="scope.row"
-                                :disabled="scope.$index == 0 || !disable"
+                                :disabled="!disable"
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
                             </template>
                           </el-table-column>
+                          <!--         region add_qhr_20210810 添加报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加报告者字段-->
                           <!--                进组时间-->
                           <el-table-column
                             :label="$t('label.PFANS5001FORMVIEW_ADMISSIONTIME')"
@@ -822,6 +856,22 @@
                               </el-col>
                             </template>
                           </el-table-column>
+                          <!--         region add_qhr_20210810 添加rank字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加rank字段-->
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -837,6 +887,24 @@
                               </el-input>
                             </template>
                           </el-table-column>
+                          <!--         region add_qhr_20210810 添加报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
+                            </template>
+                          </el-table-column>
+                          <!--         endregion add_qhr_20210810 添加报告者字段-->
                           <!--                入场时间-->
                           <el-table-column
                             :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
@@ -905,7 +973,7 @@
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_CONTRACT')"
                     align="center"
-                    width="220%">
+                    width="200">
                     <template slot-scope="scope">
                       <el-col :span="8">
                         <div class="dpSupIndex" style="width:16vw">
@@ -917,6 +985,7 @@
                             <el-dialog :visible.sync="dialogTableVisible3" center
                                        size="50%"
                                        top="8vh" lock-scroll
+                                       width="72%"
                                        append-to-body>
                               <div style="text-align: center">
                                 <el-row style="text-align: center;height: 90%;overflow: hidden">
@@ -962,7 +1031,7 @@
                   </el-table-column>
                   <el-table-column
                     :label="$t('label.PFANS5009FORMVIEW_THEME')"
-                    align="center" width="150">
+                    align="center" width="180">
                     <template slot-scope="scope">
                       <el-input
                         :no="scope.row"
@@ -984,15 +1053,15 @@
                   <!--                   add-ws-6/9-禅道任务080-->
                   <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_DELIVERYDATE')" align="center"
-                                   width="200">
+                                   width="154px">
                     <template slot-scope="scope">
                       <el-date-picker :disabled="true" type="date" v-model="scope.row.deliveryfinshdate"
-                                      style="width: 11rem"></el-date-picker>
+                                      style="width: 100%"></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                   add-ws-6/9-禅道任务080-->
                   <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMDATETIME')" align="center" prop="claimdatetime"
-                                   width="370">
+                                   width="280">
                     <template slot-scope="scope">
                       <el-date-picker unlink-panels
                                       class="bigWidth"
@@ -1002,12 +1071,13 @@
                                       :end-placeholder="$t('label.enddate')"
                                       :range-separator="$t('label.PFANSUSERFORMVIEW_TO')"
                                       :start-placeholder="$t('label.startdate')"
+                                      style="width: 100%"
                       ></el-date-picker>
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
                   <el-table-column :label="$t('label.PFANS5001FORMVIEW_CONTRACTREQUESTAMOUNT')" align="center"
-                                   width="150">
+                                   width="180">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="true"
@@ -1021,7 +1091,7 @@
                     </template>
                   </el-table-column>
                   <el-table-column :label="$t('label.PFANS5001FORMVIEW_CHECKCONTRACTAMOUNT')" align="center"
-                                   width="150">
+                                   width="180">
                     <template slot-scope="scope">
                       <el-input-number
                         :disabled="!disable"
@@ -1036,7 +1106,7 @@
                     </template>
                   </el-table-column>
                   <!--                  add-ws-合同关联项目，分配金额-->
-                  <el-table-column :label="$t('label.operation')" align="center" width="200">
+                  <el-table-column :label="$t('label.operation')" align="center" width="150">
                     <template slot-scope="scope">
                       <el-button
                         :disabled="!disable"
@@ -1312,6 +1382,11 @@
         defaultStart: false,
         //add-12/24-审批check
         workcode: '',
+        //合同时间check
+        contra: [],
+        time: [],
+        nowtime: '',
+        //合同时间check
         tableclaimtype: [{
           claimtype: '',
           deliverydate: '',
@@ -1352,6 +1427,7 @@
         activeName2: 'first',
         buttonList: [],
         themeRow: '',
+        themeinfor_id: '', //add_qhr_20210707 添加参数
         claimamount: '',
         workinghoursRow: '',
         currentRow: '',
@@ -1363,6 +1439,8 @@
         currentRow6: '',
         currentRow7: '',
         currentRow8: '',
+        //add_qhr_20210810 添加字段
+        currentRow9: '',
         //项目计划
         tableA: [
           {
@@ -1397,6 +1475,9 @@
             number: '',
             company: '',
             name: this.$store.getters.userinfo.userid,
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: this.$store.getters.userinfo.userinfo.rank,
+            reporter: '',
             position: 'PL',
             admissiontime: '',
             exittime: '',
@@ -1409,6 +1490,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1426,6 +1510,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1450,6 +1537,7 @@
             contractamount: '',
             //add-ws-合同关联项目，分配金额
             rowindex: '',
+            themeinfor_id: '', //add_qhr_20210707 添加参数
           },
         ],
         tableAnt: [],
@@ -1846,10 +1934,13 @@
                 {
                   projectsystem_id: '',
                   companyprojects_id: '',
-                  type: '0',
+                  type: '1',
                   number: '',
                   company: '',
                   name: '',
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: '',
+                  reporter: '',
                   position: '',
                   admissiontime: '',
                   exittime: '',
@@ -1860,10 +1951,13 @@
                 {
                   projectsystem_id: '',
                   companyprojects_id: '',
-                  type: '1',
+                  type: '0',
                   number: '',
                   company: '',
                   name: '',
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: '',
+                  reporter: '',
                   position: '',
                   admissiontime: '',
                   exittime: '',
@@ -1882,6 +1976,9 @@
                     number: response.projectsystem[i].number,
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
+                    //add_qhr_20210810 添加rank、报告者字段
+                    rank: response.projectsystem[i].rank,
+                    reporter: response.projectsystem[i].reporter,
                     // nameN: getUserInfo(response.projectsystem[i].name).userinfo.customername,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
@@ -1904,6 +2001,9 @@
                     company: response.projectsystem[i].company,
                     name: response.projectsystem[i].name,
                     name_id: response.projectsystem[i].name_id,
+                    //add_qhr_20210810 添加rank、报告者字段
+                    rank: response.projectsystem[i].rank,
+                    reporter: response.projectsystem[i].reporter,
                     position: response.projectsystem[i].position,
                     admissiontime: response.projectsystem[i].admissiontime,
                     exittime: response.projectsystem[i].exittime,
@@ -2023,6 +2123,8 @@
           this.form.group_id = lst.groupId;
           this.form.center_id = lst.centerId;
         }
+        //add_qhr_20210810 添加rank、报告者字段
+        this.tableB[0].rank = getDictionaryInfo(this.tableB[0].rank).value1;
       }
       this.$store
         .dispatch('PFANS5001Store/getcustomer', {})
@@ -2201,7 +2303,9 @@
       },
 
       getcontract() {
-        this.contractapplication = {};
+        this.contractapplication = {
+          state: '有效' //只获取审批状态为有效的合同
+        };
         this.loading = true;
         this.$store
           .dispatch('PFANS1026Store/get2', this.contractapplication)
@@ -2213,11 +2317,18 @@
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.contractapplication[i].claimdatetime = [claimdatetim + '~' + claimdatetime1];
+                response.contractapplication[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
 
                 response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
               }
+              //resign  add  scc  20200202  选择合同页面显示合同时间 from
+              else if (response.contractapplication[i].contractdate !== '' && response.contractapplication[i].contractdate !== null && response.contractapplication[i].contractdate !== undefined){
+                let contractdate = response.contractapplication[i].contractdate;
+                let contractdate_st_end = contractdate.split('~');
+                response.contractapplication[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+              }
+              //end resign  add  scc  20200202  选择合同页面显示合同时间 to
               //add-ws-value1非空判断
               let letbudge = getDictionaryInfo(response.contractapplication[i].contracttype);
               if (letbudge) {
@@ -2233,6 +2344,8 @@
               vote2.claimdatetime = response.contractapplication[i].claimdatetime;
               vote2.entrypayment = response.contractapplication[i].entrypayment;
               vote2.theme = response.contractapplication[i].theme;
+              //add_qhr_20210707 添加字段参数
+              vote2.themeinfor_id = response.contractapplication[i].themeinfor_id;
               vote2.claimamount = response.contractapplication[i].claimamount;
               this.gridData3.push(vote2);
             }
@@ -2342,61 +2455,177 @@
           } = org);
         }
       },
+      //upd ccm 20210817 PJ起案体制选择氏名时显示问题修改 fr
+    // getCitationUserid(userlist, row) {
+      //   // add_fjl_05/29  --添加人员多选
+      //   let us = userlist.split(',');
+      //   if (us.length > 1) {
+      //     let na = '';
+      //     for (let nameid of this.tableB) {
+      //       if (us[0] === nameid.name) {
+      //         nameid.name = '';
+      //       } else {
+      //         na = na + nameid.name;
+      //       }
+      //     }
+      //     for (let i = 0; i < us.length; i++) {
+      //       //去除单次选择时，重复的数据
+      //       if (na.indexOf(us[i]) == -1) {
+      //         //update gbb 20210319 人员职务数据获取 start
+      //         let position = '';
+      //         //add_qhr_20210810 添加rank、报告者字段
+      //         let rank = '';
+      //         if (row.name != null && row.name !== '') {
+      //             let lst = getUserInfo(us[i]);
+      //             if (lst.userinfo.post) {
+      //                 position = getDictionaryInfo(lst.userinfo.post).value1;
+      //             }
+      //           //add_qhr_20210810 添加rank、报告者字段
+      //             if (lst.userinfo.rank) {
+      //                 rank = getDictionaryInfo(lst.userinfo.rank).value1;
+      //             }
+      //         }
+      //         //update gbb 20210319 人员职务数据获取 end
+      //         //add_qhr_20210810 添加rank、报告者字段
+      //         this.tableB.push({
+      //           name: us[i],
+      //           rank: rank,
+      //           reporter: '',
+      //           position: position,
+      //           admissiontime: '',
+      //           exittime: '',
+      //           number: '',
+      //           type: '0',
+      //           company: '',
+      //         });
+      //       }
+      //     }
+      //     //保留人名不为空的数据
+      //     this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
+      //   } else {
+      //     row.name = userlist;
+      //   }
+      //
+      //   // add_fjl_05/29  --添加人员多选
+      //   // row.name = userlist;
+      //   if (row.name != null && row.name !== '') {
+      //     let lst = getUserInfo(row.name);
+      //     // row.position = lst.userinfo.post;
+      //     //update gbb 20210319 人员职务数据获取 start
+      //     if (lst.userinfo.post) {
+      //         row.position = getDictionaryInfo(lst.userinfo.post).value1;
+      //     }
+      //     //add_qhr_20210810 添加rank、报告者字段
+      //     if (lst.userinfo.rank) {
+      //         row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+      //     }
+      //     //update gbb 20210319 人员职务数据获取 end
+      //     row.number = lst.userinfo.jobnumber;
+      //     let lst1 = getOrgInfoByUserId(row.name);
+      //     row.company = lst1.groupNmae;
+      //   }
+      // },
+      //
       getCitationUserid(userlist, row) {
-        // add_fjl_05/29  --添加人员多选
+        //人员userid值集合
         let us = userlist.split(',');
         if (us.length > 1) {
-          let na = '';
-          for (let nameid of this.tableB) {
-            if (us[0] === nameid.name) {
-              nameid.name = '';
-            } else {
-              na = na + nameid.name;
+          row.name = null;
+          let newus = [];
+          for (let i = 0; i < us.length; i++)
+          {
+            let tableb = this.tableB.filter(item=>item.name === us[i]);
+            if (tableb.length === 0)
+            {
+              newus.push(us[i]);
             }
           }
-          for (let i = 0; i < us.length; i++) {
-            //去除单次选择时，重复的数据
-            if (na.indexOf(us[i]) == -1) {
-              //update gbb 20210319 人员职务数据获取 start
-              let position = '';
-              if (row.name != null && row.name !== '') {
-                  let lst = getUserInfo(us[i]);
-                  if (lst.userinfo.post) {
-                      position = getDictionaryInfo(lst.userinfo.post).value1;
-                  }
-              }
-              //update gbb 20210319 人员职务数据获取 end
-              this.tableB.push({
-                name: us[i],
-                position: position,
-                admissiontime: '',
-                exittime: '',
-                number: '',
-                type: '0',
-                company: '',
-              });
+          for (let i = 0; i < newus.length; i++)
+          {
+            let position = '';
+            let rank = '';
+            let lst = getUserInfo(newus[i]);
+            if (lst.userinfo.post) {
+              position = getDictionaryInfo(lst.userinfo.post).value1;
             }
+            if (lst.userinfo.rank) {
+              rank = getDictionaryInfo(lst.userinfo.rank).value1;
+            }
+            this.tableB.push({
+              name: newus[i],
+              rank: rank,
+              reporter: '',
+              position: position,
+              admissiontime: '',
+              exittime: '',
+              number: '',
+              type: '0',
+              company: '',
+            });
           }
           //保留人名不为空的数据
           this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
-        } else {
-          row.name = userlist;
-        }
-
-        // add_fjl_05/29  --添加人员多选
-        // row.name = userlist;
-        if (row.name != null && row.name !== '') {
-          let lst = getUserInfo(row.name);
-          // row.position = lst.userinfo.post;
-          //update gbb 20210319 人员职务数据获取 start
-          if (lst.userinfo.post) {
-              row.position = getDictionaryInfo(lst.userinfo.post).value1;
+        } else{
+          if (userlist !='')
+          {
+            row.name = null;
+            if (this.tableB.filter(item=>item.name === userlist).length === 0)
+            {
+              row.name = userlist;
+              if (row.name != null && row.name !== '') {
+                let lst = getUserInfo(row.name);
+                if (lst.userinfo.post) {
+                  row.position = getDictionaryInfo(lst.userinfo.post).value1;
+                }
+                if (lst.userinfo.rank) {
+                  row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+                }
+                row.number = lst.userinfo.jobnumber;
+                let lst1 = getOrgInfoByUserId(row.name);
+                row.company = lst1.groupNmae;
+              }
+            }
+            //保留人名不为空的数据
+            this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
           }
-          //update gbb 20210319 人员职务数据获取 end
-          row.number = lst.userinfo.jobnumber;
-          let lst1 = getOrgInfoByUserId(row.name);
-          row.company = lst1.groupNmae;
+          else
+          {
+            row.name = null;
+            row.position = '';
+            row.rank ='';
+          }
         }
+      },
+      //upd ccm 20210817 PJ起案体制选择氏名时显示问题修改 to
+
+      getReporter(userlist, row) {
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
+        row.reporter = userlist;
+        if (userlist!=null && userlist !='' && userlist !=undefined)
+        {
+          if(this.tableB.filter(item => item.name === userlist).length === 0)
+          {
+            if (row.type === '0')
+            {
+              Message({
+                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+            else
+            {
+              Message({
+                message: this.$t(row.name_id || '')
+                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          }
+        }
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
       getUseridsInput(val, row) {
         row.name = val;
@@ -2447,6 +2676,8 @@
         this.currentRow3 = val.post1;
         this.currentRow4 = val.suppliernameid;
         this.currentRow5 = val.expname;
+        //add_qhr_20210810 添加rank、报告者字段
+        this.currentRow9 = val.rank;
       },
       submit(row) {
         row.number = this.currentRow;
@@ -2457,6 +2688,8 @@
         row.company = this.currentRow2;
         row.position = this.currentRow3;
         row.suppliernameid = this.currentRow4;
+        //add_qhr_20210810 添加rank、报告者字段
+        row.rank = getDictionaryInfo(this.currentRow9).value1;
         this.dialogTableVisible1 = false;
       },
       handleClickChange1(val) {
@@ -2477,15 +2710,61 @@
         this.claimamount = val.claimamount;
         this.currentRow = val.contract;
         this.themeRow = val.theme;
+        this.themeinfor_id = val.themeinfor_id;  //add_qhr_20210707 添加参数
         this.workinghoursRow = val.entrypayment;
       },
       //add-ws-6/9-禅道任务080
+      //根据合同号查询合同期间 scc
+      findCon(){
+        if(this.contra.length > 0) {
+          //获取合同号字符串 scc
+          let contra = "";
+          for (let i = 0; i < this.contra.length; i++) {
+            if (i === this.contra.length - 1) {
+              contra += this.contra[i];
+            } else {
+              contra += this.contra[i] + ",";
+            }
+          }
+          //获取合同号字符串 scc
+          //后台请求合同号对应的合同期间 scc
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1026Store/getContranumber', {'contra': contra})
+            .then(response => {
+              this.time = [];
+              if (response.length > 0) {
+                for (let i = 0; i < response.length; i++) {
+                  this.time[i] = response[i];
+                }
+              }
+            });
+          this.loading = false;
+        }else{
+          this.time = [];
+        }
+        //后台请求合同号对应的合同期间 scc
+      },
+      //根据合同号查询合同期间 scc
       changecontract(row) {
         let table = this.tableD;
         let check = [];
         let checktable = 0;
         let checktable1 = 0;
         this.dialogTableVisible3 = true;
+        this.contra = [];
+        //获取当前表中已有合同 scc
+        for(let i = 0; i < this.tableD.length; i++){
+          if(!this.tableD[i].contract){
+            continue;
+          }
+          //合同号去重 scc
+          this.contra = this.contra.filter(item => item != this.tableD[i].contract);
+          this.contra[this.contra.length] = this.tableD[i].contract;
+          //合同号去重 scc
+        }
+        this.findCon();
+        //获取当前表中已有合同 scc
         for (let a = 0; a < table.length; a++) {
           if (row.contract != '') {
             if (table[a].contract != row.contract) {
@@ -2496,6 +2775,7 @@
                 claimtype: table[a].claimtype,
                 contract: table[a].contract,
                 theme: table[a].theme,
+                themeinfor_id: table[a].themeinfor_id,  //add_qhr_20210707 添加参数
                 workinghours: table[a].workinghours,
                 contractrequestamount: table[a].contractrequestamount,
                 contractamount: table[a].contractamount,
@@ -2514,6 +2794,7 @@
             companyprojects_id: '',
             contract: '',
             theme: '',
+            themeinfor_id: '', //add_qhr_20210707 添加参数
             workinghours: '',
             contractrequestamount: '',
             contractamount: '',
@@ -2535,6 +2816,9 @@
           .dispatch('PFANS1026Store/get2', {'contractnumber': this.currentRow})
           .then(response => {
             let contractnumbercount = response.contractnumbercount;
+            //判断此次选中合同中的回数 scc
+            var intercept = response.contractnumbercount.length;
+            //判断此次选中合同中的回数 scc
             if (contractnumbercount.length > 0) {
               for (let i = 0; i < contractnumbercount.length; i++) {
                 if (contractnumbercount[i].claimdatetimeqh !== '' && contractnumbercount[i].claimdatetimeqh !== null && contractnumbercount[i].claimdatetimeqh !== undefined) {
@@ -2549,6 +2833,7 @@
                   claimtype: contractnumbercount[i].claimtype,
                   contract: this.currentRow,
                   theme: this.themeRow,
+                  themeinfor_id: this.themeinfor_id,  //add_qhr_20210707 添加参数
                   workinghours: contractnumbercount[i].claimdatetimeqh,
                   contractrequestamount: contractnumbercount[i].claimamount,
                   contractamount: '',
@@ -2557,6 +2842,64 @@
               tabled = this.tableD;
               this.tableD = tabled.concat(table);
             }
+            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+            let contradeta = response.contractapplication;
+            //如果合同没有contractdate，取claimdatetime scc
+            if(contradeta.length > 0){
+              let timec = "";
+              if(contradeta[0].contractdate) {
+                timec = contradeta[0].contractdate;//字符串
+              }else{
+                timec = contradeta[0].claimdatetime;//字符串
+              }
+              //如果合同没有contractdate，取claimdatetime scc
+              //如果存在延止日期，延长合同期限至延止日期 scc
+              let extensdate = contradeta[0].extensiondate;
+              if(extensdate){
+                let time1 = timec.split('~');//数组
+                this.nowtime = time1[0] + "~" + extensdate;
+              } else{
+                this.nowtime = timec;
+              }
+            }
+            //如果存在延止日期，延长合同期限至延止日期 scc
+            //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
+              if (this.nowtime) {
+                var areatime = this.nowtime.split('~');
+                var opentime = areatime[0];
+                var closetime = areatime[1];
+                ////当前选中合同日期转成时间对象 scc
+                var date1 = new Date(opentime);
+                var date2 = new Date(closetime);
+                //当前选中合同日期转成时间对象 scc
+              }
+              if(this.time.length > 0) {
+                for (let i = 0; i < this.time.length; i++) {
+                  let contra = this.time[i].split("~");
+                  ////每条合同的时间点 scc
+                  let date3 = new Date(contra[0]);
+                  let date4 = new Date(contra[1]);
+                  //判断新添加合同的两个时间点，在不在已有合同回数时间的区间内 scc
+                  let e1 = ((date1.getTime() > date3.getTime() && date1.getTime() < date4.getTime()) || (date2.getTime() > date3.getTime() && date2.getTime() < date4.getTime()));
+                  //判断新添加合同的两个时间点，与已有合同回数的时间点是否重合 scc
+                  let e2 = (date1.getTime() === date3.getTime() || date1.getTime() === date4.getTime() || date2.getTime() === date3.getTime() || date2.getTime() === date4.getTime());
+                  //判断新添加合同的两个时间点，是不是包含或者被包含于已有合同回数时间 scc
+                  let e3 = ((date1.getTime() < date3.getTime() && date2.getTime() > date4.getTime()));
+                  //判断上述条件是否为真 scc
+                  let e4 = (e1 || e2 || e3);
+                  //提示错误信息 scc
+                  if (e4) {
+                    Message({
+                      message: this.$t('normal.info_27'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.tableD.splice(this.tableD.length - intercept, intercept);
+                    break;
+                  }
+                  //提示错误信息 scc
+                }
+              }
             this.loading = false;
           });
         for (let a = 0; a < this.tableD.length; a++) {
@@ -2797,6 +3140,9 @@
           company: '',
           name: '',
           // nameN: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2807,6 +3153,9 @@
         if (index === 1) {
           rows[1].name = '';
           // rows[1].nameN = '';
+          //add_qhr_20210810 添加rank、报告者字段
+          rows[1].rank = '';
+          rows[1].reporter = '';
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
@@ -2824,6 +3173,9 @@
           number: '',
           company: '',
           name: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           suppliernameid: '',
           position: '',
           admissiontime: '',
@@ -2843,6 +3195,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -2862,6 +3217,7 @@
           companyprojects_id: '',
           contract: '',
           theme: '',
+          themeinfor_id: '',  //add_qhr_20210707 添加参数
           workinghours: '',
           //add-ws-合同关联项目，分配金额
           contractrequestamount: '',
@@ -2892,6 +3248,7 @@
             companyprojects_id: '',
             contract: '',
             theme: '',
+            themeinfor_id: '',  //add_qhr_20210707 添加参数
             workinghours: '',
             //add-ws-合同关联项目，分配金额
             contractrequestamount: '',
@@ -2916,6 +3273,8 @@
       deleteRowClaim(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+          this.contra = [];
+          this.time = [];
         } else {
           this.tableclaimtype = [{
             claimtype: '',
@@ -2925,6 +3284,8 @@
             supportdate: '',
             claimamount: '',
           }];
+          this.contra = [];
+          this.time = [];
         }
       },
       //ADD 03-18 ,委托元为内采时，合同可自行添加请求金额 END
@@ -2970,6 +3331,8 @@
                 vote1.name_id = response[i].account;
                 vote1.expname = response[i].expname;
                 vote1.suppliername = response[i].suppliername;
+                //add_qhr_20210810 添加rank、报告者字段
+                vote1.rank = response[i].rn;
                 if (response[i].post) {
                   //add-ws-value1-非空判断
                   let postvalue1 = '';
@@ -3088,6 +3451,7 @@
                 //add-ws-6/9-禅道任务080
                 contract: '',
                 theme: '',
+                themeinfor_id: '',  //add_qhr_20210707 添加参数
                 workinghours: '',
                 //add-ws-合同关联项目，分配金额
                 contractrequestamount: '',
@@ -3179,6 +3543,23 @@
                   }
                 }
               }
+              //add ccm 20210825 体制报告者在体制中是否存在 fr
+              if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
+              {
+                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
+                {
+                  Message({
+                    message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
+                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'fourth';
+                  this.loading = false;
+                  return;
+                }
+              }
+              //add ccm 20210825 体制报告者在体制中是否存在 to
               //add_fjl 体制人员重复check end
               // this.changeInt(this.tableB[i]);
               // 社内员工进组时间&退出时间必须Check
@@ -3199,6 +3580,9 @@
                 this.baseInfo.projectsystem.push({
                   number: this.tableB[i].number,
                   name: this.tableB[i].name,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableB[i].rank,
+                  reporter: this.tableB[i].reporter,
                   type: this.tableB[i].type,
                   company: this.tableB[i].company,
                   position: this.tableB[i].position,
@@ -3208,6 +3592,26 @@
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
+
+              //add ccm 20210825 体制报告者在体制中是否存在 fr
+              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
+              {
+                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
+                {
+                  Message({
+                    message: this.$t(this.tableC[i].name_id || '')
+                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'fourth';
+                  this.loading = false;
+                  return;
+                }
+              }
+              //add ccm 20210825 体制报告者在体制中是否存在 to
+
+
               // 外协员工入场时间&离场时间必须Check
               if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
                 error11 = error11 + 1;
@@ -3227,6 +3631,9 @@
                 this.baseInfo.projectsystem.push({
                   number: this.tableC[i].number,
                   name: this.tableC[i].name,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableC[i].rank,
+                  reporter: this.tableC[i].reporter,
                   suppliernameid: this.tableC[i].suppliernameid,
                   type: this.tableC[i].type,
                   name_id: this.tableC[i].name_id,
@@ -3282,6 +3689,7 @@
                     //add-ws-合同关联项目，分配金额
                     contract: this.tableD[i].contract,
                     theme: this.tableD[i].theme,
+                    themeinfor_id: this.tableD[i].themeinfor_id,  //add_qhr_20210707 添加参数
                     workinghours: this.tableD[i].workinghours,
                   });
                 }

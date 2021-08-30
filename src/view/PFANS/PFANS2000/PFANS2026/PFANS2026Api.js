@@ -26,6 +26,22 @@ export function update(data) {
     data: data
   })
 }
+//离职申请数据转结
+export function change(data) {
+  return request({
+    url: 'staffexitprocedure/change',
+    method: 'post',
+    data: data
+  })
+}
+//退职者调书&离职手续数据转结
+export function change2(data) {
+  return request({
+    url: 'staffexitprocedure/change2',
+    method: 'post',
+    data: data
+  })
+}
 //新建insert
 export function insert(data) {
   return request({
@@ -64,7 +80,9 @@ export function generatesta(data) {
   return requestPdf({
     url: 'staffexitprocedure/generatesta',
     method: 'post',
-    data: data,
+    //ztc 离职者报告调整位置 fr
+    params: data,
+    //ztc 离职者报告调整位置 to
     responseType: 'blob'
   })
 }
