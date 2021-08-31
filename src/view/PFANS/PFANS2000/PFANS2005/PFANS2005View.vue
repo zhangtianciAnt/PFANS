@@ -74,6 +74,7 @@
     },
     data() {
       return {
+        thisdate: false,// 当月是否已生成
         roles: '',
         loading: false,
         title: 'title.PFANS2005VIEW',
@@ -169,6 +170,7 @@
           .then(response => {
             for (let j = 0; j < response.length; j++) {
                 if(moment(response[0].generationdate).format('YYYY-MM') === moment(new Date()).format('YYYY-MM')){
+                    this.thisdate = true;
                     this.Givingid = response[0].giving_id;
                     this.generationdate = response[0].generationdate;
                     if(response[0].status === "2" || response[0].status === "4"){
@@ -270,25 +272,60 @@
           });
         }
         if (val === 'generatethismonth') {//生成当月
-          this.loading = true;
-          this.$store
-            .dispatch('PFANS2005Store/creategiving', {"generation": "0"})
-            .then(response => {
-              this.getGivingList();
-              Message({
+          if(this.thisdate){
+            this.$confirm('当月工资已生成，确认要重新生成吗？', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning',
+              center: true
+            }).then(() => {
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS2005Store/creategiving', {"generation": "0"})
+                .then(response => {
+                  this.getGivingList();
+                  Message({
+                    message: this.$t("normal.success_05"),
+                    type: 'success',
+                    duration: 5 * 1000
+                  });
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+            }).catch(() => {
+              this.$message({
+                type: 'info',
+                message: '已取消'
+              });
+            });
+          }
+          else{
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2005Store/creategiving', {"generation": "0"})
+              .then(response => {
+                this.getGivingList();
+                Message({
                   message: this.$t("normal.success_05"),
                   type: 'success',
                   duration: 5 * 1000
+                });
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
               });
-            })
-            .catch(error => {
-              Message({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
+          }
         }
         if (val === 'grantthismonth') {//发放当月
               this.loading = true;
