@@ -5861,6 +5861,7 @@
                     }).then(() => {
                       this.getListdata("2");
                       this.activeName = "first";
+                      this.buttonList[0].disabled = false;
                     }).catch(() => {
                       this.$message({
                         type: 'info',
