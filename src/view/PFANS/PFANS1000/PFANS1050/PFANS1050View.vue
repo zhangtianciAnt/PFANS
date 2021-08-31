@@ -203,7 +203,9 @@ export default {
         {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
       ],
       isShow: false,
-      merge: ['contractnumber','claimamount','numbers','staffnum'],
+      merge: [3,4,5,6],
+      unmerge: ['合计'],
+      mergeAnt:false,
       tableData: [{
         wai_id: '1',
         themename: '',
@@ -304,6 +306,7 @@ export default {
           } else {
             this.tableData = [];
           }
+          this.mergeAnt = true;
           this.loading = false
         })
         .catch(error => {
@@ -315,49 +318,188 @@ export default {
           this.loading = false
         })
     },
-    // flitterData(){
-    //   let spanOneArr = []
-    //   let concatOne = 1
-    //   let conlength = 0
-    //   this.datatotal.forEach((list) => {
-    //     concatOne = concatOne + conlength
-    //     if(list.themename !== '部门共通') {
-    //       conlength = list.children.length
-    //       debugger;
-    //       list.children.forEach((item, index) => {
-    //         if (index === 0) {
-    //           spanOneArr.push(0)
-    //           spanOneArr.push(1)
-    //           if(concatOne != 1){
-    //             concatOne++
-    //           }
-    //         } else {
-    //           if (this.unmerge.indexOf(item.amount) < 0) {
-    //             debugger
-    //             if (item.moneyplan1 === list.children[index - 1].moneyplan1) {
-    //               spanOneArr[concatOne] += 1
-    //               spanOneArr.push(0)
-    //             }
-    //           }else{
-    //             spanOneArr.push(1)
-    //           }
-    //         }
-    //       })
-    //     }
-    //   })
-    //   return spanOneArr;
-    // },
-    // listSpanMethod ({ row, column, rowIndex, columnIndex }) {
-    //   if(!this.mergeAnt)return
-    //   if(this.merge.includes(columnIndex)) {
-    //     const _row = this.flitterData(this.datatotal)[rowIndex]
-    //     const _col = _row > 0 ? 1 : 0
-    //     return {
-    //       rowspan: _row,
-    //       colspan: _col
-    //     }
-    //   }
-    // },
+    flitterData(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);
+        concatOne = conlength + 1;
+        if(list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1)
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if (item.contractnumber.trim() === list.children[index - 1].contractnumber.trim()) {
+                  spanOneArr[concatOne] += 1
+                  spanOneArr.push(0)
+                } else {
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
+                }
+              } else {
+                spanOneArr.push(1)
+                concatOne++
+              }
+            }
+          })
+        }
+        spanOne.push.apply(spanOne, spanOneArr);
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    flitterData1(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);
+        concatOne = conlength + 1;
+        if(list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1)
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if (item.claimamount.trim() === list.children[index - 1].claimamount.trim()
+                  && (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim())) {
+                  spanOneArr[concatOne] += 1
+                  spanOneArr.push(0)
+                } else {
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
+                }
+              } else {
+                spanOneArr.push(1)
+                concatOne++
+              }
+            }
+          })
+        }
+        spanOne.push.apply(spanOne, spanOneArr);
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    flitterData2(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);
+        concatOne = conlength + 1;
+        if(list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1)
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if (item.numbers.trim() === list.children[index - 1].numbers.trim()
+                  && (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim())) {
+                  spanOneArr[concatOne] += 1
+                  spanOneArr.push(0)
+                } else {
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
+                }
+              } else {
+                spanOneArr.push(1)
+                concatOne++
+              }
+            }
+          })
+        }
+        spanOne.push.apply(spanOne, spanOneArr);
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    flitterData3(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);
+        concatOne = conlength + 1;
+        if(list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1)
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if (item.staffnum.trim() === list.children[index - 1].staffnum.trim()
+                  && (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim())) {
+                  spanOneArr[concatOne] += 1
+                  spanOneArr.push(0)
+                } else {
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
+                }
+              } else {
+                spanOneArr.push(1)
+                concatOne++
+              }
+            }
+          })
+        }
+        spanOne.push.apply(spanOne, spanOneArr);
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    listSpanMethod ({ row, column, rowIndex, columnIndex }) {
+      if(!this.mergeAnt)return
+      if(this.merge[0] === columnIndex) {//合并合同号
+        const _row = this.flitterData(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+      if(this.merge[1] === columnIndex) {
+        const _row = this.flitterData1(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+      if(this.merge[2] === columnIndex) {
+        const _row = this.flitterData2(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+      if(this.merge[3] === columnIndex) {
+        const _row = this.flitterData3(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+    },
     getorglistname() {
       return new Promise((resolve, reject) => {
         let role = getCurrentRoleNew();
