@@ -20,8 +20,6 @@ import {
   getContranumber
   } from './PFANS1026Api';
 
-
-
 const PFANS1026Store = {
   namespaced: true,
   state: {},

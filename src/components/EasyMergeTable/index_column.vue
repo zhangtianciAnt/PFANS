@@ -12,7 +12,7 @@
   <el-table-column v-bind="$attrs"
     v-on="$listeners"
     :prop="column.prop"
-    :label="column.label"
+    :label=$t(column.label)
     :type="column.type"
     :index="column.index"
     :column-key="column.columnKey"

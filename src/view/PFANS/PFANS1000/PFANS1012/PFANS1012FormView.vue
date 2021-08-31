@@ -80,14 +80,16 @@
                                 v-model="form.moduleidApp" v-if="show9"></el-input>
                     </el-form-item>
                   </el-col>
+                  <!--与财务王颖确认此项在系统中没有用 ztc-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="account_number">-->
+<!--                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"-->
+<!--                                v-model="form.accountnumber"></el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1012VIEW_ACCOUNTNUMBER')" prop="account_number">
-                      <el-input :disabled="!disable" maxlength="20" style="width:20vw"
-                                v-model="form.accountnumber"></el-input>
-                    </el-form-item>
-                  </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')">
+<!--                    update_qhr_20210811 添加项目名称必填项-->
+                    <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="projectname">
                       <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
                         <el-option
                           v-for="item in optionsdate"
@@ -1434,6 +1436,15 @@
       org,
     },
     data() {
+      //region  add_qhr_20210811  添加项目名称必填项
+      var checkprojectname = (rule, value, callback) => {
+          if (this.form.project_id) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS5004VIEW_PROJECTNAMW')));
+          }
+      };
+      //endregion  add_qhr_20210811  添加项目名称必填项
       var checkuser = (rule, value, callback) => {
         if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
           this.error = this.$t('normal.error_09') + this.$t('label.applicant');
@@ -1780,6 +1791,13 @@
           accename: '',
         },
         rules: {
+          //region  add_qhr_20210811 添加项目名称必填项
+          projectname: [{
+            required: true,
+            validator: checkprojectname,
+            trigger: 'change',
+          }],
+          //endregion  add_qhr_20210811 添加项目名称必填项
           user_id: [{
             required: true,
             validator: checkuser,
@@ -4727,11 +4745,11 @@
         // 设置千分位符
         let num1 = 0, num2 = 0;
         if (this.form.type === 'PJ001001') {
-          num1 = Number(sums[8].replace(/,/g, ''));
+          num1 = Number(sums[8] + ''.replace(/,/g, ''));
           this.form.rmbexpenditure = num1.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else if (this.checktime) {
           num1 = Number(this.tablePValue[7].replace(/,/g, ''));
-          num2 = Number(sums[8].replace(/,/g, ''));
+          num2 = Number(sums[8] + ''.replace(/,/g, ''));
           this.form.rmbexpenditure = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         } else {
           //update_qhr_20210809 添加千位分隔符
@@ -4757,7 +4775,7 @@
           //update_qhr_20210809 添加千位分隔符
           if (this.tablePValue[8] !== undefined && sums[8] !== undefined) {
             num1 = Number(this.tablePValue[8].replace(/,/g, ''));
-            num2 = Number(sums[8].replace(/,/g, ''));
+            num2 = Number(sums[8] + ''.replace(/,/g, ''));
             this.form.foreigncurrency = (num1 + num2).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           } else {
             this.form.foreigncurrency = "0.00";
@@ -4942,10 +4960,35 @@
             }
           } else {
             //add-ws-9/25-禅道任务567
-            this.$router.push({
-              name: 'PFANS1012View',
-              params: {},
-            });
+            // add_zy_210608  精算返回按钮到一览画面  start
+            let _re_title = '';
+            let _name = [];
+            _name =  this.$route.params._name;
+            if(_name) {
+              let _judgements_type = _name[0].judgements_type;
+              if (_judgements_type === this.$t('menu.PFANS1010')) {
+                _re_title = 10;
+              } else if (_judgements_type === this.$t('title.PFANS1004VIEW')) {
+                _re_title = 4;
+              } else if (_judgements_type === this.$t('label.PFANS1012VIEW_PURCHASSESWC')) {
+                _re_title = 3;
+              } else if (_judgements_type === this.$t('menu.PFANS1005')) {
+                _re_title = 5;
+              }
+              this.$router.push({
+                name: 'PFANS1001FormView',
+                params: {
+                  title: _re_title,
+                },
+              });
+            }else{
+              this.$router.push({
+                name: 'PFANS1012View',
+                params: {
+                },
+              });
+            }
+            // add_zy_210608  精算返回按钮到一览画面  end
           }
           //add-fjl-0813-精算中，点击决裁，跳转画面
         }

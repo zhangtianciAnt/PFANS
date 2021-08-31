@@ -422,7 +422,7 @@
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row" :disabled="!disable"
                                              :precision="2" :step="1"
-                                             controls-position="right" style="width: 100%"
+                                             controls-position="right" style="width: 100%" @change="getbalance"
                                              v-model="scope.row.exchangermb">
                             </el-input-number>
                           </template>
@@ -1336,7 +1336,6 @@
         // add-ws-8/12-禅道任务446
         enableSave: false,
         role2: '',
-        fromname: '',
         acceptShow: true,
         options2: [
           {
@@ -1614,7 +1613,6 @@
       //add-ws-7/10-禅道249    if (this.role1 === '0') {
       this.role1 = getCurrentRole();
       //add-ws-7/10-禅道249
-      this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
       let plsummaryinfo = getDictionaryInfo('PJ111008');
       if (plsummaryinfo) {
         // this.tableA[0].plsummary = plsummaryinfo.value1;
@@ -1636,7 +1634,6 @@
       this.invoicetype = getDictionaryInfo('PJ068001').value1;
       this.getCompanyProjectList();
       this.checkOption();
-      // this.IDname = this.$route.params._id;
       if (this.params_id) {
         this.loading = true;
         this.$store
@@ -1814,6 +1811,7 @@
                   }
                 }
               }
+              this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
             }
             //add-ws-5/14-其他费用明细添加
             if (response.otherdetails.length > 0) {
@@ -1904,8 +1902,16 @@
         // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
         this.busInt();
         if(this.form.type === '0'){
-        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
           this.getBusInside();
+          this.showAout = false;
+          this.show = true;
+          this.show2 = false;
+          this.showAout = false;
+          this.showforeigncurrency = false;
+          this.showrow = true;
+          this.showrow3 = true;
+          this.showrow2 = false;
           // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
           //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
           this.form.realstartdate = this.form.startdate;
@@ -1913,15 +1919,22 @@
           //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
         }
         else{
-       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
           this.getBusOuter();
-       // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
+          this.showAout = true;
+          this.show = false;
+          this.show2 = true;
+          this.showforeigncurrency = true;
+          this.showrow = false;
+          this.showrow2 = true;
+          this.showrow3 = false;
+          // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-Start
           //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
           this.form.realstartdate = this.form.startdate;
           this.form.realenddate = this.form.enddate;
           //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
         }
-        // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
+          // add-lyt-21/4/8-NT_PFANS_20210406_BUG_001-end
         this.checkmoney = true;
         this.checktaxes = true;
         if (getUserInfo(this.$store.getters.userinfo.userid)) {
@@ -2014,6 +2027,7 @@
         } else {
           this.showAout = true;
         }
+        this.code21 = this.form.type == '0' ? 'PJ036' : 'PJ017';
         if (this.Redirict == '0') {
           // --add-ws-5/14-其他费用明细添加--
           let oldplsummaryinfo = getDictionaryInfo('PJ119007');
@@ -2081,9 +2095,6 @@
       //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
       this.params_id = this.$route.params._id;
       //add_fjl_0911 禅道任务515横展开 出现多条重复数据的问题
-      if(this.$route.params._fromname != "" && this.$route.params._fromname != null && this.$route.params._fromname != undefined){
-        this.fromname = this.$route.params._fromname;
-      }
       // add-ws-8/12-禅道任务446
       this.role2 = getCurrentRole5();
       // add-ws-8/12-禅道任务446
@@ -2146,6 +2157,77 @@
       }
     },
     methods: {
+      getbalance() {
+        if (this.form.type === '0') {
+          this.form.balance = this.form.loanamount - this.form.totalpay;
+        } else {
+          /* let sumoutold = 0;
+           let Newsumout = 0;
+           let summoneyt = 0;
+           let summoneya = 0;
+           let summoneyr = 0;
+           for (let i = 0; i < this.tableT.length; i++) {
+             if (this.tableT[i].currency === '') {
+               summoneyt += this.tableT[i].rmb;
+             }
+           }
+           for (let i = 0; i < this.tableA.length; i++) {
+             if (this.tableA[i].currency === '') {
+               summoneya += this.tableA[i].rmb;
+             }
+           }
+           for (let i = 0; i < this.tableR.length; i++) {
+             if (this.tableR[i].currency === '') {
+               summoneyr += this.tableR[i].rmb;
+             }
+           }
+
+           for (let j = 0; j < this.tableW.length; j++) {
+             let summoney = 0;
+             let summoneyT = 0;
+             let sumMoney = 0;
+             let sumout = 0;
+             let exchangerate = 0;
+             for (let i = 0; i < this.tableT.length; i++) {
+               if (this.tableT[i].currency !== '') {
+                 if (this.tableT[i].currency == this.tableW[j].currency) {
+                   if (this.tableT[i].foreigncurrency != '0') {
+                     summoneyT += this.tableT[i].foreigncurrency;
+                   }
+                 }
+               }
+             }
+             for (let i = 0; i < this.tableA.length; i++) {
+               if (this.tableA[i].currency !== '') {
+                 if (this.tableA[i].currency == this.tableW[j].currency) {
+                   if (this.tableA[i].travel != '0') {
+                     summoney += this.tableA[i].travel;
+                   }
+                 }
+               }
+             }
+             for (let i = 0; i < this.tableR.length; i++) {
+               if (this.tableR[i].currency !== '') {
+                 if (this.tableR[i].currency == this.tableW[j].currency) {
+                   if (this.tableR[i].foreigncurrency != '0') {
+                     sumMoney += this.tableR[i].foreigncurrency;
+                   }
+                 }
+               }
+             }
+             exchangerate = this.tableW[j].exchangerate;
+             sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
+             sumoutold += parseFloat(sumout);
+           }
+           Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
+           this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;*/
+          let exchangermb = 0;
+          for (let i = 0; i < this.tableW.length; i++) {
+            exchangermb += Number(this.tableW[i].exchangermb);
+          }
+          this.form.balance = exchangermb - Number(this.form.loanamount === undefined ? 0 : this.form.loanamount);
+        }
+      },
       //region add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
       dateCom() {
         if (this.form.realstartdate != '' && this.form.realstartdate != null && this.form.realenddate != '' && this.form.realenddate != null) {
@@ -2473,6 +2555,8 @@
             this.form.type = '0';
           }
           this.form.business_id = this.$route.params._name[0].value;
+          this.form.loanamount = this.$route.params._loanmoney;
+          this.form.balance = 0 - Number(this.form.loanamount === undefined ? 0 : this.form.loanamount);
           this.$nextTick(function() {
             this.changebusiness(this.form.business_id);
           });
@@ -3007,6 +3091,7 @@
         } else {
           row.exchangermb = 0.00;
         }
+        this.getbalance();
       },
       changesummoney(row) {
         row.facetax = row.invoiceamount - row.excludingtax;
@@ -3113,6 +3198,9 @@
       deleteRow6(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+          //region add_qhr_20210611 修改结余计算逻辑
+          this.getbalance();
+          //endegion add_qhr_20210611 修改结余计算逻辑
         } else {
           this.tableW = [{
             evectionid: '',
@@ -3123,6 +3211,9 @@
             exchangermb: '',
             currencyexchangerate: '',
           }];
+          //region add_qhr_20210611 修改结余计算逻辑
+          this.form.balance = 0;
+          //endegion add_qhr_20210611 修改结余计算逻辑
         }
       },
       addRow() {
@@ -3623,7 +3714,7 @@
 
       change2(val) {
         this.form.loan = val;
-        this.form.loanamount = '';
+        //this.form.loanamount = '';
         this.loading = true;
         this.$store
           .dispatch('PFANS1013Store/getLoanApplication')
@@ -3635,7 +3726,6 @@
                 label: this.$t('menu.PFANS1006') + '_' + response[0].loanapno,
                 moneys: response[0].moneys,
               });
-              this.form.loanamount = response[0].moneys;
             }
             this.loading = false;
           })
@@ -3931,30 +4021,20 @@
       buttonClick(val) {
         //add-ws-8/29-禅道bug066
         if (val === 'back') {
-          if(this.fromname != '' && this.fromname != null && this.fromname != undefined){
+          if (this.$route.params._typecheck) {
             this.$router.push({
-              name: 'PFANS1035FormView',
+              name: 'PFANS1001FormView',
               params: {
-                disabled: true,
-                _id: this.form.business_id,
+                title: 1,
               },
             });
-          }else{
-            if (this.$route.params._typecheck) {
-              this.$router.push({
-                name: 'PFANS1001FormView',
-                params: {
-                  title: 1,
-                },
-              });
-            } else {
-              this.$router.push({
-                name: 'PFANS1001FormView',
-                params: {
-                  title: 2,
-                },
-              });
-            }
+          } else {
+            this.$router.push({
+              name: 'PFANS1001FormView',
+              params: {
+                title: 2,
+              },
+            });
           }
         }
         //add-ws-8/29-禅道bug066
@@ -3987,70 +4067,7 @@
           //endregion add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
           this.$refs['refform'].validate(valid => {
               if (valid) {
-                if (this.form.type === '0') {
-                  this.form.balance = this.form.loanamount - this.form.totalpay;
-                } else {
-                  let sumoutold = 0;
-                  let Newsumout = 0;
-                  let summoneyt = 0;
-                  let summoneya = 0;
-                  let summoneyr = 0;
-                  for (let i = 0; i < this.tableT.length; i++) {
-                    if (this.tableT[i].currency === '') {
-                      summoneyt += this.tableT[i].rmb;
-                    }
-                  }
-                  for (let i = 0; i < this.tableA.length; i++) {
-                    if (this.tableA[i].currency === '') {
-                      summoneya += this.tableA[i].rmb;
-                    }
-                  }
-                  for (let i = 0; i < this.tableR.length; i++) {
-                    if (this.tableR[i].currency === '') {
-                      summoneyr += this.tableR[i].rmb;
-                    }
-                  }
 
-                  for (let j = 0; j < this.tableW.length; j++) {
-                    let summoney = 0;
-                    let summoneyT = 0;
-                    let sumMoney = 0;
-                    let sumout = 0;
-                    let exchangerate = 0;
-                    for (let i = 0; i < this.tableT.length; i++) {
-                      if (this.tableT[i].currency !== '') {
-                        if (this.tableT[i].currency == this.tableW[j].currency) {
-                          if (this.tableT[i].foreigncurrency != '0') {
-                            summoneyT += this.tableT[i].foreigncurrency;
-                          }
-                        }
-                      }
-                    }
-                    for (let i = 0; i < this.tableA.length; i++) {
-                      if (this.tableA[i].currency !== '') {
-                        if (this.tableA[i].currency == this.tableW[j].currency) {
-                          if (this.tableA[i].travel != '0') {
-                            summoney += this.tableA[i].travel;
-                          }
-                        }
-                      }
-                    }
-                    for (let i = 0; i < this.tableR.length; i++) {
-                      if (this.tableR[i].currency !== '') {
-                        if (this.tableR[i].currency == this.tableW[j].currency) {
-                          if (this.tableR[i].foreigncurrency != '0') {
-                            sumMoney += this.tableR[i].foreigncurrency;
-                          }
-                        }
-                      }
-                    }
-                    exchangerate = this.tableW[j].exchangerate;
-                    sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
-                    sumoutold += parseFloat(sumout);
-                  }
-                  Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
-                  this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;
-                }
                 this.baseInfo = {};
                 this.form.user_id = this.userlist;
                 this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));

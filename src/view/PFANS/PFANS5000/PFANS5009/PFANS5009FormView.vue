@@ -493,6 +493,21 @@
                               ></user>
                             </template>
                           </el-table-column>
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -506,6 +521,23 @@
                                 v-model="scope.row.position"
                                 style="width: 100%">
                               </el-input>
+                            </template>
+                          </el-table-column>
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
                             </template>
                           </el-table-column>
                           <!--                进组时间-->
@@ -705,7 +737,21 @@
                               </el-input>
                             </template>-->
                           </el-table-column>
-
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          RANK-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_RANK')"
+                            align="center"
+                            width="130">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.rank"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
                           <!--                    職務-->
                           <el-table-column
                             :label="$t('label.PFANSUSERVIEW_POST')"
@@ -719,6 +765,23 @@
                                 v-model="scope.row.position"
                                 style="width: 100%"
                               ></el-input>
+                            </template>
+                          </el-table-column>
+<!--                          //add_qhr_20210810 添加rank、报告者字段-->
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="250">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                @close="getReporter"
+                                :multiple="multiple"
+                                style="width: 80%"
+                              ></user>
                             </template>
                           </el-table-column>
                           <!--                入场时间-->
@@ -815,6 +878,7 @@
                               center
                               size="50%"
                               top="8vh"
+                              width="75%"
                               lock-scroll
                               append-to-body
                             >
@@ -856,7 +920,7 @@
                                     <el-table-column
                                       property="claimdatetime"
                                       :label="$t('label.PFANS1026VIEW_CONTRACTPERIOD')"
-                                      width="110"
+                                      width="200"
                                     ></el-table-column>
                                     <el-table-column align="right" width="230">
                                       <template slot="header" slot-scope="scope">
@@ -1247,6 +1311,8 @@
           claimamount: 0,
         }],
         currentRow5: '',
+        //add_qhr_20210810 添加rank、报告者字段
+        currentRow9: '',
         adddisabled: false,
         disable: true,
         //合同时间check
@@ -1338,6 +1404,9 @@
             number: '',
             company: '',
             name: '',
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: '',
+            reporter: '',
             position: '',
             admissiontime: '',
             exittime: '',
@@ -1624,6 +1693,9 @@
                   o.number = response.projectsystem[i].number;
                   o.company = response.projectsystem[i].company;
                   o.name = response.projectsystem[i].name;
+                  //add_qhr_20210810 添加rank、报告者字段
+                  o.rank = response.projectsystem[i].rank;
+                  o.reporter = response.projectsystem[i].reporter;
                   o.position = response.projectsystem[i].position;
                   o.admissiontime = response.projectsystem[i].admissiontime;
                   o.exittime = response.projectsystem[i].exittime;
@@ -1641,6 +1713,9 @@
                     o.company = response.projectsystem[i].company;
                     o.name = response.projectsystem[i].name;
                     o.name_id = response.projectsystem[i].name_id;
+                    //add_qhr_20210810 添加rank、报告者字段
+                    o.rank = response.projectsystem[i].rank;
+                    o.reporter = response.projectsystem[i].reporter;
                     o.position = response.projectsystem[i].position;
                     o.admissiontime = response.projectsystem[i].admissiontime;
                     o.exittime = response.projectsystem[i].exittime;
@@ -1764,6 +1839,9 @@
           number: '',
           company: '',
           name: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           suppliernameid: '',
           position: '',
           admissiontime: '',
@@ -1785,6 +1863,9 @@
               number: '',
               company: '',
               name: '',
+              //add_qhr_20210810 添加rank、报告者字段
+              rank: '',
+              reporter: '',
               position: '',
               admissiontime: '',
               exittime: '',
@@ -1936,11 +2017,18 @@
                 let claimdatetime = response.contractapplication[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.contractapplication[i].claimdatetime = [claimdatetim + '~' + claimdatetime1];
+                response.contractapplication[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
 
                 response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
 
               }
+              //resign  add  scc  20200202  选择合同页面显示合同时间 from
+            else if (response.contractapplication[i].contractdate !== '' && response.contractapplication[i].contractdate !== null && response.contractapplication[i].contractdate !== undefined){
+                let contractdate = response.contractapplication[i].contractdate;
+                let contractdate_st_end = contractdate.split('~');
+                response.contractapplication[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+              }
+              //end resign  add  scc  20200202  选择合同页面显示合同时间 to
               var vote2 = {};
               vote2.contract = response.contractapplication[i].contractnumber;
               vote2.deployment = response.contractapplication[i].deployment;
@@ -2202,6 +2290,9 @@
           rows[1].position = '';
           rows[1].admissiontime = '';
           rows[1].exittime = '';
+          //add_qhr_20210810 添加rank、报告者字段
+          rows[1].rank = '';
+          rows[1].reporter = '';
         }
         //add-ws-当体制仅有一条删除清空数据项
         if (rows.length > 2) {
@@ -2216,6 +2307,9 @@
           number: '',
           company: '',
           name: '',
+          //add_qhr_20210810 添加rank、报告者字段
+          rank: '',
+          reporter: '',
           position: '',
           admissiontime: '',
           exittime: '',
@@ -2297,6 +2391,8 @@
         //add-ws-数据库id存的是name名，外协关联修改
         row.name_id = this.currentRow5;
         //add-ws-数据库id存的是name名，外协关联修改
+        //add_qhr_20210810 添加rank、报告者字段
+        row.rank = getDictionaryInfo(this.currentRow9).value1;
         this.dialogTableVisible1 = false;
       },
       handleClickChange(val) {
@@ -2307,6 +2403,8 @@
         this.currentRow2 = val.suppliername;
         this.currentRow3 = val.suppliernameid;
         this.currentRow5 = val.expname;
+        //add_qhr_20210810 添加rank、报告者字段
+        this.currentRow9 = val.rank;
       },
       addRow() {
         this.tableA.push({
@@ -2335,12 +2433,64 @@
         }
       },
       getCitationUserid(userlist, row) {
-        row.name = userlist;
-        if (row.name != null && row.name !== '') {
-          let lst = getUserInfo(row.name);
-          row.position = lst.userinfo.post;
-          row.number = lst.userinfo.jobnumber;
+        //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 fr
+        // row.name = userlist;
+        // if (row.name != null && row.name !== '') {
+        //   let lst = getUserInfo(row.name);
+        //   //region add_qhr_20210810 添加rank、报告者字段
+        //   row.position = getDictionaryInfo(lst.userinfo.post).value1;
+        //   row.number = lst.userinfo.jobnumber;
+        //   row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+        //   //endregion add_qhr_20210810 添加rank、报告者字段
+        // }
+        if (userlist !='') {
+          if (this.tableB.filter(item => item.name === userlist).length === 0) {
+            row.name = userlist;
+            if (row.name != null && row.name !== '') {
+              let lst = getUserInfo(row.name);
+              row.position = getDictionaryInfo(lst.userinfo.post).value1;
+              row.number = lst.userinfo.jobnumber;
+              row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
+            }
+          }
         }
+        else
+        {
+          row.name = null;
+          row.position = '';
+          row.rank ='';
+        }
+        //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 to
+      },
+      //add_qhr_20210810 添加rank、报告者字段
+      getReporter(userlist, row) {
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
+        row.reporter = userlist;
+        if (userlist!=null && userlist !='' && userlist !=undefined)
+        {
+          if(this.tableB.filter(item => item.name === userlist).length === 0)
+          {
+            if (row.type === '0')
+            {
+              Message({
+                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+            else
+            {
+              Message({
+                message: this.$t(row.name_id || '')
+                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                type: 'error',
+                duration: 5 * 1000,
+              });
+            }
+          }
+        }
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
       getcustomer(val) {
         this.result1.forEach(res => {
@@ -2362,6 +2512,8 @@
               vote1.expname = response[i].expname;
               vote1.suppliername = response[i].suppliername;
               vote1.suppliernameid = response[i].supplierinfor_id;
+              //add_qhr_20210810 添加rank、报告者字段
+              vote1.rank = response[i].rn;
               //vote1.post = response[i].post;
               this.gridData1.push(vote1);
             }
@@ -2574,6 +2726,9 @@
                 this.baseInfo.projectsystem.push({
                   number: this.tableB[i].number,
                   name: this.tableB[i].name,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableB[i].rank,
+                  reporter: this.tableB[i].reporter,
                   type: this.tableB[i].type,
                   company: this.tableB[i].company,
                   position: this.tableB[i].position,
@@ -2635,6 +2790,22 @@
                       }
                   }
               }
+              //add ccm 20210825 体制报告者在体制中是否存在 fr
+              if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
+              {
+                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
+                {
+                  Message({
+                    message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
+                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'third';
+                  this.loading = false;
+                  return;
+                }
+              }
               // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check end
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';
@@ -2648,6 +2819,24 @@
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
+              //add ccm 20210825 体制报告者在体制中是否存在 fr
+              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
+              {
+                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
+                {
+                  Message({
+                    message: this.$t(this.tableC[i].name_id || '')
+                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'third';
+                  this.loading = false;
+                  return;
+                }
+              }
+              //add ccm 20210825 体制报告者在体制中是否存在 to
+
               if (moment(this.tableC[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableC[i].exittime).format('YYYY-MM-DD')) {
                 this.activeName = 'third';
                 this.loading = false;
@@ -2685,6 +2874,9 @@
                   suppliernameid: this.tableC[i].suppliernameid,
                   type: this.tableC[i].type,
                   name_id: this.tableC[i].name_id,
+                  //add_qhr_20210810 添加rank、报告者字段
+                  rank: this.tableC[i].rank,
+                  reporter: this.tableC[i].reporter,
                   company: this.tableC[i].company,
                   admissiontime: this.tableC[i].admissiontime,
                   exittime: this.tableC[i].exittime,

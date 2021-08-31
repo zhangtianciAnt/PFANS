@@ -82,7 +82,8 @@
 <!--                  </el-input>-->
 <!--                </template>-->
 <!--            </el-table-column>-->
-            <el-table-column :label="$t('label.PFANS2020VIEW_JOBNUMBER')" align="center" width="150" prop="jobnumber">
+<!--            update_qhr_20210830  修改显示列为姓名-->
+            <el-table-column :label="$t('label.user_name')" align="center" width="150" prop="username">
               <!--<template slot-scope="scope">-->
                 <!--<el-input :disabled="!disabled1" maxlength="20" :no="scope.row" v-model="scope.row.jobnumber">-->
                 <!--</el-input>-->
@@ -402,7 +403,7 @@
                   this.result = true;
                 }
                 this.getList1();
-                this.getList();
+                this.getList(this.years); //add_qhr_20210830 赋值导入后调用方法的参数
               }
             }
           },
@@ -434,7 +435,8 @@
             this.baseInfo = {};
             this.bonussend = [];
             for (let i = 0; i < this.tableD.length; i++) {
-              if (this.tableD[i].years !== '' || this.tableD[i].jobnumber !== '' || this.tableD[i].totalbonus1 !== '' ||
+              //update_qhr_20210830 添加检查项
+              if (this.tableD[i].years !== '' || this.tableD[i].jobnumber !== '' || this.tableD[i].user_id !== '' || this.tableD[i].username !== '' || this.tableD[i].totalbonus1 !== '' ||
                 this.tableD[i].method !== '' || this.tableD[i].taxable !== '' || this.tableD[i].amount !== '' || this.tableD[i].payable !== ''
                 || this.tableD[i].income !== '' || this.tableD[i].taxrate !== '' || this.tableD[i].deductions !== '' || this.tableD[i].bonustax !== ''
                 || this.tableD[i].received !== '' || this.tableD[i].remarks !== ''
@@ -444,6 +446,10 @@
                     bonussend_id: this.tableD[i].bonussend_id,
                     years: this.tableD[i].years,
                     jobnumber: this.tableD[i].jobnumber,
+                    //region add_qhr_20210830 添加更新项
+                    user_id: this.tableD[i].user_id,
+                    username: this.tableD[i].username,
+                    //endregion add_qhr_20210830 添加更新项
                     totalbonus1: this.tableD[i].totalbonus1,
                     method: this.tableD[i].method,
                     taxable: this.tableD[i].taxable,

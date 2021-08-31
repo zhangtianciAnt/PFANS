@@ -106,6 +106,7 @@ import PFANS1049View from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049View.vue'
 import PFANS1049FormView from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049FormView.vue'
 import PFANS1050View from '@/view/PFANS/PFANS1000/PFANS1050/PFANS1050View.vue'
 import PFANS1051View from '@/view/PFANS/PFANS1000/PFANS1051/PFANS1051View.vue'
+import PFANS1052View from '@/view/PFANS/PFANS1000/PFANS1052/PFANS1052View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -175,6 +176,7 @@ import PFANS4001View from '@/view/PFANS/PFANS4000/PFANS4001/PFANS4001View'
 import PFANS4001FormView from '@/view/PFANS/PFANS4000/PFANS4001/PFANS4001FormView'
 import PFANS4002View from '@/view/PFANS/PFANS4000/PFANS4002/PFANS4002View'
 import PFANS4002FormView from '@/view/PFANS/PFANS4000/PFANS4002/PFANS4002FormView'
+import PFANS4003View from '@/view/PFANS/PFANS4000/PFANS4003/PFANS4003View'
 import PFANS5001View from '@/view/PFANS/PFANS5000/PFANS5001/PFANS5001View.vue'
 import PFANS5001FormView from '@/view/PFANS/PFANS5000/PFANS5001/PFANS5001FormView.vue'
 import PFANS5002View from '@/view/PFANS/PFANS5000/PFANS5002/PFANS5002View.vue'
@@ -777,6 +779,11 @@ const routes = [
         component: PFANS1047FormView,
       },
       {
+        path: '/PFANS1052View',
+        name: 'PFANS1052View',
+        component: PFANS1052View,
+      },
+      {
         path: '/PFANS1051View',
         name: 'PFANS1051View',
         component: PFANS1051View,
@@ -1125,6 +1132,13 @@ const routes = [
         name: 'PFANS4002FormView',
         component: PFANS4002FormView
       },
+      // region scc add 21/8/17 部门rank别人件费 from
+      {
+        path: '/PFANS4003View',
+        name: 'PFANS4003View',
+        component: PFANS4003View,
+      },
+      // endregion scc add 21/8/17 部门rank别人件费 to
       {
         path: '/PFANS5001View',
         name: 'PFANS5001View',

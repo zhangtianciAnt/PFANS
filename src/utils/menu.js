@@ -401,6 +401,15 @@ export function menu() {
                     },
                   ],
                 },
+                {
+                  '_id': 'PFANS1052',
+                  'name': 'menu.PFANS1052',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS1052View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [],
+                },
               ],
             },
             {
@@ -3660,6 +3669,17 @@ export function menu() {
                 },
               ],
             },
+            // region scc add 21/8/17 部门rank别人件费菜单 from
+            {
+              '_id': 'PFANS4003',
+              'name': 'menu.PFANS4003',
+              'menuvisible': true,
+              'menuurl': '/PFANS4003View',
+              'menuicon': '',
+              'children': [],
+              'actions': [],
+            },
+            // endregion scc add 21/8/17 部门rank别人件费菜单 to
             {
               '_id': 'PFANS20060',
               'name': 'menu.PFANS2006',
