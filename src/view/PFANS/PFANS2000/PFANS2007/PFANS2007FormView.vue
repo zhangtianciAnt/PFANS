@@ -403,8 +403,9 @@
                   this.result = true;
                 }
                 this.getList1();
-                this.getList(this.years); //add_qhr_20210830 添加方法调用参数
               }
+              //update_qhr_20210831 修改方法调用位置
+              this.getList(this.years); //add_qhr_20210830 添加方法调用参数
             }
           },
           clear(safe) {
