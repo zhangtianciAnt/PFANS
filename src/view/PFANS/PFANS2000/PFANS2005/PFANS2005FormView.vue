@@ -4246,7 +4246,12 @@
                         if(response.wagesList.length > 0){
                           if(response.wagesList[0].wages_id !== null){
                             this.thisWages = true;
-                            this.buttonList[1].disabled = false;
+                            if(this.$route.params.status === '2' || this.$route.params.status === '4'){
+                              this.buttonList[1].disabled = true;
+                            }
+                            else{
+                              this.buttonList[1].disabled = false;
+                            }
                           }
                         }
                         // 工资tab页数据处理
