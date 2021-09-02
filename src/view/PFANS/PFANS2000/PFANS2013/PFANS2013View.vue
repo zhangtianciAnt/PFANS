@@ -5,6 +5,23 @@
                      :data="data"
                      :title="title"
                      v-loading="loading">
+      <!--add scc-->
+      <el-select
+        v-model="enterOrleave"
+        placeholder="请选择"
+        slot="customize"
+        style="margin-right:1vw"
+        @change="filterInfo"
+        clearable
+      >
+        <el-option
+          v-for="item in optionsForel"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        ></el-option>
+      </el-select>
+      <!--add scc-->
     </EasyNormalTable>
   </div>
 </template>
@@ -24,7 +41,20 @@
       return {
         loading: false,
         title: 'title.PFANS2013VIEW',
-
+        //region scc 9/1 add 在职离职状态 from
+        enterOrleave: "0",
+        data1: [],
+        optionsForel: [
+          {
+            value: "0",
+            label: this.$t("label.USERSVIEW_ENTER")
+          },
+          {
+            value: "1",
+            label: this.$t("label.USERSVIEW_LEAVE")
+          },
+        ],
+        //endregion scc 9/1 add 在职离职状态 to
         // 表格数据源
         data: [],
         // 列属性
@@ -278,6 +308,11 @@
                 if (_tableList[j].enddate !== null && _tableList[j].enddate !== "") {
                   _tableList[j].enddate = moment(_tableList[j].enddate).format("YYYY-MM-DD");
                 }
+                //region scc add 9/1 获取离职日 from
+                if(_tableList[j].resignation_date !== null && _tableList[j].resignation_date !== ""){
+                  _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format("YYYY-MM-DD");
+                }
+                //endregion scc add 9/1 获取离职日 to
                 //剩余数据处理
                 // _tableList[j].remaining_annual_leave_lastyear =
                 //   (parseFloat(_tableList[j].annual_leave_lastyear)
@@ -294,6 +329,16 @@
               }
             }
             this.data = _tableList;
+            //region scc add 9/1 页面默认初始值为在职 from
+            this.data1 = _tableList;
+            this.data = this.data1.filter(item => {
+              return (
+                item.resignation_date === null
+                || item.resignation_date === ""
+                ||moment(item.resignation_date).format('YYYY-MM-DD')
+                >=moment(new Date()).format('YYYY-MM-DD'))
+            });
+            //endregion scc add 9/1 页面默认初始值为在职 to
             this.loading = false;
           })
           .catch(error => {
@@ -305,6 +350,32 @@
             this.loading = false;
           });
       },
+      //region scc add 9/1 在职离职下拉框change事件 from
+      filterInfo() {
+        this.data = this.data1;
+        if (this.data.length > 0) {
+          if (this.enterOrleave !== "") {
+            if (this.enterOrleave === "0") {//在职
+              this.data = this.data1.filter(item => {
+                return (
+                  item.resignation_date === null
+                  || item.resignation_date === ""
+                  || moment(item.resignation_date).format('YYYY-MM-DD')
+                  >= moment(new Date()).format('YYYY-MM-DD'))
+              });
+            } else if (this.enterOrleave === "1") {//离职
+              this.data = this.data1.filter(item => {
+                return ((
+                  moment(item.resignation_date).format('YYYY-MM-DD')
+                  < moment(new Date()).format('YYYY-MM-DD')))
+              });
+            }
+          } else {
+            this.data = this.data1//不选择为所有数据，在职+离职
+          }
+        }
+      },
+      //endregion scc add 9/1 在职离职下拉框change事件 to
     },
     mounted() {
       this.getDataList();
