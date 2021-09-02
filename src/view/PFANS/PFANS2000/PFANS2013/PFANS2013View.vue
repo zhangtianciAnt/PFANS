@@ -31,6 +31,9 @@
   import {getUserInfo, getOrgInfoByUserId} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from "moment";
+  //region scc add 角色判断 from
+  import {getCurrentRole6} from "../../../../utils/customize";
+  //endregion scc add 角色判断 to
 
   export default {
     name: 'PFANS2013View',
@@ -57,6 +60,146 @@
         //endregion scc 9/1 add 在职离职状态 to
         // 表格数据源
         data: [],
+        //region scc add 9/2 不能看到年休列 from
+        columsCopy: [
+          {
+            code: 'user_name',
+            label: 'label.user_name',
+            width: 50,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'center_name',
+            label: 'label.center',
+            width: 80,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'group_name',
+            label: 'label.group',
+            width: 80,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'team_name',
+            label: 'label.team',
+            width: 80,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'enterday',
+            label: 'label.PFANS2013VIEW_ENTERDAY',
+            width: 70,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'workday',
+            label: 'label.PFANS2013VIEW_WORKDAY',
+            width: 80,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'enddate',
+            label: 'label.PFANS2013VIEW_ENTRYDAY',
+            width: 70,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'last_year',
+            label: 'label.PFANS2013VIEW_LASTYEAR',
+            child: [
+              {
+                code: 'annual_leave',
+                label: 'label.PFANS2013VIEW_ANNUALLEAVE',
+                child: [
+                  {
+                    code: 'remaining_annual_leave_lastyear',
+                    label: 'label.PFANS2013VIEW_REMAINING',
+                    labelClass: 'pfans2013view_column_5',
+                    width: 60,
+                    fix: false,
+                    filter: false,
+                  },
+                ],
+                width: 65,
+                fix: false,
+                filter: false,
+              },
+            ],
+            width: 60,
+            fix: false,
+            filter: false,
+          },
+          {
+            code: 'this_year',
+            label: 'label.PFANS2013VIEW_THISYEAR',
+            child: [
+              {
+                code: 'annual_leave',
+                label: 'label.PFANS2013VIEW_ANNUALLEAVE',
+                child: [
+                  {
+                    code: 'annual_leave_thisyear',
+                    label: 'label.PFANS2013VIEW_BEGINNING',
+                    labelClass: 'pfans2013view_column_11',
+                    width: 50,
+                    fix: false,
+                    filter: false,
+                  },
+                  {
+                    code: 'deduct_annual_leave_thisyear',
+                    label: 'label.PFANS2013VIEW_DEDUCT',
+                    labelClass: 'pfans2013view_column_11',
+                    width: 50,
+                    fix: false,
+                    filter: false,
+                  },
+                  {
+                    code: 'remaining_annual_leave_thisyear',
+                    label: 'label.PFANS2013VIEW_REMAINING',
+                    labelClass: 'pfans2013view_column_11',
+                    width: 50,
+                    fix: false,
+                    filter: false,
+                  },
+                  {
+                    code: 'annual_leave_shenqingzhong',
+                    label: 'label.PFANS2013VIEW_SHENQINGZHONG',
+                    labelClass: 'pfans2013view_column_11',
+                    width: 70,
+                    fix: false,
+                    filter: false,
+                  },
+                  {
+                    code: 'annual_avg_remaining',
+                    label: 'label.PFANS2013VIEW_AVG',
+                    labelClass: 'pfans2013view_column_11',
+                    width: 100,
+                    fix: false,
+                    filter: false,
+                  },
+                ],
+                width: 350,
+                fix: false,
+                filter: false,
+              },
+            ],
+            width: 250,
+            fix: false,
+            filter: false,
+          },
+        ],
+        //endregion scc add 9/2 不能看到年休列 to
+        //region scc add 9/2 判断用户角色 from
+        roleBility: '',
+        //endregion scc add 9/2 判断用户角色 to
         // 列属性
         columns: [
           {
@@ -145,6 +288,25 @@
                 fix: false,
                 filter: false,
               },
+              //region scc add 年休列 from
+              {
+                code: 'gannual_leave',
+                label: 'label.PFANS2010VIEW_INHUGH',
+                child: [
+                  {
+                    code: 'remaining_paid_leave_lastyear',
+                    label: 'label.PFANS2013VIEW_REMAINING',
+                    labelClass: 'pfans2013view_column_5',
+                    width: 60,
+                    fix: false,
+                    filter: false,
+                  },
+                ],
+                width: 65,
+                fix: false,
+                filter: false,
+              },
+              //endregion scc add 年休列 to
               // {
               //   code: 'paid_leave',
               //   label: 'label.PFANS2013VIEW_PAIDLEAVE',
@@ -381,6 +543,14 @@
       this.getDataList();
       this.$store.commit('global/SET_OPERATEID', '');
     },
+    //region scc add 判断用户是否是总经理，人事部长，工资计算担当 from
+    created() {
+      this.roleBility = getCurrentRole6();
+      if(this.roleBility !== '0'){
+        this.columns = this.columsCopy;
+      }
+    },
+    //endregion scc add 判断用户是否是总经理，人事部长，工资计算担当 to
   };
 </script>
 
