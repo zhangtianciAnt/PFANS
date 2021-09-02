@@ -753,8 +753,9 @@ export default {
       this.getDepartInfo();
     },
     buttonClick(val) {
+      //region scc 21/9/1 upd 积木报表 from
       if (val === 'export') {
-        if (this.tableData.data == '') {
+        if (this.tableData.length === 0) {
           Message({
             message: this.$t('normal.info_16'),
             type: 'info',
@@ -762,7 +763,11 @@ export default {
           });
           return;
         }
+        let winopen =  'http://localhost:8085/jmreport/view/592585397002903552?';
+        winopen = winopen + 'year=' + this.refform.year + '&group_id=' + this.refform.group_id
+        window.open(winopen,'_blank');
       }
+      //endregion scc 21/9/1 upd 积木报表 to
     },
   }
 }

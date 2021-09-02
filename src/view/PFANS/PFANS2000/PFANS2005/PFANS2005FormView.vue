@@ -4246,7 +4246,12 @@
                         if(response.wagesList.length > 0){
                           if(response.wagesList[0].wages_id !== null){
                             this.thisWages = true;
-                            this.buttonList[1].disabled = false;
+                            if(this.$route.params.status === '2' || this.$route.params.status === '4'){
+                              this.buttonList[1].disabled = true;
+                            }
+                            else{
+                              this.buttonList[1].disabled = false;
+                            }
                           }
                         }
                         // 工资tab页数据处理
@@ -5484,7 +5489,7 @@
                 }
                 this.loading = false;
             },
-            tabInfoSave(tabFlg) {
+            tabInfoSave(tabFlg,wagesFlg) {
                 if(this.$route.params.status === '2' || this.$route.params.status === '4'){
                     return;
                 }
@@ -5529,8 +5534,8 @@
                         .dispatch("PFANS2005Store/save", this.baseInfo)
                         .then(response => {
                             this.data = response;
-                            this.getListdata("0");
-                            if(tabFlg !== "0"){
+                            this.getListdata(wagesFlg);
+                            if(tabFlg !== "0" && wagesFlg === '0'){
                               this.loading = false;
                             }
                         })
@@ -5542,6 +5547,11 @@
                             });
                             this.loading = false;
                         });
+                }
+                else{
+                  if(wagesFlg === '2'){
+                    this.getListdata(wagesFlg);
+                  }
                 }
             },
             rowheight({row, column, rowIndex, columnIndex}) {
@@ -5568,7 +5578,7 @@
                     return;
                 }
                 //调用保存-lxx
-                this.tabInfoSave(tab.index);
+                this.tabInfoSave(tab.index,'0');
                 //调用保存-lxx
                 this.tab = tab.index;
                 if (
@@ -5745,7 +5755,7 @@
                             }
                         }
                     }
-                    this.tabInfoSave('');
+                    this.tabInfoSave('','0');
                 }
                 this.loading = false;
             },
@@ -5859,7 +5869,7 @@
                       type: 'warning',
                       center: true
                     }).then(() => {
-                      this.getListdata("2");
+                      this.tabInfoSave(this.tab,'2');
                       this.activeName = "first";
                       this.buttonList[0].disabled = false;
                     }).catch(() => {
