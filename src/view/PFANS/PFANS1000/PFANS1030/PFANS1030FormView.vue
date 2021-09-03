@@ -1085,6 +1085,7 @@
         option: [],
         option1: [],
         rabm: [],
+        rabm1: {},
         forreason: false,
         // endregion scc add 21-8/20 详情部门下拉框 to
         //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
@@ -1577,6 +1578,7 @@
               for(let i = 0; i < response.staffDetail.length; i++){
                 this.tableD[i].totalall = response.staffDetail[i].depart;
                 this.tableD[i].BMtotal = response.staffDetail[i].subtotal;
+                this.tableD[i].BM = response.staffDetail[i].bm;
               }
             }
             //endregion upd scc 8/24 页面加载重新获取 to
@@ -1669,6 +1671,22 @@
                 });
               });
             //endregion scc add 21/8/23 rank下拉框数据源 to
+            //region scc add 8/30 获取年度所有部门对用的成本 from
+            this.$store
+              .dispatch('PFANS1025Store/getPersonalBm', {
+                'years': this.form.claimdatetimeStart
+              })
+              .then(res => {
+                this.rabm.push(res);
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              });
+            //endregion scc add 8/30 获取年度所有部门对应的成本 to
             this.loading = false;
           })
           .catch(error => {
@@ -2176,33 +2194,14 @@
       //region scc add 部门RANK下拉框事件 from
       changeDep(row) {
         //获取年度对应rank的成本 from
-        // if(!this.rabm[0][0].contains(row.incondepartment)) {
           if (row.incondepartment) {
-            this.loading = true;
-            this.$store
-              .dispatch('PFANS1025Store/getPersonalBm', {
-                'years': this.form.claimdatetimeStart,
-                'companyen': row.incondepartment
-              })
-              .then(res => {
-                this.rabm.push(res);
-                this.loading = false;
-              })
-              .catch(error => {
-                Message({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
+            this.rabm1 = this.rabm[0][row.incondepartment];
           }
-        // }
         //获取年度对应rank的成本 to
       },
       changeRank(row) {
-        if(this.rabm.length !== 0){
-          row.BM = this.rabm[0][row.attf];
+        if(JSON.stringify(this.rabm1) !== "{}"){
+          row.BM = this.rabm1[row.attf];
         }else{
           row.attf = "";
           Message({
