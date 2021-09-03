@@ -665,7 +665,7 @@ export default {
     },
     buttonClick(val) {
       if (val === 'export') {
-        if (this.tableData.data == '') {
+        if (this.tableData.length === 0) {
           Message({
             message: this.$t('normal.info_16'),
             type: 'info',
@@ -673,6 +673,9 @@ export default {
           });
           return;
         }
+        let winopen =  'http://localhost:8085/jmreport/view/759fe240f53a47a38f8c6b0dd8b7b545?';
+        winopen = winopen + 'year=' + this.refform.year + '&department=' + this.refform.group_id
+        window.open(winopen,'_blank');
       }
     },
   }
