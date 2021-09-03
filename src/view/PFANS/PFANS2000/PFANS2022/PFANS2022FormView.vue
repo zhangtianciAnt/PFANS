@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         :workflowCode="workcode"
+                         :workflowCode="workcode" @StartWorkflow="buttonClick" :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
                          @disabled="setdisabled"
                          v-loading="loading">
@@ -270,6 +270,7 @@
         buttonList: [],
         tabIndex: 0,
         multiple: false,
+        defaultStart: false,
         form: {
           casgiftapplyid: '',
           firstclass: '',
@@ -981,9 +982,17 @@
                       type: 'success',
                       duration: 5 * 1000
                     });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
+                    //add 210903 gbb 发起审批之前调用保存按钮，check必填项目 start
+                    if (val !== 'save' && val !== 'StartWorkflow') {
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
                     }
+                    if (val === 'StartWorkflow') {
+                      this.$store.commit('global/SET_OPERATEID', this.$route.params._id);
+                      this.$refs.container.$refs.workflow.startWorkflow();
+                    }
+                    //add 210903 gbb 发起审批之前调用保存按钮，check必填项目 end
                   }
                 })
                 .catch(error => {

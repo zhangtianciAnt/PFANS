@@ -1372,8 +1372,8 @@ const routes = [
         component: PFANS8008FormView,
       },
       {
-        path: '/PFANS8009PointView',
-        name: 'PFANS8009PointView',
+        path: '/PFANS8009View',
+        name: 'PFANS8009View',
         component: PFANS8009View,
       },
       {

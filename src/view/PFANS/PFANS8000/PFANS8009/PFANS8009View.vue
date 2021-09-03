@@ -24,17 +24,24 @@
                     {
                         code: 'code',
                         label: 'label.PFANS8009VIEW_CODE',
-                        width: 120,
+                        width: 80,
                         fix: false,
                         filter: false,
                     },
                     {
                         code: 'value1',
                         label: 'label.PFANS8009VIEW_VALUE',
-                        width: 120,
+                        width: 80,
                         fix: false,
                         filter: false,
                     },
+                  {
+                    code: 'tenantid',
+                    label: 'label.PFANS8009VIEW_TENANTID',
+                    width: 200,
+                    fix: false,
+                    filter: false,
+                  },
                 ],
                 buttonList: [
                     {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
@@ -46,8 +53,10 @@
             };
         },
         mounted() {
-            this.codetype = this.$route.params.codetype;
-            this.getCompanyProjectList(this.$route.params.codetype);
+            this.dispatch('PFANS8009Store/getDictionary', "");
+            this.title = 'menu.PFANSDICTIONARY';
+            // this.codetype = this.$route.params.codetype;
+            // this.getCompanyProjectList(this.$route.params.codetype);
         },
         methods: {
             getCompanyProjectList(codetype) {
@@ -77,7 +86,7 @@
                 this.data = [];
                 this.loading = true;
                 this.$store
-                    .dispatch(val, {"code": codetype})
+                    .dispatch(val, {"tenantid": "查所以父cide"})
                     .then(response => {
                         this.data = response;
                         this.loading = false;
