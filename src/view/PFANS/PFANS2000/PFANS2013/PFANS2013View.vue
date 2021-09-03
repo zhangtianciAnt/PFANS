@@ -60,7 +60,7 @@
         //endregion scc 9/1 add 在职离职状态 to
         // 表格数据源
         data: [],
-        //region scc add 9/2 不能看到年休列 from
+        //region scc add 9/2 不同年休列 from
         columsCopy: [
           {
             code: 'user_name',
@@ -111,6 +111,7 @@
             fix: false,
             filter: false,
           },
+          //region scc 9/3 除总经理，人事部长，工资计算担当的其他人看到的年休，为上年度中剩余法定年休 from
           {
             code: 'last_year',
             label: 'label.PFANS2013VIEW_LASTYEAR',
@@ -137,6 +138,7 @@
             fix: false,
             filter: false,
           },
+          //endregion scc 9/3 除总经理，人事部长，工资计算担当的其他人看到的年休，为上年度中剩余法定年休 to
           {
             code: 'this_year',
             label: 'label.PFANS2013VIEW_THISYEAR',
@@ -196,7 +198,7 @@
             filter: false,
           },
         ],
-        //endregion scc add 9/2 不能看到年休列 to
+        //endregion scc add 9/2 不同年休列 to
         //region scc add 9/2 判断用户角色 from
         roleBility: '',
         //endregion scc add 9/2 判断用户角色 to
@@ -255,43 +257,45 @@
             code: 'last_year',
             label: 'label.PFANS2013VIEW_LASTYEAR',
             child: [
-              {
-                code: 'annual_leave',
-                label: 'label.PFANS2013VIEW_ANNUALLEAVE',
-                child: [
-                  // {
-                  //   code: 'annual_leave_lastyear',
-                  //   label: 'label.PFANS2013VIEW_BEGINNING',
-                  //   labelClass: 'pfans2013view_column_5',
-                  //   width: 90,
-                  //   fix: false,
-                  //   filter: true,
-                  // },
-                  // {
-                  //   code: 'deduct_annual_leave_lastyear',
-                  //   label: 'label.PFANS2013VIEW_DEDUCT',
-                  //   labelClass: 'pfans2013view_column_5',
-                  //   width: 90,
-                  //   fix: false,
-                  //   filter: true,
-                  // },
-                  {
-                    code: 'remaining_annual_leave_lastyear',
-                    label: 'label.PFANS2013VIEW_REMAINING',
-                    labelClass: 'pfans2013view_column_5',
-                    width: 60,
-                    fix: false,
-                    filter: false,
-                  },
-                ],
-                width: 65,
-                fix: false,
-                filter: false,
-              },
-              //region scc add 年休列 from
+              //region scc del 总经理，人事部长，工资计算担当，不需要看到的年休列，为上年度剩余法定年休 from
+              // {
+              //   code: 'annual_leave',
+              //   label: 'label.PFANS2013VIEW_ANNUALLEAVE',
+              //   child: [
+              //     // {
+              //     //   code: 'annual_leave_lastyear',
+              //     //   label: 'label.PFANS2013VIEW_BEGINNING',
+              //     //   labelClass: 'pfans2013view_column_5',
+              //     //   width: 90,
+              //     //   fix: false,
+              //     //   filter: true,
+              //     // },
+              //     // {
+              //     //   code: 'deduct_annual_leave_lastyear',
+              //     //   label: 'label.PFANS2013VIEW_DEDUCT',
+              //     //   labelClass: 'pfans2013view_column_5',
+              //     //   width: 90,
+              //     //   fix: false,
+              //     //   filter: true,
+              //     // },
+              //     {
+              //       code: 'remaining_annual_leave_lastyear',
+              //       label: 'label.PFANS2013VIEW_REMAINING',
+              //       labelClass: 'pfans2013view_column_5',
+              //       width: 60,
+              //       fix: false,
+              //       filter: false,
+              //     },
+              //   ],
+              //   width: 65,
+              //   fix: false,
+              //   filter: false,
+              // },
+              //endregion scc del 总经理，人事部长，工资计算担当，不需要看到的年休列，为上年度剩余法定年休 to
+              //region scc add 总经理，人事部长，工资计算担当能看到的年休列，为上年度中剩余福利年休 from
               {
                 code: 'gannual_leave',
-                label: 'label.PFANS2010VIEW_INHUGH',
+                label: 'label.PFANS2013VIEW_ANNUALLEAVE',
                 child: [
                   {
                     code: 'remaining_paid_leave_lastyear',
@@ -306,7 +310,7 @@
                 fix: false,
                 filter: false,
               },
-              //endregion scc add 年休列 to
+              //endregion scc add 总经理，人事部长，工资计算担当能看到的年休列，为上年度中剩余福利年休 to
               // {
               //   code: 'paid_leave',
               //   label: 'label.PFANS2013VIEW_PAIDLEAVE',
