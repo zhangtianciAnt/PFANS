@@ -1,7 +1,7 @@
 <template>
   <div style="min-height: 100%">
     <EasyNormalContainer :buttonList="buttonList" :canStart="canStart" :title="title" @buttonClick="buttonClick"
-                         :workflowCode="workcode"
+                         :workflowCode="workcode" @StartWorkflow="buttonClick" :defaultStart="defaultStart"
                          @end="end" @start="start" @workflowState="workflowState" ref="container"
                          @disabled="setdisabled"
                          v-loading="loading">
@@ -160,7 +160,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.enclosure')">
+              <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
                 <el-upload
                   :disabled="!disabled"
                   :action="upload"
@@ -169,6 +169,7 @@
                   :on-preview="fileDownload"
                   :on-success="fileSuccess"
                   :on-error="fileError"
+                  :on-change="filechange"
                   class="upload-demo"
                   drag
                   ref="upload">
@@ -232,6 +233,26 @@
           return callback();
         }
       };
+      //region scc add 9/2 祝礼金附件必填项 from
+      var checkenclosurecontent = (rule, value, callback) => {
+        if (this.form.firstclass != null && this.form.firstclass != '') {
+          if (this.form.firstclass == 'PR024004' || this.form.firstclass == 'PR024005' || this.form.firstclass == 'PR024006') {
+            if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === undefined) {
+              return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
+            } else {
+              callback();
+              this.clearValidate(['enclosurecontent']);
+            }
+          } else {
+            callback();
+            this.clearValidate(['enclosurecontent']);
+          }
+        } else {
+          callback();
+          this.clearValidate(['enclosurecontent']);
+        }
+      };
+      //endregion scc add 9/2 祝礼金附件必填项 to
       return {
         workcode: '',
         centerid: '',
@@ -249,6 +270,7 @@
         buttonList: [],
         tabIndex: 0,
         multiple: false,
+        defaultStart: false,
         form: {
           casgiftapplyid: '',
           firstclass: '',
@@ -367,6 +389,13 @@
               trigger: 'change'
             },
           ],
+          //region scc add 9/2 祝礼金附件必填项 from
+          enclosurecontent: [{
+            required: true,
+            validator: checkenclosurecontent,
+            trigger: 'change',
+          }],
+          //endregion scc add 9/2 祝礼金附件必填项 to
         },
         show1: false,
         show2: false,
@@ -379,8 +408,11 @@
         fileList: [],
         upload: uploadUrl(),
         // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 start
-        appgroupid:''
+        appgroupid:'',
         // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 end
+        //region scc add 9/2 祝礼金附件必填项 from
+        enclosurecontent: '',
+        //endregion scc add 9/2 祝礼金附件必填项 to
       };
     },
     mounted() {
@@ -634,6 +666,9 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
+          //region scc add 9/2 祝礼金附件必填项 from
+          this.rules.enclosurecontent[0].required = false;
+          //endregion scc add 9/2 祝礼金附件必填项 to
         } else if (val === "PR024004") {
           this.code1 = 'PR035';
           // this.gettwoclass("PR035001");
@@ -652,6 +687,9 @@
           this.rules.weddingday[0].required = true;
           this.rules.spousename[0].required = true;
           this.rules.twoclass[0].required = true;
+          //region scc add 9/2 祝礼金附件必填项 from
+          this.rules.enclosurecontent[0].required = true;
+          //endregion scc add 9/2 祝礼金附件必填项 to
         } else if (val === "PR024005") {
           this.code1 = 'PR036';
           // this.gettwoclass("PR036001");
@@ -670,6 +708,9 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
+          //region scc add 9/2 祝礼金附件必填项 from
+          this.rules.enclosurecontent[0].required = true;
+          //endregion scc add 9/2 祝礼金附件必填项 to
         } else if (val === "PR024006") {
           this.code1 = 'PR037';
           // this.gettwoclass("PR037001");
@@ -688,6 +729,9 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
+          //region scc add 9/2 祝礼金附件必填项 from
+          this.rules.enclosurecontent[0].required = true;
+          //endregion scc add 9/2 祝礼金附件必填项 to
         } else if (val === "PR024007") {
           this.code1 = 'PR038';
           this.gettwoclass("PR038001");
@@ -706,6 +750,7 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
+          this.rules.enclosurecontent[0].required = false;
         }
         this.$refs.refform.model.twoclass = "";
         // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 start
@@ -937,9 +982,17 @@
                       type: 'success',
                       duration: 5 * 1000
                     });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
+                    //add 210903 gbb 发起审批之前调用保存按钮，check必填项目 start
+                    if (val !== 'save' && val !== 'StartWorkflow') {
+                      if (this.$store.getters.historyUrl) {
+                        this.$router.push(this.$store.getters.historyUrl);
+                      }
                     }
+                    if (val === 'StartWorkflow') {
+                      this.$store.commit('global/SET_OPERATEID', this.$route.params._id);
+                      this.$refs.container.$refs.workflow.startWorkflow();
+                    }
+                    //add 210903 gbb 发起审批之前调用保存按钮，check必填项目 end
                   }
                 })
                 .catch(error => {
@@ -984,7 +1037,19 @@
             });
           }
         })
-      }
+      },
+      //region scc add 9/2 祝礼金附件必填项 from
+      clearValidate(prop) {
+        this.$refs['ruleForm'].fields.forEach((e) => {
+          if (prop.includes(e.prop)) {
+            e.clearValidate();
+          }
+        });
+      },
+      filechange(file, fileList) {
+        this.$refs.refform.validateField('enclosurecontent');
+      },
+      //endregion scc add 9/2 祝礼金附件必填项 to
     }
   }
 </script>
