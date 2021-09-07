@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="showSelection"  :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
       <el-select @change="changed" slot="customize" v-model="department">
@@ -560,6 +560,9 @@
                 }
               }
               if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
+                response[j].assetstatuscode = response[j].assetstatus;
+              }
+              if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
                 let letErrortype1 = getDictionaryInfo(response[j].assetstatus);
                 if (letErrortype1 != null) {
                   response[j].assetstatus = letErrortype1.value1;
@@ -592,6 +595,11 @@
           });
       },
       rowClick(row) {
+        // add 210906 gbb PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点 start
+        if(row.assetstatuscode === 'PA003002'){
+          this.buttonList[7].disabled = true;
+        }
+        // add 210906 gbb PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点 end
         //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
         //add-ws-9/30-禅道任务564
         // this.buttonList[7].disabled = true;
@@ -730,7 +738,9 @@
               duration: 2 * 1000,
             });
           } else {
-            let selectedList = this.selectedlist;
+            //region scc upd 9/7 避免导出页面启用时间的变化 from
+            let selectedList = JSON.parse(JSON.stringify(this.selectedlist));
+            //endregion scc upd 9/7 避免导出页面启用时间的变化 to
             this.export(selectedList);
           }
         }
@@ -875,7 +885,10 @@
                 list.purchasetime = moment(list.purchasetime).format('YYYY/MM/DD');
               }
               if (list.activitiondate) {
-                list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
+                //region scc upd 9/7 启用日期导出格式变换 from
+                // list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
+                list.activitiondate = moment(list.activitiondate).format('DD-MM-YYYY');
+                //endregion scc upd 9/7 启用日期导出格式变换 to
               }
               if (list.psdcdperiod) {
                 list.psdcdperiod = moment(list.psdcdperiod).format('YYYY/MM/DD');
