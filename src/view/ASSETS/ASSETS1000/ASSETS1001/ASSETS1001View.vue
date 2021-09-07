@@ -738,7 +738,9 @@
               duration: 2 * 1000,
             });
           } else {
-            let selectedList = this.selectedlist;
+            //region scc upd 9/7 避免导出页面启用时间的变化 from
+            let selectedList = JSON.parse(JSON.stringify(this.selectedlist));
+            //endregion scc upd 9/7 避免导出页面启用时间的变化 to
             this.export(selectedList);
           }
         }
@@ -883,7 +885,10 @@
                 list.purchasetime = moment(list.purchasetime).format('YYYY/MM/DD');
               }
               if (list.activitiondate) {
-                list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
+                //region scc upd 9/7 启用日期导出格式变换 from
+                // list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
+                list.activitiondate = moment(list.activitiondate).format('DD-MM-YYYY');
+                //endregion scc upd 9/7 启用日期导出格式变换 to
               }
               if (list.psdcdperiod) {
                 list.psdcdperiod = moment(list.psdcdperiod).format('YYYY/MM/DD');
