@@ -3864,6 +3864,10 @@ module.exports = {
     PFANS6009TAB2: '構内・構外の工数',
     PFANS6009TAB3: '構内駐在人数状況',
     PFANS6009VIEW_BPCOMPANY: 'BP会社名',
+    // region add_qhr_20210907  bp社统计每月加入实际费用列
+    PFANS6009VIEW_YUTI: '预提',
+    PFANS6009VIEW_FEIYONG: '费用',
+    // endregion add_qhr_20210907  bp社统计每月加入实际费用列
     PFANS6009VIEW_MANHOUR: '作業工数',
     PFANS6009VIEW_COST: '外注費用',
     PFANS6009VIEW_TOTAL: '合計',
