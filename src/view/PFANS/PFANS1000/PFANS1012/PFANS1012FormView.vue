@@ -1778,7 +1778,7 @@
         form: {
           // region    add_qhr_20210830 添加外注费用check、记账日期
           checkedWZFY: "1",
-          jzmonth: moment(new Date()).format('YYYY-MM'),
+          jzmonth: moment(new Date()),
           // endregion    add_qhr_20210830 添加外注费用check、记账日期
           // add-ws-8/12-禅道任务446
           processingstatus: '0',
