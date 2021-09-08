@@ -436,6 +436,9 @@
             .dispatch('ASSETS1001Store/getList', {usedepartment: this.department == '全部' ? undefined : this.department})
             // update gbb 20210312 NT_PFANS_20210308_BUG_147 部门下拉绑定 end
           .then(response => {
+            // add gbb 210906 PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点-去掉报废的资产 start
+            response = response.filter(value => (value.assetstatus !== 'PA003002'));
+            // add gbb 210906 PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点-去掉报废的资产 end
             for (let j = 0; j < response.length; j++) {
               let user = getUserInfo(response[j].principal);
               if (user) {

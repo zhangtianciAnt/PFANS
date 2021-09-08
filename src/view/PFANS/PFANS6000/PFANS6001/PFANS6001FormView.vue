@@ -232,12 +232,42 @@
 
           <el-row>
             <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.PFANS6001VIEW_GROUP')" prop="group_id">
-                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="4" style="width:20vw"></org>
+              <el-form-item :label="$t('label.center')" :error="errororgInformationcenterid" prop="orgInformationcenterid">
+                <org
+                  :orglist="form.orgInformationcenterid"
+                  orgtype="1"
+                  style="width:20vw"
+                  selectType="Single"
+                  @getOrgids="getOrgInformationCenterid"
+                  :error="errororgInformationcenterid"
+                ></org>
               </el-form-item>
             </el-col>
-
+            <el-col :span="8">
+              <el-form-item :label="$t('label.group')" :error="errororgInformationgroupid" prop="orgInformationgroupid">
+                <org
+                  :orglist="form.orgInformationgroupid"
+                  orgtype="2"
+                  style="width:20vw"
+                  selectType="Single"
+                  @getOrgids="getOrgInformationGroupId"
+                  :error="errororgInformationgroupid"
+                ></org>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.team')">
+                <org
+                  :orglist="form.orgInformationteamid"
+                  orgtype="3"
+                  style="width:20vw"
+                  selectType="Single"
+                  @getOrgids="getOrgInformationTeamid"
+                ></org>
+              </el-form-item>
+            </el-col>
+          </el-row>
+          <el-row>
             <el-col :span="8">
               <el-form-item :error="erroradmissiontime" :label="$t('label.PFANS6004FORMVIEW_ADMISSIONTIME')"
                             prop="admissiontime">
@@ -273,6 +303,7 @@
   import moment from 'moment';
   import org from '../../../components/org';
   import {isvalidPhone} from '@/utils/validate';
+  import {getOrgInfo} from "../../../../utils/customize";
 
   export default {
     name: 'PFANS6001FormView',
@@ -326,6 +357,39 @@
           return callback();
         }
       };
+      //add ccm 20210901 外注添加组织信息 fr
+      var checkorgInformationcenterid = (rule, value, callback) => {
+        if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '') {
+          if(this.form.whetherentry === "BP006001"){
+            this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
+            return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+          }
+          else{
+            this.errororgInformationcenterid = '';
+            return callback();
+          }
+        } else {
+          this.errororgInformationcenterid = '';
+          return callback();
+        }
+      };
+      var checkorgInformationgroupid = (rule, value, callback) => {
+        if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '') {
+          if(this.form.whetherentry === "BP006001"){
+            this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
+            return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+          }
+          else{
+            this.errororgInformationgroupid = '';
+            return callback();
+          }
+        } else {
+          this.errororgInformationgroupid = '';
+          return callback();
+        }
+      };
+      //add ccm 20210901 外注添加组织信息 to
+
       //入场时间
       var valadmissiontime = (rule, value, callback) => {
         if (this.form.exits == '0') {
@@ -379,6 +443,11 @@
           remarks: '',
           group_id: '',
           admissiontime: '',
+          //add ccm 20210901 外注添加组织信息 fr
+          orgInformationcenterid:'',
+          orgInformationgroupid:'',
+          orgInformationteamid:'',
+          //add ccm 20210901 外注添加组织信息 to
         },
 
         code1: 'PR019',
@@ -397,6 +466,10 @@
         erroradmissiontime: '',
         grouporglist: '',
         errorgroup: '',
+        //add ccm 20210901 外注添加组织信息 fr
+        errororgInformationcenterid:'',
+        errororgInformationgroupid:'',
+        //add ccm 20210901 外注添加组织信息 to
         rules: {
 
           expname: [
@@ -527,6 +600,22 @@
             },
             {validator: valadmissiontime, trigger: 'change'},
           ],
+          //add ccm 20210901 外注添加组织信息 fr
+          orgInformationcenterid: [
+            {
+              required: true,
+              validator: checkorgInformationcenterid,
+              trigger: 'blur',
+            },
+          ],
+          orgInformationgroupid: [
+            {
+              required: true,
+              validator: checkorgInformationgroupid,
+              trigger: 'blur',
+            },
+          ],
+          //add ccm 20210901 外注添加组织信息 to
         },
       };
     },
@@ -560,14 +649,22 @@
             }
             //入场与否
             if(this.form.whetherentry === "BP006002"){
+              // upd ccm 20210901 外注添加组织信息 fr
               //所属部门
-              this.rules.group_id[0].required = false;
+              // this.rules.group_id[0].required = false;
+              this.rules.orgInformationcenterid[0].required = false;
+              this.rules.orgInformationgroupid[0].required = false;
+              // upd ccm 20210901 外注添加组织信息 to
               //入场时间
               this.rules.admissiontime[0].required = false;
             }
             else{
+              // upd ccm 20210901 外注添加组织信息 fr
               //所属部门
-              this.rules.group_id[0].required = true;
+              // this.rules.group_id[0].required = true;
+              this.rules.orgInformationcenterid[0].required = true;
+              this.rules.orgInformationgroupid[0].required = true;
+              // upd ccm 20210901 外注添加组织信息 to
               //入场时间
               this.rules.admissiontime[0].required = true;
             }
@@ -634,16 +731,26 @@
       changewhetherentry(val) {
         this.form.whetherentry = val;
         if(val === "BP006002"){
+          // upd ccm 20210901 外注添加组织信息 fr
           //所属部门
-          this.rules.group_id[0].required = false;
-          this.errorgroup = '';
+          // this.rules.group_id[0].required = false;
+          // this.errorgroup = '';
+          this.rules.orgInformationcenterid[0].required = false;
+          this.errororgInformationcenterid ='';
+          this.rules.orgInformationgroupid[0].required = false;
+          this.errororgInformationgroupid ='';
+          // upd ccm 20210901 外注添加组织信息 to
           //入场时间
           this.rules.admissiontime[0].required = false;
           this.erroradmissiontime = '';
         }
         else{
+          // upd ccm 20210901 外注添加组织信息 fr
           //所属部门
-          this.rules.group_id[0].required = true;
+          // this.rules.group_id[0].required = true;
+          this.rules.orgInformationcenterid[0].required = true;
+          this.rules.orgInformationgroupid[0].required = true;
+          // upd ccm 20210901 外注添加组织信息 to
           //入场时间
           this.rules.admissiontime[0].required = true;
         }
@@ -713,6 +820,25 @@
             this.form.expatriatesinfor_id = this.$route.params._id;
             this.form.birth = moment(this.form.birth).format('YYYY-MM-DD');
             this.form.interview_date = moment(this.form.interview_date).format('YYYY-MM-DD');
+
+            // add ccm 20210901 外注添加组织信息 fr
+            if (this.form.orgInformationcenterid != null && this.form.orgInformationcenterid !='')
+            {
+              let centerInfo = getOrgInfo(this.form.orgInformationcenterid);
+              if (centerInfo && centerInfo.encoding != null && centerInfo.encoding != '' && centerInfo.encoding!= undefined)
+              {
+                this.form.group_id = this.form.orgInformationcenterid;
+              }
+              else
+              {
+                let groupInfo = getOrgInfo(this.form.orgInformationgroupid);
+                if (groupInfo && groupInfo.encoding != null && groupInfo.encoding != '' && groupInfo.encoding!= undefined)
+                {
+                  this.form.group_id = this.form.orgInformationgroupid;
+                }
+              }
+            }
+            // add ccm 20210901 外注添加组织信息 to
 
             this.loading = true;
             if (this.$route.params._id) {
@@ -831,6 +957,69 @@
           this.errorgroup = '';
         }
       },
+      //add ccm 20210901 外注添加组织信息 fr
+      getOrgInformationCenterid(val) {
+        this.getOrgInformation(val);
+        this.form.orgInformationcenterid = val;
+        if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '' || val === 'undefined') {
+          if(this.form.whetherentry === "BP006001"){
+            this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
+          }
+          else {
+            this.errororgInformationcenterid = '';
+          }
+        } else {
+          this.errororgInformationcenterid = '';
+        }
+      },
+      getOrgInformationGroupId(val) {
+        this.getOrgInformation(val);
+        this.form.orgInformationgroupid = val;
+        if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '' || val === 'undefined') {
+          if(this.form.whetherentry === "BP006001"){
+            this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
+          }
+          else {
+            this.errororgInformationgroupid = '';
+          }
+        } else {
+          this.errororgInformationgroupid = '';
+        }
+      },
+      getOrgInformationTeamid(val) {
+        this.getOrgInformation(val);
+      },
+      getOrgInformation(id) {
+        let org = {};
+        let treeCom = this.$store.getters.orgs;
+
+        if (id && treeCom.getNode(id)) {
+          let node = id;
+          let type = treeCom.getNode(id).data.type || 0;
+          for (let index = parseInt(type); index >= 1; index--) {
+            if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+              org.teamname = treeCom.getNode(node).data.departmentname;
+              org.teamid = treeCom.getNode(node).data._id;
+            }
+            if (index === 2) {
+              org.groupname = treeCom.getNode(node).data.departmentname;
+              org.groupid = treeCom.getNode(node).data._id;
+              org.budgetunit = treeCom.getNode(node).data.companyen;
+            }
+            if (index === 1) {
+              org.centername = treeCom.getNode(node).data.companyname;
+              org.centerid = treeCom.getNode(node).data._id;
+            }
+            node = treeCom.getNode(node).parent.data._id;
+          }
+          ({
+            centerid: this.form.orgInformationcenterid,
+            groupid: this.form.orgInformationgroupid,
+            teamid: this.form.orgInformationteamid,
+          } = org);
+        }
+      },
+      //add ccm 20210901 外注添加组织信息 to
     },
   };
 </script>

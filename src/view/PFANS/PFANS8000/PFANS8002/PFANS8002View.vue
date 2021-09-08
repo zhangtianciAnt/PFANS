@@ -79,17 +79,18 @@
                       fix: false,
                       filter: true
                     },
+                  //region scc upd 9/6 代办显示调整 from
                     {
                         code: 'title',
                         label: 'label.information_title',
-                        width: 150,
+                        width: 290,
                         fix: false,
                         filter: true
                     },
                     {
                         code: 'initiatorname',
                         label: 'label.applicant',
-                        width: 150,
+                        width: 70,
                         fix: false,
                         filter: true
                     },
@@ -103,10 +104,11 @@
                     {
                         code: 'createon',
                         label: 'label.information_start',
-                        width: 150,
+                        width: 100,
                         fix: false,
                         filter: true
                     }
+                  //endregion scc upd 9/6 代办显示调整 to
                 ],
                 showTable1: true
             };
