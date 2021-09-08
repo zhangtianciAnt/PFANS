@@ -554,7 +554,9 @@
                 <el-dialog :visible.sync="dialogVisibleD"
                            top="8vh"
                            append-to-body>
-                  <el-table :data="tableD" :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
+<!--                  add_qhr_20210908 添加筛选条件-->
+                  <el-table :data="tableD.filter(data => !search2 || data.contractnumber.toLowerCase().includes(search2.toLowerCase()))"
+                            :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
                             v-loading='loading'>
                     <el-table-column property="user_id" :label="$t('label.applicant')" width="120"></el-table-column>
                     <el-table-column property="deployment" :label="$t('label.department')" width="120"></el-table-column>
@@ -566,6 +568,17 @@
                                      width="120"></el-table-column>
                     <el-table-column property="state" :label="$t('label.PFANS1024VIEW_STATE')"
                                      width="120"></el-table-column>
+<!--                    region add_qhr_20210908 添加筛选条件-->
+                    <el-table-column
+                      align="right" width="230">
+                      <template slot="header" slot-scope="scope">
+                        <el-input
+                          v-model="search2"
+                          size="mini"
+                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"/>
+                      </template>
+                    </el-table-column>
+<!--                    endregion add_qhr_20210908 添加筛选条件-->
                   </el-table>
                 </el-dialog>
               </template>
@@ -989,6 +1002,8 @@
         //add-ws-01/06-禅道任务710
         search1: '',
         //add-ws-01/06-禅道任务710
+        // add_qhr_20210908 添加筛选条件
+        search2: '',
         //add-ws-6/22-禅道152任务
         checknumber: false,
         show10: true,
