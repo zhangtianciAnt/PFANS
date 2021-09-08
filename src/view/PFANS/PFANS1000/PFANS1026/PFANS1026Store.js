@@ -16,6 +16,7 @@ import {
   getNapinQinqiu,
   getNaPpinAftercount,
   dataCarryover,
+  getforContDiaLog,
   getProject,
   getContranumber
   } from './PFANS1026Api';
@@ -75,6 +76,21 @@ const PFANS1026Store = {
         });
       });
     },
+    //项目dialog 体制 合同优化添加分页 ztc fr
+    getforContDiaLog({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getforContDiaLog(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //项目dialog 体制 合同优化添加分页 ztc to
     getList({commit}, data) {
       return new Promise((resolve, reject) => {
         getList(data).then(response => {
