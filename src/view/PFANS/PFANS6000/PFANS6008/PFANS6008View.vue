@@ -97,6 +97,13 @@
                 filter: false,
               },
               {
+                code: 'expense4',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -134,6 +141,13 @@
                 filter: false,
               },
               {
+                code: 'expense5',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support6',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -166,6 +180,13 @@
               {
                 code: 'cost6',
                 label: 'label.PFANS6008VIEW_COST',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
+                code: 'expense6',
+                label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
                 filter: false,
@@ -250,6 +271,13 @@
                 filter: false,
               },
               {
+                code: 'expense7',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -287,6 +315,13 @@
                 filter: false,
               },
               {
+                code: 'expense8',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support9',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -319,6 +354,13 @@
               {
                 code: 'cost9',
                 label: 'label.PFANS6008VIEW_COST',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
+                code: 'expense9',
+                label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
                 filter: false,
@@ -402,6 +444,13 @@
                 filter: false,
               },
               {
+                code: 'expense10',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -439,6 +488,13 @@
                 filter: false,
               },
               {
+                code: 'expense11',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support12',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -471,6 +527,13 @@
               {
                 code: 'cost12',
                 label: 'label.PFANS6008VIEW_COST',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
+                code: 'expense12',
+                label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
                 filter: false,
@@ -554,6 +617,13 @@
                 filter: false,
               },
               {
+                code: 'expense1',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -591,6 +661,13 @@
                 filter: false,
               },
               {
+                code: 'expense2',
+                label: 'label.PFANS6008VIEW_EXPENSE',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
                 code: 'support3',
                 label: 'label.PFANS6008VIEW_SUPPORT',
                 width: 100,
@@ -623,6 +700,13 @@
               {
                 code: 'cost3',
                 label: 'label.PFANS6008VIEW_COST',
+                width: 90,
+                fix: false,
+                filter: false,
+              },
+              {
+                code: 'expense3',
+                label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
                 filter: false,
