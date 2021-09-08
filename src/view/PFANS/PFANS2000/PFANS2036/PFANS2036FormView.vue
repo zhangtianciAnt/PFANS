@@ -26,7 +26,6 @@
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_PFYF')">
                           <dicselect
-                            clearable
                             :code="code2"
                             :multiple="multiple"
                             :data="form.allotmentAnt"
