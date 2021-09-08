@@ -24,6 +24,15 @@ export function get2(data) {
     data: data
   })
 }
+//项目dialog 体制 合同优化添加分页 ztc fr
+export function getforContDiaLog(data) {
+  return request({
+    url: 'contractapplication/getforContDiaLog',
+    method: 'get',
+    params: data
+  })
+}
+//项目dialog 体制 合同优化添加分页 ztc to
 
 export function update(data) {
   return request({

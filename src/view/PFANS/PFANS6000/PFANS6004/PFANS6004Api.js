@@ -16,6 +16,15 @@ export function getWithoutAuth(data) {
     params: data
   })
 }
+// 项目dialog 体制 合同优化添加分页 ztc fr
+export function getforSysDiaLog(data) {
+  return request({
+    url: 'expatriatesinfor/getforSysDiaLog',
+    method: 'get',
+    params: data
+  })
+}
+// 项目dialog 体制 合同优化添加分页 ztc to
 
 export function getexpatriatesinforthisyear(data) {
   return request({

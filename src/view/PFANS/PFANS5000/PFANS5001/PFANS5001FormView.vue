@@ -799,9 +799,11 @@
                                            :disabled="true" v-show="false"></input>
                                     <input class="content bg" v-model="scope.row.name_id"
                                            :disabled="true"></input>
+<!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                     <el-button :disabled="!disable" icon="el-icon-search"
-                                               @click="dialogTableVisible1 = true"
+                                               @click="dialogone()"
                                                size="small"></el-button>
+<!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                     <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
                                                :visible.sync="dialogTableVisible1"
                                                center size="50%"
@@ -841,10 +843,23 @@
                                                 <el-input
                                                   v-model="search"
                                                   size="mini"
-                                                  placeholder="请输入姓名关键字搜索"/>
+                                                <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
+                                                  :placeholder="$t('label.PFANS5009FORMVIEW_IMPORT')"
+                                                />
+                                                <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                               </template>
                                             </el-table-column>
                                           </el-table>
+                                          <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
+                                          <div class="pagination-container" style="padding-top: 2rem">
+                                            <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
+                                                           :page-sizes="[20,30,50]" :total="totalSysm" @current-change="handleCurrentChangeSys"
+                                                           @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                              <slot><span class="front Content_front"
+                                                          style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                                            </el-pagination>
+                                          </div>
+                                          <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                         </el-row>
                                         <span slot="footer" class="dialog-footer">
                                             <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
@@ -1010,13 +1025,23 @@
                                     <el-table-column
                                       align="right" width="230">
                                       <template slot="header" slot-scope="scope">
+                                        <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                         <el-input
                                           v-model="search"
                                           size="mini"
-                                          placeholder="请输入合同关键字搜索"/>
+                                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"/>
+                                        <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                       </template>
                                     </el-table-column>
                                   </el-table>
+                                  <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
+                                  <el-pagination :current-page.sync="listQueryCont.currentPage" :page-size="listQueryCont.pageSize"
+                                                 :page-sizes="[20,30,50]" :total="totalCont" @current-change="handleCurrentChangeCont"
+                                                 @size-change="handleSizeChangeCont" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                    <slot><span class="front Content_front"
+                                                style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                                  </el-pagination>
+                                  <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                 </el-row>
                                 <span slot="footer" class="dialog-footer">
                                   <el-button type="primary"
@@ -1378,6 +1403,18 @@
         }
       };
       return {
+        // 项目dialog 体制 合同优化添加分页 ztc fr
+        listQuerySys: {
+          currentPage: 0,
+          pageSize: 20,
+        },
+        listQueryCont: {
+          currentPage: 0,
+          pageSize: 50,
+        },
+        totalSysm: 0,
+        totalCont: 0,
+        // 项目dialog 体制 合同优化添加分页 ztc to
         //add-12/24-审批check
         defaultStart: false,
         //add-12/24-审批check
@@ -1873,9 +1910,7 @@
         this.checkboxs.push(dic[i]);
       }
       this.Listprojectids();
-      this.getexpatriatesinfor();
       this.getcustomerinfor();
-      this.getcontract();
       if (this.$route.params._id) {
         this.Numbers = 0;
         this.disable = this.$route.params.disabled;
@@ -2301,56 +2336,54 @@
         });
         // add-ws-No.50-内采时，增加委托元项目
       },
-
+      // 项目dialog 体制 合同优化添加分页 ztc fr
       getcontract() {
-        this.contractapplication = {
-          state: '有效' //只获取审批状态为有效的合同
-        };
-        this.loading = true;
+        let params = {
+          currentPage: this.listQueryCont.currentPage,
+          pageSize: this.listQueryCont.pageSize,
+        }
         this.$store
-          .dispatch('PFANS1026Store/get2', this.contractapplication)
+          .dispatch('PFANS1026Store/getforContDiaLog', params)
           .then(response => {
             this.gridData3 = [];
-            this.compounddata = [];
-            for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].claimdatetime !== '' && response.contractapplication[i].claimdatetime !== null && response.contractapplication[i].claimdatetime !== undefined) {
-                let claimdatetime = response.contractapplication[i].claimdatetime;
+            // this.compounddata = [];
+            for (let i = 0; i < response.resultList.length; i++) {
+              if (response.resultList[i].claimdatetime !== '' && response.resultList[i].claimdatetime !== null && response.resultList[i].claimdatetime !== undefined) {
+                let claimdatetime = response.resultList[i].claimdatetime;
                 let claimdatetim = claimdatetime.slice(0, 10);
                 let claimdatetime1 = claimdatetime.slice(claimdatetime.length - 10);
-                response.contractapplication[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
-
-                response.contractapplication[i].entrypayment = [claimdatetim, claimdatetime1];
-
+                response.resultList[i].claimdatetime = [claimdatetim + ' ~ ' + claimdatetime1];
+                response.resultList[i].entrypayment = [claimdatetim, claimdatetime1];
               }
               //resign  add  scc  20200202  选择合同页面显示合同时间 from
-              else if (response.contractapplication[i].contractdate !== '' && response.contractapplication[i].contractdate !== null && response.contractapplication[i].contractdate !== undefined){
-                let contractdate = response.contractapplication[i].contractdate;
+              else if (response.resultList[i].contractdate !== '' && response.resultList[i].contractdate !== null && response.resultList[i].contractdate !== undefined){
+                let contractdate = response.resultList[i].contractdate;
                 let contractdate_st_end = contractdate.split('~');
-                response.contractapplication[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
+                response.resultList[i].claimdatetime = [contractdate_st_end[0] + '~' + contractdate_st_end[1]];
               }
               //end resign  add  scc  20200202  选择合同页面显示合同时间 to
               //add-ws-value1非空判断
-              let letbudge = getDictionaryInfo(response.contractapplication[i].contracttype);
+              let letbudge = getDictionaryInfo(response.resultList[i].contracttype);
               if (letbudge) {
-                response.contractapplication[i].contracttype = letbudge.value1;
+                response.resultList[i].contracttype = letbudge.value1;
               }
               //add-ws-value1非空判断
               var vote2 = {};
-              vote2.contract = response.contractapplication[i].contractnumber;
-              vote2.deployment = response.contractapplication[i].deployment;
-              vote2.contracttype = response.contractapplication[i].contracttype;
-              vote2.applicationdate = moment(response.contractapplication[i].applicationdate).format('YYYY-MM-DD');
-              vote2.state = response.contractapplication[i].state;
-              vote2.claimdatetime = response.contractapplication[i].claimdatetime;
-              vote2.entrypayment = response.contractapplication[i].entrypayment;
-              vote2.theme = response.contractapplication[i].theme;
+              vote2.contract = response.resultList[i].contractnumber;
+              vote2.deployment = response.resultList[i].deployment;
+              vote2.contracttype = response.resultList[i].contracttype;
+              vote2.applicationdate = moment(response.resultList[i].applicationdate).format('YYYY-MM-DD');
+              vote2.state = response.resultList[i].state;
+              vote2.claimdatetime = response.resultList[i].claimdatetime;
+              vote2.entrypayment = response.resultList[i].entrypayment;
+              vote2.theme = response.resultList[i].theme;
               //add_qhr_20210707 添加字段参数
-              vote2.themeinfor_id = response.contractapplication[i].themeinfor_id;
-              vote2.claimamount = response.contractapplication[i].claimamount;
+              vote2.themeinfor_id = response.resultList[i].themeinfor_id;
+              vote2.claimamount = response.resultList[i].claimamount;
               this.gridData3.push(vote2);
             }
-            this.compounddata = response.contractcompound;
-            this.loading = false;
+            this.totalCont = response.total;
+            // this.compounddata = response.contractcompound;
           })
           .catch(error => {
             Message({
@@ -2358,10 +2391,8 @@
               type: 'error',
               duration: 5 * 1000,
             });
-            this.loading = false;
           });
-
-
+        // 项目dialog 体制 合同优化添加分页 ztc to
       },
       getcustomerinfor() {
         this.loading = true;
@@ -2677,7 +2708,9 @@
         this.currentRow4 = val.suppliernameid;
         this.currentRow5 = val.expname;
         //add_qhr_20210810 添加rank、报告者字段
-        this.currentRow9 = val.rank;
+        // 项目dialog 体制 合同优化添加分页 ztc fr
+        this.currentRow9 = val.rn;
+        // 项目dialog 体制 合同优化添加分页 ztc to
       },
       submit(row) {
         row.number = this.currentRow;
@@ -2747,6 +2780,9 @@
       },
       //根据合同号查询合同期间 scc
       changecontract(row) {
+        // 项目dialog 体制 合同优化添加分页 ztc fr
+        this.getcontract();
+        // 项目dialog 体制 合同优化添加分页 ztc to
         let table = this.tableD;
         let check = [];
         let checktable = 0;
@@ -3318,43 +3354,68 @@
       //   this.form.estimatedwork = sums;
       //   return sums;
       // },
-      getexpatriatesinfor() {
-        this.loading = true;
+      // 项目dialog 体制 合同优化添加分页 ztc fr
+      dialogone(){
+        this.dialogTableVisible1 = true;
+        this.getexpatriatesinfor();
+      },
+      handleSizeChangeSys(val) {
+        this.listQuerySys.pageSize = val;
+        this.getexpatriatesinfor();
+      },
+      handleCurrentChangeSys(val) {
+        this.listQuerySys.currentPage = val;
+        this.getexpatriatesinfor();
+      },
+      handleSizeChangeCont(val) {
+        this.listQueryCont.pageSize = val;
+        this.getcontract();
+      },
+      handleCurrentChangeCont(val) {
+        this.listQueryCont.currentPage = val;
+        this.getcontract();
+      },
+       getexpatriatesinfor() {
+        let params = {
+          currentPage: this.listQuerySys.currentPage,
+          pageSize: this.listQuerySys.pageSize,
+        }
         this.$store
-          .dispatch('PFANS6004Store/getWithoutAuth', {})
+          .dispatch('PFANS6004Store/getforSysDiaLog', params)
           .then(response => {
             this.gridData1 = [];
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].account) {
-                var vote1 = {};
-                vote1.number = response[i].number;
-                vote1.name_id = response[i].account;
-                vote1.expname = response[i].expname;
-                vote1.suppliername = response[i].suppliername;
-                //add_qhr_20210810 添加rank、报告者字段
-                vote1.rank = response[i].rn;
-                if (response[i].post) {
-                  //add-ws-value1-非空判断
-                  let postvalue1 = '';
-                  let letbudge = getDictionaryInfo(response[i].post);
-                  if (letbudge) {
-                    postvalue1 = letbudge.value1;
-                  }
-                  //add-ws-value1-非空判断
-                  vote1.post1 = postvalue1;
-                  vote1.post = response[i].post;
-                }
-                // vote1.post = response[i].post
-                vote1.suppliernameid = response[i].supplierinfor_id;
-                this.gridData1.push(vote1);
-              }
-
-            }
+            this.gridData1 = response.resultList;
+            // for (let i = 0; i < response.length; i++) {
+            //   if (response[i].account) {
+            //     var vote1 = {};
+            //     vote1.number = response[i].number;
+            //     vote1.name_id = response[i].account;
+            //     vote1.expname = response[i].expname;
+            //     vote1.suppliername = response[i].suppliername;
+            //     //add_qhr_20210810 添加rank、报告者字段
+            //     vote1.rank = response[i].rn;
+            //     if (response[i].post) {
+            //       //add-ws-value1-非空判断
+            //       let postvalue1 = '';
+            //       let letbudge = getDictionaryInfo(response[i].post);
+            //       if (letbudge) {
+            //         postvalue1 = letbudge.value1;
+            //       }
+            //       //add-ws-value1-非空判断
+            //       vote1.post1 = postvalue1;
+            //       vote1.post = response[i].post;
+            //     }
+            //     // vote1.post = response[i].post
+            //     vote1.suppliernameid = response[i].supplierinfor_id;
+            //     this.gridData1.push(vote1);
+            //   }
+            // }
+            this.totalSysm = response.total;
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
-            this.loading = false;
           })
+          // 项目dialog 体制 合同优化添加分页 ztc to
           .catch(error => {
             Message({
               message: error,
