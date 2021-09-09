@@ -8,7 +8,7 @@
       <!--add scc-->
       <el-select
         v-model="enterOrleave"
-        placeholder="请选择"
+        :placeholder="$t('normal.error_09')"
         slot="customize"
         style="margin-right:1vw"
         @change="filterInfo"
