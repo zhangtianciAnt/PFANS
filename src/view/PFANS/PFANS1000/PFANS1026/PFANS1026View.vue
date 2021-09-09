@@ -174,6 +174,13 @@
           },
           // 禅道70 start
           {
+            code: 'tenantid',
+            label: 'label.PFANS5004VIEW_PROJECTNUMBER',
+            width: 280,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'conchinese',
             label: 'label.PFANS6007VIEW_PJNAME',
             width: 280,
