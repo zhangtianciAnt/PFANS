@@ -494,7 +494,7 @@
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.PFANS2011VIEW_RESERVEOVERTIME'),
+                this.$t('label.date'),
               trigger: 'change',
             },
           ],
@@ -567,6 +567,7 @@
       this.getDateList();
       this.getOvertimeDay();
       this.getOvertimeMen();
+      this.getWorkingday();
       //this.getWorktime();//重复接口删除【getDateList】
       if (this.$route.params._id) {
         this.loading = true;
