@@ -55,7 +55,6 @@
     },
     mounted() {
       if (this.data) {
-        debugger
         this.value = this.data;
       }
       if (this.code) {

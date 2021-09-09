@@ -191,10 +191,10 @@
                     :header-cell-style="getRowClass1">
             <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index"
                              width="50"></el-table-column>
-            <el-table-column :label="$t('label.department')" align="center" width="200">
+            <el-table-column :label="$t('label.department')" align="center" width="100">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'" :error="errordepartment">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem"
+                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 5rem"
                             maxlength='36'></el-input>
                 </el-form-item>
               </template>
@@ -537,7 +537,7 @@
               </el-table-column>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber"
-                             width="200" :error="errorcontractnumber">
+                             width="260" :error="errorcontractnumber">
               <template slot-scope="scope">
                 <!--<user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"-->
                 <!--@getUserids="getContractnumber" style="width: 10.15rem"></user>-->
@@ -730,6 +730,7 @@
     getSupplierinfor,
     getUserInfo,
     getOrgInformation,
+    accAdd,
   } from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
@@ -2593,13 +2594,17 @@
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               if (counttype === this.form.tableclaimtype.length || counttype ===0)
               {
-                letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                //解决浮点加法计算问题 -start ztc fr
+                letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
+                //解决浮点加法计算问题 -start ztc to
               }
               else
               {
                 if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
                 {
-                  letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                  //解决浮点加法计算问题 -start ztc fr
+                  letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
+                  //解决浮点加法计算问题 -start ztc to
                 }
               }
             }
