@@ -10,7 +10,7 @@
       @buttonClick="buttonClick"
       @end="end"
       @start="start"
-      @workflowState="workflowState" @disabled="setdisabled"
+      @workflowState="workflowState"
       ref="container"
       v-loading="loading"
     >
@@ -77,7 +77,24 @@
             <el-col :span="8">
               <template>
                 <el-form-item
-                  :label="$t('label.PFANS2011VIEW_RESERVEOVERTIME')"
+                  :label="$t('label.PFANS2011VIEW_TYPECOME')"
+                  prop="overtimetypecome"
+                >
+                  <div class="block">
+                    <el-radio-group v-model="form.overtimetypecome" @change="changeovertimetypecome" style="margin-left: 2vw" :disabled="showovertimetype">
+                      <el-radio label="1">{{$t('label.PFANS2011VIEW_XIURICHUQINCOME')}}</el-radio>
+                      <el-radio label="2">{{$t('label.PFANS2011VIEW_OVERTIMETYPECOME')}}</el-radio>
+                    </el-radio-group>
+                  </div>
+                </el-form-item>
+              </template>
+            </el-col>
+          </el-row>
+          <el-row>
+            <el-col :span="8">
+              <template>
+                <el-form-item
+                  :label="showtypecome ? $t('label.PFANS2011VIEW_RESERVEOVERTIME') : $t('label.PFANS2011VIEW_RESERVECOME')"
                   prop="reserveovertimedate"
                 >
                   <div class="block">
@@ -94,24 +111,27 @@
             </el-col>
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('label.PFANS2011VIEW_TYPE')" prop="overtimetype">
-                  <dicselect
-                    :code="code"
-                    :data="form.overtimetype"
-                    :disabled="!disable"
-                    :multiple="multiple"
-                    @change="change"
-                    style="width:20vw"
-                    v-if="display"
-                  ></dicselect>
+                <el-form-item :label="showtypecome ? $t('label.PFANS2011VIEW_TYPE') : $t('label.PFANS2011VIEW_TYPEATTENCOME')" prop="overtimetype">
+                  <el-select style="width:20vw" v-model="form.overtimetype" clearable
+                             @change="change"
+                             :disabled="!disable"
+                             :multiple="multiple"
+                             v-if="display">
+                    <el-option
+                      v-for="item in optionsdata"
+                      :key="item.value"
+                      :label="item.lable"
+                      :value="item.value">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </template>
             </el-col>
             <el-col :span="8">
               <template>
-                <el-form-item :label="$t('label.PFANS2011FROMVIEW_OVERTIMELENGTH')" prop="overtimelength"
+                <el-form-item :label="showtypecome ? $t('label.PFANS2011FROMVIEW_OVERTIMELENGTH') : $t('label.PFANS2011FROMVIEW_OVERTIMELENGTHCOME')" prop="overtimelength"
                               v-show="form.overtimetype === 'PR001005' || form.overtimetype === 'PR001007' || form.overtimetype === 'PR001008'">
-<!--                 NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制-->
+                  <!--                 NT_PFANS_20210305_BUG_100 [加班时长]组件活性控制-->
                   <el-select
                     :disabled="disovertimelengths()"
                     @change="handleclick" style="width: 20vw"
@@ -130,7 +150,7 @@
           </el-row>
           <el-row>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2011VIEW_RESERVEOVER')" prop="reserveovertime">
+              <el-form-item :label="showtypecome ? $t('label.PFANS2011VIEW_RESERVEOVER') : $t('label.PFANS2011VIEW_RESERVEOVERCOME')" prop="reserveovertime">
                 <el-input-number
                   :disabled="showovertimelength"
                   tep-strictly
@@ -146,7 +166,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS2011VIEW_ACTUALOVER')" prop="actualovertime">
+              <el-form-item :label="showtypecome ? $t('label.PFANS2011VIEW_ACTUALOVER') : $t('label.PFANS2011VIEW_ACTUALOVERCOME')" prop="actualovertime">
                 <el-input-number
                   :disabled="!disactualovertime"
                   tep-strictly
@@ -241,23 +261,17 @@
             new Error(this.$t('normal.error_09') + this.$t('label.PFANS2011VIEW_TYPE')),
           );
         }
-        if (['PR001004', 'PR001005', 'PR001003'].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
-          let bool = false;
-          // for(let i = 0; i < this.dataList.length; i++){
-          //   if(moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(this.dataList[i].workingdate).format('YYYY-MM-DD')){
-          //     if (this.changeType(value) === data.type) {
-          //       bool = true;
-          //       break;
-          //     }
-          //   }
-          // }
-          this.dataList.forEach(data => {
-            if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')) {
-              if (this.changeType(value) === data.type) {
-                bool = true;
-              }
+        var timedate = moment(this.form.reserveovertimedate).format("YYYY-MM-DD");
+        let bool = false;
+        this.dataList.forEach(data => {
+          if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')) {
+            if (this.changeType(value) === data.type) {
+              bool = true;
             }
-          });
+          }
+        });
+        // 法定日加班 和 会社特别休日出勤
+        if (['PR001005', 'PR001003'].includes(value) && this.form.reserveovertimedate && !this.$route.params._id) {
           if (bool) {
             callback();
           } else {
@@ -265,13 +279,59 @@
           }
             //ADD_FJL_06/30 -- 添加周末加班的check start
         } else if (value === 'PR001002' && this.form.reserveovertimedate !== '' && this.form.reserveovertimedate !== null) {
-            var timedate = moment(this.form.reserveovertimedate).format("YYYY-MM-DD");
-            if (this.getDatey(timedate).getDay() === 6 || this.getDatey(timedate).getDay() === 0) {
+            let bool2 = false;
+            let letdataList = 0;
+            this.dataList.forEach(data => {
+              if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')) {
+                // 振替休日
+                if (data.type === '3') {
+                  bool2 = true;
+                }
+                else{
+                  letdataList = 1;
+                }
+              }
+            });
+            // 振替休日 或者 除日历中设置的其他週末 的情况
+            if(this.dataList.length > 0){
+              if(bool2 || (letdataList === 0 && this.getDatey(timedate).getDay() === 6 || this.getDatey(timedate).getDay() === 0)){
                 callback();
-            } else {
+              }
+              else{
                 callback(this.$t('label.PFANS2011FORMVIEW_ERROR3'));
+              }
             }
-            //ADD_FJL_06/30 -- 添加周末加班的check end
+
+        } else if (value === 'PR001001' && this.form.reserveovertimedate !== '' && this.form.reserveovertimedate !== null) {
+          let bool1 = false;
+          let letdataList = 0;
+          console.log(this.dataList);
+          this.dataList.forEach(data => {
+            if (moment(this.form.reserveovertimedate).format('YYYY-MM-DD') === moment(data.workingdate).format('YYYY-MM-DD')) {
+              // 振替出勤日
+              if (data.type === '4') {
+                bool1 = true;
+              }
+              else{
+                letdataList = 1;
+              }
+            }
+          });
+          // 振替出勤日 或者 除日历中设置的其他週工作日 的情况
+          if(this.dataList.length > 0){
+            if(bool1 || (letdataList === 0 && [1,2,3,4,5].includes(this.getDatey(timedate).getDay()))){
+              callback();
+            }
+            else{
+              callback(this.$t('label.PFANS2011FORMVIEW_ERROR3'));
+            }
+          }
+        } else if (value === 'PR001003' && this.form.reserveovertimedate !== '' && this.form.reserveovertimedate !== null) {
+          if (bool) {
+            callback();
+          } else {
+            callback(this.$t('label.PFANS2011FORMVIEW_ERROR3'));
+          }
         } else {
           callback();
         }
@@ -393,6 +453,9 @@
           userid: '',
           worktime: '0.00',
           applicationdate: moment(new Date()).format('YYYY-MM-DD'),
+          //add ccm 20210824 添加加班和出勤区分 fr
+          overtimetypecome:'1',
+          //add ccm 20210824 添加加班和出勤区分 to
           reserveovertimedate: '',
           overtimetype: '',
           reserveovertime: 1,
@@ -403,6 +466,10 @@
           cause: '',
           status: '',
         },
+        //add ccm 20210824 添加加班和出勤区分 fr
+        showtypecome:false,
+        optionsdata:[],
+        //add ccm 20210824 添加加班和出勤区分 to
         //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
         age:'',
         //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
@@ -427,7 +494,7 @@
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.PFANS2011VIEW_RESERVEOVERTIME'),
+                this.$t('label.date'),
               trigger: 'change',
             },
           ],
@@ -500,6 +567,7 @@
       this.getDateList();
       this.getOvertimeDay();
       this.getOvertimeMen();
+      this.getWorkingday();
       //this.getWorktime();//重复接口删除【getDateList】
       if (this.$route.params._id) {
         this.loading = true;
@@ -565,7 +633,7 @@
             //     this.disactualovertime = true;
             // }
             if (this.form.status === '0' || this.form.status === '3') {
-              if (this.form.overtimetype >= 'PR001004') {
+              if (this.form.overtimetype >= 'PR001005') {
                 this.workflowCode = 'W0067';
               } else {
                 //upd ztc 1224  start
@@ -593,7 +661,7 @@
                 this.disovertimelength = true;
             } else if (this.form.status === '4' || this.form.status === '6') {
               // this.workflowCode = 'W0040';
-              if (this.form.overtimetype >= 'PR001004') {
+              if (this.form.overtimetype >= 'PR001005') {
                 this.workflowCode = 'W0068';
               } else {
                 //upd ztc 1224  start
@@ -622,7 +690,7 @@
             } else if (this.form.status === '7') {
               this.disovertimelength = true;
               // this.workflowCode = 'W0040';
-              if (this.form.overtimetype >= 'PR001004') {
+              if (this.form.overtimetype >= 'PR001005') {
                 this.workflowCode = 'W0068';
               } else {
                 //upd ztc 1224  start
@@ -651,6 +719,36 @@
                 // this.disactualovertime = false
               );
             }
+            //add ccm 20210824 添加加班和出勤区分 fr
+            this.optionsdata=[];
+            let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+            if (this.form.overtimetypecome === '2')
+            {
+              this.showtypecome = true;
+              for(let item of dic){
+                if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+                {
+                  var vote = {};
+                  vote.value = item.code;
+                  vote.lable = item.value1;
+                  this.optionsdata.push(vote);
+                }
+              }
+            }
+            else
+            {
+              this.showtypecome = false;
+              for(let item of dic){
+                if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+                {
+                  var vote = {};
+                  vote.value = item.code;
+                  vote.lable = item.value1;
+                  this.optionsdata.push(vote);
+                }
+              }
+            }
+            //add ccm 20210824 添加加班和出勤区分 to
             this.loading = false;
           })
           .catch(error => {
@@ -677,8 +775,37 @@
           }
           this.form.userid = this.$store.getters.userinfo.userid;
         }
+        //add ccm 20210824 添加加班和出勤区分 fr
+        this.optionsdata=[];
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+        if (this.form.overtimetypecome === '2')
+        {
+          this.showtypecome = true;
+          for(let item of dic){
+            if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        else
+        {
+          this.showtypecome = false;
+          for(let item of dic){
+            if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        //add ccm 20210824 添加加班和出勤区分 to
       }
-      this.getWorkingday();
       // if (this.$store.getters.userinfo.userid === '5e78fefff1560b363cdd6db7') {//失效
       //if(this.roles === '1'){//变更
       //   this.workflowCode = '';
@@ -847,56 +974,20 @@
             this.loading = false;
           });
       },
+      // 加班日期变更
       changeReserveovertimedate() {
-          this.form.overtimetype = '';
-        let letreserveovertimedate = moment(this.form.reserveovertimedate).format(
-          'YYYY-MM-DD',
-        );
-          //ADD_FJL_06/30 -- 添加周末加班的check start
-          if (this.getDatey(letreserveovertimedate).getDay() === 6 || this.getDatey(letreserveovertimedate).getDay() === 0) {
-              this.change('PR001002');
-          }
-          //ADD_FJL_06/30 -- 添加周末加班的check end
-        let resultLista = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
+        let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
+        let resultList = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
         if (moment(letreserveovertimedate).format('MM-DD') === '05-04') {
           //工作日设定中【五四青年节】当天五其他类型假期判断
-          if(resultLista.length === 0){
+          if(resultList.length === 0){
+            this.changeovertimetype('1');
             this.change('PR001007');
           }
-          // DEL_FJL_05/13   --暂时注释掉无用代码
-          // if (
-          //     this.form.reserveovertimedate.getDay() === 0 ||
-          //     this.form.reserveovertimedate.getDay() === 6
-          // ) {
-          //     this.show = true;
-          //     this.rules.reservesubstitutiondate[0].required = true;
-          // } else {
-          //     this.show = false;
-          //     this.form.reservesubstitutiondate = null;
-          //     this.rules.reservesubstitutiondate[0].required = false;
-          //     this.form.actualsubstitutiondate = null;
-          // }
-          // DEL_FJL_05/13   --暂时注释掉无用代码
         } else if (moment(letreserveovertimedate).format('MM-DD') === '03-08') {
+          this.changeovertimetype('1');
           this.change('PR001008');
-          // DEL_FJL_05/13   --暂时注释掉无用代码
-          // if (
-          //     this.form.reserveovertimedate.getDay() === 0 ||
-          //     this.form.reserveovertimedate.getDay() === 6
-          // ) {
-          //     this.show = true;
-          //     this.rules.reservesubstitutiondate[0].required = true;
-          // } else {
-          //     this.show = false;
-          //     this.form.reservesubstitutiondate = null;
-          //     this.rules.reservesubstitutiondate[0].required = false;
-          //     this.form.actualsubstitutiondate = null;
-          // }
-          // DEL_FJL_05/13   --暂时注释掉无用代码
-        } else if (
-          this.form.overtimetype === 'PR001002' &&
-          this.form.reserveovertime >= 8
-        ) {
+        } else if (this.form.overtimetype === 'PR001002' && this.form.reserveovertime >= 8) {
           this.show = true;
           this.rules.reservesubstitutiondate[0].required = true;
         } else {
@@ -905,21 +996,37 @@
           this.rules.reservesubstitutiondate[0].required = false;
           this.form.actualsubstitutiondate = null;
         }
-        let resultList = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
+        // 除54和38之外的日期
         if(resultList.length > 0){
-            if (resultList[0].type === '1') {
-                this.change('PR001003');
-            } else if (resultList[0].type === '5') {
-                this.change('PR001005');
-            } else if (resultList[0].type === '6') {
-                this.change('PR001004');
+          if (resultList[0].type === '1') { // 法定节假日
+            this.changeovertimetype('2');
+            this.change('PR001003'); // 法定日加班
+          } else if (resultList[0].type === '3') { // 振替休日
+            this.changeovertimetype('2');
+            this.change('PR001002'); // 周末加班
+          } else if (resultList[0].type === '4') { // 振替出勤日
+            this.changeovertimetype('2');
+            this.change('PR001001'); // 平日加班
+          } else if (resultList[0].type === '5') {  // 会社特别休日
+            this.changeovertimetype('1');
+            this.change('PR001005'); // 会社特别休日出勤
+          } else {
+            this.display = false;
+            this.$nextTick(() => {
+              this.form.overtimetype = '';
+              this.display = true;
+            });
+          }
+        }
+        else{
+          if (moment(letreserveovertimedate).format('MM-DD') !== '05-04' && moment(letreserveovertimedate).format('MM-DD') !== '03-08') {
+            this.changeovertimetype('2');
+            if (this.getDatey(letreserveovertimedate).getDay() === 6 || this.getDatey(letreserveovertimedate).getDay() === 0) {
+              this.change('PR001002');
             } else {
-                this.display = false;
-                this.$nextTick(() => {
-                    this.form.overtimetype = '';
-                    this.display = true;
-                });
+              this.change('PR001001');
             }
+          }
         }
       },
       //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
@@ -940,14 +1047,17 @@
       //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
       changeType(type) {
         switch (type) {
+          case 'PR001001':
+            type = '4';
+            break;
+          case 'PR001002':
+            type = '3';
+            break;
           case 'PR001003':
             type = '1';
             break;
           case 'PR001005':
             type = '5';
-            break;
-          case 'PR001004':
-            type = '6';
             break;
         }
         return type;
@@ -1018,6 +1128,9 @@
           .then(response => {
             this.data = response;
             this.loading = false;
+            // zy NT_PFANS_20210527_BUG_011 start
+            this.disactualovertime = false;
+            // zy NT_PFANS_20210527_BUG_011 end
             if (val === 'end') {
               if (this.$store.getters.historyUrl) {
                 this.$router.push(this.$store.getters.historyUrl);
@@ -1083,7 +1196,11 @@
         }
       },
       change(val) {
-        if (val >= 'PR001004') {
+        if(this.form.overtimetype === val){
+          // 单个控件表单重新验证-去掉必填项方法
+          this.$refs.refform.validateField('overtimetype');
+        }
+        if (val >= 'PR001005') {
           if (this.form.status === '0') {
             this.workflowCode = 'W0067';
           }
@@ -1104,7 +1221,6 @@
         {
           this.workflowCode = 'W0072';
         }
-
         this.showovertimetype = false;
         this.showovertimelength = false;
         let dateMonth = new Date();
@@ -1174,6 +1290,89 @@
           this.form.actualsubstitutiondate = null;
         }
       },
+
+      //add ccm 20210824 添加加班和出勤区分 fr
+      changeovertimetypecome(val){
+        this.optionsdata=[];
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+
+        if (val === '2')
+        {
+          //加班申请
+          this.form.reserveovertimedate = '';
+          this.form.overtimetype = '';
+          this.form.reserveovertime = 1;
+          this.form.overtimelength = '';
+          this.showtypecome = true;
+          for(let item of dic){
+            if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        else
+        {
+          //休日出勤申请
+          this.form.reserveovertimedate = '';
+          this.form.overtimetype = '';
+          this.form.reserveovertime = 0;
+          this.form.overtimelength = '';
+          this.showtypecome = false;
+          for(let item of dic){
+            if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+      },
+      //add ccm 20210824 添加加班和出勤区分 to
+
+      //add gbb 20210906 选择加班日期变更出勤类型 start
+      changeovertimetype(val){
+        this.optionsdata=[];
+        let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === this.code);
+        this.form.overtimetypecome = val;
+        if (val === '2')
+        {
+          //加班申请
+          this.form.reserveovertime = 1;
+          this.showtypecome = true;
+          for(let item of dic){
+            if (item.code === 'PR001001' || item.code === 'PR001002' || item.code === 'PR001003')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+        else
+        {
+          //休日出勤申请
+          this.form.reserveovertime = 0;
+          this.showtypecome = false;
+          for(let item of dic){
+            if (item.code === 'PR001005' || item.code === 'PR001007' || item.code === 'PR001008')
+            {
+              var vote = {};
+              vote.value = item.code;
+              vote.lable = item.value1;
+              this.optionsdata.push(vote);
+            }
+          }
+        }
+      },
+      //add ccm 20210906 选择加班日期变更出勤类型 to
+
       //新建接口
       insertForm() {
         //总经理审批自动通过
@@ -1320,11 +1519,13 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
+                  // zy NT_PFANS_20210527_BUG_011 start
+//                  Message({
+//                    message: this.$t('normal.success_02'),
+//                    type: 'success',
+//                    duration: 5 * 1000,
+//                  });
+                  // zy NT_PFANS_20210527_BUG_011 end
                   if (val !== 'save' && val !== 'StartWorkflow') {
                     Message({
                       message: this.$t('normal.success_02'),
@@ -1339,7 +1540,9 @@
                     this.showovertimetype = true;
                     this.disovertimelength = true;
                     this.showovertimelength = true;
-                    this.disactualovertime = false;
+                    // zy NT_PFANS_20210527_BUG_011 start
+//                    this.disactualovertime = false;
+                    // zy NT_PFANS_20210527_BUG_011 end
                     this.$refs.container.$refs.workflow.startWorkflow();
                   }
                 })
