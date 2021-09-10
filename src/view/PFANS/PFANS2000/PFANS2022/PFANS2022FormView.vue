@@ -542,6 +542,9 @@
             this.loading = false;
           })
       } else {
+        //region scc add 页面初始附件不是必填 from
+        this.rules.enclosurecontent[0].required = false;
+        //endregion scc add 页面初始附件不是必填 to
         this.userlist = this.$store.getters.userinfo.userid;
         if (this.userlist !== null && this.userlist !== '') {
           let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
@@ -649,6 +652,9 @@
           this.rules.weddingday[0].required = false;
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
+          //region scc add 9/2 祝礼金附件必填项 from
+          this.rules.enclosurecontent[0].required = false;
+          //endregion scc add 9/2 祝礼金附件必填项 to
         } else if (val === "PR024003") {
           this.code1 = 'PR034';
           // this.gettwoclass("PR034001");
@@ -752,6 +758,9 @@
           this.rules.spousename[0].required = false;
           this.rules.twoclass[0].required = true;
           this.rules.enclosurecontent[0].required = false;
+          //region scc add 9/2 祝礼金附件必填项 from
+          this.rules.enclosurecontent[0].required = false;
+          //endregion scc add 9/2 祝礼金附件必填项 to
         }
         this.$refs.refform.model.twoclass = "";
         // update gbb 20210311 NT_PFANS_20210308_BUG_158 一级分类选择时连接二级分类 start
