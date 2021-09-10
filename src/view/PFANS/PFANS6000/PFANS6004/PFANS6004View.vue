@@ -239,6 +239,26 @@
                                     response[j].group_id = group.companyname;
                                 }
                             }
+                            //add ccm 20210901 外注添加组织信息 fr
+                            if (response[j].orgInformationcenterid !== null && response[j].orgInformationcenterid !== '') {
+                              let group = getOrgInfo(response[j].orgInformationcenterid);
+                              if (group) {
+                                response[j].orgInformationcenterid = group.companyname;
+                              }
+                            }
+                            if (response[j].orgInformationgroupid !== null && response[j].orgInformationgroupid !== '') {
+                              let group = getOrgInfo(response[j].orgInformationgroupid);
+                              if (group) {
+                                response[j].orgInformationgroupid = group.companyname;
+                              }
+                            }
+                            if (response[j].orgInformationteamid !== null && response[j].orgInformationteamid !== '') {
+                              let group = getOrgInfo(response[j].orgInformationteamid);
+                              if (group) {
+                                response[j].orgInformationteamid = group.companyname;
+                              }
+                            }
+                            //add ccm 20210901 外注添加组织信息 to
                             if (response[j].sex !== null && response[j].sex !== '') {
                                 let sex = getDictionaryInfo(response[j].sex);
                                 if (sex != null) {
@@ -427,6 +447,11 @@
                                     countermeasure: response[j].countermeasure,
                                     accountname: response[j].accountname,
                                     lockernumber: response[j].lockernumber,
+                                    //add ccm 20210901 外注添加组织信息 fr
+                                    orgInformationcenterid:response[j].orgInformationcenterid,
+                                    orgInformationgroupid:response[j].orgInformationgroupid,
+                                    orgInformationteamid:response[j].orgInformationteamid,
+                                    //add ccm 20210901 外注添加组织信息 to
                                 })
                             }
                         }
@@ -557,7 +582,12 @@
                             this.$t('label.PFANS6001VIEW_SUPPLIERNAME'),
                             this.$t('label.PFANS2003FORMVIEW_RN'),
                             this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            this.$t('label.department'),
+                            //upd ccm 20210901 外注添加组织信息 fr
+                            // this.$t('label.department'),
+                            this.$t('label.center'),
+                            this.$t('label.group'),
+                            this.$t('label.team'),
+                            //upd ccm 20210901 外注添加组织信息 to
                             this.$t('label.PFANS6004FORMVIEW_OPERATIONFORM'),
                             this.$t('label.PFANSUSERFORMVIEW_JOBNUMBER'),
                             this.$t('label.PFANS6004FORMVIEW_JOBCLASSIFICATIONM'),
@@ -589,7 +619,12 @@
                             'suppliername',
                             'rn',
                             'email',
-                            'group_id',
+                            //upd ccm 20210901 外注添加组织信息 fr
+                            // 'group_id',
+                            'orgInformationcenterid',
+                            'orgInformationgroupid',
+                            'orgInformationteamid',
+                            //upd ccm 20210901 外注添加组织信息 to
                             'operationform',
                             'number',
                             'jobclassification',
