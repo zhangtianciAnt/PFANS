@@ -90,7 +90,7 @@
                     {
                         code: 'initiatorname',
                         label: 'label.applicant',
-                        width: 70,
+                        width: 90,
                         fix: false,
                         filter: true
                     },
