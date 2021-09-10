@@ -840,10 +840,10 @@
                                             <el-table-column
                                               align="right" width="180">
                                               <template slot="header" slot-scope="scope">
+                                                <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                                 <el-input
                                                   v-model="search"
                                                   size="mini"
-                                                <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                                   :placeholder="$t('label.PFANS5009FORMVIEW_IMPORT')"
                                                 />
                                                 <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
@@ -1405,11 +1405,11 @@
       return {
         // 项目dialog 体制 合同优化添加分页 ztc fr
         listQuerySys: {
-          currentPage: 0,
+          currentPage: 1,
           pageSize: 20,
         },
         listQueryCont: {
-          currentPage: 0,
+          currentPage: 1,
           pageSize: 50,
         },
         totalSysm: 0,
