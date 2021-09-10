@@ -118,51 +118,87 @@
           </el-row>
           <!--          第四行-->
           <el-row>
-            <!--            所属部门-->
-            <el-col :span="8">
-              <el-form-item :error="errorgroup" :label="$t('label.department')" prop="group_id">
-                <org :disabled="!disabled" :error="errorgroup" :orglist="grouporglist" @getOrgids="getGroupId"
-                     orgtype="4" style="width:20vw"></org>
+            <el-col :span="2">
+              <el-form-item :label="$t('label.department')">
+
                 <!--                    add_ccm_06/04  &#45;&#45;添加履历-->
                 <el-button
-                  type="text"
+                  type="primary" plain
+                  size="mini"
                   @click="dialogTableVisible9 = true"
-                >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
-                </el-button>
+              >{{$t('label.PFANSUSERFORMVIEW_PERSONAL')}}
+              </el-button>
                 <el-dialog
-                  :title="$t('label.department') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
-                  :visible.sync="dialogTableVisible9"
-                >
-                  <el-row>
-                    <el-col :span="24">
-                      <el-table :data="expData" stripe>
-                        <el-table-column
-                          property="date"
-                          align="center"
-                          :label="$t('label.PFANSUSERFORMVIEW_TIME')"
-                          width="300"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.exdatestr }}</span>
-                          </template>
-                        </el-table-column>
-                        <el-table-column
-                          property="after"
-                          align="center"
-                          :label="$t('label.department')"
-                        >
-                          <template slot-scope="scope">
-                            <span style="color:#75a7ef">{{ scope.row.groupname }}</span>
-                          </template>
-                        </el-table-column>
-                      </el-table>
-                    </el-col>
-                  </el-row>
-                </el-dialog>
+                :title="$t('label.department') + $t('label.PFANSUSERFORMVIEW_PERSONAL')"
+                :visible.sync="dialogTableVisible9"
+              >
+                <el-row>
+                  <el-col :span="24">
+                    <el-table :data="expData" stripe>
+                      <el-table-column
+                        property="date"
+                        align="center"
+                        :label="$t('label.PFANSUSERFORMVIEW_TIME')"
+                        width="300"
+                      >
+                        <template slot-scope="scope">
+                          <span style="color:#75a7ef">{{ scope.row.exdatestr }}</span>
+                        </template>
+                      </el-table-column>
+                      <el-table-column
+                        property="after"
+                        align="center"
+                        :label="$t('label.department')"
+                      >
+                        <template slot-scope="scope">
+                          <span style="color:#75a7ef">{{ scope.row.groupname }}</span>
+                        </template>
+                      </el-table-column>
+                    </el-table>
+                  </el-col>
+                </el-row>
+              </el-dialog>
                 <!--                    add_fjl_05/21  &#45;&#45;添加履历-->
               </el-form-item>
-
             </el-col>
+            <el-col :span="6">
+              <el-form-item :label="$t('label.center')" :error="errororgInformationcenterid" prop="orgInformationcenterid">
+                <org
+                  :orglist="form.orgInformationcenterid"
+                  orgtype="1"
+                  style="width:12.4vw"
+                  selectType="Single"
+                  @getOrgids="getOrgInformationCenterid"
+                  :error="errororgInformationcenterid"
+                ></org>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.group')" :error="errororgInformationgroupid" prop="orgInformationgroupid">
+                <org
+                  :orglist="form.orgInformationgroupid"
+                  orgtype="2"
+                  style="width:20vw"
+                  selectType="Single"
+                  @getOrgids="getOrgInformationGroupId"
+                  :error="errororgInformationgroupid"
+                ></org>
+              </el-form-item>
+            </el-col>
+            <el-col :span="8">
+              <el-form-item :label="$t('label.team')">
+                <org
+                  :orglist="form.orgInformationteamid"
+                  orgtype="3"
+                  style="width:20vw"
+                  selectType="Single"
+                  @getOrgids="getOrgInformationTeamid"
+                ></org>
+              </el-form-item>
+            </el-col>
+
+          </el-row>
+          <el-row>
             <!--            作业场所-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6004FORMVIEW_OPERATIONFORM')" prop="operationform">
@@ -477,7 +513,30 @@
                     return callback();
                 }
             };
-            var checksuppliername = (rule, value, callback) => {
+
+            //add ccm 20210901 外注添加组织信息 fr
+            var checkorgInformationcenterid = (rule, value, callback) => {
+              if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '') {
+                this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.center')));
+              } else {
+                this.errororgInformationcenterid = '';
+                return callback();
+              }
+            };
+            var checkorgInformationgroupid = (rule, value, callback) => {
+              if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '') {
+                this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
+                return callback(new Error(this.$t('normal.error_09') + this.$t('label.group')));
+              } else {
+                this.errororgInformationgroupid = '';
+                return callback();
+              }
+            };
+            //add ccm 20210901 外注添加组织信息 to
+
+
+          var checksuppliername = (rule, value, callback) => {
                 if (!value || value === '' || value === 'undefined') {
                     this.errorsuppliername = this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME');
                     return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6001VIEW_SUPPLIERNAME')));
@@ -530,6 +589,12 @@
                 grouporglistflg: '',
                 errorexitime: '',
                 errorgroup: '',
+
+                //add ccm 20210901 外注添加组织信息 fr
+                errororgInformationcenterid:'',
+                errororgInformationgroupid:'',
+                //add ccm 20210901 外注添加组织信息 to
+
                 errorgraduateschool: '',
                 expData: null,
                 dialogTableVisible9: false,
@@ -569,6 +634,11 @@
                     countermeasure: '',
                     exits: '1',
                     lockernumber:'',
+                    //add ccm 20210901 外注添加组织信息 fr
+                    orgInformationcenterid:'',
+                    orgInformationgroupid:'',
+                    orgInformationteamid:'',
+                    //add ccm 20210901 外注添加组织信息 to
                 },
                 tableData: [{
                     group_id: '',
@@ -638,6 +708,22 @@
                             trigger: 'change',
                         },
                     ],
+                    //add ccm 20210901 外注添加组织信息 fr
+                    orgInformationcenterid: [
+                      {
+                        required: true,
+                        validator: checkorgInformationcenterid,
+                        trigger: 'blur',
+                      },
+                    ],
+                    orgInformationgroupid: [
+                      {
+                        required: true,
+                        validator: checkorgInformationgroupid,
+                        trigger: 'blur',
+                      },
+                    ],
+                    //add ccm 20210901 外注添加组织信息 to
                     // 编号
                     number: [
                         {
@@ -938,6 +1024,61 @@
                     this.errorgroup = '';
                 }
             },
+            //add ccm 20210901 外注添加组织信息 fr
+            getOrgInformationCenterid(val) {
+              this.getOrgInformation(val);
+              this.form.orgInformationcenterid = val;
+              if (!this.form.orgInformationcenterid || this.form.orgInformationcenterid === '' || val === 'undefined') {
+                this.errororgInformationcenterid = this.$t('normal.error_09') + this.$t('label.center');
+              } else {
+                this.errororgInformationcenterid = '';
+              }
+            },
+            getOrgInformationGroupId(val) {
+              this.getOrgInformation(val);
+              this.form.orgInformationgroupid = val;
+              if (!this.form.orgInformationgroupid || this.form.orgInformationgroupid === '' || val === 'undefined') {
+                this.errororgInformationgroupid = this.$t('normal.error_09') + this.$t('label.group');
+              } else {
+                this.errororgInformationgroupid = '';
+              }
+            },
+            getOrgInformationTeamid(val) {
+              this.getOrgInformation(val);
+            },
+            getOrgInformation(id) {
+              let org = {};
+              let treeCom = this.$store.getters.orgs;
+
+              if (id && treeCom.getNode(id)) {
+                let node = id;
+                let type = treeCom.getNode(id).data.type || 0;
+                for (let index = parseInt(type); index >= 1; index--) {
+                  if (parseInt(type) === index && ![1, 2].includes(parseInt(type))) {
+                    org.teamname = treeCom.getNode(node).data.departmentname;
+                    org.teamid = treeCom.getNode(node).data._id;
+                  }
+                  if (index === 2) {
+                    org.groupname = treeCom.getNode(node).data.departmentname;
+                    org.groupid = treeCom.getNode(node).data._id;
+                    org.budgetunit = treeCom.getNode(node).data.companyen;
+                  }
+                  if (index === 1) {
+                    org.centername = treeCom.getNode(node).data.companyname;
+                    org.centerid = treeCom.getNode(node).data._id;
+                  }
+                  node = treeCom.getNode(node).parent.data._id;
+                }
+                ({
+                  centerid: this.form.orgInformationcenterid,
+                  groupid: this.form.orgInformationgroupid,
+                  teamid: this.form.orgInformationteamid,
+                } = org);
+              }
+            },
+            //add ccm 20210901 外注添加组织信息 to
+
+
             changeexits(val) {
 
                 this.form.exits = val;
@@ -1030,6 +1171,26 @@
                             this.rules.businessimpact[0].required = false;
                             //this.rules.countermeasure[0].required = false;
                         }
+
+                        // add ccm 20210901 外注添加组织信息 fr
+                        if (this.form.orgInformationcenterid != null && this.form.orgInformationcenterid !='')
+                        {
+                          let centerInfo = getOrgInfo(this.form.orgInformationcenterid);
+                          if (centerInfo && centerInfo.encoding != null && centerInfo.encoding != '' && centerInfo.encoding!= undefined)
+                          {
+                            this.form.group_id = this.form.orgInformationcenterid;
+                          }
+                          else
+                          {
+                            let groupInfo = getOrgInfo(this.form.orgInformationgroupid);
+                            if (groupInfo && groupInfo.encoding != null && groupInfo.encoding != '' && groupInfo.encoding!= undefined)
+                            {
+                              this.form.group_id = this.form.orgInformationgroupid;
+                            }
+                          }
+                        }
+                        // add ccm 20210901 外注添加组织信息 to
+
                         if (this.$route.params._id) {
                             //upd_fjl_0928  添加group修改后的确认框  start
                             if (this.grouporglistflg != null && this.grouporglistflg != '' &&
