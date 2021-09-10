@@ -976,7 +976,6 @@
       },
       // 加班日期变更
       changeReserveovertimedate() {
-        this.form.overtimetype = '';
         let letreserveovertimedate = moment(this.form.reserveovertimedate).format('YYYY-MM-DD');
         let resultList = this.dataList.filter(value => moment(value.workingdate).format('YYYY-MM-DD') == letreserveovertimedate);
         if (moment(letreserveovertimedate).format('MM-DD') === '05-04') {
@@ -1197,6 +1196,10 @@
         }
       },
       change(val) {
+        if(this.form.overtimetype === val){
+          // 单个控件表单重新验证-去掉必填项方法
+          this.$refs.refform.validateField('overtimetype');
+        }
         if (val >= 'PR001005') {
           if (this.form.status === '0') {
             this.workflowCode = 'W0067';
