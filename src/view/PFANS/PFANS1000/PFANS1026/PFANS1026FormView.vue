@@ -155,10 +155,10 @@
                     :header-cell-style="getRowClass1">
             <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content"
                              type="index" width="50"></el-table-column>
-            <el-table-column :label="$t('label.department')" align="center" width="200">
+            <el-table-column :label="$t('label.department')" align="center" width="100">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem"
+                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 5rem"
                             maxlength='36'></el-input>
                 </el-form-item>
               </template>
@@ -166,17 +166,17 @@
             <el-table-column :label="$t('label.PFANS1024VIEW_DEPLOYMENT')" align="center" prop="deployment" width="200">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.deployment'" :rules='rules.deployment'>
-                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 11rem"
+                  <el-input v-model="scope.row.deployment" :disabled="!disabled3" style="width: 15rem"
                             maxlength='36'></el-input>
                 </el-form-item>
               </template>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_APPLICATIONDATE')" align="center" prop="applicationdate"
-                             width="200">
+                             width="160">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.applicationdate'">
                   <el-date-picker :disabled="!disabled3" type="date" v-model="scope.row.applicationdate"
-                                  style="width: 11rem"></el-date-picker>
+                                  style="width: 7rem"></el-date-picker>
                 </el-form-item>
               </template>
             </el-table-column>
@@ -438,7 +438,7 @@
             </el-table-column>
             <!-- zy-7/6-禅道216任务-->
             <el-table-column :label="$t('label.PFANS1024VIEW_CONTRACT2')" align="center">
-              <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="200">
+              <el-table-column :label="$t('label.PFANS1024VIEW_CHINESE')" align="center" prop="conchinese" width="350">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conchinese'" :rules='rules.conchinese'>
                     <!--                    <project style="width: 100%" :data="scope.row.conchinese" :no="scope.row" :multiple="true"-->
@@ -451,7 +451,7 @@
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="conjapanese"
-                               width="200">
+                               width="350">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conjapanese'" :rules='rules.conjapanese'>
                     <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.conjapanese">
@@ -459,7 +459,7 @@
                   </el-form-item>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="200">
+              <el-table-column :label="$t('label.PFANS1024VIEW_ENGLISH')" align="center" prop="conenglish" width="350">
                 <template slot-scope="scope">
                   <el-form-item :prop="'tabledata.' + scope.$index + '.conenglish'" :rules='rules.conenglish'>
                     <el-input maxlength="255" :disabled="!disabled" v-model="scope.row.conenglish">
@@ -470,7 +470,7 @@
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_CUSTOMERNAME')" align="center">
               <el-table-column :label="$t('label.PFANS1024VIEW_JAPANESE')" align="center" prop="custojapanese"
-                               width="200" :error="errorcusto">
+                               width="280" :error="errorcusto">
                 <template slot-scope="scope">
                   <!--<user :disabled="!disabled" :no="scope.row" :error="errorcusto" :selectType="selectType" :userlist="scope.row.custojapanese"-->
                   <!--@getUserids="getCusto" style="width: 10.15rem"></user>-->
@@ -731,7 +731,7 @@
               type="selection"
               width="40">
             </el-table-column>
-            <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="130">
+            <el-table-column :label="$t('label.PFANS1024VIEW_CLAIMTYPE')" align="center" prop="claimtype" width="110">
               <template slot-scope="scope">
                 <el-form-item>
                   <el-input :disabled="!disabled3" :no="scope.row" v-model="scope.row.claimtype">
@@ -1117,7 +1117,7 @@
   import EasyNormalTable from '@/components/EasyNormalTable';
   import {Message} from 'element-ui';
   import dicselect from '../../../components/dicselect';
-  import {getDictionaryInfo, getOrgInfo, getUserInfo, getOrgInfoByUserId,getOrgInformation} from '@/utils/customize';
+  import {getDictionaryInfo, getOrgInfo, getUserInfo, getOrgInfoByUserId,getOrgInformation,accAdd} from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
   import moment from 'moment';
@@ -1800,6 +1800,7 @@
             let contractapplication = response.contractapplication;
             let contractnumbercount = response.contractnumbercount;
             let contractcompound = response.contractcompound;
+
             if (contractapplication.length > 0) {
               for (let i = 0; i < contractapplication.length; i++) {
                 // if (contractapplication[i].currencyposition !== '' && contractapplication[i].currencyposition !== null) {
@@ -3096,13 +3097,13 @@
             for (let i = 0; i < this.form.tableclaimtype.length; i++) {
               if (counttype === this.form.tableclaimtype.length || counttype ===0)
               {
-                this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+                this.form.tabledata[i].claimamount = accAdd(sumclaimamount,Number(this.form.tableclaimtype[i].claimamount));
               }
               else
               {
-                if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
+                if(this.form.tableclaimtype[i].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
                 {
-                  this.form.tabledata[i].claimamount = sumclaimamount + Number(this.form.tableclaimtype[i].claimamount);
+                  this.form.tabledata[i].claimamount = accAdd(sumclaimamount,Number(this.form.tableclaimtype[i].claimamount));
                 }
               }
             }
@@ -3778,8 +3779,9 @@
           if (this.form.tabledata[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
             let letclaimamount = 0;
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
-              letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
-              //请求番号
+              //解决浮点加法计算问题 -start ztc fr
+              letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
+              //解决浮点加法计算问题 -start ztc to//请求番号
               let claimnumber = this.form.tabledata[i].contractnumber + '-' + (j + 1);
               this.form.tableclaimtype[j].claimnumber = claimnumber;
             }
@@ -4029,7 +4031,9 @@
                 if (resultAnt == undefined) {
                   scanMap.set(letone[h].claimtype, letone[h].contractrequestamount)
                 } else {
-                  let resultInScanMap = resultAnt + letone[h].contractrequestamount;
+                  //解决浮点加法计算问题 -start ztc fr
+                  let resultInScanMap = accAdd(resultAnt,letone[h].contractrequestamount);
+                  //解决浮点加法计算问题 -start ztc to
                   scanMap.set(letone[h].claimtype, resultInScanMap)
                 }
               }

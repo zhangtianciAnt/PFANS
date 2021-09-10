@@ -191,10 +191,10 @@
                     :header-cell-style="getRowClass1">
             <el-table-column :label="$t('label.PFANS2006VIEW_NO')" align="center" prop="content" type="index"
                              width="50"></el-table-column>
-            <el-table-column :label="$t('label.department')" align="center" width="200">
+            <el-table-column :label="$t('label.department')" align="center" width="100">
               <template slot-scope="scope">
                 <el-form-item :prop="'tabledata.' + scope.$index + '.department'" :error="errordepartment">
-                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 11rem"
+                  <el-input v-model="scope.row.department" :disabled="!disabled3" style="width: 5rem"
                             maxlength='36'></el-input>
                 </el-form-item>
               </template>
@@ -537,7 +537,7 @@
               </el-table-column>
             </el-table-column>
             <el-table-column :label="$t('label.PFANS1024VIEW_ENTRUSTEDNUMBER')" align="center" prop="entrustednumber"
-                             width="200" :error="errorcontractnumber">
+                             width="260" :error="errorcontractnumber">
               <template slot-scope="scope">
                 <!--<user :disabled="!disabled" :no="scope.row" :error="errorcontractnumber" :selectType="selectType" :userlist="scope.row.entrustednumber"-->
                 <!--@getUserids="getContractnumber" style="width: 10.15rem"></user>-->
@@ -554,7 +554,9 @@
                 <el-dialog :visible.sync="dialogVisibleD"
                            top="8vh"
                            append-to-body>
-                  <el-table :data="tableD" :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
+<!--                  add_qhr_20210908 添加筛选条件-->
+                  <el-table :data="tableD.filter(data => !search2 || data.contractnumber.toLowerCase().includes(search2.toLowerCase()))"
+                            :row-key="rowid" @row-click="rowClickD" max-height="400" ref="roletableD"
                             v-loading='loading'>
                     <el-table-column property="user_id" :label="$t('label.applicant')" width="120"></el-table-column>
                     <el-table-column property="deployment" :label="$t('label.department')" width="120"></el-table-column>
@@ -566,6 +568,17 @@
                                      width="120"></el-table-column>
                     <el-table-column property="state" :label="$t('label.PFANS1024VIEW_STATE')"
                                      width="120"></el-table-column>
+<!--                    region add_qhr_20210908 添加筛选条件-->
+                    <el-table-column
+                      align="right" width="230">
+                      <template slot="header" slot-scope="scope">
+                        <el-input
+                          v-model="search2"
+                          size="mini"
+                          :placeholder="$t('label.PFANS5009FORMVIEW_IMPORTCONT')"/>
+                      </template>
+                    </el-table-column>
+<!--                    endregion add_qhr_20210908 添加筛选条件-->
                   </el-table>
                 </el-dialog>
               </template>
@@ -717,6 +730,7 @@
     getSupplierinfor,
     getUserInfo,
     getOrgInformation,
+    accAdd,
   } from '@/utils/customize';
   import user from '../../../components/user.vue';
   import org from '../../../components/org';
@@ -989,6 +1003,8 @@
         //add-ws-01/06-禅道任务710
         search1: '',
         //add-ws-01/06-禅道任务710
+        // add_qhr_20210908 添加筛选条件
+        search2: '',
         //add-ws-6/22-禅道152任务
         checknumber: false,
         show10: true,
@@ -2578,13 +2594,17 @@
             for (let j = 0; j < this.form.tableclaimtype.length; j++) {
               if (counttype === this.form.tableclaimtype.length || counttype ===0)
               {
-                letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                //解决浮点加法计算问题 -start ztc fr
+                letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
+                //解决浮点加法计算问题 -start ztc to
               }
               else
               {
                 if(this.form.tableclaimtype[t].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1)
                 {
-                  letclaimamount = letclaimamount + Number(this.form.tableclaimtype[j].claimamount);
+                  //解决浮点加法计算问题 -start ztc fr
+                  letclaimamount = accAdd(letclaimamount,Number(this.form.tableclaimtype[j].claimamount));
+                  //解决浮点加法计算问题 -start ztc to
                 }
               }
             }

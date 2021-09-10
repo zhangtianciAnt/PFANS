@@ -1,6 +1,6 @@
 <template>
   <el-select :disabled="disabled" :loading="loading" :multiple="multiple"
-             ref="sel"
+             ref="sel" clearable
              @change="change" filterable v-model="value" :size="size">
     <el-option
       :key="item.code"
@@ -51,7 +51,7 @@
         default: function () {
           return {};
         }
-      }
+      },
     },
     mounted() {
       if (this.data) {
