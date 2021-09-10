@@ -183,6 +183,8 @@
     },
     data() {
       return {
+        // add_qhr_20210910 添加项目退场check
+        exittime: '',
         checkerror: 0,
         divfalse: false,
         checktimelength: '',
@@ -202,10 +204,6 @@
         optionsdata: [],
         optionsdategroup: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         optionsdategroup: [],
-        //region add_qhr_20210909 添加项目退场check
-        dataList1: [],
-        dataList2: [],
-        //endregion add_qhr_20210909 添加项目退场check
         buttonList: [],
         disable: false,
         PFANS5008: this.$route.params.PFANS5008,
@@ -652,12 +650,12 @@
           this.$store
             .dispatch('PFANS5009Store/getSiteList5', {})
             .then(response => {
-              //add_qhr_20210909 添加项目退场check
-              this.dataList1 = response;
               for (let i = 0; i < response.length; i++) {
                 this.optionsdata.push({
                   value: response[i].companyprojects_id,
                   lable: response[i].numbers + '_' + response[i].project_name,
+                  // add_qhr_20210910 添加项目退场check
+                  exittime: response[i].exittime,
                 });
                 this.optionsdategroup.push({
                   value: response[i].companyprojects_id,
@@ -668,12 +666,12 @@
               this.$store
                 .dispatch('PFANS5013Store/getMyConProject2', {})
                 .then(response => {
-                  //add_qhr_20210909 添加项目退场check
-                  this.dataList2 = response;
                   for (let i = 0; i < response.length; i++) {
                     this.optionsdata.push({
                       value: response[i].comproject_id,
                       lable: response[i].numbers + '_' + response[i].project_name,
+                      // add_qhr_20210910 添加项目退场check
+                      exittime: response[i].exittime,
                     });
                     this.optionsdategroup.push({
                       value: response[i].comproject_id,
@@ -710,12 +708,12 @@
         this.$store
           .dispatch('PFANS5013Store/Listproject2', {})
           .then(response => {
-            //add_qhr_20210909 添加项目退场check
-            this.dataList1 = response;
             for (let i = 0; i < response.length; i++) {
               this.optionsdata.push({
                 value: response[i].companyprojects_id,
                 lable: response[i].numbers + '_' + response[i].project_name,
+                // add_qhr_20210910 添加项目退场check
+                exittime: response[i].exittime,
               });
               this.optionsdategroup.push({
                 value: response[i].companyprojects_id,
@@ -725,12 +723,12 @@
             this.$store
               .dispatch('PFANS5013Store/Listproject', {})
               .then(response => {
-                // add_qhr_20210909 添加项目退场check
-                this.dataList2 = response;
                 for (let i = 0; i < response.length; i++) {
                   this.optionsdata.push({
                     value: response[i].comproject_id,
                     lable: response[i].numbers + '_' + response[i].project_name,
+                    // add_qhr_20210910 添加项目退场check
+                    exittime: response[i].exittime,
                   });
                   this.optionsdategroup.push({
                     value: response[i].comproject_id,
@@ -856,6 +854,8 @@
         for (let item of this.optionsdata) {
           if (item.value === val) {
             this.companyform.project_name = item.lable;
+            // add_qhr_20210910 添加项目退场check
+            this.exittime = item.exittime;
           }
         }
         for (let item of this.optionsdategroup) {
@@ -1240,36 +1240,13 @@
           this.$refs['companyform'].validate(valid => {
             if (valid) {
               //region add_qhr_20210909 添加项目退场check
-              for (let i = 0; i < this.dataList1.length; i++) {
-                if (this.dataList1[i].companyprojects_id === this.companyform.project_id) {
-                  if (this.dataList1[i].exittime !== null && this.dataList1[i].exittime !== "") {
-                    if (moment(this.dataList1[i].exittime).format('YYYY-MM-DD') < moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                      Message({
-                        message: this.$t("normal.error_28"),
-                        type: 'error',
-                        duration: 2 * 1000
-                      });
-                      return;
-                    }
-                  }
-                } else {
-                  if (i === 0) {
-                    for (let j = 0; j < this.dataList2.length; j++) {
-                      if (this.dataList2[j].comproject_id === this.companyform.project_id) {
-                        if (this.dataList2[j].exittime !== null && this.dataList2[j].exittime !== "") {
-                          if (moment(this.dataList2[j].exittime).format('YYYY-MM-DD') < moment(this.companyform.log_date).format('YYYY-MM-DD')) {
-                            Message({
-                              message: this.$t("normal.error_28"),
-                              type: 'error',
-                              duration: 2 * 1000
-                            });
-                            return;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
+              if (moment(this.exittime).format('YYYY-MM-DD') < moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                Message({
+                  message: this.$t("normal.error_28"),
+                  type: 'error',
+                  duration: 2 * 1000
+                });
+                return;
               }
               //endregion add_qhr_20210909 添加项目退场check
               this.getAttendancelist();
