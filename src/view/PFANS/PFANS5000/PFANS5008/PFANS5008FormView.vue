@@ -183,6 +183,8 @@
     },
     data() {
       return {
+        // add_qhr_20210910 添加项目退场check
+        exittime: '',
         checkerror: 0,
         divfalse: false,
         checktimelength: '',
@@ -652,6 +654,8 @@
                 this.optionsdata.push({
                   value: response[i].companyprojects_id,
                   lable: response[i].numbers + '_' + response[i].project_name,
+                  // add_qhr_20210910 添加项目退场check
+                  exittime: response[i].exittime,
                 });
                 this.optionsdategroup.push({
                   value: response[i].companyprojects_id,
@@ -666,6 +670,8 @@
                     this.optionsdata.push({
                       value: response[i].comproject_id,
                       lable: response[i].numbers + '_' + response[i].project_name,
+                      // add_qhr_20210910 添加项目退场check
+                      exittime: response[i].exittime,
                     });
                     this.optionsdategroup.push({
                       value: response[i].comproject_id,
@@ -706,6 +712,8 @@
               this.optionsdata.push({
                 value: response[i].companyprojects_id,
                 lable: response[i].numbers + '_' + response[i].project_name,
+                // add_qhr_20210910 添加项目退场check
+                exittime: response[i].exittime,
               });
               this.optionsdategroup.push({
                 value: response[i].companyprojects_id,
@@ -719,6 +727,8 @@
                   this.optionsdata.push({
                     value: response[i].comproject_id,
                     lable: response[i].numbers + '_' + response[i].project_name,
+                    // add_qhr_20210910 添加项目退场check
+                    exittime: response[i].exittime,
                   });
                   this.optionsdategroup.push({
                     value: response[i].comproject_id,
@@ -844,6 +854,8 @@
         for (let item of this.optionsdata) {
           if (item.value === val) {
             this.companyform.project_name = item.lable;
+            // add_qhr_20210910 添加项目退场check
+            this.exittime = item.exittime;
           }
         }
         for (let item of this.optionsdategroup) {
@@ -1227,6 +1239,16 @@
         if (val === 'btnSave') {
           this.$refs['companyform'].validate(valid => {
             if (valid) {
+              //region add_qhr_20210909 添加项目退场check
+              if (moment(this.exittime).format('YYYY-MM-DD') < moment(this.companyform.log_date).format('YYYY-MM-DD')) {
+                Message({
+                  message: this.$t("normal.error_28"),
+                  type: 'error',
+                  duration: 2 * 1000
+                });
+                return;
+              }
+              //endregion add_qhr_20210909 添加项目退场check
               this.getAttendancelist();
               this.loading = true;
               let error = 0;
