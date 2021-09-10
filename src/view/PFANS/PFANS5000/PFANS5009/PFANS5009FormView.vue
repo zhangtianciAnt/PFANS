@@ -1323,11 +1323,11 @@
       return {
         // 项目dialog 体制 合同优化添加分页 ztc fr
         listQuerySys: {
-          currentPage: 0,
+          currentPage: 1,
           pageSize: 20,
         },
         listQueryCont: {
-          currentPage: 0,
+          currentPage: 1,
           pageSize: 50,
         },
         totalSysm: 0,
