@@ -174,7 +174,7 @@
           },
           // 禅道70 start
           {
-            code: 'tenantid',
+            code: 'projectnumber',
             label: 'label.PFANS5004VIEW_PROJECTNUMBER',
             width: 280,
             fix: false,
