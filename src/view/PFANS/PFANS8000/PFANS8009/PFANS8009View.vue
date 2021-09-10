@@ -44,7 +44,6 @@
                   },
                 ],
                 buttonList: [
-                    {'key': 'back', 'name': 'button.back', 'disabled': false, 'icon': 'el-icon-back'},
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
                     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
                 ],
