@@ -204,10 +204,6 @@
         optionsdata: [],
         optionsdategroup: [{value: 'PP024001', lable: this.$t('label.PFANS5008FORMVIEW_PROJECTGTXM')}],
         optionsdategroup: [],
-        //region add_qhr_20210909 添加项目退场check
-        dataList1: [],
-        dataList2: [],
-        //endregion add_qhr_20210909 添加项目退场check
         buttonList: [],
         disable: false,
         PFANS5008: this.$route.params.PFANS5008,
@@ -654,8 +650,6 @@
           this.$store
             .dispatch('PFANS5009Store/getSiteList5', {})
             .then(response => {
-              //add_qhr_20210909 添加项目退场check
-              this.dataList1 = response;
               for (let i = 0; i < response.length; i++) {
                 this.optionsdata.push({
                   value: response[i].companyprojects_id,
@@ -672,8 +666,6 @@
               this.$store
                 .dispatch('PFANS5013Store/getMyConProject2', {})
                 .then(response => {
-                  //add_qhr_20210909 添加项目退场check
-                  this.dataList2 = response;
                   for (let i = 0; i < response.length; i++) {
                     this.optionsdata.push({
                       value: response[i].comproject_id,
@@ -716,12 +708,12 @@
         this.$store
           .dispatch('PFANS5013Store/Listproject2', {})
           .then(response => {
-            //add_qhr_20210909 添加项目退场check
-            this.dataList1 = response;
             for (let i = 0; i < response.length; i++) {
               this.optionsdata.push({
                 value: response[i].companyprojects_id,
                 lable: response[i].numbers + '_' + response[i].project_name,
+                // add_qhr_20210910 添加项目退场check
+                exittime: response[i].exittime,
               });
               this.optionsdategroup.push({
                 value: response[i].companyprojects_id,
@@ -731,12 +723,12 @@
             this.$store
               .dispatch('PFANS5013Store/Listproject', {})
               .then(response => {
-                // add_qhr_20210909 添加项目退场check
-                this.dataList2 = response;
                 for (let i = 0; i < response.length; i++) {
                   this.optionsdata.push({
                     value: response[i].comproject_id,
                     lable: response[i].numbers + '_' + response[i].project_name,
+                    // add_qhr_20210910 添加项目退场check
+                    exittime: response[i].exittime,
                   });
                   this.optionsdategroup.push({
                     value: response[i].comproject_id,
