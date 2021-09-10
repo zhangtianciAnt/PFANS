@@ -173,7 +173,7 @@
                   width="200"
                   align="center"
                 ></el-table-column>
-                <el-table-column
+                  <el-table-column
                   prop="shortillness"
                   :label="$t('label.PFANS2005FORMVIEW_SHORTDURATIONTIME')"
                   width="150"

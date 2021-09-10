@@ -590,7 +590,9 @@
             });
             return;
           }
-          this.exportdata(this.tableData);
+          let winopen =  'http://localhost:8085/jmreport/view/2534e5db09854a17bdbe4e113e558a06?';
+          winopen = winopen + 'year=' + this.form.year + '&group_id=' + this.form.group_id
+          window.open(winopen,'_blank');
         }
       },
       exportdata(vardata) {
