@@ -137,7 +137,8 @@ module.exports = {
     overEvaluate: '关闭评价',
     commit: '提交',
     applicate: '应用',
-    report: '下载报表'
+    report: '下载报表',
+    calculation: '重新计算'
   },
   table: {
     detail: '一览',

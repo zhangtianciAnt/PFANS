@@ -1117,7 +1117,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListJS.page"
                   :page-size="listQueryListJS.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalBase"
                   @current-change="handleCurrentChangeJS"
                   @size-change="handleSizeChangeJS"
@@ -1228,7 +1228,7 @@
                       <el-pagination
                         :current-page.sync="listQueryListQT1Woman.page"
                         :page-size="listQueryListQT1Woman.limit"
-                        :page-sizes="[20,30,50,100,300,500]"
+                        :page-sizes="[20,30,50,100,300,500,99999]"
                         :total="totalOtherOne"
                         @current-change="handleCurrentChangeQT1Woman"
                         @size-change="handleSizeChangeQT1Woman"
@@ -1329,7 +1329,7 @@
                       <el-pagination
                         :current-page.sync="listQueryListQT1Woman.page"
                         :page-size="listQueryListQT1Woman.limit"
-                        :page-sizes="[20,30,50,100,300,500]"
+                        :page-sizes="[20,30,50,100,300,500,99999]"
                         :total="totalOtherOne"
                         @current-change="handleCurrentChangeQT1Woman"
                         @size-change="handleSizeChangeQT1Woman"
@@ -1413,7 +1413,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListQT2.page"
                       :page-size="listQueryListQT2.limit"
-                      :page-sizes="[20,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalQT2"
                       @current-change="handleCurrentChangeQT2"
                       @size-change="handleSizeChangeQT2"
@@ -1475,7 +1475,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[20,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -1554,7 +1554,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListQT4.page"
                       :page-size="listQueryListQT4.limit"
-                      :page-sizes="[20,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalQT4"
                       @current-change="handleCurrentChangeQT4"
                       @size-change="handleSizeChangeQT4"
@@ -1616,7 +1616,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[20,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -1718,7 +1718,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListQT5.page"
                       :page-size="listQueryListQT5.limit"
-                      :page-sizes="[20,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalQT5"
                       @current-change="handleCurrentChangeQT5"
                       @size-change="handleSizeChangeQT5"
@@ -1780,7 +1780,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[20,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -1895,7 +1895,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListRZ.page"
                   :page-size="listQueryListRZ.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalRZ"
                   @current-change="handleCurrentChangeRZ"
                   @size-change="handleSizeChangeRZ"
@@ -1992,7 +1992,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListTZ.page"
                   :page-size="listQueryListTZ.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalTZ"
                   @current-change="handleCurrentChangeTZ"
                   @size-change="handleSizeChangeTZ"
@@ -2300,7 +2300,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListQQ.page"
                   :page-size="listQueryListQQ.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalQQ"
                   @current-change="handleCurrentChangeQQ"
                   @size-change="handleSizeChangeQQ"
@@ -2513,7 +2513,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListCY.page"
                   :page-size="listQueryListCY.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalCY"
                   @current-change="handleCurrentChangeCY"
                   @size-change="handleSizeChangeCY"
@@ -2601,7 +2601,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListYDSY.page"
                       :page-size="listQueryListYDSY.limit"
-                      :page-sizes="[20,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalYDSY"
                       @current-change="handleCurrentChangeYDSY"
                       @size-change="handleSizeChangeYDSY"
@@ -2663,7 +2663,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[20,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -2911,7 +2911,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListZHSR.page"
                   :page-size="listQueryListZHSR.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalZHSR"
                   @current-change="handleCurrentChangeZHSR"
                   @size-change="handleSizeChangeZHSR"
@@ -2983,7 +2983,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListZXKC.page"
                   :page-size="listQueryListZXKC.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalZXKC"
                   @current-change="handleCurrentChangeZXKC"
                   @size-change="handleSizeChangeZXKC"
@@ -3072,7 +3072,7 @@
                     <el-pagination
                       :current-page.sync="listQueryListFJKC.page"
                       :page-size="listQueryListFJKC.limit"
-                      :page-sizes="[20,30,50,100,300,500]"
+                      :page-sizes="[20,30,50,100,300,500,99999]"
                       :total="totalFJKC"
                       @current-change="handleCurrentChangeFJKC"
                       @size-change="handleSizeChangeFJKC"
@@ -3134,7 +3134,7 @@
                         <el-pagination
                           :current-page.sync="listQuery.page"
                           :page-size="listQuery.limit"
-                          :page-sizes="[20,30,50,100,300,500]"
+                          :page-sizes="[20,30,50,100,300,500,99999]"
                           :total="total"
                           @current-change="handleCurrentChangeimprot"
                           @size-change="handleSizeChangeimprot"
@@ -3210,7 +3210,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListMS.page"
                   :page-size="listQueryListMS.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalDutyfreeVo"
                   @current-change="handleCurrentChangeMS"
                   @size-change="handleSizeChangeMS"
@@ -3300,7 +3300,7 @@
                 <el-pagination
                   :current-page.sync="listQueryListLJSJ.page"
                   :page-size="listQueryListLJSJ.limit"
-                  :page-sizes="[20,30,50,100,300,500]"
+                  :page-sizes="[20,30,50,100,300,500,99999]"
                   :total="totalAccumulatedTax"
                   @current-change="handleCurrentChangeLJSJ"
                   @size-change="handleSizeChangeLJSJ"
@@ -3381,7 +3381,7 @@
                   <el-pagination
                     :current-page.sync="listQueryListGRDB.page"
                     :page-size="listQueryListGRDB.limit"
-                    :page-sizes="[20,30,50,100,300,500]"
+                    :page-sizes="[20,30,50,100,300,500,99999]"
                     :total="totalContrast"
                     @current-change="handleCurrentChangeGRDB"
                     @size-change="handleSizeChangeGRDB"
@@ -3419,6 +3419,7 @@
         },
         data() {
             return {
+                thisWages: false,// 是否工资表数据判断
                 canStart: false,
                 status:'0',
                 workflowCode:'W0089',
@@ -3670,6 +3671,12 @@
                         icon: "el-icon-check"
                     },
                     {
+                      key: "calculation",
+                      name: "button.calculation",
+                      disabled: true,
+                      icon: "el-icon-c-scale-to-original"
+                    },
+                    {
                         key: "import",
                         name: "button.import",
                         disabled: true,
@@ -3707,7 +3714,7 @@
               this.lastmonth = moment(new Date(this.$route.params.generationdate)).add(-1,'months').format('YYYY年M') + this.$t('label.PFANS2005FORMVIEW_JUNE');
             }
             this.Giving = this.$route.params._id;
-            this.getListdata();
+            this.getListdata("0");
             // todo By Skaixx : 添加滚动条滑动监听事件
             // let element = this.$refs['BasfTable'];
             // element.$el.addEventListener("scroll", this.handleScroll, true);
@@ -3716,6 +3723,7 @@
             if(this.$route.params.status === '2' || this.$route.params.status === '4'){
                 this.buttonList[0].disabled = true;
                 this.buttonList[1].disabled = true;
+                this.buttonList[2].disabled = true;
             }
         },
         methods: {
@@ -4207,10 +4215,10 @@
                 }
             },
             // 根据giving获取数据
-            getListdata() {
+            getListdata(wagesFlg) {
                 this.loading = true;
                 this.$store
-                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving})
+                    .dispatch("PFANS2005Store/givinglist", {giving_id: this.Giving,wagesFlg: wagesFlg})
                     .then(response => {
                       //region add_qhr_20210702 修改工资计算基数中月份显示
                         if (this.$i18n) {
@@ -4234,6 +4242,18 @@
                         let datalistljsj = [];
                         let datalistms = [];
                         let datalistzhsr = [];
+                        //判断是否取自工资表数据
+                        if(response.wagesList.length > 0){
+                          if(response.wagesList[0].wages_id !== null){
+                            this.thisWages = true;
+                            if(this.$route.params.status === '2' || this.$route.params.status === '4'){
+                              this.buttonList[1].disabled = true;
+                            }
+                            else{
+                              this.buttonList[1].disabled = false;
+                            }
+                          }
+                        }
                         // 工资tab页数据处理
                         response.wagesList.forEach(function (item, index) {
                             let user = getUserInfo(item.user_id);
@@ -5469,7 +5489,7 @@
                 }
                 this.loading = false;
             },
-            tabInfoSave(tabFlg) {
+            tabInfoSave(tabFlg,wagesFlg) {
                 if(this.$route.params.status === '2' || this.$route.params.status === '4'){
                     return;
                 }
@@ -5514,8 +5534,8 @@
                         .dispatch("PFANS2005Store/save", this.baseInfo)
                         .then(response => {
                             this.data = response;
-                            this.getListdata();
-                            if(tabFlg !== "0"){
+                            this.getListdata(wagesFlg);
+                            if(tabFlg !== "0" && wagesFlg === '0'){
                               this.loading = false;
                             }
                         })
@@ -5527,6 +5547,11 @@
                             });
                             this.loading = false;
                         });
+                }
+                else{
+                  if(wagesFlg === '2'){
+                    this.getListdata(wagesFlg);
+                  }
                 }
             },
             rowheight({row, column, rowIndex, columnIndex}) {
@@ -5553,7 +5578,7 @@
                     return;
                 }
                 //调用保存-lxx
-                this.tabInfoSave(tab.index);
+                this.tabInfoSave(tab.index,'0');
                 //调用保存-lxx
                 this.tab = tab.index;
                 if (
@@ -5563,7 +5588,7 @@
                     tab.index === "10" ||
                     tab.index === "13"
                 ) {
-                    this.buttonList[1].disabled = false;
+                    this.buttonList[2].disabled = false;
                 } else if (
                     tab.index === "0" ||
                     tab.index === "1" ||
@@ -5578,7 +5603,7 @@
                     tab.index === "15" ||
                     tab.index === "16"
                 ) {
-                    this.buttonList[1].disabled = true;
+                    this.buttonList[2].disabled = true;
                 }
                 // zqu start 只有工资tab 保存按钮可以使用
                 if (tab.index === "0") {
@@ -5693,7 +5718,7 @@
                           }
                         }
                         this.message = datalist;
-                        this.getListdata();
+                        this.getListdata("0");
                         this.totaldataimprot = this.message;
                         this.getListimprot();
                         if (this.errorCount === "0") {
@@ -5730,7 +5755,7 @@
                             }
                         }
                     }
-                    this.tabInfoSave('');
+                    this.tabInfoSave('','0');
                 }
                 this.loading = false;
             },
@@ -5799,41 +5824,61 @@
                         this.daorufjkc = true;
                     }
                 } else if (val === "save") {
-                    this.responseDataInit[0].status = this.status;
-                    this.responseDataInit[0].actual = "0";//预计工资
+                  this.responseDataInit[0].status = this.status;
+                  this.responseDataInit[0].actual = "0";//预计工资
                   //region add_qhr_20210628 工资计算保存时判断计算的值
-                    for (let i = 0; i < this.responseDataInit.length; i++) {
-                      if (this.responseDataInit[i].comtotalwages === null || this.responseDataInit[i].comtotalwages === "") {
-                        this.responseDataInit[i].comtotalwages = "0";
-                      }
-                      if (this.responseDataInit[i].totalbonus === null || this.responseDataInit[i].totalbonus === "") {
-                        this.responseDataInit[i].totalbonus = "0";
-                      }
-                    };
+                  for (let i = 0; i < this.responseDataInit.length; i++) {
+                    if (this.responseDataInit[i].comtotalwages === null || this.responseDataInit[i].comtotalwages === "") {
+                      this.responseDataInit[i].comtotalwages = "0";
+                    }
+                    if (this.responseDataInit[i].totalbonus === null || this.responseDataInit[i].totalbonus === "") {
+                      this.responseDataInit[i].totalbonus = "0";
+                    }
+                  };
                   //endregion add_qhr_20210628 工资计算保存时判断计算的值
-                    this.loading = true;
-                    // 插入工资数据
-                    this.$store
-                        .dispatch("PFANS2005Store/insertWages", this.responseDataInit)
-                        .then(response => {
-                            // 重新获取工资数据
-                            this.getListdata();
-                            if(this.status === "0"){
-                                Message({
-                                    message: this.$t("normal.success_01"),
-                                    type: "success",
-                                    duration: 5 * 1000
-                                });
-                            }
-                            this.loading = false;
-                        })
-                        .catch(err => {
-                            this.loading = false;
-                            this.$message({
-                                message: this.$t("normal.error_04"),
-                                type: "error"
-                            });
+                  this.loading = true;
+                  // 插入工资数据
+                  this.$store
+                    .dispatch("PFANS2005Store/insertWages", this.responseDataInit)
+                    .then(response => {
+                      // 重新获取工资数据
+                      this.getListdata("0");
+                      if(this.status === "0"){
+                        // 重新计算按钮可用
+                        this.buttonList[1].disabled = false;
+                        Message({
+                          message: this.$t("normal.success_01"),
+                          type: "success",
+                          duration: 5 * 1000
                         });
+                      }
+                      this.loading = false;
+                    })
+                    .catch(err => {
+                      this.loading = false;
+                      this.$message({
+                        message: this.$t("normal.error_04"),
+                        type: "error"
+                      });
+                    });
+                } else if (val === "calculation") { // 重新计算
+                  if(this.thisWages){
+                    this.$confirm('当月工资表已生成，确认要重新计算吗？', '提示', {
+                      confirmButtonText: '确定',
+                      cancelButtonText: '取消',
+                      type: 'warning',
+                      center: true
+                    }).then(() => {
+                      this.tabInfoSave(this.tab,'2');
+                      this.activeName = "first";
+                      this.buttonList[0].disabled = false;
+                    }).catch(() => {
+                      this.$message({
+                        type: 'info',
+                        message: '已取消'
+                      });
+                    });
+                  }
                 }
                 // zqu end
             },
