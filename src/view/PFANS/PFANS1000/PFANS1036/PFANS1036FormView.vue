@@ -2361,10 +2361,86 @@
         tableC: [],//3
         tableD: [],//4
         tableK: [{}, {}, {}, {}, {}, {}],
-        tableO1: [],
-        tableO2: [],
-        tableO3: [],
-        tableO: [],
+        //region add_qhr_20210910 添加新建初始值
+        tableO1: [{
+          programme: '',
+          sprogramme: '',
+          type: '',
+          money4: '',
+          money5: '',
+          money6: '',
+          money7: '',
+          money8: '',
+          money9: '',
+          money10: '',
+          money11: '',
+          money12: '',
+          money1: '',
+          money2: '',
+          money3: '',
+          moneytotal: '',
+        }],
+        tableO2: [{
+          programme: '',
+          sprogramme: '',
+          price: '',
+          type: '',
+          number4: '',
+          number5: '',
+          number6: '',
+          number7: '',
+          number8: '',
+          number9: '',
+          number10: '',
+          number11: '',
+          number12: '',
+          number1: '',
+          number2: '',
+          number3: '',
+          numbertotal: '',
+          moneytotal: '',
+        }],
+        tableO3: [{
+          programme: '',
+          sprogramme: '',
+          price: '',
+          type: '',
+          number4: '',
+          number5: '',
+          number6: '',
+          number7: '',
+          number8: '',
+          number9: '',
+          number10: '',
+          number11: '',
+          number12: '',
+          number1: '',
+          number2: '',
+          number3: '',
+          numbertotal: '',
+          moneytotal: '',
+        }],
+        tableO: [{
+          programme: '',
+          sprogramme: '',
+          price: '',
+          type: '',
+          number4: '',
+          number5: '',
+          number6: '',
+          number7: '',
+          number8: '',
+          number9: '',
+          number10: '',
+          number11: '',
+          number12: '',
+          number1: '',
+          number2: '',
+          number3: '',
+          numbertotal: '',
+          moneytotal: '',
+        }],
+        //endregion add_qhr_20210910 添加新建初始值
         tablePall: [],
         tableP: [{name1: 'PJ086001'}, {name1: 'PJ086002'}, {name1: 'PJ086003'},
           {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE2')}, {name1: this.$t('label.PFANS1036FORMVIEW_TAB1VALUE3')}
@@ -2513,6 +2589,8 @@
               },
             );
             // this.getPersonTable(this.$route.params.center_id, this.$route.params.year);
+            // add_qhr_20210910 添加画面初始计算
+            this.computedSum();
             this.loading = false;
           })
           .catch(error => {
@@ -2626,7 +2704,8 @@
         if (this.form.center_id) {
           this.getPersonTable(this.form.center_id, this.form.year);
         }
-
+        // add_qhr_20210910 添加画面初始计算
+        this.computedSum();
         this.loading = false;
       }
 
@@ -2729,6 +2808,11 @@
 
       },
       groupChange(val) {
+        //region add_qhr_20210910 添加画面初始计算
+        this.tableA = [];
+        this.tableC = [];
+        this.tableD = [];
+        //endregion add_qhr_20210910 添加画面初始计算
         this.buttonList[0].disabled = true;
         this.form.center_id = val;
         let group = getOrgInfo(this.form.center_id);
@@ -4573,13 +4657,15 @@
       },
     },
     watch: {
-      wactValue: {
-        handler(newValue, oldValue) {
-          this.computedSum();
-        },
-        deep: true,
-        immediate: true
-      },
+      //region add_qhr_20210910 取消画面实时计算
+      // wactValue: {
+      //   handler(newValue, oldValue) {
+      //     this.computedSum();
+      //   },
+      //   deep: true,
+      //   immediate: true
+      // },
+      //endregion add_qhr_20210910 取消画面实时计算
       // tableO1: {
       //   handler(newValue, oldValue) {
       //     this.tableO1 = newValue;
