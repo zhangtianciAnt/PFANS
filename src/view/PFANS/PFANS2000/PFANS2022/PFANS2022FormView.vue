@@ -629,6 +629,7 @@
         }
       },
       getfirstclass(val) {
+        this.$refs.refform.clearValidate('enclosurecontent');
         this.form.firstclass = val;
         if (val === "PR024001") {
           this.code1 = 'PR025';
@@ -1040,7 +1041,7 @@
       },
       //region scc add 9/2 祝礼金附件必填项 from
       clearValidate(prop) {
-        this.$refs['ruleForm'].fields.forEach((e) => {
+        this.$refs['refform'].fields.forEach((e) => {
           if (prop.includes(e.prop)) {
             e.clearValidate();
           }
