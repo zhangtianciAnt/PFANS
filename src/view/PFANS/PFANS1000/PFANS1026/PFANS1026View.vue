@@ -174,6 +174,13 @@
           },
           // 禅道70 start
           {
+            code: 'projectnumber',
+            label: 'label.PFANS5004VIEW_PROJECTNUMBER',
+            width: 280,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'conchinese',
             label: 'label.PFANS6007VIEW_PJNAME',
             width: 280,
@@ -292,7 +299,6 @@
           })
       },
       rowClick(row) {
-        this.rowid = row.contractapplication_id;
         this.contractnumber = row.contractnumber;
         this.state = row.state;
         this.rows = row;
@@ -323,7 +329,7 @@
               _id: this.contractnumber,
               contractnumbercount: this.contractnumbercount,
               state: this.state,
-              disabled: true
+              disabled: true,
             }
           })
         }

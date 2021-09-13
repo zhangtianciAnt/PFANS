@@ -36,6 +36,16 @@
               <el-table-column :label="$t('label.PFANS2017VIEW_ERROR')" align="center" prop="error">
               </el-table-column>
             </el-table>
+<!--         region add_qhr_20210831   dialoge中导完数据显示分页-->
+            <div class="pagination-container" style="padding-top: 2rem">
+              <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
+                             :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
+                             @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
+                <slot><span class="front Content_front"
+                            style="padding-right: 0.5rem;font-weight: 400">{{$t('table.pagesize')}}</span></slot>
+              </el-pagination>
+            </div>
+<!--            endregion add_qhr_20210831   dialoge中导完数据显示分页-->
           </div>
         </div>
       </el-dialog>
@@ -164,9 +174,11 @@
           </el-table>
           </el-row>
           <div class="pagination-container" style="padding-top: 2rem">
-            <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
-                           :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
-                           @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
+<!--            region update_qhr_20210831  修改tableD的分页的参数-->
+            <el-pagination :current-page.sync="listQueryD.page" :page-size="listQueryD.limit"
+                           :page-sizes="[5,10,20,30,50]" :total="totalD" @current-change="handleCurrentChangeD"
+                           @size-change="handleSizeChangeD" layout="slot,sizes, ->,prev, pager, next, jumper">
+<!--              endregion update_qhr_20210831  修改tableD的分页的参数-->
               <slot><span class="front Content_front"
                           style="padding-right: 0.5rem;font-weight: 400"></span></slot>
             </el-pagination>
@@ -203,7 +215,13 @@
                   page: 1,
                   limit: 5
                 },
+              //add_qhr_20210831 tableD中分页的属性
+                listQueryD: {
+                  page: 1,
+                  limit: 5
+                },
                 total: 0,
+                totalD: 0,
                 baseInfo: {},
                 pop_download: false,
                 years: moment(new Date()).format("YYYY"),
@@ -236,6 +254,7 @@
                 data: [],
                 tableD:[
                 ],
+                tableDCopy: [],
                 buttonList: [
                   {
                     key: 'import',
@@ -286,6 +305,15 @@
         }
       },
         methods: {
+          // region add_qhr_20210831  添加tableD的分页方法
+          cutList() {
+            let start = (this.listQueryD.page - 1) * this.listQueryD.limit;
+            let end = this.listQueryD.page * this.listQueryD.limit;
+            let pList = this.tableDCopy.slice(start, end);
+            this.tableD = pList;
+            this.totalD = this.tableDCopy.length;
+          },
+          // endregion add_qhr_20210831  添加tableD的分页方法
           handleDownload(row) {
             this.loading = true;
             this.$store
@@ -332,6 +360,10 @@
                     }
                   }
                 }
+                //region add_qhr_20210831  添加tableD的分页方法
+                this.tableDCopy = response;
+                this.cutList();
+                // endregion add_qhr_20210831  添加tableD的分页方法
                 this.loading = false;
               })
               .catch(error => {
@@ -346,14 +378,24 @@
           handleChange(file, fileList) {
             this.clear(true);
           },
+          //region add_qhr_20210831  添加tableD的分页方法
           handleSizeChange(val) {
             this.listQuery.limit = val;
-            this.getList1()
+            this.getList1();
+          },
+          handleSizeChangeD(val) {
+            this.listQueryD.limit = val;
+            this.cutList();
           },
           handleCurrentChange(val) {
             this.listQuery.page = val;
-            this.getList1()
+            this.getList1();
           },
+          handleCurrentChangeD(val) {
+            this.listQueryD.page = val;
+            this.cutList();
+          },
+          // endregion add_qhr_20210831  添加tableD的分页方法
           getList1() {
             this.loading = true;
             let start = (this.listQuery.page - 1) * this.listQuery.limit;
@@ -403,8 +445,9 @@
                   this.result = true;
                 }
                 this.getList1();
-                this.getList(this.years); //add_qhr_20210830 赋值导入后调用方法的参数
               }
+              //update_qhr_20210831 修改方法调用位置
+              this.getList(this.years); //add_qhr_20210830 添加方法调用参数
             }
           },
           clear(safe) {

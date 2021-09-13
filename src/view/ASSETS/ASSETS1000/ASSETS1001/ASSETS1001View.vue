@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :showSelection="showSelection" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="showSelection"  :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
       <el-select @change="changed" slot="customize" v-model="department">
@@ -560,6 +560,9 @@
                 }
               }
               if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
+                response[j].assetstatuscode = response[j].assetstatus;
+              }
+              if (response[j].assetstatus !== null && response[j].assetstatus !== '') {
                 let letErrortype1 = getDictionaryInfo(response[j].assetstatus);
                 if (letErrortype1 != null) {
                   response[j].assetstatus = letErrortype1.value1;
@@ -592,6 +595,11 @@
           });
       },
       rowClick(row) {
+        // add 210906 gbb PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点 start
+        if(row.assetstatuscode === 'PA003002'){
+          this.buttonList[7].disabled = true;
+        }
+        // add 210906 gbb PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点 end
         //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
         //add-ws-9/30-禅道任务564
         // this.buttonList[7].disabled = true;
