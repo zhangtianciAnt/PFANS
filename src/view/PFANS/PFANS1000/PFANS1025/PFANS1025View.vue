@@ -405,6 +405,9 @@
                               //add-ws-7/20-禅道任务342
                               sealid: response[j].sealid,
                               sealstatus: response[j].sealstatus,
+                              //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+                              policycontract_id: response[j].policycontract_id,
+                              //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
                               // statuspublic: response[j].statuspublic,
                               //add-ws-7/20-禅道任务342
                               remarks: response[j].remarks,
@@ -436,6 +439,9 @@
                             //add-ws-7/20-禅道任务342
                             sealid: response[m].sealid,
                             sealstatus: response[m].sealstatus,
+                            //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+                            policycontract_id: response[m].policycontract_id,
+                            //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
                             // statuspublic: response[m].statuspublic,
                             //add-ws-7/20-禅道任务342
                             remarks: response[m].remarks,
@@ -741,16 +747,16 @@
                 return;
               }
             }
-            for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
-                Message({
-                  message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
-                  type: 'info',
-                  duration: 2 * 1000,
-                });
-                return;
-              }
-            }
+            // for (let i = 0; i < this.selectedlist.length; i++) {
+            //   if (this.selectedlist[i].statuspublic === this.$t('label.PFANS5004VIEW_OVERTIME')) {
+            //     Message({
+            //       message: this.$t('label.PFANS1025VIEW_CHECKPUBLICERROR'),
+            //       type: 'info',
+            //       duration: 2 * 1000,
+            //     });
+            //     return;
+            //   }
+            // }
             let chek = this.selectedlist;
             for (let citem of this.selectedlist) {
               chek = chek.filter(item => citem.custochinese == item.custochinese);
@@ -764,25 +770,62 @@
               return;
             }
           }
+          //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+          let enetr = 0;
+          let awardid = [];
+          let awardInfo = [];
           for (let i = 0; i < this.selectedlist.length; i++) {
             var vote = {};
             vote.value = this.selectedlist[i].award_id;
+            awardid.push(this.selectedlist[i].award_id);
             vote.label = this.selectedlist[i].contractnumber;
             vote.remarks = this.selectedlist[i].remarks;
             vote.judgements_moneys = this.selectedlist[i].claimamount;
             if (this.$i18n) {
               vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
             }
+            if(this.selectedlist[i].policycontract_id != '' && this.selectedlist[i].policycontract_id != null && this.selectedlist[i].policycontract_id != undefined){
+              enetr ++;
+            }
             this.listjudgement.push(vote);
           }
-          this.$router.push({
-            name: 'PFANS1012FormView',
-            params: {
-              _name: this.listjudgement,
-              _type: 'PJ001002',
-              disabled: true,
-            },
-          });
+          if(enetr !== this.selectedlist.length){
+            Message({
+              message: this.$t('label.PFANS1025VIEW_PUBLIC5'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }else{
+            if(enetr > 0){//委托费精算
+              this.loading = true;
+              this.$store
+                .dispatch('PFANS1025Store/getAwardEntr', awardid)
+                .then(response => {
+                  awardInfo.push(response);
+                  this.$router.push({
+                    name: 'PFANS1012FormView',
+                    params: {
+                      _name: this.listjudgement,
+                      _aInfo: awardInfo,
+                      _type: 'PJ001002',
+                      disabled: true,
+                    },
+                  });
+                  this.loading = false;
+                });
+            }else{
+              this.$router.push({
+                name: 'PFANS1012FormView',
+                params: {
+                  _name: this.listjudgement,
+                  _type: 'PJ001002',
+                  disabled: true,
+                },
+              });
+            }
+          }
+          //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
         }
         if (val === 'viewseal') {
           if (this.rowid === '') {
