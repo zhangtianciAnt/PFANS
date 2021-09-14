@@ -752,7 +752,7 @@
                 label: 'label.PFANS6009VIEW_FEIYONG',
                 child: [
                   {
-                    code: 'totalmanhoursf',
+                    code: 'totalmanhourf',
                     label: 'label.PFANS6009VIEW_MANHOUR',
                     width: 100,
                     fix: false,
@@ -1346,7 +1346,7 @@
       },
       // rowspan
       arraySpanMethod({row, column, rowIndex, columnIndex}) {
-        if (rowIndex > this.tableA.length - 5) {
+        if (rowIndex > this.tableA.length - 1) {
           if ((columnIndex + 1) % 2 == 0) {
             return {
               rowspan: 1,
@@ -1359,7 +1359,7 @@
             };
           }
         } else {
-          if (rowIndex > this.tableA.length - 6) {
+          if (rowIndex > this.tableA.length - 2) {
             if (columnIndex == 0) {
               return {
                 rowspan: 0,
@@ -1461,8 +1461,8 @@
           .dispatch('PFANS6009Store/getCostList', params)
           .then(response => {
             var tableData = response.company;
-            var tripData = response.trip;
-            var assetData = response.asset;
+            // var tripData = response.trip;
+            // var assetData = response.asset;
 
             for (let j = 0; j < tableData.length; j++) {
               if (tableData[j].bpcompany !== null && tableData[j].bpcompany !== '') {
@@ -1476,39 +1476,51 @@
             let arrayAdate = [];
             let addLine1 = {}, addLine2 = {}, addLine5 = {};
             for (var i = 1; i <= 13; i++) {
-              var total_manhour = 0, total_cost = 0;
+              var total_manhour = 0, total_cost = 0,total_manhourf = 0, total_costf = 0;
               var key_hour = 'manhour' + i;
               var key_cost = 'cost' + i;
+              var key_hourf = 'manhour' + i + 'f';
+              var key_costf = 'cost' + i + 'f';
               if (i > 12) {
                 key_cost = 'totalcost';
                 key_hour = 'totalmanhours';
+                key_costf = 'totalcostf';
+                key_hourf = 'totalmanhourf';
               }
               for (var j = 0; j < tableData.length; j++) {
                 total_manhour += parseFloat(tableData[j][key_hour]);
                 total_cost += parseFloat(tableData[j][key_cost]);
+                total_manhourf += parseFloat(tableData[j][key_hourf]);
+                total_costf += parseFloat(tableData[j][key_costf]);
               }
               addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
-              if (total_manhour == 0) {
-                addLine2[key_cost] = '0.00';
-              } else {
-                addLine2[key_cost] = (parseFloat(total_cost) / parseFloat(total_manhour)).toFixed(2);
-              }
+              addLine1[key_hourf] = parseFloat(total_manhourf).toFixed(2);
+              addLine1[key_costf] = parseFloat(total_costf).toFixed(2);
+              // if (total_manhour == 0) {
+              //   addLine2[key_cost] = '0.00';
+              // } else {
+              //   addLine2[key_cost] = (parseFloat(total_cost) / parseFloat(total_manhour)).toFixed(2);
+              // }
 
-              tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(2);
-              assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(2);
+              // tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(2);
+              // assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(2);
 
-              addLine5[key_cost] = (parseFloat(total_cost) + parseFloat(tripData[key_cost]) + parseFloat(assetData[key_cost])).toFixed(2);
+              // addLine5[key_cost] = (parseFloat(total_cost) + parseFloat(tripData[key_cost]) + parseFloat(assetData[key_cost])).toFixed(2);
+              addLine5[key_cost] = (parseFloat(total_cost)).toFixed(2);
             }
             arrayAdate.push(addLine1);
-            arrayAdate.push(addLine2);
-            arrayAdate.push(tripData);
-            arrayAdate.push(assetData);
-            arrayAdate.push(addLine5);
-            // 赋值
-            for (var p = 0; p <= 4; p++) {
-              tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
-            }
+            // arrayAdate.push(addLine2);
+            // arrayAdate.push(tripData);
+            // arrayAdate.push(assetData);
+            // arrayAdate.push(addLine5);
+            // // 赋值
+            // for (var p = 0; p <= 0; p++) {
+            //   tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
+            // }
+            // upd gbb 210914 BP社统计【出差经费(元)】和【设备经费(元)】添加至【预提】-【外注费用】 start
+            tableData.push(Object.assign(arrayAdate[0], {bpcompany: this.arryaLabels[0]}));
+            // upd gbb 210914 BP社统计【出差经费(元)】和【设备经费(元)】添加至【预提】-【外注费用】 end
 //            var year = response.year;
 //            for (var i = 0; i < this.array.length; i++) {
 //              if(i <=8) {
