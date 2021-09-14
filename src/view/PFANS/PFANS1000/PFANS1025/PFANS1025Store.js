@@ -10,7 +10,8 @@ import {
   dataCarryover,
   getcompanyen,
   getRanks,
-  getPersonalBm
+  getPersonalBm,
+  getAwardEntr,
 } from './PFANS1025Api'
 
 
@@ -182,6 +183,21 @@ const PFANS1025Store = {
       })
     },
     //endregion scc add 21/8/23 获取成本 to
+    //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+    getAwardEntr({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getAwardEntr(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+  //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
   }
 };
 

@@ -916,7 +916,7 @@
                     }
                     for (let i = 0; i < this.newTableData.length; i++) {
                         if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined) {
-                            error1 = true;
+                            // error1 = true;
                         }
                     }
                   }
@@ -928,7 +928,7 @@
                     }
                     for (let i = 0; i < this.newTableData.length; i++) {
                         if (this.newTableData[i].nextyear === undefined || this.newTableData[i].nextyear === "" || this.newTableData[i].entermouth === "" || this.newTableData[i].entermouth === undefined || this.newTableData[i].supchinese === "") {
-                            error1 = true;
+                            // error1 = true;
                         }
                     }
                   }

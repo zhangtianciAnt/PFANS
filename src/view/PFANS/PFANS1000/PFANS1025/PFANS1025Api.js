@@ -101,3 +101,13 @@ export function getPersonalBm(data) {
   })
 }
 //endregion scc add 21/8/23 获取成本 to
+
+//PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+export function getAwardEntr(data) {
+  return request({
+    url: 'award/getAwardEntr',
+    method: 'post',
+    data: data
+  })
+}
+//PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
