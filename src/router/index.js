@@ -198,6 +198,7 @@ import PFANS5013FormView from '@/view/PFANS/PFANS5000/PFANS5013/PFANS5013FormVie
 import PFANS5014View from '@/view/PFANS/PFANS5000/PFANS5014/PFANS5014View.vue'
 import PFANS5014FormView from '@/view/PFANS/PFANS5000/PFANS5014/PFANS5014FormView.vue'
 import PFANS5015View from '@/view/PFANS/PFANS5000/PFANS5015/PFANS5015View.vue'
+import PFANS5016View from '@/view/PFANS/PFANS5000/PFANS5016/PFANS5016View.vue'
 import PFANS6001View from '@/view/PFANS/PFANS6000/PFANS6001/PFANS6001View.vue'
 import PFANS6001FormView from '@/view/PFANS/PFANS6000/PFANS6001/PFANS6001FormView.vue'
 import PFANS6002View from '@/view/PFANS/PFANS6000/PFANS6002/PFANS6002View.vue'
@@ -1246,6 +1247,11 @@ const routes = [
         path: '/PFANS5014FormView',
         name: 'PFANS5014FormView',
         component: PFANS5014FormView
+      },
+      {
+        path: '/PFANS5016View',
+        name: 'PFANS5016View',
+        component: PFANS5016View
       },
       {
         path: '/PFANS6001View',
