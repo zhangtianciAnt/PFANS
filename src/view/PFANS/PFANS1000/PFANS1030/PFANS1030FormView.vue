@@ -811,7 +811,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="120" prop="BMtotal" v-if="false">
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="120" prop="BMtotal" v-if="true">
                     <template slot-scope="scope">
                       <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.BMtotal">
                       </el-input>
@@ -1816,15 +1816,35 @@
           this.$refs.upload.clearFiles();
         }
       },
+       //部门获取人员rank成本 ztc fr
+      checkUndefined(val){
+        if(val != undefined){
+          return val
+        }else{
+          return 0;
+        }
+      },
+      //部门获取人员rank成本 ztc to
       //add-ws-添加上传附件功能-
       //region scc upd 8/23 总计 from
       changesubtotal(row) {
         row.totalall = row.inwork04 + row.inwork05 + row.inwork06 + row.inwork07 + row.inwork08 + row.inwork09 + row.inwork10
                         + row.inwork11 + row.inwork12 + row.inwork01 + row.inwork02 + row.inwork03;
-
-        row.BMtotal = row.BM.split("~")[0] * (row.inwork04 + row.inwork05 + row.inwork06) + row.BM.split("~")[1] *
-          (row.inwork07 + row.inwork08 + row.inwork09 + row.inwork10
-            + row.inwork11 + row.inwork12 + row.inwork01 + row.inwork02 + row.inwork03);
+        //部门获取人员rank成本 ztc fr
+        row.BMtotal =
+          this.checkUndefined(row.BM[0].month1) * row.inwork01 +
+          this.checkUndefined(row.BM[0].month2)* row.inwork02 +
+          this.checkUndefined(row.BM[0].month3)* row.inwork03 +
+          this.checkUndefined(row.BM[0].month4)* row.inwork04 +
+          this.checkUndefined(row.BM[0].month5)* row.inwork05 +
+          this.checkUndefined(row.BM[0].month6)* row.inwork06 +
+          this.checkUndefined(row.BM[0].month7)* row.inwork07 +
+          this.checkUndefined(row.BM[0].month8)* row.inwork08 +
+          this.checkUndefined(row.BM[0].month9)* row.inwork09 +
+          this.checkUndefined(row.BM[0].month10) * row.inwork10 +
+          this.checkUndefined(row.BM[0].month11) * row.inwork11 +
+          this.checkUndefined(row.BM[0].month12) * row.inwork12
+        //部门获取人员rank成本 ztc to
       },
       //endregion scc upd 8/23 总计 to
       changebudgetcode(row) {
@@ -2212,7 +2232,6 @@
             duration: 5 * 1000,
           });
         }
-
       },
       //endregion scc add 部门RANK下拉框事件 to
       //region scc add tableD部门，rank非空验证 from
