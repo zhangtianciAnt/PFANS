@@ -432,15 +432,8 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1030FORMVIEW_EXCHANGERATE')">
-                      <el-input-number
-                        :disabled="true"
-                        :max="1000000000"
-                        :min="0"
-                        :precision="6"
-                        controls-position="right"
-                        style="width:20vw"
-                        v-model="form.exchangerate"
-                      ></el-input-number>
+
+                      <el-input :disabled="true" style="width:20vw" v-model="form.exchangerate"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
