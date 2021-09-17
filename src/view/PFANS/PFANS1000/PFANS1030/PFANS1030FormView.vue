@@ -486,7 +486,7 @@
                         :disabled="true"
                         :max="1000000000"
                         :min="0"
-                        :precision="4"
+                        :precision="6"
                         controls-position="right"
                         style="width:20vw"
                         v-model="form.exchangerate"
