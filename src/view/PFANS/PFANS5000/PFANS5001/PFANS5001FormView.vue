@@ -2486,77 +2486,6 @@
           } = org);
         }
       },
-      //upd ccm 20210817 PJ起案体制选择氏名时显示问题修改 fr
-    // getCitationUserid(userlist, row) {
-      //   // add_fjl_05/29  --添加人员多选
-      //   let us = userlist.split(',');
-      //   if (us.length > 1) {
-      //     let na = '';
-      //     for (let nameid of this.tableB) {
-      //       if (us[0] === nameid.name) {
-      //         nameid.name = '';
-      //       } else {
-      //         na = na + nameid.name;
-      //       }
-      //     }
-      //     for (let i = 0; i < us.length; i++) {
-      //       //去除单次选择时，重复的数据
-      //       if (na.indexOf(us[i]) == -1) {
-      //         //update gbb 20210319 人员职务数据获取 start
-      //         let position = '';
-      //         //add_qhr_20210810 添加rank、报告者字段
-      //         let rank = '';
-      //         if (row.name != null && row.name !== '') {
-      //             let lst = getUserInfo(us[i]);
-      //             if (lst.userinfo.post) {
-      //                 position = getDictionaryInfo(lst.userinfo.post).value1;
-      //             }
-      //           //add_qhr_20210810 添加rank、报告者字段
-      //             if (lst.userinfo.rank) {
-      //                 rank = getDictionaryInfo(lst.userinfo.rank).value1;
-      //             }
-      //         }
-      //         //update gbb 20210319 人员职务数据获取 end
-      //         //add_qhr_20210810 添加rank、报告者字段
-      //         this.tableB.push({
-      //           name: us[i],
-      //           rank: rank,
-      //           reporter: '',
-      //           position: position,
-      //           admissiontime: '',
-      //           exittime: '',
-      //           number: '',
-      //           type: '0',
-      //           company: '',
-      //         });
-      //       }
-      //     }
-      //     //保留人名不为空的数据
-      //     this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
-      //   } else {
-      //     row.name = userlist;
-      //   }
-      //
-      //   // add_fjl_05/29  --添加人员多选
-      //   // row.name = userlist;
-      //   if (row.name != null && row.name !== '') {
-      //     let lst = getUserInfo(row.name);
-      //     // row.position = lst.userinfo.post;
-      //     //update gbb 20210319 人员职务数据获取 start
-      //     if (lst.userinfo.post) {
-      //         row.position = getDictionaryInfo(lst.userinfo.post).value1;
-      //     }
-      //     //add_qhr_20210810 添加rank、报告者字段
-      //     if (lst.userinfo.rank) {
-      //         row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
-      //     }
-      //     //update gbb 20210319 人员职务数据获取 end
-      //     row.number = lst.userinfo.jobnumber;
-      //     let lst1 = getOrgInfoByUserId(row.name);
-      //     row.company = lst1.groupNmae;
-      //   }
-      // },
-      //
       getCitationUserid(userlist, row) {
         //人员userid值集合
         let us = userlist.split(',');
@@ -2701,11 +2630,11 @@
       handleClickChange(val) {
         this.currentRow = val.number;
         //add-ws-数据库id存的是name名，外协关联修改
-        this.currentRow1 = val.name_id;
+        this.currentRow1 = val.account;
         //add-ws-数据库id存的是name名，外协关联修改
         this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.post1;
-        this.currentRow4 = val.suppliernameid;
+        this.currentRow3 = val.post;
+        this.currentRow4 = val.supplierinfor_id;
         this.currentRow5 = val.expname;
         //add_qhr_20210810 添加rank、报告者字段
         // 项目dialog 体制 合同优化添加分页 ztc fr
@@ -3424,38 +3353,6 @@
             });
             this.loading = false;
           });
-      },
-      //上传附件
-      fileError(err, file, fileList) {
-        Message({
-          message: this.$t('normal.error_04'),
-          type: 'error',
-          duration: 5 * 1000,
-        });
-      },
-      fileRemove(file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          o.url = item.url;
-          this.fileList.push(o);
-          this.form.uploadfile += item.name + ',' + item.url + ';';
-        }
-      },
-      fileDownload(file) {
-        if (file.url) {
-          file.url = file.url.replace('%', '%25');
-          file.url = file.url.replace('#', '%23');
-          file.url = file.url.replace('&', '%26');
-          file.url = file.url.replace('+', '%2B');
-          file.url = file.url.replace('=', '%3D');
-          file.url = file.url.replace('?', '%3F');
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-
       },
       getworkinghours(workinghours) {
         if (workinghours != null) {

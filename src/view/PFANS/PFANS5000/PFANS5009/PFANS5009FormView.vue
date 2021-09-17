@@ -673,7 +673,7 @@
                                           style="text-align: center;height: 90%;overflow: hidden"
                                         >
                                           <el-table
-                                            :data="gridData1"
+                                            :data="gridData1.filter(data => !search || data.expname.toLowerCase().includes(search.toLowerCase()))"
                                             height="500px"
                                             highlight-current-row
                                             style="width: 100%"
@@ -2442,10 +2442,10 @@
       handleClickChange(val) {
         this.currentRow = val.number;
         //add-ws-数据库id存的是name名，外协关联修改
-        this.currentRow1 = val.name_id;
+        this.currentRow1 = val.account;
         //add-ws-数据库id存的是name名，外协关联修改
         this.currentRow2 = val.suppliername;
-        this.currentRow3 = val.suppliernameid;
+        this.currentRow3 = val.supplierinfor_id;
         this.currentRow5 = val.expname;
         //add_qhr_20210810 添加rank、报告者字段
         // 项目dialog 体制 合同优化添加分页 ztc fr
