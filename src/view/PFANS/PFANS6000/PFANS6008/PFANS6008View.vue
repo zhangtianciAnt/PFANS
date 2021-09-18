@@ -963,7 +963,6 @@
         }
       },
       getById() {
-        this.loading = true;
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 start
         let role = getCurrentRoleNew();
         const vote = [];
@@ -1112,7 +1111,6 @@
         if (this.form.group_id) {
           this.init();
         }
-        this.loading = false;
       },
       changeGroup(val) {
         this.form.group_id = val;
