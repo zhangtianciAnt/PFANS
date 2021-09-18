@@ -46,6 +46,7 @@
         buttonListinitial: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'contract', 'name': 'button.contract1', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'export', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-upload2'},
         ],
         // 列属性
         columns: [
@@ -457,6 +458,22 @@
               disabled: false,
             },
           });
+        }
+        if (val === 'export') {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6009Store/exportpdf', {dates: this.months})
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       },
       getCurrentRole2() {
