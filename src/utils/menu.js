@@ -3286,9 +3286,27 @@ export function menu() {
               'children': [],
               'actions': [
                 {
+                  '_id': 'PFANS5016_read',
+                  'actiontype': '0',
+                  'name': 'button.view',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'PFANS5016_new',
+                  'actiontype': 'new',
+                  'name': 'button.insert',
+                  'auth': 4,
+                },
+                {
                   '_id': 'PFANS5016_edit',
                   'actiontype': 'edit',
                   'name': 'button.update',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'PFANS5016_del',
+                  'actiontype': 'del',
+                  'name': 'button.delete',
                   'auth': 4,
                 },
               ],
