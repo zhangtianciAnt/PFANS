@@ -565,12 +565,10 @@
                     <el-input-number
                       :disabled="true"
                       :max="1000000000"
-                      :min="0"
                       :precision="2"
                       controls-position="right"
                       style="width:11vw"
                       v-model="form.pjrate"
-                      @change="PJcheck"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -584,7 +582,7 @@
                       controls-position="right"
                       style="width:11vw"
                       v-model="form.rate"
-                      @change="PJcheck"
+                      @change="PJcheck2()"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -594,7 +592,7 @@
                   <el-input :disabled="!disable"
                             :placeholder="$t('label.PFANS1030FORMVIEW_REASON')"
                             style="width: 73vw" type="textarea"
-                            v-model="form.reason">
+                            v-model="strreason">
                   </el-input>
                 </el-form-item>
               </el-row>
@@ -917,6 +915,15 @@
       dicselect,
       project,
     },
+    //region scc add 9/17 添加监听，初始化判断限界利润率 from
+    watch: {
+      activeName(val){
+        if (val == 'third'){
+          this.PJcheck()
+        }
+      }
+    },
+    //endregion scc add 9/17 添加监听，初始化判断限界利润率 to
     data() {
       var checkuser = (rule, value, callback) => {
         if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
@@ -1073,7 +1080,26 @@
         }
       };
 
+      //region scc add 9/18 理由必填 from
+      var checkreason = (rule, value, callback) => {
+        if (this.forreason === true) {
+          if(!this.strreason){
+            return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1028VIEW_RESON')));
+          }else{
+            callback();
+            this.clearValidate(['reason']);
+          }
+        } else {
+          callback();
+          this.clearValidate(['reason']);
+        }
+      };
+      //endregion scc add 9/18 理由必填 to
+
       return {
+        //region scc add  9/18 超出利润率理由 from
+        strreason:'',
+        //endregion scc add 9/18 超出利润率理由 to
         // region scc add 21-8/20 详情部门下拉框 from
         option: [],
         option1: [],
@@ -1181,9 +1207,6 @@
           remarks: '',
           maketype: '',
           tablecommunt: '',
-          //region scc add 超出利润率理由 from
-          reason: '',
-          //endregion scc add 超出利润率理由 to
         },
         tableT: [{
           awarddetail_id: '',
@@ -1410,6 +1433,13 @@
             validator: checkuploadfile,
             trigger: 'change',
           }],
+          //region scc add 9/18 理由必填 from
+          reason: [{
+            required: true,
+            validator: checkreason,
+            trigger: 'change',
+          }],
+          //endregion scc add 9/18 理由必填 to
         },
         buttonList: [],
         optionsdatedic: [],
@@ -1422,6 +1452,9 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            //regon scc add 9/18 页面初始化理由 from
+            this.strreason = response.staffDetail[0].reason;
+            //endregon scc add 9/18 页面初始化理由 to
             if (this.form.status === '4' || this.form.status === '2') {
               this.enableSave = false;
               //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
@@ -1927,11 +1960,22 @@
         this.form.pjrate = checkpjrate * 100;
       },
       //region scc add 界限利润率比部门界限利润率低于-5% 高于8% 检查 from
-      PJcheck(){
-        //百分数
-        let rate1 = Math.round((this.form.pjrate - this.form.form.rate) / this.form.form.rate * 10000) / 100.00;
-        if(rate1 > 8 || rate1 < -5){
-            this.forreason = true;
+      PJcheck() {//合计外注费(元)，因为计算，被/100
+        let rate1 = Number(this.form.pjrate) * 100 - Number(this.form.rate);
+        if (rate1 > 8 || rate1 < -5) {
+          this.forreason = true;
+        } else {
+          this.forreason = false
+          this.form.reason = '';
+        }
+      },
+      PJcheck2() {//部門計画限界利益率
+        let rate1 = Number(this.form.pjrate) - Number(this.form.rate);
+        if (rate1 > 8 || rate1 < -5) {
+          this.forreason = true;
+        } else {
+          this.forreason = false;
+          this.strreason = '';
         }
       },
       //endregion scc add 界限利润率比部门界限利润率低于-5% 高于8% 检查 to
@@ -1967,6 +2011,9 @@
           this.form.outsourcing = val / this.form.number;
         }
         this.form.pjrate = parseFloat((this.form.sarmb - this.form.membercost - val)) / this.form.sarmb;
+        //region scc add 9/17 合计外注费(元)改变判断限界利润率 from
+        this.PJcheck();
+        //endregion scc add 9/17 合计外注费(元)改变判断限界利润率 to
       },
       getcontracttype(val) {
         this.form.contracttype = val;
@@ -2080,7 +2127,9 @@
             inwork03: this.tableD[i].inwork03,
             contractnumber: this.form.contractnumber,
             claimamount: this.form.claimamount,
-            reason: this.form.reason
+            //region scc upd from
+            reason: this.strreason
+            //endregion scc upd to
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
@@ -2211,12 +2260,30 @@
         //获取年度对应rank的成本 from
           if (row.incondepartment) {
             this.rabm1 = this.rabm[0][row.incondepartment];
+          }else{
+            this.rabm1 = {};
           }
         //获取年度对应rank的成本 to
       },
       changeRank(row) {
+        if (row.incondepartment) {
+          this.rabm1 = this.rabm[0][row.incondepartment];
+        }
         if(JSON.stringify(this.rabm1) !== "{}"){
           row.BM = this.rabm1[row.attf];
+          row.BMtotal =
+            this.checkUndefined(row.BM[0].month1) * row.inwork01 +
+            this.checkUndefined(row.BM[0].month2)* row.inwork02 +
+            this.checkUndefined(row.BM[0].month3)* row.inwork03 +
+            this.checkUndefined(row.BM[0].month4)* row.inwork04 +
+            this.checkUndefined(row.BM[0].month5)* row.inwork05 +
+            this.checkUndefined(row.BM[0].month6)* row.inwork06 +
+            this.checkUndefined(row.BM[0].month7)* row.inwork07 +
+            this.checkUndefined(row.BM[0].month8)* row.inwork08 +
+            this.checkUndefined(row.BM[0].month9)* row.inwork09 +
+            this.checkUndefined(row.BM[0].month10) * row.inwork10 +
+            this.checkUndefined(row.BM[0].month11) * row.inwork11 +
+            this.checkUndefined(row.BM[0].month12) * row.inwork12
         }else{
           row.attf = "";
           Message({
@@ -2347,7 +2414,9 @@
             inwork03: this.tableD[i].inwork03,
             contractnumber: this.form.contractnumber,
             claimamount: this.form.claimamount,
-            reason: this.form.reason
+            //region scc upd from
+            reason: this.strreason
+            //endregion scc upd to
           });
         }
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
@@ -2555,6 +2624,15 @@
             });
         }
       },
+      //region scc add 9/18 理由验证 from
+      clearValidate(prop) {
+        this.$refs['reff'].fields.forEach((e) => {
+          if (prop.includes(e.prop)) {
+            e.clearValidate();
+          }
+        });
+      },
+      //endregion scc add 9/18 理由验证 to
     },
   };
 </script>
