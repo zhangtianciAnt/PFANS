@@ -802,7 +802,7 @@
                       </el-input>
                     </template>
                   </el-table-column>
-                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="120" prop="BMtotal" v-if="true">
+                  <el-table-column :label="$t('label.PFANS1030FORMVIEW_ATTFMOTH')" align="center" width="120" prop="BMtotal" v-if="false">
                     <template slot-scope="scope">
                       <el-input :disabled="true" maxlength="20" style="width: 100%" v-model="scope.row.BMtotal">
                       </el-input>
