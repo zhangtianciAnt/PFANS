@@ -801,7 +801,7 @@
                                            :disabled="true"></input>
 <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                     <el-button :disabled="!disable" icon="el-icon-search"
-                                               @click="dialogone()"
+                                               @click="dialogone(scope.row)"
                                                size="small"></el-button>
 <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                     <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
@@ -862,7 +862,7 @@
                                           <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                         </el-row>
                                         <span slot="footer" class="dialog-footer">
-                                            <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
+                                            <el-button type="primary" @click="submit()">{{$t('button.confirm')}}</el-button>
                                           </span>
                                       </div>
                                     </el-dialog>
@@ -1478,6 +1478,9 @@
         currentRow8: '',
         //add_qhr_20210810 添加字段
         currentRow9: '',
+        //region scc add 9/16 选中行标记 from
+        rowindextag: '',
+        //endregion scc add 9/16 选中行标记 to
         //项目计划
         tableA: [
           {
@@ -2645,19 +2648,25 @@
         this.currentRow9 = val.rn;
         // 项目dialog 体制 合同优化添加分页 ztc to
       },
-      submit(row) {
-        row.number = this.currentRow;
-        row.name = this.currentRow1;
-        //add-ws-数据库id存的是name名，外协关联修改
-        row.name_id = this.currentRow5;
-        //add-ws-数据库id存的是name名，外协关联修改
-        row.company = this.currentRow2;
-        row.position = this.currentRow3;
-        row.suppliernameid = this.currentRow4;
-        //add_qhr_20210810 添加rank、报告者字段
-        row.rank = getDictionaryInfo(this.currentRow9).value1;
+      //region scc upd 9/16 根据当前行进行数据跟新 from
+      submit() {
+        for(let i = 0; i < this.tableC.length; i++){
+          if(this.tableC[i].rowindex === this.rowindextag || this.tableC[i].rowindex === Number(this.rowindextag)){
+            this.tableC[i].number = this.currentRow;
+            this.tableC[i].name = this.currentRow1;
+            //add-ws-数据库id存的是name名，外协关联修改
+            this.tableC[i].name_id = this.currentRow5;
+            //add-ws-数据库id存的是name名，外协关联修改
+            this.tableC[i].company = this.currentRow2;
+            this.tableC[i].position = this.currentRow3;
+            this.tableC[i].suppliernameid = this.currentRow4;
+            //add_qhr_20210810 添加rank、报告者字段
+            this.tableC[i].rank = getDictionaryInfo(this.currentRow9).value1;
+          }
+        }
         this.dialogTableVisible1 = false;
       },
+      //endregion scc upd 9/16 根据当前行进行数据跟新 to
       handleClickChange1(val) {
         this.currentRow = val.entrust;
         this.currentRow6 = val.liableperson;
@@ -3135,6 +3144,9 @@
       },
       //项目体制(外协)
       addRow2() {
+        //region scc add 9/16 上一条数据的index from
+        let num = this.tableC[this.tableC.length - 1].rowindex;
+        //endregion scc add 9/16 上一条数据的index to
         this.tableC.push({
           projectsystem_id: '',
           companyprojects_id: '',
@@ -3149,7 +3161,9 @@
           position: '',
           admissiontime: '',
           exittime: '',
-          rowindex: '',
+          //region scc add 9/16 添加行时跟新index from
+          rowindex: num + 1,
+          //endregion scc add 9/16 添加行时跟新index to
         });
       },
       // 体制-社内
@@ -3288,10 +3302,13 @@
       //   return sums;
       // },
       // 项目dialog 体制 合同优化添加分页 ztc fr
-      dialogone(){
+      //region scc upd 9/16 点击放大镜时，标记改行 from
+      dialogone(val){
         this.dialogTableVisible1 = true;
         this.getexpatriatesinfor();
+        this.rowindextag = val.rowindex;
       },
+      //endregion scc upd 9/16 点击放大镜时，标记改行 to
       handleSizeChangeSys(val) {
         this.listQuerySys.pageSize = val;
         this.getexpatriatesinfor();

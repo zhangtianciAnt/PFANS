@@ -196,11 +196,6 @@
                             {
                               response[j].foreigncurrencytemp = this.$t('label.PFANS1012VIEW_RMB');
                             }
-                            //region  add_qhr_20210616 公共费用金额加入千分位符
-                            if (response[j].moneys !== null && response[j].moneys !== '') {
-                              response[j].moneys = (Number(response[j].moneys)).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                            }
-                            //endregion  add_qhr_20210616 公共费用金额加入千分位符
                             //add_fjl_0928  添加外币的场合 币种+外币金额 end
                             //ADD-WS-4/27-精算类型添加
                             if (response[j].type !== null && response[j].type !== '') {
