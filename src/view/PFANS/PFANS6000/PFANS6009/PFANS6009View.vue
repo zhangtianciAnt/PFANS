@@ -734,7 +734,7 @@
                 label: 'label.PFANS6009VIEW_YUTI',
                 child: [
                   {
-                    code: 'totalmanhours',
+                    code: 'totalmanhour',
                     label: 'label.PFANS6009VIEW_MANHOUR',
                     width: 100,
                     fix: false,
@@ -772,7 +772,6 @@
           },
         ],
         buttonList: [
-//          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
         ],
         yearLabel: this.$t('label.PFANS6009VIEW_YEARLABEL'),
@@ -1256,64 +1255,15 @@
     },
     mounted() {
       this.getById();
-      // TAB1
-//      for (var i = 0; i < this.array.length; i++) {
-//        this.columns[i + 1].label = this.array[i];
-//      }
 
       let year = moment().subtract(3, 'months').year();
       for (var i = 0; i < this.array.length; i++) {
         if (i <= 8) {
-          //this.columns[i + 1].label = this.array[i].replace('0000', year).replace('Y', this.yearLabel).replace('M', this.monthLabel);
           this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         } else {
-          //this.columns[i + 1].label = this.array[i].replace('0000', year + 1).replace('Y', this.yearLabel).replace('M', this.monthLabel);
           this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         }
       }
-
-
-//       // TAB2
-//       this.columnsB = JSON.parse(JSON.stringify(this.columns));
-//       for (var i = 0; i < this.array1.length; i++) {
-// //        this.columnsB[i + 1].label = this.array1[i];
-//         for (var j = 0; j < this.arrayB.length; j++) {
-//           this.columnsB[i + 1].child[j].label = this.arrayB[j];
-//         }
-//       }
-//
-//       for (var i = 1; i <= 12; i++) {
-//         if (i <= 9) {
-//           this.columnsB[i].label = this.array1[i - 1].replace('0000', year);
-//         } else {
-//           this.columnsB[i].label = this.array1[i - 1].replace('0000', year + 1);
-//         }
-//       }
-//
-//
-//       this.columnsB[13].child[0].label = this.arrayB[0];
-//       this.columnsB[13].child[1].label = this.arrayB[1];
-
-      // TAB3
-//       this.columnsC = JSON.parse(JSON.stringify(this.columns));
-//       for (var i = 0; i < this.array1.length; i++) {
-// //        this.columnsC[i + 1].label = this.array1[i];
-//         this.columnsC[i + 1].child.splice(1, 1);
-//         this.columnsC[i + 1].child[0].label = this.number;
-//       }
-//
-//       for (var i = 1; i <= 12; i++) {
-//         if (i <= 9) {
-//           this.columnsC[i].label = this.array1[i - 1].replace('0000', year);
-//         } else {
-//           this.columnsC[i].label = this.array1[i - 1].replace('0000', year + 1);
-//         }
-//       }
-//
-//
-//       this.columnsC[13].child.splice(1, 1);
-//       this.columnsC[13].child[0].label = this.number;
-
       this.loadTableA(this.form.group_id, this.form.year);
       this.loadTableB(this.form.group_id, this.form.year);
       this.loadTableC(this.form.group_id, this.form.year);
@@ -1460,19 +1410,7 @@
         this.$store
           .dispatch('PFANS6009Store/getCostList', params)
           .then(response => {
-            var tableData = response.company;
-            // var tripData = response.trip;
-            // var assetData = response.asset;
-
-            for (let j = 0; j < tableData.length; j++) {
-              if (tableData[j].bpcompany !== null && tableData[j].bpcompany !== '') {
-                let supplierInfor = getSupplierinfor(tableData[j].bpcompany);
-                if (supplierInfor) {
-                  tableData[j].bpcompany = supplierInfor.supchinese;
-                }
-              }
-            }
-
+            var tableData = response;
             let arrayAdate = [];
             let addLine1 = {}, addLine2 = {}, addLine5 = {};
             for (var i = 1; i <= 13; i++) {
@@ -1483,7 +1421,7 @@
               var key_costf = 'cost' + i + 'f';
               if (i > 12) {
                 key_cost = 'totalcost';
-                key_hour = 'totalmanhours';
+                key_hour = 'totalmanhour';
                 key_costf = 'totalcostf';
                 key_hourf = 'totalmanhourf';
               }
@@ -1497,39 +1435,10 @@
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
               addLine1[key_hourf] = parseFloat(total_manhourf).toFixed(2);
               addLine1[key_costf] = parseFloat(total_costf).toFixed(2);
-              // if (total_manhour == 0) {
-              //   addLine2[key_cost] = '0.00';
-              // } else {
-              //   addLine2[key_cost] = (parseFloat(total_cost) / parseFloat(total_manhour)).toFixed(2);
-              // }
-
-              // tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(2);
-              // assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(2);
-
-              // addLine5[key_cost] = (parseFloat(total_cost) + parseFloat(tripData[key_cost]) + parseFloat(assetData[key_cost])).toFixed(2);
               addLine5[key_cost] = (parseFloat(total_cost)).toFixed(2);
             }
             arrayAdate.push(addLine1);
-            // arrayAdate.push(addLine2);
-            // arrayAdate.push(tripData);
-            // arrayAdate.push(assetData);
-            // arrayAdate.push(addLine5);
-            // // 赋值
-            // for (var p = 0; p <= 0; p++) {
-            //   tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
-            // }
-            // upd gbb 210914 BP社统计【出差经费(元)】和【设备经费(元)】添加至【预提】-【外注费用】 start
             tableData.push(Object.assign(arrayAdate[0], {bpcompany: this.arryaLabels[0]}));
-            // upd gbb 210914 BP社统计【出差经费(元)】和【设备经费(元)】添加至【预提】-【外注费用】 end
-//            var year = response.year;
-//            for (var i = 0; i < this.array.length; i++) {
-//              if(i <=8) {
-//                this.columns[i + 1].label = this.array[i].replace("0000", year[0]).replace("Y", this.yearLabel).replace("M", this.monthLabel);
-//              }else{
-//                this.columns[i + 1].label = this.array[i].replace("0000", year[1]).replace("Y", this.yearLabel).replace("M", this.monthLabel);;
-//              }
-//            }
-
             this.tableA = tableData;
             this.loading = false;
           })
