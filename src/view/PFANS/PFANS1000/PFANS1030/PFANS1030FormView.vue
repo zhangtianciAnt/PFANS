@@ -1953,12 +1953,24 @@
         this.moneysumclick(sums);
         return sums;
       },
+      //region scc upd 9/22 隐藏总金额列时表格求和方法无法计算总和，修正pj限界利润率 from
       moneysumclick(sums) {
-        this.form.membercost = sums[15];
-        // this.form.investorspeopor = sums[2];
-        let checkpjrate = parseFloat((this.form.sarmb - this.form.membercost - this.form.total)) / this.form.sarmb;
-        this.form.pjrate = checkpjrate * 100;
+        // this.form.membercost = sums[15];
+        // let checkpjrate = parseFloat((this.form.sarmb - this.form.membercost - this.form.total)) / this.form.sarmb;
+        // this.form.pjrate = checkpjrate * 100;
+        Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
+          var m = Math.pow(10, digit);
+          return Math.round(f * m, 10) / m;
+        }
+        let checkpjrate = 0.00;
+        for(let i = 0; i < this.tableD.length; i++){
+          checkpjrate += Number(this.tableD[i].BMtotal);
+        }
+        let checkPjrate1 = Math.formatFloat(checkpjrate,2);
+        let Pjrate = parseFloat((this.form.sarmb - Math.formatFloat(checkpjrate,2) - this.form.total).toString()) / this.form.sarmb;
+        this.form.pjrate = Pjrate * 100;
       },
+      //endregion scc upd 9/22 隐藏总金额列时表格求和方法无法计算总和，修正pj限界利润率 to
       //region scc add 界限利润率比部门界限利润率低于-5% 高于8% 检查 from
       PJcheck() {//合计外注费(元)，因为计算，被/100
         let rate1 = Number(this.form.pjrate) * 100 - Number(this.form.rate);
