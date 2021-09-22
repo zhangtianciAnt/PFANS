@@ -1,7 +1,8 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :showSelection="showSelection"  :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="showSelection"
+                     :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
       <el-select @change="changed" slot="customize" v-model="department">
@@ -336,7 +337,6 @@
         ],
         rowid: '',
         row_id: 'assets_id',
-        selectedlist: [],
         //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
         _count: 0
         //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 end
@@ -503,6 +503,15 @@
           this.loading = false;
         });
       },
+      // 资产报废不可以异动操作 ztc fr
+      selectInit(row,index) {
+        if(row !== undefined){
+          if (row.assetstatus !== undefined && row.assetstatus != this.$t('label.PFANS1002VIEW_ASSETREBF')) {
+            return row;
+          }
+        }
+      },
+      // 资产报废不可以异动操作 ztc to
       changed() {
         this.getListData();
       },
@@ -582,8 +591,8 @@
                 }
               }
             }
-
             this.data = response;
+            this.selectInit();
             this.loading = false;
           })
           .catch(error => {
@@ -838,7 +847,9 @@
             if(this.$store.getters.userinfo.userinfo.resignation_date) {
               _flag = true;
               this.$refs.roletable.selectedList.filter((item) => {
-                if (getUserInfoName(item.principal).userid === this.$store.getters.userinfo.userid) {
+                // 资产报废不可以异动操作 ztc fr
+                if (getUserInfoName(item.principal).userid === this.$store.getters.userinfo.userid && item.assetstatus !== this.$t('label.PFANS1002VIEW_ASSETREBF')) {
+                  // 资产报废不可以异动操作 ztc to
                   _p++;
                 }
               })
@@ -1122,7 +1133,9 @@
         } else {
           let error_BF = 0;
           for (let i = 0; i < this.selectedlist.length; i++) {
-            if (this.selectedlist[i].assetstatus == '报废') {
+            // 资产报废不可以异动操作 ztc fr
+            if (this.selectedlist[i].assetstatus === this.$t('label.PFANS1002VIEW_ASSETREBF')) {
+              // 资产报废不可以异动操作 ztc to
               error_BF += 1;
             }
           }

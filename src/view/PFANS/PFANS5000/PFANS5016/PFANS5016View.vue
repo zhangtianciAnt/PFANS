@@ -188,6 +188,11 @@ export default {
       this.currentRow = val;
     },
     getDepartInfo() {
+      //region scc add 9/18 js精度，保留小数位
+      Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
+        var m = Math.pow(10, digit);
+        return Math.round(f * m, 10) / m;
+      }
       this.loading = true;
       this.$store
         .dispatch('PFANS5016Store/getLogPerson', {'month': this.month})
@@ -196,12 +201,14 @@ export default {
             let m = 1;
             let c = 0;
             for (let i = 0; i < response.length; i++) {
-              if (response[i].username) {
-                let user = getUserInfo(response[i].username)
-                if (user) {
-                  response[i].username = user.userinfo.customername;
-                }
-              }
+              //region scc del 名字从后台获取 from
+              // if (response[i].username) {
+              //   let user = getUserInfo(response[i].username)
+              //   if (user) {
+              //     response[i].username = user.userinfo.customername;
+              //   }
+              // }
+              //region scc del 名字从后台获取 from
               if (response[i].groupname) {
                 let group = getOrgInfo(response[i].groupname);
                 if (group) {
@@ -228,7 +235,7 @@ export default {
                   this.tableData[i].children[j].company = '';
                 }
               }
-              this.tableData[i].change = sum;
+              this.tableData[i].change = Math.formatFloat(sum,2);//保留两位小数
               m += 1;
             }
           } else {
