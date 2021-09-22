@@ -97,7 +97,7 @@
                 filter: false,
               },
               {
-                code: 'expense4',
+                code: 'expensesolo4',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -141,7 +141,7 @@
                 filter: false,
               },
               {
-                code: 'expense5',
+                code: 'expensesolo5',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -185,7 +185,7 @@
                 filter: false,
               },
               {
-                code: 'expense6',
+                code: 'expensesolo6',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -271,7 +271,7 @@
                 filter: false,
               },
               {
-                code: 'expense7',
+                code: 'expensesolo7',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -315,7 +315,7 @@
                 filter: false,
               },
               {
-                code: 'expense8',
+                code: 'expensesolo8',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -359,7 +359,7 @@
                 filter: false,
               },
               {
-                code: 'expense9',
+                code: 'expensesolo9',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -444,7 +444,7 @@
                 filter: false,
               },
               {
-                code: 'expense10',
+                code: 'expensesolo10',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -488,7 +488,7 @@
                 filter: false,
               },
               {
-                code: 'expense11',
+                code: 'expensesolo11',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -532,7 +532,7 @@
                 filter: false,
               },
               {
-                code: 'expense12',
+                code: 'expensesolo12',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -617,7 +617,7 @@
                 filter: false,
               },
               {
-                code: 'expense1',
+                code: 'expensesolo1',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -661,7 +661,7 @@
                 filter: false,
               },
               {
-                code: 'expense2',
+                code: 'expensesolo2',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
@@ -705,7 +705,7 @@
                 filter: false,
               },
               {
-                code: 'expense3',
+                code: 'expensesolo3',
                 label: 'label.PFANS6008VIEW_EXPENSE',
                 width: 90,
                 fix: false,
