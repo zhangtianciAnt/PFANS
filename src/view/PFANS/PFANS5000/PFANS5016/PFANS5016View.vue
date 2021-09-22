@@ -138,9 +138,6 @@ export default {
     return {
       title: 'title.PFANS5016VIEW',
       month: moment(new Date()).format('YYYY-MM-DD'),
-      groupid: '',
-      export: true,
-      disabled: false,
       currentRow: null,
       hasChildren: true,
       noback: true,
@@ -151,6 +148,7 @@ export default {
       tableData1: {},
       tableData2: {},
       grp_options: [],
+      dictionaryDay:'',
       buttonList: [
         {'key': 'save', 'name': 'button.save', 'disabled': false, icon: 'el-icon-check'},
       ],
@@ -182,6 +180,9 @@ export default {
   },
   mounted() {
     this.remount();
+    if(getDictionaryInfo('BP027001')){
+      this.dictionaryDay = Number(getDictionaryInfo('BP027001').value1);
+    }
   },
   methods: {
     handleCurrentChange(val) {
@@ -276,21 +277,28 @@ export default {
     },
     buttonClick(val) {
       if (val === 'save') {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5016Store/updateByVoId', this.tableData)
-          .then(response => {
-            this.getDepartInfo();
-            this.loading = false;
-          })
-          .catch(error => {
-            Message({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000,
+        if(this.tableData.length > 0 && this.tableData != null) {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS5016Store/updateByVoId', this.tableData)
+            .then(response => {
+              this.getDepartInfo();
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
             });
-            this.loading = false;
+        }else{
+          Message({
+            message: this.$t('normal.info_16'),
+            type: 'info',
+            duration: 2 * 1000,
           });
+        }
       }
     },
     inputChange() {
@@ -300,166 +308,20 @@ export default {
         this.tableData = this.tableData1;
       }
     },
-    groupChange(val) {
-      this.tableData.data = [];
-      this.groupid = val;
-      let data = this.grp_options.filter(item => (item.groupid == val));
-      if (data.length > 0) {
-        this.refform.encoding = data[0].encoding;
-      }
-      this.getDepartInfo();
-    },
-    getorglistname() {
-      return new Promise((resolve, reject) => {
-
-        let role = getCurrentRoleNew();
-        const vote = [];
-
-        if (role === '3') {//CENTER
-          vote.push(
-            {
-              groupid: this.$store.getters.userinfo.userinfo.centerid,
-              groupname: this.$store.getters.userinfo.userinfo.centername,
-            },
-          );
-          //add ccm 0112 兼职部门
-          if (this.$store.getters.userinfo.userinfo.otherorgs) {
-            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
-              if (others.centerid) {
-                this.$store.getters.orgGroupList.filter((item) => {
-                  if (item.centerid === others.centerid) {
-                    vote.push(
-                      {
-                        groupid: item.centerid,
-                        groupname: item.centername,
-                      },
-                    );
-                  }
-                })
-              }
-            }
-          }
-          //add ccm 0112 兼职部门
-        } else if (role === '2') {//副总经理
-          this.$store.getters.orgGroupList.filter((item) => {
-            if (item.virtualuser === this.$store.getters.userinfo.userid) {
-              vote.push(
-                {
-                  groupid: item.centerid,
-                  groupname: item.centername,
-                },
-              );
-            }
-          })
-          //add ccm 0112 兼职部门
-          if (this.$store.getters.userinfo.userinfo.otherorgs) {
-            for (let others of this.$store.getters.userinfo.userinfo.otherorgs) {
-              if (others.centerid) {
-                this.$store.getters.orgGroupList.filter((item) => {
-                  if (item.centerid === others.centerid) {
-                    vote.push(
-                      {
-                        groupid: item.centerid,
-                        groupname: item.centername,
-                      },
-                    );
-                  }
-                })
-              }
-            }
-          }
-          //add ccm 0112 兼职部门
-        } else if (role === '4') //GM
-        {
-          let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
-          if (centers) {
-            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined) {
-              vote.push(
-                {
-                  groupid: this.$store.getters.userinfo.userinfo.groupid,
-                  groupname: this.$store.getters.userinfo.userinfo.groupname,
-                },
-              );
-            }
-          }
-        }
-        const vote1 = [];
-        if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
-          || this.$store.getters.roles.indexOf("11") != -1 //总经理
-          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
-          || this.$store.getters.roles.indexOf("26") != -1) //财务担当
-        {
-          this.$store.getters.orgGroupList.filter((item) => {
-            vote1.push(
-              {
-                groupid: item.centerid,
-                groupname: item.centername,
-              },
-            );
-          })
-          this.grp_options = vote1;
-        } else {
-          this.grp_options = vote;
-        }
-        //去重
-        let letoptionsdata = [];
-        let arrId = [];
-        for (var item of this.grp_options) {
-          if (arrId.indexOf(item['groupname']) == -1) {
-            arrId.push(item['groupname']);
-            letoptionsdata.push(item);
-          }
-        }
-        //针对经营管理统计到group修改 start
-        let incfmyList = [];
-        for (let item of letoptionsdata) {
-          if (getOrgInfo(item.groupid).encoding == '') {
-            incfmyList.push(item.groupid)
-          }
-        }
-        if (incfmyList.length > 0) {
-          for (let item of incfmyList) {
-            letoptionsdata = letoptionsdata.filter(letitem => letitem.groupid != item)
-          }
-          let orgInfo = [];
-          for (let item of incfmyList) {
-            if (item) {
-              if (getOrgInfo(item).orgs.length != 0) {
-                orgInfo.push(getOrgInfo(item).orgs)
-              }
-            }
-          }
-          let groInfo = orgInfo[0].filter(item => item.type == '2');
-          for (let item of groInfo) {
-            letoptionsdata.push(
-              {
-                groupid: item._id,
-                groupname: item.title,
-              },
-            );
-          }
-        }
-        //针对经营管理统计到group修改 end
-        this.grp_options = letoptionsdata;
-        if (this.grp_options.length > 0) {
-          this.groupid = this.grp_options[0].groupid;
-        }
-
-        //UPD CCM 20210422
-        resolve(this.grp_options)
-      });
-    },
     remount() {
-      this.getorglistname().then(val => {
         this.getDepartInfo();
-      });
     },
     fillIn() {
       let tablemonth = Number(moment(this.month).format("M"));
       let month = Number(moment(new Date()).format("M"));
+      let nowd = Number(moment(new Date()).format("D"));
       if (month - 1 === tablemonth) {
-        return false;
-      } else {
+        if(nowd <= this.dictionaryDay){
+          return false;
+        }else{
+          return true;
+        }
+      }else{
         return true;
       }
     },
