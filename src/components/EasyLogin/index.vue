@@ -53,9 +53,6 @@
           show-password
         ></el-input>
       </el-form-item>
-
-
-
       <!--<div style="margin-right: 10%;padding-top: 30px;float: right">-->
       <!--<el-row :gutter="24">-->
       <!--<el-col :span="24">-->

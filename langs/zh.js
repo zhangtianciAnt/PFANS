@@ -483,7 +483,6 @@ module.exports = {
     PFANS1047VIEW: '决裁书',
     PFANS1048VIEW: '项目结转表',
     PFANS1049VIEW: '收支データ',
-    PFANS1049VIEW: '收支データ',
     PFANS1050VIEW: '外注别部门支出',
     PFANS1051VIEW: '部门别收支表',
     PFANS1052VIEW: '部门项目别年度统计',

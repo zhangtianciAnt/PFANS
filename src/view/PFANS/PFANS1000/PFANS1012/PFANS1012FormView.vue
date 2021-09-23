@@ -1554,6 +1554,9 @@ export default {
       }
     };
     return {
+        //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+        moduledisable: false,
+        //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
       tableTgroupId: '',
       // add-ws-8/12-禅道任务446
       enableSave: false,
@@ -2741,6 +2744,47 @@ export default {
         this.form.judgements_moneys += this.jude[i].judgements_moneys + '^';
         this.form.judgements_type += this.jude[i].judgements_type + '^';
       }
+        //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+        if(this.$route.params._aInfo){
+          this.checktaxes = false;
+          this.checkdisable = false;
+          let antList = this.$route.params._aInfo[0]
+          let adInfo = [];
+          let annexno = 0;
+          for (let a = 0; a < antList.length; a++) {
+            annexno ++;
+            let infoA = {};
+            infoA.otherdetailsdate = moment(new Date()).format('YYYY-MM-DD');
+            infoA.invoicenumber = this.$t('label.PFANS1012FORMVIEW_NOMONEY');
+            infoA.departmentname = antList[a].depart;
+            infoA.budgetcoding = this.getAwardEnCode(antList[a].budgetcode)[0].lable;
+            infoA.RedirictR = getOrgInfo(antList[a].depart).redirict
+            infoA.optionsR = [{
+                value: this.getAwardEnCode(antList[a].budgetcode)[0].value,
+                lable: this.getAwardEnCode(antList[a].budgetcode)[0].lable
+              }]
+            infoA.plsummary = 'PJ111015';
+            if(infoA.RedirictR === '0'){
+              infoA.code16 = 'PJ138';
+              infoA.accountcode = 'PJ138002';
+              infoA.subjectnumber = '4317-00-0062';
+            }else if(infoA.RedirictR === '1'){
+              infoA.code16 = 'PJ139';
+              infoA.accountcode = 'PJ139001';
+              infoA.subjectnumber = '5317-00-2062';
+            }
+            infoA.rmb = antList[a].awardmoney;
+            infoA.foreigncurrency = '0';
+            infoA.currencyrate = '0';
+            infoA.tormb = '0';
+            infoA.taxes = '0';
+            infoA.currency = '';
+            infoA.annexno = annexno;
+            adInfo.push(infoA);
+          }
+          this.tableR = adInfo;
+        }
+        //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
       //add-ws-4/28-精算中，点击决裁，跳转画面
       let judgementnew = this.form.judgement.substring(0, this.form.judgement.length - 1);
       let judgementnamenew = this.form.judgement_name.substring(0, this.form.judgement_name.length - 1);
@@ -3492,6 +3536,19 @@ export default {
         }
       }
     },
+      //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+      getAwardEnCode(val){
+        let resultList = [];
+        let departCode = getDictionaryInfo(val);
+        if (departCode) {
+         resultList.push({
+            lable: departCode.value2 + '_' + departCode.value3,
+            value: departCode.code,
+          });
+        }
+        return resultList;
+      },
+      //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
     getGroupIdR(orglist, row) {
       if (orglist == '') {
         row.budgetcoding = '';
