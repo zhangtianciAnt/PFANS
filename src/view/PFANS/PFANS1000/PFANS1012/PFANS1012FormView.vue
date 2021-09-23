@@ -1060,7 +1060,7 @@
                           <template slot-scope="scope">
                             <org :orglist="scope.row.departmentname"
                                  :disabled="checktaxes"
-                                 orgtype="2"
+                                 orgtype="4"
                                  :error="errorgroup"
                                  style="width: 100%"
                                  :no="scope.row"
