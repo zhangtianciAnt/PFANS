@@ -12,7 +12,7 @@
     <el-table-column>
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNTENTRUSTED')" align="center" width="140" prop="name2">
         <template slot-scope="scope">
-          <el-input :disabled="true" maxlength="100" style="width: 100%"
+          <el-input :disabled="true" maxlength="100" style="width: 50%"
                     v-model="scope.row.name2"></el-input>
         </template>
       </el-table-column>
@@ -20,8 +20,8 @@
     <el-table-column :label="$t('label.April')" align="center" width="130">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money4">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money4" >
           </el-input-number>
         </template>
@@ -30,8 +30,8 @@
     <el-table-column :label="$t('label.May')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money5">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money5"></el-input-number>
         </template>
       </el-table-column>
@@ -39,8 +39,8 @@
     <el-table-column :label="$t('label.June')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money6">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money6"></el-input-number>
         </template>
       </el-table-column>
@@ -48,8 +48,8 @@
     <el-table-column :label="$t('label.July')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money7">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money7"></el-input-number>
         </template>
       </el-table-column>
@@ -57,8 +57,8 @@
     <el-table-column :label="$t('label.August')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money8">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money8"></el-input-number>
         </template>
       </el-table-column>
@@ -66,8 +66,8 @@
     <el-table-column :label="$t('label.September')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money9">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money9"></el-input-number>
         </template>
       </el-table-column>
@@ -76,8 +76,8 @@
     <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneyfirst">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.moneyfirst"></el-input-number>
         </template>
       </el-table-column>
@@ -86,8 +86,8 @@
     <el-table-column :label="$t('label.October')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money10">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money10"></el-input-number>
         </template>
       </el-table-column>
@@ -95,8 +95,8 @@
     <el-table-column :label="$t('label.November')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money11">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money11"></el-input-number>
         </template>
       </el-table-column>
@@ -104,8 +104,8 @@
     <el-table-column :label="$t('label.December')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money12">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money12"></el-input-number>
         </template>
       </el-table-column>
@@ -113,8 +113,8 @@
     <el-table-column :label="$t('label.January')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money1">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money1"></el-input-number>
         </template>
       </el-table-column>
@@ -122,8 +122,8 @@
     <el-table-column :label="$t('label.February')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money2">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money2"></el-input-number>
         </template>
       </el-table-column>
@@ -131,8 +131,8 @@
     <el-table-column :label="$t('label.March')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money3">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.money3"></el-input-number>
         </template>
       </el-table-column>
@@ -140,8 +140,8 @@
     <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneysecond">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.moneysecond"></el-input-number>
         </template>
       </el-table-column>
@@ -149,8 +149,8 @@
     <el-table-column :label="$t('label.PFANS1036FORMVIEW_ANNUALTOTAL')" align="center" width="110">
       <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="moneytotal">
         <template slot-scope="scope">
-          <el-input-number size="small" style="width:6vw" :disabled="true" :min="0" controls-position="right"
-                           :precision="1" :step="1"
+          <el-input-number size="small" style="width:7vw" :disabled="true" :min="0" controls-position="right"
+                           :precision="3" :step="1"
                            v-model="scope.row.moneytotal"></el-input-number>
         </template>
       </el-table-column>
@@ -196,13 +196,13 @@
               const value = Number(curr);
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
               if (!isNaN(value)) {
-                return Math.round((prev + curr) * 100) / 100;
+                return Math.round((prev + curr) * 1000) / 1000;
               } else {
-                return Math.round(prev * 100) / 100;
+                return Math.round(prev * 1000) / 1000;
               }
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
             }, 0);
-            sums[index] = Math.round((sums[index]) * 100) / 100;
+            sums[index] = Math.round((sums[index]) * 1000) / 1000;
           } else {
             sums[index] = '';
           }

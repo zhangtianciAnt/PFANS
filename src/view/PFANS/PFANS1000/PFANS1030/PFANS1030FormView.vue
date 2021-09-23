@@ -1966,13 +1966,13 @@
           var m = Math.pow(10, digit);
           return Math.round(f * m, 10) / m;
         }
-        let checkpjrate = 0.00;
+        let checkpjrate = 0;
         for(let i = 0; i < this.tableD.length; i++){
           checkpjrate += Number(this.tableD[i].BMtotal);
         }
-        let checkPjrate1 = Math.formatFloat(checkpjrate,2);
-        let Pjrate = parseFloat((this.form.sarmb - Math.formatFloat(checkpjrate,2) - this.form.total).toString()) / this.form.sarmb;
+        let Pjrate = this.form.sarmb === 0 ? 0 : parseFloat((this.form.sarmb - checkpjrate - this.form.total).toString()) / this.form.sarmb;
         this.form.pjrate = Pjrate * 100;
+        this.form.membercost = checkpjrate;
       },
       //endregion scc upd 9/22 隐藏总金额列时表格求和方法无法计算总和，修正pj限界利润率 to
       //region scc add 界限利润率比部门界限利润率低于-5% 高于8% 检查 from
@@ -2026,7 +2026,7 @@
         } else {
           this.form.outsourcing = val / this.form.number;
         }
-        this.form.pjrate = parseFloat((this.form.sarmb - this.form.membercost - val)) / this.form.sarmb;
+        this.form.pjrate =this.form.sarmb === 0 ? 0 : parseFloat((this.form.sarmb - this.form.membercost - val)) / this.form.sarmb;
         //region scc add 9/17 合计外注费(元)改变判断限界利润率 from
         this.PJcheck();
         //endregion scc add 9/17 合计外注费(元)改变判断限界利润率 to

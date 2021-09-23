@@ -43,18 +43,20 @@
             :label="$t('label.PFANS1038VIEW_REALISTIC')"
             name="first"
           >
-            <!--            111-->
+            <!--            外驻计划-->
             <el-table
               :data="tableData"
               border stripe
               :style="{width:(this.$route.params.type === 0?'80VW':'75VW'),marginLeft:'0%',marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
+              <!--            NO.-->
               <el-table-column
                 label="No."
                 type="index"
                 width="80"
                 align="center">
               </el-table-column>
+              <!--            外驻先-->
               <el-table-column
                 prop="suppliername"
                 :label="$t('label.PFANS1038VIEW_STATIONED')"
@@ -62,12 +64,14 @@
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
               </el-table-column>
+              <!--            社员名前-->
               <el-table-column
                 prop="name"
                 :label="$t('label.PFANS1038VIEW_MEMBER')"
                 width="180"
                 align="center">
               </el-table-column>
+              <!--            当前年度RANK-->
               <el-table-column
                 prop="thisyear"
                 :label="getThisYearLevel"
@@ -75,32 +79,29 @@
                 align="center"
                 :formatter="formatterDic">
               </el-table-column>
-              <!--本社员-->
+              <!--本社员 下一年度RANK-->
               <el-table-column
                 prop="nextyear"
                 :label="getNextYearLevel"
                 width="180"
                 align="center"
                 :formatter="formatterDic"
+                v-if="this.$route.params.type === 0 ? true : false"
               >
-                <!--<template slot-scope="scope">-->
-                  <!--<el-select size="small"-->
-                             <!--clearable-->
-                             <!--v-model="scope.row.nextyear"-->
-                             <!--:disabled="disabled"-->
-                             <!--:placeholder="$t('normal.error_09')">-->
-                    <!--<el-option-->
-                      <!--v-for="item in options"-->
-                      <!--:key="item.value"-->
-                      <!--:label="item.label"-->
-                      <!--:value="item.value"-->
-
-                    <!--&gt;-->
-                    <!--</el-option>-->
-                  <!--</el-select>-->
-                <!--</template>-->
+                <template slot-scope="scope">
+                  <dicselect
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.nextyear"
+                    :disabled="disabled"
+                    :multiple="multiple"
+                    @change="changeRank"
+                    style="width: 6vw"
+                    size="small"
+                  ></dicselect>
+                </template>
               </el-table-column>
-              <!--外注社员-->
+              <!--外注社员 下一年度RANK-->
               <el-table-column
                 prop="nextyear"
                 :label="getNextYearLevel"
@@ -109,22 +110,19 @@
                 v-if="this.$route.params.type === 1 ? true : false"
               >
                 <template slot-scope="scope">
-                  <el-select size="small"
-                  clearable
-                  v-model="scope.row.nextyear"
-                  :disabled="disabled"
-                  >
-                    <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                    >
-                    </el-option>
-                  </el-select>
+                  <dicselect
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.nextyear"
+                    :disabled="disabled"
+                    :multiple="multiple"
+                    @change="changeRankBP"
+                    style="width: 6vw"
+                    size="small"
+                  ></dicselect>
                 </template>
               </el-table-column>
-              <!--              add-lyt-21/1/29-禅道任务648-start-->
+              <!--              社内计划 人件费-->
               <el-table-column
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
@@ -132,28 +130,21 @@
                 v-if="this.$route.params.type === 0 ? true : false"
                 align="center">
               </el-table-column>
-              <el-table-column
-                prop="winterplanpc"
-                :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
-                width="180"
-                v-if="this.$route.params.type === 0 ? true : false"
-                align="center">
-              </el-table-column>
+              <!--              外驻计划 单价-->
               <el-table-column
                 prop="unitprice"
                 :label="$t('label.PFANS1038VIEW_UNITPRICE')"
                 width="180"
                 v-if="this.$route.params.type === 1 ? true : false"
                 align="center">
-              </el-table-column>
-              <!--              add-lyt-21/1/29-禅道任务648-end-->
-              <el-table-column
-                prop="entermouth"
-                :label="$t('label.PFANS1038VIEW_ADOPTED')"
-                width="240"
-                align="center"
-                v-if="show"
-                :formatter="formatterDic">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.unitprice"
+                                   controls-position="right"
+                                   style="width: 100%"
+                                   :disabled="disabled"
+                                   :min="0" :max="10000000000" :precision="2">
+                  </el-input-number>
+                </template>
               </el-table-column>
             </el-table>
           </el-tab-pane>
@@ -165,25 +156,26 @@
               border stripe
               :style="{width:(this.$route.params.type === 0?'80vw':'75vw'),marginLeft:'0%',marginTop: '1%'}"
               header-cell-class-name="sub_bg_color_blue">
+              <!--            NO.-->
               <el-table-column
                 label="No."
                 type="index"
                 width="80"
                 align="center">
               </el-table-column>
+              <!--            外驻先-->
               <el-table-column
-                prop="supchinese"
                 :label="$t('label.PFANS1038VIEW_STATIONED')"
                 width="210"
                 v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
                 <template slot-scope="scope">
                   <el-col :span="8">
-                    <div class="dpSupIndex" style="width:16vw">
+                    <div class="dpSupIndex" style="width:16vw" prop="supchinese">
                       <el-container>
                         <input class="content bg" v-model="scope.row.supchinese"
                                :disabled="disabled" style="min-width: 50%;width: 50%"></input>
-                        <el-button :disabled="disabled" icon="el-icon-search" @click="handleClickE(scope.$index)"
+                        <el-button :disabled="disabled" icon="el-icon-search" @click="dialogone(scope.row)"
                                    size="small"></el-button>
                         <el-dialog :visible.sync="dialogVisibleE" center
                                    size="50%"
@@ -196,7 +188,7 @@
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="rowClickE">
                                 <el-table-column property="supchinese" :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                            width="150"></el-table-column>
+                                                 width="150"></el-table-column>
                                   <el-table-column property="abbreviation" :label="$t('label.PFANS6001VIEW_ABBREVIATION')"
                                                    width="120"></el-table-column>
                                   <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
@@ -205,18 +197,18 @@
                                                    width="120"></el-table-column>
                                   <el-table-column
                                     align="right" width="230">
-                                    <template slot="header" slot-scope="scope">
+                                    <template slot="header">
                                       <el-input
                                         v-model="search"
                                         size="mini"
-                                        placeholder="请输入供应商关键字搜索"/>
+                                        :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
                                     </template>
                                   </el-table-column>
                               </el-table>
                             </el-row>
                             <span slot="footer" class="dialog-footer">
                                   <el-button type="primary"
-                                             @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
+                                             @click="submit()">{{$t('button.confirm')}}</el-button>
                                 </span>
                           </div>
                         </el-dialog>
@@ -225,57 +217,49 @@
                   </el-col>
                 </template>
               </el-table-column>
+              <!--      社内下一年度RANK-->
               <el-table-column
-                prop="name"
-                :label="$t('label.PFANS1038VIEW_MEMBER')"
-                width="180"
+                prop="nextyear"
+                :label="getNextYearLevel"
+                width="100"
                 align="center"
-                v-if="show1">
+                v-if="this.$route.params.type === 0 ? true : false">
+              >
                 <template slot-scope="scope">
-                  <el-input size="small" v-model="scope.row.name" :disabled="disabled"></el-input>
-                </template>
-              </el-table-column>
-              <el-table-column
-                prop="thisyear"
-                :label="getThisYearLevel"
-                width="180"
-                align="center"
-                v-if="show1">
-                <template slot-scope="scope">
-                  <el-select
-                    clearable
+                  <dicselect
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.nextyear"
+                    :disabled="disabled"
+                    :multiple="multiple"
+                    @change="changeRank"
+                    style="width: 6vw"
                     size="small"
-                    v-model="scope.row.thisyear"
-                    :placeholder="$t('normal.error_09')"
-                    :disabled="true"
-                  >
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  ></dicselect>
                 </template>
               </el-table-column>
+              <!--      外驻下一年度RANK-->
               <el-table-column
                 prop="nextyear"
                 :label="getNextYearLevel"
                 width="200"
                 align="center"
+                v-if="this.$route.params.type === 0 ? false : true">
               >
                 <template slot-scope="scope">
-                  <el-select clearable size="small" v-model="scope.row.nextyear" :disabled="disabled"
-                             :placeholder="$t('normal.error_09')">
-                    <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value">
-                    </el-option>
-                  </el-select>
+                  <dicselect
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.nextyear"
+                    :disabled="disabled"
+                    :multiple="multiple"
+                    @change="changeRankBP"
+                    style="width: 6vw"
+                    size="small"
+                  ></dicselect>
                 </template>
               </el-table-column>
+              <!--新规采用入社预定日-->
               <el-table-column
                 prop="entermouth"
                 :label="$t('label.PFANS1038VIEW_ADOPTED')"
@@ -294,6 +278,7 @@
                   <span v-else>{{$t('label.PFANS1038VIEW_OUTSIDE')}}</span>
                 </template>
               </el-table-column>
+              <!--         是否构外-->
               <el-table-column
                 prop="isoutside"
                 :label="$t('label.PFANS1038VIEW_WHETHER')"
@@ -308,7 +293,7 @@
                   </el-switch>
                 </template>
               </el-table-column>
-              <!--              add-lyt-21/1/29-禅道任务648-start-->
+              <!--              人件费-->
               <el-table-column
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
@@ -316,21 +301,23 @@
                 v-if="this.$route.params.type === 0 ? true : false"
                 align="center">
               </el-table-column>
-              <el-table-column
-                prop="winterplanpc"
-                :label="$t('label.PFANS2036VIEW_JUTOMACOST')"
-                width="180"
-                v-if="this.$route.params.type === 0 ? true : false"
-                align="center">
-              </el-table-column>
+              <!--              单价-->
               <el-table-column
                 prop="unitprice"
                 :label="$t('label.PFANS3005VIEW_UNITPRICE')"
                 width="180"
-                v-if="this.$route.params.type === 1 ? true : false"
+                v-if="this.$route.params.type === 0 ? false : true"
                 align="center">
+                <template slot-scope="scope">
+                  <el-input-number v-model="scope.row.unitprice"
+                                   controls-position="right"
+                                   style="width: 100%"
+                                   :disabled="disabled"
+                                   :min="0" :max="10000000000" :precision="2">
+                  </el-input-number>
+                </template>
               </el-table-column>
-              <!--              add-lyt-21/1/29-禅道任务648-end-->
+              <!--              操作-->
               <el-table-column :label="$t('label.operation')" width="200" align="center">
                 <template slot-scope="scope">
                   <el-button
@@ -364,71 +351,102 @@
     import {Message} from 'element-ui';
     import {getOrgInfoByUserId,getCurrentRoleNew,getDepartmentById,getUserInfo} from '@/utils/customize';
     import moment from "moment";
+    import dicselect from "../../../components/dicselect";
     import {getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
     import user from "../../../components/user";
 
     export default {
         name: 'PFANS1038FormView',
         components: {
+          dicselect,
             EasyNormalContainer
         },
         data() {
             return {
               grp_options: [],
-                enterMouth: "",
-                disabled: true,
+              enterMouth: "",
+              disabled: true,
+              rowindextag: '',
               disabledC:false,
-                options: [{
-                    value: 'PR021001',
-                    label: 'R3'
-                }, {
-                    value: 'PR021002',
-                    label: 'R4'
-                }, {
-                    value: 'PR021003',
-                    label: 'R5'
-                }, {
-                    value: 'PR021004',
-                    label: 'R6'
-                }, {
-                    value: 'PR021005',
-                    label: 'R7'
-                }, {
-                    value: 'PR021006',
-                    label: 'R8C'
-                }, {
-                    value: 'PR021007',
-                    label: 'R8B'
-                }, {
-                    value: 'PR021008',
-                    label: 'R8A'
-                }, {
-                    value: 'PR021009',
-                    label: 'R9A'
-                }, {
-                    value: 'PR021010',
-                    label: 'R9B'
-                }, {
-                    value: 'PR021011',
-                    label: 'R10'
-                }, {
-                    value: 'PR021012',
-                    label: 'R11A'
-                }, {
-                    value: 'PR021013',
-                    label: 'R11B'
-                }, {
-                    value: 'PJ053001',
-                    label: this.$t("label.PFANS1036FORMVIEW_COUNSELORUP")
-                }, {
-                    value: 'PJ053002',
-                    label: this.$t("label.PFANS1036FORMVIEW_CHANCELLORDOWN")
-                }],
+              multiple: false,
+              tableDataRankPrice:[],
+              code1: 'PR021',
+                options: [
+                //   {
+                //     value: 'PR021001',
+                //     label: 'R3'
+                // }, {
+                //     value: 'PR021002',
+                //     label: 'R4'
+                // }, {
+                //     value: 'PR021003',
+                //     label: 'R5'
+                // }, {
+                //     value: 'PR021004',
+                //     label: 'R6'
+                // }, {
+                //     value: 'PR021005',
+                //     label: 'R7'
+                // }, {
+                //     value: 'PR021006',
+                //     label: 'R8C'
+                // }, {
+                //     value: 'PR021007',
+                //     label: 'R8B'
+                // }, {
+                //     value: 'PR021008',
+                //     label: 'R8A'
+                // }, {
+                //     value: 'PR021009',
+                //     label: 'R9A'
+                // }, {
+                //     value: 'PR021010',
+                //     label: 'R9B'
+                // }, {
+                //     value: 'PR021011',
+                //     label: 'R10'
+                // }, {
+                //     value: 'PR021012',
+                //     label: 'R11A'
+                // }, {
+                //     value: 'PR021013',
+                //     label: 'R11B'
+                // }, {
+                //     value: 'PJ053001',
+                //     label: this.$t("label.PFANS1036FORMVIEW_COUNSELORUP")
+                // }, {
+                //     value: 'PJ053002',
+                //     label: this.$t("label.PFANS1036FORMVIEW_CHANCELLORDOWN")
+                // }
+                  ],
 
                 loading: false,
                 externalOption: [],
-                newTableData: [{"name": "", "isoutside": false, "entermouth": null}],
-                tableData: [],
+                // newTableData: [{"name": "","supchinese":"","nextyear":"", "isoutside": false, "entermouth": null,"summerplanpc":"","unitprice":""}],
+              newTableData:[
+                {
+                  rowindex:'',
+                  suppliernameid:'',
+                  supchinese:'',
+                  thisyear:'',
+                  nextyear:'',
+                  entermouth:null,
+                  isoutside:false,
+                  summerplanpc:'',
+                  unitprice:''
+                }
+              ],
+              tableData: [
+                  {
+                    name:'',
+                    thisyear:'',
+                    nextyear:'',
+                    summerplanpc:'',
+
+                    suppliername:'',
+                    unitprice:''
+                  }
+                ],
                 activeName: "first",
                 buttonList: [],
                 show: false,
@@ -446,8 +464,9 @@
                 titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
                 form: {
                     //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
-                  years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
+                  // years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
                   //,"YYYY-MM-DD").valueOf() >= moment(moment(new Date(),"YYYY") + "04-01").valueOf() ? parseInt(moment(new Date(),"YYYY")) +1+"" : moment(new Date(),"YYYY")+"",
+                  years:'2021',
                   centerid:'',
                 },
               rules: {
@@ -516,22 +535,21 @@
             }
         },
         methods: {
-          handleClickE() {
+          dialogone(val){
             this.dialogVisibleE = true;
+            this.rowindextag = val.rowindex;
           },
-          rowClickE(row) {
-            this.currentRow = row.supplierinfor_id;
-            this.currentRow1 = row.supchinese;
-            this.currentRow2 = row.abbreviation;
-            this.currentRow3 = row.liableperson;
-            this.currentRow4 = row.protelephone;
+          rowClickE(val) {
+            this.currentRow = val.supplierinfor_id;
+            this.currentRow1 = val.supchinese;
           },
-          submit(row) {
-            row.supplierinfor_id = this.currentRow;
-            row.supchinese = this.currentRow1;
-            row.abbreviation = this.currentRow2;
-            row.liableperson = this.currentRow3;
-            row.protelephone = this.currentRow4;
+          submit() {
+            for(let i = 0; i < this.newTableData.length; i++){
+              if(this.newTableData[i].rowindex === this.rowindextag || this.newTableData[i].rowindex === Number(this.rowindextag)){
+                this.newTableData[i].supplierinfor_id = this.currentRow;
+                this.newTableData[i].supchinese = this.currentRow1;
+              }
+            }
             this.dialogVisibleE = false;
           },
             // yearChange(value) {
@@ -543,13 +561,13 @@
             this.form.centerid = val;
             this.$route.params.type === 0 ? this.getPersonalCost() : this.getExpatriatesinfor()
           },
-            checkRequire() {
-                for (let i = 0; i < this.tableData.length; i++) {
-                    if (this.tableData[i].nextyear === undefined) {
-                        this.activeName = "first";
-                    }
-                }
-            },
+          checkRequire() {
+              for (let i = 0; i < this.tableData.length; i++) {
+                  if (this.tableData[i].nextyear === undefined) {
+                      this.activeName = "first";
+                  }
+              }
+          },
           // add-lyt-21/1/29-禅道任务648-start
           getorglistname()
           {
@@ -695,6 +713,7 @@
             if (!this.form.centerid && this.grp_options.length > 0)
             {
               this.form.centerid = this.grp_options[0].value;
+              this.getRANK();
             }
 
             //UPD CCM 20210422
@@ -702,11 +721,10 @@
           //UPD CCM 20210422
           // getPersonalCost(id) {
           getPersonalCost() {
-
             this.show2=true;
             let params={
               groupid : this.form.centerid,
-              years : this.form.years,
+              years : '2021',
             };
             this.$store
               .dispatch('PFANS1038Store/getPersonalCost',params)
@@ -717,49 +735,17 @@
                     response[i].ltrank = response[i].exrank;
                   }
                   this.tableData.push({
-                    //add-lyt-3/4-添加加班时给，不显示-start
-                    overtimepay: response[i].overtimepay,
-                    overtimehour: response[i].overtimehour,
-                    //add-lyt-3/4-添加加班时给，不显示-end
                     name: response[i].username,
                     thisyear: response[i].exrank,
                     nextyear: response[i].ltrank,
                     summerplanpc: response[i].aptoju,
-                    winterplanpc:response[i].jutoma,
+                    suppliername:'',
+                    unitprice:''
                   });
                 }
                 }
               )
           },
-          // add-lyt-21/1/29-禅道任务648-end
-            getCustomerInfo(id) {
-                this.$store
-                    .dispatch('PFANS1038Store/getCustomerInfo', id)
-                    .then(response => {
-                        if (response.length > 0) {
-                            this.tableData = response.map(
-                                res => {
-                                    return {
-                                        name: res.userinfo.customername,
-                                        userid: res.userid,
-                                        thisyear: res.userinfo.rank,
-                                        nextyear:res.userinfo.rank
-                                    };
-                                }
-                            )
-                          // for(let i =0;i<this.tableData.length;i++){
-                          //   this.tableData[i].nextyear = this.tableData[i].thisyear;
-                          // }
-                        }
-                    })
-                    .catch(error => {
-                        Message({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000
-                        });
-                    })
-            },
             getExpatriatesinfor() {
               let id = this.form.centerid;
                 this.show3=true;
@@ -771,8 +757,16 @@
                           for (let i=0;i < response.length;i++)
                           {
                               response[i].nextyear = response[i].thisyear;
+                              this.tableData.push({
+                                name: response[i].name,
+                                thisyear: response[i].thisyear,
+                                nextyear: response[i].nextyear,
+                                summerplanpc: '',
+                                suppliername:response[i].suppliername,
+                                unitprice:response[i].unitprice,
+                            });
+
                           }
-                            this.tableData = response;
                         }
                     })
                     .catch(error => {
@@ -787,7 +781,7 @@
                 this.$store
                     .dispatch('PFANS1038Store/getExternal')
                     .then(response => {
-                        this.$store.commit("global/SET_SUPPLIERINFOR", response);
+                        // this.$store.commit("global/SET_SUPPLIERINFOR", response);
                         if (response.length > 0) {
                           for (let j = 0; j < response.length; j++)
                           {
@@ -834,6 +828,7 @@
                               lable: user,
                             },)
                             this.form.centerid = response.centerid;
+                            this.getRANK();
                           }
                         }
                         // this.form.center_id = response.center_id;
@@ -843,7 +838,8 @@
                           this.newTableData = JSON.parse(this.form.newentry);
                           if (this.newTableData =='')
                           {
-                            this.newTableData.push({"name": "", "isoutside": false, "entermouth": this.enterMouth});
+                            // this.newTableData.push({"name": "", "isoutside": false, "entermouth": this.enterMouth});
+                            this.newTableData.push({"rowindex":"","name": "","supchinese":"","nextyear":"", "isoutside": false, "entermouth": this.enterMouth,"summerplanpc":"","unitprice":""});
                           }
                         }
                     })
@@ -879,10 +875,33 @@
                 if (rows.length > 1) {
                     rows.splice(index, 1);
                 }
+                else {
+                  this.newTableData = [
+                    {
+                      rowindex:'',
+                      name: '',
+                      supchinese: '',
+                      nextyear: null,
+                      isoutside: false,
+                      entermouth: null,
+                      summerplanpc: '',
+                      unitprice: '',
+                    },
+                  ]
+                }
             },
             addRow() {
-                this.newTableData.push({"name": "", "isoutside": false, "entermouth": this.enterMouth});
-            },
+              let num = this.newTableData[this.newTableData.length - 1].rowindex;
+              this.newTableData.push({
+                "rowindex":num+1,
+                "name": "",
+                "supchinese":"",
+                "nextyear":"",
+                "isoutside": false,
+                "entermouth": null,
+                "summerplanpc":"",
+                "unitprice":""});
+              },
             changeOption(val, row) {
                 if (val) {
                     if (this.i18n) {
@@ -896,6 +915,7 @@
               this.$refs['form'].validate(valid => {
                 if (valid) {
                   this.checkRequire();
+                  debugger;
                   this.form.employed = JSON.stringify(this.tableData);
                   let newTableDatalinshi = [];
 
@@ -1024,7 +1044,53 @@
                   });
                 }
               })
-            }
+            },
+            getRANK(){
+              this.tableDataRankPrice =[];
+              this.loading = true;
+              let parameter = {
+                year : '2021',
+                groupid : this.form.centerid,
+              };
+              this.$store
+                .dispatch('PFANS4003Store/getpeoplewareList',parameter)
+                .then(res => {
+                  if(res.length > 0){
+                    this.tableDataRankPrice = res;
+                  }
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000
+                  });
+                  this.loading = false
+                })
+              this.loading = false
+            },
+            changeRank(val, row){
+              row.nextyear = val;
+              if (this.tableDataRankPrice.length>0)
+              {
+                let dic = getDictionaryInfo(val);
+                if (dic!=null)
+                {
+                  let rankprice = this.tableDataRankPrice.filter(item=> item.ranks === dic.value1)
+                  if (rankprice.length>0)
+                  {
+                    row.summerplanpc = rankprice[0].ageprice;
+                  }
+                  else
+                  {
+                    row.summerplanpc = 0;
+                  }
+                }
+              }
+            },
+          changeRankBP(val, row){
+            row.nextyear = val;
+          },
         }
     };
 </script>
