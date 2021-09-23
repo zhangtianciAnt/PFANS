@@ -502,6 +502,7 @@
                 this.buttonList = [
                     {
                         key: "save",
+                        disabled : false,
                         name: "button.save",
                         icon: "el-icon-check"
                     }
@@ -519,6 +520,7 @@
                 this.disabledC = true;
                 this.getOne(this.$route.params._id);
             } else {
+                this.buttonList[0].disabled = true;
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                   this.disabledC = false;
@@ -558,6 +560,7 @@
             //     this.enterMouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
             // },
           groupChange(val) {
+            this.buttonList[0].disabled = true;
             this.form.centerid = val;
             this.$route.params.type === 0 ? this.getPersonalCost() : this.getExpatriatesinfor()
           },
@@ -726,33 +729,41 @@
               groupid : this.form.centerid,
               years : '2021',
             };
+            this.tableData = [];
             this.$store
               .dispatch('PFANS1038Store/getPersonalCost',params)
               .then(response => {
-                this.tableData = [];
-                for (var i = 0; i < response.length; i++){
-                  if(response[i].ltrank == "" || response[i].ltrank == null || response[i].ltrank == undefined){
-                    response[i].ltrank = response[i].exrank;
+                if (response.length>0)
+                {
+                  for (var i = 0; i < response.length; i++){
+                    if(response[i].ltrank == "" || response[i].ltrank == null || response[i].ltrank == undefined){
+                      response[i].ltrank = response[i].exrank;
+                    }
+                    this.tableData.push({
+                      name: response[i].username,
+                      thisyear: response[i].exrank,
+                      nextyear: response[i].ltrank,
+                      summerplanpc: response[i].aptoju,
+                      suppliername:'',
+                      unitprice:''
+                    });
                   }
-                  this.tableData.push({
-                    name: response[i].username,
-                    thisyear: response[i].exrank,
-                    nextyear: response[i].ltrank,
-                    summerplanpc: response[i].aptoju,
-                    suppliername:'',
-                    unitprice:''
-                  });
+                  this.buttonList[0].disabled = false;
                 }
+                else
+                {
+                  this.buttonList[0].disabled = true;
                 }
-              )
+                })
           },
             getExpatriatesinfor() {
               let id = this.form.centerid;
+              this.tableData = [];
                 this.show3=true;
                 this.$store
                     .dispatch('PFANS1038Store/getExpatriatesinfor', id)
                     .then(response => {
-                      this.tableData = [];
+
                         if (response.length > 0) {
                           for (let i=0;i < response.length;i++)
                           {
@@ -765,8 +776,12 @@
                                 suppliername:response[i].suppliername,
                                 unitprice:response[i].unitprice,
                             });
-
                           }
+                          this.buttonList[0].disabled = false;
+                        }
+                        else
+                        {
+                          this.buttonList[0].disabled = true;
                         }
                     })
                     .catch(error => {
