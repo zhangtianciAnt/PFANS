@@ -1,4 +1,5 @@
-import {getCostList, getWorktimes, getWorkers, downloadExcel} from './PFANS6009Api'
+import {getCostList, getWorktimes, getWorkers, downloadExcel,exportpdf} from './PFANS6009Api'
+import {exportjs} from '../../PFANS1000/PFANS1012/PFANS1012Api';
 const PFANS6009Store = {
   namespaced: true,
   state: {},
@@ -51,6 +52,15 @@ const PFANS6009Store = {
           } else {
             reject(response.message)
           }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    exportpdf({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportpdf(data).then(response => {
+          resolve(response);
         }).catch(error => {
           reject(error);
         })

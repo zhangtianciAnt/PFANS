@@ -203,17 +203,42 @@
             label: '',
             child: [
               {
-                code: 'manhour4',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                // region add_qhr_20210907  bp社统计每月加入实际费用列
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour4',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost4',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost4',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour4f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost4f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -223,17 +248,41 @@
             label: '',
             child: [
               {
-                code: 'manhour5',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour5',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost5',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost5',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour5f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost5f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -243,17 +292,41 @@
             label: '',
             child: [
               {
-                code: 'manhour6',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour6',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost6',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost6',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour6f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost6f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -263,17 +336,41 @@
             label: '',
             child: [
               {
-                code: 'manhour7',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour7',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost7',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost7',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour7f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost7f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -283,17 +380,41 @@
             label: '',
             child: [
               {
-                code: 'manhour8',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour8',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost8',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost8',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour8f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost8f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -303,17 +424,41 @@
             label: '',
             child: [
               {
-                code: 'manhour9',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour9',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost9',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost9',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour9f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost9f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -323,17 +468,41 @@
             label: '',
             child: [
               {
-                code: 'manhour10',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour10',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost10',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost10',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                  code: 'manhour10f',
+                  label: 'label.PFANS6009VIEW_MANHOUR',
+                  width: 100,
+                  fix: false,
+                },
+                  {
+                    code: 'cost10f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -343,17 +512,41 @@
             label: '',
             child: [
               {
-                code: 'manhour11',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour11',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost11',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost11',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour11f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost11f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -363,17 +556,41 @@
             label: '',
             child: [
               {
-                code: 'manhour12',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour12',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost12',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost12',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour12f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost12f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -383,17 +600,41 @@
             label: '',
             child: [
               {
-                code: 'manhour1',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour1',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost1',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost1',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour1f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost1f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -403,17 +644,39 @@
             label: '',
             child: [
               {
-                code: 'manhour2',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour2',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost2',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost2',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [{
+                  code: 'manhour2f',
+                  label: 'label.PFANS6009VIEW_MANHOUR',
+                  width: 100,
+                  fix: false,
+                },
+                  {
+                    code: 'cost2f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },]
+              }
             ],
             width: 540,
             fix: false,
@@ -423,17 +686,41 @@
             label: '',
             child: [
               {
-                code: 'manhour3',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'manhour3',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost3',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'cost3',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'manhour3f',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'cost3f',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
             ],
             width: 540,
             fix: false,
@@ -443,24 +730,48 @@
             label: 'label.PFANS6009VIEW_TOTAL',
             child: [
               {
-                code: 'totalmanhours',
-                label: 'label.PFANS6009VIEW_MANHOUR',
-                width: 100,
-                fix: false,
+                code: 'yuti',
+                label: 'label.PFANS6009VIEW_YUTI',
+                child: [
+                  {
+                    code: 'totalmanhour',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'totalcost',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
               },
               {
-                code: 'totalcost',
-                label: 'label.PFANS6009VIEW_COST',
-                width: 100,
-                fix: false,
-              },
+                code: 'feiyong',
+                label: 'label.PFANS6009VIEW_FEIYONG',
+                child: [
+                  {
+                    code: 'totalmanhourf',
+                    label: 'label.PFANS6009VIEW_MANHOUR',
+                    width: 100,
+                    fix: false,
+                  },
+                  {
+                    code: 'totalcostf',
+                    label: 'label.PFANS6009VIEW_COST',
+                    width: 100,
+                    fix: false,
+                  },
+                ]
+              }
+              // endregion add_qhr_20210907  bp社统计每月加入实际费用列
             ],
             width: 540,
             fix: false,
           },
         ],
         buttonList: [
-//          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'export', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
         ],
         yearLabel: this.$t('label.PFANS6009VIEW_YEARLABEL'),
@@ -944,64 +1255,15 @@
     },
     mounted() {
       this.getById();
-      // TAB1
-//      for (var i = 0; i < this.array.length; i++) {
-//        this.columns[i + 1].label = this.array[i];
-//      }
 
       let year = moment().subtract(3, 'months').year();
       for (var i = 0; i < this.array.length; i++) {
         if (i <= 8) {
-          //this.columns[i + 1].label = this.array[i].replace('0000', year).replace('Y', this.yearLabel).replace('M', this.monthLabel);
           this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         } else {
-          //this.columns[i + 1].label = this.array[i].replace('0000', year + 1).replace('Y', this.yearLabel).replace('M', this.monthLabel);
           this.columns[i + 1].label = this.array[i].replace('0000', '').replace('Y', '').replace('M', this.monthLabel);
         }
       }
-
-
-//       // TAB2
-//       this.columnsB = JSON.parse(JSON.stringify(this.columns));
-//       for (var i = 0; i < this.array1.length; i++) {
-// //        this.columnsB[i + 1].label = this.array1[i];
-//         for (var j = 0; j < this.arrayB.length; j++) {
-//           this.columnsB[i + 1].child[j].label = this.arrayB[j];
-//         }
-//       }
-//
-//       for (var i = 1; i <= 12; i++) {
-//         if (i <= 9) {
-//           this.columnsB[i].label = this.array1[i - 1].replace('0000', year);
-//         } else {
-//           this.columnsB[i].label = this.array1[i - 1].replace('0000', year + 1);
-//         }
-//       }
-//
-//
-//       this.columnsB[13].child[0].label = this.arrayB[0];
-//       this.columnsB[13].child[1].label = this.arrayB[1];
-
-      // TAB3
-//       this.columnsC = JSON.parse(JSON.stringify(this.columns));
-//       for (var i = 0; i < this.array1.length; i++) {
-// //        this.columnsC[i + 1].label = this.array1[i];
-//         this.columnsC[i + 1].child.splice(1, 1);
-//         this.columnsC[i + 1].child[0].label = this.number;
-//       }
-//
-//       for (var i = 1; i <= 12; i++) {
-//         if (i <= 9) {
-//           this.columnsC[i].label = this.array1[i - 1].replace('0000', year);
-//         } else {
-//           this.columnsC[i].label = this.array1[i - 1].replace('0000', year + 1);
-//         }
-//       }
-//
-//
-//       this.columnsC[13].child.splice(1, 1);
-//       this.columnsC[13].child[0].label = this.number;
-
       this.loadTableA(this.form.group_id, this.form.year);
       this.loadTableB(this.form.group_id, this.form.year);
       this.loadTableC(this.form.group_id, this.form.year);
@@ -1034,7 +1296,7 @@
       },
       // rowspan
       arraySpanMethod({row, column, rowIndex, columnIndex}) {
-        if (rowIndex > this.tableA.length - 5) {
+        if (rowIndex > this.tableA.length - 1) {
           if ((columnIndex + 1) % 2 == 0) {
             return {
               rowspan: 1,
@@ -1047,7 +1309,7 @@
             };
           }
         } else {
-          if (rowIndex > this.tableA.length - 6) {
+          if (rowIndex > this.tableA.length - 2) {
             if (columnIndex == 0) {
               return {
                 rowspan: 0,
@@ -1148,64 +1410,35 @@
         this.$store
           .dispatch('PFANS6009Store/getCostList', params)
           .then(response => {
-            var tableData = response.company;
-            var tripData = response.trip;
-            var assetData = response.asset;
-
-            for (let j = 0; j < tableData.length; j++) {
-              if (tableData[j].bpcompany !== null && tableData[j].bpcompany !== '') {
-                let supplierInfor = getSupplierinfor(tableData[j].bpcompany);
-                if (supplierInfor) {
-                  tableData[j].bpcompany = supplierInfor.supchinese;
-                }
-              }
-            }
-
+            var tableData = response;
             let arrayAdate = [];
             let addLine1 = {}, addLine2 = {}, addLine5 = {};
             for (var i = 1; i <= 13; i++) {
-              var total_manhour = 0, total_cost = 0;
+              var total_manhour = 0, total_cost = 0,total_manhourf = 0, total_costf = 0;
               var key_hour = 'manhour' + i;
               var key_cost = 'cost' + i;
+              var key_hourf = 'manhour' + i + 'f';
+              var key_costf = 'cost' + i + 'f';
               if (i > 12) {
                 key_cost = 'totalcost';
-                key_hour = 'totalmanhours';
+                key_hour = 'totalmanhour';
+                key_costf = 'totalcostf';
+                key_hourf = 'totalmanhourf';
               }
               for (var j = 0; j < tableData.length; j++) {
                 total_manhour += parseFloat(tableData[j][key_hour]);
                 total_cost += parseFloat(tableData[j][key_cost]);
+                total_manhourf += parseFloat(tableData[j][key_hourf]);
+                total_costf += parseFloat(tableData[j][key_costf]);
               }
               addLine1[key_hour] = parseFloat(total_manhour).toFixed(2);
               addLine1[key_cost] = parseFloat(total_cost).toFixed(2);
-              if (total_manhour == 0) {
-                addLine2[key_cost] = '0.00';
-              } else {
-                addLine2[key_cost] = (parseFloat(total_cost) / parseFloat(total_manhour)).toFixed(2);
-              }
-
-              tripData[key_cost] = parseFloat(tripData[key_cost]).toFixed(2);
-              assetData[key_cost] = parseFloat(assetData[key_cost]).toFixed(2);
-
-              addLine5[key_cost] = (parseFloat(total_cost) + parseFloat(tripData[key_cost]) + parseFloat(assetData[key_cost])).toFixed(2);
+              addLine1[key_hourf] = parseFloat(total_manhourf).toFixed(2);
+              addLine1[key_costf] = parseFloat(total_costf).toFixed(2);
+              addLine5[key_cost] = (parseFloat(total_cost)).toFixed(2);
             }
             arrayAdate.push(addLine1);
-            arrayAdate.push(addLine2);
-            arrayAdate.push(tripData);
-            arrayAdate.push(assetData);
-            arrayAdate.push(addLine5);
-            // 赋值
-            for (var p = 0; p <= 4; p++) {
-              tableData.push(Object.assign(arrayAdate[p], {bpcompany: this.arryaLabels[p]}));
-            }
-//            var year = response.year;
-//            for (var i = 0; i < this.array.length; i++) {
-//              if(i <=8) {
-//                this.columns[i + 1].label = this.array[i].replace("0000", year[0]).replace("Y", this.yearLabel).replace("M", this.monthLabel);
-//              }else{
-//                this.columns[i + 1].label = this.array[i].replace("0000", year[1]).replace("Y", this.yearLabel).replace("M", this.monthLabel);;
-//              }
-//            }
-
+            tableData.push(Object.assign(arrayAdate[0], {bpcompany: this.arryaLabels[0]}));
             this.tableA = tableData;
             this.loading = false;
           })

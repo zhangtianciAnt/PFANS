@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from '../../../../utils/requestExcel'
+import requestPdf from '../../../../utils/requestPdf';
 
 export function getCostList(data) {
   return request({
@@ -30,6 +31,15 @@ export function downloadExcel(data) {
     url: '/companystatistics/downloadExcel',
     method: 'get',
     params: data
+  })
+}
+// 月度费用总览导出
+export function exportpdf(data) {
+  return requestPdf({
+    url: '/companystatistics/downloadPdf',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
   })
 }
 

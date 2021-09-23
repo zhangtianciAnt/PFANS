@@ -47,6 +47,11 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'contract', 'name': 'button.contract1', 'disabled': false, 'icon': 'el-icon-view'},
         ],
+        buttonListinitialEx: [
+          {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'contract', 'name': 'button.contract1', 'disabled': false, 'icon': 'el-icon-view'},
+          {'key': 'export', 'name': 'button.printing', 'disabled': false, 'icon': 'el-icon-upload2'},
+        ],
         // 列属性
         columns: [
           {
@@ -373,6 +378,9 @@
             //外驻管理人员可操作【生成合同】
             if (letRole2 == '4') {
               this.buttonList = this.buttonListinitial;
+              if (this.showButton === '0') { //待修改成0-全部审批通过后才可导出
+                this.buttonList = this.buttonListinitialEx;
+              }
             } else {
               this.buttonList = [
                 {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -457,6 +465,22 @@
               disabled: false,
             },
           });
+        }
+        if (val === 'export') {
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS6009Store/exportpdf', {dates: this.months})
+            .then(response => {
+              this.loading = false;
+            })
+            .catch(error => {
+              Message({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
         }
       },
       getCurrentRole2() {
