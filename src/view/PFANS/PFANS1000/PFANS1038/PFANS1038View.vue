@@ -37,6 +37,7 @@
     import {Message} from "element-ui";
     import {getUserInfo} from '@/utils/customize'
     import moment from "moment";
+    import {getOrgInfo} from '@/utils/customize';
 
     export default {
         name: 'PFANS1037View',
@@ -77,13 +78,6 @@
                         code: "years",
                         label: "label.PFANS2023VIEW_YEARS",
                         width: 150,
-                        fix: false,
-                        filter: true
-                    },
-                    {
-                        code: "center",
-                        label: "label.center",
-                        width: 200,
                         fix: false,
                         filter: true
                     },
@@ -137,8 +131,11 @@
                                     userinfo = getUserInfo(res.createby).userinfo;
                                 }
                                 res.createby = userinfo.customername;
-                                res.center = userinfo.centername;
-                                res.department = userinfo.groupname || "";
+                                if(res.centerid)
+                                {
+                                  let name = getOrgInfo(res.centerid)
+                                  res.department = name.companyname;
+                                }
                                 res.createon = moment(res.createon).format("YYYY-MM-DD");
                                 if (res.type === 0) {
                                     data.push(res);

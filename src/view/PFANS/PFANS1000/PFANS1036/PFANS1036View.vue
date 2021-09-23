@@ -7,15 +7,21 @@
                :visible.sync="daoru">
       <div>
         <div>
+          <el-form>
           <el-row>
-            <el-radio v-model="radio" label="1">设备投资</el-radio>
-            <el-radio v-model="radio" label="2">软件资产</el-radio>
+            <el-col :span="14">
+              <el-form-item :label="$t('label.PFANS1006FORMVIEW_DISTINGUISH')">
+                <el-radio style="margin-left: 50px" v-model="radio" label="1">{{$t('label.PFANS1036FORMVIEW_EQUIPMENTINVESTMENT')}}</el-radio>
+                <el-radio v-model="radio" label="2">{{$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')}}</el-radio>
+              </el-form-item>
+            </el-col>
+            <el-col :span="4">
+              <el-button @click="checkliste" type="primary">
+                {{$t('button.confirm')}}
+              </el-button>
+            </el-col>
           </el-row>
-        </div>
-        <div style="margin-top: 1rem;margin-left: 14.5rem">
-          <el-button @click="checkliste" type="primary">
-            {{$t('button.confirm')}}
-          </el-button>
+          </el-form>
         </div>
       </div>
     </el-dialog>
@@ -117,17 +123,24 @@
             fix: false,
             filter: true,
           },
+          // {
+          //   code: 'center',
+          //   label: 'label.center',
+          //   width: 150,
+          //   fix: false,
+          //   filter: true,
+          // },
+          // {
+          //   code: 'group',
+          //   label: 'label.group',
+          //   width: 150,
+          //   fix: false,
+          //   filter: true,
+          // },
           {
-            code: 'center',
-            label: 'label.center',
-            width: 150,
-            fix: false,
-            filter: true,
-          },
-          {
-            code: 'group',
-            label: 'label.group',
-            width: 150,
+            code: "department",
+            label: "label.department",
+            width: 120,
             fix: false,
             filter: true,
           },
@@ -153,7 +166,7 @@
       let role3 = getCurrentRole3();
       if (role3 === '0') {
         this.buttonList[3].disabled = false;
-        this.buttonList[1].disabled = true;
+        // this.buttonList[1].disabled = true;
       }
       // if (this.$store.getters.userinfo.userid) {
       //   let group = getUserInfo(this.$store.getters.userinfo.userid);
@@ -174,8 +187,15 @@
               let rst = getUserInfo(response[j].user_id);
               if (rst) {
                 response[j].user_id = rst.userinfo.customername;
-                response[j].center = rst.userinfo.centername;
-                response[j].group = rst.userinfo.groupname;
+                // response[j].center = rst.userinfo.centername;
+                // response[j].group = rst.userinfo.groupname;
+              }
+              if (response[j].center_id)
+              {
+                let orgInfo_cnt = getOrgInfo(response[j].center_id);
+                if (orgInfo_cnt) {
+                  response[j].department = orgInfo_cnt.companyname;
+                }
               }
               if (response[j].status !== null && response[j].status !== '') {
                 response[j].status = getStatus(response[j].status);
@@ -295,7 +315,7 @@
             params: {
               _id: this.rowid,
               year: this.year,
-              groupid: this.groupid,
+              center_id: this.centerid,
               disabled: false,
             },
           });
@@ -322,7 +342,7 @@
             params: {
               _id: this.rowid,
               year: this.year,
-              centerid: this.centerid,
+              center_id: this.centerid,
               disabled: true,
             },
           });
