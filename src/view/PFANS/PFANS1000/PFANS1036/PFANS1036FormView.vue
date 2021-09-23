@@ -4366,20 +4366,28 @@
       //endregion add_qhr_20210910 取消画面实时计算
       assets1: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       assets2: {
         handler(newValue, oldValue) {
-          this.computedSum();
-
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       travel: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
@@ -4391,31 +4399,46 @@
       // },
       sumA2: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumB1: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumB2: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumB3: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumC1: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },

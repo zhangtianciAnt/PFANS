@@ -1923,7 +1923,7 @@
         this.groupdata(this.refform.center_id);
       },
       groupChange(val) {
-        let orgInfo = getUpOrgInfo(val);
+        let orgInfo = getOrgInfo(val);
         this.refform.center_id = val;
         // this.refform.center_id = orgInfo._id;
         this.groupdata(val);
