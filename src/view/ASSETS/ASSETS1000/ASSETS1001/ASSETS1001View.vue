@@ -227,7 +227,8 @@
             label: 'label.ASSETS1001VIEW_TYPEASSETS',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
+            //update_qhr_20210908 更改资产类型可删选属性
           }, {
             code: 'filename',
             label: 'label.ASSETS1001VIEW_FILENAME',
@@ -590,8 +591,8 @@
                 }
               }
             }
-
             this.data = response;
+            this.selectInit();
             this.loading = false;
           })
           .catch(error => {
