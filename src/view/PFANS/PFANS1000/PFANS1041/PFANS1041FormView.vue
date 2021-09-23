@@ -1902,7 +1902,7 @@
         this.tableDataA[this.index].themename = val.themename;
         //add_qhr_20210707  增加将themeinfor_id取出
         this.tableDataA[this.index].themeinfor_id = val.themeinfor_id;
-        this.tableDataA[this.index].month = val.data;
+        this.tableDataA[this.index].month = moment(new Date()).format('YYYY-MM-DD');
         this.tableDataA[this.index].branch = val.divide;
         this.tableDataA[this.index].contracttype = val.contract;
         this.tableDataA[this.index].currencytype = val.currency;
@@ -1923,7 +1923,7 @@
         this.groupdata(this.refform.center_id);
       },
       groupChange(val) {
-        let orgInfo = getUpOrgInfo(val);
+        let orgInfo = getOrgInfo(val);
         this.refform.center_id = val;
         // this.refform.center_id = orgInfo._id;
         this.groupdata(val);

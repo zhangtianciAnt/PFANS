@@ -1021,6 +1021,7 @@
       } else {
         this.loading = true;
         this.disabledT = false;
+        //todo 年度
         // this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         this.refform.year = '2021';
         this.refform.group_id = this.$route.params.group_id;
