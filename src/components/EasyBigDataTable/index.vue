@@ -20,7 +20,7 @@
                 header-cell-class-name="sub_bg_color_blue" header-row-class-name="height" :pagination-show="paginationShow" :height-change="paginationShow"
                 highlight-current-row ref="eltable" stripe border use-virtual big-data-checkbox
                 style="width: 100%" v-loading='loading' cell-class-name = "row_height_left" :row-height="rowheight">
-        <pl-table-column reserve-selection type="selection" v-if="showSelection" width="55">
+        <pl-table-column reserve-selection type="selection" v-if="showSelection" width="55" :selectable="selectable">
         </pl-table-column>
         <pl-table-column type="index" v-if="showIndex" width="55" label="NO">
         </pl-table-column>
@@ -106,6 +106,9 @@
       columns: {
         type: Array,
         default: []
+      },
+      selectable: {
+        type: Function,
       },
       // 默认排序
       defaultSort: {

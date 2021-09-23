@@ -1,7 +1,8 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :showSelection="showSelection"  :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="showSelection"
+                     :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
       <el-select @change="changed" slot="customize" v-model="department">
@@ -226,7 +227,8 @@
             label: 'label.ASSETS1001VIEW_TYPEASSETS',
             width: 120,
             fix: false,
-            filter: false,
+            filter: true,
+            //update_qhr_20210908 更改资产类型可删选属性
           }, {
             code: 'filename',
             label: 'label.ASSETS1001VIEW_FILENAME',
@@ -335,7 +337,6 @@
         ],
         rowid: '',
         row_id: 'assets_id',
-        selectedlist: [],
         //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
         _count: 0
         //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 end
@@ -502,6 +503,15 @@
           this.loading = false;
         });
       },
+      // 资产报废不可以异动操作 ztc fr
+      selectInit(row,index) {
+        if(row !== undefined){
+          if (row.assetstatus !== undefined && row.assetstatus != this.$t('label.PFANS1002VIEW_ASSETREBF')) {
+            return row;
+          }
+        }
+      },
+      // 资产报废不可以异动操作 ztc to
       changed() {
         this.getListData();
       },
@@ -581,8 +591,8 @@
                 }
               }
             }
-
             this.data = response;
+            this.selectInit();
             this.loading = false;
           })
           .catch(error => {
@@ -738,7 +748,9 @@
               duration: 2 * 1000,
             });
           } else {
-            let selectedList = this.selectedlist;
+            //region scc upd 9/7 避免导出页面启用时间的变化 from
+            let selectedList = JSON.parse(JSON.stringify(this.selectedlist));
+            //endregion scc upd 9/7 避免导出页面启用时间的变化 to
             this.export(selectedList);
           }
         }
@@ -835,7 +847,9 @@
             if(this.$store.getters.userinfo.userinfo.resignation_date) {
               _flag = true;
               this.$refs.roletable.selectedList.filter((item) => {
-                if (getUserInfoName(item.principal).userid === this.$store.getters.userinfo.userid) {
+                // 资产报废不可以异动操作 ztc fr
+                if (getUserInfoName(item.principal).userid === this.$store.getters.userinfo.userid && item.assetstatus !== this.$t('label.PFANS1002VIEW_ASSETREBF')) {
+                  // 资产报废不可以异动操作 ztc to
                   _p++;
                 }
               })
@@ -883,7 +897,10 @@
                 list.purchasetime = moment(list.purchasetime).format('YYYY/MM/DD');
               }
               if (list.activitiondate) {
-                list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
+                //region scc upd 9/7 启用日期导出格式变换 from
+                // list.activitiondate = moment(list.activitiondate).format('YYYY/MM/DD');
+                list.activitiondate = moment(list.activitiondate).format('DD-MM-YYYY');
+                //endregion scc upd 9/7 启用日期导出格式变换 to
               }
               if (list.psdcdperiod) {
                 list.psdcdperiod = moment(list.psdcdperiod).format('YYYY/MM/DD');
@@ -1116,7 +1133,9 @@
         } else {
           let error_BF = 0;
           for (let i = 0; i < this.selectedlist.length; i++) {
-            if (this.selectedlist[i].assetstatus == '报废') {
+            // 资产报废不可以异动操作 ztc fr
+            if (this.selectedlist[i].assetstatus === this.$t('label.PFANS1002VIEW_ASSETREBF')) {
+              // 资产报废不可以异动操作 ztc to
               error_BF += 1;
             }
           }

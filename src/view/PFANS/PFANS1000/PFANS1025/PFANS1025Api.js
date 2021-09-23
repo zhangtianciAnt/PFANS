@@ -75,3 +75,39 @@ export function dataCarryover(data) {
     data: data
   })
 }
+//region scc add 21/8/20 受托合同，详情，部门下拉框数据源 from
+export function getcompanyen() {
+  return request({
+    url: 'award/getcompanyen',
+    method: 'get',
+  })
+}
+//region scc add 21/8/20 受托合同，详情，部门下拉框数据源 to
+
+//region scc add 21/8/23 受托合同，详情，RANK下拉框数据源 from
+export function getRanks() {
+  return request({
+    url: 'award/getRanks',
+    method: 'get',
+  })
+}
+//region scc add 21/8/23 受托合同，详情，RANK下拉框数据源 to
+//region scc add 21/8/23 获取成本 from
+export function getPersonalBm(data) {
+  return request({
+    url: 'award/getPersonalBm',
+    method: 'get',
+    params: data
+  })
+}
+//endregion scc add 21/8/23 获取成本 to
+
+//PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+export function getAwardEntr(data) {
+  return request({
+    url: 'award/getAwardEntr',
+    method: 'post',
+    data: data
+  })
+}
+//PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to

@@ -301,25 +301,8 @@
             // this.getAttendancelist();
           });
       },
-      //add-ws-考勤设置休日背景色
-      rowClassName({row, rowIndex}) {
-        //add-ws-考勤设置休日背景色
-        for (let i = 0; i < this.dateInfo.length; i++) {
-          if (this.dateInfo[i].type === '4') {
-            if (this.dateInfo[i].dateflg === row.dates) {
-              return 'white';
-            }
-          } else {
-            if (this.dateInfo[i].dateflg === row.dates) {
-              row.absenteeism = '';
-              this.totalAbsenteeism = true;
-              this.xiuributtonshow = false;
-              return 'sub_bg_color_Darkgrey';
-            }
-          }
-        }
 
-        //ccm 入职离职后考勤颜色   from
+      rowClassName({row, rowIndex}) {
         let userid = row.user_id;
         let user = getUserInfo(userid);
         let resignationdate = '';
@@ -328,7 +311,6 @@
           resignationdate = user.userinfo.resignation_date;
           enterdate = user.userinfo.enterday;
         }
-        //入职
         if (moment(row.dates).format('YYYY-MM-DD') < moment(enterdate).format('YYYY-MM-DD')) {
           if (row.dates === this.$t('label.PFANS1012VIEW_ACCOUNT')) {
             return 'white';
@@ -339,8 +321,7 @@
             return 'sub_bg_color_Ral';
           }
         }
-        //离职
-        if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD')) {
+        else if (moment(row.dates).format('YYYY-MM-DD') > moment(resignationdate).format('YYYY-MM-DD')) {
           if (row.dates === this.$t('label.PFANS1012VIEW_ACCOUNT')) {
             return 'white';
           } else {
@@ -350,14 +331,35 @@
             return 'sub_bg_color_Ral';
           }
         }
-        //ccm 入职离职后考勤颜色   to
+        else {
+          let color = 0;
+          if (moment(row.dates).format('E') == 6 || moment(row.dates).format('E') == 7) {
+            row.absenteeism = '';
+            this.totalAbsenteeism = true;
+            this.xiuributtonshow = false;
+            color = 1;
+          }
+            //设置振替出勤日及日历中设置的日期背景色
+            let type4 = this.dateInfo.filter(item => item.type === '4' && item.dateflg === row.dates);
+            if (type4.length > 0) {
+              color = 0;
+            }
 
-        //add-ws-考勤设置休日背景色
-        if (moment(row.dates).format('E') == 6 || moment(row.dates).format('E') == 7) {
-          row.absenteeism = '';
-          this.totalAbsenteeism = true;
-          this.xiuributtonshow = false;
-          return 'sub_bg_color_Darkgrey';
+            let typefei4 = this.dateInfo.filter(item => item.type != '4' && item.dateflg === row.dates);
+            if (typefei4.length > 0) {
+              row.absenteeism = '';
+              this.totalAbsenteeism = true;
+              this.xiuributtonshow = false;
+              color = 1;
+            }
+            if (color === 0)
+            {
+              return 'white';
+            }
+            else
+            {
+              return 'sub_bg_color_Darkgrey';
+            }
         }
       },
       setdisabled(val) {

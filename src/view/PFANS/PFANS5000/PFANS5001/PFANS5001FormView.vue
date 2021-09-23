@@ -801,7 +801,7 @@
                                            :disabled="true"></input>
 <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                     <el-button :disabled="!disable" icon="el-icon-search"
-                                               @click="dialogone()"
+                                               @click="dialogone(scope.row)"
                                                size="small"></el-button>
 <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                     <el-dialog :title="$t('label.PFANS5001FORMVIEW_OUTSOURCEPERSON')"
@@ -862,7 +862,7 @@
                                           <!--                                    项目dialog 体制 合同优化添加分页 ztc to-->
                                         </el-row>
                                         <span slot="footer" class="dialog-footer">
-                                            <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
+                                            <el-button type="primary" @click="submit()">{{$t('button.confirm')}}</el-button>
                                           </span>
                                       </div>
                                     </el-dialog>
@@ -1478,6 +1478,9 @@
         currentRow8: '',
         //add_qhr_20210810 添加字段
         currentRow9: '',
+        //region scc add 9/16 选中行标记 from
+        rowindextag: '',
+        //endregion scc add 9/16 选中行标记 to
         //项目计划
         tableA: [
           {
@@ -2428,14 +2431,16 @@
           this.errorcenter = '';
         }
       },
-      getGroupId(val) {
-        this.getOrgInformation(val);
-        if (this.form.center_id === '') {
-          this.errorgroup = this.$t('normal.error_08') + 'center';
-        } else {
-          this.errorgroup = '';
-        }
-      },
+      // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+      // getGroupId(val) {
+      //   this.getOrgInformation(val);
+      //   if (this.form.center_id === '') {
+      //     this.errorgroup = this.$t('normal.error_08') + 'center';
+      //   } else {
+      //     this.errorgroup = '';
+      //   }
+      // },
+      // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
       getTeamId(val) {
         this.getOrgInformation(val);
         if (this.form.center_id === '') {
@@ -2529,9 +2534,10 @@
           if (userlist !='')
           {
             row.name = null;
-            if (this.tableB.filter(item=>item.name === userlist).length === 0)
-            {
-              row.name = userlist;
+            // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+            // if (this.tableB.filter(item=>item.name === userlist).length === 0)
+            // {
+               row.name = userlist;
               if (row.name != null && row.name !== '') {
                 let lst = getUserInfo(row.name);
                 if (lst.userinfo.post) {
@@ -2544,7 +2550,8 @@
                 let lst1 = getOrgInfoByUserId(row.name);
                 row.company = lst1.groupNmae;
               }
-            }
+            // }
+            // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
             //保留人名不为空的数据
             this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
           }
@@ -2641,19 +2648,25 @@
         this.currentRow9 = val.rn;
         // 项目dialog 体制 合同优化添加分页 ztc to
       },
-      submit(row) {
-        row.number = this.currentRow;
-        row.name = this.currentRow1;
-        //add-ws-数据库id存的是name名，外协关联修改
-        row.name_id = this.currentRow5;
-        //add-ws-数据库id存的是name名，外协关联修改
-        row.company = this.currentRow2;
-        row.position = this.currentRow3;
-        row.suppliernameid = this.currentRow4;
-        //add_qhr_20210810 添加rank、报告者字段
-        row.rank = getDictionaryInfo(this.currentRow9).value1;
+      //region scc upd 9/16 根据当前行进行数据跟新 from
+      submit() {
+        for(let i = 0; i < this.tableC.length; i++){
+          if(this.tableC[i].rowindex === this.rowindextag || this.tableC[i].rowindex === Number(this.rowindextag)){
+            this.tableC[i].number = this.currentRow;
+            this.tableC[i].name = this.currentRow1;
+            //add-ws-数据库id存的是name名，外协关联修改
+            this.tableC[i].name_id = this.currentRow5;
+            //add-ws-数据库id存的是name名，外协关联修改
+            this.tableC[i].company = this.currentRow2;
+            this.tableC[i].position = this.currentRow3;
+            this.tableC[i].suppliernameid = this.currentRow4;
+            //add_qhr_20210810 添加rank、报告者字段
+            this.tableC[i].rank = getDictionaryInfo(this.currentRow9).value1;
+          }
+        }
         this.dialogTableVisible1 = false;
       },
+      //endregion scc upd 9/16 根据当前行进行数据跟新 to
       handleClickChange1(val) {
         this.currentRow = val.entrust;
         this.currentRow6 = val.liableperson;
@@ -3131,6 +3144,9 @@
       },
       //项目体制(外协)
       addRow2() {
+        //region scc add 9/16 上一条数据的index from
+        let num = this.tableC[this.tableC.length - 1].rowindex;
+        //endregion scc add 9/16 上一条数据的index to
         this.tableC.push({
           projectsystem_id: '',
           companyprojects_id: '',
@@ -3145,7 +3161,9 @@
           position: '',
           admissiontime: '',
           exittime: '',
-          rowindex: '',
+          //region scc add 9/16 添加行时跟新index from
+          rowindex: num + 1,
+          //endregion scc add 9/16 添加行时跟新index to
         });
       },
       // 体制-社内
@@ -3284,10 +3302,13 @@
       //   return sums;
       // },
       // 项目dialog 体制 合同优化添加分页 ztc fr
-      dialogone(){
+      //region scc upd 9/16 点击放大镜时，标记改行 from
+      dialogone(val){
         this.dialogTableVisible1 = true;
         this.getexpatriatesinfor();
+        this.rowindextag = val.rowindex;
       },
+      //endregion scc upd 9/16 点击放大镜时，标记改行 to
       handleSizeChangeSys(val) {
         this.listQuerySys.pageSize = val;
         this.getexpatriatesinfor();
@@ -3484,23 +3505,25 @@
             //theme 还未和合同关联 注掉
             for (let i = 0; i < this.tableB.length; i++) {
               //add_fjl 体制人员重复check start
-              let num = 0;
-              for (let j = 0; j < this.tableB.length; j++) {
-                if (this.tableB[i].name === this.tableB[j].name) {
-                  num++;
-                  if (num > 1) {
-                    Message({
-                      message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
-                        + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.activeName = 'fourth';
-                    this.loading = false;
-                    return;
-                  }
-                }
-              }
+              // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+              // let num = 0;
+              // for (let j = 0; j < this.tableB.length; j++) {
+              //   if (this.tableB[i].name === this.tableB[j].name) {
+              //     num++;
+              //     if (num > 1) {
+              //       Message({
+              //         message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+              //           + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
+              //         type: 'error',
+              //         duration: 5 * 1000,
+              //       });
+              //       this.activeName = 'fourth';
+              //       this.loading = false;
+              //       return;
+              //     }
+              //   }
+              // }
+              // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
               {

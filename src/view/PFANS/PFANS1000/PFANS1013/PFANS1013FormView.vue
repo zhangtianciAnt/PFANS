@@ -3624,24 +3624,26 @@
             rowindex: '',
             taxes: '',
             Redirict: this.Redirict,
+            optionsA:[]
           });
         }
-        for (let i = 0; i < this.tableA.length; i++) {
-          this.tableA[i].optionsA = [];
-          if (getOrgInfo(this.tableA[i].departmentname)) {
-            let butinfoA = (getOrgInfo(this.tableA[i].departmentname).encoding).substring(0,3);
-            let dicA = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+        // upd gbb 210922 住宿费明细【预算编码】里无数据 start
+        for (let x = 0; x < this.tableA.length; x++) {
+          if (getOrgInfo(this.tableA[x].departmentname)) {
+            let butinfoA = (getOrgInfo(this.tableA[x].departmentname).encoding).substring(0,3);
+            let dicA = this.$store.getters.dictionaryList.filter(item =>
+              item.pcode === 'JY002' && butinfoA === (item.value1).substring(0,3)
+            );
             if (dicA.length > 0) {
               for (let j = 0; j < dicA.length; j++) {
-                if (butinfoA === (dicA[j].value1).substring(0,3)) {
-                  this.tableA[i].optionsA.push({
-                    lable: dicA[j].value2 + '_' + dicA[j].value3,
-                    value: dicA[j].code,
-                  });
-                }
+                this.tableA[x].optionsA.push({
+                  lable: dicA[j].value2 + '_' + dicA[j].value3,
+                  value: dicA[j].code,
+                });
               }
             }
           }
+          // upd gbb 210922 住宿费明细【预算编码】里无数据 end
           if (this.form.arrivenight === '1') {
             this.tableA[0].subsidies = parseFloat(moneys) + 100;
           } else {
