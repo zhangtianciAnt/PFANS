@@ -41,7 +41,7 @@
 
           <el-row v-if="tabledatashow">
             <el-table :data="tableData" max-height="400" tooltip-effect="dark"
-                      highlight-current-row stripe border
+                      highlight-current-row stripe border :header-cell-style="getHeaderClass"
                       row-key="rowid"
                       style="width: 100%"
                       border
@@ -269,19 +269,18 @@
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
-                               align="center" width="230" fixed>
+                               align="center" width="200" fixed>
                 <template slot-scope="scope">
-                  <el-form-item>
+                  <el-col :span="24">
                     <div>
-                      <el-input class="content bg"
-                                :disabled="true"
-                                v-model="scope.row.themename">
-                        <el-button :disabled="disabled" size="small" slot="append" icon="el-icon-search"
-                                   @click="handleClickA(scope.$index,scope.row)"></el-button>
-                      </el-input>
-                    </div>
-                  </el-form-item>
-                  <el-dialog :title="$t('title.PFANS1043VIEW')" :visible.sync="dialogTableVisible" center
+                      <el-container>
+                        <el-input class="content bg"
+                                :disabled="true" size="small"
+                                v-model="scope.row.themename"></el-input>
+                        <el-button :disabled="disabled" size="small" icon="el-icon-search"
+                                   @click="handleClickA(scope.$index,scope.row)">
+                        </el-button>
+                        <el-dialog :title="$t('title.PFANS1043VIEW')" :visible.sync="dialogTableVisible" center
                              size="50%"
                              top="8vh" lock-scroll
                              append-to-body>
@@ -319,6 +318,9 @@
                       </el-row>
                     </div>
                   </el-dialog>
+                      </el-container>
+                    </div>
+                  </el-col>
                 </template>
               </el-table-column>
               <!--种类-->
@@ -329,6 +331,7 @@
                     :data="scope.row.kind"
                     :disabled="true"
                     :no="scope.row"
+                    size="small"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -354,6 +357,7 @@
                     :code="code3"
                     :data="scope.row.branch"
                     :no="scope.row"
+                    size="small"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -366,6 +370,7 @@
                     :code="code4"
                     :data="scope.row.contracttype"
                     :no="scope.row"
+                    size="small"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -382,7 +387,8 @@
                   <monthlyrate :month="month5"
                                :data="scope.row.currencytype"
                                :no="scope.row"
-                               :disabled="true">
+                               :disabled="true"
+                               size="small">
                   </monthlyrate>
                   <!--                      add-ws-12/10-汇率字典-->
                 </template>
@@ -395,7 +401,8 @@
                     <el-input
                       :disabled="true"
                       v-if="scope.row.show"
-                      v-model="scope.row.assignor">
+                      v-model="scope.row.assignor"
+                      size="small">
                     </el-input>
                     <org v-else :disabled="true" :no="scope.row" :orglist="scope.row.assignor"
                          orgtype="2"></org>
@@ -406,7 +413,7 @@
               <el-table-column :label="$t('label.remarks')" align="center" width="230">
                 <template slot-scope="scope">
                   <el-input :disabled="true" maxlength="100" style="width: 100%"
-                            v-model="scope.row.remarks"></el-input>
+                            v-model="scope.row.remarks" size="small"></el-input>
                 </template>
               </el-table-column>
 
@@ -419,7 +426,7 @@
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -440,7 +447,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
 
                   </template>
@@ -452,7 +459,7 @@
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel5" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -473,7 +480,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -484,7 +491,7 @@
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel6" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -505,7 +512,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -517,7 +524,7 @@
                     <el-input-number v-model="scope.row.sumpersonnel1" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -537,7 +544,7 @@
                     <el-input-number v-model="scope.row.sumamount1" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -550,7 +557,7 @@
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel7" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -572,7 +579,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -583,7 +590,7 @@
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel8" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -605,7 +612,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -616,7 +623,7 @@
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel9" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -638,7 +645,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -649,7 +656,7 @@
                     <el-input-number v-model="scope.row.sumpersonnel2" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -669,7 +676,7 @@
                     <el-input-number v-model="scope.row.sumamount2" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -683,7 +690,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -705,7 +712,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -717,7 +724,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -739,7 +746,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -751,7 +758,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -773,7 +780,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -784,7 +791,7 @@
                     <el-input-number v-model="scope.row.sumpersonnel3" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -804,7 +811,7 @@
                     <el-input-number v-model="scope.row.sumamount3" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -816,7 +823,7 @@
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel1" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -838,7 +845,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -849,7 +856,7 @@
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel2" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -871,7 +878,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -882,7 +889,7 @@
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel3" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -904,7 +911,7 @@
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -916,7 +923,7 @@
                     <el-input-number v-model="scope.row.sumpersonnel4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -936,7 +943,7 @@
                     <el-input-number v-model="scope.row.sumamount4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -1170,7 +1177,9 @@
           });
       } else {
         this.disabledT = false;
-        this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        //todo 年度
+        // this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        this.refform.year = '2021';
         this.refform.group_id = this.$route.params.group_id;
         // this.refform.center_id = this.$route.params.center_id;
         this.$nextTick(() => {
@@ -1808,7 +1817,9 @@
       getlisttheme() {
         this.loading = true;
         let parameters = {
-          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          //todo 年度
+          // year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          year:'2021',
           contract: 1,
         };
         this.$store
