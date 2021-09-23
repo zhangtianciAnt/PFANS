@@ -84,7 +84,7 @@
                   <template slot-scope="scope">
                     <!--数据字典编辑首页，类别说明行删除按钮禁用 scc-->
                     <el-button
-                      :disabled="scope.row.code.toString().length < 6 ? true : !disable"
+                      :disabled="scope.row.isdis == true"
                       @click.native.prevent="deleteRow(scope.$index, tableD)"
                       plain
                       size="small"
@@ -124,9 +124,6 @@
         loading: false,
         title: '',
         letcode: '',
-        //region scc add 9/8 页面初始化以及该存在的code from
-        prohibitDictionary: [],
-        //endregion scc add 9/8 页面初始化以及该存在的code to
         disable: false,
         buttonList: [],
         tableD: [
@@ -145,6 +142,7 @@
             valie10: "",
             pcode: "",
             status: "",
+            isdis: "",
           }
         ],
         rules: {
@@ -181,11 +179,11 @@
           //新增数据字典编辑页面的首行类别信息介绍 scc
           .dispatch('PFANS8009Store/getDictionary', {"code": this.$route.params.code,"pcode":this.$route.params.code})
           .then(response => {
-            //region scc add 9/8 初始化获取页面所有code from
+            //region scc add 9/8 初始化页面数据标记 from
             for(let i = 0; i < response.length; i++){
-              this.prohibitDictionary.push(response[i].code);
+              response[i].isdis = true;
             }
-            //endregion scc add 9/8 初始化获取页面所有code to
+            //endregion scc add 9/8 初始化页面数据标记 to
             if (response.length > 0) {
               this.letcode = response[response.length - 1].code;
               this.tableD = response;
@@ -214,16 +212,6 @@
         }
       },
       deleteRow(index, rows) {
-        //region scc add 9/8 删除时判断code在数据库是否存在，存在不能删除 from
-        if(this.prohibitDictionary.indexOf(rows[index].code) !== -1){
-          Message({
-            message: this.$t('label.PFANS8009FORMVIEW_PROMPT'),
-            type: 'error',
-            duration: 5 * 1000
-          });
-          return;
-        }
-        //endregion scc add 9/8 删除时判断code在数据库是否存在，存在不能删除 to
         if (rows.length > 1) {
           rows.splice(index, 1);
           // NT_PFANS_20210308_BUG_159  编码根据数据情况实时递增

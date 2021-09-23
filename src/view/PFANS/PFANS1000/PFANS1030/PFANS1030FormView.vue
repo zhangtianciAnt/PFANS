@@ -1453,7 +1453,11 @@
           .then(response => {
             this.form = response.award;
             //regon scc add 9/18 页面初始化理由 from
-            this.strreason = response.staffDetail[0].reason;
+            if(response.staffDetail.length > 0){
+              this.strreason = response.staffDetail[0].reason;
+            }else{
+              this.strreason = "";
+            }
             //endregon scc add 9/18 页面初始化理由 to
             if (this.form.status === '4' || this.form.status === '2') {
               this.enableSave = false;
