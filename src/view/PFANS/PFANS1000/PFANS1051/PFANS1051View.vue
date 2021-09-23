@@ -667,7 +667,17 @@
       buttonClick(val) {
         if (val === 'export')
         {
-
+          if (this.datatotal.length === 0) {
+            Message({
+              message: this.$t('normal.info_16'),
+              type: 'info',
+              duration: 2 * 1000,
+            });
+            return;
+          }
+          let winopen =  'http://localhost:8085/jmreport/view/f4cddd854f8c4aebb74332ee7f1efa39?';
+          winopen = winopen + 'year=' + this.refform.year + '&department=' + this.refform.group_id
+          window.open(winopen,'_blank');
         }
       }
     },

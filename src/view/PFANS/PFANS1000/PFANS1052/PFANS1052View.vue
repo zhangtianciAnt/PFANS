@@ -37,7 +37,7 @@
           <el-row style="padding-bottom: 0.5%">
             <el-table :data="tableData" border default-expand-all header-cell-class-name="sub_bg_color_blue" style="margin-top: 1%;font-size: 13px"
                       row-key="wai_id" :tree-props="{children: 'children', hasChildren: 'hasChildren'}" height="540"
-                      highlight-current-row @current-change="handleCurrentChange">
+                      highlight-current-row @current-change="handleCurrentChange" :span-method="this.listSpanMethod">
               <el-table-column
                 show-overflow-tooltip
                 prop="themename"
@@ -276,6 +276,11 @@ export default {
         year:parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
         group_id: '',
       },
+      //region scc 8/30 单元格合并 from
+      mergeAnt:false,
+      unmerge:['小计'],
+      merge:[3,4,5],//合同号，合同金额，pj起案
+      //endregion scc 8/30 单元格合并 to
       currentRow: null,
       hasChildren: true,
       noback: true,
@@ -287,7 +292,9 @@ export default {
         {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
       ],
       isShow: false,
-      merge: ['contractnumber','claimamount','numbers','staffnum'],
+      //region scc del 8/30 from
+      // merge: ['contractnumber','claimamount','numbers','staffnum'],
+      //endregion scc del 8/30 to
       tableData: [{
         wai_id: '1',
         themename: '',
@@ -380,6 +387,152 @@ export default {
     });
   },
   methods: {
+    //region scc add 根据数据情况合并table from
+    //合并合同号
+    flitterData(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);//列数为1代表此列不合并，2，0或3，0，0时代表合并，数字和0数量对应
+        // concatOne = concatOne + conlength;
+        concatOne = conlength + 1;
+        // conlength = row.children.length
+          if(list.themename !== '合计') {
+            list.children.forEach((item, index) => {
+              if (index === 0) {
+                spanOneArr.push(1)
+                concatOne = 1;
+              } else {
+                if (this.unmerge.indexOf(item.themename) < 0) {
+                  if (item.contractnumber.trim() === list.children[index - 1].contractnumber.trim()) {
+                    spanOneArr[concatOne] += 1
+                    spanOneArr.push(0)
+                  } else {
+                    spanOneArr.push(1);
+                    concatOne = index + 1;
+                  }
+                } else {
+                  spanOneArr.push(1)
+                  concatOne++
+                }
+              }
+            })
+          }
+          spanOne.push.apply(spanOne, spanOneArr);//拼接
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    //合并合同金额
+    flitterData1(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);
+        // concatOne = concatOne + conlength;
+        concatOne = conlength + 1;
+        // conlength = row.children.length
+        if(list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1)
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim()) {
+                  spanOneArr[concatOne] += 1
+                  spanOneArr.push(0)
+                } else {
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
+                }
+              } else {
+                spanOneArr.push(1)
+                concatOne++
+              }
+            }
+          })
+        }
+        spanOne.push.apply(spanOne, spanOneArr);
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    //合并pj起案
+    flitterData2(){
+      let spanOneArr = [];
+      let concatOne = 1;
+      let conlength = 0;
+      let spanOne = [];
+      this.tableData.forEach((list) => {
+        spanOneArr = [];
+        spanOneArr.push(1);
+        // concatOne = concatOne + conlength;
+        concatOne = conlength + 1;
+        // conlength = row.children.length
+        if(list.themename !== '合计') {
+          list.children.forEach((item, index) => {
+            if (index === 0) {
+              spanOneArr.push(1)
+              concatOne = 1;
+            } else {
+              if (this.unmerge.indexOf(item.themename) < 0) {
+                if ((item.numbers === list.children[index - 1].numbers) && (item.contractnumber.split("-")[0].trim() === list.children[index - 1].contractnumber.split("-")[0].trim())) {
+                  spanOneArr[concatOne] += 1
+                  spanOneArr.push(0)
+                } else {
+                  spanOneArr.push(1);
+                  concatOne = index + 1;
+                }
+              } else {
+                spanOneArr.push(1)
+                concatOne++
+              }
+            }
+          })
+        }
+        spanOne.push.apply(spanOne, spanOneArr);
+      })
+      // spanOne.push(1);//合计不合并
+      spanOne.push.apply(spanOne, [1]);
+      return spanOne;
+    },
+    listSpanMethod ({ row, column, rowIndex, columnIndex }) {
+      if(!this.mergeAnt)return
+      if(this.merge[0] === columnIndex) {//合并合同号
+        const _row = this.flitterData(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+      if(this.merge[1] === columnIndex) {//合并合同金额
+        const _row = this.flitterData1(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+      if(this.merge[2] === columnIndex) {//合并pj起案
+        const _row = this.flitterData2(this.tableData)[rowIndex]
+        const _col = _row > 0 ? 1 : 0
+        return {
+          rowspan: _row,
+          colspan: _col
+        }
+      }
+    },
+    //endregion scc add 根据数据情况合并table to
     handleCurrentChange(val) {
       this.currentRow = val;
     },
@@ -424,6 +577,7 @@ export default {
           } else {
             this.tableData = [];
           }
+          this.mergeAnt = true;
           this.loading = false
         })
         .catch(error => {
@@ -599,8 +753,9 @@ export default {
       this.getDepartInfo();
     },
     buttonClick(val) {
+      //region scc 21/9/1 upd 积木报表 from
       if (val === 'export') {
-        if (this.tableData.data == '') {
+        if (this.tableData.length === 0) {
           Message({
             message: this.$t('normal.info_16'),
             type: 'info',
@@ -608,7 +763,11 @@ export default {
           });
           return;
         }
+        let winopen =  'http://localhost:8085/jmreport/view/592585397002903552?';
+        winopen = winopen + 'year=' + this.refform.year + '&group_id=' + this.refform.group_id
+        window.open(winopen,'_blank');
       }
+      //endregion scc 21/9/1 upd 积木报表 to
     },
   }
 }

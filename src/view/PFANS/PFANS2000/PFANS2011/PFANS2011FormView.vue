@@ -759,7 +759,8 @@
             });
             this.loading = false;
           });
-      } else {
+      }
+      else {
         // this.ageflg = this.$store.getters.userinfo.userinfo.age;
         this.sexflg = this.$store.getters.userinfo.userinfo.sex;
         this.userlist = this.$store.getters.userinfo.userid;
@@ -813,6 +814,7 @@
       //update fjl 20210204  NT_PFANS_20210203_BUG_013 start
       this.getAge();
       //update fjl 20210204  NT_PFANS_20210203_BUG_013 end
+      this.$refs.refform.validateField('overtimetype');
     },
     created() {
       this.disable = this.$route.params.disabled;

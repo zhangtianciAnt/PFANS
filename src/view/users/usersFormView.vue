@@ -58,13 +58,16 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+<!--                  出向者 身份证 出生年月 不是必填项 ztc fr-->
                   <el-form-item :label="$t('label.PFANSUSERVIEW_BIRTHDAY')" prop="birthday">
                     <el-date-picker
                       v-model="form.birthday"
                       type="date"
                       :placeholder="$t('label.PFANSUSERFORMVIEW_SELECTIONDATE')"
                       style="width:20vw"
-                      disabled ></el-date-picker>
+                      @change="getAge"
+                      :disabled="birdis" ></el-date-picker>
+<!--                    出向者 身份证 出生年月 不是必填项 ztc to-->
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
@@ -2046,6 +2049,11 @@
             };
 
             var validateId = (rule, value, callback) => {
+              // 出向者 身份证 出生年月 不是必填项 ztc from
+                 if(this.form.type === '1'){
+                  callback();
+                }
+                //出向者 身份证 出生年月 不是必填项 ztc to
                 if (
                     !/^\d{2}(0[1-9]|[1-9][0-9])\d{2}((((1[6-9]|[2-9]\d)\d{2})(0[13578]|1[02])(0[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})(0[13456789]|1[012])(0[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})02(0[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))0229))\d{3}(\d|x|X)$/i.test(
                         value,
@@ -2074,6 +2082,9 @@
                 code: '',
                 //lyt-21/2/2-禅道任务734-start
                 show:false,
+              //出向者 身份证 出生年月 不是必填项 ztc from
+                birdis:true,
+              //出向者 身份证 出生年月 不是必填项 ztc to
                 passwordcheckbar: false,
                 personalpw:'',
                 //add-lyt-21/3/16-NT_PFANS_20210308_BUG_137-start
@@ -2086,7 +2097,6 @@
                 occupationtypedis: true,
                 display: true,
                 occupationtypedisplay: true,
-                show:false,
                 oldageData: null,
                 otherOrgs: null,
                 houseData: null,
@@ -2851,7 +2861,9 @@
               let abrithdaysb = this.form.idnumber;
               if (abrithdaysb)
               {
-                if (abrithdaysb.length == 18)
+                //出向者 身份证 出生年月 不是必填项 ztc from
+                if (abrithdaysb.length == 18 && this.form.type == '0')
+                  //出向者 身份证 出生年月 不是必填项 ztc to
                 {
                   this.form.birthday = moment(abrithdaysb.substring(6,14)).format('YYYY-MM-DD');
                 }
@@ -2868,6 +2880,11 @@
                 } else {
                     agenew = age - 1;
                 }
+              //出向者 身份证 出生年月 不是必填项 ztc from
+                if(this.form.birthday == null){
+                  agenew = '';
+                }
+                //出向者 身份证 出生年月 不是必填项 ztc to
                 this.age = agenew;
             },
           //add-lyt-2021/2/3-禅道任务734-start
@@ -2983,6 +3000,11 @@
                             this.code = 'PR021';
                             this.occupationtypecode = 'PR055';
                             this.rules.occupationtype[0].required = true;
+                            //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                            this.birdis = true;
+                            this.rules.idnumber[0].required = true;
+                            this.rules.birthday[0].required = true;
+                            //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         } else if (this.form.type === '1') {
                             // add_fjl-0604 --修改出向者赋值 start
                             // this.code = 'PJ053';
@@ -2991,6 +3013,11 @@
                                 this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
                             }
                             this.rules.occupationtype[0].required = false;
+                          //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                            this.birdis = false
+                            this.rules.idnumber[0].required = false;
+                            this.rules.birthday[0].required = false;
+                          //0809 类别为【出向者】身份证号码不为必填项 ztc to
                             // add_fjl-0604 --修改出向者赋值 end
                         }
                         this.form.occupationtype = '';
@@ -3002,6 +3029,11 @@
                         this.code = 'PR021';
                         this.occupationtypecode = 'PR055';
                         this.rules.occupationtype[0].required = true;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                        this.birdis = true;
+                        this.rules.idnumber[0].required = true;
+                        this.rules.birthday[0].required = true;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         if (
                             this.form.rank === 'PR021001' ||
                             this.form.rank === 'PR021002' ||
@@ -3022,6 +3054,11 @@
                             this.form.rank = this.$t('label.PFANS1028VIEW_OTHER');
                         }
                         this.rules.occupationtype[0].required = false;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc fr
+                        this.birdis = false;
+                        this.rules.idnumber[0].required = false;
+                        this.rules.birthday[0].required = false;
+                      //0809 类别为【出向者】身份证号码不为必填项 ztc to
                         // add_fjl-0604 --修改出向者赋值 end
                     }
                 }
@@ -3758,9 +3795,13 @@
                                 this.rankData[a].basic = this.form.rank;
                             }
                           //region scc add 21/8/16  不变更不提交履历 from
-                            if(this.rankData[a].basic === this.form.rank || this.rankData[a].basic === getDictionaryInfo(this.form.rank).value1){
+                          //出向者 身份证 出生年月 不是必填项 ztc from
+                          if(getDictionaryInfo(this.form.rank) != null && getDictionaryInfo(this.form.rank) != '' && getDictionaryInfo(this.form.rank) !== undefined){
+                            if (this.rankData[a].basic === this.form.rank || this.rankData[a].basic === getDictionaryInfo(this.form.rank).value1) {
                               addflg1 = 1;
                             }
+                          }
+                          //出向者 身份证 出生年月 不是必填项 ztc to
                           //endregion scc add 21/8/16  不变更不提交履历 to
                         }
                         if (addflg === 0 && addflg1 ===0) {

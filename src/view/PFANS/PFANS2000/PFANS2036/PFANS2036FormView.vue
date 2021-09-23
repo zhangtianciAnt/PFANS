@@ -26,7 +26,6 @@
                       <el-col :span="4">
                         <el-form-item :label="$t('label.PFANS2036VIEW_PFYF')">
                           <dicselect
-                            clearable
                             :code="code2"
                             :multiple="multiple"
                             :data="form.allotmentAnt"
@@ -887,7 +886,7 @@
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageData" :page-size="listQuery.limitData"
-                                     :page-sizes="[5,10,20,30,50]" :total="total" @current-change="handleCurrentChange"
+                                     :page-sizes="[5,10,20,30,100]" :total="total" @current-change="handleCurrentChange"
                                      @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
                         <slot><span class="front Content_front"
                                     style="padding-right: 0.5rem;font-weight: 400"></span></slot>
@@ -1201,7 +1200,7 @@
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageBm" :page-size="listQuery.limitBm"
-                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     :page-sizes="[5,10,20,30,100]" :total="total"
                                      @current-change="handleCurrentChangeBm"
                                      @size-change="handleSizeChangeBm"
                                      layout="slot,sizes, ->,prev, pager, next, jumper">
@@ -1499,7 +1498,7 @@
                     <!--add-lyt-21/02/22-NT_PFANS_20210222_BUG_022-start-->
                     <div class="pagination-container" style="padding-top: 2rem">
                       <el-pagination :current-page.sync="listQuery.pageGs" :page-size="listQuery.limitGs"
-                                     :page-sizes="[5,10,20,30,50]" :total="total"
+                                     :page-sizes="[5,10,20,30,100]" :total="total"
                                      @current-change="handleCurrentChangeGs"
                                      @size-change="handleSizeChangeGs"
                                      layout="slot,sizes, ->,prev, pager, next, jumper">

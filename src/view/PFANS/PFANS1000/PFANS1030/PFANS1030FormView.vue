@@ -432,15 +432,8 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1030FORMVIEW_EXCHANGERATE')">
-                      <el-input-number
-                        :disabled="true"
-                        :max="1000000000"
-                        :min="0"
-                        :precision="4"
-                        controls-position="right"
-                        style="width:20vw"
-                        v-model="form.exchangerate"
-                      ></el-input-number>
+
+                      <el-input :disabled="true" style="width:20vw" v-model="form.exchangerate"></el-input>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -1168,14 +1161,16 @@
               }
             }
             //add-ws-汇率修改
-            if (response.award.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
-              let letcheckexchangerate = getDictionaryInfo('JY001001');
-              if (letcheckexchangerate != null) {
-                response.award.exchangerate = letcheckexchangerate.value2;
-              }
-            } else {
-              response.award.exchangerate = 1;
-            }
+            //region scc del 9/16 汇率从每月汇率里取，在做决裁书时生成 from
+            // if (response.award.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
+            //   let letcheckexchangerate = getDictionaryInfo('JY001001');
+            //   if (letcheckexchangerate != null) {
+            //     response.award.exchangerate = letcheckexchangerate.value2;
+            //   }
+            // } else {
+            //   response.award.exchangerate = 1;
+            // }
+            //endregion scc del 9/16 汇率从每月汇率里取，在做决裁书时生成 to
             //add-ws-汇率修改
             // let letCurrencyposition = getDictionaryInfo(response.award.currencyposition);
             // if (letCurrencyposition != null) {
@@ -1744,16 +1739,20 @@
             sums[index] = '--';
           }
         });
-        this.moneySum(sums);
+        //region scc del 9/16 売上(RMB)变更用请求金额计算且不在从前台做计算 from
+        // this.moneySum(sums);
+        //endregion scc del 9/16 売上(RMB)变更用请求金额计算且不在从前台做计算 to
         return sums;
       },
-      moneySum(sums) {
-        if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
-          this.form.sarmb = this.form.exchangerate * sums[8];
-        } else {
-          this.form.sarmb = sums[8];
-        }
-      },
+      //region scc del 9/16 売上(RMB)变更用请求金额计算且不在从前台做计算 from
+      // moneySum(sums) {
+      //   if (this.form.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
+      //     this.form.sarmb = this.form.exchangerate * sums[8];
+      //   } else {
+      //     this.form.sarmb = sums[8];
+      //   }
+      // },
+      //endregion scc del 9/16 売上(RMB)变更用请求金额计算且不在从前台做计算 to
       //add-ws-6/22-禅道152任务
       checkparamsTitle() {
         let id = this.$route.params._checkid;

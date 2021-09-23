@@ -1883,6 +1883,9 @@
               this.showrow2 = true;
               this.showrow3 = false;
             }
+            //修改结余不显示问题 0913 ztc fr
+            this.getbalance();
+            //修改结余不显示问题 0913 ztc to
             this.userlist = this.form.userid;
             this.baseInfo.evection = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.trafficdetails = JSON.parse(JSON.stringify(this.tableT));
@@ -2164,66 +2167,6 @@
         if (this.form.type === '0') {
           this.form.balance = this.form.loanamount - this.form.totalpay;
         } else {
-          /* let sumoutold = 0;
-           let Newsumout = 0;
-           let summoneyt = 0;
-           let summoneya = 0;
-           let summoneyr = 0;
-           for (let i = 0; i < this.tableT.length; i++) {
-             if (this.tableT[i].currency === '') {
-               summoneyt += this.tableT[i].rmb;
-             }
-           }
-           for (let i = 0; i < this.tableA.length; i++) {
-             if (this.tableA[i].currency === '') {
-               summoneya += this.tableA[i].rmb;
-             }
-           }
-           for (let i = 0; i < this.tableR.length; i++) {
-             if (this.tableR[i].currency === '') {
-               summoneyr += this.tableR[i].rmb;
-             }
-           }
-
-           for (let j = 0; j < this.tableW.length; j++) {
-             let summoney = 0;
-             let summoneyT = 0;
-             let sumMoney = 0;
-             let sumout = 0;
-             let exchangerate = 0;
-             for (let i = 0; i < this.tableT.length; i++) {
-               if (this.tableT[i].currency !== '') {
-                 if (this.tableT[i].currency == this.tableW[j].currency) {
-                   if (this.tableT[i].foreigncurrency != '0') {
-                     summoneyT += this.tableT[i].foreigncurrency;
-                   }
-                 }
-               }
-             }
-             for (let i = 0; i < this.tableA.length; i++) {
-               if (this.tableA[i].currency !== '') {
-                 if (this.tableA[i].currency == this.tableW[j].currency) {
-                   if (this.tableA[i].travel != '0') {
-                     summoney += this.tableA[i].travel;
-                   }
-                 }
-               }
-             }
-             for (let i = 0; i < this.tableR.length; i++) {
-               if (this.tableR[i].currency !== '') {
-                 if (this.tableR[i].currency == this.tableW[j].currency) {
-                   if (this.tableR[i].foreigncurrency != '0') {
-                     sumMoney += this.tableR[i].foreigncurrency;
-                   }
-                 }
-               }
-             }
-             exchangerate = this.tableW[j].exchangerate;
-             sumout = Number(summoney) * Number(exchangerate) + Number(sumMoney) * Number(exchangerate) + Number(summoneyT) * Number(exchangerate);
-             sumoutold += parseFloat(sumout);
-           }
-           Newsumout = Number(summoneyt) + Number(summoneya) + Number(summoneyr);
-           this.form.balance = sumoutold + this.tableAValue[14] + Newsumout;*/
           let exchangermb = 0;
           for (let i = 0; i < this.tableW.length; i++) {
             exchangermb += Number(this.tableW[i].exchangermb);
