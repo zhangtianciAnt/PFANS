@@ -88,6 +88,7 @@
                   <!--                    </el-form-item>-->
                   <!--                  </el-col>-->
                   <el-col :span="8">
+<!--                    update_qhr_20210811 添加项目名称必填项-->
                     <el-form-item :label="$t('label.PFANS5004VIEW_PROJECTNAMW')" prop="projectname">
                       <el-select v-model="form.project_id" :disabled="!disable" style="width: 20vw" clearable>
                         <el-option
@@ -100,6 +101,31 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+<!--            region    add_qhr_20210830 添加外注费用check、记账日期-->
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_CHECKWZFY')" label-width="24vw">
+                      <span style="margin-right: 1vw ">{{$t('label.no')}}</span>
+                      <el-switch :disabled="!disable"
+                                 v-model="form.checkedWZFY"
+                                 active-value="0"
+                                 inactive-value="1"
+                      ></el-switch>
+                      <span style="margin-left: 1vw ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1012VIEW_JZMONTH')" prop="jzmonth">
+                      <el-date-picker
+                        style="width: 20vw"
+                        :disabled="!disable"
+                        type="month"
+                        v-model="form.jzmonth">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+<!--                endregion    add_qhr_20210830 添加外注费用check、记账日期-->
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')" prop="rmbexpenditure">
@@ -1423,7 +1449,21 @@ export default {
     org,
   },
   data() {
-    //region  add_qhr_20210811  添加项目名称必填项
+
+      // region   add_qhr_20210830 添加外注费用check、记账日期
+      var checkJzmonth = (rule, value, callback) => {
+        if (this.form.checkedWZFY === "0") {
+          if (this.form.jzmonth) {
+            callback();
+          } else {
+            callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1012VIEW_JZMONTH')));
+          }
+        } else {
+          callback();
+        }
+      };
+      // endregion    add_qhr_20210830 添加外注费用check、记账日期
+     //region  add_qhr_20210811  添加项目名称必填项
     var checkprojectname = (rule, value, callback) => {
       if (this.form.project_id) {
         callback();
@@ -1728,6 +1768,10 @@ export default {
       }],
       baseInfo: {},
       form: {
+          // region    add_qhr_20210830 添加外注费用check、记账日期
+          checkedWZFY: "1",
+          jzmonth: moment(new Date()),
+          // endregion    add_qhr_20210830 添加外注费用check、记账日期
         // add-ws-8/12-禅道任务446
         processingstatus: '0',
         // add-ws-8/12-禅道任务446
@@ -1781,6 +1825,13 @@ export default {
         accename: '',
       },
       rules: {
+          // region    add_qhr_20210830 添加外注费用check、记账日期
+          jzmonth: [{
+            required: false,
+            validator: checkJzmonth,
+            trigger: 'change',
+          }],
+          // endregion    add_qhr_20210830 添加外注费用check、记账日期
         //region  add_qhr_20210811 添加项目名称必填项
         projectname: [{
           required: true,
