@@ -1368,6 +1368,7 @@ module.exports = {
     PFANS1025VIEW_PUBLIC3: '请选择审批状态正常结束的数据进行印章申请',
     PFANS1025VIEW_PUBLIC4: '请选择审批状态正常结束的数据进行精算',
     PFANS1025VIEW_PUBLIC2: '请选择相同的委托元进行精算',
+    PFANS1025VIEW_PUBLIC5: '请选择相同类型合同进行精算',
     PFANS1025VIEW_SEALCHECK: '印章',
     PFANS1025VIEW_SEALCHECK2: '已作成，请勿重复作成',
     PFANS1025VIEW_SEALCHECK3: '已精算，请勿重复精算',
