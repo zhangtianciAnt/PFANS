@@ -17,7 +17,7 @@
                   <el-date-picker
                     type="year"
                     @change="yearChange"
-                    :disabled="disabledT"
+                    :disabled="true"
                     style="width: 18vw"
                     v-model="refform.year">
                   </el-date-picker>
@@ -25,7 +25,7 @@
               </el-form-item>
             </el-col>
             <el-col :span="6">
-              <el-form-item :label="$t('label.PFANS1039FORMVIEW_CENTER')" prop="group">
+              <el-form-item :label="$t('label.PFANS2036VIEW_DEPARTMENT')" prop="center_id">
                 <el-select v-model="refform.center_id" style="width: 20vw" :disabled="disabledT"
                            @change="groupChange">
                   <el-option
@@ -41,7 +41,7 @@
 
           <el-row v-if="tabledatashow">
             <el-table :data="tableData" max-height="400" tooltip-effect="dark"
-                      highlight-current-row stripe border
+                      highlight-current-row stripe border :header-cell-style="getHeaderClass"
                       row-key="rowid"
                       style="width: 100%"
                       border
@@ -269,19 +269,18 @@
                 </template>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
-                               align="center" width="230">
+                               align="center" width="200" fixed>
                 <template slot-scope="scope">
-                  <el-form-item>
+                  <el-col :span="24">
                     <div>
-                      <el-input class="content bg"
-                                :disabled="true"
-                                v-model="scope.row.themename">
-                        <el-button :disabled="disabled" size="small" slot="append" icon="el-icon-search"
-                                   @click="handleClickA(scope.$index,scope.row)"></el-button>
-                      </el-input>
-                    </div>
-                  </el-form-item>
-                  <el-dialog :title="$t('title.PFANS1043VIEW')" :visible.sync="dialogTableVisible" center
+                      <el-container>
+                        <el-input class="content bg"
+                                :disabled="true" size="small"
+                                v-model="scope.row.themename"></el-input>
+                        <el-button :disabled="disabled" size="small" icon="el-icon-search"
+                                   @click="handleClickA(scope.$index,scope.row)">
+                        </el-button>
+                        <el-dialog :title="$t('title.PFANS1043VIEW')" :visible.sync="dialogTableVisible" center
                              size="50%"
                              top="8vh" lock-scroll
                              append-to-body>
@@ -319,6 +318,9 @@
                       </el-row>
                     </div>
                   </el-dialog>
+                      </el-container>
+                    </div>
+                  </el-col>
                 </template>
               </el-table-column>
               <!--种类-->
@@ -329,6 +331,7 @@
                     :data="scope.row.kind"
                     :disabled="true"
                     :no="scope.row"
+                    size="small"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -354,6 +357,7 @@
                     :code="code3"
                     :data="scope.row.branch"
                     :no="scope.row"
+                    size="small"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -366,6 +370,7 @@
                     :code="code4"
                     :data="scope.row.contracttype"
                     :no="scope.row"
+                    size="small"
                   ></dicselect>
                 </template>
               </el-table-column>
@@ -382,7 +387,8 @@
                   <monthlyrate :month="month5"
                                :data="scope.row.currencytype"
                                :no="scope.row"
-                               :disabled="true">
+                               :disabled="true"
+                               size="small">
                   </monthlyrate>
                   <!--                      add-ws-12/10-汇率字典-->
                 </template>
@@ -395,7 +401,8 @@
                     <el-input
                       :disabled="true"
                       v-if="scope.row.show"
-                      v-model="scope.row.assignor">
+                      v-model="scope.row.assignor"
+                      size="small">
                     </el-input>
                     <org v-else :disabled="true" :no="scope.row" :orglist="scope.row.assignor"
                          orgtype="2"></org>
@@ -406,7 +413,7 @@
               <el-table-column :label="$t('label.remarks')" align="center" width="230">
                 <template slot-scope="scope">
                   <el-input :disabled="true" maxlength="100" style="width: 100%"
-                            v-model="scope.row.remarks"></el-input>
+                            v-model="scope.row.remarks" size="small"></el-input>
                 </template>
               </el-table-column>
 
@@ -414,127 +421,130 @@
               <!--本事业年度-->
               <el-table-column :label="$t('label.April')" align="center" width="280">
 
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel4" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
-
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel4" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount4"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
 
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.May')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel5" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel5" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel5" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount5"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.June')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum(scope.row)" v-model="scope.row.personnel6" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel6" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum(scope.row)" v-model="scope.row.wpersonnel6" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount6"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel1" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel1" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel1" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount1" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -542,127 +552,131 @@
 
 
               <el-table-column :label="$t('label.July')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel7" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel7"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel7"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount7"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.August')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel8" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel8"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel8"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount8"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.September')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum1(scope.row)" v-model="scope.row.personnel9" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel9"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum1(scope.row)" v-model="scope.row.wpersonnel9"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount9"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel2" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel2" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel2" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount2" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -670,258 +684,266 @@
 
 
               <el-table-column :label="$t('label.October')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum2(scope.row)" v-model="scope.row.personnel10"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel10"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel10"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount10"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.November')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum2(scope.row)" v-model="scope.row.personnel11"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel11"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel11"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount11"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.December')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum2(scope.row)" v-model="scope.row.personnel12"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel12"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum2(scope.row)" v-model="scope.row.wpersonnel12"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount12"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel3" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel3" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel3" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount3" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
 
               <el-table-column :label="$t('label.January')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel1" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel1"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel1"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount1"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.February')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel2" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel2"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel2"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount2"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
               <el-table-column :label="$t('label.March')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number @change="nsum3(scope.row)" v-model="scope.row.personnel3" controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel3"
-                                     controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number @change="wsum3(scope.row)" v-model="scope.row.wpersonnel3"-->
+<!--                                     controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="disabled"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
                     <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount3"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
               </el-table-column>
 
               <el-table-column :label="$t('label.PFANS2005FORMVIEW_JDHJ')" align="center" width="150">
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumpersonnel4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
-
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">
-                  <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumwpersonnel4" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
+                <!--                  region add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
+<!--                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120">-->
+<!--                  <template slot-scope="scope">-->
+<!--                    <el-input-number v-model="scope.row.sumwpersonnel4" controls-position="right"-->
+<!--                                     style="width: 100%"-->
+<!--                                     :disabled="true"-->
+<!--                                     :min="0" :max="10000000000" :precision="2">-->
+<!--                    </el-input-number>-->
+<!--                  </template>-->
+<!--                </el-table-column>-->
+                <!--                  endregion add_qhr_20210531  将社内和外注合并成一个输入框并改命名为【人数】-->
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
                     <el-input-number v-model="scope.row.sumamount4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2">
+                                     :min="0" :max="10000000000" :precision="2" size="small">
                     </el-input-number>
                   </template>
                 </el-table-column>
@@ -1018,8 +1040,8 @@
               required: true,
               message:
                 this.$t('normal.error_09') +
-                this.$t('label.PFANS1039FORMVIEW_CENTER'),
-              trigger: 'change',
+                this.$t('label.PFANS2036VIEW_DEPARTMENT'),
+              trigger: 'blur',
             },
           ],
         },
@@ -1155,11 +1177,16 @@
           });
       } else {
         this.disabledT = false;
-        this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        //todo 年度
+        // this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        this.refform.year = '2021';
         this.refform.group_id = this.$route.params.group_id;
         // this.refform.center_id = this.$route.params.center_id;
         this.$nextTick(() => {
-          this.groupdata(this.refform.center_id);
+          if(this.refform.center_id)
+          {
+            this.groupdata(this.refform.center_id);
+          }
         });
         this.loading = false;
       }
@@ -1214,222 +1241,234 @@
             let wpersonnel2 = 0;
             let wpersonnel3 = 0;
             if (data1.length > 0) {
-              this.newentry = JSON.parse(data1[0].newentry);
-              this.wnewentry = JSON.parse(data1[0].employed);
-              amountpersonnel = data1[0].moneyavg;
-              personnel4 = this.wnewentry.length;
-              personnel5 = this.wnewentry.length;
-              personnel6 = this.wnewentry.length;
-              personnel7 = this.wnewentry.length;
-              personnel8 = this.wnewentry.length;
-              personnel9 = this.wnewentry.length;
-              personnel10 = this.wnewentry.length;
-              personnel11 = this.wnewentry.length;
-              personnel12 = this.wnewentry.length;
-              personnel1 = this.wnewentry.length;
-              personnel2 = this.wnewentry.length;
-              personnel3 = this.wnewentry.length;
-              for (let i = 0; i < this.newentry.length; i++) {
-                if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-                  personnel4 = personnel4 + 1;
-                  personnel5 = personnel5 + 1;
-                  personnel6 = personnel6 + 1;
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-                  personnel5 = personnel5 + 1;
-                  personnel6 = personnel6 + 1;
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-                  personnel6 = personnel6 + 1;
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-                  personnel7 = personnel7 + 1;
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-                  personnel8 = personnel8 + 1;
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-                  personnel9 = personnel9 + 1;
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-                  personnel10 = personnel10 + 1;
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-                  personnel11 = personnel11 + 1;
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
-                } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-                  personnel12 = personnel12 + 1;
-                  personnel1 = personnel1 + 1;
-                  personnel2 = personnel2 + 1;
-                  personnel3 = personnel3 + 1;
+              if (data1[0].employed !=null)
+              {
+                this.wnewentry = JSON.parse(data1[0].employed);
+                amountpersonnel = data1[0].moneyavg;
+                personnel4 = this.wnewentry.length;
+                personnel5 = this.wnewentry.length;
+                personnel6 = this.wnewentry.length;
+                personnel7 = this.wnewentry.length;
+                personnel8 = this.wnewentry.length;
+                personnel9 = this.wnewentry.length;
+                personnel10 = this.wnewentry.length;
+                personnel11 = this.wnewentry.length;
+                personnel12 = this.wnewentry.length;
+                personnel1 = this.wnewentry.length;
+                personnel2 = this.wnewentry.length;
+                personnel3 = this.wnewentry.length;
+              }
+              if (data1[0].newentry != null)
+              {
+                this.newentry = JSON.parse(data1[0].newentry);
+                for (let i = 0; i < this.newentry.length; i++) {
+                  if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
+                    personnel4 = personnel4 + 1;
+                    personnel5 = personnel5 + 1;
+                    personnel6 = personnel6 + 1;
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
+                    personnel5 = personnel5 + 1;
+                    personnel6 = personnel6 + 1;
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
+                    personnel6 = personnel6 + 1;
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
+                    personnel7 = personnel7 + 1;
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
+                    personnel8 = personnel8 + 1;
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
+                    personnel9 = personnel9 + 1;
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
+                    personnel10 = personnel10 + 1;
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
+                    personnel11 = personnel11 + 1;
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
+                    personnel12 = personnel12 + 1;
+                    personnel1 = personnel1 + 1;
+                    personnel2 = personnel2 + 1;
+                    personnel3 = personnel3 + 1;
+                  }
                 }
               }
             }
             if (data2.length > 0) {
-              this.employed = JSON.parse(data2[0].newentry);
-              this.wemployed = JSON.parse(data1[0].employed);
-              amountwpersonnel = data2[0].moneyavg;
-              wpersonnel4 = this.wemployed.length;
-              wpersonnel5 = this.wemployed.length;
-              wpersonnel6 = this.wemployed.length;
-              wpersonnel7 = this.wemployed.length;
-              wpersonnel8 = this.wemployed.length;
-              wpersonnel9 = this.wemployed.length;
-              wpersonnel10 = this.wemployed.length;
-              wpersonnel11 = this.wemployed.length;
-              wpersonnel12 = this.wemployed.length;
-              wpersonnel1 = this.wemployed.length;
-              wpersonnel2 = this.wemployed.length;
-              wpersonnel3 = this.wemployed.length;
-              for (let i = 0; i < this.employed.length; i++) {
-                if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 1) {
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 2) {
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 3) {
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 4) {
-                  wpersonnel4 = wpersonnel4 + 1;
-                  wpersonnel5 = wpersonnel5 + 1;
-                  wpersonnel6 = wpersonnel6 + 1;
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 5) {
-                  wpersonnel5 = wpersonnel5 + 1;
-                  wpersonnel6 = wpersonnel6 + 1;
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 6) {
-                  wpersonnel6 = wpersonnel6 + 1;
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 7) {
-                  wpersonnel7 = wpersonnel7 + 1;
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 8) {
-                  wpersonnel8 = wpersonnel8 + 1;
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 9) {
-                  wpersonnel9 = wpersonnel9 + 1;
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 10) {
-                  wpersonnel10 = wpersonnel10 + 1;
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 11) {
-                  wpersonnel11 = wpersonnel11 + 1;
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
-                } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 12) {
-                  wpersonnel12 = wpersonnel12 + 1;
-                  wpersonnel1 = wpersonnel1 + 1;
-                  wpersonnel2 = wpersonnel2 + 1;
-                  wpersonnel3 = wpersonnel3 + 1;
+              if (data2[0].employed !=null)
+              {
+                this.wemployed = JSON.parse(data2[0].employed);
+                amountwpersonnel = data2[0].moneyavg;
+                wpersonnel4 = this.wemployed.length;
+                wpersonnel5 = this.wemployed.length;
+                wpersonnel6 = this.wemployed.length;
+                wpersonnel7 = this.wemployed.length;
+                wpersonnel8 = this.wemployed.length;
+                wpersonnel9 = this.wemployed.length;
+                wpersonnel10 = this.wemployed.length;
+                wpersonnel11 = this.wemployed.length;
+                wpersonnel12 = this.wemployed.length;
+                wpersonnel1 = this.wemployed.length;
+                wpersonnel2 = this.wemployed.length;
+                wpersonnel3 = this.wemployed.length;
+              }
+              if (data2[0].newentry != null)
+              {
+                this.employed = JSON.parse(data2[0].newentry);
+                for (let i = 0; i < this.employed.length; i++) {
+                  if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 1) {
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 2) {
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 3) {
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 4) {
+                    wpersonnel4 = wpersonnel4 + 1;
+                    wpersonnel5 = wpersonnel5 + 1;
+                    wpersonnel6 = wpersonnel6 + 1;
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 5) {
+                    wpersonnel5 = wpersonnel5 + 1;
+                    wpersonnel6 = wpersonnel6 + 1;
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 6) {
+                    wpersonnel6 = wpersonnel6 + 1;
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 7) {
+                    wpersonnel7 = wpersonnel7 + 1;
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 8) {
+                    wpersonnel8 = wpersonnel8 + 1;
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 9) {
+                    wpersonnel9 = wpersonnel9 + 1;
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 10) {
+                    wpersonnel10 = wpersonnel10 + 1;
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 11) {
+                    wpersonnel11 = wpersonnel11 + 1;
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 12) {
+                    wpersonnel12 = wpersonnel12 + 1;
+                    wpersonnel1 = wpersonnel1 + 1;
+                    wpersonnel2 = wpersonnel2 + 1;
+                    wpersonnel3 = wpersonnel3 + 1;
+                  }
                 }
               }
             }
@@ -1693,13 +1732,26 @@
             }
           }
           //add ccm 0112 兼职部门
+        }else if (role === '4') //GM
+        {
+          let centers = getOrgInfo(this.$store.getters.userinfo.userinfo.centerid);
+          if (centers)
+          {
+            if (centers.encoding === null || centers.encoding === '' || centers.encoding === undefined)
+            {
+              vote.push(
+                {
+                  value: this.$store.getters.userinfo.userinfo.groupid,
+                  lable: this.$store.getters.userinfo.userinfo.groupname,
+                },
+              );
+            }
+          }
         }
         const vote1 = [];
         if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
           || this.$store.getters.roles.indexOf("11") != -1 //总经理
-          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
-          || this.$store.getters.roles.indexOf("18") != -1//企划部长
-          || this.$store.getters.roles.indexOf("22") != -1)//外注管理担当
+          || this.$store.getters.roles.indexOf("16") != -1) //财务部长
         {
           this.$store.getters.orgGroupList.filter((item) => {
             vote1.push(
@@ -1724,15 +1776,50 @@
             letoptionsdata.push(item);
           }
         }
+        //针对经营管理统计到group修改 start
+        let incfmyList = [];
+        for(let item of letoptionsdata){
+          if(getOrgInfo(item.value).encoding == ''){
+            incfmyList.push(item.value)
+          }
+        }
+        if(incfmyList.length > 0){
+          for(let item of incfmyList){
+            letoptionsdata = letoptionsdata.filter(letitem => letitem.value != item)
+          }
+          let orgInfo = [];
+          for(let item of incfmyList){
+            if(item){
+              if(getOrgInfo(item).orgs.length != 0){
+                orgInfo.push(getOrgInfo(item).orgs)
+              }
+            }
+          }
+          let groInfo = orgInfo[0].filter(item => item.type == '2');
+          for(let item of groInfo){
+            letoptionsdata.push(
+              {
+                value: item._id,
+                lable: item.title,
+              },
+            );
+          }
+        }
+        //针对经营管理统计到group修改 end
         this.grp_options = letoptionsdata;
-        this.refform.center_id = this.grp_options[0].value;
+        if (!this.refform.center_id && this.grp_options.length > 0)
+        {
+          this.refform.center_id = this.grp_options[0].value;
+        }
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
         this.loading = false;
       },
       getlisttheme() {
         this.loading = true;
         let parameters = {
-          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          //todo 年度
+          // year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          year:'2021',
           contract: 1,
         };
         this.$store
@@ -1815,7 +1902,7 @@
         this.tableDataA[this.index].themename = val.themename;
         //add_qhr_20210707  增加将themeinfor_id取出
         this.tableDataA[this.index].themeinfor_id = val.themeinfor_id;
-        this.tableDataA[this.index].month = val.data;
+        this.tableDataA[this.index].month = moment(new Date()).format('YYYY-MM-DD');
         this.tableDataA[this.index].branch = val.divide;
         this.tableDataA[this.index].contracttype = val.contract;
         this.tableDataA[this.index].currencytype = val.currency;
@@ -1836,7 +1923,7 @@
         this.groupdata(this.refform.center_id);
       },
       groupChange(val) {
-        let orgInfo = getUpOrgInfo(val);
+        let orgInfo = getOrgInfo(val);
         this.refform.center_id = val;
         // this.refform.center_id = orgInfo._id;
         this.groupdata(val);
@@ -2010,7 +2097,7 @@
           if (!this.refform.center_id) {
             Message({
               message: this.$t('normal.error_09') +
-                this.$t('label.PFANS1039FORMVIEW_CENTER'),
+                this.$t('label.PFANS2036VIEW_DEPARTMENT'),
               type: 'error',
               duration: 5 * 1000,
             });

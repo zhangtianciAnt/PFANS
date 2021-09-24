@@ -2490,7 +2490,8 @@
         //   //endregion add_qhr_20210810 添加rank、报告者字段
         // }
         if (userlist !='') {
-          if (this.tableB.filter(item => item.name === userlist).length === 0) {
+          // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+          // if (this.tableB.filter(item => item.name === userlist).length === 0) {
             row.name = userlist;
             if (row.name != null && row.name !== '') {
               let lst = getUserInfo(row.name);
@@ -2498,7 +2499,8 @@
               row.number = lst.userinfo.jobnumber;
               row.rank = getDictionaryInfo(lst.userinfo.rank).value1;
             }
-          }
+          // }
+          // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
         }
         else
         {
@@ -2829,23 +2831,25 @@
             // update gbb 20210316 NT_PFANS_20210305_BUG_121 阶段信息日期组件check end
             for (let i = 0; i < this.tableB.length; i++) {
               // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check start
-              let num = 0;
-              for (let j = 0; j < this.tableB.length; j++) {
-                  if (this.tableB[i].name === this.tableB[j].name) {
-                      num++;
-                      if (num > 1) {
-                          Message({
-                              message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
-                                  + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
-                              type: 'error',
-                              duration: 5 * 1000,
-                          });
-                          this.activeName = 'third';
-                          this.loading = false;
-                          return;
-                      }
-                  }
-              }
+              // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
+              // let num = 0;
+              // for (let j = 0; j < this.tableB.length; j++) {
+              //     if (this.tableB[i].name === this.tableB[j].name) {
+              //         num++;
+              //         if (num > 1) {
+              //             Message({
+              //                 message: this.$t(getUserInfo(this.tableB[i].name).userinfo.customername)
+              //                     + this.$t('label.PFANS5001FORMVIEW_CHECKDOUBLE'),
+              //                 type: 'error',
+              //                 duration: 5 * 1000,
+              //             });
+              //             this.activeName = 'third';
+              //             this.loading = false;
+              //             return;
+              //         }
+              //     }
+              // }
+              // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
               {

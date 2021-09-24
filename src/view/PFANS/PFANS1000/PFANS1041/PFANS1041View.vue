@@ -37,19 +37,26 @@
                         fix: false,
                         filter: true,
                     },
+                    // {
+                    //     code: 'groupNmae',
+                    //     label: 'label.group',
+                    //     width: 120,
+                    //     fix: false,
+                    //     filter: true,
+                    // },
+                    // {
+                    //     code: 'centerNmae',
+                    //     label: 'label.center',
+                    //     width: 120,
+                    //     fix: false,
+                    //     filter: true,
+                    // },
                     {
-                        code: 'groupNmae',
-                        label: 'label.group',
-                        width: 120,
-                        fix: false,
-                        filter: true,
-                    },
-                    {
-                        code: 'centerNmae',
-                        label: 'label.center',
-                        width: 120,
-                        fix: false,
-                        filter: true,
+                      code: "department",
+                      label: "label.ASSETS1001VIEW_USEDEPARTMENT",
+                      width: 120,
+                      fix: false,
+                      filter: true,
                     },
                 ],
                 buttonList: [
@@ -71,12 +78,12 @@
                         for (let i = 0; i < response.length; i++) {
                             let orgInfo_cnt = getOrgInfo(response[i].center_id);
                             if (orgInfo_cnt) {
-                                response[i].centerNmae = orgInfo_cnt.companyname;
+                                response[i].department = orgInfo_cnt.companyname;
                             }
-                            let orgInfo_grp = getOrgInfo(response[i].group_id);
-                            if (orgInfo_grp) {
-                                response[i].groupNmae = orgInfo_grp.companyname;
-                            }
+                            // let orgInfo_grp = getOrgInfo(response[i].group_id);
+                            // if (orgInfo_grp) {
+                            //     response[i].groupNmae = orgInfo_grp.companyname;
+                            // }
                             let userInfo = getUserInfo(response[i].createby);
                             if (userInfo) {
                                 response[i].user_id = userInfo.userinfo.customername;

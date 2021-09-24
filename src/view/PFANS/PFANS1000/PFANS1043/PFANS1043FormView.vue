@@ -197,7 +197,7 @@
             </el-form-item>
             <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" v-show="show3" :error="errorgroup"
                           prop="toolsorgs">
-              <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="2"
+              <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="4"
                    @getOrgids="setToolsorgs"
                    style="width:20vw"></org>
             </el-form-item>
@@ -292,7 +292,7 @@ export default {
         themename: '',
         centerid: '',
         groupid: '',
-        year: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
+        year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) + 1,
         user_id: '',
         data: '',
         divide: '',
@@ -379,7 +379,10 @@ export default {
             this.show3 = true;
           }
           if (this.$route.params.type) {
-            this.form.year = moment(new Date()).add(1, 'y').format('YYYY');
+            //upd ccm 20210601 年度转换 fr
+            // this.form.year = moment(new Date()).add(1, 'y').format('YYYY');
+            this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+            //upd ccm 20210601 年度转换 to
           }
           this.loading = false;
         })
@@ -407,6 +410,9 @@ export default {
     buttonClick(val) {
       this.$refs['reff'].validate(valid => {
         if (valid) {
+          //add ccm 20210601 年度转格式 fr
+          this.form.year = moment(this.form.year).format('YYYY');
+          //add ccm 20210601 年度转格式 to
           if (this.$route.params._id) {
             if (this.$route.params.type) {
               this.$store
@@ -588,6 +594,7 @@ export default {
         .then(response => {
           for (let i = 0; i < response.length; i++) {
             var vote = {};
+            vote.supplierinfor_id = response[i].supplierinfor_id;
             vote.suppliername = response[i].supchinese;
             vote.payeename = response[i].payeename;
             vote.suppliercode = response[i].suppliercode;
