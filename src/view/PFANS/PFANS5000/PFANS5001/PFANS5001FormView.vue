@@ -2599,6 +2599,12 @@
       },
       getUserids(val) {
         this.tableB[0].name = val;
+        //region scc add 9/26 PJ起案体制rank自动带出 from
+        let lst1 = getUserInfo(this.tableB[0].name);
+        if (lst1.userinfo.rank) {
+          this.tableB[0].rank = getDictionaryInfo(lst1.userinfo.rank).value1;
+        }
+        //endregion scc add 9/26 PJ起案体制rank自动带出 to
         this.userlist = val;
         this.form.leaderid = val;
         let lst = getOrgInfoByUserId(val);
