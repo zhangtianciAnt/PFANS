@@ -146,6 +146,29 @@
                   </el-input-number>
                 </template>
               </el-table-column>
+              <!--操作-->
+<!--              人员计划添加删除按钮 ztc fr-->
+              <el-table-column :label="$t('label.operation')" width="80" align="left">
+                <template slot-scope="scope">
+                  <el-button
+                    @click.native.prevent="deleteXsRow(scope.$index, tableData)"
+                    type="danger"
+                    size="small"
+                    :disabled="disabled"
+                    plain
+                  >{{$t('button.delete')}}
+                  </el-button>
+<!--                  <el-button-->
+<!--                    @click="addRowXs"-->
+<!--                    type="primary"-->
+<!--                    size="small"-->
+<!--                    :disabled="disabled"-->
+<!--                    plain-->
+<!--                  >{{$t('button.insert')}}-->
+<!--                  </el-button>-->
+                </template>
+              </el-table-column>
+<!--              人员计划添加删除按钮 ztc to-->
             </el-table>
           </el-tab-pane>
 
@@ -916,8 +939,41 @@
                 "isoutside": false,
                 "entermouth": null,
                 "summerplanpc":"",
-                "unitprice":""});
-              },
+                "unitprice":""
+              });
+            },
+          // 人员计划添加删除按钮 ztc fr
+            deleteXsRow(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+                else {
+                  this.tableData = [
+                    {
+                      rowindex:'',
+                      name: '',
+                      thisyear: '',
+                      nextyear: '',
+                      summerplanpc: '',
+                      suppliername: '',
+                      unitprice: '',
+                    },
+                  ]
+                }
+            },
+            // addRowXs() {
+            //   let num = this.tableData[this.tableData.length - 1].rowindex;
+            //   this.tableData.push({
+            //     "rowindex":num+1,
+            //     "name": "",
+            //     "thisyear":"",
+            //     "nextyear":"",
+            //     "summerplanpc": "",
+            //     "suppliername": "",
+            //     "unitprice":"",
+            //   });
+            // },
+          // 人员计划添加删除按钮 ztc to
             changeOption(val, row) {
                 if (val) {
                     if (this.i18n) {
@@ -931,7 +987,6 @@
               this.$refs['form'].validate(valid => {
                 if (valid) {
                   this.checkRequire();
-                  debugger;
                   this.form.employed = JSON.stringify(this.tableData);
                   let newTableDatalinshi = [];
 
