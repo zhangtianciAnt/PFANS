@@ -98,8 +98,8 @@
               if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
                 response[j].group_id = getDepartmentById(response[j].group_id);
               }
-              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-                response[j].group_id = getDepartmentById(response[j].group_id);
+              if (response[j].team_id !== null && response[j].team_id !== '' && response[j].team_id !== undefined) {
+                response[j].team_id = getDepartmentById(response[j].team_id);
               }
               //修改列表组织 不跟随申请人显示组织名称 ztc to
               let user = getUserInfo(response[j].user_id);
