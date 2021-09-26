@@ -228,7 +228,6 @@ const PFANS1026Store = {
 
     getNapinQinqiu({commit}, data) {
       return new Promise((resolve, reject) => {
-        debugger;
         getNapinQinqiu(data).then(response => {
           if (response.code === 0) {
             resolve(response.data);

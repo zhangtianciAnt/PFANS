@@ -2796,7 +2796,8 @@
         const vote1 = [];
         if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
           || this.$store.getters.roles.indexOf("11") != -1 //总经理
-          || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+          || this.$store.getters.roles.indexOf("16") != -1 //财务部长
+          || this.$store.getters.roles.indexOf("18") != -1) //企划部长部长
         {
           this.$store.getters.orgGroupList.filter((item) => {
             vote1.push(
@@ -4366,20 +4367,28 @@
       //endregion add_qhr_20210910 取消画面实时计算
       assets1: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       assets2: {
         handler(newValue, oldValue) {
-          this.computedSum();
-
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       travel: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
@@ -4391,31 +4400,46 @@
       // },
       sumA2: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumB1: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumB2: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumB3: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },
       sumC1: {
         handler(newValue, oldValue) {
-          this.computedSum();
+          if (this.$route.params._id)
+          {
+            this.computedSum();
+          }
         },
         deep: true,
       },

@@ -1021,6 +1021,7 @@
       } else {
         this.loading = true;
         this.disabledT = false;
+        //todo 年度
         // this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         this.refform.year = '2021';
         this.refform.group_id = this.$route.params.group_id;
@@ -1375,7 +1376,8 @@
         const vote1 = [];
         if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
             || this.$store.getters.roles.indexOf("11") != -1 //总经理
-          || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+          || this.$store.getters.roles.indexOf("16") != -1//财务部长
+          || this.$store.getters.roles.indexOf("18") != -1) //企划部长部长
         {
             this.$store.getters.orgGroupList.filter((item) => {
                 vote1.push(

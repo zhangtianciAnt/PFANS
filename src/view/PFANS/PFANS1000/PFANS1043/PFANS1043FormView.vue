@@ -292,7 +292,7 @@ export default {
         themename: '',
         centerid: '',
         groupid: '',
-        year: parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY'),
+        year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) + 1,
         user_id: '',
         data: '',
         divide: '',

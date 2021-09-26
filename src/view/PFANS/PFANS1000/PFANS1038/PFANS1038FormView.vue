@@ -146,6 +146,29 @@
                   </el-input-number>
                 </template>
               </el-table-column>
+              <!--操作-->
+<!--              人员计划添加删除按钮 ztc fr-->
+              <el-table-column :label="$t('label.operation')" width="80" align="left">
+                <template slot-scope="scope">
+                  <el-button
+                    @click.native.prevent="deleteXsRow(scope.$index, tableData)"
+                    type="danger"
+                    size="small"
+                    :disabled="disabled"
+                    plain
+                  >{{$t('button.delete')}}
+                  </el-button>
+<!--                  <el-button-->
+<!--                    @click="addRowXs"-->
+<!--                    type="primary"-->
+<!--                    size="small"-->
+<!--                    :disabled="disabled"-->
+<!--                    plain-->
+<!--                  >{{$t('button.insert')}}-->
+<!--                  </el-button>-->
+                </template>
+              </el-table-column>
+<!--              人员计划添加删除按钮 ztc to-->
             </el-table>
           </el-tab-pane>
 
@@ -502,6 +525,7 @@
                 this.buttonList = [
                     {
                         key: "save",
+                        disabled : false,
                         name: "button.save",
                         icon: "el-icon-check"
                     }
@@ -519,6 +543,7 @@
                 this.disabledC = true;
                 this.getOne(this.$route.params._id);
             } else {
+                this.buttonList[0].disabled = true;
                 this.userlist = this.$store.getters.userinfo.userid;
                 if (this.userlist !== null && this.userlist !== '') {
                   this.disabledC = false;
@@ -558,6 +583,7 @@
             //     this.enterMouth =  moment(value).format('YYYY')+'-'+moment(new Date()).format('MM');
             // },
           groupChange(val) {
+            this.buttonList[0].disabled = true;
             this.form.centerid = val;
             this.$route.params.type === 0 ? this.getPersonalCost() : this.getExpatriatesinfor()
           },
@@ -654,7 +680,8 @@
             const vote1 = [];
             if (this.$store.getters.useraccount._id === '5e78b17ef3c8d71e98a2aa30'//管理员
               || this.$store.getters.roles.indexOf("11") != -1 //总经理
-              || this.$store.getters.roles.indexOf("16") != -1) //财务部长
+              || this.$store.getters.roles.indexOf("16") != -1//财务部长
+              || this.$store.getters.roles.indexOf("18") != -1) //企划部长部长
             {
               this.$store.getters.orgGroupList.filter((item) => {
                 vote1.push(
@@ -726,33 +753,41 @@
               groupid : this.form.centerid,
               years : '2021',
             };
+            this.tableData = [];
             this.$store
               .dispatch('PFANS1038Store/getPersonalCost',params)
               .then(response => {
-                this.tableData = [];
-                for (var i = 0; i < response.length; i++){
-                  if(response[i].ltrank == "" || response[i].ltrank == null || response[i].ltrank == undefined){
-                    response[i].ltrank = response[i].exrank;
+                if (response.length>0)
+                {
+                  for (var i = 0; i < response.length; i++){
+                    if(response[i].ltrank == "" || response[i].ltrank == null || response[i].ltrank == undefined){
+                      response[i].ltrank = response[i].exrank;
+                    }
+                    this.tableData.push({
+                      name: response[i].username,
+                      thisyear: response[i].exrank,
+                      nextyear: response[i].ltrank,
+                      summerplanpc: response[i].aptoju,
+                      suppliername:'',
+                      unitprice:''
+                    });
                   }
-                  this.tableData.push({
-                    name: response[i].username,
-                    thisyear: response[i].exrank,
-                    nextyear: response[i].ltrank,
-                    summerplanpc: response[i].aptoju,
-                    suppliername:'',
-                    unitprice:''
-                  });
+                  this.buttonList[0].disabled = false;
                 }
+                else
+                {
+                  this.buttonList[0].disabled = true;
                 }
-              )
+                })
           },
             getExpatriatesinfor() {
               let id = this.form.centerid;
+              this.tableData = [];
                 this.show3=true;
                 this.$store
                     .dispatch('PFANS1038Store/getExpatriatesinfor', id)
                     .then(response => {
-                      this.tableData = [];
+
                         if (response.length > 0) {
                           for (let i=0;i < response.length;i++)
                           {
@@ -765,8 +800,12 @@
                                 suppliername:response[i].suppliername,
                                 unitprice:response[i].unitprice,
                             });
-
                           }
+                          this.buttonList[0].disabled = false;
+                        }
+                        else
+                        {
+                          this.buttonList[0].disabled = true;
                         }
                     })
                     .catch(error => {
@@ -900,8 +939,41 @@
                 "isoutside": false,
                 "entermouth": null,
                 "summerplanpc":"",
-                "unitprice":""});
-              },
+                "unitprice":""
+              });
+            },
+          // 人员计划添加删除按钮 ztc fr
+            deleteXsRow(index, rows) {
+                if (rows.length > 1) {
+                    rows.splice(index, 1);
+                }
+                else {
+                  this.tableData = [
+                    {
+                      rowindex:'',
+                      name: '',
+                      thisyear: '',
+                      nextyear: '',
+                      summerplanpc: '',
+                      suppliername: '',
+                      unitprice: '',
+                    },
+                  ]
+                }
+            },
+            // addRowXs() {
+            //   let num = this.tableData[this.tableData.length - 1].rowindex;
+            //   this.tableData.push({
+            //     "rowindex":num+1,
+            //     "name": "",
+            //     "thisyear":"",
+            //     "nextyear":"",
+            //     "summerplanpc": "",
+            //     "suppliername": "",
+            //     "unitprice":"",
+            //   });
+            // },
+          // 人员计划添加删除按钮 ztc to
             changeOption(val, row) {
                 if (val) {
                     if (this.i18n) {
@@ -915,7 +987,6 @@
               this.$refs['form'].validate(valid => {
                 if (valid) {
                   this.checkRequire();
-                  debugger;
                   this.form.employed = JSON.stringify(this.tableData);
                   let newTableDatalinshi = [];
 
