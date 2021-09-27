@@ -1948,7 +1948,7 @@
                   this.loading = false;
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,
@@ -2043,7 +2043,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2289,7 +2289,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2433,7 +2433,7 @@
           })
           .catch(error => {
             this.loading = false;
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2537,7 +2537,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2605,7 +2605,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3078,7 +3078,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3573,7 +3573,7 @@
               this.dialogBook = false;
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -3638,7 +3638,7 @@
                 this.dialogBook = false;
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,
@@ -3702,7 +3702,7 @@
                 this.dialogBook = false;
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,
@@ -3872,7 +3872,7 @@
               this.paramsTitle();
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -4108,7 +4108,7 @@
 
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,
@@ -4133,7 +4133,7 @@
 
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,
@@ -4246,7 +4246,7 @@
             //add-ws-7/1-禅道152任务
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,

@@ -13,7 +13,10 @@
                          :workflowCode="workflowCode"
                          v-loading="loading">
       <div slot="customize">
-        <el-form :model="form" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw;height: auto">
+      <!--  scc add 样式变更  from  -->
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vm" ref="reff" style="padding: 2vw;height: auto">
+          <el-tabs v-model="activeName" type="border-card">
+            <el-tab-pane :label="$t('label.PFANS1025VIEW_FIRSTDETAILS')" name="first">
               <div>
                 <el-row>
                   <el-col :span="8">
@@ -31,14 +34,36 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTJAPANESE')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.custojapanese"></el-input>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')"
-                                  prop="deployment">
-                      <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>
+                    <el-form-item :label="$t('label.PFANS1025VIEW_ENTRUSTCHINESE')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.custochinese"></el-input>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMEJAPANESE')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.pjnamejapanese"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PJNAMECHINESE')">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.pjnamechinese"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')"-->
+<!--                                  prop="deployment">-->
+<!--                      <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')"
                                   prop="claimamount">
@@ -48,14 +73,6 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_CURRENCYFORMAT')"
                                   prop="currencyposition">
-                      <!--                      add-ws-12/10-汇率字典-->
-<!--                      <dicselect :code="code3"-->
-<!--                                 :data="form.currencyposition"-->
-<!--                                 :disabled="true"-->
-<!--                                 :multiple="multiple"-->
-<!--                                 @change="getcurrencyformat"-->
-<!--                                 style="width:20vw">-->
-<!--                      </dicselect>-->
                       <monthlyrate :month="month3"
                                    :data="form.currencyposition"
                                    :disabled="true"
@@ -63,14 +80,13 @@
                                    @change="getcurrencyformat"
                                    style="width:20vw">
                       </monthlyrate>
-                      <!--                      add-ws-12/10-汇率字典-->
                     </el-form-item>
                   </el-col>
                 </el-row>
               </div>
               <el-row>
                 <el-col :span="24">
-                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe style="width: 61vw" border>
+                  <el-table :data="tableS" header-cell-class-name="sub_bg_color_blue" stripe style="width: 70vw" border>
                     <el-table-column
                       prop="claimtype"
                       :label="$t('label.PFANS1024VIEW_NUMBER')" align="center" width="150"/>
@@ -92,6 +108,253 @@
                   </el-table>
                 </el-col>
               </el-row>
+            </el-tab-pane>
+
+            <el-tab-pane :label="$t('label.PFANS1025VIEW_SECONDDETAILS')" name="second">
+              <div>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1008FORMVIEW_INITIATOR')" :error="error" prop="user_id">
+                      <user :error="error" :selectType="selectType" :userlist="userlist"
+                            @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_TELEPHONE')" prop="telephone">
+                      <el-input :disabled="true" style="width:20vw" v-model="form.telephone"></el-input>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DRAFTINGDATE')">
+                      <el-date-picker
+                        v-model="form.draftingdate"
+                        :disabled="true"
+                        type="date"
+                        style="width:20vw">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" prop="careerplan">
+                      <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                      <el-switch
+                        :disabled="!disable"
+                        v-model="form.plan"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
+                      <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_SCHEDULEDDATE')">
+                      <el-date-picker
+                        v-model="form.scheduleddate"
+                        :disabled="true"
+                        type="date"
+                        style="width:20vw">
+                      </el-date-picker>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')" prop="valuation">
+                      <dicselect :code="code2"
+                                 :data="form.valuation"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getvaluation"
+                                 style="width:20vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_PLANNUMBER')">
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.plannumber"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1017FORMVIEW_PREPAREFOR')">
+                      <el-input :disabled="!disable" style="width:70vw" v-model="form.remarks"></el-input>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+              </div>
+              <el-table :data="tableT" :summary-method="getTsummaries"
+                        border
+                        show-summary
+                        style="width: 70vw"
+                        header-cell-class-name="sub_bg_color_blue" stripe>
+                <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-select clearable style="width: 100%" v-model="scope.row.budgetcode" :disabled="!disable"
+                               :placeholder="$t('normal.error_09')" :no="scope.row" @change="getBudgetunit">
+                      <el-option
+                        v-for="item in scope.row.options1"
+                        :key="item.value"
+                        :label="item.lable"
+                        :value="item.value">
+                      </el-option>
+                    </el-select>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_DEPART')" align="center"
+                                 :error="errorgroup" prop="depart">
+                  <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
+                    <org :orglist="scope.row.depart"
+                         orgtype="4"
+                         :disabled="false"
+                         :error="errorgroup"
+
+                         :no="scope.row"
+                         @getOrgids="getGroupId"></org>
+                  </template>
+                </el-table-column>
+                <!--     region   add_qhr_20210722 修改【部门】栏宽度-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="200">
+                  <!--     endregion   add_qhr_20210722 修改【部门】栏宽度-->
+                  <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
+                    <project :disabled="false"
+                             style="width: 100%" :date="scope.row.projects" :no="scope.row"
+                             @change="changePro">
+                    </project>
+                  </template>
+                </el-table-column>
+                <!--  region   add_qhr_20210721 隐藏表格项目列-->
+                <el-table-column :label="$t('label.PFANS5008VIEW_PROGRAM')" align="center" width="600" v-if="false">
+                  <!--  endregion   add_qhr_20210721 隐藏表格项目列-->
+                  <el-table-column :label="$t('label.PFANS1025VIEW_MEMBER')" align="center"  prop="member"
+                                   v-if="checkdisable">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.member"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_COMMUNITY')" align="center"
+                                   v-if="checkdisable">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.community"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_OUTSOURCE')" align="center"
+                                   prop="outsource">
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        :precision="2"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.outsource"
+                        @change="changeSum(scope.row)"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                  <el-table-column :label="$t('label.PFANS1025VIEW_OUTCOMMUNITY')" align="center" >
+                    <template slot-scope="scope">
+                      <el-input-number
+                        :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                        :max="1000000000"
+                        :min="0"
+                        :no="scope.row"
+                        controls-position="right"
+                        style="width: 100%"
+                        v-model="scope.row.outcommunity"
+                        @change="changeSum(scope.row)"
+                      ></el-input-number>
+                    </template>
+                  </el-table-column>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1025VIEW_AWARDMONEY')" align="center" prop="awardmoney" width="160">
+                  <template slot-scope="scope">
+                    <!--   add_qhr_20210721 修改权限 可以随意更改-->
+                    <el-input-number
+                      :disabled="false"
+                      :max="1000000000"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.awardmoney"
+                    ></el-input-number>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.operation')" align="center" width="160">
+                  <template slot-scope="scope">
+                    <el-button
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                      @click.native.prevent="deleteRow(scope.$index, tableT)"
+                      plain
+                      size="small"
+                      type="danger"
+                    >{{$t('button.delete')}}
+                    </el-button>
+                    <el-button
+                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
+                      @click="addRow()"
+                      plain
+                      size="small"
+                      type="primary"
+                    >{{$t('button.insert')}}
+                    </el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-tab-pane>
+
+            <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="third">
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
+                    <el-upload
+                      :action="upload"
+                      :disabled="!disable"
+                      :file-list="fileList"
+                      :on-error="fileError"
+                      :on-preview="fileDownload"
+                      :on-remove="fileRemove"
+                      :on-success="fileSuccess"
+                      :on-change="filechange"
+                      class="upload-demo"
+                      drag
+                      ref="upload"
+                      v-model="form.uploadfile">
+                      <i class="el-icon-upload"></i>
+                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
+                      </div>
+                    </el-upload>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-tab-pane>
+          </el-tabs>
+          <!--  scc add 样式变更  to  -->
         </el-form>
       </div>
     </EasyNormalContainer>
@@ -105,7 +368,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, getOrgInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, getOrgInfo,uploadUrl,downLoadUrl} from '@/utils/customize';
 
   import project from '../../../components/project';
   import monthlyrate from '../../../components/monthlyrate';
@@ -120,7 +383,62 @@
       project,
     },
     data() {
+      //region scc add 9/27 起案者，报价单，邮件必填认证 from
+      var checkuser = (rule, value, callback) => {
+        if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
+          this.error = this.$t('normal.error_09') + this.$t('label.user_name');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.user_name')));
+        } else {
+          this.error = '';
+          return callback();
+        }
+      };
+      var checkvaluation = (rule, value, callback) => {
+        if (!this.form.valuation || this.form.valuation === '' || this.form.valuation === 'undefined') {
+          this.errorvaluation = this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION');
+          return callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS1025VIEW_VALUATION')));
+        } else {
+          this.errorvaluation = '';
+          return callback();
+        }
+      };
+      var checkuploadfile = (rule, value, callback) => {
+        if (!this.form.uploadfile || this.form.uploadfile === '' || this.form.uploadfile === 'undefined') {
+          this.errorfile = this.$t('normal.error_16') + this.$t('label.enclosure');
+          return callback(new Error(this.$t('normal.error_16') + this.$t('label.enclosure')));
+        } else {
+          this.errorfile = '';
+          return callback();
+        }
+      };
+      //endregion scc add 9/27 起案者，报价单，邮件必填认证 to
       return {
+        //region scc add 其他契约书样式变更对应 from
+        activeName: 'first',
+        errorfile: '',
+        fileList: [],
+        upload: uploadUrl(),
+        code2: 'HT005',
+        //endregion scc add 其他契约书样式变更对应 to
+        //region scc add 9/27 起案者，报价单，邮件必填认证 from
+        rules: {
+          user_id: [{
+            required: true,
+            validator: checkuser,
+            trigger: 'change',
+          }],
+          valuation: [{
+            required: true,
+            validator: checkvaluation,
+            trigger: 'change',
+          }],
+          enclosurecontent: [{
+            required: true,
+            validator: checkuploadfile,
+            trigger: 'change',
+          }],
+        },
+        //endregion scc add 9/27 起案者，报价单，邮件必填认证 to
         showCG:false,
         defaultStart: false,
         enableSave: false,
@@ -157,8 +475,43 @@
           currencyposition: 'PG019003',
           claimamount: '',
           user_id: '',
+          //region scc add 其他契约书样式变更对应 from
           maketype: '',
+          uploadfile: '',
+          custojapanese: '',
+          custochinese: '',
+          pjnamejapanese: '',
+          pjnamechinese: '',
+          telephone: '',
+          plan: '',
+          valuation: '',
+          plannumber: '',
+          remarks: '',
+          //endregion scc add 其他契约书样式变更对应 to
         },
+        //region scc add 基本情报2table from
+        tableT: [{
+          budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
+          depart: '',
+          member: '',
+          community: '',
+          outsource: '',
+          outcommunity: '',
+          awardmoney: '',
+          rowindex: '',
+        }, {
+          awarddetail_id: '',
+          award_id: '',
+          budgetcode:this.$t('label.PFANS1025FORMVIEW_DETAIL'),
+          depart: '',
+          member: '',
+          community: '',
+          outsource: '',
+          outcommunity: '',
+          awardmoney: '',
+          rowindex: '',
+        }],
+        //endregion scc add 基本情报2table to
         tableS: [],
         tableD: [],
         buttonList: [],
@@ -173,6 +526,62 @@
           .then(response => {
             if (response.award != null) {
               this.form = response.award;
+              //region scc add  9/27 页面初始化 from
+              if (this.$store.getters.userinfo.userid) {//起案者内线
+                this.form.telephone = getUserInfo(this.$store.getters.userinfo.userid).userinfo.extension;
+              }
+              this.form.draftingdate = moment(new Date()).format('YYYY-MM-DD');//初始化起案日
+              var myDate = new Date();
+              myDate.setDate(myDate.getDate() + 2);
+              this.form.scheduleddate = moment(myDate).format('YYYY-MM-DD');//实施预定日
+              if (response.awardDetail.length > 0) {
+                let check = 0;
+                let data = [];
+                for (let i = 0; i < response.awardDetail.length; i++) {//基本情报2table
+                  if (response.awardDetail[i].budgetcode === this.$t('label.PFANS1025FORMVIEW_CHECKERROR')) {
+                    check = check + 1;
+                    break;
+                  }
+                }
+                if (check === 0) {
+                  this.tableT.push({
+                    budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
+                    depart: '',
+                    member: '',
+                    community: '',
+                    outsource: '',
+                    outcommunity: '',
+                    worknumber: '',
+                    awardmoney: '',
+                    rowindex: '',
+                  });
+                  this.tableT = data.concat(response.awardDetail);
+                } else {
+                  this.tableT = response.awardDetail;
+                }
+                for (var i = 0; i < this.tableT.length; i++) {
+                  this.orglist = this.tableT[i].depart;
+                  if (this.tableT[i].depart !== '' && this.tableT[i].depart !== null && this.tableT[i].depart !== undefined) {
+                    //ADD_FJL
+                    this.tableT[i].options1 = [];
+                    if (getOrgInfo(this.tableT[i].depart)) {
+                      let butinfo = (getOrgInfo(this.tableT[i].depart).encoding).substring(0, 3);
+                      let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+                      if (dic.length > 0) {
+                        for (let j = 0; j < dic.length; j++) {
+                          if (butinfo === (dic[j].value1).substring(0, 3)) {
+                            this.tableT[i].options1.push({
+                              lable: dic[j].value2 + '_' + dic[j].value3,
+                              value: dic[j].code,
+                            });
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+              //endregion scc add  9/27 页面初始化 to
               if (this.form.status === '4' || this.form.status === '2') {
                 this.enableSave = false;
               } else {
@@ -321,10 +730,23 @@
                 }
               })
             //采购业务数据流程查看详情
+            //region scc add 9/27 添加上传附件功能 from
+            if (this.form.uploadfile != '' && this.form.uploadfile != null) {
+              let uploadfile = this.form.uploadfile.split(';');
+              for (var i = 0; i < uploadfile.length; i++) {
+                if (uploadfile[i].split(',')[0] != '') {
+                  let o = {};
+                  o.name = uploadfile[i].split(',')[0];
+                  o.url = uploadfile[i].split(',')[1];
+                  this.fileList.push(o);
+                }
+              }
+            }
+            //endregion scc add 9/27 添加上传附件功能 to
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -385,6 +807,28 @@
           this.baseInfo = {};
         this.form.user_id = this.userlist;
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
+        //region scc add 9/27 更新基本情报2 from
+        this.baseInfo.awardDetail = [];
+        for (let i = 0; i < this.tableT.length; i++) {
+          if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+            || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' ||this.tableT[i].awardmoney > '0') {
+            this.baseInfo.awardDetail.push({
+              awarddetail_id: this.tableT[i].awarddetail_id,
+              award_id: this.tableT[i].award_id,
+              budgetcode: this.tableT[i].budgetcode,
+              depart: this.tableT[i].depart,
+              member: this.tableT[i].member,
+              projects: this.tableT[i].projects,
+              community: this.tableT[i].community,
+              outsource: this.tableT[i].outsource,
+              outcommunity: this.tableT[i].outcommunity,
+              worknumber: this.tableT[i].worknumber,
+              awardmoney: this.tableT[i].awardmoney,
+              rowindex: this.tableT[i].rowindex,
+            });
+          }
+        }
+        //endregion scc add 9/27 更新基本情报2 to
         this.loading = true;
         this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
         this.$store
@@ -394,7 +838,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -434,6 +878,28 @@
         } else if (val === 'save' || val === 'StartWorkflow') {
           this.$refs['reff'].validate(valid => {
             if (valid) {
+              //region scc add 9/27 更新基本情报2 from
+              this.baseInfo.awardDetail = [];
+              for (let i = 0; i < this.tableT.length; i++) {
+                if (this.tableT[i].budgetcode !== '' || this.tableT[i].depart !== '' || this.tableT[i].member > '0' || this.tableT[i].community > '0'
+                  || this.tableT[i].outsource > '0' || this.tableT[i].outcommunity > '0' ||this.tableT[i].awardmoney > '0') {
+                  this.baseInfo.awardDetail.push({
+                    awarddetail_id: this.tableT[i].awarddetail_id,
+                    award_id: this.tableT[i].award_id,
+                    budgetcode: this.tableT[i].budgetcode,
+                    depart: this.tableT[i].depart,
+                    member: this.tableT[i].member,
+                    projects: this.tableT[i].projects,
+                    community: this.tableT[i].community,
+                    outsource: this.tableT[i].outsource,
+                    outcommunity: this.tableT[i].outcommunity,
+                    worknumber: this.tableT[i].worknumber,
+                    awardmoney: this.tableT[i].awardmoney,
+                    rowindex: this.tableT[i].rowindex,
+                  });
+                }
+              }
+              //endregion scc add 9/27 更新基本情报2 to
               this.loading = true;
               this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
               if (this.$route.params._id) {     //编辑
@@ -458,7 +924,7 @@
                     }
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,
@@ -476,6 +942,169 @@
           });
         }
       },
+      //region scc add 样式变更对应添加的方法 from
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableT = [{
+            budgetcode: '',
+            depart: '',
+            member: '',
+            community: '',
+            outsource: '',
+            outcommunity: '',
+            awardmoney: '',
+          }];
+        }
+      },
+      addRow() {
+        this.tableT.push({
+          awarddetail_id: '',
+          award_id: '',
+          budgetcode: '',
+          depart: '',
+          member: '',
+          community: '',
+          outsource: '',
+          outcommunity: '',
+          awardmoney: '',
+          rowindex: '',
+        });
+      },
+      changeSum(row) {
+        row.worknumber = row.outsource;
+        row.awardmoney = row.outsource * row.outcommunity;
+      },
+      changePro(val, row) {
+        row.projects = val.companyprojects_id;
+      },
+      getGroupId(orglist, row) {
+        row.depart = orglist;
+        //ADD_FJL
+        row.options1 = [];
+        row.budgetcode = '';
+        if(getOrgInfo(row.depart)){
+          let butinfo = (getOrgInfo(row.depart).encoding).substring(0,3);
+          let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
+          if (dic.length > 0) {
+            for (let i = 0; i < dic.length; i++) {
+              if (butinfo === (dic[i].value1).substring(0,3)) {
+                row.options1.push({
+                  lable: dic[i].value2 + '_' + dic[i].value3,
+                  value: dic[i].code,
+                });
+              }
+            }
+          }
+        }
+      },
+      getBudgetunit(val, row) {
+        row.budgetcode = val;
+      },
+      getTsummaries(param) {
+        const {columns, data} = param;
+        const sums = [];
+        columns.forEach((column, index) => {
+          if (index === 0) {
+            sums[index] = this.$t('label.PFANS1012VIEW_ACCOUNT');
+            return;
+          }
+          const values = data.map(item => Number(item[column.property]));
+          if (!values.every(value => isNaN(value))) {
+            sums[index] = values.reduce((prev, curr) => {
+              const value = Number(curr);
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
+              if (!isNaN(value)) {
+                return Math.round((prev + curr) * 100) / 100;
+              } else {
+                return Math.round(prev * 100) / 100;
+              }
+              // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
+            }, 0);
+            if (index == 1) {
+              sums[index] = '--';
+            }
+            if (index == 3) {
+              sums[index] = Math.round((sums[index]) * 100) / 100;
+            }
+          } else {
+            sums[index] = '--';
+          }
+        });
+        return sums;
+      },
+      getvaluation(val) {
+        this.form.valuation = val;
+      },
+      getUserids(val) {
+        this.userlist = val;
+        this.form.user_id = val;
+        if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
+          this.error = this.$t('normal.error_08') + this.$t('label.user_name');
+        } else {
+          this.error = '';
+        }
+      },
+      fileError(err, file, fileList) {
+        Message({
+          message: this.$t('normal.error_04'),
+          type: 'error',
+          duration: 5 * 1000,
+        });
+      },
+      fileDownload(file) {
+        if (file.url) {
+          file.url = file.url.replace('%', '%25');
+          file.url = file.url.replace('#', '%23');
+          file.url = file.url.replace('&', '%26');
+          file.url = file.url.replace('+', '%2B');
+          file.url = file.url.replace('=', '%3D');
+          file.url = file.url.replace('?', '%3F');
+          var url = downLoadUrl(file.url);
+          window.open(url);
+        }
+      },
+      fileRemove(file, fileList) {
+        this.fileList = [];
+        this.form.uploadfile = '';
+        for (var item of fileList) {
+          let o = {};
+          o.name = item.name;
+          o.url = item.url;
+          this.fileList.push(o);
+          this.form.uploadfile += item.name + ',' + item.url + ';';
+        }
+      },
+      fileSuccess(response, file, fileList) {
+        if (response.data == 'upload_success') {
+          this.fileList = [];
+          this.form.uploadfile = '';
+          for (var item of fileList) {
+            let o = {};
+            o.name = item.name;
+            if (!item.url) {
+              o.url = item.response.info;
+            } else {
+              o.url = item.url;
+            }
+            this.fileList.push(o);
+            this.form.uploadfile += o.name + ',' + o.url + ';';
+          }
+        } else {
+          Message({
+            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          this.form.uploadfile = '';
+          this.$refs.upload.clearFiles();
+        }
+      },
+      filechange(file, fileList) {
+        this.$refs.reff.validateField('enclosurecontent');
+      },
+      //endregion scc add 样式变更对应添加的方法 to
     },
   };
 </script>

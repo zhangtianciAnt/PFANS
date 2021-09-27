@@ -880,8 +880,8 @@
                 <el-tabs v-model="activeName7" type="border-card">
                   <el-tab-pane :label="$t('label.PFANS1036VIEW_COMMUNICATION')" name="first">
                     <el-table  :data="tableO1" :summary-method="(val) => getSummaries(val,'o1')" show-summary stripe
-                              header-cell-class-name="sub_bg_color_blue">
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
+                              header-cell-class-name="sub_bg_color_blue" height="650">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="50" type="index"
                                        fixed>
                       </el-table-column>
                       <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
@@ -892,14 +892,14 @@
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_SMALLPROJECT')" align="center" width="150"
-                                       prop="sprogramme">
+                                       prop="sprogramme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.sprogramme"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
-                                       prop="type">
+                                       prop="type" >
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -912,8 +912,8 @@
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.April')" align="center" width="130">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                        <el-table-column :label="$t('label.April')" align="center" width="110">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money4">
                             <template slot-scope="scope">
                               <el-input-number
@@ -923,13 +923,14 @@
                                 :min="0"
                                 style="width:7vw"
                                 :step="1"
+                                :precision="2"
                                 v-model="scope.row.money4">
                               </el-input-number>
                             </template>
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.May')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money5">
                             <template slot-scope="scope">
                               <el-input-number
@@ -937,6 +938,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 style="width:7vw"
                                 v-model="scope.row.money5">
                               </el-input-number>
@@ -944,7 +946,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.June')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money6">
                             <template slot-scope="scope">
                               <el-input-number
@@ -952,6 +954,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money6">
@@ -960,7 +963,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.July')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money7">
                             <template slot-scope="scope">
                               <el-input-number
@@ -968,6 +971,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money7">
@@ -976,7 +980,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.August')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money8">
                             <template slot-scope="scope">
                               <el-input-number
@@ -984,6 +988,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money8">
@@ -992,7 +997,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.September')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money9">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1000,6 +1005,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money9">
@@ -1010,7 +1016,7 @@
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
                         <el-table-column :label="$t('label.October')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money10">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1018,6 +1024,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money10">
@@ -1026,7 +1033,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.November')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money11">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1034,6 +1041,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money11">
@@ -1042,7 +1050,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.December')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money12">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1051,6 +1059,7 @@
                                 @change="changeSum2(scope.row)"
                                 :min="0"
                                 :step="1"
+                                :precision="2"
                                 style="width:7vw"
                                 v-model="scope.row.money12">
                               </el-input-number>
@@ -1058,7 +1067,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.January')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money1">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1066,6 +1075,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money1">
@@ -1074,7 +1084,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.February')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money2">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1082,6 +1092,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money2">
@@ -1090,7 +1101,7 @@
                           </el-table-column>
                         </el-table-column>
                         <el-table-column :label="$t('label.March')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                            prop="money3">
                             <template slot-scope="scope">
                               <el-input-number
@@ -1098,6 +1109,7 @@
                                 controls-position="right"
                                 @change="changeSum2(scope.row)"
                                 :min="0"
+                                :precision="2"
                                 :step="1"
                                 style="width:7vw"
                                 v-model="scope.row.money3">
@@ -1107,11 +1119,11 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.totalyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130"
+                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="135"
                                          prop="moneytotal">
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200" fixed="right">
+                      <el-table-column :label="$t('label.operation')" align="center" width="150" fixed="right">
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
@@ -1133,36 +1145,28 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036VIEW_USING')" name="second" v-if="this.role === '0'">
+                  <el-tab-pane :label="$t('label.PFANS1036VIEW_USING')" name="second">
                     <el-table :data="tableO2" :summary-method="(val) => getSummaries(val,'o2')" show-summary stripe
-                              header-cell-class-name="sub_bg_color_blue">
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
+                              header-cell-class-name="sub_bg_color_blue" height="650">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="50" type="index"
                                        fixed>
                       </el-table-column>
                       <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
-                                       prop="programme">
+                                       prop="programme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.programme"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_SMALLPROJECT')" align="center" width="150"
-                                       prop="sprogramme">
+                                       prop="sprogramme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.sprogramme"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
-                                       prop="price" >
-                        <template slot-scope="scope">
-                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                           :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                           v-model="scope.row.price"></el-input-number>
-                        </template>
-                      </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
-                                       prop="type">
+                                       prop="type" >
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -1172,6 +1176,14 @@
                             :no="scope.row"
                             size="small"
                           ></dicselect>
+                        </template>
+                      </el-table-column>
+                      <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
+                                       prop="price" >
+                        <template slot-scope="scope">
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
+                                           :precision="1" @change="changeSum(scope.row)" :step="1000"
+                                           v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
@@ -1343,7 +1355,7 @@
                                          prop="moneytotal">
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200" fixed="right">
+                      <el-table-column :label="$t('label.operation')" align="center" width="150" fixed="right">
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
@@ -1365,36 +1377,28 @@
                       </el-table-column>
                     </el-table>
                   </el-tab-pane>
-                  <el-tab-pane :label="$t('label.PFANS1036VIEW_TRAINING')" name="third" v-if="this.role === '0'">
+                  <el-tab-pane :label="$t('label.PFANS1036VIEW_TRAINING')" name="third">
                     <el-table :data="tableO3" :summary-method="(val) => getSummaries(val,'o3')" show-summary stripe
-                              header-cell-class-name="sub_bg_color_blue">
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
+                              header-cell-class-name="sub_bg_color_blue" height="650">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="50" type="index"
                                        fixed>
                       </el-table-column>
                       <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
-                                       prop="programme">
+                                       prop="programme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.programme"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_SMALLPROJECT')" align="center" width="150"
-                                       prop="sprogramme">
+                                       prop="sprogramme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.sprogramme"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
-                                       prop="price">
-                        <template slot-scope="scope">
-                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                           :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                           v-model="scope.row.price"></el-input-number>
-                        </template>
-                      </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
-                                       prop="type">
+                                       prop="type" >
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -1404,6 +1408,14 @@
                             :no="scope.row"
                             size="small"
                           ></dicselect>
+                        </template>
+                      </el-table-column>
+                      <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
+                                       prop="price" >
+                        <template slot-scope="scope">
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
+                                           :precision="1" @change="changeSum(scope.row)" :step="1000"
+                                           v-model="scope.row.price"></el-input-number>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
@@ -1575,7 +1587,7 @@
                                          prop="moneytotal">
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200" fixed="right">
+                      <el-table-column :label="$t('label.operation')" align="center" width="150" fixed="right">
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
@@ -1599,35 +1611,26 @@
                   </el-tab-pane>
                   <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_VARIOUSFUNDS')" name="fouth">
                     <el-table :data="tableO" :summary-method="(val) => getSummaries(val,'o4')" show-summary stripe
-                              header-cell-class-name="sub_bg_color_blue">
-                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="110" type="index"
+                              header-cell-class-name="sub_bg_color_blue" height="650">
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_NO')" align="center" width="50" type="index"
                                        fixed>
                       </el-table-column>
                       <el-table-column width="150" :label="$t('label.PFANS1036FORMVIEW_BIGPROJECT')" align="center"
-                                       prop="programme">
+                                       prop="programme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.programme"></el-input>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_SMALLPROJECT')" align="center" width="150"
-                                       prop="sprogramme">
+                                       prop="sprogramme" >
                         <template slot-scope="scope">
                           <el-input size="small" maxlength="20" style="width: 100%;"
                                     v-model="scope.row.sprogramme"></el-input>
                         </template>
                       </el-table-column>
-                      <el-table-column  width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
-                                       prop="price" >
-                        <template slot-scope="scope">
-                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
-                                           :precision="1" @change="changeSum(scope.row)" :step="1000"
-                                           v-model="scope.row.price">
-                          </el-input-number>
-                        </template>
-                      </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLANTYPE')" align="center" width="135"
-                                       prop="type">
+                                       prop="type" >
                         <template slot-scope="scope">
                           <dicselect
                             :data="scope.row.type"
@@ -1637,6 +1640,15 @@
                             :no="scope.row"
                             size="small"
                           ></dicselect>
+                        </template>
+                      </el-table-column>
+                      <el-table-column  width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
+                                       prop="price" >
+                        <template slot-scope="scope">
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
+                                           :precision="1" @change="changeSum(scope.row)" :step="1000"
+                                           v-model="scope.row.price">
+                          </el-input-number>
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
@@ -1808,7 +1820,7 @@
                                          prop="moneytotal">
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.operation')" align="center" width="200" fixed="right">
+                      <el-table-column :label="$t('label.operation')" align="center" width="150" fixed="right">
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
@@ -2459,7 +2471,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2549,7 +2561,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3143,7 +3155,7 @@
             {
               this.buttonList[0].disabled = true;
             }
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3173,7 +3185,6 @@
         let _assets2 = {};//软件资产
         let _sumB = {};//外注费
         //通信
-        debugger;
         this.tableO3.forEach(
           val => {
             if (val.type === 'PJ108001') {
@@ -3233,91 +3244,91 @@
             //共同事務費
             if (val.type === 'PJ111012') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal['money' + i] = (Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOTotal['money' + i] = (Number(tableOTotal['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //旅费交通费
             if (val.type === 'PJ111008') {
               for (let i = 1; i <= 12; i++) {
-                _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                _travel['money' + i] = (Number(_travel['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             // 研究材料费
             if (val.type === 'PJ111006') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal2['money' + i] = (Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOTotal2['money' + i] = (Number(tableOTotal2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //リース費
             if (val.type === 'PJ111003') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal3['money' + i] = (Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOTotal3['money' + i] = (Number(tableOTotal3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //原動費
             if (val.type === 'PJ111007') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal4['money' + i] = (Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOTotal4['money' + i] = (Number(tableOTotal4['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             // 通信費
             if (val.type === 'PJ111009') {
               for (let i = 1; i <= 12; i++) {
-                _tableO3['money' + i] = (Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                _tableO3['money' + i] = (Number(_tableO3['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //消耗品費
             if (val.type === 'PJ111010') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal6['money' + i] = (Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOtotal6['money' + i] = (Number(tableOtotal6['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //厚生費
             if (val.type === 'PJ111001') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal7['money' + i] = (Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOtotal7['money' + i] = (Number(tableOtotal7['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //研修
             if (val.type === 'PJ111011') {
               for (let i = 1; i <= 12; i++) {
-                _tableO1['money' + i] = (Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                _tableO1['money' + i] = (Number(_tableO1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //その他(固定費)
             if (val.type === 'PJ111005') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal8['money' + i] = (Number(tableOtotal8['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOtotal8['money' + i] = (Number(tableOtotal8['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //オフィス家賃
             if (val.type === 'PJ111002') {
               for (let i = 1; i <= 12; i++) {
-                tableOTotal1['money' + i] = (Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOTotal1['money' + i] = (Number(tableOTotal1['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //出向者賃借料
             if (val.type === 'PJ111004') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal9['money' + i] = (Number(tableOtotal9['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOtotal9['money' + i] = (Number(tableOtotal9['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //その他経費
             if (val.type === 'PJ111014') {
               for (let i = 1; i <= 12; i++) {
-                _tableO2['money' + i] = (Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                _tableO2['money' + i] = (Number(_tableO2['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //ブランド使用料
             if (val.type === 'PJ111013') {
               for (let i = 1; i <= 12; i++) {
-                tableOtotal10['money' + i] = (Number(tableOtotal10['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                tableOtotal10['money' + i] = (Number(tableOtotal10['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
             //外注费
             if (val.type === 'PJ111015') {
               for (let i = 1; i <= 12; i++) {
-                _sumB['money' + i] = (Number(_sumB['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(3);
+                _sumB['money' + i] = (Number(_sumB['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
           },
@@ -3392,7 +3403,6 @@
             this.$set(this.tableP[2], 'money' + this.arr[i], '0.00');
           }
           //内部受託
-          debugger;
           if (this.sumA2.length > 0) {
             if (i <= 5) {
               this.$set(this.tableP[3], 'money' + this.arr[i], Number(this.sumA2[2 + 2 * i] || 0).toFixed(2));
@@ -3488,21 +3498,21 @@
           //配賦部門費小計
           this.$set(this.tableP[30], 'money' + this.arr[i], this.tableP[27]['money' + this.arr[i]]);
           //原動費1
-          this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[31], 'money' + this.arr[i], Number(tableOTotal4['money' + this.arr[i]] || 0).toFixed(2));
           //旅費交通費1
-          this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[32], 'money' + this.arr[i], Number(_travel['money' + this.arr[i]] || 0).toFixed(2));
           //通信費1
-          this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[33], 'money' + this.arr[i], Number(_tableO3['money' + this.arr[i]] || 0).toFixed(2));
           //消耗品費1
-          this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[34], 'money' + this.arr[i], Number(tableOtotal6['money' + this.arr[i]] || 0).toFixed(2));
           //会議費/交際費/研修費1
-          this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[35], 'money' + this.arr[i], Number(_tableO1['money' + this.arr[i]] || 0).toFixed(2));
           //共同事務費1
-          this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[36], 'money' + this.arr[i], Number(tableOTotal['money' + this.arr[i]] || 0).toFixed(2));
           //ブランド使用料1
-          this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal10['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[37], 'money' + this.arr[i], Number(tableOtotal10['money' + this.arr[i]] || 0).toFixed(2));
           //その他経費1
-          this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(3));
+          this.$set(this.tableP[38], 'money' + this.arr[i], Number(_tableO2['money' + this.arr[i]] || 0).toFixed(2));
 
           ['money', 'actual'].forEach(
             val => {
@@ -3799,7 +3809,7 @@
             this.groupA2 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3818,7 +3828,7 @@
             this.groupB1 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3837,7 +3847,7 @@
             this.groupB2 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3856,7 +3866,7 @@
             this.groupB3 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3874,7 +3884,7 @@
             this.groupA1 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4008,9 +4018,9 @@
               const value = Number(curr);
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留三位小数 start
               if (!isNaN(value)) {
-                return Math.round((prev + curr) * 1000) / 1000;
+                return Math.round((prev + curr) * 100) / 100;
               } else {
-                return Math.round(prev * 1000) / 1000;
+                return Math.round(prev * 100) / 100;
               }
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留三位小数 end
             }, 0);
@@ -4036,43 +4046,43 @@
       //add lsg 20210601 获取月份金额 start
       changeSum2(scope, index){
         if(index >= 4 && index <= 9){
-          scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+          scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
         }
         else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
-          scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
+          scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(2);
         }
         scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0)
           + Number(scope.money6 || 0) + Number(scope.money7 || 0)
-          + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+          + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
         scope.moneysecond = (Number(scope.money10 || 0) +
           Number(scope.money11 || 0) + Number(scope.money12 || 0)
           + Number(scope.money1 || 0) + Number(scope.money2 || 0)
-          + Number(scope.money3 || 0)).toFixed(3);
-        scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
+          + Number(scope.money3 || 0)).toFixed(2);
+        scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(2);
       },
       //add lsg 20210601 获取月份金额 end
       changeSum(scope, index) {
       if (scope.price > 0) {
-         scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
+         scope['money' + index] = (scope.price * scope['number' + index] / 100).toFixed(2);
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
-            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
           } else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
             scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
-            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
+            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(2);
           } else {
             for (let par in scope) {
               if (par.substring(0, 5) === 'money') {
-                scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(3);
+                scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(2);
               }
             }
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
-            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+            scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
             scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
-            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
+            scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(2);
           }
           scope.numbertotal = (Number(scope.numberfirst || 0) + Number(scope.numbersecond || 0)).toFixed(1);
-          scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
+          scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(2);
        }
 
       },
@@ -4095,6 +4105,14 @@
       },
       changeType(val, row) {
         row.type = val;
+        let typePrice = getDictionaryInfo(row.type);
+        if (typePrice) {
+          row.price = typePrice.value4 === null || typePrice.value4 === '' ? 0 : typePrice.value4;
+        }
+        else
+        {
+          row.price = 0;
+        }
       },
       buttonClick(val) {
         if (val === 'back') {
@@ -4264,7 +4282,7 @@
                 }
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,
@@ -4287,7 +4305,7 @@
                 });
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,

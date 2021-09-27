@@ -2143,7 +2143,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2241,7 +2241,7 @@
             }
             this.loading = false;
           }).catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000,
@@ -2330,7 +2330,7 @@
             }
             this.loading = false;
           }).catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000,
@@ -2389,7 +2389,7 @@
             // this.compounddata = response.contractcompound;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2414,7 +2414,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3375,7 +3375,7 @@
           })
           // 项目dialog 体制 合同优化添加分页 ztc to
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3833,7 +3833,7 @@
                   }
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,
@@ -3858,7 +3858,7 @@
                   }
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,

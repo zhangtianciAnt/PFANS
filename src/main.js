@@ -9,6 +9,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import "babel-polyfill";
 import i18n from './assets/js/i18n'
+import { message } from '@/utils/message';
 import '../static/theme/index.css'
 import moment from 'moment'
 import CnRegionPicker from 'cn-region-picker'
@@ -29,7 +30,7 @@ Vue.use(CnRegionPicker)
 Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
-
+Vue.prototype.$message = message;
 router.beforeEach((to, from, next) => {
   NProgress.start();
   /* 路由发生变化修改页面title */
