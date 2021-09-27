@@ -663,7 +663,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money4" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -672,7 +672,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money5" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -681,7 +681,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money6" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -690,7 +690,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money7" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -699,7 +699,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money8" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -708,7 +708,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money9" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -717,7 +717,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money10" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -726,7 +726,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money11" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -735,7 +735,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money12" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -744,7 +744,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money1" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -753,7 +753,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money2" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
@@ -762,7 +762,7 @@
             <template slot-scope="scope">
               <el-input-number v-model="scope.row.money3" size="small" style="width:6vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
-                               :precision="1" :step="1"></el-input-number>
+                               :precision="2" :step="1"></el-input-number>
             </template>
           </el-table-column>
         </el-table-column>
