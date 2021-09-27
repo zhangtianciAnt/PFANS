@@ -71,7 +71,7 @@
         this.$store.dispatch('usersStore/setRoleToUser', userAccount).then(response => {
           this.cancelForm();
         }).catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: 'error',
             duration: 5 * 1000
@@ -87,7 +87,7 @@
           this.getById(this.$route.params._id);
           this.loading = false;
         }).catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: 'error',
             duration: 5 * 1000
@@ -114,7 +114,7 @@
           }
           this.infoloading = false;
         }).catch(err =>{
-          Message({
+          this.$message.error({
             message: err,
             type: 'error',
             duration: 5 * 1000

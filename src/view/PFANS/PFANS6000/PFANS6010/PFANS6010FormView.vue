@@ -139,7 +139,7 @@
                     this.letheight='calc(100vh - 230px - 2rem)'
                 })
                 .catch(error => {
-                    Message({
+                    this.$message.error({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000
@@ -212,7 +212,7 @@
                         }
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000,

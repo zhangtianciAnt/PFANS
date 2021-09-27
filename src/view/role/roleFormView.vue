@@ -229,7 +229,7 @@ export default {
         })
         .catch(error => {
           this.$emit("changeLoading", false);
-          Message({
+          this.$message.error({
             message: error,
             type: "error",
             duration: 2 * 1000

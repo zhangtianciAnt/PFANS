@@ -378,7 +378,7 @@
                         this.loading = false;
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000,
@@ -443,7 +443,7 @@
                         this.loading = false;
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000,
@@ -788,7 +788,7 @@
                                         }
                                     })
                                     .catch(error => {
-                                        Message({
+                                        this.$message.error({
                                             message: error,
                                             type: 'error',
                                             duration: 5 * 1000
@@ -825,7 +825,7 @@
                                         }
                                     })
                                     .catch(error => {
-                                        Message({
+                                        this.$message.error({
                                             message: error,
                                             type: 'error',
                                             duration: 5 * 1000
@@ -851,7 +851,7 @@
                       this.loading = false;
                     })
                     .catch(error => {
-                      Message({
+                      this.$message.error({
                         message: error,
                         type: "error",
                         duration: 5 * 1000
@@ -893,7 +893,7 @@
                                             }
                                         })
                                         .catch(error => {
-                                            Message({
+                                            this.$message.error({
                                                 message: error,
                                                 type: 'error',
                                                 duration: 5 * 1000
@@ -929,7 +929,7 @@
                                             }
                                         })
                                         .catch(error => {
-                                            Message({
+                                            this.$message.error({
                                                 message: error,
                                                 type: 'error',
                                                 duration: 5 * 1000

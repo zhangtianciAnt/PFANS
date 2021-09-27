@@ -2471,7 +2471,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2561,7 +2561,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3155,7 +3155,7 @@
             {
               this.buttonList[0].disabled = true;
             }
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3809,7 +3809,7 @@
             this.groupA2 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3828,7 +3828,7 @@
             this.groupB1 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3847,7 +3847,7 @@
             this.groupB2 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3866,7 +3866,7 @@
             this.groupB3 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3884,7 +3884,7 @@
             this.groupA1 = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4282,7 +4282,7 @@
                 }
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,
@@ -4305,7 +4305,7 @@
                 });
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,

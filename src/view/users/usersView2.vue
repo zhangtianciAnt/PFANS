@@ -454,7 +454,7 @@ export default {
           this.loading = false;
         })
         .catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000
@@ -651,7 +651,7 @@ export default {
           this.loading = false;
         })
         .catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: "error",
             duration: 5 * 1000
@@ -737,7 +737,7 @@ export default {
           this.loading = false;
         })
         .catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: "error",
             duration: 5 * 1000
@@ -781,7 +781,7 @@ export default {
           this.loading = false;
         })
         .catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: "error",
             duration: 5 * 1000
@@ -875,7 +875,7 @@ export default {
           //add-ws-7/17-禅道bug35
         })
         .catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: "error",
             duration: 5 * 1000

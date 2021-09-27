@@ -207,7 +207,7 @@
                     this.loading = false;
                 })
                 .catch(err => {
-                    Message({
+                  this.$message.error({
                         message: err,
                         type: "error",
                         duration: 5 * 1000

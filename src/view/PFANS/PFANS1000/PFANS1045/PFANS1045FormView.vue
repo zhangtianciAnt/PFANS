@@ -562,7 +562,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -715,7 +715,7 @@
               this.loading = false;
             },
           ).catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000,
@@ -872,7 +872,7 @@
               this.paramsTitle();
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -893,7 +893,7 @@
               this.paramsTitle();
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -932,7 +932,7 @@
       //         this.loading = false;
       //       }
       //     }).catch(error => {
-      //     Message({
+      //     this.$message.error({
       //       message: error,
       //       type: 'error',
       //       duration: 5 * 1000,
@@ -972,7 +972,7 @@
               this.loading = false;
             }
           }).catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000,
@@ -1087,7 +1087,7 @@
                       //UPD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-to
                     })
                     .catch(error => {
-                      Message({
+                      this.$message.error({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000,
@@ -1109,7 +1109,7 @@
                       this.paramsTitle();
                     })
                     .catch(error => {
-                      Message({
+                      this.$message.error({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000,
@@ -1153,7 +1153,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
