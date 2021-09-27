@@ -1776,7 +1776,7 @@
             //add-ws-修改判断tableB为一条的时候添加空行
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2086,7 +2086,7 @@
           })
           // 项目dialog 体制 合同优化添加分页 ztc to
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2564,7 +2564,7 @@
             this.teamorglist = this.form.team_id;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3019,7 +3019,7 @@
                     }
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,

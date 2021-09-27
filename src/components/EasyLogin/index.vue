@@ -117,7 +117,7 @@
         //       }
         //     })
         //     .catch(error => {
-        //       Message({
+        //       this.$message.error({
         //         message: error, //error.message,
         //         type: "error",
 
@@ -174,7 +174,7 @@
               })
               .catch(error => {
                 this.loading = false;
-                Message({
+                this.$message.error({
                   message: error, //error.message,
                   type: "error",
                   duration: 5 * 1000
