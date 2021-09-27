@@ -901,7 +901,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole,getOrgInformation} from '@/utils/customize';
   import monthlyrate from '../../../components/monthlyrate';
   import project from '../../../components/project';
 
@@ -1654,7 +1654,10 @@
                 let completiondate = response.awardReunites[i].completiondate;
                 let claimdate = response.awardReunites[i].claimdate;
                 let supportdate = response.awardReunites[i].supportdate;
-
+                let center = getOrgInfo(response.awardReunites[i].department);
+                if(center !== '' && center != null){
+                  response.awardReunites[i].department = center.companyname
+                }
                 if (deliverydate !== '' && deliverydate != null) {
                   response.awardReunites[i].deliverydate = moment(deliverydate).format('YYYY-MM-DD');
                 }

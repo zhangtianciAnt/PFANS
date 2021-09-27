@@ -8,7 +8,7 @@
   import EasyNormalTable from "@/components/EasyNormalTable";
   import { Message } from 'element-ui'
   import moment from "moment";
-  import {getOrgInfoByUserId,getUserInfo,getStatus} from '@/utils/customize';
+  import {getDepartmentById,getUserInfo,getStatus} from '@/utils/customize';
 
   export default {
     name: 'PFANS1023View',
@@ -85,13 +85,24 @@
                 response[j].corresponding = '未完成'
               }
               response[j].status = getStatus(response[j].status);
+              //修改列表组织 不跟随申请人显示组织名称 ztc fr
+                // let nameflg = getOrgInfoByUserId(response[j].user_id);
+                // if (nameflg) {
+                //     response[j].center_id = nameflg.centerNmae;
+                //     response[j].group_id = nameflg.groupNmae;
+                //     response[j].team_id = nameflg.teamNmae;
+                // }
+              if (response[j].center_id !== null && response[j].center_id !== '' && response[j].center_id !== undefined) {
+                response[j].center_id = getDepartmentById(response[j].center_id);
+              }
+              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                response[j].group_id = getDepartmentById(response[j].group_id);
+              }
+              if (response[j].team_id !== null && response[j].team_id !== '' && response[j].team_id !== undefined) {
+                response[j].team_id = getDepartmentById(response[j].team_id);
+              }
+              //修改列表组织 不跟随申请人显示组织名称 ztc to
               let user = getUserInfo(response[j].user_id);
-                let nameflg = getOrgInfoByUserId(response[j].user_id);
-                if (nameflg) {
-                    response[j].center_id = nameflg.centerNmae;
-                    response[j].group_id = nameflg.groupNmae;
-                    response[j].team_id = nameflg.teamNmae;
-                }
               if (user) {
                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
               }

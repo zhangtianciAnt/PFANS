@@ -2553,7 +2553,9 @@
             // }
             // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
             //保留人名不为空的数据
-            this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
+            //region scc del 9/26 变更体制初始第一条数据，空行数据不会删除，空行按钮需要 from
+            // this.tableB = this.tableB.filter(itam => itam.name !== null && itam.name !== '');
+            //endregion scc del 9/26 变更体制初始第一条数据，空行数据不会删除，空行按钮需要 to
           }
           else
           {
@@ -2599,6 +2601,12 @@
       },
       getUserids(val) {
         this.tableB[0].name = val;
+        //region scc add 9/26 PJ起案体制rank自动带出 from
+        let lst1 = getUserInfo(this.tableB[0].name);
+        if (lst1.userinfo.rank) {
+          this.tableB[0].rank = getDictionaryInfo(lst1.userinfo.rank).value1;
+        }
+        //endregion scc add 9/26 PJ起案体制rank自动带出 to
         this.userlist = val;
         this.form.leaderid = val;
         let lst = getOrgInfoByUserId(val);

@@ -129,6 +129,7 @@ import {
   getDepartmentById,
   getDictionaryInfo,
   getOrgInfo,
+  accAdd,
   getUserInfo
 } from "../../../../utils/customize";
 import moment from "moment";
@@ -195,10 +196,10 @@ export default {
     },
     getDepartInfo() {
       //region scc add 9/18 js精度，保留小数位
-      Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
-        var m = Math.pow(10, digit);
-        return Math.round(f * m, 10) / m;
-      }
+      // Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
+      //   var m = Math.pow(10, digit);
+      //   return Math.round(f * m, 10) / m;
+      // }
       this.loading = true;
       this.$store
         .dispatch('PFANS5016Store/getLogPerson', {'month': this.month})
@@ -234,14 +235,14 @@ export default {
                   this.tableData[i].children[j].project = this.tableData[i].children[j].project_name;
                   this.tableData[i].children[j].general = this.tableData[i].children[j].duration;
                   // this.tableData[i].change = Number(this.tableData[i].general) + Number(this.tableData[i].children[j].adjust) - Number(this.tableData[i].children[j].duration);
-                  sum += Number(this.tableData[i].children[j].adjust);
+                  sum = accAdd(sum,Number(this.tableData[i].children[j].adjust));
                   this.tableData[i].children[j].wai_id = m + '.' + c;
                   this.tableData[i].children[j].username = '';
                   this.tableData[i].children[j].groupname = '';
                   this.tableData[i].children[j].company = '';
                 }
               }
-              this.tableData[i].change = Math.formatFloat(sum,2);//保留两位小数
+              this.tableData[i].change = sum;//保留两位小数
               m += 1;
             }
           } else {
@@ -273,7 +274,7 @@ export default {
         if (this.tableData[i].wai_id === Number(_id) || this.tableData[i].wai_id === _id) {
           let sum = 0;
           for (let j = 0; j < this.tableData[i].children.length; j++) {
-            sum += this.tableData[i].children[j].adjust;
+            sum = accAdd(sum,Number(this.tableData[i].children[j].adjust));
           }
           // this.tableData[i].general = sum;
           this.tableData[i].change = sum;
@@ -281,10 +282,10 @@ export default {
       }
     },
     buttonClick(val) {
-      Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
-        var m = Math.pow(10, digit);
-        return Math.round(f * m, 10) / m;
-      }
+      // Math.formatFloat = function (f, digit) {  // 解决js精度丢失问题，保留小数
+      //   var m = Math.pow(10, digit);
+      //   return Math.round(f * m, 10) / m;
+      // }
       if (val === 'save') {
         if(this.tableData.length > 0 && this.tableData != null) {
           this.loading = true;
@@ -302,9 +303,9 @@ export default {
                 }
                 let sum = 0.00;
                 for (let k = 0; k < this.tableData2[i].children.length; k++) {
-                  sum += Number(this.tableData2[i].children[k].adjust);
+                  sum = accAdd(sum,Number(Number(this.tableData2[i].children[k].adjust)));
                 }
-                this.tableData2[i].change = Math.formatFloat(sum,2);//保留两位小数
+                this.tableData2[i].change = sum;//保留两位小数
               }
               this.tableData1 = this.tableData2;
               this.loading = false;

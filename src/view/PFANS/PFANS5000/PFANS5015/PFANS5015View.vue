@@ -176,6 +176,9 @@
 
       async changeFilte(){
         this.loading = false;
+        //region scc add 日志检索添加合同号 from
+        await this.getcontract();
+        //endregion scc add 日志检索添加合同号 to
         await this.getProjectList();
         await this.filter();
         this.loading = true;
