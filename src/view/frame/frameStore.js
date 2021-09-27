@@ -54,7 +54,7 @@ const frameStore = {
             reject(response.message)
           }
         }).catch(error => {
-          reject("查询消息失败！")
+          reject(error)
         })
       })
     },

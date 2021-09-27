@@ -534,7 +534,7 @@
         this.$store.dispatch('usersStore/getUserTableList2', params).then(response => {
           this.$store.commit("global/SET_USERLIST", response);
         }).catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: 'error',
             duration: 5 * 1000
@@ -553,7 +553,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -571,7 +571,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -589,7 +589,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -606,7 +606,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -633,7 +633,7 @@
           this.$store.dispatch('PFANS6004Store/getWithoutAuth').then(response => {
               this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           }).catch(err => {
-              Message({
+              this.$message.error({
                   message: err,
                   type: 'error',
                   duration: 5 * 1000
@@ -645,7 +645,7 @@
         this.$store.dispatch('PFANS1038Store/getExternal').then(response => {
           this.$store.commit("global/SET_SUPPLIERINFOR", response);
         }).catch(err => {
-          Message({
+          this.$message.error({
             message: err,
             type: 'error',
             duration: 5 * 1000
