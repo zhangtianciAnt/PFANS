@@ -215,7 +215,7 @@
                 })
                 .catch(err => {
                   this.loading = false;
-                  Message({
+                  this.$message.error({
                     message: err,
                     type: "error",
                     duration: 5 * 1000
@@ -223,7 +223,7 @@
                 });
             }
             else{
-                Message({
+                this.$message.error({
                     message: this.$t("normal.error_12"),
                     type: 'error',
                     duration: 5 * 1000
@@ -281,7 +281,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -379,7 +379,7 @@
               this.get();
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -436,7 +436,7 @@
               this.get();
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,

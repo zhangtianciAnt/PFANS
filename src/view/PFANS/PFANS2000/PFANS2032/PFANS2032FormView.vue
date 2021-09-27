@@ -865,7 +865,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -983,7 +983,7 @@
             ]
             this.$emit('showPop',this.flowData)
           }).catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000,
@@ -1291,7 +1291,7 @@
                   //endregion  upd  ml  20210722  调书详细页返回至一览不提示更新成功   to
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,
@@ -1317,7 +1317,7 @@
 
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,

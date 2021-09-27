@@ -51,7 +51,7 @@
             this.download(response)
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 2 * 1000
