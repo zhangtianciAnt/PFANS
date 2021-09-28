@@ -159,7 +159,21 @@
         },
         methods: {
             rowClick(row) {
-                this.id = row.personnelplanid;
+              this.id = row.personnelplanid;
+              //region scc add 9/28 获取编辑按钮可用状态 from
+              this.$store
+                .dispatch("PFANS1036Store/whetherEditor",{'centerid':row.centerid,'years':row.years})
+                .then(response => {
+                  this.buttonList[2].disabled = response;
+                })
+                .catch(err => {
+                  this.$message.error({
+                    message: err,
+                    type: "error",
+                    duration: 5 * 1000
+                  });
+                })
+              //endregion scc add 9/28 获取编辑按钮可用状态 to
             },
             buttonClick(val) {
                 this.$store.commit("global/SET_HISTORYURL", this.$route.path);
