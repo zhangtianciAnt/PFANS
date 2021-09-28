@@ -553,7 +553,7 @@
                 this.loading = false;
               }).catch(() => {
                 this.loading = false;
-                this.$message({
+                this.$message.info({
                   type: 'info',
                   message: this.$t('label.PFANS1026FORMVIEW_tipis1'),
                 });

@@ -176,7 +176,7 @@
               })
             })
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: '已取消删除'
           });

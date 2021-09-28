@@ -5856,7 +5856,7 @@
                     })
                     .catch(err => {
                       this.loading = false;
-                      this.$message({
+                      this.$message.error({
                         message: this.$t("normal.error_04"),
                         type: "error"
                       });
@@ -5873,7 +5873,7 @@
                       this.activeName = "first";
                       this.buttonList[0].disabled = false;
                     }).catch(() => {
-                      this.$message({
+                      this.$message.info({
                         type: 'info',
                         message: '已取消'
                       });

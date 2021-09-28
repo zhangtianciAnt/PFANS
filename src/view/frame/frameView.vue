@@ -256,7 +256,7 @@
             this.$refs.easyNormalTable.selectedList == undefined ||
             this.$refs.easyNormalTable.selectedList.length == 0
           ) {
-            this.$message({
+            this.$message.info({
               message: this.$t("normal.info_01"),
               type: 'info',
               duration: 2 * 1000

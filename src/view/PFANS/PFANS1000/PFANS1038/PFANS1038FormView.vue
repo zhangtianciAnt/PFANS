@@ -1065,7 +1065,7 @@
                       .dispatch("PFANS1038Store/insert", this.form)
                       .then(response => {
                         this.loading = false;
-                        this.$message({
+                        this.$message.success({
                           message: this.$t("normal.success_01"),
                           type: "success"
                         });
@@ -1087,7 +1087,7 @@
                       .dispatch("PFANS1038Store/update", this.form)
                       .then(response => {
                         this.loading = false;
-                        this.$message({
+                        this.$message.success({
                           message: this.$t("normal.success_02"),
                           type: "success"
                         });

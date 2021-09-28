@@ -3922,7 +3922,7 @@
                                     this.$refs.container.buttonClick('back');
                                 }
                                 this.loading = false;
-                                this.$message({
+                                this.$message.success({
                                     message: this.$t('label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY'),
                                     type: 'success',
                                 });

@@ -1791,7 +1791,7 @@
                   console.log("VVVAAAAA" + response);
                   this.data = response;
                   this.loading = false;
-                  this.$message({
+                  this.$message.success({
                     message: this.$t('normal.success_01'),
                     type: 'success',
                   });
