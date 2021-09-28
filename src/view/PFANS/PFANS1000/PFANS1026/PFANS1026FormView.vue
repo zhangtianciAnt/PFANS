@@ -2383,7 +2383,7 @@
           // add_fjl_0604 --添加请求书和纳品书的选择生成
           this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
           });
@@ -3202,7 +3202,7 @@
                   this.disabled = true;
                   this.disabled3 = false;
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                   });
@@ -4307,7 +4307,7 @@
                     this.$store.commit('global/SET_OPERATEID', this.IDname);
                     this.$refs.container.$refs.workflow.startWorkflow();
                   }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -4325,7 +4325,7 @@
                   }
                   this.handleSave('cancellation');
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });

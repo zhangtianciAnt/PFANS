@@ -935,7 +935,7 @@
                       this.data = response;
                       this.loading = false;
                       if (val !== 'update') {
-                        this.$message({
+                        this.$message.success({
                           message: this.$t('normal.success_02'),
                           type: 'success',
                         });
@@ -956,7 +956,7 @@
                     .then(response => {
                       this.data = response;
                       this.loading = false;
-                      this.$message({
+                      this.$message.success({
                         message: this.$t('normal.success_01'),
                         type: 'success',
                       });

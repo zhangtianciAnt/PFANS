@@ -388,12 +388,12 @@
                         }
                         this.totaldata = this.tableData
                         this.getList();
-                        this.$message({
+                        this.$message.success({
                             type: 'success',
                             message: this.$t('normal.info_03')
                         });
                     }).catch(() => {
-                        this.$message({
+                        this.$message.info({
                             type: 'info',
                             message: this.$t('normal.info_04')
                         });

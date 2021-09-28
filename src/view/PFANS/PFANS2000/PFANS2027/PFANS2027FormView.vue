@@ -1481,7 +1481,7 @@
                 this.loading = false;
               });
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.confirm_tipis'),
             });

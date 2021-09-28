@@ -121,7 +121,7 @@
         this.$refs.registerForm.validate(valid => {
           if (valid) {
             if (this.$refs.confirmslider.confirmSuccess !== true) {
-              this.$message({
+              this.$message.warning({
                 message: '请拖动滑块完成验证后重新登陆！',
                 type: 'warning'
               })
