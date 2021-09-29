@@ -951,6 +951,7 @@
       },
       getSummaries(table) {
         let totalExpect = {};
+        let totalExpectfin = {};
         let totalActual = {};
         table.forEach(
           row => {
@@ -980,31 +981,52 @@
             }
           },
         );
-        for (let i = 5; i <= 12; i++) {
-          totalExpect['money' + i] += totalExpect['money' + (i-1)];
+        for (let i = 1; i <= 12; i++) {
+          if (i >= 4 && i <= 11)
+          {
+            if (totalExpect['money' + i] > 0)
+            {
+              for (let j = i + 1; j <= 12; j++)
+              {
+                totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
+              }
+              totalExpectfin['money1'] = (totalExpectfin['money1'] || 0) + totalExpect['money' + i];
+              totalExpectfin['money2'] = (totalExpectfin['money2'] || 0) + totalExpect['money' + i];
+              totalExpectfin['money3'] = (totalExpectfin['money3'] || 0) + totalExpect['money' + i];
+            }
+          }
+          else if (i == 12)
+          {
+            for (let j = 1; j <= 3; j++)
+            {
+              totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
+            }
+          }
+          else
+          {
+            for (let j = i + 1; j <= 3; j++)
+            {
+              totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
+            }
+          }
         }
-
-        totalExpect.money1 += totalExpect.money12;
-        totalExpect.money2 += totalExpect.money1;
-        totalExpect.money3 += totalExpect.money2;
-        // totalExpect.money5 = totalExpect.money4;
-        totalExpect.money4 = '0.000';
-        totalExpect.moneyfirsthalf = (Number(totalExpect.money4) + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(3);
-        totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(3);
-        totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(3);
-
-        totalExpect.money5 = totalExpect.money5.toFixed(3) || 0;
-        totalExpect.money6 = totalExpect.money6.toFixed(3) || 0;
-        totalExpect.money7 = totalExpect.money7.toFixed(3) || 0;
-        totalExpect.money8 = totalExpect.money8.toFixed(3) || 0;
-        totalExpect.money9 = totalExpect.money9.toFixed(3) || 0;
-        totalExpect.money10 = totalExpect.money10.toFixed(3) || 0;
-        totalExpect.money11 = totalExpect.money11.toFixed(3) || 0;
-        totalExpect.money12 = totalExpect.money12.toFixed(3) || 0;
-        totalExpect.money1 = totalExpect.money1.toFixed(3) || 0;
-        totalExpect.money2 = totalExpect.money2.toFixed(3) || 0;
-        totalExpect.money3 = totalExpect.money3.toFixed(3) || 0;
-        this.tableNewYearTotal = [totalExpect];
+        totalExpectfin.money4 = 0;
+        totalExpectfin.moneyfirsthalf = (Number(totalExpect.money4) + Number(totalExpect.money5) + Number(totalExpect.money6) + Number(totalExpect.money7) + Number(totalExpect.money8) + Number(totalExpect.money9)).toFixed(3);
+        totalExpectfin.moneysecondhalf = (Number(totalExpect.money10) + Number(totalExpect.money11) + Number(totalExpect.money12) + Number(totalExpect.money1) + Number(totalExpect.money2) + Number(totalExpect.money3)).toFixed(3);
+        totalExpectfin.moneyAnnual = ((Number(totalExpect.moneyfirsthalf) || 0 ) + (Number(totalExpect.moneysecondhalf) || 0)).toFixed(3);
+        totalExpectfin.money4 = '0.000';
+        totalExpectfin.money5 = (totalExpectfin.money5 || 0).toFixed(3) ;
+        totalExpectfin.money6 = (totalExpectfin.money6 || 0).toFixed(3) ;
+        totalExpectfin.money7 = (totalExpectfin.money7 || 0).toFixed(3) ;
+        totalExpectfin.money8 = (totalExpectfin.money8 || 0).toFixed(3) ;
+        totalExpectfin.money9 = (totalExpectfin.money9 || 0).toFixed(3) ;
+        totalExpectfin.money10 = (totalExpectfin.money10 || 0).toFixed(3) ;
+        totalExpectfin.money11 = (totalExpectfin.money11 || 0).toFixed(3) ;
+        totalExpectfin.money12 = (totalExpectfin.money12 || 0).toFixed(3) ;
+        totalExpectfin.money1 = (totalExpectfin.money1 || 0).toFixed(3) ;
+        totalExpectfin.money2 = (totalExpectfin.money2 || 0).toFixed(3) ;
+        totalExpectfin.money3 = (totalExpectfin.money3 || 0).toFixed(3) ;
+        this.tableNewYearTotal = [totalExpectfin];
         this.getTableTotal();
       },
       getLastYearSummaries(table) {
@@ -1144,14 +1166,24 @@
       deleteRowF2(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-          this.getLastYearSummaries(this.tableLastYear);
         }
+        else
+        {
+          this.tableLastYear = [];
+          this.tableLastYear.push({assetstype: '0'});
+        }
+        this.getLastYearSummaries(this.tableLastYear);
       },
       deleteRowF1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
-          this.getSummaries(this.tableNewYear);
         }
+        else
+        {
+          this.tableNewYear = [];
+          this.tableNewYear.push({assetstype: '0'})
+        }
+        this.getSummaries(this.tableNewYear);
       },
       addRowF2(val) {
         if (val === 0) {
