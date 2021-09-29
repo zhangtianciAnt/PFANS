@@ -488,7 +488,9 @@
                              top="8vh"
                              append-to-body>
                     <el-table
-                      :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase()))"
+                      :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase())
+                      || data.thecompany.toLowerCase().includes(search.toLowerCase())
+                      )"
                       :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
                       v-loading='loading'>
                       <el-table-column show-overflow-tooltip property="custchinese"
@@ -512,7 +514,7 @@
                           <el-input
                             v-model="search"
                             size="mini"
-                            placeholder="请输入客户名称关键字搜索"/>
+                            :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
                         </template>
                       </el-table-column>
                     </el-table>
