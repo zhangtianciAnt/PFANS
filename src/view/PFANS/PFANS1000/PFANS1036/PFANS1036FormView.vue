@@ -3429,7 +3429,6 @@
           this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[13], 'money' + this.arr[i], (Number(this.tableP[6]['money' + this.arr[i]]) + Number(this.tableP[11]['money' + this.arr[i]])).toFixed(2));
           //设备投资赏却合计
-          debugger;
           // if (this.assets1.length > 0) {
           // this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
           this.$set(this.tableP[14], 'money' + this.arr[i], Number(_assets1['money' + this.arr[i]] || 0).toFixed(3));

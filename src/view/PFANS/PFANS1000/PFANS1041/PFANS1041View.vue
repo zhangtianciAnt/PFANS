@@ -114,7 +114,7 @@
                     this.loading = false;
                 })
                 .catch(error => {
-                  this.$message.error({
+                    this.$message.error({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000,
@@ -126,6 +126,20 @@
             rowClick(row) {
                 this.row_info = row;
                 this.themeplan_id = row.themeplan_id;
+              //region scc add 9/28 获取编辑按钮可用状态 from
+              this.$store
+                .dispatch("PFANS1036Store/whetherEditor",{'centerid':row.center_id,'years':row.year})
+                .then(response => {
+                  this.buttonList[2].disabled = response;
+                })
+                .catch(err => {
+                  this.$message.error({
+                    message: err,
+                    type: "error",
+                    duration: 5 * 1000
+                  });
+                })
+              //endregion scc add 9/28 获取编辑按钮可用状态 to
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
