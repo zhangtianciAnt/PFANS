@@ -220,7 +220,7 @@
                                                    width="120"></el-table-column>
                                   <el-table-column
                                     align="right" width="230">
-                                    <template slot="header">
+                                    <template slot="header" slot-scope="scope">
                                       <el-input
                                         v-model="search"
                                         size="mini"
