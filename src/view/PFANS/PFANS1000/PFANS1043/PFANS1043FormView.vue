@@ -110,7 +110,9 @@
                     <div style="text-align: center">
                       <el-row style="text-align: center;height: 90%;overflow: hidden">
                         <el-table
-                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase()))"
+                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
+                          || data.thecompany.toLowerCase().includes(search2.toLowerCase())
+                          )"
                           height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                           @row-click="handleClickChange2">
                           <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
