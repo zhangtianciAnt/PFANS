@@ -633,7 +633,7 @@
           this.$store.dispatch('PFANS6004Store/getWithoutAuth').then(response => {
               this.$store.commit("global/SET_COOPERINTERVIEWLIST", response);
           }).catch(err => {
-            this.$message.error({
+              this.$message.error({
                   message: err,
                   type: 'error',
                   duration: 5 * 1000
