@@ -139,7 +139,7 @@
                     },
                   });
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('normal.info_18'),
                   });
@@ -214,7 +214,7 @@
               },
             });
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.info_18'),
             });

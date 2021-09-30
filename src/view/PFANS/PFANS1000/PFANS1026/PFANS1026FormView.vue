@@ -488,7 +488,9 @@
                              top="8vh"
                              append-to-body>
                     <el-table
-                      :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase()))"
+                      :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase())
+                      || data.thecompany.toLowerCase().includes(search.toLowerCase())
+                      )"
                       :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
                       v-loading='loading'>
                       <el-table-column show-overflow-tooltip property="custchinese"
@@ -512,7 +514,7 @@
                           <el-input
                             v-model="search"
                             size="mini"
-                            placeholder="请输入客户名称关键字搜索"/>
+                            :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
                         </template>
                       </el-table-column>
                     </el-table>
@@ -2414,7 +2416,7 @@
           // add_fjl_0604 --添加请求书和纳品书的选择生成
           this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
           });
@@ -3230,7 +3232,7 @@
                   this.disabled = true;
                   this.disabled3 = false;
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                   });
@@ -4309,7 +4311,7 @@
                     this.$store.commit('global/SET_OPERATEID', this.IDname);
                     this.$refs.container.$refs.workflow.startWorkflow();
                   }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -4327,7 +4329,7 @@
                   }
                   this.handleSave('cancellation');
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
