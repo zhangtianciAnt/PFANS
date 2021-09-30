@@ -1944,7 +1944,7 @@
                   this.$store.commit('global/SET_OPERATEID', this.dataID);
                   this.$refs.container.$refs.workflow.startWorkflow();
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -1962,7 +1962,7 @@
                   }
                   this.handleSave('cancellation');
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -2061,7 +2061,7 @@
           var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
           this.handleSave(tabledata);
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
           });

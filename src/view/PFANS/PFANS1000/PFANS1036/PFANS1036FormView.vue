@@ -1127,7 +1127,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableO1)"
+                            @click.native.prevent="deleteRowO1(scope.$index, tableO1)"
                             plain
                             size="small"
                             type="danger"
@@ -1359,7 +1359,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableO2)"
+                            @click.native.prevent="deleteRowO2(scope.$index, tableO2)"
                             plain
                             size="small"
                             type="danger"
@@ -1591,7 +1591,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableO3)"
+                            @click.native.prevent="deleteRowO3(scope.$index, tableO3)"
                             plain
                             size="small"
                             type="danger"
@@ -1824,7 +1824,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable"
-                            @click.native.prevent="deleteRow(scope.$index, tableO)"
+                            @click.native.prevent="deleteRowO(scope.$index, tableO)"
                             plain
                             size="small"
                             type="danger"
@@ -3429,7 +3429,6 @@
           this.$set(this.tableP[12], 'money' + this.arr[i], '0.00');
           this.$set(this.tableP[13], 'money' + this.arr[i], (Number(this.tableP[6]['money' + this.arr[i]]) + Number(this.tableP[11]['money' + this.arr[i]])).toFixed(2));
           //设备投资赏却合计
-          debugger;
           // if (this.assets1.length > 0) {
           // this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
           this.$set(this.tableP[14], 'money' + this.arr[i], Number(_assets1['money' + this.arr[i]] || 0).toFixed(3));
@@ -4018,9 +4017,9 @@
               const value = Number(curr);
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留三位小数 start
               if (!isNaN(value)) {
-                return Math.round((prev + curr) * 100) / 100;
+                return Math.round((prev + curr) * 1000) / 1000;
               } else {
-                return Math.round(prev * 100) / 100;
+                return Math.round(prev * 1000) / 1000;
               }
                 // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留三位小数 end
             }, 0);
@@ -4063,7 +4062,7 @@
       //add lsg 20210601 获取月份金额 end
       changeSum(scope, index) {
       if (scope.price > 0) {
-         scope['money' + index] = (scope.price * scope['number' + index] / 100).toFixed(2);
+         scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(2);
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
             scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(2);
@@ -4098,9 +4097,116 @@
       addRow4() {
         this.tableO.push({});
       },
-      deleteRow(index, rows) {
+      deleteRowO1(index, rows) {
         if (rows.length > 1) {
           rows.splice(index, 1);
+        }
+        else
+        {
+          this.tableO1=[{
+            programme: '',
+            sprogramme: '',
+            type: '',
+            money4: '',
+            money5: '',
+            money6: '',
+            money7: '',
+            money8: '',
+            money9: '',
+            money10: '',
+            money11: '',
+            money12: '',
+            money1: '',
+            money2: '',
+            money3: '',
+            moneytotal: '',
+          },];
+        }
+      },
+      deleteRowO2(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+        else
+        {
+          this.tableO2= [{
+            programme: '',
+            sprogramme: '',
+            price: '',
+            type: '',
+            number4: '',
+            number5: '',
+            number6: '',
+            number7: '',
+            number8: '',
+            number9: '',
+            number10: '',
+            number11: '',
+            number12: '',
+            number1: '',
+            number2: '',
+            number3: '',
+            numbertotal: '',
+            moneytotal: '',
+          },];
+        }
+      },
+      deleteRowO3(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+        else
+        {
+          this.tableO3= [
+            {
+            programme: '',
+            sprogramme: '',
+            price: '',
+            type: '',
+            number4: '',
+            number5: '',
+            number6: '',
+            number7: '',
+            number8: '',
+            number9: '',
+            number10: '',
+            number11: '',
+            number12: '',
+            number1: '',
+            number2: '',
+            number3: '',
+            numbertotal: '',
+            moneytotal: '',
+          },
+          ];
+        }
+      },
+      deleteRowO(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        }
+        else
+        {
+          this.tableO = [{
+            programme: '',
+            sprogramme: '',
+            price: '',
+            type: '',
+            number4: '',
+            number5: '',
+            number6: '',
+            number7: '',
+            number8: '',
+            number9: '',
+            number10: '',
+            number11: '',
+            number12: '',
+            number1: '',
+            number2: '',
+            number3: '',
+            numbertotal: '',
+            moneytotal: '',
+          },];
         }
       },
       changeType(val, row) {

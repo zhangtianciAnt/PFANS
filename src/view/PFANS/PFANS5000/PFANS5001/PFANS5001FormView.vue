@@ -853,7 +853,7 @@
                                           <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                           <div class="pagination-container" style="padding-top: 2rem">
                                             <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
-                                                           :page-sizes="[20,30,50]" :total="totalSysm" @current-change="handleCurrentChangeSys"
+                                                           :page-sizes="[20,30,50,9999]" :total="totalSysm" @current-change="handleCurrentChangeSys"
                                                            @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
                                               <slot><span class="front Content_front"
                                                           style="padding-right: 0.5rem;font-weight: 400"></span></slot>
@@ -1036,7 +1036,7 @@
                                   </el-table>
                                   <!--                                    项目dialog 体制 合同优化添加分页 ztc fr-->
                                   <el-pagination :current-page.sync="listQueryCont.currentPage" :page-size="listQueryCont.pageSize"
-                                                 :page-sizes="[20,30,50]" :total="totalCont" @current-change="handleCurrentChangeCont"
+                                                 :page-sizes="[20,30,50,9999]" :total="totalCont" @current-change="handleCurrentChangeCont"
                                                  @size-change="handleSizeChangeCont" layout="slot,sizes, ->,prev, pager, next, jumper">
                                     <slot><span class="front Content_front"
                                                 style="padding-right: 0.5rem;font-weight: 400"></span></slot>
@@ -3849,7 +3849,7 @@
                 .then(response => {
                   this.data = response;
                   this.loading = false;
-                  this.$message({
+                  this.$message.success({
                     message: this.$t('normal.success_01'),
                     type: 'success',
                   });

@@ -285,7 +285,7 @@
                                 });
                             });
                     }).catch(() => {
-                        this.$message({
+                        this.$message.info({
                             type: 'info',
                             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
                         });

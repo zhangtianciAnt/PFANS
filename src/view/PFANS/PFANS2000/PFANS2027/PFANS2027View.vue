@@ -239,7 +239,7 @@
               this.$store
                 .dispatch("PFANS2027Store/insertLunarbonus", this.form)
                 .then(response => {
-                  this.$message({
+                  this.$message.success({
                     message: this.$t("normal.success_01"),
                     type: "success"
                   });
@@ -427,7 +427,7 @@
               this.loading = false;
             })
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.info_21'),
             });
@@ -483,7 +483,7 @@
               this.loading = false;
             })
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.info_23'),
             });

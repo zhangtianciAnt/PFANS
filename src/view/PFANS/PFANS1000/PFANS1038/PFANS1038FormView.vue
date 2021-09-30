@@ -220,7 +220,7 @@
                                                    width="120"></el-table-column>
                                   <el-table-column
                                     align="right" width="230">
-                                    <template slot="header">
+                                    <template slot="header" slot-scope="scope">
                                       <el-input
                                         v-model="search"
                                         size="mini"
@@ -292,13 +292,12 @@
                 <template slot-scope="scope">
                   <el-date-picker
                     v-model="scope.row.entermouth"
-                    type="month"
+                    type="date"
+                    value-format="yyyy-MM-dd"
                     style="width:10vw"
                     :disabled="disabled"
-                    size="small"
-                    v-if="!scope.row.isoutside">
+                    size="small">
                   </el-date-picker>
-                  <span v-else>{{$t('label.PFANS1038VIEW_OUTSIDE')}}</span>
                 </template>
               </el-table-column>
               <!--         是否构外-->
@@ -312,7 +311,7 @@
                   <el-switch
                     v-model="scope.row.isoutside"
                     :disabled="disabled"
-                    @change="val => changeOption(val,scope.row)">
+                    >
                   </el-switch>
                 </template>
               </el-table-column>
@@ -809,7 +808,7 @@
                         }
                     })
                     .catch(error => {
-                      this.$message.error({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000
@@ -841,7 +840,7 @@
                         }
                     })
                     .catch(error => {
-                      this.$message.error({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000
@@ -883,7 +882,7 @@
                         }
                     })
                     .catch(error => {
-                      this.$message.error({
+                        this.$message.error({
                             message: error,
                             type: "error",
                             duration: 5 * 1000
@@ -1060,12 +1059,27 @@
                             duration: 5 * 1000,
                         });
                   } else if (!this.$route.params._id) {
+                    //region scc add 9/29 新规采用入社预定日非空check from
+                    let flag = false;
+                    this.newTableData.forEach(item =>{
+                      if(!item.entermouth && (item.supchinese || item.nextyear || item.unitprice)){
+                        this.$message.error({
+                          message: this.$t("label.PFANS1038VIEW_ADOPTEDCHECK"),
+                          type: "error"
+                        });
+                        flag = true;
+                      }
+                    })
+                    if(flag){
+                      return;
+                    }
+                    //endregion scc add 9/29 新规采用入社预定日非空check to
                     this.loading = true;
                     this.$store
                       .dispatch("PFANS1038Store/insert", this.form)
                       .then(response => {
                         this.loading = false;
-                        this.$message({
+                        this.$message.success({
                           message: this.$t("normal.success_01"),
                           type: "success"
                         });
@@ -1082,12 +1096,27 @@
                         });
                       });
                   } else {
+                    //region scc add 9/29 新规采用入社预定日非空check from
+                    let flag = false;
+                    this.newTableData.forEach(item =>{
+                      if(!item.entermouth && (item.supchinese || item.nextyear || item.unitprice)){
+                        this.$message.error({
+                          message: this.$t("label.PFANS1038VIEW_ADOPTEDCHECK"),
+                          type: "error"
+                        });
+                        flag = true;
+                      }
+                    })
+                    if(flag){
+                      return;
+                    }
+                    //endregion scc add 9/29 新规采用入社预定日非空check to
                     this.loading = true;
                     this.$store
                       .dispatch("PFANS1038Store/update", this.form)
                       .then(response => {
                         this.loading = false;
-                        this.$message({
+                        this.$message.success({
                           message: this.$t("normal.success_02"),
                           type: "success"
                         });

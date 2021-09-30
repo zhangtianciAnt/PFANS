@@ -68,5 +68,12 @@ export function getgroupcompanyen(data) {
     params: data,
   })
 }
-
-
+//region scc add 9/28 编辑按钮状态 from
+export function whetherEditor(data) {
+  return request({
+    url: 'businessplan/whetherEditor',
+    method: 'get',
+    params: data
+  })
+}
+//endregion scc add 9/28 编辑按钮状态 to

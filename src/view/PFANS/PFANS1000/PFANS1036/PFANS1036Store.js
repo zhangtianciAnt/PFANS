@@ -8,6 +8,7 @@ import {
   getPlan,
   getgroupA1,
   getgroup,
+  whetherEditor,
 } from './PFANS1036Api';
 
 const PFANS1036Store = {
@@ -133,6 +134,22 @@ const PFANS1036Store = {
         });
       });
     },
+    //region scc add 9/28 编辑按钮状态 from
+    whetherEditor({commit}, data) {
+      return new Promise((resolve, reject) => {
+        whetherEditor(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //endregion scc add 9/28 编辑按钮状态 to
+
   },
 };
 

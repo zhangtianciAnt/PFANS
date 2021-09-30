@@ -44,7 +44,7 @@
               <el-table-column :label="$t('label.PFANS8011VIEW_BUSINESSPLANEXCHANGERATE')" align="center" width="150">
                 <template slot-scope="scope">
                   <el-input-number
-                    :disabled="isDisable"
+                    :disabled="false"
                     :min="0" :precision="scope.row.precision"
                     :max="9999999"
                     controls-position="right"
