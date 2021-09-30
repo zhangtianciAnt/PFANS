@@ -253,7 +253,7 @@ export default {
             // })
           }
           else {
-            Message({
+            this.$message.error({
               message: response.message,
               type: 'error',
               duration: 1 *  1000

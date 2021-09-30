@@ -1008,7 +1008,7 @@
               );
             }
             if (error != 0) {
-              Message({
+              this.$message.error({
                 message: this.$t('normal.error_08') +
                   this.$t('label.PFANS3005VIEW_USER'),
                 type: 'error',
