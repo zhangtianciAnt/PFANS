@@ -214,7 +214,7 @@ export default {
     //   this.$store.dispatch('usersStore/disableUser', params).then(response => {
     //     this.loading = false;
     //   }).catch(err => {
-    //     Message({
+    //     this.$message.error({
     //       message: err,
     //       type: 'error',
     //       duration: 5 * 1000
