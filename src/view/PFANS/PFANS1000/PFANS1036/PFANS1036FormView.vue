@@ -773,15 +773,15 @@
                          name="second">
               <div>
                 <AssetsComponent :tableNewYear="assets_newyear" :tableLastYear="assets_lastyear"
-                                 :tableLodYear="assets_lodyear"
-                                 @assets="Assets"></AssetsComponent>
+                                 :tableLodYear="assets_lodyear" :active="activeName" @on-change-tableNewYear="changeTableNewYear"
+                                 @on-change-tableLastYear="changeTableLastYear"  @assets="Assets" ref="assest"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_SOFTWAREINVESTMENT')" style="margin-top: 2%" name="third">
               <div>
                 <AssetsComponent :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear"
-                                 :tableLodYear="equipment_lodyear"
-                                 @assets="Assetss"></AssetsComponent>
+                                 :tableLodYear="equipment_lodyear" :active="activeName" @on-change-tableNewYear="changeTableNewYear"
+                                 @on-change-tableLastYear="changeTableLastYear" @assets="Assetss" ref="assest"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
@@ -4430,6 +4430,22 @@
             }
         })
       },
+      //region scc add 10/9 子组件向父组件传值 from
+      changeTableNewYear(val){//新事业年度
+        if (this.activeName == 'second') {
+          this.assets_newyear = val;
+        } else {
+          this.equipment_newyear = val
+        }
+      },
+      changeTableLastYear(val){//上一事业年度
+        if (this.activeName == 'second') {
+          this.assets_lastyear = val;
+        } else {
+          this.equipment_lastyear = val
+        }
+      },
+      //endregion scc add 10/9 子组件向父组件传值 to
     },
     watch: {
       //region add_qhr_20210910 取消画面实时计算
