@@ -1,4 +1,5 @@
 import request from '../../../../utils/request'
+import requestDownload from "../../../../utils/requestDownload";
 
 export function get() {
   return request({
@@ -77,3 +78,14 @@ export function whetherEditor(data) {
   })
 }
 //endregion scc add 9/28 编辑按钮状态 to
+
+//region scc add 10/9 事业计划模板下载 from
+export function download(data) {
+  return requestDownload({
+    url: 'businessplan/download',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+//endregion scc add 10/9 事业计划模板下载 to
