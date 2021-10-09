@@ -9,7 +9,7 @@
           <el-table-column>
             <el-table-column :label="$t('label.PFANS1036FORMVIEW_UNITPRICETHOUSAND')" align="center" width="120" prop="prices">
               <template slot-scope="scope">
-                <el-input-number :disabled="disabled" size="small" v-model="scope.row.prices" controls-position="right" @change="handleChange(scope.row)"  :min="0"  style="width:7.5vw"></el-input-number>
+                <el-input-number :disabled="true" size="small" v-model="scope.row.prices" :controls="false" @change="handleChange(scope.row)"  :min="0"  style="width:4.5vw"></el-input-number>
               </template>
             </el-table-column>
           </el-table-column>
@@ -302,8 +302,11 @@
 </template>
 
 <script>
+  // 事业计划交通费取自字典 ztc fr
+  import {getDictionaryInfo} from '@/utils/customize';
   export default {
-    name: 'AssetsComponent',
+    name: 'BussinessComponent',
+    // 事业计划交通费取自字典 ztc to
     components: {},
     data() {
       return {
@@ -330,14 +333,20 @@
       formatterDir(row, column, cellValue, index) {
         if (column.property === "name") {
           if (index === 0) {
-            return this.$t("label.PFANS1036FORMVIEW_DOMESTICTRAVEL");
+            // 事业计划交通费取自字典 ztc fr
+            // return this.$t("label.PFANS1036FORMVIEW_DOMESTICTRAVEL");
+            return getDictionaryInfo('PJ149001').value1;
           }else if(index === 1){
-            return this.$t('label.PFANS1036FORMVIEW_JAPANBUSINESSTRAVEL');
+            // return this.$t('label.PFANS1036FORMVIEW_JAPANBUSINESSTRAVEL');
+            return getDictionaryInfo('PJ149002').value1;
           }else if(index === 2){
-            return this.$t('label.PFANS1036FORMVIEW_BUSINESSTRAVEL');
+            // return this.$t('label.PFANS1036FORMVIEW_BUSINESSTRAVEL');
+            return getDictionaryInfo('PJ149003').value1;
           }else if(index === 3 ){
-           return  this.$t('label.PFANS1036FORMVIEW_LOCALTRANSPORT');
+           // return  this.$t('label.PFANS1036FORMVIEW_LOCALTRANSPORT');
+            return getDictionaryInfo('PJ149004').value1;
           }
+          // 事业计划交通费取自字典 ztc to
         }
         if (column.property === "assetstype") {
           if (row[column.property] === "0") {
@@ -436,6 +445,14 @@
     watch: {
       tableBusiness: {
         handler(newValue, oldValue) {
+          // 事业计划交通费取自字典 ztc fr
+          if(newValue.length > 0){
+            newValue[0].prices = getDictionaryInfo('PJ149001').value4;
+            newValue[1].prices = getDictionaryInfo('PJ149002').value4;
+            newValue[2].prices = getDictionaryInfo('PJ149003').value4;
+            newValue[3].prices = getDictionaryInfo('PJ149004').value4;
+          }
+          // 事业计划交通费取自字典 ztc to
           this.tableNewYear = newValue;
           this.getSummaries(newValue);
         },
