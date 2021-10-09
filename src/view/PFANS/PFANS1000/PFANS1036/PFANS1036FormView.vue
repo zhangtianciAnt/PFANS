@@ -2721,6 +2721,71 @@
           this.getgroupB2(val);
           this.getgroupB3(val);
         }
+        //region scc add 改变部门，以前事业年度，会社名正确加载 from
+        let parameter = {
+          year: this.form.year,
+          groupid: this.form.center_id
+        };
+        this.$store
+          .dispatch('PFANS1036Store/getgroupcompanyen', parameter)
+          .then(response => {
+            if (response) {
+              this.org = response;
+              if (this.org) {
+                for (let i = 0; i < this.org.length; i++) {
+                  this.form.encoding = this.org[i].encoding;
+                }
+              }
+              if (this.org.length > 0) {
+                this.equipment_lodyear = [];
+                this.assets_lodyear = [];
+                for (let i = 0; i < this.org.length; i++) {
+                  this.equipment_lodyear.push({
+                    encoding: this.org[i].encoding,
+                    companyen: this.org[i].companyen,
+                    money4: 0,
+                    money5: 0,
+                    money6: 0,
+                    money7: 0,
+                    money8: 0,
+                    money9: 0,
+                    money10: 0,
+                    money11: 0,
+                    money12: 0,
+                    money1: 0,
+                    money2: 0,
+                    money3: 0,
+                  });
+                  this.assets_lodyear.push({
+                    encoding: this.org[i].encoding,
+                    companyen: this.org[i].companyen,
+                    money4: 0,
+                    money5: 0,
+                    money6: 0,
+                    money7: 0,
+                    money8: 0,
+                    money9: 0,
+                    money10: 0,
+                    money11: 0,
+                    money12: 0,
+                    money1: 0,
+                    money2: 0,
+                    money3: 0,
+                  });
+                }
+              }
+              // }
+            }
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+        //endregion scc add 改变部门，以前事业年度，会社名正确加载 to
         this.getPersonTable(this.form.center_id, this.form.year);
       },
       getorglistname()
