@@ -41,20 +41,22 @@
                   </dicselect>
                 </template>
               </el-table-column>
-              <el-table-column :label="$t('label.PFANS8011VIEW_BUSINESSPLANEXCHANGERATE')" align="center" width="150">
-                <template slot-scope="scope">
-                  <el-input-number
-                    :disabled="false"
-                    :min="0" :precision="scope.row.precision"
-                    :max="9999999"
-                    controls-position="right"
-                    :no="scope.row"
-                    :step="1"
-                    v-model="scope.row.businessplanexchangerate"
-                    style="width: 100%">
-                  </el-input-number>
-                </template>
-              </el-table-column>
+<!--              事业计划汇率只在字典中显示 ztc fr-->
+<!--              <el-table-column :label="$t('label.PFANS8011VIEW_BUSINESSPLANEXCHANGERATE')" align="center" width="150">-->
+<!--                <template slot-scope="scope">-->
+<!--                  <el-input-number-->
+<!--                    :disabled="isDisable"-->
+<!--                    :min="0" :precision="scope.row.precision"-->
+<!--                    :max="9999999"-->
+<!--                    controls-position="right"-->
+<!--                    :no="scope.row"-->
+<!--                    :step="1"-->
+<!--                    v-model="scope.row.businessplanexchangerate"-->
+<!--                    style="width: 100%">-->
+<!--                  </el-input-number>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
+<!--              事业计划汇率只在字典中显示 ztc to-->
               <el-table-column :label="$t('label.PFANS8011VIEW_ACCOUNTINGEXCHANGERATE')" align="center" width="150">
                 <template slot-scope="scope">
                   <el-input-number
