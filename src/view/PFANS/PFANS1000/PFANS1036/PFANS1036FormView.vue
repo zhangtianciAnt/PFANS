@@ -301,7 +301,7 @@
                                        :formatter="formatterColumn" prop="level">
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_SUMMERPLANPC')" align="center" width="120"
-                                       prop="summerplanpc" >
+                                       prop="summerplanpc" v-if="false">
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAYHOUR')" align="center" width="110"
                                        prop="payhour">
@@ -538,7 +538,7 @@
                                        :formatter="formatterColumn" prop="level">
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_SUMMERPLANPC')" align="center" width="120"
-                                       prop="summerplanpc">
+                                       prop="summerplanpc" v-if="false">
                       </el-table-column>
                       <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAYHOUR')" align="center" width="110"
                                        prop="payhour">
@@ -4166,7 +4166,7 @@
             return this.$t('label.PFANSUSERVIEW_MEMBERS');
           }
         } else if (column.property === 'level') {
-          if (row.code === 'PR021016')
+          if (row.code === 'その他')
           {
             return '日本出向者';
           }
