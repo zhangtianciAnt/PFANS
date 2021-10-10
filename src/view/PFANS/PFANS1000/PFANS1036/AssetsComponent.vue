@@ -1310,13 +1310,15 @@
       // },
       //endregion scc del to
       //region scc add 根据设备或软件tab页，页面初始计算table from
-      active(newValue, oldVal){
-        if (newValue == 'second') {
-          this.getSummaries(this.tableNewYear);
-        } else if (newValue == 'third') {
-          this.getSummaries1(this.tableNewYear);
-        }
-      },
+      //todo 因为事业计划PL表统计时，设备软件数据有问题，先做删除 fr
+      // active(newValue, oldVal){
+      //   if (newValue == 'second') {
+      //     this.getSummaries(this.tableNewYear);
+      //   } else if (newValue == 'third') {
+      //     this.getSummaries1(this.tableNewYear);
+      //   }
+      // },
+      //todo 因为事业计划PL表统计时，设备软件数据有问题，先做删除 to
       //endregion scc add 根据设备或软件tab页，页面初始计算table to
       //region scc add 新事业年度，表格数据变化时，重新计算table,含删除行，子组件向父组件传递数据生效 from
       tableNewYear(newValue, oldVal){

@@ -1244,8 +1244,7 @@
             Number(row.wpersonnel11) +
             Number(row.wpersonnel12);
         }else if(column.property === "personnumber"){
-          debugger
-          return Number(row.personnel1) +
+          return (Number(row.personnel1) +
             Number(row.personnel2) +
             Number(row.personnel3) +
             Number(row.personnel4) +
@@ -1256,9 +1255,9 @@
             Number(row.personnel9) +
             Number(row.personnel10) +
             Number(row.personnel11) +
-            Number(row.personnel12);
+            Number(row.personnel12)).toFixed(2);
         }else if(column.property === "amount"){
-          return Number(row.amount1) +
+          return (Number(row.amount1) +
             Number(row.amount2) +
             Number(row.amount3) +
             Number(row.amount4) +
@@ -1269,7 +1268,7 @@
             Number(row.amount9) +
             Number(row.amount10) +
             Number(row.amount11) +
-            Number(row.amount12);
+            Number(row.amount12)).toFixed(2);
         }
       },
       // 添加年间合计 ztc to

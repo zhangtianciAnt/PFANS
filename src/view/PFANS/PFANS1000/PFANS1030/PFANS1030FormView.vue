@@ -587,11 +587,23 @@
                   </el-form-item>
                 </el-col>
               </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_DIFFERENCE')">
+                    <el-input
+                      :disabled = "true"
+                      style="width:11vw;text-align: center"
+                      v-model="parseFloat(form.pjrate - form.rate).toFixed(2)"
+                    >
+                    </el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
               <el-row v-if="forreason">
                 <el-form-item :label="$t('label.PFANS1028VIEW_RESON')" prop="reason">
                   <el-input :disabled="!disable"
                             :placeholder="$t('label.PFANS1030FORMVIEW_REASON')"
-                            style="width: 73vw" type="textarea"
+                            style="width: 73vw" type="textarea" :autosize="{ minRows: 2, maxRows: 5}"
                             v-model="strreason">
                   </el-input>
                 </el-form-item>
@@ -919,7 +931,7 @@
     watch: {
       activeName(val){
         if (val == 'third'){
-          this.PJcheck()
+          this.PJcheck2()
         }
       }
     },
