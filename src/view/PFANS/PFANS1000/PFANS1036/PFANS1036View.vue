@@ -67,6 +67,16 @@
         </div>
       </div>
     </el-dialog>
+    <el-dialog :visible.sync="pop_download" width="50%" destroy-on-close>
+      <el-table :data="downtypes" style="width: 100%; height: auto">
+        <el-table-column prop="name" :label="$t('label.ASSETS1001VIEW_FILENAME')"></el-table-column>
+        <el-table-column :label="$t('label.operation')">
+          <template slot-scope="scope">
+            <el-button size="mini" @click="handleDownload(scope.row)">{{$t('button.download2')}}</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
@@ -93,6 +103,9 @@
           limit: 5,
         },
         total: 0,
+        //region scc add 10/9 模板下载 from
+        pop_download: false,
+        //endregion scc add 10/9 模板下载 to
         message: [{hang: '', error: ''}],
         Message1: true,
         result: false,
@@ -157,6 +170,7 @@
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
           {'key': 'import', 'name': 'button.import', 'disabled': true, icon: 'el-icon-download'},
+          {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
         ],
         rowid: '',
         row_id: 'businessplanid',
@@ -348,9 +362,35 @@
           });
         } else if (val === 'import') {
           this.daoru = true;
+        }else if(val === 'export2'){
+          this.pop_download = true;
         }
       },
+      //region scc 模板下载 from
+      handleDownload(row) {
+        this.loading = true;
+        this.$store
+          .dispatch("PFANS1036Store/download", { type: row.type })
+          .then(response => {
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: "error",
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          });
+      },
     },
+    //endregion scc 模板下载 to
+    computed: {
+      downtypes() {
+        return [{ name: this.$t("menu.PFANS1036"), type: 0 }];
+      }
+    },
+    //endregion scc 模板下载 to
   };
 </script>
 

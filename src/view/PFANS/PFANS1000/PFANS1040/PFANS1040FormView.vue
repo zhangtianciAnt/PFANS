@@ -245,6 +245,12 @@
                   </template>
                 </el-table-column>
               </el-table-column>
+              <!--              添加年间合计 ztc fr-->
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_YEARTOTAL')" align="center" width="150">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_NPERSONNEL')" align="center" width="120" :formatter="formatterDir" prop="npersonnel"/>
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_WPERSONNEL')" align="center" width="120" :formatter="formatterDir" prop="wpersonnel"/>
+              </el-table-column>
+              <!--              添加年间合计 ztc tos-->
             </el-table>
           </el-row>
 
@@ -792,6 +798,12 @@
                   </template>
                 </el-table-column>
               </el-table-column>
+              <!--              添加年间合计 ztc fr-->
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_YEARTOTAL')" align="center" width="150">
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120" :formatter="formatterDir" prop="personnumber"/>
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="120" :formatter="formatterDir" prop="amount"/>
+              </el-table-column>
+              <!--              添加年间合计 ztc to-->
 
               <el-table-column :label="$t('label.operation')" align="center" width="200">
                 <template slot-scope="scope">
@@ -1046,6 +1058,64 @@
       }
     },
     methods: {
+      // 添加年间合计 ztc fr
+      formatterDir(row, column, cellValue, index) {
+        if (column.property === "npersonnel") {
+          return Number(row.personnel1) +
+                   Number(row.personnel2) +
+                   Number(row.personnel3) +
+                   Number(row.personnel4) +
+                   Number(row.personnel5) +
+                   Number(row.personnel6) +
+                   Number(row.personnel7) +
+                   Number(row.personnel8) +
+                   Number(row.personnel9) +
+                   Number(row.personnel10) +
+                   Number(row.personnel11) +
+                   Number(row.personnel12);
+        }else if(column.property === "wpersonnel"){
+          return Number(row.wpersonnel1) +
+                  Number(row.wpersonnel2) +
+                  Number(row.wpersonnel3) +
+                  Number(row.wpersonnel4) +
+                  Number(row.wpersonnel5) +
+                  Number(row.wpersonnel6) +
+                  Number(row.wpersonnel7) +
+                  Number(row.wpersonnel8) +
+                  Number(row.wpersonnel9) +
+                  Number(row.wpersonnel10) +
+                  Number(row.wpersonnel11) +
+                  Number(row.wpersonnel12);
+        }else if(column.property === "personnumber"){
+          debugger
+          return (Number(row.personnel1) +
+                  Number(row.personnel2) +
+                  Number(row.personnel3) +
+                  Number(row.personnel4) +
+                  Number(row.personnel5) +
+                  Number(row.personnel6) +
+                  Number(row.personnel7) +
+                  Number(row.personnel8) +
+                  Number(row.personnel9) +
+                  Number(row.personnel10) +
+                  Number(row.personnel11) +
+                  Number(row.personnel12)).toFixed(2);
+        }else if(column.property === "amount"){
+          return (Number(row.amount1) +
+                  Number(row.amount2) +
+                  Number(row.amount3) +
+                  Number(row.amount4) +
+                  Number(row.amount5) +
+                  Number(row.amount6) +
+                  Number(row.amount7) +
+                  Number(row.amount8) +
+                  Number(row.amount9) +
+                  Number(row.amount10) +
+                  Number(row.amount11) +
+                  Number(row.amount12)).toFixed(2);
+        }
+      },
+      // 添加年间合计 ztc to
       nsum(row) {
         row.sumpersonnel1 = Number(row.personnel4) + Number(row.personnel5) + Number(row.personnel6);
         // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start

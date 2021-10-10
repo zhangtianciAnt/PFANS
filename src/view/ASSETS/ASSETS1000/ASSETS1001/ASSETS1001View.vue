@@ -606,9 +606,11 @@
       },
       rowClick(row) {
         // add 210906 gbb PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点 start
-        if(row.assetstatuscode === 'PA003002'){
-          this.buttonList[7].disabled = true;
-        }
+        //region scc del 10/9 行点击报废资产，按钮状态不变，因为只有选中才可以转移 from
+        // if(row.assetstatuscode === 'PA003002'){
+        //   this.buttonList[7].disabled = true;
+        // }
+        //endregion scc del 10/9 行点击报废资产，按钮状态不变，因为只有选中才可以转移 to
         // add 210906 gbb PSDCD_PFANS_20210823_XQ_111 【报废】资产不能做异动与设备盘点 end
         //DEL-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-from
         //add-ws-9/30-禅道任务564
