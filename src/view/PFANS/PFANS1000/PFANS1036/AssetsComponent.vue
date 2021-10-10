@@ -661,7 +661,7 @@
         <el-table-column :label="$t('label.April')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money4">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money4" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money4" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -670,7 +670,7 @@
         <el-table-column :label="$t('label.May')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money5">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money5" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money5" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -679,7 +679,7 @@
         <el-table-column :label="$t('label.June')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money6">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money6" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money6" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -688,7 +688,7 @@
         <el-table-column :label="$t('label.July')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money7">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money7" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money7" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -697,7 +697,7 @@
         <el-table-column :label="$t('label.August')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money8">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money8" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money8" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -706,7 +706,7 @@
         <el-table-column :label="$t('label.September')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money9">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money9" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money9" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -715,7 +715,7 @@
         <el-table-column :label="$t('label.October')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money10">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money10" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money10" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -724,7 +724,7 @@
         <el-table-column :label="$t('label.November')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money11">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money11" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money11" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -733,7 +733,7 @@
         <el-table-column :label="$t('label.December')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money12">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money12" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money12" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -742,7 +742,7 @@
         <el-table-column :label="$t('label.January')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money1">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money1" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money1" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -751,7 +751,7 @@
         <el-table-column :label="$t('label.February')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money2">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money2" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money2" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -760,7 +760,7 @@
         <el-table-column :label="$t('label.March')" align="center" width="150">
           <el-table-column :label="$t('label.PFANS1036FORMVIEW_AMOUNT')" align="center" width="130" prop="money3">
             <template slot-scope="scope">
-              <el-input-number v-model="scope.row.money3" size="small" style="width:6vw" :disabled="checkdisabled"
+              <el-input-number v-model="scope.row.money3" size="small" style="width:8.5vw" :disabled="checkdisabled"
                                :min="0" controls-position="right"
                                :precision="2" :step="1"></el-input-number>
             </template>
@@ -799,6 +799,12 @@
       };
     },
     props: {
+      //region scc add 10/9 设备投资 or 软件资产 from
+      active: {
+        type: String,
+        default: '',
+      },
+      //endregion scc add 10/9 设备投资 or 软件资产 to
       disabled: {
         type: Boolean,
         default: false,
@@ -876,6 +882,9 @@
       handleChange(scope, index) {
         if (scope.prices > 0) {
           scope['money' + index] = scope.prices * scope['number' + index];
+          //region scc add 清空个数，金额归0 from
+          if(!scope['number' + index]){scope['money' + index] = 0.000}
+          //endregion scc add 清空个数，金额归0 to
           if (index >= 4 && index <= 9) {
             scope.numberfirsthalf = (scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0);
             scope.moneyfirsthalf = (Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0);
@@ -897,7 +906,14 @@
           scope.numberAnnual = (scope.numberfirsthalf || 0) + (scope.numbersecondhalf || 0);
           scope.moneyAnnual = (scope.moneyfirsthalf || 0) + (scope.moneysecondhalf || 0);
         }
-        this.getSummaries(this.tableNewYear);
+        //region scc add 10/9 根据设备投资或软件资产，采取不同计算方式 from
+        if (this.active == 'second') {//设备投资,下月开始
+          this.getSummaries(this.tableNewYear);
+        }
+        if (this.active == 'third') {//软件资产，当月开始
+          this.getSummaries1(this.tableNewYear);
+        }
+        //endregion scc add 10/9 根据设备投资或软件资产，采取不同计算方式 to
       },
       handleLastYearChange(scope, index) {
         if (scope.prices > 0) {
@@ -1011,9 +1027,6 @@
           }
         }
         totalExpectfin.money4 = 0;
-        totalExpectfin.moneyfirsthalf = (Number(totalExpect.money4) + Number(totalExpect.money5) + Number(totalExpect.money6) + Number(totalExpect.money7) + Number(totalExpect.money8) + Number(totalExpect.money9)).toFixed(3);
-        totalExpectfin.moneysecondhalf = (Number(totalExpect.money10) + Number(totalExpect.money11) + Number(totalExpect.money12) + Number(totalExpect.money1) + Number(totalExpect.money2) + Number(totalExpect.money3)).toFixed(3);
-        totalExpectfin.moneyAnnual = ((Number(totalExpect.moneyfirsthalf) || 0 ) + (Number(totalExpect.moneysecondhalf) || 0)).toFixed(3);
         totalExpectfin.money4 = '0.000';
         totalExpectfin.money5 = (totalExpectfin.money5 || 0).toFixed(3) ;
         totalExpectfin.money6 = (totalExpectfin.money6 || 0).toFixed(3) ;
@@ -1026,9 +1039,98 @@
         totalExpectfin.money1 = (totalExpectfin.money1 || 0).toFixed(3) ;
         totalExpectfin.money2 = (totalExpectfin.money2 || 0).toFixed(3) ;
         totalExpectfin.money3 = (totalExpectfin.money3 || 0).toFixed(3) ;
+        //region scc upd 10/9 上期，下期，年间合计 from
+        totalExpectfin.moneyfirsthalf = (Number(totalExpectfin.money4) + Number(totalExpectfin.money5) + Number(totalExpectfin.money6) + Number(totalExpectfin.money7) + Number(totalExpectfin.money8) + Number(totalExpectfin.money9)).toFixed(3);
+        totalExpectfin.moneysecondhalf = (Number(totalExpectfin.money10) + Number(totalExpectfin.money11) + Number(totalExpectfin.money12) + Number(totalExpectfin.money1) + Number(totalExpectfin.money2) + Number(totalExpectfin.money3)).toFixed(3);
+        totalExpectfin.moneyAnnual = ((Number(totalExpectfin.moneyfirsthalf) || 0 ) + (Number(totalExpectfin.moneysecondhalf) || 0)).toFixed(3);
+        //endregion scc upd 10/9 上期，下期，年间合计 to
         this.tableNewYearTotal = [totalExpectfin];
         this.getTableTotal();
       },
+      //region scc add 软件资产table求和 from
+      getSummaries1(table) {
+        debugger
+        let totalExpect = {};
+        let totalExpectfin = {};
+        let totalActual = {};
+        table.forEach(
+          row => {
+            let sum = 0;
+            for (let i = 1; i <= 12; i++) {
+              if (row.assetstype1 === '1') {
+                sum = Math.round((row['money' + i] || 0) / 12 * 100000) / 100000;
+              } else if (row.assetstype1 === '2') {
+                sum = Math.round((row['money' + i] || 0) / 36 * 100000) / 100000;
+              } else if (row.assetstype1 === '3') {
+                sum = Math.round((row['money' + i] || 0) / 60 * 100000) / 100000;
+              }
+              if (row.assetstype === '0') {
+                totalExpect['money' + i] = sum + (totalExpect['money' + i] || 0);
+              } else {
+                totalActual['money' + i] = sum + (totalActual['money' + i] || 0);
+              }
+            }
+            if (row.assetstype === '0') {
+              totalExpect.numberfirsthalf += row.numberfirsthalf;
+              totalExpect.numbersecondhalf += row.numbersecondhalf;
+              totalExpect.numberAnnual += row.numberAnnual;
+            } else {
+              totalActual.numberfirsthalf += row.numberfirsthalf;
+              totalActual.numbersecondhalf += row.numbersecondhalf;
+              totalActual.numberAnnual += row.numberAnnual;
+            }
+          },
+        );
+        for (let i = 1; i <= 12; i++) {
+          if (i >= 4 && i <= 11)
+          {
+            if (totalExpect['money' + i] > 0)
+            {
+              for (let j = i ; j <= 12; j++)
+              {
+                totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
+              }
+              totalExpectfin['money1'] = (totalExpectfin['money1'] || 0) + totalExpect['money' + i];
+              totalExpectfin['money2'] = (totalExpectfin['money2'] || 0) + totalExpect['money' + i];
+              totalExpectfin['money3'] = (totalExpectfin['money3'] || 0) + totalExpect['money' + i];
+            }
+          }
+          else if (i == 12)
+          {
+            for (let j = 1; j <= 3; j++)
+            {
+              totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
+            }
+          }
+          else
+          {
+            for (let j = i + 1; j <= 3; j++)
+            {
+              totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
+            }
+          }
+        }
+        // totalExpectfin.money4 = 0;
+        // totalExpectfin.money4 = '0.000';
+        totalExpectfin.money4 = (totalExpectfin.money4 || 0).toFixed(3) ;
+        totalExpectfin.money5 = (totalExpectfin.money5 || 0).toFixed(3) ;
+        totalExpectfin.money6 = (totalExpectfin.money6 || 0).toFixed(3) ;
+        totalExpectfin.money7 = (totalExpectfin.money7 || 0).toFixed(3) ;
+        totalExpectfin.money8 = (totalExpectfin.money8 || 0).toFixed(3) ;
+        totalExpectfin.money9 = (totalExpectfin.money9 || 0).toFixed(3) ;
+        totalExpectfin.money10 = (totalExpectfin.money10 || 0).toFixed(3) ;
+        totalExpectfin.money11 = (totalExpectfin.money11 || 0).toFixed(3) ;
+        totalExpectfin.money12 = (totalExpectfin.money12 || 0).toFixed(3) ;
+        totalExpectfin.money1 = (totalExpectfin.money1 || 0).toFixed(3) ;
+        totalExpectfin.money2 = (totalExpectfin.money2 || 0).toFixed(3) ;
+        totalExpectfin.money3 = (totalExpectfin.money3 || 0).toFixed(3) ;
+        totalExpectfin.moneyfirsthalf = (Number(totalExpectfin.money4) + Number(totalExpectfin.money5) + Number(totalExpectfin.money6) + Number(totalExpectfin.money7) + Number(totalExpectfin.money8) + Number(totalExpectfin.money9)).toFixed(3);
+        totalExpectfin.moneysecondhalf = (Number(totalExpectfin.money10) + Number(totalExpectfin.money11) + Number(totalExpectfin.money12) + Number(totalExpectfin.money1) + Number(totalExpectfin.money2) + Number(totalExpectfin.money3)).toFixed(3);
+        totalExpectfin.moneyAnnual = ((Number(totalExpectfin.moneyfirsthalf) || 0 ) + (Number(totalExpectfin.moneysecondhalf) || 0)).toFixed(3);
+        this.tableNewYearTotal = [totalExpectfin];
+        this.getTableTotal();
+      },
+      //endregion scc add 软件资产table求和 to
       getLastYearSummaries(table) {
         let totalExpect = {};
         let totalActual = {};
@@ -1169,8 +1271,11 @@
         }
         else
         {
-          this.tableLastYear = [];
-          this.tableLastYear.push({assetstype: '0'});
+          //region scc upd 10/9 只有一行时。清空内容 from
+          // this.tableLastYear = [];
+          // this.tableLastYear.push({assetstype: '0'});
+          this.$emit("on-change-tableLastYear",[{assetstype: '0'}]);
+          //endregion scc upd 10/9 只有一行时。清空内容 to
         }
         this.getLastYearSummaries(this.tableLastYear);
       },
@@ -1180,10 +1285,12 @@
         }
         else
         {
-          this.tableNewYear = [];
-          this.tableNewYear.push({assetstype: '0'})
+          //region scc upd 10/9 只有一行时。清空内容 from
+          // this.tableNewYear = [];
+          // this.tableNewYear.push({assetstype: '0'})
+          this.$emit("on-change-tableNewYear",[{assetstype: '0'}]);
+          //endregion scc upd 10/9 只有一行时。清空内容 to
         }
-        this.getSummaries(this.tableNewYear);
       },
       addRowF2(val) {
         if (val === 0) {
@@ -1194,12 +1301,32 @@
       },
     },
     watch: {
-      tableNewYear: {
-        handler(newValue, oldValue) {
-          this.tableNewYear = newValue;
-          this.getSummaries(newValue);
-        },
-        deep: true,
+      //region scc del from
+      // tableNewYear: {
+      //   handler(newValue, oldValue) {
+      //     this.tableNewYear = newValue;
+      //   },
+      //   deep: true,
+      // },
+      //endregion scc del to
+      //region scc add 根据设备或软件tab页，页面初始计算table from
+      active(newValue, oldVal){
+        if (newValue == 'second') {
+          this.getSummaries(this.tableNewYear);
+        } else if (newValue == 'third') {
+          this.getSummaries1(this.tableNewYear);
+        }
+      },
+      //endregion scc add 根据设备或软件tab页，页面初始计算table to
+      //region scc add 新事业年度，表格数据变化时，重新计算table,含删除行，子组件向父组件传递数据生效 from
+      tableNewYear(newValue, oldVal){
+        this.tableNewYear = newValue;
+        if (this.active == 'second') {
+          this.getSummaries(this.tableNewYear);
+        } else if (this.active == 'third') {
+          this.getSummaries1(this.tableNewYear);
+        }
+        //endregion scc add 新事业年度，表格数据变化时，重新计算table,含删除行，子组件向父组件传递数据生效 to
       },
       tableLodYear: {
         handler(newValue, oldValue) {

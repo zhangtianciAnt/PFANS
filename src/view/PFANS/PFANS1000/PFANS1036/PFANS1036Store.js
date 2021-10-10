@@ -9,6 +9,7 @@ import {
   getgroupA1,
   getgroup,
   whetherEditor,
+  download,
 } from './PFANS1036Api';
 
 const PFANS1036Store = {
@@ -149,6 +150,18 @@ const PFANS1036Store = {
       });
     },
     //endregion scc add 9/28 编辑按钮状态 to
+
+    //region scc add 10/9 事业计划模板下载 from
+    download({commit}, data) {
+      return new Promise((resolve, reject) => {
+        download(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 10/9 事业计划模板下载 to
 
   },
 };
