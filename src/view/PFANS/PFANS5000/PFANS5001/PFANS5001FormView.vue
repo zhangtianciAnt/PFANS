@@ -271,7 +271,7 @@
                           :disabled="!disabled"
                           :max="99999"
                           :min="0"
-                          :precision="0"
+                          :precision="2"
                           :step="1"
                           controls-position="right"
                           style="width:20vw"
