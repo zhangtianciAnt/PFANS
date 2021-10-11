@@ -2361,7 +2361,7 @@ export default {
                         this.tableR[i].accountcode = letErrortype.code;
                       }
                     } else if (this.tableR[i].plsummary === 'PJ111004') {
-                      this.tableR[i].code16 = '';
+                      this.tableR[i].code16 = 'PJ150';
                       let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
                       if (letErrortype != null) {
                         this.tableR[i].accountcode = letErrortype.code;
@@ -3654,7 +3654,7 @@ export default {
 
           } else if (row.plsummary == 'PJ111004') {
             row.accountcode = '',
-              row.code16 = '';
+              row.code16 = 'PJ150';
 
           } else if (row.plsummary == 'PJ111005') {
             row.accountcode = '',
@@ -3904,7 +3904,7 @@ export default {
           // row.code17 = 'PJ114';
         } else if (row.plsummary == 'PJ111004') {
           row.accountcode = '',
-            row.code16 = '';
+            row.code16 = 'PJ150';
           //   row.code17 = '';
         } else if (row.plsummary == 'PJ111005') {
           row.accountcode = '',

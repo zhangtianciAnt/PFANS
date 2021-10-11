@@ -876,7 +876,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="fourth">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')"  :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -913,7 +913,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole,getOrgInformation} from '@/utils/customize';
+  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole,getOrgInformation, accAdd} from '@/utils/customize';
   import monthlyrate from '../../../components/monthlyrate';
   import project from '../../../components/project';
 
@@ -1654,7 +1654,7 @@
                 }
                 if (response.numbercounts[i].claimamount) {
                   let claimamount = response.numbercounts[i].claimamount;
-                  aa = Number(claimamount) + aa;
+                  aa = accAdd(Number(claimamount),aa);
                 }
               }
               //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
@@ -2488,7 +2488,7 @@
                 if (resultAnt == undefined) {
                   scanMap.set(this.tableFS[h].claimtype, this.tableFS[h].distriamount)
                 } else {
-                  let resultInScanMap = resultAnt + this.tableFS[h].distriamount;
+                  let resultInScanMap = accAdd(resultAnt,this.tableFS[h].distriamount);
                   scanMap.set(this.tableFS[h].claimtype, resultInScanMap)
                 }
               }
@@ -2496,6 +2496,7 @@
             for (let t = 0; t < this.tableFS.length; t++) {
               let dataMapChild = datamountMap.get(this.tableFS[t].claimtype);
               let scanMapChild = scanMap.get(this.tableFS[t].claimtype);
+              debugger
               if (dataMapChild != scanMapChild) {
                 Message({
                   message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
