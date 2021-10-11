@@ -876,7 +876,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="fourth">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')"  :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -2496,7 +2496,6 @@
             for (let t = 0; t < this.tableFS.length; t++) {
               let dataMapChild = datamountMap.get(this.tableFS[t].claimtype);
               let scanMapChild = scanMap.get(this.tableFS[t].claimtype);
-              debugger
               if (dataMapChild != scanMapChild) {
                 Message({
                   message: this.$t('label.PFANS1026FORMVIEW_COMPOUNDM'),
