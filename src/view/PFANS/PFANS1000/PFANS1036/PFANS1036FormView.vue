@@ -4172,7 +4172,7 @@
             return this.$t('label.PFANSUSERVIEW_MEMBERS');
           }
         } else if (column.property === 'level') {
-          if (row.code === 'その他')
+          if (row.code === 'PR021016')
           {
             return '日本出向者';
           }
@@ -4270,7 +4270,7 @@
           if (index === 0) {
             sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
             return;
-          } else if ([1, 2, 3, 4, 5].includes(index) && ['C', 'D'].includes(table)) {
+          } else if ([1, 2, 3].includes(index) && ['C', 'D'].includes(table)) {
             sums[index] = '-';
             return;
           } else if ([1, 2, 3].includes(index) && ['o1', 'o2', 'o3', 'o4'].includes(table)) {
