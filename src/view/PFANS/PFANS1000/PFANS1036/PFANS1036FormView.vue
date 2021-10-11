@@ -781,7 +781,7 @@
               <div>
                 <AssetsComponent :tableNewYear="equipment_newyear" :tableLastYear="equipment_lastyear"
                                  :tableLodYear="equipment_lodyear" :active="activeName" @on-change-tableNewYear="changeTableNewYear"
-                                 @on-change-tableLastYear="changeTableLastYear" @assets="Assetss" ref="assest"></AssetsComponent>
+                                 @on-change-tableLastYear="changeTableLastYear" @assets="Assetss" ref="equipment"></AssetsComponent>
               </div>
             </el-tab-pane>
             <el-tab-pane :label="$t('label.PFANS1036FORMVIEW_TRAVELEXPENSES')" style="margin-top: 2%" name="forth">
@@ -2519,6 +2519,12 @@
                 this.$set(this.tableP[val.type], 'moneytotal', '0.00');
               },
             );
+            this.$refs.assest.getSummaries(this.assets_newyear);
+            this.$refs.assest.getLastYearSummaries(this.assets_lastyear);
+            this.$refs.assest.getLodYearSummaries(this.assets_lodyear);
+            this.$refs.equipment.getSummaries1(this.equipment_newyear);
+            this.$refs.equipment.getLastYearSummaries(this.equipment_lastyear);
+            this.$refs.equipment.getLodYearSummaries(this.equipment_lodyear);
             // this.getPersonTable(this.$route.params.center_id, this.$route.params.year);
             // add_qhr_20210910 添加画面初始计算
             this.computedSum();
@@ -3662,7 +3668,7 @@
           //研究開発費・ソフト費用小計
           this.$set(this.tableP[26], 'money' + this.arr[i], (Number(this.tableP[21]['money' + this.arr[i]]) + Number(this.tableP[22]['money' + this.arr[i]]) + Number(this.tableP[23]['money' + this.arr[i]]) + Number(this.tableP[24]['money' + this.arr[i]]) + Number(this.tableP[25]['money' + this.arr[i]])).toFixed(2));
           //管理・共通部門配賦
-          this.$set(this.tableP[27], 'money' + this.arr[i], ((Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]])) || (Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]])) ||  (Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]]))).toFixed(2));
+          this.$set(this.tableP[27], 'money' + this.arr[i], ((Number(getDictionaryInfo('PJ110001').value2) * Number(this.tableP[52]['money' + this.arr[i]])) + (Number(getDictionaryInfo('PJ110002').value2) * Number(this.tableP[53]['money' + this.arr[i]])) +  (Number(getDictionaryInfo('PJ110003').value2) * Number(this.tableP[54]['money' + this.arr[i]]))).toFixed(2));
            //振替１
           this.$set(this.tableP[28], 'money' + this.arr[i], '0.00');
           //振替2
