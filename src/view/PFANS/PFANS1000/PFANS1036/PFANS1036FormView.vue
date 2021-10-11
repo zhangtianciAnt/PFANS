@@ -911,7 +911,7 @@
                       <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                        prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price" :disabled="scope.row.disableEdit"></el-input-number>
                         </template>
@@ -1168,7 +1168,7 @@
                       <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                        prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price"></el-input-number>
                         </template>
@@ -1400,7 +1400,7 @@
                       <el-table-column width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                        prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price"></el-input-number>
                         </template>
@@ -1642,7 +1642,7 @@
                       <el-table-column  width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                         prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price" :disabled="scope.row.disableEdit">
                           </el-input-number>
