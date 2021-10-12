@@ -30,7 +30,6 @@
                                  :data="form.contracttype"
                                  :disabled="true"
                                  :multiple="multiple"
-                                 @change="getcontracttype"
                                  style="width:20vw">
                       </dicselect>
                     </el-form-item>
@@ -2046,14 +2045,14 @@
         this.PJcheck();
         //endregion scc add 9/17 合计外注费(元)改变判断限界利润率 to
       },
-      getcontracttype(val) {
-        this.form.contracttype = val;
-        if (val === 'PG019001') {
-          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
-        } else {
-          this.form.sarmb = this.sumAwardmoney;
-        }
-      },
+      // getcontracttype(val) {
+      //   this.form.contracttype = val;
+      //   if (val === 'PG019001') {
+      //     this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
+      //   } else {
+      //     this.form.sarmb = this.sumAwardmoney;
+      //   }
+      // },
       getcurrencyformat(val) {
         this.form.currencyposition = val;
       },
