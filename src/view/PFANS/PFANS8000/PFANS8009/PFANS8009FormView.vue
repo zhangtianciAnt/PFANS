@@ -80,6 +80,70 @@
                   </template>
                 </el-table-column>
                 <!--       人件费 需要添加 1228 ccm         -->
+                <!--       事业计划 需要添加 1011 ztc         -->
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE11')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value11">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE12')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value12">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE13')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value13">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE14')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value14">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE15')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value15">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE16')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value16">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE17')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value17">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE18')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value18">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE19')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value19">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS8009VIEW_VALUE20')" align="center" width="200">
+                  <template slot-scope="scope">
+                    <el-input :disabled="!disable" v-model="scope.row.value20">
+                    </el-input>
+                  </template>
+                </el-table-column>
+                <!--       事业计划 需要添加 1011 ztc          -->
+
+
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <!--数据字典编辑首页，类别说明行删除按钮禁用 scc-->
@@ -318,6 +382,16 @@
               value8: this.tableD[i].value8,
               value9: this.tableD[i].value9,
               value10: this.tableD[i].value10,
+              value11: this.tableD[i].value11,
+              value12: this.tableD[i].value12,
+              value13: this.tableD[i].value13,
+              value14: this.tableD[i].value14,
+              value15: this.tableD[i].value15,
+              value16: this.tableD[i].value16,
+              value17: this.tableD[i].value17,
+              value18: this.tableD[i].value18,
+              value19: this.tableD[i].value19,
+              value20: this.tableD[i].value20,
               pcode: this.tableD[i].pcode,
               status: this.tableD[i].status,
             });

@@ -2260,6 +2260,11 @@ export default {
                             value: dicnew[a].code,
                             lable: dicnew[a].value1,
                           });
+                        }else if(dicnew[a].code === 'PJ119007'){
+                          this.tableP[i].accoundoptionsdateP.push({
+                            value: dicnew[a].code,
+                            lable: dicnew[a].value1,
+                          });
                         }
                       }
                     } else if (this.tableP[i].plsummary === 'PJ111010') {
@@ -2282,6 +2287,11 @@ export default {
                             lable: dicnew[a].value1,
                           });
                         }else if (dicnew[a].code === 'PJ132004') {
+                          this.tableP[i].accoundoptionsdateP.push({
+                            value: dicnew[a].code,
+                            lable: dicnew[a].value1,
+                          });
+                        }else if (dicnew[a].code === 'PJ132007') {
                           this.tableP[i].accoundoptionsdateP.push({
                             value: dicnew[a].code,
                             lable: dicnew[a].value1,
@@ -3845,6 +3855,11 @@ export default {
                 value: dicnew[a].code,
                 lable: dicnew[a].value1,
               });
+            }else if(dicnew[a].code === 'PJ119007'){
+              row.accoundoptionsdateP.push({
+                value: dicnew[a].code,
+                lable: dicnew[a].value1,
+              });
             }
           }
         } else if (row.plsummary === 'PJ111010') {
@@ -3868,6 +3883,11 @@ export default {
                 lable: dicnew[a].value1,
               });
             }else if (dicnew[a].code === 'PJ132004') {
+              row.accoundoptionsdateP.push({
+                value: dicnew[a].code,
+                lable: dicnew[a].value1,
+              });
+            }else if (dicnew[a].code === 'PJ132007') {
               row.accoundoptionsdateP.push({
                 value: dicnew[a].code,
                 lable: dicnew[a].value1,

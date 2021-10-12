@@ -30,7 +30,6 @@
                                  :data="form.contracttype"
                                  :disabled="true"
                                  :multiple="multiple"
-                                 @change="getcontracttype"
                                  style="width:20vw">
                       </dicselect>
                     </el-form-item>
@@ -876,7 +875,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="fourth">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')"  :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -2046,14 +2045,14 @@
         this.PJcheck();
         //endregion scc add 9/17 合计外注费(元)改变判断限界利润率 to
       },
-      getcontracttype(val) {
-        this.form.contracttype = val;
-        if (val === 'PG019001') {
-          this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
-        } else {
-          this.form.sarmb = this.sumAwardmoney;
-        }
-      },
+      // getcontracttype(val) {
+      //   this.form.contracttype = val;
+      //   if (val === 'PG019001') {
+      //     this.form.sarmb = this.from.exchangerate * this.sumAwardmoney;
+      //   } else {
+      //     this.form.sarmb = this.sumAwardmoney;
+      //   }
+      // },
       getcurrencyformat(val) {
         this.form.currencyposition = val;
       },

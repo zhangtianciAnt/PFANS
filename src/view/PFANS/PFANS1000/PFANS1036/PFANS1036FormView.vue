@@ -4172,7 +4172,7 @@
             return this.$t('label.PFANSUSERVIEW_MEMBERS');
           }
         } else if (column.property === 'level') {
-          if (row.code === 'その他')
+          if (row.code === 'PR021016')
           {
             return '日本出向者';
           }
@@ -4270,7 +4270,7 @@
           if (index === 0) {
             sums[index] = this.$t('label.PFANS1036FORMVIEW_TOTAL');
             return;
-          } else if ([1, 2, 3, 4, 5].includes(index) && ['C', 'D'].includes(table)) {
+          } else if ([1, 2, 3].includes(index) && ['C', 'D'].includes(table)) {
             sums[index] = '-';
             return;
           } else if ([1, 2, 3].includes(index) && ['o1', 'o2', 'o3', 'o4'].includes(table)) {
@@ -4576,10 +4576,17 @@
           row.price = 0;
           row.type = '';
         }
+
         //通信费-专线费
         if (row.sprogramme === 'PJ147014')
         {
           this.changeSprogrammeAmount(row);
+        }
+
+        //通信费-各部门对应个数字典获取
+        if(row.sprogramme.indexOf('PJ147')!=-1 && row.sprogramme != 'PJ147014')
+        {
+          this.changeSprogrammeNumber(row);
         }
         //各种经费-房租，电费
         else if (row.sprogramme === 'PJ148001' || row.sprogramme === 'PJ148002')
@@ -4642,6 +4649,48 @@
         if (scope.price > 0) {
           for (let index =1; index<=12;index++)
           {
+            scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
+            if (index >= 4 && index <= 9) {
+              scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
+              scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+            } else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
+              scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
+              scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
+            } else {
+              for (let par in scope) {
+                if (par.substring(0, 5) === 'money') {
+                  scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(3);
+                }
+              }
+              scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
+              scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
+              scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
+              scope.moneysecond = (Number(scope.money10 || 0) + Number(scope.money11 || 0) + Number(scope.money12 || 0) + Number(scope.money1 || 0) + Number(scope.money2 || 0) + Number(scope.money3 || 0)).toFixed(3);
+            }
+            scope.numbertotal = (Number(scope.numberfirst || 0) + Number(scope.numbersecond || 0)).toFixed(1);
+            scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
+          }
+        }
+      },
+      changeSprogrammeNumber(scope) {
+        if (scope.price > 0) {
+          let typenumberhead = getDictionaryInfo('PJ147');
+          let typenumber = getDictionaryInfo(scope.sprogramme);
+          let number = 0;
+          if (typenumberhead && typenumber)
+          {
+            for (let i = 5;i<=16;i++)
+            {
+              if (typenumberhead['value'+ i] === this.companyen)
+              {
+                number = typenumber['value'+ i];
+                break;
+              }
+            }
+          }
+          for (let index =1; index<=12;index++)
+          {
+            scope['number' + index] = Number(number || 0);
             scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
             if (index >= 4 && index <= 9) {
               scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
