@@ -2278,6 +2278,14 @@
             disabled: false,
             icon: 'el-icon-check',
           },
+          //region scc add 导出 from
+          {
+            key: 'export',
+            name: 'button.export',
+            disabled: false,
+            icon: 'el-icon-download'
+          },
+          //endregion scc add 导出 from
         ],
         orgtree: [],
         tableA: [], //1
@@ -4930,6 +4938,25 @@
               });
             }
         })
+        //region scc add 导出 from
+        if(val == 'export'){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1036Store/BusinessplanExport', this.tableP)
+            .then(res => {
+              this.download(res,"事业计划PL")
+              this.loading = false;
+            })
+            .catch(error => {
+              this.$message.error({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+        //endregion scc add 导出 to
       },
       //region scc add 10/9 子组件向父组件传值 from
       changeTableNewYear(val){//新事业年度
@@ -4947,6 +4974,28 @@
         }
       },
       //endregion scc add 10/9 子组件向父组件传值 to
+
+      //region scc add 导出下载 from
+      download(data, filename) {
+        debugger
+        if ('msSaveOrOpenBlob' in navigator) {
+          window.navigator.msSaveOrOpenBlob(
+            new Blob([data], {type: 'application/vnd.ms-excel;charset=utf-8'}),
+            decodeURI(filename) + '.xlsx',
+          );
+        } else {
+          var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+          var downloadElement = document.createElement('a');
+          var href = window.URL.createObjectURL(blob); //创建下载的链接
+          downloadElement.href = href;
+          downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+          document.body.appendChild(downloadElement);
+          downloadElement.click(); //点击下载
+          document.body.removeChild(downloadElement); //下载完成移除元素
+          window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
+      },
+      //endregion scc add 导出下载 to
     },
     watch: {
       //region add_qhr_20210910 取消画面实时计算
