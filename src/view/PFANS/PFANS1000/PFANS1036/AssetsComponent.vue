@@ -1041,7 +1041,6 @@
       },
       //region scc add 软件资产table求和 from
       getSummaries1(table) {
-        debugger
         let totalExpect = {};
         let totalExpectfin = {};
         let totalActual = {};

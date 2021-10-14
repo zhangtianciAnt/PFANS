@@ -1126,7 +1126,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
-                                                                  scope.row.sprogramme === 'PJ148003' ? true : false)"
+                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148035' ? true : false)"
                             @click.native.prevent="deleteRowO1(scope.$index, tableO1)"
                             plain
                             size="small"
@@ -1642,7 +1642,11 @@
                       <el-table-column  width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                         prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right" v-if="scope.row.sprogramme !== 'PJ148035'"
+                                           @change="changeSum(scope.row)" :step="1000"
+                                           v-model="scope.row.price" :disabled="scope.row.disableEdit">
+                          </el-input-number>
+                          <el-input-number size="small" style="width:7vw"  controls-position="right" v-if="scope.row.sprogramme === 'PJ148035'"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price" :disabled="scope.row.disableEdit">
                           </el-input-number>
@@ -1858,7 +1862,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
-                                                                  scope.row.sprogramme === 'PJ148003' ? true : false)"
+                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148035' ? true : false)"
                             @click.native.prevent="deleteRowO(scope.$index, tableO)"
                             plain
                             size="small"
@@ -4388,7 +4392,8 @@
       },
       //add lsg 20210601 获取月份金额 end
       changeSum(scope, index) {
-      if (scope.price > 0) {
+        //region scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 from
+      // if (scope.price > 0) {
          scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
@@ -4409,8 +4414,8 @@
           }
           scope.numbertotal = (Number(scope.numberfirst || 0) + Number(scope.numbersecond || 0)).toFixed(1);
           scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
-       }
-
+       // }
+        //endregion scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 to
       },
       addRow1() {
         this.tableO1.push({
@@ -4628,7 +4633,13 @@
           row.price = typePrice.value4 === null || typePrice.value4 === '' ? 0 : typePrice.value4;
           if (Number(typePrice.value4 || 0 ) != 0)
           {
-            row.disableEdit = true;
+            //region scc add 10/14 各种经费，当调整项有初始默认值时，仍然可编辑 from
+            if(val != "PJ148035"){
+              row.disableEdit = true;
+            }else{
+              row.disableEdit = false;
+            }
+            //endregion scc add 10/14 各种经费，当调整项有初始默认值时，仍然可编辑 to
           }
           else
           {
@@ -5028,7 +5039,6 @@
 
       //region scc add 导出下载 from
       download(data, filename) {
-        debugger
         if ('msSaveOrOpenBlob' in navigator) {
           window.navigator.msSaveOrOpenBlob(
             new Blob([data], {type: 'application/vnd.ms-excel;charset=utf-8'}),
