@@ -3724,12 +3724,6 @@
               //税引後利益
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
               //add
-              //界线利益率
-              if (Number(this.tableP[5][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[51], val + this.arr[i], ((Number(this.tableP[5][val + this.arr[i]] || 0) - Number(this.tableP[13][val + this.arr[i]] || 0) - Number(this.tableP[24][val + this.arr[i]] || 0) - Number(this.tableP[32][val + this.arr[i]] || 0) - Number(this.tableP[21][val + this.arr[i]] || 0)) / (Number(this.tableP[5][val + this.arr[i]] || 0))).toFixed(2));
-              } else {
-                this.$set(this.tableP[51], val + this.arr[i], '0.00');
-              }
               //del ccm 20211008 稼动率显示删除 fr
               // //add
               // //稼働率(%)
@@ -3797,7 +3791,7 @@
           total29 = total29 + Number(this.tableP[29]['money' + this.arr[i]]); total39 = total39 + Number(this.tableP[39]['money' + this.arr[i]]);
 
           total40 = total40 + Number(this.tableP[40]['money' + this.arr[i]]); //total50 = total50 + Number(this.tableP[50]['money' + this.arr[i]]);
-          total41 = total41 + Number(this.tableP[41]['money' + this.arr[i]]); total51 = total51 + Number(this.tableP[51]['money' + this.arr[i]]);
+          total41 = total41 + Number(this.tableP[41]['money' + this.arr[i]]); //total51 = total51 + Number(this.tableP[51]['money' + this.arr[i]]);
           total42 = total42 + Number(this.tableP[42]['money' + this.arr[i]]); total52 = total52 + Number(this.tableP[52]['money' + this.arr[i]]);
           total43 = total43 + Number(this.tableP[43]['money' + this.arr[i]]); total53 = total53 + Number(this.tableP[53]['money' + this.arr[i]]);
           total44 = total44 + Number(this.tableP[44]['money' + this.arr[i]]); total54 = total54 + Number(this.tableP[54]['money' + this.arr[i]]);
@@ -3809,6 +3803,62 @@
 
           //add ccm 20211008 PL添加年间合计 to
         }
+        //界线利益率
+        //region scc upd 限界利润率计算变更，每三个月统计一次 from
+        //公式：（売上合計（税抜き、社内委託除き）- 人件費小計 - リース費 - 研究開発費・ソフト費用小計 - 旅費交通費 - 消耗品費 - ブランド使用料）/ 売上合計（税抜き、社内委託除き）
+        if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money4']) + Number(this.tableP[13]['money5']) + Number(this.tableP[13]['money6'])) - //人件費小計
+              (Number(this.tableP[17]['money4']) + Number(this.tableP[17]['money5']) + Number(this.tableP[17]['money6'])) - //リース費
+              (Number(this.tableP[26]['money4']) + Number(this.tableP[26]['money5']) + Number(this.tableP[26]['money6'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money4']) + Number(this.tableP[32]['money5']) + Number(this.tableP[32]['money6'])) - //旅費交通費
+              (Number(this.tableP[34]['money4']) + Number(this.tableP[34]['money5']) + Number(this.tableP[34]['money6'])) - //消耗品費
+              (Number(this.tableP[34]['money4']) + Number(this.tableP[34]['money5']) + Number(this.tableP[34]['money6']))) / //ブランド使用料
+            (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money6', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money6', '0.00');
+        }
+        if ((Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money7']) + Number(this.tableP[13]['money8']) + Number(this.tableP[13]['money9'])) - //人件費小計
+              (Number(this.tableP[17]['money7']) + Number(this.tableP[17]['money8']) + Number(this.tableP[17]['money9'])) - //リース費
+              (Number(this.tableP[26]['money7']) + Number(this.tableP[26]['money8']) + Number(this.tableP[26]['money9'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money7']) + Number(this.tableP[32]['money8']) + Number(this.tableP[32]['money9'])) - //旅費交通費
+              (Number(this.tableP[34]['money7']) + Number(this.tableP[34]['money8']) + Number(this.tableP[34]['money9'])) - //消耗品費
+              (Number(this.tableP[34]['money7']) + Number(this.tableP[34]['money8']) + Number(this.tableP[34]['money9']))) / //ブランド使用料
+            (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money9', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money9', '0.00');
+        }
+        if ((Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money10']) + Number(this.tableP[13]['money11']) + Number(this.tableP[13]['money12'])) - //人件費小計
+              (Number(this.tableP[17]['money10']) + Number(this.tableP[17]['money11']) + Number(this.tableP[17]['money12'])) - //リース費
+              (Number(this.tableP[26]['money10']) + Number(this.tableP[26]['money11']) + Number(this.tableP[26]['money12'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money10']) + Number(this.tableP[32]['money11']) + Number(this.tableP[32]['money12'])) - //旅費交通費
+              (Number(this.tableP[34]['money10']) + Number(this.tableP[34]['money11']) + Number(this.tableP[34]['money12'])) - //消耗品費
+              (Number(this.tableP[34]['money10']) + Number(this.tableP[34]['money11']) + Number(this.tableP[34]['money12']))) / //ブランド使用料
+            (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money12', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money12', '0.00');
+        }
+        if ((Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money1']) + Number(this.tableP[13]['money2']) + Number(this.tableP[13]['money3'])) - //人件費小計
+              (Number(this.tableP[17]['money1']) + Number(this.tableP[17]['money2']) + Number(this.tableP[17]['money3'])) - //リース費
+              (Number(this.tableP[26]['money1']) + Number(this.tableP[26]['money2']) + Number(this.tableP[26]['money3'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money1']) + Number(this.tableP[32]['money2']) + Number(this.tableP[32]['money3'])) - //旅費交通費
+              (Number(this.tableP[34]['money1']) + Number(this.tableP[34]['money2']) + Number(this.tableP[34]['money3'])) - //消耗品費
+              (Number(this.tableP[34]['money1']) + Number(this.tableP[34]['money2']) + Number(this.tableP[34]['money3']))) / //ブランド使用料
+            (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money3', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money3', '0.00');
+        }
+        //endregion scc upd 限界利润率计算变更，每三个月统计一次 from
         if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
           this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
         } else {
@@ -3853,7 +3903,7 @@
         this.$set(this.tableP[29], 'moneytotal', Number(total29).toFixed(2)); this.$set(this.tableP[39], 'moneytotal', Number(total39).toFixed(2));
 
         this.$set(this.tableP[40], 'moneytotal', Number(total40).toFixed(2)); this.$set(this.tableP[50], 'moneytotal', Number(Number(this.tableP[50]['money6']) + Number(this.tableP[50]['money9']) + Number(this.tableP[50]['money12']) + Number(this.tableP[50]['money3'])).toFixed(2));
-        this.$set(this.tableP[41], 'moneytotal', Number(total41).toFixed(2)); this.$set(this.tableP[51], 'moneytotal', Number(total51).toFixed(2));
+        this.$set(this.tableP[41], 'moneytotal', Number(total41).toFixed(2)); this.$set(this.tableP[51], 'moneytotal', Number(Number(this.tableP[51]['money6']) + Number(this.tableP[51]['money9']) + Number(this.tableP[51]['money12']) + Number(this.tableP[51]['money3'])).toFixed(2));
         this.$set(this.tableP[42], 'moneytotal', Number(total42).toFixed(2)); this.$set(this.tableP[52], 'moneytotal', Number(total52).toFixed(2));
         this.$set(this.tableP[43], 'moneytotal', Number(total43).toFixed(2)); this.$set(this.tableP[53], 'moneytotal', Number(total53).toFixed(2));
         this.$set(this.tableP[44], 'moneytotal', Number(total44).toFixed(2)); this.$set(this.tableP[54], 'moneytotal', Number(total54).toFixed(2));
@@ -4940,6 +4990,7 @@
         })
         //region scc add 导出 from
         if(val == 'export'){
+          console.log(this.tableP)
           this.loading = true;
           this.$store
             .dispatch('PFANS1036Store/BusinessplanExport', this.tableP)
