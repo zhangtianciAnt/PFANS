@@ -3849,7 +3849,7 @@
               (Number(this.tableP[26]['money4']) + Number(this.tableP[26]['money5']) + Number(this.tableP[26]['money6'])) - //研究開発費・ソフト費用小計
               (Number(this.tableP[32]['money4']) + Number(this.tableP[32]['money5']) + Number(this.tableP[32]['money6'])) - //旅費交通費
               (Number(this.tableP[34]['money4']) + Number(this.tableP[34]['money5']) + Number(this.tableP[34]['money6'])) - //消耗品費
-              (Number(this.tableP[34]['money4']) + Number(this.tableP[34]['money5']) + Number(this.tableP[34]['money6']))) / //ブランド使用料
+              (Number(this.tableP[45]['money4']) + Number(this.tableP[45]['money5']) + Number(this.tableP[45]['money6']))) / //ブランド使用料
             (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']));//（売上合計（税抜き、社内委託除き）
           this.$set(this.tableP[51], 'money6', toCalculate.toFixed(2));
         } else {
@@ -3862,7 +3862,7 @@
               (Number(this.tableP[26]['money7']) + Number(this.tableP[26]['money8']) + Number(this.tableP[26]['money9'])) - //研究開発費・ソフト費用小計
               (Number(this.tableP[32]['money7']) + Number(this.tableP[32]['money8']) + Number(this.tableP[32]['money9'])) - //旅費交通費
               (Number(this.tableP[34]['money7']) + Number(this.tableP[34]['money8']) + Number(this.tableP[34]['money9'])) - //消耗品費
-              (Number(this.tableP[34]['money7']) + Number(this.tableP[34]['money8']) + Number(this.tableP[34]['money9']))) / //ブランド使用料
+              (Number(this.tableP[45]['money7']) + Number(this.tableP[45]['money8']) + Number(this.tableP[45]['money9']))) / //ブランド使用料
             (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']));//（売上合計（税抜き、社内委託除き）
           this.$set(this.tableP[51], 'money9', toCalculate.toFixed(2));
         } else {
@@ -3875,7 +3875,7 @@
               (Number(this.tableP[26]['money10']) + Number(this.tableP[26]['money11']) + Number(this.tableP[26]['money12'])) - //研究開発費・ソフト費用小計
               (Number(this.tableP[32]['money10']) + Number(this.tableP[32]['money11']) + Number(this.tableP[32]['money12'])) - //旅費交通費
               (Number(this.tableP[34]['money10']) + Number(this.tableP[34]['money11']) + Number(this.tableP[34]['money12'])) - //消耗品費
-              (Number(this.tableP[34]['money10']) + Number(this.tableP[34]['money11']) + Number(this.tableP[34]['money12']))) / //ブランド使用料
+              (Number(this.tableP[45]['money10']) + Number(this.tableP[45]['money11']) + Number(this.tableP[45]['money12']))) / //ブランド使用料
             (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']));//（売上合計（税抜き、社内委託除き）
           this.$set(this.tableP[51], 'money12', toCalculate.toFixed(2));
         } else {
@@ -3888,7 +3888,7 @@
               (Number(this.tableP[26]['money1']) + Number(this.tableP[26]['money2']) + Number(this.tableP[26]['money3'])) - //研究開発費・ソフト費用小計
               (Number(this.tableP[32]['money1']) + Number(this.tableP[32]['money2']) + Number(this.tableP[32]['money3'])) - //旅費交通費
               (Number(this.tableP[34]['money1']) + Number(this.tableP[34]['money2']) + Number(this.tableP[34]['money3'])) - //消耗品費
-              (Number(this.tableP[34]['money1']) + Number(this.tableP[34]['money2']) + Number(this.tableP[34]['money3']))) / //ブランド使用料
+              (Number(this.tableP[45]['money1']) + Number(this.tableP[45]['money2']) + Number(this.tableP[45]['money3']))) / //ブランド使用料
             (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']));//（売上合計（税抜き、社内委託除き）
           this.$set(this.tableP[51], 'money3', toCalculate.toFixed(2));
         } else {
