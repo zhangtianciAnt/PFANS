@@ -186,14 +186,33 @@
                         });
                         return;
                     }
+                  if(this.activeName === "first"){
                     this.$router.push({
-                        name: "PFANS1038FormView",
-                        params: {
-                            _id: this.id,
-                            disabled: false,
-                            type: this.activeName === "first" ? 0 : 1
-                        }
+                      name: "PFANS1038FormView",
+                      params: {
+                        _id: this.id,
+                        disabled: false,
+                        type: 0,
+                      }
                     });
+                  }else if(this.activeName === "second"){
+                    this.$router.push({
+                      name: "PFANS1038OutFormView",
+                      params: {
+                        _id: this.id,
+                        disabled: false,
+                        type: 1,
+                      }
+                    });
+                  }
+                    // this.$router.push({
+                    //     name: "PFANS1038FormView",
+                    //     params: {
+                    //         _id: this.id,
+                    //         disabled: false,
+                    //         type: this.activeName === "first" ? 0 : 1
+                    //     }
+                    // });
                 } else if ("view" === val) {
                     if (!this.id) {
                         Message({
@@ -203,23 +222,53 @@
                         });
                         return;
                     }
+                  if(this.activeName === "first"){
                     this.$router.push({
-                        name: "PFANS1038FormView",
-                        params: {
-                            _id: this.id,
-                            disabled: true,
-                            type: this.activeName === "first" ? 0 : 1
-                        }
+                      name: "PFANS1038FormView",
+                      params: {
+                        _id: this.id,
+                        disabled: true,
+                        type: 0,
+                      }
                     });
+                  }else if(this.activeName === "second"){
+                    this.$router.push({
+                      name: "PFANS1038OutFormView",
+                      params: {
+                        _id: this.id,
+                        disabled: true,
+                        type: 1,
+                      }
+                    });
+                  }
+                    // this.$router.push({
+                    //     name: "PFANS1038FormView",
+                    //     params: {
+                    //         _id: this.id,
+                    //         disabled: true,
+                    //         type: this.activeName === "first" ? 0 : 1
+                    //     }
+                    // });
                 } else if ("new" === val) {
+                  if(this.activeName === "first"){
                     this.$router.push({
-                        name: "PFANS1038FormView",
-                        params: {
-                            _id: "",
-                            disabled: false,
-                            type: this.activeName === "first" ? 0 : 1
-                        }
+                      name: "PFANS1038FormView",
+                      params: {
+                        _id: "",
+                        disabled: false,
+                        type: 0,
+                      }
                     });
+                  }else if(this.activeName === "second"){
+                    this.$router.push({
+                      name: "PFANS1038OutFormView",
+                      params: {
+                        _id: "",
+                        disabled: false,
+                        type: 1,
+                      }
+                    });
+                  }
                 }
             }
         }

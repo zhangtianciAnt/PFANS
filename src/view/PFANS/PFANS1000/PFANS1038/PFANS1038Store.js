@@ -46,6 +46,7 @@ const PFANS1038Store = {
     insert({ commit },data) {
       return new Promise((resolve, reject) => {
         insert(data).then(response => {
+          debugger
           if (response.code === 0) {
             resolve(response.data);
           } else {

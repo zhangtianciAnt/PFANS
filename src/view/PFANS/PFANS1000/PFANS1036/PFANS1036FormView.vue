@@ -930,11 +930,11 @@
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.April')" align="center" width="130">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.April')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number4">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,4)" :step="1"
                                                v-model="scope.row.number4"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -946,11 +946,11 @@
                                            prop="money4">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.May')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.May')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number5">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,5)" :step="1"
                                                v-model="scope.row.number5"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -961,11 +961,11 @@
                                            prop="money5">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.June')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.June')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number6">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,6)" :step="1"
                                                v-model="scope.row.number6"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -976,11 +976,11 @@
                                            prop="money6">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.July')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.July')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number7">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,7)" :step="1"
                                                v-model="scope.row.number7"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -991,11 +991,11 @@
                                            prop="money7">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.August')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.August')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number8">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,8)" :step="1"
                                                v-model="scope.row.number8"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1006,11 +1006,11 @@
                                            prop="money8">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.September')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.September')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number9">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,9)" :step="1"
                                                v-model="scope.row.number9"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1023,11 +1023,11 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.October')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.October')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number10">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,10)" :step="1"
                                                v-model="scope.row.number10"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1038,11 +1038,11 @@
                                            prop="money10">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.November')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.November')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number11">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,11)" :step="1"
                                                v-model="scope.row.number11"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1053,11 +1053,11 @@
                                            prop="money11">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.December')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.December')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number12">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,12)" :step="1"
                                                v-model="scope.row.number12"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1068,11 +1068,11 @@
                                            prop="money12">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.January')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.January')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number1">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,1)" :step="1"
                                                v-model="scope.row.number1"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1083,11 +1083,11 @@
                                            prop="money1">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.February')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.February')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number2">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,2)" :step="1"
                                                v-model="scope.row.number2":disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
                                                                   scope.row.sprogramme === 'PJ148003' ? true : false)"
@@ -1098,11 +1098,11 @@
                                            prop="money2">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.March')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.March')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number3">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,3)" :step="1"
                                                v-model="scope.row.number3"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1114,7 +1114,7 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.totalyear')" align="center" width="110">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="130">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
                                          prop="numbertotal">
                         </el-table-column>
@@ -1662,11 +1662,11 @@
                         </template>
                       </el-table-column>
                       <el-table-column :label="$t('label.firsthalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.April')" align="center" width="130">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.April')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number4">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,4)" :step="1"
                                                v-model="scope.row.number4"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1678,11 +1678,11 @@
                                            prop="money4">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.May')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.May')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number5">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,5)" :step="1"
                                                v-model="scope.row.number5"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1693,11 +1693,11 @@
                                            prop="money5">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.June')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.June')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number6">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,6)" :step="1"
                                                v-model="scope.row.number6"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1708,11 +1708,11 @@
                                            prop="money6">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.July')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.July')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number7">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,7)" :step="1"
                                                v-model="scope.row.number7"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1723,11 +1723,11 @@
                                            prop="money7">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.August')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.August')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number8">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,8)" :step="1"
                                                v-model="scope.row.number8"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1738,11 +1738,11 @@
                                            prop="money8">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.September')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.September')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number9">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,9)" :step="1"
                                                v-model="scope.row.number9"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1755,11 +1755,11 @@
                         </el-table-column>
                       </el-table-column>
                       <el-table-column :label="$t('label.secondhalfyear')" align="center" width="110">
-                        <el-table-column :label="$t('label.October')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.October')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number10">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,10)" :step="1"
                                                v-model="scope.row.number10"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1770,11 +1770,11 @@
                                            prop="money10">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.November')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.November')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number11">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,11)" :step="1"
                                                v-model="scope.row.number11"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1785,11 +1785,11 @@
                                            prop="money11">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.December')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.December')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number12">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,12)" :step="1"
                                                v-model="scope.row.number12"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1800,11 +1800,11 @@
                                            prop="money12">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.January')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.January')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number1">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,1)" :step="1"
                                                v-model="scope.row.number1"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1815,11 +1815,11 @@
                                            prop="money1">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.February')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.February')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number2">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,2)" :step="1"
                                                v-model="scope.row.number2"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1830,11 +1830,11 @@
                                            prop="money2">
                           </el-table-column>
                         </el-table-column>
-                        <el-table-column :label="$t('label.March')" align="center" width="110">
-                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
+                        <el-table-column :label="$t('label.March')" align="center" width="135">
+                          <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="135"
                                            prop="number3">
                             <template slot-scope="scope">
-                              <el-input-number size="small" style="width:5vw" :min="0" controls-position="right"
+                              <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
                                                :precision="1" @change="changeSum(scope.row,3)" :step="1"
                                                v-model="scope.row.number3"
                                                :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
@@ -1846,7 +1846,7 @@
                           </el-table-column>
                         </el-table-column>
                       </el-table-column>
-                      <el-table-column :label="$t('label.totalyear')" align="center" width="110">
+                      <el-table-column :label="$t('label.totalyear')" align="center" width="130">
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_JOBNUMBER')" align="center" width="130"
                                          prop="numbertotal">
                         </el-table-column>
@@ -2278,6 +2278,14 @@
             disabled: false,
             icon: 'el-icon-check',
           },
+          //region scc add 导出 from
+          {
+            key: 'export',
+            name: 'button.export',
+            disabled: false,
+            icon: 'el-icon-download'
+          },
+          //endregion scc add 导出 from
         ],
         orgtree: [],
         tableA: [], //1
@@ -3024,254 +3032,282 @@
         this.$store
           .dispatch('PFANS1036Store/getPersonPlan', {'groupid': groupid, 'year': year})
           .then(response => {
-
             if (response[0]) this.tableC = JSON.parse(response[0]);
             if (response[1]) this.tableD = JSON.parse(response[1]);
             if (response[2]) this.tableA = [JSON.parse(response[2])];
             // if (response[2]) this.tableB = [JSON.parse(response[2])];
             let actual = JSON.parse(response[3]);
-            let gnpersonnel4 = Number.parseInt(response[4]);
-            let gnpersonnel5 = Number.parseInt(response[4]);
-            let gnpersonnel6 = Number.parseInt(response[4]);
-            let gnpersonnel7 = Number.parseInt(response[4]);
-            let gnpersonnel8 = Number.parseInt(response[4]);
-            let gnpersonnel9 = Number.parseInt(response[4]);
-            let gnpersonnel10 = Number.parseInt(response[4]);
-            let gnpersonnel11 = Number.parseInt(response[4]);
-            let gnpersonnel12 = Number.parseInt(response[4]);
-            let gnpersonnel1 = Number.parseInt(response[4]);
-            let gnpersonnel2 = Number.parseInt(response[4]);
-            let gnpersonnel3 = Number.parseInt(response[4]);
-            let gwpersonnel4 = Number.parseInt(response[5]);
-            let gwpersonnel5 = Number.parseInt(response[5]);
-            let gwpersonnel6 = Number.parseInt(response[5]);
-            let gwpersonnel7 = Number.parseInt(response[5]);
-            let gwpersonnel8 = Number.parseInt(response[5]);
-            let gwpersonnel9 = Number.parseInt(response[5]);
-            let gwpersonnel10 = Number.parseInt(response[5]);
-            let gwpersonnel11 = Number.parseInt(response[5]);
-            let gwpersonnel12 = Number.parseInt(response[5]);
-            let gwpersonnel1 = Number.parseInt(response[5]);
-            let gwpersonnel2 = Number.parseInt(response[5]);
-            let gwpersonnel3 = Number.parseInt(response[5]);
+            //region
+            // let gnpersonnel4 = Number.parseInt(response[4]);
+            // let gnpersonnel5 = Number.parseInt(response[4]);
+            // let gnpersonnel6 = Number.parseInt(response[4]);
+            // let gnpersonnel7 = Number.parseInt(response[4]);
+            // let gnpersonnel8 = Number.parseInt(response[4]);
+            // let gnpersonnel9 = Number.parseInt(response[4]);
+            // let gnpersonnel10 = Number.parseInt(response[4]);
+            // let gnpersonnel11 = Number.parseInt(response[4]);
+            // let gnpersonnel12 = Number.parseInt(response[4]);
+            // let gnpersonnel1 = Number.parseInt(response[4]);
+            // let gnpersonnel2 = Number.parseInt(response[4]);
+            // let gnpersonnel3 = Number.parseInt(response[4]);
+            // let gwpersonnel4 = Number.parseInt(response[5]);
+            // let gwpersonnel5 = Number.parseInt(response[5]);
+            // let gwpersonnel6 = Number.parseInt(response[5]);
+            // let gwpersonnel7 = Number.parseInt(response[5]);
+            // let gwpersonnel8 = Number.parseInt(response[5]);
+            // let gwpersonnel9 = Number.parseInt(response[5]);
+            // let gwpersonnel10 = Number.parseInt(response[5]);
+            // let gwpersonnel11 = Number.parseInt(response[5]);
+            // let gwpersonnel12 = Number.parseInt(response[5]);
+            // let gwpersonnel1 = Number.parseInt(response[5]);
+            // let gwpersonnel2 = Number.parseInt(response[5]);
+            // let gwpersonnel3 = Number.parseInt(response[5]);
+            //endregion
             if (Number.parseInt(response[4]) > 0 || Number.parseInt(response[5]) > 0) {  //有外注返回
-              this.newentry = JSON.parse(response[6]);//将外注人员转换
-              if (this.newentry != null) {   //有新来的
-                for (let i = 0; i < this.newentry.length; i++) {    //遍历外注人员
-                  if (this.newentry[i].isoutside === false) {    //判断是构内
-                    if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-                      gnpersonnel4 = gnpersonnel4 + 1;
-                      gnpersonnel5 = gnpersonnel5 + 1;
-                      gnpersonnel6 = gnpersonnel6 + 1;
-                      gnpersonnel7 = gnpersonnel7 + 1;
-                      gnpersonnel8 = gnpersonnel8 + 1;
-                      gnpersonnel9 = gnpersonnel9 + 1;
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-                      gnpersonnel5 = gnpersonnel5 + 1;
-                      gnpersonnel6 = gnpersonnel6 + 1;
-                      gnpersonnel7 = gnpersonnel7 + 1;
-                      gnpersonnel8 = gnpersonnel8 + 1;
-                      gnpersonnel9 = gnpersonnel9 + 1;
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-                      gnpersonnel6 = gnpersonnel6 + 1;
-                      gnpersonnel7 = gnpersonnel7 + 1;
-                      gnpersonnel8 = gnpersonnel8 + 1;
-                      gnpersonnel9 = gnpersonnel9 + 1;
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-                      gnpersonnel7 = gnpersonnel7 + 1;
-                      gnpersonnel8 = gnpersonnel8 + 1;
-                      gnpersonnel9 = gnpersonnel9 + 1;
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-                      gnpersonnel8 = gnpersonnel8 + 1;
-                      gnpersonnel9 = gnpersonnel9 + 1;
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-                      gnpersonnel9 = gnpersonnel9 + 1;
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-                      gnpersonnel10 = gnpersonnel10 + 1;
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-                      gnpersonnel11 = gnpersonnel11 + 1;
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-                      gnpersonnel12 = gnpersonnel12 + 1;
-                      gnpersonnel1 = gnpersonnel1 + 1;
-                      gnpersonnel2 = gnpersonnel2 + 1;
-                      gnpersonnel3 = gnpersonnel3 + 1;
-                    }
-                  } else if (this.newentry[i].isoutside === true) {    //判断是构外
-                    if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-                      gwpersonnel3 = gnpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-                      gwpersonnel4 = gwpersonnel4 + 1;
-                      gwpersonnel5 = gwpersonnel5 + 1;
-                      gwpersonnel6 = gwpersonnel6 + 1;
-                      gwpersonnel7 = gwpersonnel7 + 1;
-                      gwpersonnel8 = gwpersonnel8 + 1;
-                      gwpersonnel9 = gwpersonnel9 + 1;
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-                      gwpersonnel5 = gwpersonnel5 + 1;
-                      gwpersonnel6 = gwpersonnel6 + 1;
-                      gwpersonnel7 = gwpersonnel7 + 1;
-                      gwpersonnel8 = gwpersonnel8 + 1;
-                      gwpersonnel9 = gwpersonnel9 + 1;
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-                      gwpersonnel6 = gwpersonnel6 + 1;
-                      gwpersonnel7 = gwpersonnel7 + 1;
-                      gwpersonnel8 = gwpersonnel8 + 1;
-                      gwpersonnel9 = gwpersonnel9 + 1;
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-                      gwpersonnel7 = gwpersonnel7 + 1;
-                      gwpersonnel8 = gwpersonnel8 + 1;
-                      gwpersonnel9 = gwpersonnel9 + 1;
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-                      gwpersonnel8 = gwpersonnel8 + 1;
-                      gwpersonnel9 = gwpersonnel9 + 1;
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-                      gwpersonnel9 = gwpersonnel9 + 1;
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-                      gwpersonnel10 = gwpersonnel10 + 1;
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-                      gwpersonnel11 = gwpersonnel11 + 1;
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-                      gwpersonnel12 = gwpersonnel12 + 1;
-                      gwpersonnel1 = gwpersonnel1 + 1;
-                      gwpersonnel2 = gwpersonnel2 + 1;
-                      gwpersonnel3 = gwpersonnel3 + 1;
-                    }
-                  }
-                }
-              }
+              // region
+              // this.newentry = JSON.parse(response[6]);//将外注人员转换
+              // if (this.newentry != null) {   //有新来的
+              //   for (let i = 0; i < this.newentry.length; i++) {    //遍历外注人员
+              //     if (this.newentry[i].isoutside === false) {    //判断是构内
+              //       if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
+              //         gnpersonnel4 = gnpersonnel4 + 1;
+              //         gnpersonnel5 = gnpersonnel5 + 1;
+              //         gnpersonnel6 = gnpersonnel6 + 1;
+              //         gnpersonnel7 = gnpersonnel7 + 1;
+              //         gnpersonnel8 = gnpersonnel8 + 1;
+              //         gnpersonnel9 = gnpersonnel9 + 1;
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
+              //         gnpersonnel5 = gnpersonnel5 + 1;
+              //         gnpersonnel6 = gnpersonnel6 + 1;
+              //         gnpersonnel7 = gnpersonnel7 + 1;
+              //         gnpersonnel8 = gnpersonnel8 + 1;
+              //         gnpersonnel9 = gnpersonnel9 + 1;
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
+              //         gnpersonnel6 = gnpersonnel6 + 1;
+              //         gnpersonnel7 = gnpersonnel7 + 1;
+              //         gnpersonnel8 = gnpersonnel8 + 1;
+              //         gnpersonnel9 = gnpersonnel9 + 1;
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
+              //         gnpersonnel7 = gnpersonnel7 + 1;
+              //         gnpersonnel8 = gnpersonnel8 + 1;
+              //         gnpersonnel9 = gnpersonnel9 + 1;
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
+              //         gnpersonnel8 = gnpersonnel8 + 1;
+              //         gnpersonnel9 = gnpersonnel9 + 1;
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
+              //         gnpersonnel9 = gnpersonnel9 + 1;
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
+              //         gnpersonnel10 = gnpersonnel10 + 1;
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
+              //         gnpersonnel11 = gnpersonnel11 + 1;
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
+              //         gnpersonnel12 = gnpersonnel12 + 1;
+              //         gnpersonnel1 = gnpersonnel1 + 1;
+              //         gnpersonnel2 = gnpersonnel2 + 1;
+              //         gnpersonnel3 = gnpersonnel3 + 1;
+              //       }
+              //     } else if (this.newentry[i].isoutside === true) {    //判断是构外
+              //       if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
+              //         gwpersonnel3 = gnpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
+              //         gwpersonnel4 = gwpersonnel4 + 1;
+              //         gwpersonnel5 = gwpersonnel5 + 1;
+              //         gwpersonnel6 = gwpersonnel6 + 1;
+              //         gwpersonnel7 = gwpersonnel7 + 1;
+              //         gwpersonnel8 = gwpersonnel8 + 1;
+              //         gwpersonnel9 = gwpersonnel9 + 1;
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
+              //         gwpersonnel5 = gwpersonnel5 + 1;
+              //         gwpersonnel6 = gwpersonnel6 + 1;
+              //         gwpersonnel7 = gwpersonnel7 + 1;
+              //         gwpersonnel8 = gwpersonnel8 + 1;
+              //         gwpersonnel9 = gwpersonnel9 + 1;
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
+              //         gwpersonnel6 = gwpersonnel6 + 1;
+              //         gwpersonnel7 = gwpersonnel7 + 1;
+              //         gwpersonnel8 = gwpersonnel8 + 1;
+              //         gwpersonnel9 = gwpersonnel9 + 1;
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
+              //         gwpersonnel7 = gwpersonnel7 + 1;
+              //         gwpersonnel8 = gwpersonnel8 + 1;
+              //         gwpersonnel9 = gwpersonnel9 + 1;
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
+              //         gwpersonnel8 = gwpersonnel8 + 1;
+              //         gwpersonnel9 = gwpersonnel9 + 1;
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
+              //         gwpersonnel9 = gwpersonnel9 + 1;
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
+              //         gwpersonnel10 = gwpersonnel10 + 1;
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
+              //         gwpersonnel11 = gwpersonnel11 + 1;
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
+              //         gwpersonnel12 = gwpersonnel12 + 1;
+              //         gwpersonnel1 = gwpersonnel1 + 1;
+              //         gwpersonnel2 = gwpersonnel2 + 1;
+              //         gwpersonnel3 = gwpersonnel3 + 1;
+              //       }
+              //     }
+              //   }
+              // }
+              //endregioned
             }
             this.gnperson = [];
             this.gwperson = [];
-            this.gnperson.push(gnpersonnel4);
-            this.gnperson.push(gnpersonnel5);
-            this.gnperson.push(gnpersonnel6);
-            this.gnperson.push(gnpersonnel7);
-            this.gnperson.push(gnpersonnel8);
-            this.gnperson.push(gnpersonnel9);
-            this.gnperson.push(gnpersonnel10);
-            this.gnperson.push(gnpersonnel11);
-            this.gnperson.push(gnpersonnel12);
-            this.gnperson.push(gnpersonnel1);
-            this.gnperson.push(gnpersonnel2);
-            this.gnperson.push(gnpersonnel3);
-            this.gwperson.push(gwpersonnel4);
-            this.gwperson.push(gwpersonnel5);
-            this.gwperson.push(gwpersonnel6);
-            this.gwperson.push(gwpersonnel7);
-            this.gwperson.push(gwpersonnel8);
-            this.gwperson.push(gwpersonnel9);
-            this.gwperson.push(gwpersonnel10);
-            this.gwperson.push(gwpersonnel11);
-            this.gwperson.push(gwpersonnel12);
-            this.gwperson.push(gwpersonnel1);
-            this.gwperson.push(gwpersonnel2);
-            this.gwperson.push(gwpersonnel3);
+
+            this.gnperson.push(JSON.parse(response[4])[0].april);
+            this.gnperson.push(JSON.parse(response[4])[0].may);
+            this.gnperson.push(JSON.parse(response[4])[0].june);
+            this.gnperson.push(JSON.parse(response[4])[0].july);
+            this.gnperson.push(JSON.parse(response[4])[0].august);
+            this.gnperson.push(JSON.parse(response[4])[0].september);
+            this.gnperson.push(JSON.parse(response[4])[0].october);
+            this.gnperson.push(JSON.parse(response[4])[0].november);
+            this.gnperson.push(JSON.parse(response[4])[0].december);
+            this.gnperson.push(JSON.parse(response[4])[0].january);
+            this.gnperson.push(JSON.parse(response[4])[0].february);
+            this.gnperson.push(JSON.parse(response[4])[0].march);
+
+            // this.gnperson.push(gnpersonnel5);
+            // this.gnperson.push(gnpersonnel6);
+            // this.gnperson.push(gnpersonnel7);
+            // this.gnperson.push(gnpersonnel8);
+            // this.gnperson.push(gnpersonnel9);
+            // this.gnperson.push(gnpersonnel10);
+            // this.gnperson.push(gnpersonnel11);
+            // this.gnperson.push(gnpersonnel12);
+            // this.gnperson.push(gnpersonnel1);
+            // this.gnperson.push(gnpersonnel2);
+            // this.gnperson.push(gnpersonnel3);
+            // this.gwperson.push(gwpersonnel4);
+            // this.gwperson.push(gwpersonnel5);
+            // this.gwperson.push(gwpersonnel6);
+            // this.gwperson.push(gwpersonnel7);
+            // this.gwperson.push(gwpersonnel8);
+            // this.gwperson.push(gwpersonnel9);
+            // this.gwperson.push(gwpersonnel10);
+            // this.gwperson.push(gwpersonnel11);
+            // this.gwperson.push(gwpersonnel12);
+            // this.gwperson.push(gwpersonnel1);
+            // this.gwperson.push(gwpersonnel2);
+
+            this.gwperson.push(JSON.parse(response[5])[0].april);
+            this.gwperson.push(JSON.parse(response[5])[0].may);
+            this.gwperson.push(JSON.parse(response[5])[0].june);
+            this.gwperson.push(JSON.parse(response[5])[0].july);
+            this.gwperson.push(JSON.parse(response[5])[0].august);
+            this.gwperson.push(JSON.parse(response[5])[0].september);
+            this.gwperson.push(JSON.parse(response[5])[0].october);
+            this.gwperson.push(JSON.parse(response[5])[0].november);
+            this.gwperson.push(JSON.parse(response[5])[0].december);
+            this.gwperson.push(JSON.parse(response[5])[0].january);
+            this.gwperson.push(JSON.parse(response[5])[0].february);
+            this.gwperson.push(JSON.parse(response[5])[0].march);
 
             //add ccm 20211009 事业计划初期各种经费加载内容 fr
             //通信添加字典设置的默认值
@@ -3587,7 +3623,10 @@
             this.$set(this.tableP[3], 'money' + this.arr[i], '0.00');
           }
           this.$set(this.tableP[4], 'money' + this.arr[i], (Number(this.tableP[0]['money' + this.arr[i]]) + Number(this.tableP[1]['money' + this.arr[i]]) + Number(this.tableP[2]['money' + this.arr[i]]) + Number(this.tableP[3]['money' + this.arr[i]])).toFixed(2));
-          this.$set(this.tableP[5], 'money' + this.arr[i], (Number(this.tableP[4]['money' + this.arr[i]]) - (Number(this.tableP[1]['money' + this.arr[i]]) * Number(getDictionaryInfo('PJ086002').value2) + Number(this.tableP[2]['money' + this.arr[i]]) * Number(getDictionaryInfo('PJ086003').value2))).toFixed(2));
+          this.$set(this.tableP[5], 'money' + this.arr[i],
+            ((Number(this.tableP[0]['money' + this.arr[i]]) + Number(this.tableP[1]['money' + this.arr[i]]) + Number(this.tableP[2]['money' + this.arr[i]]))
+            - Number(this.tableP[1]['money' + this.arr[i]]) / (1 + Number(getDictionaryInfo('PJ086002').value2)) * Number(getDictionaryInfo('PJ086002').value2)
+            - Number(this.tableP[2]['money' + this.arr[i]]) / (1 + Number(getDictionaryInfo('PJ086003').value2)) * Number(getDictionaryInfo('PJ086003').value2)).toFixed(2));
           //人员计划合计下半个
           if (this.tableA.length > 0) {
             this.$set(this.tableP[6], 'money' + this.arr[i], ((Number(this.tableA[0]['pay' + this.arr[i]]) + Number(this.tableA[0]['giving' + this.arr[i]])) / 1000).toFixed(2));
@@ -3696,7 +3735,7 @@
             val => {
               //仕掛品
               this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) -(Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
-                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.75).toFixed(2));
+                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.70).toFixed(2));
 
               //その他諸経費小計
               this.$set(this.tableP[41], val + this.arr[i], (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
@@ -3784,7 +3823,6 @@
           total27 = total27 + Number(this.tableP[27]['money' + this.arr[i]]); total37 = total37 + Number(this.tableP[37]['money' + this.arr[i]]);
           total28 = total28 + Number(this.tableP[28]['money' + this.arr[i]]); total38 = total38 + Number(this.tableP[38]['money' + this.arr[i]]);
           total29 = total29 + Number(this.tableP[29]['money' + this.arr[i]]); total39 = total39 + Number(this.tableP[39]['money' + this.arr[i]]);
-
           total40 = total40 + Number(this.tableP[40]['money' + this.arr[i]]); //total50 = total50 + Number(this.tableP[50]['money' + this.arr[i]]);
           total41 = total41 + Number(this.tableP[41]['money' + this.arr[i]]); total51 = total51 + Number(this.tableP[51]['money' + this.arr[i]]);
           total42 = total42 + Number(this.tableP[42]['money' + this.arr[i]]); total52 = total52 + Number(this.tableP[52]['money' + this.arr[i]]);
@@ -4569,6 +4607,10 @@
           {
             row.disableEdit = true;
           }
+          else
+          {
+            row.disableEdit = false;
+          }
           row.type = typePrice.value2 === null || typePrice.value2 === '' ? '' : typePrice.value2;
         }
         else
@@ -4576,6 +4618,20 @@
           row.price = 0;
           row.type = '';
         }
+
+        //初期化都为0，方便之后运算出现非数字的情况 fr
+        for (let k = 1;k<=12;k++)
+        {
+          row['number'+k] = 0;
+          row['money'+k] = 0;
+        }
+        row.numberfirst = 0;
+        row.numbersecond = 0;
+        row.numbertotal = 0;
+        row.moneyfirst = 0;
+        row.moneysecond = 0;
+        row.moneytotal = 0;
+        //初期化都为0，方便之后运算出现非数字的情况 to
 
         //通信费-专线费
         if (row.sprogramme === 'PJ147014')
@@ -4591,52 +4647,43 @@
         //各种经费-房租，电费
         else if (row.sprogramme === 'PJ148001' || row.sprogramme === 'PJ148002')
         {
-          row.number4 = Number(this.tableA[0]['amount4'] || 0) + Number(this.gwperson[0] || 0) + Number(this.gnperson[0] || 0);
-          row.number5 = Number(this.tableA[0]['amount5'] || 0) + Number(this.gwperson[1] || 0) + Number(this.gnperson[1] || 0);
-          row.number6 = Number(this.tableA[0]['amount6'] || 0) + Number(this.gwperson[2] || 0) + Number(this.gnperson[2] || 0);
-          row.number7 = Number(this.tableA[0]['amount7'] || 0) + Number(this.gwperson[3] || 0) + Number(this.gnperson[3] || 0);
-          row.number8 = Number(this.tableA[0]['amount8'] || 0) + Number(this.gwperson[4] || 0) + Number(this.gnperson[4] || 0);
-          row.number9 = Number(this.tableA[0]['amount9'] || 0) + Number(this.gwperson[5] || 0) + Number(this.gnperson[5] || 0);
-          row.number10 = Number(this.tableA[0]['amount10'] || 0) + Number(this.gwperson[6] || 0) + Number(this.gnperson[6] || 0);
-          row.number11 = Number(this.tableA[0]['amount11'] || 0) + Number(this.gwperson[7] || 0) + Number(this.gnperson[7] || 0);
-          row.number12 = Number(this.tableA[0]['amount12'] || 0) + Number(this.gwperson[8] || 0) + Number(this.gnperson[8] || 0);
-          row.number1 = Number(this.tableA[0]['amount1'] || 0) + Number(this.gwperson[9] || 0) + Number(this.gnperson[9] || 0);
-          row.number2 = Number(this.tableA[0]['amount2'] || 0) + Number(this.gwperson[10] || 0) + Number(this.gnperson[10] || 0);
-          row.number3 = Number(this.tableA[0]['amount3'] || 0) + Number(this.gwperson[11] || 0) + Number(this.gnperson[11] || 0);
+          if (this.$route.params._id)
+          {
+            for (let i = 1; i<=12;i++)
+            {
+              row['number'+ i] = Number(this.tableP[52]['money'+i] || 0) + Number(this.tableP[53]['money'+i] || 0) + Number(this.tableP[54]['money'+i] || 0);
+            }
+          }
+          else
+          {
+
+            for (let i = 0; i<=11;i++)
+            {
+              if(i < 9){
+                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+              }else{
+                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+              }
+            }
+          }
           this.changeSprogrammeAmountmoney(row);
         }
         //各种经费-人才代理费
         else if (row.sprogramme === 'PJ148003')
         {
-          row.number4 = Number(this.tableA[0]['amount4'] || 0);
-          row.number5 = Number(this.tableA[0]['amount5'] || 0);
-          row.number6 = Number(this.tableA[0]['amount6'] || 0);
-          row.number7 = Number(this.tableA[0]['amount7'] || 0);
-          row.number8 = Number(this.tableA[0]['amount8'] || 0);
-          row.number9 = Number(this.tableA[0]['amount9'] || 0);
-          row.number10 = Number(this.tableA[0]['amount10'] || 0);
-          row.number11 = Number(this.tableA[0]['amount11'] || 0);
-          row.number12 = Number(this.tableA[0]['amount12'] || 0);
-          row.number1 = Number(this.tableA[0]['amount1'] || 0);
-          row.number2 = Number(this.tableA[0]['amount2'] || 0);
-          row.number3 = Number(this.tableA[0]['amount3'] || 0);
+          for (let a = 1; a<=12;a++)
+          {
+            row['number'+ a] = Number(this.tableA[0]['amount'+a] || 0);
+          }
           this.changeSprogrammeAmountmoney(row);
         }
       },
       changeSprogrammeAmount(scope) {
         if (scope.price > 0) {
-          scope.money4 = (scope.price / 1000).toFixed(3);
-          scope.money5 = scope.money4;
-          scope.money6 = scope.money4;
-          scope.money7 = scope.money4;
-          scope.money8 = scope.money4;
-          scope.money9 = scope.money4;
-          scope.money10 = scope.money4;
-          scope.money11 = scope.money4;
-          scope.money12 = scope.money4;
-          scope.money1 = scope.money4;
-          scope.money2 = scope.money4;
-          scope.money3 = scope.money4;
+          for(let b = 1; b<=12;b++)
+          {
+            scope['money'+ b] = (scope.price / 1000).toFixed(3);
+          }
           scope.numberfirst = (0).toFixed(1);
           scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
           scope.numbersecond = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
@@ -4923,6 +4970,25 @@
               });
             }
         })
+        //region scc add 导出 from
+        if(val == 'export'){
+          this.loading = true;
+          this.$store
+            .dispatch('PFANS1036Store/BusinessplanExport', this.tableP)
+            .then(res => {
+              this.download(res,"事业计划PL")
+              this.loading = false;
+            })
+            .catch(error => {
+              this.$message.error({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+        //endregion scc add 导出 to
       },
       //region scc add 10/9 子组件向父组件传值 from
       changeTableNewYear(val){//新事业年度
@@ -4940,6 +5006,27 @@
         }
       },
       //endregion scc add 10/9 子组件向父组件传值 to
+
+      //region scc add 导出下载 from
+      download(data, filename) {
+        if ('msSaveOrOpenBlob' in navigator) {
+          window.navigator.msSaveOrOpenBlob(
+            new Blob([data], {type: 'application/vnd.ms-excel;charset=utf-8'}),
+            decodeURI(filename) + '.xlsx',
+          );
+        } else {
+          var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+          var downloadElement = document.createElement('a');
+          var href = window.URL.createObjectURL(blob); //创建下载的链接
+          downloadElement.href = href;
+          downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+          document.body.appendChild(downloadElement);
+          downloadElement.click(); //点击下载
+          document.body.removeChild(downloadElement); //下载完成移除元素
+          window.URL.revokeObjectURL(href); //释放掉blob对象
+        }
+      },
+      //endregion scc add 导出下载 to
     },
     watch: {
       //region add_qhr_20210910 取消画面实时计算
