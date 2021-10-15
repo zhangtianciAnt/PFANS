@@ -9,7 +9,7 @@ import {
   getgroupA1,
   getgroup,
   whetherEditor,
-  download,
+  download, BusinessplanExport,
 } from './PFANS1036Api';
 
 const PFANS1036Store = {
@@ -162,6 +162,22 @@ const PFANS1036Store = {
       })
     },
     //endregion scc add 10/9 事业计划模板下载 to
+
+    //region scc add 事业计划PL导出 from
+    BusinessplanExport({commit}, data) {
+      return new Promise((resolve, reject) => {
+        BusinessplanExport(data).then(response => {
+          if ( response.type.indexOf("json") == -1 ) {
+            resolve(response)
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 事业计划PL导出 to
 
   },
 };

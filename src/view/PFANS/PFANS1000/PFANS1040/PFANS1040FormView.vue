@@ -1528,294 +1528,33 @@
         this.$store
           .dispatch('PFANS1040Store/getdataList', parameter)
           .then(response => {
-            this.tableData = [];
-            let data1 = response.filter(item => (item.type == '0'));
-            let data2 = response.filter(item => (item.type == '1'));
-            let amountwpersonnel = 0;
-            let amountpersonnel = 0;
-            let personnel4 = 0;
-            let personnel5 = 0;
-            let personnel6 = 0;
-            let personnel7 = 0;
-            let personnel8 = 0;
-            let personnel9 = 0;
-            let personnel10 = 0;
-            let personnel11 = 0;
-            let personnel12 = 0;
-            let personnel1 = 0;
-            let personnel2 = 0;
-            let personnel3 = 0;
-            let wpersonnel4 = 0;
-            let wpersonnel5 = 0;
-            let wpersonnel6 = 0;
-            let wpersonnel7 = 0;
-            let wpersonnel8 = 0;
-            let wpersonnel9 = 0;
-            let wpersonnel10 = 0;
-            let wpersonnel11 = 0;
-            let wpersonnel12 = 0;
-            let wpersonnel1 = 0;
-            let wpersonnel2 = 0;
-            let wpersonnel3 = 0;
-            if (data1.length > 0) {
-              if (data1[0].employed != null)
-              {
-                this.wnewentry = JSON.parse(data1[0].employed);
-                amountpersonnel = data1[0].moneyavg;
-                personnel4 = this.wnewentry.length;
-                personnel5 = this.wnewentry.length;
-                personnel6 = this.wnewentry.length;
-                personnel7 = this.wnewentry.length;
-                personnel8 = this.wnewentry.length;
-                personnel9 = this.wnewentry.length;
-                personnel10 = this.wnewentry.length;
-                personnel11 = this.wnewentry.length;
-                personnel12 = this.wnewentry.length;
-                personnel1 = this.wnewentry.length;
-                personnel2 = this.wnewentry.length;
-                personnel3 = this.wnewentry.length;
-              }
-              if (data1[0].newentry != null)
-              {
-                this.newentry = JSON.parse(data1[0].newentry);
-                for (let i = 0; i < this.newentry.length; i++) {
-                  if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-                    personnel4 = personnel4 + 1;
-                    personnel5 = personnel5 + 1;
-                    personnel6 = personnel6 + 1;
-                    personnel7 = personnel7 + 1;
-                    personnel8 = personnel8 + 1;
-                    personnel9 = personnel9 + 1;
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-                    personnel5 = personnel5 + 1;
-                    personnel6 = personnel6 + 1;
-                    personnel7 = personnel7 + 1;
-                    personnel8 = personnel8 + 1;
-                    personnel9 = personnel9 + 1;
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-                    personnel6 = personnel6 + 1;
-                    personnel7 = personnel7 + 1;
-                    personnel8 = personnel8 + 1;
-                    personnel9 = personnel9 + 1;
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-                    personnel7 = personnel7 + 1;
-                    personnel8 = personnel8 + 1;
-                    personnel9 = personnel9 + 1;
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-                    personnel8 = personnel8 + 1;
-                    personnel9 = personnel9 + 1;
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-                    personnel9 = personnel9 + 1;
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-                    personnel10 = personnel10 + 1;
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-                    personnel11 = personnel11 + 1;
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-                    personnel12 = personnel12 + 1;
-                    personnel1 = personnel1 + 1;
-                    personnel2 = personnel2 + 1;
-                    personnel3 = personnel3 + 1;
-                  }
-                }
-              }
-            }
-            if (data2.length > 0) {
-              if (data2[0].employed !=null)
-              {
-                this.wemployed = JSON.parse(data2[0].employed);
-                amountwpersonnel = data2[0].moneyavg;
-                wpersonnel4 = this.wemployed.length;
-                wpersonnel5 = this.wemployed.length;
-                wpersonnel6 = this.wemployed.length;
-                wpersonnel7 = this.wemployed.length;
-                wpersonnel8 = this.wemployed.length;
-                wpersonnel9 = this.wemployed.length;
-                wpersonnel10 = this.wemployed.length;
-                wpersonnel11 = this.wemployed.length;
-                wpersonnel12 = this.wemployed.length;
-                wpersonnel1 = this.wemployed.length;
-                wpersonnel2 = this.wemployed.length;
-                wpersonnel3 = this.wemployed.length;
-              }
-              if (data2[0].newentry !=null)
-              {
-                this.employed = JSON.parse(data2[0].newentry);
-                for (let i = 0; i < this.employed.length; i++) {
-                  if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 1) {
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 2) {
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 3) {
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 4) {
-                    wpersonnel4 = wpersonnel4 + 1;
-                    wpersonnel5 = wpersonnel5 + 1;
-                    wpersonnel6 = wpersonnel6 + 1;
-                    wpersonnel7 = wpersonnel7 + 1;
-                    wpersonnel8 = wpersonnel8 + 1;
-                    wpersonnel9 = wpersonnel9 + 1;
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 5) {
-                    wpersonnel5 = wpersonnel5 + 1;
-                    wpersonnel6 = wpersonnel6 + 1;
-                    wpersonnel7 = wpersonnel7 + 1;
-                    wpersonnel8 = wpersonnel8 + 1;
-                    wpersonnel9 = wpersonnel9 + 1;
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 6) {
-                    wpersonnel6 = wpersonnel6 + 1;
-                    wpersonnel7 = wpersonnel7 + 1;
-                    wpersonnel8 = wpersonnel8 + 1;
-                    wpersonnel9 = wpersonnel9 + 1;
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 7) {
-                    wpersonnel7 = wpersonnel7 + 1;
-                    wpersonnel8 = wpersonnel8 + 1;
-                    wpersonnel9 = wpersonnel9 + 1;
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 8) {
-                    wpersonnel8 = wpersonnel8 + 1;
-                    wpersonnel9 = wpersonnel9 + 1;
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 9) {
-                    wpersonnel9 = wpersonnel9 + 1;
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 10) {
-                    wpersonnel10 = wpersonnel10 + 1;
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 11) {
-                    wpersonnel11 = wpersonnel11 + 1;
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  } else if (parseInt(moment(this.employed[i].entermouth).format('MM')) == 12) {
-                    wpersonnel12 = wpersonnel12 + 1;
-                    wpersonnel1 = wpersonnel1 + 1;
-                    wpersonnel2 = wpersonnel2 + 1;
-                    wpersonnel3 = wpersonnel3 + 1;
-                  }
-                }
-              }
-            }
             this.tableData.push({
-              amountwpersonnel: amountwpersonnel,
-              amountpersonnel: amountpersonnel,
-              personnel4: personnel4,
-              wpersonnel4: wpersonnel4,
-              personnel5: personnel5,
-              wpersonnel5: wpersonnel5,
-              personnel6: personnel6,
-              wpersonnel6: wpersonnel6,
-              personnel7: personnel7,
-              wpersonnel7: wpersonnel7,
-              personnel8: personnel8,
-              wpersonnel8: wpersonnel8,
-              personnel9: personnel9,
-              wpersonnel9: wpersonnel9,
-              personnel10: personnel10,
-              wpersonnel10: wpersonnel10,
-              personnel11: personnel11,
-              wpersonnel11: wpersonnel11,
-              personnel12: personnel12,
-              wpersonnel12: wpersonnel12,
-              personnel1: personnel1,
-              wpersonnel1: wpersonnel1,
-              personnel2: personnel2,
-              wpersonnel2: wpersonnel2,
-              personnel3: personnel3,
-              wpersonnel3: wpersonnel3,
+              amountwpersonnel: '0',
+              amountpersonnel: response['Moneyavg'][0],
+              personnel4: response['inCompany'][0],
+              wpersonnel4: response['outCompany'][0],
+              personnel5: response['inCompany'][1],
+              wpersonnel5: response['outCompany'][1],
+              personnel6: response['inCompany'][2],
+              wpersonnel6: response['outCompany'][2],
+              personnel7: response['inCompany'][3],
+              wpersonnel7: response['outCompany'][3],
+              personnel8: response['inCompany'][4],
+              wpersonnel8: response['outCompany'][4],
+              personnel9: response['inCompany'][5],
+              wpersonnel9: response['outCompany'][5],
+              personnel10: response['inCompany'][6],
+              wpersonnel10: response['outCompany'][6],
+              personnel11: response['inCompany'][7],
+              wpersonnel11: response['outCompany'][7],
+              personnel12: response['inCompany'][8],
+              wpersonnel12: response['outCompany'][8],
+              personnel1: response['inCompany'][9],
+              wpersonnel1:  response['outCompany'][9],
+              personnel2: response['inCompany'][10],
+              wpersonnel2: response['outCompany'][10],
+              personnel3: response['inCompany'][11],
+              wpersonnel3: response['outCompany'][11],
             });
             this.tabledatashow = true;
             this.loading = false;

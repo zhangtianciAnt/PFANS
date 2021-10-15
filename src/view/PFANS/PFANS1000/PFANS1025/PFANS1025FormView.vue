@@ -711,11 +711,11 @@
             validator: checkuser,
             trigger: 'change',
           }],
-          enclosurecontent: [{
-            required: true,
-            validator: checkuploadfile,
-            trigger: 'change',
-          }],
+          // enclosurecontent: [{
+          //   required: true,
+          //   validator: checkuploadfile,
+          //   trigger: 'change',
+          // }],
           // telephone: [{
           //   required: true,
           //   message: this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.PFANS1012VIEW_TELEPHONE'),

@@ -2982,6 +2982,9 @@
                     }
                   }
                   for (let i = index; i < rows.length; i++) {
+                    if(i + 1 - lengthjue <= 0){
+                      lengthjue = 0;
+                    }
                     if (this.form.tableclaimtype[i].claimtype.indexOf(this.$t('label.PFANS1024VIEW_LETTERS')) != -1) {
                       this.form.tableclaimtype[i].claimtype = this.$t('label.PFANS1024VIEW_LETTERS') + this.$t('label.PFANS1026FORMVIEW_D') + (i + 1 - lengthjue) + this.$t('label.PFANS1026FORMVIEW_H');
                     }
@@ -3014,13 +3017,13 @@
                       maketype: '',
                       rowindex: '',
                       claimdatetimeqh: '',
-                      deliveryconditionqh: '',
+                      deliveryconditionqh: 'HT009001',
                       deliveryqh: '',
-                      claimconditionqh: '',
+                      claimconditionqh: 'HT011001',
                       claimqh: '',
                       qingremarksqh: '',
                       remarksqh: '',
-                      recoverystatus: '',
+                      recoverystatus: '0',
                       recoverydate: '',
                     },
                   ];
