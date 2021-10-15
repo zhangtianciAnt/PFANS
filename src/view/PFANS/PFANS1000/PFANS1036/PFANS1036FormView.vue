@@ -1126,7 +1126,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
-                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148035' ? true : false)"
+                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148037' ? true : false)"
                             @click.native.prevent="deleteRowO1(scope.$index, tableO1)"
                             plain
                             size="small"
@@ -1642,11 +1642,11 @@
                       <el-table-column  width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                         prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right" v-if="scope.row.sprogramme !== 'PJ148035'"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right" v-if="scope.row.sprogramme !== 'PJ148037'"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price" :disabled="scope.row.disableEdit">
                           </el-input-number>
-                          <el-input-number size="small" style="width:7vw"  controls-position="right" v-if="scope.row.sprogramme === 'PJ148035'"
+                          <el-input-number size="small" style="width:7vw"  controls-position="right" v-if="scope.row.sprogramme === 'PJ148037'"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price" :disabled="scope.row.disableEdit">
                           </el-input-number>
@@ -1862,7 +1862,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
-                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148035' ? true : false)"
+                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148037' ? true : false)"
                             @click.native.prevent="deleteRowO(scope.$index, tableO)"
                             plain
                             size="small"
@@ -2285,7 +2285,7 @@
           //region scc add 导出 from
           {
             key: 'export',
-            name: 'button.export',
+            name: 'button.exportPL',
             disabled: false,
             icon: 'el-icon-download'
           },
@@ -4669,7 +4669,7 @@
           if (Number(typePrice.value4 || 0 ) != 0)
           {
             //region scc add 10/14 各种经费，当调整项有初始默认值时，仍然可编辑 from
-            if(val != "PJ148035"){
+            if(val != "PJ148037"){
               row.disableEdit = true;
             }else{
               row.disableEdit = false;
