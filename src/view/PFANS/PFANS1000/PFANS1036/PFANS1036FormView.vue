@@ -1126,7 +1126,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
-                                                                  scope.row.sprogramme === 'PJ148003' ? true : false)"
+                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148035' ? true : false)"
                             @click.native.prevent="deleteRowO1(scope.$index, tableO1)"
                             plain
                             size="small"
@@ -1642,7 +1642,11 @@
                       <el-table-column  width="135" :label="$t('label.PFANS1036FORMVIEW_UNITPRICE')" align="center"
                                         prop="price" >
                         <template slot-scope="scope">
-                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right"
+                          <el-input-number size="small" style="width:7vw" :min="0" controls-position="right" v-if="scope.row.sprogramme !== 'PJ148035'"
+                                           @change="changeSum(scope.row)" :step="1000"
+                                           v-model="scope.row.price" :disabled="scope.row.disableEdit">
+                          </el-input-number>
+                          <el-input-number size="small" style="width:7vw"  controls-position="right" v-if="scope.row.sprogramme === 'PJ148035'"
                                            @change="changeSum(scope.row)" :step="1000"
                                            v-model="scope.row.price" :disabled="scope.row.disableEdit">
                           </el-input-number>
@@ -1858,7 +1862,7 @@
                         <template slot-scope="scope">
                           <el-button
                             :disabled="!disable === true ? true : (scope.row.sprogramme === 'PJ147014' || scope.row.sprogramme === 'PJ148001' || scope.row.sprogramme === 'PJ148002' ||
-                                                                  scope.row.sprogramme === 'PJ148003' ? true : false)"
+                                                                  scope.row.sprogramme === 'PJ148003' || scope.row.sprogramme === 'PJ148035' ? true : false)"
                             @click.native.prevent="deleteRowO(scope.$index, tableO)"
                             plain
                             size="small"
@@ -2407,19 +2411,21 @@
           {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE2')},
           {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE3')},
           {name1: this.$t('label.PFANS1036FORMVIEW_TAB8VALUE4')},
-          {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE2'),
-            type: 55,
-          },
-          {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),
-            type: 56,
-          },
-          {
-            name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),
-            type: 57,
-          },
-          {name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'), type: 58},
+          //region scc del 移除工数(人月)显示 from
+          // {
+          //   name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE2'),
+          //   type: 55,
+          // },
+          // {
+          //   name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE3'),
+          //   type: 56,
+          // },
+          // {
+          //   name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE4'),
+          //   type: 57,
+          // },
+          //endregion scc del 移除工数(人月)显示 to
+          // {name1: this.$t('label.PFANS1036FORMVIEW_TAB9VALUE5'), type: 58},
           //del ccm 20211008 稼动率显示删除 fr
           // {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE2')},
           // {name1: this.$t('label.PFANS1036FORMVIEW_TAB10VALUE3')},
@@ -3032,6 +3038,7 @@
         this.$store
           .dispatch('PFANS1036Store/getPersonPlan', {'groupid': groupid, 'year': year})
           .then(response => {
+
             if (response[0]) this.tableC = JSON.parse(response[0]);
             if (response[1]) this.tableD = JSON.parse(response[1]);
             if (response[2]) this.tableA = [JSON.parse(response[2])];
@@ -3387,10 +3394,10 @@
         let total2 = 0;    let total12 = 0;   let total22 = 0;   let total32 = 0;   let total42 = 0;   let total52 = 0;
         let total3 = 0;    let total13 = 0;   let total23 = 0;   let total33 = 0;   let total43 = 0;   let total53 = 0;
         let total4 = 0;    let total14 = 0;   let total24 = 0;   let total34 = 0;   let total44 = 0;   let total54 = 0;
-        let total5 = 0;    let total15 = 0;   let total25 = 0;   let total35 = 0;   let total45 = 0;   let total55 = 0;
-        let total6 = 0;    let total16 = 0;   let total26 = 0;   let total36 = 0;   let total46 = 0;   let total56 = 0;
-        let total7 = 0;    let total17 = 0;   let total27 = 0;   let total37 = 0;   let total47 = 0;   let total57 = 0;
-        let total8 = 0;    let total18 = 0;   let total28 = 0;   let total38 = 0;   let total48 = 0;   let total58 = 0;
+        let total5 = 0;    let total15 = 0;   let total25 = 0;   let total35 = 0;   let total45 = 0;   //let total55 = 0; scc del 移除工数(人月)显示 10/14
+        let total6 = 0;    let total16 = 0;   let total26 = 0;   let total36 = 0;   let total46 = 0;   //let total56 = 0; scc del 移除工数(人月)显示 10/14
+        let total7 = 0;    let total17 = 0;   let total27 = 0;   let total37 = 0;   let total47 = 0;   //let total57 = 0; scc del 移除工数(人月)显示 10/14
+        let total8 = 0;    let total18 = 0;   let total28 = 0;   let total38 = 0;   let total48 = 0;   //let total58 = 0; scc del 移除工数(人月)显示 10/14
         let total9 = 0;    let total19 = 0;   let total29 = 0;   let total39 = 0;   let total49 = 0;   let total59 = 0;
         //add ccm 20211008 PL添加年间合计 to
 
@@ -3574,22 +3581,24 @@
             this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
             this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
           }
-          //外注PJ工数
-          if (this.tableP[55]['money' + this.arr[i]] === undefined || this.tableP[55]['money' + this.arr[i]] === '0.00' || this.tableP[55]['money' + this.arr[i]] === 0) {
-            this.$set(this.tableP[55], 'money' + this.arr[i], this.tablePall[5]['money' + this.arr[i]]);
-          }
-          //外注稼働工数
-          if (this.tableP[56]['money' + this.arr[i]] === undefined || this.tableP[56]['money' + this.arr[i]] === '0.00' || this.tableP[56]['money' + this.arr[i]] === 0) {
-            this.$set(this.tableP[56], 'money' + this.arr[i], this.tablePall[6]['money' + this.arr[i]]);
-          }
-          //社員PJ工数
-          if (this.tableP[57]['money' + this.arr[i]] === undefined || this.tableP[57]['money' + this.arr[i]] === '0.00' || this.tableP[57]['money' + this.arr[i]] === 0) {
-            this.$set(this.tableP[57], 'money' + this.arr[i], this.tablePall[7]['money' + this.arr[i]]);
-          }
-          //社員稼働工数
-          if (this.tableP[58]['money' + this.arr[i]] === undefined || this.tableP[58]['money' + this.arr[i]] === '0.00' || this.tableP[58]['money' + this.arr[i]] === 0) {
-            this.$set(this.tableP[58], 'money' + this.arr[i], this.tablePall[8]['money' + this.arr[i]]);
-          }
+          //region scc del 10/14 移除工数(人月)显示 from
+          // //外注PJ工数
+          // if (this.tableP[55]['money' + this.arr[i]] === undefined || this.tableP[55]['money' + this.arr[i]] === '0.00' || this.tableP[55]['money' + this.arr[i]] === 0) {
+          //   this.$set(this.tableP[55], 'money' + this.arr[i], this.tablePall[5]['money' + this.arr[i]]);
+          // }
+          // //外注稼働工数
+          // if (this.tableP[56]['money' + this.arr[i]] === undefined || this.tableP[56]['money' + this.arr[i]] === '0.00' || this.tableP[56]['money' + this.arr[i]] === 0) {
+          //   this.$set(this.tableP[56], 'money' + this.arr[i], this.tablePall[6]['money' + this.arr[i]]);
+          // }
+          // //社員PJ工数
+          // if (this.tableP[57]['money' + this.arr[i]] === undefined || this.tableP[57]['money' + this.arr[i]] === '0.00' || this.tableP[57]['money' + this.arr[i]] === 0) {
+          //   this.$set(this.tableP[57], 'money' + this.arr[i], this.tablePall[7]['money' + this.arr[i]]);
+          // }
+          // //社員稼働工数
+          // if (this.tableP[58]['money' + this.arr[i]] === undefined || this.tableP[58]['money' + this.arr[i]] === '0.00' || this.tableP[58]['money' + this.arr[i]] === 0) {
+          //   this.$set(this.tableP[58], 'money' + this.arr[i], this.tablePall[8]['money' + this.arr[i]]);
+          // }
+          //endregion scc del 10/14 移除工数(人月)显示 to
           //endregion
 
           //構外外注(工数)
@@ -3752,12 +3761,6 @@
               //税引後利益
               this.$set(this.tableP[49], val + this.arr[i], (Number(this.tableP[47][val + this.arr[i]]) - Number(this.tableP[48][val + this.arr[i]] || 0)).toFixed(2));
               //add
-              //界线利益率
-              if (Number(this.tableP[5][val + this.arr[i]] || 0) > 0) {
-                this.$set(this.tableP[51], val + this.arr[i], ((Number(this.tableP[5][val + this.arr[i]] || 0) - Number(this.tableP[13][val + this.arr[i]] || 0) - Number(this.tableP[24][val + this.arr[i]] || 0) - Number(this.tableP[32][val + this.arr[i]] || 0) - Number(this.tableP[21][val + this.arr[i]] || 0)) / (Number(this.tableP[5][val + this.arr[i]] || 0))).toFixed(2));
-              } else {
-                this.$set(this.tableP[51], val + this.arr[i], '0.00');
-              }
               //del ccm 20211008 稼动率显示删除 fr
               // //add
               // //稼働率(%)
@@ -3824,18 +3827,74 @@
           total28 = total28 + Number(this.tableP[28]['money' + this.arr[i]]); total38 = total38 + Number(this.tableP[38]['money' + this.arr[i]]);
           total29 = total29 + Number(this.tableP[29]['money' + this.arr[i]]); total39 = total39 + Number(this.tableP[39]['money' + this.arr[i]]);
           total40 = total40 + Number(this.tableP[40]['money' + this.arr[i]]); //total50 = total50 + Number(this.tableP[50]['money' + this.arr[i]]);
-          total41 = total41 + Number(this.tableP[41]['money' + this.arr[i]]); total51 = total51 + Number(this.tableP[51]['money' + this.arr[i]]);
+          total41 = total41 + Number(this.tableP[41]['money' + this.arr[i]]); //total51 = total51 + Number(this.tableP[51]['money' + this.arr[i]]);
           total42 = total42 + Number(this.tableP[42]['money' + this.arr[i]]); total52 = total52 + Number(this.tableP[52]['money' + this.arr[i]]);
           total43 = total43 + Number(this.tableP[43]['money' + this.arr[i]]); total53 = total53 + Number(this.tableP[53]['money' + this.arr[i]]);
           total44 = total44 + Number(this.tableP[44]['money' + this.arr[i]]); total54 = total54 + Number(this.tableP[54]['money' + this.arr[i]]);
-          total45 = total45 + Number(this.tableP[45]['money' + this.arr[i]]); total55 = total55 + Number(this.tableP[55]['money' + this.arr[i]]);
-          total46 = total46 + Number(this.tableP[46]['money' + this.arr[i]]); total56 = total56 + Number(this.tableP[56]['money' + this.arr[i]]);
-          total47 = total47 + Number(this.tableP[47]['money' + this.arr[i]]); total57 = total57 + Number(this.tableP[57]['money' + this.arr[i]]);
-          total48 = total48 + Number(this.tableP[48]['money' + this.arr[i]]); total58 = total58 + Number(this.tableP[58]['money' + this.arr[i]]);
+          total45 = total45 + Number(this.tableP[45]['money' + this.arr[i]]); //total55 = total55 + Number(this.tableP[55]['money' + this.arr[i]]); scc del 10/14 移除工数(人月)显示
+          total46 = total46 + Number(this.tableP[46]['money' + this.arr[i]]); //total56 = total56 + Number(this.tableP[56]['money' + this.arr[i]]); scc del 10/14 移除工数(人月)显示
+          total47 = total47 + Number(this.tableP[47]['money' + this.arr[i]]); //total57 = total57 + Number(this.tableP[57]['money' + this.arr[i]]); scc del 10/14 移除工数(人月)显示
+          total48 = total48 + Number(this.tableP[48]['money' + this.arr[i]]); //total58 = total58 + Number(this.tableP[58]['money' + this.arr[i]]); scc del 10/14 移除工数(人月)显示
           total49 = total49 + Number(this.tableP[49]['money' + this.arr[i]]);
 
           //add ccm 20211008 PL添加年间合计 to
         }
+        //界线利益率
+        //region scc upd 限界利润率计算变更，每三个月统计一次 from
+        //公式：（売上合計（税抜き、社内委託除き）- 人件費小計 - リース費 - 研究開発費・ソフト費用小計 - 旅費交通費 - 消耗品費 - ブランド使用料）/ 売上合計（税抜き、社内委託除き）
+        if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money4']) + Number(this.tableP[13]['money5']) + Number(this.tableP[13]['money6'])) - //人件費小計
+              (Number(this.tableP[17]['money4']) + Number(this.tableP[17]['money5']) + Number(this.tableP[17]['money6'])) - //リース費
+              (Number(this.tableP[26]['money4']) + Number(this.tableP[26]['money5']) + Number(this.tableP[26]['money6'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money4']) + Number(this.tableP[32]['money5']) + Number(this.tableP[32]['money6'])) - //旅費交通費
+              (Number(this.tableP[34]['money4']) + Number(this.tableP[34]['money5']) + Number(this.tableP[34]['money6'])) - //消耗品費
+              (Number(this.tableP[34]['money4']) + Number(this.tableP[34]['money5']) + Number(this.tableP[34]['money6']))) / //ブランド使用料
+            (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money6', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money6', '0.00');
+        }
+        if ((Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money7']) + Number(this.tableP[13]['money8']) + Number(this.tableP[13]['money9'])) - //人件費小計
+              (Number(this.tableP[17]['money7']) + Number(this.tableP[17]['money8']) + Number(this.tableP[17]['money9'])) - //リース費
+              (Number(this.tableP[26]['money7']) + Number(this.tableP[26]['money8']) + Number(this.tableP[26]['money9'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money7']) + Number(this.tableP[32]['money8']) + Number(this.tableP[32]['money9'])) - //旅費交通費
+              (Number(this.tableP[34]['money7']) + Number(this.tableP[34]['money8']) + Number(this.tableP[34]['money9'])) - //消耗品費
+              (Number(this.tableP[34]['money7']) + Number(this.tableP[34]['money8']) + Number(this.tableP[34]['money9']))) / //ブランド使用料
+            (Number(this.tableP[5]['money7']) + Number(this.tableP[5]['money8']) + Number(this.tableP[5]['money9']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money9', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money9', '0.00');
+        }
+        if ((Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money10']) + Number(this.tableP[13]['money11']) + Number(this.tableP[13]['money12'])) - //人件費小計
+              (Number(this.tableP[17]['money10']) + Number(this.tableP[17]['money11']) + Number(this.tableP[17]['money12'])) - //リース費
+              (Number(this.tableP[26]['money10']) + Number(this.tableP[26]['money11']) + Number(this.tableP[26]['money12'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money10']) + Number(this.tableP[32]['money11']) + Number(this.tableP[32]['money12'])) - //旅費交通費
+              (Number(this.tableP[34]['money10']) + Number(this.tableP[34]['money11']) + Number(this.tableP[34]['money12'])) - //消耗品費
+              (Number(this.tableP[34]['money10']) + Number(this.tableP[34]['money11']) + Number(this.tableP[34]['money12']))) / //ブランド使用料
+            (Number(this.tableP[5]['money10']) + Number(this.tableP[5]['money11']) + Number(this.tableP[5]['money12']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money12', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money12', '0.00');
+        }
+        if ((Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3'])) !== 0) {
+          let toCalculate = ((Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3'])) - //（売上合計（税抜き、社内委託除き）
+              (Number(this.tableP[13]['money1']) + Number(this.tableP[13]['money2']) + Number(this.tableP[13]['money3'])) - //人件費小計
+              (Number(this.tableP[17]['money1']) + Number(this.tableP[17]['money2']) + Number(this.tableP[17]['money3'])) - //リース費
+              (Number(this.tableP[26]['money1']) + Number(this.tableP[26]['money2']) + Number(this.tableP[26]['money3'])) - //研究開発費・ソフト費用小計
+              (Number(this.tableP[32]['money1']) + Number(this.tableP[32]['money2']) + Number(this.tableP[32]['money3'])) - //旅費交通費
+              (Number(this.tableP[34]['money1']) + Number(this.tableP[34]['money2']) + Number(this.tableP[34]['money3'])) - //消耗品費
+              (Number(this.tableP[34]['money1']) + Number(this.tableP[34]['money2']) + Number(this.tableP[34]['money3']))) / //ブランド使用料
+            (Number(this.tableP[5]['money1']) + Number(this.tableP[5]['money2']) + Number(this.tableP[5]['money3']));//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'money3', toCalculate.toFixed(2));
+        } else {
+          this.$set(this.tableP[51], 'money3', '0.00');
+        }
+        //endregion scc upd 限界利润率计算变更，每三个月统计一次 from
         if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
           this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
         } else {
@@ -3880,14 +3939,14 @@
         this.$set(this.tableP[29], 'moneytotal', Number(total29).toFixed(2)); this.$set(this.tableP[39], 'moneytotal', Number(total39).toFixed(2));
 
         this.$set(this.tableP[40], 'moneytotal', Number(total40).toFixed(2)); this.$set(this.tableP[50], 'moneytotal', Number(Number(this.tableP[50]['money6']) + Number(this.tableP[50]['money9']) + Number(this.tableP[50]['money12']) + Number(this.tableP[50]['money3'])).toFixed(2));
-        this.$set(this.tableP[41], 'moneytotal', Number(total41).toFixed(2)); this.$set(this.tableP[51], 'moneytotal', Number(total51).toFixed(2));
+        this.$set(this.tableP[41], 'moneytotal', Number(total41).toFixed(2)); this.$set(this.tableP[51], 'moneytotal', Number(Number(this.tableP[51]['money6']) + Number(this.tableP[51]['money9']) + Number(this.tableP[51]['money12']) + Number(this.tableP[51]['money3'])).toFixed(2));
         this.$set(this.tableP[42], 'moneytotal', Number(total42).toFixed(2)); this.$set(this.tableP[52], 'moneytotal', Number(total52).toFixed(2));
         this.$set(this.tableP[43], 'moneytotal', Number(total43).toFixed(2)); this.$set(this.tableP[53], 'moneytotal', Number(total53).toFixed(2));
         this.$set(this.tableP[44], 'moneytotal', Number(total44).toFixed(2)); this.$set(this.tableP[54], 'moneytotal', Number(total54).toFixed(2));
-        this.$set(this.tableP[45], 'moneytotal', Number(total45).toFixed(2)); this.$set(this.tableP[55], 'moneytotal', Number(total55).toFixed(2));
-        this.$set(this.tableP[46], 'moneytotal', Number(total46).toFixed(2)); this.$set(this.tableP[56], 'moneytotal', Number(total56).toFixed(2));
-        this.$set(this.tableP[47], 'moneytotal', Number(total47).toFixed(2)); this.$set(this.tableP[57], 'moneytotal', Number(total57).toFixed(2));
-        this.$set(this.tableP[48], 'moneytotal', Number(total48).toFixed(2)); this.$set(this.tableP[58], 'moneytotal', Number(total58).toFixed(2));
+        this.$set(this.tableP[45], 'moneytotal', Number(total45).toFixed(2)); //this.$set(this.tableP[55], 'moneytotal', Number(total55).toFixed(2)); scc del 10/14 移除工数(人月)显示
+        this.$set(this.tableP[46], 'moneytotal', Number(total46).toFixed(2)); //this.$set(this.tableP[56], 'moneytotal', Number(total56).toFixed(2)); scc del 10/14 移除工数(人月)显示
+        this.$set(this.tableP[47], 'moneytotal', Number(total47).toFixed(2)); //this.$set(this.tableP[57], 'moneytotal', Number(total57).toFixed(2)); scc del 10/14 移除工数(人月)显示
+        this.$set(this.tableP[48], 'moneytotal', Number(total48).toFixed(2)); //this.$set(this.tableP[58], 'moneytotal', Number(total58).toFixed(2)); scc del 10/14 移除工数(人月)显示
         this.$set(this.tableP[49], 'moneytotal', Number(total49).toFixed(2));
 
         //add ccm 20211008 PL添加年间合计 to
@@ -3907,38 +3966,40 @@
               this.$set(this.tableP[54], 'money' + this.arr[i], '0.00');
               this.$set(this.tableP[6], 'money' + this.arr[i], '0.00');
             }
-            //外注PJ工数
-            if (this.tableP[55]['money' + this.arr[i]] === undefined || this.tableP[55]['money' + this.arr[i]] === '0.00' || this.tableP[55]['money' + this.arr[i]] === 0) {
-              if (this.sumB1.length > 0 && this.sumB2.length > 0) {
-                if (i <= 5) {
-                  this.$set(this.tableP[55], 'money' + this.arr[i], Number(Number(this.sumB1[1+2*i] || 0) + Number(this.sumB2[1+2*i] || 0)).toFixed(2));
-                } else {
-                  this.$set(this.tableP[55], 'money' + this.arr[i], Number(Number(this.sumB1[3+2*i] || 0) + Number(this.sumB2[3+2*i] || 0)).toFixed(2));
-                }
-              } else {
-                this.$set(this.tableP[55], 'money' + this.arr[i], '0.00');
-              }
-            }
-            //外注稼働工数
-            if (this.tableP[56]['money' + this.arr[i]] === undefined || this.tableP[56]['money' + this.arr[i]] === '0.00' || this.tableP[56]['money' + this.arr[i]] === 0) {
-              if (this.sumB1.length > 0 && this.sumB2.length > 0) {
-                if (i <= 5) {
-                  this.$set(this.tableP[56], 'money' + this.arr[i], Number(Number(this.sumB1[1+2*i] || 0) + Number(this.sumB2[1+2*i] || 0)).toFixed(2));
-                } else {
-                  this.$set(this.tableP[56], 'money' + this.arr[i], Number(Number(this.sumB1[3+2*i] || 0) + Number(this.sumB2[3+2*i] || 0)).toFixed(2));
-                }
-              } else {
-                this.$set(this.tableP[56], 'money' + this.arr[i], '0.00');
-              }
-            }
-            //社員PJ工数
-            if (this.tableP[57]['money' + this.arr[i]] === undefined || this.tableP[57]['money' + this.arr[i]] === '0.00' || this.tableP[57]['money' + this.arr[i]] === 0) {
-              this.$set(this.tableP[57], 'money' + this.arr[i], '0.00');
-            }
-            //社員稼働工数
-            if (this.tableP[58]['money' + this.arr[i]] === undefined || this.tableP[58]['money' + this.arr[i]] === '0.00' || this.tableP[58]['money' + this.arr[i]] === 0) {
-              this.$set(this.tableP[58], 'money' + this.arr[i], '0.00');
-            }
+            //region scc del 10/14 移除工数(人月)显示 from
+            // //外注PJ工数
+            // if (this.tableP[55]['money' + this.arr[i]] === undefined || this.tableP[55]['money' + this.arr[i]] === '0.00' || this.tableP[55]['money' + this.arr[i]] === 0) {
+            //   if (this.sumB1.length > 0 && this.sumB2.length > 0) {
+            //     if (i <= 5) {
+            //       this.$set(this.tableP[55], 'money' + this.arr[i], Number(Number(this.sumB1[1+2*i] || 0) + Number(this.sumB2[1+2*i] || 0)).toFixed(2));
+            //     } else {
+            //       this.$set(this.tableP[55], 'money' + this.arr[i], Number(Number(this.sumB1[3+2*i] || 0) + Number(this.sumB2[3+2*i] || 0)).toFixed(2));
+            //     }
+            //   } else {
+            //     this.$set(this.tableP[55], 'money' + this.arr[i], '0.00');
+            //   }
+            // }
+            // //外注稼働工数
+            // if (this.tableP[56]['money' + this.arr[i]] === undefined || this.tableP[56]['money' + this.arr[i]] === '0.00' || this.tableP[56]['money' + this.arr[i]] === 0) {
+            //   if (this.sumB1.length > 0 && this.sumB2.length > 0) {
+            //     if (i <= 5) {
+            //       this.$set(this.tableP[56], 'money' + this.arr[i], Number(Number(this.sumB1[1+2*i] || 0) + Number(this.sumB2[1+2*i] || 0)).toFixed(2));
+            //     } else {
+            //       this.$set(this.tableP[56], 'money' + this.arr[i], Number(Number(this.sumB1[3+2*i] || 0) + Number(this.sumB2[3+2*i] || 0)).toFixed(2));
+            //     }
+            //   } else {
+            //     this.$set(this.tableP[56], 'money' + this.arr[i], '0.00');
+            //   }
+            // }
+            // //社員PJ工数
+            // if (this.tableP[57]['money' + this.arr[i]] === undefined || this.tableP[57]['money' + this.arr[i]] === '0.00' || this.tableP[57]['money' + this.arr[i]] === 0) {
+            //   this.$set(this.tableP[57], 'money' + this.arr[i], '0.00');
+            // }
+            // //社員稼働工数
+            // if (this.tableP[58]['money' + this.arr[i]] === undefined || this.tableP[58]['money' + this.arr[i]] === '0.00' || this.tableP[58]['money' + this.arr[i]] === 0) {
+            //   this.$set(this.tableP[58], 'money' + this.arr[i], '0.00');
+            // }
+          //endregion scc del 10/14 移除工数(人月)显示 to
             //その他利益
             if (this.tableP[40]['money' + this.arr[i]] === undefined || this.tableP[40]['money' + this.arr[i]] === '0.00' || this.tableP[40]['money' + this.arr[i]] === 0) {
               this.$set(this.tableP[40], 'money' + this.arr[i], '0.00');
@@ -4073,13 +4134,14 @@
             return this.$t('label.PFANS1036FORMVIEW_TAB7VALUE2');
           } else if (index === 52) {
             return this.$t('label.PFANS1036FORMVIEW_TAB8VALUE1');
-          } else if (index === 55) {
-            return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
-            //del ccm 20211008 稼动率显示删除 fr
-          // } else if (index === 59) {
-          //   return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
-            //del ccm 20211008 稼动率显示删除 fr
           }
+          // else if (index === 55) {
+          //   return this.$t('label.PFANS1036FORMVIEW_TAB9VALUE1');
+          //   //del ccm 20211008 稼动率显示删除 fr
+          // // } else if (index === 59) {
+          // //   return this.$t('label.PFANS1036FORMVIEW_TAB10VALUE1');
+          //   //del ccm 20211008 稼动率显示删除 fr
+          // }
         } else if (column.property === 'name1') {
           if (getDictionaryInfo(row[column.property])) {
             return getDictionaryInfo(row[column.property]).value1;
@@ -4365,7 +4427,8 @@
       },
       //add lsg 20210601 获取月份金额 end
       changeSum(scope, index) {
-      if (scope.price > 0) {
+        //region scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 from
+      // if (scope.price > 0) {
          scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
@@ -4386,8 +4449,8 @@
           }
           scope.numbertotal = (Number(scope.numberfirst || 0) + Number(scope.numbersecond || 0)).toFixed(1);
           scope.moneytotal = (Number(scope.moneyfirst || 0) + Number(scope.moneysecond || 0)).toFixed(3);
-       }
-
+       // }
+        //endregion scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 to
       },
       addRow1() {
         this.tableO1.push({
@@ -4605,7 +4668,13 @@
           row.price = typePrice.value4 === null || typePrice.value4 === '' ? 0 : typePrice.value4;
           if (Number(typePrice.value4 || 0 ) != 0)
           {
-            row.disableEdit = true;
+            //region scc add 10/14 各种经费，当调整项有初始默认值时，仍然可编辑 from
+            if(val != "PJ148035"){
+              row.disableEdit = true;
+            }else{
+              row.disableEdit = false;
+            }
+            //endregion scc add 10/14 各种经费，当调整项有初始默认值时，仍然可编辑 to
           }
           else
           {
@@ -4780,6 +4849,12 @@
           this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
           this.tablePall = [];
           this.computedSumsave();
+          //region scc add 10/14 移除工数(人月)显示,但是需要占位条数~ from
+          this.tableP[55] = {};
+          this.tableP[56] = {};
+          this.tableP[57] = {};
+          this.tableP[58] = {};
+          //endregion scc add 10/14 移除工数(人月)显示,但是需要占位条数~ to
           this.tablePall.push(this.tableP[40]);
           this.tablePall.push(this.tableP[44]);
           this.tablePall.push(this.tableP[45]);

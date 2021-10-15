@@ -946,20 +946,12 @@
         let filtable = table;
         if (filtable.length > 0) {
           let totalExpect = {};
-          totalExpect.money1 = filtable[0].money1 === undefined ? 0 : filtable[0].money1;
-          totalExpect.money2 = filtable[0].money2 === undefined ? 0 : filtable[0].money2;
-          totalExpect.money3 = filtable[0].money3 === undefined ? 0 : filtable[0].money3;
-          totalExpect.money4 = filtable[0].money4 === undefined ? 0 : filtable[0].money4;
-          totalExpect.money5 = filtable[0].money5 === undefined ? 0 : filtable[0].money5;
-          totalExpect.money6 = filtable[0].money6 === undefined ? 0 : filtable[0].money6;
-          totalExpect.money7 = filtable[0].money7 === undefined ? 0 : filtable[0].money7;
-          totalExpect.money8 = filtable[0].money8 === undefined ? 0 : filtable[0].money8
-          totalExpect.money9 = filtable[0].money9 === undefined ? 0 : filtable[0].money9;
-          totalExpect.money10 = filtable[0].money10 === undefined ? 0 : filtable[0].money10;
-          totalExpect.money11 = filtable[0].money11 === undefined ? 0 : filtable[0].money11;
-          totalExpect.money12 = filtable[0].money12 === undefined ? 0 : filtable[0].money12;
-          totalExpect.moneyfirsthalf = (totalExpect.money4 + totalExpect.money5 + totalExpect.money6 + totalExpect.money7 + totalExpect.money8 + totalExpect.money9).toFixed(3);
-          totalExpect.moneysecondhalf = (totalExpect.money10 + totalExpect.money11 + totalExpect.money12 + totalExpect.money1 + totalExpect.money2 + totalExpect.money3).toFixed(3);
+          for (let i = 1;i<=12;i++)
+          {
+            totalExpect['money'+i] = (filtable['money'+i] || 0).toFixed(3);
+          }
+          totalExpect.moneyfirsthalf = (Number(totalExpect.money4) + Number(totalExpect.money5) + Number(totalExpect.money6) + Number(totalExpect.money7) + Number(totalExpect.money8) + Number(totalExpect.money9)).toFixed(3);
+          totalExpect.moneysecondhalf = (Number(totalExpect.money10) + Number(totalExpect.money11) + Number(totalExpect.money12) + Number(totalExpect.money1) + Number(totalExpect.money2) + Number(totalExpect.money3)).toFixed(3);
           totalExpect.moneyAnnual = (parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf)).toFixed(3);
           this.tableLodYearTotal = [totalExpect];
         }
@@ -1049,7 +1041,6 @@
       },
       //region scc add 软件资产table求和 from
       getSummaries1(table) {
-        debugger
         let totalExpect = {};
         let totalExpectfin = {};
         let totalActual = {};
