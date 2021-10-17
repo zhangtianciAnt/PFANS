@@ -1,5 +1,6 @@
 import request from '../../../../utils/request'
 import requestDownload from "../../../../utils/requestDownload";
+import requestPdf from "../../../../utils/requestPdf";
 
 export function get() {
   return request({
@@ -89,3 +90,14 @@ export function download(data) {
   })
 }
 //endregion scc add 10/9 事业计划模板下载 to
+
+//region scc add 事业计划PL导出 from
+export function BusinessplanExport(data) {
+  return request({
+    url: 'businessplan/export',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
+  })
+}
+//endregion scc add 事业计划PL导出 to

@@ -315,6 +315,20 @@ export function getDictionaryInfo(code) {
   return info;
 }
 
+//ztc 取字典组 fr
+export function getDictionaryInfoGroup(code) {
+  let info = [];
+  if (store.getters.dictionaryList && store.getters.dictionaryList.length > 0) {
+    for (let dictionary of store.getters.dictionaryList) {
+      if (dictionary.pcode === code) {
+        info.push(dictionary);
+      }
+    }
+  }
+  return info;
+}
+//ztc 取字典组 to
+
 export function getDictionaryInfode(value1, value2, value3) {
   let info = null;
   if (store.getters.dictionaryList && store.getters.dictionaryList.length > 0) {

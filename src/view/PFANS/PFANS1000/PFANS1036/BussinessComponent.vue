@@ -366,12 +366,12 @@
       },
       handleChange(scope, index) {
         if (scope.prices > 0) {
-          scope["money" + index] = scope.prices * scope["number" + index];
+          scope["money" + index] = (scope.prices * scope["number" + index]).toFixed(3);
           if (index >= 4 && index <= 9) {
-            scope.numberfirsthalf = (scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0);
+            scope.numberfirsthalf = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
             scope.moneyfirsthalf = ((Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0)).toFixed(3);
           } else if ((index >= 10 && index <= 12) || (index >= 1 && index <= 3)) {
-            scope.numbersecondhalf = (scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0);
+            scope.numbersecondhalf = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
             scope.moneysecondhalf = ((Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0)).toFixed(3);
           } else {
             for (let par in scope) {
@@ -380,12 +380,12 @@
                 scope[par] = Number((scope.prices * (scope[number]||0)).toFixed(3));
               }
             }
-            scope.numberfirsthalf = (scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0);
+            scope.numberfirsthalf = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
             scope.moneyfirsthalf = ((Number(scope.money4) || 0) + (Number(scope.money5) || 0) + (Number(scope.money6) || 0) + (Number(scope.money7) || 0) + (Number(scope.money8) || 0) + (Number(scope.money9) || 0)).toFixed(3);
-            scope.numbersecondhalf = (scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0);
+            scope.numbersecondhalf = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
             scope.moneysecondhalf = ((Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0)).toFixed(3);
           }
-          scope.numberAnnual = (scope.numberfirsthalf || 0) + (scope.numbersecondhalf || 0);
+          scope.numberAnnual = ((scope.numberfirsthalf || 0) + (scope.numbersecondhalf || 0)).toFixed(1);
           scope.moneyAnnual = (Number((scope.moneyfirsthalf || 0)) + Number((scope.moneysecondhalf || 0))).toFixed(3);
           this.getSummaries(this.tableBusiness);
         }
@@ -414,18 +414,11 @@
         totalExpect.moneyfirsthalf = (totalExpect.moneyfirsthalf || 0).toFixed(3);
         totalExpect.moneysecondhalf =(totalExpect.moneysecondhalf || 0).toFixed(3);
         totalExpect.moneyAnnual = ((parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf))).toFixed(3);
-        totalExpect.money4 = totalExpect.money4.toFixed(3) || 0;
-        totalExpect.money5 = totalExpect.money5.toFixed(3) || 0;
-        totalExpect.money6 = totalExpect.money6.toFixed(3) || 0;
-        totalExpect.money7 = totalExpect.money7.toFixed(3) || 0;
-        totalExpect.money8 = totalExpect.money8.toFixed(3) || 0;
-        totalExpect.money9 = totalExpect.money9.toFixed(3) || 0;
-        totalExpect.money10 = totalExpect.money10.toFixed(3) || 0;
-        totalExpect.money11 = totalExpect.money11.toFixed(3) || 0;
-        totalExpect.money12 = totalExpect.money12.toFixed(3) || 0;
-        totalExpect.money1 = totalExpect.money1.toFixed(3) || 0;
-        totalExpect.money2 = totalExpect.money2.toFixed(3) || 0;
-        totalExpect.money3 = totalExpect.money3.toFixed(3) || 0;
+        for (let k = 1; k <= 12; k++)
+        {
+          totalExpect['money' + k] = totalExpect['money' + k].toFixed(3) || 0;
+          totalExpect['number' + k] = totalExpect['number' + k].toFixed(1) || 0;
+        }
         this.tableNewYearTotal = [totalExpect];
         this.$emit("travel", this.tableNewYearTotal);
       },
