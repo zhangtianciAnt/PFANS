@@ -70,6 +70,7 @@ module.exports = {
     mingtian: '下一天',
     import: '导入',
     export: '导出',
+    exportPL: '导出PL',
     generatearticle: '生成物品领取验收单',
     folder: '新建文件夹',
     upload: '上传',
