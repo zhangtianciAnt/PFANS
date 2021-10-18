@@ -5282,5 +5282,25 @@
     }
   }
 
+  tr.el-table__row.row2 {
+    border-style: solid;
+    border-width: 0px 0px 3px 0px;
+  }
+  tr.el-table__row.row3 {
+    border-style: solid;
+    border-width: 0px 0px 3px 0px;
+  }
+  .el-table__body, .el-table__footer, .el-table__header{
+    table-layout: fixed;
+    border-collapse: collapse;
+  }
+  table tr:nth-child(52){
+    border-style: solid;
+    border-width: 0px 0px 3px 0px;
+  }
+  tbody .el-table--boder th.gutter:last-of-type {
+    display: block !important
+  }
+
 
 </style>
