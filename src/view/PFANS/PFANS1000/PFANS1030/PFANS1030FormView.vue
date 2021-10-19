@@ -1709,8 +1709,9 @@
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
-            // region ztc up 10/12 部門計画限界利益率 修改取自字典 fr
-            if(this.form.group_id !== null && this.form.group_id !== '' && this.form.group_id !== undefined){
+            // region ztc up 10/12 部門計画限界利益率 修改取自字典 fr  旧数据部门限界利润率不显示bug ztc fr
+            if(this.form.group_id !== null && this.form.group_id !== '' && this.form.group_id !== undefined && (this.form.rate === '' || this.form.rate === null)){
+              //旧数据部门限界利润率不显示bug ztc to
               let group_short = '';
               let groupAnt = getOrgInfo(this.form.group_id);
               if (groupAnt) {
