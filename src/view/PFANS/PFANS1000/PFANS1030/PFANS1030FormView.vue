@@ -1536,11 +1536,13 @@
               for (let i = 0; i < response.contractcompound.length; i++) {
                 //全部门
                 if (response.contractcompound[i].group_id) {
-                  debugger
-                  let groupInfo = getOrgInfo(response.contractcompound[i].group_id);
-                  if (groupInfo) {
-                    this.userlist.push(groupInfo.user);
-                    this.userlistOrg.push(groupInfo.user)
+                  let groupInfo = getOrgInformation(response.contractcompound[i].group_id);
+                  if (groupInfo.data.type === '2' && groupInfo.data.encoding) {//group
+                    this.userlist.push(groupInfo.parent.data.user);
+                    this.userlistOrg.push(groupInfo.parent.data.user);
+                  }else{
+                    this.userlist.push(groupInfo.data.user);//center
+                    this.userlistOrg.push(groupInfo.data.user);
                   }
                 }
               }
