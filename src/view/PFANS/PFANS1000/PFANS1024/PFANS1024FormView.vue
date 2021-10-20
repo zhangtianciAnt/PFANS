@@ -2003,7 +2003,9 @@
         //update gbb 20210412 选择group时只需要group的组织编码，别的信息用group对应的center信息 start
         let group = getOrgInformation(val);
         if (group) {
-          if(group.data.type === '2'){
+          //取有效组织 ztc fr
+          if(group.data.type === '2' && group.parent.data.encoding !== ''){
+            //取有效组织 ztc to
             this.form1.grouporglist = group.parent.data._id;
             this.grouporglist = group.parent.data._id;
             this.groupinfo = [

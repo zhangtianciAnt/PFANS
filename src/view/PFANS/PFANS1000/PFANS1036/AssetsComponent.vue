@@ -948,7 +948,9 @@
           let totalExpect = {};
           for (let i = 1;i<=12;i++)
           {
-            totalExpect['money'+i] = (filtable['money'+i] || 0).toFixed(3);
+            //事业计划设备投资、软件资产 以前事业年度合计bug ztc fr
+            totalExpect['money'+i] = (filtable[0]['money'+i] || 0).toFixed(3);
+            //事业计划设备投资、软件资产 以前事业年度合计bug ztc to
           }
           totalExpect.moneyfirsthalf = (Number(totalExpect.money4) + Number(totalExpect.money5) + Number(totalExpect.money6) + Number(totalExpect.money7) + Number(totalExpect.money8) + Number(totalExpect.money9)).toFixed(3);
           totalExpect.moneysecondhalf = (Number(totalExpect.money10) + Number(totalExpect.money11) + Number(totalExpect.money12) + Number(totalExpect.money1) + Number(totalExpect.money2) + Number(totalExpect.money3)).toFixed(3);

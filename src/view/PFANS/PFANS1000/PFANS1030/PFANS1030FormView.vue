@@ -572,16 +572,16 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
+<!--                  region ztc up 10/12 部門計画限界利益率 修改取自字典 fr-->
                   <el-form-item :label="$t('label.PFANS1030FORMVIEW_RATE')">
                     <el-input-number
-                      :disabled="!disable"
+                      :disabled="true"
                       :max="1000000000"
                       :min="0"
                       :precision="2"
                       controls-position="right"
                       style="width:11vw"
                       v-model="form.rate"
-                      @change="PJcheck2()"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -592,11 +592,12 @@
                     <el-input
                       :disabled = "true"
                       style="width:11vw;text-align: center"
-                      v-model="parseFloat(form.pjrate - form.rate).toFixed(2)"
+                      v-model="subrate"
                     >
                     </el-input>
                   </el-form-item>
                 </el-col>
+<!--                endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to-->
               </el-row>
               <el-row v-if="forreason">
                 <el-form-item :label="$t('label.PFANS1028VIEW_RESON')" prop="reason">
@@ -875,7 +876,7 @@
             <el-tab-pane :label="$t('label.PFANS2022VIEW_UPDATINGFILES')" name="fourth">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')"  :error="errorfile">
+                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent" :error="errorfile">
                     <el-upload
                       :action="upload"
                       :disabled="!disable"
@@ -912,7 +913,7 @@
   import dicselect from '../../../components/dicselect';
   import moment from 'moment';
   import org from '../../../components/org';
-  import {getDictionaryInfo, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole,getOrgInformation, accAdd} from '@/utils/customize';
+  import {getDictionaryInfo,getDictionaryInfoGroup, getUserInfo, downLoadUrl, uploadUrl, getOrgInfo,getCurrentRole,getOrgInformation, accAdd} from '@/utils/customize';
   import monthlyrate from '../../../components/monthlyrate';
   import project from '../../../components/project';
 
@@ -927,13 +928,29 @@
       project,
     },
     //region scc add 9/17 添加监听，初始化判断限界利润率 from
+    //region ztc up 10/12 部門計画限界利益率 修改取自字典 fr
     watch: {
-      activeName(val){
-        if (val == 'third'){
-          this.PJcheck2()
+      form: {
+        deep: true,
+        handler: function () {
+          this.subrate = parseFloat(this.form.pjrate - this.form.rate).toFixed(2)
+        }
+      },
+      subrate(val) {
+        if (val > 8 || val < -5) {
+          this.forreason = true;
+        } else {
+          this.forreason = false;
+          this.strreason = '';
         }
       }
+      // activeName(val){
+      //   if (val == 'third'){
+      //     this.PJcheck2()
+      //   }
+      // }
     },
+    //endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to
     //endregion scc add 9/17 添加监听，初始化判断限界利润率 to
     data() {
       var checkuser = (rule, value, callback) => {
@@ -1111,6 +1128,9 @@
         //region scc add  9/18 超出利润率理由 from
         strreason:'',
         //endregion scc add 9/18 超出利润率理由 to
+        // region ztc up 10/12 部門計画限界利益率 修改取自字典 fr
+        subrate:'',
+        // endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to
         // region scc add 21-8/20 详情部门下拉框 from
         option: [],
         option1: [],
@@ -1689,6 +1709,17 @@
             this.userlist = this.form.user_id;
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
+            // region ztc up 10/12 部門計画限界利益率 修改取自字典 fr  旧数据部门限界利润率不显示bug ztc fr
+            if(this.form.group_id !== null && this.form.group_id !== '' && this.form.group_id !== undefined && (this.form.rate === '' || this.form.rate === null)){
+              //旧数据部门限界利润率不显示bug ztc to
+              let group_short = '';
+              let groupAnt = getOrgInfo(this.form.group_id);
+              if (groupAnt) {
+                group_short = groupAnt.companyen;
+              }
+              this.form.rate = getDictionaryInfoGroup('PJ151').filter(item => item.value1 === group_short)[0].value2;
+            }
+            // endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to
             //region scc add 21/8/20 查询部门下拉框数据源 from
             this.$store
             .dispatch('PFANS1025Store/getcompanyen')
