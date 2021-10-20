@@ -4430,6 +4430,11 @@
         //region scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 from
       // if (scope.price > 0) {
          scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
+         //region scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 from
+          if(scope['money' + index] * 10 === -0){
+            scope['money' + index] = (scope['money' + index] * -1).toFixed(3);
+          }
+        //endregion scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 to
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
             scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
@@ -4440,6 +4445,11 @@
             for (let par in scope) {
               if (par.substring(0, 5) === 'money') {
                 scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(3);
+                //region scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 from
+                if(scope[par] * 10 === -0){
+                  scope[par] = (scope[par] * -1).toFixed(3);
+                }
+                //endregion scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 to
               }
             }
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
