@@ -308,7 +308,6 @@
                 <el-table-column :label="$t('label.operation')" align="center" width="160">
                   <template slot-scope="scope">
                     <el-button
-                      :disabled="scope.row.budgetcode ===$t('label.PFANS1025FORMVIEW_CHECKERROR')?true:!disable"
                       @click.native.prevent="deleteRow(scope.$index, tableT)"
                       plain
                       size="small"
@@ -491,7 +490,7 @@
         },
         //region scc add 基本情报2table from
         tableT: [{
-          budgetcode: this.$t('label.PFANS1025FORMVIEW_CHECKERROR'),
+          budgetcode: '',
           depart: '',
           member: '',
           community: '',
@@ -499,18 +498,20 @@
           outcommunity: '',
           awardmoney: '',
           rowindex: '',
-        }, {
-          awarddetail_id: '',
-          award_id: '',
-          budgetcode:this.$t('label.PFANS1025FORMVIEW_DETAIL'),
-          depart: '',
-          member: '',
-          community: '',
-          outsource: '',
-          outcommunity: '',
-          awardmoney: '',
-          rowindex: '',
-        }],
+        },
+        //   {
+        //   awarddetail_id: '',
+        //   award_id: '',
+        //   budgetcode:this.$t('label.PFANS1025FORMVIEW_DETAIL'),
+        //   depart: '',
+        //   member: '',
+        //   community: '',
+        //   outsource: '',
+        //   outcommunity: '',
+        //   awardmoney: '',
+        //   rowindex: '',
+        // }
+        ],
         //endregion scc add 基本情报2table to
         tableS: [],
         tableD: [],
