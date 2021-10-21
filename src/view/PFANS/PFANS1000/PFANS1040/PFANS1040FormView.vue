@@ -1087,7 +1087,6 @@
                   Number(row.wpersonnel11) +
                   Number(row.wpersonnel12);
         }else if(column.property === "personnumber"){
-          debugger
           return (Number(row.personnel1) +
                   Number(row.personnel2) +
                   Number(row.personnel3) +
@@ -1118,38 +1117,10 @@
       // 添加年间合计 ztc to
       nsum(row) {
         row.sumpersonnel1 = Number(row.personnel4) + Number(row.personnel5) + Number(row.personnel6);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       wsum(row) {
         row.sumwpersonnel1 = Number(row.wpersonnel4) + Number(row.wpersonnel5) + Number(row.wpersonnel6);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount1 = Number(row.amount4) + Number(row.amount5) + Number(row.amount6);
       },
       amountsum(row) {
@@ -1157,38 +1128,10 @@
       },
       nsum1(row) {
         row.sumpersonnel2 = Number(row.personnel7) + Number(row.personnel8) + Number(row.personnel9);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       wsum1(row) {
         row.sumwpersonnel2 = Number(row.wpersonnel7) + Number(row.wpersonnel8) + Number(row.wpersonnel9);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount2 = Number(row.amount7) + Number(row.amount8) + Number(row.amount9);
       },
       amountsum1(row) {
@@ -1197,38 +1140,10 @@
 
       nsum2(row) {
         row.sumpersonnel3 = Number(row.personnel10) + Number(row.personnel11) + Number(row.personnel12);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       wsum2(row) {
         row.sumwpersonnel3 = Number(row.wpersonnel10) + Number(row.wpersonnel11) + Number(row.wpersonnel12);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount3 = Number(row.amount10) + Number(row.amount11) + Number(row.amount12);
       },
       amountsum2(row) {
@@ -1236,38 +1151,10 @@
       },
       nsum3(row) {
         row.sumpersonnel4 = Number(row.personnel1) + Number(row.personnel2) + Number(row.personnel3);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       wsum3(row) {
         row.sumwpersonnel4 = Number(row.wpersonnel1) + Number(row.wpersonnel2) + Number(row.wpersonnel3);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-start
-        // row.amount4 = Number(row.personnel4 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel4 * this.tableData[0].amountwpersonnel);
-        // row.amount5 = Number(row.personnel5 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel5 * this.tableData[0].amountwpersonnel);
-        // row.amount6 = Number(row.personnel6 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel6 * this.tableData[0].amountwpersonnel);
-        // row.amount7 = Number(row.personnel7 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel7 * this.tableData[0].amountwpersonnel);
-        // row.amount8 = Number(row.personnel8 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel8 * this.tableData[0].amountwpersonnel);
-        // row.amount9 = Number(row.personnel9 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel9 * this.tableData[0].amountwpersonnel);
-        // row.amount10 = Number(row.personnel10 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel10 * this.tableData[0].amountwpersonnel);
-        // row.amount11 = Number(row.personnel11 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel11 * this.tableData[0].amountwpersonnel);
-        // row.amount12 = Number(row.personnel12 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel12 * this.tableData[0].amountwpersonnel);
-        // row.amount1 = Number(row.personnel1 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel1 * this.tableData[0].amountwpersonnel);
-        // row.amount2 = Number(row.personnel2 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel2 * this.tableData[0].amountwpersonnel);
-        // row.amount3 = Number(row.personnel3 * this.tableData[0].amountpersonnel) + Number(row.wpersonnel3 * this.tableData[0].amountwpersonnel);
-        // del-lyt-21/3/25-委托受托theme更改为金额一拦手动填写，无需运算出结果-end
         row.sumamount4 = Number(row.amount1) + Number(row.amount2) + Number(row.amount3);
       },
       amountsum3(row) {
@@ -1530,31 +1417,32 @@
           .then(response => {
             this.tableData.push({
               amountwpersonnel: '0',
-              amountpersonnel: response['Moneyavg'][0],
-              personnel4: response['inCompany'][0],
-              wpersonnel4: response['outCompany'][0],
-              personnel5: response['inCompany'][1],
-              wpersonnel5: response['outCompany'][1],
-              personnel6: response['inCompany'][2],
-              wpersonnel6: response['outCompany'][2],
-              personnel7: response['inCompany'][3],
-              wpersonnel7: response['outCompany'][3],
-              personnel8: response['inCompany'][4],
-              wpersonnel8: response['outCompany'][4],
-              personnel9: response['inCompany'][5],
-              wpersonnel9: response['outCompany'][5],
-              personnel10: response['inCompany'][6],
-              wpersonnel10: response['outCompany'][6],
-              personnel11: response['inCompany'][7],
-              wpersonnel11: response['outCompany'][7],
-              personnel12: response['inCompany'][8],
-              wpersonnel12: response['outCompany'][8],
-              personnel1: response['inCompany'][9],
-              wpersonnel1:  response['outCompany'][9],
-              personnel2: response['inCompany'][10],
-              wpersonnel2: response['outCompany'][10],
-              personnel3: response['inCompany'][11],
-              wpersonnel3: response['outCompany'][11],
+              amountpersonnel: response['Moneyavg'][0] != undefined ? response['Moneyavg'][0]  : '0',
+              personnel4:  response['inCompany'] != undefined ? response['inCompany'][0]  : '0',
+              personnel5: response['inCompany'] != undefined ? response['inCompany'][1]  : '0',
+              personnel6: response['inCompany'] != undefined ? response['inCompany'][2]  : '0',
+              personnel7: response['inCompany'] != undefined ? response['inCompany'][3]  : '0',
+              personnel8: response['inCompany'] != undefined ? response['inCompany'][4]  : '0',
+              personnel9: response['inCompany'] != undefined ? response['inCompany'][5]  : '0',
+              personnel10: response['inCompany'] != undefined ? response['inCompany'][6]  : '0',
+              personnel11: response['inCompany'] != undefined ? response['inCompany'][7]  : '0',
+              personnel12: response['inCompany'] != undefined ? response['inCompany'][8]  : '0',
+              personnel1: response['inCompany'] != undefined ? response['inCompany'][9]  : '0',
+              personnel2: response['inCompany'] != undefined ? response['inCompany'][10]  : '0',
+              personnel3: response['inCompany'] != undefined ? response['inCompany'][11]  : '0',
+
+              wpersonnel4: response['outCompany'] != undefined ? response['outCompany'][0] : '0',
+              wpersonnel5: response['outCompany'] != undefined ? response['outCompany'][1]  : '0',
+              wpersonnel6: response['outCompany'] != undefined ? response['outCompany'][2]  : '0',
+              wpersonnel7: response['outCompany'] != undefined ? response['outCompany'][3]  : '0',
+              wpersonnel8: response['outCompany'] != undefined ? response['outCompany'][4]  : '0',
+              wpersonnel9: response['outCompany'] != undefined ? response['outCompany'][5]  : '0',
+              wpersonnel10: response['outCompany'] != undefined ? response['outCompany'][6]  : '0',
+              wpersonnel11: response['outCompany'] != undefined ? response['outCompany'][7]  : '0',
+              wpersonnel12: response['outCompany'] != undefined ? response['outCompany'][8]  : '0',
+              wpersonnel1:  response['outCompany'] != undefined ? response['outCompany'][9]  : '0',
+              wpersonnel2: response['outCompany'] != undefined ? response['outCompany'][10]  : '0',
+              wpersonnel3: response['outCompany'] != undefined ? response['outCompany'][11]  : '0',
             });
             this.tabledatashow = true;
             this.loading = false;
