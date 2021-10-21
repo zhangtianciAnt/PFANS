@@ -3387,6 +3387,10 @@
         let _assets1 = {};//设备投资
         let _assets2 = {};//软件资产
         let _sumB = {};//外注费
+        //region scc 10/21 add 各种经费中调整设备资产或软件资产 from
+        let equipmentFor = {};//各种经费设备
+        let softwareFor = {};//各种经费软件
+        //endregion scc 10/21 add 各种经费中调整设备资产或软件资产 to
 
         //add ccm 20211008 PL添加年间合计 fr
         let total0 = 0;    let total10 = 0;   let total20 = 0;   let total30 = 0;   let total40 = 0;   let total50 = 0;
@@ -3548,6 +3552,20 @@
                 _sumB['money' + i] = (Number(_sumB['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //region scc add 10/21 各种经费中计算调整项设备或软件 from
+            //设备
+            if(val.type === 'PJ111016') {
+              for (let i = 1; i <= 12; i++) {
+                equipmentFor['money' + i] = (Number(equipmentFor['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //软件
+            if(val.type === 'PJ111017') {
+              for (let i = 1; i <= 12; i++) {
+                softwareFor['money' + i] = (Number(softwareFor['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //endregion scc add 10/21 各种经费中计算调整项设备或软件 to
           },
         );
 
@@ -3653,14 +3671,18 @@
           //设备投资赏却合计
           // if (this.assets1.length > 0) {
           // this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
-          this.$set(this.tableP[14], 'money' + this.arr[i], Number(_assets1['money' + this.arr[i]] || 0).toFixed(3));
+          //region scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 from
+          this.$set(this.tableP[14], 'money' + this.arr[i], Number(Number(_assets1['money' + this.arr[i]] || 0) + Number(equipmentFor['money' + this.arr[i]] || 0)).toFixed(3));
+          //endregion scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 to
           // } else {
           //   this.$set(this.tableP[14], 'money' + this.arr[i], '0.00');
           // }
           //软件资产赏却合计
           // if (this.assets2.length > 0) {
           //   this.$set(this.tableP[15], 'money' + this.arr[i], (Number(this.assets2[0]['money' + this.arr[i]] || 0)).toFixed(2));
-            this.$set(this.tableP[15], 'money' + this.arr[i], Number(_assets2['money' + this.arr[i]] || 0).toFixed(3));
+          //region scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 from
+            this.$set(this.tableP[15], 'money' + this.arr[i], Number(Number(_assets2['money' + this.arr[i]] || 0) + Number(softwareFor['money' + this.arr[i]] || 0)).toFixed(3));
+          //endregion scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 to
           // } else {
           //   this.$set(this.tableP[15], 'money' + this.arr[i], '0.00');
           // }
@@ -4430,6 +4452,11 @@
         //region scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 from
       // if (scope.price > 0) {
          scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
+         //region scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 from
+          if(scope['money' + index] * 10 === -0){
+            scope['money' + index] = (scope['money' + index] * -1).toFixed(3);
+          }
+        //endregion scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 to
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
             scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
@@ -4440,6 +4467,11 @@
             for (let par in scope) {
               if (par.substring(0, 5) === 'money') {
                 scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(3);
+                //region scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 from
+                if(scope[par] * 10 === -0){
+                  scope[par] = (scope[par] * -1).toFixed(3);
+                }
+                //endregion scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 to
               }
             }
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
