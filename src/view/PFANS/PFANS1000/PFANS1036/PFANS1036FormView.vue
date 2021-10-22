@@ -3391,6 +3391,9 @@
         let equipmentFor = {};//各种经费设备
         let softwareFor = {};//各种经费软件
         //endregion scc 10/21 add 各种经费中调整设备资产或软件资产 to
+        //region scc add 10/22 在库，合计到PL研究材料费 from
+        let inLibrary = {};
+        //endregion scc add 10/22 在库，合计到PL研究材料费 to
 
         //add ccm 20211008 PL添加年间合计 fr
         let total0 = 0;    let total10 = 0;   let total20 = 0;   let total30 = 0;   let total40 = 0;   let total50 = 0;
@@ -3566,6 +3569,13 @@
               }
             }
             //endregion scc add 10/21 各种经费中计算调整项设备或软件 to
+            //region scc add 10/22 各种经费，在库 from
+            if(val.type === 'PJ111018') {
+              for (let i = 1; i <= 12; i++) {
+                inLibrary['money' + i] = (Number(inLibrary['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //endregion scc add 10/22 各种经费，在库 to
           },
         );
 
@@ -3698,14 +3708,16 @@
           this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
           //研究材料費1
           if (this.sumC1.length > 0) {
+            //region scc upd 10/22 各种经费在库，统计到Pl研究材料费 from
             if (i <= 5) {
-              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[1 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)).toFixed(2));
+              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[1 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)+ Number(inLibrary['money' + this.arr[i]] || 0)).toFixed(2));
             } else {
-              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[3 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)).toFixed(2));
+              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[3 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0) + Number(inLibrary['money' + this.arr[i]] || 0)).toFixed(2));
             }
           } else {
-            this.$set(this.tableP[21], 'money' + this.arr[i], Number(tableOTotal2['money' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(tableOTotal2['money' + this.arr[i]] || 0) + Number(inLibrary['money' + this.arr[i]] || 0)).toFixed(2));
           }
+          //endregion scc upd 10/22 各种经费在库，统计到Pl研究材料费 to
           //調査費
           this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
           //内部委託支出
