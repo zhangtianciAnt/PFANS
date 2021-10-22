@@ -243,25 +243,25 @@
                     <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                   </el-form-item>
                 </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_BUSINESSPLANTYPE')" prop="businessplantype"
-                                v-show="show1">
-                    <dicselect
-                      :code="code1"
-                      :data="form.businessplantype"
-                      :disabled="!disable"
-                      :multiple="multiple"
-                      style="width:20vw"
-                      @change="getBusinessplantype"
-                      v-model="form.businessplantype">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
+<!--              </el-row>-->
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_BUSINESSPLANTYPE')" prop="businessplantype"-->
+<!--                                v-show="show1">-->
+<!--                    <dicselect-->
+<!--                      :code="code1"-->
+<!--                      :data="form.businessplantype"-->
+<!--                      :disabled="!disable"-->
+<!--                      :multiple="multiple"-->
+<!--                      style="width:20vw"-->
+<!--                      @change="getBusinessplantype"-->
+<!--                      v-model="form.businessplantype">-->
+<!--                    </dicselect>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3003FORMVIEW_CLASSIFICATION')" prop="classificationtype"
-                                v-show="show2">
+                                v-show="show3">
                     <dicselect
                       :code="code2"
                       :data="form.classificationtype"
@@ -273,13 +273,12 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"
+                  <el-form-item :label="$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE')"
                                 v-show="show3">
                     <el-input-number v-model="form.businessplanbalance"
                                      controls-position="right"
-                                     :disabled="!disable"
+                                     :disabled="true"
                                      :min="0"
-                                     :max="1000000000"
                                      :precision="2"
                                      style="width:20vw"
                     ></el-input-number>
@@ -787,7 +786,7 @@
         form: {
           project_id: '',
           careerplan: '1',
-          businessplantype: '',
+          // businessplantype: '',
           classificationtype: '',
           businessplanbalance: '',
           procurementproject: '',
@@ -858,7 +857,7 @@
         ],
         acceptShow: true,
         acceptShow1: true,
-        code1: 'PR002',
+        // code1: 'PR002',
         code2: 'PR003',
         code3: 'PJ005',
         //add ccm 0720
@@ -974,20 +973,20 @@
             },
           ],
 
-          businessplantype: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANTYPE'),
-              trigger: 'change',
-            },
-          ],
-          businessplanbalance: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE'),
-              trigger: 'change',
-            },
-          ],
+          // businessplantype: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANTYPE'),
+          //     trigger: 'change',
+          //   },
+          // ],
+          // businessplanbalance: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS3005FORMVIEW_BUSINESSPLANBALANCE'),
+          //     trigger: 'change',
+          //   },
+          // ],
           classificationtype: [
             {
               required: true,
@@ -1163,28 +1162,28 @@
               if (this.form.careerplan === '1') {
                 this.show3 = true;
                 this.show1 = true;
-                this.rules.businessplantype[0].required = true;
-                this.rules.businessplanbalance[0].required = true;
-                this.rules.classificationtype[0].required = false;
+                // this.rules.businessplantype[0].required = true;
+                // this.rules.businessplanbalance[0].required = true;
+                this.rules.classificationtype[0].required = true;
               } else {
                 this.show3 = false;
                 this.show2 = false;
                 this.show1 = false;
-                this.rules.businessplantype[0].required = false;
-                this.rules.businessplanbalance[0].required = false;
+                // this.rules.businessplantype[0].required = false;
+                // this.rules.businessplanbalance[0].required = false;
                 this.rules.classificationtype[0].required = false;
               }
-              if (this.form.businessplantype === 'PR002006') {
-                this.show2 = true;
-              } else if (this.form.businessplantype === 'PR002001') {
-                this.show2 = false;
-              } else if (this.form.businessplantype === 'PR002002') {
-                this.show2 = false;
-              } else if (this.form.businessplantype === 'PR002003') {
-                this.show2 = false;
-              } else if (this.form.businessplantype === 'PR002004') {
-                this.show2 = false;
-              }
+              // if (this.form.businessplantype === 'PR002006') {
+              //   this.show2 = true;
+              // } else if (this.form.businessplantype === 'PR002001') {
+              //   this.show2 = false;
+              // } else if (this.form.businessplantype === 'PR002002') {
+              //   this.show2 = false;
+              // } else if (this.form.businessplantype === 'PR002003') {
+              //   this.show2 = false;
+              // } else if (this.form.businessplantype === 'PR002004') {
+              //   this.show2 = false;
+              // }
               if (this.form.procurementproject === 'PJ005001') {
                 this.show5 = true;
                 this.show4 = false;
@@ -1686,14 +1685,14 @@
       if (this.form.careerplan === '1') {
         this.show3 = true;
         this.show1 = true;
-        this.rules.businessplantype[0].required = true;
-        this.rules.businessplanbalance[0].required = true;
-        this.rules.classificationtype[0].required = false;
+        // this.rules.businessplantype[0].required = true;
+        // this.rules.businessplanbalance[0].required = true;
+        this.rules.classificationtype[0].required = true;
       } else {
         this.show3 = false;
         this.show1 = false;
-        this.rules.businessplantype[0].required = false;
-        this.rules.businessplanbalance[0].required = false;
+        // this.rules.businessplantype[0].required = false;
+        // this.rules.businessplanbalance[0].required = false;
         this.rules.classificationtype[0].required = false;
       }
     },
@@ -2069,48 +2068,49 @@
         if (val === '1') {
           this.show1 = true;
           this.show3 = true;
-          if (this.form.businessplantype === 'PR002006') {
-            this.show2 = true;
-            this.rules.classificationtype[0].required = true;
-          }
-          this.rules.businessplantype[0].required = true;
-          this.rules.businessplanbalance[0].required = true;
+          // if (this.form.businessplantype === 'PR002006') {
+          //   this.show2 = true;
+          //   this.rules.classificationtype[0].required = true;
+          // }
+          // this.rules.businessplantype[0].required = true;
+          // this.rules.businessplanbalance[0].required = true;
+          this.rules.classificationtype[0].required = true;
         } else {
           this.show1 = false;
           this.show2 = false;
           this.show3 = false;
-          this.rules.businessplantype[0].required = false;
-          this.rules.businessplanbalance[0].required = false;
+          // this.rules.businessplantype[0].required = false;
+          // this.rules.businessplanbalance[0].required = false;
           this.rules.classificationtype[0].required = false;
-          this.form.businessplantype = '';
-          this.form.businessplanbalance = '';
+          // this.form.businessplantype = '';
+          // this.form.businessplanbalance = '';
           this.form.classificationtype = '';
         }
       },
-      getBusinessplantype(val) {
-        this.form.businessplantype = val;
-        if (val === 'PR002006') {
-          this.show2 = true;
-          this.rules.classificationtype[0].required = true;
-        }
-        // else if (val === 'PR002001') {
-        //   this.show2 = false;
-        //   this.rules.classificationtype[0].required = false;
-        // } else if (val === 'PR002002') {
-        //   this.show2 = false;
-        //   this.rules.classificationtype[0].required = false;
-        // } else if (val === 'PR002003') {
-        //   this.show2 = false;
-        //   this.rules.classificationtype[0].required = false;
-        // } else if (val === 'PR002004') {
-        //   this.show2 = false;
-        //   this.rules.classificationtype[0].required = false;
-        // }
-        else {
-          this.show2 = false;
-          this.rules.classificationtype[0].required = false;
-        }
-      },
+      // getBusinessplantype(val) {
+      //   this.form.businessplantype = val;
+      //   if (val === 'PR002006') {
+      //     this.show2 = true;
+      //     this.rules.classificationtype[0].required = true;
+      //   }
+      //   else if (val === 'PR002001') {
+      //     this.show2 = false;
+      //     this.rules.classificationtype[0].required = false;
+      //   } else if (val === 'PR002002') {
+      //     this.show2 = false;
+      //     this.rules.classificationtype[0].required = false;
+      //   } else if (val === 'PR002003') {
+      //     this.show2 = false;
+      //     this.rules.classificationtype[0].required = false;
+      //   } else if (val === 'PR002004') {
+      //     this.show2 = false;
+      //     this.rules.classificationtype[0].required = false;
+      //   }
+      //   else {
+      //     this.show2 = false;
+      //     this.rules.classificationtype[0].required = false;
+      //   }
+      // },
       getClassificationtype(val) {
         this.form.classificationtype = val;
       },
@@ -2255,20 +2255,20 @@
             if (valid) {
               this.loading = true;
               if (this.form.careerplan === '0') {
-                this.form.businessplantype = '';
-                this.form.businessplanbalance = '';
+                // this.form.businessplantype = '';
+                // this.form.businessplanbalance = '';
                 this.form.classificationtype = '';
               }
               this.form.surloappmoney = this.form.totalamount;
-              if (this.form.businessplantype === 'PR002001') {
-                this.form.classificationtype = '';
-              } else if (this.form.businessplantype === 'PR002002') {
-                this.form.classificationtype = '';
-              } else if (this.form.businessplantype === 'PR002003') {
-                this.form.classificationtype = '';
-              } else if (this.form.businessplantype === 'PR002004') {
-                this.form.classificationtype = '';
-              }
+              // if (this.form.businessplantype === 'PR002001') {
+              //   this.form.classificationtype = '';
+              // } else if (this.form.businessplantype === 'PR002002') {
+              //   this.form.classificationtype = '';
+              // } else if (this.form.businessplantype === 'PR002003') {
+              //   this.form.classificationtype = '';
+              // } else if (this.form.businessplantype === 'PR002004') {
+              //   this.form.classificationtype = '';
+              // }
               this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
 
               //add ccm 0811 事业计划金额小于总金额

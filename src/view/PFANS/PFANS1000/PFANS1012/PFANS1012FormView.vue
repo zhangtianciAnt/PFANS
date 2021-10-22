@@ -129,30 +129,28 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_RMBEXPENDITURE')" prop="rmbexpenditure">
-                      <el-input-number
+                      <thousandnum
                         :disabled="true"
                         :min="0"
                         :precision="2"
                         @change="getMoney"
                         style="width:20vw"
-                        controls-position="right"
                         v-model="form.rmbexpenditure"
-                      ></el-input-number>
+                      ></thousandnum>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CURRENCYEXPENDITURE')"
                                   v-if="this.form.type === 'PJ001001'?false:true">
-                      <el-input-number
+                      <thousandnum
                         :disabled="true"
                         :max="1000000000"
                         :min="0"
                         :precision="2"
                         @change="getforeigncurrency"
-                        controls-position="right"
                         style="width:20vw"
                         v-model="form.foreigncurrency"
-                      ></el-input-number>
+                      ></thousandnum>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -166,15 +164,14 @@
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_TORMB')"
                                   v-if="this.form.type === 'PJ001001'?false:true">
-                      <el-input-number
+                      <thousandnum
                         :disabled="true"
                         :max="1000000000"
                         :min="0"
                         :precision="2"
-                        controls-position="right"
                         style="width:20vw"
                         v-model="form.tormb"
-                      ></el-input-number>
+                      ></thousandnum>
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
@@ -547,10 +544,10 @@
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_INVOICEM')" align="center" width="150">
                       <template slot-scope="scope">
-                        <el-input-number :min="0" :precision="2" :max="9999999" :disabled="!disable"
+                        <thousandnum :min="0" :precision="2" :max="9999999" :disabled="!disable"
                                          controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
                                          :step="1" v-model="scope.row.invoiceamount" style="width: 100%">
-                        </el-input-number>
+                        </thousandnum>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXRATE')" align="center" width="240">
@@ -569,7 +566,7 @@
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_EXCLUDINGTAX')" align="center" width="150"
                                      prop="debitamount">
                       <template slot-scope="scope">
-                        <el-input-number
+                        <thousandnum
                           :disabled="!disable"
                           :min="0" :precision="2"
                           :max="9999999"
@@ -579,13 +576,13 @@
                           v-model="scope.row.excludingtax"
                           @change="changesummoney(scope.row)"
                           style="width: 100%">
-                        </el-input-number>
+                        </thousandnum>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1012FORMVIEW_FACETAX')" align="center" width="150"
                                      prop="creditamount">
                       <template slot-scope="scope">
-                        <el-input-number
+                        <thousandnum
                           :disabled="true"
                           :min="0" :precision="2"
                           :max="9999999"
@@ -595,7 +592,7 @@
                           v-model="scope.row.facetax"
                           @change="changeSum(scope.row)"
                           style="width: 100%">
-                        </el-input-number>
+                        </thousandnum>
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -898,7 +895,7 @@
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="checktaxes"
                               :max="1000000000"
                               :min="0"
@@ -907,14 +904,14 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.rmb"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                          prop="foreigncurrency"
                                          width="150">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="disablecheck"
                               :max="1000000000"
                               :min="0"
@@ -923,7 +920,7 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.foreigncurrency"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center" prop="currency"
@@ -970,7 +967,7 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
                                          width="150" prop="tormb">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="true"
                               :max="1000000000"
                               :min="0"
@@ -978,20 +975,21 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.tormb"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
                                          width="150" prop="taxes">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="true"
                               :min="0"
                               controls-position="right"
+                              :precision="2"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
                               v-model="scope.row.taxes">
-                            </el-input-number>
+                            </thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
@@ -1143,7 +1141,7 @@
 
                         <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="150">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="checktaxes"
                               :max="1000000000"
                               :min="0"
@@ -1152,14 +1150,14 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.rmb"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_FOREIGNCURRENCY')" align="center"
                                          prop="foreigncurrency"
                                          width="150">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="disablecheck"
                               :max="1000000000"
                               :min="0"
@@ -1168,7 +1166,7 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.foreigncurrency"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCY')" align="center"
@@ -1197,7 +1195,7 @@
                         <el-table-column :label="$t('label.PFANS1012VIEW_CURRENCYRATE')" align="center"
                                          width="150">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="true"
                               :max="999999"
                               :min="0"
@@ -1207,13 +1205,13 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.currencyrate"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_TORMB')" align="center"
                                          width="150" prop="tormb">
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="true"
                               :max="1000000000"
                               :min="0"
@@ -1221,21 +1219,21 @@
                               controls-position="right"
                               style="width: 100%"
                               v-model="scope.row.tormb"
-                            ></el-input-number>
+                            ></thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012FORMVIEW_TAXES')" align="center"
                                          width="150" prop="taxes"
                         >
                           <template slot-scope="scope">
-                            <el-input-number
+                            <thousandnum
                               :disabled="true"
                               :min="0"
                               controls-position="right"
                               style="width: 100%"
                               @change="changeRMB(scope.row)"
                               v-model="scope.row.taxes">
-                            </el-input-number>
+                            </thousandnum>
                           </template>
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1012VIEW_ANNEXNO')" align="center" width="100">
@@ -1413,6 +1411,8 @@ import EasyNormalContainer from '@/components/EasyNormalContainer';
 import user from '../../../components/user.vue';
 import dicselect from '../../../components/dicselect';
 import monthlyrate from '../../../components/monthlyrate';
+import thousandnum from '../../../components/thousandnum';
+
 import {
   getMonthlyrateInfo2,
   downLoadUrl,
@@ -1424,6 +1424,7 @@ import {
   getStatus,
   getUserInfo,
   uploadUrl,
+  accAdd,
 } from '@/utils/customize';
 import {Message} from 'element-ui';
 import moment from 'moment';
@@ -1447,6 +1448,7 @@ export default {
     getOrgInfoByUserId,
     user,
     org,
+    thousandnum,
   },
   data() {
 
@@ -4683,7 +4685,7 @@ export default {
       sums[8] = Math.round(sums[8] * 100) / 100;
       this.getMoney(sums);
       this.getforeigncurrency(sums);
-      return sums;
+      return this.formatThods(sums);
     },
     getPsummaries(param) {
       const {columns, data} = param;
@@ -4720,7 +4722,15 @@ export default {
       sums[11] = Math.round(sums[11] * 100) / 100;
       sums[12] = Math.round(sums[12] * 100) / 100;
       this.tablePValue = sums;
-      return sums;
+      return this.formatThods(sums);
+    },
+    formatThods(val){
+      for(let i = 0; i < val.length; i ++){
+        if(val[i] != null && val[i] !== 'NaN' && typeof val[i] === 'number'){
+          val[i] = val[i].toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+      }
+      return val
     },
     getRsummaries(param) {
       const {columns, data} = param;
@@ -4766,7 +4776,7 @@ export default {
       });
       this.getMoney(sums);
       this.getforeigncurrency(sums);
-      return sums;
+      return this.formatThods(sums);
     },
     getMoney(sums) {
       if (this.form.type === 'PJ001001') {
@@ -5410,7 +5420,7 @@ export default {
                       || this.tableP[i].subjectnumber !== '' || this.tableP[i].rmb > 0 || this.tableP[i].foreigncurrency > 0 || this.tableP[i].taxes !== '' || this.tableP[i].annexno !== '') {
                       if (this.tableP[i].invoicenumber == this.tableF[j].invoicenumber) {
                         if (this.tableP[i].rmb != '0') {
-                          summoney += this.tableP[i].rmb;
+                          summoney += Number(this.tableP[i].rmb);
                           continue;
                         }
                       }
@@ -5421,17 +5431,17 @@ export default {
                       || this.tableR[i].rmb > 0 || this.tableR[i].foreigncurrency > 0 || this.tableR[i].taxes !== '' || this.tableR[i].annexno !== '') {
                       if (this.tableR[i].invoicenumber == this.tableF[j].invoicenumber) {
                         if (this.tableR[i].rmb != '0') {
-                          sumMoney += this.tableR[i].rmb;
+                          sumMoney += Number(this.tableR[i].rmb);
                           continue;
                         }
                       }
                     }
                   }
                   //add_fjl_0816  添加四舍五入
-                  sumout = summoney + sumMoney;
-                  if (Number(sumout) > 0) {
-                    sumout = (summoney + sumMoney).toFixed(2);
-                  }
+                  sumout = (Number(summoney) + Number(sumMoney)).toFixed(2);
+                  // if (Number(sumout) > 0) {
+                  //   sumout = (Number(summoney) + Number(sumMoney)).toFixed(2);
+                  // }
                   //add_fjl_0816  添加四舍五入
                   if (Number(sumout) != Number(this.tableF[j].invoiceamount)) {
                     error = error + 1;

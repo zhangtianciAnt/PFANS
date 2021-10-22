@@ -281,25 +281,37 @@
                       <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                       <el-switch
                         :disabled="!disable"
+                        @change="radiochange"
                         v-model="form.plan"
                         active-value="1"
                         inactive-value="0">
                       </el-switch>
                       <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
-                      <!-- <el-select @change="changePlan" style="width: 20vw" v-model="form.plan">
-                         <el-option :label="$t('label.PFANS1004VIEW_INSIDE')" :value="$t('label.PFANS1004VIEW_INSIDE')"></el-option>
-                         <el-option :label="$t('label.PFANS1004VIEW_OUTER')" :value="$t('label.PFANS1004VIEW_OUTER')"></el-option>
-                       </el-select>-->
-
-                      <!--                      <dicselect :code="code4"-->
-                      <!--                                 :data="form.plan"-->
-                      <!--                                 :disabled="!disable"-->
-                      <!--                                 :multiple="multiple"-->
-                      <!--                                 @change="getplan"-->
-                      <!--                                 style="width:20vw">-->
-                      <!--                      </dicselect>-->
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
+                                  v-show="showPlan">
+                      <dicselect
+                        :code="code3"
+                        :data="form.classificationtype"
+                        :disabled="!disabled"
+                        :multiple="multiple"
+                        @change="getClassificationtype"
+                        style="width:20vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"
+                                  v-show="showPlan">
+                      <el-input-number :disabled="true" :min="0"
+                                       :precision="2" controls-position="right" style="width:20vw"
+                                       v-model="form.businessplanbalance"></el-input-number>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')">
                       <dicselect :code="code2"
@@ -616,11 +628,13 @@
         budgetcodingcheck: '',
         activeName: 'first',
         disabled: true,
+        showPlan: true,
         error: '',
         errorfile: '',
         userlist: '',
         code1: 'HT014',
         code2: 'HT005',
+        code3: 'PJ078',
         //add-ws-12/10-汇率字典
         // code3: 'PG019',
         month3: moment(new Date()).format('YYYY-MM'),
@@ -678,6 +692,8 @@
           valuationnumber: '',
           remarks: '',
           maketype: '',
+          classificationtype: '',
+          businessplanbalance: 0,
         },
         tableS: [],
         tableT: [{
@@ -715,6 +731,11 @@
             required: true,
             validator: checkuploadfile,
             trigger: 'change',
+          }],
+          classificationtype: [{
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
           }],
           // telephone: [{
           //   required: true,
@@ -987,6 +1008,20 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getClassificationtype(val) {
+        this.form.classificationtype = val;
+      },
+      radiochange(val) {
+        this.form.careerplan = val;
+        this.form.classificationtype = '';
+        if (val === '1') {
+          this.showPlan = false;
+          this.rules.classificationtype[0].required = false;
+        } else {
+          this.showPlan = true;
+          this.rules.classificationtype[0].required = true;
+        }
+      },
 //add-ws-9/25-禅道567
       selectInit(row, index) {
         return row;

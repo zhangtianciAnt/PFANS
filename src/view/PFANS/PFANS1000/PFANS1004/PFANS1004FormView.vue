@@ -128,14 +128,14 @@
                     <template slot-scope="scope">
                       <org :disabled="!disabled" :error="errorgroupM" :orglist="scope.row.group_nameM"
                            @getOrgids="getGroupIdM" :no="scope.row"
-                           orgtype="2" style="width:15vw"></org>
+                           orgtype="2" style="width:13vw"></org>
                     </template>
                   </el-table-column>
                   <!--预算编码-->
-                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="200%">
+                  <el-table-column :label="$t('label.PFANS1012FORMVIEW_BUDGET')" align="center" width="220%">
                     <template slot-scope="scope">
                       <el-select :disabled="!disabled" :placeholder="$t('normal.error_09')" clearable
-                                 style="width: 13vw"
+                                 style="width: 12vw"
                                  v-model="scope.row.thisprojectM" :no="scope.row">
                         <el-option
                           :key="item.value"
@@ -161,20 +161,22 @@
                       <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                     </template>
                   </el-table-column>
+                  <!--                  事业计划余额需求修改 1021 ztc fr-->
                   <!--事业计划类型-->
-                  <el-table-column :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" align="businessplantypeM"
-                                   width="160%">
-                    <template slot-scope="scope">
-                      <dicselect
-                        :code="code"
-                        :no="scope.row"
-                        :data="scope.row.businessplantypeM"
-                        :disabled="setDisabled(scope.row)"
-                        :multiple="multiple"
-                        @change="getbusinessplantypeM"
-                      ></dicselect>
-                    </template>
-                  </el-table-column>
+<!--                  <el-table-column :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" align="businessplantypeM"-->
+<!--                                   width="160%" >-->
+<!--                    <template slot-scope="scope">-->
+<!--                      <dicselect-->
+<!--                        :code="code"-->
+<!--                        :no="scope.row"-->
+<!--                        :data="scope.row.businessplantypeM"-->
+<!--                        :disabled="setDisabled(scope.row)"-->
+<!--                        :multiple="multiple"-->
+<!--                        @change="getbusinessplantypeM"-->
+<!--                      ></dicselect>-->
+<!--                    </template>-->
+<!--                  </el-table-column>-->
+                  <!--                  事业计划余额需求修改 1021 ztc to-->
                   <!--分类类型-->
                   <el-table-column :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" align="classificationtype"
                                    width="160%">
@@ -182,7 +184,7 @@
                       <dicselect
                         :code="code1"
                         :data="scope.row.classificationtypeM"
-                        :disabled="setClassifica(scope.row)"
+                        :disabled="setDisabled(scope.row)"
                         :multiple="multiple"
                         :no="scope.row"
                         @change="getclassificationtypeM"
@@ -254,7 +256,7 @@
                 </el-col>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven" v-if="showM">
-                    <el-input-number :disabled="!disabled" :max="1000000000" :min="0"
+                    <el-input-number :disabled="!disabled" :min="0"
                                      :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
                                      v-model="form.amounttobegiven"></el-input-number>
                   </el-form-item>
@@ -275,23 +277,22 @@
                 <!--                add-lyt-2/7-控制此单是否可以申请多次暂借款-end-->
               </el-row>
               <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="businessplantype"
-                                v-show="show"
-                                v-if="showM">
-                    <dicselect
-                      :code="code"
-                      :data="form.businessplantype"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getBusinessplantype"
-                      style="width:20vw">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="businessplantype"-->
+<!--                                v-show="show">-->
+<!--                    <dicselect-->
+<!--                      :code="code"-->
+<!--                      :data="form.businessplantype"-->
+<!--                      :disabled="!disabled"-->
+<!--                      :multiple="multiple"-->
+<!--                      @change="getBusinessplantype"-->
+<!--                      style="width:20vw">-->
+<!--                    </dicselect>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
-                                v-show="show1" v-if="showM">
+                                v-show="show" v-if="showM">
                     <dicselect
                       :code="code1"
                       :data="form.classificationtype"
@@ -303,9 +304,9 @@
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"
+                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')"
                                 v-show="show" v-if="showM">
-                    <el-input-number :disabled="!disabled" :max="1000000000000" :min="0"
+                    <el-input-number :disabled="true" :min="0"
                                      :precision="2" @change="moneyDiff" controls-position="right" style="width:20vw"
                                      v-model="form.businessplanbalance"></el-input-number>
                   </el-form-item>
@@ -759,7 +760,7 @@
           // add-lyt-21/3/11-NT_PFANS_20210304_BUG_082-start
           careerplan: '1',
           // add-lyt-21/3/11-NT_PFANS_20210304_BUG_082-end
-          businessplantype: '',
+          // businessplantype: '',
           classificationtype: '',
           businessplanbalance: 0,
           gist: '',
@@ -911,18 +912,18 @@
           ],
           classificationtype: [
             {
-              required: false,
+              required: true,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
               trigger: 'change',
             },
           ],
-          businessplanbalance: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE'),
-              trigger: 'change',
-            },
-          ],
+          // businessplanbalance: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE'),
+          //     trigger: 'change',
+          //   },
+          // ],
           salequotation: [
             {
               required: true,
@@ -960,7 +961,7 @@
           ],
         },
         show: true,
-        show1: '',
+        // show1: '',
         show2: false,
         show3: false,
         show4: false,
@@ -1128,24 +1129,24 @@
               this.userlistA = this.form.user_id;
               this.getBudt(this.form.center_id);
               this.getDecisive(this.form.decisive);
-              this.getBusinessplantype(this.form.businessplantype);
+              // this.getBusinessplantype(this.form.businessplantype);
               //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
               this.getEnableduplicateloan(this.form.enableduplicateloan);
               //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
               if (this.form.careerplan === '1') {
                 this.show = true;
-                this.rules.businessplantype[0].required = true;
-                this.rules.businessplanbalance[0].required = true;
+                // this.rules.businessplantype[0].required = true;
+                // this.rules.businessplanbalance[0].required = true;
               } else {
                 this.show = false;
-                this.show1 = false;
-                this.rules.businessplantype[0].required = false;
-                this.rules.businessplanbalance[0].required = false;
+                // this.show1 = false;
+                // this.rules.businessplantype[0].required = false;
                 this.rules.classificationtype[0].required = false;
               }
-              if (this.form.businessplantype === 'PR002006') {
-                this.show1 = true;
-              } else if (this.form.salequotation === 'PJ013001') {
+              // if (this.form.businessplantype === 'PR002006') {
+              //   this.show1 = true;
+              // } else
+              if (this.form.salequotation === 'PJ013001') {
                 this.show2 = true;
               } else if (this.form.salequotation === 'PJ013003') {
                 this.show2 = true;
@@ -1317,17 +1318,15 @@
       }
       if (this.form.careerplan === '1') {
         this.show = true;
-        this.show1 = false;
-        this.rules.businessplantype[0].required = true;
-        this.rules.businessplanbalance[0].required = true;
-        this.rules.classificationtype[0].required = false;
+        // this.show1 = false;
+        //this.rules.businessplantype[0].required = true;
+        this.rules.classificationtype[0].required = true;
         this.rules.startdate[0].required = false;
         this.rules.enddate[0].required = false;
       } else {
         this.show = false;
-        this.show1 = false;
-        this.rules.businessplantype[0].required = false;
-        this.rules.businessplanbalance[0].required = false;
+        // this.show1 = false;
+        //this.rules.businessplantype[0].required = false;
         this.rules.classificationtype[0].required = false;
         this.rules.startdate[0].required = false;
         this.rules.enddate[0].required = false;
@@ -1419,12 +1418,14 @@
           this.errorgroup = '';
         }
       },
-      getbusinessplantypeM(val, row) {
-        row.businessplantypeM = val;
-        if (row.businessplantypeM != 'PR002006') {
-          row.classificationtypeM = null;
-        }
-      },
+      //事业计划余额需求修改 1021 ztc fr
+      // getbusinessplantypeM(val, row) {
+      //   row.businessplantypeM = val;
+      //   if (row.businessplantypeM != 'PR002006') {
+      //     row.classificationtypeM = null;
+      //   }
+      // },
+      //事业计划余额需求修改 1021 ztc to
       getclassificationtypeM(val, row) {
         row.classificationtypeM = val;
       },
@@ -1515,15 +1516,14 @@
           this.rules.amounttobegiven[0].required = false;
           this.form.amounttobegiven = null;
           // 事业计划类型
-          this.rules.businessplantype[0].required = false;
-          this.form.businessplantype = null;
+          //this.rules.businessplantype[0].required = false;
+          //this.form.businessplantype = null;
           // 分类类型
           this.rules.classificationtype[0].required = false;
           this.form.classificationtype = null;
-          this.show1 = false;
+          // this.show1 = false;
           // 事业计划余额
-          this.rules.businessplanbalance[0].required = false;
-          this.form.businessplanbalance = null;
+          // this.form.businessplanbalance = null;
           // 事业计划
           this.form.careerplan = null;
         } else {
@@ -1535,11 +1535,11 @@
           // 实施计划金额
           this.form.amounttobegiven = null;
           // 事业计划类型
-          this.form.businessplantype = null;
+          //this.form.businessplantype = null;
           // 分类类型
           this.form.classificationtype = null;
           // 事业计划余额
-          this.form.businessplanbalance = null;
+          // this.form.businessplanbalance = null;
           this.radiochange();
           this.tableA = [
             {
@@ -1717,16 +1717,18 @@
         this.form.enableduplicateloan = val;
       },
       //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
-      getBusinessplantype(val) {
-        this.form.businessplantype = val;
-        if (val === 'PR002006') {
-          this.show1 = true;
-          this.rules.classificationtype[0].required = true;
-        } else {
-          this.show1 = false;
-          this.rules.classificationtype[0].required = false;
-        }
-      },
+      //事业计划余额需求修改 1021 ztc fr
+      // getBusinessplantype(val) {
+      //   this.form.businessplantype = val;
+      //   if (val === 'PR002006') {
+      //     this.show1 = true;
+      //     this.rules.classificationtype[0].required = true;
+      //   } else {
+      //     this.show1 = false;
+      //     this.rules.classificationtype[0].required = false;
+      //   }
+      // },
+      //事业计划余额需求修改 1021 ztc to
       getDecision(val) {
         if(val == 'PJ146006'){
           if(this.role15 == '0'){
@@ -1855,22 +1857,20 @@
       },
       radiochange(val) {
         this.form.careerplan = val;
-        this.form.businessplantype = '';
-        this.form.businessplanbalance = 0;
+        this.form.classificationtype = '';
         if (val === '1') {
           this.show = true;
-          this.show1 = false;
-          if (this.form.businessplantype === 'PR002006') {
-            this.show1 = true;
-            this.rules.classificationtype[0].required = true;
-          }
-          this.rules.businessplantype[0].required = true;
-          this.rules.businessplanbalance[0].required = true;
+          // this.show1 = false;
+          // if (this.form.businessplantype === 'PR002006') {
+          //   this.show1 = true;
+          //   this.rules.classificationtype[0].required = true;
+          // }
+          //this.rules.businessplantype[0].required = true;
+          this.rules.classificationtype[0].required = true;
         } else {
           this.show = false;
-          this.show1 = false;
-          this.rules.businessplantype[0].required = false;
-          this.rules.businessplanbalance[0].required = false;
+          // this.show1 = false;
+          //this.rules.businessplantype[0].required = false;
           this.rules.classificationtype[0].required = false;
         }
       },
@@ -2006,38 +2006,27 @@
               if (valid) {
                 this.loading = true;
                 if (this.form.careerplan === '0') {
-                  this.form.businessplantype = '';
-                  this.form.businessplanbalance = '';
+                  //this.form.businessplantype = '';
+                  // this.form.businessplanbalance = '';
                   this.form.classificationtype = '';
                 }
-                if (this.form.businessplantype === 'PR002001') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002002') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002003') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002004') {
-                  this.form.classificationtype = '';
-                }
+                // if (this.form.businessplantype === 'PR002001') {
+                //   this.form.classificationtype = '';
+                // }
+                // if (this.form.businessplantype === 'PR002002') {
+                //   this.form.classificationtype = '';
+                // }
+                // if (this.form.businessplantype === 'PR002003') {
+                //   this.form.classificationtype = '';
+                // }
+                // if (this.form.businessplantype === 'PR002004') {
+                //   this.form.classificationtype = '';
+                // }
                 if (this.form.salequotation === 'PJ013002') {
                   this.form.reasonsforquotation = '';
                 }
-                if (this.form.decisive === 'PJ011001') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011002') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011003') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011005') {
+                if (this.form.decisive === 'PJ011001' || this.form.decisive === 'PJ011002'
+                  || this.form.decisive === 'PJ011003' || this.form.decisive === 'PJ011005') {
                   this.form.startdate = '';
                   this.form.enddate = '';
                 }
@@ -2093,38 +2082,27 @@
                 this.loading = true;
                 this.baseInfo = {};
                 if (this.form.careerplan === '0') {
-                  this.form.businessplantype = '';
-                  this.form.businessplanbalance = '';
+                  //this.form.businessplantype = '';
+                  // this.form.businessplanbalance = '';
                   this.form.classificationtype = '';
                 }
-                if (this.form.businessplantype === 'PR002001') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002002') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002003') {
-                  this.form.classificationtype = '';
-                }
-                if (this.form.businessplantype === 'PR002004') {
-                  this.form.classificationtype = '';
-                }
+                // if (this.form.businessplantype === 'PR002001') {
+                //   this.form.classificationtype = '';
+                // }
+                // if (this.form.businessplantype === 'PR002002') {
+                //   this.form.classificationtype = '';
+                // }
+                // if (this.form.businessplantype === 'PR002003') {
+                //   this.form.classificationtype = '';
+                // }
+                // if (this.form.businessplantype === 'PR002004') {
+                //   this.form.classificationtype = '';
+                // }
                 if (this.form.salequotation === 'PJ013002') {
                   this.form.reasonsforquotation = '';
                 }
-                if (this.form.decisive === 'PJ011001') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011002') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011003') {
-                  this.form.startdate = '';
-                  this.form.enddate = '';
-                }
-                if (this.form.decisive === 'PJ011005') {
+                if (this.form.decisive === 'PJ011001' || this.form.decisive === 'PJ011002'
+                  || this.form.decisive === 'PJ011003' || this.form.decisive === 'PJ011005') {
                   this.form.startdate = '';
                   this.form.enddate = '';
                 }
@@ -2263,41 +2241,30 @@
                   if (valid) {
                     this.loading = true;
                     if (this.form.careerplan === '0') {
-                      this.form.businessplantype = '';
-                      this.form.businessplanbalance = '';
+                      //this.form.businessplantype = '';
+                      // this.form.businessplanbalance = '';
                       this.form.classificationtype = '';
                     }
-                    if (this.form.businessplantype === 'PR002001') {
-                      this.form.classificationtype = '';
-                    }
-                    if (this.form.businessplantype === 'PR002002') {
-                      this.form.classificationtype = '';
-                    }
-                    if (this.form.businessplantype === 'PR002003') {
-                      this.form.classificationtype = '';
-                    }
-                    if (this.form.businessplantype === 'PR002004') {
-                      this.form.classificationtype = '';
-                    }
+                    // if (this.form.businessplantype === 'PR002001') {
+                    //   this.form.classificationtype = '';
+                    // }
+                    // if (this.form.businessplantype === 'PR002002') {
+                    //   this.form.classificationtype = '';
+                    // }
+                    // if (this.form.businessplantype === 'PR002003') {
+                    //   this.form.classificationtype = '';
+                    // }
+                    // if (this.form.businessplantype === 'PR002004') {
+                    //   this.form.classificationtype = '';
+                    // }
                     if (this.form.salequotation === 'PJ013002') {
                       this.form.reasonsforquotation = '';
                     }
                     // if (this.form.salequotation === 'PJ013003') {
                     //   this.form.reasonsforquotation = '';
                     // }
-                    if (this.form.decisive === 'PJ011001') {
-                      this.form.startdate = '';
-                      this.form.enddate = '';
-                    }
-                    if (this.form.decisive === 'PJ011002') {
-                      this.form.startdate = '';
-                      this.form.enddate = '';
-                    }
-                    if (this.form.decisive === 'PJ011003') {
-                      this.form.startdate = '';
-                      this.form.enddate = '';
-                    }
-                    if (this.form.decisive === 'PJ011005') {
+                    if (this.form.decisive === 'PJ011001' || this.form.decisive === 'PJ011002'
+                    || this.form.decisive === 'PJ011003' || this.form.decisive === 'PJ011005') {
                       this.form.startdate = '';
                       this.form.enddate = '';
                     }
@@ -2379,38 +2346,27 @@
                   this.loading = true;
                   this.baseInfo = {};
                   if (this.form.careerplan === '0') {
-                    this.form.businessplantype = '';
-                    this.form.businessplanbalance = '';
+                    //this.form.businessplantype = '';
+                    // this.form.businessplanbalance = '';
                     this.form.classificationtype = '';
                   }
-                  if (this.form.businessplantype === 'PR002001') {
-                    this.form.classificationtype = '';
-                  }
-                  if (this.form.businessplantype === 'PR002002') {
-                    this.form.classificationtype = '';
-                  }
-                  if (this.form.businessplantype === 'PR002003') {
-                    this.form.classificationtype = '';
-                  }
-                  if (this.form.businessplantype === 'PR002004') {
-                    this.form.classificationtype = '';
-                  }
+                  // if (this.form.businessplantype === 'PR002001') {
+                  //   this.form.classificationtype = '';
+                  // }
+                  // if (this.form.businessplantype === 'PR002002') {
+                  //   this.form.classificationtype = '';
+                  // }
+                  // if (this.form.businessplantype === 'PR002003') {
+                  //   this.form.classificationtype = '';
+                  // }
+                  // if (this.form.businessplantype === 'PR002004') {
+                  //   this.form.classificationtype = '';
+                  // }
                   if (this.form.salequotation === 'PJ013002') {
                     this.form.reasonsforquotation = '';
                   }
-                  if (this.form.decisive === 'PJ011001') {
-                    this.form.startdate = '';
-                    this.form.enddate = '';
-                  }
-                  if (this.form.decisive === 'PJ011002') {
-                    this.form.startdate = '';
-                    this.form.enddate = '';
-                  }
-                  if (this.form.decisive === 'PJ011003') {
-                    this.form.startdate = '';
-                    this.form.enddate = '';
-                  }
-                  if (this.form.decisive === 'PJ011005') {
+                  if (this.form.decisive === 'PJ011001' || this.form.decisive === 'PJ011002'
+                  || this.form.decisive === 'PJ011003' || this.form.decisive === 'PJ011005') {
                     this.form.startdate = '';
                     this.form.enddate = '';
                   }

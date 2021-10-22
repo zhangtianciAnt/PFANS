@@ -283,24 +283,22 @@
                       <span style="margin-left: 1vw ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">
-                      <dicselect
-                        style="width:20vw"
-                        :disabled="!disable"
-                        :code="code3"
-                        :multiple="multiple"
-                        :data="form.plantype"
-                        @change="getplantype"
-                      >
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">-->
+<!--                      <dicselect-->
+<!--                        style="width:20vw"-->
+<!--                        :disabled="!disable"-->
+<!--                        :code="code3"-->
+<!--                        :multiple="multiple"-->
+<!--                        :data="form.plantype"-->
+<!--                        @change="getplantype"-->
+<!--                      >-->
+<!--                      </dicselect>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
-                                  v-if="show3">
+                                  v-if="show2">
                       <dicselect
                         style="width:20vw"
                         :disabled="!disable"
@@ -313,10 +311,9 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" prop="balance" v-if="show2">
+                    <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="show2">
                       <el-input-number
-                        :disabled="!disable"
-                        :max="9999999999"
+                        :disabled="true"
                         :min="0"
                         :precision="2"
                         :step="1"
@@ -720,7 +717,7 @@
           details: '',
           budgetunit: '',
           plan: '',
-          plantype: '',
+          // plantype: '',
           classificationtype: '',
           balance: '',
           bookingday: '',
@@ -853,32 +850,32 @@
               trigger: 'blur',
             },
           ],
-          plan: [
-            {
-              required: true,
-            },
-          ],
-          plantype: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1036FORMVIEW_PLANTYPE'),
-              trigger: 'change',
-            },
-          ],
+          // plan: [
+          //   {
+          //     required: true,
+          //   },
+          // ],
+          // plantype: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1036FORMVIEW_PLANTYPE'),
+          //     trigger: 'change',
+          //   },
+          // ],
           classificationtype: [
             {
-              required: true,
+              required: false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
               trigger: 'change',
             },
           ],
-          balance: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
-              trigger: 'blur',
-            },
-          ],
+          // balance: [
+          //   {
+          //     required: false,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           bookingday: [
             {
               required: true,
@@ -959,7 +956,7 @@
         },
         show: false,
         show2: false,
-        show3: false,
+        // show3: false,
         show4: false,
         show5: false,
         canStart: false,
@@ -1041,15 +1038,19 @@
             }
             if (this.form.plan === '1') {
               this.show2 = true;
+              this.rules.classificationtype[0].required = true;
+              // this.rules.balance[0].required = true;
             } else {
               this.show2 = false;
-              this.show3 = false;
+              this.rules.classificationtype[0].required = false;
+              // this.rules.balance[0].required = false;
+              // this.show3 = false;
             }
-            if (this.form.plantype === 'PR002006') {
-              this.show3 = true;
-            } else {
-              this.show3 = false;
-            }
+            // if (this.form.plantype === 'PR002006') {
+            //   this.show3 = true;
+            // } else {
+            //   this.show3 = false;
+            // }
             if (this.form.passengers === '1') {
               this.show4 = true;
             } else {
@@ -1531,9 +1532,7 @@
         } else if (
           !this.form.budgetunit ||
           (this.form.plan === '1' && (
-              !this.form.plantype ||
-              !this.form.classificationtype ||
-              !this.form.balance)
+              !this.form.classificationtype)
           ) ||
           !this.form.bookingday ||
           !this.form.loanday ||
@@ -1604,27 +1603,31 @@
         this.form.plan = val;
         if (val === '1') {
           this.show2 = true;
+          this.rules.classificationtype[0].required = true;
+          // this.rules.balance[0].required = true;
         } else {
           this.show2 = false;
-          this.form.plantype = null;
-          this.show3 = false;
+          this.rules.classificationtype[0].required = false;
+          // this.rules.balance[0].required = false;
+          // this.form.plantype = null;
+          // this.show3 = false;
           this.form.classificationtype = null;
-          this.form.balance = null;
+          // this.form.balance = null;
         }
       },
       changeBut(val) {
         this.form.budgetunit = val;
       },
-      getplantype(val) {
-        this.form.plantype = val;
-        if (val === 'PR002006') {
-          this.show3 = true;
-        } else {
-          this.show3 = false;
-          this.form.classificationtype = null;
-          this.form.balance = null;
-        }
-      },
+      // getplantype(val) {
+      //   this.form.plantype = val;
+      //   if (val === 'PR002006') {
+      //     this.show3 = true;
+      //   } else {
+      //     this.show3 = false;
+      //     this.form.classificationtype = null;
+      //     this.form.balance = null;
+      //   }
+      // },
       getclassificationtype(val) {
         this.form.classificationtype = val;
       },

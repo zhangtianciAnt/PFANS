@@ -311,24 +311,24 @@
                       <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">
-                      <dicselect
-                        :code="code5"
-                        :data="form.plantype"
-                        :disabled="!disable"
-                        :multiple="multiple"
-                        @change="getplantype"
-                        style="width: 20vw"
-                      >
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
+<!--                </el-row>-->
+<!--                <el-row>-->
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">-->
+<!--                      <dicselect-->
+<!--                        :code="code5"-->
+<!--                        :data="form.plantype"-->
+<!--                        :disabled="!disable"-->
+<!--                        :multiple="multiple"-->
+<!--                        @change="getplantype"-->
+<!--                        style="width: 20vw"-->
+<!--                      >-->
+<!--                      </dicselect>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
-                                  v-if="show3">
+                                  v-if="show2">
                       <dicselect
                         :code="code6"
                         :data="form.classificationtype"
@@ -341,10 +341,9 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" prop="balance" v-if="show2">
+                    <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="show2">
                       <el-input-number
-                        :disabled="!disable"
-                        :max="9999999999"
+                        :disabled="true"
                         :min="0"
                         :precision="2"
                         :step="1"
@@ -1045,7 +1044,7 @@
           budgetunit: '',
           arrivenight: '',
           plan: '',
-          plantype: '',
+          // plantype: '',
           classificationtype: '',
           balance: '',
           moneys: '',
@@ -1207,27 +1206,27 @@
               trigger: 'blur',
             },
           ],
-          plantype: [
-            {
-              required: true,
-              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_PLANTYPE'),
-              trigger: 'change',
-            },
-          ],
+          // plantype: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_PLANTYPE'),
+          //     trigger: 'change',
+          //   },
+          // ],
           classificationtype: [
             {
-              required: true,
+              required: false,
               message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
               trigger: 'change',
             },
           ],
-          balance: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
-              trigger: 'blur',
-            },
-          ],
+          // balance: [
+          //   {
+          //     required: false,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
           moneys: [
             {
               required: true,
@@ -1435,7 +1434,7 @@
         },
         show: false,
         show2: false,
-        show3: false,
+        // show3: false,
         show4: false,
         show7: false,
         show8: false,
@@ -1451,7 +1450,6 @@
       if (this.$route.params._type === 0) {
         this.loading = true;
         this.$store
-
           .dispatch('PFANS1035Store/selectById3', {'offshore_id': this.$route.params._checkid})
           .then(response => {
             this.loading = true;
@@ -1520,13 +1518,13 @@
                   this.show2 = true;
                 } else {
                   this.show2 = false;
-                  this.show3 = false;
+                  // this.show3 = false;
                 }
-                if (this.form.plantype === 'PR002006') {
-                  this.show3 = true;
-                } else {
-                  this.show3 = false;
-                }
+                // if (this.form.plantype === 'PR002006') {
+                //   this.show3 = true;
+                // } else {
+                //   this.show3 = false;
+                // }
                 if (this.form.currency === 'PG019001') {
                   this.show4 = true;
                   this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
@@ -1635,6 +1633,15 @@
 
                 }
                 //add_fjl_0806
+                if (this.form.plan === '1') {
+                  this.show2 = true;
+                  this.rules.classificationtype[0].required = true;
+                  // this.rules.balance[0].required = true;
+                } else {
+                  this.show2 = false;
+                  this.rules.classificationtype[0].required = false;
+                  // this.rules.balance[0].required = false;
+                }
                 this.loading = false;
               })
               .catch(error => {
@@ -1737,28 +1744,20 @@
               }
               if (this.form.plan === '1') {
                 this.show2 = true;
+                this.rules.classificationtype[0].required = true;
+                // this.rules.balance[0].required = true;
               } else {
                 this.show2 = false;
-                this.show3 = false;
+                this.rules.classificationtype[0].required = false;
+                // this.rules.balance[0].required = false;
               }
-              if (this.form.plantype === 'PR002006') {
-                this.show3 = true;
-              } else {
-                this.show3 = false;
-              }
-              if (this.form.currency === 'PG019001') {
-                this.show4 = true;
-                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
-              }
-              if (this.form.currency === 'PG019002') {
-                this.show4 = true;
-                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
-              }
-              if (this.form.currency === 'PG019003') {
-                this.show4 = true;
-                this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
-              }
-              if (this.form.currency === 'PG019004') {
+              // if (this.form.plantype === 'PR002006') {
+              //   this.show3 = true;
+              // } else {
+              //   this.show3 = false;
+              // }
+              if (this.form.currency === 'PG019001' || this.form.currency === 'PG019002'
+                || this.form.currency === 'PG019003' || this.form.currency === 'PG019004') {
                 this.show4 = true;
                 this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;
               }
@@ -2307,7 +2306,7 @@
         ) {
           this.activeName = 'second';
         } else if (
-          (this.form.plan === '1' && (!this.form.plantype || (this.form.plantype === 'PR002006' && (!this.form.classificationtype)) || !this.form.balance)
+          (this.form.plan === '1' && (!this.form.classificationtype)
           ) ||
           this.form.currency === 'PG019001' && (
             !this.form.otherfxrate) ||
@@ -2427,26 +2426,30 @@
       },
       getplan1(val) {
         this.form.plan = val;
+        this.form.classificationtype = null;
+        // this.form.balance = null;
         if (val === '1') {
           this.show2 = true;
+          this.rules.classificationtype[0].required = true;
+          // this.rules.balance[0].required = true;
         } else {
           this.show2 = false;
-          this.form.plantype = null;
-          this.show3 = false;
-          this.form.classificationtype = null;
-          this.form.balance = null;
+          this.rules.classificationtype[0].required = false;
+          // this.rules.balance[0].required = false;
+          // this.form.plantype = null;
+          // this.show3 = false;
         }
       },
-      getplantype(val) {
-        this.form.plantype = val;
-        if (val === 'PR002006') {
-          this.show3 = true;
-        } else {
-          this.show3 = false;
-          this.form.classificationtype = null;
-          this.form.balance = null;
-        }
-      },
+      // getplantype(val) {
+      //   this.form.plantype = val;
+      //   if (val === 'PR002006') {
+      //     this.show3 = true;
+      //   } else {
+      //     this.show3 = false;
+      //     this.form.classificationtype = null;
+      //     this.form.balance = null;
+      //   }
+      // },
       changeBut(val) {
         this.form.budgetunit = val;
       },
@@ -2656,13 +2659,13 @@
                 this.show2 = true;
               } else {
                 this.show2 = false;
-                this.show3 = false;
+                // this.show3 = false;
               }
-              if (this.form.plantype === 'PR002006') {
-                this.show3 = true;
-              } else {
-                this.show3 = false;
-              }
+              // if (this.form.plantype === 'PR002006') {
+              //   this.show3 = true;
+              // } else {
+              //   this.show3 = false;
+              // }
               if (this.form.currency === 'PG019001') {
                 this.show4 = true;
                 this.form.otherfxrate = getMonthlyrateInfo(this.form.currency).exchangerate;

@@ -66,6 +66,50 @@
                 </el-col>
               </el-row>
               <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_PLAN1')" prop="plan">
+                    <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
+                    <el-switch
+                      :disabled="!disable"
+                      @change="getplan"
+                      active-value="1"
+                      inactive-value="0"
+                      v-model="form.plan"
+                      inactive-color="#005BAA"
+                    >
+                    </el-switch>
+                    <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
+                                v-if="showPlan">
+                    <dicselect
+                      :code="code2"
+                      :data="form.classificationtype"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="getclassificationtype"
+                      style="width: 20vw"
+                    >
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="showPlan">
+                    <el-input-number
+                      :disabled="true"
+                      :min="0"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.balance">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="30">
                   <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_USERNAME')}}</div>
                 </el-col>
@@ -361,14 +405,15 @@
         }
       };
       return {
-          // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
-          //urlparams: '',
-          urlparams: {},
-          // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
-          url: '',
-          activeName: 'first',
-          tableA: [],
-          tableB: [],
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
+        url: '',
+        activeName: 'first',
+        showPlan: false,
+        tableA: [],
+        tableB: [],
         options: [],
         workflowCode: 'W0047',
         centerid: '',
@@ -410,9 +455,13 @@
           budgetunit: '',
           objective: '',
           place: '',
+          plan: '',
+          classificationtype: '',
+          balance: '',
           nodeList: [],
         },
         code1: 'PG001',
+        code2: 'PJ078',
         menuList: [],
         disabled: false,
         rules: {
@@ -441,6 +490,20 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1010FORMVIEW_PERCAPITA'),
             trigger: 'change',
           }],
+          classificationtype: [
+            {
+              required: false,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
+            },
+          ],
+          // balance: [
+          //   {
+          //     required: false,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
         },
         canStart: false,
       };
@@ -613,6 +676,25 @@
       }
     },
     methods: {
+      getplan(val) {
+        this.form.plan = val;
+        if (val === '1') {
+          this.showPlan = true;
+          this.rules.classificationtype[0].required = true;
+          // this.rules.balance[0].required = true;
+        } else {
+          this.showPlan = false;
+          this.rules.classificationtype[0].required = false;
+          // this.rules.balance[0].required = false;
+          // this.form.plantype = null;
+          // this.show3 = false;
+          this.form.classificationtype = null;
+          // this.form.balance = null;
+        }
+      },
+      getclassificationtype(val) {
+        this.form.classificationtype = val;
+      },
       // update center取预算单位横展 start 0404
       getOrgInformation(id) {
         let org = {};

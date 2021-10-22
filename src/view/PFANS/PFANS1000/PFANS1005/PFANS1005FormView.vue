@@ -76,9 +76,8 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name"
-                                v-if="checkgroup">
-                    <org :disabled="!disable" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
+                  <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name">
+                    <org :disabled="!checkgroup" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
                          orgtype="2" style="width:20vw"></org>
                   </el-form-item>
                 </el-col>
@@ -94,6 +93,50 @@
                         @change="changeBut">
                       </el-option>
                     </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_PLAN1')" prop="plan">
+                    <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
+                    <el-switch
+                      :disabled="!disable"
+                      @change="getplan"
+                      active-value="1"
+                      inactive-value="0"
+                      v-model="form.plan"
+                      inactive-color="#005BAA"
+                    >
+                    </el-switch>
+                    <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
+                                v-if="showPlan">
+                    <dicselect
+                      :code="code2"
+                      :data="form.classificationtype"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="getclassificationtype"
+                      style="width: 20vw"
+                    >
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="showPlan">
+                    <el-input-number
+                      :disabled="true"
+                      :min="0"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.balance">
+                    </el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -282,12 +325,14 @@
     import {getCurrentRole2, getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
     import moment from 'moment';
     import org from '../../../components/org';
+    import dicselect from '../../../components/dicselect.vue';
 
     export default {
     name: 'PFANS1005FormView',
     components: {
       EasyNormalContainer,
       user,
+      dicselect,
       org,
         // PFANS1012Pop,
         // PFANS1006Pop,
@@ -316,7 +361,7 @@
         //urlparams: '',
         urlparams: {},
         // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
-          url: '',
+        url: '',
         workflowCode: 'W0012',
         errorgroup: '',
         checkgroup: false,
@@ -332,9 +377,11 @@
         selectType: 'Single',
         userlist: '',
         code: 'PK004',
+        code2: 'PJ078',
         multiple: false,
         title: 'title.PFANS1005VIEW',
         loading: false,
+        showPlan: false,
         disableview: false,
           checkGro: false,
         baseInfo: {},
@@ -350,6 +397,9 @@
           user_id: '',
           status: '',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
+          plan: '',
+          classificationtype: '',
+          balance: '',
         },
         tableD: [
           {
@@ -389,6 +439,20 @@
             message: this.$t('normal.error_09') + this.$t('label.application_date'),
             trigger: 'change',
           }],
+          classificationtype: [
+            {
+              required: false,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
+            },
+          ],
+          // balance: [
+          //   {
+          //     required: false,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
         },
       };
     },
@@ -438,7 +502,11 @@
               this.tableD = response.shoppingDetailed;
             }
             this.userlist = this.form.user_id;
-            this.getBudt(this.form.center_id);
+            if(this.form.group_name != null && this.form.group_name != '' && this.form.group_name != undefined){
+              this.getBudt(this.form.group_name);
+            }else{
+              this.getBudt(this.form.center_id);
+            }
               //add_fjl_0806
               //有暂借款编号绑定暂借款信息
               if (this.form.loanapplication_id) {
@@ -543,6 +611,25 @@
         });
     },
     methods: {
+      getplan(val) {
+        this.form.plan = val;
+        if (val === '1') {
+          this.showPlan = true;
+          this.rules.classificationtype[0].required = true;
+          // this.rules.balance[0].required = true;
+        } else {
+          this.showPlan = false;
+          this.rules.classificationtype[0].required = false;
+          // this.rules.balance[0].required = false;
+          // this.form.plantype = null;
+          // this.show3 = false;
+          this.form.classificationtype = null;
+          // this.form.balance = null;
+        }
+      },
+      getclassificationtype(val) {
+        this.form.classificationtype = val;
+      },
         //add_fjl_0927
       getOrgInformation(id) {
         let org = {};

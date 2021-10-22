@@ -436,13 +436,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount4"
+                    <thousandnum @change="amountsum(scope.row)" v-model="scope.row.amount4"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
 
                   </template>
                 </el-table-column>
@@ -460,13 +460,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount5"
+                    <thousandnum @change="amountsum(scope.row)" v-model="scope.row.amount5"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -483,13 +483,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum(scope.row)" v-model="scope.row.amount6"
+                    <thousandnum @change="amountsum(scope.row)" v-model="scope.row.amount6"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -507,12 +507,12 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumamount1" controls-position="right"
-                                     style="width: 100%"
-                                     :disabled="true"
-                                     :min="0" :max="10000000000" :precision="2"
-                                     size="small">
-                    </el-input-number>
+                    <thousandnum v-model="scope.row.sumamount1" controls-position="right"
+                    style="width: 100%"
+                    :disabled="true"
+                    :min="0" :max="10000000000" :precision="2"
+                    size="small">
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -531,13 +531,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount7"
+                    <thousandnum @change="amountsum1(scope.row)" v-model="scope.row.amount7"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -554,13 +554,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount8"
+                    <thousandnum @change="amountsum1(scope.row)" v-model="scope.row.amount8"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -577,13 +577,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum1(scope.row)" v-model="scope.row.amount9"
+                    <thousandnum @change="amountsum1(scope.row)" v-model="scope.row.amount9"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -625,13 +625,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount10"
+                    <thousandnum @change="amountsum2(scope.row)" v-model="scope.row.amount10"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -649,13 +649,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount11"
+                    <thousandnum @change="amountsum2(scope.row)" v-model="scope.row.amount11"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -673,13 +673,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum2(scope.row)" v-model="scope.row.amount12"
+                    <thousandnum @change="amountsum2(scope.row)" v-model="scope.row.amount12"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -719,13 +719,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount1"
+                    <thousandnum @change="amountsum3(scope.row)" v-model="scope.row.amount1"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -742,13 +742,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount2"
+                    <thousandnum @change="amountsum3(scope.row)" v-model="scope.row.amount2"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -765,13 +765,13 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="190">
                   <template slot-scope="scope">
-                    <el-input-number @change="amountsum3(scope.row)" v-model="scope.row.amount3"
+                    <thousandnum @change="amountsum3(scope.row)" v-model="scope.row.amount3"
                                      controls-position="right"
                                      style="width: 100%"
                                      :disabled="disabled"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -789,19 +789,29 @@
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
                   <template slot-scope="scope">
-                    <el-input-number v-model="scope.row.sumamount4" controls-position="right"
+                    <thousandnum v-model="scope.row.sumamount4" controls-position="right"
                                      style="width: 100%"
                                      :disabled="true"
                                      :min="0" :max="10000000000" :precision="2"
                                      size="small">
-                    </el-input-number>
+                    </thousandnum>
                   </template>
                 </el-table-column>
               </el-table-column>
               <!--              添加年间合计 ztc fr-->
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_YEARTOTAL')" align="center" width="150">
                 <el-table-column :label="$t('label.PFANS1039FORMVIEW_PERSONNUMBER')" align="center" width="120" :formatter="formatterDir" prop="personnumber"/>
-                <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="120" :formatter="formatterDir" prop="amount"/>
+                <el-table-column :label="$t('label.PFANS1039FORMVIEW_AMOUNT')" align="center" width="180">
+                  <template slot-scope="scope">
+                    <thousandnum v-model="scope.row.amount" controls-position="right"
+                                 style="width: 100%"
+                                 :disabled="true"
+                                 :min="0" :max="10000000000" :precision="2"
+                                 size="small">
+                    </thousandnum>
+                  </template>
+                </el-table-column>
+
               </el-table-column>
               <!--              添加年间合计 ztc to-->
 
@@ -842,6 +852,7 @@
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
+  import thousandnum from '../../../components/thousandnum';
 
   export default {
     name: 'PFANS1040FormView',
@@ -851,6 +862,28 @@
       EasyWorkFlow,
       dicselect,
       org,
+      thousandnum,
+    },
+    watch: {
+      tableDataA: {
+        deep: true,
+        handler(newValue, oldValue) {
+          newValue.forEach((v) => {
+            v['amount'] = Number(v['amount4'])
+                + Number(v['amount5'])
+                + Number(v['amount6'])
+                + Number(v['amount7'])
+                + Number(v['amount8'])
+                + Number(v['amount9'])
+                + Number(v['amount10'])
+                + Number(v['amount11'])
+                + Number(v['amount12'])
+                + Number(v['amount1'])
+                + Number(v['amount2'])
+                + Number(v['amount3'])
+          });
+        }
+      },
     },
     data() {
       return {
@@ -1099,19 +1132,6 @@
                   Number(row.personnel10) +
                   Number(row.personnel11) +
                   Number(row.personnel12)).toFixed(2);
-        }else if(column.property === "amount"){
-          return (Number(row.amount1) +
-                  Number(row.amount2) +
-                  Number(row.amount3) +
-                  Number(row.amount4) +
-                  Number(row.amount5) +
-                  Number(row.amount6) +
-                  Number(row.amount7) +
-                  Number(row.amount8) +
-                  Number(row.amount9) +
-                  Number(row.amount10) +
-                  Number(row.amount11) +
-                  Number(row.amount12)).toFixed(2);
         }
       },
       // 添加年间合计 ztc to

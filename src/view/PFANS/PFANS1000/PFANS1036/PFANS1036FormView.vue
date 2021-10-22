@@ -4774,7 +4774,7 @@
           {
             for (let i = 1; i<=12;i++)
             {
-              row['number'+ i] = Number(this.tableP[52]['money'+i] || 0) + Number(this.tableP[53]['money'+i] || 0) + Number(this.tableP[54]['money'+i] || 0);
+              row['number'+ i] = Number(this.tableP[53]['money'+i] || 0)  + Number(this.tableP[54]['money'+i] || 0);
             }
           }
           else
@@ -4783,9 +4783,9 @@
             for (let i = 0; i<=11;i++)
             {
               if(i < 9){
-                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0)  + Number(this.gnperson[i] || 0);
               }else{
-                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0)  + Number(this.gnperson[i] || 0);
               }
             }
           }
