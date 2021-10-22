@@ -4835,6 +4835,25 @@
                 });
                 this.loading = false;
               });
+            //region scc add 保存部分PL from
+            if(this.form.status == '4'){
+              this.tableP.forEach(items => {
+                items.center_id = this.form.center_id;
+                items.year = this.form.year;
+              });
+              this.$store
+                .dispatch('PFANS1036Store/Pl', this.tableP)
+                .then(res=> {
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                });
+            }
+            //endregion scc add 保存部分PL to
           } else {
             this.$store
               .dispatch('PFANS1036Store/createBusinessplan', this.form)
