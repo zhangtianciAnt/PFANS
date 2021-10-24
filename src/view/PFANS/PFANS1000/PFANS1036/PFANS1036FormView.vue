@@ -3044,278 +3044,36 @@
             if (response[2]) this.tableA = [JSON.parse(response[2])];
             // if (response[2]) this.tableB = [JSON.parse(response[2])];
             let actual = JSON.parse(response[3]);
-            //region
-            // let gnpersonnel4 = Number.parseInt(response[4]);
-            // let gnpersonnel5 = Number.parseInt(response[4]);
-            // let gnpersonnel6 = Number.parseInt(response[4]);
-            // let gnpersonnel7 = Number.parseInt(response[4]);
-            // let gnpersonnel8 = Number.parseInt(response[4]);
-            // let gnpersonnel9 = Number.parseInt(response[4]);
-            // let gnpersonnel10 = Number.parseInt(response[4]);
-            // let gnpersonnel11 = Number.parseInt(response[4]);
-            // let gnpersonnel12 = Number.parseInt(response[4]);
-            // let gnpersonnel1 = Number.parseInt(response[4]);
-            // let gnpersonnel2 = Number.parseInt(response[4]);
-            // let gnpersonnel3 = Number.parseInt(response[4]);
-            // let gwpersonnel4 = Number.parseInt(response[5]);
-            // let gwpersonnel5 = Number.parseInt(response[5]);
-            // let gwpersonnel6 = Number.parseInt(response[5]);
-            // let gwpersonnel7 = Number.parseInt(response[5]);
-            // let gwpersonnel8 = Number.parseInt(response[5]);
-            // let gwpersonnel9 = Number.parseInt(response[5]);
-            // let gwpersonnel10 = Number.parseInt(response[5]);
-            // let gwpersonnel11 = Number.parseInt(response[5]);
-            // let gwpersonnel12 = Number.parseInt(response[5]);
-            // let gwpersonnel1 = Number.parseInt(response[5]);
-            // let gwpersonnel2 = Number.parseInt(response[5]);
-            // let gwpersonnel3 = Number.parseInt(response[5]);
-            //endregion
-            if (Number.parseInt(response[4]) > 0 || Number.parseInt(response[5]) > 0) {  //有外注返回
-              // region
-              // this.newentry = JSON.parse(response[6]);//将外注人员转换
-              // if (this.newentry != null) {   //有新来的
-              //   for (let i = 0; i < this.newentry.length; i++) {    //遍历外注人员
-              //     if (this.newentry[i].isoutside === false) {    //判断是构内
-              //       if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-              //         gnpersonnel4 = gnpersonnel4 + 1;
-              //         gnpersonnel5 = gnpersonnel5 + 1;
-              //         gnpersonnel6 = gnpersonnel6 + 1;
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-              //         gnpersonnel5 = gnpersonnel5 + 1;
-              //         gnpersonnel6 = gnpersonnel6 + 1;
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-              //         gnpersonnel6 = gnpersonnel6 + 1;
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       }
-              //     } else if (this.newentry[i].isoutside === true) {    //判断是构外
-              //       if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-              //         gwpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-              //         gwpersonnel4 = gwpersonnel4 + 1;
-              //         gwpersonnel5 = gwpersonnel5 + 1;
-              //         gwpersonnel6 = gwpersonnel6 + 1;
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-              //         gwpersonnel5 = gwpersonnel5 + 1;
-              //         gwpersonnel6 = gwpersonnel6 + 1;
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-              //         gwpersonnel6 = gwpersonnel6 + 1;
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       }
-              //     }
-              //   }
-              // }
-              //endregioned
-            }
             this.gnperson = [];
             this.gwperson = [];
-
-            this.gnperson.push(JSON.parse(response[4])[0].april);
-            this.gnperson.push(JSON.parse(response[4])[0].may);
-            this.gnperson.push(JSON.parse(response[4])[0].june);
-            this.gnperson.push(JSON.parse(response[4])[0].july);
-            this.gnperson.push(JSON.parse(response[4])[0].august);
-            this.gnperson.push(JSON.parse(response[4])[0].september);
-            this.gnperson.push(JSON.parse(response[4])[0].october);
-            this.gnperson.push(JSON.parse(response[4])[0].november);
-            this.gnperson.push(JSON.parse(response[4])[0].december);
-            this.gnperson.push(JSON.parse(response[4])[0].january);
-            this.gnperson.push(JSON.parse(response[4])[0].february);
-            this.gnperson.push(JSON.parse(response[4])[0].march);
-
-            // this.gnperson.push(gnpersonnel5);
-            // this.gnperson.push(gnpersonnel6);
-            // this.gnperson.push(gnpersonnel7);
-            // this.gnperson.push(gnpersonnel8);
-            // this.gnperson.push(gnpersonnel9);
-            // this.gnperson.push(gnpersonnel10);
-            // this.gnperson.push(gnpersonnel11);
-            // this.gnperson.push(gnpersonnel12);
-            // this.gnperson.push(gnpersonnel1);
-            // this.gnperson.push(gnpersonnel2);
-            // this.gnperson.push(gnpersonnel3);
-            // this.gwperson.push(gwpersonnel4);
-            // this.gwperson.push(gwpersonnel5);
-            // this.gwperson.push(gwpersonnel6);
-            // this.gwperson.push(gwpersonnel7);
-            // this.gwperson.push(gwpersonnel8);
-            // this.gwperson.push(gwpersonnel9);
-            // this.gwperson.push(gwpersonnel10);
-            // this.gwperson.push(gwpersonnel11);
-            // this.gwperson.push(gwpersonnel12);
-            // this.gwperson.push(gwpersonnel1);
-            // this.gwperson.push(gwpersonnel2);
-
-            this.gwperson.push(JSON.parse(response[5])[0].april);
-            this.gwperson.push(JSON.parse(response[5])[0].may);
-            this.gwperson.push(JSON.parse(response[5])[0].june);
-            this.gwperson.push(JSON.parse(response[5])[0].july);
-            this.gwperson.push(JSON.parse(response[5])[0].august);
-            this.gwperson.push(JSON.parse(response[5])[0].september);
-            this.gwperson.push(JSON.parse(response[5])[0].october);
-            this.gwperson.push(JSON.parse(response[5])[0].november);
-            this.gwperson.push(JSON.parse(response[5])[0].december);
-            this.gwperson.push(JSON.parse(response[5])[0].january);
-            this.gwperson.push(JSON.parse(response[5])[0].february);
-            this.gwperson.push(JSON.parse(response[5])[0].march);
-
+            if(Number.parseInt(response[4]) > 0){
+              this.gnperson.push(JSON.parse(response[4])[0].april);
+              this.gnperson.push(JSON.parse(response[4])[0].may);
+              this.gnperson.push(JSON.parse(response[4])[0].june);
+              this.gnperson.push(JSON.parse(response[4])[0].july);
+              this.gnperson.push(JSON.parse(response[4])[0].august);
+              this.gnperson.push(JSON.parse(response[4])[0].september);
+              this.gnperson.push(JSON.parse(response[4])[0].october);
+              this.gnperson.push(JSON.parse(response[4])[0].november);
+              this.gnperson.push(JSON.parse(response[4])[0].december);
+              this.gnperson.push(JSON.parse(response[4])[0].january);
+              this.gnperson.push(JSON.parse(response[4])[0].february);
+              this.gnperson.push(JSON.parse(response[4])[0].march);
+            }
+            if (Number.parseInt(response[5]) > 0){
+              this.gwperson.push(JSON.parse(response[5])[0].april);
+              this.gwperson.push(JSON.parse(response[5])[0].may);
+              this.gwperson.push(JSON.parse(response[5])[0].june);
+              this.gwperson.push(JSON.parse(response[5])[0].july);
+              this.gwperson.push(JSON.parse(response[5])[0].august);
+              this.gwperson.push(JSON.parse(response[5])[0].september);
+              this.gwperson.push(JSON.parse(response[5])[0].october);
+              this.gwperson.push(JSON.parse(response[5])[0].november);
+              this.gwperson.push(JSON.parse(response[5])[0].december);
+              this.gwperson.push(JSON.parse(response[5])[0].january);
+              this.gwperson.push(JSON.parse(response[5])[0].february);
+              this.gwperson.push(JSON.parse(response[5])[0].march);
+            }
             //add ccm 20211009 事业计划初期各种经费加载内容 fr
             //通信添加字典设置的默认值
             let dicTX = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ147');
@@ -4786,7 +4544,7 @@
           {
             for (let i = 1; i<=12;i++)
             {
-              row['number'+ i] = Number(this.tableP[52]['money'+i] || 0) + Number(this.tableP[53]['money'+i] || 0) + Number(this.tableP[54]['money'+i] || 0);
+              row['number'+ i] = Number(this.tableP[53]['money'+i] || 0)  + Number(this.tableP[54]['money'+i] || 0);
             }
           }
           else
@@ -4795,9 +4553,9 @@
             for (let i = 0; i<=11;i++)
             {
               if(i < 9){
-                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0)  + Number(this.gnperson[i] || 0);
               }else{
-                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0)  + Number(this.gnperson[i] || 0);
               }
             }
           }
