@@ -3044,278 +3044,37 @@
             if (response[2]) this.tableA = [JSON.parse(response[2])];
             // if (response[2]) this.tableB = [JSON.parse(response[2])];
             let actual = JSON.parse(response[3]);
-            //region
-            // let gnpersonnel4 = Number.parseInt(response[4]);
-            // let gnpersonnel5 = Number.parseInt(response[4]);
-            // let gnpersonnel6 = Number.parseInt(response[4]);
-            // let gnpersonnel7 = Number.parseInt(response[4]);
-            // let gnpersonnel8 = Number.parseInt(response[4]);
-            // let gnpersonnel9 = Number.parseInt(response[4]);
-            // let gnpersonnel10 = Number.parseInt(response[4]);
-            // let gnpersonnel11 = Number.parseInt(response[4]);
-            // let gnpersonnel12 = Number.parseInt(response[4]);
-            // let gnpersonnel1 = Number.parseInt(response[4]);
-            // let gnpersonnel2 = Number.parseInt(response[4]);
-            // let gnpersonnel3 = Number.parseInt(response[4]);
-            // let gwpersonnel4 = Number.parseInt(response[5]);
-            // let gwpersonnel5 = Number.parseInt(response[5]);
-            // let gwpersonnel6 = Number.parseInt(response[5]);
-            // let gwpersonnel7 = Number.parseInt(response[5]);
-            // let gwpersonnel8 = Number.parseInt(response[5]);
-            // let gwpersonnel9 = Number.parseInt(response[5]);
-            // let gwpersonnel10 = Number.parseInt(response[5]);
-            // let gwpersonnel11 = Number.parseInt(response[5]);
-            // let gwpersonnel12 = Number.parseInt(response[5]);
-            // let gwpersonnel1 = Number.parseInt(response[5]);
-            // let gwpersonnel2 = Number.parseInt(response[5]);
-            // let gwpersonnel3 = Number.parseInt(response[5]);
-            //endregion
-            if (Number.parseInt(response[4]) > 0 || Number.parseInt(response[5]) > 0) {  //有外注返回
-              // region
-              // this.newentry = JSON.parse(response[6]);//将外注人员转换
-              // if (this.newentry != null) {   //有新来的
-              //   for (let i = 0; i < this.newentry.length; i++) {    //遍历外注人员
-              //     if (this.newentry[i].isoutside === false) {    //判断是构内
-              //       if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-              //         gnpersonnel4 = gnpersonnel4 + 1;
-              //         gnpersonnel5 = gnpersonnel5 + 1;
-              //         gnpersonnel6 = gnpersonnel6 + 1;
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-              //         gnpersonnel5 = gnpersonnel5 + 1;
-              //         gnpersonnel6 = gnpersonnel6 + 1;
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-              //         gnpersonnel6 = gnpersonnel6 + 1;
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-              //         gnpersonnel7 = gnpersonnel7 + 1;
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-              //         gnpersonnel8 = gnpersonnel8 + 1;
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-              //         gnpersonnel9 = gnpersonnel9 + 1;
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-              //         gnpersonnel10 = gnpersonnel10 + 1;
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-              //         gnpersonnel11 = gnpersonnel11 + 1;
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-              //         gnpersonnel12 = gnpersonnel12 + 1;
-              //         gnpersonnel1 = gnpersonnel1 + 1;
-              //         gnpersonnel2 = gnpersonnel2 + 1;
-              //         gnpersonnel3 = gnpersonnel3 + 1;
-              //       }
-              //     } else if (this.newentry[i].isoutside === true) {    //判断是构外
-              //       if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 1) {
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 2) {
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 3) {
-              //         gwpersonnel3 = gnpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 4) {
-              //         gwpersonnel4 = gwpersonnel4 + 1;
-              //         gwpersonnel5 = gwpersonnel5 + 1;
-              //         gwpersonnel6 = gwpersonnel6 + 1;
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 5) {
-              //         gwpersonnel5 = gwpersonnel5 + 1;
-              //         gwpersonnel6 = gwpersonnel6 + 1;
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 6) {
-              //         gwpersonnel6 = gwpersonnel6 + 1;
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 7) {
-              //         gwpersonnel7 = gwpersonnel7 + 1;
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 8) {
-              //         gwpersonnel8 = gwpersonnel8 + 1;
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 9) {
-              //         gwpersonnel9 = gwpersonnel9 + 1;
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 10) {
-              //         gwpersonnel10 = gwpersonnel10 + 1;
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 11) {
-              //         gwpersonnel11 = gwpersonnel11 + 1;
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       } else if (parseInt(moment(this.newentry[i].entermouth).format('MM')) == 12) {
-              //         gwpersonnel12 = gwpersonnel12 + 1;
-              //         gwpersonnel1 = gwpersonnel1 + 1;
-              //         gwpersonnel2 = gwpersonnel2 + 1;
-              //         gwpersonnel3 = gwpersonnel3 + 1;
-              //       }
-              //     }
-              //   }
-              // }
-              //endregioned
-            }
             this.gnperson = [];
             this.gwperson = [];
-
-            this.gnperson.push(JSON.parse(response[4])[0].april);
-            this.gnperson.push(JSON.parse(response[4])[0].may);
-            this.gnperson.push(JSON.parse(response[4])[0].june);
-            this.gnperson.push(JSON.parse(response[4])[0].july);
-            this.gnperson.push(JSON.parse(response[4])[0].august);
-            this.gnperson.push(JSON.parse(response[4])[0].september);
-            this.gnperson.push(JSON.parse(response[4])[0].october);
-            this.gnperson.push(JSON.parse(response[4])[0].november);
-            this.gnperson.push(JSON.parse(response[4])[0].december);
-            this.gnperson.push(JSON.parse(response[4])[0].january);
-            this.gnperson.push(JSON.parse(response[4])[0].february);
-            this.gnperson.push(JSON.parse(response[4])[0].march);
-
-            // this.gnperson.push(gnpersonnel5);
-            // this.gnperson.push(gnpersonnel6);
-            // this.gnperson.push(gnpersonnel7);
-            // this.gnperson.push(gnpersonnel8);
-            // this.gnperson.push(gnpersonnel9);
-            // this.gnperson.push(gnpersonnel10);
-            // this.gnperson.push(gnpersonnel11);
-            // this.gnperson.push(gnpersonnel12);
-            // this.gnperson.push(gnpersonnel1);
-            // this.gnperson.push(gnpersonnel2);
-            // this.gnperson.push(gnpersonnel3);
-            // this.gwperson.push(gwpersonnel4);
-            // this.gwperson.push(gwpersonnel5);
-            // this.gwperson.push(gwpersonnel6);
-            // this.gwperson.push(gwpersonnel7);
-            // this.gwperson.push(gwpersonnel8);
-            // this.gwperson.push(gwpersonnel9);
-            // this.gwperson.push(gwpersonnel10);
-            // this.gwperson.push(gwpersonnel11);
-            // this.gwperson.push(gwpersonnel12);
-            // this.gwperson.push(gwpersonnel1);
-            // this.gwperson.push(gwpersonnel2);
-
-            this.gwperson.push(JSON.parse(response[5])[0].april);
-            this.gwperson.push(JSON.parse(response[5])[0].may);
-            this.gwperson.push(JSON.parse(response[5])[0].june);
-            this.gwperson.push(JSON.parse(response[5])[0].july);
-            this.gwperson.push(JSON.parse(response[5])[0].august);
-            this.gwperson.push(JSON.parse(response[5])[0].september);
-            this.gwperson.push(JSON.parse(response[5])[0].october);
-            this.gwperson.push(JSON.parse(response[5])[0].november);
-            this.gwperson.push(JSON.parse(response[5])[0].december);
-            this.gwperson.push(JSON.parse(response[5])[0].january);
-            this.gwperson.push(JSON.parse(response[5])[0].february);
-            this.gwperson.push(JSON.parse(response[5])[0].march);
-
+            if(response[4] != null){
+              debugger
+              this.gnperson.push(JSON.parse(response[4]).april);
+              this.gnperson.push(JSON.parse(response[4]).may);
+              this.gnperson.push(JSON.parse(response[4]).june);
+              this.gnperson.push(JSON.parse(response[4]).july);
+              this.gnperson.push(JSON.parse(response[4]).august);
+              this.gnperson.push(JSON.parse(response[4]).september);
+              this.gnperson.push(JSON.parse(response[4]).october);
+              this.gnperson.push(JSON.parse(response[4]).november);
+              this.gnperson.push(JSON.parse(response[4]).december);
+              this.gnperson.push(JSON.parse(response[4]).january);
+              this.gnperson.push(JSON.parse(response[4]).february);
+              this.gnperson.push(JSON.parse(response[4]).march);
+            }
+            if (response[5] != null){
+              this.gwperson.push(JSON.parse(response[5]).april);
+              this.gwperson.push(JSON.parse(response[5]).may);
+              this.gwperson.push(JSON.parse(response[5]).june);
+              this.gwperson.push(JSON.parse(response[5]).july);
+              this.gwperson.push(JSON.parse(response[5]).august);
+              this.gwperson.push(JSON.parse(response[5]).september);
+              this.gwperson.push(JSON.parse(response[5]).october);
+              this.gwperson.push(JSON.parse(response[5]).november);
+              this.gwperson.push(JSON.parse(response[5]).december);
+              this.gwperson.push(JSON.parse(response[5]).january);
+              this.gwperson.push(JSON.parse(response[5]).february);
+              this.gwperson.push(JSON.parse(response[5]).march);
+            }
             //add ccm 20211009 事业计划初期各种经费加载内容 fr
             //通信添加字典设置的默认值
             let dicTX = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ147');
@@ -3387,6 +3146,13 @@
         let _assets1 = {};//设备投资
         let _assets2 = {};//软件资产
         let _sumB = {};//外注费
+        //region scc 10/21 add 各种经费中调整设备资产或软件资产 from
+        let equipmentFor = {};//各种经费设备
+        let softwareFor = {};//各种经费软件
+        //endregion scc 10/21 add 各种经费中调整设备资产或软件资产 to
+        //region scc add 10/22 在库，合计到PL研究材料费 from
+        let inLibrary = {};
+        //endregion scc add 10/22 在库，合计到PL研究材料费 to
 
         //add ccm 20211008 PL添加年间合计 fr
         let total0 = 0;    let total10 = 0;   let total20 = 0;   let total30 = 0;   let total40 = 0;   let total50 = 0;
@@ -3548,6 +3314,27 @@
                 _sumB['money' + i] = (Number(_sumB['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
               }
             }
+            //region scc add 10/21 各种经费中计算调整项设备或软件 from
+            //设备
+            if(val.type === 'PJ111016') {
+              for (let i = 1; i <= 12; i++) {
+                equipmentFor['money' + i] = (Number(equipmentFor['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //软件
+            if(val.type === 'PJ111017') {
+              for (let i = 1; i <= 12; i++) {
+                softwareFor['money' + i] = (Number(softwareFor['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //endregion scc add 10/21 各种经费中计算调整项设备或软件 to
+            //region scc add 10/22 各种经费，在库 from
+            if(val.type === 'PJ111018') {
+              for (let i = 1; i <= 12; i++) {
+                inLibrary['money' + i] = (Number(inLibrary['money' + i] || 0) + Number(val['money' + i] || 0)).toFixed(2);
+              }
+            }
+            //endregion scc add 10/22 各种经费，在库 to
           },
         );
 
@@ -3653,14 +3440,18 @@
           //设备投资赏却合计
           // if (this.assets1.length > 0) {
           // this.$set(this.tableP[14], 'money' + this.arr[i], (Number(this.assets1[0]['money' + this.arr[i]] || 0)).toFixed(2));
-          this.$set(this.tableP[14], 'money' + this.arr[i], Number(_assets1['money' + this.arr[i]] || 0).toFixed(3));
+          //region scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 from
+          this.$set(this.tableP[14], 'money' + this.arr[i], Number(Number(_assets1['money' + this.arr[i]] || 0) + Number(equipmentFor['money' + this.arr[i]] || 0)).toFixed(3));
+          //endregion scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 to
           // } else {
           //   this.$set(this.tableP[14], 'money' + this.arr[i], '0.00');
           // }
           //软件资产赏却合计
           // if (this.assets2.length > 0) {
           //   this.$set(this.tableP[15], 'money' + this.arr[i], (Number(this.assets2[0]['money' + this.arr[i]] || 0)).toFixed(2));
-            this.$set(this.tableP[15], 'money' + this.arr[i], Number(_assets2['money' + this.arr[i]] || 0).toFixed(3));
+          //region scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 from
+            this.$set(this.tableP[15], 'money' + this.arr[i], Number(Number(_assets2['money' + this.arr[i]] || 0) + Number(softwareFor['money' + this.arr[i]] || 0)).toFixed(3));
+          //endregion scc upd 10/21 Pl中设备或软件资产添加可以调整项修改 to
           // } else {
           //   this.$set(this.tableP[15], 'money' + this.arr[i], '0.00');
           // }
@@ -3676,14 +3467,16 @@
           this.$set(this.tableP[20], 'money' + this.arr[i], (Number(this.tableP[14]['money' + this.arr[i]]) + Number(this.tableP[15]['money' + this.arr[i]]) + Number(this.tableP[16]['money' + this.arr[i]]) + Number(this.tableP[17]['money' + this.arr[i]]) + Number(this.tableP[18]['money' + this.arr[i]]) + Number(this.tableP[19]['money' + this.arr[i]])).toFixed(2));
           //研究材料費1
           if (this.sumC1.length > 0) {
+            //region scc upd 10/22 各种经费在库，统计到Pl研究材料费 from
             if (i <= 5) {
-              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[1 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)).toFixed(2));
+              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[1 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)+ Number(inLibrary['money' + this.arr[i]] || 0)).toFixed(2));
             } else {
-              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[3 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0)).toFixed(2));
+              this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(this.sumC1[3 + i] || 0)+Number(tableOTotal2['money' + this.arr[i]] || 0) + Number(inLibrary['money' + this.arr[i]] || 0)).toFixed(2));
             }
           } else {
-            this.$set(this.tableP[21], 'money' + this.arr[i], Number(tableOTotal2['money' + this.arr[i]] || 0).toFixed(2));
+            this.$set(this.tableP[21], 'money' + this.arr[i], Number(Number(tableOTotal2['money' + this.arr[i]] || 0) + Number(inLibrary['money' + this.arr[i]] || 0)).toFixed(2));
           }
+          //endregion scc upd 10/22 各种经费在库，统计到Pl研究材料费 to
           //調査費
           this.$set(this.tableP[22], 'money' + this.arr[i], '0.00');
           //内部委託支出
@@ -3895,6 +3688,28 @@
           this.$set(this.tableP[51], 'money3', '0.00');
         }
         //endregion scc upd 限界利润率计算变更，每三个月统计一次 from
+        // region scc add 10/21 PL中仕掛品，6,9,12,3，是4月-5月，7月-8月，10月-11月，1月-2月 from
+        if(!isNaN(Number(this.tableP[39]['money4'])) && !isNaN(Number(this.tableP[39]['money5']))){
+          this.$set(this.tableP[39], 'money6', (Number(this.tableP[39]['money4']) - Number(this.tableP[39]['money5'])).toFixed(2));
+        }else{
+          this.$set(this.tableP[39], 'money6', '0.00');
+        }
+        if(!isNaN(Number(this.tableP[39]['money7'])) && !isNaN(Number(this.tableP[39]['money8']))){
+          this.$set(this.tableP[39], 'money9', (Number(this.tableP[39]['money7']) - Number(this.tableP[39]['money8'])).toFixed(2));
+        }else{
+          this.$set(this.tableP[39], 'money9', '0.00');
+        }
+        if(!isNaN(Number(this.tableP[39]['money10'])) && !isNaN(Number(this.tableP[39]['money11']))){
+          this.$set(this.tableP[39], 'money12', (Number(this.tableP[39]['money10']) - Number(this.tableP[39]['money11'])).toFixed(2));
+        }else{
+          this.$set(this.tableP[39], 'money12', '0.00');
+        }
+        if(!isNaN(Number(this.tableP[39]['money1'])) && !isNaN(Number(this.tableP[39]['money2']))){
+          this.$set(this.tableP[39], 'money3', (Number(this.tableP[39]['money1']) - Number(this.tableP[39]['money2'])).toFixed(2));
+        }else{
+          this.$set(this.tableP[39], 'money3', '0.00');
+        }
+        // endregion scc add 10/21 PL中仕掛品，6,9,12,3，是4月-5月，7月-8月，10月-11月，1月-2月 to
         if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
           this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
         } else {
@@ -4430,6 +4245,11 @@
         //region scc del 10/14 各种经费添加，添加调整项，其中单价可为负数 from
       // if (scope.price > 0) {
          scope['money' + index] = (scope.price * scope['number' + index] / 1000).toFixed(3);
+         //region scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 from
+          if(scope['money' + index] * 10 === -0){
+            scope['money' + index] = (scope['money' + index] * -1).toFixed(3);
+          }
+        //endregion scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 to
           if (index >= 4 && index <= 9) {
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
             scope.moneyfirst = (Number(scope.money4 || 0) + Number(scope.money5 || 0) + Number(scope.money6 || 0) + Number(scope.money7 || 0) + Number(scope.money8 || 0) + Number(scope.money9 || 0)).toFixed(3);
@@ -4440,6 +4260,11 @@
             for (let par in scope) {
               if (par.substring(0, 5) === 'money') {
                 scope[par] = ((scope.price * scope['number' + (par.length > 6 ? par.slice(par.length - 2) : par.slice(par.length - 1))]) / 1000).toFixed(3);
+                //region scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 from
+                if(scope[par] * 10 === -0){
+                  scope[par] = (scope[par] * -1).toFixed(3);
+                }
+                //endregion scc add 解决在选择调正项时，单价金额很小时，出现-0.00的问题 to
               }
             }
             scope.numberfirst = ((scope.number4 || 0) + (scope.number5 || 0) + (scope.number6 || 0) + (scope.number7 || 0) + (scope.number8 || 0) + (scope.number9 || 0)).toFixed(1);
@@ -4720,18 +4545,17 @@
           {
             for (let i = 1; i<=12;i++)
             {
-              row['number'+ i] = Number(this.tableP[52]['money'+i] || 0) + Number(this.tableP[53]['money'+i] || 0) + Number(this.tableP[54]['money'+i] || 0);
+              row['number'+ i] = Number(this.tableP[53]['money'+i] || 0)  + Number(this.tableP[54]['money'+i] || 0);
             }
           }
           else
           {
-
             for (let i = 0; i<=11;i++)
             {
               if(i < 9){
-                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+4)] || 0)  + Number(this.gnperson[i] || 0);
               }else{
-                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0) + Number(this.gwperson[i] || 0) + Number(this.gnperson[i] || 0);
+                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i-8)] || 0)  + Number(this.gnperson[i] || 0);
               }
             }
           }
@@ -5244,7 +5068,7 @@
 </script>
 
 
-<style rel="stylesheet/scss" lang="scss">
+<style rel="stylesheet/scss" lang="scss" scoped>
 
   .el-table .row1 {
     color: #6d9fd1;
