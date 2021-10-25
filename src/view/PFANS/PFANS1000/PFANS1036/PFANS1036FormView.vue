@@ -3687,24 +3687,24 @@
           this.$set(this.tableP[51], 'money3', '0.00');
         }
         //endregion scc upd 限界利润率计算变更，每三个月统计一次 from
-        // region scc add 10/21 PL中仕掛品，6,9,12,3，是4月-5月，7月-8月，10月-11月，1月-2月 from
+        // region scc add 10/21 PL中仕掛品，6,9,12,3，是-(4月+5月)，-(7月+8月)，-(10月+11月)，-(1月+2月) from
         if(!isNaN(Number(this.tableP[39]['money4'])) && !isNaN(Number(this.tableP[39]['money5']))){
-          this.$set(this.tableP[39], 'money6', (Number(this.tableP[39]['money4']) - Number(this.tableP[39]['money5'])).toFixed(2));
+          this.$set(this.tableP[39], 'money6', -((Number(this.tableP[39]['money4']) + Number(this.tableP[39]['money5'])).toFixed(2)));
         }else{
           this.$set(this.tableP[39], 'money6', '0.00');
         }
         if(!isNaN(Number(this.tableP[39]['money7'])) && !isNaN(Number(this.tableP[39]['money8']))){
-          this.$set(this.tableP[39], 'money9', (Number(this.tableP[39]['money7']) - Number(this.tableP[39]['money8'])).toFixed(2));
+          this.$set(this.tableP[39], 'money9', -((Number(this.tableP[39]['money7']) + Number(this.tableP[39]['money8'])).toFixed(2)));
         }else{
           this.$set(this.tableP[39], 'money9', '0.00');
         }
         if(!isNaN(Number(this.tableP[39]['money10'])) && !isNaN(Number(this.tableP[39]['money11']))){
-          this.$set(this.tableP[39], 'money12', (Number(this.tableP[39]['money10']) - Number(this.tableP[39]['money11'])).toFixed(2));
+          this.$set(this.tableP[39], 'money12', -((Number(this.tableP[39]['money10']) + Number(this.tableP[39]['money11'])).toFixed(2)));
         }else{
           this.$set(this.tableP[39], 'money12', '0.00');
         }
         if(!isNaN(Number(this.tableP[39]['money1'])) && !isNaN(Number(this.tableP[39]['money2']))){
-          this.$set(this.tableP[39], 'money3', (Number(this.tableP[39]['money1']) - Number(this.tableP[39]['money2'])).toFixed(2));
+          this.$set(this.tableP[39], 'money3', -((Number(this.tableP[39]['money1']) + Number(this.tableP[39]['money2'])).toFixed(2)));
         }else{
           this.$set(this.tableP[39], 'money3', '0.00');
         }
