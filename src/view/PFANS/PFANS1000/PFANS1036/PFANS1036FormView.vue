@@ -3535,9 +3535,20 @@
           ['money', 'actual'].forEach(
             val => {
               //仕掛品
-              this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) -(Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
-                Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.70).toFixed(2));
-
+              //region scc add 10/25 PL中仕掛品，6,9,12,3，是-(4月+5月)，-(7月+8月)，-(10月+11月)，-(1月+2月) from
+              if(this.arr[i] === 6){
+                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              }else if(this.arr[i] === 9){
+                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              }else if(this.arr[i] === 12){
+                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              }else if(this.arr[i] === 3){
+                this.$set(this.tableP[39], val + this.arr[i],(Number(0) - (Number(this.tableP[39][val + this.arr[i - 2]]) + Number(this.tableP[39][val + this.arr[i - 1]]))).toFixed(2));
+              }else {
+                this.$set(this.tableP[39], val + this.arr[i], (0 - Number(this.tableP[13][val + this.arr[i]]) - Number(this.tableP[20][val + this.arr[i]]) - Number(this.tableP[26][val + this.arr[i]]) - (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
+                  Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]])) + Number(this.tableP[5][val + this.arr[i]]) * 0.70).toFixed(2));
+              }
+              //endregion scc add 10/25 PL中仕掛品，6,9,12,3，是-(4月+5月)，-(7月+8月)，-(10月+11月)，-(1月+2月) to
               //その他諸経費小計
               this.$set(this.tableP[41], val + this.arr[i], (Number(this.tableP[31][val + this.arr[i]]) + Number(this.tableP[32][val + this.arr[i]]) +
                 Number(this.tableP[33][val + this.arr[i]]) + Number(this.tableP[34][val + this.arr[i]]) + Number(this.tableP[35][val + this.arr[i]]) + Number(this.tableP[36][val + this.arr[i]]) + Number(this.tableP[37][val + this.arr[i]]) + Number(this.tableP[38][val + this.arr[i]]) + Number(this.tableP[39][val + this.arr[i]]) + Number(this.tableP[40][val + this.arr[i]] || 0)).toFixed(2));
@@ -3687,27 +3698,27 @@
           this.$set(this.tableP[51], 'money3', '0.00');
         }
         //endregion scc upd 限界利润率计算变更，每三个月统计一次 from
-        // region scc add 10/21 PL中仕掛品，6,9,12,3，是-(4月+5月)，-(7月+8月)，-(10月+11月)，-(1月+2月) from
-        if(!isNaN(Number(this.tableP[39]['money4'])) && !isNaN(Number(this.tableP[39]['money5']))){
-          this.$set(this.tableP[39], 'money6', -((Number(this.tableP[39]['money4']) + Number(this.tableP[39]['money5'])).toFixed(2)));
-        }else{
-          this.$set(this.tableP[39], 'money6', '0.00');
-        }
-        if(!isNaN(Number(this.tableP[39]['money7'])) && !isNaN(Number(this.tableP[39]['money8']))){
-          this.$set(this.tableP[39], 'money9', -((Number(this.tableP[39]['money7']) + Number(this.tableP[39]['money8'])).toFixed(2)));
-        }else{
-          this.$set(this.tableP[39], 'money9', '0.00');
-        }
-        if(!isNaN(Number(this.tableP[39]['money10'])) && !isNaN(Number(this.tableP[39]['money11']))){
-          this.$set(this.tableP[39], 'money12', -((Number(this.tableP[39]['money10']) + Number(this.tableP[39]['money11'])).toFixed(2)));
-        }else{
-          this.$set(this.tableP[39], 'money12', '0.00');
-        }
-        if(!isNaN(Number(this.tableP[39]['money1'])) && !isNaN(Number(this.tableP[39]['money2']))){
-          this.$set(this.tableP[39], 'money3', -((Number(this.tableP[39]['money1']) + Number(this.tableP[39]['money2'])).toFixed(2)));
-        }else{
-          this.$set(this.tableP[39], 'money3', '0.00');
-        }
+        // region scc add 10/21 PL中仕掛品，6,9,12,3，是-(4月+5月)，-(7月+8月)，-(10月+11月)，-(1月+2月) from del------
+        // if(!isNaN(Number(this.tableP[39]['money4'])) && !isNaN(Number(this.tableP[39]['money5']))){
+        //   this.$set(this.tableP[39], 'money6', (Number(0) - (Number(this.tableP[39]['money4']) + Number(this.tableP[39]['money5']))).toFixed(2));
+        // }else{
+        //   this.$set(this.tableP[39], 'money6', '0.00');
+        // }
+        // if(!isNaN(Number(this.tableP[39]['money7'])) && !isNaN(Number(this.tableP[39]['money8']))){
+        //   this.$set(this.tableP[39], 'money9', (Number(0) - (Number(this.tableP[39]['money7']) + Number(this.tableP[39]['money8']))).toFixed(2));
+        // }else{
+        //   this.$set(this.tableP[39], 'money9', '0.00');
+        // }
+        // if(!isNaN(Number(this.tableP[39]['money10'])) && !isNaN(Number(this.tableP[39]['money11']))){
+        //   this.$set(this.tableP[39], 'money12', (Number(0) - (Number(this.tableP[39]['money10']) + Number(this.tableP[39]['money11']))).toFixed(2));
+        // }else{
+        //   this.$set(this.tableP[39], 'money12', '0.00');
+        // }
+        // if(!isNaN(Number(this.tableP[39]['money1'])) && !isNaN(Number(this.tableP[39]['money2']))){
+        //   this.$set(this.tableP[39], 'money3', (Number(0) - (Number(this.tableP[39]['money1']) + Number(this.tableP[39]['money2']))).toFixed(2));
+        // }else{
+        //   this.$set(this.tableP[39], 'money3', '0.00');
+        // }
         // endregion scc add 10/21 PL中仕掛品，6,9,12,3，是4月-5月，7月-8月，10月-11月，1月-2月 to
         if ((Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6'])) !== 0) {
           this.$set(this.tableP[50], 'money6', ((Number(this.tableP[43]['money4']) + Number(this.tableP[43]['money5']) + Number(this.tableP[43]['money6'])) / (Number(this.tableP[5]['money4']) + Number(this.tableP[5]['money5']) + Number(this.tableP[5]['money6']))).toFixed(2));
@@ -3750,7 +3761,7 @@
         this.$set(this.tableP[26], 'moneytotal', Number(total26).toFixed(2)); this.$set(this.tableP[36], 'moneytotal', Number(total36).toFixed(2));
         this.$set(this.tableP[27], 'moneytotal', Number(total27).toFixed(2)); this.$set(this.tableP[37], 'moneytotal', Number(total37).toFixed(2));
         this.$set(this.tableP[28], 'moneytotal', Number(total28).toFixed(2)); this.$set(this.tableP[38], 'moneytotal', Number(total38).toFixed(2));
-        this.$set(this.tableP[29], 'moneytotal', Number(total29).toFixed(2)); this.$set(this.tableP[39], 'moneytotal', Number(total39).toFixed(2));
+        this.$set(this.tableP[29], 'moneytotal', Number(total29).toFixed(2)); this.$set(this.tableP[39], 'moneytotal', (Math.round(Number(total39) * 100) / 100).toFixed(2));
 
         this.$set(this.tableP[40], 'moneytotal', Number(total40).toFixed(2)); this.$set(this.tableP[50], 'moneytotal', Number(Number(this.tableP[50]['money6']) + Number(this.tableP[50]['money9']) + Number(this.tableP[50]['money12']) + Number(this.tableP[50]['money3'])).toFixed(2));
         this.$set(this.tableP[41], 'moneytotal', Number(total41).toFixed(2)); this.$set(this.tableP[51], 'moneytotal', Number(Number(this.tableP[51]['money6']) + Number(this.tableP[51]['money9']) + Number(this.tableP[51]['money12']) + Number(this.tableP[51]['money3'])).toFixed(2));
