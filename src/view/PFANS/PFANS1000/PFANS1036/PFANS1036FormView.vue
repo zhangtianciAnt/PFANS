@@ -3046,33 +3046,34 @@
             let actual = JSON.parse(response[3]);
             this.gnperson = [];
             this.gwperson = [];
-            if(Number.parseInt(response[4]) > 0){
-              this.gnperson.push(JSON.parse(response[4])[0].april);
-              this.gnperson.push(JSON.parse(response[4])[0].may);
-              this.gnperson.push(JSON.parse(response[4])[0].june);
-              this.gnperson.push(JSON.parse(response[4])[0].july);
-              this.gnperson.push(JSON.parse(response[4])[0].august);
-              this.gnperson.push(JSON.parse(response[4])[0].september);
-              this.gnperson.push(JSON.parse(response[4])[0].october);
-              this.gnperson.push(JSON.parse(response[4])[0].november);
-              this.gnperson.push(JSON.parse(response[4])[0].december);
-              this.gnperson.push(JSON.parse(response[4])[0].january);
-              this.gnperson.push(JSON.parse(response[4])[0].february);
-              this.gnperson.push(JSON.parse(response[4])[0].march);
+            if(response[4] != null){
+              debugger
+              this.gnperson.push(JSON.parse(response[4]).april);
+              this.gnperson.push(JSON.parse(response[4]).may);
+              this.gnperson.push(JSON.parse(response[4]).june);
+              this.gnperson.push(JSON.parse(response[4]).july);
+              this.gnperson.push(JSON.parse(response[4]).august);
+              this.gnperson.push(JSON.parse(response[4]).september);
+              this.gnperson.push(JSON.parse(response[4]).october);
+              this.gnperson.push(JSON.parse(response[4]).november);
+              this.gnperson.push(JSON.parse(response[4]).december);
+              this.gnperson.push(JSON.parse(response[4]).january);
+              this.gnperson.push(JSON.parse(response[4]).february);
+              this.gnperson.push(JSON.parse(response[4]).march);
             }
-            if (Number.parseInt(response[5]) > 0){
-              this.gwperson.push(JSON.parse(response[5])[0].april);
-              this.gwperson.push(JSON.parse(response[5])[0].may);
-              this.gwperson.push(JSON.parse(response[5])[0].june);
-              this.gwperson.push(JSON.parse(response[5])[0].july);
-              this.gwperson.push(JSON.parse(response[5])[0].august);
-              this.gwperson.push(JSON.parse(response[5])[0].september);
-              this.gwperson.push(JSON.parse(response[5])[0].october);
-              this.gwperson.push(JSON.parse(response[5])[0].november);
-              this.gwperson.push(JSON.parse(response[5])[0].december);
-              this.gwperson.push(JSON.parse(response[5])[0].january);
-              this.gwperson.push(JSON.parse(response[5])[0].february);
-              this.gwperson.push(JSON.parse(response[5])[0].march);
+            if (response[5] != null){
+              this.gwperson.push(JSON.parse(response[5]).april);
+              this.gwperson.push(JSON.parse(response[5]).may);
+              this.gwperson.push(JSON.parse(response[5]).june);
+              this.gwperson.push(JSON.parse(response[5]).july);
+              this.gwperson.push(JSON.parse(response[5]).august);
+              this.gwperson.push(JSON.parse(response[5]).september);
+              this.gwperson.push(JSON.parse(response[5]).october);
+              this.gwperson.push(JSON.parse(response[5]).november);
+              this.gwperson.push(JSON.parse(response[5]).december);
+              this.gwperson.push(JSON.parse(response[5]).january);
+              this.gwperson.push(JSON.parse(response[5]).february);
+              this.gwperson.push(JSON.parse(response[5]).march);
             }
             //add ccm 20211009 事业计划初期各种经费加载内容 fr
             //通信添加字典设置的默认值
@@ -4549,13 +4550,12 @@
           }
           else
           {
-
             for (let i = 0; i<=11;i++)
             {
               if(i < 9){
-                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+1)] || 0)  + Number(this.gnperson[i] || 0);
+                row['number'+ (i+4)] = Number(this.tableA[0]['amount'+(i+4)] || 0)  + Number(this.gnperson[i] || 0);
               }else{
-                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i+1)] || 0)  + Number(this.gnperson[i] || 0);
+                row['number'+ (i-8)] = Number(this.tableA[0]['amount'+(i-8)] || 0)  + Number(this.gnperson[i] || 0);
               }
             }
           }
