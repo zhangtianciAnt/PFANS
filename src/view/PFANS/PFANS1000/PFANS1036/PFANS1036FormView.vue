@@ -3,6 +3,7 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :canStart="canStart"
+      :enableSave="enableSave"
       :title="title"
       @buttonClick="buttonClick"
       ref="container"
@@ -2460,6 +2461,7 @@
         },
         multiple: false,
         canStart: false,
+        enableSave:true,
         checkList: [],
       };
     },
@@ -2485,6 +2487,15 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            if (this.form.status === '2' || this.form.status === '4' || this.form.status === '1')
+            {
+              this.buttonList[0].disabled = true;
+            }
+            else
+            {
+              this.buttonList[0].disabled = false;
+            }
+            this.buttonList[1].disabled = false;
             this.disabledC = true;
             let group = getOrgInfo(this.form.center_id);
             if (group) {
@@ -2556,6 +2567,7 @@
       else {
         this.loading = true;
         this.buttonList[0].disabled = true;
+        this.buttonList[1].disabled = true;
         //todo niandu
         this.form.year = '2021';
         // this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
