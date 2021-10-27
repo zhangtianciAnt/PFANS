@@ -833,17 +833,17 @@
 
                   //region scc add 10/26 必填 from
                     ticketordernumber: [{
-                      required: true,
+                      required: false,
                       validator: validateOrder,
                       trigger: 'blur',
                     }],
                     ticketvendors: [{
-                      required: true,
+                      required: false,
                       validator: validateSupplier,
                       trigger: 'blur',
                     }],
                     ticketamount: [{
-                      required: true,
+                      required: false,
                       validator: validateTicketAmount,
                       trigger: 'change',
                     }],
@@ -1080,6 +1080,11 @@
                             } else if (this.form.acceptstatus === '2') {
                                 this.refuseShow = false;
                                 this.refuseShow1 = true;
+                                //region scc add 10/27 初始加载，显示输入框就需要必填 from
+                                this.rules.ticketordernumber[0].required = true;
+                                this.rules.ticketvendors[0].required = true;
+                                this.rules.ticketamount[0].required = true;
+                                //endregion scc add 10/27 初始加载，显示输入框就需要必填 to
                             } else {
                                 this.refuseShow = false;
                                 this.refuseShow1 = false;
@@ -1181,11 +1186,6 @@
             }
             //add-ws-7/7-禅道153
 
-          //region scc add 10/27 决裁页面，机票=新建作成，非必填 from
-          this.rules.ticketordernumber[0].required = false;
-          this.rules.ticketvendors[0].required = false;
-          this.rules.ticketamount[0].required = false;
-          //endregion scc add 10/27 决裁页面，机票=新建作成，非必填 to
         },
         methods: {
           getOrgInformation(id) {
