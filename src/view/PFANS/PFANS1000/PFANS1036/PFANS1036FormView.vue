@@ -2174,6 +2174,14 @@
                           <span>{{scope.row.moneytotal}}</span>
                         </template>
                       </el-table-column>
+                        <!--   限界利益率，营业利益率，年间合计 START      -->
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110"
+                                       prop="moneytotal_">
+                        <!--                        <template slot-scope="scope">-->
+                        <!--                          <span>{{scope.row.moneytotal}}</span>-->
+                        <!--                        </template>-->
+                      </el-table-column>
+                      <!--   限界利益率，营业利益率，年间合计 END      -->
                     </el-table-column>
                   </el-table-column>
                 </el-table>
@@ -3794,6 +3802,25 @@
         this.$set(this.tableP[49], 'moneytotal', Number(total49).toFixed(2));
 
         //add ccm 20211008 PL添加年间合计 to
+
+        //region scc add 限界利益率，营业利益率，单独年间合计，算法同6，9，12，3，取年间合计计算 from
+        if(Number(total5) !== 0 && !isNaN(Number(total5)) && Number(total5)){
+          this.$set(this.tableP[50], 'moneytotal_', (Number(total43) / (Number(total5))).toFixed(2));
+          let toCalculate = (Number(total5)- //（売上合計（税抜き、社内委託除き）
+                              Number(total13) - //人件費小計
+                              Number(total17) - //リース費
+                              Number(total26) - //研究開発費・ソフト費用小計
+                              Number(total32) - //旅費交通費
+                              Number(total34) - //消耗品費
+                              Number(total45)) / //ブランド使用料
+                              Number(total5);//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'moneytotal_', toCalculate.toFixed(2));
+        }else{
+          this.$set(this.tableP[50], 'moneytotal_', 0.00);
+          this.$set(this.tableP[51], 'moneytotal_', 0.00);
+        }
+        //endregion scc add 限界利益率，营业利益率，单独年间合计，算法同6，9，12，3，取年间合计计算 to
+
         this.loading = false;
 
       },
@@ -5116,7 +5143,7 @@
 </script>
 
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style rel="stylesheet/scss" lang="scss" >
 
   .el-table .row1 {
     color: #6d9fd1;
