@@ -564,23 +564,35 @@
             };
             //region scc add 10/26 必填 from
             var validateOrder = (rule, value, callback) => {//机票订单号
-              if (this.form.ticketordernumber === null || this.form.ticketordernumber === '') {
+              if(rule.required){
+                if (this.form.ticketordernumber === null || this.form.ticketordernumber === '') {
                   callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_TICKETORDERNUMBER')));
-              } else {
+                } else {
+                  callback();
+                }
+              }else{
                 callback();
               }
             };
             var validateSupplier = (rule, value, callback) => {//机票供应商
-              if (this.form.ticketvendors === null || this.form.ticketvendors === '') {
-                callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_TICKETVENDORS')));
-              } else {
+              if(rule.required){
+                if (this.form.ticketvendors === null || this.form.ticketvendors === '') {
+                  callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_TICKETVENDORS')));
+                } else {
+                  callback();
+                }
+              }else{
                 callback();
               }
             };
             var validateTicketAmount = (rule, value, callback) => {//出票金额
-              if (!this.form.ticketamount || isNaN(this.form.ticketamount) || this.form.ticketamount === '0.00' || Number(this.form.ticketamount) < 0) {
-                callback(new Error(this.$t('label.PFANS3001FORMVIEW_TICKETAMOUNTTOZERO')));
-              } else {
+              if(rule.required){
+                if (!this.form.ticketamount || isNaN(this.form.ticketamount) || this.form.ticketamount === '0.00' || Number(this.form.ticketamount) < 0) {
+                  callback(new Error(this.$t('label.PFANS3001FORMVIEW_TICKETAMOUNTTOZERO')));
+                } else {
+                  callback();
+                }
+              }else{
                 callback();
               }
             };
@@ -1168,6 +1180,12 @@
                 }
             }
             //add-ws-7/7-禅道153
+
+          //region scc add 10/27 决裁页面，机票=新建作成，非必填 from
+          this.rules.ticketordernumber[0].required = false;
+          this.rules.ticketvendors[0].required = false;
+          this.rules.ticketamount[0].required = false;
+          //endregion scc add 10/27 决裁页面，机票=新建作成，非必填 to
         },
         methods: {
           getOrgInformation(id) {
@@ -1225,16 +1243,42 @@
                     this.refuseShow = true;
                     this.refuseShow1 = false;
                     this.form.finshtime = null;
+                    //region scc add 只有受理状态为变更时，才必填 from
+                    this.form.ticketordernumber = null;
+                    this.form.ticketvendors = null;
+                    this.form.changeamountforfirst = 0;
+                    this.form.changeamountforsecond = 0;
+                    this.form.ticketamount = 0;
+                    this.rules.ticketordernumber[0].required = false;
+                    this.rules.ticketvendors[0].required = false;
+                    this.rules.ticketamount[0].required = false;
+                  //endregion scc add 只有受理状态为变更时，才必填 to
                 } else if (val === '2') {
                     this.refuseShow = false;
                     this.refuseShow1 = true;
                     this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
                     this.form.refusereason = null;
+                    //region scc add 只有受理状态为变更时，才必填 from
+                    this.$refs["ruleForm"].clearValidate();
+                    this.rules.ticketordernumber[0].required = true;
+                    this.rules.ticketvendors[0].required = true;
+                    this.rules.ticketamount[0].required = true;
+                  //endregion scc add 只有受理状态为变更时，才必填 to
                 } else {
                     this.refuseShow = false;
                     this.refuseShow1 = false;
                     this.form.refusereason = null;
                     this.form.finshtime = null;
+                    //region scc add 只有受理状态为变更时，才必填 from
+                    this.form.ticketordernumber = null;
+                    this.form.ticketvendors = null;
+                    this.form.changeamountforfirst = 0;
+                    this.form.changeamountforsecond = 0;
+                    this.form.ticketamount = 0;
+                    this.rules.ticketordernumber[0].required = false;
+                    this.rules.ticketvendors[0].required = false;
+                    this.rules.ticketamount[0].required = false;
+                  //endregion scc add 只有受理状态为变更时，才必填 to
                 }
             },
             getBudt(val) {
