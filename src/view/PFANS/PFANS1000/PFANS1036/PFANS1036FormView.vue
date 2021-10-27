@@ -4721,185 +4721,166 @@
             if (valid) {
         if (val === 'save') {
           this.loading = true;
-          this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
-          this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
-          this.form.equipment_lodyear = JSON.stringify(this.equipment_lodyear);
-          this.form.assets_newyear = JSON.stringify(this.assets_newyear);
-          this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
-          this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
-          this.tablePall = [];
-          this.computedSumsave();
-          //region scc add 10/14 移除工数(人月)显示,但是需要占位条数~ from
-          this.tableP[55] = {};
-          this.tableP[56] = {};
-          this.tableP[57] = {};
-          this.tableP[58] = {};
-          //endregion scc add 10/14 移除工数(人月)显示,但是需要占位条数~ to
-          this.tablePall.push(this.tableP[40]);
-          this.tablePall.push(this.tableP[44]);
-          this.tablePall.push(this.tableP[45]);
-          this.tablePall.push(this.tableP[48]);
-          this.tablePall.push(this.tableP[54]);
-          this.tablePall.push(this.tableP[55]);
-          this.tablePall.push(this.tableP[56]);
-          this.tablePall.push(this.tableP[57]);
-          this.tablePall.push(this.tableP[58]);
-          this.tablePall.push(this.tableP[52]);
-          this.tablePall.push(this.tableP[53]);
-          this.form.tableP = JSON.stringify(this.tablePall);
-          // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[55], this.tableP[56], this.tableP[57], this.tableP[58]]);
-          // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
-          this.form.business = JSON.stringify(this.business);
-          this.form.groupA1 = JSON.stringify(this.groupA1);
-          this.form.groupA2 = JSON.stringify(this.groupA2);
-          this.form.groupB1 = JSON.stringify(this.groupB1);
-          this.form.groupB2 = JSON.stringify(this.groupB2);
-          this.form.groupB3 = JSON.stringify(this.groupB3);
-          this.form.groupC = JSON.stringify(this.groupC);
-          this.form.tableO1 = JSON.stringify(this.tableO1);
-          this.form.tableO2 = JSON.stringify(this.tableO2);
-          this.form.tableO3 = JSON.stringify(this.tableO3);
-          this.form.tableO = JSON.stringify(this.tableO);
-          this.form.tableC = JSON.stringify(this.tableC);
-          this.form.tableD = JSON.stringify(this.tableD);
+          //region scc add 10/27 延时0.1s,避免新建做成，数据量太大，浏览器假死，loading失效 from
+          setTimeout(() => {
+            this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
+            this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
+            this.form.equipment_lodyear = JSON.stringify(this.equipment_lodyear);
+            this.form.assets_newyear = JSON.stringify(this.assets_newyear);
+            this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
+            this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
+            this.tablePall = [];
+            this.computedSumsave();
+            //region scc add 10/14 移除工数(人月)显示,但是需要占位条数~ from
+            this.tableP[55] = {};
+            this.tableP[56] = {};
+            this.tableP[57] = {};
+            this.tableP[58] = {};
+            //endregion scc add 10/14 移除工数(人月)显示,但是需要占位条数~ to
+            this.tablePall.push(this.tableP[40]);
+            this.tablePall.push(this.tableP[44]);
+            this.tablePall.push(this.tableP[45]);
+            this.tablePall.push(this.tableP[48]);
+            this.tablePall.push(this.tableP[54]);
+            this.tablePall.push(this.tableP[55]);
+            this.tablePall.push(this.tableP[56]);
+            this.tablePall.push(this.tableP[57]);
+            this.tablePall.push(this.tableP[58]);
+            this.tablePall.push(this.tableP[52]);
+            this.tablePall.push(this.tableP[53]);
+            this.form.tableP = JSON.stringify(this.tablePall);
+            // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[55], this.tableP[56], this.tableP[57], this.tableP[58]]);
+            // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
+            this.form.business = JSON.stringify(this.business);
+            this.form.groupA1 = JSON.stringify(this.groupA1);
+            this.form.groupA2 = JSON.stringify(this.groupA2);
+            this.form.groupB1 = JSON.stringify(this.groupB1);
+            this.form.groupB2 = JSON.stringify(this.groupB2);
+            this.form.groupB3 = JSON.stringify(this.groupB3);
+            this.form.groupC = JSON.stringify(this.groupC);
+            this.form.tableO1 = JSON.stringify(this.tableO1);
+            this.form.tableO2 = JSON.stringify(this.tableO2);
+            this.form.tableO3 = JSON.stringify(this.tableO3);
+            this.form.tableO = JSON.stringify(this.tableO);
+            this.form.tableC = JSON.stringify(this.tableC);
+            this.form.tableD = JSON.stringify(this.tableD);
 
-          if (this.tableC.length > 0 || this.tableD.length > 0)
-          {
-            this.tableA[0].workinghour4 = 0;
-            this.tableA[0].pay4 = 0;
-            this.tableA[0].workinghour5 = 0;
-            this.tableA[0].pay5 = 0;
-            this.tableA[0].workinghour6 = 0;
-            this.tableA[0].pay6 = 0;
-            this.tableA[0].workinghour7 = 0;
-            this.tableA[0].pay7 = 0;
-            this.tableA[0].workinghour8 = 0;
-            this.tableA[0].pay8 = 0;
-            this.tableA[0].workinghour9 = 0;
-            this.tableA[0].pay9 = 0;
-            this.tableA[0].workinghourfirst = 0;
-            this.tableA[0].payfirst = 0;
-            this.tableA[0].workinghour10 = 0;
-            this.tableA[0].pay10 = 0;
-            this.tableA[0].workinghour11 = 0;
-            this.tableA[0].pay11 = 0;
-            this.tableA[0].workinghour12 = 0;
-            this.tableA[0].pay12 = 0;
-            this.tableA[0].workinghour1 = 0;
-            this.tableA[0].pay1 = 0;
-            this.tableA[0].workinghour2 = 0;
-            this.tableA[0].pay2 = 0;
-            this.tableA[0].workinghour3 = 0;
-            this.tableA[0].pay3 = 0;
-            this.tableA[0].workinghoursecond = 0;
-            this.tableA[0].paysecond = 0;
-            this.tableA[0].workinghourtotal = 0;
-            this.tableA[0].paytotal = 0;
-          }
-          for (let i=0;i < this.tableC.length;i++)
-          {
-            this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableC[i].workinghour4;
-            this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableC[i].pay4)).toFixed(2);
-            this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableC[i].workinghour5;
-            this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableC[i].pay5)).toFixed(2);
-            this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableC[i].workinghour6;
-            this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableC[i].pay6)).toFixed(2);
-            this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableC[i].workinghour7;
-            this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableC[i].pay7)).toFixed(2);
-            this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableC[i].workinghour8;
-            this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableC[i].pay8)).toFixed(2);
-            this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableC[i].workinghour9;
-            this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableC[i].pay9)).toFixed(2);
-            this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableC[i].workinghourfirst;
-            this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableC[i].payfirst)).toFixed(2);
-            this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableC[i].workinghour10;
-            this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableC[i].pay10)).toFixed(2);
-            this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableC[i].workinghour11;
-            this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableC[i].pay11)).toFixed(2);
-            this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableC[i].workinghour12;
-            this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableC[i].pay12)).toFixed(2);
-            this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableC[i].workinghour1;
-            this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableC[i].pay1)).toFixed(2);
-            this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableC[i].workinghour2;
-            this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableC[i].pay2)).toFixed(2);
-            this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableC[i].workinghour3;
-            this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableC[i].pay3)).toFixed(2);
-            this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableC[i].workinghoursecond;
-            this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableC[i].paysecond)).toFixed(2);
-            this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableC[i].workinghourtotal;
-            this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableC[i].paytotal)).toFixed(2);
-          }
-          for (let i=0;i < this.tableD.length;i++)
-          {
-            this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableD[i].workinghour4;
-            this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableD[i].pay4)).toFixed(2);
-            this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableD[i].workinghour5;
-            this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableD[i].pay5)).toFixed(2);
-            this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableD[i].workinghour6;
-            this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableD[i].pay6)).toFixed(2);
-            this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableD[i].workinghour7;
-            this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableD[i].pay7)).toFixed(2);
-            this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableD[i].workinghour8;
-            this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableD[i].pay8)).toFixed(2);
-            this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableD[i].workinghour9;
-            this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableD[i].pay9)).toFixed(2);
-            this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableD[i].workinghourfirst;
-            this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableD[i].payfirst)).toFixed(2);
-            this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableD[i].workinghour10;
-            this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableD[i].pay10)).toFixed(2);
-            this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableD[i].workinghour11;
-            this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableD[i].pay11)).toFixed(2);
-            this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableD[i].workinghour12;
-            this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableD[i].pay12)).toFixed(2);
-            this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableD[i].workinghour1;
-            this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableD[i].pay1)).toFixed(2);
-            this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableD[i].workinghour2;
-            this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableD[i].pay2)).toFixed(2);
-            this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableD[i].workinghour3;
-            this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableD[i].pay3)).toFixed(2);
-            this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableD[i].workinghoursecond;
-            this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableD[i].paysecond)).toFixed(2);
-            this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableD[i].workinghourtotal;
-            this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableD[i].paytotal)).toFixed(2);
-          }
+            if (this.tableC.length > 0 || this.tableD.length > 0) {
+              this.tableA[0].workinghour4 = 0;
+              this.tableA[0].pay4 = 0;
+              this.tableA[0].workinghour5 = 0;
+              this.tableA[0].pay5 = 0;
+              this.tableA[0].workinghour6 = 0;
+              this.tableA[0].pay6 = 0;
+              this.tableA[0].workinghour7 = 0;
+              this.tableA[0].pay7 = 0;
+              this.tableA[0].workinghour8 = 0;
+              this.tableA[0].pay8 = 0;
+              this.tableA[0].workinghour9 = 0;
+              this.tableA[0].pay9 = 0;
+              this.tableA[0].workinghourfirst = 0;
+              this.tableA[0].payfirst = 0;
+              this.tableA[0].workinghour10 = 0;
+              this.tableA[0].pay10 = 0;
+              this.tableA[0].workinghour11 = 0;
+              this.tableA[0].pay11 = 0;
+              this.tableA[0].workinghour12 = 0;
+              this.tableA[0].pay12 = 0;
+              this.tableA[0].workinghour1 = 0;
+              this.tableA[0].pay1 = 0;
+              this.tableA[0].workinghour2 = 0;
+              this.tableA[0].pay2 = 0;
+              this.tableA[0].workinghour3 = 0;
+              this.tableA[0].pay3 = 0;
+              this.tableA[0].workinghoursecond = 0;
+              this.tableA[0].paysecond = 0;
+              this.tableA[0].workinghourtotal = 0;
+              this.tableA[0].paytotal = 0;
+            }
+            for (let i = 0; i < this.tableC.length; i++) {
+              this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableC[i].workinghour4;
+              this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableC[i].pay4)).toFixed(2);
+              this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableC[i].workinghour5;
+              this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableC[i].pay5)).toFixed(2);
+              this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableC[i].workinghour6;
+              this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableC[i].pay6)).toFixed(2);
+              this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableC[i].workinghour7;
+              this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableC[i].pay7)).toFixed(2);
+              this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableC[i].workinghour8;
+              this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableC[i].pay8)).toFixed(2);
+              this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableC[i].workinghour9;
+              this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableC[i].pay9)).toFixed(2);
+              this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableC[i].workinghourfirst;
+              this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableC[i].payfirst)).toFixed(2);
+              this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableC[i].workinghour10;
+              this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableC[i].pay10)).toFixed(2);
+              this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableC[i].workinghour11;
+              this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableC[i].pay11)).toFixed(2);
+              this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableC[i].workinghour12;
+              this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableC[i].pay12)).toFixed(2);
+              this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableC[i].workinghour1;
+              this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableC[i].pay1)).toFixed(2);
+              this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableC[i].workinghour2;
+              this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableC[i].pay2)).toFixed(2);
+              this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableC[i].workinghour3;
+              this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableC[i].pay3)).toFixed(2);
+              this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableC[i].workinghoursecond;
+              this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableC[i].paysecond)).toFixed(2);
+              this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableC[i].workinghourtotal;
+              this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableC[i].paytotal)).toFixed(2);
+            }
+            for (let i = 0; i < this.tableD.length; i++) {
+              this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableD[i].workinghour4;
+              this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableD[i].pay4)).toFixed(2);
+              this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableD[i].workinghour5;
+              this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableD[i].pay5)).toFixed(2);
+              this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableD[i].workinghour6;
+              this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableD[i].pay6)).toFixed(2);
+              this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableD[i].workinghour7;
+              this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableD[i].pay7)).toFixed(2);
+              this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableD[i].workinghour8;
+              this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableD[i].pay8)).toFixed(2);
+              this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableD[i].workinghour9;
+              this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableD[i].pay9)).toFixed(2);
+              this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableD[i].workinghourfirst;
+              this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableD[i].payfirst)).toFixed(2);
+              this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableD[i].workinghour10;
+              this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableD[i].pay10)).toFixed(2);
+              this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableD[i].workinghour11;
+              this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableD[i].pay11)).toFixed(2);
+              this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableD[i].workinghour12;
+              this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableD[i].pay12)).toFixed(2);
+              this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableD[i].workinghour1;
+              this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableD[i].pay1)).toFixed(2);
+              this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableD[i].workinghour2;
+              this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableD[i].pay2)).toFixed(2);
+              this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableD[i].workinghour3;
+              this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableD[i].pay3)).toFixed(2);
+              this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableD[i].workinghoursecond;
+              this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableD[i].paysecond)).toFixed(2);
+              this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableD[i].workinghourtotal;
+              this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableD[i].paytotal)).toFixed(2);
+            }
 
-          this.form.tableA = JSON.stringify(this.tableA);
+            this.form.tableA = JSON.stringify(this.tableA);
 
 
-          if (this.$route.params._id) {
-            this.$store
-              .dispatch('PFANS1036Store/updateBusinessplan', this.form)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                if (val !== 'update') {
-                  Message({
-                    message: this.$t('normal.success_02'),
-                    type: 'success',
-                    duration: 5 * 1000,
-                  });
-                  this.$router.push({
-                    name: 'PFANS1036View',
-                  });
-                }
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
-            //region scc add 保存部分PL from
-            if(this.form.status == '4'){
-              this.tableP.forEach(items => {
-                items.center_id = this.form.center_id;
-                items.year = this.form.year;
-              });
+            if (this.$route.params._id) {
               this.$store
-                .dispatch('PFANS1036Store/Pl', this.tableP)
-                .then(res=> {
+                .dispatch('PFANS1036Store/updateBusinessplan', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.$router.push({
+                      name: 'PFANS1036View',
+                    });
+                  }
                 })
                 .catch(error => {
                   this.$message.error({
@@ -4907,33 +4888,53 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  this.loading = false;
+                });
+              //region scc add 保存部分PL from
+              if (this.form.status == '4') {
+                this.tableP.forEach(items => {
+                  items.center_id = this.form.center_id;
+                  items.year = this.form.year;
+                });
+                this.$store
+                  .dispatch('PFANS1036Store/Pl', this.tableP)
+                  .then(res => {
+                  })
+                  .catch(error => {
+                    this.$message.error({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  });
+              }
+              //endregion scc add 保存部分PL to
+            } else {
+              this.$store
+                .dispatch('PFANS1036Store/createBusinessplan', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
+                    type: 'success',
+                    duration: 5 * 1000,
+                  });
+                  this.$router.push({
+                    name: 'PFANS1036View',
+                  });
+                })
+                .catch(error => {
+                  this.$message.error({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
             }
-            //endregion scc add 保存部分PL to
-          } else {
-            this.$store
-              .dispatch('PFANS1036Store/createBusinessplan', this.form)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                Message({
-                  message: this.$t('normal.success_01'),
-                  type: 'success',
-                  duration: 5 * 1000,
-                });
-                this.$router.push({
-                  name: 'PFANS1036View',
-                });
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
-          }
+          },100);
+          //endregion scc add 10/27 延时0.1s,避免新建做成，数据量太大，浏览器假死，loading失效 to
         }
             }else {
               this.loading = false;
