@@ -101,3 +101,13 @@ export function BusinessplanExport(data) {
   })
 }
 //endregion scc add 事业计划PL导出 to
+
+//region scc add 保存部分PL from
+export function Pl(data) {
+  return request({
+    url: 'businessplan/Pl',
+    method: 'post',
+    data: data
+  })
+}
+//endregion scc add 保存部分PL to
