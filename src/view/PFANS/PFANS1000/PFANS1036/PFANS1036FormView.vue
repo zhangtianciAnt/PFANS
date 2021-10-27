@@ -2489,13 +2489,20 @@
             this.form = response;
             if (this.form.status === '2' || this.form.status === '4' || this.form.status === '1')
             {
-              this.buttonList[0].disabled = true;
+              if(this.buttonList.length>0)
+              {
+                this.buttonList[0].disabled = true;
+                this.buttonList[1].disabled = false;
+              }
             }
             else
             {
-              this.buttonList[0].disabled = false;
+              if(this.buttonList.length>0)
+              {
+                this.buttonList[0].disabled = false;
+                this.buttonList[1].disabled = false;
+              }
             }
-            this.buttonList[1].disabled = false;
             this.disabledC = true;
             let group = getOrgInfo(this.form.center_id);
             if (group) {
