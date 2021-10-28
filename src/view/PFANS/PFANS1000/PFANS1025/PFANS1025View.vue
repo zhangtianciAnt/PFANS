@@ -230,6 +230,9 @@
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
+          //region scc add 10/28 委托决裁,删除按钮 from
+          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+          //endregion scc add 10/28 委托决裁,删除按钮 to
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
         buttonListOld: [
@@ -238,6 +241,9 @@
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          //region scc add 10/28 委托决裁,删除按钮 from
+          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+          //endregion scc add 10/28 委托决裁,删除按钮 to
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         status: '',
@@ -488,6 +494,13 @@
           this.buttonList[3].disabled = false;
         }
         //add-ws-7/20-禅道任务342
+        //region scc add 10/28 委托决裁,行赋值 from
+        if(row.status === '未开始' || row.status === '驳回'){
+          this.buttonList[5].disabled = false;
+        }else{
+          this.buttonList[5].disabled = true;
+        }
+        //endregion scc add 10/28 委托决裁,行赋值 to
       },
       getCenterid(val){
         this.form.new_center_id = val
@@ -907,6 +920,30 @@
           // }
           //del ccm 0813 决裁到暂借款，精算  check去掉
         }
+
+        //region scc add 根据事业计划，进行逻辑删除 from
+        if (val === 'delete') {
+          if (this.rowid !== '' || this.rowid !== null || !this.rowid) {
+            this.loading = true;
+            let params = {
+              award_id: this.rowid
+            }
+            this.$store
+              .dispatch('PFANS1025Store/awddelete', params)
+              .then(response => {
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              });
+            this.loading = false;
+          }
+        }
+        //endregion scc add 根据事业计划，进行逻辑删除 to
       },
     },
   };
