@@ -216,6 +216,13 @@
                         fix: false,
                         filter: true,
                     },
+                  {
+                    code: 'careerplan',
+                    label: 'label.PFANS3003FORMVIEW_TYPE',
+                    width: 150,
+                    fix: false,
+                    filter: true,
+                  },
                     {
                         code: 'loanapno',
                         label: 'label.PFANS1012VIEW_TEMPORARYLOAN',
@@ -952,6 +959,7 @@
                 }
 
                 //add_fjl_0724   添加跳转申请精算与暂借款  end
+                let careerplantemp = false;
                 if (val === 'actuarial' || val === 'temLoanApp') {
                     if (this.$refs.roletable.selectedList.length === 0) {
                         Message({
@@ -982,6 +990,30 @@
                             return;
                           }
                         }
+
+                        //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
+                        let ny = 0;
+                        for (let i = 0; i < selectedlist.length; i++) {
+                          if (selectedlist[i].careerplan === this.$t('label.PFANS1004VIEW_INSIDE')) {
+                            //内
+                            ny = ny + 1;
+                          }
+                        }
+                        if (ny != checksum) {
+                          if (ny != 0) {
+                            Message({
+                              message: this.$t('label.PFANS1001FORMVIEW_CHECKCAREERPLAN'),
+                              type: 'info',
+                              duration: 2 * 1000,
+                            });
+                            return;
+                          }
+                        }
+                        else
+                        {
+                          careerplantemp = true;
+                        }
+                        //add ccm 20211028 决裁精算时添加事业计划内外限制 to
                       }
                     }
                     //add-ws-8/19-禅道470任务
@@ -1096,6 +1128,7 @@
                                         _haveLoanapp: loan,
                                         // _surpubilcmoney: _surpubilcmoney,
                                         disabled: true,
+                                        _careerplan : careerplantemp,
                                     },
                                 });
                             } else {
@@ -1106,6 +1139,7 @@
                                         _type: 'PJ001002',
                                         // _surpubilcmoney: _surpubilcmoney,
                                         disabled: true,
+                                        _careerplan : careerplantemp,
                                     },
                                 });
                             }
@@ -1116,6 +1150,7 @@
                                     _name: optionsSEL,
                                     _type: 'PJ001002',
                                     disabled: true,
+                                    _careerplan : careerplantemp,
                                 },
                             });
                         }

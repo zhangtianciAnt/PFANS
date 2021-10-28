@@ -705,6 +705,7 @@ module.exports = {
     PFANS1001FORMVIEW_CHECKERROR1: '请选择当前登录人进行精算',
     PFANS1001FORMVIEW_NUMBERS: '决裁编号',
     PFANS1001FORMVIEW_CHECKSUM: '请选择都有暂借款的决裁或是都没有暂借款的决裁进行精算!',
+    PFANS1001FORMVIEW_CHECKCAREERPLAN: '请选择都是事业计划内或都是事业计划外的决裁进行精算!',
     PFANS1001FORMVIEW_BUSINESS_NUMBER: '出差编号',
     PFANS1002FORMVIEW_DOMESTIC: '境内出差',
     PFANS1002FORMVIEW_ABROAD: '境外出差',
