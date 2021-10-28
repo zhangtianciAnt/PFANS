@@ -457,6 +457,10 @@
                   {'key': 'export2', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
                   //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
 
+                  //region scc add 10/28 购买决裁,删除按钮 from
+                  {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+                  //endregion scc add 10/28 购买决裁,删除按钮 to
+
                 ],
                 buttonListAnt: [
                     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -471,6 +475,11 @@
                   //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
                   {'key': 'export2', 'name': 'button.export', 'disabled': false, 'icon': 'el-icon-download'},
                   //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
+
+                  //region scc add 10/28 购买决裁,删除按钮 from
+                  {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+                  //endregion scc add 10/28 购买决裁,删除按钮 to
+
                   // add-ztc  数据转结 fr
                   {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'},
                   // add-ztc  数据转结 to
@@ -784,6 +793,13 @@
               }else{
                 this.buttonList[2].disabled = false;
               }
+              //region scc add 10/28 购买决裁,删除状态 from
+              if(row.status === '未开始' || row.status === '驳回'){
+                this.buttonList[8].disabled = false;
+              }else{
+                this.buttonList[8].disabled = true;
+              }
+              //endregion scc add 10/28 购买决裁,删除状态 to
             },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
@@ -1260,6 +1276,26 @@
                             this.loading = false;
                         });
                 }
+                //region scc add 10/28 购买决裁逻辑删除 from
+              if(val === 'delete'){
+                if(this.rowid){
+                  this.loading = true;
+                  this.$store
+                    .dispatch('PFANS3005Store/purchdelete', this.rowInfo)
+                    .then(response => {
+                      this.loading = false;
+                    })
+                    .catch(error => {
+                      Message({
+                        message: error,
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                    });
+                  this.loading = false;
+                }
+              }
+              //endregion scc add 10/28 购买决裁逻辑删除 to
             },
             export1() {
                 this.loading = true;
