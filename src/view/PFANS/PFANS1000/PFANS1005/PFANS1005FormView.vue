@@ -1149,6 +1149,7 @@
                   duration: 5 * 1000,
                 });
                 this.loading = false;
+                return
               }
               if (error === 0 && this.form.plan === '1') {
                 this.checkMoney();

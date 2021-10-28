@@ -4721,7 +4721,7 @@ export default {
       sums[8] = Math.round(sums[8] * 100) / 100;
       sums[11] = Math.round(sums[11] * 100) / 100;
       sums[12] = Math.round(sums[12] * 100) / 100;
-      this.tablePValue = sums;
+      this.tablePValue = JSON.parse(JSON.stringify(sums));
       return this.formatThods(sums);
     },
     formatThods(val){
@@ -4742,6 +4742,7 @@ export default {
         }
         const values = data.map(item => Number(item[column.property]));
         if (!values.every(value => isNaN(value))) {
+          debugger
           sums[index] = values.reduce((prev, curr) => {
             const value = Number(curr);
             // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
@@ -4779,6 +4780,7 @@ export default {
       return this.formatThods(sums);
     },
     getMoney(sums) {
+      debugger
       if (this.form.type === 'PJ001001') {
         this.form.rmbexpenditure = sums[8];
       } else if (this.checktime) {
