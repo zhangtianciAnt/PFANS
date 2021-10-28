@@ -438,7 +438,7 @@
         editableTabs: [],
         tabIndex: 0,
         multiple: false,
-          checkGro: false,
+        checkGro: false,
         userlist: '',
         form: {
           center_id: '',
@@ -459,6 +459,7 @@
           classificationtype: '',
           balance: '',
           nodeList: [],
+          rulingid: '',
         },
         code1: 'PG001',
         code2: 'PJ078',
@@ -681,21 +682,162 @@
         if (val === '1') {
           this.showPlan = true;
           this.rules.classificationtype[0].required = true;
-          // this.rules.balance[0].required = true;
         } else {
           this.showPlan = false;
           this.rules.classificationtype[0].required = false;
-          // this.rules.balance[0].required = false;
-          // this.form.plantype = null;
-          // this.show3 = false;
           this.form.classificationtype = null;
-          // this.form.balance = null;
         }
+      },
+      //添加事业计划余额功能 1026 ztc fr
+      checkBusPlan1(val){
+        return new Promise((resolve, reject) => {
+          this.baloading = true;
+          let getOrgId = '';
+          let orgId = getOrgInfo(this.form.center_id)
+          if(orgId.encoding){
+            getOrgId = this.form.center_id
+          }else{
+            getOrgId = this.form.group_id
+          }
+          let params = {
+            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            getOrgIdInfo: getOrgId,
+            classInfo: val,
+          };
+          if(val != '' && val != null){
+            this.$store
+              .dispatch('PFANS1036Store/getBusBalns',params)
+              .then(response => {
+                this.form.rulingid = response.data.rulingid
+                resolve(response.data.surplsu)
+                this.baloading = false;
+              });
+          }else{
+            this.form.rulingid = '';
+            resolve('0.00')
+            this.baloading = false;
+          }
+        });
+      },
+      checkMess(busVal){
+        return new Promise((resolve, reject) => {
+          if(Number(this.form.moneys) > Number(busVal)){
+            Message({
+              message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            resolve('0')
+          }else{
+            resolve('1')
+          }
+        });
+      },
+      getplanBus(planVal) {
+        return new Promise((resolve, reject) => {
+          if (planVal === '1') {
+            this.showPlan = true;
+            this.rules.classificationtype[0].required = true;
+          } else {
+            this.form.classificationtype = null;
+            this.form.balance = '0.00';
+            this.showPlan = false;
+            this.rules.classificationtype[0].required = false;
+          }
+          resolve(true)
+        });
+      },
+      saveInfo(){
+        if (this.$route.params._id) {
+          this.updateInfo();
+        }else{
+          this.insertInfo();
+        }
+      },
+      checkMoney(){
+        this.checkBusPlan1(this.form.classificationtype).then(val =>{
+          this.form.balance = val;
+          this.checkMess(val).then(busVal =>{
+            this.form.plan = busVal
+            this.getplanBus(busVal).then(planVal =>{
+              this.saveInfo();
+            })
+          })
+        })
       },
       getclassificationtype(val) {
         this.form.classificationtype = val;
+        this.checkBusPlan(val);
       },
-      // update center取预算单位横展 start 0404
+      checkBusPlan(val){
+        this.baloading = true;
+        let getOrgId = '';
+        let orgId = getOrgInfo(this.form.center_id)
+        if(orgId.encoding){
+          getOrgId = this.form.center_id
+        }else{
+          getOrgId = this.form.group_id
+        }
+        let params = {
+          yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+          getOrgIdInfo: getOrgId,
+          classInfo: val,
+        };
+        if(val != '' && val != null){
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              this.form.rulingid = response.data.rulingid
+              this.form.balance = response.data.surplsu;
+              this.baloading = false;
+            });
+        }else{
+          this.form.balance = '0.00';
+          this.baloading = false;
+        }
+      },
+      updateInfo(){
+        this.form.communication_id = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS1010Store/updateCommunication', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            this.paramsTitle();
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      insertInfo(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1010Store/createCommunication', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_01'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.paramsTitle();
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //添加事业计划余额功能 1026 ztc to
       getOrgInformation(id) {
         let org = {};
         let treeCom = this.$store.getters.orgs;
@@ -1001,52 +1143,10 @@
                 this.loading = false;
               }
               if (error === 0) {
-                if (this.$route.params._id) {
-                  this.form.communication_id = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1010Store/updateCommunication', this.form)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
-                        Message({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.paramsTitle();
-                      }
-                    })
-                    .catch(error => {
-                      this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
-                } else {
-                  this.loading = true;
-                  this.$store
-                    .dispatch('PFANS1010Store/createCommunication', this.form)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.paramsTitle();
-                    })
-                    .catch(error => {
-                      this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
+                if(this.form.plan === '1'){
+                  this.checkMoney();
+                } else{
+                  this.saveInfo();
                 }
               }
             } else {

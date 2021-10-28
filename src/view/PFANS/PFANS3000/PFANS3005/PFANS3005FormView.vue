@@ -268,7 +268,7 @@
                       :disabled="!disable"
                       :multiple="multiple"
                       style="width:20vw"
-                      @change="getClassificationtype">
+                      @change="getclassificationtype">
                     </dicselect>
                   </el-form-item>
                 </el-col>
@@ -404,7 +404,7 @@
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS3005VIEW_TOTALAMOUNT')+$t('label.PFANS3005VIEW_FARE')" prop="totalamount">
                     <el-input-number :disabled="!disable" :precision="2" style="width:20vw" controls-position="right"
-                                     :min="0" :max="1000000000"
+                                     :min="0"
                                      v-model="form.totalamount">
                     </el-input-number>
                   </el-form-item>
@@ -840,6 +840,7 @@
           //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
           enableduplicateloan:'PJ055002',
           //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
+          rulingid:'',
         },
         options: [
           {
@@ -858,7 +859,7 @@
         acceptShow: true,
         acceptShow1: true,
         // code1: 'PR002',
-        code2: 'PR003',
+        code2: 'PJ078',
         code3: 'PJ005',
         //add ccm 0720
         code4: 'PJ013',
@@ -2111,9 +2112,160 @@
       //     this.rules.classificationtype[0].required = false;
       //   }
       // },
-      getClassificationtype(val) {
-        this.form.classificationtype = val;
+      //添加事业计划余额功能 1026 ztc fr
+      checkBusPlan1(val){
+        return new Promise((resolve, reject) => {
+          this.baloading = true;
+          let getOrgId = '';
+          let orgId = getOrgInfo(this.form.center_id)
+          if(orgId.encoding){
+            getOrgId = this.form.center_id
+          }else{
+            getOrgId = this.form.group_id
+          }
+          let params = {
+            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            getOrgIdInfo: getOrgId,
+            classInfo: val,
+          };
+          if(val != '' && val != null){
+            this.$store
+              .dispatch('PFANS1036Store/getBusBalns',params)
+              .then(response => {
+                this.form.rulingid = response.data.rulingid
+                resolve(response.data.surplsu)
+                this.baloading = false;
+              });
+          }else{
+            this.form.rulingid = '';
+            resolve('0.00')
+            this.baloading = false;
+          }
+        });
       },
+      checkMess(busVal){
+        return new Promise((resolve, reject) => {
+          if(Number(this.form.totalamount) > Number(busVal)){
+            Message({
+              message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            resolve('0')
+          }else{
+            resolve('1')
+          }
+        });
+      },
+      getplanBus(planVal) {
+        return new Promise((resolve, reject) => {
+          if (planVal === '1') {
+            this.showPlan = true;
+            this.rules.classificationtype[0].required = true;
+          } else {
+            this.form.classificationtype = null;
+            this.form.rulingid = null;
+            this.form.businessplanbalance = '0.00';
+            this.showPlan = false;
+            this.rules.classificationtype[0].required = false;
+          }
+          resolve(true)
+        });
+      },
+      saveInfo(){
+        if (this.$route.params._id) {
+          this.updateInfo();
+        }else{
+          this.insertInfo();
+        }
+      },
+      checkMoney(){
+        this.checkBusPlan1(this.form.classificationtype).then(val =>{
+          this.form.businessplanbalance = val;
+          this.checkMess(val).then(busVal =>{
+            this.form.careerplan = busVal
+            this.getplanBus(busVal).then(planVal =>{
+              this.saveInfo();
+            })
+          })
+        })
+      },
+      getclassificationtype(val) {
+        this.form.classificationtype = val;
+        this.checkBusPlan(val);
+      },
+      checkBusPlan(val){
+        this.baloading = true;
+        let getOrgId = '';
+        let orgId = getOrgInfo(this.form.center_id)
+        if(orgId.encoding){
+          getOrgId = this.form.center_id
+        }else{
+          getOrgId = this.form.group_id
+        }
+        let params = {
+          yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+          getOrgIdInfo: getOrgId,
+          classInfo: val,
+        };
+        if(val != '' && val != null){
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              this.form.rulingid = response.data.rulingid
+              this.form.businessplanbalance = response.data.surplsu;
+              this.baloading = false;
+            });
+        }else{
+          this.form.businessplanbalance = '0.00';
+          this.baloading = false;
+        }
+      },
+      updateInfo(){
+        this.form.purchase_id = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS3005Store/updatePurchase', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            if (this.$store.getters.historyUrl) {
+              this.$router.push(this.$store.getters.historyUrl);
+            }
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      insertInfo(){
+        this.$store
+          .dispatch('PFANS3005Store/createPurchase', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_01'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            if (this.$store.getters.historyUrl) {
+              this.$router.push(this.$store.getters.historyUrl);
+            }
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //添加事业计划余额功能 1026 ztc to
       getprocurementproject(val) {
         this.form.procurementproject = val;
         if (val === 'PJ005001') {
@@ -2220,7 +2372,8 @@
             this.paramsTitle();
           }
           //add-ws-4/28-精算中，点击决裁，跳转画面
-        } else if (val === 'trash') {
+        }
+        else if (val === 'trash') {
           this.dialogFormVisible = true;
           //this.$store.commit('global/SET_HISTORYURL', this.$route.path);
           // this.loading = true;
@@ -2250,13 +2403,14 @@
           //         });
           //         this.loading = false;
           //     });
-        } else if (val === 'save') {
+        }
+        else if (val === 'save') {
           this.$refs['refform'].validate(valid => {
             if (valid) {
               this.loading = true;
               if (this.form.careerplan === '0') {
                 // this.form.businessplantype = '';
-                // this.form.businessplanbalance = '';
+                this.form.businessplanbalance = '0.00';
                 this.form.classificationtype = '';
               }
               this.form.surloappmoney = this.form.totalamount;
@@ -2272,63 +2426,17 @@
               this.form.usertime = moment(this.form.usertime[0]).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.usertime[1]).format('YYYY-MM-DD');
 
               //add ccm 0811 事业计划金额小于总金额
-              if (this.form.careerplan === '1') {
-                if (Number(this.form.businessplanbalance) < Number(this.form.totalamount)) {
-                  this.form.careerplan = '0';
-                  this.radiochange(this.form.careerplan);
-                }
-              }
+              // if (this.form.careerplan === '1') {
+              //   if (Number(this.form.businessplanbalance) < Number(this.form.totalamount)) {
+              //     this.form.careerplan = '0';
+              //     this.radiochange(this.form.careerplan);
+              //   }
+              // }
               //add ccm 0811 事业计划金额小于总金额
-
-              if (this.$route.params._id) {
-                this.form.purchase_id = this.$route.params._id;
-                this.$store
-                  .dispatch('PFANS3005Store/updatePurchase', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      if (this.$store.getters.historyUrl) {
-                        this.$router.push(this.$store.getters.historyUrl);
-                      }
-                    }
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              } else {
-                this.$store
-                  .dispatch('PFANS3005Store/createPurchase', this.form)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    if (this.$store.getters.historyUrl) {
-                      this.$router.push(this.$store.getters.historyUrl);
-                    }
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
+              if(this.form.careerplan === '1'){
+                this.checkMoney();
+              }else{
+                this.saveInfo();
               }
             } else {
               Message({

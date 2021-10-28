@@ -266,6 +266,17 @@
                       <span style="margin-left: 1rem ">{{$t('label.yes')}}</span>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="this.$t('label.PFANS1002VIEW_MONEY')" >
+                      <el-input-number
+                        :disabled="!disable"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        style="width:20vw"
+                        v-model="form.moneys"></el-input-number>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
                 <el-row>
                   <el-col :span="8">
@@ -284,7 +295,7 @@
                     </el-form-item>
                   </el-col>
 <!--                  <el-col :span="8">-->
-<!--                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="show2">-->
+<!--                    <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="plantype" v-if="showPlan">-->
 <!--                      <dicselect-->
 <!--                        style="width:20vw"-->
 <!--                        :disabled="!disable"-->
@@ -298,7 +309,7 @@
 <!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
-                                  v-if="show2">
+                                  v-if="showPlan">
                       <dicselect
                         style="width:20vw"
                         :disabled="!disable"
@@ -311,8 +322,9 @@
                     </el-form-item>
                   </el-col>
                   <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="show2">
+                    <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="showPlan">
                       <el-input-number
+                        v-loading="baloading"
                         :disabled="true"
                         :min="0"
                         :precision="2"
@@ -609,6 +621,14 @@
         // PFANS1012Pop,
         // PFANS1006Pop,
     },
+    watch: {
+      form: {
+        handler(newValue, oldValue) {
+          this.form.moneys = parseFloat(this.form.datenumber * 600 + 3600).toFixed(2)
+        },
+        deep: true,
+      },
+    },
     data() {
       var validateUserid = (rule, value, callback) => {
         if (!this.form.user_id || this.form.user_id === '' || this.form.user_id === 'undefined') {
@@ -681,11 +701,12 @@
         code1: 'PJ018',
         code2: 'PG002',
         code3: 'PR002',
-        code4: 'PR003',
+        code4: 'PJ078',
         code5: 'PJ019',
         code6: 'PJ035',
         code7: 'PJ036',
         multiple: false,
+        baloading: false,
         search: '',
         gridData: [],
         //add-ws-7/7-禅道247
@@ -736,6 +757,8 @@
           publicexpense_id: '',
           loanapno:'',
           loanapplication_id:'',
+          moneys:'',
+          rulingid: '',
         },
         buttonList: [
           {
@@ -850,18 +873,6 @@
               trigger: 'blur',
             },
           ],
-          // plan: [
-          //   {
-          //     required: true,
-          //   },
-          // ],
-          // plantype: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_09') + this.$t('label.PFANS1036FORMVIEW_PLANTYPE'),
-          //     trigger: 'change',
-          //   },
-          // ],
           classificationtype: [
             {
               required: false,
@@ -955,7 +966,7 @@
           //NT_PFANS_20210304_BUG_079 预算编码变更为必填项，ztc end
         },
         show: false,
-        show2: false,
+        showPlan: false,
         // show3: false,
         show4: false,
         show5: false,
@@ -986,7 +997,12 @@
             //   this.workflowCode = 'W0112'//新流程
             // }
             else { //TL 正式员工
-              this.workflowCode = 'W0049'
+              if(this.form.plan === '0'){
+                //1022 事业计划外增加新流程
+                this.workflowCode = 'W0004'
+              }else{
+                this.workflowCode = 'W0049'
+              }
             }
             //update ztc 2021新年度流程调整 end
               //add_fjl_0806  添加总经理审批流程
@@ -1037,11 +1053,11 @@
               this.show = false;
             }
             if (this.form.plan === '1') {
-              this.show2 = true;
+              this.showPlan = true;
               this.rules.classificationtype[0].required = true;
               // this.rules.balance[0].required = true;
             } else {
-              this.show2 = false;
+              this.showPlan = false;
               this.rules.classificationtype[0].required = false;
               // this.rules.balance[0].required = false;
               // this.show3 = false;
@@ -1601,18 +1617,15 @@
       },
       getplan1(val) {
         this.form.plan = val;
+        this.form.classificationtype = null;
+        this.form.rulingid = null;
+        this.form.balance = '0.00';
         if (val === '1') {
-          this.show2 = true;
+          this.showPlan = true;
           this.rules.classificationtype[0].required = true;
-          // this.rules.balance[0].required = true;
         } else {
-          this.show2 = false;
+          this.showPlan = false;
           this.rules.classificationtype[0].required = false;
-          // this.rules.balance[0].required = false;
-          // this.form.plantype = null;
-          // this.show3 = false;
-          this.form.classificationtype = null;
-          // this.form.balance = null;
         }
       },
       changeBut(val) {
@@ -1628,9 +1641,158 @@
       //     this.form.balance = null;
       //   }
       // },
+      //添加事业计划余额功能 1026 ztc fr
+      checkBusPlan1(val){
+        return new Promise((resolve, reject) => {
+          this.baloading = true;
+          let getOrgId = '';
+          let orgId = getOrgInfo(this.form.center_id)
+          if(orgId.encoding){
+            getOrgId = this.form.center_id
+          }else{
+            getOrgId = this.form.group_id
+          }
+          let params = {
+            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            getOrgIdInfo: getOrgId,
+            classInfo: val,
+          };
+          if(val != '' && val != null){
+            this.$store
+              .dispatch('PFANS1036Store/getBusBalns',params)
+              .then(response => {
+                this.form.rulingid = response.data.rulingid
+                resolve(response.data.surplsu)
+                this.baloading = false;
+              });
+          }else{
+            this.form.rulingid = '';
+            resolve('0.00')
+            this.baloading = false;
+          }
+        });
+      },
+      checkMess(busVal){
+        return new Promise((resolve, reject) => {
+          if(Number(this.form.moneys) > Number(busVal)){
+            Message({
+              message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            resolve('0')
+          }else{
+            resolve('1')
+          }
+        });
+      },
+      getplanBus(planVal) {
+        return new Promise((resolve, reject) => {
+          if (planVal === '1') {
+            this.showPlan = true;
+            this.rules.classificationtype[0].required = true;
+          } else {
+            this.form.classificationtype = null;
+            this.form.rulingid = null;
+            this.form.balance = '0.00';
+            this.showPlan = false;
+            this.rules.classificationtype[0].required = false;
+          }
+          resolve(true)
+        });
+      },
+      saveInfo(){
+        if (this.$route.params._id) {
+          this.updateInfo();
+        }else{
+          this.insertInfo();
+        }
+      },
+      checkMoney(){
+        this.checkBusPlan1(this.form.classificationtype).then(val =>{
+          this.form.balance = val;
+          this.checkMess(val).then(busVal =>{
+            this.form.plan = busVal
+            this.getplanBus(busVal).then(planVal =>{
+              this.saveInfo();
+            })
+          })
+        })
+      },
       getclassificationtype(val) {
         this.form.classificationtype = val;
+        this.checkBusPlan(val);
       },
+      checkBusPlan(val){
+        this.baloading = true;
+        let getOrgId = '';
+        let orgId = getOrgInfo(this.form.center_id)
+        if(orgId.encoding){
+          getOrgId = this.form.center_id
+        }else{
+          getOrgId = this.form.group_id
+        }
+        let params = {
+          yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+          getOrgIdInfo: getOrgId,
+          classInfo: val,
+        };
+        if(val != '' && val != null){
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              this.form.rulingid = response.data.rulingid
+              this.form.balance = response.data.surplsu;
+              this.baloading = false;
+            });
+        }else{
+          this.form.balance = '0.00';
+          this.baloading = false;
+        }
+      },
+      updateInfo(){
+        this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.business.businessid = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS1035Store/updateBusiness', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            this.paramsTitle();
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      insertInfo(){
+        this.baseInfo.business = JSON.parse(JSON.stringify(this.form));
+        this.$store
+          .dispatch('PFANS1035Store/createBusiness', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_01'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.paramsTitle();
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //添加事业计划余额功能 1026 ztc to
       getaccommodationcost1(val) {
         this.form.accommodationcost = val;
       },
@@ -1873,54 +2035,10 @@
                   },
                 );
               }
-              if (this.$route.params._id) {
-                this.baseInfo.business.businessid = this.$route.params._id;
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS1035Store/updateBusiness', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    if (val !== 'update') {
-                      Message({
-                        message: this.$t('normal.success_02'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.paramsTitle();
-                    }
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-
-              } else {
-                this.loading = true;
-                this.$store
-                  .dispatch('PFANS1035Store/createBusiness', this.baseInfo)
-                  .then(response => {
-                    this.data = response;
-                    this.loading = false;
-                    Message({
-                      message: this.$t('normal.success_01'),
-                      type: 'success',
-                      duration: 5 * 1000,
-                    });
-                    this.paramsTitle();
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
+              if(this.form.plan === '1'){
+                this.checkMoney();
+              } else{
+                this.saveInfo();
               }
             } else {
               Message({
