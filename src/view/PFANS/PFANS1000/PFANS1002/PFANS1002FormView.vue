@@ -868,7 +868,7 @@
   import project from '../../../components/project.vue';
   import {Message} from 'element-ui';
   import moment from 'moment';
-  import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName} from '@/utils/customize';
+  import {getCurrentRole, getOrgInfo, getOrgInfoByUserId, getStatus, getUserInfoName,accAdd} from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import monthlyrate from '../../../components/monthlyrate';
   import {getDictionaryInfo,getMonthlyrateInfo} from '../../../../utils/customize';
@@ -1005,6 +1005,7 @@
         code13: 'JY002',
         multiple: false,
         search: '',
+        initalMoney: '0',
         gridData: [],
         dialogTableVisible: false,
         //add-ws-7/7-禅道247
@@ -1459,6 +1460,7 @@
                   return;
                 }
                 this.form = response.business;
+                this.initalMoney = this.form.moneys;
                 //add_fjl_0806  添加总经理审批流程
                 if (getCurrentRole() === '1') {
                   this.workflowCode = 'W0097';//总经理流程
@@ -2471,7 +2473,7 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          if(Number(this.form.moneys) > Number(busVal)){
+          if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
               type: 'info',

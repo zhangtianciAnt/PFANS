@@ -674,6 +674,7 @@
     getOrgInfoByUserId,
     getUserInfo,
     uploadUrl,
+    accAdd,
   } from '@/utils/customize';
   import moment from 'moment';
   import dicselect from '../../../components/dicselect.vue';
@@ -777,6 +778,7 @@
         workflowCode: '',
         fixedisable: true,
         editableTabsValue: '0',
+        initalMoney: '0',
         editableTabs: [],
         tabIndex: 0,
         refuseShow: false,
@@ -1080,6 +1082,7 @@
           .then(response => {
             if (response !== undefined) {
               this.form = response;
+              this.initalMoney = this.form.totalamount;
               if (this.form.acceptstatus === '0') {
                 this.refuseShow = true;
               } else {
@@ -2145,7 +2148,7 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          if(Number(this.form.totalamount) > Number(busVal)){
+          if(Number(this.form.totalamount) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
               type: 'info',

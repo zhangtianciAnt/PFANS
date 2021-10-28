@@ -1970,15 +1970,13 @@ export default {
       });
     }
     let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
-    for (let i = 0; i < PLdicnew.length; i++) {
-      if (PLdicnew[i].code === 'PJ111010' || PLdicnew[i].code === 'PJ111008') {
-        this.ploptionsdata.push({
-          value: PLdicnew[i].code,
-          lable: PLdicnew[i].value1,
+    let cgList = PLdicnew.filter(dicnew => dicnew.value5.indexOf('CG') != -1);
+    for(let cgOption of cgList){
+        this.ploptionsdata.push({//采购费明细
+          value: cgOption.code,
+          lable: cgOption.value1,
         });
-      }
     }
-
     let checktype = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ068');
     for (let i = 0; i < checktype.length; i++) {
       if (checktype[i].code === 'PJ068001') {
@@ -1988,18 +1986,24 @@ export default {
         });
       }
     }
-
-    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
-    for (let i = 0; i < dic.length; i++) {
-      if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
-        || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
-        || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
-        this.ploptionsdate.push({
-          value: dic[i].code,
-          lable: dic[i].value1,
-        });
-      }
+    let qtList = PLdicnew.filter(dicnew => dicnew.value5.indexOf('QT') != -1);
+    for(let qtOption of qtList){
+      this.ploptionsdate.push({//采购费明细
+        value: qtOption.code,
+        lable: qtOption.value1,
+      });
     }
+    // let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
+    // for (let i = 0; i < dic.length; i++) {
+    //   if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
+    //     || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
+    //     || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
+    //     this.ploptionsdate.push({
+    //       value: dic[i].code,
+    //       lable: dic[i].value1,
+    //     });
+    //   }
+    // }
     //ADD-WS-个人编码修改
     if (getUserInfo(this.$store.getters.userinfo.userid)) {
       this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;

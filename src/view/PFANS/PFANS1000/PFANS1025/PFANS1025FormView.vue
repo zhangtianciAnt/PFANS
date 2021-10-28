@@ -760,6 +760,13 @@
           .then(response => {
             if (response.award != null) {
               this.form = response.award;
+              if (this.form.plan === '1') {
+                this.showPlan = false;
+                this.rules.classificationtype[0].required = false;
+              } else {
+                this.showPlan = true;
+                this.rules.classificationtype[0].required = true;
+              }
               //add-ws-契约种类value1值处理
               // if (this.form.contracttype !== null && this.form.contracttype !== '') {
               //   let letContracttype = getDictionaryInfo(this.form.contracttype);
@@ -1013,7 +1020,9 @@
       },
       radiochange(val) {
         this.form.careerplan = val;
-        this.form.classificationtype = '';
+        this.form.classificationtype = null;
+        this.form.balance = '0.00';
+        this.form.rulingid = null;
         if (val === '1') {
           this.showPlan = false;
           this.rules.classificationtype[0].required = false;
@@ -1176,9 +1185,6 @@
       changeSum(row) {
         row.worknumber = row.outsource;
         row.awardmoney = row.outsource * row.outcommunity;
-      },
-      getplan(val) {
-        this.form.plan = val;
       },
       getUserids(val) {
         this.userlist = val;

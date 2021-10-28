@@ -380,7 +380,7 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import user from '../../../components/user.vue';
-    import {getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
+    import {getOrgInfo, getOrgInfoByUserId, getStatus,accAdd} from '@/utils/customize';
     import moment from 'moment';
     import org from '../../../components/org';
 
@@ -440,6 +440,7 @@
         multiple: false,
         checkGro: false,
         userlist: '',
+        initalMoney: '0',
         form: {
           center_id: '',
           group_id: '',
@@ -532,6 +533,15 @@
           .then(response => {
             if (response != undefined) {
               this.form = response;
+              //刚加载的金额
+              this.initalMoney = this.form.summoney;
+              if (this.form.plan === '1') {
+                this.showPlan = true;
+                this.rules.classificationtype[0].required = true;
+              } else {
+                this.showPlan = false;
+                this.rules.classificationtype[0].required = false;
+              }
               // update center取预算单位横展 start
               // let rst = getOrgInfoByUserId(response.user_id);
               // if (rst) {
@@ -679,13 +689,15 @@
     methods: {
       getplan(val) {
         this.form.plan = val;
+        this.form.classificationtype = null;
+        this.form.rulingid = null;
+        this.form.balance = '0.00';
         if (val === '1') {
           this.showPlan = true;
           this.rules.classificationtype[0].required = true;
         } else {
           this.showPlan = false;
           this.rules.classificationtype[0].required = false;
-          this.form.classificationtype = null;
         }
       },
       //添加事业计划余额功能 1026 ztc fr
@@ -721,7 +733,7 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          if(Number(this.form.moneys) > Number(busVal)){
+          if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
               type: 'info',

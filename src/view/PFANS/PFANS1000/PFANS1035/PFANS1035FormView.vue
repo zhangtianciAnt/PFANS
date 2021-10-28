@@ -602,7 +602,8 @@
       getOrgInfoByUserId,
       getUserInfoName,
       getCurrentRole,
-      getStatus
+      getStatus,
+      accAdd
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect';
   import org from '../../../components/org';
@@ -708,6 +709,7 @@
         multiple: false,
         baloading: false,
         search: '',
+        initalMoney: '0',
         gridData: [],
         //add-ws-7/7-禅道247
         checktype: '',
@@ -987,6 +989,7 @@
               return;
             }
             this.form = response.business;
+            this.initalMoney = this.form.moneys;
               //add_fjl_0806  添加总经理审批流程
             //update ztc 2021新年度流程调整 start
             let role = getCurrentRole();
@@ -1674,7 +1677,7 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          if(Number(this.form.moneys) > Number(busVal)){
+          if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
               type: 'info',
