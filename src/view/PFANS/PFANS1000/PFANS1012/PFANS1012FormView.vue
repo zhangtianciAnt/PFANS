@@ -1596,6 +1596,7 @@ export default {
       }
     };
     return {
+      sumAmmounttemp : 0,
         //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
         moduledisable: false,
         //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
@@ -4215,6 +4216,7 @@ export default {
             // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
           }, 0);
           sums[index] = Math.round((sums[index]) * 100) / 100;
+          this.sumAmmounttemp = sums[index];
         } else {
           sums[index] = '--';
           sums[3] = '--';
@@ -5461,6 +5463,20 @@ export default {
                   }
                 }
               }
+
+              //add ccm 20211028 精算金额不能大于决裁金额  fr
+              if (Number(this.sumAmmounttemp || 0) < Number(Number(this.form.foreigncurrency || 0) + Number(this.form.rmbexpenditure || 0)))
+              {
+                error = error + 1;
+                this.activeName = 'first';
+                Message({
+                  message: this.$t('label.PFANS1012FORMVIEW_COMPAREAMMOUNT'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+              //add ccm 20211028 精算金额不能大于决裁金额  to
+
               if (error == '0') {
                 //add-ws-6/11-禅道任务090
                 for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {
