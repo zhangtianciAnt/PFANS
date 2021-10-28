@@ -386,7 +386,9 @@
                           <div style="text-align: center">
                             <el-row style="text-align: center;height: 90%;overflow: hidden">
                               <el-table
-                                :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase()))"
+                                :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase())
+                                || data.thecompany.toLowerCase().includes(search.toLowerCase())
+                                )"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange1">
                                 <el-table-column show-overflow-tooltip property="entrust"
@@ -401,7 +403,7 @@
                                     <el-input
                                       v-model="search"
                                       size="mini"
-                                      placeholder="请输入委托元关键字搜索"/>
+                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
                                   </template>
                                 </el-table-column>
                               </el-table>
