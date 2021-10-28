@@ -518,7 +518,7 @@
             <el-tab-pane :label="$t('label.PFANS1030FORMVIEW_DETAIL')" name="third">
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_TOTAL')">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_INHOURS')">
                     <el-input-number
                       :disabled="!disable"
                       :max="1000000000"
@@ -526,13 +526,13 @@
                       :precision="2"
                       controls-position="right"
                       style="width:11vw"
-                      v-model="form.total"
-                      @change="gettotal"
+                      v-model="form.inhours"
+                      @change="getInNumber"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_NUMBER')">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_INPRICE')">
                     <el-input-number
                       :disabled="!disable"
                       :max="1000000000"
@@ -540,13 +540,13 @@
                       :precision="2"
                       controls-position="right"
                       style="width:11vw"
-                      v-model="form.number"
-                      @change="gettotal1"
+                      v-model="form.inprice"
+                      @change="getInprice"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_PRICE')">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_INAMOUNT')">
                     <el-input-number
                       :disabled="!disable"
                       :max="1000000000"
@@ -554,14 +554,59 @@
                       :precision="2"
                       controls-position="right"
                       style="width:11vw"
-                      v-model="form.price"
+                      v-model="form.inamount"
+                      @change="getInAmount"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_OUTSOURCING')">
+                      <el-form-item :label="$t('label.PFANS1030FORMVIEW_OUTHOURS')">
+                        <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.outhours"
+                      @change="getOutNumber"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_OUTPRICE')">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.outprice"
+                      @change="getOutprice"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_OUTAMOUNT')">
+                    <el-input-number
+                      :disabled="!disable"
+                      :max="1000000000"
+                      :min="0"
+                      :precision="2"
+                      controls-position="right"
+                      style="width:11vw"
+                      v-model="form.outamount"
+                      @change="getOutAmount"
+                    ></el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1030FORMVIEW_TOTAL')">
                     <el-input-number
                       :disabled="true"
                       :max="1000000000"
@@ -569,10 +614,12 @@
                       :precision="2"
                       controls-position="right"
                       style="width:11vw"
-                      v-model="form.outsourcing"
+                      v-model="form.total"
                     ></el-input-number>
                   </el-form-item>
                 </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1030FORMVIEW_PJRATE')">
                     <el-input-number
@@ -598,9 +645,8 @@
                       v-model="form.rate"
                     ></el-input-number>
                   </el-form-item>
+                  <!--                endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to-->
                 </el-col>
-              </el-row>
-              <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1030FORMVIEW_DIFFERENCE')">
                     <el-input
@@ -611,7 +657,6 @@
                     </el-input>
                   </el-form-item>
                 </el-col>
-<!--                endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to-->
               </el-row>
               <el-row v-if="forreason">
                 <el-form-item :label="$t('label.PFANS1028VIEW_RESON')" prop="reason">
@@ -1217,6 +1262,14 @@
         arrAttf: [],
         groupN: '',
         form: {
+          //add ccm 20211026 受托决裁添加外注信息 fr
+          inhours:'',
+          inprice:'',
+          inamount:'',
+          outhours:'',
+          outprice:'',
+          outamount:'',
+          //add ccm 20211026 受托决裁添加外注信息 to
           uploadfile: '',
           membercost: '',
           investorspeopor: '',
@@ -2128,6 +2181,58 @@
           this.error = '';
         }
       },
+      //add ccm 20211026 受托决裁添加外注信息 fr
+      getInNumber(val) {
+        this.form.inhours = val;
+        //构内费用合计
+        this.form.inamount = (this.form.inhours || 0) * (this.form.inprice || 0);
+        //合计外注费用
+        this.form.total = (this.form.inamount || 0) + (this.form.outamount || 0);
+        //合计外注费(元)改变判断限界利润率
+        this.PJcheck();
+      },
+      getInprice(val) {
+        this.form.inprice = val;
+        //构内费用合计
+        this.form.inamount = (this.form.inhours || 0) * (this.form.inprice || 0);
+        //合计外注费用
+        this.form.total = (this.form.inamount || 0) + (this.form.outamount || 0);
+        //合计外注费(元)改变判断限界利润率
+        this.PJcheck();
+      },
+      getOutNumber(val) {
+        this.form.outhours = val;
+        //构外费用合计
+        this.form.outamount = (this.form.outhours || 0) * (this.form.outprice || 0);
+        //合计外注费用
+        this.form.total = (this.form.inamount || 0) + (this.form.outamount || 0);
+        //合计外注费(元)改变判断限界利润率
+        this.PJcheck();
+      },
+      getOutprice(val) {
+        this.form.outprice = val;
+        //构外费用合计
+        this.form.outamount = (this.form.outhours || 0) * (this.form.outprice || 0);
+        //合计外注费用
+        this.form.total = (this.form.inamount || 0) + (this.form.outamount || 0);
+        //合计外注费(元)改变判断限界利润率
+        this.PJcheck();
+      },
+      getInAmount(val) {
+        this.form.inamount = val;
+        //合计外注费用
+        this.form.total = (this.form.inamount || 0) + (this.form.outamount || 0);
+        //合计外注费(元)改变判断限界利润率
+        this.PJcheck();
+      },
+      getOutAmount(val) {
+        this.form.outamount = val;
+        //合计外注费用
+        this.form.total = (this.form.inamount || 0) + (this.form.outamount || 0);
+        //合计外注费(元)改变判断限界利润率
+        this.PJcheck();
+      },
+      //add ccm 20211026 受托决裁添加外注信息 to
       gettotal1(val) {
         if (this.form.total === 0) {
           this.form.outsourcing = 0;
@@ -2136,12 +2241,7 @@
         }
       },
       gettotal(val) {
-        if (this.form.number === 0) {
-          this.form.outsourcing = 0;
-        } else {
-          this.form.outsourcing = val / this.form.number;
-        }
-        this.form.pjrate =this.form.sarmb === 0 ? 0 : parseFloat((this.form.sarmb - this.form.membercost - val)) / this.form.sarmb;
+       this.form.pjrate =this.form.sarmb === 0 ? 0 : parseFloat((this.form.sarmb - this.form.membercost - val)) / this.form.sarmb;
         //region scc add 9/17 合计外注费(元)改变判断限界利润率 from
         this.PJcheck();
         //endregion scc add 9/17 合计外注费(元)改变判断限界利润率 to
