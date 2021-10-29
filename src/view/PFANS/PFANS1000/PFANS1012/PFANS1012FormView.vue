@@ -3030,6 +3030,11 @@ export default {
           //add-ws-8/24-禅道任务544
         }
         //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+        if (this.$route.params._careerplan) {
+          this.form.business_type = this.$route.params._careerplan;
+        }else{
+          this.form.business_type = false;
+        }
         this.show9 = false;
         this.show7 = true;
         this.show6 = true;
