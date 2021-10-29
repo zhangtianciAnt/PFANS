@@ -2182,6 +2182,14 @@
                         <!--                        </template>-->
                       </el-table-column>
                       <!--   限界利益率，营业利益率，年间合计 END      -->
+                      <!--   事业计划消耗 START      -->
+                      <el-table-column :label="$t('label.actualattend')" align="center" width="110"
+                                       prop="act_">
+                        <!--                        <template slot-scope="scope">-->
+                        <!--                          <span>{{scope.row.moneytotal}}</span>-->
+                        <!--                        </template>-->
+                      </el-table-column>
+                      <!--   事业计划消耗 END      -->
                     </el-table-column>
                   </el-table-column>
                 </el-table>
@@ -2228,6 +2236,9 @@
         }
       };
       return {
+        //region scc add 事业计划消耗 from
+        RulingArr: [],
+        //endregion scc add 事业计划消耗 to
         newentry: [],
         redirict:'',
         companyen:'',
@@ -2495,6 +2506,27 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            //region scc add 获取事业计划消耗,并在PL赋值 from
+            this.$store
+              .dispatch('PFANS1036Store/consumption', {centerId: response.center_id})
+              .then(res => {
+                this.RulingArr = res.data;
+                this.tableP.forEach((item,index) => {
+                  this.RulingArr.forEach((items,indexs) => {
+                    if(item.name1 === items.code){
+                      this.$set(this.tableP[index], 'act_', Number(items.actualconsumption).toFixed(2));
+                    }
+                  })
+                })
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              });
+            //endregion scc add 获取事业计划消耗,并在PL赋值 to
             if (this.form.status === '2' || this.form.status === '4' || this.form.status === '1')
             {
               if(this.buttonList.length>0)

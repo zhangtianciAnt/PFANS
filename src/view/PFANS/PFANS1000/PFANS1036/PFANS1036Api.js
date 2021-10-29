@@ -120,3 +120,13 @@ export function Pl(data) {
   })
 }
 //endregion scc add 保存部分PL to
+
+//region scc add 事业计划消耗 from
+export function consumption(data) {
+  return request({
+    url: 'businessplan/consumption',
+    method: 'get',
+    params: data
+  })
+}
+//endregion scc add 事业计划消耗 to
