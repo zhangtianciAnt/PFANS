@@ -216,13 +216,6 @@
                         fix: false,
                         filter: true,
                     },
-                  {
-                    code: 'careerplan',
-                    label: 'label.PFANS3003FORMVIEW_TYPE',
-                    width: 150,
-                    fix: false,
-                    filter: true,
-                  },
                     {
                         code: 'loanapno',
                         label: 'label.PFANS1012VIEW_TEMPORARYLOAN',
@@ -360,7 +353,7 @@
                         filter: true,
                     },
                     {
-                        code: 'careerplan',
+                        code: 'careerplantemp',
                         label: 'label.PFANS3005FORMVIEW_CAREERPLAN',
                         width: 150,
                         fix: false,
@@ -594,11 +587,11 @@
                     if (response[j].careerplan === '1') {
 
                       if (this.$i18n) {
-                        response[j].careerplan = this.$t('label.PFANS1004VIEW_INSIDE');
+                        response[j].careerplantemp = this.$t('label.PFANS1004VIEW_INSIDE');
                       }
                     } else {
                       if (this.$i18n) {
-                        response[j].careerplan = this.$t('label.PFANS1004VIEW_OUTER');
+                        response[j].careerplantemp = this.$t('label.PFANS1004VIEW_OUTER');
                       }
                     }
                     // ADD_FJL   (受理状态)
@@ -801,11 +794,24 @@
                 this.buttonList[2].disabled = false;
               }
               //region scc add 10/28 购买决裁,删除状态 from
-              if(row.status === '未开始' || row.status === '驳回'){
-                this.buttonList[8].disabled = false;
-              }else{
-                this.buttonList[8].disabled = true;
+              let user = getUserInfo(this.$store.getters.userinfo.userid);
+              if (user)
+              {
+                if((row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1) && row.user_id === user.userinfo.customername){
+                  this.buttonList[8].disabled = false;
+                }else{
+                  this.buttonList[8].disabled = true;
+                }
               }
+              else
+              {
+                if(row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1){
+                  this.buttonList[8].disabled = false;
+                }else{
+                  this.buttonList[8].disabled = true;
+                }
+              }
+
               //endregion scc add 10/28 购买决裁,删除状态 to
             },
             buttonClick(val) {
@@ -933,7 +939,7 @@
                             'controller',
                             'username',
                             'budgetnumber',
-                            'careerplan',
+                            'careerplantemp',
                             'businessplanamount',
                             'purchasepurpose',
                             'procurementproject',
@@ -994,7 +1000,7 @@
                         //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
                         let ny = 0;
                         for (let i = 0; i < selectedlist.length; i++) {
-                          if (selectedlist[i].careerplan === this.$t('label.PFANS1004VIEW_INSIDE')) {
+                          if (selectedlist[i].careerplan === '1') {
                             //内
                             ny = ny + 1;
                           }
@@ -1315,9 +1321,22 @@
               if(val === 'delete'){
                 if(this.rowid){
                   this.loading = true;
+                  this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                    confirmButtonText: this.$t('button.confirm'),
+                    cancelButtonText: this.$t('button.cancel'),
+                    type: 'warning',
+                    center: true,
+                  }).then(() => {
                   this.$store
                     .dispatch('PFANS3005Store/purchdelete', this.rowInfo)
                     .then(response => {
+                      this.selectInfo();
+                      this.$store.commit('global/SET_OPERATEID', '');
+                      Message({
+                        message: this.$t('normal.info_03'),
+                        type: 'success',
+                        duration: 2 * 1000,
+                      });
                       this.loading = false;
                     })
                     .catch(error => {
@@ -1327,6 +1346,13 @@
                         duration: 5 * 1000,
                       });
                     });
+                  }).catch(() => {
+                    this.$message.info({
+                      type: 'info',
+                      message: this.$t('normal.info_04'),
+                    });
+                    this.loading = false;
+                  });
                   this.loading = false;
                 }
               }
