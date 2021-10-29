@@ -4216,12 +4216,12 @@ export default {
             // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 end
           }, 0);
           sums[index] = Math.round((sums[index]) * 100) / 100;
-          this.sumAmmounttemp = sums[index];
         } else {
           sums[index] = '--';
           sums[3] = '--';
         }
       });
+      this.sumAmmounttemp = sums[2];
       return sums;
     },
     // 禅道597 ztc 决裁精算金额合计-end

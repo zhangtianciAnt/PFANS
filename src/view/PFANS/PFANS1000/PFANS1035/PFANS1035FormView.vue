@@ -625,7 +625,9 @@
     watch: {
       form: {
         handler(newValue, oldValue) {
-          this.form.moneys = parseFloat(this.form.datenumber * 600 + 3600).toFixed(2)
+          if(this.form.moneys == ''){
+            this.form.moneys = parseFloat(this.form.datenumber * 600 + 3600).toFixed(2)
+          }
         },
         deep: true,
       },
@@ -1677,6 +1679,9 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
+          alert(this.form.moneys)
+          alert(busVal)
+          alert(this.initalMoney)
           if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
