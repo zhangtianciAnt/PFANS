@@ -47,3 +47,13 @@ export function createJudgementDetail(data) {
     data: data
   })
 }
+
+//region scc add 其他业务决裁逻辑删除 from
+export function juddelete(data) {
+  return request({
+    url: 'judgement/juddelete',
+    method: 'post',
+    data: data,
+  });
+}
+//endregion scc add 其他业务决裁逻辑删除 to
