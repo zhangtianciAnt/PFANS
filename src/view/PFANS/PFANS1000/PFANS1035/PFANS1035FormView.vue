@@ -153,7 +153,7 @@
                 <!--                add-ws-7/10-禅道任务247-->
                 <el-row v-if="this.form.checkch === '1'">
                   <el-form-item :label="$t('label.PFANS1002VIEW_QXCCLY')" prop="remark">
-                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                    <el-input :disabled="false" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
@@ -1679,9 +1679,6 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          alert(this.form.moneys)
-          alert(busVal)
-          alert(this.initalMoney)
           if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
@@ -2043,7 +2040,7 @@
                   },
                 );
               }
-              if (this.form.companyprojectsname != 'PP024001')
+              if (this.form.companyprojectsname != 'PP024001' && this.form.plan === '1')
               {
                 this.form.plan = '0';
                 this.form.classificationtype = null;
