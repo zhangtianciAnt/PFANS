@@ -5144,7 +5144,7 @@
 </script>
 
 
-<style rel="stylesheet/scss" lang="scss" >
+<style rel="stylesheet/scss" lang="scss" scoped>
 
   .el-table .row1 {
     color: #6d9fd1;
