@@ -4748,7 +4748,6 @@ export default {
         }
         const values = data.map(item => Number(item[column.property]));
         if (!values.every(value => isNaN(value))) {
-          debugger
           sums[index] = values.reduce((prev, curr) => {
             const value = Number(curr);
             // update gbb 20210311 PSDCD_PFANS_20210225_BUG_022 保留两位小数 start
@@ -4786,7 +4785,6 @@ export default {
       return this.formatThods(sums);
     },
     getMoney(sums) {
-      debugger
       if (this.form.type === 'PJ001001') {
         this.form.rmbexpenditure = sums[8];
       } else if (this.checktime) {
@@ -5005,6 +5003,35 @@ export default {
         //add-fjl-0813-精算中，点击决裁，跳转画面
       }
       if (val === 'save') {
+        //region scc add Pl摘要内容必填验证 from
+        debugger
+        let flag = false;
+        if(this.show6){
+          this.tableP.forEach((item,index) => {
+            if(item.budgetcoding && !item.plsummary){
+              flag = true;
+              Message({
+                message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
+                type: "error",
+                duration: 5 * 1000
+              });
+            }
+          })
+          this.tableR.forEach((item,index) => {
+            if(item.budgetcoding && !item.plsummary){
+              flag = true;
+              Message({
+                message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
+                type: "error",
+                duration: 5 * 1000
+              });
+            }
+          })
+        }
+        if(flag){
+          return;
+        }
+        //endregion scc add Pl摘要内容必填验证 from
         // add-lyt-21/4/14-NT_PFANS_20210413_BUG_002-start
         for(let i = 0;i<this.tableP.length;i++){
           for(let j = 0;j<this.tableP.length;j++){
