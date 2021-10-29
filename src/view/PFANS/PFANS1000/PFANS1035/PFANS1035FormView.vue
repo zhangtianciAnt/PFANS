@@ -2043,6 +2043,20 @@
                   },
                 );
               }
+              if (this.form.companyprojectsname != 'PP024001')
+              {
+                this.form.plan = '0';
+                this.form.classificationtype = null;
+                this.form.rulingid = null;
+                this.form.balance = '0.00';
+                this.showPlan = false;
+                this.rules.classificationtype[0].required = false;
+                Message({
+                  message: this.$t('normal.error_29'),
+                  type: 'info',
+                  duration: 5 * 1000,
+                });
+              }
               if(this.form.plan === '1'){
                 this.checkMoney();
               } else{
