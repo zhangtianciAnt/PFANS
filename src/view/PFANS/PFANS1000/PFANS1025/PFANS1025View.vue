@@ -189,7 +189,7 @@
             filter: false,
           },
           {
-            code: 'plan',
+            code: 'plantemp',
             label: 'label.PFANS1002VIEW_PLANTYPE',
             width: 125,
             fix: false,
@@ -401,13 +401,13 @@
                                 }
                               }
                             }
-                            if (response[j].plan === '0') {
+                            if (response[j].plan === '1') {
                               if (this.$i18n) {
-                                response[j].plan = this.$t('label.PFANS1004VIEW_INSIDE');
+                                response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
                               }
                             } else {
                               if (this.$i18n) {
-                                response[j].plan = this.$t('label.PFANS1004VIEW_OUTER');
+                                response[j].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
                               }
                             }
                             datated.push({
@@ -421,7 +421,8 @@
                               deliverydate: response[j].deliverydate,
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
-                              plan:response[j].plan,
+                              plantemp:response[j].plantemp,
+                              user_id:response[j].createby,
                               status: response[j].status,
                               award_id: response[j].award_id,
                               owner: response[j].owner,
@@ -456,7 +457,8 @@
                             deliverydate: response[m].deliverydate,
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
-                            plan:response[m].plan,
+                            plantemp:response[m].plantemp,
+                            user_id:response[m].createby,
                             status: response[m].status,
                             award_id: response[m].award_id,
                             owner: response[m].owner,
@@ -513,7 +515,7 @@
         }
         //add-ws-7/20-禅道任务342
         //region scc add 10/28 委托决裁,行赋值 from
-        if(row.status === '未开始' || row.status === '驳回'){
+        if (this.$store.getters.userinfo.userid === row.user_id && ((row.status.indexOf(this.$t('normal.todo')) !== -1) || row.status.indexOf(this.$t('label.node_step2')) !== -1)) {
           this.buttonList[5].disabled = false;
         }else{
           this.buttonList[5].disabled = true;
@@ -773,7 +775,7 @@
             //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
             let ny = 0;
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].plan === this.$t('label.PFANS1004VIEW_INSIDE')) {
+              if (this.selectedlist[i].plan === '1') {
                 //内
                 ny = ny + 1;
               }
@@ -974,9 +976,22 @@
             let params = {
               award_id: this.rowid
             }
+            this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+              confirmButtonText: this.$t('button.confirm'),
+              cancelButtonText: this.$t('button.cancel'),
+              type: 'warning',
+              center: true,
+            }).then(() => {
             this.$store
               .dispatch('PFANS1025Store/awddelete', params)
               .then(response => {
+                this.getPjanme();
+                this.$store.commit('global/SET_OPERATEID', '');
+                Message({
+                  message: this.$t('normal.info_03'),
+                  type: 'success',
+                  duration: 2 * 1000,
+                });
                 this.loading = false;
               })
               .catch(error => {
@@ -986,6 +1001,13 @@
                   duration: 5 * 1000,
                 });
               });
+            }).catch(() => {
+              this.$message.info({
+                type: 'info',
+                message: this.$t('normal.info_04'),
+              });
+              this.loading = false;
+            });
             this.loading = false;
           }
         }

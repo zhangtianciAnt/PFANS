@@ -280,7 +280,7 @@
           },
           //region scc add 千元以下费用申请,事业计划类型 from
           {
-            code: 'plan',
+            code: 'plantempp',
             label: 'label.PFANS3003FORMVIEW_TYPE',
             width: 150,
             fix: false,
@@ -351,7 +351,7 @@
           },
           //region scc add 其他业务决裁,事业计划 from
           {
-            code: 'careerplan',
+            code: 'careerplantempp',
             label: 'label.PFANS3003FORMVIEW_TYPE',
             width: 150,
             fix: false,
@@ -433,7 +433,7 @@
 // ztc 禅道No.61-增加出差地、出差日期 end
           //region scc add 出差，事业计划 from
           {
-            code: 'plan',
+            code: 'plantempp',
             label: 'label.PFANS3003FORMVIEW_TYPE',
             width: 120,
             fix: false,
@@ -595,7 +595,7 @@
           },
           //region scc add 交际费事前决裁,事业计划 from
           {
-            code: 'plan',
+            code: 'plantempp',
             label: 'label.PFANS3003FORMVIEW_TYPE',
             width: 150,
             fix: false,
@@ -737,7 +737,7 @@
       this.getdateInfo();
       //region scc add 无偿设备，无事业计划列 from
       if(this.$route.params.title === 3){
-        this.columns2 = this.columns2.filter(item => item.code !== 'careerplan');
+        this.columns2 = this.columns2.filter(item => item.code !== 'careerplantempp');
       }
       //endregion scc add 无偿设备，无事业计划列 to
     },
@@ -991,11 +991,11 @@
               if(this.$route.params.title === 5 || this.$route.params.title === 10){//千元以下费用-----交际费
                 if (response[i].plan === '1') {
                   if (this.$i18n) {
-                    response[i].plan = this.$t('label.PFANS1004VIEW_INSIDE');
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_INSIDE');
                   }
                 } else {
                   if (this.$i18n) {
-                    response[i].plan = this.$t('label.PFANS1004VIEW_OUTER');
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_OUTER');
                   }
                 }
               }
@@ -1018,11 +1018,11 @@
               if(this.$route.params.title === 4){//其他决裁
                 if (response[i].careerplan === '1') {
                   if (this.$i18n) {
-                    response[i].careerplan = this.$t('label.PFANS1004VIEW_INSIDE');
+                    response[i].careerplantempp = this.$t('label.PFANS1004VIEW_INSIDE');
                   }
                 } else {
                   if (this.$i18n) {
-                    response[i].careerplan = this.$t('label.PFANS1004VIEW_OUTER');
+                    response[i].careerplantempp = this.$t('label.PFANS1004VIEW_OUTER');
                   }
                 }
               }
@@ -1030,11 +1030,11 @@
               if(this.$route.params.title === 1 || this.$route.params.title === 2){//出差
                 if (response[i].plan === '1') {
                   if (this.$i18n) {
-                    response[i].plan = this.$t('label.PFANS1004VIEW_INSIDE');
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_INSIDE');
                   }
                 } else {
                   if (this.$i18n) {
-                    response[i].plan = this.$t('label.PFANS1004VIEW_OUTER');
+                    response[i].plantempp = this.$t('label.PFANS1004VIEW_OUTER');
                   }
                 }
               }
@@ -1152,10 +1152,22 @@
           }
           //add-ws-7/7-禅道247
           //region scc add 10/28 境外出差,行点击 from
-          if(row.status === '未开始' || row.status === '驳回'){
-            this.buttonListAnt[6].disabled = false;
-          }else{
-            this.buttonListAnt[6].disabled = true;
+          let user = getUserInfo(this.$store.getters.userinfo.userid);
+          if (user)
+          {
+            if((row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1) && row.user_id === user.userinfo.customername){
+              this.buttonListAnt[6].disabled = false;
+            }else{
+              this.buttonListAnt[6].disabled = true;
+            }
+          }
+          else
+          {
+            if(row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1){
+              this.buttonListAnt[6].disabled = false;
+            }else{
+              this.buttonListAnt[6].disabled = true;
+            }
           }
           //endregion scc add 10/28 境外出差,行点击 to
         } else if (this.$route.params.title === 2) {
@@ -1168,10 +1180,22 @@
           }
           //add-ws-7/7-禅道247
           //region scc add 10/28 境内出差,行点击 from
-          if(row.status === '未开始' || row.status === '驳回'){
-            this.buttonListAnt[6].disabled = false;
-          }else{
-            this.buttonListAnt[6].disabled = true;
+          let user = getUserInfo(this.$store.getters.userinfo.userid);
+          if (user)
+          {
+            if((row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1) && row.user_id === user.userinfo.customername){
+              this.buttonListAnt[6].disabled = false;
+            }else{
+              this.buttonListAnt[6].disabled = true;
+            }
+          }
+          else
+          {
+            if(row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1){
+              this.buttonListAnt[6].disabled = false;
+            }else{
+              this.buttonListAnt[6].disabled = true;
+            }
           }
           //endregion scc add 10/28 境内出差,行点击 to
         } else if (this.$route.params.title === 3) {
@@ -1185,19 +1209,43 @@
             this.judgnumberscheck = false;
           }
           //region scc add 10/28 其他决裁,行点击 from
-          if(row.status === '未开始' || row.status === '驳回'){
-            this.buttonListAnt[5].disabled = false;
-          }else{
-            this.buttonListAnt[5].disabled = true;
+          let user = getUserInfo(this.$store.getters.userinfo.userid);
+          if (user)
+          {
+            if((row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1) && row.user_id === user.userinfo.customername){
+              this.buttonListAnt[5].disabled = false;
+            }else{
+              this.buttonListAnt[5].disabled = true;
+            }
+          }
+          else
+          {
+            if(row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1){
+              this.buttonListAnt[5].disabled = false;
+            }else{
+              this.buttonListAnt[5].disabled = true;
+            }
           }
           //endregion scc add 10/28 其他决裁,行点击 to
         } else if (this.$route.params.title === 5) {
           this.rowid = row.purchaseapply_id;
           //region scc add 10/28 千元以下费用申请,行点击 from
-          if(row.status === '未开始' || row.status === '驳回'){
-            this.buttonListAnt[5].disabled = false;
-          }else{
-            this.buttonListAnt[5].disabled = true;
+          let user = getUserInfo(this.$store.getters.userinfo.userid);
+          if (user)
+          {
+            if((row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1) && row.user_id === user.userinfo.customername){
+              this.buttonListAnt[5].disabled = false;
+            }else{
+              this.buttonListAnt[5].disabled = true;
+            }
+          }
+          else
+          {
+            if(row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1){
+              this.buttonListAnt[5].disabled = false;
+            }else{
+              this.buttonListAnt[5].disabled = true;
+            }
           }
           //endregion scc add 10/28 千元以下费用申请,行点击 to
         } else if (this.$route.params.title === 6) {
@@ -1209,10 +1257,22 @@
         } else if (this.$route.params.title === 10) {
           this.rowid = row.communication_id;
           //region scc add 10/28 交际费事前决裁,行点击 from
-          if(row.status === '未开始' || row.status === '驳回'){
-            this.buttonListAnt[5].disabled = false;
-          }else{
-            this.buttonListAnt[5].disabled = true;
+          let user = getUserInfo(this.$store.getters.userinfo.userid);
+          if (user)
+          {
+            if((row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1) && row.user_id === user.userinfo.customername){
+              this.buttonListAnt[5].disabled = false;
+            }else{
+              this.buttonListAnt[5].disabled = true;
+            }
+          }
+          else
+          {
+            if(row.status.indexOf(this.$t('normal.todo')) !== -1 || row.status.indexOf(this.$t('label.node_step2')) !== -1){
+              this.buttonListAnt[5].disabled = false;
+            }else{
+              this.buttonListAnt[5].disabled = true;
+            }
           }
           //endregion scc add 10/28 交际费事前决裁,行点击 to
         } else if (this.$route.params.title === 11) {
@@ -1435,7 +1495,7 @@
                   if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
                     n = n + 1;
                   }
-                  if (selectedlist[i].plan === this.$t('label.PFANS1004VIEW_INSIDE')) {//事业计划内
+                  if (selectedlist[i].plan === '1') {//事业计划内
                     ny = ny + 1;
                   }
                 }
@@ -1613,7 +1673,7 @@
                 if(this.$route.params.title === 4) {
                   let ny = 0;
                   for (let i = 0; i < selectedlist.length; i++) {
-                    if (selectedlist[i].careerplan === this.$t('label.PFANS1004VIEW_INSIDE')) {//事业计划内
+                    if (selectedlist[i].careerplan === '1') {//事业计划内
                       ny = ny + 1;
                     }
                   }
@@ -1785,7 +1845,7 @@
                   if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
                     n = n + 1;
                   }
-                  if (selectedlist[i].plan === this.$t('label.PFANS1004VIEW_INSIDE')) {//事业计划内
+                  if (selectedlist[i].plan === '1') {//事业计划内
                     ny = ny + 1;
                   }
                 }
@@ -1947,7 +2007,7 @@
                   if (selectedlist[i].loanapno == null || selectedlist[i].loanapno == '' || selectedlist[i].loanapno == undefined) {
                     n = n + 1;
                   }
-                  if (selectedlist[i].plan === this.$t('label.PFANS1004VIEW_INSIDE')) {//事业计划内
+                  if (selectedlist[i].plan === '1') {//事业计划内
                     ny = ny + 1;
                   }
                 }
@@ -2156,9 +2216,22 @@
             //region scc add 10/28 决裁逻辑删除 from
             if(this.$route.params.title === 5){//千元以下费用申请逻辑删除
               this.loading = true;
+              this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+                center: true,
+              }).then(() => {
               this.$store
                 .dispatch('PFANS1001Store/purdelete', this.rowInfo)
                 .then(response => {
+                  this.dispatch('PFANS1001Store/getpurchaseApply');
+                  this.$store.commit('global/SET_OPERATEID', '');
+                  Message({
+                    message: this.$t('normal.info_03'),
+                    type: 'success',
+                    duration: 2 * 1000,
+                  });
                   this.loading = false;
                 })
                 .catch(error => {
@@ -2168,14 +2241,34 @@
                     duration: 5 * 1000,
                   });
                 });
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('normal.info_04'),
+                });
+                this.loading = false;
+              });
               this.loading = false;
             }
 
             if(this.$route.params.title === 10){//交际费事前决裁删除
               this.loading = true;
+              this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+                center: true,
+              }).then(() => {
               this.$store
                 .dispatch('PFANS1001Store/comdelete', this.rowInfo)
                 .then(response => {
+                  this.dispatch('PFANS1001Store/getCommunication');
+                  this.$store.commit('global/SET_OPERATEID', '');
+                  Message({
+                    message: this.$t('normal.info_03'),
+                    type: 'success',
+                    duration: 2 * 1000,
+                  });
                   this.loading = false;
                 })
                 .catch(error => {
@@ -2185,14 +2278,43 @@
                     duration: 5 * 1000,
                   });
                 });
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('normal.info_04'),
+                });
+                this.loading = false;
+              });
               this.loading = false;
             }
 
             if(this.$route.params.title === 1 || this.$route.params.title === 2){//境内外出差
               this.loading = true;
+              this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+                center: true,
+              }).then(() => {
               this.$store
                 .dispatch('PFANS1001Store/busdelete', this.rowInfo)
                 .then(response => {
+                  if (this.$route.params.title === 1)
+                  {
+                    let businesstype = {'businesstype': '0'};
+                    this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
+                  }
+                  else
+                  {
+                    let businesstype = {'businesstype': '1'};
+                    this.dispatchparameter('PFANS1001Store/getBusiness', businesstype);
+                  }
+                  this.$store.commit('global/SET_OPERATEID', '');
+                  Message({
+                    message: this.$t('normal.info_03'),
+                    type: 'success',
+                    duration: 2 * 1000,
+                  });
                   this.loading = false;
                 })
                 .catch(error => {
@@ -2202,14 +2324,35 @@
                     duration: 5 * 1000,
                   });
                 });
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('normal.info_04'),
+                });
+                this.loading = false;
+              });
               this.loading = false;
             }
 
             if(this.$route.params.title === 4){//其他业务决裁
               this.loading = true;
+              this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+                confirmButtonText: this.$t('button.confirm'),
+                cancelButtonText: this.$t('button.cancel'),
+                type: 'warning',
+                center: true,
+              }).then(() => {
               this.$store
                 .dispatch('PFANS1001Store/juddelete', this.rowInfo)
                 .then(response => {
+                  let letequipment = {'equipment': '0'};
+                  this.dispatchparameter('PFANS1001Store/getJudgement', letequipment);
+                  this.$store.commit('global/SET_OPERATEID', '');
+                  Message({
+                    message: this.$t('normal.info_03'),
+                    type: 'success',
+                    duration: 2 * 1000,
+                  });
                   this.loading = false;
                 })
                 .catch(error => {
@@ -2219,6 +2362,13 @@
                     duration: 5 * 1000,
                   });
                 });
+              }).catch(() => {
+                this.$message.info({
+                  type: 'info',
+                  message: this.$t('normal.info_04'),
+                });
+                this.loading = false;
+              });
               this.loading = false;
             }
             //endregion scc add 10/28 决裁逻辑删除 to
