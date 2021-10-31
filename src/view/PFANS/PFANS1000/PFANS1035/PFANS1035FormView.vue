@@ -153,7 +153,7 @@
                 <!--                add-ws-7/10-禅道任务247-->
                 <el-row v-if="this.form.checkch === '1'">
                   <el-form-item :label="$t('label.PFANS1002VIEW_QXCCLY')" prop="remark">
-                    <el-input :disabled="!disable" style="width: 70vw" type="textarea"
+                    <el-input :disabled="false" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
                   </el-form-item>
