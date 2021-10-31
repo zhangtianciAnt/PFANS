@@ -1594,6 +1594,7 @@ export default {
       }
     };
     return {
+      sumAmmounttemp : 0,
         //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
         moduledisable: false,
         //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
@@ -1968,15 +1969,13 @@ export default {
       });
     }
     let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
-    for (let i = 0; i < PLdicnew.length; i++) {
-      if (PLdicnew[i].code === 'PJ111010' || PLdicnew[i].code === 'PJ111008') {
-        this.ploptionsdata.push({
-          value: PLdicnew[i].code,
-          lable: PLdicnew[i].value1,
+    let cgList = PLdicnew.filter(dicnew => dicnew.value5.indexOf('CG') != -1);
+    for(let cgOption of cgList){
+        this.ploptionsdata.push({//采购费明细
+          value: cgOption.code,
+          lable: cgOption.value1,
         });
-      }
     }
-
     let checktype = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ068');
     for (let i = 0; i < checktype.length; i++) {
       if (checktype[i].code === 'PJ068001') {
@@ -1986,18 +1985,24 @@ export default {
         });
       }
     }
-
-    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
-    for (let i = 0; i < dic.length; i++) {
-      if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
-        || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
-        || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
-        this.ploptionsdate.push({
-          value: dic[i].code,
-          lable: dic[i].value1,
-        });
-      }
+    let qtList = PLdicnew.filter(dicnew => dicnew.value5.indexOf('QT') != -1);
+    for(let qtOption of qtList){
+      this.ploptionsdate.push({//采购费明细
+        value: qtOption.code,
+        lable: qtOption.value1,
+      });
     }
+    // let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
+    // for (let i = 0; i < dic.length; i++) {
+    //   if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
+    //     || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
+    //     || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
+    //     this.ploptionsdate.push({
+    //       value: dic[i].code,
+    //       lable: dic[i].value1,
+    //     });
+    //   }
+    // }
     //ADD-WS-个人编码修改
     if (getUserInfo(this.$store.getters.userinfo.userid)) {
       this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
@@ -3023,6 +3028,11 @@ export default {
           //add-ws-8/24-禅道任务544
         }
         //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+        if (this.$route.params._careerplan) {
+          this.form.business_type = this.$route.params._careerplan;
+        }else{
+          this.form.business_type = false;
+        }
         this.show9 = false;
         this.show7 = true;
         this.show6 = true;
@@ -4425,6 +4435,7 @@ export default {
           sums[3] = '--';
         }
       });
+      this.sumAmmounttemp = sums[2];
       return sums;
     },
     // 禅道597 ztc 决裁精算金额合计-end
@@ -5684,6 +5695,20 @@ export default {
                   }
                 }
               }
+
+              //add ccm 20211028 精算金额不能大于决裁金额  fr
+              if (Number(this.sumAmmounttemp || 0) < Number(Number(this.form.foreigncurrency || 0) + Number(this.form.rmbexpenditure || 0)))
+              {
+                error = error + 1;
+                this.activeName = 'first';
+                Message({
+                  message: this.$t('label.PFANS1012FORMVIEW_COMPAREAMMOUNT'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+              //add ccm 20211028 精算金额不能大于决裁金额  to
+
               if (error == '0') {
                 //add-ws-6/11-禅道任务090
                 for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {

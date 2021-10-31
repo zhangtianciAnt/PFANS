@@ -76,9 +76,8 @@
               </el-row>
               <el-row>
                 <el-col :span="8">
-                  <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name"
-                                v-if="checkgroup">
-                    <org :disabled="!disable" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
+                  <el-form-item :error="errorgroup" :label="$t('label.PFANS1004VIEW_GROUPZW')" prop="group_name">
+                    <org :disabled="!checkgroup" :error="errorgroup" :orglist="form.group_name" @getOrgids="getGroupId"
                          orgtype="2" style="width:20vw"></org>
                   </el-form-item>
                 </el-col>
@@ -94,6 +93,51 @@
                         @change="changeBut">
                       </el-option>
                     </el-select>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_PLAN1')" prop="plan">
+                    <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
+                    <el-switch
+                      :disabled="!disable"
+                      @change="getplan"
+                      active-value="1"
+                      inactive-value="0"
+                      v-model="form.plan"
+                      inactive-color="#005BAA"
+                    >
+                    </el-switch>
+                    <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
+                                v-if="showPlan">
+                    <dicselect
+                      :code="code2"
+                      :data="form.classificationtype"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="getclassificationtype"
+                      style="width: 20vw"
+                    >
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="showPlan">
+                    <el-input-number
+                      v-loading="baloading"
+                      :disabled="true"
+                      :min="0"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.balance">
+                    </el-input-number>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -118,7 +162,7 @@
                     <el-table-column :label="$t('label.PFANS1005VIEW_UNITPRICE')" align="center" prop="unitprice"
                                      width="200">
                       <template slot-scope="scope">
-                        <el-input-number :disabled="!disable" :min="0" :precision="2" :max="9999999"
+                        <el-input-number :disabled="!disable" :min="0" :precision="2"
                                          controls-position="right" :no="scope.row" @change="changeSum(scope.row)"
                                          :step="1" v-model="scope.row.unitprice">
                         </el-input-number>
@@ -127,7 +171,6 @@
                     <el-table-column :label="$t('label.PFANS3005VIEW_QUANTITY')" align="center" prop="numbers" width="200">
                       <template slot-scope="scope">
                         <el-input-number @change="changeSum(scope.row)" :disabled="!disable" :min="0" :precision="0"
-                                         :max="99999"
                                          controls-position="right" :no="scope.row"
                                          :step="1" v-model="scope.row.numbers">
                         </el-input-number>
@@ -279,22 +322,24 @@
     import EasyNormalContainer from '@/components/EasyNormalContainer';
     import user from '../../../components/user';
     import {Message} from 'element-ui';
-    import {getCurrentRole2, getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
+    import {getCurrentRole2, getOrgInfo, getOrgInfoByUserId, getStatus,accAdd} from '@/utils/customize';
     import moment from 'moment';
     import org from '../../../components/org';
+    import dicselect from '../../../components/dicselect.vue';
 
     export default {
     name: 'PFANS1005FormView',
     components: {
       EasyNormalContainer,
       user,
+      dicselect,
       org,
         // PFANS1012Pop,
         // PFANS1006Pop,
     },
     data() {
       var groupId = (rule, value, callback) => {
-        if (!this.form.group_name || this.form.group_name === '') {
+        if (this.role === '0' && (!this.form.group_name || this.form.group_name === '')) {
           callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW')));
           this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS1004VIEW_GROUPZW');
         } else {
@@ -316,7 +361,7 @@
         //urlparams: '',
         urlparams: {},
         // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
-          url: '',
+        url: '',
         workflowCode: 'W0012',
         errorgroup: '',
         checkgroup: false,
@@ -332,11 +377,15 @@
         selectType: 'Single',
         userlist: '',
         code: 'PK004',
+        code2: 'PJ078',
         multiple: false,
         title: 'title.PFANS1005VIEW',
         loading: false,
+        showPlan: false,
+        baloading: false,
         disableview: false,
-          checkGro: false,
+        checkGro: false,
+        initalMoney: '0',
         baseInfo: {},
           activeName: 'first',
           tableA: [],
@@ -350,6 +399,10 @@
           user_id: '',
           status: '',
           application_date: moment(new Date()).format('YYYY-MM-DD'),
+          plan: '',
+          classificationtype: '',
+          balance: '',
+          rulingid: '',
         },
         tableD: [
           {
@@ -389,6 +442,13 @@
             message: this.$t('normal.error_09') + this.$t('label.application_date'),
             trigger: 'change',
           }],
+          classificationtype: [
+            {
+              required: false,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
+            },
+          ],
         },
       };
     },
@@ -405,8 +465,10 @@
       let role = getCurrentRole2();
       if (role === '0') {
         this.checkgroup = true;
+        this.rules.group_name[0].required = true;
       } else {
         this.checkgroup = false;
+        this.rules.group_name[0].required = false;
       }
       //add-ws-4/23-总务担当可用选择部门带出预算编码
       if (this.$route.params._id) {
@@ -415,30 +477,30 @@
           .dispatch('PFANS1005Store/selectById', {'purchaseApplyid': this.$route.params._id})
           .then(response => {
             this.form = response.purchaseApply;
+            //刚加载的金额
+            this.initalMoney = this.form.summoney;
             //add-ws-4/23-总务担当可用选择部门带出预算编码
             if (this.form.group_name != '' && this.form.group_name != null) {
               this.orglist = this.form.group_name;
               this.getchangeGroup(this.form.group_name);
             }
-            //add-ws-4/23-总务担当可用选择部门带出预算编码
-            // let rst = getOrgInfoByUserId(response.purchaseApply.user_id);
-            // if (rst) {
-            //     //upd_fjl_0927
-            //     if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-            //         this.checkGro = true;
-            //     } else {
-            //         this.checkGro = false;
-            //     }
-            //     // this.centerid = rst.centerNmae;
-            //     // this.groupid = rst.groupNmae;
-            //     // this.teamid = rst.teamNmae;
-            //     //upd_fjl_0927
-            // }
+            if(this.form.plan === '0'){
+              //1022 事业计划外增加新流程
+              this.workflowCode = 'W0005'
+              this.showPlan = false;
+            }else{
+              this.workflowCode = 'W0012'
+              this.showPlan = true;
+            }
             if (response.shoppingDetailed.length > 0) {
               this.tableD = response.shoppingDetailed;
             }
             this.userlist = this.form.user_id;
-            this.getBudt(this.form.center_id);
+            if(this.form.group_name != null && this.form.group_name != '' && this.form.group_name != undefined){
+              this.getBudt(this.form.group_name);
+            }else{
+              this.getBudt(this.form.center_id);
+            }
               //add_fjl_0806
               //有暂借款编号绑定暂借款信息
               if (this.form.loanapplication_id) {
@@ -543,6 +605,168 @@
         });
     },
     methods: {
+      checkBusPlan1(val){
+        return new Promise((resolve, reject) => {
+          this.baloading = true;
+          let getOrgId = '';
+          let orgId = getOrgInfo(this.form.center_id)
+          if(orgId.encoding){
+            getOrgId = this.form.center_id
+          }else{
+            getOrgId = this.form.group_id
+          }
+          let params = {
+            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            getOrgIdInfo: getOrgId,
+            classInfo: val,
+          };
+          if(val != '' && val != null){
+            this.$store
+              .dispatch('PFANS1036Store/getBusBalns',params)
+              .then(response => {
+                this.form.rulingid = response.data.rulingid
+                resolve(response.data.surplsu)
+                this.baloading = false;
+              });
+          }else{
+            this.form.rulingid = '';
+            resolve('0.00')
+            this.baloading = false;
+          }
+        });
+      },
+      checkMess(busVal){
+        return new Promise((resolve, reject) => {
+          if(Number(this.sumTotal[5]) > accAdd(Number(busVal),Number(this.initalMoney))){
+            Message({
+              message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            resolve('0')
+          }else{
+            resolve('1')
+          }
+        });
+      },
+      getplanBus(planVal) {
+        return new Promise((resolve, reject) => {
+          if (planVal === '1') {
+            this.showPlan = true;
+            this.rules.classificationtype[0].required = true;
+          } else {
+            this.form.classificationtype = null;
+            this.form.rulingid = null;
+            this.form.balance = '0.00';
+            this.showPlan = false;
+            this.rules.classificationtype[0].required = false;
+          }
+          resolve(true)
+        });
+      },
+      saveInfo(){
+        if (this.$route.params._id) {
+          this.updateInfo();
+        }else{
+          this.insertInfo();
+        }
+      },
+      checkMoney(){
+        this.checkBusPlan1(this.form.classificationtype).then(val =>{
+          this.form.balance = val;
+          this.checkMess(val).then(busVal =>{
+            this.form.plan = busVal
+            this.getplanBus(busVal).then(planVal =>{
+              this.saveInfo();
+            })
+          })
+        })
+      },
+      updateInfo(){
+        this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
+        this.baseInfo.purchaseApply.purchaseApply_id = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS1005Store/update', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            this.paramsTitle();
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      insertInfo(){
+        this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
+        this.$store
+          .dispatch('PFANS1005Store/insert', this.baseInfo)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            this.$message.success({
+              message: this.$t('normal.success_01'),
+              type: 'success',
+            });
+            this.paramsTitle();
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      getplan(val) {
+        this.form.plan = val;
+        this.form.classificationtype = null;
+        this.form.rulingid = null;
+        this.form.balance = '0.00';
+        if (val === '1') {
+          this.showPlan = true;
+          this.rules.classificationtype[0].required = true;
+        } else {
+          this.showPlan = false;
+          this.rules.classificationtype[0].required = false;
+        }
+      },
+      getclassificationtype(val) {
+        this.form.classificationtype = val;
+        this.checkBusPlan(val);
+      },
+      checkBusPlan(val){
+        this.baloading = true;
+        let getOrgId = '';
+        let orgId = getOrgInfo(this.form.center_id)
+        if(orgId.encoding){
+          getOrgId = this.form.center_id
+        }else{
+          getOrgId = this.form.group_id
+        }
+        let params = {
+          yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+          getOrgIdInfo: getOrgId,
+          classInfo: val,
+        };
+        if(val != '' && val != null){
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              this.form.rulingid = response.data.rulingid
+              this.form.balance = response.data.surplsu;
+              this.baloading = false;
+            });
+        }else{
+          this.form.balance = '0.00';
+          this.baloading = false;
+        }
+      },
         //add_fjl_0927
       getOrgInformation(id) {
         let org = {};
@@ -914,8 +1138,8 @@
               this.optionsdata.remarks = checktableD.substring(0, checktableD.length - 1);
               this.form.remarks = this.optionsdata.remarks;
               this.form.summoney = amountsum;
+
               //add-ws-4/17-摘要字段处理
-              this.baseInfo.purchaseApply = JSON.parse(JSON.stringify(this.form));
               let error = 0;
               if (amountsum === 0) {
                 error = error + 1;
@@ -925,52 +1149,12 @@
                   duration: 5 * 1000,
                 });
                 this.loading = false;
+                return
               }
-              if (error === 0) {
-                if (this.$route.params._id) {
-                  this.baseInfo.purchaseApply.purchaseApply_id = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1005Store/update', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
-                        this.$message.success({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                        });
-                        this.paramsTitle();
-                      }
-                    })
-                    .catch(error => {
-                      this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
-                } else {
-                  this.$store
-                    .dispatch('PFANS1005Store/insert', this.baseInfo)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      this.$message.success({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
-                      });
-                      this.paramsTitle();
-                    })
-                    .catch(error => {
-                      this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
-                }
+              if (error === 0 && this.form.plan === '1') {
+                this.checkMoney();
+              }else{
+                this.saveInfo();
               }
             } else {
               Message({
