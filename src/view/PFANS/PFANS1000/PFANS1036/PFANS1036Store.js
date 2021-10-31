@@ -9,7 +9,8 @@ import {
   getgroupA1,
   getgroup,
   whetherEditor,
-  download, BusinessplanExport,Pl
+  download, BusinessplanExport,Pl, getBusBalns,
+  consumption
 } from './PFANS1036Api';
 
 const PFANS1036Store = {
@@ -179,6 +180,19 @@ const PFANS1036Store = {
     },
     //endregion scc add 事业计划PL导出 to
 
+    getBusBalns({commit}, params) {
+      return new Promise((resolve, reject) => {
+        getBusBalns(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
     //region scc add 保存部分PL from
     Pl({commit}, data) {
       return new Promise((resolve, reject) => {
@@ -194,6 +208,23 @@ const PFANS1036Store = {
       });
     },
 //endregion scc add 保存部分PL to
+
+    //region scc add 9/28 事业计划消耗 from
+    consumption({commit},data) {
+      return new Promise((resolve, reject) => {
+        consumption(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 9/28 事业计划消耗 to
+
   },
 };
 

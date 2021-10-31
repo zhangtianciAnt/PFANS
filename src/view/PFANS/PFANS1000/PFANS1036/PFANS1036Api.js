@@ -102,6 +102,15 @@ export function BusinessplanExport(data) {
 }
 //endregion scc add 事业计划PL导出 to
 
+
+export function getBusBalns(data) {
+  return request({
+    url: 'businessplan/getBusBalns',
+    method: 'get',
+    params: data
+  })
+}
+
 //region scc add 保存部分PL from
 export function Pl(data) {
   return request({
@@ -111,3 +120,13 @@ export function Pl(data) {
   })
 }
 //endregion scc add 保存部分PL to
+
+//region scc add 事业计划消耗 from
+export function consumption(data) {
+  return request({
+    url: 'businessplan/consumption',
+    method: 'get',
+    params: data
+  })
+}
+//endregion scc add 事业计划消耗 to
