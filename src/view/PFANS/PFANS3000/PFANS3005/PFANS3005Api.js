@@ -64,3 +64,13 @@ export function getworkfolwPurchaseData(data) {
   })
 }
 //采购业务数据流程查看详情
+
+//region scc add 购买决裁删除 from
+export function purchdelete(data) {
+  return request({
+    url: 'purchase/purchdelete',
+    method: 'post',
+    data: data,
+  });
+}
+//endregion scc add 购买决裁删除 to

@@ -1,8 +1,8 @@
-import {getBusiness} from '../PFANS1002/PFANS1002Api';
-import {getJudgement} from '../PFANS1004/PFANS1004Api';
-import {getpurchaseApply} from '../PFANS1005/PFANS1005Api';
+import {getBusiness,busdelete} from '../PFANS1002/PFANS1002Api';
+import {getJudgement,juddelete} from '../PFANS1004/PFANS1004Api';
+import {getpurchaseApply,purdelete} from '../PFANS1005/PFANS1005Api';
 import {getLoanapplication} from '../PFANS1006/PFANS1006Api';
-import {getCommunication} from '../PFANS1010/PFANS1010Api';
+import {getCommunication,comdelete} from '../PFANS1010/PFANS1010Api';
 import {getOffshore} from '../PFANS1011/PFANS1011Api';
 import {change} from "../../PFANS1000/PFANS1001/PFANS1001Api";
 
@@ -112,6 +112,71 @@ const PFANS1001Store = {
         });
       });
     },
+
+    //region scc add 千元以下费用决裁删除 from
+    purdelete({commit}, data) {
+      return new Promise((resolve, reject) => {
+        purdelete(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //endregion scc add 千元以下费用决裁删除 to
+
+    //region scc add 交际费事前决裁删除 from
+    comdelete({commit}, data) {
+      return new Promise((resolve, reject) => {
+        comdelete(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //endregion scc add 交际费事前决裁删除 to
+
+    //region scc add 交际费事前决裁删除 from
+    busdelete({commit}, data) {
+      return new Promise((resolve, reject) => {
+        busdelete(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //endregion scc add 交际费事前决裁删除 to
+
+    //region scc add 其他业务决裁逻辑删除 from
+    juddelete({commit}, data) {
+      return new Promise((resolve, reject) => {
+        juddelete(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //endregion scc add 其他业务决裁逻辑删除 to
+
   }
 }
 

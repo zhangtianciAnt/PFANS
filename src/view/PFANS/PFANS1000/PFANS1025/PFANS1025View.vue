@@ -189,6 +189,13 @@
             filter: false,
           },
           {
+            code: 'plantemp',
+            label: 'label.PFANS1002VIEW_PLANTYPE',
+            width: 125,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'status',
             label: 'label.approval_status',
             width: 120,
@@ -229,6 +236,9 @@
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          //region scc add 10/28 委托决裁,删除按钮 from
+          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+          //endregion scc add 10/28 委托决裁,删除按钮 to
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
         ],
@@ -238,6 +248,9 @@
           {'key': 'sealapp', 'name': 'button.sealapp', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'viewseal', 'name': 'button.viewseal', 'disabled': true, 'icon': 'el-icon-view'},
           {'key': 'pubilc', 'name': 'button.actuarial', 'disabled': false, 'icon': 'el-icon-plus'},
+          //region scc add 10/28 委托决裁,删除按钮 from
+          {'key': 'delete', 'name': 'button.delete', 'disabled': true, 'icon': 'el-icon-delete'},
+          //endregion scc add 10/28 委托决裁,删除按钮 to
           {'key': 'temLoanApp', 'name': 'button.temLoanApp', 'disabled': false, 'icon': 'el-icon-plus'},
         ],
         status: '',
@@ -388,6 +401,15 @@
                                 }
                               }
                             }
+                            if (response[j].plan === '1') {
+                              if (this.$i18n) {
+                                response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
+                              }
+                            } else {
+                              if (this.$i18n) {
+                                response[j].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
+                              }
+                            }
                             datated.push({
                               contractnumber: response[j].contractnumber,
                               contracttype: response[j].contracttype,
@@ -399,6 +421,8 @@
                               deliverydate: response[j].deliverydate,
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
+                              plantemp:response[j].plantemp,
+                              user_id:response[j].createby,
                               status: response[j].status,
                               award_id: response[j].award_id,
                               owner: response[j].owner,
@@ -433,6 +457,8 @@
                             deliverydate: response[m].deliverydate,
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
+                            plantemp:response[m].plantemp,
+                            user_id:response[m].createby,
                             status: response[m].status,
                             award_id: response[m].award_id,
                             owner: response[m].owner,
@@ -488,6 +514,13 @@
           this.buttonList[3].disabled = false;
         }
         //add-ws-7/20-禅道任务342
+        //region scc add 10/28 委托决裁,行赋值 from
+        if (this.$store.getters.userinfo.userid === row.user_id && ((row.status.indexOf(this.$t('normal.todo')) !== -1) || row.status.indexOf(this.$t('label.node_step2')) !== -1)) {
+          this.buttonList[5].disabled = false;
+        }else{
+          this.buttonList[5].disabled = true;
+        }
+        //endregion scc add 10/28 委托决裁,行赋值 to
       },
       getCenterid(val){
         this.form.new_center_id = val
@@ -711,6 +744,7 @@
           //upd-ws-9/3-禅道任务493
         }
         if (val === 'pubilc') {
+          let plantemp = false;
           this.selectedlist = this.$refs.roletable.selectedList;
           if (this.$refs.roletable.selectedList.length === 0) {
             Message({
@@ -737,6 +771,31 @@
                 return;
               }
             }
+
+            //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
+            let ny = 0;
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].plan === '1') {
+                //内
+                ny = ny + 1;
+              }
+            }
+            if (ny != checksum) {
+              if (ny != 0) {
+                Message({
+                  message: this.$t('label.PFANS1001FORMVIEW_CHECKCAREERPLAN'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            else
+            {
+              plantemp = true;
+            }
+            //add ccm 20211028 决裁精算时添加事业计划内外限制 to
+
             for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({
@@ -810,6 +869,7 @@
                       _aInfo: awardInfo,
                       _type: 'PJ001002',
                       disabled: true,
+                      _careerplan : plantemp,
                     },
                   });
                   this.loading = false;
@@ -821,6 +881,7 @@
                   _name: this.listjudgement,
                   _type: 'PJ001002',
                   disabled: true,
+                  _careerplan : plantemp,
                 },
               });
             }
@@ -907,6 +968,50 @@
           // }
           //del ccm 0813 决裁到暂借款，精算  check去掉
         }
+
+        //region scc add 根据事业计划，进行逻辑删除 from
+        if (val === 'delete') {
+          if (this.rowid !== '' || this.rowid !== null || !this.rowid) {
+            this.loading = true;
+            let params = {
+              award_id: this.rowid
+            }
+            this.$confirm(this.$t('normal.info_02'), this.$t('normal.info'), {
+              confirmButtonText: this.$t('button.confirm'),
+              cancelButtonText: this.$t('button.cancel'),
+              type: 'warning',
+              center: true,
+            }).then(() => {
+            this.$store
+              .dispatch('PFANS1025Store/awddelete', params)
+              .then(response => {
+                this.getPjanme();
+                this.$store.commit('global/SET_OPERATEID', '');
+                Message({
+                  message: this.$t('normal.info_03'),
+                  type: 'success',
+                  duration: 2 * 1000,
+                });
+                this.loading = false;
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              });
+            }).catch(() => {
+              this.$message.info({
+                type: 'info',
+                message: this.$t('normal.info_04'),
+              });
+              this.loading = false;
+            });
+            this.loading = false;
+          }
+        }
+        //endregion scc add 根据事业计划，进行逻辑删除 to
       },
     },
   };

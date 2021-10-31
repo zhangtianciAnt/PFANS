@@ -30,3 +30,13 @@ export function insert(data) {
     data: data,
   });
 }
+
+//region scc add 千元以下费用决裁删除 from
+export function purdelete(data) {
+  return request({
+    url: 'purchaseApply/purdelete',
+    method: 'post',
+    data: data,
+  });
+}
+//endregion scc add 千元以下费用决裁删除 to

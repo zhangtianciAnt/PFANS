@@ -30,3 +30,13 @@ export function createCommunication(data) {
     data: data
   })
 }
+
+//region scc add 交际费事前决裁删除 from
+export function comdelete(data) {
+  return request({
+    url: 'communication/comdelete',
+    method: 'post',
+    data: data,
+  });
+}
+//endregion scc add 交际费事前决裁删除 to
