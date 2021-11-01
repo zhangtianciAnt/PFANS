@@ -41,6 +41,16 @@ export function list(data) {
 }
 //add-ws-7/10-禅道247
 
+//region scc add 境内外出差决裁删除 from
+export function busdelete(data) {
+  return request({
+    url: 'business/busdelete',
+    method: 'post',
+    data: data,
+  });
+}
+//endregion scc add 境内外出差决裁删除 to
+
 
 
 

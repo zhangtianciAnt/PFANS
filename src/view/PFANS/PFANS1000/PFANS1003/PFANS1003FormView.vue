@@ -53,61 +53,61 @@
                   </el-form-item>
                 </el-col>
               </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" prop="careerplan">
-                    <span style="margin-right: 1vw ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
-                    <el-switch
-                      :disabled="!disabled"
-                      v-model="form.careerplan"
-                      active-value="1"
-                      inactive-value="0"
-                      @change="radiochange">
-                    </el-switch>
-                    <span style="margin-left: 1vw ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="businessplantype" v-show="show">
-                    <dicselect
-                      :code="code"
-                      :data="form.businessplantype"
-                      :multiple="multiple"
-                      @change="getBusinessplantype"
-                      style="width:20vw"
-                      :disabled="!disabled">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
-                                v-show="show1">
-                    <dicselect
-                      :code="code1"
-                      :data="form.classificationtype"
-                      :multiple="multiple"
-                      @change="getClassificationtype"
-                      style="width:20vw"
-                      :disabled="!disabled">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"
-                                v-show="show">
-                    <el-input-number v-model="form.businessplanbalance" @change="moneyDiff" controls-position="right"
-                                     style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000"
-                                     :precision="2"></el-input-number>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1004VIEW_CAREERPLAN')" prop="careerplan">-->
+<!--                    <span style="margin-right: 1vw ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>-->
+<!--                    <el-switch-->
+<!--                      :disabled="!disabled"-->
+<!--                      v-model="form.careerplan"-->
+<!--                      active-value="1"-->
+<!--                      inactive-value="0"-->
+<!--                      @change="radiochange">-->
+<!--                    </el-switch>-->
+<!--                    <span style="margin-left: 1vw ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--              </el-row>-->
+<!--              <el-row>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANTYPE')" prop="businessplantype" v-show="show">-->
+<!--                    <dicselect-->
+<!--                      :code="code"-->
+<!--                      :data="form.businessplantype"-->
+<!--                      :multiple="multiple"-->
+<!--                      @change="getBusinessplantype"-->
+<!--                      style="width:20vw"-->
+<!--                      :disabled="!disabled">-->
+<!--                    </dicselect>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"-->
+<!--                                v-show="show1">-->
+<!--                    <dicselect-->
+<!--                      :code="code1"-->
+<!--                      :data="form.classificationtype"-->
+<!--                      :multiple="multiple"-->
+<!--                      @change="getClassificationtype"-->
+<!--                      style="width:20vw"-->
+<!--                      :disabled="!disabled">-->
+<!--                    </dicselect>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--                <el-col :span="8">-->
+<!--                  <el-form-item :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" prop="businessplanbalance"-->
+<!--                                v-show="show">-->
+<!--                    <el-input-number v-model="form.businessplanbalance" @change="moneyDiff" controls-position="right"-->
+<!--                                     style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000"-->
+<!--                                     :precision="2"></el-input-number>-->
+<!--                  </el-form-item>-->
+<!--                </el-col>-->
+<!--              </el-row>-->
               <el-row>
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1004VIEW_AMOUNTTOBEGIVEN')" prop="amounttobegiven">
-                    <el-input-number v-model="form.amounttobegiven" @change="moneyDiff" controls-position="right"
-                                     style="width:20vw" :disabled="!disabled" :min="0" :max="1000000000"
+                    <el-input-number v-model="form.amounttobegiven"  controls-position="right"
+                                     style="width:20vw" :disabled="!disabled" :min="0"
                                      :precision="2"></el-input-number>
                   </el-form-item>
                 </el-col>
@@ -1001,13 +1001,13 @@
       getSettingplace(val) {
         this.form.settingplace = val;
       },
-      moneyDiff() {
-        if (this.form.businessplanbalance > 0 && this.form.businessplanbalance < this.form.amounttobegiven) {
-          this.show = false;
-          this.form.careerplan = '0';
-          this.form.amounttobegiven = 0;
-        }
-      },
+      // moneyDiff() {
+      //   if (this.form.businessplanbalance > 0 && this.form.businessplanbalance < this.form.amounttobegiven) {
+      //     this.show = false;
+      //     this.form.careerplan = '0';
+      //     this.form.amounttobegiven = 0;
+      //   }
+      // },
       //设备
       addRow() {
         this.tableA.push({

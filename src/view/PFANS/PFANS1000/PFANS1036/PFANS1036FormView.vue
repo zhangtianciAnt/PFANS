@@ -3,6 +3,7 @@
     <EasyNormalContainer
       :buttonList="buttonList"
       :canStart="canStart"
+      :enableSave="enableSave"
       :title="title"
       @buttonClick="buttonClick"
       ref="container"
@@ -84,7 +85,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving4">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -98,7 +99,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving5">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -112,7 +113,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving6">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -126,7 +127,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving7">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -140,7 +141,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving8">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -154,7 +155,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving9">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -168,7 +169,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amountfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingfirst">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -182,7 +183,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving10">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -196,7 +197,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving11">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -210,7 +211,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving12">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -224,7 +225,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving1">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -238,7 +239,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving2">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -252,7 +253,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amount3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving3">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -266,7 +267,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amountsecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingsecond">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -280,7 +281,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_NUMBER')" align="center" width="50"
                                          prop="amounttotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingtotal">
                         </el-table-column>
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_WORKINGHOURS')" align="center" width="110"
@@ -327,7 +328,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving4">
                         </el-table-column>
                       </el-table-column>
@@ -341,7 +342,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving5">
                         </el-table-column>
                       </el-table-column>
@@ -355,7 +356,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving6">
                         </el-table-column>
                       </el-table-column>
@@ -369,7 +370,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving7">
                         </el-table-column>
                       </el-table-column>
@@ -383,7 +384,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving8">
                         </el-table-column>
                       </el-table-column>
@@ -397,7 +398,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving9">
                         </el-table-column>
                       </el-table-column>
@@ -411,7 +412,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="payfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingfirst">
                         </el-table-column>
                       </el-table-column>
@@ -425,7 +426,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving10">
                         </el-table-column>
                       </el-table-column>
@@ -439,7 +440,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving11">
                         </el-table-column>
                       </el-table-column>
@@ -453,7 +454,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving12">
                         </el-table-column>
                       </el-table-column>
@@ -467,7 +468,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving1">
                         </el-table-column>
                       </el-table-column>
@@ -481,7 +482,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving2">
                         </el-table-column>
                       </el-table-column>
@@ -495,7 +496,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving3">
                         </el-table-column>
                       </el-table-column>
@@ -509,7 +510,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="paysecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingsecond">
                         </el-table-column>
                       </el-table-column>
@@ -523,7 +524,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="paytotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingtotal">
                         </el-table-column>
                       </el-table-column>
@@ -564,7 +565,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay4">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving4">
                         </el-table-column>
                       </el-table-column>
@@ -578,7 +579,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay5">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving5">
                         </el-table-column>
                       </el-table-column>
@@ -592,7 +593,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay6">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving6">
                         </el-table-column>
                       </el-table-column>
@@ -606,7 +607,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay7">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving7">
                         </el-table-column>
                       </el-table-column>
@@ -620,7 +621,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay8">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving8">
                         </el-table-column>
                       </el-table-column>
@@ -634,7 +635,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay9">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving9">
                         </el-table-column>
                       </el-table-column>
@@ -648,7 +649,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="payfirst">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingfirst">
                         </el-table-column>
                       </el-table-column>
@@ -662,7 +663,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay10">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving10">
                         </el-table-column>
                       </el-table-column>
@@ -676,7 +677,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay11">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving11">
                         </el-table-column>
                       </el-table-column>
@@ -690,7 +691,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay12">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving12">
                         </el-table-column>
                       </el-table-column>
@@ -704,7 +705,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay1">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving1">
                         </el-table-column>
                       </el-table-column>
@@ -718,7 +719,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay2">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving2">
                         </el-table-column>
                       </el-table-column>
@@ -732,7 +733,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="pay3">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="giving3">
                         </el-table-column>
                       </el-table-column>
@@ -746,7 +747,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="paysecond">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingsecond">
                         </el-table-column>
                       </el-table-column>
@@ -760,7 +761,7 @@
                         <el-table-column :label="$t('label.PFANS1036FORMVIEW_OVERTIMEPAY')" align="center" width="110"
                         prop="paytotal">
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1036FORMVIEW_PAY')" align="center" width="110"
+                        <el-table-column :label="$t('label.PFANS1045VIEW_SPAN2')" align="center" width="110"
                                          prop="givingtotal">
                         </el-table-column>
                       </el-table-column>
@@ -2173,6 +2174,22 @@
                           <span>{{scope.row.moneytotal}}</span>
                         </template>
                       </el-table-column>
+                        <!--   限界利益率，营业利益率，年间合计 START      -->
+                      <el-table-column :label="$t('label.PFANS1036FORMVIEW_PLAN')" align="center" width="110"
+                                       prop="moneytotal_">
+                        <!--                        <template slot-scope="scope">-->
+                        <!--                          <span>{{scope.row.moneytotal}}</span>-->
+                        <!--                        </template>-->
+                      </el-table-column>
+                      <!--   限界利益率，营业利益率，年间合计 END      -->
+                      <!--   事业计划消耗 START      -->
+                      <el-table-column :label="$t('label.actualattend')" align="center" width="110"
+                                       prop="act_">
+                        <!--                        <template slot-scope="scope">-->
+                        <!--                          <span>{{scope.row.moneytotal}}</span>-->
+                        <!--                        </template>-->
+                      </el-table-column>
+                      <!--   事业计划消耗 END      -->
                     </el-table-column>
                   </el-table-column>
                 </el-table>
@@ -2219,6 +2236,9 @@
         }
       };
       return {
+        //region scc add 事业计划消耗 from
+        RulingArr: [],
+        //endregion scc add 事业计划消耗 to
         newentry: [],
         redirict:'',
         companyen:'',
@@ -2460,6 +2480,7 @@
         },
         multiple: false,
         canStart: false,
+        enableSave:true,
         checkList: [],
       };
     },
@@ -2485,6 +2506,43 @@
           .dispatch('PFANS1036Store/selectById', {'businessplanid': this.$route.params._id})
           .then(response => {
             this.form = response;
+            //region scc add 获取事业计划消耗,并在PL赋值 from
+            this.$store
+              .dispatch('PFANS1036Store/consumption', {centerId: response.center_id})
+              .then(res => {
+                this.RulingArr = res.data;
+                this.tableP.forEach((item,index) => {
+                  this.RulingArr.forEach((items,indexs) => {
+                    if(item.name1 === items.code){
+                      this.$set(this.tableP[index], 'act_', Number(items.actualconsumption).toFixed(2));
+                    }
+                  })
+                })
+              })
+              .catch(error => {
+                Message({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              });
+            //endregion scc add 获取事业计划消耗,并在PL赋值 to
+            if (this.form.status === '2' || this.form.status === '4' || this.form.status === '1')
+            {
+              if(this.buttonList.length>0)
+              {
+                this.buttonList[0].disabled = true;
+                this.buttonList[1].disabled = false;
+              }
+            }
+            else
+            {
+              if(this.buttonList.length>0)
+              {
+                this.buttonList[0].disabled = false;
+                this.buttonList[1].disabled = false;
+              }
+            }
             this.disabledC = true;
             let group = getOrgInfo(this.form.center_id);
             if (group) {
@@ -2545,7 +2603,7 @@
             this.loading = false;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2556,6 +2614,7 @@
       else {
         this.loading = true;
         this.buttonList[0].disabled = true;
+        this.buttonList[1].disabled = true;
         //todo niandu
         this.form.year = '2021';
         // this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
@@ -2635,7 +2694,7 @@
             this.loading = false;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2852,7 +2911,7 @@
             }
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3116,7 +3175,7 @@
             {
               this.buttonList[0].disabled = true;
             }
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -3775,6 +3834,25 @@
         this.$set(this.tableP[49], 'moneytotal', Number(total49).toFixed(2));
 
         //add ccm 20211008 PL添加年间合计 to
+
+        //region scc add 限界利益率，营业利益率，单独年间合计，算法同6，9，12，3，取年间合计计算 from
+        if(Number(total5) !== 0 && !isNaN(Number(total5)) && Number(total5)){
+          this.$set(this.tableP[50], 'moneytotal_', (Number(total43) / (Number(total5))).toFixed(2));
+          let toCalculate = (Number(total5)- //（売上合計（税抜き、社内委託除き）
+                              Number(total13) - //人件費小計
+                              Number(total17) - //リース費
+                              Number(total26) - //研究開発費・ソフト費用小計
+                              Number(total32) - //旅費交通費
+                              Number(total34) - //消耗品費
+                              Number(total45)) / //ブランド使用料
+                              Number(total5);//（売上合計（税抜き、社内委託除き）
+          this.$set(this.tableP[51], 'moneytotal_', toCalculate.toFixed(2));
+        }else{
+          this.$set(this.tableP[50], 'moneytotal_', 0.00);
+          this.$set(this.tableP[51], 'moneytotal_', 0.00);
+        }
+        //endregion scc add 限界利益率，营业利益率，单独年间合计，算法同6，9，12，3，取年间合计计算 to
+
         this.loading = false;
 
       },
@@ -3987,7 +4065,7 @@
             this.groupA2 = response;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4006,7 +4084,7 @@
             this.groupB1 = response;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4025,7 +4103,7 @@
             this.groupB2 = response;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4044,7 +4122,7 @@
             this.groupB3 = response;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4062,7 +4140,7 @@
             this.groupA1 = response;
           })
           .catch(error => {
-            this.$message.error({
+            Message({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -4675,200 +4753,220 @@
             if (valid) {
         if (val === 'save') {
           this.loading = true;
-          this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
-          this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
-          this.form.equipment_lodyear = JSON.stringify(this.equipment_lodyear);
-          this.form.assets_newyear = JSON.stringify(this.assets_newyear);
-          this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
-          this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
-          this.tablePall = [];
-          this.computedSumsave();
-          //region scc add 10/14 移除工数(人月)显示,但是需要占位条数~ from
-          this.tableP[55] = {};
-          this.tableP[56] = {};
-          this.tableP[57] = {};
-          this.tableP[58] = {};
-          //endregion scc add 10/14 移除工数(人月)显示,但是需要占位条数~ to
-          this.tablePall.push(this.tableP[40]);
-          this.tablePall.push(this.tableP[44]);
-          this.tablePall.push(this.tableP[45]);
-          this.tablePall.push(this.tableP[48]);
-          this.tablePall.push(this.tableP[54]);
-          this.tablePall.push(this.tableP[55]);
-          this.tablePall.push(this.tableP[56]);
-          this.tablePall.push(this.tableP[57]);
-          this.tablePall.push(this.tableP[58]);
-          this.tablePall.push(this.tableP[52]);
-          this.tablePall.push(this.tableP[53]);
-          this.form.tableP = JSON.stringify(this.tablePall);
-          // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[55], this.tableP[56], this.tableP[57], this.tableP[58]]);
-          // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
-          this.form.business = JSON.stringify(this.business);
-          this.form.groupA1 = JSON.stringify(this.groupA1);
-          this.form.groupA2 = JSON.stringify(this.groupA2);
-          this.form.groupB1 = JSON.stringify(this.groupB1);
-          this.form.groupB2 = JSON.stringify(this.groupB2);
-          this.form.groupB3 = JSON.stringify(this.groupB3);
-          this.form.groupC = JSON.stringify(this.groupC);
-          this.form.tableO1 = JSON.stringify(this.tableO1);
-          this.form.tableO2 = JSON.stringify(this.tableO2);
-          this.form.tableO3 = JSON.stringify(this.tableO3);
-          this.form.tableO = JSON.stringify(this.tableO);
-          this.form.tableC = JSON.stringify(this.tableC);
-          this.form.tableD = JSON.stringify(this.tableD);
+          //region scc add 10/27 延时0.1s,避免新建做成，数据量太大，浏览器假死，loading失效 from
+          setTimeout(() => {
+            this.form.equipment_newyear = JSON.stringify(this.equipment_newyear);
+            this.form.equipment_lastyear = JSON.stringify(this.equipment_lastyear);
+            this.form.equipment_lodyear = JSON.stringify(this.equipment_lodyear);
+            this.form.assets_newyear = JSON.stringify(this.assets_newyear);
+            this.form.assets_lastyear = JSON.stringify(this.assets_lastyear);
+            this.form.assets_lodyear = JSON.stringify(this.assets_lodyear);
+            this.tablePall = [];
+            this.computedSumsave();
+            //region scc add 10/14 移除工数(人月)显示,但是需要占位条数~ from
+            this.tableP[55] = {};
+            this.tableP[56] = {};
+            this.tableP[57] = {};
+            this.tableP[58] = {};
+            //endregion scc add 10/14 移除工数(人月)显示,但是需要占位条数~ to
+            this.tablePall.push(this.tableP[40]);
+            this.tablePall.push(this.tableP[44]);
+            this.tablePall.push(this.tableP[45]);
+            this.tablePall.push(this.tableP[48]);
+            this.tablePall.push(this.tableP[54]);
+            this.tablePall.push(this.tableP[55]);
+            this.tablePall.push(this.tableP[56]);
+            this.tablePall.push(this.tableP[57]);
+            this.tablePall.push(this.tableP[58]);
+            this.tablePall.push(this.tableP[52]);
+            this.tablePall.push(this.tableP[53]);
+            this.form.tableP = JSON.stringify(this.tablePall);
+            // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[55], this.tableP[56], this.tableP[57], this.tableP[58]]);
+            // this.form.tableP = JSON.stringify([this.tableP[40], this.tableP[44], this.tableP[45], this.tableP[48], this.tableP[54], this.tableP[55], this.tableP[56], this.tableP[57]]);
+            this.form.business = JSON.stringify(this.business);
+            this.form.groupA1 = JSON.stringify(this.groupA1);
+            this.form.groupA2 = JSON.stringify(this.groupA2);
+            this.form.groupB1 = JSON.stringify(this.groupB1);
+            this.form.groupB2 = JSON.stringify(this.groupB2);
+            this.form.groupB3 = JSON.stringify(this.groupB3);
+            this.form.groupC = JSON.stringify(this.groupC);
+            this.form.tableO1 = JSON.stringify(this.tableO1);
+            this.form.tableO2 = JSON.stringify(this.tableO2);
+            this.form.tableO3 = JSON.stringify(this.tableO3);
+            this.form.tableO = JSON.stringify(this.tableO);
+            this.form.tableC = JSON.stringify(this.tableC);
+            this.form.tableD = JSON.stringify(this.tableD);
 
-          if (this.tableC.length > 0 || this.tableD.length > 0)
-          {
-            this.tableA[0].workinghour4 = 0;
-            this.tableA[0].pay4 = 0;
-            this.tableA[0].workinghour5 = 0;
-            this.tableA[0].pay5 = 0;
-            this.tableA[0].workinghour6 = 0;
-            this.tableA[0].pay6 = 0;
-            this.tableA[0].workinghour7 = 0;
-            this.tableA[0].pay7 = 0;
-            this.tableA[0].workinghour8 = 0;
-            this.tableA[0].pay8 = 0;
-            this.tableA[0].workinghour9 = 0;
-            this.tableA[0].pay9 = 0;
-            this.tableA[0].workinghourfirst = 0;
-            this.tableA[0].payfirst = 0;
-            this.tableA[0].workinghour10 = 0;
-            this.tableA[0].pay10 = 0;
-            this.tableA[0].workinghour11 = 0;
-            this.tableA[0].pay11 = 0;
-            this.tableA[0].workinghour12 = 0;
-            this.tableA[0].pay12 = 0;
-            this.tableA[0].workinghour1 = 0;
-            this.tableA[0].pay1 = 0;
-            this.tableA[0].workinghour2 = 0;
-            this.tableA[0].pay2 = 0;
-            this.tableA[0].workinghour3 = 0;
-            this.tableA[0].pay3 = 0;
-            this.tableA[0].workinghoursecond = 0;
-            this.tableA[0].paysecond = 0;
-            this.tableA[0].workinghourtotal = 0;
-            this.tableA[0].paytotal = 0;
-          }
-          for (let i=0;i < this.tableC.length;i++)
-          {
-            this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableC[i].workinghour4;
-            this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableC[i].pay4)).toFixed(2);
-            this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableC[i].workinghour5;
-            this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableC[i].pay5)).toFixed(2);
-            this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableC[i].workinghour6;
-            this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableC[i].pay6)).toFixed(2);
-            this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableC[i].workinghour7;
-            this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableC[i].pay7)).toFixed(2);
-            this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableC[i].workinghour8;
-            this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableC[i].pay8)).toFixed(2);
-            this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableC[i].workinghour9;
-            this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableC[i].pay9)).toFixed(2);
-            this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableC[i].workinghourfirst;
-            this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableC[i].payfirst)).toFixed(2);
-            this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableC[i].workinghour10;
-            this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableC[i].pay10)).toFixed(2);
-            this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableC[i].workinghour11;
-            this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableC[i].pay11)).toFixed(2);
-            this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableC[i].workinghour12;
-            this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableC[i].pay12)).toFixed(2);
-            this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableC[i].workinghour1;
-            this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableC[i].pay1)).toFixed(2);
-            this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableC[i].workinghour2;
-            this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableC[i].pay2)).toFixed(2);
-            this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableC[i].workinghour3;
-            this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableC[i].pay3)).toFixed(2);
-            this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableC[i].workinghoursecond;
-            this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableC[i].paysecond)).toFixed(2);
-            this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableC[i].workinghourtotal;
-            this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableC[i].paytotal)).toFixed(2);
-          }
-          for (let i=0;i < this.tableD.length;i++)
-          {
-            this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableD[i].workinghour4;
-            this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableD[i].pay4)).toFixed(2);
-            this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableD[i].workinghour5;
-            this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableD[i].pay5)).toFixed(2);
-            this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableD[i].workinghour6;
-            this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableD[i].pay6)).toFixed(2);
-            this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableD[i].workinghour7;
-            this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableD[i].pay7)).toFixed(2);
-            this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableD[i].workinghour8;
-            this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableD[i].pay8)).toFixed(2);
-            this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableD[i].workinghour9;
-            this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableD[i].pay9)).toFixed(2);
-            this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableD[i].workinghourfirst;
-            this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableD[i].payfirst)).toFixed(2);
-            this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableD[i].workinghour10;
-            this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableD[i].pay10)).toFixed(2);
-            this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableD[i].workinghour11;
-            this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableD[i].pay11)).toFixed(2);
-            this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableD[i].workinghour12;
-            this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableD[i].pay12)).toFixed(2);
-            this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableD[i].workinghour1;
-            this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableD[i].pay1)).toFixed(2);
-            this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableD[i].workinghour2;
-            this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableD[i].pay2)).toFixed(2);
-            this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableD[i].workinghour3;
-            this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableD[i].pay3)).toFixed(2);
-            this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableD[i].workinghoursecond;
-            this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableD[i].paysecond)).toFixed(2);
-            this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableD[i].workinghourtotal;
-            this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableD[i].paytotal)).toFixed(2);
-          }
+            if (this.tableC.length > 0 || this.tableD.length > 0) {
+              this.tableA[0].workinghour4 = 0;
+              this.tableA[0].pay4 = 0;
+              this.tableA[0].workinghour5 = 0;
+              this.tableA[0].pay5 = 0;
+              this.tableA[0].workinghour6 = 0;
+              this.tableA[0].pay6 = 0;
+              this.tableA[0].workinghour7 = 0;
+              this.tableA[0].pay7 = 0;
+              this.tableA[0].workinghour8 = 0;
+              this.tableA[0].pay8 = 0;
+              this.tableA[0].workinghour9 = 0;
+              this.tableA[0].pay9 = 0;
+              this.tableA[0].workinghourfirst = 0;
+              this.tableA[0].payfirst = 0;
+              this.tableA[0].workinghour10 = 0;
+              this.tableA[0].pay10 = 0;
+              this.tableA[0].workinghour11 = 0;
+              this.tableA[0].pay11 = 0;
+              this.tableA[0].workinghour12 = 0;
+              this.tableA[0].pay12 = 0;
+              this.tableA[0].workinghour1 = 0;
+              this.tableA[0].pay1 = 0;
+              this.tableA[0].workinghour2 = 0;
+              this.tableA[0].pay2 = 0;
+              this.tableA[0].workinghour3 = 0;
+              this.tableA[0].pay3 = 0;
+              this.tableA[0].workinghoursecond = 0;
+              this.tableA[0].paysecond = 0;
+              this.tableA[0].workinghourtotal = 0;
+              this.tableA[0].paytotal = 0;
+            }
+            for (let i = 0; i < this.tableC.length; i++) {
+              this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableC[i].workinghour4;
+              this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableC[i].pay4)).toFixed(2);
+              this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableC[i].workinghour5;
+              this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableC[i].pay5)).toFixed(2);
+              this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableC[i].workinghour6;
+              this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableC[i].pay6)).toFixed(2);
+              this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableC[i].workinghour7;
+              this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableC[i].pay7)).toFixed(2);
+              this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableC[i].workinghour8;
+              this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableC[i].pay8)).toFixed(2);
+              this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableC[i].workinghour9;
+              this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableC[i].pay9)).toFixed(2);
+              this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableC[i].workinghourfirst;
+              this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableC[i].payfirst)).toFixed(2);
+              this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableC[i].workinghour10;
+              this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableC[i].pay10)).toFixed(2);
+              this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableC[i].workinghour11;
+              this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableC[i].pay11)).toFixed(2);
+              this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableC[i].workinghour12;
+              this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableC[i].pay12)).toFixed(2);
+              this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableC[i].workinghour1;
+              this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableC[i].pay1)).toFixed(2);
+              this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableC[i].workinghour2;
+              this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableC[i].pay2)).toFixed(2);
+              this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableC[i].workinghour3;
+              this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableC[i].pay3)).toFixed(2);
+              this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableC[i].workinghoursecond;
+              this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableC[i].paysecond)).toFixed(2);
+              this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableC[i].workinghourtotal;
+              this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableC[i].paytotal)).toFixed(2);
+            }
+            for (let i = 0; i < this.tableD.length; i++) {
+              this.tableA[0].workinghour4 = this.tableA[0].workinghour4 + this.tableD[i].workinghour4;
+              this.tableA[0].pay4 = Number(Number(this.tableA[0].pay4) + Number(this.tableD[i].pay4)).toFixed(2);
+              this.tableA[0].workinghour5 = this.tableA[0].workinghour5 + this.tableD[i].workinghour5;
+              this.tableA[0].pay5 = Number(Number(this.tableA[0].pay5) + Number(this.tableD[i].pay5)).toFixed(2);
+              this.tableA[0].workinghour6 = this.tableA[0].workinghour6 + this.tableD[i].workinghour6;
+              this.tableA[0].pay6 = Number(Number(this.tableA[0].pay6) + Number(this.tableD[i].pay6)).toFixed(2);
+              this.tableA[0].workinghour7 = this.tableA[0].workinghour7 + this.tableD[i].workinghour7;
+              this.tableA[0].pay7 = Number(Number(this.tableA[0].pay7) + Number(this.tableD[i].pay7)).toFixed(2);
+              this.tableA[0].workinghour8 = this.tableA[0].workinghour8 + this.tableD[i].workinghour8;
+              this.tableA[0].pay8 = Number(Number(this.tableA[0].pay8) + Number(this.tableD[i].pay8)).toFixed(2);
+              this.tableA[0].workinghour9 = this.tableA[0].workinghour9 + this.tableD[i].workinghour9;
+              this.tableA[0].pay9 = Number(Number(this.tableA[0].pay9) + Number(this.tableD[i].pay9)).toFixed(2);
+              this.tableA[0].workinghourfirst = this.tableA[0].workinghourfirst + this.tableD[i].workinghourfirst;
+              this.tableA[0].payfirst = Number(Number(this.tableA[0].payfirst) + Number(this.tableD[i].payfirst)).toFixed(2);
+              this.tableA[0].workinghour10 = this.tableA[0].workinghour10 + this.tableD[i].workinghour10;
+              this.tableA[0].pay10 = Number(Number(this.tableA[0].pay10) + Number(this.tableD[i].pay10)).toFixed(2);
+              this.tableA[0].workinghour11 = this.tableA[0].workinghour11 + this.tableD[i].workinghour11;
+              this.tableA[0].pay11 = Number(Number(this.tableA[0].pay11) + Number(this.tableD[i].pay11)).toFixed(2);
+              this.tableA[0].workinghour12 = this.tableA[0].workinghour12 + this.tableD[i].workinghour12;
+              this.tableA[0].pay12 = Number(Number(this.tableA[0].pay12) + Number(this.tableD[i].pay12)).toFixed(2);
+              this.tableA[0].workinghour1 = this.tableA[0].workinghour1 + this.tableD[i].workinghour1;
+              this.tableA[0].pay1 = Number(Number(this.tableA[0].pay1) + Number(this.tableD[i].pay1)).toFixed(2);
+              this.tableA[0].workinghour2 = this.tableA[0].workinghour2 + this.tableD[i].workinghour2;
+              this.tableA[0].pay2 = Number(Number(this.tableA[0].pay2) + Number(this.tableD[i].pay2)).toFixed(2);
+              this.tableA[0].workinghour3 = this.tableA[0].workinghour3 + this.tableD[i].workinghour3;
+              this.tableA[0].pay3 = Number(Number(this.tableA[0].pay3) + Number(this.tableD[i].pay3)).toFixed(2);
+              this.tableA[0].workinghoursecond = this.tableA[0].workinghoursecond + this.tableD[i].workinghoursecond;
+              this.tableA[0].paysecond = Number(Number(this.tableA[0].paysecond) + Number(this.tableD[i].paysecond)).toFixed(2);
+              this.tableA[0].workinghourtotal = this.tableA[0].workinghourtotal + this.tableD[i].workinghourtotal;
+              this.tableA[0].paytotal = Number(Number(this.tableA[0].paytotal) + Number(this.tableD[i].paytotal)).toFixed(2);
+            }
 
-          this.form.tableA = JSON.stringify(this.tableA);
+            this.form.tableA = JSON.stringify(this.tableA);
 
 
-          if (this.$route.params._id) {
-            this.$store
-              .dispatch('PFANS1036Store/updateBusinessplan', this.form)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                if (val !== 'update') {
+            if (this.$route.params._id) {
+              this.$store
+                .dispatch('PFANS1036Store/updateBusinessplan', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  if (val !== 'update') {
+                    Message({
+                      message: this.$t('normal.success_02'),
+                      type: 'success',
+                      duration: 5 * 1000,
+                    });
+                    this.$router.push({
+                      name: 'PFANS1036View',
+                    });
+                  }
+                })
+                .catch(error => {
                   Message({
-                    message: this.$t('normal.success_02'),
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
+                });
+              //region scc add 保存部分PL from
+              if (this.form.status == '4') {
+                this.tableP.forEach(items => {
+                  items.center_id = this.form.center_id;
+                  items.year = this.form.year;
+                });
+                this.$store
+                  .dispatch('PFANS1036Store/Pl', this.tableP)
+                  .then(res => {
+                  })
+                  .catch(error => {
+                    Message({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                  });
+              }
+              //endregion scc add 保存部分PL to
+            } else {
+              this.$store
+                .dispatch('PFANS1036Store/createBusinessplan', this.form)
+                .then(response => {
+                  this.data = response;
+                  this.loading = false;
+                  Message({
+                    message: this.$t('normal.success_01'),
                     type: 'success',
                     duration: 5 * 1000,
                   });
                   this.$router.push({
                     name: 'PFANS1036View',
                   });
-                }
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
+                })
+                .catch(error => {
+                  Message({
+                    message: error,
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.loading = false;
                 });
-                this.loading = false;
-              });
-          } else {
-            this.$store
-              .dispatch('PFANS1036Store/createBusinessplan', this.form)
-              .then(response => {
-                this.data = response;
-                this.loading = false;
-                Message({
-                  message: this.$t('normal.success_01'),
-                  type: 'success',
-                  duration: 5 * 1000,
-                });
-                this.$router.push({
-                  name: 'PFANS1036View',
-                });
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
-          }
+            }
+          },100);
+          //endregion scc add 10/27 延时0.1s,避免新建做成，数据量太大，浏览器假死，loading失效 to
         }
             }else {
               this.loading = false;
@@ -4889,7 +4987,7 @@
               this.loading = false;
             })
             .catch(error => {
-              this.$message.error({
+              Message({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,

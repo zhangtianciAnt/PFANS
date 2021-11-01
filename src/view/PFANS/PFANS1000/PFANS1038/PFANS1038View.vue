@@ -167,7 +167,7 @@
                   this.buttonList[2].disabled = response;
                 })
                 .catch(err => {
-                  this.$message.error({
+                  Message({
                     message: err,
                     type: "error",
                     duration: 5 * 1000

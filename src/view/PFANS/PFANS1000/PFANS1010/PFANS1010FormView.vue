@@ -66,6 +66,50 @@
                 </el-col>
               </el-row>
               <el-row>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_PLAN1')" prop="plan">
+                    <span style="margin-right: 1rem ">{{$t('label.PFANS1004VIEW_OUTER')}}</span>
+                    <el-switch
+                      :disabled="!disable"
+                      @change="getplan"
+                      active-value="1"
+                      inactive-value="0"
+                      v-model="form.plan"
+                      inactive-color="#005BAA"
+                    >
+                    </el-switch>
+                    <span style="margin-left: 1rem ">{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
+                                v-if="showPlan">
+                    <dicselect
+                      :code="code2"
+                      :data="form.classificationtype"
+                      :disabled="!disable"
+                      :multiple="multiple"
+                      @change="getclassificationtype"
+                      style="width: 20vw"
+                    >
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS3003FORMVIEW_BALANCE')" v-if="showPlan">
+                    <el-input-number
+                      :disabled="true"
+                      :min="0"
+                      :precision="2"
+                      :step="1"
+                      controls-position="right"
+                      style="width: 20vw"
+                      v-model="form.balance">
+                    </el-input-number>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
                 <el-col :span="30">
                   <div class="sub_color_blue">{{$t('label.PFANS1010FORMVIEW_USERNAME')}}</div>
                 </el-col>
@@ -336,7 +380,7 @@
     import dicselect from '../../../components/dicselect.vue';
     import {Message} from 'element-ui';
     import user from '../../../components/user.vue';
-    import {getOrgInfo, getOrgInfoByUserId, getStatus} from '@/utils/customize';
+    import {getOrgInfo, getOrgInfoByUserId, getStatus,accAdd} from '@/utils/customize';
     import moment from 'moment';
     import org from '../../../components/org';
 
@@ -361,14 +405,15 @@
         }
       };
       return {
-          // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
-          //urlparams: '',
-          urlparams: {},
-          // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
-          url: '',
-          activeName: 'first',
-          tableA: [],
-          tableB: [],
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 start
+        //urlparams: '',
+        urlparams: {},
+        // update gbb 20210316 NT_PFANS_20210227_BUG_033 pop画面传值类型修改 end
+        url: '',
+        activeName: 'first',
+        showPlan: false,
+        tableA: [],
+        tableB: [],
         options: [],
         workflowCode: 'W0047',
         centerid: '',
@@ -393,8 +438,9 @@
         editableTabs: [],
         tabIndex: 0,
         multiple: false,
-          checkGro: false,
+        checkGro: false,
         userlist: '',
+        initalMoney: '0',
         form: {
           center_id: '',
           group_id: '',
@@ -410,9 +456,14 @@
           budgetunit: '',
           objective: '',
           place: '',
+          plan: '',
+          classificationtype: '',
+          balance: '',
           nodeList: [],
+          rulingid: '',
         },
         code1: 'PG001',
+        code2: 'PJ078',
         menuList: [],
         disabled: false,
         rules: {
@@ -441,6 +492,20 @@
             message: this.$t('normal.error_08') + this.$t('label.PFANS1010FORMVIEW_PERCAPITA'),
             trigger: 'change',
           }],
+          classificationtype: [
+            {
+              required: false,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1002VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
+            },
+          ],
+          // balance: [
+          //   {
+          //     required: false,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1002VIEW_BALANCE'),
+          //     trigger: 'blur',
+          //   },
+          // ],
         },
         canStart: false,
       };
@@ -468,6 +533,15 @@
           .then(response => {
             if (response != undefined) {
               this.form = response;
+              //刚加载的金额
+              this.initalMoney = this.form.summoney;
+              if (this.form.plan === '1') {
+                this.showPlan = true;
+                this.rules.classificationtype[0].required = true;
+              } else {
+                this.showPlan = false;
+                this.rules.classificationtype[0].required = false;
+              }
               // update center取预算单位横展 start
               // let rst = getOrgInfoByUserId(response.user_id);
               // if (rst) {
@@ -613,7 +687,169 @@
       }
     },
     methods: {
-      // update center取预算单位横展 start 0404
+      getplan(val) {
+        this.form.plan = val;
+        this.form.classificationtype = null;
+        this.form.rulingid = null;
+        this.form.balance = '0.00';
+        if (val === '1') {
+          this.showPlan = true;
+          this.rules.classificationtype[0].required = true;
+        } else {
+          this.showPlan = false;
+          this.rules.classificationtype[0].required = false;
+        }
+      },
+      //添加事业计划余额功能 1026 ztc fr
+      checkBusPlan1(val){
+        return new Promise((resolve, reject) => {
+          this.baloading = true;
+          let getOrgId = '';
+          let orgId = getOrgInfo(this.form.center_id)
+          if(orgId.encoding){
+            getOrgId = this.form.center_id
+          }else{
+            getOrgId = this.form.group_id
+          }
+          let params = {
+            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            getOrgIdInfo: getOrgId,
+            classInfo: val,
+          };
+          if(val != '' && val != null){
+            this.$store
+              .dispatch('PFANS1036Store/getBusBalns',params)
+              .then(response => {
+                this.form.rulingid = response.data.rulingid
+                resolve(response.data.surplsu)
+                this.baloading = false;
+              });
+          }else{
+            this.form.rulingid = '';
+            resolve('0.00')
+            this.baloading = false;
+          }
+        });
+      },
+      checkMess(busVal){
+        return new Promise((resolve, reject) => {
+          if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
+            Message({
+              message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
+              type: 'info',
+              duration: 5 * 1000,
+            });
+            resolve('0')
+          }else{
+            resolve('1')
+          }
+        });
+      },
+      getplanBus(planVal) {
+        return new Promise((resolve, reject) => {
+          if (planVal === '1') {
+            this.showPlan = true;
+            this.rules.classificationtype[0].required = true;
+          } else {
+            this.form.classificationtype = null;
+            this.form.balance = '0.00';
+            this.showPlan = false;
+            this.rules.classificationtype[0].required = false;
+          }
+          resolve(true)
+        });
+      },
+      saveInfo(){
+        if (this.$route.params._id) {
+          this.updateInfo();
+        }else{
+          this.insertInfo();
+        }
+      },
+      checkMoney(){
+        this.checkBusPlan1(this.form.classificationtype).then(val =>{
+          this.form.balance = val;
+          this.checkMess(val).then(busVal =>{
+            this.form.plan = busVal
+            this.getplanBus(busVal).then(planVal =>{
+              this.saveInfo();
+            })
+          })
+        })
+      },
+      getclassificationtype(val) {
+        this.form.classificationtype = val;
+        this.checkBusPlan(val);
+      },
+      checkBusPlan(val){
+        this.baloading = true;
+        let getOrgId = '';
+        let orgId = getOrgInfo(this.form.center_id)
+        if(orgId.encoding){
+          getOrgId = this.form.center_id
+        }else{
+          getOrgId = this.form.group_id
+        }
+        let params = {
+          yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+          getOrgIdInfo: getOrgId,
+          classInfo: val,
+        };
+        if(val != '' && val != null){
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              this.form.rulingid = response.data.rulingid
+              this.form.balance = response.data.surplsu;
+              this.baloading = false;
+            });
+        }else{
+          this.form.balance = '0.00';
+          this.baloading = false;
+        }
+      },
+      updateInfo(){
+        this.form.communication_id = this.$route.params._id;
+        this.$store
+          .dispatch('PFANS1010Store/updateCommunication', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            this.paramsTitle();
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      insertInfo(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1010Store/createCommunication', this.form)
+          .then(response => {
+            this.data = response;
+            this.loading = false;
+            Message({
+              message: this.$t('normal.success_01'),
+              type: 'success',
+              duration: 5 * 1000,
+            });
+            this.paramsTitle();
+          })
+          .catch(error => {
+            Message({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //添加事业计划余额功能 1026 ztc to
       getOrgInformation(id) {
         let org = {};
         let treeCom = this.$store.getters.orgs;
@@ -919,52 +1155,10 @@
                 this.loading = false;
               }
               if (error === 0) {
-                if (this.$route.params._id) {
-                  this.form.communication_id = this.$route.params._id;
-                  this.$store
-                    .dispatch('PFANS1010Store/updateCommunication', this.form)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      if (val !== 'update') {
-                        Message({
-                          message: this.$t('normal.success_02'),
-                          type: 'success',
-                          duration: 5 * 1000,
-                        });
-                        this.paramsTitle();
-                      }
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
-                } else {
-                  this.loading = true;
-                  this.$store
-                    .dispatch('PFANS1010Store/createCommunication', this.form)
-                    .then(response => {
-                      this.data = response;
-                      this.loading = false;
-                      Message({
-                        message: this.$t('normal.success_01'),
-                        type: 'success',
-                        duration: 5 * 1000,
-                      });
-                      this.paramsTitle();
-                    })
-                    .catch(error => {
-                      Message({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                      });
-                      this.loading = false;
-                    });
+                if(this.form.plan === '1'){
+                  this.checkMoney();
+                } else{
+                  this.saveInfo();
                 }
               }
             } else {

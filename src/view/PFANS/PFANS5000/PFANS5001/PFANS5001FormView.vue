@@ -386,7 +386,9 @@
                           <div style="text-align: center">
                             <el-row style="text-align: center;height: 90%;overflow: hidden">
                               <el-table
-                                :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase()))"
+                                :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase())
+                                || data.thecompany.toLowerCase().includes(search.toLowerCase())
+                                )"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange1">
                                 <el-table-column show-overflow-tooltip property="entrust"
@@ -401,7 +403,7 @@
                                     <el-input
                                       v-model="search"
                                       size="mini"
-                                      placeholder="请输入委托元关键字搜索"/>
+                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
                                   </template>
                                 </el-table-column>
                               </el-table>
@@ -3512,6 +3514,20 @@
             //add-ws-01/16-禅道任务710
             //theme 还未和合同关联 注掉
             for (let i = 0; i < this.tableB.length; i++) {
+
+              //region scc add scc 9/27 项目体制社内氏名非空验证 from
+              if(!this.tableB[i].name && (this.tableB[i].position || this.tableB[i].reporter || this.tableB[i].admissiontime || this.tableB[i].exittime)){
+                Message({
+                  message: this.$t('label.PFANS5001FORMVIEW_SNAME'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'fourth';
+                this.loading = false;
+                return;
+              }
+              //endregion scc add scc 9/27 项目体制社内氏名非空验证 to
+
               //add_fjl 体制人员重复check start
               // 可以进行重复选择，只需要做进组退组时间不重复的check ztc fr
               // let num = 0;
@@ -3581,6 +3597,19 @@
               }
             }
             for (let i = 0; i < this.tableC.length; i++) {
+
+              //region scc add scc 9/27 项目体制社外氏名非空验证 from
+              if(!this.tableC[i].name && (this.tableC[i].position || this.tableC[i].reporter || this.tableC[i].admissiontime || this.tableC[i].exittime)){
+                Message({
+                  message: this.$t('label.PFANS5001FORMVIEW_SNAME'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'fourth';
+                this.loading = false;
+                return;
+              }
+              //endregion scc add scc 9/27 项目体制社外氏名非空验证 to
 
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
@@ -3838,6 +3867,9 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  //region scc add 9/28 进退场时间check，留在体制页 from
+                  this.activeName = 'fourth';
+                  //endregion scc add 9/28 进退场时间check，留在体制页 to
                   this.loading = false;
                 });
             } else {
@@ -3863,6 +3895,9 @@
                     type: 'error',
                     duration: 5 * 1000,
                   });
+                  //region scc add 9/28 进退场时间check，留在体制页 from
+                  this.activeName = 'fourth';
+                  //endregion scc add 9/28 进退场时间check，留在体制页 to
                   this.loading = false;
                 });
             }

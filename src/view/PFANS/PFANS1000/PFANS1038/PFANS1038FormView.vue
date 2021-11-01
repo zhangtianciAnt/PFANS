@@ -127,7 +127,12 @@
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
-                v-if="this.$route.params.type === 0 ? true : false"
+                v-show="false"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
                 align="center">
               </el-table-column>
               <!--              外驻计划 单价-->
@@ -1063,7 +1068,7 @@
                     let flag = false;
                     this.newTableData.forEach(item =>{
                       if(!item.entermouth && (item.supchinese || item.nextyear || item.unitprice)){
-                        this.$message.error({
+                        Message({
                           message: this.$t("label.PFANS1038VIEW_ADOPTEDCHECK"),
                           type: "error"
                         });
@@ -1100,7 +1105,7 @@
                     let flag = false;
                     this.newTableData.forEach(item =>{
                       if(!item.entermouth && (item.supchinese || item.nextyear || item.unitprice)){
-                        this.$message.error({
+                        Message({
                           message: this.$t("label.PFANS1038VIEW_ADOPTEDCHECK"),
                           type: "error"
                         });

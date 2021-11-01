@@ -1594,6 +1594,7 @@ export default {
       }
     };
     return {
+      sumAmmounttemp : 0,
         //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
         moduledisable: false,
         //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
@@ -1968,15 +1969,13 @@ export default {
       });
     }
     let PLdicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
-    for (let i = 0; i < PLdicnew.length; i++) {
-      if (PLdicnew[i].code === 'PJ111010' || PLdicnew[i].code === 'PJ111008') {
-        this.ploptionsdata.push({
-          value: PLdicnew[i].code,
-          lable: PLdicnew[i].value1,
+    let cgList = PLdicnew.filter(dicnew => dicnew.value5.indexOf('CG') != -1);
+    for(let cgOption of cgList){
+        this.ploptionsdata.push({//采购费明细
+          value: cgOption.code,
+          lable: cgOption.value1,
         });
-      }
     }
-
     let checktype = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ068');
     for (let i = 0; i < checktype.length; i++) {
       if (checktype[i].code === 'PJ068001') {
@@ -1986,18 +1985,24 @@ export default {
         });
       }
     }
-
-    let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
-    for (let i = 0; i < dic.length; i++) {
-      if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
-        || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
-        || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
-        this.ploptionsdate.push({
-          value: dic[i].code,
-          lable: dic[i].value1,
-        });
-      }
+    let qtList = PLdicnew.filter(dicnew => dicnew.value5.indexOf('QT') != -1);
+    for(let qtOption of qtList){
+      this.ploptionsdate.push({//采购费明细
+        value: qtOption.code,
+        lable: qtOption.value1,
+      });
     }
+    // let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ111');
+    // for (let i = 0; i < dic.length; i++) {
+    //   if (dic[i].code === 'PJ111001' || dic[i].code === 'PJ111002' || dic[i].code === 'PJ111003' || dic[i].code === 'PJ111004' || dic[i].code === 'PJ111005'
+    //     || dic[i].code === 'PJ111006' || dic[i].code === 'PJ111007' || dic[i].code === 'PJ111009' || dic[i].code === 'PJ111011'
+    //     || dic[i].code === 'PJ111012' || dic[i].code === 'PJ111013' || dic[i].code === 'PJ111014' || dic[i].code === 'PJ111015') {
+    //     this.ploptionsdate.push({
+    //       value: dic[i].code,
+    //       lable: dic[i].value1,
+    //     });
+    //   }
+    // }
     //ADD-WS-个人编码修改
     if (getUserInfo(this.$store.getters.userinfo.userid)) {
       this.Codecheck = this.$store.getters.userinfo.userinfo.caiwupersonalcode;
@@ -2276,6 +2281,35 @@ export default {
                         });
                       }
                     }
+                    //region scc add 初始化采购费用明细，科目名赋值 from
+                    else if(this.tableP[i].plsummary === 'PJ111016'){
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ152');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        this.tableP[i].accoundoptionsdateP.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                    else if(this.tableP[i].plsummary === 'PJ111017'){
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ154');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        this.tableP[i].accoundoptionsdateP.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                    else if(this.tableP[i].plsummary === 'PJ111018'){
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ156');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        this.tableP[i].accoundoptionsdateP.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                    //endregion scc add 初始化采购费用明细，科目名赋值 to
                   } else if (this.tableP[i].RedirictP == '1' || this.tableP[i].RedirictP == '') {
                     this.tableP[i].accoundoptionsdateP = [];
                     if (this.tableP[i].plsummary === 'PJ111008') {
@@ -2307,6 +2341,35 @@ export default {
                         });
                       }
                     }
+                    //region scc add 初始化采购费用明细，科目名赋值 from
+                    else if(this.tableP[i].plsummary === 'PJ111016'){
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ153');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        this.tableP[i].accoundoptionsdateP.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                    else if(this.tableP[i].plsummary === 'PJ111017'){
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ155');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        this.tableP[i].accoundoptionsdateP.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                    else if(this.tableP[i].plsummary === 'PJ111018'){
+                      let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ157');
+                      for (let a = 0; a < dicnew.length; a++) {
+                        this.tableP[i].accoundoptionsdateP.push({
+                          value: dicnew[a].code,
+                          lable: dicnew[a].value1,
+                        });
+                      }
+                    }
+                    //endregion scc add 初始化采购费用明细，科目名赋值 to
                   }
                   //upd-ws-9/23-禅道任务555
                 }
@@ -2443,6 +2506,36 @@ export default {
                         this.tableR[i].accountcode = letErrortype.code;
                       }
                     }
+                    //region scc add 初始化其他费用明细，科目名赋值 from
+                    else if(this.tableR[i].plsummary == 'PJ111016'){
+                      this.tableR[i].code16 = 'PJ152';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    else if(this.tableR[i].plsummary == 'PJ111017'){
+                      this.tableR[i].code16 = 'PJ154';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    else if(this.tableR[i].plsummary == 'PJ111018'){
+                      this.tableR[i].code16 = 'PJ156';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    else if(this.tableR[i].plsummary == 'PJ111019'){
+                      this.tableR[i].code16 = 'PJ158';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    //endregion scc add 初始化其他费用明细，科目名赋值 to
                   } else if (this.tableR[i].RedirictR == '1' || this.tableR[i].RedirictR == '') {
                     if (this.tableR[i].plsummary == 'PJ111001') {
                       this.tableR[i].code16 = 'PJ127';
@@ -2535,6 +2628,36 @@ export default {
                         this.tableR[i].accountcode = letErrortype.code;
                       }
                     }
+                    //region scc add 初始化其他费用明细，科目名赋值 from
+                    else if(this.tableR[i].plsummary == 'PJ111016'){
+                      this.tableR[i].code16 = 'PJ153';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    else if(this.tableR[i].plsummary == 'PJ111017'){
+                      this.tableR[i].code16 = 'PJ155';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    else if(this.tableR[i].plsummary == 'PJ111018'){
+                      this.tableR[i].code16 = 'PJ157';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    else if(this.tableR[i].plsummary == 'PJ111019'){
+                      this.tableR[i].code16 = 'PJ159';
+                      let letErrortype = getDictionaryInfo(this.tableR[i].accountcode);
+                      if (letErrortype != null) {
+                        this.tableR[i].accountcode = letErrortype.code;
+                      }
+                    }
+                    //endregion scc add 初始化其他费用明细，科目名赋值 to
                   }
                   if (this.tableR[i].subjectnumber == '0504-00-0000') {
                     this.checktime = true;
@@ -2905,6 +3028,11 @@ export default {
           //add-ws-8/24-禅道任务544
         }
         //add-ws-5/25-No.16-费明细：【付款方式】不用员工做选择，固定为“个人账户”
+        if (this.$route.params._careerplan) {
+          this.form.business_type = this.$route.params._careerplan;
+        }else{
+          this.form.business_type = false;
+        }
         this.show9 = false;
         this.show7 = true;
         this.show6 = true;
@@ -3871,7 +3999,35 @@ export default {
             });
           }
         }
-
+        //region scc add 采购费用明细，科目名赋值 from
+        else if(row.plsummary === 'PJ111016'){
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ152');
+          for (let a = 0; a < dicnew.length; a++) {
+            row.accoundoptionsdateP.push({
+              value: dicnew[a].code,
+              lable: dicnew[a].value1,
+            });
+          }
+        }
+        else if(row.plsummary === 'PJ111017'){
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ154');
+          for (let a = 0; a < dicnew.length; a++) {
+            row.accoundoptionsdateP.push({
+              value: dicnew[a].code,
+              lable: dicnew[a].value1,
+            });
+          }
+        }
+        else if(row.plsummary === 'PJ111018'){
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ156');
+          for (let a = 0; a < dicnew.length; a++) {
+            row.accoundoptionsdateP.push({
+              value: dicnew[a].code,
+              lable: dicnew[a].value1,
+            });
+          }
+        }
+        //endregion scc add 采购费用明细，科目名赋值 to
       } else if (row.RedirictP == '1' || row.RedirictP == '') {
         row.accoundoptionsdateP = [];
         if (row.plsummary === 'PJ111008') {
@@ -3903,6 +4059,35 @@ export default {
             });
           }
         }
+        //region scc add 采购费用明细，科目名赋值 from
+        else if(row.plsummary === 'PJ111016'){
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ153');
+          for (let a = 0; a < dicnew.length; a++) {
+            row.accoundoptionsdateP.push({
+              value: dicnew[a].code,
+              lable: dicnew[a].value1,
+            });
+          }
+        }
+        else if(row.plsummary === 'PJ111017'){
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ155');
+          for (let a = 0; a < dicnew.length; a++) {
+            row.accoundoptionsdateP.push({
+              value: dicnew[a].code,
+              lable: dicnew[a].value1,
+            });
+          }
+        }
+        else if(row.plsummary === 'PJ111018'){
+          let dicnew = this.$store.getters.dictionaryList.filter(item => item.pcode === 'PJ157');
+          for (let a = 0; a < dicnew.length; a++) {
+            row.accoundoptionsdateP.push({
+              value: dicnew[a].code,
+              lable: dicnew[a].value1,
+            });
+          }
+        }
+        //endregion scc add 采购费用明细，科目名赋值 to
       }
     },
     //add-ws-9/23-禅道任务555
@@ -3971,6 +4156,24 @@ export default {
             row.code16 = 'PJ138';
           //  row.code17 = 'PJ138';
         }
+        //region scc add 其他费用明细，科目名赋值 from
+        else if(row.plsummary == 'PJ111016'){
+          row.accountcode = '',
+          row.code16 = 'PJ152';
+        }
+        else if(row.plsummary == 'PJ111017'){
+          row.accountcode = '',
+            row.code16 = 'PJ154';
+        }
+        else if(row.plsummary == 'PJ111018'){
+          row.accountcode = '',
+            row.code16 = 'PJ156';
+        }
+        else if(row.plsummary == 'PJ111019'){
+          row.accountcode = '',
+            row.code16 = 'PJ158';
+        }
+        //endregion scc add 其他费用明细，科目名赋值 to
       } else if (row.RedirictR == '1' || row.RedirictR == '') {
         if (row.plsummary == 'PJ111001') {
           row.accountcode = '',
@@ -4033,6 +4236,24 @@ export default {
             row.code16 = 'PJ139';
           //row.code17 = 'PJ139';
         }
+        //region scc add 其他费用明细，科目名赋值 from
+        else if(row.plsummary == 'PJ111016'){
+          row.accountcode = '',
+            row.code16 = 'PJ153';
+        }
+        else if(row.plsummary == 'PJ111017'){
+          row.accountcode = '',
+            row.code16 = 'PJ155';
+        }
+        else if(row.plsummary == 'PJ111018'){
+          row.accountcode = '',
+            row.code16 = 'PJ157';
+        }
+        else if(row.plsummary == 'PJ111019'){
+          row.accountcode = '',
+            row.code16 = 'PJ159';
+        }
+        //endregion scc add 其他费用明细，科目名赋值 to
       }
 
     },
@@ -4214,6 +4435,7 @@ export default {
           sums[3] = '--';
         }
       });
+      this.sumAmmounttemp = sums[2];
       return sums;
     },
     // 禅道597 ztc 决裁精算金额合计-end
@@ -4987,6 +5209,34 @@ export default {
         //add-fjl-0813-精算中，点击决裁，跳转画面
       }
       if (val === 'save') {
+        //region scc add Pl摘要内容必填验证 from
+        let flag = false;
+        if(this.show6){
+          this.tableP.forEach((item,index) => {
+            if(item.budgetcoding && !item.plsummary){
+              flag = true;
+              Message({
+                message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
+                type: "error",
+                duration: 5 * 1000
+              });
+            }
+          })
+          this.tableR.forEach((item,index) => {
+            if(item.budgetcoding && !item.plsummary){
+              flag = true;
+              Message({
+                message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
+                type: "error",
+                duration: 5 * 1000
+              });
+            }
+          })
+        }
+        if(flag){
+          return;
+        }
+        //endregion scc add Pl摘要内容必填验证 from
         // add-lyt-21/4/14-NT_PFANS_20210413_BUG_002-start
         for(let i = 0;i<this.tableP.length;i++){
           for(let j = 0;j<this.tableP.length;j++){
@@ -5445,6 +5695,20 @@ export default {
                   }
                 }
               }
+
+              //add ccm 20211028 精算金额不能大于决裁金额  fr
+              if (Number(this.sumAmmounttemp || 0) < Number(Number(this.form.foreigncurrency || 0) + Number(this.form.rmbexpenditure || 0)))
+              {
+                error = error + 1;
+                this.activeName = 'first';
+                Message({
+                  message: this.$t('label.PFANS1012FORMVIEW_COMPAREAMMOUNT'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+              }
+              //add ccm 20211028 精算金额不能大于决裁金额  to
+
               if (error == '0') {
                 //add-ws-6/11-禅道任务090
                 for (let i = 0; i < this.baseInfo.otherdetails.length; i++) {

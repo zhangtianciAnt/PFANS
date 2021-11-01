@@ -45,6 +45,66 @@
                 </el-form-item>
               </el-col>
             </el-row>
+            <!--  新增总务，完成状态显示 start  -->
+            <el-row>
+              <el-col :span="8" v-show="refuseShow1">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_TICKETORDERNUMBER')" prop="ticketordernumber">
+                  <el-input :disabled="acceptShow" maxlength="100" style="width:20vw"
+                            v-model="form.ticketordernumber"></el-input>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="refuseShow1">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_TICKETVENDORS')" prop="ticketvendors">
+                  <el-input :disabled="acceptShow" maxlength="100" style="width:20vw"
+                            v-model="form.ticketvendors"></el-input>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col :span="8" v-show="refuseShow1">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_CHANGEAMOUNTFORFIRST')" >
+                  <div class="block">
+                    <el-input-number
+                      :disabled="acceptShow"
+                      style="width:20vw"
+                      :precision="2"
+                      :step="0.1"
+                      controls-position="right"
+                      v-model="form.changeamountforfirst">
+                    </el-input-number>
+                  </div>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="refuseShow1">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_CHANGEAMOUNTFORSECOND')" >
+                  <div class="block">
+                    <el-input-number
+                      :disabled="acceptShow"
+                      style="width:20vw"
+                      :precision="2"
+                      :step="0.1"
+                      controls-position="right"
+                      v-model="form.changeamountforsecond">
+                    </el-input-number>
+                  </div>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8" v-show="refuseShow1">
+                <el-form-item :label="$t('label.PFANS3001FORMVIEW_TICKETAMOUNT')" prop="ticketamount">
+                  <div class="block">
+                    <el-input-number
+                      :disabled="acceptShow"
+                      style="width:20vw"
+                      :precision="2"
+                      :step="0.1"
+                      controls-position="right"
+                      v-model="form.ticketamount">
+                    </el-input-number>
+                  </div>
+                </el-form-item>
+              </el-col>
+            </el-row>
+            <!--  新增总务，完成状态显示 end  -->
             <!--            end  fjl 2020/04/08  添加总务担当的受理功能-->
             <!--<el-row>-->
             <!--<el-col :span="8">-->
@@ -502,6 +562,41 @@
                     this.errorrearrivaldate = '';
                 }
             };
+            //region scc add 10/26 必填 from
+            var validateOrder = (rule, value, callback) => {//机票订单号
+              if(rule.required){
+                if (this.form.ticketordernumber === null || this.form.ticketordernumber === '') {
+                  callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_TICKETORDERNUMBER')));
+                } else {
+                  callback();
+                }
+              }else{
+                callback();
+              }
+            };
+            var validateSupplier = (rule, value, callback) => {//机票供应商
+              if(rule.required){
+                if (this.form.ticketvendors === null || this.form.ticketvendors === '') {
+                  callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS3001FORMVIEW_TICKETVENDORS')));
+                } else {
+                  callback();
+                }
+              }else{
+                callback();
+              }
+            };
+            var validateTicketAmount = (rule, value, callback) => {//出票金额
+              if(rule.required){
+                if (!this.form.ticketamount || isNaN(this.form.ticketamount) || this.form.ticketamount === '0.00' || Number(this.form.ticketamount) < 0) {
+                  callback(new Error(this.$t('label.PFANS3001FORMVIEW_TICKETAMOUNTTOZERO')));
+                } else {
+                  callback();
+                }
+              }else{
+                callback();
+              }
+            };
+          //endregion scc add 10/26 必填 to
             return {
                 options1: [],
                 centerid: '',
@@ -591,6 +686,13 @@
                     refusereason: '',
                     actuarialamount: '',
                     finshtime: '',
+                  //region scc add 10/26 新增机票详细 from
+                    ticketordernumber: '',//机票订单号
+                    ticketvendors: '',//机票供应商
+                    changeamountforfirst: '',//第一次变更后金额
+                    changeamountforsecond: '',//第二次变更后金额
+                    ticketamount: '',//出票金额
+                  //endregion scc add 10/26 新增机票详细 to
                 },
                 rules: {
                     user_id: [{
@@ -728,6 +830,24 @@
                         trigger: 'change',
                     },
                         {validator: validateRearrivaldate, trigger: 'change'}],
+
+                  //region scc add 10/26 必填 from
+                    ticketordernumber: [{
+                      required: false,
+                      validator: validateOrder,
+                      trigger: 'blur',
+                    }],
+                    ticketvendors: [{
+                      required: false,
+                      validator: validateSupplier,
+                      trigger: 'blur',
+                    }],
+                    ticketamount: [{
+                      required: false,
+                      validator: validateTicketAmount,
+                      trigger: 'change',
+                    }],
+                  //endregion scc add 10/26 必填 to
                 },
             };
         },
@@ -960,6 +1080,11 @@
                             } else if (this.form.acceptstatus === '2') {
                                 this.refuseShow = false;
                                 this.refuseShow1 = true;
+                                //region scc add 10/27 初始加载，显示输入框就需要必填 from
+                                this.rules.ticketordernumber[0].required = true;
+                                this.rules.ticketvendors[0].required = true;
+                                this.rules.ticketamount[0].required = true;
+                                //endregion scc add 10/27 初始加载，显示输入框就需要必填 to
                             } else {
                                 this.refuseShow = false;
                                 this.refuseShow1 = false;
@@ -1060,6 +1185,7 @@
                 }
             }
             //add-ws-7/7-禅道153
+
         },
         methods: {
           getOrgInformation(id) {
@@ -1117,16 +1243,42 @@
                     this.refuseShow = true;
                     this.refuseShow1 = false;
                     this.form.finshtime = null;
+                    //region scc add 只有受理状态为变更时，才必填 from
+                    this.form.ticketordernumber = null;
+                    this.form.ticketvendors = null;
+                    this.form.changeamountforfirst = 0;
+                    this.form.changeamountforsecond = 0;
+                    this.form.ticketamount = 0;
+                    this.rules.ticketordernumber[0].required = false;
+                    this.rules.ticketvendors[0].required = false;
+                    this.rules.ticketamount[0].required = false;
+                  //endregion scc add 只有受理状态为变更时，才必填 to
                 } else if (val === '2') {
                     this.refuseShow = false;
                     this.refuseShow1 = true;
                     this.form.finshtime = moment(new Date()).format("YYYY-MM-DD")
                     this.form.refusereason = null;
+                    //region scc add 只有受理状态为变更时，才必填 from
+                    this.$refs["ruleForm"].clearValidate();
+                    this.rules.ticketordernumber[0].required = true;
+                    this.rules.ticketvendors[0].required = true;
+                    this.rules.ticketamount[0].required = true;
+                  //endregion scc add 只有受理状态为变更时，才必填 to
                 } else {
                     this.refuseShow = false;
                     this.refuseShow1 = false;
                     this.form.refusereason = null;
                     this.form.finshtime = null;
+                    //region scc add 只有受理状态为变更时，才必填 from
+                    this.form.ticketordernumber = null;
+                    this.form.ticketvendors = null;
+                    this.form.changeamountforfirst = 0;
+                    this.form.changeamountforsecond = 0;
+                    this.form.ticketamount = 0;
+                    this.rules.ticketordernumber[0].required = false;
+                    this.rules.ticketvendors[0].required = false;
+                    this.rules.ticketamount[0].required = false;
+                  //endregion scc add 只有受理状态为变更时，才必填 to
                 }
             },
             getBudt(val) {

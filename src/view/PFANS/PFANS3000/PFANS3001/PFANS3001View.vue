@@ -219,13 +219,50 @@
                         fix: false,
                         filter: true,
                     },
+                  //region scc add 10/26 机票一览新增项显示 from
                     {
-                        code: 'refusereason',
-                        label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
-                        width: 150,
-                        fix: false,
-                        filter: true,
+                      code: 'ticketordernumber',
+                      label: 'label.PFANS3001FORMVIEW_TICKETORDERNUMBER',
+                      width: 150,
+                      fix: false,
+                      filter: true,
                     },
+                    {
+                      code: 'ticketvendors',
+                      label: 'label.PFANS3001FORMVIEW_TICKETVENDORS',
+                      width: 150,
+                      fix: false,
+                      filter: true,
+                    },
+                    {
+                      code: 'changeamountforfirst',
+                      label: 'label.PFANS3001FORMVIEW_CHANGEAMOUNTFORFIRST',
+                      width: 150,
+                      fix: false,
+                      filter: true,
+                    },
+                    {
+                      code: 'changeamountforsecond',
+                      label: 'label.PFANS3001FORMVIEW_CHANGEAMOUNTFORSECOND',
+                      width: 150,
+                      fix: false,
+                      filter: true,
+                    },
+                    {
+                      code: 'ticketamount',
+                      label: 'label.PFANS3001FORMVIEW_TICKETAMOUNT',
+                      width: 150,
+                      fix: false,
+                      filter: true,
+                    },
+                    {
+                      code: 'refusereason',
+                      label: 'label.PFANS3007FORMVIEW_REFUSEREASON',
+                      width: 150,
+                      fix: false,
+                      filter: true,
+                    },
+                  //endregion scc add 10/26 机票一览新增项显示 to
                 ],
                 buttonList: [],
                 rowid: '',
@@ -252,7 +289,9 @@
                     {key: 'insert', name: 'button.insert', disabled: false, icon: 'el-icon-plus'},
                     {key: 'edit', name: 'button.update', disabled: false, icon: 'el-icon-edit'},
                   //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 start
-                  {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-download'},
+                  //region scc del 10/26 除张楠楠，机票导出为空白bug，ticketsdetails,owner为张楠楠，导出按钮权限同取消机票 from
+                  // {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-download'},
+                  //endregion scc del 10/26 除张楠楠，机票导出为空白bug，ticketsdetails,owner为张楠楠，导出按钮权限同取消机票 to
                   //NT_PFANS_20210308_BUG_151 ztc 导出图标更正 end
 
                 ];
@@ -474,6 +513,13 @@
                             tk.trip = this.selectedlist[a].trip;
                             tk.trippoint = this.selectedlist[a].trippoint;
 
+                            //region scc add 10/26 机票一览导出 from
+                            tk.ticketordernumber = this.selectedlist[a].ticketordernumber;
+                            tk.ticketvendors = this.selectedlist[a].ticketvendors;
+                            tk.changeamountforfirst = this.selectedlist[a].changeamountforfirst;
+                            tk.changeamountforsecond = this.selectedlist[a].changeamountforsecond;
+                            tk.ticketamount = this.selectedlist[a].ticketamount
+                           //endregion scc add 10/26 机票一览导出 to
                             dc.push(tk);
 
                         }
@@ -500,6 +546,14 @@
                             this.$t('label.PFANS3001VIEW_GODEPARTUREDATE'),//出発時間
                             this.$t('label.PFANS3001VIEW_GOARRIVALDATE'),//到着時間
 
+                            //region scc add 10/26 机票一览导出 from
+                            this.$t('label.PFANS3001FORMVIEW_TICKETORDERNUMBER'),
+                            this.$t('label.PFANS3001FORMVIEW_TICKETVENDORS'),
+                            this.$t('label.PFANS3001FORMVIEW_CHANGEAMOUNTFORFIRST'),
+                            this.$t('label.PFANS3001FORMVIEW_CHANGEAMOUNTFORSECOND'),
+                            this.$t('label.PFANS3001FORMVIEW_TICKETAMOUNT'),
+                            //endregion scc add 10/26 机票一览导出 to
+
                         ];
                         const filterVal = [
                             'user_id',//姓名
@@ -521,6 +575,13 @@
                             'ticketingdate',//出発時間
                             'redeparturedate',//到着時間
 
+                            //region scc add 10/26 机票一览导出 from
+                            'ticketordernumber',
+                            'ticketvendors',
+                            'changeamountforfirst',
+                            'changeamountforsecond',
+                            'ticketamount',
+                            //endregion scc add 10/26 机票一览导出 to
 
                         ];
                         const list = dc;
