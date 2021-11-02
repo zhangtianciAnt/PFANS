@@ -5210,31 +5210,33 @@ export default {
       }
       if (val === 'save') {
         //region scc add Pl摘要内容必填验证 from
-        let flag = false;
-        if(this.show6){
-          this.tableP.forEach((item,index) => {
-            if(item.budgetcoding && !item.plsummary){
-              flag = true;
-              Message({
-                message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
-                type: "error",
-                duration: 5 * 1000
-              });
-            }
-          })
-          this.tableR.forEach((item,index) => {
-            if(item.budgetcoding && !item.plsummary){
-              flag = true;
-              Message({
-                message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
-                type: "error",
-                duration: 5 * 1000
-              });
-            }
-          })
-        }
-        if(flag){
-          return;
+        if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
+          let flag = false;
+          if (this.show6) {
+            this.tableP.forEach((item, index) => {
+              if (item.budgetcoding && item.plsummary === "") {
+                flag = true;
+                Message({
+                  message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
+                  type: "error",
+                  duration: 5 * 1000
+                });
+              }
+            })
+            this.tableR.forEach((item, index) => {
+              if (item.budgetcoding && item.plsummary === "" ) {
+                flag = true;
+                Message({
+                  message: this.$t("normal.error_09") + this.$t("label.PFANS1012FORMVIEW_PL"),
+                  type: "error",
+                  duration: 5 * 1000
+                });
+              }
+            })
+          }
+          if (flag) {
+            return;
+          }
         }
         //endregion scc add Pl摘要内容必填验证 from
         // add-lyt-21/4/14-NT_PFANS_20210413_BUG_002-start
@@ -5570,7 +5572,8 @@ export default {
                     }
                   }
                 }
-              } else if (this.form.type === 'PJ001002') {
+              }
+              else if (this.form.type === 'PJ001002') {
                 for (let i = 0; i < this.tableR.length; i++) {
                   if (this.tableR[i].rmb > 0) {
                     if (this.tableR[i].budgetcoding === '') {
@@ -5584,28 +5587,28 @@ export default {
                       break;
                     }
                     //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
-                    if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                      if (this.tableR[i].accountcode === '') {
-                        this.activeName = 'third';
-                        error = error + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableR[i].plsummary === '') {
-                        this.activeName = 'third';
-                        error = error + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                    }
+                    // if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
+                    //   if (this.tableR[i].accountcode === '') {
+                    //     this.activeName = 'third';
+                    //     error = error + 1;
+                    //     Message({
+                    //       message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
+                    //       type: 'error',
+                    //       duration: 5 * 1000,
+                    //     });
+                    //     break;
+                    //   }
+                    //   if (this.tableR[i].plsummary === '') {
+                    //     this.activeName = 'third';
+                    //     error = error + 1;
+                    //     Message({
+                    //       message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                    //       type: 'error',
+                    //       duration: 5 * 1000,
+                    //     });
+                    //     break;
+                    //   }
+                    // }
                     //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） end
                   }
                 }
@@ -5622,28 +5625,28 @@ export default {
                       break;
                     }
                     //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） start
-                    if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
-                      if (this.tableP[i].accountcode === '') {
-                        this.activeName = 'third';
-                        error = error + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                      if (this.tableP[i].plsummary === '') {
-                        this.activeName = 'third';
-                        error = error + 1;
-                        Message({
-                          message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
-                          type: 'error',
-                          duration: 5 * 1000,
-                        });
-                        break;
-                      }
-                    }
+                    // if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
+                    //   if (this.tableP[i].accountcode === '') {
+                    //     this.activeName = 'third';
+                    //     error = error + 1;
+                    //     Message({
+                    //       message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_ACCOUNT'),
+                    //       type: 'error',
+                    //       duration: 5 * 1000,
+                    //     });
+                    //     break;
+                    //   }
+                    //   if (this.tableP[i].plsummary === '') {
+                    //     this.activeName = 'third';
+                    //     error = error + 1;
+                    //     Message({
+                    //       message: this.$t('normal.error_08') + this.$t('label.PFANS1012FORMVIEW_PL'),
+                    //       type: 'error',
+                    //       duration: 5 * 1000,
+                    //     });
+                    //     break;
+                    //   }
+                    // }
                     //ADD_fjl_07/14 -- 禅道任务201（GL模块时，明细中的“PL摘要”和“科目”非必填项） end
                   }
                 }
