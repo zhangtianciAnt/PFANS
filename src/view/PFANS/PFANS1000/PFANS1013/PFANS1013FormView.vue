@@ -690,7 +690,8 @@
                         </el-tooltip>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
+                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200"
+                                     :key="Math.random()" v-if="!domesticOrNot()">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="checkmoney"
@@ -1002,7 +1003,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"
-                                     prop="rmb" width="200">
+                                     prop="rmb" width="200" :key="Math.random()" v-if="!domesticOrNot()">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="(scope.row.accountcode === 'PJ132005' || scope.row.accountcode === 'PJ132006' || scope.row.accountcode === 'PJ119005' || scope.row.accountcode === 'PJ119006'|| scope.row.accountcode === '' || checktaxes) ? true : false"
@@ -3416,6 +3417,13 @@
           sums[10] = Math.round(sums[10] * 100) / 100;
           sums[12] = Math.round(sums[12] * 100) / 100;
         }
+        //region scc add 11/3 from
+        for(let i = 0; i < sums.length; i++){
+          if(isNaN(sums[i])){
+            sums[i] = '--';
+          }
+        }
+        //endregion scc add 11/3 to
         this.getMoney(sums);
         return sums;
       },
@@ -3468,6 +3476,13 @@
           sums[12] = Math.round(sums[12] * 100) / 100;
           sums[14] = Math.round(sums[14] * 100) / 100;
         }
+        //region scc add 11/3 from
+        for(let i = 0; i < sums.length; i++){
+          if(isNaN(sums[i])){
+            sums[i] = '--';
+          }
+        }
+        //endregion scc add 11/3 to
         this.tableAValue = sums;
         return sums;
       },
@@ -3891,7 +3906,20 @@
           this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12];
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
+          // this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
+          //region scc add 境外支出总额计算 from
+          let moneySumTraffic = 0.00;
+          for(let i = 0; i < this.tableT.length; i++){//交通人民币之和
+            moneySumTraffic += Math.round(this.tableT[i].rmb * 100) / 100;
+          }
+          let moneySumAcocom = 0.00;
+          let monetSumSubsidies = 0.00;
+          for(let i = 0; i < this.tableA.length; i++){
+            moneySumAcocom += Math.round(this.tableA[i].rmb * 100) / 100;//住宿人民币之和
+            monetSumSubsidies += Math.round(this.tableA[i].subsidies * 100) / 100;//补贴之和
+          }
+          this.form.totalpay = moneySumTraffic + moneySumAcocom + monetSumSubsidies + this.tableRValue[8];
+          //endregion scc add 境外支出总额计算 to
         }
       },
       workflowState(val) {
