@@ -1602,6 +1602,7 @@
                     });
                 }
 
+                //TODO ??
                 //有精算报销编号绑定精算信息
                 if (this.form.publicexpense_id) {
                   this.$store
@@ -1821,19 +1822,20 @@
               }
 
               //有精算报销编号绑定精算信息
+              //region scc upd 精算报销编号绑定精算信息 from
               if (this.form.publicexpense_id) {
                 this.$store
-                  .dispatch('PFANS1012Store/selectById', {'publicexpenseid': this.form.publicexpense_id})
+                  .dispatch('PFANS1013Store/selectById', {'evectionid': this.form.publicexpense_id})
                   .then(response => {
                     if (response !== null && response !== '' && response !== undefined) {
-                      let pub = response.publicexpense;
+                      let pub = response.evection;
                       let status = getStatus(pub.status);
                       this.tableB.push({
                         invoiceno: pub.invoiceno,
-                        moneys: pub.moneys,
-                        remarks: pub.preparefor,
+                        moneys: pub.totalpay,
+                        remarks: pub.remark,
                         status: status,
-                        publicexpense_id: pub.publicexpenseid,
+                        evectionid: pub.evectionid,
                       });
                     }
                     this.loading = false;
@@ -1848,6 +1850,7 @@
                   });
 
               }
+              //endregion scc upd 精算报销编号绑定精算信息 to
               //add_fjl_0806
               this.loading = false;
             })
