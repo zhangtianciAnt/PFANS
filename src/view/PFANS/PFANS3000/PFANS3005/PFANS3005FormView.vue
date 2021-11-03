@@ -264,6 +264,7 @@
                                 v-show="show3">
                     <dicselect
                       :code="code2"
+                      :fliCode="lfter"
                       :data="form.classificationtype"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -868,6 +869,9 @@
         //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
         code5: 'PJ055',
         //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'GM',
+        //共通下拉框添加筛选 ztc 1103 to
         show6: false,
         upload: uploadUrl(),
         fileList: [],

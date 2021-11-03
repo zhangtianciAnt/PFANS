@@ -334,6 +334,7 @@
                         :data="form.classificationtype"
                         :disabled="!disable"
                         :multiple="multiple"
+                        :fliCode="lfter"
                         @change="getclassificationtype"
                         style="width: 20vw"
                       >
@@ -1003,6 +1004,9 @@
         code11: 'PJ022',
         code12: 'PJ023',
         code13: 'JY002',
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'CC',
+        //共通下拉框添加筛选 ztc 1103 to
         multiple: false,
         search: '',
         initalMoney: '0',

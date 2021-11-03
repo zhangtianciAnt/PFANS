@@ -117,6 +117,7 @@
                                 v-if="showPlan">
                     <dicselect
                       :code="code2"
+                      :fliCode="lfter"
                       :data="form.classificationtype"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -378,6 +379,9 @@
         userlist: '',
         code: 'PK004',
         code2: 'PJ078',
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'QY',
+        //共通下拉框添加筛选 ztc 1103 to
         multiple: false,
         title: 'title.PFANS1005VIEW',
         loading: false,

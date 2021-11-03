@@ -51,7 +51,7 @@ const PFANS1025Store = {
       return new Promise((resolve, reject) => {
         update(data).then(response => {
           if (response.code === 0) {
-            resolve(response.data);
+            resolve(response);
           } else {
             reject(response.message)
           }
@@ -199,22 +199,6 @@ const PFANS1025Store = {
       })
     },
   //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
-
-    //region scc add 根据事业计划，进行逻辑删除 from
-    awddelete({commit}, data) {
-      return new Promise((resolve, reject) => {
-        awddelete(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message);
-          }
-        }).catch(error => {
-          reject(error);
-        });
-      });
-    },
-    //endregion scc add 根据事业计划，进行逻辑删除 to
 
   }
 };

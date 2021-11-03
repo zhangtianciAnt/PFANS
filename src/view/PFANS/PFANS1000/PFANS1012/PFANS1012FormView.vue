@@ -5220,7 +5220,6 @@ export default {
       }
       if (val === 'save') {
         //region scc add Pl摘要内容必填验证 from
-        debugger
         if (this.form.moduleid !== 'PJ002002' && this.form.moduleid !== 'GL') {
           let flag = false;
           if (this.show6) {

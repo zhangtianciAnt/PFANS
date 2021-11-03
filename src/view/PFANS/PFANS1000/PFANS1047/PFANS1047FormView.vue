@@ -835,7 +835,9 @@
         this.$store
           .dispatch('PFANS1025Store/update', this.baseInfo)
           .then(response => {
-            this.data = response;
+            //事业计划相关 修改返回messaage 1103 fr
+            this.data = response.data;
+            //事业计划相关 修改返回messaage 1103 to
             this.loading = false;
           })
           .catch(error => {
@@ -908,7 +910,9 @@
                 this.$store
                   .dispatch('PFANS1025Store/update', this.baseInfo)
                   .then(response => {
-                    this.data = response;
+                    //事业计划相关 修改返回messaage 1103 fr
+                    this.data = response.data;
+                    //事业计划相关 修改返回messaage 1103 to
                     this.loading = false;
                     Message({
                       message: this.$t('normal.success_02'),
