@@ -395,7 +395,7 @@
                                 }
                               }
                             }
-                            if (response[j].plan === '1') {
+                            if (response[j].plan === '0') {
                               if (this.$i18n) {
                                 response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
                               }

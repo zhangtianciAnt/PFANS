@@ -1504,6 +1504,7 @@
           params: {
             disabled: disable,
             _id: id,
+            _careerplan : plantemp,
           },
         });
       },
@@ -1695,6 +1696,7 @@
               disabled: true,
               backcheck: true,
               _paramsid: this.params_id,
+              _careerplan : this.form.plan != '0'?false:true,
             },
           });
         }
