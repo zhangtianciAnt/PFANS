@@ -97,6 +97,7 @@
         sealdetaildate: [],
         sealdetail: '',
         user: '',
+        flag: '0',
         insertnamedialog: false,
         loading: false,
         title: 'title.PFANS4001VIEW',
@@ -180,6 +181,7 @@
           //add-ws-12/21-印章盖印
         ],
         rowid: '',
+        lastDate: '',
         row_id: 'sealid',
         handlsealid: '',
         drawDisabled: false,
@@ -243,9 +245,8 @@
                 this.user = getUserInfo(this.$store.getters.userinfo.userid).userinfo.customername;
                 this.userAnt = getUserInfo('5e78b1fd4e3b194874180e0d').userinfo.customername;
               }
-              let claimdatetim = moment(new Date()).format('YYYY-MM-DD');
               this.sealdetaildate = [];
-              this.sealdetail = claimdatetim + ' ~ '
+              this.flag = "1";
             }
             this.getList();
           }).catch(error => {
@@ -275,6 +276,9 @@
                   list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
                 }
               })
+              if(this.flag === '1'){
+                this.sealdetail = this.gridData[0].sealdetaildate.slice(this.gridData[0].sealdetaildate.length - 10) + ' ~ '
+              }
             }
             let roles = getCurrentRole17();
             if (this.userlist === this.$store.getters.userinfo.userid) {
@@ -355,7 +359,7 @@
               }
               //add-ws-12/21-印章盖印
             }
-            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.userAnt  +'   '+ this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.sealdetail;
+            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.userAnt  +'   '+ this.$t('label.PFANS4001FORMVIEW_EFFSEALDETA') + ':' + this.sealdetail;
             this.data = response.seal;
             this.loading = false;
           })

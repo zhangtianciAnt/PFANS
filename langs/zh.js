@@ -3467,6 +3467,7 @@ module.exports = {
     PFANS4001FORMVIEW_REGULATORSTATE: '盖印监管者承认',
     PFANS4001FORMVIEW_REGULATOR: '盖印监管者',
     PFANS4001FORMVIEW_SEALDETAILNAME: '盖印监管者',
+    PFANS4001FORMVIEW_EFFSEALDETA: '有效期间',
     PFANS2026FORMVIEW_PROCEDURE: '离职本人离职手续办理流程: <br/>' +
       '　　登陆P-FANS　→　人事总务　→　入退社管理　→　离职申请　→　新建　→　保存　→　发起审批　→　审批结束　→　一次上司创建【调书】　→　P-Fans首页代办提醒　→　入退社管理　→　离职申请　→　本人离职信息　→　查看　→　页面右侧蓝色小电脑图标　→　【退职者调书&离职手续】查看　→　【离职手续】页　→　离职者主动找各节点负责人审批确认<br/>' +
       '<br/>'+
