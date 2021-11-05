@@ -1624,9 +1624,15 @@
                   let groupInfo = getOrgInformation(response.contractcompound[i].group_id);
                   if (groupInfo.data.type === '2' && groupInfo.data.encoding) {//group
                     this.userlist.push(groupInfo.parent.data.user);
+                    //region scc add 11/5 同级group,只通知center长一次 from
+                    this.userlist = Array.from(new Set(this.userlist));
+                    //endregion scc add 11/5 同级group,只通知center长一次 to
                     this.userlistOrg.push(groupInfo.parent.data.user);
                   }else{
                     this.userlist.push(groupInfo.data.user);//center
+                    //region scc add 11/5 同级group,只通知center长一次 from
+                    this.userlist = Array.from(new Set(this.userlist));
+                    //endregion scc add 11/5 同级group,只通知center长一次 to
                     this.userlistOrg.push(groupInfo.data.user);
                   }
                 }
