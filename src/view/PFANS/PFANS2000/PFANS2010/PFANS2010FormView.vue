@@ -334,7 +334,6 @@
         else {
           let color = 0;
           if (moment(row.dates).format('E') == 6 || moment(row.dates).format('E') == 7) {
-            row.absenteeism = '';
             this.totalAbsenteeism = true;
             this.xiuributtonshow = false;
             color = 1;
@@ -347,7 +346,6 @@
 
             let typefei4 = this.dateInfo.filter(item => item.type != '4' && item.dateflg === row.dates);
             if (typefei4.length > 0) {
-              row.absenteeism = '';
               this.totalAbsenteeism = true;
               this.xiuributtonshow = false;
               color = 1;
@@ -358,6 +356,7 @@
             }
             else
             {
+              row.absenteeism = '';
               return 'sub_bg_color_Darkgrey';
             }
         }
