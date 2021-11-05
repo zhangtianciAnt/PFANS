@@ -471,22 +471,6 @@
                     ></el-input-number>
                   </template>
                 </el-table-column>
-<!--                添加事业计划相关 1103 ztc fr-->
-                <el-table-column :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" align="center" prop="businessplanbalance"
-                                 width="200">
-                  <template slot-scope="scope">
-                    <el-input-number
-                      :disabled="true"
-                      :min="0"
-                      :no="scope.row"
-                      :precision="2"
-                      controls-position="right"
-                      style="width: 100%"
-                      v-model="scope.row.businessplanbalance">
-                    </el-input-number>
-                  </template>
-                </el-table-column>
-<!--                添加事业计划相关 1103 ztc to-->
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
                   <template slot-scope="scope">
                     <el-button
@@ -1345,10 +1329,6 @@
           outcommunity: '',
           worknumber: '',
           awardmoney: '',
-          // 添加事业计划相关 1103 ztc fr
-          businessplanbalance: '0.00',
-          rulingid: '',
-          // 添加事业计划相关 1103 ztc to
         }, {
           awarddetail_id: '',
           award_id: '',
@@ -1362,10 +1342,6 @@
           outcommunity: '',
           worknumber: '',
           awardmoney: '',
-          // 添加事业计划相关 1103 ztc fr
-          businessplanbalance: '0.00',
-          rulingid: '',
-          // 添加事业计划相关 1103 ztc to
         }],
         tableS: [],
         //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr
@@ -1724,10 +1700,6 @@
                   outcommunity: '',
                   worknumber: '',
                   awardmoney: '',
-                  // 添加事业计划相关 1103 ztc fr
-                  businessplanbalance: '0.00',
-                  rulingid: '',
-                  // 添加事业计划相关 1103 ztc to
                   rowindex: '',
                 });
                 this.tableT = data.concat(response.awardDetail);
@@ -1964,59 +1936,7 @@
       // 添加事业计划相关 1103 ztc fr
       radiochange(val) {
         this.form.careerplan = val;
-        this.tableT.forEach((tab,index) =>{
-          if(tab.budgetcode !== this.$t('label.PFANS6008VIEW_EXPENSE')){
-            tab.budgetcode = '';
-            tab.depart = '';
-            tab.projects = '';
-            tab.member = '';
-            tab.community = '';
-            tab.outsource = '';
-            tab.outcommunity = '';
-            tab.worknumber = '';
-            tab.awardmoney = '';
-            tab.businessplanbalance = '';
-            tab.rulingid = '';
-          }
-        })
-        if(this.form.plan === '0'){
-          this.getBussMoney();
-        }
       },
-      getBussMoney() {
-        for (const tbe of this.tableT) {
-          //const index = this.tableT.indexOf(tbe);
-          if(tbe.depart !== ''){
-            this.checkBusPlanM(tbe.depart).then((busVal) => {
-              tbe.businessplanbalance = busVal.data.surplsu;
-              tbe.rulingid = busVal.data.rulingid
-            })
-          }
-        }
-      },
-      checkBusPlanM(grid){
-        return new Promise((resolve, reject) => {
-          let getOrgId = '';
-          let orgId = getOrgInformation(grid);
-          if(orgId.data.effective){
-            getOrgId = grid;
-          }else{
-            getOrgId = orgId.parent.data._id;
-          }
-          let cod = getDictionaryInfo(this.form.contracttype).value5;
-          let params = {
-            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
-            getOrgIdInfo: getOrgId,
-            classInfo: cod,
-          };
-          this.$store
-            .dispatch('PFANS1036Store/getBusBalns',params)
-            .then(response => {
-              resolve(response);
-            });
-        })
-      },
-      // 添加事业计划相关 1103 ztc to
       checkRequire() {
         if (!this.form.custochinese ||
           !this.form.placejapanese ||
@@ -2394,9 +2314,6 @@
           // row.budgetcode = group.encoding;
           row.companyend = group.companyen;
         }
-        // 添加事业计划相关 1103 ztc fr
-        this.getBussMoney();
-        // 添加事业计划相关 1103 ztc to
       },
       // update center取预算单位横展 end 0404
       workflowState(val) {
@@ -2485,10 +2402,6 @@
               outcommunity: this.tableT[i].outcommunity,
               worknumber: this.tableT[i].worknumber,
               awardmoney: this.tableT[i].awardmoney,
-              // 添加事业计划相关 1103 ztc fr
-              businessplanbalance: this.tableT[i].businessplanbalance,
-              rulingid: this.tableT[i].rulingid,
-              // 添加事业计划相关 1103 ztc to
               rowindex: this.tableT[i].rowindex,
             });
           }
@@ -2539,10 +2452,6 @@
           outcommunity: '',
           worknumber: '',
           awardmoney: '',
-          // 添加事业计划相关 1103 ztc fr
-          businessplanbalance: '0.00',
-          rulingid: '',
-          // 添加事业计划相关 1103 ztc to
           rowindex: '',
         });
         this.tableT.push(lastRow);
@@ -2845,10 +2754,6 @@
                     outcommunity: this.tableT[i].outcommunity,
                     worknumber: this.tableT[i].worknumber,
                     awardmoney: this.tableT[i].awardmoney,
-                    // 添加事业计划相关 1103 ztc fr
-                    businessplanbalance: this.tableT[i].businessplanbalance,
-                    rulingid: this.tableT[i].rulingid,
-                    // 添加事业计划相关 1103 ztc to
                     rowindex: this.tableT[i].rowindex,
                   });
                 }
@@ -2941,10 +2846,6 @@
                 outcommunity: this.tableT[i].outcommunity,
                 worknumber: this.tableT[i].worknumber,
                 awardmoney: this.tableT[i].awardmoney,
-                // 添加事业计划相关 1103 ztc fr
-                businessplanbalance: this.tableT[i].businessplanbalance,
-                rulingid: this.tableT[i].rulingid,
-                // 添加事业计划相关 1103 ztc to
                 rowindex: this.tableT[i].rowindex,
               });
             }
