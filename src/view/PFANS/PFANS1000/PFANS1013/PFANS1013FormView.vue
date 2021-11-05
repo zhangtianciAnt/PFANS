@@ -84,7 +84,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_CAIWUPERSONALCODE')">
-                      <el-input :disabled="!disable" style="width: 20vw" v-model="form.personalcode">
+                      <el-input :disabled="domesticOrNot()" style="width: 20vw" v-model="form.personalcode">
                       </el-input>
                     </el-form-item>
                   </el-col>
@@ -208,7 +208,8 @@
                     <el-form-item :label="$t('label.PFANS1002VIEW_EXTERNAL')" prop="external">
                       <span style="margin-right: 1vw ">{{$t('label.PFANSUSERFORMVIEW_NO')}}</span>
                       <el-switch
-                        :disabled="true"
+                        @change = "changeAdditional"
+                        :disabled="!disable"
                         v-model="form.external"
                         active-value="1"
                         inactive-value="0"
@@ -342,7 +343,7 @@
                   </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1012VIEW_REIMBURSEMENTDATE')">
-                      <el-date-picker :disabled="!disable" style="width:20vw" v-model="form.reimbursementdate"
+                      <el-date-picker :disabled="domesticOrNot()" style="width:20vw" v-model="form.reimbursementdate"
                                       @change="changeereimbursementdate">
                       </el-date-picker>
                     </el-form-item>
@@ -402,7 +403,7 @@
                             </el-input>
                           </template>
                         </el-table-column>
-                        <el-table-column :label="$t('label.PFANS1004VIEW_AMOUNT')" align="center" width="180">
+                        <el-table-column :label="$t('label.PFANS1013FORMVIEW_FOREIGNCURRENCYAMOUNT')" align="center" width="180">
                           <template slot-scope="scope">
                             <el-input-number :max="9999999" :min="0" :no="scope.row" :disabled="!disable"
                                              :precision="2" :step="1" @change="changeamount(scope.row)"
@@ -462,7 +463,7 @@
                 </el-row>
                 <!--                add-ws-7/9-禅道任务259-->
                 <el-row>
-                  <el-form-item :label="$t('label.PFANS1013FORMVIEW_FYCBSM')">
+                  <el-form-item :label="$t('label.PFANS1013FORMVIEW_FYCBSM')" prop="remark">
                     <el-input :disabled="!disable" style="width: 70vw" type="textarea"
                               v-model="form.remark">
                     </el-input>
@@ -689,7 +690,8 @@
                         </el-tooltip>
                       </template>
                     </el-table-column>
-                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200">
+                    <el-table-column :label="$t('label.PFANS1012VIEW_RMB')" align="center" prop="rmb" width="200"
+                                     :key="Math.random()" v-if="!domesticOrNot()">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="checkmoney"
@@ -1001,7 +1003,7 @@
                       </template>
                     </el-table-column>
                     <el-table-column :label="$t('label.PFANS1013FORMVIEW_TRAVELALLOWANCE')" align="center"
-                                     prop="rmb" width="200">
+                                     prop="rmb" width="200" :key="Math.random()" v-if="!domesticOrNot()">
                       <template slot-scope="scope">
                         <el-input-number
                           :disabled="(scope.row.accountcode === 'PJ132005' || scope.row.accountcode === 'PJ132006' || scope.row.accountcode === 'PJ119005' || scope.row.accountcode === 'PJ119006'|| scope.row.accountcode === '' || checktaxes) ? true : false"
@@ -1331,6 +1333,17 @@
           return callback();
         }
       };
+      //region scc add 费用超标说明必填 from
+      var remarkVaild = (rule, value, callback) => {
+        if (rule.required && (!value || value === '' || value === 'undefined')) {
+            if(!this.form.remark){
+              return callback(new Error(this.$t('normal.error_08') + this.$t('label.PFANS1013FORMVIEW_FYCBSM')));
+            }
+        }else{
+          callback();
+        }
+      }
+      //endregion scc add 费用超标说明必填 to
       return {
         //add-ws-12/10-汇率字典
         // code3: 'PG019',
@@ -1573,6 +1586,11 @@
             trigger: 'change',
           }],
           // add_qhr_0527 添加实际出差开始日、实际出差结束日和实际出差天数
+          remark: [{
+            required: false,
+            validator: remarkVaild,
+            trigger: 'blur',
+          }],
         },
         code1: 'PG002',
         code2: 'PJ036',
@@ -3399,6 +3417,13 @@
           sums[10] = Math.round(sums[10] * 100) / 100;
           sums[12] = Math.round(sums[12] * 100) / 100;
         }
+        //region scc add 11/3 from
+        for(let i = 0; i < sums.length; i++){
+          if(isNaN(sums[i])){
+            sums[i] = '--';
+          }
+        }
+        //endregion scc add 11/3 to
         this.getMoney(sums);
         return sums;
       },
@@ -3451,6 +3476,13 @@
           sums[12] = Math.round(sums[12] * 100) / 100;
           sums[14] = Math.round(sums[14] * 100) / 100;
         }
+        //region scc add 11/3 from
+        for(let i = 0; i < sums.length; i++){
+          if(isNaN(sums[i])){
+            sums[i] = '--';
+          }
+        }
+        //endregion scc add 11/3 to
         this.tableAValue = sums;
         return sums;
       },
@@ -3495,6 +3527,13 @@
         for (var i = 0; i < this.relations.length; i++) {
           if (this.relations[i].value === val) {
             this.form.external = this.relations[i].external;
+            //region scc add 有额外费用时，费用超标说明必填 from
+            if(this.form.external === '1'){
+              this.rules.remark[0].required = true;
+            }else{
+              this.rules.remark[0].required = false;
+            }
+            //endregion scc add 有额外费用时，费用超标说明必填 to
             this.form.abroadbusiness = this.relations[i].abroadbusiness;
           }
         }
@@ -3520,7 +3559,17 @@
             //add_fjl_0911  添加初始化值 start
             let cityinfo = getDictionaryInfo(this.relations[i].city);
             if (cityinfo) {
-              this.form.place = cityinfo.value1;
+              //region scc add 精算中出差地点，境外，取值出差申请中【出差地国家·城市】字段 from
+              if(this.form.type === '0'){//境内
+                this.form.place = cityinfo.value1;
+              }else if(this.form.type === '1'){//境外
+                if (this.$route.params._city){
+                  this.form.place = this.$route.params._city;
+                }else{
+                  this.form.place = '';
+                }
+              }
+              //endregion scc add 精算中出差地点，境外，取值出差申请中【出差地国家·城市】字段 to
               this.region = cityinfo.code;
             }
             this.rank = this.relations[i].level;
@@ -3857,7 +3906,20 @@
           this.form.totalpay = sums[9] + this.tableAValue[10] + this.tableAValue[12];
         } else if (this.form.type === '1') {
           // this.form.totalpay = sums[10] + this.tableAValue[13] + this.tableRValue[9];
-          this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
+          // this.form.totalpay = sums[9] + this.tableAValue[12] + this.tableAValue[14] + this.tableRValue[8];
+          //region scc add 境外支出总额计算 from
+          let moneySumTraffic = 0.00;
+          for(let i = 0; i < this.tableT.length; i++){//交通人民币之和
+            moneySumTraffic += Math.round(this.tableT[i].rmb * 100) / 100;
+          }
+          let moneySumAcocom = 0.00;
+          let monetSumSubsidies = 0.00;
+          for(let i = 0; i < this.tableA.length; i++){
+            moneySumAcocom += Math.round(this.tableA[i].rmb * 100) / 100;//住宿人民币之和
+            monetSumSubsidies += Math.round(this.tableA[i].subsidies * 100) / 100;//补贴之和
+          }
+          this.form.totalpay = moneySumTraffic + moneySumAcocom + monetSumSubsidies + this.tableRValue[8];
+          //endregion scc add 境外支出总额计算 to
         }
       },
       workflowState(val) {
@@ -4748,6 +4810,26 @@
         }
 
       },
+      //region scc add 返回是否为境内外 from
+      domesticOrNot(){
+        if(this.form.type === '1'){//境外
+          return true;
+        }else if(this.form.type === '0'){//境内
+          return false;
+        }
+      },
+      //endregion scc add 返回是否为境内外 to
+      //region scc add 额外费用change事件 from
+      changeAdditional(val){
+        this.$forceUpdate();//因为数据层次太多，render函数没有自动更新，需手动强制刷新。
+        if(val === '1'){
+          this.rules.remark[0].required = true;
+        }else{
+          this.rules.remark[0].required = false;
+          this.form.remark = '';
+        }
+      }
+      //endregion scc add 额外费用change事件 to
     },
   };
 
