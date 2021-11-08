@@ -2804,6 +2804,8 @@
                       this.$store.commit('global/SET_OPERATEID', this.$route.params._id);
                       this.$refs.container.$refs.workflow.startWorkflow();
                       this.distriamt = true
+                    }else{
+                      this.paramsTitle();
                     }
                     //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
                   })
