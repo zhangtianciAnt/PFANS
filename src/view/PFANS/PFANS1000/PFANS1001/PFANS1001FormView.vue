@@ -730,6 +730,9 @@
         flagChange: '',
         mounth: '',
         date: '',
+        //region scc add 存出差地国家・城市字段 from
+        toCity: '',
+        //endregion scc add 存出差地国家・城市字段 to
       };
     },
     mounted() {
@@ -2088,6 +2091,9 @@
                 });
                 return;
               } else {
+                //region scc add 存出差地国家・城市字段 from
+                this.toCity = this.selectedlist[0].city;
+                //endregion scc add 存出差地国家・城市字段 to
                 if (getUserInfoName(this.selectedlist[0].user_id) !== '-1') {
                   let userid = getUserInfoName(this.selectedlist[0].user_id).userid;
                   if (userid != this.$store.getters.userinfo.userid) {
@@ -2134,6 +2140,7 @@
                       _loanmoney: loanmoneyAnt,
                       disabled: true,
                       _careerplan : plantemp,//scc add 出差---精算路由，事业计划类型
+                      _city: this.toCity,//scc add 出差--精算精算，出差地国家・城市字段
                     },
                   });
                 } else {
@@ -2144,6 +2151,7 @@
                       _typecheck: type,
                       disabled: true,
                       _careerplan : plantemp,//scc add 出差---精算路由，事业计划类型
+                      _city: this.toCity,//scc add 出差--精算精算，出差地国家・城市字段
                     },
                   });
                 }
@@ -2155,6 +2163,7 @@
                     _typecheck: type,
                     disabled: true,
                     _careerplan : plantemp,//scc add 出差---精算路由，事业计划类型
+                    _city: this.toCity,//scc add 出差--精算精算，出差地国家・城市字段
                   },
                 });
               }

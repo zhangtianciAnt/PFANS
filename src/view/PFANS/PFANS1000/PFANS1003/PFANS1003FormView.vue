@@ -515,7 +515,10 @@
           filename: '',
           value1: 0,
           scheduleddate: moment(new Date()).format('YYYY-MM-DD'),
-          careerplan: true,
+          //region scc upd 11/4 无偿设备，字段为varchar(1)，且不关联事业计划 from
+          // careerplan: true,
+          careerplan: 0,
+          //endregion scc upd 11/4 无偿设备，字段为varchar(1)，且不关联事业计划 to
           freedevice: '',
           businessplantype: '',
           classificationtype: '',

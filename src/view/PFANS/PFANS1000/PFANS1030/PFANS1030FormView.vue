@@ -7,6 +7,7 @@
                          :defaultStart="defaultStart"
                          @buttonClick="buttonClick"
                          :canStart="canStart"
+                         :userlist="userlist"
                          @end="end" @start="start"
                          @workflowState="workflowState"
                          @disabled="setdisabled"
@@ -134,6 +135,19 @@
                       <el-input :disabled="true" style="width:20vw" v-model="form.claimamount"></el-input>
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1030FORMVIEW_MANYDEPARTMENTS')" porp="musectosion">
+                      <span style="margin-left: 1vw ">{{$t('label.no')}}</span>
+                      <el-switch
+                        :disabled="true"
+                        active-value="1"
+                        inactive-value="0"
+                        v-model="form.musectosion"
+                      >
+                      </el-switch>
+                      <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
+                    </el-form-item>
+                  </el-col>
                 </el-row>
               </div>
 <!--              //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc fr-->
@@ -217,7 +231,7 @@
                 <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1008FORMVIEW_INITIATOR')" :error="error" prop="user_id">
-                      <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlist"
+                      <user :disabled="true" :error="error" :selectType="selectType" :userlist="userlistA"
                             @getUserids="getUserids" style="width:20vw" v-model="form.user_id"></user>
                     </el-form-item>
                   </el-col>
@@ -1221,7 +1235,15 @@
         errorplan: '',
         errorvaluation: '',
         errorindividual: '',
-        userlist: '',
+        //region scc add 多部门审批 from
+        userlist: [],
+        userlistA: '',
+        userlistOrg: [],
+        workflowAnt: {
+          menuUrl: '',
+          dataId: ''
+        },
+        //endregion scc add 多部门审批 to
         code1: 'HT008',
         code2: 'HT005',
         //add-ws-12/10-汇率字典
@@ -1552,6 +1574,56 @@
                 this.form.custojapanese = letUser.userinfo.customername;
               }
             }
+            //region scc add 多部门审批 from
+            if(response.contractcompound && response.contractcompound.length > 1){
+              this.form.musectosion = "1";
+              this.workflowCode = "W0092";
+              for (let i = 0; i < response.contractcompound.length; i++) {
+                //全部门
+                if (response.contractcompound[i].group_id) {
+                  let groupInfo = getOrgInformation(response.contractcompound[i].group_id);
+                  if (groupInfo.data.type === '2' && groupInfo.data.encoding) {//group
+                    this.userlist.push(groupInfo.parent.data.user);
+                    //region scc add 11/5 同级group,只通知center长一次 from
+                    this.userlist = Array.from(new Set(this.userlist));
+                    //endregion scc add 11/5 同级group,只通知center长一次 to
+                    this.userlistOrg.push(groupInfo.parent.data.user);
+                  }else{
+                    this.userlist.push(groupInfo.data.user);//center
+                    //region scc add 11/5 同级group,只通知center长一次 from
+                    this.userlist = Array.from(new Set(this.userlist));
+                    //endregion scc add 11/5 同级group,只通知center长一次 to
+                    this.userlistOrg.push(groupInfo.data.user);
+                  }
+                }
+              }
+              this.workflowAnt.dataId = response.award.award_id;
+              this.workflowAnt.menuUrl = '/PFANS1030FormView';
+              this.$store
+                .dispatch('EasyWorkflowStore/ViewWorkflow2', this.workflowAnt).then(response => {
+                this.workflowAntDate = response.data;
+                if (this.workflowAntDate.length > 0) {
+                  for (let f = 0; f < this.workflowAntDate.length; f++) {
+                    if (this.workflowAntDate[f].result == '通过' && !this.userlistAnt.includes(this.workflowAntDate[f].userId)) {
+                      this.userlistAnt.push(this.workflowAntDate[f].userId)
+                    }
+                  }
+                  if (this.userlistAnt.length > 0) {
+                    for (let h = 0; h < this.userlistAnt.length; h++) {
+                      for (let v = 0; v < this.userlist.length; v++) {
+                        if (this.userlist[v] === this.userlistAnt[h]) {
+                          this.userlist.splice(v, 1);
+                        }
+                      }
+                    }
+                  }
+                  if(this.userlist.length === 0){
+                    this.userlist = this.userlistOrg;
+                  }
+                }
+              })
+            }
+            //endregion scc add 多部门审批 to
             //add-ws-汇率修改
             //region scc del 9/16 汇率从每月汇率里取，在做决裁书时生成 from
             // if (response.award.currencyposition === 'PG019001' || this.form.currencyposition === this.$t('label.PFANS1039FORMVIEW_DOLLAR')) {
@@ -1751,7 +1823,9 @@
               //    PSDCD_PFANS_20210525_XQ_054 复合合同决裁书分配金额可修改 ztc to
             }
             this.form.claimamount = aa;
-            this.userlist = this.form.user_id;
+            //region scc
+            this.userlistA = this.form.user_id;
+            //endregion scc
             this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
             this.baseInfo.awardDetail = JSON.parse(JSON.stringify(this.tableT));
             // region ztc up 10/12 部門計画限界利益率 修改取自字典 fr  旧数据部门限界利润率不显示bug ztc fr
@@ -2095,7 +2169,9 @@
         row.awardmoney = row.member * row.community + row.outsource * row.outcommunity;
       },
       getUserids(val) {
-        this.userlist = val;
+        //region scc
+        this.userlistA = val;
+        //endregion scc
         this.form.user_id = val;
         if (!this.form.user_id || this.form.user_id === '' || typeof val == 'undefined') {
           this.error = this.$t('normal.error_08') + this.$t('label.user_name');
@@ -2252,7 +2328,9 @@
       buttonClick2() {
         this.form.maketype = '4',
           this.baseInfo = {};
-        this.form.user_id = this.userlist;
+        //region scc
+        this.form.user_id = this.userlistA;
+        //endregion scc
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
@@ -2539,7 +2617,9 @@
       buttonClick(val) {
         this.form.maketype = '4',
           this.baseInfo = {};
-        this.form.user_id = this.userlist;
+        //region scc
+        this.form.user_id = this.userlistA;
+        //endregion scc
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
