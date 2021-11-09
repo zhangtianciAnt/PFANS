@@ -329,7 +329,15 @@ export default {
     },
     inputChange() {
       if (this.filterName) {
-        this.tableData = this.tableData.filter(item => item.username === this.filterName)
+        this.tableData = this.tableData1.filter(item => {
+          if (item.username != null && item.username!='' && item.username !=undefined)
+          {
+            if(item.username.indexOf(this.filterName) !=-1)
+            {
+              return item;
+            }
+          }
+          });
       } else {
         this.tableData = this.tableData1;
       }
