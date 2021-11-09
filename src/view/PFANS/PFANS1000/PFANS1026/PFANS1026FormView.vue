@@ -3834,38 +3834,38 @@
           this.handleIndexDisabled();
         }
         else if (value === 'cancellation') {
-            //废弃
-            this.handleCancellation(baseInfo);
+          //废弃
+          this.handleCancellation(baseInfo);
         }
         else {
           this.handleSaveContract(value, baseInfo);
         }
       },
-        //废弃
+      //废弃
       handleCancellation(baseInfo) {
-          this.loading = true;
-            if (this.$route.params._id) {
-                this.$store.dispatch('PFANS1026Store/update', baseInfo)
-                    .then(response => {
-                        this.data = response;
-                        Message({
-                            message: this.$t('normal.success_02'),
-                            type: 'success',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                        this.paramsTitle();
-                    })
-                    .catch(error => {
-                      this.$message.error({
-                            message: error,
-                            type: 'error',
-                            duration: 5 * 1000,
-                        });
-                        this.loading = false;
-                    });
-            }
-        },
+        this.loading = true;
+        if (this.$route.params._id) {
+          this.$store.dispatch('PFANS1026Store/update', baseInfo)
+            .then(response => {
+              this.data = response;
+              Message({
+                message: this.$t('normal.success_02'),
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+              this.paramsTitle();
+            })
+            .catch(error => {
+              this.$message.error({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            });
+        }
+      },
 
       // add_fjl_0604 --添加请求书和纳品书的选择生成
       handleSelectionChange(val) {

@@ -112,12 +112,3 @@ export function getAwardEntr(data) {
 }
 //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
 
-//region scc add 根据事业计划，进行逻辑删除 from
-export function awddelete(data) {
-  return request({
-    url: 'award/awddelete',
-    method: 'post',
-    data: data,
-  });
-}
-//endregion scc add 根据事业计划，进行逻辑删除 to
