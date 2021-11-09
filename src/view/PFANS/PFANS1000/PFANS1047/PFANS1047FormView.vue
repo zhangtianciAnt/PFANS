@@ -56,6 +56,14 @@
                       <el-input :disabled="true" style="width:20vw" v-model="form.pjnamechinese"></el-input>
                     </el-form-item>
                   </el-col>
+                </el-row>
+                <el-row>
+<!--                  <el-col :span="8">-->
+<!--                    <el-form-item :label="$t('label.PFANS1024VIEW_DEPLOYMENT')"-->
+<!--                                  prop="deployment">-->
+<!--                      <el-input :disabled="true" style="width:20vw" v-model="form.deployment"></el-input>-->
+<!--                    </el-form-item>-->
+<!--                  </el-col>-->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1024VIEW_CLAIMAMOUNT')"
                                   prop="claimamount">
@@ -827,7 +835,9 @@
         this.$store
           .dispatch('PFANS1025Store/update', this.baseInfo)
           .then(response => {
-            this.data = response;
+            //事业计划相关 修改返回messaage 1103 fr
+            this.data = response.data;
+            //事业计划相关 修改返回messaage 1103 to
             this.loading = false;
           })
           .catch(error => {
@@ -900,7 +910,9 @@
                 this.$store
                   .dispatch('PFANS1025Store/update', this.baseInfo)
                   .then(response => {
-                    this.data = response;
+                    //事业计划相关 修改返回messaage 1103 fr
+                    this.data = response.data;
+                    //事业计划相关 修改返回messaage 1103 to
                     this.loading = false;
                     Message({
                       message: this.$t('normal.success_02'),

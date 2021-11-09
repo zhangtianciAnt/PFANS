@@ -229,7 +229,6 @@
             this.$store
               .dispatch('PFANS2036Store/exportinfo',{'yearsantid': this.selectedlist[0].yearsantid})
               .then(response => {
-                debugger;
                 this.download(response)
                 this.loading = false;
               })

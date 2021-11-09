@@ -415,7 +415,6 @@
           if(list.themename !== '部门共通') {
             conlength = list.children.length
             list.children.forEach((item, index) => {
-              debugger
               if (index === 0) {
                 spanOneArr.push(1)
               } else {
@@ -438,7 +437,6 @@
             }
           }
         })
-        debugger
         return spanOneArr;
       },
       listSpanMethod ({ row, column, rowIndex, columnIndex }) {

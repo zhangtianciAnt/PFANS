@@ -123,13 +123,13 @@
                 </template>
               </el-table-column>
               <!--              社内计划 人件费-->
-<!--              <el-table-column-->
-<!--                prop="summerplanpc"-->
-<!--                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"-->
-<!--                width="180"-->
-<!--                v-if="this.$route.params.type === 0 ? true : false"-->
-<!--                align="center">-->
-<!--              </el-table-column>-->
+              <el-table-column
+                prop="summerplanpc"
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
+                v-show="false"
+                align="center">
+              </el-table-column>
               <el-table-column
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"

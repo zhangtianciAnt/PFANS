@@ -86,6 +86,7 @@
                                 v-if="showPlan">
                     <dicselect
                       :code="code2"
+                      :fliCode="lfter"
                       :data="form.classificationtype"
                       :disabled="!disable"
                       :multiple="multiple"
@@ -464,6 +465,9 @@
         },
         code1: 'PG001',
         code2: 'PJ078',
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'JJF',
+        //共通下拉框添加筛选 ztc 1103 to
         menuList: [],
         disabled: false,
         rules: {
