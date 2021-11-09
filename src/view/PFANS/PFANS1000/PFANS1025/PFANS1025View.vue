@@ -758,11 +758,11 @@
                 return;
               }
             }
-
+            debugger
             //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
             let ny = 0;
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].plan === '1') {
+              if (this.selectedlist[i].plantemp === '内') {
                 //内
                 ny = ny + 1;
               }

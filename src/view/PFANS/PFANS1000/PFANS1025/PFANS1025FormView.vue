@@ -1484,7 +1484,7 @@
       changePlan(val) {
         this.form.plan = val;
       },
-      checkparams() {
+      checkparams2() {
         let id = this.$route.params._checkid;
         let disable = this.$route.params._checkdisable;
         this.$router.push({
@@ -1504,7 +1504,6 @@
           params: {
             disabled: disable,
             _id: id,
-            _careerplan : plantemp,
           },
         });
       },
