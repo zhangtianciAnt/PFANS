@@ -385,7 +385,6 @@ export default {
             this.$store
               .dispatch("PFANS1038Store/insert", this.form)
               .then(response => {
-                debugger
                 this.loading = false;
                 Message({
                   message: this.$t("normal.success_01"),

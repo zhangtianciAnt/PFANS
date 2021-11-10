@@ -101,7 +101,6 @@ export default {
       this.$emit('p-current-change', val)
     },
     getMergeArr (tableData, merge) {
-      debugger;
       if (!merge) return
       this.mergeLine = {}
       this.mergeIndex = {}

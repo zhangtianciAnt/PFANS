@@ -187,6 +187,7 @@
                         :disabled="setDisabled(scope.row)"
                         :multiple="multiple"
                         :no="scope.row"
+                        :fliCode="lfter"
                         @change="getclassificationtypeM"
                       ></dicselect>
                     </template>
@@ -295,6 +296,7 @@
                                 v-show="showPlan" v-if="showM">
                     <dicselect
                       :code="code1"
+                      :fliCode="lfter"
                       :data="form.classificationtype"
                       :disabled="!disabled"
                       :multiple="multiple"
@@ -808,6 +810,9 @@
             rulingid: '',
           }
         ],
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'QT',
+        //共通下拉框添加筛选 ztc 1103 to
         code: 'PR002',
         code1: 'PJ078',
         code2: 'PJ010',
@@ -1631,7 +1636,6 @@
           this.form.careerplan = '1'
         }
         this.baseInfo.judgement = JSON.parse(JSON.stringify(this.form));
-        debugger
         this.$store
           .dispatch('PFANS1004Store/createJudgementDetail', this.baseInfo)
           .then(response => {

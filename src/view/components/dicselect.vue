@@ -29,6 +29,15 @@
       },
       code: {
         type: String,
+        //共通下拉框添加筛选 ztc 1103 fr
+        default:
+          function () {
+            return ''
+          }
+      },
+      fliCode: {
+        type: String,
+        //共通下拉框添加筛选 ztc 1103 to
         default:
           function () {
             return ''
@@ -64,6 +73,11 @@
         for(let item of dic){
           this.options.push(item);
         }
+        //共通下拉框添加筛选 ztc 1103 fr
+        if(this.fliCode !== ''){
+          this.options = this.options.filter(opt => opt.value5.indexOf(this.fliCode) !== -1);
+        }
+        //共通下拉框添加筛选 ztc 1103 to
         this.loading = false;
         // this.$store
         //   .dispatch('dictionaryStore/getForSelect', {'code': this.code})

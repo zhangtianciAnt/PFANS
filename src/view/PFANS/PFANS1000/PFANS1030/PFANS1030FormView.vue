@@ -322,6 +322,7 @@
                       <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                       <el-switch
                         :disabled="!disable"
+                        @change="radiochange"
                         v-model="form.plan"
                         active-value="1"
                         inactive-value="0">
@@ -1297,7 +1298,9 @@
           extrinsic: '',
           numbermoth: '',
           commission: '',
-          plan: '',
+          // 添加事业计划相关 1103 ztc fr
+          plan: '1',
+          // 添加事业计划相关 1103 ztc to
           valuation: '',
           individual: '',
           plannumber: '',
@@ -1550,6 +1553,11 @@
           .dispatch('PFANS1025Store/selectById', {'award_id': this.$route.params._id})
           .then(response => {
             this.form = response.award;
+            // 添加事业计划相关 1103 ztc fr
+            if(this.form.plan === null){
+              this.form.plan = '1';
+            }
+            // 添加事业计划相关 1103 ztc to
             //regon scc add 9/18 页面初始化理由 from
             if(response.staffDetail.length > 0){
               this.strreason = response.staffDetail[0].reason;
@@ -1836,7 +1844,12 @@
               if (groupAnt) {
                 group_short = groupAnt.companyen;
               }
-              this.form.rate = getDictionaryInfoGroup('PJ151').filter(item => item.value1 === group_short)[0].value2;
+              //决裁书取不到界限利润率 bug ztc 1108 fr
+              let rateList = getDictionaryInfoGroup('PJ151').filter(item => item.value1 === group_short)
+              if(rateList.length > 0){
+                this.form.rate = rateList[0].value2;
+              }
+              //决裁书取不到界限利润率 bug ztc 1108 to
             }
             // endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to
             //region scc add 21/8/20 查询部门下拉框数据源 from
@@ -1917,6 +1930,10 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      // 添加事业计划相关 1103 ztc fr
+      radiochange(val) {
+        this.form.careerplan = val;
+      },
       checkRequire() {
         if (!this.form.custochinese ||
           !this.form.placejapanese ||
@@ -2389,7 +2406,9 @@
         this.$store
           .dispatch('PFANS1025Store/update', this.baseInfo)
           .then(response => {
-            this.data = response;
+            // 添加事业计划相关 1103 ztc fr
+            this.data = response.data;
+            // 添加事业计划相关 1103 ztc to
             this.loading = false;
             if (this.$store.getters.historyUrl) {
               if(this.form.status != '0'){
@@ -2758,7 +2777,9 @@
                 this.$store
                   .dispatch('PFANS1025Store/update', this.baseInfo)
                   .then(response => {
-                    this.data = response;
+                    // 添加事业计划相关 1103 ztc fr
+                    this.data = response.data;
+                    // 添加事业计划相关 1103 ztc to
                     this.loading = false;
                     Message({
                       message: this.$t('normal.success_02'),
@@ -2775,6 +2796,8 @@
                       this.$store.commit('global/SET_OPERATEID', this.$route.params._id);
                       this.$refs.container.$refs.workflow.startWorkflow();
                       this.distriamt = true
+                    }else{
+                      this.paramsTitle();
                     }
                     //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
                   })

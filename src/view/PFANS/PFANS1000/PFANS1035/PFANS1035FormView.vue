@@ -314,6 +314,7 @@
                         style="width:20vw"
                         :disabled="!disable"
                         :code="code4"
+                        :fliCode="lfter"
                         :multiple="multiple"
                         :data="form.classificationtype"
                         @change="getclassificationtype"
@@ -708,6 +709,9 @@
         code5: 'PJ019',
         code6: 'PJ035',
         code7: 'PJ036',
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'CC',
+        //共通下拉框添加筛选 ztc 1103 to
         multiple: false,
         baloading: false,
         search: '',
@@ -1679,7 +1683,6 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          debugger
           if(Number(this.form.moneys) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),

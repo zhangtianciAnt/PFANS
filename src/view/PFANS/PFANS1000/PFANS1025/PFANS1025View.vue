@@ -189,6 +189,13 @@
             filter: false,
           },
           {
+            code: 'plantemp',
+            label: 'label.PFANS1002VIEW_PLANTYPE',
+            width: 125,
+            fix: false,
+            filter: false,
+          },
+          {
             code: 'status',
             label: 'label.approval_status',
             width: 120,
@@ -388,6 +395,15 @@
                                 }
                               }
                             }
+                            if (response[j].plan === '0') {
+                              if (this.$i18n) {
+                                response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
+                              }
+                            } else {
+                              if (this.$i18n) {
+                                response[j].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
+                              }
+                            }
                             datated.push({
                               contractnumber: response[j].contractnumber,
                               contracttype: response[j].contracttype,
@@ -399,6 +415,8 @@
                               deliverydate: response[j].deliverydate,
                               currencyposition: response[j].currencyposition,
                               claimamount: response[j].claimamount,
+                              plantemp:response[j].plantemp,
+                              user_id:response[j].createby,
                               status: response[j].status,
                               award_id: response[j].award_id,
                               owner: response[j].owner,
@@ -433,6 +451,8 @@
                             deliverydate: response[m].deliverydate,
                             currencyposition: response[m].currencyposition,
                             claimamount: response[m].claimamount,
+                            plantemp:response[m].plantemp,
+                            user_id:response[m].createby,
                             status: response[m].status,
                             award_id: response[m].award_id,
                             owner: response[m].owner,
@@ -711,6 +731,7 @@
           //upd-ws-9/3-禅道任务493
         }
         if (val === 'pubilc') {
+          let plantemp = false;
           this.selectedlist = this.$refs.roletable.selectedList;
           if (this.$refs.roletable.selectedList.length === 0) {
             Message({
@@ -737,6 +758,31 @@
                 return;
               }
             }
+
+            //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
+            let ny = 0;
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].plantemp === '内') {
+                //内
+                ny = ny + 1;
+              }
+            }
+            if (ny != checksum) {
+              if (ny != 0) {
+                Message({
+                  message: this.$t('label.PFANS1001FORMVIEW_CHECKCAREERPLAN'),
+                  type: 'info',
+                  duration: 2 * 1000,
+                });
+                return;
+              }
+            }
+            else
+            {
+              plantemp = true;
+            }
+            //add ccm 20211028 决裁精算时添加事业计划内外限制 to
+
             for (let i = 0; i < this.selectedlist.length; i++) {
               if (this.selectedlist[i].status != this.$t('label.PFANS5004VIEW_OVERTIME')) {
                 Message({
@@ -810,6 +856,7 @@
                       _aInfo: awardInfo,
                       _type: 'PJ001002',
                       disabled: true,
+                      _careerplan : plantemp,
                     },
                   });
                   this.loading = false;
@@ -821,6 +868,7 @@
                   _name: this.listjudgement,
                   _type: 'PJ001002',
                   disabled: true,
+                  _careerplan : plantemp,
                 },
               });
             }
@@ -907,6 +955,7 @@
           // }
           //del ccm 0813 决裁到暂借款，精算  check去掉
         }
+
       },
     },
   };

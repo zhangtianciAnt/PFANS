@@ -281,25 +281,30 @@
                       <span>{{$t('label.PFANS1004VIEW_INSIDE')}}</span>
                       <el-switch
                         :disabled="!disable"
+                        @change="radiochange"
                         v-model="form.plan"
                         active-value="1"
                         inactive-value="0">
                       </el-switch>
                       <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
-                      <!-- <el-select @change="changePlan" style="width: 20vw" v-model="form.plan">
-                         <el-option :label="$t('label.PFANS1004VIEW_INSIDE')" :value="$t('label.PFANS1004VIEW_INSIDE')"></el-option>
-                         <el-option :label="$t('label.PFANS1004VIEW_OUTER')" :value="$t('label.PFANS1004VIEW_OUTER')"></el-option>
-                       </el-select>-->
-
-                      <!--                      <dicselect :code="code4"-->
-                      <!--                                 :data="form.plan"-->
-                      <!--                                 :disabled="!disable"-->
-                      <!--                                 :multiple="multiple"-->
-                      <!--                                 @change="getplan"-->
-                      <!--                                 style="width:20vw">-->
-                      <!--                      </dicselect>-->
                     </el-form-item>
                   </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
+                                  v-show="showPlan">
+                      <dicselect
+                        :code="code3"
+                        :fliCode="lfter"
+                        :data="form.classificationtype"
+                        :disabled="!disabled"
+                        :multiple="multiple"
+                        @change="getClassificationtype"
+                        style="width:20vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')">
                       <dicselect :code="code2"
@@ -455,12 +460,11 @@
                   </el-table-column>
                 </el-table-column>
                 <el-table-column :label="$t('label.PFANS1025VIEW_WORKNUMBER')" align="center" prop="worknumber"
-                                 width="150">
+                                 width="130">
                   <template slot-scope="scope">
                     <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <el-input-number
                       :disabled="false"
-                      :max="1000000000"
                       :min="0"
                       :no="scope.row"
                       :precision="2"
@@ -476,7 +480,6 @@
                     <!--   add_qhr_20210721 修改权限 可以随意更改-->
                     <el-input-number
                       :disabled="false"
-                      :max="1000000000"
                       :min="0"
                       :no="scope.row"
                       :precision="2"
@@ -484,6 +487,22 @@
                       style="width: 100%"
                       v-model="scope.row.awardmoney"
                     ></el-input-number>
+<!--                    添加事业计划相关 1103 ztc fr-->
+                  </template>
+                </el-table-column>
+                <el-table-column :label="$t('label.PFANS1004VIEW_BUSINESSPLANBALANCE')" align="center" prop="businessplanbalance"
+                                 width="200">
+                  <template slot-scope="scope">
+                    <el-input-number
+                      :disabled="true"
+                      :min="0"
+                      :no="scope.row"
+                      :precision="2"
+                      controls-position="right"
+                      style="width: 100%"
+                      v-model="scope.row.businessplanbalance">
+                    </el-input-number>
+<!--                    添加事业计划相关 1103 ztc to-->
                   </template>
                 </el-table-column>
                 <el-table-column :label="$t('label.operation')" align="center" width="200">
@@ -560,6 +579,7 @@
     downLoadUrl,
     getUserInfo,
     uploadUrl,
+    getOrgInformation,
   } from '@/utils/customize';
   import PFANS1045Pop from '@/components/EasyPop/PFANS1045Pop';
   import monthlyrate from '../../../components/monthlyrate';
@@ -616,11 +636,16 @@
         budgetcodingcheck: '',
         activeName: 'first',
         disabled: true,
+        showPlan: true,
         error: '',
         errorfile: '',
         userlist: '',
         code1: 'HT014',
         code2: 'HT005',
+        code3: 'PJ078',
+        //共通下拉框添加筛选 ztc 1103 fr
+        lfter: 'WT',
+        //共通下拉框添加筛选 ztc 1103 to
         //add-ws-12/10-汇率字典
         // code3: 'PG019',
         month3: moment(new Date()).format('YYYY-MM'),
@@ -671,13 +696,17 @@
           telephone: '',
           commdepartment: '',
           commission: '',
-          plan: '',
           valuation: '',
           individual: '',
           plannumber: '',
           valuationnumber: '',
           remarks: '',
           maketype: '',
+          // 添加事业计划相关 1103 ztc fr
+          plan: '1',
+          classificationtype: '',
+          // businessplanbalance: 0,
+          // 添加事业计划相关 1103 ztc to
         },
         tableS: [],
         tableT: [{
@@ -688,7 +717,11 @@
           outsource: '',
           outcommunity: '',
           worknumber: '',
+          // 添加事业计划相关 1103 ztc fr
+          businessplanbalance: '',
           awardmoney: '',
+          rulingid: '',
+          // 添加事业计划相关 1103 ztc to
           rowindex: '',
         }, {
           awarddetail_id: '',
@@ -702,7 +735,11 @@
           outsource: '',
           outcommunity: '',
           worknumber: '',
+          // 添加事业计划相关 1103 ztc fr
+          businessplanbalance: '',
           awardmoney: '',
+          rulingid: '',
+          // 添加事业计划相关 1103 ztc to
           rowindex: '',
         }],
         rules: {
@@ -715,6 +752,11 @@
             required: true,
             validator: checkuploadfile,
             trigger: 'change',
+          }],
+          classificationtype: [{
+              required: true,
+              message: this.$t('normal.error_09') + this.$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE'),
+              trigger: 'change',
           }],
           // telephone: [{
           //   required: true,
@@ -739,20 +781,18 @@
           .then(response => {
             if (response.award != null) {
               this.form = response.award;
-              //add-ws-契约种类value1值处理
-              // if (this.form.contracttype !== null && this.form.contracttype !== '') {
-              //   let letContracttype = getDictionaryInfo(this.form.contracttype);
-              //   if (letContracttype != null) {
-              //     this.form.contracttype = letContracttype.value1;
-              //   }
-              // }
-              //add-ws-契约种类value1值处理
-              // let roleLC = getCurrentRole();
-              //  if(roleLC == '2' || roleLC == '3') { //GM Center
-              //   this.workflowCode = 'W0004'//新流程
-              // }else { //TL 正式员工
-              //   this.workflowCode = 'W0056'
-              // }
+              // 添加事业计划相关 1103 ztc fr
+              if (this.form.plan === '0') {
+                this.showPlan = true;
+                this.rules.classificationtype[0].required = true;
+              } else {
+                if(this.form.plan === null){
+                  this.form.plan = '1';
+                }
+                this.showPlan = false;
+                this.rules.classificationtype[0].required = false;
+              }
+              // 添加事业计划相关 1103 ztc to
               if (getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId)) {
                 this.budgetcodingcheck = getOrgInfo(getOrgInfoByUserId(this.$store.getters.userinfo.userid).groupId).encoding;
               }
@@ -798,7 +838,11 @@
                     outsource: '',
                     outcommunity: '',
                     worknumber: '',
+                    // 添加事业计划相关 1103 ztc fr
+                    businessplanbalance: '',
                     awardmoney: '',
+                    rulingid: '',
+                    // 添加事业计划相关 1103 ztc to
                     rowindex: '',
                   });
                   this.tableT = data.concat(response.awardDetail);
@@ -987,6 +1031,74 @@
       this.disable = this.$route.params.disabled;
     },
     methods: {
+      getClassificationtype(val) {
+        this.form.classificationtype = val;
+        // 添加事业计划相关 1103 ztc fr
+        this.getBussMoney();
+      },
+      getBussMoney() {
+        if(this.form.classificationtype != null){
+          for (const tbe of this.tableT) {
+            //const index = this.tableT.indexOf(tbe);
+            if(tbe.depart !== ''){
+              this.checkBusPlanM(tbe.depart).then((busVal) => {
+                tbe.businessplanbalance = busVal.data.surplsu;
+                tbe.rulingid = busVal.data.rulingid
+              })
+            }
+          }
+        }
+      },
+      checkBusPlanM(grid){
+        return new Promise((resolve, reject) => {
+          let getOrgId = '';
+          let orgId = getOrgInformation(grid);
+          if(orgId.data.effective){
+            getOrgId = grid;
+          }else{
+            getOrgId = orgId.parent.data._id;
+          }
+          let params = {
+            yearInfo: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+            getOrgIdInfo: getOrgId,
+            classInfo: this.form.classificationtype,
+          };
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              resolve(response);
+            });
+        })
+        // 添加事业计划相关 1103 ztc to
+      },
+      radiochange(val) {
+        this.form.careerplan = val;
+        this.form.classificationtype = null;
+        // 添加事业计划相关 1103 ztc fr
+        this.tableT.forEach(tab =>{
+          if(tab.budgetcode !== this.$t('label.PFANS1025FORMVIEW_CHECKERROR')){
+            tab.budgetcode = ''
+            tab.depart = ''
+            tab.member = ''
+            tab.community = ''
+            tab.outsource = ''
+            tab.depart = ''
+            tab.outcommunity = ''
+            tab.worknumber = ''
+            tab.businessplanbalance = ''
+            tab.awardmoney = ''
+            tab.rulingid = ''
+          }
+        })
+        // 添加事业计划相关 1103 ztc to
+        if (val === '1') {
+          this.showPlan = false;
+          this.rules.classificationtype[0].required = false;
+        } else {
+          this.showPlan = true;
+          this.rules.classificationtype[0].required = true;
+        }
+      },
 //add-ws-9/25-禅道567
       selectInit(row, index) {
         return row;
@@ -1142,9 +1254,6 @@
         row.worknumber = row.outsource;
         row.awardmoney = row.outsource * row.outcommunity;
       },
-      getplan(val) {
-        this.form.plan = val;
-      },
       getUserids(val) {
         this.userlist = val;
         this.form.user_id = val;
@@ -1190,6 +1299,9 @@
                 }
             }
         }
+        // 添加事业计划相关 1103 ztc fr
+        this.getBussMoney();
+        // 添加事业计划相关 1103 ztc to
         //ADD_FJL  修改人员预算编码
         // let group = getOrgInfo(orglist);
         // if (group) {
@@ -1231,14 +1343,13 @@
       },
       //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
       buttonClick2(val) {
-        this.form.maketype = '7',
-          this.baseInfo = {};
+        this.form.maketype = '7'
+        this.baseInfo = {};
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
         this.form.user_id = this.userlist;
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
           this.form.claimdatetime = moment(this.form.claimdatetimeStart).format('YYYY-MM-DD') + ' ~ ' + moment(this.form.claimdatetimeEnd).format('YYYY-MM-DD');
         }
-
         this.loading = true;
         this.baseInfo.award = JSON.parse(JSON.stringify(this.form));
         this.baseInfo.awardDetail = [];
@@ -1256,7 +1367,11 @@
               outsource: this.tableT[i].outsource,
               outcommunity: this.tableT[i].outcommunity,
               worknumber: this.tableT[i].worknumber,
+              // 添加事业计划相关 1103 ztc fr
+              businessplanbalance: this.tableT[i].businessplanbalance,
               awardmoney: this.tableT[i].awardmoney,
+              rulingid: this.tableT[i].rulingid,
+              // 添加事业计划相关 1103 ztc to
               rowindex: this.tableT[i].rowindex,
             });
           }
@@ -1265,7 +1380,7 @@
         this.$store
           .dispatch('PFANS1025Store/update', this.baseInfo)
           .then(response => {
-            this.data = response;
+            //this.data = response.data;
             this.loading = false;
             if (val !== 'update') {
               Message({
@@ -1298,6 +1413,10 @@
             outsource: '',
             outcommunity: '',
             worknumber: '',
+            // 添加事业计划相关 1103 ztc fr
+            rulingid: '',
+            businessplanbalance: '',
+            // 添加事业计划相关 1103 ztc to
             awardmoney: '',
           }];
         }
@@ -1313,7 +1432,11 @@
           outsource: '',
           outcommunity: '',
           worknumber: '',
+          // 添加事业计划相关 1103 ztc fr
+          businessplanbalance: '',
           awardmoney: '',
+          rulingid: '',
+          // 添加事业计划相关 1103 ztc to
           rowindex: '',
         });
       },
@@ -1361,7 +1484,7 @@
       changePlan(val) {
         this.form.plan = val;
       },
-      checkparams() {
+      checkparams2() {
         let id = this.$route.params._checkid;
         let disable = this.$route.params._checkdisable;
         this.$router.push({
@@ -1416,8 +1539,8 @@
       },
       //add-ws-4/28-精算中，点击决裁，跳转画面
       buttonClick(val) {
-        this.form.maketype = '7',
-          this.baseInfo = {};
+        this.form.maketype = '7';
+        this.baseInfo = {};
         this.baseInfo.groupN = this.$store.getters.orgGroupList;
         this.form.user_id = this.userlist;
         if (this.form.claimdatetimeStart !== '' && this.form.claimdatetimeEnd !== '') {
@@ -1445,7 +1568,8 @@
             this.paramsTitle();
           }
           //add-ws-4/28-精算中，点击决裁，跳转画面
-        } else if (val === 'generate') {
+        }
+        else if (val === 'generate') {
           this.baseInfo.awardDetail = [];
           let sumoutsource = 0;
           let sumworknumber = 0;
@@ -1467,7 +1591,11 @@
                 outsource: this.tableT[i].outsource,
                 outcommunity: this.tableT[i].outcommunity,
                 worknumber: this.tableT[i].worknumber,
+                // 添加事业计划相关 1103 ztc fr
+                businessplanbalance: this.tableT[i].businessplanbalance,
                 awardmoney: this.tableT[i].awardmoney,
+                rulingid: this.tableT[i].rulingid,
+                // 添加事业计划相关 1103 ztc to
                 rowindex: this.tableT[i].rowindex,
               });
             }
@@ -1498,7 +1626,8 @@
               this.loading = false;
             });
           //add-ws-9/25-禅道567
-        } else if (val === 'actuarial') {
+        }
+        else if (val === 'actuarial') {
           if (this.multipleSelection.length === 0) {
             Message({
               message: this.$t('normal.info_01'),
@@ -1566,9 +1695,11 @@
               disabled: true,
               backcheck: true,
               _paramsid: this.params_id,
+              _careerplan : this.form.plan != '0'?false:true,
             },
           });
-        } else {
+        }
+        else {
           //add-ws-9/25-禅道567
           this.$refs['reff'].validate(valid => {
               if (valid) {
@@ -1589,7 +1720,11 @@
                       outsource: this.tableT[i].outsource,
                       outcommunity: this.tableT[i].outcommunity,
                       worknumber: this.tableT[i].worknumber,
+                      // 添加事业计划相关 1103 ztc fr
+                      businessplanbalance: this.tableT[i].businessplanbalance,
                       awardmoney: this.tableT[i].awardmoney,
+                      rulingid: this.tableT[i].rulingid,
+                      // 添加事业计划相关 1103 ztc to
                       rowindex: this.tableT[i].rowindex,
                     });
                   }
@@ -1631,10 +1766,12 @@
                   this.$store
                     .dispatch('PFANS1025Store/update', this.baseInfo)
                     .then(response => {
-                      this.data = response;
+                      // 添加事业计划相关 1103 ztc fr
+                      //this.data = response;
                       this.loading = false;
                       Message({
-                        message: this.$t('normal.success_02'),
+                        message: this.$t('normal.success_02') + response.message,
+                        // 添加事业计划相关 1103 ztc to
                         type: 'success',
                         duration: 5 * 1000,
                       });
