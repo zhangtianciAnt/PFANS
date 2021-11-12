@@ -5714,15 +5714,21 @@ export default {
               }
 
               //add ccm 20211028 精算金额不能大于决裁金额  fr
-              if (Number(this.sumAmmounttemp || 0) < Number(Number(this.form.foreigncurrency || 0) + Number(this.form.rmbexpenditure || 0)))
-              {
-                error = error + 1;
-                this.activeName = 'first';
-                Message({
-                  message: this.$t('label.PFANS1012FORMVIEW_COMPAREAMMOUNT'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
+              let flagType = true;
+              if(this.form.type === 'PJ001001'){
+                flagType = false;
+              }
+              if(flagType){
+                if (Number(this.sumAmmounttemp || 0) < Number(Number(this.form.foreigncurrency || 0) + Number(this.form.rmbexpenditure || 0)))
+                {
+                  error = error + 1;
+                  this.activeName = 'first';
+                  Message({
+                    message: this.$t('label.PFANS1012FORMVIEW_COMPAREAMMOUNT'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                }
               }
               //add ccm 20211028 精算金额不能大于决裁金额  to
 
