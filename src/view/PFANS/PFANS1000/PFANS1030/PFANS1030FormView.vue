@@ -1852,7 +1852,12 @@
               if (groupAnt) {
                 group_short = groupAnt.companyen;
               }
-              this.form.rate = getDictionaryInfoGroup('PJ151').filter(item => item.value1 === group_short)[0].value2;
+              //决裁书取不到界限利润率 bug ztc 1108 fr
+              let rateList = getDictionaryInfoGroup('PJ151').filter(item => item.value1 === group_short)
+              if(rateList.length > 0){
+                this.form.rate = rateList[0].value2;
+              }
+              //决裁书取不到界限利润率 bug ztc 1108 to
             }
             // endregion ztc up 10/12 部門計画限界利益率 修改取自字典 to
             //region scc add 21/8/20 查询部门下拉框数据源 from
@@ -2799,6 +2804,8 @@
                       this.$store.commit('global/SET_OPERATEID', this.$route.params._id);
                       this.$refs.container.$refs.workflow.startWorkflow();
                       this.distriamt = true
+                    }else{
+                      this.paramsTitle();
                     }
                     //add-ws-4/17-实施结果为空的情况下发起审批，提示填入必须项后程序没有终止修改
                   })

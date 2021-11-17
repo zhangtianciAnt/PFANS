@@ -79,7 +79,6 @@
       }
       this.checkedList = this.orglistids;
 
-
       if (this.orgtype === '1') {
         this.defaultProps.disabled = function (data, node) {
           if (node.data.type === '1') {
@@ -100,6 +99,14 @@
       }else if (this.orgtype === '3'){
         this.defaultProps.disabled = function (data, node) {
           if (node.data.type === '3') {
+            return false
+          } else {
+            return true
+          }
+        }
+      }else if(this.orgtype === 'eff'){//有效部门
+        this.defaultProps.disabled = function (data, node) {
+          if (node.data.effective) {
             return false
           } else {
             return true
@@ -200,12 +207,19 @@
       handleClickChange (val) {
         this.currentRow = val
         if (this.selectType === 'Single') {
-          if (
-            this.orgtype != "4" && val.type !== this.orgtype
-          ) {
-            this.conConfirm = true
-          } else {
-            this.conConfirm = false
+          debugger
+          if(this.orgtype != 'eff'){
+            if (this.orgtype != "4" && val.type !== this.orgtype) {
+              this.conConfirm = true
+            } else {
+              this.conConfirm = false
+            }
+          }else{
+            if(val.effective){
+              this.conConfirm = false
+            }else{
+              this.conConfirm = true
+            }
           }
         } else {
           this.conConfirm = false

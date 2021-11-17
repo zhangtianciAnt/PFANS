@@ -123,13 +123,13 @@
                 </template>
               </el-table-column>
               <!--              社内计划 人件费-->
-<!--              <el-table-column-->
-<!--                prop="summerplanpc"-->
-<!--                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"-->
-<!--                width="180"-->
-<!--                v-if="this.$route.params.type === 0 ? true : false"-->
-<!--                align="center">-->
-<!--              </el-table-column>-->
+              <el-table-column
+                prop="summerplanpc"
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
+                v-show="false"
+                align="center">
+              </el-table-column>
               <el-table-column
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
@@ -491,9 +491,9 @@
                 titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
                 form: {
                     //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
-                  // years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
+                  years:parseInt(moment(new Date()).format("MM")) >=  4 ? moment(new Date()).format("YYYY") : parseInt(moment(new Date()).format("YYYY"))+1+ "",
                   //,"YYYY-MM-DD").valueOf() >= moment(moment(new Date(),"YYYY") + "04-01").valueOf() ? parseInt(moment(new Date(),"YYYY")) +1+"" : moment(new Date(),"YYYY")+"",
-                  years:'2021',
+                  // years:'2021',
                   centerid:'',
                 },
               rules: {
@@ -512,12 +512,12 @@
         computed: {
 
             getThisYearLevel: function () {
-                // if (this.form.years) {
+                if (this.form.years) {
                      return parseInt(this.form.years)-1 + "";
-                // } else {
-                //     this.form.years = moment().subtract(3, 'M').format('YYYY');
-                //     return parseInt(this.form.years)-1 + "";
-                // }
+                } else {
+                    this.form.years = moment().subtract(3, 'M').format('YYYY');
+                    return parseInt(this.form.years)-1 + "";
+                }
             },
             getNextYearLevel: function () {
                 return (parseInt(this.form.years)) + "";
@@ -755,7 +755,7 @@
             this.show2=true;
             let params={
               groupid : this.form.centerid,
-              years : '2021',
+              years : this.form.years,
             };
             this.tableData = [];
             this.$store
