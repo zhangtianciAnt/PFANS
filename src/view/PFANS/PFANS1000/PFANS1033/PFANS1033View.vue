@@ -290,13 +290,22 @@
                         });
                         return;
                     }
+                  //region scc add 一览获取数据状态到详细 from
+                  let status = '';
+                  if(this.rows.status === '未开始'){
+                    status = '0';
+                  }else if(this.rows.status === '驳回'){
+                    status = '3';
+                  }
+                  //endregion scc add 一览获取数据状态到详细 to
                     this.$router.push({
                         name: 'PFANS1033FormView',
                         params: {
                             _id: this.contractnumber,
                             contractnumbercount: this.contractnumbercount,
                             state: this.state,
-                            disabled: true
+                            disabled: true,
+                            _status: status,
                         }
                     })
                 }

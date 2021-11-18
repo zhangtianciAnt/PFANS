@@ -1034,6 +1034,17 @@
               this.tableclaimtype = contractnumbercount;
               this.tableclaimtypeold = contractnumbercount;
             }
+            //region scc add 解决番号废弃，撤销后，页面按钮不可用 from
+            if(this.$route.params._status){
+              if(this.$route.params._status === '0' || this.$route.params._status === '3'){
+                this.buttonList.forEach(item =>{
+                  if(item.key === 'application' || item.key === 'save' || item.key === 'makeinto' || item.key === 'cancellation'){
+                    item.disabled = false;
+                  }
+                })
+              }
+            }
+            //endregion scc add 解决番号废弃，撤销后，页面按钮不可用 from
             this.loading = false;
           })
           .catch(error => {
@@ -1111,6 +1122,9 @@
       end() {
         this.tablefourth[0].status = '0';
         // this.buttonClick("cancellation");
+        //region scc add 撤销时，更新数据 from
+        this.buttonClick("save");
+        //endregion scc add 撤销时，更新数据 to
       },
       //add    ml   20210716  审批状态   to
       getProjectList() {
@@ -2101,6 +2115,24 @@
       },
       //add ccm 0722
     },
+    //region scc add 番号废弃，撤销，查看流程后按钮状态 from
+    watch:{
+      buttonList:{
+        handler(){
+          if(this.$route.params._status){
+            if(this.$route.params._status === '0' || this.$route.params._status === '3'){
+              this.buttonList.forEach(item =>{
+                if(item.key === 'application' || item.key === 'save' || item.key === 'makeinto' || item.key === 'cancellation'){
+                  item.disabled = false;
+                }
+              })
+            }
+          }
+        },
+        deep: true,
+      }
+    },
+    //endregion scc add 番号废弃，撤销，查看流程后按钮状态 to
   };
 </script>
 
