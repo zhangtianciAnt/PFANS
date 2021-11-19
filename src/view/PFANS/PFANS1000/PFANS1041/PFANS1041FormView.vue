@@ -1317,7 +1317,7 @@
           .then(response => {
             this.tableData.push({
               amountwpersonnel: '0',
-              amountpersonnel: response['Moneyavg'][0] != undefined ? response['Moneyavg'][0]  : '0',
+              amountpersonnel: response['Moneyavg'] != undefined ? response['Moneyavg'][0]  : '0',
               personnel4:  response['inCompany'] != undefined ? response['inCompany'][0]  : '0',
               personnel5: response['inCompany'] != undefined ? response['inCompany'][1]  : '0',
               personnel6: response['inCompany'] != undefined ? response['inCompany'][2]  : '0',
@@ -1770,6 +1770,7 @@
       groupChange(val) {
         let orgInfo = getOrgInfo(val);
         this.refform.center_id = val;
+        this.tableData = [];
         // this.refform.center_id = orgInfo._id;
         this.groupdata(val);
       },
