@@ -307,6 +307,7 @@ import EasyNormalContainer from "@/components/EasyNormalContainer";
 import dicselect from "../../../components/dicselect";
 import {Message} from 'element-ui';
 import {getCurrentRoleNew, getDepartmentById, getOrgInfoByUserId, getUserInfo,getDictionaryInfo, getOrgInfo} from "../../../../utils/customize";
+import moment from "moment";
 
 export default {
   name: 'PFANS1038OutFormView',
@@ -674,7 +675,7 @@ export default {
       titles: "label.PFANS1038VIEW_OUTOFHOME",
       grp_options: [],
       form: {
-        years:'2021',
+        years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
         centerid:'',
       },
       tableDataBp: [

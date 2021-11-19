@@ -1034,8 +1034,8 @@
         this.loading = true;
         this.disabledT = false;
         //todo 年度
-        // this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
-        this.refform.year = '2021';
+        this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        // this.refform.year = '2021';
         this.refform.group_id = this.$route.params.group_id;
         // this.refform.center_id = this.$route.params.center_id;
         this.$nextTick(() => {
@@ -1188,8 +1188,8 @@
       getlisttheme() {
         this.loading = true;
         let parameters = {
-          // year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
-          year :'2021',
+          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          // year :'2021',
           contract: 0,
         };
         this.$store
