@@ -127,7 +127,7 @@
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
-                v-show="false"
+                v-if="false"
                 align="center">
               </el-table-column>
               <el-table-column
@@ -249,7 +249,7 @@
               <el-table-column
                 prop="nextyear"
                 :label="getNextYearLevel"
-                width="100"
+                width="180"
                 align="center"
                 v-if="this.$route.params.type === 0 ? true : false">
               >

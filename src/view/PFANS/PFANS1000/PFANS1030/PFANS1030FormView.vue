@@ -1258,7 +1258,7 @@
         title: 'title.PFANS1030VIEW',
         multiple: false,
         orglist: '',
-        workflowCode: 'W0057',
+        workflowCode: '',
         baseInfo: {},
         arrAttf: [],
         groupN: '',
@@ -1638,6 +1638,9 @@
                   }
                 }
               })
+            }
+            else{
+              this.workflowCode = 'W0057'
             }
             //endregion scc add 多部门审批 to
             //add-ws-汇率修改
@@ -2790,7 +2793,7 @@
                     // 添加事业计划相关 1103 ztc to
                     this.loading = false;
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: this.$t('normal.success_02') + response.message,
                       type: 'success',
                       duration: 5 * 1000,
                     });
