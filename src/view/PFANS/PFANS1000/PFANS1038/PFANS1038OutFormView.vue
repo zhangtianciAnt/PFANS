@@ -674,7 +674,7 @@ export default {
       titles: "label.PFANS1038VIEW_OUTOFHOME",
       grp_options: [],
       form: {
-        years:'2021',
+        years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
         centerid:'',
       },
       tableDataBp: [
