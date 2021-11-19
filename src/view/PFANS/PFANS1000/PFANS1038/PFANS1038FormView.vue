@@ -776,12 +776,8 @@
                       unitprice:''
                     });
                   }
-                  this.buttonList[0].disabled = false;
                 }
-                else
-                {
-                  this.buttonList[0].disabled = true;
-                }
+                this.buttonList[0].disabled = false;
                 })
               .catch(error => {
                 this.$message.error({
