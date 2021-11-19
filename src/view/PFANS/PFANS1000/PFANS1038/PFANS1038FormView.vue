@@ -491,7 +491,7 @@
                 titles: this.$route.params.type === 0 ? "label.PFANS1038VIEW_MEMBERSHIP" : "label.PFANS1038VIEW_OUTOFHOME",
                 form: {
                     //years: parseInt(moment(new Date()).format("YYYY"))+1+ "",
-                  years:parseInt(moment(new Date()).format("MM")) >=  4 ? moment(new Date()).format("YYYY") : parseInt(moment(new Date()).format("YYYY"))+1+ "",
+                  years:parseInt(moment(new Date()).format("MM")) >=  4 ? parseInt(moment(new Date()).format("YYYY"))+1+ "" : moment(new Date()).format("YYYY"),
                   //,"YYYY-MM-DD").valueOf() >= moment(moment(new Date(),"YYYY") + "04-01").valueOf() ? parseInt(moment(new Date(),"YYYY")) +1+"" : moment(new Date(),"YYYY")+"",
                   // years:'2021',
                   centerid:'',
@@ -783,6 +783,13 @@
                   this.buttonList[0].disabled = true;
                 }
                 })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+              })
           },
             getExpatriatesinfor() {
               let id = this.form.centerid;
@@ -1154,7 +1161,7 @@
               this.tableDataRankPrice =[];
               this.loading = true;
               let parameter = {
-                year : '2021',
+                year : this.form.years,
                 groupid : this.form.centerid,
               };
               this.$store
