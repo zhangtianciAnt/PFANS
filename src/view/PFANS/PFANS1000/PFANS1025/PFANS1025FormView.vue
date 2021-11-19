@@ -1384,7 +1384,7 @@
             this.loading = false;
             if (val !== 'update') {
               Message({
-                message: this.$t('normal.success_02'),
+                message: this.$t('normal.success_02') + response.message,
                 type: 'success',
                 duration: 5 * 1000,
               });
