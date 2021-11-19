@@ -2790,7 +2790,7 @@
                     // 添加事业计划相关 1103 ztc to
                     this.loading = false;
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: this.$t('normal.success_02') + response.message,
                       type: 'success',
                       duration: 5 * 1000,
                     });

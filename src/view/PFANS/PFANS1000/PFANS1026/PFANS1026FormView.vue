@@ -2965,7 +2965,6 @@
           this.tableclaimtypeAnt[cla].contractnumber = this.letcontractnumber;
           this.form.tableclaimtype.push(this.tableclaimtypeAnt[cla]);
         }
-
       },
       deleteRowclaimtype1(index, rows) {
         let datainfo = {};
