@@ -1074,26 +1074,26 @@
       radiochange(val) {
         this.form.careerplan = val;
         this.form.classificationtype = null;
-        // 添加事业计划相关 1103 ztc fr
-        this.tableT.forEach(tab =>{
-          if(tab.budgetcode !== this.$t('label.PFANS1025FORMVIEW_CHECKERROR')){
-            tab.budgetcode = ''
-            tab.depart = ''
-            tab.member = ''
-            tab.community = ''
-            tab.outsource = ''
-            tab.depart = ''
-            tab.outcommunity = ''
-            tab.worknumber = ''
-            tab.businessplanbalance = ''
-            tab.awardmoney = ''
-            tab.rulingid = ''
-          }
-        })
-        // 添加事业计划相关 1103 ztc to
         if (val === '1') {
           this.showPlan = false;
           this.rules.classificationtype[0].required = false;
+          this.tableT.forEach(tab =>{
+            // 添加事业计划相关 1119 ztc fr
+            if(tab.budgetcode !== this.$t('label.PFANS1025FORMVIEW_CHECKERROR')){
+              tab.budgetcode = ''
+              tab.depart = ''
+              tab.member = ''
+              tab.community = ''
+              tab.outsource = ''
+              tab.depart = ''
+              tab.outcommunity = ''
+              tab.worknumber = ''
+              tab.businessplanbalance = ''
+              tab.awardmoney = ''
+              tab.rulingid = ''
+            }
+          })
+          // 添加事业计划相关 1119 ztc to
         } else {
           this.showPlan = true;
           this.rules.classificationtype[0].required = true;
