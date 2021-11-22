@@ -627,7 +627,11 @@
                             vote.numbers = response[i].invoiceno;
                             vote.value = response[i].publicexpenseid;
                             vote.label = response[i].invoiceno;
-                            vote.money = response[i].moneys;
+                            if(response[i].currency === '' && response[i].tormb === '0.00'){
+                              vote.money = response[i].rmbexpenditure;
+                            }else{
+                              vote.money = response[i].tormb;
+                            }
                             this.options.push(vote);
                             this.totaldata.push(vote);
                             this.getList();

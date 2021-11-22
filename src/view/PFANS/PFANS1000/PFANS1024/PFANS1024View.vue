@@ -269,7 +269,9 @@
           });
       },
       rowClick(row) {
-        this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012FFFView');
+        //region scc del 错误的workflowUrl,番号废弃异常 from
+        // this.$store.commit('global/SET_WORKFLOWURL', '/PFANS1012FFFView');
+        //endregion scc del 错误的workflowUrl,番号废弃异常 to
         //add-ws-7/22-禅道341任务
         if (row.checkindivdual != '' && row.checkindivdual != null) {
           this.checkindivdual = row.checkindivdual;
@@ -302,6 +304,14 @@
             });
             return;
           }
+          //region scc add 一览获取数据状态到详细 from
+          let status = '';
+          if(this.rows.status === '未开始'){
+            status = '0';
+          }else if(this.rows.status === '驳回'){
+            status = '3';
+          }
+          //endregion scc add 一览获取数据状态到详细 to
           this.$router.push({
             name: 'PFANS1024FormView',
             params: {
@@ -310,6 +320,7 @@
               contractnumbercount: this.contractnumbercount,
               state: this.state,
               disabled: true,
+              _status: status,
             },
           });
         }

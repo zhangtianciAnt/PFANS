@@ -1191,8 +1191,8 @@
       } else {
         this.disabledT = false;
         //todo 年度
-        // this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
-        this.refform.year = '2021';
+        this.refform.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        // this.refform.year = '2021';
         this.refform.group_id = this.$route.params.group_id;
         // this.refform.center_id = this.$route.params.center_id;
         this.$nextTick(() => {
@@ -1283,7 +1283,7 @@
           .then(response => {
             this.tableData.push({
               amountwpersonnel: '0',
-              amountpersonnel: response['Moneyavg'][0] != undefined ? response['Moneyavg'][0]  : '0',
+              amountpersonnel: response['Moneyavg'] != undefined ? response['Moneyavg'][0]  : '0',
               personnel4:  response['inCompany'] != undefined ? response['inCompany'][0]  : '0',
               personnel5: response['inCompany'] != undefined ? response['inCompany'][1]  : '0',
               personnel6: response['inCompany'] != undefined ? response['inCompany'][2]  : '0',
@@ -1629,8 +1629,8 @@
         this.loading = true;
         let parameters = {
           //todo 年度
-          // year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
-          year:'2021',
+          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+          // year:'2021',
           contract: 1,
         };
         this.$store
@@ -1736,6 +1736,7 @@
       groupChange(val) {
         let orgInfo = getOrgInfo(val);
         this.refform.center_id = val;
+        this.tableData = [];
         // this.refform.center_id = orgInfo._id;
         this.groupdata(val);
       },
