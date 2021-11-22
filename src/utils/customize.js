@@ -82,6 +82,9 @@ export function getDepartmentById(id) {
     //   departmentId(org.orgs, arr);
     // }
       let orgall = store.getters.orgallList[0];
+      //region scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 from
+      orgall = orgall.filter(item => item.status === '0');
+      //endregion scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 to
       for (let org of orgall) {
         if (arr.includes(org._id)) {
           departmentName.push(org.title);
@@ -261,6 +264,9 @@ export function getOrgInfo(orgid, data) {
   //add gbb 20210421 获取所有组织信息 start
   //let list = store.getters.orgList;
   let list = store.getters.orgallList[0];
+  //region scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 from
+  list = list.filter(item => item.status === '0');
+  //endregion scc add 21/11/19 新年度22，获取所有树，导致事业计划，人员计划部门组件数据重复 to
   //add gbb 20210421 获取所有组织信息 end
   if (data) {
     list = data;

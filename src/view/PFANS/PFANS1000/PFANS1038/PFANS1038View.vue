@@ -134,7 +134,10 @@
                                 if(res.centerid)
                                 {
                                   let name = getOrgInfo(res.centerid)
-                                  res.department = name.companyname;
+                                  if (name)
+                                  {
+                                    res.department = name.companyname;
+                                  }
                                 }
                                 res.createon = moment(res.createon).format("YYYY-MM-DD");
                                 if (res.type === 0) {
