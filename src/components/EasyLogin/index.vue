@@ -145,7 +145,7 @@
             { required: true, trigger: "change", validator: validatePassword }
           ]
         },
-        versions: [{label: '2020年度', value: 20}, {label: '2021年度', value: 21}],
+        versions: [{label: '2020年度', value: 20}, {label: '2021年度', value: 21}, {label: '2022年度', value: 22}],
         passwordType: "password",
         loading: false
       };
@@ -202,6 +202,8 @@
           window.location.href = 'http://10.194.144.208:5599/'
         }else if(this.loginForm.version == '21'){
           window.location.href = 'http://10.194.144.208:80/'
+        }else if(this.loginForm.version == '22'){
+          window.location.href = 'http://10.194.144.208:2022/'
         }
       }
     },
