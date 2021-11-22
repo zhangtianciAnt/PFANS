@@ -2615,9 +2615,9 @@
         this.loading = true;
         this.buttonList[0].disabled = true;
         this.buttonList[1].disabled = true;
-        //todo niandu
-        this.form.year = '2021';
-        // this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
+        //todo 年度
+        // this.form.year = '2021';
+        this.form.year = parseInt(moment(new Date()).format('MM')) >= 4 ? parseInt(moment(new Date()).format('YYYY')) + 1 + '' : moment(new Date()).format('YYYY');
         // let rst = getOrgInfoByUserId(this.$store.getters.userinfo.userid);
         // this.form.center_id = rst.centerId || '';
         // this.form.group_id = rst.groupId || '';
@@ -4707,7 +4707,7 @@
           let number = 0;
           if (typenumberhead && typenumber)
           {
-            for (let i = 5;i<=16;i++)
+            for (let i = 5;i<=17;i++)
             {
               if (typenumberhead['value'+ i] === this.companyen)
               {

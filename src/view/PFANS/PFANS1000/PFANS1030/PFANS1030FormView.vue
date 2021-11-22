@@ -1263,6 +1263,14 @@
         arrAttf: [],
         groupN: '',
         form: {
+          //add ccm 20211026 受托决裁添加外注信息 fr
+          inhours:'',
+          inprice:'',
+          inamount:'',
+          outhours:'',
+          outprice:'',
+          outamount:'',
+          //add ccm 20211026 受托决裁添加外注信息 to
           uploadfile: '',
           membercost: '',
           investorspeopor: '',
@@ -2782,7 +2790,7 @@
                     // 添加事业计划相关 1103 ztc to
                     this.loading = false;
                     Message({
-                      message: this.$t('normal.success_02'),
+                      message: this.$t('normal.success_02') + response.message,
                       type: 'success',
                       duration: 5 * 1000,
                     });
