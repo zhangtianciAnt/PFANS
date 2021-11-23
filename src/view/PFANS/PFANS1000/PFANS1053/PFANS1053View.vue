@@ -53,6 +53,7 @@
                   filterable
                   allow-create
                   default-first-option
+                  @change="selectChange(scope.row)"
                   :placeholder="$t('label.PFANS1053THEMENAME')">
                   <el-option
                     v-for="item in themeOptions"
@@ -972,90 +973,7 @@ export default {
       // 见通填写截止日
       deadlineDate: '',
       grpOptions: [],
-      tableData: [
-        // {
-        //   themeinforId: '1',
-        //   themename: 'Test Theme1',
-        //   toolsorgs: '天津松下汽车电子开发有限公司',
-        //   aprilPlan: '1000',
-        //   aprilActual: '2000',
-        //   aprilForecast: '3000',
-        //   mayPlan: '1000',
-        //   mayActual: '2000',
-        //   mayForecast: '3000',
-        //   junePlan: '1000',
-        //   juneActual: '2000',
-        //   juneForecast: '3000',
-        //   julyPlan: '1000',
-        //   julyActual: '2000',
-        //   julyForecast: '3000',
-        //   augustPlan: '1000',
-        //   augustActual: '2000',
-        //   augustForecast: '3000',
-        //   septemberPlan: '1000',
-        //   septemberActual: '2000',
-        //   septemberForecast: '3000',
-        //   octoberPlan: '1000',
-        //   octoberActual: '2000',
-        //   octoberForecast: '3000',
-        //   novemberPlan: '1000',
-        //   novemberActual: '2000',
-        //   novemberForecast: '3000',
-        //   decemberPlan: '1000',
-        //   decemberActual: '2000',
-        //   decemberForecast: '3000',
-        //   januaryPlan: '1000',
-        //   januaryActual: '2000',
-        //   januaryForecast: '3000',
-        //   februaryPlan: '1000',
-        //   februaryActual: '2000',
-        //   februaryForecast: '3000',
-        //   marchPlan: '1000',
-        //   marchActual: '2000',
-        //   marchForecast: '3000',
-        // },
-        // {
-        //   themeinforId: '2',
-        //   themename: 'Test Theme2',
-        //   toolsorgs: '天津松下汽车电子开发有限公司',
-        //   aprilPlan: '1000',
-        //   aprilActual: '2000',
-        //   aprilForecast: '3000',
-        //   mayPlan: '1000',
-        //   mayActual: '2000',
-        //   mayForecast: '3000',
-        //   junePlan: '1000',
-        //   juneActual: '2000',
-        //   juneForecast: '3000',
-        //   julyPlan: '1000',
-        //   julyActual: '2000',
-        //   julyForecast: '3000',
-        //   augustPlan: '1000',
-        //   augustActual: '2000',
-        //   augustForecast: '3000',
-        //   septemberPlan: '1000',
-        //   septemberActual: '2000',
-        //   septemberForecast: '3000',
-        //   octoberPlan: '1000',
-        //   octoberActual: '2000',
-        //   octoberForecast: '3000',
-        //   novemberPlan: '1000',
-        //   novemberActual: '2000',
-        //   novemberForecast: '3000',
-        //   decemberPlan: '1000',
-        //   decemberActual: '2000',
-        //   decemberForecast: '3000',
-        //   januaryPlan: '1000',
-        //   januaryActual: '2000',
-        //   januaryForecast: '3000',
-        //   februaryPlan: '1000',
-        //   februaryActual: '2000',
-        //   februaryForecast: '3000',
-        //   marchPlan: '1000',
-        //   marchActual: '2000',
-        //   marchForecast: '3000',
-        // },
-      ],
+      tableData: [],
     };
   },
   methods: {
@@ -1073,6 +991,7 @@ export default {
       this.$store.dispatch('PFANS1053Store/getInfo', this.formData)
       .then(response => {
         this.tableData = response.length === 0 ? [Object.assign({}, this.newLine)] : response;
+        console.log('this.tableData', this.tableData)
         this.loading = false;
       })
       .catch(error => {
@@ -1234,13 +1153,12 @@ export default {
     // 保存按钮点击
     buttonClick(val) {
       if (val === 'save') {
-        // 全部数据
-        console.log('this.tableData', this.tableData);
-        // 新建数据
-        console.log('this.newData', this.tableData.filter(item => item.newLine));
         const data = {
-          themeInforList: this.tableData.filter(item => item.newLine),
-          revenueForecastList: this.tableData
+          revenueForecastList: this.tableData,
+          revenueForecast: {
+            saveDate: this.formData.saveDate,
+            deptId: this.formData.deptId
+          }
         }
         this.loading = true
         this.$store.dispatch('PFANS1053Store/saveInfo', data)
@@ -1263,6 +1181,7 @@ export default {
       this.$store.dispatch('PFANS1053Store/getThemeOutDepth', this.formData)
       .then(response => {
         this.themeOptions = response;
+        console.log(this.themeOptions)
       })
       .catch(error => {
         this.$message.error({
@@ -1271,6 +1190,17 @@ export default {
           duration: 5 * 1000,
         });
       });
+    },
+    // Theme名选择框变更
+    selectChange(row) {
+      // 判断是否为新建
+      row.themeName = row.themeinforId
+      this.themeOptions.every(item => {
+        if (item.themeinforId === row.themeinforId) {
+          row.themeName = item.themeName
+          return false
+        }
+      })
     }
   },
   created() {
