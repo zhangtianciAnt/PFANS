@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList"
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList" @reget="getdata"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
     </EasyNormalTable>
     <el-dialog width="40%"
@@ -151,44 +151,47 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1048Store/get')
-        .then(response => {
-          for (let j = 0; j < response.length; j++)
-          {
-            if (response[j].group_id)
-            {
-              let orgInfo_cnt = getOrgInfo(response[j].group_id);
-              if (orgInfo_cnt) {
-                response[j].groupid = orgInfo_cnt.companyname;
-              }
-            }
-          }
-          let role3 = getCurrentRole3();
-          if (role3 === '0') //财务部长
-          {
-            this.buttonList[3].disabled = false;
-            this.buttonList[4].disabled = false;
-          }
-          else
-          {
-            this.buttonList[3].disabled = true;
-            this.buttonList[4].disabled = true;
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+     this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1048Store/get')
+          .then(response => {
+            for (let j = 0; j < response.length; j++)
+            {
+              if (response[j].group_id)
+              {
+                let orgInfo_cnt = getOrgInfo(response[j].group_id);
+                if (orgInfo_cnt) {
+                  response[j].groupid = orgInfo_cnt.companyname;
+                }
+              }
+            }
+            let role3 = getCurrentRole3();
+            if (role3 === '0') //财务部长
+            {
+              this.buttonList[3].disabled = false;
+              this.buttonList[4].disabled = false;
+            }
+            else
+            {
+              this.buttonList[3].disabled = true;
+              this.buttonList[4].disabled = true;
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       UploadUrl: function() {
         return process.env.BASE_API + '/projectincome/importUser?yearmonth=' + this.yearmonth;
       },

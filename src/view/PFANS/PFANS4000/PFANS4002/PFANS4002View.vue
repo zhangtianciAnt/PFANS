@@ -21,7 +21,7 @@
       </el-aside>
       <el-main style="padding: 0;width: 100%">
         <EasyNormalTable
-          :title="title"
+          :title="title" @reget="getInitData"
           :columns="columns"
           :data="tableList"
           :buttonList="buttonList"
@@ -527,7 +527,7 @@
               this.departmentData = {};
               this.buildDepartmentData(this.data);
             }
-            this.loading = false;
+            // this.loading = false;
           })
           .catch(error => {
             this.$message.error({

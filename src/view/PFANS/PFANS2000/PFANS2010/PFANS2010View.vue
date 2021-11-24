@@ -6,7 +6,7 @@
       :data="data"
       :title="title"
       :rowid="row_id"
-      @rowClick="rowClick"
+      @rowClick="rowClick" @reget="getlist"
       @buttonClick="buttonClick"
       v-loading="loading">
       <el-date-picker

@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" @reget="getCasgiftApply"
                    :showSelection="true" :selectable="selectInit" ref="dataTable">
   </EasyNormalTable>
 </template>

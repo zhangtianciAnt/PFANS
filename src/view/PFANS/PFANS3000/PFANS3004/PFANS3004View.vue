@@ -5,7 +5,7 @@
     :data="data"
     :rowid="row_id"
     :showSelection="isShow"
-    :title="title"
+    :title="title" @reget="getdata"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     ref="roletable"
@@ -159,92 +159,95 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS3004Store/getStationery', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        response[j].status = getStatus(response[j].status);
-                        if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
-                            response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
-                        }
-                        if (response[j].finshtime !== null && response[j].finshtime !== "") {
-                            response[j].finshtime = moment(response[j].finshtime).format("YYYY-MM-DD");
-                        }
-                        if (response[j].company !== null && response[j].company !== "") {
-                            let letCompany = getDictionaryInfo(response[j].company);
-                            if (letCompany != null) {
-                                response[j].company = letCompany.value2 + '_' + letCompany.value3;
-                            }
-                        }
-                        //add_fjl 拼接类别明细
-                        if (response[j].stationerytype !== '' && response[j].stationerytype !== null && response[j].stationerytype !== undefined) {
-                            let typeflg = response[j].stationerytype.split(",");
-                            if (typeflg.length > 1) {
-                                let footnam = "";
-                                let numbre = "";
-                                for (var val of JSON.parse(response[j].stationerytype)) {
-                                    if (val.footname) {
-                                        footnam += getDictionaryInfo(val.footname).value2 + ",";
-                                    }
-                                    if (val.numbers) {
-                                        numbre += val.numbers + ",";
-                                    }
-                                }
-                                if (footnam !== "") {
-                                    response[j].size = footnam.substring(0, footnam.length - 1);
-                                }
-                                if (numbre !== "") {
-                                    response[j].numbers = numbre.substring(0, numbre.length - 1);
-                                }
-                            }
-                        }
-                        //add_fjl 拼接类别明细
-                        let user = getUserInfo(response[j].userid)
-                        let nameflg = getOrgInfoByUserId(response[j].userid);
-                        if (nameflg) {
-                            response[j].centername = nameflg.centerNmae;
-                            // response[j].groupname = nameflg.groupNmae;
-                            response[j].teamname = nameflg.teamNmae;
-                        }
-                        //add_fjl_0927
-                        if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
-                            response[j].groupname = getDepartmentById(response[j].groupid);
-                        }
-                        //add_fjl_0927
-                        if (user) {
-                            response[j].applicant = user.userinfo.customername;
-                        }
-                        // ADD_FJL   (受理状态)
-                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
-                            if (this.$i18n) {
-                                if (response[j].acceptstatus === '0') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-                                } else if (response[j].acceptstatus === '1') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-                                } else if (response[j].acceptstatus === '2') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-                                }
-                            }
-                        }
-                        // ADD_FJL   (受理时间)
-                        if (response[j].findate !== null && response[j].findate !== "") {
-                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-                        }
-                    }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false;
-                })
+            this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS3004Store/getStationery', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  response[j].status = getStatus(response[j].status);
+                  if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
+                    response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
+                  }
+                  if (response[j].finshtime !== null && response[j].finshtime !== "") {
+                    response[j].finshtime = moment(response[j].finshtime).format("YYYY-MM-DD");
+                  }
+                  if (response[j].company !== null && response[j].company !== "") {
+                    let letCompany = getDictionaryInfo(response[j].company);
+                    if (letCompany != null) {
+                      response[j].company = letCompany.value2 + '_' + letCompany.value3;
+                    }
+                  }
+                  //add_fjl 拼接类别明细
+                  if (response[j].stationerytype !== '' && response[j].stationerytype !== null && response[j].stationerytype !== undefined) {
+                    let typeflg = response[j].stationerytype.split(",");
+                    if (typeflg.length > 1) {
+                      let footnam = "";
+                      let numbre = "";
+                      for (var val of JSON.parse(response[j].stationerytype)) {
+                        if (val.footname) {
+                          footnam += getDictionaryInfo(val.footname).value2 + ",";
+                        }
+                        if (val.numbers) {
+                          numbre += val.numbers + ",";
+                        }
+                      }
+                      if (footnam !== "") {
+                        response[j].size = footnam.substring(0, footnam.length - 1);
+                      }
+                      if (numbre !== "") {
+                        response[j].numbers = numbre.substring(0, numbre.length - 1);
+                      }
+                    }
+                  }
+                  //add_fjl 拼接类别明细
+                  let user = getUserInfo(response[j].userid)
+                  let nameflg = getOrgInfoByUserId(response[j].userid);
+                  if (nameflg) {
+                    response[j].centername = nameflg.centerNmae;
+                    // response[j].groupname = nameflg.groupNmae;
+                    response[j].teamname = nameflg.teamNmae;
+                  }
+                  //add_fjl_0927
+                  if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
+                    response[j].groupname = getDepartmentById(response[j].groupid);
+                  }
+                  //add_fjl_0927
+                  if (user) {
+                    response[j].applicant = user.userinfo.customername;
+                  }
+                  // ADD_FJL   (受理状态)
+                  if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                    if (this.$i18n) {
+                      if (response[j].acceptstatus === '0') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                      } else if (response[j].acceptstatus === '1') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                      } else if (response[j].acceptstatus === '2') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                      }
+                    }
+                  }
+                  // ADD_FJL   (受理时间)
+                  if (response[j].findate !== null && response[j].findate !== "") {
+                    response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v => filterVal.map(j => {
                     if (j === 'timestamp') {

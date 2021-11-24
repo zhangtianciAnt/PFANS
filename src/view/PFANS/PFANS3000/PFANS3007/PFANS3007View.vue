@@ -4,7 +4,7 @@
     :columns="columns"
     :data="data"
     :rowid="row_id"
-    :title="title"
+    :title="title" @reget="getdata"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     v-loading="loading"
@@ -237,94 +237,96 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS3007Store/getJapanCondominium', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        if (response[j].status !== null && response[j].status !== '') {
-                            response[j].status = getStatus(response[j].status);
-                        }
-                        if (response[j].budgetunit !== null && response[j].budgetunit !== '') {
-                            let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
-                            if (letBudgetunit != null) {
-                                response[j].budgetunit = letBudgetunit.value2 + '_' + letBudgetunit.value3;
-                            }
-                        }
-                        if (response[j].condominiumcompany !== null && response[j].condominiumcompany !== '') {
-                            let letCondominiumcompany = getDictionaryInfo(response[j].condominiumcompany);
-                            if (letCondominiumcompany != null) {
-                                response[j].condominiumcompany = letCondominiumcompany.value1;
-                            }
-                        }
-                        if (response[j].apartmentplace !== null && response[j].apartmentplace !== '') {
-                            let letApartmentplace = getDictionaryInfo(response[j].apartmentplace);
-                            if (letApartmentplace != null) {
-                                response[j].apartmentplace = letApartmentplace.value1;
-                            }
-                        }
-                        if (response[j].user_id !== null && response[j].user_id !== '') {
-                            let user = getUserInfo(response[j].userid);
-                            let nameflg = getOrgInfoByUserId(response[j].userid);
-                            if (nameflg) {
-                                response[j].centername = nameflg.centerNmae;
-                                // response[j].groupname = nameflg.groupNmae;
-                                response[j].teamname = nameflg.teamNmae;
-                            }
-                            //add_fjl_0927
-                            if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
-                                response[j].groupname = getDepartmentById(response[j].groupid);
-                            }
-                            if (user) {
-                                response[j].applicant = user.userinfo.customername;
-                            }
-                        }
-                        if (response[j].contractstartdate !== null && response[j].contractstartdate !== '') {
-                            response[j].contractstartdate = moment(response[j].contractstartdate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].contractenddate !== null && response[j].contractenddate !== '') {
-                            response[j].contractenddate = moment(response[j].contractenddate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].businessstartdate !== null && response[j].businessstartdate !== '') {
-                            response[j].businessstartdate = moment(response[j].businessstartdate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].businessenddate !== null && response[j].businessenddate !== '') {
-                            response[j].businessenddate = moment(response[j].businessenddate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].contracttime !== null && response[j].contracttime !== '') {
-                            response[j].contracttime = moment(response[j].contracttime).format('YYYY-MM-DD');
-                        }
-                        // ADD_FJL   (受理状态)
-                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
-                            if (this.$i18n) {
-                                if (response[j].acceptstatus === '0') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-                                } else if (response[j].acceptstatus === '1') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-                                } else if (response[j].acceptstatus === '2') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-                                }
-                            }
-                        }
-                        // ADD_FJL   (受理时间)
-                        if (response[j].findate !== null && response[j].findate !== "") {
-                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-                        }
-                    }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-
+            this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS3007Store/getJapanCondominium', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].status !== null && response[j].status !== '') {
+                    response[j].status = getStatus(response[j].status);
+                  }
+                  if (response[j].budgetunit !== null && response[j].budgetunit !== '') {
+                    let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
+                    if (letBudgetunit != null) {
+                      response[j].budgetunit = letBudgetunit.value2 + '_' + letBudgetunit.value3;
+                    }
+                  }
+                  if (response[j].condominiumcompany !== null && response[j].condominiumcompany !== '') {
+                    let letCondominiumcompany = getDictionaryInfo(response[j].condominiumcompany);
+                    if (letCondominiumcompany != null) {
+                      response[j].condominiumcompany = letCondominiumcompany.value1;
+                    }
+                  }
+                  if (response[j].apartmentplace !== null && response[j].apartmentplace !== '') {
+                    let letApartmentplace = getDictionaryInfo(response[j].apartmentplace);
+                    if (letApartmentplace != null) {
+                      response[j].apartmentplace = letApartmentplace.value1;
+                    }
+                  }
+                  if (response[j].user_id !== null && response[j].user_id !== '') {
+                    let user = getUserInfo(response[j].userid);
+                    let nameflg = getOrgInfoByUserId(response[j].userid);
+                    if (nameflg) {
+                      response[j].centername = nameflg.centerNmae;
+                      // response[j].groupname = nameflg.groupNmae;
+                      response[j].teamname = nameflg.teamNmae;
+                    }
+                    //add_fjl_0927
+                    if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
+                      response[j].groupname = getDepartmentById(response[j].groupid);
+                    }
+                    if (user) {
+                      response[j].applicant = user.userinfo.customername;
+                    }
+                  }
+                  if (response[j].contractstartdate !== null && response[j].contractstartdate !== '') {
+                    response[j].contractstartdate = moment(response[j].contractstartdate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].contractenddate !== null && response[j].contractenddate !== '') {
+                    response[j].contractenddate = moment(response[j].contractenddate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].businessstartdate !== null && response[j].businessstartdate !== '') {
+                    response[j].businessstartdate = moment(response[j].businessstartdate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].businessenddate !== null && response[j].businessenddate !== '') {
+                    response[j].businessenddate = moment(response[j].businessenddate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].contracttime !== null && response[j].contracttime !== '') {
+                    response[j].contracttime = moment(response[j].contracttime).format('YYYY-MM-DD');
+                  }
+                  // ADD_FJL   (受理状态)
+                  if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                    if (this.$i18n) {
+                      if (response[j].acceptstatus === '0') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                      } else if (response[j].acceptstatus === '1') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                      } else if (response[j].acceptstatus === '2') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                      }
+                    }
+                  }
+                  // ADD_FJL   (受理时间)
+                  if (response[j].findate !== null && response[j].findate !== "") {
+                    response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          },
             rowClick(row) {
                 this.rowid = row.japancondominiumid;
             },

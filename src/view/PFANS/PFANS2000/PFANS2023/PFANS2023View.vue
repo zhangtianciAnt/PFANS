@@ -1,6 +1,6 @@
 <template>
   <div>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" @reget="getList"
                    :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
 <!--   add-lyt-2021/4/4-添加年份检索栏-start-->
     <el-date-picker

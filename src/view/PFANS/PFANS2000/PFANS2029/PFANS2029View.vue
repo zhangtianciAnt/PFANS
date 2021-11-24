@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick" @reget="getFpans2029List"
                      :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow"
                      :rowid="rowid">
       <el-date-picker

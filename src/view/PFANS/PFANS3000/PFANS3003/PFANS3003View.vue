@@ -5,7 +5,7 @@
     :data="data"
     :rowid="row_id"
     :buttonList="buttonList"
-    :showSelection="isShow"
+    :showSelection="isShow" @reget="getdata"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     ref="roletable"
@@ -153,66 +153,69 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS3003Store/getBusinessCard', {})
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (this.$i18n) {
-              response[j].lengthtime = parseFloat(response[j].lengthtime / 8).toFixed(1) + this.$t('label.PFANS3003FORMVIEW_DAYS');
-            }
-            if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
-              response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
-            }
-            if (response[j].finshtime !== null && response[j].finshtime !== "") {
-              response[j].finshtime = moment(response[j].finshtime).format("YYYY-MM-DD");
-            }
-            response[j].status = getStatus(response[j].status);
-            let user = getUserInfo(response[j].userid)
-            let nameflg = getOrgInfoByUserId(response[j].userid);
-            if (nameflg) {
-              response[j].centername = nameflg.centerNmae;
-              response[j].groupname = nameflg.groupNmae;
-              response[j].teamname = nameflg.teamNmae;
-            }
-            if (user) {
-              response[j].applicant = user.userinfo.customername;
-            }
-            if (response[j].plan !== null && response[j].plan !== "") {
-              if (this.$i18n) {
-                response[j].plan = response[j].plan === "1" ? this.$t('label.inside') : this.$t('label.outside');
-              }
-            }
-            // ADD_FJL   (受理状态)
-            if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
-              if (this.$i18n) {
-                if (response[j].acceptstatus === '0') {
-                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-                } else if (response[j].acceptstatus === '1') {
-                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-                } else if (response[j].acceptstatus === '2') {
-                  response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-                }
-              }
-            }
-            // ADD_FJL   (受理时间)
-            if (response[j].findate !== null && response[j].findate !== "") {
-              response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          });
-          this.loading = false;
-        })
+      this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS3003Store/getBusinessCard', {})
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (this.$i18n) {
+                response[j].lengthtime = parseFloat(response[j].lengthtime / 8).toFixed(1) + this.$t('label.PFANS3003FORMVIEW_DAYS');
+              }
+              if (response[j].applicationdate !== null && response[j].applicationdate !== "") {
+                response[j].applicationdate = moment(response[j].applicationdate).format("YYYY-MM-DD");
+              }
+              if (response[j].finshtime !== null && response[j].finshtime !== "") {
+                response[j].finshtime = moment(response[j].finshtime).format("YYYY-MM-DD");
+              }
+              response[j].status = getStatus(response[j].status);
+              let user = getUserInfo(response[j].userid)
+              let nameflg = getOrgInfoByUserId(response[j].userid);
+              if (nameflg) {
+                response[j].centername = nameflg.centerNmae;
+                response[j].groupname = nameflg.groupNmae;
+                response[j].teamname = nameflg.teamNmae;
+              }
+              if (user) {
+                response[j].applicant = user.userinfo.customername;
+              }
+              if (response[j].plan !== null && response[j].plan !== "") {
+                if (this.$i18n) {
+                  response[j].plan = response[j].plan === "1" ? this.$t('label.inside') : this.$t('label.outside');
+                }
+              }
+              // ADD_FJL   (受理状态)
+              if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                if (this.$i18n) {
+                  if (response[j].acceptstatus === '0') {
+                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                  } else if (response[j].acceptstatus === '1') {
+                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                  } else if (response[j].acceptstatus === '2') {
+                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                  }
+                }
+              }
+              // ADD_FJL   (受理时间)
+              if (response[j].findate !== null && response[j].findate !== "") {
+                response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+              }
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            });
+            this.loading = false;
+          })
+      },
       formatJson(filterVal, jsonData) {
         return jsonData.map(v => filterVal.map(j => {
           if (j === 'timestamp') {

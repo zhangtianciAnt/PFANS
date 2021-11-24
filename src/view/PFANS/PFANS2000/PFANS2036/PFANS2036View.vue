@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
-                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                   @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" @reget="getYears"
                    ref="roletable" :showSelection="isShow">
     <el-dialog :visible.sync="daoru"  @close="refresh"  width="50%">
       <div>

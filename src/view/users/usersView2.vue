@@ -821,7 +821,7 @@ export default {
             this.departmentData = {};
             this.buildDepartmentData(this.data);
           }
-          this.loading = false;
+          // this.loading = false;
         })
         .catch(error => {
           this.$message.error({
