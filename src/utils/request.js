@@ -44,7 +44,8 @@ const ListApi = [
   "recruit/get",
   "recruitjudgement/get",
   "interviewrecord/get",
-  "staffexitprocedure/get"
+  "staffexitprocedure/get",
+  "staffexitprocedure/get2"
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,
