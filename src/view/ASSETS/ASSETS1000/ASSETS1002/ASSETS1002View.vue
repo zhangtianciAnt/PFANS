@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" @reget="getInventoryplan"
                    :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>

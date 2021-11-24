@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
-                     ref="roletable" :showSelection="isShow"
+                     ref="roletable" :showSelection="isShow" @reget="getexpatriatesinfor"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" width="50%">

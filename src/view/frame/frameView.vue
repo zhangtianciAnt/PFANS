@@ -437,6 +437,9 @@
         this.vactiveIndex = appid;
         this.$store.commit("global/SET_CURRENTURL", appid);
         this.$store.commit("global/SET_WORKFLOWURL", appid);
+        //分页
+        this.$store.commit("global/SET_PAGENO", 1);
+        this.$store.commit("global/SET_PAGESIZE", 50);
         this.showPop([]);
       },
       showPersonCenter(){

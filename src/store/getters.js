@@ -32,6 +32,10 @@ const getters = {
   //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 start
   roles: state => state.global.roles,
   //add gbb 20210311 PSDCD_PFANS_20210304_BUG_026登录人权限 end
+  pageNo: state => state.global.pageNo,
+  pageSize: state => state.global.pageSize,
+  totalSize: state => state.global.totalSize,
+  axiosConfig: state => state.global.axiosConfig,
 }
 
 export default getters

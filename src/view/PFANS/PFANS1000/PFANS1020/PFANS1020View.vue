@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
   </EasyNormalTable>
 </template>
@@ -73,6 +73,10 @@
       };
     },
     mounted() {
+       this.getdata();
+    },
+    methods: {
+      getdata(){
         this.loading = true;
         this.$store
           .dispatch('PFANS1020Store/getOutside')
@@ -85,12 +89,12 @@
               }
               response[j].status = getStatus(response[j].status);
               let user = getUserInfo(response[j].user_id);
-                let nameflg = getOrgInfoByUserId(response[j].user_id);
-                if (nameflg) {
-                    response[j].center_id = nameflg.centerNmae;
-                    response[j].group_id = nameflg.groupNmae;
-                    response[j].team_id = nameflg.teamNmae;
-                }
+              let nameflg = getOrgInfoByUserId(response[j].user_id);
+              if (nameflg) {
+                response[j].center_id = nameflg.centerNmae;
+                response[j].group_id = nameflg.groupNmae;
+                response[j].team_id = nameflg.teamNmae;
+              }
               if (user) {
                 response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
               }
@@ -106,8 +110,7 @@
             });
             this.loading = false
           })
-    },
-    methods: {
+      },
       rowClick(row) {
         this.rowid = row.outsideid;
       },

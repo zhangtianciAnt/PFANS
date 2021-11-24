@@ -14,7 +14,7 @@
           show-icon>
         </el-alert>
       </div>
-      <div align="right" class="filter-container" v-if="titleShow">
+      <div align="right" class="filter-container" v-if="titleShow" style="min-height: 40px">
         <span class="Title_front main_color" style="float:left">{{$t(title)}}{{$t('table.detail')}}
           <el-popover
             placement="right-start"
@@ -26,7 +26,7 @@
           </el-popover></span>
         <slot name="customize"></slot>
         <el-input :placeholder="defaultSerchTooltip" class="filter-item" clearable
-                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectByCondition">
+                  style="width: 25%;vertical-align:top" v-model="searchValue" v-if="showSelectByCondition && listQuery.limit === 99999">
           <el-button slot="append" icon="el-icon-search" type="primary" plain @click="inputChange"></el-button>
         </el-input>
       </div>
@@ -132,7 +132,7 @@
                        :page-sizes="[10,50,100,500,99999]" :total="total" @current-change="handleCurrentChange"
                        @size-change="handleSizeChange" layout="slot,sizes, ->,prev, pager, next, jumper">
           <slot><span class="front Content_front"
-                      style="padding-right: 5px;font-weight: 400">{{$t('table.total')}}{{totaldata.length}}</span>
+                      style="padding-right: 5px;font-weight: 400">{{$t('table.total')}}{{total}}</span>
           </slot>
         </el-pagination>
       </div>
@@ -343,7 +343,9 @@
       // 表格筛选
       tableFilter(filters) {
         this.loading = true;
-        this.listQuery.page = 1;
+        if(this.listQuery.limit === 99999){
+          this.listQuery.page = 1
+        }
         Object.assign(this.filterlist, filters);
         this.totaldata = this.data.filter(item => {
           let has = 0;
@@ -372,30 +374,42 @@
       // 取分页数据
       getList() {
         this.loading = true;
-        let start = (this.listQuery.page - 1) * this.listQuery.limit;
-        let end = this.listQuery.page * this.listQuery.limit;
-        if (this.totaldata) {
-          let pList = this.totaldata.slice(start, end);
-          this.pagedate = pList;
-          this.total = this.totaldata.length;
-        }
 
+        // let start = (this.listQuery.page - 1) * this.listQuery.limit;
+        // let end = this.listQuery.page * this.listQuery.limit;
+        // if (this.totaldata) {
+        //   let pList = this.totaldata.slice(start, end);
+        //   this.pagedate = pList;
+        //   this.total = this.totaldata.length;
+        // }
+        this.listQuery.limit = this.$store.getters.pageSize;
+        this.listQuery.page = this.$store.getters.pageNo;
+        this.pagedate = this.totaldata;
+        this.total = this.$store.getters.totalSize;
         this.loading = false;
       },
       // 每页最大数据变更
       handleSizeChange(val) {
         this.listQuery.limit = val;
-        this.getList();
+        this.$store.commit("global/SET_PAGESIZE", val);
+        this.listQuery.page = 1;
+        this.$store.commit("global/SET_PAGENO", 1);
+        this.$emit("reget");
+        // this.getList();
       },
       // 当前页变更
       handleCurrentChange(val) {
         this.listQuery.page = val;
-        this.getList();
+        this.$store.commit("global/SET_PAGENO", val);
+        this.$emit("reget");
+        // this.getList();
       },
       // 输入框筛选
       inputChange() {
         this.loading = true;
-        this.listQuery.page = 1;
+        if(this.listQuery.limit === 99999){
+          this.listQuery.page = 1
+        }
         let td = [];
         let len = this.data.length;
 

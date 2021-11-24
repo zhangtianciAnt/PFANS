@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
@@ -72,44 +72,47 @@
             }
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS1019Store/getTrialsoft')
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                      if (response[j].corresponding == 1) {
-                        response[j].corresponding = '完成'
-                      } else {
-                        response[j].corresponding = '未完成'
-                      }
-                        let user = getUserInfo(response[j].user_id);
-                        let nameflg = getOrgInfoByUserId(response[j].user_id);
-                        if (nameflg) {
-                            response[j].center_id = nameflg.centerNmae;
-                            response[j].group_id = nameflg.groupNmae;
-                            response[j].team_id = nameflg.teamNmae;
-                        }
-                        if (user) {
-                            response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-                        }
-                        response[j].status = getStatus(response[j].status);
-                        // if (response[j].implement_date !== null && response[j].implement_date !== '') {
-                        //   response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
-                        // }
-                    }
-                    this.data = response;
-                    this.loading = false
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false
-                })
+            this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1019Store/getTrialsoft')
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].corresponding == 1) {
+                    response[j].corresponding = '完成'
+                  } else {
+                    response[j].corresponding = '未完成'
+                  }
+                  let user = getUserInfo(response[j].user_id);
+                  let nameflg = getOrgInfoByUserId(response[j].user_id);
+                  if (nameflg) {
+                    response[j].center_id = nameflg.centerNmae;
+                    response[j].group_id = nameflg.groupNmae;
+                    response[j].team_id = nameflg.teamNmae;
+                  }
+                  if (user) {
+                    response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+                  }
+                  response[j].status = getStatus(response[j].status);
+                  // if (response[j].implement_date !== null && response[j].implement_date !== '') {
+                  //   response[j].implement_date = moment(response[j].implement_date).format('YYYY-MM-DD')
+                  // }
+                }
+                this.data = response;
+                this.loading = false
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false
+              })
+          },
             rowClick(row) {
                 this.rowid = row.trialsoft_id
             },

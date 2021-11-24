@@ -1,35 +1,35 @@
 <template>
   <div>
     <!--境外出差申请 境内出差申請-->
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonListAnt"
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonListAnt" @reget="inint"
                      :showSelection="isShow" ref="roletable5" :selectable="selectInit"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" v-show="this.showTable===1">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加 无偿设备 其他业务决裁-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns2" :data="data" :rowid="row" :selectable="selectInit1"
-                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable3" v-loading="loading" v-show="this.showTable===2">
     </EasyNormalTable>
     <!--    ADD-WS-决裁编号添加-->
     <!--    ADD-WS-费用编号添加 千元以下费用申请-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns3" :data="data" :rowid="row" :selectable="selectInit"
-                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable2" v-loading="loading" v-show="this.showTable===3">
     </EasyNormalTable>
     <!--    ADD-WS-费用编号添加 暂借款申请单-->
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns4" :data="data" :rowid="row" :selectable="selectInit"
-                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable4" v-loading="loading" v-show="this.showTable===4">
     </EasyNormalTable>
     <!--    add_fjl_05/27  添加暂借款申请编号的列表-->
     <!--    add-ws-5/27-No.170 交际费事前决裁-->
     <EasyNormalTable :buttonList="buttonListAnt" :columns="columns5" :data="data" :rowid="row" :selectable="selectInit"
-                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
+                     :showSelection="isShow" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"  @reget="inint"
                      ref="roletable1" v-loading="loading" v-show="this.showTable===5">
     </EasyNormalTable>
     <!--  add-ws-5/27-No.170 事前面谈票-->
-    <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns6" :data="data" :title="title" v-loading="loading"  @reget="inint"
                      v-show="this.showTable===6" @buttonClick="buttonClick" @rowClick="rowClick" :rowid="row">
     </EasyNormalTable>
     <el-dialog center
@@ -736,8 +736,7 @@
       };
     },
     mounted() {
-      this.getCompanyProjectList(this.$route.params.title);
-      this.getdateInfo();
+   this.inint();
       //region scc add 无偿设备，无事业计划列 from
       if(this.$route.params.title === 3){
         this.columns2 = this.columns2.filter(item => item.code !== 'careerplantempp');
@@ -745,6 +744,10 @@
       //endregion scc add 无偿设备，无事业计划列 to
     },
     methods: {
+      inint(){
+        this.getCompanyProjectList(this.$route.params.title);
+        this.getdateInfo();
+      },
       // add-ztc  数据转结 fr
       getdateInfo(){
         this.mounth = new Date().getMonth() + 1;

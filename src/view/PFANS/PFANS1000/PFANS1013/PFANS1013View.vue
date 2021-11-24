@@ -9,7 +9,7 @@
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     :selectable="selectInit"
-    ref="roletable"
+    ref="roletable" @reget="getdata"
     v-loading="loading"
   >
   </EasyNormalTable>
@@ -184,99 +184,102 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1013Store/get')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            let user = getUserInfo(response[j].userid);
-            if (user) {
-              response[j].applicant = user.userinfo.customername;
-            }
-            let nameflg = getOrgInfoByUserId(response[j].userid);
-            if (nameflg) {
-              response[j].centername = nameflg.centerNmae;
-                // response[j].groupname = nameflg.groupNmae;
-              response[j].teamname = nameflg.teamNmae;
-            }
-              if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
-                  response[j].groupname = getDepartmentById(response[j].groupid);
-              }
-            // response[j].centername = response[j].centerid;
-            // response[j].groupname = response[j].groupid;
-            // response[j].teamname = response[j].teamid;
-            // if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
-            //   let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
-            //   if (letBudgetunit != null) {
-            //     response[j].budgetunit = letBudgetunit.value1;
-            //   }
-            // }
-            if (response[j].type !== null && response[j].type !== '') {
-              if (response[j].type === '0') {
-                if (this.$i18n) {
-
-                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
-                }
-              } else if (response[j].type === '1') {
-                if (this.$i18n) {
-
-                  response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
-                }
-              }
-            }
-            // add-ws-8/12-禅道任务446
-            if (response[j].processingstatus != null && response[j].processingstatus != '') {
-              if (this.$i18n) {
-                if (response[j].processingstatus === '0') {
-                  response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
-                } else if (response[j].processingstatus === '1') {
-                  response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
-                }
-              }
-            }
-            // add-ws-8/12-禅道任务446
-            //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-            if (response[j].realstartdate !== null && response[j].realstartdate !== '') {
-              response[j].startdate = moment(response[j].realstartdate).format('YYYY-MM-DD');
-            } else {
-              if (response[j].startdate !== null && response[j].startdate !== '') {
-                response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
-              }
-            }
-            //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-            if (response[j].status != '0') {
-              if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-              }
-            } else {
-              response[j].modifyon = null;
-            }
-            if (response[j].status !== null && response[j].status !== '') {
-              response[j].status = getStatus(response[j].status);
-            }
-            //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-            if (response[j].realenddate !== null && response[j].realenddate !== '') {
-              response[j].enddate = moment(response[j].realenddate).format('YYYY-MM-DD');
-            } else {
-              if (response[j].enddate !== null && response[j].enddate !== '') {
-                response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
-              }
-            }
-            //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1013Store/get')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              let user = getUserInfo(response[j].userid);
+              if (user) {
+                response[j].applicant = user.userinfo.customername;
+              }
+              let nameflg = getOrgInfoByUserId(response[j].userid);
+              if (nameflg) {
+                response[j].centername = nameflg.centerNmae;
+                // response[j].groupname = nameflg.groupNmae;
+                response[j].teamname = nameflg.teamNmae;
+              }
+              if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
+                response[j].groupname = getDepartmentById(response[j].groupid);
+              }
+              // response[j].centername = response[j].centerid;
+              // response[j].groupname = response[j].groupid;
+              // response[j].teamname = response[j].teamid;
+              // if (response[j].budgetunit !== null && response[j].budgetunit !== "") {
+              //   let letBudgetunit = getDictionaryInfo(response[j].budgetunit);
+              //   if (letBudgetunit != null) {
+              //     response[j].budgetunit = letBudgetunit.value1;
+              //   }
+              // }
+              if (response[j].type !== null && response[j].type !== '') {
+                if (response[j].type === '0') {
+                  if (this.$i18n) {
+
+                    response[j].type = this.$t('label.PFANS1013VIEW_TYPEON');
+                  }
+                } else if (response[j].type === '1') {
+                  if (this.$i18n) {
+
+                    response[j].type = this.$t('label.PFANS1013VIEW_TYPEOFF');
+                  }
+                }
+              }
+              // add-ws-8/12-禅道任务446
+              if (response[j].processingstatus != null && response[j].processingstatus != '') {
+                if (this.$i18n) {
+                  if (response[j].processingstatus === '0') {
+                    response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
+                  } else if (response[j].processingstatus === '1') {
+                    response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
+                  }
+                }
+              }
+              // add-ws-8/12-禅道任务446
+              //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+              if (response[j].realstartdate !== null && response[j].realstartdate !== '') {
+                response[j].startdate = moment(response[j].realstartdate).format('YYYY-MM-DD');
+              } else {
+                if (response[j].startdate !== null && response[j].startdate !== '') {
+                  response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                }
+              }
+              //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+              if (response[j].status != '0') {
+                if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                  response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                }
+              } else {
+                response[j].modifyon = null;
+              }
+              if (response[j].status !== null && response[j].status !== '') {
+                response[j].status = getStatus(response[j].status);
+              }
+              //region add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+              if (response[j].realenddate !== null && response[j].realenddate !== '') {
+                response[j].enddate = moment(response[j].realenddate).format('YYYY-MM-DD');
+              } else {
+                if (response[j].enddate !== null && response[j].enddate !== '') {
+                  response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+                }
+              }
+              //endregion add_qhr_0609 添加实际出差开始日、实际出差结束日和实际出差天数
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       //ADD_FJL
       selectInit(row, index) {
         if (this.$i18n) {

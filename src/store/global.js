@@ -30,8 +30,24 @@ const global = {
     orgtreeId: "",//树主键
     orguserList:[],//人员选择时树组织隐藏副总经理节点
     //add gbb 20210329 2021组织架构变更 end
+    pageNo:1,
+    pageSize:50,
+    totalSize:0,
+    axiosConfig:{},
   },
   mutations: {
+    SET_AXIOSCONFIG(state, axiosConfig) {
+      state.axiosConfig = axiosConfig
+    },
+    SET_TOTALSIZE(state, totalSize) {
+      state.totalSize = totalSize
+    },
+    SET_PAGENO(state, pageNo) {
+      state.pageNo = pageNo
+    },
+    SET_PAGESIZE(state, pageSize) {
+      state.pageSize = pageSize
+    },
     SET_HISTORYURL(state, url) {
       state.historyUrl = url
     },

@@ -4,7 +4,7 @@
     :columns="columns"
     :data="data"
     :rowid="rowid"
-    :title="title"
+    :title="title" @reget="getdata"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     v-loading="loading"
@@ -81,37 +81,40 @@
           icon: "el-icon-search"
         },
       ];
-      this.loading = true;
-      this.$store.dispatch("PFANS8008Store/getListType").then(response => {
-        this.data = response;
-        for (let j = 0; j < response.length; j++) {
-          if (response[j].availablestate === "0") {
-            if (getUserInfo(
-              this.data[j].createby
-            ) !== null) {
-              response[j].createbyname = getUserInfo(
-                response[j].createby
-              ).userinfo.customername;
-            }
-            response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
-            if (response[j].createon !== null && response[j].createon !== '') {
-              response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
-            }
-          }
-        }
-        this.loading = false;
-      }).catch(error => {
-        this.loading = false;
-        this.$message.error({
-          message: error,
-          type: 'error',
-          duration: 5 * 1000
-        })
-      });
 
+      this.getdata();
 
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store.dispatch("PFANS8008Store/getListType").then(response => {
+          this.data = response;
+          for (let j = 0; j < response.length; j++) {
+            if (response[j].availablestate === "0") {
+              if (getUserInfo(
+                this.data[j].createby
+              ) !== null) {
+                response[j].createbyname = getUserInfo(
+                  response[j].createby
+                ).userinfo.customername;
+              }
+              response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE");
+              if (response[j].createon !== null && response[j].createon !== '') {
+                response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
+              }
+            }
+          }
+          this.loading = false;
+        }).catch(error => {
+          this.loading = false;
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000
+          })
+        });
+      },
       rowClick(row) {
         this._id = row.informationid;
       },

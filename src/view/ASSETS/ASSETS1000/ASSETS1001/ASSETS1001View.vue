@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
-                     :showSelection="showSelection"
+                     :showSelection="showSelection" @reget="getListData"
                      :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
