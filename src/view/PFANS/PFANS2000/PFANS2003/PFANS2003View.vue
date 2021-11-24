@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
@@ -88,77 +88,80 @@
             }
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS2003Store/getinterviewrecord')
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        if(response[j].interviewdep){
-                            response[j].interviewdep = getDepartmentById(response[j].interviewdep);
-                        }
-
-                        let user = getUserInfo(response[j].member);
-                        if (user) {
-                            response[j].member = getUserInfo(response[j].member).userinfo.customername;
-                        }
-                        if (response[j].accept_date !== null && response[j].accept_date !== '') {
-                            if (this.$i18n) {
-                                response[j].accept_date = moment(response[j].accept_date).format('YYYY-MM-DD')
-                            }
-                        }
-                        if (response[j].recommend_date !== null && response[j].recommend_date !== '') {
-                            if (this.$i18n) {
-                                response[j].recommend_date = moment(response[j].recommend_date).format('YYYY-MM-DD')
-                            }
-                        }
-                        if (response[j].interview_date !== null && response[j].interview_date !== '') {
-                            if (this.$i18n) {
-                                response[j].interview_date = moment(response[j].interview_date).format('YYYY-MM-DD')
-                            }
-                        }
-                        if (response[j].createon !== null && response[j].createon !== '') {
-                            if (this.$i18n) {
-                                response[j].createon = moment(response[j].createon).format('YYYY-MM-DD')
-                            }
-                        }
-                        if (response[j].source !== null && response[j].source !== '') {
-                            if (response[j].source === 'PR041001') {
-                                response[j].member = response[j].member
-                            } else if (response[j].source === 'PR041002') {
-                                response[j].member = response[j].network
-                            }
-                            let dictionaryInfo = getDictionaryInfo(response[j].source);
-                            if (dictionaryInfo) {
-                                response[j].source = dictionaryInfo.value1;
-                            }
-                        }
-                        if (response[j].technology !== null && response[j].technology !== '') {
-                            let dictionaryInfo = getDictionaryInfo(response[j].technology);
-                            if (dictionaryInfo) {
-                                response[j].technology = dictionaryInfo.value1;
-                            }
-                        }
-                        let recommenddep = getOrgInfo(response[j].recommenddep);
-                        if (recommenddep) {
-                            response[j].recommenddep = recommenddep.companyname;
-                        }
-                    }
-                  // for (let i = 0; i < response.length; i++) {
-                  //   response[i].recommenddep = getDepartmentById(response[i].recommenddep);
-                  // }
-                    this.data = response;
-                    this.loading = false
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false
-                })
+            this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS2003Store/getinterviewrecord')
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if(response[j].interviewdep){
+                    response[j].interviewdep = getDepartmentById(response[j].interviewdep);
+                  }
+
+                  let user = getUserInfo(response[j].member);
+                  if (user) {
+                    response[j].member = getUserInfo(response[j].member).userinfo.customername;
+                  }
+                  if (response[j].accept_date !== null && response[j].accept_date !== '') {
+                    if (this.$i18n) {
+                      response[j].accept_date = moment(response[j].accept_date).format('YYYY-MM-DD')
+                    }
+                  }
+                  if (response[j].recommend_date !== null && response[j].recommend_date !== '') {
+                    if (this.$i18n) {
+                      response[j].recommend_date = moment(response[j].recommend_date).format('YYYY-MM-DD')
+                    }
+                  }
+                  if (response[j].interview_date !== null && response[j].interview_date !== '') {
+                    if (this.$i18n) {
+                      response[j].interview_date = moment(response[j].interview_date).format('YYYY-MM-DD')
+                    }
+                  }
+                  if (response[j].createon !== null && response[j].createon !== '') {
+                    if (this.$i18n) {
+                      response[j].createon = moment(response[j].createon).format('YYYY-MM-DD')
+                    }
+                  }
+                  if (response[j].source !== null && response[j].source !== '') {
+                    if (response[j].source === 'PR041001') {
+                      response[j].member = response[j].member
+                    } else if (response[j].source === 'PR041002') {
+                      response[j].member = response[j].network
+                    }
+                    let dictionaryInfo = getDictionaryInfo(response[j].source);
+                    if (dictionaryInfo) {
+                      response[j].source = dictionaryInfo.value1;
+                    }
+                  }
+                  if (response[j].technology !== null && response[j].technology !== '') {
+                    let dictionaryInfo = getDictionaryInfo(response[j].technology);
+                    if (dictionaryInfo) {
+                      response[j].technology = dictionaryInfo.value1;
+                    }
+                  }
+                  let recommenddep = getOrgInfo(response[j].recommenddep);
+                  if (recommenddep) {
+                    response[j].recommenddep = recommenddep.companyname;
+                  }
+                }
+                // for (let i = 0; i < response.length; i++) {
+                //   response[i].recommenddep = getDepartmentById(response[i].recommenddep);
+                // }
+                this.data = response;
+                this.loading = false
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false
+              })
+          },
             rowClick(row) {
                 this.rowid = row.interviewrecord_id
             },

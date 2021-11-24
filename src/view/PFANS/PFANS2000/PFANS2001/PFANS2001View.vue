@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
@@ -107,47 +107,50 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS2001Store/getRecruit')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            response[j].status = getStatus(response[j].status);
-            let center = getOrgInfo(response[j].center_id);
-            let group = getOrgInfo(response[j].group_id);
-            let team = getOrgInfo(response[j].team_id);
-            if (center) {
-              response[j].center_id = center.companyname;
-            }
-            if (group) {
-              response[j].group_id = group.companyname;
-            }
-            if (team) {
-              response[j].team_id = team.departmentname;
-            }
-            if (response[j].requirements !== null && response[j].requirements !== '') {
-              let letRequirements = getDictionaryInfo(response[j].requirements);
-              if (letRequirements != null) {
-                response[j].requirements = letRequirements.value1;
-              }
-            }
-            if (response[j].applicationtime !== null && response[j].applicationtime !== '') {
-              response[j].applicationtime = moment(response[j].applicationtime).format('YYYY-MM-DD');
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+     this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS2001Store/getRecruit')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              response[j].status = getStatus(response[j].status);
+              let center = getOrgInfo(response[j].center_id);
+              let group = getOrgInfo(response[j].group_id);
+              let team = getOrgInfo(response[j].team_id);
+              if (center) {
+                response[j].center_id = center.companyname;
+              }
+              if (group) {
+                response[j].group_id = group.companyname;
+              }
+              if (team) {
+                response[j].team_id = team.departmentname;
+              }
+              if (response[j].requirements !== null && response[j].requirements !== '') {
+                let letRequirements = getDictionaryInfo(response[j].requirements);
+                if (letRequirements != null) {
+                  response[j].requirements = letRequirements.value1;
+                }
+              }
+              if (response[j].applicationtime !== null && response[j].applicationtime !== '') {
+                response[j].applicationtime = moment(response[j].applicationtime).format('YYYY-MM-DD');
+              }
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.rowid = row.recruitid;
         //add-ws-7/30-禅道任务296

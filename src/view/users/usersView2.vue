@@ -20,7 +20,7 @@
           :columns="columns"
           :data="tableList"
           :buttonList="buttonList"
-          ref="roletable"
+          ref="roletable" @reget="getInitData"
           @buttonClick="buttonClick"
           @rowClick="rowClick"
           :showSelection="isShow"
