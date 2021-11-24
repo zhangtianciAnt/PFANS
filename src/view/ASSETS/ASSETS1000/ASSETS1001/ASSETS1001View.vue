@@ -11,7 +11,7 @@
         <el-row>
           <el-col :span="3">
             <el-form-item :label="$t('label.PFANS2036VIEW_BMJC')">
-              <el-select @change="changed" v-model="department" style="width: 98%">
+              <el-select @change="changed" v-model="department" clearable style="width: 98%">
                 <el-option
                   :key="item.code"
                   :label="item.code"
