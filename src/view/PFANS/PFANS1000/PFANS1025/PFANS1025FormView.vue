@@ -289,6 +289,20 @@
                       <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
                     </el-form-item>
                   </el-col>
+                  <!-- scc add 委任，请负区分 from -->
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DISTINGUISHBETWEEN')" prop="distinguishbetween">
+                      <span>{{$t('label.PFANS1025FORMVIEW_APPOINTED')}}</span>
+                      <el-switch
+                        :disabled="true"
+                        v-model="form.distinguishbetween"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
+                      <span>{{$t('label.PFANS1025FORMVIEW_PLEASEBEAR')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <!-- scc add 委任，请负区分 end -->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
                                   v-show="showPlan">
@@ -304,7 +318,53 @@
                     </el-form-item>
                   </el-col>
                 </el-row>
+                <el-row v-show="form.distinguishbetween === '1'">
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_UNITPRICE')">
+                      <el-input-number
+                        :disabled="!disable"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        style="width:20vw"
+                        v-model="form.unitprice"
+                        @change="getMoney"
+                      ></el-input-number>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_NUMBEROFWORKERS')">
+                      <el-input-number
+                        :disabled="!disable"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        style="width:20vw"
+                        v-model="form.numberofworkers"
+                        @change="getMoney"
+                      ></el-input-number>
+                    </el-form-item>
+                  </el-col>
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_AMOUNTOF')">
+                      <el-input-number
+                        :disabled="!disable"
+                        :min="0"
+                        :precision="2"
+                        controls-position="right"
+                        style="width:20vw"
+                        v-model="form.amountof"
+                      ></el-input-number>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
                 <el-row>
+                  <el-col :span="8" v-show="form.distinguishbetween === '1'">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_MADOGUCHI')" prop="madoguchi" :rules="[
+                  { required: form.distinguishbetween === '1' ? true : false, message: '请输入窓口', trigger: 'blur' }]">
+                      <el-input :disabled="!disable" style="width:20vw" v-model="form.madoguchi"></el-input>
+                    </el-form-item>
+                  </el-col>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')">
                       <dicselect :code="code2"
@@ -707,6 +767,13 @@
           classificationtype: '',
           // businessplanbalance: 0,
           // 添加事业计划相关 1103 ztc to
+          // region scc add 委托决裁为请负，新增内容填写 from
+          distinguishbetween: '',
+          unitprice: '',
+          numberofworkers: '',
+          amountof: '',
+          madoguchi: '',
+          // endregion scc add 委托决裁为请负，新增内容填写 to
         },
         tableS: [],
         tableT: [{
@@ -915,6 +982,16 @@
             if(this.form.policycontract_id){
               this.getpolicycontractMoney(this.form.policycontract_id);
             }
+            //region scc add 合同做决裁页面跳转，初始化委托决裁区分 from
+            if(!this.$route.params._status){//判断是否从决裁一览跳转过来
+              let checkindivdual = this.$route.params._checkindivdual;//合同详细页面，做决裁书页面跳转
+              if(checkindivdual === "1"){
+                this.form.distinguishbetween = '0'//委任
+              }else{
+                this.form.distinguishbetween = '1'//请负
+              }
+            }
+            //endregion scc add 合同做决裁页面跳转，初始化委托决裁区分 to
             this.loading = false;
           })
           .catch(error => {
@@ -1804,6 +1881,11 @@
           );
         }
       },
+      //region scc add 请负时，计算金额，为工数*单价，金额可以修改，不进行反算 from
+      getMoney() {
+        this.form.amountof = Number(Number(this.form.unitprice) * Number(this.form.numberofworkers)).toFixed(2);
+      },
+      //endregion scc add 请负时，计算金额，为工数*单价，金额可以修改，不进行反算 to
     },
   };
 </script>
