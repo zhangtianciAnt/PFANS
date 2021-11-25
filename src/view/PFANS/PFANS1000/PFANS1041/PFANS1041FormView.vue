@@ -298,19 +298,19 @@
                           @row-click="handleClickChange">
                           <el-table-column property="themename"
                                            :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
+                                           width="180" show-overflow-tooltip></el-table-column>
                           <el-table-column property="dividevalue1"
                                            :label="$t('label.PFANS1039FORMVIEW_TEAM')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="contractvalue1"
-                                           :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"
-                                           width="120" show-overflow-tooltip></el-table-column>
+                                           width="180" show-overflow-tooltip></el-table-column>
+<!--                          <el-table-column property="contractvalue1"-->
+<!--                                           :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
                           <el-table-column property="currencyvalue1"
                                            :label="$t('label.PFANS8011VIEW_CURRENCY')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="toolsorgsvalue1"
-                                           :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                                           width="120" show-overflow-tooltip></el-table-column>
+                                           width="180" show-overflow-tooltip></el-table-column>
+<!--                          <el-table-column property="toolsorgsvalue1"-->
+<!--                                           :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
                           <el-table-column
                             align="right" width="230">
                             <template slot="header" slot-scope="scope">
@@ -387,7 +387,7 @@
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
               >
                 <template slot-scope="scope">
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1' || typeOfAssignor(scope.row) === '4'">
+                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1'">
                     <div>
                       <el-container>
                         <el-input class="content bg"
@@ -496,7 +496,7 @@
                     </div>
                   </el-col>
                   <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '3'">
-                    <org :disabled="disabled" :error="errorgroup" :orglist="scope.row.assignor" orgtype="4"
+                    <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"
                          @getOrgids="setToolsorgs($event,scope.row,scope.$index)"
                          style="width:13vw"></org>
                   </el-col>
@@ -1166,7 +1166,7 @@
         search3: '',
         currentRow2: '',
         dialogTableVisible2: false,
-        errorgroup: '',
+        // errorgroup: '',
         //endregion scc add to
         tableData: [],
         tabledatashow: false,
@@ -1787,7 +1787,7 @@
           //todo 年度
           year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
           // year:'2021',
-          contract: 1,
+          contract: 1,//已失效，现在获取所有theme
         };
         this.$store
           .dispatch('PFANS1043Store/getlisttheme', parameters)
@@ -2087,6 +2087,28 @@
             this.loading = false;
             return false;
           }
+          //region scc add 契约形式与委托元必填项 from
+          if (!this.baseInfo[i].contracttype) {
+            Message({
+              message: this.$t('normal.error_09') +
+                this.$t('label.PFANS1039FORMVIEW_CONTRACTTYPE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            return false;
+          }
+          if (!this.baseInfo[i].assignor) {
+            Message({
+              message: this.$t('normal.error_09') +
+                this.$t('label.PFANS1039FORMVIEW_ASSIGNOR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            return false;
+          }
+          //endregion scc add 契约形式与委托元必填项 to
           this.baseInfo[i].themeplan_id = this.refform.themeplan_id === '' ? '' : this.refform.themeplan_id;
           this.baseInfo[i].year = this.refform.year;
           this.baseInfo[i].group_id = this.refform.group_id;
@@ -2273,11 +2295,11 @@
 
       setToolsorgs(val,row,$index) {
         this.tableDataA[$index].assignor = val;
-        if (this.tableDataA[$index].assignor === '') {
-          this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_ENTRUST');
-        } else {
-          this.errorgroup = '';
-        }
+        // if (this.tableDataA[$index].assignor === '') {
+        //   this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_ENTRUST');
+        // } else {
+        //   this.errorgroup = '';
+        // }
       },
 
       handleClick($index) {
@@ -2291,8 +2313,6 @@
           return '2';
         } else if (row.contracttype == 'PJ142008' || row.contracttype == 'PJ142009' || row.contracttype == 'PJ142004' || row.contracttype == 'PJ142005') {
           return '3';
-        }else{
-          return '4';
         }
       },
       //endregion scc add 契约形式与委托元相关方法 to
