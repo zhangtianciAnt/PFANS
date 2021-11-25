@@ -207,7 +207,6 @@
       handleClickChange (val) {
         this.currentRow = val
         if (this.selectType === 'Single') {
-          debugger
           if(this.orgtype != 'eff'){
             if (this.orgtype != "4" && val.type !== this.orgtype) {
               this.conConfirm = true
