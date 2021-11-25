@@ -182,7 +182,7 @@ export default {
                   ? getCooperinterviewListByAccount(scle.reportpeople).expname : getUserInfo(scle.reportpeople).userinfo.customername,
                 center_id: getDepartmentById(scle.center_id),
                 group_id: getDepartmentById(scle.group_id),
-                type: scle.type === '0' ? '社内' : '社外',
+                type: scle.type === '0' ? '社内' : '外注_构内',
                 ranks: getDictionaryInfo(scle.ranks).value1,
                 project_name: scle.project_name,
                 proportions: scle.proportions,
