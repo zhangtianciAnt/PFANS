@@ -5,14 +5,75 @@
                      :selectable="selectInit" :title="title" @buttonClick="buttonClick" @rowClick="rowClick"
                      ref="roletable"
                      v-loading="loading">
-      <el-select @change="changed" slot="customize" v-model="department">
-        <el-option
-          :key="item.code"
-          :label="item.code"
-          :value="item.code"
-          v-for="item in options">
-        </el-option>
-      </el-select>
+
+      <!--条件筛选 scc add from -->
+      <el-form label-position="top" label-width="8vw" slot="search">
+        <el-row>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.PFANS2036VIEW_BMJC')">
+              <el-select @change="changed" v-model="department" clearable style="width: 98%">
+                <el-option
+                  :key="item.code"
+                  :label="item.code"
+                  :value="item.code"
+                  v-for="item in options"
+                >
+                </el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_TYPEASSETS')">
+              <dicselect
+                :data="form1.typeassets"
+                code="PA001"
+                style="width: 98%"
+                @change="changeType"
+              ></dicselect>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_FILENAME')">
+              <el-input style="width: 98%" v-model="form1.filename"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_BARCODE')">
+              <el-input style="width: 98%" v-model="form1.barcode"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_PCNO')">
+              <el-input style="width: 98%" v-model="form1.pcno"></el-input>
+            </el-form-item>
+          </el-col>
+
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_PRINCIPAL')">
+              <user :disabled="false" :selectType="selectType" :userlist="userlist"
+                    style="width: 67%" @getUserids="getUserids"></user>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_STOCKSTATUS')">
+              <dicselect
+                :data="form1.stockstatus"
+                code="PA002"
+                style="width: 98%"
+                @change="changeStock"
+              ></dicselect>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3">
+            <el-form-item :label="$t('label.ASSETS1001VIEW_STORAGELOCATION')">
+              <el-input style="width: 98%" v-model="form1.storagelocation"></el-input>
+            </el-form-item>
+          </el-col>
+        </el-row>
+      </el-form>
+      <!--条件筛选 scc add end -->
+
     </EasyNormalTable>
     <el-dialog :visible.sync="daoru" @close="closed" width="50%" destroy-on-close>
       <div>
@@ -155,12 +216,14 @@
     getCurrentRoleGiving,
   } from '@/utils/customize';
   import dicselect from '../../../components/dicselect.vue';
+  import user from '../../../components/user.vue';
 
   export default {
     name: 'ASSETS1001View',
     components: {
       EasyNormalTable,
       dicselect,
+      user,
     },
     data() {
       return {
@@ -178,6 +241,20 @@
           typeassets: '',
           sum: 1,
         },
+        //region scc add 11/24 条件筛选 from
+        form1: {
+          usedepartment: '',
+          typeassets: '',
+          barcode: '',
+          pcno: '',
+          principal: '',
+          stockstatus: '',
+          storagelocation: '',
+          filename: '',
+        },
+        selectType: 'Single',
+        userlist: '',
+        //endregion scc add 11/24 条件筛选 to
         code4: 'PA004',
         code1: 'PA001',
         total: 0,
@@ -334,6 +411,9 @@
           // {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': true, 'icon': 'el-icon-plus'},
           {'key': 'assettransfer', 'name': 'button.assettransfer', 'disabled': false, 'icon': 'el-icon-plus'},
           //UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
+          //region scc add 检索 from
+          {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
+          //endregion scc add 检索 to
         ],
         rowid: '',
         row_id: 'assets_id',
@@ -478,10 +558,8 @@
               }, []);
               for (let i = 0; i < filtersrst.length; i++) {
                 if (filtersrst[i].code == '' || filtersrst[i].code == null || filtersrst[i].code == undefined) {
-                  // filtersrst[i].code = '全部';
-                  //设备管理页面，部门下拉框'全部'为首选  add scc
                   filtersrst[i].code = filtersrst[i-1].code;
-                  filtersrst[i-1].code = '全部';
+                  filtersrst[i-1].code = '空';//scc，下拉框不在提供全部，变更为可获取使用部门为空的数据
                 }
               }
               this.options = filtersrst;
@@ -513,18 +591,22 @@
       },
       // 资产报废不可以异动操作 ztc to
       changed() {
-        this.getListData();
+        this.form1.usedepartment = this.department;//scc 不在自动获取数据，变更为部门赋值
       },
       getListData() {
         this.loading = true;
         let getDep = '';
-        if (this.department == '全部') {
-          getDep = undefined
-        }else{
-          getDep = this.department;
+        //region scc add 页面数据获取 from
+        if(this.department == '空'){
+          this.form1.usedepartment = '';
+        }
+        if(!this.department){
+          this.form1.usedepartment = null;
         }
         this.$store
-          .dispatch('ASSETS1001Store/getList', {usedepartment: getDep})
+          // .dispatch('ASSETS1001Store/getList', {usedepartment: getDep})
+          .dispatch('ASSETS1001Store/getList', this.form1)
+          //endregion scc add 页面数据获取 to
           .then(response => {
             //add zy 1.是离职人员 2.请选择自己名下的所有资产做异动 start
             this._count = 0;
@@ -592,6 +674,11 @@
               }
             }
             this.data = response;
+            Message({
+              message: this.$t('normal.success_03'),
+              type: 'success',
+              duration: 2 * 1000,
+            });
             this.selectInit();
             this.loading = false;
           })
@@ -879,6 +966,10 @@
           }
         }
 //UPD-ws-02/22-PSDCD_PFANS_20201124_XQ_031/PSDCD_PFANS_20201122_XQ_014-to
+
+        if (val === 'search'){//scc 检索
+          this.getListData();
+        }
       },
       export(selectedList) {
         let tHeader = '';
@@ -1190,6 +1281,21 @@
           }
         }
       },
+
+      //region scc add 条件检索，赋值 from
+      changeType(val){//资产类型
+        this.form1.typeassets = val;
+      },
+
+      changeStock(val){//在库状态
+        this.form1.stockstatus = val;
+      },
+
+      getUserids(val) {//管理者
+        this.userlist = val;
+        this.form1.principal = val;
+      },
+    //endregion scc add 条件检索，赋值 to
     },
   };
 </script>
