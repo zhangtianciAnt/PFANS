@@ -1,6 +1,6 @@
 <template>
   <div class="pfans3005view">
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="selectInfo"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowClassName="rowClassName"
                      :showSelection="isShow" ref="roletable" :selectable="selectInit">
     </EasyNormalTable>

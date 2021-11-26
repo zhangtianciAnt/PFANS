@@ -4,7 +4,7 @@
                      :columns="columns"
                      :data="data"
                      :title="title"
-                     :rowid="row_id"
+                     :rowid="row_id" @reget="getPjanme"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
                      v-loading="loading"

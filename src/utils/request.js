@@ -1,15 +1,90 @@
 import axios from 'axios'
 import router from '../router'
+
 import {
   getToken,
   removeToken
 } from './auth'
 import  {Decrypt} from './customize'
 import i18n from '../assets/js/i18n'
+import store from "../store";
 let Base64 = require('js-base64').Base64
 
 // axios.defaults.timeout =  6000;
-
+const ListApi = [
+  "assets/list",
+  "inventoryplan/get",
+  "softwaretransfer/getSoftwaretransfer",
+  "expatriatesinfor/get",
+  "ToDoNotice/getList",
+  "informationdelivery/getListType",
+  "personnelplan/getall",
+  "themeinfor/list",
+  "themeplan/getList",
+  "businessplan/get",
+  "offshore/get",
+  "business/get",
+  "judgement/get",
+  "loanapplication/get",
+  "purchaseApply/get",
+  "communication/get",
+  "publicexpense/get",
+  "evection/get",
+  "assetinformation/get",
+  "fixedassets/get",
+  "routing/get",
+  "psdcd/get",
+  "global/get",
+  "trialsoft/get",
+  "outside/get",
+  "security/get",
+  "confidential/get",
+  "contractapplication/get",
+  "user/getAccountCustomer",
+  "recruit/get",
+  "recruitjudgement/get",
+  "interviewrecord/get",
+  "staffexitprocedure/get",
+  "staffexitprocedure/get2",
+  "talentplan/getDataList",
+  "goalmanagement/list",
+  "attendance/getlist",
+  "overtime/get",
+  "annualLeave/getDataList",
+  "abNormal/list",
+  "punchcardrecordbp/list",
+  "tickets/list",
+  "hotelreservation/get",
+  "businesscard/get",
+  "stationery/get",
+  "purchase/get",
+  "appointmentcar/get",
+  "japancondominium/get",
+  "casgiftapply/get",
+  "role/getRoleList",
+  "projectincome/get",
+  "Pltab/list",
+  "contractapplication/get",
+  "personalcost/getYears",
+  "lunarbonus/getList",
+  "logmanagement/getDataList1",
+  "companyprojects/list",
+  "comprojects/list",
+  "companyprojects/getSiteList4",
+  "companyprojects/getList2",
+  "comprojects/getList2",
+  "seal/list",
+  "user/getAccountCustomer3",
+  "customerinfor/get",
+  "supplierinfor/get",
+  "expatriatesinfor/get",
+  "variousfunds/get",
+  "ES/getList",
+  "workflow/list",
+  "informationdelivery/get",
+  "dictionary/getDictionary",
+  "monthlyrate/list"
+]
 const service = axios.create({
   baseURL: process.env.BASE_API,
 });
@@ -19,6 +94,13 @@ service.interceptors.request.use(config => {
   if (getToken()) {
     config.headers['x-auth-token'] = getToken()
   }
+
+  if(ListApi.indexOf(config.url) != -1){
+    config.headers['pageNo'] = store.getters.pageNo
+    config.headers['pageSize'] = store.getters.pageSize
+  }
+
+
   config.headers['locale'] = i18n.locale;
     config.headers['datatype'] = sessionStorage.getItem("datatype");
   // if (store.getters.currentUrl) {
@@ -84,6 +166,11 @@ service.interceptors.response.use(
           name: 'error403'
         })
       }else {
+        if(ListApi.indexOf(response.config.url.replace(response.config.baseURL,'')) != -1){
+          store.commit("global/SET_TOTALSIZE", response.data.totalSize);
+          store.commit("global/SET_PAGENO", response.data.pageNo);
+          store.commit("global/SET_PAGESIZE", response.data.pageSize);
+        }
         if(response.data.code === 0){
           if(response.config.url.indexOf('file/getToken') == -1){
             response.data.data = JSON.parse(Decrypt(response.data.data));

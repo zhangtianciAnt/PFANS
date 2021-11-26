@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" ref="roletable" @rowClick="rowClick"
-                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow"
+                     :title="title" @buttonClick="buttonClick" v-loading="loading" :showSelection="isShow" @reget="getFpans2017List"
                      :rowid="rowid">
       <el-date-picker
         :placeholder="$t('normal.error_09')"

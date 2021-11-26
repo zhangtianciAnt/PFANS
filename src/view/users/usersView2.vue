@@ -20,7 +20,7 @@
           :columns="columns"
           :data="tableList"
           :buttonList="buttonList"
-          ref="roletable"
+          ref="roletable" @reget="getInitData"
           @buttonClick="buttonClick"
           @rowClick="rowClick"
           :showSelection="isShow"
@@ -821,7 +821,7 @@ export default {
             this.departmentData = {};
             this.buildDepartmentData(this.data);
           }
-          this.loading = false;
+          // this.loading = false;
         })
         .catch(error => {
           this.$message.error({

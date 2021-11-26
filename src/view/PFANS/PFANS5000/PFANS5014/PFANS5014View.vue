@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" @reget="getdata1"
                      v-show="showTable1">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t(title)" value="1"></el-option>
@@ -9,7 +9,7 @@
       </el-select>
     </EasyNormalTable>
     <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data2" :rowid="row_id" :title="title2"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" @reget="getdata2"
                      v-show="!showTable1">
       <el-select @change="changed" slot="customize" v-model="region">
         <el-option :label="$t(title)" value="1"></el-option>
@@ -133,22 +133,27 @@
           }
       },
       mounted() {
-        this.loading = true;
-        this.$store
-          .dispatch('PFANS5013Store/getList2', {flag: "0"})
-          .then(response => {
-            if(response.length > 0) {
-                console.log("response",response)
-                for (let j = 0; j < response.length; j++) {
+        this.getdata1();
+        this.getdata2();
+      },
+      methods: {
+          getdata1(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS5013Store/getList2', {flag: "0"})
+              .then(response => {
+                if(response.length > 0) {
+                  console.log("response",response)
+                  for (let j = 0; j < response.length; j++) {
                     if(response[j].leaderid !== null && response[j].leaderid !== ""){
-                        let letUser = getUserInfo(response[j].leaderid);
-                        if (letUser != null) {
-                            response[j].leaderid = letUser.userinfo.customername;
-                        }
+                      let letUser = getUserInfo(response[j].leaderid);
+                      if (letUser != null) {
+                        response[j].leaderid = letUser.userinfo.customername;
+                      }
                     }
 
                     if(response[j].startdate !== null && response[j].startdate !== ""){
-                        response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                      response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
                     }
 
                     //项目类型
@@ -160,115 +165,115 @@
                     }
 
                     if(response[j].nowdate !== null && response[j].nowdate !== ""){
-                        response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
+                      response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
                     }
 
                     if (response[j].phase !== null && response[j].phase !== "") {
-                        let letPhase = getDictionaryInfo(response[j].phase);
-                        if (letPhase != null) {
-                            response[j].phase = letPhase.value1;
-                        }
-                    }
-                    if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
-                        if(response[j].phasestatus === "0") {
-                            response[j].phasestatus = this.phasestatus0
-                        }else {
-                            response[j].phasestatus = this.phasestatus1
-                        }
-                    }
-                    if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
-                        if(response[j].contractstatus === "0") {
-                            response[j].contractstatus = this.contractstatus0
-                        }else if(response[j].contractstatus === "1"){
-                            response[j].contractstatus = this.contractstatus1
-                        }else {
-                            response[j].contractstatus = this.contractstatus2
-                        }
-                    }
-                    response[j] .status = getStatus(response[j] .status);
-                }
-            }
-
-            this.data = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
-            });
-            this.loading = false;
-          });
-
-        this.$store
-          .dispatch('PFANS5013Store/getList2', {flag: "1"})
-          .then(response => {
-            if (response.length > 0) {
-                for (let j = 0; j < response.length; j++) {
-
-                    if(response[j].leaderid !== null && response[j].leaderid !== ""){
-                        let letUser = getUserInfo(response[j].leaderid);
-                        if (letUser != null) {
-                            response[j].leaderid = letUser.userinfo.customername;
-                        }
-                    }
-
-                    if(response[j].startdate !== null && response[j].startdate !== ""){
-                        response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
-                    }
-
-                      //项目类型
-                    if (response[j].projecttype !== null && response[j].projecttype !== "") {
-                      let letStage = getDictionaryInfo(response[j].projecttype);
-                      if (letStage != null) {
-                        response[j].projecttype = letStage.value1;
+                      let letPhase = getDictionaryInfo(response[j].phase);
+                      if (letPhase != null) {
+                        response[j].phase = letPhase.value1;
                       }
                     }
-
-                    if(response[j].nowdate !== null && response[j].nowdate !== ""){
-                        response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
-                    }
-
-                    if (response[j].phase !== null && response[j].phase !== "") {
-                        let letPhase = getDictionaryInfo(response[j].phase);
-                        if (letPhase != null) {
-                            response[j].phase = letPhase.value1;
-                        }
-                    }
                     if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
-                        if(response[j].phasestatus === "0") {
-                            response[j].phasestatus = this.phasestatus0
-                        }else {
-                            response[j].phasestatus = this.phasestatus1
-                        }
+                      if(response[j].phasestatus === "0") {
+                        response[j].phasestatus = this.phasestatus0
+                      }else {
+                        response[j].phasestatus = this.phasestatus1
+                      }
                     }
                     if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
-                        if(response[j].contractstatus === "0") {
-                            response[j].contractstatus = this.contractstatus0
-                        }else if(response[j].contractstatus === "1"){
-                            response[j].contractstatus = this.contractstatus1
-                        }else {
-                            response[j].contractstatus = this.contractstatus2
-                        }
+                      if(response[j].contractstatus === "0") {
+                        response[j].contractstatus = this.contractstatus0
+                      }else if(response[j].contractstatus === "1"){
+                        response[j].contractstatus = this.contractstatus1
+                      }else {
+                        response[j].contractstatus = this.contractstatus2
+                      }
                     }
                     response[j] .status = getStatus(response[j] .status);
+                  }
                 }
-            }
 
-            this.data2 = response;
-            this.loading = false;
-          })
-          .catch(error => {
-            this.$message.error({
-              message: error,
-              type: 'error',
-              duration: 5 * 1000
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              });
+          },
+        getdata2(){
+          this.$store
+            .dispatch('PFANS5013Store/getList2', {flag: "1"})
+            .then(response => {
+              if (response.length > 0) {
+                for (let j = 0; j < response.length; j++) {
+
+                  if(response[j].leaderid !== null && response[j].leaderid !== ""){
+                    let letUser = getUserInfo(response[j].leaderid);
+                    if (letUser != null) {
+                      response[j].leaderid = letUser.userinfo.customername;
+                    }
+                  }
+
+                  if(response[j].startdate !== null && response[j].startdate !== ""){
+                    response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+                  }
+
+                  //项目类型
+                  if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                    let letStage = getDictionaryInfo(response[j].projecttype);
+                    if (letStage != null) {
+                      response[j].projecttype = letStage.value1;
+                    }
+                  }
+
+                  if(response[j].nowdate !== null && response[j].nowdate !== ""){
+                    response[j].nowdate = moment(response[j].nowdate).format('YYYY-MM-DD');
+                  }
+
+                  if (response[j].phase !== null && response[j].phase !== "") {
+                    let letPhase = getDictionaryInfo(response[j].phase);
+                    if (letPhase != null) {
+                      response[j].phase = letPhase.value1;
+                    }
+                  }
+                  if (response[j].phasestatus !== null && response[j].phasestatus !== "") {
+                    if(response[j].phasestatus === "0") {
+                      response[j].phasestatus = this.phasestatus0
+                    }else {
+                      response[j].phasestatus = this.phasestatus1
+                    }
+                  }
+                  if (response[j].contractstatus !== null && response[j].contractstatus !== "") {
+                    if(response[j].contractstatus === "0") {
+                      response[j].contractstatus = this.contractstatus0
+                    }else if(response[j].contractstatus === "1"){
+                      response[j].contractstatus = this.contractstatus1
+                    }else {
+                      response[j].contractstatus = this.contractstatus2
+                    }
+                  }
+                  response[j] .status = getStatus(response[j] .status);
+                }
+              }
+
+              this.data2 = response;
+              this.loading = false;
+            })
+            .catch(error => {
+              this.$message.error({
+                message: error,
+                type: 'error',
+                duration: 5 * 1000
+              });
+              this.loading = false;
             });
-            this.loading = false;
-          });
-      },
-      methods: {
+        },
         changed() {
           if (this.region === '2') {
             this.showTable1 = false;

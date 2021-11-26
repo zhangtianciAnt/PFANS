@@ -1,7 +1,7 @@
 <template>
   <div>
     <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" ref="roletable"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :rowid="rowid" @reget="getProjectList"
                      :showSelection="isShow">
       <el-date-picker
         v-model="month"

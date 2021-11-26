@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList"
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :buttonList="buttonList" @reget="getWorkflowList"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :formatter="formatter">
   </EasyNormalTable>
 </template>

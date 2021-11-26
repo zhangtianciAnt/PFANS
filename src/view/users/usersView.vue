@@ -23,7 +23,7 @@
         <EasyNormalTable
           :title="title"
           :columns="columns"
-          :data="tableList"
+          :data="tableList" @reget="getInitData"
           :buttonList="buttonList"
           ref="roletable"
           @buttonClick="buttonClick"

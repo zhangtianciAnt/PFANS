@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
@@ -131,65 +131,68 @@
       };
     },
     mounted: function() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS5009Store/getSiteList4')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].phase !== null && response[j].phase !== '') {
-              let letPhase = getDictionaryInfo(response[j].phase);
-              if (letPhase != null) {
-                response[j].phase = letPhase.value1;
-              }
-            }
-            //项目类型
-            if (response[j].projecttype !== null && response[j].projecttype !== "") {
-              let letStage = getDictionaryInfo(response[j].projecttype);
-              if (letStage != null) {
-                response[j].projecttype = letStage.value1;
-              }
-            }
-            if (response[j].phasestatus !== null && response[j].phasestatus !== '') {
-              if (response[j].phasestatus === '0') {
-                response[j].phasestatus = this.phasestatus0;
-              } else {
-                response[j].phasestatus = this.phasestatus1;
-              }
-            }
-            if (response[j].contractstatus !== null && response[j].contractstatus !== '') {
-              if (response[j].contractstatus === '0') {
-                response[j].contractstatus = this.contractstatus0;
-              } else if (response[j].contractstatus === '1') {
-                response[j].contractstatus = this.contractstatus1;
-              } else if (response[j].contractstatus === '3') {
-                response[j].contractstatus = this.contractstatus3;
-              } else {
-                response[j].contractstatus = this.contractstatus2;
-              }
-            }
-            response[j].status = getStatus(response[j].status);
-            if (response[j].group_id)
-            {
-              let group = getOrgInfo(response[j].group_id);
-              if (group) {
-                response[j].groupname = group.companyname;
-              }
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getdata();
     },
 
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS5009Store/getSiteList4')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].phase !== null && response[j].phase !== '') {
+                let letPhase = getDictionaryInfo(response[j].phase);
+                if (letPhase != null) {
+                  response[j].phase = letPhase.value1;
+                }
+              }
+              //项目类型
+              if (response[j].projecttype !== null && response[j].projecttype !== "") {
+                let letStage = getDictionaryInfo(response[j].projecttype);
+                if (letStage != null) {
+                  response[j].projecttype = letStage.value1;
+                }
+              }
+              if (response[j].phasestatus !== null && response[j].phasestatus !== '') {
+                if (response[j].phasestatus === '0') {
+                  response[j].phasestatus = this.phasestatus0;
+                } else {
+                  response[j].phasestatus = this.phasestatus1;
+                }
+              }
+              if (response[j].contractstatus !== null && response[j].contractstatus !== '') {
+                if (response[j].contractstatus === '0') {
+                  response[j].contractstatus = this.contractstatus0;
+                } else if (response[j].contractstatus === '1') {
+                  response[j].contractstatus = this.contractstatus1;
+                } else if (response[j].contractstatus === '3') {
+                  response[j].contractstatus = this.contractstatus3;
+                } else {
+                  response[j].contractstatus = this.contractstatus2;
+                }
+              }
+              response[j].status = getStatus(response[j].status);
+              if (response[j].group_id)
+              {
+                let group = getOrgInfo(response[j].group_id);
+                if (group) {
+                  response[j].groupname = group.companyname;
+                }
+              }
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.rowid = row.companyprojects_id;
       },

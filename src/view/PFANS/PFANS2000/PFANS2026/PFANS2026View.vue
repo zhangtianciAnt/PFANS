@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--    //ztc 0726 0726 离职者报告调整位置 fr-->
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title" @reget="getList"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :showSelection="true" ref="roletable" >
     <!--add  ml   20210708    离职流程提示   from-->
 <!--    //ztc 0726 离职者报告调整位置 to-->

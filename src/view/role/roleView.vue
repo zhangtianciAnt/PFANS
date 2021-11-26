@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :title="title"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :title="title" @reget="getRoleList"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
     <el-dialog :visible.sync="dialogTableVisible" title="角色成员">

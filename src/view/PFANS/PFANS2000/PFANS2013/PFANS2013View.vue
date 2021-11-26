@@ -3,7 +3,7 @@
     <EasyNormalTable :buttonList="buttonList"
                      :columns="columns"
                      :data="data"
-                     :title="title"
+                     :title="title" @reget="getDataList"
                      v-loading="loading">
       <!--add scc-->
       <el-select

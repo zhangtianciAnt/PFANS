@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
@@ -93,64 +93,67 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS6004Store/getexpatriatesinfor')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].graduateschool !== null && response[j].graduateschool !== '') {
-              let graduateschool = getUserInfo(response[j].graduateschool);
-              if (graduateschool) {
-                response[j].graduateschool = user.userinfo.customername;
-              }
-            }
-            if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-              let supplierInfor = getSupplierinfor(response[j].supplierinfor_id);
-              if (supplierInfor) {
-                response[j].suppliername = supplierInfor.supchinese;
-              }
-            }
-            if (response[j].result !== null && response[j].result !== '') {
-              let letStage = getDictionaryInfo(response[j].result);
-              if (letStage != null) {
-                response[j].result = letStage.value1;
-              }
-            }
-            if (response[j].whetherentry !== null && response[j].whetherentry !== '') {
-              let letStage = getDictionaryInfo(response[j].whetherentry);
-              if (letStage != null) {
-                response[j].whetherentry = letStage.value1;
-              }
-            }
-            // if (response[j].technology !== null && response[j].technology !== '') {
-            //   let letStage = getDictionaryInfo(response[j].technology);
-            //   if (letStage != null) {
-            //     response[j].technology = letStage.value1;
-            //   }
-            // }
-            if (response[j].interview_date !== null && response[j].interview_date !== '') {
-              response[j].interview_date = moment(response[j].interview_date).format('YYYY-MM-DD');
-            }
-          }
-          for (let i = 0; i < response.length; i++) {
-            response[i].groupNmae = getUserInfo(response[i].interviewdep);
-          }
-          for (let i = 0; i < response.length; i++) {
-            response[i].interviewdep = getDepartmentById(response[i].interviewdep);
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getdata()
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].graduateschool !== null && response[j].graduateschool !== '') {
+                let graduateschool = getUserInfo(response[j].graduateschool);
+                if (graduateschool) {
+                  response[j].graduateschool = user.userinfo.customername;
+                }
+              }
+              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
+                let supplierInfor = getSupplierinfor(response[j].supplierinfor_id);
+                if (supplierInfor) {
+                  response[j].suppliername = supplierInfor.supchinese;
+                }
+              }
+              if (response[j].result !== null && response[j].result !== '') {
+                let letStage = getDictionaryInfo(response[j].result);
+                if (letStage != null) {
+                  response[j].result = letStage.value1;
+                }
+              }
+              if (response[j].whetherentry !== null && response[j].whetherentry !== '') {
+                let letStage = getDictionaryInfo(response[j].whetherentry);
+                if (letStage != null) {
+                  response[j].whetherentry = letStage.value1;
+                }
+              }
+              // if (response[j].technology !== null && response[j].technology !== '') {
+              //   let letStage = getDictionaryInfo(response[j].technology);
+              //   if (letStage != null) {
+              //     response[j].technology = letStage.value1;
+              //   }
+              // }
+              if (response[j].interview_date !== null && response[j].interview_date !== '') {
+                response[j].interview_date = moment(response[j].interview_date).format('YYYY-MM-DD');
+              }
+            }
+            for (let i = 0; i < response.length; i++) {
+              response[i].groupNmae = getUserInfo(response[i].interviewdep);
+            }
+            for (let i = 0; i < response.length; i++) {
+              response[i].interviewdep = getDepartmentById(response[i].interviewdep);
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.rowid = row.expatriatesinfor_id;
       },

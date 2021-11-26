@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
 </template>
@@ -72,54 +72,57 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1017Store/getPsdcd')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].corresponding == 1) {
-              response[j].corresponding = '完成'
-            } else {
-              response[j].corresponding = '未完成'
-            }
-            //修改列表组织 不跟随申请人显示组织名称 ztc fr
-            // let nameflg = getOrgInfoByUserId(response[j].user_id);
-            // if (nameflg) {
-            //   response[j].center_id = nameflg.centerNmae;
-            //   // response[j].group_id = nameflg.groupNmae;
-            //   response[j].team_id = nameflg.teamNmae;
-            // }
-            //add_fjl_0927
-            if (response[j].center_id !== null && response[j].center_id !== '' && response[j].center_id !== undefined) {
-              response[j].center_id = getDepartmentById(response[j].center_id);
-            }
-            if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-              response[j].group_id = getDepartmentById(response[j].group_id);
-            }
-            if (response[j].team_id !== null && response[j].team_id !== '' && response[j].team_id !== undefined) {
-              response[j].team_id = getDepartmentById(response[j].team_id);
-            }
-            //add_fjl_0927
-            let user = getUserInfo(response[j].user_id);
-            //修改列表组织 不跟随申请人显示组织名称 ztc to
-            if (user) {
-              response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
-            }
-            response[j].status = getStatus(response[j].status);
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+      this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1017Store/getPsdcd')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].corresponding == 1) {
+                response[j].corresponding = '完成'
+              } else {
+                response[j].corresponding = '未完成'
+              }
+              //修改列表组织 不跟随申请人显示组织名称 ztc fr
+              // let nameflg = getOrgInfoByUserId(response[j].user_id);
+              // if (nameflg) {
+              //   response[j].center_id = nameflg.centerNmae;
+              //   // response[j].group_id = nameflg.groupNmae;
+              //   response[j].team_id = nameflg.teamNmae;
+              // }
+              //add_fjl_0927
+              if (response[j].center_id !== null && response[j].center_id !== '' && response[j].center_id !== undefined) {
+                response[j].center_id = getDepartmentById(response[j].center_id);
+              }
+              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                response[j].group_id = getDepartmentById(response[j].group_id);
+              }
+              if (response[j].team_id !== null && response[j].team_id !== '' && response[j].team_id !== undefined) {
+                response[j].team_id = getDepartmentById(response[j].team_id);
+              }
+              //add_fjl_0927
+              let user = getUserInfo(response[j].user_id);
+              //修改列表组织 不跟随申请人显示组织名称 ztc to
+              if (user) {
+                response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+              }
+              response[j].status = getStatus(response[j].status);
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.rowid = row.psdcd_id;
       },

@@ -5,7 +5,7 @@
     :data="data"
     :rowid="row_id"
     :showSelection="isShow"
-    :title="title"
+    :title="title" @reget="getdata"
     @buttonClick="buttonClick"
     @rowClick="rowClick"
     ref="roletable"
@@ -183,62 +183,65 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS3002Store/getHotelReservation', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        if (response[j].checkin !== null && response[j].checkin !== "") {
-                            response[j].checkin = moment(response[j].checkin).format("YYYY-MM-DD");
-                        }
-                        if (response[j].checkout !== null && response[j].checkout !== "") {
-                            response[j].checkout = moment(response[j].checkout).format("YYYY-MM-DD");
-                        }
-                        let user = getUserInfo(response[j].userid)
-                        let nameflg = getOrgInfoByUserId(response[j].userid);
-                        if (nameflg) {
-                            response[j].centername = nameflg.centerNmae;
-                            response[j].groupname = nameflg.groupNmae;
-                            response[j].teamname = nameflg.teamNmae;
-                        }
-                        if (user) {
-                            response[j].applicant = user.userinfo.customername;
-                        }
-                        if (response[j].smoke !== null && response[j].smoke !== "") {
-                            if (this.$i18n) {
-                                response[j].smoke = response[j].smoke === "1" ? this.$t('label.yes') : this.$t('label.no');
-                            }
-                        }
-                        // ADD_FJL   (受理状态)
-                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
-                            if (this.$i18n) {
-                                if (response[j].acceptstatus === '0') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-                                } else if (response[j].acceptstatus === '1') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-                                } else if (response[j].acceptstatus === '2') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-                                }
-                            }
-                        }
-                        // ADD_FJL   (受理时间)
-                        if (response[j].findate !== null && response[j].findate !== "") {
-                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-                        }
-                    }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000
-                    });
-                    this.loading = false;
-                })
+            this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS3002Store/getHotelReservation', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].checkin !== null && response[j].checkin !== "") {
+                    response[j].checkin = moment(response[j].checkin).format("YYYY-MM-DD");
+                  }
+                  if (response[j].checkout !== null && response[j].checkout !== "") {
+                    response[j].checkout = moment(response[j].checkout).format("YYYY-MM-DD");
+                  }
+                  let user = getUserInfo(response[j].userid)
+                  let nameflg = getOrgInfoByUserId(response[j].userid);
+                  if (nameflg) {
+                    response[j].centername = nameflg.centerNmae;
+                    response[j].groupname = nameflg.groupNmae;
+                    response[j].teamname = nameflg.teamNmae;
+                  }
+                  if (user) {
+                    response[j].applicant = user.userinfo.customername;
+                  }
+                  if (response[j].smoke !== null && response[j].smoke !== "") {
+                    if (this.$i18n) {
+                      response[j].smoke = response[j].smoke === "1" ? this.$t('label.yes') : this.$t('label.no');
+                    }
+                  }
+                  // ADD_FJL   (受理状态)
+                  if (response[j].acceptstatus !== null && response[j].acceptstatus !== "") {
+                    if (this.$i18n) {
+                      if (response[j].acceptstatus === '0') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                      } else if (response[j].acceptstatus === '1') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                      } else if (response[j].acceptstatus === '2') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                      }
+                    }
+                  }
+                  // ADD_FJL   (受理时间)
+                  if (response[j].findate !== null && response[j].findate !== "") {
+                    response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000
+                });
+                this.loading = false;
+              })
+          },
             formatJson(filterVal, jsonData) {
                 return jsonData.map(v => filterVal.map(j => {
                     if (j === 'timestamp') {

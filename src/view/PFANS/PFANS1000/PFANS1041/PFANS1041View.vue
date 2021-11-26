@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList"
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList" @reget="getdata"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
   </div>
@@ -70,59 +70,62 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS1040Store/getList', {"type":"1"})
-                .then(response => {
-                    if (response.length > 0) {
-                        for (let i = 0; i < response.length; i++) {
-                            let orgInfo_cnt = getOrgInfo(response[i].center_id);
-                            if (orgInfo_cnt) {
-                                response[i].department = orgInfo_cnt.companyname;
-                            }
-                            // let orgInfo_grp = getOrgInfo(response[i].group_id);
-                            // if (orgInfo_grp) {
-                            //     response[i].groupNmae = orgInfo_grp.companyname;
-                            // }
-                            let userInfo = getUserInfo(response[i].createby);
-                            if (userInfo) {
-                                response[i].user_id = userInfo.userinfo.customername;
-                            }
-                            if (response[i].status !== null && response[i].status !== '') {
-                                response[i].status = getStatus(response[i].status);
-                            }
-                        }
-                    }
-                    this.data = response;
-                    // //画面按钮制御：总经理和Center长不可新建theme
-                    // let role = getCurrentRole();
-                    // if (role === '1' || role === '2') {
-                    //   this.buttonList = [
-                    //     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                    //     {'key': 'insert', 'name': 'button.insert', 'disabled': true, 'icon': 'el-icon-plus'},
-                    //     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                    //   ];
-                    // }
-                    //管理员不可新建
-                    if (!this.$store.getters.userinfo.userinfo) {
-                        this.buttonList = [
-                            {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
-                            {'key': 'insert', 'name': 'button.insert', 'disabled': true, 'icon': 'el-icon-plus'},
-                            {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-                        ];
-                    }
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
+            this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1040Store/getList', {"type":"1"})
+              .then(response => {
+                if (response.length > 0) {
+                  for (let i = 0; i < response.length; i++) {
+                    let orgInfo_cnt = getOrgInfo(response[i].center_id);
+                    if (orgInfo_cnt) {
+                      response[i].department = orgInfo_cnt.companyname;
+                    }
+                    // let orgInfo_grp = getOrgInfo(response[i].group_id);
+                    // if (orgInfo_grp) {
+                    //     response[i].groupNmae = orgInfo_grp.companyname;
+                    // }
+                    let userInfo = getUserInfo(response[i].createby);
+                    if (userInfo) {
+                      response[i].user_id = userInfo.userinfo.customername;
+                    }
+                    if (response[i].status !== null && response[i].status !== '') {
+                      response[i].status = getStatus(response[i].status);
+                    }
+                  }
+                }
+                this.data = response;
+                // //画面按钮制御：总经理和Center长不可新建theme
+                // let role = getCurrentRole();
+                // if (role === '1' || role === '2') {
+                //   this.buttonList = [
+                //     {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                //     {'key': 'insert', 'name': 'button.insert', 'disabled': true, 'icon': 'el-icon-plus'},
+                //     {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                //   ];
+                // }
+                //管理员不可新建
+                if (!this.$store.getters.userinfo.userinfo) {
+                  this.buttonList = [
+                    {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+                    {'key': 'insert', 'name': 'button.insert', 'disabled': true, 'icon': 'el-icon-plus'},
+                    {'key': 'update', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+                  ];
+                }
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          },
             rowClick(row) {
                 this.row_info = row;
                 this.themeplan_id = row.themeplan_id;

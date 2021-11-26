@@ -1,6 +1,6 @@
 <template>
   <div>
-  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row"
+  <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" @reget="load"
                    :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
   </EasyNormalTable>
     <el-container>

@@ -9,7 +9,7 @@
       :title="title"
       @buttonClick="buttonClick"
       @rowClick="rowclick"
-      v-loading="loading"
+      v-loading="loading" @reget="handleClick"
       v-show="showTable1"
       :showSelection="true"
     >
@@ -22,7 +22,7 @@
       :buttonList="buttonList"
       :columns="columns"
       :data="table2"
-      :title="title"
+      :title="title" @reget="handleClick"
       @buttonClick="buttonClick"
       @rowClick="rowclick"
       v-loading="loading"

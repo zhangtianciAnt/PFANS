@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :title="title" @reget="getdata"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
     <el-dialog width="50%"
@@ -192,43 +192,46 @@
       //     this.buttonList[2].disabled = false;
       //   }
       // }
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1036Store/get')
-        .then(response => {
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].user_id !== null && response[j].user_id !== '') {
-              let rst = getUserInfo(response[j].user_id);
-              if (rst) {
-                response[j].user_id = rst.userinfo.customername;
-                // response[j].center = rst.userinfo.centername;
-                // response[j].group = rst.userinfo.groupname;
-              }
-              if (response[j].center_id)
-              {
-                let orgInfo_cnt = getOrgInfo(response[j].center_id);
-                if (orgInfo_cnt) {
-                  response[j].department = orgInfo_cnt.companyname;
-                }
-              }
-              if (response[j].status !== null && response[j].status !== '') {
-                response[j].status = getStatus(response[j].status);
-              }
-            }
-          }
-          this.data = response;
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+     this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1036Store/get')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].user_id !== null && response[j].user_id !== '') {
+                let rst = getUserInfo(response[j].user_id);
+                if (rst) {
+                  response[j].user_id = rst.userinfo.customername;
+                  // response[j].center = rst.userinfo.centername;
+                  // response[j].group = rst.userinfo.groupname;
+                }
+                if (response[j].center_id)
+                {
+                  let orgInfo_cnt = getOrgInfo(response[j].center_id);
+                  if (orgInfo_cnt) {
+                    response[j].department = orgInfo_cnt.companyname;
+                  }
+                }
+                if (response[j].status !== null && response[j].status !== '') {
+                  response[j].status = getStatus(response[j].status);
+                }
+              }
+            }
+            this.data = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       UploadUrl: function() {
         return process.env.BASE_API + '/businessplan/importUser?radio=' + this.radio;
       },

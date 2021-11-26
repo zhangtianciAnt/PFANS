@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList"
+    <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row_id" :buttonList="buttonList" @reget="getdata"
                      @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading">
     </EasyNormalTable>
   </div>
@@ -63,32 +63,35 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1042Store/list')
-        .then(response => {
-          this.data = response;
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-              response[j].pj = getDepartmentById(response[j].group_id);
-            }
-            if (response[j].status !== null && response[j].status !== '') {
-              response[j].status = getStatus(response[j].status);
-            }
-          }
-
-          this.loading = false;
-        })
-        .catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.loading = false;
-        });
+     this.getdata();
     },
     methods: {
+      getdata(){
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1042Store/list')
+          .then(response => {
+            this.data = response;
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                response[j].pj = getDepartmentById(response[j].group_id);
+              }
+              if (response[j].status !== null && response[j].status !== '') {
+                response[j].status = getStatus(response[j].status);
+              }
+            }
+
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
       rowClick(row) {
         this.rowlist = row;
       },

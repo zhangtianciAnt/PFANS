@@ -11,7 +11,7 @@
           :columns="columns"
           :data="data"
           :rowid="rowid"
-          :title="titleIn"
+          :title="titleIn" @reget="getdata"
           @buttonClick="buttonClick"
           @rowClick="rowClick"
           v-loading="loading"
@@ -23,7 +23,7 @@
           :columns="columns"
           :data="outdata"
           :rowid="rowid"
-          :title="titleOut"
+          :title="titleOut" @reget="getdata"
           @buttonClick="buttonClick"
           @rowClick="rowClick"
           v-loading="loading"
@@ -116,51 +116,54 @@
             //         this.buttonList[2].disabled = false;
             //     }
             // }
-            this.loading = true;
-            this.$store
-                .dispatch("PFANS1038Store/getAll")
-                .then(response => {
-                    this.loading = false;
-                    let userinfo = "";
-                    let data = [];
-                    let outdata = [];
-                    if (response.length > 0) {
-                        response.forEach(
-                            res => {
-                                if (getUserInfo(res.createby)) {
-                                    userinfo = getUserInfo(res.createby).userinfo;
-                                }
-                                res.createby = userinfo.customername;
-                                if(res.centerid)
-                                {
-                                  let name = getOrgInfo(res.centerid)
-                                  if (name)
-                                  {
-                                    res.department = name.companyname;
-                                  }
-                                }
-                                res.createon = moment(res.createon).format("YYYY-MM-DD");
-                                if (res.type === 0) {
-                                    data.push(res);
-                                } else {
-                                    outdata.push(res);
-                                }
-                            }
-                        );
-                        this.data = data;
-                        this.outdata = outdata;
-                    }
-                })
-                .catch(err => {
-                    this.loading = false;
-                    this.$message.error({
-                        message: err,
-                        type: "error",
-                        duration: 5 * 1000
-                    });
-                });
+           this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch("PFANS1038Store/getAll")
+              .then(response => {
+                this.loading = false;
+                let userinfo = "";
+                let data = [];
+                let outdata = [];
+                if (response.length > 0) {
+                  response.forEach(
+                    res => {
+                      if (getUserInfo(res.createby)) {
+                        userinfo = getUserInfo(res.createby).userinfo;
+                      }
+                      res.createby = userinfo.customername;
+                      if(res.centerid)
+                      {
+                        let name = getOrgInfo(res.centerid)
+                        if (name)
+                        {
+                          res.department = name.companyname;
+                        }
+                      }
+                      res.createon = moment(res.createon).format("YYYY-MM-DD");
+                      if (res.type === 0) {
+                        data.push(res);
+                      } else {
+                        outdata.push(res);
+                      }
+                    }
+                  );
+                  this.data = data;
+                  this.outdata = outdata;
+                }
+              })
+              .catch(err => {
+                this.loading = false;
+                this.$message.error({
+                  message: err,
+                  type: "error",
+                  duration: 5 * 1000
+                });
+              });
+          },
             rowClick(row) {
               this.id = row.personnelplanid;
               //region scc add 9/28 获取编辑按钮可用状态 from

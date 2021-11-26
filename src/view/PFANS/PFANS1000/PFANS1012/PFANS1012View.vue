@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" :showSelection="isShow"
-                   :title="title" @buttonClick="buttonClick" :selectable="selectInit"
+                   :title="title" @buttonClick="buttonClick" :selectable="selectInit" @reget="getdata"
                    @rowClick="rowClick" ref="roletable" v-loading="loading">
   </EasyNormalTable>
 
@@ -168,99 +168,102 @@
             };
         },
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS1012Store/get', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        if (response[j].user_id !== null && response[j].user_id !== '') {
-                            let rst = getUserInfo(response[j].user_id);
-                            let nameflg = getOrgInfoByUserId(response[j].user_id);
-                            if (nameflg) {
-                                response[j].center_name = nameflg.centerNmae;
-                                // response[j].group_name = nameflg.groupNmae;
-                                response[j].team_name = nameflg.teamNmae;
-                            }
-                            if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
-                                response[j].group_name = getDepartmentById(response[j].groupid);
-                            }
-                            if (rst) {
-                                response[j].user_id = rst.userinfo.customername;
-                            }
-                            //add_fjl_0928  添加外币的场合 币种+外币金额 start
-                            if (response[j].currency !== null && response[j].currency !== '') {
-                              response[j].foreigncurrencytemp = response[j].currency;
-                              response[j].moneys = response[j].foreigncurrency;
-                            }
-                            else
-                            {
-                              response[j].foreigncurrencytemp = this.$t('label.PFANS1012VIEW_RMB');
-                            }
-                            //add_fjl_0928  添加外币的场合 币种+外币金额 end
-                            //ADD-WS-4/27-精算类型添加
-                            if (response[j].type !== null && response[j].type !== '') {
-                                if (response[j].type === 'PJ001001') {
-                                    if (this.$i18n) {
-                                        response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT');
-                                    }
-                                } else if (response[j].type === 'PJ001002') {
-                                    if (this.$i18n) {
-                                        response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKQQ');
-                                    }
-                                }
-                            }
-                            if (response[j].expectedpaydate !== null && response[j].expectedpaydate !== '') {
-                                response[j].expectedpaydate = moment(response[j].expectedpaydate).format('YYYY-MM-DD');
-                            }
-                            //ADD-WS-4/27-精算类型添加
-                            if (response[j].status != '0') {
-                                if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                                    response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-                                }
-                            } else {
-                                response[j].modifyon = null;
-                            }
-                            if (response[j].status !== null && response[j].status !== '') {
-                                response[j].status = getStatus(response[j].status);
-                            }
-                            if (response[j].budgetunit !== null && response[j].budgetunit !== '') {
-                                let letbudge = getDictionaryInfo(response[j].budgetunit);
-                                if (letbudge) {
-                                    response[j].budgetunit = letbudge.value1;
-                                }
-                            }
-                            if (response[j].moduleid !== null && response[j].moduleid !== '') {
-                                let letbudge = getDictionaryInfo(response[j].moduleid);
-                                if (letbudge) {
-                                    response[j].moduleid = letbudge.value1;
-                                }
-                            }
-                            // add-ws-8/12-禅道任务446
-                            if (response[j].processingstatus != null && response[j].processingstatus != '') {
-                                if (this.$i18n) {
-                                    if (response[j].processingstatus === '0') {
-                                        response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
-                                    } else if (response[j].processingstatus === '1') {
-                                        response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
-                                    }
-                                }
-                            }
-                            // add-ws-8/12-禅道任务446
-                        }
-                    }
-                    this.data = response;
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
+           this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS1012Store/get', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  if (response[j].user_id !== null && response[j].user_id !== '') {
+                    let rst = getUserInfo(response[j].user_id);
+                    let nameflg = getOrgInfoByUserId(response[j].user_id);
+                    if (nameflg) {
+                      response[j].center_name = nameflg.centerNmae;
+                      // response[j].group_name = nameflg.groupNmae;
+                      response[j].team_name = nameflg.teamNmae;
+                    }
+                    if (response[j].groupid !== null && response[j].groupid !== '' && response[j].groupid !== undefined) {
+                      response[j].group_name = getDepartmentById(response[j].groupid);
+                    }
+                    if (rst) {
+                      response[j].user_id = rst.userinfo.customername;
+                    }
+                    //add_fjl_0928  添加外币的场合 币种+外币金额 start
+                    if (response[j].currency !== null && response[j].currency !== '') {
+                      response[j].foreigncurrencytemp = response[j].currency;
+                      response[j].moneys = response[j].foreigncurrency;
+                    }
+                    else
+                    {
+                      response[j].foreigncurrencytemp = this.$t('label.PFANS1012VIEW_RMB');
+                    }
+                    //add_fjl_0928  添加外币的场合 币种+外币金额 end
+                    //ADD-WS-4/27-精算类型添加
+                    if (response[j].type !== null && response[j].type !== '') {
+                      if (response[j].type === 'PJ001001') {
+                        if (this.$i18n) {
+                          response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKJT');
+                        }
+                      } else if (response[j].type === 'PJ001002') {
+                        if (this.$i18n) {
+                          response[j].type = this.$t('label.PFANS1012VIEW_TYPECHECKQQ');
+                        }
+                      }
+                    }
+                    if (response[j].expectedpaydate !== null && response[j].expectedpaydate !== '') {
+                      response[j].expectedpaydate = moment(response[j].expectedpaydate).format('YYYY-MM-DD');
+                    }
+                    //ADD-WS-4/27-精算类型添加
+                    if (response[j].status != '0') {
+                      if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                        response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                      }
+                    } else {
+                      response[j].modifyon = null;
+                    }
+                    if (response[j].status !== null && response[j].status !== '') {
+                      response[j].status = getStatus(response[j].status);
+                    }
+                    if (response[j].budgetunit !== null && response[j].budgetunit !== '') {
+                      let letbudge = getDictionaryInfo(response[j].budgetunit);
+                      if (letbudge) {
+                        response[j].budgetunit = letbudge.value1;
+                      }
+                    }
+                    if (response[j].moduleid !== null && response[j].moduleid !== '') {
+                      let letbudge = getDictionaryInfo(response[j].moduleid);
+                      if (letbudge) {
+                        response[j].moduleid = letbudge.value1;
+                      }
+                    }
+                    // add-ws-8/12-禅道任务446
+                    if (response[j].processingstatus != null && response[j].processingstatus != '') {
+                      if (this.$i18n) {
+                        if (response[j].processingstatus === '0') {
+                          response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS1');
+                        } else if (response[j].processingstatus === '1') {
+                          response[j].processingstatus = this.$t('label.PFANS1006FORMVIEW_OPTIONS2');
+                        }
+                      }
+                    }
+                    // add-ws-8/12-禅道任务446
+                  }
+                }
+                this.data = response;
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+          },
             //ADD_FJL
             selectInit(row, index) {
                 if (row.status === this.$t('label.PFANS5004VIEW_OVERTIME')) {

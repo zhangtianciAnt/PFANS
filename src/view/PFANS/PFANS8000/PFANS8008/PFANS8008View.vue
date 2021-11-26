@@ -2,7 +2,7 @@
   <EasyNormalTable
     :buttonList="buttonList"
     :columns="columns"
-    :data="data"
+    :data="data" @reget="getdata"
     :rowid="rowid"
     :title="title"
     @buttonClick="buttonClick"
@@ -95,71 +95,75 @@
             icon: "el-icon-search"
           },
         ];
-        this.loading = true;
-        this.$store.dispatch("PFANS8008Store/getListType").then(response => {
-          this.data = response;
-          for (let j = 0; j < response.length; j++) {
-            if (response[j].availablestate === "0") {
+      }
+      this.getdata();
+    },
+    methods: {
+      getdata(){
+        if (this.availablestate) {
+          this.loading = true;
+          this.$store.dispatch("PFANS8008Store/getListType").then(response => {
+            this.data = response;
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].availablestate === "0") {
+                if (getUserInfo(
+                  this.data[j].createby
+                ) !== null) {
+                  response[j].createbyname = getUserInfo(
+                    response[j].createby
+                  ).userinfo.customername;
+                }
+                if (this.$i18n) {
+
+                  response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
+                }
+                if (response[j].createon !== null && response[j].createon !== '') {
+                  response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
+                }
+              }
+            }
+            this.loading = false;
+          }).catch(error => {
+            this.loading = false;
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            })
+          });
+        } else {
+          this.loading = true;
+          this.$store.dispatch("PFANS8008Store/getInformation").then(response => {
+            this.data = response;
+            for (let j = 0; j < this.data.length; j++) {
               if (getUserInfo(
                 this.data[j].createby
               ) !== null) {
-                response[j].createbyname = getUserInfo(
-                  response[j].createby
+                this.data[j].createbyname = getUserInfo(
+                  this.data[j].createby
                 ).userinfo.customername;
               }
               if (this.$i18n) {
-
-                response[j].availablestatename = this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
+                this.data[j].availablestatename =
+                  this.data[j].availablestate === "0"
+                    ? this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
+                    : this.$t("label.PFANS8008FORMVIEW_INVALID");
               }
-              if (response[j].createon !== null && response[j].createon !== '') {
-                response[j].createon = moment(response[j].createon).format('YYYY-MM-DD HH:mm:ss');
-              }
-            }
-          }
-          this.loading = false;
-        }).catch(error => {
-          this.loading = false;
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          })
-        });
-      } else {
-        this.loading = true;
-        this.$store.dispatch("PFANS8008Store/getInformation").then(response => {
-          this.data = response;
-          for (let j = 0; j < this.data.length; j++) {
-            if (getUserInfo(
-              this.data[j].createby
-            ) !== null) {
-              this.data[j].createbyname = getUserInfo(
-                this.data[j].createby
-              ).userinfo.customername;
-            }
-            if (this.$i18n) {
-              this.data[j].availablestatename =
-                this.data[j].availablestate === "0"
-                  ? this.$t("label.PFANS8008FORMVIEW_EFFECTIVE")
-                  : this.$t("label.PFANS8008FORMVIEW_INVALID");
-            }
 
-            this.data[j].createon = moment(this.data[j].createon).format(
-              "YYYY-MM-DD HH:mm:ss"
-            );
-          }
-          this.loading = false;
-        }).catch(error => {
-          this.$message.error({
-            message: error,
-            type: 'error',
-            duration: 5 * 1000
-          })
-        });
-      }
-
-    },
-    methods: {
+              this.data[j].createon = moment(this.data[j].createon).format(
+                "YYYY-MM-DD HH:mm:ss"
+              );
+            }
+            this.loading = false;
+          }).catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000
+            })
+          });
+        }
+      },
       rowClick(row) {
         this._id = row.informationid;
       },

@@ -1,6 +1,6 @@
 <template>
   <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" ref="roletable"
-                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" :showSelection="isShow"
+                   :title="title" @buttonClick="buttonClick" @rowClick="rowClick" :showSelection="isShow" @reget="getdata"
                    v-loading="loading" :psearchValue="search">
   </EasyNormalTable>
 </template>
@@ -299,110 +299,113 @@
         },
         //add-ws-7/14-禅道247
         mounted() {
-            this.loading = true;
-            this.$store
-                .dispatch('PFANS3001Store/getFpans3001List', {})
-                .then(response => {
-                    for (let j = 0; j < response.length; j++) {
-                        let user = getUserInfo(response[j].user_id);
-                        let nameflg = getOrgInfoByUserId(response[j].user_id);
-                        if (nameflg) {
-                            response[j].center_id = nameflg.centerNmae;
-                            // response[j].group_id = nameflg.groupNmae;
-                            response[j].team_id = nameflg.teamNmae;
-                        }
-                        //add_fjl_0927
-                        if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
-                            response[j].group_id = getDepartmentById(response[j].group_id);
-                        }
-                        //add_fjl_0927
-                        if (user) {
-                            response[j].user_id = user.userinfo.customername;
-                        }
-                        // 禅道494 ztc
-                        if (response[j].budgetnumber !== null && response[j].budgetnumber !== "") {
-                            let procurement = getDictionaryInfo(response[j].budgetnumber);
-                            if (procurement != null) {
-                                response[j].budgetnumber = procurement.value2 + '_' + procurement.value3;
-                            }
-                        }
-                        // 禅道494 ztc
-                        // ADD_FJL   (受理状态)
-                        if (response[j].acceptstatus !== null && response[j].acceptstatus !== '') {
-                            if (this.$i18n) {
-                                if (response[j].acceptstatus === '0') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
-                                } else if (response[j].acceptstatus === '1') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
-                                } else if (response[j].acceptstatus === '2') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
-                                } else if (response[j].acceptstatus === '3') {
-                                    response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT2');
-                                }
-                            }
-                        }
-                        // ADD_FJL   (受理时间)
-                        if (response[j].findate !== null && response[j].findate !== '') {
-                            response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].status !== null && response[j].status !== '') {
-                            response[j].status = getStatus(response[j].status);
-                        }
-                        if (response[j].ticketstype === 'first') {
-                            if (this.$i18n) {
-                                response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_DOMESTIC');
-                            }
-
-                            response[j].idcard = response[j].idcard;
-                        } else {
-                            if (this.$i18n) {
-                                response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_FOREIGN');
-                            }
-
-                            response[j].idcard = response[j].passport + '、' + moment(response[j].effectivedate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].tripstart !== null && response[j].tripstart !== '' && response[j].tripend !== null && response[j].tripend !== '') {
-                            response[j].trip = moment(response[j].tripstart).format('YYYY-MM-DD') + ' - ' + moment(response[j].tripend).format('YYYY-MM-DD');
-                        }
-                        if (response[j].godeparturedate !== null && response[j].godeparturedate !== '') {
-                            response[j].godeparturedate = moment(response[j].godeparturedate).format('YYYY-MM-DD hh:mm');
-                        }
-                        if (response[j].goarrivaldate !== null && response[j].goarrivaldate !== '') {
-                            response[j].goarrivaldate = moment(response[j].goarrivaldate).format('YYYY-MM-DD hh:mm');
-                        }
-                        if (response[j].redeparturedate !== null && response[j].redeparturedate !== '') {
-                            response[j].redeparturedate = moment(response[j].redeparturedate).format('YYYY-MM-DD hh:mm');
-                        }
-                        if (response[j].rearrivaldate !== null && response[j].rearrivaldate !== '') {
-                            response[j].rearrivaldate = moment(response[j].rearrivaldate).format('YYYY-MM-DD hh:mm');
-                        }
-                        if (response[j].ticketingdate !== null && response[j].ticketingdate !== '') {
-                            response[j].ticketingdate = moment(response[j].ticketingdate).format('YYYY-MM-DD');
-                        }
-                        if (response[j].budgetnumber !== null && response[j].budgetnumber !== '') {
-                            let letBudgetnumber = getDictionaryInfo(response[j].budgetnumber);
-                            if (letBudgetnumber != null) {
-                                response[j].budgetnumber = letBudgetnumber.value1;
-                            }
-                        }
-                    }
-                    this.data = response;
-                    //add-ws-7/7-禅道247
-                    this.check();
-                    //add-ws-7/7-禅道247
-                    this.loading = false;
-                })
-                .catch(error => {
-                    this.$message.error({
-                        message: error,
-                        type: 'error',
-                        duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                });
-            this.geticketsdetail();
+           this.getdata();
         },
         methods: {
+          getdata(){
+            this.loading = true;
+            this.$store
+              .dispatch('PFANS3001Store/getFpans3001List', {})
+              .then(response => {
+                for (let j = 0; j < response.length; j++) {
+                  let user = getUserInfo(response[j].user_id);
+                  let nameflg = getOrgInfoByUserId(response[j].user_id);
+                  if (nameflg) {
+                    response[j].center_id = nameflg.centerNmae;
+                    // response[j].group_id = nameflg.groupNmae;
+                    response[j].team_id = nameflg.teamNmae;
+                  }
+                  //add_fjl_0927
+                  if (response[j].group_id !== null && response[j].group_id !== '' && response[j].group_id !== undefined) {
+                    response[j].group_id = getDepartmentById(response[j].group_id);
+                  }
+                  //add_fjl_0927
+                  if (user) {
+                    response[j].user_id = user.userinfo.customername;
+                  }
+                  // 禅道494 ztc
+                  if (response[j].budgetnumber !== null && response[j].budgetnumber !== "") {
+                    let procurement = getDictionaryInfo(response[j].budgetnumber);
+                    if (procurement != null) {
+                      response[j].budgetnumber = procurement.value2 + '_' + procurement.value3;
+                    }
+                  }
+                  // 禅道494 ztc
+                  // ADD_FJL   (受理状态)
+                  if (response[j].acceptstatus !== null && response[j].acceptstatus !== '') {
+                    if (this.$i18n) {
+                      if (response[j].acceptstatus === '0') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_ACCEPT');
+                      } else if (response[j].acceptstatus === '1') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_REFUSE');
+                      } else if (response[j].acceptstatus === '2') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT');
+                      } else if (response[j].acceptstatus === '3') {
+                        response[j].acceptstatus = this.$t('label.PFANS3006VIEW_CARRYOUT2');
+                      }
+                    }
+                  }
+                  // ADD_FJL   (受理时间)
+                  if (response[j].findate !== null && response[j].findate !== '') {
+                    response[j].findate = moment(response[j].findate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].status !== null && response[j].status !== '') {
+                    response[j].status = getStatus(response[j].status);
+                  }
+                  if (response[j].ticketstype === 'first') {
+                    if (this.$i18n) {
+                      response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_DOMESTIC');
+                    }
+
+                    response[j].idcard = response[j].idcard;
+                  } else {
+                    if (this.$i18n) {
+                      response[j].ticketstype = this.$t('label.PFANS3001FORMVIEW_FOREIGN');
+                    }
+
+                    response[j].idcard = response[j].passport + '、' + moment(response[j].effectivedate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].tripstart !== null && response[j].tripstart !== '' && response[j].tripend !== null && response[j].tripend !== '') {
+                    response[j].trip = moment(response[j].tripstart).format('YYYY-MM-DD') + ' - ' + moment(response[j].tripend).format('YYYY-MM-DD');
+                  }
+                  if (response[j].godeparturedate !== null && response[j].godeparturedate !== '') {
+                    response[j].godeparturedate = moment(response[j].godeparturedate).format('YYYY-MM-DD hh:mm');
+                  }
+                  if (response[j].goarrivaldate !== null && response[j].goarrivaldate !== '') {
+                    response[j].goarrivaldate = moment(response[j].goarrivaldate).format('YYYY-MM-DD hh:mm');
+                  }
+                  if (response[j].redeparturedate !== null && response[j].redeparturedate !== '') {
+                    response[j].redeparturedate = moment(response[j].redeparturedate).format('YYYY-MM-DD hh:mm');
+                  }
+                  if (response[j].rearrivaldate !== null && response[j].rearrivaldate !== '') {
+                    response[j].rearrivaldate = moment(response[j].rearrivaldate).format('YYYY-MM-DD hh:mm');
+                  }
+                  if (response[j].ticketingdate !== null && response[j].ticketingdate !== '') {
+                    response[j].ticketingdate = moment(response[j].ticketingdate).format('YYYY-MM-DD');
+                  }
+                  if (response[j].budgetnumber !== null && response[j].budgetnumber !== '') {
+                    let letBudgetnumber = getDictionaryInfo(response[j].budgetnumber);
+                    if (letBudgetnumber != null) {
+                      response[j].budgetnumber = letBudgetnumber.value1;
+                    }
+                  }
+                }
+                this.data = response;
+                //add-ws-7/7-禅道247
+                this.check();
+                //add-ws-7/7-禅道247
+                this.loading = false;
+              })
+              .catch(error => {
+                this.$message.error({
+                  message: error,
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+              });
+            this.geticketsdetail();
+          },
             //add-ws-7/7-禅道247
             check() {
                 if (this.$route.params._id) {

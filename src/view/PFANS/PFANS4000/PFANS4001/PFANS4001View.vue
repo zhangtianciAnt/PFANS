@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id"
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row_id" @reget="getList"
                      :title="title" @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :alertshow="alertshow" :description="description"
                      @handleacceptstate="handleacceptstate" :handles="handles"  @handleacceptstate1="handleacceptstate1"
     >

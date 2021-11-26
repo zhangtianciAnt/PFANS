@@ -3,7 +3,7 @@
     :title="title"
     :columns="columns"
     :data="data"
-    :rowid="row_id"
+    :rowid="row_id" @reget="getovertime"
     :buttonList="buttonList"
     @buttonClick="buttonClick"
     @rowClick="rowClick"

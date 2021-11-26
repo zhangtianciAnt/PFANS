@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
   </EasyNormalTable>
 </template>
@@ -74,6 +74,10 @@
       };
     },
     mounted() {
+       this.getdata();
+    },
+    methods: {
+      getdata(){
         this.loading = true;
         this.$store
           .dispatch('PFANS1023Store/getConfidential')
@@ -86,12 +90,12 @@
               }
               response[j].status = getStatus(response[j].status);
               //修改列表组织 不跟随申请人显示组织名称 ztc fr
-                // let nameflg = getOrgInfoByUserId(response[j].user_id);
-                // if (nameflg) {
-                //     response[j].center_id = nameflg.centerNmae;
-                //     response[j].group_id = nameflg.groupNmae;
-                //     response[j].team_id = nameflg.teamNmae;
-                // }
+              // let nameflg = getOrgInfoByUserId(response[j].user_id);
+              // if (nameflg) {
+              //     response[j].center_id = nameflg.centerNmae;
+              //     response[j].group_id = nameflg.groupNmae;
+              //     response[j].team_id = nameflg.teamNmae;
+              // }
               if (response[j].center_id !== null && response[j].center_id !== '' && response[j].center_id !== undefined) {
                 response[j].center_id = getDepartmentById(response[j].center_id);
               }
@@ -121,8 +125,7 @@
             });
             this.loading = false
           })
-    },
-    methods: {
+      },
       rowClick(row) {
         this.rowid = row.confidentialid;
       },

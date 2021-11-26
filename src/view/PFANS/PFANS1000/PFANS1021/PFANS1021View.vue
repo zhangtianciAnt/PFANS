@@ -1,5 +1,5 @@
 <template>
-  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
+  <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList" @reget="getdata"
                    @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" >
   </EasyNormalTable>
 </template>
@@ -74,6 +74,10 @@
       };
     },
     mounted() {
+        this.getdata();
+    },
+    methods: {
+      getdata(){
         this.loading = true;
         this.$store
           .dispatch('PFANS1021Store/getSecurity')
@@ -101,8 +105,7 @@
             });
             this.loading = false
           })
-    },
-    methods: {
+      },
       rowClick(row) {
         this.rowid = row.securityid;
       },
