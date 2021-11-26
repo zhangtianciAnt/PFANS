@@ -389,7 +389,8 @@
           }]
         }],
         buttonList: [
-          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-upload2'},
+          //导出图标修改 1125
+          {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
         ],
         grp_options: [],
         refform:{

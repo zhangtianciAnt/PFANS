@@ -23,7 +23,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui'
-    import {getUserInfo, getStatus,getCurrentRoleNew} from "@/utils/customize";
+    import {getUserInfo, getStatus,getCurrentRoleNew,getCurrentRole16} from "@/utils/customize";
     import moment from "moment";
     export default {
         name: 'PFANS2010View',
@@ -49,6 +49,14 @@
                         disabled: false,
                         icon: 'el-icon-view'
                     },
+                  //考勤导出 1125 ztc fr
+                    {
+                      key: 'export',
+                      name: 'button.export',
+                      disabled: true,
+                      icon: 'el-icon-download'
+                    },
+                  //考勤导出 1125 ztc to
                 ],
                 columns: [
                     {
@@ -114,6 +122,10 @@
         },
       mounted() {
         this.roles = getCurrentRoleNew();
+        this.roleBility = getCurrentRole16();
+        if(this.roleBility === '0'){
+          this.buttonList[1].disabled = false;
+        }
         this.getWorkflow();
         //await this.getlist();
         },
@@ -233,6 +245,14 @@
                         }
                     })
                 }
+                //考勤导出 1125 ztc fr
+                else if (val === 'export')
+                {
+                  let winopen =  'http://localhost:8085/jmreport/view/a64c32f1d6e64b56926c2728c74638bd?';
+                  winopen = winopen + 'year=' + this.montvalue.substring(0,4) + '&month=' + this.montvalue.substring(5,7)
+                  window.open(winopen,'_blank');
+                }
+              //考勤导出 1125 ztc to
             },
             changed(val){
                 this.montvalue = moment(val).format("YYYY-MM");
