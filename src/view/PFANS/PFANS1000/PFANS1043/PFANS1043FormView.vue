@@ -69,17 +69,19 @@
           </el-col>
         </el-row>
         <el-row>
-          <el-col :span="8">
-            <el-form-item :label="$t('label.PFANS1043FORMVIEW_CONTRACT')" prop="contract">
-              <dicselect :code="code2"
-                         :data="form.contract"
-                         :disabled="!disable"
-                         :multiple="multiple"
-                         @change="getcontract"
-                         style="width:20vw">
-              </dicselect>
-            </el-form-item>
-          </el-col>
+        <!-- scc del 创建theme管理不在提供契约形式 from -->
+<!--          <el-col :span="8">-->
+<!--            <el-form-item :label="$t('label.PFANS1043FORMVIEW_CONTRACT')" prop="contract">-->
+<!--              <dicselect :code="code2"-->
+<!--                         :data="form.contract"-->
+<!--                         :disabled="!disable"-->
+<!--                         :multiple="multiple"-->
+<!--                         @change="getcontract"-->
+<!--                         style="width:20vw">-->
+<!--              </dicselect>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+          <!-- scc del 创建theme管理不在提供契约形式 to -->
           <el-col :span="8">
             <el-form-item :label="$t('label.PFANS8011VIEW_CURRENCY')" prop="currency">
               <dicselect :code="code3"
@@ -91,119 +93,121 @@
               </dicselect>
             </el-form-item>
           </el-col>
-          <el-col :span="8">
-            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                          v-show="show1" prop="toolsorgs">
-              <div class="dpSupIndex" style="width: 20vw">
-                <el-container>
-                  <el-input style="width: 20vw"
-                            :disabled="true"
-                            v-model="form.toolsorgs">
-                  </el-input>
-                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"
-                             size="small"></el-button>
-                  <el-dialog :visible.sync="dialogTableVisible2"
-                             center
-                             size="50%"
-                             top="8vh" lock-scroll
-                             append-to-body>
-                    <div style="text-align: center">
-                      <el-row style="text-align: center;height: 90%;overflow: hidden">
-                        <el-table
-                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
-                          || data.thecompany.toLowerCase().includes(search2.toLowerCase())
-                          )"
-                          height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                          @row-click="handleClickChange2">
-                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="protelephone"
-                                           :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column
-                            align="right" width="230">
-                            <template slot="header" slot-scope="scope">
-                              <el-input
-                                v-model="search2"
-                                size="mini"
-                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
-                            </template>
-                          </el-table-column>
-                        </el-table>
-                      </el-row>
-                      <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit2">{{ $t('button.confirm') }}</el-button>
-                        </span>
-                    </div>
-                  </el-dialog>
-                </el-container>
-              </div>
-            </el-form-item>
-            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                          v-show="show2" prop="toolsorgs">
-              <div class="dpSupIndex" style="width: 20vw">
-                <el-container>
-                  <input style="width: 20vw" v-model="form.toolsorgs"
-                         :disabled="true">
-                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"
-                             size="small"></el-button>
-                  <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center
-                             size="50%"
-                             top="8vh" lock-scroll
-                             append-to-body>
-                    <div style="text-align: center">
-                      <el-row style="text-align: center;height: 90%;overflow: hidden">
-                        <el-table
-                          :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"
-                          height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                          @row-click="handleClickChange">
-                          <el-table-column property="suppliername"
-                                           :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="payeename"
-                                           :label="$t('label.PFANS1012VIEW_PAYEENAME')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="vendornum"
-                                           :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="payeebankaccountnumber"
-                                           :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="payeebankaccount"
-                                           :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column
-                            align="right" width="230">
-                            <template slot="header" slot-scope="scope">
-                              <el-input
-                                v-model="search"
-                                size="mini"
-                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
-                            </template>
-                          </el-table-column>
-                        </el-table>
-                      </el-row>
-                      <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit">{{ $t('button.confirm') }}</el-button>
-                        </span>
-                    </div>
-                  </el-dialog>
-                </el-container>
-              </div>
-            </el-form-item>
-            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" v-show="show3" :error="errorgroup"
-                          prop="toolsorgs">
-              <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="4"
-                   @getOrgids="setToolsorgs"
-                   style="width:20vw"></org>
-            </el-form-item>
-          </el-col>
+          <!-- scc del 创建theme管理不在提供委托元 from -->
+<!--          <el-col :span="8">-->
+<!--            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
+<!--                          v-show="show1" prop="toolsorgs">-->
+<!--              <div class="dpSupIndex" style="width: 20vw">-->
+<!--                <el-container>-->
+<!--                  <el-input style="width: 20vw"-->
+<!--                            :disabled="true"-->
+<!--                            v-model="form.toolsorgs">-->
+<!--                  </el-input>-->
+<!--                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"-->
+<!--                             size="small"></el-button>-->
+<!--                  <el-dialog :visible.sync="dialogTableVisible2"-->
+<!--                             center-->
+<!--                             size="50%"-->
+<!--                             top="8vh" lock-scroll-->
+<!--                             append-to-body>-->
+<!--                    <div style="text-align: center">-->
+<!--                      <el-row style="text-align: center;height: 90%;overflow: hidden">-->
+<!--                        <el-table-->
+<!--                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())-->
+<!--                          || data.thecompany.toLowerCase().includes(search2.toLowerCase())-->
+<!--                          )"-->
+<!--                          height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+<!--                          @row-click="handleClickChange2">-->
+<!--                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="protelephone"-->
+<!--                                           :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column-->
+<!--                            align="right" width="230">-->
+<!--                            <template slot="header" slot-scope="scope">-->
+<!--                              <el-input-->
+<!--                                v-model="search2"-->
+<!--                                size="mini"-->
+<!--                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
+<!--                        </el-table>-->
+<!--                      </el-row>-->
+<!--                      <span slot="footer" class="dialog-footer">-->
+<!--                          <el-button type="primary" @click="submit2">{{ $t('button.confirm') }}</el-button>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                  </el-dialog>-->
+<!--                </el-container>-->
+<!--              </div>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
+<!--                          v-show="show2" prop="toolsorgs">-->
+<!--              <div class="dpSupIndex" style="width: 20vw">-->
+<!--                <el-container>-->
+<!--                  <input style="width: 20vw" v-model="form.toolsorgs"-->
+<!--                         :disabled="true">-->
+<!--                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible = true"-->
+<!--                             size="small"></el-button>-->
+<!--                  <el-dialog :title="$t('title.PFANS6003VIEW')" :visible.sync="dialogTableVisible" center-->
+<!--                             size="50%"-->
+<!--                             top="8vh" lock-scroll-->
+<!--                             append-to-body>-->
+<!--                    <div style="text-align: center">-->
+<!--                      <el-row style="text-align: center;height: 90%;overflow: hidden">-->
+<!--                        <el-table-->
+<!--                          :data="gridData.filter(data => !search || data.suppliername.toLowerCase().includes(search.toLowerCase()))"-->
+<!--                          height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+<!--                          @row-click="handleClickChange">-->
+<!--                          <el-table-column property="suppliername"-->
+<!--                                           :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="payeename"-->
+<!--                                           :label="$t('label.PFANS1012VIEW_PAYEENAME')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="vendornum"-->
+<!--                                           :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="payeebankaccountnumber"-->
+<!--                                           :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column property="payeebankaccount"-->
+<!--                                           :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"-->
+<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
+<!--                          <el-table-column-->
+<!--                            align="right" width="230">-->
+<!--                            <template slot="header" slot-scope="scope">-->
+<!--                              <el-input-->
+<!--                                v-model="search"-->
+<!--                                size="mini"-->
+<!--                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>-->
+<!--                            </template>-->
+<!--                          </el-table-column>-->
+<!--                        </el-table>-->
+<!--                      </el-row>-->
+<!--                      <span slot="footer" class="dialog-footer">-->
+<!--                          <el-button type="primary" @click="submit">{{ $t('button.confirm') }}</el-button>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                  </el-dialog>-->
+<!--                </el-container>-->
+<!--              </div>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')" v-show="show3" :error="errorgroup"-->
+<!--                          prop="toolsorgs">-->
+<!--              <org :disabled="!disable" :error="errorgroup" :orglist="form.toolsorgs" orgtype="4"-->
+<!--                   @getOrgids="setToolsorgs"-->
+<!--                   style="width:20vw"></org>-->
+<!--            </el-form-item>-->
+<!--          </el-col>-->
+          <!-- scc del 创建theme管理不在提供委托元 to -->
         </el-row>
         <el-row>
           <el-col :span="8">

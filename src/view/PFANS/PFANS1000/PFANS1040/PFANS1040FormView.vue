@@ -297,19 +297,19 @@
                             @row-click="handleClickChange">
                             <el-table-column property="themename"
                                              :label="$t('label.PFANS1043FORMVIEW_THEMENAME')"
-                                             width="120" show-overflow-tooltip></el-table-column>
+                                             width="180" show-overflow-tooltip></el-table-column>
                             <el-table-column property="dividevalue1"
                                              :label="$t('label.PFANS1039FORMVIEW_TEAM')"
-                                             width="120" show-overflow-tooltip></el-table-column>
-                            <el-table-column property="contractvalue1"
-                                             :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"
-                                             width="120" show-overflow-tooltip></el-table-column>
+                                             width="180" show-overflow-tooltip></el-table-column>
+<!--                            <el-table-column property="contractvalue1"-->
+<!--                                             :label="$t('label.PFANS1043FORMVIEW_CONTRACT')"-->
+<!--                                             width="120" show-overflow-tooltip></el-table-column>-->
                             <el-table-column property="currencyvalue1"
                                              :label="$t('label.PFANS8011VIEW_CURRENCY')"
-                                             width="120" show-overflow-tooltip></el-table-column>
-                            <el-table-column property="toolsorgs"
-                                             :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                                             width="120" show-overflow-tooltip></el-table-column>
+                                             width="180" show-overflow-tooltip></el-table-column>
+<!--                            <el-table-column property="toolsorgs"-->
+<!--                                             :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
+<!--                                             width="120" show-overflow-tooltip></el-table-column>-->
                             <el-table-column
                               align="right" width="230">
                               <template slot="header" slot-scope="scope">
@@ -367,18 +367,142 @@
                 </template>
               </el-table-column>
 
-              <!--契約形式-->
+              <!--契約形式--><!--scc upd 契约形式不再自动带入，可进行编辑 from-->
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_CONTRACTTYPE')" align="center" width="190">
                 <template slot-scope="scope">
                   <dicselect
-                    :disabled="true"
+                    :disabled="disabled"
                     :code="code4"
                     :data="scope.row.contracttype"
                     :no="scope.row"
                     size="small"
+                    @change="getcontract"
                   ></dicselect>
                 </template>
               </el-table-column>
+              <!--scc upd 契约形式不再自动带入，可进行编辑 to-->
+
+              <!--委託元--><!--scc upd 委托元不再自动带入，可进行编辑 from-->
+              <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
+              >
+                <template slot-scope="scope">
+                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1'">
+                    <div>
+                      <el-container>
+                        <el-input class="content bg"
+                                  :disabled="true" size="small"
+                                  v-model="scope.row.assignor"></el-input>
+                        <el-button :disabled="disabled" icon="el-icon-search"
+                                   @click="dialogTableVisible2 = true; handleClick(scope.$index);"
+                                   size="small"></el-button>
+                        <el-dialog :visible.sync="dialogTableVisible2"
+                                   center
+                                   size="50%"
+                                   top="8vh" lock-scroll
+                                   append-to-body>
+                          <div style="text-align: center">
+                            <el-row style="text-align: center;height: 90%;overflow: hidden">
+                              <el-table
+                                :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
+                                || data.thecompany.toLowerCase().includes(search2.toLowerCase())
+                                )"
+                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                @row-click="handleClickChange2">
+                                <el-table-column property="custchinese"
+                                                 :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="prochinese"
+                                                 :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="protelephone"
+                                                 :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column
+                                  align="right" width="230">
+                                  <template slot="header" slot-scope="scope">
+                                    <el-input
+                                      v-model="search2"
+                                      size="mini"
+                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
+                                  </template>
+                                </el-table-column>
+                              </el-table>
+                            </el-row>
+                            <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>
+                        </span>
+                          </div>
+                        </el-dialog>
+                      </el-container>
+                    </div>
+                  </el-col>
+                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '2'">
+                    <div>
+                      <el-container>
+                        <el-input class="content bg"
+                                  :disabled="true" size="small"
+                                  v-model="scope.row.assignor"></el-input>
+                        <el-button :disabled="disabled" icon="el-icon-search"
+                                   @click="dialogTableVisible2 = true; handleClick(scope.$index);"
+                                   size="small"></el-button>
+                        <el-dialog :visible.sync="dialogTableVisible2"
+                                   center
+                                   size="50%"
+                                   top="8vh" lock-scroll
+                                   append-to-body>
+                          <div style="text-align: center">
+                            <el-row style="text-align: center;height: 90%;overflow: hidden">
+                              <el-table
+                                :data="gridData3.filter(data => !search3 || data.suppliername.toLowerCase().includes(search3.toLowerCase()))"
+                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                                @row-click="handleClickChange3">
+                                <el-table-column property="suppliername"
+                                                 :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="payeename"
+                                                 :label="$t('label.PFANS1012VIEW_PAYEENAME')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="vendornum"
+                                                 :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="payeebankaccountnumber"
+                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="payeebankaccount"
+                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
+                                                 width="120" show-overflow-tooltip></el-table-column>
+                                <el-table-column
+                                  align="right" width="230">
+                                  <template slot="header" slot-scope="scope">
+                                    <el-input
+                                      v-model="search3"
+                                      size="mini"
+                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
+                                  </template>
+                                </el-table-column>
+                              </el-table>
+                            </el-row>
+                            <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>
+                        </span>
+                          </div>
+                        </el-dialog>
+                      </el-container>
+                    </div>
+                  </el-col>
+                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '3'">
+                    <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"
+                         @getOrgids="setToolsorgs($event,scope.row,scope.$index)"
+                         style="width:13vw"></org>
+                  </el-col>
+                </template>
+              </el-table-column>
+              <!--scc upd 委托元不再自动带入，可进行编辑 to-->
+
               <!--通貨種別-->
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_CURRENCYTYPE')" align="center" width="200">
                 <template slot-scope="scope">
@@ -398,22 +522,7 @@
                   <!--                      add-ws-12/10-汇率字典-->
                 </template>
               </el-table-column>
-              <!--委託元-->
-              <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
-              >
-                <template slot-scope="scope">
-                  <div>
-                    <el-input
-                      :disabled="true"
-                      v-if="scope.row.show"
-                      v-model="scope.row.assignor"
-                      size="small">
-                    </el-input>
-                    <org v-else :disabled="true" :no="scope.row" :orglist="scope.row.assignor"
-                         orgtype="2" size="small"></org>
-                  </div>
-                </template>
-              </el-table-column>
+
               <el-table-column :label="$t('label.remarks')" align="center" width="230">
                 <template slot-scope="scope">
                   <el-input :disabled="true" maxlength="100" style="width: 100%"
@@ -842,6 +951,7 @@
   import org from '../../../components/org';
   import moment from 'moment';
   import monthlyrate from '../../../components/monthlyrate';
+  import user from "../../../components/user";
 
   export default {
     name: 'PFANS1040FormView',
@@ -858,6 +968,15 @@
         dialogTableVisible: false,
         gridData: [],
         search: '',
+        //region scc add from
+        gridData2: [],//客户信息
+        gridData3: [],//供应商信息
+        search2: '',
+        search3: '',
+        currentRow2: '',
+        dialogTableVisible2: false,
+        // errorgroup: '',
+        //endregion scc add to
         grp_options: [],
         title: 'title.PFANS1040VIEW',
         status: '0',
@@ -996,6 +1115,10 @@
     mounted() {
       this.getGroupOptions();
       this.getlisttheme();
+      //region scc add 获取客户和供应商信息 from
+      this.getcustomerinfor();
+      this.getsupplierinfor();
+      //endregion scc add 获取客户和供应商信息 to
       //查看，编辑
       if (this.$route.params._id) {
         this.loading = true;
@@ -1175,9 +1298,11 @@
         this.tableDataA[this.index].themeinfor_id = val.themeinfor_id;
         this.tableDataA[this.index].month = moment(new Date()).format('YYYY-MM-DD');
         this.tableDataA[this.index].branch = val.divide;
-        this.tableDataA[this.index].contracttype = val.contract;
+        //region scc del 契约形式和委托元不再自动带入 from
+        // this.tableDataA[this.index].contracttype = val.contract;
         this.tableDataA[this.index].currencytype = val.currency;
-        this.tableDataA[this.index].assignor = val.toolsorgs;
+        // this.tableDataA[this.index].assignor = val.toolsorgs;
+        //endregion scc del 契约形式和委托元不再自动带入 to
         this.tableDataA[this.index].remarks = val.remark;
         this.tableDataA[this.index].customerinfor_id = val.customerinfor_id;
         this.tableDataA[this.index].otherone = val.otherone;
@@ -1190,7 +1315,7 @@
         let parameters = {
           year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
           // year :'2021',
-          contract: 0,
+          contract: 0,//已失效，现在获取所有theme
         };
         this.$store
           .dispatch('PFANS1043Store/getlisttheme', parameters)
@@ -1651,6 +1776,28 @@
             this.loading = false;
             return false;
           }
+          //region scc add 契约形式与委托元必填项 from
+          if (!this.baseInfo[i].contracttype) {
+            Message({
+              message: this.$t('normal.error_09') +
+                this.$t('label.PFANS1039FORMVIEW_CONTRACTTYPE'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            return false;
+          }
+          if (!this.baseInfo[i].assignor) {
+            Message({
+              message: this.$t('normal.error_09') +
+                this.$t('label.PFANS1039FORMVIEW_ASSIGNOR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+            return false;
+          }
+          //endregion scc add 契约形式与委托元必填项 to
           this.baseInfo[i].themeplan_id = this.refform.themeplan_id === '' ? '' : this.refform.themeplan_id;
           this.baseInfo[i].year = this.refform.year;
           this.baseInfo[i].group_id = this.refform.group_id;
@@ -1718,6 +1865,146 @@
           };
         }
       },
+      //region scc add 契约形式与委托元相关方法 from
+      getcontract(val, row) {//契约形式变更
+        row.contracttype = val
+        row.assignor = '';
+        this.$forceUpdate();
+      },
+
+      getcustomerinfor() {//获取客户
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6002Store/getcustomerinfor2')
+          .then(response => {
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].custchinese !== null && response[j].custchinese !== '') {
+                let custchinese = getUserInfo(response[j].custchinese);
+                if (custchinese) {
+                  response[j].custchinese = user.userinfo.customername;
+                }
+              }
+              if (response[j].liableperson !== null && response[j].liableperson !== '') {
+                let liableperson = getUserInfo(response[j].liableperson);
+                if (liableperson) {
+                  response[j].liableperson = user.userinfo.customername;
+                }
+              }
+              if (response[j].prochinese !== null && response[j].prochinese !== '') {
+                let prochinese = getUserInfo(response[j].prochinese);
+                if (prochinese) {
+                  response[j].prochinese = user.userinfo.customername;
+                }
+              }
+              if (response[j].protelephone !== null && response[j].protelephone !== '') {
+                let protelephone = getUserInfo(response[j].protelephone);
+                if (protelephone) {
+                  response[j].protelephone = user.userinfo.customername;
+                }
+              }
+              if (response[j].commontperson !== null && response[j].commontperson !== '') {
+                let commontperson = getUserInfo(response[j].commontperson);
+                if (commontperson) {
+                  response[j].commontperson = user.userinfo.customername;
+                }
+              }
+              if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
+                let comtelephone = getUserInfo(response[j].comtelephone);
+                if (comtelephone) {
+                  response[j].comtelephone = user.userinfo.customername;
+                }
+              }
+              if (response[j].addchinese !== null && response[j].addchinese !== '') {
+                let addchinese = getUserInfo(response[j].addchinese);
+                if (addchinese) {
+                  response[j].addchinese = user.userinfo.customername;
+                }
+              }
+              if (response[j].perscale !== null && response[j].perscale !== '') {
+                let perscale = getDictionaryInfo(response[j].perscale);
+                if (perscale != null) {
+                  response[j].perscale = perscale.value1;
+                }
+              }
+            }
+            this.gridData2 = response;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+
+      handleClickChange2(val) {//客户弹窗
+        this.currentRow2 = val.custchinese;
+        this.tableDataA[this.index].customerinfor_id = val.customerinfor_id;
+      },
+
+      handleClickChange3(val) {//供应商弹窗
+        this.currentRow2 = val.suppliername;
+        this.tableDataA[this.index].supplierinfor_id = val.supplierinfor_id;
+      },
+
+      submit2(row) {
+        this.tableDataA[this.index].assignor = this.currentRow2;
+        this.dialogTableVisible2 = false;
+      },
+
+      getsupplierinfor() {//获取供应商
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS6003Store/getsupplierinfor2')
+          .then(response => {
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.supplierinfor_id = response[i].supplierinfor_id;
+              vote.suppliername = response[i].supchinese;
+              vote.payeename = response[i].payeename;
+              vote.suppliercode = response[i].suppliercode;
+              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
+              vote.payeebankaccount = response[i].payeebankaccount;
+              this.gridData3.push(vote);
+            }
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+
+      setToolsorgs(val,row,$index) {
+        this.tableDataA[$index].assignor = val;
+        // if (this.tableDataA[$index].assignor === '') {
+        //   this.errorgroup = this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_ENTRUST');
+        // } else {
+        //   this.errorgroup = '';
+        // }
+      },
+
+      handleClick($index) {
+        this.index = $index;
+      },
+
+      typeOfAssignor(row) {
+        if (row.contracttype == 'PJ142001' || row.contracttype == 'PJ142002' || row.contracttype == 'PJ142003') {
+          return '1';
+        } else if (row.contracttype == 'PJ142006' || row.contracttype == 'PJ142007') {
+          return '2';
+        } else if (row.contracttype == 'PJ142008' || row.contracttype == 'PJ142009' || row.contracttype == 'PJ142004' || row.contracttype == 'PJ142005') {
+          return '3';
+        }
+      },
+      //endregion scc add 契约形式与委托元相关方法 to
     },
   };
 </script>
