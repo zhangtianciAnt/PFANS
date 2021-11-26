@@ -1,6 +1,6 @@
 <template>
   <div>
-    <EasyNormalContainer :title="title" @buttonClick="buttonClick" ref="container"
+    <EasyNormalContainer :title="title" ref="container"
                          v-loading="loading">
       <div slot="customize">
         <el-form :model="form" label-position="top" label-width="8vw" ref="refform"
@@ -37,7 +37,7 @@
               <plx-table-grid :datas="tableA" use-virtual stripe border header-cell-class-name="sub_bg_color_blue" header-row-class-name="height"
                               style="width: 100%;height: calc(100vh - 200px - 2rem)" highlight-current-row height="400" :row-height="40" :pagination-show="false">
                 <plx-table-column :label="$t('label.PFANSPERCALEVIEW_NAME')"
-                                 align="center" width="80" prop="reportpeople"/>
+                                 align="center" width="70" prop="reportpeople"/>
 <!--                  <template slot-scope="scope">-->
 <!--                    <el-input-->
 <!--                      :no="scope.row"-->
@@ -47,10 +47,10 @@
 <!--                    </el-input>-->
 <!--                  </template>-->
                 <plx-table-column :label="$t('label.PFANSPERCALEVIEW_DEPARTC')"
-                                 align="center" width="220" prop="center_id"/>
+                                 align="left" width="220" prop="center_id"/>
 
                 <plx-table-column :label="$t('label.PFANSPERCALEVIEW_DEPARTG')"
-                                 align="center" width="220" prop="group_id"/>
+                                 align="left" width="220" prop="group_id"/>
 <!--                  <template slot-scope="scope">-->
 <!--                    <el-input-->
 <!--                      :no="scope.row"-->
@@ -61,7 +61,7 @@
 <!--                  </template>-->
 <!--                </el-table-column>-->
                 <plx-table-column :label="$t('label.PFANSPERCALEVIEW_TYPE')"
-                                 align="center" width="80" prop="type"/>
+                                 align="center" width="100" prop="type"/>
 <!--                  <template slot-scope="scope">-->
 <!--                    <el-input-->
 <!--                      :no="scope.row"-->
@@ -94,7 +94,7 @@
 <!--                  </template>-->
 <!--                </el-table-column>-->
                 <plx-table-column :label="$t('label.PFANSPERCALEVIEW_PROPORTIONS')"
-                                 align="center" width="80" prop="proportions"/>
+                                 align="center" width="70" prop="proportions"/>
 <!--                  <template slot-scope="scope">-->
 <!--                    <el-input-->
 <!--                      :no="scope.row"-->
@@ -105,7 +105,7 @@
 <!--                  </template>-->
 <!--                </el-table-column>-->
                 <plx-table-column :label="$t('label.PFANSPERCALEVIEW_REPORTERS')"
-                                 align="center" width="80" prop="reporters"/>
+                                 align="center" width="70" prop="reporters"/>
 <!--                  <template slot-scope="scope">-->
 <!--                    <el-input-->
 <!--                      :no="scope.row"-->
@@ -136,6 +136,7 @@ export default {
   data(){
     return{
       loading: false,
+      title: 'title.personScaleView',
       form: {
         user_id: '',
         center_id: '',
@@ -200,9 +201,6 @@ export default {
         });
         this.loading = false;
       });
-    },
-    buttonClick(val){
-
     },
   },
 }

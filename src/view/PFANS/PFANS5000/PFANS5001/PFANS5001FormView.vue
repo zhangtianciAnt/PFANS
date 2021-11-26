@@ -2574,29 +2574,36 @@
         row.reporter = userlist;
         if (userlist!=null && userlist !='' && userlist !=undefined)
         {
-          if(this.tableB.filter(item => item.name === userlist).length === 0)
-          {
-            if (row.type === '0')
-            {
-              Message({
-                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-            else
-            {
-              Message({
-                message: this.$t(row.name_id || '')
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
+          //报告者修改 不能报告给本人 1122 ztc fr
+          if(row.name === row.reporter){
+            Message({
+              message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+                + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            row.reporter = null;
           }
+          //报告者修改 不能报告给本人 1122 ztc to
+          let params = {
+            user_id: row.name,
+            reporter: row.reporter,
+        };
+          let resultAnt = this.getBusBalns(params);
+
         }
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
+      },
+      checkRoundP(params,tba){
+        return new Promise((resolve) => {
+          this.$store
+            .dispatch('PFANS1036Store/getBusBalns',params)
+            .then(response => {
+              // moneyPlan.push(response.data.surplsu)
+              //this.form.rulingid = response.data.rulingid
+              resolve(response.data.surplsu);
+            });
+        })
       },
       getUseridsInput(val, row) {
         row.name = val;
@@ -3551,8 +3558,8 @@
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
               {
-                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
-                {
+                //报告者修改 不能报告给本人 1122 ztc fr
+                if(this.tableB[i].name === this.tableB[i].reporter){
                   Message({
                     message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
                       + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
@@ -3563,6 +3570,7 @@
                   this.loading = false;
                   return;
                 }
+                //报告者修改 不能报告给本人 1122 ztc to
               }
               //add ccm 20210825 体制报告者在体制中是否存在 to
               //add_fjl 体制人员重复check end
@@ -3610,26 +3618,6 @@
                 return;
               }
               //endregion scc add scc 9/27 项目体制社外氏名非空验证 to
-
-              //add ccm 20210825 体制报告者在体制中是否存在 fr
-              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
-              {
-                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
-                {
-                  Message({
-                    message: this.$t(this.tableC[i].name_id || '')
-                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.activeName = 'fourth';
-                  this.loading = false;
-                  return;
-                }
-              }
-              //add ccm 20210825 体制报告者在体制中是否存在 to
-
-
               // 外协员工入场时间&离场时间必须Check
               if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
                 error11 = error11 + 1;
