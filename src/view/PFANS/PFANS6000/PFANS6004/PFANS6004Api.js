@@ -8,6 +8,15 @@ export function getexpatriatesinfor(data) {
     params: data
   })
 }
+//页面增加分页 ztc 1129 fr
+export function getexpatrFliter(data) {
+  return request({
+    url: 'expatriatesinfor/getexpatrFliter',
+    method: 'get',
+    params: data
+  })
+}
+//页面增加分页 ztc 1129 to
 
 export function getWithoutAuth(data) {
   return request({

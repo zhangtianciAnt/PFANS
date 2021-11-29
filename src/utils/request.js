@@ -73,7 +73,7 @@ const ListApi = [
   "companyprojects/getSiteList4",
   "companyprojects/getList2",
   "comprojects/getList2",
-  "seal/list",
+  "seal/sealList",
   "user/getAccountCustomer3",
   "customerinfor/get",
   "supplierinfor/get",
@@ -83,7 +83,9 @@ const ListApi = [
   "workflow/list",
   "informationdelivery/get",
   "dictionary/getDictionary",
-  "monthlyrate/list"
+  "monthlyrate/list",
+  "coststatistics/getCostBygroupid",
+  "expatriatesinfor/getexpatrFliter",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,
@@ -94,7 +96,6 @@ service.interceptors.request.use(config => {
   if (getToken()) {
     config.headers['x-auth-token'] = getToken()
   }
-
   if(ListApi.indexOf(config.url) != -1){
     config.headers['pageNo'] = store.getters.pageNo
     config.headers['pageSize'] = store.getters.pageSize

@@ -216,9 +216,11 @@
         methods: {
             getexpatriatesinfor() {
                 this.loading = true;
+              //页面增加分页 ztc 1129 fr
                 this.$store
-                    .dispatch('PFANS6004Store/getexpatriatesinfor')
+                    .dispatch('PFANS6004Store/getexpatrFliter')
                     .then(response => {
+                      //页面增加分页 ztc 1129 to
                         let tabledate = [];
                         for (let j = 0; j < response.length; j++) {
                             if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
@@ -401,59 +403,57 @@
                                     response[j].countermeasure = '';
                                 }
                             }
-
-
-                            if (response[j].whetherentry == "BP006001") {
-                                if (response[j].whetherentry !== null && response[j].whetherentry !== '') {
-                                    let whetherentry = getDictionaryInfo(response[j].whetherentry);
-                                    if (whetherentry != null) {
-                                        response[j].whetherentry = whetherentry.value1;
-                                    }
-                                }
-                                tabledate.push({
-                                    expatriatesinfor_id: response[j].expatriatesinfor_id,
-                                    suppliername: response[j].suppliername,
-                                    expname: response[j].expname,
-                                    group_id: response[j].group_id,
-                                    sex: response[j].sex,
-                                    birth: response[j].birth,
-                                    contactinformation: response[j].contactinformation,
-                                    interviewdep: response[j].interviewdep,
-                                    interview_date: response[j].interview_date,
-                                    result: response[j].result,
-                                    whetherentry: response[j].whetherentry,
-                                    age: this.age,
-                                    education: response[j].education,
-                                    graduateschool: response[j].graduateschool,
-                                    // technology: response[j].technology,
-                                    rn: response[j].rn,
-                                    account: response[j].account,
-                                    remarks: response[j].remarks,
-                                    graduation_year: response[j].graduation_year,
-                                    email: response[j].email,
-                                    operationform: response[j].operationform,
-                                    number: response[j].number,
-                                    jobclassification: response[j].jobclassification,
-                                    admissiontime: response[j].admissiontime,
-                                    speciality: response[j].speciality,
-                                    exits: response[j].exits,
-                                    //预计退场时间
-                                    yjexitime:response[j].yjexitime,
-                                    exitime: response[j].exitime,
-                                    exitreason: response[j].exitreason,
-                                    alltechnology: response[j].alltechnology,
-                                    sitevaluation: response[j].sitevaluation,
-                                    businessimpact: response[j].businessimpact,
-                                    countermeasure: response[j].countermeasure,
-                                    accountname: response[j].accountname,
-                                    lockernumber: response[j].lockernumber,
-                                    //add ccm 20210901 外注添加组织信息 fr
-                                    orgInformationcenterid:response[j].orgInformationcenterid,
-                                    orgInformationgroupid:response[j].orgInformationgroupid,
-                                    orgInformationteamid:response[j].orgInformationteamid,
-                                    //add ccm 20210901 外注添加组织信息 to
-                                })
+                          //页面增加分页 ztc 1129 fr
+                          if (response[j].whetherentry !== null && response[j].whetherentry !== '') {
+                            let whetherentry = getDictionaryInfo(response[j].whetherentry);
+                            if (whetherentry != null) {
+                              response[j].whetherentry = whetherentry.value1;
                             }
+                          }
+                          tabledate.push({
+                            expatriatesinfor_id: response[j].expatriatesinfor_id,
+                            suppliername: response[j].suppliername,
+                            expname: response[j].expname,
+                            group_id: response[j].group_id,
+                            sex: response[j].sex,
+                            birth: response[j].birth,
+                            contactinformation: response[j].contactinformation,
+                            interviewdep: response[j].interviewdep,
+                            interview_date: response[j].interview_date,
+                            result: response[j].result,
+                            whetherentry: response[j].whetherentry,
+                            age: this.age,
+                            education: response[j].education,
+                            graduateschool: response[j].graduateschool,
+                            // technology: response[j].technology,
+                            rn: response[j].rn,
+                            account: response[j].account,
+                            remarks: response[j].remarks,
+                            graduation_year: response[j].graduation_year,
+                            email: response[j].email,
+                            operationform: response[j].operationform,
+                            number: response[j].number,
+                            jobclassification: response[j].jobclassification,
+                            admissiontime: response[j].admissiontime,
+                            speciality: response[j].speciality,
+                            exits: response[j].exits,
+                            //预计退场时间
+                            yjexitime:response[j].yjexitime,
+                            exitime: response[j].exitime,
+                            exitreason: response[j].exitreason,
+                            alltechnology: response[j].alltechnology,
+                            sitevaluation: response[j].sitevaluation,
+                            businessimpact: response[j].businessimpact,
+                            countermeasure: response[j].countermeasure,
+                            accountname: response[j].accountname,
+                            lockernumber: response[j].lockernumber,
+                            //add ccm 20210901 外注添加组织信息 fr
+                            orgInformationcenterid:response[j].orgInformationcenterid,
+                            orgInformationgroupid:response[j].orgInformationgroupid,
+                            orgInformationteamid:response[j].orgInformationteamid,
+                            //add ccm 20210901 外注添加组织信息 to
+                          })
+                          //页面增加分页 ztc 1129 to
                         }
                         this.data = tabledate;
                         this.loading = false;

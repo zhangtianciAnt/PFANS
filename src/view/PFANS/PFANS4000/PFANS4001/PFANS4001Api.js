@@ -40,6 +40,20 @@ export function getFpans4001List() {
     method: 'post'
   })
 }
+//页面增加分页 ztc 1129 fr
+export function sealList() {
+  return request({
+    url: 'seal/sealList',
+    method: 'post'
+  })
+}
+export function sealDetailList() {
+  return request({
+    url: 'seal/sealDetailList',
+    method: 'post'
+  })
+}
+//页面增加分页 ztc 1129 to
 
 
 export function getPfans4001One(data) {

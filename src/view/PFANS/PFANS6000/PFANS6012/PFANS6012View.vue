@@ -1,7 +1,9 @@
 <template>
   <div>
-    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title" :showSelectByCondition="true" ref="roletable" :showIndex="true"
-                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading" :whetherProcess="whetherProcess" @handleprocessing="handleprocessing">
+    <EasyNormalTable :buttonList="buttonList" :columns="columns" :data="data" :rowid="row" :title="title"
+                     :showSelectByCondition="true" ref="roletable" :showIndex="true" @reget="getInfo"
+                     @buttonClick="buttonClick" @rowClick="rowClick" v-loading="loading"
+                     :whetherProcess="whetherProcess" @handleprocessing="handleprocessing">
       <el-form label-position="top" label-width="8vw" slot="search" :model="refform" >
         <el-row>
           <el-col :span="8">
