@@ -3517,7 +3517,7 @@
                         this.loading = false;
                     })
                     .catch(err => {
-                        Message({
+                        this.$message.error({
                             message: err,
                             type: 'error',
                             duration: 5 * 1000,
@@ -3922,14 +3922,14 @@
                                     this.$refs.container.buttonClick('back');
                                 }
                                 this.loading = false;
-                                this.$message({
+                                this.$message.success({
                                     message: this.$t('label.PFANSUSERFORMVIEW_SUBMITSUCCESSFULLY'),
                                     type: 'success',
                                 });
                                 this.getUserList();
                             })
                             .catch(err => {
-                                Message({
+                                this.$message.error({
                                     message: err,
                                     type: 'error',
                                     duration: 5 * 1000,
@@ -3973,7 +3973,7 @@
                         this.$store.commit('global/SET_USERLIST', response);
                     })
                     .catch(err => {
-                        Message({
+                        this.$message.error({
                             message: err,
                             type: 'error',
                             duration: 5 * 1000,

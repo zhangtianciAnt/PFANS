@@ -398,7 +398,7 @@
             //this.data = response;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -432,7 +432,7 @@
             this.$refs.table.$refs.eltable.clearSelection();
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -516,7 +516,7 @@
           //     this.$refs.table.$refs.eltable.clearSelection();
           //   })
           //   .catch(error => {
-          //     Message({
+          //     this.$message.error({
           //       message: error,
           //       type: 'error',
           //       duration: 5 * 1000,
@@ -552,7 +552,7 @@
                 this.loading = false;
               }).catch(() => {
                 this.loading = false;
-                this.$message({
+                this.$message.info({
                   type: 'info',
                   message: this.$t('label.PFANS1026FORMVIEW_tipis1'),
                 });
@@ -595,7 +595,7 @@
 
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -840,7 +840,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,

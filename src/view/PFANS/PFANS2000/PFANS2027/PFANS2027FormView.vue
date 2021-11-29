@@ -1073,7 +1073,7 @@
         })
         .catch(err => {
           this.loading = false;
-          Message({
+          this.$message.error({
             message: err,
             type: "error",
             duration: 5 * 1000
@@ -1441,7 +1441,7 @@
             })
             .catch(err => {
               this.loading = false;
-              Message({
+              this.$message.error({
                 message: err,
                 type: "error",
                 duration: 5 * 1000
@@ -1473,7 +1473,7 @@
                 }
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,
@@ -1481,7 +1481,7 @@
                 this.loading = false;
               });
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.confirm_tipis'),
             });

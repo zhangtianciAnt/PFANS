@@ -83,7 +83,7 @@
               }
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error, //error.message,
                 type: 'error',
                 duration: 5 * 1000
@@ -121,7 +121,7 @@
         this.$refs.registerForm.validate(valid => {
           if (valid) {
             if (this.$refs.confirmslider.confirmSuccess !== true) {
-              this.$message({
+              this.$message.warning({
                 message: '请拖动滑块完成验证后重新登陆！',
                 type: 'warning'
               })
@@ -136,7 +136,7 @@
               })
               .catch(error => {
                 this.loading = false;
-                Message({
+                this.$message.error({
                   message: error, //error.message,
                   type: 'error',
                   duration: 5 * 1000

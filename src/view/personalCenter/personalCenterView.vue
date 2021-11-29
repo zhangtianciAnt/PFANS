@@ -214,7 +214,7 @@ export default {
     //   this.$store.dispatch('usersStore/disableUser', params).then(response => {
     //     this.loading = false;
     //   }).catch(err => {
-    //     Message({
+    //     this.$message.error({
     //       message: err,
     //       type: 'error',
     //       duration: 5 * 1000
@@ -253,7 +253,7 @@ export default {
             // })
           }
           else {
-            Message({
+            this.$message.error({
               message: response.message,
               type: 'error',
               duration: 1 *  1000
@@ -299,7 +299,7 @@ export default {
           this.baseInfoForm.mobilenumber = response.userAccount.account;
           this.loading = false;
         }).catch(err => {
-        Message({
+        this.$message.error({
           message: err,
           type: 'error',
           duration: 5 * 1000

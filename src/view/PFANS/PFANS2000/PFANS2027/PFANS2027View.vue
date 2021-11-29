@@ -189,7 +189,7 @@
         })
         .catch(err => {
           this.loading = false;
-          Message({
+          this.$message.error({
             message: err,
             type: "error",
             duration: 5 * 1000
@@ -239,7 +239,7 @@
               this.$store
                 .dispatch("PFANS2027Store/insertLunarbonus", this.form)
                 .then(response => {
-                  this.$message({
+                  this.$message.success({
                     message: this.$t("normal.success_01"),
                     type: "success"
                   });
@@ -249,7 +249,7 @@
                 })
                 .catch(err => {
                   this.loading = false;
-                  Message({
+                  this.$message.error({
                     message: err,
                     type: "error",
                     duration: 5 * 1000
@@ -257,7 +257,7 @@
                 });
             }
             else{
-                Message({
+                this.$message.error({
                     message: this.$t("normal.error_12"),
                     type: 'error',
                     duration: 5 * 1000
@@ -322,7 +322,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -419,7 +419,7 @@
               });
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -427,7 +427,7 @@
               this.loading = false;
             })
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.info_21'),
             });
@@ -475,7 +475,7 @@
               });
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -483,7 +483,7 @@
               this.loading = false;
             })
           }).catch(() => {
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.info_23'),
             });

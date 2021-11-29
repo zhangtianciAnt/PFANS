@@ -55,8 +55,10 @@ export default {
     handleSubmit() {
       const arr = Object.keys(this.listObj).map(v => this.listObj[v]);
       if (!this.checkAllSuccess()) {
-        this.$message(
-          this.$t('normal.info_11')
+        this.$message.info({
+            message: this.$t('normal.info_11'),
+            type: "info"
+          }
         );
         return;
       }

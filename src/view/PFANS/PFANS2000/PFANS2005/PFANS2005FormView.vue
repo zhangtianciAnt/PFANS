@@ -5091,7 +5091,7 @@
                       //endregion add_qhr_20210702 保存后保留查询项及查询结果
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000
@@ -5540,7 +5540,7 @@
                             }
                         })
                         .catch(error => {
-                            Message({
+                            this.$message.error({
                                 message: error,
                                 type: "error",
                                 duration: 5 * 1000
@@ -5856,7 +5856,7 @@
                     })
                     .catch(err => {
                       this.loading = false;
-                      this.$message({
+                      this.$message.error({
                         message: this.$t("normal.error_04"),
                         type: "error"
                       });
@@ -5873,7 +5873,7 @@
                       this.activeName = "first";
                       this.buttonList[0].disabled = false;
                     }).catch(() => {
-                      this.$message({
+                      this.$message.info({
                         type: 'info',
                         message: '已取消'
                       });
@@ -5914,7 +5914,7 @@
                     })
                     .catch(err => {
                         this.loading = false;
-                        Message({
+                        this.$message.error({
                             message: err,
                             type: "error",
                             duration: 5 * 1000
@@ -5963,7 +5963,7 @@
                     })
                     .catch(err => {
                         this.loading = false;
-                        Message({
+                        this.$message.error({
                             message: err,
                             type: "error",
                             duration: 5 * 1000

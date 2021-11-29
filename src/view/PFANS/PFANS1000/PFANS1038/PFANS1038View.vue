@@ -153,7 +153,7 @@
                 })
                 .catch(err => {
                     this.loading = false;
-                    Message({
+                    this.$message.error({
                         message: err,
                         type: "error",
                         duration: 5 * 1000
@@ -170,7 +170,7 @@
                   this.buttonList[2].disabled = response;
                 })
                 .catch(err => {
-                  Message({
+                  this.$message.error({
                     message: err,
                     type: "error",
                     duration: 5 * 1000

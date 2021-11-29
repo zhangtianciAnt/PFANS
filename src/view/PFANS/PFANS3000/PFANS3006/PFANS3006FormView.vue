@@ -564,7 +564,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -653,14 +653,14 @@
                 this.loading = false;
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000
                 });
                 this.loading = false;
               });
-            this.$message({
+            this.$message.success({
               type: 'success',
               message: '下载成功!'
             });
@@ -669,7 +669,7 @@
             //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】strat
             this.form.welcomeboard = '0';
             //NT_PFANS_20210308_BUG_155 ztc 取消后，【接机提示牌】应该为【无】end
-            this.$message({
+            this.$message.info({
               type: 'info',
               message: '已取消'
             });
@@ -795,7 +795,7 @@
                     }
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000
@@ -818,7 +818,7 @@
                     }
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000

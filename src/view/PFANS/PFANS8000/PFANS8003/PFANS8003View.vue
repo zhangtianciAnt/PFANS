@@ -102,7 +102,7 @@
         this.loading = false;
       }).catch(error => {
         this.loading = false;
-        Message({
+        this.$message.error({
           message: error,
           type: 'error',
           duration: 5 * 1000

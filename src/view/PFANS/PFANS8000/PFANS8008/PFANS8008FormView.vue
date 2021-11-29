@@ -209,7 +209,7 @@
             this.loading = false;
           })
           .catch(err => {
-            Message({
+            this.$message.error({
               message: err,
               type: "error",
               duration: 5 * 1000
@@ -226,7 +226,7 @@
                 .dispatch("PFANS8008Store/insertInformation", this.form)
                 .then(response => {
                   this.loading = false;
-                  this.$message({
+                  this.$message.success({
                     message: this.$t("normal.success_01"),
                     type: "success"
                   });
@@ -236,7 +236,7 @@
                 })
                 .catch(err => {
                   this.loading = false;
-                  Message({
+                  this.$message.error({
                     message: err,
                     type: "error",
                     duration: 5 * 1000
@@ -248,7 +248,7 @@
                 .dispatch("PFANS8008Store/updateInformation", this.form)
                 .then(response => {
                   this.loading = false;
-                  this.$message({
+                  this.$message.success({
                     message: this.$t("normal.success_02"),
                     type: "success"
                   });
@@ -260,7 +260,7 @@
                 })
                 .catch(err => {
                   this.loading = false;
-                  Message({
+                  this.$message.error({
                     message: err,
                     type: "error",
                     duration: 5 * 1000

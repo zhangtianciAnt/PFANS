@@ -457,7 +457,7 @@
             this.DataList2 = data.slice(0, 5);
           })
           .catch(err => {
-            Message({
+            this.$message.error({
               message: err,
               type: 'error',
               duration: 5 * 1000,
@@ -477,7 +477,7 @@
             }
           })
           .catch(err => {
-            Message({
+            this.$message.error({
               message: err,
               type: 'error',
               duration: 5 * 1000,
@@ -515,7 +515,7 @@
             this.avatarDep = rolename;
           })
           .catch(err => {
-            Message({
+            this.$message.error({
               message: err,
               type: 'error',
               duration: 5 * 1000,

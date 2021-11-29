@@ -780,7 +780,7 @@
                 this.buttonList[0].disabled = false;
                 })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000
@@ -816,7 +816,7 @@
                         }
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000
@@ -848,7 +848,7 @@
                         }
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000
@@ -890,7 +890,7 @@
                         }
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: "error",
                             duration: 5 * 1000
@@ -1071,7 +1071,7 @@
                     let flag = false;
                     this.newTableData.forEach(item =>{
                       if(!item.entermouth && (item.supchinese || item.nextyear || item.unitprice)){
-                        Message({
+                        this.$message.error({
                           message: this.$t("label.PFANS1038VIEW_ADOPTEDCHECK"),
                           type: "error"
                         });
@@ -1087,7 +1087,7 @@
                       .dispatch("PFANS1038Store/insert", this.form)
                       .then(response => {
                         this.loading = false;
-                        this.$message({
+                        this.$message.success({
                           message: this.$t("normal.success_01"),
                           type: "success"
                         });
@@ -1097,7 +1097,7 @@
                       })
                       .catch(err => {
                         this.loading = false;
-                        Message({
+                        this.$message.error({
                           message: err,
                           type: "error",
                           duration: 5 * 1000
@@ -1108,7 +1108,7 @@
                     let flag = false;
                     this.newTableData.forEach(item =>{
                       if(!item.entermouth && (item.supchinese || item.nextyear || item.unitprice)){
-                        Message({
+                        this.$message.error({
                           message: this.$t("label.PFANS1038VIEW_ADOPTEDCHECK"),
                           type: "error"
                         });
@@ -1124,7 +1124,7 @@
                       .dispatch("PFANS1038Store/update", this.form)
                       .then(response => {
                         this.loading = false;
-                        this.$message({
+                        this.$message.success({
                           message: this.$t("normal.success_02"),
                           type: "success"
                         });
@@ -1136,7 +1136,7 @@
                       })
                       .catch(err => {
                         this.loading = false;
-                        Message({
+                        this.$message.error({
                           message: err,
                           type: "error",
                           duration: 5 * 1000
@@ -1168,7 +1168,7 @@
                   }
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000

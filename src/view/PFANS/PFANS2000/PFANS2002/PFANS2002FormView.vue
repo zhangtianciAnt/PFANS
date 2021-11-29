@@ -1043,7 +1043,7 @@
                         this.loading = false;
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000,
@@ -1242,7 +1242,7 @@
                         }
                     })
                     .catch(error => {
-                        Message({
+                        this.$message.error({
                             message: error,
                             type: 'error',
                             duration: 5 * 1000,
@@ -1538,7 +1538,7 @@
                                 .dispatch('PFANS2002Store/insert', this.form)
                                 .then(response => {
                                     this.loading = false;
-                                    this.$message({
+                                    this.$message.success({
                                         message: this.$t('normal.success_01'),
                                         type: 'success',
                                     });
@@ -1554,7 +1554,7 @@
                                 })
                                 .catch(err => {
                                     this.loading = false;
-                                    Message({
+                                    this.$message.error({
                                         message: err,
                                         type: 'error',
                                         duration: 5 * 1000,
@@ -1584,7 +1584,7 @@
                                 .then(response => {
                                     this.loading = false;
                                     if (val !== 'update') {
-                                        this.$message({
+                                        this.$message.success({
                                             message: this.$t('normal.success_02'),
                                             type: 'success',
                                         });
@@ -1601,7 +1601,7 @@
                                 })
                                 .catch(err => {
                                     this.loading = false;
-                                    Message({
+                                    this.$message.error({
                                         message: err,
                                         type: 'error',
                                         duration: 5 * 1000,

@@ -387,7 +387,7 @@ export default {
               .dispatch("PFANS1038Store/insert", this.form)
               .then(response => {
                 this.loading = false;
-                Message({
+                this.$message.success({
                   message: this.$t("normal.success_01"),
                   type: "success"
                 });
@@ -397,7 +397,7 @@ export default {
               })
               .catch(err => {
                 this.loading = false;
-                Message({
+                this.$message.error({
                   message: err,
                   type: "error",
                   duration: 5 * 1000
@@ -409,7 +409,7 @@ export default {
               .dispatch("PFANS1038Store/update", this.form)
               .then(response => {
                 this.loading = false;
-                Message({
+                this.$message.success({
                   message: this.$t("normal.success_02"),
                   type: "success"
                 });
@@ -421,7 +421,7 @@ export default {
               })
               .catch(err => {
                 this.loading = false;
-                Message({
+                this.$message.error({
                   message: err,
                   type: "error",
                   duration: 5 * 1000
@@ -611,7 +611,7 @@ export default {
           this.tableDataBp.push(JSON.parse(this.form.newentry))
         })
         .catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: "error",
             duration: 5 * 1000
@@ -651,7 +651,7 @@ export default {
           // }
         })
         .catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000

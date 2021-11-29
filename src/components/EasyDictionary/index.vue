@@ -140,7 +140,7 @@
                                     alert(response.message);
                                 } else {
                                     this.setData(this.codeId, this.codeName);
-                                    this.$message({
+                                    this.$message.success({
                                         type: "success",
                                         message: "删除成功"
                                     });
@@ -150,7 +150,7 @@
                             })
                     })
                     .catch(() => {
-                        this.$message({
+                        this.$message.info({
                             type: "info",
                             message: "已取消删除"
                         })

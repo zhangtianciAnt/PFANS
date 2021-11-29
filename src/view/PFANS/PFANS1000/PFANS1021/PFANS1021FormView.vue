@@ -605,7 +605,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -928,7 +928,7 @@
             this.paramsTitle();
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1008,7 +1008,7 @@
               );
             }
             if (error != 0) {
-              Message({
+              this.$message.error({
                 message: this.$t('normal.error_08') +
                   this.$t('label.PFANS3005VIEW_USER'),
                 type: 'error',
@@ -1052,7 +1052,7 @@
                   this.paramsTitle();
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,
@@ -1081,7 +1081,7 @@
 
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: error,
                     type: 'error',
                     duration: 5 * 1000,

@@ -527,7 +527,7 @@
                           this.loading = false;
                       })
                       .catch(error => {
-                          Message({
+                          this.$message.error({
                               message: error,
                               type: 'error',
                               duration: 5 * 1000,
@@ -557,7 +557,7 @@
                           this.loading = false;
                       })
                       .catch(error => {
-                          Message({
+                          this.$message.error({
                               message: error,
                               type: 'error',
                               duration: 5 * 1000,
@@ -570,7 +570,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -697,7 +697,7 @@
             this.paramsTitle();
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -712,14 +712,14 @@
           .then(response => {
             this.data = response;
             this.loading = false;
-            Message({
+            this.$message.success({
               message: this.$t('normal.success_01'),
               type: 'success',
             });
             this.paramsTitle();
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1099,7 +1099,7 @@
           //add-ws-4/28-精算中，点击决裁，跳转画面
         } else {
           if (Number(this.sumTotal[4]) > 1000) {
-            Message(this.$t('label.PFANS1005FORMVIEW_ERRORCHECK'));
+            this.$message.error(this.$t('label.PFANS1005FORMVIEW_ERRORCHECK'));
             return;
           }
           this.$refs['ruleForm'].validate(valid => {

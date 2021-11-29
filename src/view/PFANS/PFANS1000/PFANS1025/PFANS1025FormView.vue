@@ -918,7 +918,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1133,7 +1133,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1165,7 +1165,7 @@
               this.loading = false;
             },
           ).catch(error => {
-          Message({
+          this.$message.error({
             message: error,
             type: 'error',
             duration: 5 * 1000,
@@ -1392,7 +1392,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1618,7 +1618,7 @@
               this.loading = false;
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000,
@@ -1752,7 +1752,7 @@
                         return;
                       })
                       .catch(error => {
-                        Message({
+                        this.$message.error({
                           message: error,
                           type: 'error',
                           duration: 5 * 1000,
@@ -1784,7 +1784,7 @@
                       //add-ws-4/28-附件为空的情况下发起审批，提示填入必须项后程序没有终止修改
                     })
                     .catch(error => {
-                      Message({
+                      this.$message.error({
                         message: error,
                         type: 'error',
                         duration: 5 * 1000,

@@ -91,7 +91,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -169,14 +169,14 @@
               })
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000
               })
             })
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: '已取消删除'
           });
@@ -244,7 +244,7 @@
                 this.userloading = false;
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 2 * 1000
@@ -253,7 +253,7 @@
               })
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 2 * 1000

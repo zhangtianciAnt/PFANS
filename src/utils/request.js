@@ -73,10 +73,10 @@ service.interceptors.response.use(
             path: '/',
             query: { redirect: router.currentRoute.fullPath }
           })
-
-          // return Promise.reject(i18n.t('normal.error_05'))
+           //add gbb 210926 登录超时判断
+           return Promise.reject(i18n.t('normal.error_05'))
         // }else {
-          return false;
+          // return false;
         // }
 
       } else if (response.data.code === 20102) {

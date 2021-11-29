@@ -112,7 +112,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -228,7 +228,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -273,7 +273,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -324,7 +324,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -357,7 +357,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -379,7 +379,7 @@
             }
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000
@@ -405,7 +405,7 @@
         }else{
           // this.$refs.start.startWorkflow = false;
           if(this.workflowlist.length === 0){
-            this.$message({
+            this.$message.error({
               message: this.$t('normal.error_13'),
               type: 'error'
             });
@@ -458,21 +458,21 @@
             .then(response => {
               this.$emit('changeLoading', false);
               if (response && response.code === 0) {
-                this.$message({
+                this.$message.success({
                   message: this.$t('normal.success_03'),
                   type: 'success'
                 });
                 this.$emit('end');
                 this.refresh()
               } else {
-                this.$message({
+                this.$message.error({
                   message: this.$t('normal.error_04'),
                   type: 'error'
                 })
               }
             })
             .catch(error => {
-              Message({
+              this.$message.error({
                 message: error,
                 type: 'error',
                 duration: 5 * 1000

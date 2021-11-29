@@ -183,7 +183,7 @@
                     })
                     .catch(err => {
                         this.loading = false;
-                        Message({
+                        this.$message.error({
                             message: err,
                             type: "error",
                             duration: 5 * 1000
@@ -278,14 +278,14 @@
                             })
                             .catch(err => {
                                 this.loading = false;
-                                Message({
+                                this.$message.error({
                                     message: err,
                                     type: "error",
                                     duration: 5 * 1000
                                 });
                             });
                     }).catch(() => {
-                        this.$message({
+                        this.$message.info({
                             type: 'info',
                             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
                         });

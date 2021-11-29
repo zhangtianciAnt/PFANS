@@ -1490,7 +1490,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1597,7 +1597,7 @@
                 this.loading = false;
               })
               .catch(error => {
-                Message({
+                this.$message.error({
                   message: error,
                   type: 'error',
                   duration: 5 * 1000,
@@ -1690,7 +1690,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1736,7 +1736,7 @@
           })
           .catch(error => {
             this.loading = false;
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1872,7 +1872,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1947,7 +1947,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2003,7 +2003,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2294,7 +2294,7 @@
                   this.handleClick();
                   this.dialogVisibleC = false;
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_YQXSC'),
                   });
@@ -2327,7 +2327,7 @@
           var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
           this.handleSaveContract(index, this.makeintoBaseInfo, tabledata);
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
           });
@@ -2537,7 +2537,7 @@
             this.dialogBook = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2674,7 +2674,7 @@
                       this.paramsTitle();
                   })
                   .catch(error => {
-                      Message({
+                      this.$message.error({
                           message: error,
                           type: 'error',
                           duration: 5 * 1000,
@@ -2728,7 +2728,7 @@
 
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,
@@ -2753,7 +2753,7 @@
 
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,
@@ -2808,7 +2808,7 @@
             //add-ws-7/22-禅道341任务
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2859,7 +2859,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2929,7 +2929,7 @@
                   this.$store.commit('global/SET_OPERATEID', this.IDname);
                   this.$refs.container.$refs.workflow.startWorkflow();
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -2947,7 +2947,7 @@
                   }
                   this.handleSave('cancellation');
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });

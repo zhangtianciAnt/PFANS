@@ -1048,7 +1048,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1139,7 +1139,7 @@
           })
           .catch(error => {
             this.loading = false;
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1240,7 +1240,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1312,7 +1312,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1370,7 +1370,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -1866,7 +1866,7 @@
                   }
                 })
                 .catch(error => {
-                  Message({
+                  this.$message.error({
                     message: this.$t('normal.error_12'),
                     type: 'error',
                     duration: 5 * 1000,
@@ -1899,7 +1899,7 @@
                     }
                   })
                   .catch(error => {
-                    Message({
+                    this.$message.error({
                       message: error,
                       type: 'error',
                       duration: 5 * 1000,
@@ -1960,7 +1960,7 @@
                   this.$store.commit('global/SET_OPERATEID', this.dataID);
                   this.$refs.container.$refs.workflow.startWorkflow();
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -1978,7 +1978,7 @@
                   }
                   this.handleSave('cancellation');
                 }).catch(() => {
-                  this.$message({
+                  this.$message.info({
                     type: 'info',
                     message: this.$t('label.PFANS1026FORMVIEW_tipis3'),
                   });
@@ -2018,7 +2018,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2059,7 +2059,7 @@
             this.dialogBook = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
@@ -2077,7 +2077,7 @@
           var tabledata = {'contractnumber': contractNumber, 'rowindex': index};
           this.handleSave(tabledata);
         }).catch(() => {
-          this.$message({
+          this.$message.info({
             type: 'info',
             message: this.$t('label.PFANS1026FORMVIEW_tipis'),
           });
@@ -2106,7 +2106,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,
