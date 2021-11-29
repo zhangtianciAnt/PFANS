@@ -377,6 +377,7 @@
         this.$store
           .dispatch("frameStore/getAppData")
           .then(response => {
+            this.$store.commit("global/SET_MENUIDS", response.menuids);
             menus.map(menu => {
               if (response.menuids.indexOf(menu._id) > -1) {
                 let temp = Object.assign({}, menu);
@@ -460,7 +461,7 @@
         }
       },
       changeMenu(){
-        this.vactiveIndex = this.$router.currentRoute.path;
+        this.vhandleSelect(this.$router.currentRoute.path);
       },
       //连接websocket--获取重复登录
       loginconnect() {

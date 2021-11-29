@@ -4,6 +4,7 @@ import frameView from '@/view/frame/frameView.vue'
 import logInFrameView from '@/view/logInFrame/logInFrameView.vue'
 import EasyLogin from '@/components/EasyLogin'
 import orgTreeView from '@/view/orgTree/orgTreeView.vue'
+import EasyExplain from '@/components/EasyExplain'
 //update gbb 20210308  禅道任务708  start
 import orgTree1001View from '@/view/orgTree/orgTree1001View.vue'
 import orgTree1002View from '@/view/orgTree/orgTree1002View.vue'
@@ -266,6 +267,11 @@ const routes = [
     name: 'frame',
     component: frameView,
     children: [
+      {
+        path: '/EasyExplain',
+        name: 'EasyExplain',
+        component: EasyExplain
+      },
       {
         path: '/error403',
         name: 'error403',

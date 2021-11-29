@@ -36,6 +36,7 @@ const getters = {
   pageSize: state => state.global.pageSize,
   totalSize: state => state.global.totalSize,
   axiosConfig: state => state.global.axiosConfig,
+  menuids: state => state.global.menuids,
 }
 
 export default getters

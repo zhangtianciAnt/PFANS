@@ -170,6 +170,10 @@ service.interceptors.response.use(
           store.commit("global/SET_TOTALSIZE", response.data.totalSize);
           store.commit("global/SET_PAGENO", response.data.pageNo);
           store.commit("global/SET_PAGESIZE", response.data.pageSize);
+        }else{
+          store.commit("global/SET_TOTALSIZE", '');
+          store.commit("global/SET_PAGENO", 1);
+          store.commit("global/SET_PAGESIZE", 50);
         }
         if(response.data.code === 0){
           if(response.config.url.indexOf('file/getToken') == -1){

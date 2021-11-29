@@ -34,8 +34,12 @@ const global = {
     pageSize:50,
     totalSize:0,
     axiosConfig:{},
+    menuids:[],
   },
   mutations: {
+    SET_MENUIDS(state, menuids) {
+      state.menuids = menuids
+    },
     SET_AXIOSCONFIG(state, axiosConfig) {
       state.axiosConfig = axiosConfig
     },

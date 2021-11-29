@@ -385,7 +385,12 @@
         this.listQuery.limit = this.$store.getters.pageSize;
         this.listQuery.page = this.$store.getters.pageNo;
         this.pagedate = this.totaldata;
-        this.total = this.$store.getters.totalSize;
+        if(this.$store.getters.totalSize){
+          this.total = this.$store.getters.totalSize;
+        }else{
+          this.total = this.totaldata.length;
+        }
+
         this.loading = false;
       },
       // 每页最大数据变更

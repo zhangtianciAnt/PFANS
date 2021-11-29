@@ -1,7 +1,7 @@
 <template>
   <div class="main_bg_color" style="overflow-x: hidden">
     <el-menu :default-active="Index" mode="vertical" @select="handleSelect" menu-trigger="click" unique-opened router
-             :active-text-color="activeTextColor" :collapse="isCollapse"
+             :active-text-color="activeTextColor" :collapse="isCollapse" @open="openExpalin" @close="openExpalin"
              active-text-color="#005BAA">
       <el-submenu v-for="ob in data"
                   v-if="ob && ob.children && ob.children.length > 0 && Object.keys(ob.children[0]).length > 0"
@@ -108,7 +108,19 @@
         default:"/index"
       }
     },
-    methods: {},
+    methods: {
+      openExpalin(index,indexPath){
+        if(index === 'PERSONNELMATTERS'){
+          this.$router.push({
+            name: 'EasyExplain',
+            params:{
+              type:'PERSONNELMATTERS'
+            }
+          })
+        }
+
+      }
+    },
     mounted() {
     },
     watch: {

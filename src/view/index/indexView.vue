@@ -385,8 +385,6 @@
         if (val === 8) {
           url = 'PFANS2022View';
         }
-        this.$store.commit('global/SET_CURRENTURL', '/' + url);
-        this.$store.commit('global/SET_WORKFLOWURL', '/' + url);
         this.$router.push({
           name: url,
         });
