@@ -83,7 +83,12 @@ const ListApi = [
   "workflow/list",
   "informationdelivery/get",
   "dictionary/getDictionary",
-  "monthlyrate/list"
+  "monthlyrate/list",
+  "contractapplication/getPage",
+  // "companyprojects/list",
+  // "award/get?maketype=7",
+  "policycontract/get3",
+  // "award/getList",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,
