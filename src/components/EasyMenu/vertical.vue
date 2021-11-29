@@ -110,7 +110,8 @@
     },
     methods: {
       openExpalin(index,indexPath){
-        if(index === 'PERSONNELMATTERS'){
+        let explainList = ['PERSONNELMATTERS',]
+        if(explainList.indexOf(index) != -1){
           this.$router.push({
             name: 'EasyExplain',
             params:{

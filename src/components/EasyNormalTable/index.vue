@@ -375,20 +375,21 @@
       getList() {
         this.loading = true;
 
-        // let start = (this.listQuery.page - 1) * this.listQuery.limit;
-        // let end = this.listQuery.page * this.listQuery.limit;
-        // if (this.totaldata) {
-        //   let pList = this.totaldata.slice(start, end);
-        //   this.pagedate = pList;
-        //   this.total = this.totaldata.length;
-        // }
-        this.listQuery.limit = this.$store.getters.pageSize;
-        this.listQuery.page = this.$store.getters.pageNo;
-        this.pagedate = this.totaldata;
+
+
         if(this.$store.getters.totalSize){
           this.total = this.$store.getters.totalSize;
+          this.listQuery.limit = this.$store.getters.pageSize;
+          this.listQuery.page = this.$store.getters.pageNo;
+          this.pagedate = this.totaldata;
         }else{
-          this.total = this.totaldata.length;
+          let start = (this.listQuery.page - 1) * this.listQuery.limit;
+          let end = this.listQuery.page * this.listQuery.limit;
+          if (this.totaldata) {
+            let pList = this.totaldata.slice(start, end);
+            this.pagedate = pList;
+            this.total = this.totaldata.length;
+          }
         }
 
         this.loading = false;
@@ -399,15 +400,23 @@
         this.$store.commit("global/SET_PAGESIZE", val);
         this.listQuery.page = 1;
         this.$store.commit("global/SET_PAGENO", 1);
-        this.$emit("reget");
-        // this.getList();
+        if(this.$store.getters.totalSize){
+          this.$emit("reget");
+        }else{
+          this.getList();
+        }
+
+
       },
       // 当前页变更
       handleCurrentChange(val) {
         this.listQuery.page = val;
         this.$store.commit("global/SET_PAGENO", val);
-        this.$emit("reget");
-        // this.getList();
+        if(this.$store.getters.totalSize){
+          this.$emit("reget");
+        }else{
+          this.getList();
+        }
       },
       // 输入框筛选
       inputChange() {

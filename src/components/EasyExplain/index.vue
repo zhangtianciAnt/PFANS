@@ -165,19 +165,23 @@
               flow:[
                 {
                   title:"打卡记录",
-                  url:""
+                  name:"PFANS2017",
+                  url:"PFANS2017View"
                 },
                 {
                   title:"加班申请",
-                  url:""
+                  name:"PFANS2011",
+                  url:"PFANS2011View"
                 },
                 {
                   title:"考勤管理",
-                  url:""
+                  name:"PFANS2010",
+                  url:"PFANS2010View"
                 },
                 {
                   title:"工资计算",
-                  url:""
+                  name:"PFANS2006",
+                  url:"PFANS2006View"
                 }
               ],
             },
@@ -186,19 +190,23 @@
               flow:[
                 {
                   title:"打卡记录",
-                  url:""
+                  name:"PFANS2017",
+                  url:"PFANS2017View"
                 },
                 {
                   title:"异常申请",
-                  url:""
+                  name:"PFANS2016",
+                  url:"PFANS2016View"
                 },
                 {
                   title:"考勤管理",
-                  url:""
+                  name:"PFANS2010",
+                  url:"PFANS2010View"
                 },
                 {
                   title:"工资计算",
-                  url:""
+                  name:"PFANS2006",
+                  url:"PFANS2006View"
                 }
               ],
             },
@@ -207,23 +215,28 @@
               flow:[
                 {
                   title:"打卡记录",
-                  url:""
+                  name:"PFANS2017",
+                  url:"PFANS2017View"
                 },
                 {
                   title:"异常申请",
-                  url:""
+                  name:"PFANS2016",
+                  url:"PFANS2016View"
                 },
                 {
                   title:"年休",
-                  url:""
+                  name:"PFANS2013",
+                  url:"PFANS2013View"
                 },
                 {
                   title:"考勤管理",
-                  url:""
+                  name:"PFANS2010",
+                  url:"PFANS2010View"
                 },
                 {
                   title:"工资计算",
-                  url:""
+                  name:"PFANS2006",
+                  url:"PFANS2006View"
                 }
               ],
             },
