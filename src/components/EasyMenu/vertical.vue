@@ -110,12 +110,12 @@
     },
     methods: {
       openExpalin(index,indexPath){
-        let explainList = ['PERSONNELMATTERS',]
+        let explainList = ['PERSONNELMATTERS','FINANCIAL','PFANSBP','MANAGEMENT']
         if(explainList.indexOf(index) != -1){
           this.$router.push({
             name: 'EasyExplain',
-            params:{
-              type:'PERSONNELMATTERS'
+            query:{
+              type:index
             }
           })
         }
