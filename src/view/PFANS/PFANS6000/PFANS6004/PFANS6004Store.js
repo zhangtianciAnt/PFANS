@@ -1,5 +1,6 @@
 import {
   getexpatriatesinfor,
+  getexpatrFliter,
   getexpatriatesinforApplyOne,
   getexpatriatesinforthisyear,
   updateexpatriatesinforApply,
@@ -28,6 +29,21 @@ const PFANS6004Store = {
           } else {
             reject(response.message)
           }
+          //页面增加分页 ztc 1129 fr
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getexpatrFliter() {
+      return new Promise((resolve, reject) => {
+        getexpatrFliter().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+          //页面增加分页 ztc 1129 to
         }).catch(error => {
           reject(error);
         })

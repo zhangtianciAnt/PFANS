@@ -11,6 +11,9 @@ import {
   // 盖印监管者增加履历 ztc 0723 fr
   getEffSeal
   // 盖印监管者增加履历 ztc 0723 to
+  //页面增加分页 ztc 1129 fr
+  , sealList,sealDetailList
+  //页面增加分页 ztc 1129 to
 } from './PFANS4001Api';
 
 const PFANS4001store = {
@@ -112,6 +115,34 @@ const PFANS4001store = {
         });
       });
     },
+//页面增加分页 ztc 1129 fr
+    sealList({commit}) {
+      return new Promise((resolve, reject) => {
+        sealList().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    sealDetailList({commit}) {
+      return new Promise((resolve, reject) => {
+        sealDetailList().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //页面增加分页 ztc 1129 to
 
     getPfans4001One({commit}, data) {
       return new Promise((resolve, reject) => {
