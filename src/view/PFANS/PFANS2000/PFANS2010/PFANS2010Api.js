@@ -8,6 +8,15 @@ export function getlist(data) {
     data: data
   })
 }
+//view添加分页 ztc 1130 fr
+export function getlistFilter(data) {
+  return request({
+    url: 'attendance/getlistFilter',
+    method: 'post',
+    data: data
+  })
+}
+//view添加分页 ztc 1130 to
 
 //获取详细数据 -- 日志使用
 export function getAttendancelist(data) {

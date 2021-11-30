@@ -28,6 +28,21 @@ const PFANS2010Store = {
           } else {
             reject(response.message)
           }
+          //view添加分页 ztc 1130 fr
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    getlistFilter({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        getlistFilter(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+          //view添加分页 ztc 1130 to
         }).catch(error => {
           reject(error);
         })

@@ -1,6 +1,6 @@
 <template>
   <div style="min-height: 100%">
-    <el-tabs v-model="activeName" type="border-card">
+    <el-tabs v-model="activeName" type="border-card" @tab-click="handleClick">
       <el-tab-pane
         :label="$t('label.PFANS1038VIEW_MEMBERSHIP')"
         name="first"
@@ -116,13 +116,26 @@
             //         this.buttonList[2].disabled = false;
             //     }
             // }
-           this.getdata();
+           this.getdata('0');
         },
         methods: {
-          getdata(){
+          handleClick(tab) {
+            this.activeName = tab.name;
+            let type = '';
+            if(this.activeName === 'first'){
+              type = '0';
+            }else{
+              type = '1';
+            }
+            this.getdata(type)
+          },
+          getdata(val){
             this.loading = true;
+            let params = {
+              'type': val,
+            };
             this.$store
-              .dispatch("PFANS1038Store/getAll")
+              .dispatch("PFANS1038Store/getListforType",params)
               .then(response => {
                 this.loading = false;
                 let userinfo = "";
@@ -144,15 +157,13 @@
                         }
                       }
                       res.createon = moment(res.createon).format("YYYY-MM-DD");
-                      if (res.type === 0) {
-                        data.push(res);
-                      } else {
-                        outdata.push(res);
-                      }
                     }
                   );
-                  this.data = data;
-                  this.outdata = outdata;
+                  if(val === '0'){
+                    this.data = response;
+                  }else{
+                    this.outdata = response;
+                  }
                 }
               })
               .catch(err => {

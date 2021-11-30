@@ -67,3 +67,12 @@ export function getPersonalCost(data) {
   })
 }
 // add-lyt-21/1/29-禅道任务648-end
+//view添加分页 ztc 1130 fr
+export function getListforType(data) {
+  return request({
+    url: 'personnelplan/getListforType',
+    method: 'post',
+    params: data
+  })
+}
+//view添加分页 ztc 1130 to
