@@ -306,10 +306,10 @@
 <!--                                             width="120" show-overflow-tooltip></el-table-column>-->
                             <el-table-column property="currencyvalue1"
                                              :label="$t('label.PFANS8011VIEW_CURRENCY')"
-                                             width="180" show-overflow-tooltip></el-table-column>
-<!--                            <el-table-column property="toolsorgs"-->
-<!--                                             :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
-<!--                                             width="120" show-overflow-tooltip></el-table-column>-->
+                                             width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column property="toolsorgs"
+                                             :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
+                                             width="120" show-overflow-tooltip></el-table-column>
                             <el-table-column
                               align="right" width="230">
                               <template slot="header" slot-scope="scope">
