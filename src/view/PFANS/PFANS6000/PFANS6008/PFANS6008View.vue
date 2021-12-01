@@ -7,6 +7,7 @@
       :title="title"
       :showSelection="isShow"
       :showIndex="isShow"
+      @reget="init"
       @buttonClick="buttonClick"
       ref="roletable" :rowClassName="rowClassName"
       v-loading="loading">

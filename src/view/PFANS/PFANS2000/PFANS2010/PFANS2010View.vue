@@ -149,9 +149,11 @@
                         months:varmontvalue[1],
                     }
                 }
+              //view添加分页 ztc 1130 fr
                 this.$store
-                    .dispatch('PFANS2010Store/getlist', parameter)
+                    .dispatch('PFANS2010Store/getlistFilter', parameter)
                     .then(response => {
+                      //view添加分页 ztc 1130 to
                         for (let j = 0; j < response.length; j++) {
 
                             let user = getUserInfo(response[j].user_id);

@@ -80,12 +80,15 @@
         this.$store
           .dispatch('PFANS1043Store/getFpans1043List', parameters)
           .then(response => {
+            debugger
             const data = [];
             for (let j = 0; j < response.length; j++) {
               data.push({
                 themename: response[j].themename,
                 year: response[j].year,
-                number: j + 1,
+                //分页修改 序号功能 1130  fr
+                number: response[j].number,
+                //分页修改 序号功能 1130  to
                 themeinfor_id: response[j].themeinfor_id,
               });
             }

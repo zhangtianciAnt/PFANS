@@ -215,7 +215,9 @@
       // 盖印监管者增加履历 ztc 0723 fr
       this.getEffSeal();
       // 盖印监管者增加履历 ztc 0723 to
-      this.getList();
+      //页面增加分页 ztc 1129 fr
+      // this.getList();
+      //页面增加分页 ztc 1129 to
     },
     methods: {
       // 盖印监管者增加履历 ztc 0723 fr
@@ -261,15 +263,15 @@
       },
       // 盖印监管者增加履历 ztc 0723 to
       //add-ws-12/21-印章盖印
-      getList() {
+      //页面增加分页 ztc 1129 fr
+      getDetailList(){
         this.loading = true;
         this.$store
-          .dispatch('PFANS4001Store/getFpans4001List', {})
+          .dispatch('PFANS4001Store/sealDetailList', {})
           .then(response => {
-            //add-ws-12/21-印章盖印
-            if (response.sealdetail.length > 0) {
+            if (response.length > 0) {
               // 盖印监管者增加履历 ztc 0723 fr
-              this.gridData = response.sealdetail;
+              this.gridData = response;
               // 盖印监管者增加履历 ztc 0723 to
               this.gridData.forEach(list =>{
                 if (list.sealdetailname) {
@@ -280,6 +282,41 @@
                 this.sealdetail = this.gridData[0].sealdetaildate.slice(this.gridData[0].sealdetaildate.length - 10) + ' ~ '
               }
             }
+            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.userAnt
+              +'   '+ this.$t('label.PFANS4001FORMVIEW_EFFSEALDETA') + ':' + this.sealdetail;
+            //印章 监管者只能总经理授权 ztc fr
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //页面增加分页 ztc 1129 to
+      getList() {
+        this.loading = true;
+        //页面增加分页 ztc 1129 fr
+        this.getDetailList();
+        this.$store
+          .dispatch('PFANS4001Store/sealList', {})
+          .then(response => {
+            //add-ws-12/21-印章盖印
+            // if (response.sealdetail.length > 0) {
+            //   // 盖印监管者增加履历 ztc 0723 fr
+            //   this.gridData = response.sealdetail;
+            //   // 盖印监管者增加履历 ztc 0723 to
+            //   this.gridData.forEach(list =>{
+            //     if (list.sealdetailname) {
+            //       list.sealdetailname = getUserInfo(list.sealdetailname).userinfo.customername;
+            //     }
+            //   })
+            //   if(this.flag === '1'){
+            //     this.sealdetail = this.gridData[0].sealdetaildate.slice(this.gridData[0].sealdetaildate.length - 10) + ' ~ '
+            //   }
+            // }
             //印章 监管者只能总经理授权 ztc fr
             let roles = getCurrentRole();
             //印章 监管者只能总经理授权 ztc to
@@ -291,27 +328,27 @@
               this.buttonList[4].disabled = false;
             }
             //add-ws-12/21-印章盖印
-            for (let j = 0; j < response.seal.length; j++) {
-              let user = getUserInfo(response.seal[j].userid);
-              let nameflg = getOrgInfoByUserId(response.seal[j].userid);
+            for (let j = 0; j < response.length; j++) {
+              let user = getUserInfo(response[j].userid);
+              let nameflg = getOrgInfoByUserId(response[j].userid);
               if (nameflg) {
-                response.seal[j].centername = nameflg.centerNmae;
-                response.seal[j].groupname = nameflg.groupNmae;
-                response.seal[j].teamname = nameflg.teamNmae;
+                response[j].centername = nameflg.centerNmae;
+                response[j].groupname = nameflg.groupNmae;
+                response[j].teamname = nameflg.teamNmae;
               }
               if (user) {
-                response.seal[j].username = user.userinfo.customername;
+                response[j].username = user.userinfo.customername;
               }
-              if (response.seal[j].status !== null && response.seal[j].status !== '') {
-                response.seal[j].status = getStatus(response.seal[j].status);
+              if (response[j].status !== null && response[j].status !== '') {
+                response[j].status = getStatus(response[j].status);
               }
-              if (response.seal[j].usedate !== null && response.seal[j].usedate !== '') {
-                response.seal[j].usedate = moment(response.seal[j].usedate).format('YYYY-MM-DD');
+              if (response[j].usedate !== null && response[j].usedate !== '') {
+                response[j].usedate = moment(response[j].usedate).format('YYYY-MM-DD');
               }
               //add-ws-4/22-多个印章时出现问题修改
               let checktableD = '';
-              if (response.seal[j].sealtype !== '' && response.seal[j].sealtype !== null && response.seal[j].sealtype !== undefined) {
-                let letstaff = response.seal[j].sealtype.split(',');
+              if (response[j].sealtype !== '' && response[j].sealtype !== null && response[j].sealtype !== undefined) {
+                let letstaff = response[j].sealtype.split(',');
                 for (let a = 0; a < letstaff.length; a++) {
                   let letErrortype = getDictionaryInfo(letstaff[a]);
                   if (letErrortype != null) {
@@ -320,49 +357,49 @@
                   }
                 }
               }
-              response.seal[j].sealtype = checktableD.substring(0, checktableD.length - 1);
+              response[j].sealtype = checktableD.substring(0, checktableD.length - 1);
               //add-ws-4/22-多个印章时出现问题修改
               //add-ws-12/21-印章盖印
-              if (response.seal[j].acceptor != null && response.seal[j].acceptor !== '') {
-                response.seal[j].acceptor = getUserInfo(response.seal[j].acceptor).userinfo.customername;
+              if (response[j].acceptor != null && response[j].acceptor !== '') {
+                response[j].acceptor = getUserInfo(response[j].acceptor).userinfo.customername;
               }
-              if (response.seal[j].regulator != null && response.seal[j].regulator !== '') {
-                response.seal[j].regulator = getUserInfo(response.seal[j].regulator).userinfo.customername;
+              if (response[j].regulator != null && response[j].regulator !== '') {
+                response[j].regulator = getUserInfo(response[j].regulator).userinfo.customername;
               }
 
-              if (response.seal[j].acceptstate === 'true') {
-                response.seal[j].acceptstate = true;
+              if (response[j].acceptstate === 'true') {
+                response[j].acceptstate = true;
               }
-              if (response.seal[j].regulatorstate === 'true') {
-                response.seal[j].regulatorstate = true;
+              if (response[j].regulatorstate === 'true') {
+                response[j].regulatorstate = true;
               }
-              response.seal[j].modifyon = true;
-              response.seal[j].modifyby = true;
+              response[j].modifyon = true;
+              response[j].modifyby = true;
 
               if (this.userlist === this.$store.getters.userinfo.userid) {
-                response.seal[j].modifyon = true;
-                if (response.seal[j].acceptstate === true) {
-                  response.seal[j].modifyby = false;
+                response[j].modifyon = true;
+                if (response[j].acceptstate === true) {
+                  response[j].modifyby = false;
                 } else {
-                  response.seal[j].modifyby = true;
+                  response[j].modifyby = true;
                 }
               }
-              if (roles === '1' && response.seal[j].status == this.$t('label.node_step4') && response.seal[j].acceptor != null) {
-                response.seal[j].modifyon = false;
+              if (roles === '1' && response[j].status == this.$t('label.node_step4') && response[j].acceptor != null) {
+                response[j].modifyon = false;
                 if (this.userlist === this.$store.getters.userinfo.userid) {
-                  response.seal[j].modifyby = false;
+                  response[j].modifyby = false;
                 }
-                if (response.seal[j].acceptstate === true) {
-                  response.seal[j].modifyon = true;
+                if (response[j].acceptstate === true) {
+                  response[j].modifyon = true;
                 }
-                if (response.seal[j].regulatorstate === true) {
-                  response.seal[j].modifyby = true;
+                if (response[j].regulatorstate === true) {
+                  response[j].modifyby = true;
                 }
               }
               //add-ws-12/21-印章盖印
             }
-            this.description = this.$t('label.PFANS4001FORMVIEW_SEALDETAILNAME') + ':' + this.userAnt  +'   '+ this.$t('label.PFANS4001FORMVIEW_EFFSEALDETA') + ':' + this.sealdetail;
-            this.data = response.seal;
+            this.data = response;
+            //页面增加分页 ztc 1129 to
             this.flag = '0'
             this.loading = false;
           })
@@ -488,6 +525,9 @@
               type: 'success',
               duration: 5 * 1000,
             });
+            //页面增加分页 ztc 1129 fr
+            this.getList();
+            //页面增加分页 ztc 1129 to
             this.loading = false;
           })
           .catch(error => {

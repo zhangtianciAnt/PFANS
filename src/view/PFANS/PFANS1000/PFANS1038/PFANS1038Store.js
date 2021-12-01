@@ -1,4 +1,15 @@
-import {getCustomerInfo,getExpatriatesinfor,getExternal,insert,update,getOne,getAll,getPersonalCost} from '../PFANS1038/PFANS1038Api';
+import {
+  getCustomerInfo,
+  getExpatriatesinfor,
+  getExternal,
+  insert,
+  update,
+  getOne,
+  getAll,
+  getPersonalCost,
+  getListforType,
+} from '../PFANS1038/PFANS1038Api';
+import {getPersonalBm} from '../PFANS1025/PFANS1025Api';
 const PFANS1038Store = {
   namespaced: true,
   state: {},
@@ -115,6 +126,23 @@ const PFANS1038Store = {
       })
     },
     // add-lyt-21/1/29-禅道任务648-end
+
+    //view添加分页 ztc 1130 fr
+    getListforType({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getListforType(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //view添加分页 ztc 1130 to
+
   }
 }
 
