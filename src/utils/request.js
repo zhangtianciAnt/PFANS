@@ -88,6 +88,15 @@ const ListApi = [
   "expatriatesinfor/getexpatrFliter",
   "contractapplication/getPage",
   "policycontract/get3",
+  "contractapplication/getPages",
+  "contractapplication/getindividualPage",
+  "quotation/getQuotation",
+  "nonjudgment/getPage",
+  "contract/getPage",
+  "award/getPage",
+  "napalm/getPage",
+  "petition/getPage",
+  "award/getVerdict",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,
