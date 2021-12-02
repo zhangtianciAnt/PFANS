@@ -11,6 +11,7 @@
                      :selectable="selectInit"
                      :handleShow="handleShow"
                      @handleEdit="handleEdit"
+                     @reget="getPjanme"
                      ref="roletable"
                      :showSelection="isShow">
     </EasyNormalTable>
@@ -19,10 +20,13 @@
                  :visible.sync="dialogVisible"
                  :title="$t('button.carryforward')"
                  width="22%">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form"
+                 style="padding: 0.1vw;margin-top: -2vw">
           <el-row>
             <div style=
-                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">
+              {{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}
+            </div>
           </el-row>
           <el-row>
             <el-col :span="15" style="margin-left: 2vw">
@@ -33,7 +37,9 @@
           </el-row>
           <el-row>
             <div style=
-                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">
+              {{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}
+            </div>
           </el-row>
           <el-row>
             <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
@@ -59,8 +65,9 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus,getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getOrgInfoByUserId, getMonthlyrateInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
+
   let moment = require('moment');
   import org from '@/view/components/org';
 
@@ -188,18 +195,17 @@
       this.getdateInfo();
     },
     methods: {
-      getdateInfo(){
+      getdateInfo() {
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
-        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+        if (this.mounth === 4 && this.date >= 10 && this.date <= 30) {
           this.buttonList = this.buttonListAnt;
-        }else{
+        } else {
           this.buttonList = this.buttonListOld;
         }
       },
       handleEdit(row) {
-        if(row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL'))
-        {
+        if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_ENDSEAL') || row.sealstatus === this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL')) {
           this.$router.push({
             name: 'PFANS4001FormView',
             params: {
@@ -208,9 +214,7 @@
               check1: true,
             },
           });
-        }
-        else if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL') )
-        {
+        } else if (row.sealstatus === this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL')) {
           this.$router.push({
             name: 'PFANS4001FormView',
             params: {
@@ -228,132 +232,169 @@
       },
       getPjanme() {
         this.loading = true;
-        this.$store
+        //  update  ml  211201  分页  from
+        // this.$store
         //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-          .dispatch('PFANS1026Store/get', {'type': '2'})
+        //   .dispatch('PFANS1026Store/get', {'type': '2'})
+        // .then(response => {
+        //   let data = [];
+        //   for (let i = 0; i < response.contractapplication.length; i++) {
+        //     if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+        //       data.push({
+        //         contractnumber: response.contractapplication[i].contractnumber,
+        //       });
+        //       this.checkdata = data;
+        //     }
+        //   }
+        //   this.loading = true;
+        //   this.$store
+        //   //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+        //     .dispatch('PFANS1025Store/getList', {'maketype': '9'})
+        //     .then(response => {
+        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+        // const datated = [];
+        // for(let j = 0; j< this.checkdata.length; j++){
+        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+        // for (let i = 0; i < response.length; i++)
+        //   //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+        //   {
+        //   if(this.checkdata[j].contractnumber === response[i].contractnumber){
+        //     if (response[i].award_id !== null && response[i].award_id !== '')
+        //     //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+        //     {
+        //       //契约种类
+        //       if (response[i].contracttype !== null && response[i].contracttype !== '') {
+        //         let letContracttype = getDictionaryInfo(response[i].contracttype);
+        //         if (letContracttype != null) {
+        //           response[i].contracttype = letContracttype.value1;
+        //         }
+        //       }
+        //       //审批状态
+        //       if (response[i].status !== null && response[i].status !== '') {
+        //         response[i].status = getStatus(response[i].status);
+        //       }
+        //       //通货形式
+        //       if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
+        //         let letCurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
+        //         if (letCurrencyposition != null) {
+        //           response[i].currencyposition = letCurrencyposition.currencyname;
+        //         }
+        //       }
+        //       //印章状态
+        //       if (this.$i18n) {
+        //         if (response[i].sealstatus === null || response[i].sealstatus === '') {
+        //           response[i].sealstatus = '';
+        //         } else if (response[i].sealstatus === '1') {
+        //           response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+        //         } else if (response[i].sealstatus === '2') {
+        //           response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+        //         } else if (response[i].sealstatus === '3') {
+        //           response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+        //           //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+        //         }
+        //       }
+        //       datated.push({
+        //         contracttype: response[i].contracttype,
+        //         custochinese: response[i].custochinese,
+        //         modifyon: response[i].modifyon,
+        //         deployment: response[i].deployment,
+        //         pjnamechinese: response[i].pjnamechinese,
+        //         claimdatetime: response[i].claimdatetime,
+        //         contractnumber: response[i].contractnumber,
+        //         currencyposition: response[i].currencyposition,
+        //         claimamount: response[i].claimamount,
+        //         award_id: response[i].award_id,
+        //         status:response[i].status,
+        //         owner: response[i].owner,
+        //         sealstatus:response[i].sealstatus,
+        //         sealid:response[i].sealid,
+        //         contractnumber:response[i].contractnumber,
+        //         groupid:response[i].group_id,
+        //         maketype:response[i].maketype,
+        //       });
+        //     }
+        //   }
+        // }
+        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+        // }
+        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+        this.$store
+          .dispatch('PFANS1025Store/getVerdict', {'maketype': '9'})
           .then(response => {
-            let data = [];
-            for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                data.push({
-                  contractnumber: response.contractapplication[i].contractnumber,
-                });
-                this.checkdata = data;
-              }
-            }
-            this.loading = true;
-            this.$store
-            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-              .dispatch('PFANS1025Store/getList', {'maketype': '9'})
-              .then(response => {
-                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                const datated = [];
-                for(let j = 0; j< this.checkdata.length; j++){
-                  //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                  for (let i = 0; i < response.length; i++)
+            const datatade = [];
+            for (let i = 0; i < response.length; i++) {
+              // for (let n = 0; n < datated.length; n++) {
+              //   if (datated[n].contractnumber === response[m].contractnumber) {
+              if (response[i].award_id !== null && response[i].award_id !== '') {
+                //契约种类
+                if (response[i].contracttype !== null && response[i].contracttype !== '') {
+                  let letContracttype = getDictionaryInfo(response[i].contracttype);
+                  if (letContracttype != null) {
+                    response[i].contracttype = letContracttype.value1;
+                  }
+                }
+                //审批状态
+                if (response[i].status !== null && response[i].status !== '') {
+                  response[i].status = getStatus(response[i].status);
+                }
+                //通货形式
+                if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
+                  let letCurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
+                  if (letCurrencyposition != null) {
+                    response[i].currencyposition = letCurrencyposition.currencyname;
+                  }
+                }
+                //印章状态
+                if (this.$i18n) {
+                  if (response[i].sealstatus === null || response[i].sealstatus === '') {
+                    response[i].sealstatus = '';
+                  } else if (response[i].sealstatus === '1') {
+                    response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                  } else if (response[i].sealstatus === '2') {
+                    response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                  } else if (response[i].sealstatus === '3') {
+                    response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
                     //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                    {
-                    if(this.checkdata[j].contractnumber === response[i].contractnumber){
-                      if (response[i].award_id !== null && response[i].award_id !== '')
-                      //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                      {
-                        //契约种类
-                        if (response[i].contracttype !== null && response[i].contracttype !== '') {
-                          let letContracttype = getDictionaryInfo(response[i].contracttype);
-                          if (letContracttype != null) {
-                            response[i].contracttype = letContracttype.value1;
-                          }
-                        }
-                        //审批状态
-                        if (response[i].status !== null && response[i].status !== '') {
-                          response[i].status = getStatus(response[i].status);
-                        }
-                        //通货形式
-                        if (response[i].currencyposition !== null && response[i].currencyposition !== '') {
-                          let letCurrencyposition = getMonthlyrateInfo(response[i].currencyposition);
-                          if (letCurrencyposition != null) {
-                            response[i].currencyposition = letCurrencyposition.currencyname;
-                          }
-                        }
-                        //印章状态
-                        if (this.$i18n) {
-                          if (response[i].sealstatus === null || response[i].sealstatus === '') {
-                            response[i].sealstatus = '';
-                          } else if (response[i].sealstatus === '1') {
-                            response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                          } else if (response[i].sealstatus === '2') {
-                            response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                          } else if (response[i].sealstatus === '3') {
-                            response[i].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                          }
-                        }
-                        datated.push({
-                          contracttype: response[i].contracttype,
-                          custochinese: response[i].custochinese,
-                          modifyon: response[i].modifyon,
-                          deployment: response[i].deployment,
-                          pjnamechinese: response[i].pjnamechinese,
-                          claimdatetime: response[i].claimdatetime,
-                          contractnumber: response[i].contractnumber,
-                          currencyposition: response[i].currencyposition,
-                          claimamount: response[i].claimamount,
-                          award_id: response[i].award_id,
-                          status:response[i].status,
-                          owner: response[i].owner,
-                          sealstatus:response[i].sealstatus,
-                          sealid:response[i].sealid,
-                          contractnumber:response[i].contractnumber,
-                          groupid:response[i].group_id,
-                          maketype:response[i].maketype,
-                        });
-                      }
-                    }
-                  }
-                  //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
-                }
-                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-                const datatade = [];
-                for (let m = 0; m < response.length; m++) {
-                  for (let n = 0; n < datated.length; n++) {
-                    if (datated[n].contractnumber === response[m].contractnumber) {
-                      datatade.push({
-                        contracttype: response[m].contracttype,
-                        custochinese: response[m].custochinese,
-                        modifyon: response[m].modifyon,
-                        deployment: response[m].deployment,
-                        pjnamechinese: response[m].pjnamechinese,
-                        claimdatetime: response[m].claimdatetime,
-                        contractnumber: response[m].contractnumber,
-                        currencyposition: response[m].currencyposition,
-                        claimamount: response[m].claimamount,
-                        award_id: response[m].award_id,
-                        status:response[m].status,
-                        owner: response[m].owner,
-                        sealstatus:response[m].sealstatus,
-                        sealid:response[m].sealid,
-                        contractnumber:response[m].contractnumber,
-                        groupid:response[m].group_id,
-                        maketype:response[m].maketype,
-                      });
-                    }
-                    //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
                   }
                 }
-                this.data = datatade;
-                this.loading = false;
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
+                datatade.push({
+                  contracttype: response[i].contracttype,
+                  custochinese: response[i].custochinese,
+                  modifyon: response[i].modifyon,
+                  deployment: response[i].deployment,
+                  pjnamechinese: response[i].pjnamechinese,
+                  claimdatetime: response[i].claimdatetime,
+                  contractnumber: response[i].contractnumber,
+                  currencyposition: response[i].currencyposition,
+                  claimamount: response[i].claimamount,
+                  award_id: response[i].award_id,
+                  status: response[i].status,
+                  owner: response[i].owner,
+                  sealstatus: response[i].sealstatus,
+                  sealid: response[i].sealid,
+                  contractnumber: response[i].contractnumber,
+                  groupid: response[i].group_id,
+                  maketype: response[i].maketype,
                 });
-                //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
-              });
-            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+              }
+              //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+              // }
+            }
+            this.data = datatade;
+            this.loading = false;
           })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-start
+          });
+        //add-lyt-21/3/10-NT_PFANS_20210226_BUG_028-end
+        // })
       },
+      //  update  ml  211201  分页  to
       rowClick(row) {
         this.rowid = row.award_id;
         this.rows = row;
@@ -361,7 +402,7 @@
         // this.groupid = row.groupid;
 
       },
-      getCenterid(val){
+      getCenterid(val) {
         this.form.new_center_id = val
       },
       // getGroupid(val){
@@ -373,14 +414,14 @@
       setOrg(val) {
         this.form.org = val;
       },
-      submit(){
+      submit() {
         this.loading = true;
-        this.$refs['form'].validate(valid =>{
-          if(valid){
+        this.$refs['form'].validate(valid => {
+          if (valid) {
             let parameter = {
               group_id: this.form.new_center_id,
               maketype: this.rows.maketype,
-              award_id:this.rowid,
+              award_id: this.rowid,
             };
             this.$store
               .dispatch('PFANS1025Store/dataCarryover', parameter)
@@ -392,11 +433,11 @@
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
-                this.form.new_center_id= '';
+                this.form.new_center_id = '';
                 // this.form.new_group_id='';
                 // this.form.new_team_id= '';
               })
-          }else{
+          } else {
             Message({
               message: this.$t('normal.error_12'),
               type: 'error',
@@ -468,7 +509,7 @@
             },
           });
         }
-        if(val === 'carryforward'){
+        if (val === 'carryforward') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -478,7 +519,7 @@
             return;
           }
           this.dialogVisible = true;
-          this.form.new_center_id= '';
+          this.form.new_center_id = '';
         }
         if (val === "sealapp") {
           this.selectedlist = this.$refs.roletable.selectedList;
@@ -564,7 +605,7 @@
             name: 'PFANS4001FormView',
             params: {
               _id: '',
-              _crePe:crePe,
+              _crePe: crePe,
               disabled: true,
             },
           });
