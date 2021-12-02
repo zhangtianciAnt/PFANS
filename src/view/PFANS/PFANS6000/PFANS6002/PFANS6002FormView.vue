@@ -5,32 +5,27 @@
       <div slot="customize">
         <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="refform"
                  style="padding: 2vw">
-          <!--          <el-collapse>-->
-          <!--            <el-collapse-item>-->
-          <template slot="title">
-            <span class="collapse_Title">{{$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')}}</span>
-          </template>
           <!--            第一行-->
           <el-row>
             <!--            中文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="custchinese">
+              <el-form-item :label="$t('label.PFANS6002VIEW_CUSTOMERNAMEC')" prop="custchinese">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
-                          v-model="form.custchinese"></el-input>
+                          v-model="form.custchinese" clearable></el-input>
               </el-form-item>
             </el-col>
             <!--            日文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="custjapanese">
+              <el-form-item :label="$t('label.PFANS6002VIEW_CUSTOMERNAMEJ')" prop="custjapanese">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
-                          v-model="form.custjapanese"></el-input>
+                          v-model="form.custjapanese" clearable></el-input>
               </el-form-item>
             </el-col>
             <!--            英文-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="custenglish">
+              <el-form-item :label="$t('label.PFANS6002VIEW_CUSTOMERNAMEE')" prop="custenglish">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
-                          v-model="form.custenglish"></el-input>
+                          v-model="form.custenglish" clearable></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -40,46 +35,33 @@
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')" prop="abbreviation">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
-                          v-model="form.abbreviation"></el-input>
+                          v-model="form.abbreviation" clearable></el-input>
               </el-form-item>
             </el-col>
-            <!--            负责人-->
+            <!--            公司法人-->
             <el-col :span="8">
-              <el-form-item :label="$t('label.ASSETS1002VIEW_USERID')" prop="liableperson">
+              <el-form-item :label="$t('label.PFANS6002FORMVIEW_LIABLEPERSON')" prop="liableperson">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
-                          v-model="form.liableperson"></el-input>
+                          v-model="form.liableperson" clearable></el-input>
               </el-form-item>
             </el-col>
             <!--            所属公司-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')" prop="thecompany">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
-                          v-model="form.thecompany"></el-input>
+                          v-model="form.thecompany" clearable></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
-            <!--            人员规模-->
-            <el-col :span="8">
-              <el-form-item :label="$t('label.PFANS6002VIEW_PERSCALE')" prop="perscale">
-                <dicselect
-                  :code="code1"
-                  :data="form.perscale"
-                  :disabled="!disabled"
-                  :multiple="multiple"
-                  @change="changeperscale"
-                  style="width:20vw">
-                </dicselect>
-              </el-form-item>
-            </el-col>
-            <!--        事业场编码-->
+<!--            &lt;!&ndash;        事业场编码&ndash;&gt;-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS1024VIEW_BUSINESSCODE')" prop="causecode">
                 <el-input :disabled="!disabled" style="width:20vw" maxlength='20'
-                          v-model="form.causecode"></el-input>
+                          v-model="form.causecode" clearable></el-input>
               </el-form-item>
             </el-col>
-            <!--            人员规模-->
+            <!--            地域区分-->
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6002VIEW_REGINDIFF')" prop="regindiff">
                 <dicselect
@@ -93,161 +75,154 @@
               </el-form-item>
             </el-col>
           </el-row>
-          <!--            </el-collapse-item>-->
-          <!--          </el-collapse>-->
-          <!--            第三行-->
           <el-collapse>
             <el-collapse-item>
               <template slot="title">
-                <span class="collapse_Title">{{$t('label.PFANS6002FORMVIEW_PROJECTPERSON')}}</span>
+                <span class="collapse_Title">{{$t('label.PFANS6002FORMVIEW_BELONG')}}</span>
               </template>
-              <!--            第四行-->
-              <el-row>
-                <!--            中文-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="prochinese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.prochinese"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--            日文-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="projapanese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.projapanese"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--            英文-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="proenglish">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.proenglish"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!--          第五行-->
-              <el-row>
-                <!--        联系电话-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="protelephone">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.protelephone"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--        邮箱地址-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="protemail">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.protemail"></el-input>
-                  </el-form-item>
-                </el-col>
-
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
-          <!--          第六行-->
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span class="collapse_Title">{{$t('label.PFANS6002VIEW_COMMONTPERSON')}}</span>
-              </template>
-              <el-row>
-                <!--            共通事务联络人-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6002VIEW_COMMONTPERSON')" prop="commontperson">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.commontperson"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--        联系电话-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')" prop="comtelephone">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.comtelephone"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--        电子邮箱-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANSUSERFORMVIEW_EMAILADDRESS')" prop="comnemail">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='100'
-                              v-model="form.comnemail"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-            </el-collapse-item>
-          </el-collapse>
-          <!--          第七行-->
-          <el-collapse>
-            <el-collapse-item>
-              <template slot="title">
-                <span class="collapse_Title">{{$t('label.PFANS6002VIEW_ADDRESS')}}</span>
-              </template>
-              <!--          第八行-->
-              <el-row>
-                <!--            中文-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1024VIEW_CHINESE')" prop="addchinese">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
-                              v-model="form.addchinese"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--            日文-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6002FORMVIEW_JAPANESE')" prop="addjapanese">
-                    <el-input maxlength="255" :disabled="!disabled" style="width:20vw"
-                              v-model="form.addjapanese"></el-input>
-                  </el-form-item>
-                </el-col>
-                <!--            英文-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1024VIEW_ENGLISH')" prop="addenglish">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='255'
-                              v-model="form.addenglish"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!--          第九行-->
-              <el-row>
-                <!--            网址-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS6002FORMVIEW_WEBSITE')">
-                    <el-input :disabled="!disabled" style="width:20vw" maxlength='50'
-                              v-model="form.website"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!--          第十行-->
-              <el-row>
-                <!--            备注-->
-                <el-col :span="24">
-                  <el-form-item :label="$t('label.remarks')">
-                    <el-input :disabled="!disabled" :rows="2" style="width: 71vw" type="textarea"
-                              v-model="form.remarks"></el-input>
-                  </el-form-item>
-                </el-col>
-              </el-row>
-              <!--            附件-->
-              <el-row>
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.enclosure')" prop="enclosurecontent">
-                    <el-upload
-                      :disabled="!disabled"
-                      :action="upload"
-                      :file-list="fileList"
-                      :on-error="fileError"
-                      :on-preview="fileDownload"
-                      :on-remove="fileRemove"
-                      :on-success="fileSuccess"
-                      class="upload-demo"
-                      drag
-                      ref="upload">
-                      <i class="el-icon-upload"></i>
-                      <div class="el-upload__text">{{$t('label.enclosurecontent')}}<em>{{$t('normal.info_09')}}</em>
-                      </div>
-                    </el-upload>
-                  </el-form-item>
-                </el-col>
-              </el-row>
+              <el-form-item>
+            <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
+                      style="width: 90vw" >
+              <!--序号-->
+              <el-table-column type="index" width="50" :label="$t('label.PFANS2007VIEW_NUMBER')" align="center" fixed prop="content">
+              </el-table-column>
+              <!--所属部门(中)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_THEDEPC')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='50'
+                            v-model="scope.row.thedepC" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--所属部门(英)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_THEDEPE')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='50'
+                            v-model="scope.row.thedepE" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--所属部门(日)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_THEDEPJ')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='50'
+                            v-model="scope.row.thedepJ" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--联系人(中)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROJECTNAMEC')" align="center" width="200%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:8vw" maxlength='100'
+                            v-model="scope.row.prochinese" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--联系人(英)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROJECTNAMEE')" align="center" width="200%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:8vw" maxlength='100'
+                            v-model="scope.row.proenglish" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--联系人(日)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROJECTNAMEJ')" align="center" width="200%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:8vw" maxlength='100'
+                            v-model="scope.row.projapanese" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--联系电话-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROTELEPHONE')" align="center" width="200%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:8vw" maxlength='100'
+                            v-model="scope.row.protelephone" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--邮箱地址-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_PROTEMAIL')" align="center" width="220%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='100'
+                            v-model="scope.row.protemail" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--公司地址(中)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_ADDCHINESE')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='255'
+                            v-model="scope.row.addchinese" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--公司地址(英)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_ADDENGLISH')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='255'
+                            v-model="scope.row.addenglish" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--公司地址(日)-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_ADDJAPANESE')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input maxlength="255" :disabled="!disabled" style="width:10vw"
+                            v-model="scope.row.addjapanese" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--人员规模-->
+              <el-table-column :label="$t('label.PFANS6002VIEW_PERSCALE')" align="center" width="120%">
+                <template slot-scope="scope">
+                  <dicselect
+                    :no="scope.row"
+                    :code="code1"
+                    :data="scope.row.perscale"
+                    :disabled="!disabled"
+                    :multiple="multiple"
+                    @change="changeperscale"
+                    style="width:8vm"
+                    size="small">
+                  </dicselect>
+                </template>
+              </el-table-column>
+              <!--公司网址-->
+              <el-table-column :label="$t('label.PFANS6002FORMVIEW_WEBSITE')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" style="width:10vw" maxlength='50'
+                            v-model="scope.website" size="small" :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--备注-->
+              <el-table-column :label="$t('label.PFANS6007VIEW_REMARKS')" align="center" width="230%">
+                <template slot-scope="scope">
+                  <el-input :disabled="!disabled" :rows="1" style="width: 10vw" type="textarea"
+                            v-model="scope.remarks"  :no="scope.row" clearable></el-input>
+                </template>
+              </el-table-column>
+              <!--操作-->
+              <el-table-column :label="$t('label.operation')" align="center" width="220" fixed="right">
+                <template slot-scope="scope">
+                  <el-button
+                    :disabled="!disabled"
+                    @click.native.prevent="deleteRow(scope.$index, tableA)"
+                    plain
+                    size="small"
+                    type="danger"
+                  >{{$t('button.delete')}}
+                  </el-button>
+                  <el-button
+                    :disabled="!disabled"
+                    @click.native.prevent="copyRow(scope.$index, tableA)"
+                    plain
+                    size="small"
+                    type="primary"
+                  >{{$t('button.copyup')}}
+                  </el-button>
+                  <el-button
+                    :disabled="!disabled"
+                    @click="addRow()"
+                    plain
+                    size="small"
+                    type="primary"
+                  >{{$t('button.insert')}}
+                  </el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </el-form-item>
             </el-collapse-item>
           </el-collapse>
         </el-form>
@@ -283,17 +258,6 @@
         }
 
       };
-      var checkemail = (rule, value, callback) => {
-        if (this.form.email !== null && this.form.email !== '') {
-          if (!validateEmail(value)) {
-            callback(new Error(this.$t('normal.error_08') + this.$t('label.effective') + this.$t('label.email')));
-          } else {
-            callback();
-          }
-        } else {
-          callback();
-        }
-      };
         var checkregindiff = (rule, value, callback) => {
             if (this.form.regindiff === null || this.form.regindiff === '' || this.form.regindiff === undefined) {
                 callback(new Error(this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_REGINDIFF')));
@@ -309,35 +273,50 @@
         buttonList: [],
         multiple: false,
         form: {
-          customerinfor_id: '',
-          type: this.$t('menu.PFANS6002'),
+          customerinforprimary_id:'',
           custchinese: '',
           custjapanese: '',
           custenglish: '',
           abbreviation: '',
           liableperson: '',
-          prochinese: '',
-          projapanese: '',
-          proenglish: '',
-          protelephone: '',
-          protemail: '',
-          commontperson: '',
-          comtelephone: '',
-          comnemail: '',
-          addchinese: '',
-          addjapanese: '',
-          addenglish: '',
-          perscale: '',
-          website: '',
-          remarks: '',
-          uploadfile: '',
           thecompany: '',
           causecode: '',
-            regindiff: '',
+          regindiff: '',
         },
+        tableA: [
+          {
+            //基本信息 fr
+            custchinese: '',
+            custjapanese: '',
+            custenglish: '',
+            abbreviation: '',
+            liableperson: '',
+            thecompany: '',
+            causecode: '',
+            regindiff: '',
+            //基本信息 to
+
+            customerinfor_id: '',
+            customerinforprimary_id: '',
+            thedepC: '',
+            thedepE: '',
+            thedepJ: '',
+            prochinese: '',
+            proenglish: '',
+            projapanese: '',
+            protelephone: '',
+            protemail: '',
+            addchinese: '',
+            addenglish: '',
+            addjapanese: '',
+            perscale: '',
+            website: '',
+            remarks: '',
+          }
+        ],
         //人员规模
         code1: 'BP007',
-          code2: 'BP028',
+        code2: 'BP028',
         disabled: true,
         rules: {
           // 中文（客户名称）
@@ -371,13 +350,13 @@
             },
           ],
           // 负责人（客户名称）
-          // liableperson: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.ASSETS1002VIEW_USERID'),
-          //         trigger: 'change'
-          //     },
-          // ],
+          liableperson: [
+              {
+                  required: true,
+                  message: this.$t('normal.error_08') + this.$t('label.ASSETS1002VIEW_USERID'),
+                  trigger: 'change'
+              },
+          ],
           // 所属公司
           thecompany: [
             {
@@ -386,98 +365,28 @@
               trigger: 'change',
             },
           ],
-          // 中文(项目联络人)
-          // prochinese: [
-          //     {
-          //         required: false,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
-          //         trigger: 'change'
-          //     }],
-          // 日文(项目联络人)
-          // projapanese: [
-          //     {
-          //         required: false,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
-          //         trigger: 'change'
-          //     },
+          // // 中文(地址)
+          // addchinese: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
+          //     trigger: 'change',
+          //   }],
+          // // 日文(地址)
+          // addjapanese: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
+          //     trigger: 'change',
+          //   },
           // ],
-          // 英文(项目联络人)
-          // proenglish: [
-          //     {
-          //         required: false,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
-          //         trigger: 'change'
-          //     },
-          // ],
-          // 联系电话
-          // protelephone: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-          //         trigger: 'blur'
-          //     },
-          //     {validator: validateTel, trigger: 'blur'}],
-          // // 邮箱地址
-          // protemail: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-          //         trigger: 'blur'
-          //     },
-          //     {validator: checkemail, trigger: 'blur'}],
-          //共通事务联络人
-          // commontperson: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS6002VIEW_COMMONTPERSON'),
-          //         trigger: 'change'
-          //     }],
-          // // 联系电话
-          // comtelephone: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-          //         trigger: 'blur'
-          //     },
-          //     {validator: validateTel, trigger: 'blur'}],
-          // // 电子邮箱
-          // comnemail: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_08') + this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-          //         trigger: 'blur'
-          //     },
-          //     {validator: checkemail, trigger: 'blur'}],
-          // 中文(地址)
-          addchinese: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
-              trigger: 'change',
-            }],
-          // 日文(地址)
-          addjapanese: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
-              trigger: 'change',
-            },
-          ],
-          // 英文(地址)
-          addenglish: [
-            {
-              required: true,
-              message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
-              trigger: 'change',
-            },
-          ],
-          // 人员规模
-          // perscale: [
-          //     {
-          //         required: true,
-          //         message: this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_PERSCALE'),
-          //         trigger: 'change'
-          //     },
+          // // 英文(地址)
+          // addenglish: [
+          //   {
+          //     required: true,
+          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
+          //     trigger: 'change',
+          //   },
           // ],
           // 事业场编码
           causecode: [
@@ -487,32 +396,11 @@
               trigger: 'change',
             },
           ],
-          // prochinese: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_CHINESE'),
-          //     trigger: 'change'
-          //   },
-          // ],
-          // projapanese: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_08') + this.$t('label.PFANS6002FORMVIEW_JAPANESE'),
-          //     trigger: 'change'
-          //   },
-          // ],
-          // proenglish: [
-          //   {
-          //     required: true,
-          //     message: this.$t('normal.error_08') + this.$t('label.PFANS1024VIEW_ENGLISH'),
-          //     trigger: 'change'
-          //   },
-          // ],
+          //地域区分
             regindiff: [
                 {
                     required: true,
                     validator: checkregindiff,
-                    // message: this.$t('normal.error_09') + this.$t('label.PFANS6002VIEW_REGINDIFF'),
                     trigger: 'change'
                 },
             ],
@@ -525,21 +413,19 @@
       if (this.$route.params._id) {
         this.loading = true;
         this.$store
-          .dispatch('PFANS6002Store/getcustomerinforApplyOne', {'customerinfor_id': this.$route.params._id})
+          .dispatch('PFANS6002Store/getcustomerinforApplyOne', {'customerinforprimary_id': this.$route.params._id})
           .then(response => {
               if (response !== undefined) {
-                  this.form = response;
-                  if (this.form.uploadfile != '' && this.form.uploadfile != null) {
-                      let uploadfile = this.form.uploadfile.split(';');
-                      for (var i = 0; i < uploadfile.length; i++) {
-                          if (uploadfile[i].split(',')[0] != '') {
-                              let o = {};
-                              o.name = uploadfile[i].split(',')[0];
-                              o.url = uploadfile[i].split(',')[1];
-                              this.fileList.push(o);
-                          }
-                      }
-                  }
+                  this.form.customerinforprimary_id = response[0].customerinforprimary_id;
+                  this.form.custchinese = response[0].custchinese;
+                  this.form.custjapanese = response[0].custjapanese;
+                  this.form.custenglish = response[0].custenglish;
+                  this.form.abbreviation = response[0].abbreviation;
+                  this.form.liableperson = response[0].liableperson;
+                  this.form.thecompany = response[0].thecompany;
+                  this.form.causecode = response[0].causecode;
+                  this.form.regindiff = response[0].regindiff;
+                  this.tableA = response;
               }
               this.loading = false;
           })
@@ -572,78 +458,142 @@
           this.disabled =  val;
         }
       },
-      changeperscale(val) {
-        this.form.perscale = val;
+      changeperscale(val, row) {
+        row.perscale = val;
       },
         changeregindiff(val) {
             this.form.regindiff = val;
         },
-      fileError(err, file, fileList) {
-        Message({
-          message: this.$t('normal.error_04'),
-          type: 'error',
-          duration: 5 * 1000,
+      deleteRow(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.tableA = [
+            {
+              //基本信息 fr
+              customerinforprimary_id:'',
+              custchinese:  '',
+              custjapanese:  '',
+              custenglish:  '',
+              abbreviation:  '',
+              liableperson:  '',
+              thecompany:  '',
+              causecode:  '',
+              regindiff:  '',
+              //基本信息 to
+              customerinfor_id:  '',
+              thedepC: '',
+              thedepE: '',
+              thedepJ: '',
+              prochinese: '',
+              proenglish: '',
+              projapanese: '',
+              protelephone: '',
+              protemail: '',
+              addchinese: '',
+              addenglish: '',
+              addjapanese: '',
+              perscale: '',
+              website: '',
+              remarks: '',
+            }
+          ]
+        }
+      },
+      copyRow(index, rows) {
+        this.tableA .push({
+              //基本信息 fr
+              custchinese:  rows[index].custchinese,
+              custjapanese:  rows[index].custjapanese,
+              custenglish:  rows[index].custenglish,
+              abbreviation:  rows[index].abbreviation,
+              liableperson:  rows[index].liableperson,
+              thecompany:  rows[index].thecompany,
+              causecode:  rows[index].causecode,
+              regindiff:  rows[index].regindiff,
+              //基本信息 to
+              customerinforprimary_id: rows[index].customerinforprimary_id,
+              customerinfor_id: '',
+              thedepC: rows[index].thedepC,
+              thedepE: rows[index].thedepE,
+              thedepJ: rows[index].thedepJ,
+              prochinese: rows[index].prochinese,
+              proenglish: rows[index].proenglish,
+              projapanese: rows[index].projapanese,
+              protelephone: rows[index].protelephone,
+              protemail: rows[index].protemail,
+              addchinese: rows[index].addchinese,
+              addenglish: rows[index].addenglish,
+              addjapanese: rows[index].addjapanese,
+              perscale: rows[index].perscale,
+              website: rows[index].website,
+              remarks: rows[index].remarks,
         });
       },
-      fileRemove(file, fileList) {
-        this.fileList = [];
-        this.form.uploadfile = '';
-        for (var item of fileList) {
-          let o = {};
-          o.name = item.name;
-          o.url = item.url;
-          this.fileList.push(o);
-          this.form.uploadfile += item.name + ',' + item.url + ';';
-        }
-      },
-      fileDownload(file) {
-        if (file.url) {
-          file.url = file.url.replace("%","%25");
-          file.url = file.url.replace("#","%23");
-          file.url = file.url.replace("&","%26");
-          file.url = file.url.replace("+","%2B");
-          file.url = file.url.replace("=","%3D");
-          file.url = file.url.replace("?","%3F");
-          var url = downLoadUrl(file.url);
-          window.open(url);
-        }
-
-      },
-      fileSuccess(response, file, fileList) {
-        if (response.data == "upload_success") {
-          this.fileList = [];
-          this.form.uploadfile = '';
-          for (var item of fileList) {
-            let o = {};
-            o.name = item.name;
-            if (!item.url) {
-              o.url = item.response.info;
-            } else {
-              o.url = item.url;
-            }
-            this.fileList.push(o);
-            this.form.uploadfile += o.name + ',' + o.url + ';';
-          }
-        } else {
-          Message({
-            message: this.$t('label.PFANS2016FORMVIEW_FILEERROR'),
-            type: 'error',
-            duration: 5 * 1000,
-          });
-          this.form.uploadfile =''
-          this.$refs.upload.clearFiles();
-        }
+      addRow() {
+        this.tableA.push({
+          //基本信息 fr
+          custchinese:  '',
+          custjapanese:  '',
+          custenglish:  '',
+          abbreviation:  '',
+          liableperson:  '',
+          thecompany:  '',
+          causecode:  '',
+          regindiff:  '',
+          //基本信息 to
+          customerinforprimary_id:'',
+          customerinfor_id:  '',
+          thedepC: '',
+          thedepE: '',
+          thedepJ: '',
+          prochinese: '',
+          proenglish: '',
+          projapanese: '',
+          protelephone: '',
+          protemail: '',
+          addchinese: '',
+          addenglish: '',
+          addjapanese: '',
+          perscale: '',
+          website: '',
+          remarks: '',
+        });
       },
       buttonClick(val) {
         this.$refs['refform'].validate(valid => {
           if (valid) {
             this.form.customerinfor_id = this.$route.params._id;
             this.loading = true;
+            for (let i = 0; i < this.tableA.length; i++)
+            {
+              if (this.tableA[i].addchinese === '' || this.tableA[i].addchinese === null
+                || this.tableA[i].addjapanese === '' || this.tableA[i].addjapanese === null
+                || this.tableA[i].addjapanese === '' || this.tableA[i].addjapanese === null)
+              {
+                Message({
+                  message: this.$t('normal.error_30'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.loading = false;
+                return ;
+              }
+              this.tableA[i].customerinforprimary_id = this.form.customerinforprimary_id;
+              this.tableA[i].custchinese = this.form.custchinese;
+              this.tableA[i].custjapanese = this.form.custjapanese;
+              this.tableA[i].custenglish = this.form.custenglish;
+              this.tableA[i].abbreviation = this.form.abbreviation;
+              this.tableA[i].liableperson = this.form.liableperson;
+              this.tableA[i].thecompany = this.form.thecompany;
+              this.tableA[i].causecode = this.form.causecode;
+              this.tableA[i].regindiff = this.form.regindiff;
+            }
             if (this.$route.params._id) {
               this.$store
-                .dispatch('PFANS6002Store/updatecustomerinforApply', this.form)
+                .dispatch('PFANS6002Store/updatecustomerinforApply', this.tableA)
                 .then(response => {
-                  this.data = response;
+                  // this.data = response;
                   this.loading = false;
                   if (val !== 'update') {
                     Message({
@@ -667,9 +617,9 @@
             } else {
               this.loading = true;
               this.$store
-                .dispatch('PFANS6002Store/createcustomerinforApply', this.form)
+                .dispatch('PFANS6002Store/createcustomerinforApply', this.tableA)
                 .then(response => {
-                  this.data = response;
+                  // this.data = response;
                   this.loading = false;
                   Message({
                     message: this.$t('normal.success_01'),

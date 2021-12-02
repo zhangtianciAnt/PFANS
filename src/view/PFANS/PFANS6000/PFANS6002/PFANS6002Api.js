@@ -1,9 +1,9 @@
 import request from '../../../../utils/request'
 import requestDownload from "../../../../utils/requestDownload";
 
-export function getcustomerinfor(data) {
+export function getcustomerinforprimary(data) {
   return request({
-    url: 'customerinfor/get',
+    url: 'customerinfor/getcustomerinforprimary',
     method: 'get',
     params: data
   })

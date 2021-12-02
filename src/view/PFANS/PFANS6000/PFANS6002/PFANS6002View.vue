@@ -89,72 +89,56 @@
                     {
                         //客户名称
                         code: 'custchinese',
-                        label: 'label.PFANS5001FORMVIEW_CUSTOMERNAME',
+                        label: 'label.PFANS6002VIEW_CUSTOMERNAMEC',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                      //所属公司
-                      code: 'thecompany',
-                      label: 'label.PFANS6003FORMVIEW_THECOMPANY',
-                      width: 120,
-                      fix: false,
-                      filter: false,
-                    },
-                  {
-                    //负责人
-                    code: 'liableperson',
-                    label: 'label.ASSETS1002VIEW_USERID',
-                    width: 120,
-                    fix: false,
-                    filter: false,
-                  },
-                    {
-                        //项目联络人
-                        code: 'prochinese',
-                        label: 'label.PFANS6002FORMVIEW_PROJECTPERSON',
-                        width: 140,
-                        fix: false,
-                        filter: false,
-                    },
-                    {
-                        //联系电话
-                        code: 'protelephone',
-                        label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
+                        //客户名称
+                        code: 'custjapanese',
+                        label: 'label.PFANS6002VIEW_CUSTOMERNAMEJ',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //共同事务联络人
-                        code: 'commontperson',
-                        label: 'label.PFANS6002VIEW_COMMONTPERSON',
+                        //简称
+                        code: 'abbreviation',
+                        label: 'label.PFANS6002FORMVIEW_ABBREVIATION',
                         width: 160,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //联系电话
-                        code: 'comtelephone',
-                        label: 'label.PFANS2003FORMVIEW_CONTACTINFORMATION',
+                        //公司法人
+                        code: 'liableperson',
+                        label: 'label.PFANS6002FORMVIEW_LIABLEPERSON',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //地址
-                        code: 'addchinese',
-                        label: 'label.PFANS6002VIEW_ADDRESS',
+                        //所属公司
+                        code: 'thecompany',
+                        label: 'label.PFANS6003FORMVIEW_THECOMPANY',
                         width: 120,
                         fix: false,
                         filter: false,
                     },
                     {
-                        //人员规模
-                        code: 'perscale',
-                        label: 'label.PFANS6002VIEW_PERSCALE',
-                        width: 120,
+                        //事业场编码
+                        code: 'causecode',
+                        label: 'label.PFANS1024VIEW_BUSINESSCODE',
+                        width: 140,
+                        fix: false,
+                        filter: false,
+                    },
+                    {
+                        //地域区分
+                        code: 'regindiff',
+                        label: 'label.PFANS6002VIEW_REGINDIFF',
+                        width: 140,
                         fix: false,
                         filter: false,
                     }
@@ -168,7 +152,7 @@
                      // {'key': 'export2', 'name': 'button.download2', 'disabled': false, icon: 'el-icon-download'},
                 ],
                 rowid: '',
-                row: 'customerinfor_id',
+                row: 'customerinforprimary_id',
                 isShow: true,
             };
         },
@@ -179,55 +163,14 @@
             getcustomerinfor() {
                 this.loading = true;
                 this.$store
-                    .dispatch('PFANS6002Store/getcustomerinfor')
+                    .dispatch('PFANS6002Store/getcustomerinforprimary')
                     .then(response => {
                         for (let j = 0; j < response.length; j++) {
-                            if (response[j].custchinese !== null && response[j].custchinese !== "") {
-                                let custchinese = getUserInfo(response[j].custchinese);
-                                if (custchinese) {
-                                    response[j].custchinese = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].liableperson !== null && response[j].liableperson !== "") {
-                                let liableperson = getUserInfo(response[j].liableperson);
-                                if (liableperson) {
-                                    response[j].liableperson = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].prochinese !== null && response[j].prochinese !== "") {
-                                let prochinese = getUserInfo(response[j].prochinese);
-                                if (prochinese) {
-                                    response[j].prochinese = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].protelephone !== null && response[j].protelephone !== "") {
-                                let protelephone = getUserInfo(response[j].protelephone);
-                                if (protelephone) {
-                                    response[j].protelephone = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].commontperson !== null && response[j].commontperson !== "") {
-                                let commontperson = getUserInfo(response[j].commontperson);
-                                if (commontperson) {
-                                    response[j].commontperson = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].comtelephone !== null && response[j].comtelephone !== "") {
-                                let comtelephone = getUserInfo(response[j].comtelephone);
-                                if (comtelephone) {
-                                    response[j].comtelephone = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].addchinese !== null && response[j].addchinese !== "") {
-                                let addchinese = getUserInfo(response[j].addchinese);
-                                if (addchinese) {
-                                    response[j].addchinese = user.userinfo.customername;
-                                }
-                            }
-                            if (response[j].perscale !== null && response[j].perscale !== "") {
-                                let perscale = getDictionaryInfo(response[j].perscale);
+
+                            if (response[j].regindiff !== null && response[j].regindiff !== "") {
+                                let perscale = getDictionaryInfo(response[j].regindiff);
                                 if (perscale != null) {
-                                    response[j].perscale = perscale.value1;
+                                    response[j].regindiff = perscale.value1;
                                 }
                             }
                         }
@@ -244,7 +187,7 @@
                     })
             },
             rowClick(row) {
-                this.rowid = row.customerinfor_id;
+                this.rowid = row.customerinforprimary_id;
             },
             handleSizeChange(val) {
                 this.listQuery.limit = val;
