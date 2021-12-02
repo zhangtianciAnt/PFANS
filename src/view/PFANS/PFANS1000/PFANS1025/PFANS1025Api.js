@@ -9,6 +9,15 @@ export function get(data) {
     params: data,
   })
 }
+//  add  ml  211130  分页  from
+export function getPage(data) {
+  return request({
+    url: 'award/getPage',
+    method: 'get',
+    params: data,
+  })
+}
+//  add  ml  211130  分页  to
 export function update(data) {
   return request({
     url: 'award/update',
@@ -67,6 +76,17 @@ export function getList(data) {
   })
 }
 //add ccm 0723
+
+//  add  ml   211201  决裁书分页  from
+export function getVerdict(data) {
+  return request({
+    url: 'award/getVerdict',
+    method: 'post',
+    data: data
+  })
+}
+//  add  ml   211201  决裁书分页  to
+
 //数据结转
 export function dataCarryover(data) {
   return request({

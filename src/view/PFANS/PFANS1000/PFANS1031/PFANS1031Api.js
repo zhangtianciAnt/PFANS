@@ -10,6 +10,16 @@ export function get(data) {
   })
 }
 
+//  add  ml  211130  分页  from
+export function getPage(data) {
+  return request({
+    url: 'napalm/getPage',
+    method: 'get',
+    params: data
+  })
+}
+//  add  ml  211130  分页  to
+
 export function one(data) {
   return request({
     url: 'napalm/one',

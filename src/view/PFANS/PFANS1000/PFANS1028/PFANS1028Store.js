@@ -1,4 +1,5 @@
 import {
+  getPage,
   get,
   one,
   update
@@ -22,6 +23,21 @@ const PFANS1028Store = {
         })
       })
     },
+    //   add  ml  211130  分页  from
+    getPage() {
+      return new Promise((resolve, reject) => {
+        getPage().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //   add  ml  211130  分页  to
     update({commit}, data) {
       return new Promise((resolve, reject) => {
         update(data).then(response => {

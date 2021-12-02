@@ -10,6 +10,7 @@
     @rowClick="rowClick"
     :handleShow="handleShow"
     @handleEdit="handleEdit"
+    @reget="getPage"
     :showSelection="isShow"
     ref="roletable"
     v-loading="loading">
@@ -117,92 +118,149 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1026Store/get', {'type': '1'})
-        .then(response => {
-          let data = [];
-          for (let i = 0; i < response.contractapplication.length; i++) {
-            if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-              data.push({
-                contractnumber: response.contractapplication[i].contractnumber,
-              });
-              this.checkdata = data;
-            }
-          }
-          this.$store
-            .dispatch('PFANS1032Store/get', {})
-            .then(response => {
-              const datated = [];
-              for (let d = 0; d < this.checkdata.length; d++) {
-                for (let j = 0; j < response.length; j++) {
-                  if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                    if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                      let letContracttype = getDictionaryInfo(response[j].contracttype);
-                      if (letContracttype != null) {
-                        response[j].contracttype = letContracttype.value1;
-                      }
-                    }
-                    if (response[j].claimdate !== null && response[j].claimdate !== '') {
-                      response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
-                    }
-                    if (this.$i18n) {
-                      if (response[j].sealstatus === null || response[j].sealstatus === '') {
-                        response[j].sealstatus = '';
-                      } else if (response[j].sealstatus === '1') {
-                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                      } else if (response[j].sealstatus === '2') {
-                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                      } else if (response[j].sealstatus === '3') {
-                        response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                      }
-                    }
-                    datated.push({
-                      contracttype: response[j].contracttype,
-                      custochinese: response[j].custochinese,
-                      businesscode: response[j].businesscode,
-                      pjnamejapanese: response[j].pjnamejapanese,
-                      claimnumber: response[j].claimnumber,
-                      claimdate: response[j].claimdate,
-                      contractnumber: response[j].contractnumber,
-                      sealstatus: response[j].sealstatus,
-                      sealid: response[j].sealid,
-                      petition_id: response[j].petition_id,
-                    });
-                  }
-                }
-              }
-              // const datatade = [];
-              // for (let m = 0; m < response.length; m++) {
-              //   for (let n = 0; n < datated.length; n++) {
-              //     if (datated[n].contractnumber === response[m].contractnumber) {
-              //       datatade.push({
-              //         contracttype: response[m].contracttype,
-              //         custochinese: response[m].custochinese,
-              //         businesscode: response[m].businesscode,
-              //         pjnamejapanese: response[m].pjnamejapanese,
-              //         claimnumber: response[m].claimnumber,
-              //         deliveryfinshdate: response[m].deliveryfinshdate,
-              //         contractnumber: response[m].contractnumber,
-              //         petition_id: response[m].petition_id,
-              //       });
-              //     }
-              //   }
-              // }
-              this.data = datated;
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        });
+      this.getPage();
+      //  delete  ml  211201  分页  from
+      // this.loading = true;
+      // this.$store
+      //   .dispatch('PFANS1026Store/get', {'type': '1'})
+      //   .then(response => {
+      //     let data = [];
+      //     for (let i = 0; i < response.contractapplication.length; i++) {
+      //       if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+      //         data.push({
+      //           contractnumber: response.contractapplication[i].contractnumber,
+      //         });
+      //         this.checkdata = data;
+      //       }
+      //     }
+      //     this.$store
+      //       .dispatch('PFANS1032Store/get', {})
+      //       .then(response => {
+      //         const datated = [];
+      //         for (let d = 0; d < this.checkdata.length; d++) {
+      //           for (let j = 0; j < response.length; j++) {
+      //             if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+      //               if (response[j].contracttype !== null && response[j].contracttype !== '') {
+      //                 let letContracttype = getDictionaryInfo(response[j].contracttype);
+      //                 if (letContracttype != null) {
+      //                   response[j].contracttype = letContracttype.value1;
+      //                 }
+      //               }
+      //               if (response[j].claimdate !== null && response[j].claimdate !== '') {
+      //                 response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
+      //               }
+      //               if (this.$i18n) {
+      //                 if (response[j].sealstatus === null || response[j].sealstatus === '') {
+      //                   response[j].sealstatus = '';
+      //                 } else if (response[j].sealstatus === '1') {
+      //                   response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+      //                 } else if (response[j].sealstatus === '2') {
+      //                   response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+      //                 } else if (response[j].sealstatus === '3') {
+      //                   response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+      //                 }
+      //               }
+      //               datated.push({
+      //                 contracttype: response[j].contracttype,
+      //                 custochinese: response[j].custochinese,
+      //                 businesscode: response[j].businesscode,
+      //                 pjnamejapanese: response[j].pjnamejapanese,
+      //                 claimnumber: response[j].claimnumber,
+      //                 claimdate: response[j].claimdate,
+      //                 contractnumber: response[j].contractnumber,
+      //                 sealstatus: response[j].sealstatus,
+      //                 sealid: response[j].sealid,
+      //                 petition_id: response[j].petition_id,
+      //               });
+      //             }
+      //           }
+      //         }
+      //         // const datatade = [];
+      //         // for (let m = 0; m < response.length; m++) {
+      //         //   for (let n = 0; n < datated.length; n++) {
+      //         //     if (datated[n].contractnumber === response[m].contractnumber) {
+      //         //       datatade.push({
+      //         //         contracttype: response[m].contracttype,
+      //         //         custochinese: response[m].custochinese,
+      //         //         businesscode: response[m].businesscode,
+      //         //         pjnamejapanese: response[m].pjnamejapanese,
+      //         //         claimnumber: response[m].claimnumber,
+      //         //         deliveryfinshdate: response[m].deliveryfinshdate,
+      //         //         contractnumber: response[m].contractnumber,
+      //         //         petition_id: response[m].petition_id,
+      //         //       });
+      //         //     }
+      //         //   }
+      //         // }
+      //         this.data = datated;
+      //         this.loading = false;
+      //       })
+      //       .catch(error => {
+      //         this.$message.error({
+      //           message: error,
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //       });
+      //   });
+      //  delete  ml  211201  分页  to
     },
     methods: {
+      //  add  ml  211201  分页  from
+      getPage() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1032Store/getPage', {})
+          .then(response => {
+            const datated = [];
+            for (let j = 0; j < response.length; j++) {
+              if (response[j].contracttype !== null && response[j].contracttype !== '') {
+                let letContracttype = getDictionaryInfo(response[j].contracttype);
+                if (letContracttype != null) {
+                  response[j].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[j].claimdate !== null && response[j].claimdate !== '') {
+                response[j].claimdate = moment(response[j].claimdate).format('YYYY-MM-DD');
+              }
+              if (this.$i18n) {
+                if (response[j].sealstatus === null || response[j].sealstatus === '') {
+                  response[j].sealstatus = '';
+                } else if (response[j].sealstatus === '1') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+                } else if (response[j].sealstatus === '2') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                } else if (response[j].sealstatus === '3') {
+                  response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+                }
+              }
+              datated.push({
+                contracttype: response[j].contracttype,
+                custochinese: response[j].custochinese,
+                businesscode: response[j].businesscode,
+                pjnamejapanese: response[j].pjnamejapanese,
+                claimnumber: response[j].claimnumber,
+                claimdate: response[j].claimdate,
+                contractnumber: response[j].contractnumber,
+                sealstatus: response[j].sealstatus,
+                sealid: response[j].sealid,
+                petition_id: response[j].petition_id,
+              });
+            }
+            this.data = datated;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //  add  ml  211201  分页  to
       //add_fjl_添加合同回款相关  start
       selectInit(row, index) {
         if (this.$i18n) {

@@ -10,6 +10,7 @@
                      :rowid="row_id"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
+                     @reget="getPjanme"
                      v-loading="loading"
                      :psearchValue="search">
     </EasyNormalTable>
@@ -18,10 +19,13 @@
                  :visible.sync="dialogVisible"
                  :title="$t('button.carryforward')"
                  width="22%">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form"
+                 style="padding: 0.1vw;margin-top: -2vw">
           <el-row>
             <div style=
-                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">
+              {{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}
+            </div>
           </el-row>
           <el-row>
             <el-col :span="15" style="margin-left: 2vw">
@@ -32,7 +36,9 @@
           </el-row>
           <el-row>
             <div style=
-                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">
+              {{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}
+            </div>
           </el-row>
           <el-row>
             <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
@@ -58,7 +64,7 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus, getOrgInfoByUserId,getMonthlyrateInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getOrgInfoByUserId, getMonthlyrateInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
   import moment from 'moment';
   import org from '@/view/components/org';
@@ -265,12 +271,12 @@
       this.getdateInfo();
     },
     methods: {
-      getdateInfo(){
+      getdateInfo() {
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
-        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+        if (this.mounth === 4 && this.date >= 10 && this.date <= 30) {
           this.buttonList = this.buttonListAnt;
-        }else{
+        } else {
           this.buttonList = this.buttonListOld;
         }
       },
@@ -288,211 +294,254 @@
       //add-ws-7/20-禅道任务342
       getPjanme() {
         this.loading = true;
+        //  update  ml   211130   决裁书分页   from
+        // this.$store
+        //   .dispatch('PFANS1026Store/get', {'type': '0'})
+        //   .then(response => {
+        //     let data = [];
+        //     for (let i = 0; i < response.contractapplication.length; i++) {
+        //       if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+        //         data.push({
+        //           contractnumber: response.contractapplication[i].contractnumber,
+        //         });
+        //         this.checkdata = data;
+        //       }
+        //     }
+        //     this.$store
+        //       .dispatch('PFANS5001Store/getFpans5001List', {})
+        //       .then(response => {
+        //         for (let j = 0; j < response.length; j++) {
+        //           this.pjnameflg.push({
+        //             pjcode: response[j].companyprojects_id,
+        //             pjname: response[j].project_name,
+        //           });
+        //         }
+
+        // this.$store
+        //   .dispatch('PFANS1025Store/get', {'maketype': '7'})
+        //   .then(response => {
+        // const datated = [];
+        // for (let d = 0; d < this.checkdata.length; d++) {
+        //   for (let j = 0; j < response.length; j++) {
+        // if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+        //   if (response[j].award_id !== null && response[j].award_id !== '') {
+
+        // if (response[j].deliverydate !== null && response[j].deliverydate !== '') {
+        //   response[j].deliverydate = moment(response[j].deliverydate).format('YYYY-MM-DD');
+        // }
+        // if (response[j].contracttype !== null && response[j].contracttype !== '') {
+        //   let letContracttype = getDictionaryInfo(response[j].contracttype);
+        //   if (letContracttype != null) {
+        //     response[j].contracttype = letContracttype.value1;
+        //   }
+        // }
+        // if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
+        //   let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
+        //   if (letCurrencyposition != null) {
+        //     response[j].currencyposition = letCurrencyposition.currencyname;
+        //   }
+        // }
+        // //add-ws-4/17-添加审批时间
+        // if (response[j].status != '0') {
+        //   if (response[j].modifyon !== null && response[j].modifyon !== '') {
+        //     response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+        //   }
+        // } else {
+        //   response[j].modifyon = null;
+        // }
+        // //add-ws-4/17-添加审批时间
+        // if (response[j].status !== null && response[j].status !== '') {
+        //   response[j].status = getStatus(response[j].status);
+        // }
+        // if (response[j].remarks == null ) {
+        //   response[j].remarks ="";
+        // }
+        //add-ws-7/20-禅道任务342
+        // if (this.$i18n) {
+        //   if (response[j].sealstatus === null || response[j].sealstatus === '') {
+        //     response[j].sealstatus = '';
+        //   } else if (response[j].sealstatus === '1') {
+        //     response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
+        //   } else if (response[j].sealstatus === '2') {
+        //     response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+        //   } else if (response[j].sealstatus === '3') {
+        //     response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
+        //   }
+        // }
+        // if (response[j].statuspublic !== null && response[j].statuspublic !== '') {
+        //   if (response[j].statuspublic === '0') {
+        //     response[j].statuspublic = this.$t('label.PFANS1026VIEW_WSTATUS');
+        //   } else if (response[j].statuspublic === '2') {
+        //     response[j].statuspublic = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+        //   } else if (response[j].statuspublic === '3') {
+        //     response[j].statuspublic = this.$t('label.node_step2');
+        //   } else if (response[j].statuspublic === '4') {
+        //     response[j].statuspublic = this.$t('label.PFANS5004VIEW_OVERTIME');
+        //   }
+        // }
+        //add-ws-7/20-禅道任务342
+        // if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
+        //   if (response[j].pjnamechinese.split(',').length > 1) {
+        //     let aa = [];
+        //     let bb = '';
+        //     aa = response[j].pjnamechinese.split(',');
+        //     for (let i = 1; i < aa.length; i++) {
+        //       for (let j = 1; j < this.pjnameflg.length; j++) {
+        //         if (aa[i] === this.pjnameflg[j].pjcode) {
+        //           bb = bb + this.pjnameflg[j].pjname + ',';
+        //         }
+        //       }
+        //     }
+        //     if (bb !== '' && bb !== undefined) {
+        //       response[j].pjnamechinese = bb.substring(0, bb.length - 1);
+        //     }
+        //   } else {
+        //     for (let i = 1; i < this.pjnameflg.length; i++) {
+        //       if (this.pjnameflg[i].pjcode === response[j].pjnamechinese) {
+        //         response[j].pjnamechinese = this.pjnameflg[i].pjname;
+        //       }
+        //     }
+        //   }
+        // }
+        // if (response[j].plan === '0') {
+        //   if (this.$i18n) {
+        //     response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
+        //   }
+        // } else {
+        //   if (this.$i18n) {
+        //     response[j].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
+        //   }
+        // }
+        // datated.push({
+        //   contractnumber: response[j].contractnumber,
+        //   contracttype: response[j].contracttype,
+        //   custochinese: response[j].custochinese,
+        //   modifyon: response[j].modifyon,
+        //   deployment: response[j].deployment,
+        //   pjnamechinese: response[j].pjnamechinese,
+        //   claimdatetime: response[j].claimdatetime,
+        //   deliverydate: response[j].deliverydate,
+        //   currencyposition: response[j].currencyposition,
+        //   claimamount: response[j].claimamount,
+        //   plantemp:response[j].plantemp,
+        //   user_id:response[j].createby,
+        //   status: response[j].status,
+        //   award_id: response[j].award_id,
+        //   owner: response[j].owner,
+        //   //add-ws-7/20-禅道任务342
+        //   sealid: response[j].sealid,
+        //   sealstatus: response[j].sealstatus,
+        //   //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+        //   policycontract_id: response[j].policycontract_id,
+        //   //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
+        //   // statuspublic: response[j].statuspublic,
+        //   //add-ws-7/20-禅道任务342
+        //   remarks: response[j].remarks,
+        //   loanapno: response[j].loanapno,
+        //   maketype:response[j].maketype,
+        // });
+        // }
+        // }
+        // }
+        // }
         this.$store
-          .dispatch('PFANS1026Store/get', {'type': '0'})
+          .dispatch('PFANS1026Store/getPages', {})
           .then(response => {
-            let data = [];
-            for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                data.push({
-                  contractnumber: response.contractapplication[i].contractnumber,
+            const datatade = [];
+            for (let m = 0; m < response.length; m++) {
+              if (response[m].award_id !== null && response[m].award_id !== '') {
+                if (response[m].plan === '0') {
+                  if (this.$i18n) {
+                    response[m].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
+                  }
+                } else {
+                  if (this.$i18n) {
+                    response[m].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
+                  }
+                }
+                if (response[m].status !== null && response[m].status !== '') {
+                  response[m].status = getStatus(response[m].status);
+                }
+                if (response[m].deliverydate !== null && response[m].deliverydate !== '') {
+                  response[m].deliverydate = moment(response[m].deliverydate).format('YYYY-MM-DD');
+                }
+                if (response[m].status != '0') {
+                  if (response[m].modifyon !== null && response[m].modifyon !== '') {
+                    response[m].modifyon = moment(response[m].modifyon).format('YYYY-MM-DD');
+                  }
+                } else {
+                  response[m].modifyon = null;
+                }
+                if (response[m].remarks == null) {
+                  response[m].remarks = "";
+                }
+                if (response[m].statuspublic !== null && response[m].statuspublic !== '') {
+                  if (response[m].statuspublic === '0') {
+                    response[m].statuspublic = this.$t('label.PFANS1026VIEW_WSTATUS');
+                  } else if (response[m].statuspublic === '2') {
+                    response[m].statuspublic = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
+                  } else if (response[m].statuspublic === '3') {
+                    response[m].statuspublic = this.$t('label.node_step2');
+                  } else if (response[m].statuspublic === '4') {
+                    response[m].statuspublic = this.$t('label.PFANS5004VIEW_OVERTIME');
+                  }
+                }
+                // for (let n = 0; n < datated.length; n++) {
+                //   if (datated[n].contractnumber === response[m].contractnumber) {
+                datatade.push({
+                  contractnumber: response[m].contractnumber,
+                  contracttype: response[m].contracttype,
+                  custochinese: response[m].custochinese,
+                  modifyon: response[m].modifyon,
+                  deployment: response[m].deployment,
+                  pjnamechinese: response[m].pjnamechinese,
+                  claimdatetime: response[m].claimdatetime,
+                  deliverydate: response[m].deliverydate,
+                  currencyposition: response[m].currencyposition,
+                  claimamount: response[m].claimamount,
+                  plantemp: response[m].plantemp,
+                  user_id: response[m].createby,
+                  status: response[m].status,
+                  award_id: response[m].award_id,
+                  owner: response[m].owner,
+                  //add-ws-7/20-禅道任务342
+                  sealid: response[m].sealid,
+                  sealstatus: response[m].sealstatus,
+                  //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
+                  policycontract_id: response[m].policycontract_id,
+                  //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
+                  // statuspublic: response[m].statuspublic,
+                  //add-ws-7/20-禅道任务342
+                  remarks: response[m].remarks,
+                  loanapno: response[m].loanapno,
+                  maketype: response[m].maketype,
                 });
-                this.checkdata = data;
+                // }
               }
             }
-            this.$store
-              .dispatch('PFANS5001Store/getFpans5001List', {})
-              .then(response => {
-                for (let j = 0; j < response.length; j++) {
-                  this.pjnameflg.push({
-                    pjcode: response[j].companyprojects_id,
-                    pjname: response[j].project_name,
-                  });
-                }
-                this.$store
-                  .dispatch('PFANS1025Store/get', {'maketype': '7'})
-                  .then(response => {
-                    const datated = [];
-                    for (let d = 0; d < this.checkdata.length; d++) {
-                      for (let j = 0; j < response.length; j++) {
-                        if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                          if (response[j].award_id !== null && response[j].award_id !== '') {
-
-                            if (response[j].deliverydate !== null && response[j].deliverydate !== '') {
-                              response[j].deliverydate = moment(response[j].deliverydate).format('YYYY-MM-DD');
-                            }
-                            if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                              let letContracttype = getDictionaryInfo(response[j].contracttype);
-                              if (letContracttype != null) {
-                                response[j].contracttype = letContracttype.value1;
-                              }
-                            }
-                            if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
-                              let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
-                              if (letCurrencyposition != null) {
-                                response[j].currencyposition = letCurrencyposition.currencyname;
-                              }
-                            }
-                            //add-ws-4/17-添加审批时间
-                            if (response[j].status != '0') {
-                              if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                                response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-                              }
-                            } else {
-                              response[j].modifyon = null;
-                            }
-                            //add-ws-4/17-添加审批时间
-                            if (response[j].status !== null && response[j].status !== '') {
-                              response[j].status = getStatus(response[j].status);
-                            }
-                            if (response[j].remarks == null ) {
-                              response[j].remarks ="";
-                            }
-                            //add-ws-7/20-禅道任务342
-                            if (this.$i18n) {
-                              if (response[j].sealstatus === null || response[j].sealstatus === '') {
-                                response[j].sealstatus = '';
-                              } else if (response[j].sealstatus === '1') {
-                                response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_NOTSTARTSEAL');
-                              } else if (response[j].sealstatus === '2') {
-                                response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                              } else if (response[j].sealstatus === '3') {
-                                response[j].sealstatus = this.$t('label.PFANS1032FORMVIEW_ENDSEAL');
-                              }
-                            }
-                            // if (response[j].statuspublic !== null && response[j].statuspublic !== '') {
-                            //   if (response[j].statuspublic === '0') {
-                            //     response[j].statuspublic = this.$t('label.PFANS1026VIEW_WSTATUS');
-                            //   } else if (response[j].statuspublic === '2') {
-                            //     response[j].statuspublic = this.$t('label.PFANS1032FORMVIEW_LOADINGSEAL');
-                            //   } else if (response[j].statuspublic === '3') {
-                            //     response[j].statuspublic = this.$t('label.node_step2');
-                            //   } else if (response[j].statuspublic === '4') {
-                            //     response[j].statuspublic = this.$t('label.PFANS5004VIEW_OVERTIME');
-                            //   }
-                            // }
-                            //add-ws-7/20-禅道任务342
-                            if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
-                              if (response[j].pjnamechinese.split(',').length > 1) {
-                                let aa = [];
-                                let bb = '';
-                                aa = response[j].pjnamechinese.split(',');
-                                for (let i = 1; i < aa.length; i++) {
-                                  for (let j = 1; j < this.pjnameflg.length; j++) {
-                                    if (aa[i] === this.pjnameflg[j].pjcode) {
-                                      bb = bb + this.pjnameflg[j].pjname + ',';
-                                    }
-                                  }
-                                }
-                                if (bb !== '' && bb !== undefined) {
-                                  response[j].pjnamechinese = bb.substring(0, bb.length - 1);
-                                }
-                              } else {
-                                for (let i = 1; i < this.pjnameflg.length; i++) {
-                                  if (this.pjnameflg[i].pjcode === response[j].pjnamechinese) {
-                                    response[j].pjnamechinese = this.pjnameflg[i].pjname;
-                                  }
-                                }
-                              }
-                            }
-                            if (response[j].plan === '0') {
-                              if (this.$i18n) {
-                                response[j].plantemp = this.$t('label.PFANS1004VIEW_INSIDE');
-                              }
-                            } else {
-                              if (this.$i18n) {
-                                response[j].plantemp = this.$t('label.PFANS1004VIEW_OUTER');
-                              }
-                            }
-                            datated.push({
-                              contractnumber: response[j].contractnumber,
-                              contracttype: response[j].contracttype,
-                              custochinese: response[j].custochinese,
-                              modifyon: response[j].modifyon,
-                              deployment: response[j].deployment,
-                              pjnamechinese: response[j].pjnamechinese,
-                              claimdatetime: response[j].claimdatetime,
-                              deliverydate: response[j].deliverydate,
-                              currencyposition: response[j].currencyposition,
-                              claimamount: response[j].claimamount,
-                              plantemp:response[j].plantemp,
-                              user_id:response[j].createby,
-                              status: response[j].status,
-                              award_id: response[j].award_id,
-                              owner: response[j].owner,
-                              //add-ws-7/20-禅道任务342
-                              sealid: response[j].sealid,
-                              sealstatus: response[j].sealstatus,
-                              //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
-                              policycontract_id: response[j].policycontract_id,
-                              //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
-                              // statuspublic: response[j].statuspublic,
-                              //add-ws-7/20-禅道任务342
-                              remarks: response[j].remarks,
-                              loanapno: response[j].loanapno,
-                              maketype:response[j].maketype,
-                            });
-                          }
-                        }
-                      }
-                    }
-                    const datatade = [];
-                    for (let m = 0; m < response.length; m++) {
-                      for (let n = 0; n < datated.length; n++) {
-                        if (datated[n].contractnumber === response[m].contractnumber) {
-                          datatade.push({
-                            contractnumber: response[m].contractnumber,
-                            contracttype: response[m].contracttype,
-                            custochinese: response[m].custochinese,
-                            modifyon: response[m].modifyon,
-                            deployment: response[m].deployment,
-                            pjnamechinese: response[m].pjnamechinese,
-                            claimdatetime: response[m].claimdatetime,
-                            deliverydate: response[m].deliverydate,
-                            currencyposition: response[m].currencyposition,
-                            claimamount: response[m].claimamount,
-                            plantemp:response[m].plantemp,
-                            user_id:response[m].createby,
-                            status: response[m].status,
-                            award_id: response[m].award_id,
-                            owner: response[m].owner,
-                            //add-ws-7/20-禅道任务342
-                            sealid: response[m].sealid,
-                            sealstatus: response[m].sealstatus,
-                            //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc fr
-                            policycontract_id: response[m].policycontract_id,
-                            //PSDCD_PFANS_20210723_XQ_086 委托决裁报销明细自动带出 ztc to
-                            // statuspublic: response[m].statuspublic,
-                            //add-ws-7/20-禅道任务342
-                            remarks: response[m].remarks,
-                            loanapno: response[m].loanapno,
-                            maketype:response[m].maketype,
-                          });
-                        }
-                      }
-                    }
-                    this.data = datatade;
-                    this.loading = false;
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
-              });
+            this.data = datatade;
+            this.loading = false;
+          })
+          // .catch(error => {
+          //   this.$message.error({
+          //     message: error,
+          //     type: 'error',
+          //     duration: 5 * 1000,
+          //   });
+          //   this.loading = false;
+          // })
+          // })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
+        // });
       },
+      //  update  ml   211130   决裁书分页   to
       rowClick(row) {
         this.rows = row;
         this.groupid = row.groupid;
@@ -509,20 +558,20 @@
         }
         //add-ws-7/20-禅道任务342
       },
-      getCenterid(val){
+      getCenterid(val) {
         this.form.new_center_id = val
       },
       setOrg(val) {
         this.form.org = val;
       },
-      submit(){
+      submit() {
         this.loading = true;
-        this.$refs['form'].validate(valid =>{
-          if(valid){
+        this.$refs['form'].validate(valid => {
+          if (valid) {
             let parameter = {
               group_id: this.form.new_center_id,
               maketype: this.rows.maketype,
-              award_id:this.rowid,
+              award_id: this.rowid,
             };
             this.$store
               .dispatch('PFANS1025Store/dataCarryover', parameter)
@@ -534,9 +583,9 @@
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
-                this.form.new_center_id= '';
-                this.form.new_group_id='';
-                this.form.new_team_id= '';
+                this.form.new_center_id = '';
+                this.form.new_group_id = '';
+                this.form.new_team_id = '';
                 this.loading = false;
                 this.check();
                 this.getPjanme();
@@ -549,7 +598,7 @@
                 });
                 this.loading = false;
               });
-          }else{
+          } else {
             Message({
               message: this.$t('normal.error_12'),
               type: 'error',
@@ -573,13 +622,13 @@
           this.$router.push({
             name: 'PFANS1025FormView',
             params: {
-              _status:this.status,
+              _status: this.status,
               _id: this.rowid,
               disabled: true,
             },
           });
         }
-        if(val === 'carryforward'){
+        if (val === 'carryforward') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -589,7 +638,7 @@
             return;
           }
           this.dialogVisible = true;
-          this.form.new_center_id= '';
+          this.form.new_center_id = '';
         }
         if (val === 'view') {
           if (this.rowid === '') {
@@ -603,7 +652,7 @@
           this.$router.push({
             name: 'PFANS1025FormView',
             params: {
-              _status:this.status,
+              _status: this.status,
               _id: this.rowid,
               disabled: false,
             },
@@ -633,7 +682,7 @@
               }
             }
             for (let i = 0; i < this.selectedlist.length; i++) {
-              if (this.selectedlist[i].sealstatus != ''&&this.selectedlist[i].sealstatus != null&&this.selectedlist[i].sealstatus != undefined) {
+              if (this.selectedlist[i].sealstatus != '' && this.selectedlist[i].sealstatus != null && this.selectedlist[i].sealstatus != undefined) {
                 error = error + 1;
                 let sealtypeList = this.selectedlist[i].contractnumber;
                 checktableD = checktableD + sealtypeList + ',';
@@ -724,7 +773,7 @@
             name: 'PFANS4001FormView',
             params: {
               _id: '',
-              _crePe:crePe,
+              _crePe: crePe,
               disabled: true,
             },
           });
@@ -742,14 +791,14 @@
             return;
           } else {
             let n = 0;
-            let checksum =  this.selectedlist.length;
-            for (let i = 0; i <  this.selectedlist.length; i++) {
-              if ( this.selectedlist[i].loanapno == null ||  this.selectedlist[i].loanapno == ''||  this.selectedlist[i].loanapno == undefined ) {
+            let checksum = this.selectedlist.length;
+            for (let i = 0; i < this.selectedlist.length; i++) {
+              if (this.selectedlist[i].loanapno == null || this.selectedlist[i].loanapno == '' || this.selectedlist[i].loanapno == undefined) {
                 n = n + 1
               }
             }
-            if(n!=checksum){
-              if(n!=0){
+            if (n != checksum) {
+              if (n != 0) {
                 Message({
                   message: this.$t('label.PFANS1001FORMVIEW_CHECKSUM'),
                   type: 'info',
@@ -758,7 +807,6 @@
                 return;
               }
             }
-            debugger
             //add ccm 20211028 决裁精算时添加事业计划内外限制 fr
             let ny = 0;
             for (let i = 0; i < this.selectedlist.length; i++) {
@@ -776,9 +824,7 @@
                 });
                 return;
               }
-            }
-            else
-            {
+            } else {
               plantemp = true;
             }
             //add ccm 20211028 决裁精算时添加事业计划内外限制 to
@@ -830,20 +876,20 @@
             if (this.$i18n) {
               vote.judgements_type = this.$t('label.PFANS1012VIEW_CHECKLIST');
             }
-            if(this.selectedlist[i].policycontract_id != '' && this.selectedlist[i].policycontract_id != null && this.selectedlist[i].policycontract_id != undefined){
-              enetr ++;
+            if (this.selectedlist[i].policycontract_id != '' && this.selectedlist[i].policycontract_id != null && this.selectedlist[i].policycontract_id != undefined) {
+              enetr++;
             }
             this.listjudgement.push(vote);
           }
-          if(enetr !== this.selectedlist.length){
+          if (enetr !== this.selectedlist.length) {
             Message({
               message: this.$t('label.PFANS1025VIEW_PUBLIC5'),
               type: 'info',
               duration: 2 * 1000,
             });
             return;
-          }else{
-            if(enetr > 0){//委托费精算
+          } else {
+            if (enetr > 0) {//委托费精算
               this.loading = true;
               this.$store
                 .dispatch('PFANS1025Store/getAwardEntr', awardid)
@@ -856,19 +902,19 @@
                       _aInfo: awardInfo,
                       _type: 'PJ001002',
                       disabled: true,
-                      _careerplan : plantemp,
+                      _careerplan: plantemp,
                     },
                   });
                   this.loading = false;
                 });
-            }else{
+            } else {
               this.$router.push({
                 name: 'PFANS1012FormView',
                 params: {
                   _name: this.listjudgement,
                   _type: 'PJ001002',
                   disabled: true,
-                  _careerplan : plantemp,
+                  _careerplan: plantemp,
                 },
               });
             }

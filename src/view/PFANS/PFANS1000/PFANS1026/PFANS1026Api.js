@@ -9,6 +9,26 @@ export function get(data) {
   })
 }
 
+//  add  ml  211126  分页  from
+export function getPage(data) {
+  return request({
+    url: 'contractapplication/getPage',
+    method: 'post',
+    data: data
+  })
+}
+//  add  ml  211126  分页  to
+
+//  add  ml  211129  决裁书分页  from
+export function getPages(data) {
+  return request({
+    url: 'contractapplication/getPages',
+    method: 'post',
+    data: data
+  })
+}
+//  add  ml  211129  决裁书分页  to
+
 export function getList(data) {
   return request({
     url: 'contractapplication/getList',
@@ -97,6 +117,14 @@ export function getindividual() {
     method: 'post'
   })
 }
+//  add  ml  211130  个别合同分页  from
+export function getindividualPage() {
+  return request({
+    url: 'contractapplication/getindividualPage',
+    method: 'post'
+  })
+}
+//  add  ml  211130  个别合同分页  to
 export function generatesta(data) {
   return requestPdf({
     url: 'contractapplication/generatesta',

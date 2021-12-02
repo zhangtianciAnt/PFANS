@@ -7,6 +7,7 @@
                      :rowid="row_id"
                      @buttonClick="buttonClick"
                      @rowClick="rowClick"
+                     @reget="getPjanme"
                      v-loading="loading">
     </EasyNormalTable>
     <el-container>
@@ -14,10 +15,13 @@
                  :visible.sync="dialogVisible"
                  :title="$t('button.carryforward')"
                  width="22%">
-        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form" style="padding: 0.1vw;margin-top: -2vw">
+        <el-form :model="form" :rules="rules" label-position="top" label-width="8vw" ref="form"
+                 style="padding: 0.1vw;margin-top: -2vw">
           <el-row>
             <div style=
-                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}</div>
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">
+              {{$t('label.PFANS3005VIEW_OLDORGANIZATION')}}
+            </div>
           </el-row>
           <el-row>
             <el-col :span="15" style="margin-left: 2vw">
@@ -28,7 +32,9 @@
           </el-row>
           <el-row>
             <div style=
-                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">{{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}</div>
+                   "font-family: Helvetica Neue;color: #005BAA;font-size: 0.8rem;font-weight: bold;margin-left: -1vw">
+              {{$t('label.PFANS3005VIEW_NEWORGANIZATION')}}
+            </div>
           </el-row>
           <el-row>
             <el-col :span="15" style="margin-left: 2vw; margin-bottom: -1vw;">
@@ -54,8 +60,9 @@
 
 <script>
   import EasyNormalTable from '@/components/EasyNormalTable';
-  import {getDictionaryInfo, getStatus,getMonthlyrateInfo} from '@/utils/customize';
+  import {getDictionaryInfo, getStatus, getMonthlyrateInfo} from '@/utils/customize';
   import {Message} from 'element-ui';
+
   let moment = require('moment');
   import org from '@/view/components/org';
 
@@ -200,156 +207,187 @@
       this.getdateInfo();
     },
     methods: {
-      getdateInfo(){
+      getdateInfo() {
         this.mounth = new Date().getMonth() + 1;
         this.date = new Date().getDate();
-        if(this.mounth === 4 && this.date >= 10 && this.date <= 30) {
+        if (this.mounth === 4 && this.date >= 10 && this.date <= 30) {
           this.buttonList = this.buttonListAnt;
-        }else{
+        } else {
           this.buttonList = this.buttonListOld;
         }
       },
       getPjanme() {
         this.loading = true;
+        //  update  ml  211130  分页  from
+        // this.$store
+        //   .dispatch('PFANS1026Store/get', {'type': '1'})
+        // .then(response => {
+        //   let data = [];
+        //   for (let i = 0; i < response.contractapplication.length; i++) {
+        //     if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+        //       data.push({
+        //         contractnumber: response.contractapplication[i].contractnumber,
+        //       });
+        //       this.checkdata = data;
+        //     }
+        //   }
+        //   this.$store
+        //     .dispatch('PFANS5001Store/getFpans5001List', {})
+        //     .then(response => {
+        //       for (let j = 0; j < response.length; j++) {
+        //         this.pjnameflg.push({
+        //           pjcode: response[j].companyprojects_id,
+        //           pjname: response[j].project_name,
+        //         });
+        //       }
+        //       this.$store
+        //         .dispatch('PFANS1025Store/get', {'maketype': '4'})
+        //         .then(response => {
+        // const datated = [];
+        // for (let d = 0; d < this.checkdata.length; d++) {
+        //   for (let j = 0; j < response.length; j++) {
+        //     // if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+        //       if (response[j].award_id !== null && response[j].award_id !== '') {
+        //         if (response[j].contracttype !== null && response[j].contracttype !== '') {
+        //           let letContracttype = getDictionaryInfo(response[j].contracttype);
+        //           if (letContracttype != null) {
+        //             response[j].contracttype = letContracttype.value1;
+        //           }
+        //         }
+        //         if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
+        //           let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
+        //           if (letCurrencyposition != null) {
+        //             response[j].currencyposition = letCurrencyposition.currencyname;
+        //           }
+        //         }
+        //         //add-ws-4/17-添加审批时间
+        //         if (response[j].status != '0') {
+        //           if (response[j].modifyon !== null && response[j].modifyon !== '') {
+        //             response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+        //           }
+        //         } else {
+        //           response[j].modifyon = null;
+        //         }
+        //         //add-ws-4/17-添加审批时间
+        //         if (response[j].status !== null && response[j].status !== '') {
+        //           response[j].status = getStatus(response[j].status);
+        //         }
+        //         if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
+        //           if (response[j].pjnamechinese.split(',').length > 1) {
+        //             let aa = [];
+        //             let bb = '';
+        //             aa = response[j].pjnamechinese.split(',');
+        //             for (let i = 1; i < aa.length; i++) {
+        //               for (let j = 1; j < this.pjnameflg.length; j++) {
+        //                 if (aa[i] === this.pjnameflg[j].pjcode) {
+        //                   bb = bb + this.pjnameflg[j].pjname + ',';
+        //                 }
+        //               }
+        //             }
+        //             if (bb !== '' && bb !== undefined) {
+        //               response[j].pjnamechinese = bb.substring(0, bb.length - 1);
+        //             }
+        //           } else {
+        //             for (let i = 1; i < this.pjnameflg.length; i++) {
+        //               if (this.pjnameflg[i].pjcode === response[j].pjnamechinese) {
+        //                 response[j].pjnamechinese = this.pjnameflg[i].pjname;
+        //               }
+        //             }
+        //           }
+        //         }
+        // datated.push({
+        //   contracttype: response[j].contracttype,
+        //   custochinese: response[j].custochinese,
+        //   modifyon: response[j].modifyon,
+        //   deployment: response[j].deployment,
+        //   pjnamechinese: response[j].pjnamechinese,
+        //   claimdatetime: response[j].claimdatetime,
+        //   contractnumber: response[j].contractnumber,
+        //   currencyposition: response[j].currencyposition,
+        //   claimamount: response[j].claimamount,
+        //   award_id: response[j].award_id,
+        //   status: response[j].status,
+        //   owner: response[j].owner,
+        //   maketype: response[j].maketype,
+        // });
+        // }
+        // }
+        // }
+        // }
         this.$store
-          .dispatch('PFANS1026Store/get', {'type': '1'})
+          .dispatch('PFANS1025Store/getPage', {'maketype': '4'})
           .then(response => {
-            let data = [];
-            for (let i = 0; i < response.contractapplication.length; i++) {
-              if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-                data.push({
-                  contractnumber: response.contractapplication[i].contractnumber,
-                });
-                this.checkdata = data;
-              }
-            }
-            this.$store
-              .dispatch('PFANS5001Store/getFpans5001List', {})
-              .then(response => {
-                for (let j = 0; j < response.length; j++) {
-                  this.pjnameflg.push({
-                    pjcode: response[j].companyprojects_id,
-                    pjname: response[j].project_name,
-                  });
+            const datatade = [];
+            for (let j = 0; j < response.length; j++) {
+              // for (let n = 0; n < datated.length; n++) {
+              // if (datated[n].contractnumber === response[m].contractnumber) {
+              if (response[j].award_id !== null && response[j].award_id !== '') {
+                if (response[j].contracttype !== null && response[j].contracttype !== '') {
+                  let letContracttype = getDictionaryInfo(response[j].contracttype);
+                  if (letContracttype != null) {
+                    response[j].contracttype = letContracttype.value1;
+                  }
                 }
-                this.$store
-                  .dispatch('PFANS1025Store/get', {'maketype': '4'})
-                  .then(response => {
-                    const datated = [];
-                    for (let d = 0; d < this.checkdata.length; d++) {
-                      for (let j = 0; j < response.length; j++) {
-                        if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                          if (response[j].award_id !== null && response[j].award_id !== '') {
-                            if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                              let letContracttype = getDictionaryInfo(response[j].contracttype);
-                              if (letContracttype != null) {
-                                response[j].contracttype = letContracttype.value1;
-                              }
-                            }
-                            if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
-                              let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
-                              if (letCurrencyposition != null) {
-                                response[j].currencyposition = letCurrencyposition.currencyname;
-                              }
-                            }
-                            //add-ws-4/17-添加审批时间
-                            if(response[j].status!='0'){
-                              if (response[j].modifyon !== null && response[j].modifyon !== '') {
-                                response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
-                              }
-                            }else{
-                              response[j].modifyon = null;
-                            }
-                            //add-ws-4/17-添加审批时间
-                            if (response[j].status !== null && response[j].status !== '') {
-                              response[j].status = getStatus(response[j].status);
-                            }
-                            if (response[j].pjnamechinese !== null && response[j].pjnamechinese !== '') {
-                              if (response[j].pjnamechinese.split(',').length > 1) {
-                                let aa = [];
-                                let bb = '';
-                                aa = response[j].pjnamechinese.split(',');
-                                for (let i = 1; i < aa.length; i++) {
-                                  for (let j = 1; j < this.pjnameflg.length; j++) {
-                                    if (aa[i] === this.pjnameflg[j].pjcode) {
-                                      bb = bb + this.pjnameflg[j].pjname + ',';
-                                    }
-                                  }
-                                }
-                                if (bb !== '' && bb !== undefined) {
-                                  response[j].pjnamechinese = bb.substring(0, bb.length - 1);
-                                }
-                              } else {
-                                for (let i = 1; i < this.pjnameflg.length; i++) {
-                                  if (this.pjnameflg[i].pjcode === response[j].pjnamechinese) {
-                                    response[j].pjnamechinese = this.pjnameflg[i].pjname;
-                                  }
-                                }
-                              }
-                            }
-                            datated.push({
-                              contracttype: response[j].contracttype,
-                              custochinese: response[j].custochinese,
-                              modifyon: response[j].modifyon,
-                              deployment: response[j].deployment,
-                              pjnamechinese: response[j].pjnamechinese,
-                              claimdatetime: response[j].claimdatetime,
-                              contractnumber: response[j].contractnumber,
-                              currencyposition: response[j].currencyposition,
-                              claimamount: response[j].claimamount,
-                              award_id: response[j].award_id,
-                              status:response[j].status,
-                              owner: response[j].owner,
-                              maketype:response[j].maketype,
-                            });
-                          }
-                        }
-                      }
-                    }
-                    const datatade = [];
-                    for (let m = 0; m < response.length; m++) {
-                      for (let n = 0; n < datated.length; n++) {
-                        if (datated[n].contractnumber === response[m].contractnumber) {
-                          datatade.push({
-                            contracttype: response[m].contracttype,
-                            custochinese: response[m].custochinese,
-                            modifyon: response[m].modifyon,
-                            deployment: response[m].deployment,
-                            pjnamechinese: response[m].pjnamechinese,
-                            claimdatetime: response[m].claimdatetime,
-                            contractnumber: response[m].contractnumber,
-                            currencyposition: response[m].currencyposition,
-                            claimamount: response[m].claimamount,
-                            award_id: response[m].award_id,
-                            status:response[m].status,
-                            owner: response[m].owner,
-                            maketype:response[m].maketype,
-                          });
-                        }
-                      }
-                    }
-                    this.data = datatade;
-                    this.loading = false;
-                  })
-                  .catch(error => {
-                    this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.loading = false;
-                  });
-              })
-              .catch(error => {
-                this.$message.error({
-                  message: error,
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.loading = false;
+                if (response[j].currencyposition !== null && response[j].currencyposition !== '') {
+                  let letCurrencyposition = getMonthlyrateInfo(response[j].currencyposition);
+                  if (letCurrencyposition != null) {
+                    response[j].currencyposition = letCurrencyposition.currencyname;
+                  }
+                }
+                //add-ws-4/17-添加审批时间
+                if (response[j].status != '0') {
+                  if (response[j].modifyon !== null && response[j].modifyon !== '') {
+                    response[j].modifyon = moment(response[j].modifyon).format('YYYY-MM-DD');
+                  }
+                } else {
+                  response[j].modifyon = null;
+                }
+                //add-ws-4/17-添加审批时间
+                if (response[j].status !== null && response[j].status !== '') {
+                  response[j].status = getStatus(response[j].status);
+                }
+              }
+              datatade.push({
+                contracttype: response[j].contracttype,
+                custochinese: response[j].custochinese,
+                modifyon: response[j].modifyon,
+                deployment: response[j].deployment,
+                pjnamechinese: response[j].pjnamechinese,
+                claimdatetime: response[j].claimdatetime,
+                contractnumber: response[j].contractnumber,
+                currencyposition: response[j].currencyposition,
+                claimamount: response[j].claimamount,
+                award_id: response[j].award_id,
+                status: response[j].status,
+                owner: response[j].owner,
+                maketype: response[j].maketype,
               });
-          });
+              // }
+              // }
+            }
+            this.data = datatade;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          })
+          // })
+          // .catch(error => {
+          //   this.$message.error({
+          //     message: error,
+          //     type: 'error',
+          //     duration: 5 * 1000,
+          //   });
+          //   this.loading = false;
+          // });
+        // });
       },
+      //  update  ml  211130  分页  to
       rowClick(row) {
         this.rowid = row.award_id;
         this.rows = row;
@@ -358,7 +396,7 @@
 
 
       },
-      getCenterid(val){
+      getCenterid(val) {
         this.form.new_center_id = val
       },
       setOrg(val) {
@@ -383,7 +421,7 @@
             },
           });
         }
-        if(val === 'carryforward'){
+        if (val === 'carryforward') {
           if (this.rowid === '') {
             Message({
               message: this.$t('normal.info_01'),
@@ -393,7 +431,7 @@
             return;
           }
           this.dialogVisible = true;
-          this.form.new_center_id= '';
+          this.form.new_center_id = '';
         }
         if (val === 'view') {
           if (this.rowid === '') {
@@ -414,14 +452,14 @@
         }
 
       },
-      submit(){
+      submit() {
         this.loading = true;
-        this.$refs['form'].validate(valid =>{
-          if(valid){
+        this.$refs['form'].validate(valid => {
+          if (valid) {
             let parameter = {
               group_id: this.form.new_center_id,
               maketype: this.rows.maketype,
-              award_id:this.rowid,
+              award_id: this.rowid,
             };
             // console.log(parameter)
             this.$store
@@ -434,11 +472,11 @@
                   duration: 5 * 1000,
                 });
                 this.dialogVisible = false;
-                this.form.new_center_id= '';
-                this.form.new_group_id='';
-                this.form.new_team_id= '';
+                this.form.new_center_id = '';
+                this.form.new_group_id = '';
+                this.form.new_team_id = '';
               })
-          }else{
+          } else {
             Message({
               message: this.$t('normal.error_12'),
               type: 'error',

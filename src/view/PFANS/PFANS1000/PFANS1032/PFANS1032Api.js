@@ -8,6 +8,14 @@ export function get() {
     method: 'get'
   })
 }
+//  add  ml  211201  分页  from
+export function getPage() {
+  return request({
+    url: 'petition/getPage',
+    method: 'get'
+  })
+}
+//  add  ml  211201  分页  to
 export function one(data) {
   return request({
     url: 'petition/one',

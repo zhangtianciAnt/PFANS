@@ -1,7 +1,7 @@
 <template>
   <EasyNormalTable :title="title" :columns="columns" :data="data" :rowid="row" :buttonList="buttonList"
                    @buttonClick="buttonClick" @handleSelectionChange="handleSelectionChange" @rowClick="rowClick"
-                   v-loading="loading" :showSelection="isShow" :showIndex="isShow">
+                   v-loading="loading" :showSelection="isShow" :showIndex="isShow" @reget="getQuotation">
   </EasyNormalTable>
 </template>
 
@@ -91,90 +91,144 @@
       };
     },
     mounted() {
-      this.loading = true;
-      this.$store
-        .dispatch('PFANS1026Store/get', {'type': '1'})
-        .then(response => {
-          let data = [];
-          for (let i = 0; i < response.contractapplication.length; i++) {
-            if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
-              data.push({
-                contractnumber: response.contractapplication[i].contractnumber,
-              });
-              this.checkdata = data;
-            }
-          }
-          this.$store
-            .dispatch('PFANS1027Store/get')
-            .then(response => {
-              const datated = [];
-              for (let d = 0; d < this.checkdata.length; d++) {
-                for (let j = 0; j < response.length; j++) {
-                  if (this.checkdata[d].contractnumber === response[j].contractnumber) {
-                    if (response[j].startdate !== null && response[j].startdate !== '') {
-                      response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
-                    }
-                    if (response[j].enddate !== null && response[j].enddate !== '') {
-                      response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
-                    }
-                    if (response[j].contracttype !== null && response[j].contracttype !== '') {
-                      let letContracttype = getDictionaryInfo(response[j].contracttype);
-                      if (letContracttype != null) {
-                        response[j].contracttype = letContracttype.value1;
-                      }
-                    }
-                    if (response[j].trusteejapanese !== null && response[j].trusteejapanese !== '') {
-                      let user = getUserInfo(response[j].trusteejapanese);
-                      if (user) {
-                        response[j].trusteejapanese = user.userinfo.customername;
-                      }
-                    }
-                    datated.push({
-                      contracttype: response[j].contracttype,
-                      trusteejapanese: response[j].trusteejapanese,
-                      entrustedjapanese: response[j].entrustedjapanese,
-                      deployment: response[j].deployment,
-                      pjjapanese: response[j].pjjapanese,
-                      startdate: response[j].startdate,
-                      enddate: response[j].enddate,
-                      contractnumber: response[j].contractnumber,
-                      quotationid: response[j].quotationid,
-                    });
-                  }
-                }
-              }
-              const datatade = [];
-              for (let m = 0; m < response.length; m++) {
-                for (let n = 0; n < datated.length; n++) {
-                  if (datated[n].contractnumber === response[m].contractnumber) {
-                    datatade.push({
-                      contracttype: response[m].contracttype,
-                      trusteejapanese: response[m].trusteejapanese,
-                      entrustedjapanese: response[m].entrustedjapanese,
-                      deployment: response[m].deployment,
-                      pjjapanese: response[m].pjjapanese,
-                      startdate: response[m].startdate,
-                      enddate: response[m].enddate,
-                      contractnumber: response[m].contractnumber,
-                      quotationid: response[m].quotationid,
-                    });
-                  }
-                }
-              }
-              this.data = datatade;
-              this.loading = false;
-            })
-            .catch(error => {
-              this.$message.error({
-                message: error,
-                type: 'error',
-                duration: 5 * 1000,
-              });
-              this.loading = false;
-            });
-        });
+      this.getQuotation();
+      //  delete  ml  211130  报价单分页  from
+      // this.loading = true;
+      // this.$store
+      //   .dispatch('PFANS1026Store/get', {'type': '1'})
+      //   .then(response => {
+      //     let data = [];
+      //     for (let i = 0; i < response.contractapplication.length; i++) {
+      //       if (response.contractapplication[i].state === '1' || response.contractapplication[i].state === this.$t('label.PFANS8008FORMVIEW_EFFECTIVE')) {
+      //         data.push({
+      //           contractnumber: response.contractapplication[i].contractnumber,
+      //         });
+      //         this.checkdata = data;
+      //       }
+      //     }
+      //     this.$store
+      //       .dispatch('PFANS1027Store/get')
+      //       .then(response => {
+      //         const datated = [];
+      //         for (let d = 0; d < this.checkdata.length; d++) {
+      //           for (let j = 0; j < response.length; j++) {
+      //             if (this.checkdata[d].contractnumber === response[j].contractnumber) {
+      //               if (response[j].startdate !== null && response[j].startdate !== '') {
+      //                 response[j].startdate = moment(response[j].startdate).format('YYYY-MM-DD');
+      //               }
+      //               if (response[j].enddate !== null && response[j].enddate !== '') {
+      //                 response[j].enddate = moment(response[j].enddate).format('YYYY-MM-DD');
+      //               }
+      //               if (response[j].contracttype !== null && response[j].contracttype !== '') {
+      //                 let letContracttype = getDictionaryInfo(response[j].contracttype);
+      //                 if (letContracttype != null) {
+      //                   response[j].contracttype = letContracttype.value1;
+      //                 }
+      //               }
+      //               if (response[j].trusteejapanese !== null && response[j].trusteejapanese !== '') {
+      //                 let user = getUserInfo(response[j].trusteejapanese);
+      //                 if (user) {
+      //                   response[j].trusteejapanese = user.userinfo.customername;
+      //                 }
+      //               }
+      //               datated.push({
+      //                 contracttype: response[j].contracttype,
+      //                 trusteejapanese: response[j].trusteejapanese,
+      //                 entrustedjapanese: response[j].entrustedjapanese,
+      //                 deployment: response[j].deployment,
+      //                 pjjapanese: response[j].pjjapanese,
+      //                 startdate: response[j].startdate,
+      //                 enddate: response[j].enddate,
+      //                 contractnumber: response[j].contractnumber,
+      //                 quotationid: response[j].quotationid,
+      //               });
+      //             }
+      //           }
+      //         }
+      //         const datatade = [];
+      //         for (let m = 0; m < response.length; m++) {
+      //           for (let n = 0; n < datated.length; n++) {
+      //             if (datated[n].contractnumber === response[m].contractnumber) {
+      //               datatade.push({
+      //                 contracttype: response[m].contracttype,
+      //                 trusteejapanese: response[m].trusteejapanese,
+      //                 entrustedjapanese: response[m].entrustedjapanese,
+      //                 deployment: response[m].deployment,
+      //                 pjjapanese: response[m].pjjapanese,
+      //                 startdate: response[m].startdate,
+      //                 enddate: response[m].enddate,
+      //                 contractnumber: response[m].contractnumber,
+      //                 quotationid: response[m].quotationid,
+      //               });
+      //             }
+      //           }
+      //         }
+      //         this.data = datatade;
+      //         this.loading = false;
+      //       })
+      //       .catch(error => {
+      //         this.$message.error({
+      //           message: error,
+      //           type: 'error',
+      //           duration: 5 * 1000,
+      //         });
+      //         this.loading = false;
+      //       });
+      //   });
+      //  delete  ml  211130  报价单分页  to
     },
     methods: {
+      //  add  ml  211130  报价单分页  from
+      getQuotation() {
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1027Store/getQuotation')
+          .then(response => {
+            const datatade = [];
+            for (let m = 0; m < response.length; m++) {
+              if (response[m].startdate !== null && response[m].startdate !== '') {
+                response[m].startdate = moment(response[m].startdate).format('YYYY-MM-DD');
+              }
+              if (response[m].enddate !== null && response[m].enddate !== '') {
+                response[m].enddate = moment(response[m].enddate).format('YYYY-MM-DD');
+              }
+              if (response[m].contracttype !== null && response[m].contracttype !== '') {
+                let letContracttype = getDictionaryInfo(response[m].contracttype);
+                if (letContracttype != null) {
+                  response[m].contracttype = letContracttype.value1;
+                }
+              }
+              if (response[m].trusteejapanese !== null && response[m].trusteejapanese !== '') {
+                let user = getUserInfo(response[m].trusteejapanese);
+                if (user) {
+                  response[m].trusteejapanese = user.userinfo.customername;
+                }
+              }
+              datatade.push({
+                contracttype: response[m].contracttype,
+                trusteejapanese: response[m].trusteejapanese,
+                entrustedjapanese: response[m].entrustedjapanese,
+                deployment: response[m].deployment,
+                pjjapanese: response[m].pjjapanese,
+                startdate: response[m].startdate,
+                enddate: response[m].enddate,
+                contractnumber: response[m].contractnumber,
+                quotationid: response[m].quotationid,
+              });
+            }
+            this.data = datatade;
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
+          });
+      },
+      //  add  ml  211130  报价单分页  to
       handleSelectionChange(val) {
         this.selectedlist = val;
       },

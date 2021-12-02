@@ -234,10 +234,10 @@
       load(){
         this.loading = true;
         this.$store
-          .dispatch('PFANS1026Store/get', {'type': '1'})
+          .dispatch('PFANS1026Store/getPage', {'type': '1'})
           .then(response => {
             let letcontractnumber = [];
-            let tabledata = response.contractapplication;
+            let tabledata = response;
             for (let i = 0; i < tabledata.length; i++) {
               //add-ws-6/16-禅道任务135和057
               if (tabledata[i].entrycondition !== null && tabledata[i].entrycondition !== '') {

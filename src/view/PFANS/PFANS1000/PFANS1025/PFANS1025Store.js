@@ -1,4 +1,6 @@
 import {
+  getVerdict,
+  getPage,
   get,
   selectById,
   update,
@@ -34,6 +36,21 @@ const PFANS1025Store = {
         })
       })
     },
+    //  add  ml  211130  分页  from
+    getPage({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getPage(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //  add  ml  211130  分页  to
     selectById({commit}, data) {
       return new Promise((resolve, reject) => {
         selectById(data).then(response => {
@@ -127,6 +144,21 @@ const PFANS1025Store = {
       })
     },
     //add ccm 0723
+    //  add  ml   211201  决裁书分页  from
+    getVerdict({ commit },data) {
+      return new Promise((resolve, reject) => {
+        getVerdict(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //  add  ml   211201  决裁书分页  to
     //其他决裁书数据结转
     dataCarryover({ commit },data) {
       return new Promise((resolve, reject) => {

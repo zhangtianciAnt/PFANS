@@ -86,6 +86,17 @@ const ListApi = [
   "monthlyrate/list",
   "coststatistics/getCostBygroupid",
   "expatriatesinfor/getexpatrFliter",
+  "contractapplication/getPage",
+  "policycontract/get3",
+  "contractapplication/getPages",
+  "contractapplication/getindividualPage",
+  "quotation/getQuotation",
+  "nonjudgment/getPage",
+  "contract/getPage",
+  "award/getPage",
+  "napalm/getPage",
+  "petition/getPage",
+  "award/getVerdict",
   "user/getCustomerPage",
 ]
 const service = axios.create({
