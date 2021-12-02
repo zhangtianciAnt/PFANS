@@ -282,59 +282,28 @@
                     });
                     return;
                   }
-                    this.selectedlist = this.$refs.roletable.selectedList;
-                    import('@/vendor/Export2Excel').then(excel => {
-                        const tHeader = [
-                            this.$t('label.PFANS6002VIEW_CUSTOMERNAMEC'),
-                            this.$t('label.PFANS6002VIEW_CUSTOMERNAMEJ'),
-                            this.$t('label.PFANS6002VIEW_CUSTOMERNAMEE'),
-                            this.$t('label.PFANS6002FORMVIEW_ABBREVIATION'),
-                            this.$t('label.ASSETS1002VIEW_USERID'),
-                            this.$t('label.PFANS6002VIEW_PROJECTNAMEC'),
-                            this.$t('label.PFANS6002VIEW_PROJECTNAMEJ'),
-                            this.$t('label.PFANS6002VIEW_PROJECTNAMEE'),
-                            this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-                            this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            this.$t('label.PFANS6002VIEW_COMMONTPERSON'),
-                            this.$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION'),
-                            this.$t('label.PFANSUSERFORMVIEW_EMAILADDRESS'),
-                            this.$t('label.PFANS6002VIEW_ADDRESSC'),
-                            this.$t('label.PFANS6002VIEW_ADDRESSJ'),
-                            this.$t('label.PFANS6002VIEW_ADDRESSE'),
-                            this.$t('label.PFANS6002VIEW_PERSCALE'),
-                            this.$t('label.PFANS6003FORMVIEW_THECOMPANY'),
-                            this.$t('label.PFANS1024VIEW_BUSINESSCODE'),
-                            this.$t('label.PFANS6002FORMVIEW_WEBSITE'),
-                            this.$t('label.remarks'),
-                        ];
-                        const filterVal = [
-                            'custchinese',
-                            'custjapanese',
-                            'custenglish',
-                            'abbreviation',
-                            'liableperson',
-                            'prochinese',
-                            'projapanese',
-                            'proenglish',
-                            'protelephone',
-                            'protemail',
-                            'commontperson',
-                            'comtelephone',
-                            'comnemail',
-                            'addchinese',
-                            'addjapanese',
-                            'addenglish',
-                            'perscale',
-                            'thecompany',
-                            'causecode',
-                            'website',
-                            'remarks'
-
-                        ];
-                        const list = this.selectedlist;
-                        const data = this.formatJson(filterVal, list);
-                        excel.export_json_to_excel(tHeader, data, this.$t('menu.PFANS6002'));
+                  //region scc upd 21/12/2 选择导出 from
+                  this.selectedlist = this.$refs.roletable.selectedList;
+                  let param = [];
+                  this.selectedlist.forEach(item => {
+                    param.push(item.customerinforprimary_id);
+                  })
+                  this.loading = true;
+                  this.$store
+                    .dispatch('PFANS6002Store/downloadExcel', param)
+                    .then(response => {
+                      this.download(response, '人员信息');
+                      this.loading = false;
                     })
+                    .catch(error => {
+                      this.$message.error({
+                        message: error,
+                        type: 'error',
+                        duration: 1 * 1000,
+                      })
+                      this.loading = false;
+                    });
+                  //endregion scc upd 21/12/2 选择导出 to
                 }else if(val === 'export2'){
                   this.loading=true;
                   this.$store
@@ -396,6 +365,27 @@
                     })
                 }
             },
+
+          //region scc add 人员信息excle下载 from
+          download(data, filename) {
+            if ('msSaveOrOpenBlob' in navigator) {
+              window.navigator.msSaveOrOpenBlob(
+                new Blob([data], {type: 'application/vnd.ms-excel;charset=utf-8'}),
+                decodeURI(filename) + '.xlsx',
+              );
+            } else {
+              var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+              var downloadElement = document.createElement('a');
+              var href = window.URL.createObjectURL(blob); //创建下载的链接
+              downloadElement.href = href;
+              downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+              document.body.appendChild(downloadElement);
+              downloadElement.click(); //点击下载
+              document.body.removeChild(downloadElement); //下载完成移除元素
+              window.URL.revokeObjectURL(href); //释放掉blob对象
+            }
+          },
+          //endregion scc add 人员信息excle下载 to
         }
     }
 </script>
