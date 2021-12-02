@@ -1,4 +1,5 @@
 import {
+  getindividualPage,
   getPages,
   getPage,
   get,
@@ -51,6 +52,21 @@ const PFANS1026Store = {
         });
       });
     },
+    //  add  ml  211130  个别合同分页  from
+    getindividualPage({commit}) {
+      return new Promise((resolve, reject) => {
+        getindividualPage().then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //  add  ml  211130  个别合同分页  to
     //add-ws-7/22-禅道341任务
     get({commit}, data) {
       return new Promise((resolve, reject) => {
