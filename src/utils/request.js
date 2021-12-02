@@ -86,6 +86,7 @@ const ListApi = [
   "monthlyrate/list",
   "coststatistics/getCostBygroupid",
   "expatriatesinfor/getexpatrFliter",
+  "user/getCustomerPage",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,

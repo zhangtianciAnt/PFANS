@@ -20,7 +20,7 @@
           :columns="columns"
           :data="tableList"
           :buttonList="buttonList"
-          ref="roletable" @reget="getInitData"
+          ref="roletable" @reget="getInitDataPage"
           @buttonClick="buttonClick"
           @rowClick="rowClick"
           :showSelection="isShow"
@@ -328,167 +328,174 @@ export default {
   },
   methods: {
     //ADD-WS-6/8-禅道037
-    filterInfo() {
-      this.tableList = this.TABLEList.slice(0);
-      if (this.TABLEList.length > 0) {
-        //进行在职离职筛选
-        if (this.enterOrleave !== "") {
-          //离职筛选
-          if (this.enterOrleave === "0") {
-            if (this.workinghours) {
-              this.working = this.getworkinghours(this.workinghours);
-              this.starttime = this.working.substring(0, 10),
-                this.endTime = this.working.substring(13, 23);
-              if (this.starttime != "" || this.endTime != "") {
-                this.tableList = this.tableList.filter(item => {
-                  return ( moment(this.starttime).format('YYYY-MM-DD')
-                    <= moment(item.enterday).format('YYYY-MM-DD')
-                    && moment(item.enterday).format('YYYY-MM-DD')
-                    <= moment(this.endTime).format('YYYY-MM-DD')
-                    && (item.resignation_date === null
-                      || item.resignation_date === ""
-                      ||moment(item.resignation_date).format('YYYY-MM-DD')
-                      >=moment(new Date()).format('YYYY-MM-DD'))
-                    //add-lyt-2/4 人员信息判定BUG end
-                  )
-                });
-              }
-            }
-            else {
-              this.tableList = this.tableList.filter(item => {
-                return item.resignation_date === null
-                  || item.resignation_date === ""
-                  ||moment(item.resignation_date).format('YYYY-MM-DD')
-                  >=moment(new Date()).format('YYYY-MM-DD')
-              });
-            }
-          }
-          else if(this.enterOrleave === "1"){
-            if (this.workinghours)
-            {
-              this.working = this.getworkinghours(this.workinghours);
-              this.starttime = this.working.substring(0, 10),
-                this.endTime = this.working.substring(13, 23);
-              if (this.starttime != "" || this.endTime != "") {
-                this.tableList = this.tableList.filter(item => {
-                  return (( moment(this.starttime).format('YYYY-MM-DD')
-                    <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                    &&  moment(item.resignation_date).format('YYYY-MM-DD')
-                    <= moment(this.endTime).format('YYYY-MM-DD')
-                    && moment(item.resignation_date).format('YYYY-MM-DD')
-                    <moment(new Date()).format('YYYY-MM-DD')))
-                    // //待离职
-                    ||  moment(this.starttime).format('YYYY-MM-DD')
-                        <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                        &&  moment(item.resignation_date).format('YYYY-MM-DD')
-                        <= moment(this.endTime).format('YYYY-MM-DD')
-                        && moment(item.resignation_date).format('YYYY-MM-DD')
-                        >moment(new Date()).format('YYYY-MM-DD')
-                });
-              }
-            }
-            else
-            {
-              this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null
-                  || item.resignation_date !== ""
-                  && moment(item.resignation_date).format('YYYY-MM-DD')
-                  <moment(new Date()).format('YYYY-MM-DD')
-                  // //待离职
-                  // || moment(item.resignation_date).format('YYYY-MM-DD')
-                  // >=moment(new Date()).format('YYYY-MM-DD')
-              });
-            }
-          }
-          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
-          else{
-            if (this.workinghours) {
-              this.working = this.getworkinghours(this.workinghours);
-              this.starttime = this.working.substring(0, 10),
-                this.endTime = this.working.substring(13, 23);
-              if (this.starttime != "" || this.endTime != "") {
-                this.tableList = this.tableList.filter(item => {
-                  return(
-                      ( moment(this.starttime).format('YYYY-MM-DD')
-                        <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                        &&  moment(item.resignation_date).format('YYYY-MM-DD')
-                        <= moment(this.endTime).format('YYYY-MM-DD')
-                        && moment(item.resignation_date).format('YYYY-MM-DD')
-                        >moment(new Date()).format('YYYY-MM-DD') )
-                        && (item.resignation_date !== null
-                        && item.resignation_date !== "")
-                    )
-                });
-              }
-            }
-            else {
-              this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null
-                  && item.resignation_date !== ""
-                  && moment(item.resignation_date).format('YYYY-MM-DD')
-                  >moment(new Date()).format('YYYY-MM-DD')
-              });
-            }
-          }
-          //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
-        }
-        //add-lyt-21/2/4 人员信息判定BUG start
-        else{
-          if(this.workinghours){
-            this.working = this.getworkinghours(this.workinghours);
-            this.starttime = this.working.substring(0, 10),
-              this.endTime = this.working.substring(13, 23);
-            if (this.starttime != "" || this.endTime != "") {
-              this.tableList = this.tableList.filter(item => {
-                return(
-                  ( moment(this.starttime).format('YYYY-MM-DD')
-                    <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                    &&  moment(item.resignation_date).format('YYYY-MM-DD')
-                    <= moment(this.endTime).format('YYYY-MM-DD')
-                    && moment(item.resignation_date).format('YYYY-MM-DD')
-                    <moment(new Date()).format('YYYY-MM-DD') )
-                  && (item.resignation_date !== null
-                    && item.resignation_date !== "")
-                  ||( moment(this.starttime).format('YYYY-MM-DD')
-                    <=  moment(item.enterday).format('YYYY-MM-DD')
-                    && moment(item.enterday).format('YYYY-MM-DD')
-                    <= moment(this.endTime).format('YYYY-MM-DD')
-                    && (item.resignation_date === null || item.resignation_date === ""
-                      ||moment(item.resignation_date).format('YYYY-MM-DD')
-                      >=moment(new Date()).format('YYYY-MM-DD')))
-                )
-              });
-            }
-          }
-          else{
-            this.tableList = this.tableList.filter(item => {
-              return item.resignation_date !== null
-                || item.resignation_date !== ""
-                || moment(item.resignation_date).format('YYYY-MM-DD')
-                <moment(new Date()).format('YYYY-MM-DD')
-            });
-          }
-        }
-        //add-lyt-21/2/4 人员信息判定BUG end
-        //进行时间筛选
-        // this.working = this.getworkinghours(this.workinghours);
-        // (this.starttime = this.working.substring(0, 10)),
-        //   (this.endTime = this.working.substring(13, 23));
-        // if (this.starttime != "" || this.endTime != "") {
-        //   if (this.enterOrleave === "1")
-        //   {
-        //     return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date !== null && item.resignation_date !== "")
-        //   }
-        //   else
-        //   {
-        //     this.tableList = this.tableList.filter(item => {
-        //       return this.starttime <= item.enterday && item.enterday <= this.endTime
-        //     });
-        //   }
-        // }
-      }
-    },
+    //人员信息添加分页 ztc fr
+    // filterInfo() {
+    //   this.tableList = this.TABLEList.slice(0);
+    //   if (this.TABLEList.length > 0) {
+    //     //进行在职离职筛选
+    //     if (this.enterOrleave !== "") {
+    //       //离职筛选
+    //       if (this.enterOrleave === "0") {
+    //         if (this.workinghours) {
+    //           this.working = this.getworkinghours(this.workinghours);
+    //           this.starttime = this.working.substring(0, 10),
+    //             this.endTime = this.working.substring(13, 23);
+    //           if (this.starttime != "" || this.endTime != "") {
+    //             this.tableList = this.tableList.filter(item => {
+    //               return ( moment(this.starttime).format('YYYY-MM-DD')
+    //                 <= moment(item.enterday).format('YYYY-MM-DD')
+    //                 && moment(item.enterday).format('YYYY-MM-DD')
+    //                 <= moment(this.endTime).format('YYYY-MM-DD')
+    //                 && (item.resignation_date === null
+    //                   || item.resignation_date === ""
+    //                   ||moment(item.resignation_date).format('YYYY-MM-DD')
+    //                   >=moment(new Date()).format('YYYY-MM-DD'))
+    //                 //add-lyt-2/4 人员信息判定BUG end
+    //               )
+    //             });
+    //           }
+    //         }
+    //         else {
+    //           this.tableList = this.tableList.filter(item => {
+    //             return item.resignation_date === null
+    //               || item.resignation_date === ""
+    //               ||moment(item.resignation_date).format('YYYY-MM-DD')
+    //               >=moment(new Date()).format('YYYY-MM-DD')
+    //           });
+    //         }
+    //       }
+    //       else if(this.enterOrleave === "1"){
+    //         if (this.workinghours)
+    //         {
+    //           this.working = this.getworkinghours(this.workinghours);
+    //           this.starttime = this.working.substring(0, 10),
+    //             this.endTime = this.working.substring(13, 23);
+    //           if (this.starttime != "" || this.endTime != "") {
+    //             this.tableList = this.tableList.filter(item => {
+    //               return (( moment(this.starttime).format('YYYY-MM-DD')
+    //                 <=  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                 &&  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                 <= moment(this.endTime).format('YYYY-MM-DD')
+    //                 && moment(item.resignation_date).format('YYYY-MM-DD')
+    //                 <moment(new Date()).format('YYYY-MM-DD')))
+    //                 // //待离职
+    //                 ||  moment(this.starttime).format('YYYY-MM-DD')
+    //                     <=  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                     &&  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                     <= moment(this.endTime).format('YYYY-MM-DD')
+    //                     && moment(item.resignation_date).format('YYYY-MM-DD')
+    //                     >moment(new Date()).format('YYYY-MM-DD')
+    //             });
+    //           }
+    //         }
+    //         else
+    //         {
+    //           this.tableList = this.tableList.filter(item => {
+    //             return item.resignation_date !== null
+    //               || item.resignation_date !== ""
+    //               && moment(item.resignation_date).format('YYYY-MM-DD')
+    //               <moment(new Date()).format('YYYY-MM-DD')
+    //               // //待离职
+    //               // || moment(item.resignation_date).format('YYYY-MM-DD')
+    //               // >=moment(new Date()).format('YYYY-MM-DD')
+    //           });
+    //         }
+    //       }
+    //       //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
+    //       else{
+    //         if (this.workinghours) {
+    //           this.working = this.getworkinghours(this.workinghours);
+    //           this.starttime = this.working.substring(0, 10),
+    //             this.endTime = this.working.substring(13, 23);
+    //           if (this.starttime != "" || this.endTime != "") {
+    //             this.tableList = this.tableList.filter(item => {
+    //               return(
+    //                   ( moment(this.starttime).format('YYYY-MM-DD')
+    //                     <=  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                     &&  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                     <= moment(this.endTime).format('YYYY-MM-DD')
+    //                     && moment(item.resignation_date).format('YYYY-MM-DD')
+    //                     >moment(new Date()).format('YYYY-MM-DD') )
+    //                     && (item.resignation_date !== null
+    //                     && item.resignation_date !== "")
+    //                 )
+    //             });
+    //           }
+    //         }
+    //         else {
+    //           this.tableList = this.tableList.filter(item => {
+    //             return item.resignation_date !== null
+    //               && item.resignation_date !== ""
+    //               && moment(item.resignation_date).format('YYYY-MM-DD')
+    //               >moment(new Date()).format('YYYY-MM-DD')
+    //           });
+    //         }
+    //       }
+    //       //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
+    //     }
+    //     //add-lyt-21/2/4 人员信息判定BUG start
+    //     else{
+    //       if(this.workinghours){
+    //         this.working = this.getworkinghours(this.workinghours);
+    //         this.starttime = this.working.substring(0, 10),
+    //           this.endTime = this.working.substring(13, 23);
+    //         if (this.starttime != "" || this.endTime != "") {
+    //           this.tableList = this.tableList.filter(item => {
+    //             return(
+    //               ( moment(this.starttime).format('YYYY-MM-DD')
+    //                 <=  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                 &&  moment(item.resignation_date).format('YYYY-MM-DD')
+    //                 <= moment(this.endTime).format('YYYY-MM-DD')
+    //                 && moment(item.resignation_date).format('YYYY-MM-DD')
+    //                 <moment(new Date()).format('YYYY-MM-DD') )
+    //               && (item.resignation_date !== null
+    //                 && item.resignation_date !== "")
+    //               ||( moment(this.starttime).format('YYYY-MM-DD')
+    //                 <=  moment(item.enterday).format('YYYY-MM-DD')
+    //                 && moment(item.enterday).format('YYYY-MM-DD')
+    //                 <= moment(this.endTime).format('YYYY-MM-DD')
+    //                 && (item.resignation_date === null || item.resignation_date === ""
+    //                   ||moment(item.resignation_date).format('YYYY-MM-DD')
+    //                   >=moment(new Date()).format('YYYY-MM-DD')))
+    //             )
+    //           });
+    //         }
+    //       }
+    //       else{
+    //         this.tableList = this.tableList.filter(item => {
+    //           return item.resignation_date !== null
+    //             || item.resignation_date !== ""
+    //             || moment(item.resignation_date).format('YYYY-MM-DD')
+    //             <moment(new Date()).format('YYYY-MM-DD')
+    //         });
+    //       }
+    //     }
+    //     //add-lyt-21/2/4 人员信息判定BUG end
+    //     //进行时间筛选
+    //     // this.working = this.getworkinghours(this.workinghours);
+    //     // (this.starttime = this.working.substring(0, 10)),
+    //     //   (this.endTime = this.working.substring(13, 23));
+    //     // if (this.starttime != "" || this.endTime != "") {
+    //     //   if (this.enterOrleave === "1")
+    //     //   {
+    //     //     return (this.starttime <= item.enterday && item.enterday <= this.endTime) && (item.resignation_date !== null && item.resignation_date !== "")
+    //     //   }
+    //     //   else
+    //     //   {
+    //     //     this.tableList = this.tableList.filter(item => {
+    //     //       return this.starttime <= item.enterday && item.enterday <= this.endTime
+    //     //     });
+    //     //   }
+    //     // }
+    //   }
+    // },
+    //人员信息添加分页 ztc to
     //ADD-WS-6/8-禅道037
+    //人员信息添加分页 ztc fr
+    filterInfo() {
+      this.getInitDataPage();
+    },
+    //人员信息添加分页 ztc to
     handleDownload(row) {
       this.loading = true;
       this.$store
@@ -926,7 +933,130 @@ export default {
           this.loading = false;
         });
     },
+    //人员信息添加分页 ztc fr
+    getInitDataPage() {
+      this.loading = true;
+      this.$store
+        .dispatch("orgTreeStore/getOrgTree")
+        .then(response => {
+          if (response) {
+            this.data = [response];
+            this.departmentData = {};
+            this.buildDepartmentData(this.data);
+          }
+          // this.loading = false;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: "error",
+            duration: 5 * 1000
+          });
+          this.loading = false;
+        });
+      let type = this.enterOrleave;
+      let timing = '';
+      if(this.workinghours){
+        timing = this.getworkinghours(this.workinghours);
+      }
+      let params = {
+        orgid: "",
+        orgtype: "",
+        pertype: type,
+        timee: timing,
+      };
+      this.$store
+        .dispatch("usersStore/getCustomerPage", params)
+        .then(response => {
+          let _tableList = [];
+          if (response.length > 0) {
+            response.map(d => {
+              let o = {};
+              Object.assign(o, d.userinfo, d);
+              delete o.userinfo;
+              _tableList.push(o);
+            });
+            for (var j = 0; j < _tableList.length; j++) {
+              let result = "";
+              if(_tableList[j].departmentid != null){
+                for (var i = 0; i < _tableList[j].departmentid.length; i++) {
+                  let departName = this.getDepartmentNameById(
+                    _tableList[j].departmentid[i]
+                  );
+                  if (departName !== "") {
+                    result += departName + ",";
+                  }
+                }
+                result = result.substring(0, result.lastIndexOf(","));
+                _tableList[j].departmentname = result;
+              }
+              if (this.$i18n){
+                _tableList[j].status === "0"
+                  ? (_tableList[j].statusname = this.$t(
+                  "label.PFANSUSERVIEW_ENABLE"
+                  ))
+                  : (_tableList[j].statusname = this.$t(
+                  "label.PFANSUSERVIEW_FORBIDDEN"
+                  ));
+              }
 
+              if (_tableList[j].post && getDictionaryInfo(
+                _tableList[j].post))
+                _tableList[j].post = getDictionaryInfo(
+                  _tableList[j].post
+                ).value1;
+              if (_tableList[j].rank && getDictionaryInfo(
+                _tableList[j].rank))
+                _tableList[j].rank = getDictionaryInfo(
+                  _tableList[j].rank
+                ).value1;
+              if (_tableList[j].enterday)
+                _tableList[j].enterday = moment(_tableList[j].enterday).format(
+                  "YYYY-MM-DD"
+                );
+              //add-ws-7/17-禅道bug35
+              if (_tableList[j].resignation_date)
+                _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                  "YYYY-MM-DD"
+                );
+              //add-ws-7/17-禅道bug35
+              if (_tableList[j].birthday)
+                _tableList[j].birthday = moment(_tableList[j].birthday).format(
+                  "YYYY-MM-DD"
+                );
+              if (this.$i18n){
+                if (_tableList[j].sex === "PR019001"){
+                  _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
+                }else if (_tableList[j].sex === "PR019002"){
+                  _tableList[j].sex =  this.$t("label.PFANS2002FORMVIEW_GRIL");
+                }
+              }
+
+              if (_tableList[j].budgetunit!== null && _tableList[j].budgetunit !== "") {
+                let letbudge = getDictionaryInfo(_tableList[j].budgetunit);
+                if (letbudge) {
+                  _tableList[j].budgetunit = letbudge.value1;
+                }
+              }
+            }
+          }
+          this.tableList = _tableList;
+          this.TABLEList = _tableList;
+          this.loading = false;
+          //add-ws-7/17-禅道bug35
+          //this.filterInfo();
+          //add-ws-7/17-禅道bug35
+        })
+        .catch(err => {
+          this.$message.error({
+            message: err,
+            type: "error",
+            duration: 5 * 1000
+          });
+          this.loading = false;
+        });
+    },
+    //人员信息添加分页 ztc to
     getOrgInformation(id) {
       let org = {};
       let select = false;
@@ -980,7 +1110,9 @@ export default {
     }
   },
   mounted() {
-    this.getInitData();
+    //人员信息添加分页 ztc fr
+    this.getInitDataPage();
+    //人员信息添加分页 ztc to
     this.$store.commit("global/SET_OPERATEID", "");
     this.$store.commit(
           "usersStore/SET_ORGS",

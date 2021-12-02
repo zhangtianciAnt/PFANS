@@ -11,7 +11,8 @@ import {
   getUserTableList3,
   download,
   getSigninlog,
-  checkPassword
+  checkPassword,
+  getCustomerPage,
 } from './usersApi'
 
 const usersStore = {
@@ -53,6 +54,21 @@ const usersStore = {
         })
       })
     },
+    //人员信息添加分页 ztc fr
+    getCustomerPage({ commit }, params) {
+      return new Promise((resolve, reject) => {
+        getCustomerPage(params).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //人员信息添加分页 ztc fr
     getUserTableList2({ commit }, params) {
       return new Promise((resolve, reject) => {
         getUserTableList2(params).then(response => {

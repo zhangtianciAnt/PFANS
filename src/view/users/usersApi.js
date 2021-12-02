@@ -18,6 +18,16 @@ export function getUserTableList(params) {
     params: params
   })
 }
+//人员信息添加分页 ztc fr
+export function getCustomerPage(params) {
+  return request({
+    url: 'user/getCustomerPage',
+    method: 'get',
+    params: params
+  })
+}
+//人员信息添加分页 ztc to
+
 
 export function getUserTableList2(params) {
   return request({
