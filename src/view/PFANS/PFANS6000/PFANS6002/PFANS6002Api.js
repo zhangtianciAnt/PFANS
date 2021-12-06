@@ -18,6 +18,17 @@ export function getcustomerinfor2(data) {
 }
 
 
+// add  ml  211206  dialog分页  from
+export function getCustomerinfor(data) {
+  return request({
+    url: 'customerinfor/getCustomerinfor',
+    method: 'get',
+    params: data
+  })
+}
+// add  ml  211206  dialog分页  to
+
+
 export function getcustomerinforApplyOne(data) {
   return request({
     url: 'customerinfor/one',

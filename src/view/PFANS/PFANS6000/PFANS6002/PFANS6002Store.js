@@ -1,4 +1,5 @@
 import {
+  getCustomerinfor,
   getcustomerinforprimary,
   getcustomerinfor2,
   getcustomerinforApplyOne,
@@ -7,6 +8,7 @@ import {
   download,
   downloadExcel
 } from './PFANS6002Api'
+import {getforContDiaLog} from "../../PFANS1000/PFANS1026/PFANS1026Api";
 
 const PFANS6002Store = {
   namespaced: true,
@@ -39,6 +41,21 @@ const PFANS6002Store = {
         })
       })
     },
+    // add  ml  211206  dialog分页  from
+    getCustomerinfor({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getCustomerinfor(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    // add  ml  211206  dialog分页  to
     getcustomerinforApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getcustomerinforApplyOne(data).then(response => {
