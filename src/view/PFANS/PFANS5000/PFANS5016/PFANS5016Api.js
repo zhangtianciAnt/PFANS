@@ -16,3 +16,13 @@ export function updateByVoId(data) {
   });
 }
 
+//region scc add 21/12/6 日志人别导出 from
+export function downloadExcel(data) {
+  return request({
+    url: 'personlog/downloadExcel',
+    method: 'get',
+    params: data,
+    responseType: 'blob'
+  })
+}
+//endregion scc add 21/12/6 日志人别导出 to
