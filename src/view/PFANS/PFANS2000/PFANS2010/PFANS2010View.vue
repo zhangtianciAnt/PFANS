@@ -23,7 +23,7 @@
 <script>
     import EasyNormalTable from '@/components/EasyNormalTable';
     import {Message} from 'element-ui'
-    import {getUserInfo, getStatus,getCurrentRoleNew} from "@/utils/customize";
+    import {getUserInfo, getStatus,getCurrentRoleNew,getCurrentRole16} from "@/utils/customize";
     import moment from "moment";
     export default {
         name: 'PFANS2010View',
@@ -53,7 +53,7 @@
                     {
                       key: 'export',
                       name: 'button.export',
-                      disabled: false,
+                      disabled: true,
                       icon: 'el-icon-download'
                     },
                   //考勤导出 1125 ztc to
@@ -122,6 +122,10 @@
         },
       mounted() {
         this.roles = getCurrentRoleNew();
+        this.roleBility = getCurrentRole16();
+        if(this.roleBility === '0'){
+          this.buttonList[1].disabled = false;
+        }
         this.getWorkflow();
         //await this.getlist();
         },

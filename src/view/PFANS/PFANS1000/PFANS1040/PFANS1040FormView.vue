@@ -306,10 +306,10 @@
 <!--                                             width="120" show-overflow-tooltip></el-table-column>-->
                             <el-table-column property="currencyvalue1"
                                              :label="$t('label.PFANS8011VIEW_CURRENCY')"
-                                             width="180" show-overflow-tooltip></el-table-column>
-<!--                            <el-table-column property="toolsorgs"-->
-<!--                                             :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
-<!--                                             width="120" show-overflow-tooltip></el-table-column>-->
+                                             width="100" show-overflow-tooltip></el-table-column>
+                            <el-table-column property="toolsorgs"
+                                             :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
+                                             width="120" show-overflow-tooltip></el-table-column>
                             <el-table-column
                               align="right" width="230">
                               <template slot="header" slot-scope="scope">
@@ -382,125 +382,139 @@
               </el-table-column>
               <!--scc upd 契约形式不再自动带入，可进行编辑 to-->
 
-              <!--委託元--><!--scc upd 委托元不再自动带入，可进行编辑 from-->
+              <!--委託元-->
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
               >
                 <template slot-scope="scope">
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1'">
-                    <div>
-                      <el-container>
-                        <el-input class="content bg"
-                                  :disabled="true" size="small"
-                                  v-model="scope.row.assignor"></el-input>
-                        <el-button :disabled="disabled" icon="el-icon-search"
-                                   @click="dialogTableVisible2 = true; handleClick(scope.$index);"
-                                   size="small"></el-button>
-                        <el-dialog :visible.sync="dialogTableVisible2"
-                                   center
-                                   size="50%"
-                                   top="8vh" lock-scroll
-                                   append-to-body>
-                          <div style="text-align: center">
-                            <el-row style="text-align: center;height: 90%;overflow: hidden">
-                              <el-table
-                                :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
-                                || data.thecompany.toLowerCase().includes(search2.toLowerCase())
-                                )"
-                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                @row-click="handleClickChange2">
-                                <el-table-column property="custchinese"
-                                                 :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="prochinese"
-                                                 :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="protelephone"
-                                                 :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column
-                                  align="right" width="230">
-                                  <template slot="header" slot-scope="scope">
-                                    <el-input
-                                      v-model="search2"
-                                      size="mini"
-                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
-                                  </template>
-                                </el-table-column>
-                              </el-table>
-                            </el-row>
-                            <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>
-                        </span>
-                          </div>
-                        </el-dialog>
-                      </el-container>
-                    </div>
-                  </el-col>
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '2'">
-                    <div>
-                      <el-container>
-                        <el-input class="content bg"
-                                  :disabled="true" size="small"
-                                  v-model="scope.row.assignor"></el-input>
-                        <el-button :disabled="disabled" icon="el-icon-search"
-                                   @click="dialogTableVisible2 = true; handleClick(scope.$index);"
-                                   size="small"></el-button>
-                        <el-dialog :visible.sync="dialogTableVisible2"
-                                   center
-                                   size="50%"
-                                   top="8vh" lock-scroll
-                                   append-to-body>
-                          <div style="text-align: center">
-                            <el-row style="text-align: center;height: 90%;overflow: hidden">
-                              <el-table
-                                :data="gridData3.filter(data => !search3 || data.suppliername.toLowerCase().includes(search3.toLowerCase()))"
-                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
-                                @row-click="handleClickChange3">
-                                <el-table-column property="suppliername"
-                                                 :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="payeename"
-                                                 :label="$t('label.PFANS1012VIEW_PAYEENAME')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="vendornum"
-                                                 :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="payeebankaccountnumber"
-                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="payeebankaccount"
-                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column
-                                  align="right" width="230">
-                                  <template slot="header" slot-scope="scope">
-                                    <el-input
-                                      v-model="search3"
-                                      size="mini"
-                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>
-                                  </template>
-                                </el-table-column>
-                              </el-table>
-                            </el-row>
-                            <span slot="footer" class="dialog-footer">
-                          <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>
-                        </span>
-                          </div>
-                        </el-dialog>
-                      </el-container>
-                    </div>
-                  </el-col>
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '3'">
-                    <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"
-                         @getOrgids="setToolsorgs($event,scope.row,scope.$index)"
-                         style="width:13vw"></org>
-                  </el-col>
+                  <div>
+                    <el-input
+                      :disabled="true"
+                      v-model="scope.row.assignor"
+                      size="small">
+                    </el-input>
+                  </div>
                 </template>
               </el-table-column>
+
+              <!--委託元--><!--scc upd 委托元不再自动带入，可进行编辑 from-->
+<!--              <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"-->
+<!--              >-->
+<!--                <template slot-scope="scope">-->
+<!--                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1'">-->
+<!--                    <div>-->
+<!--                      <el-container>-->
+<!--                        <el-input class="content bg"-->
+<!--                                  :disabled="true" size="small"-->
+<!--                                  v-model="scope.row.assignor"></el-input>-->
+<!--                        <el-button :disabled="disabled" icon="el-icon-search"-->
+<!--                                   @click="dialogTableVisible2 = true; handleClick(scope.$index);"-->
+<!--                                   size="small"></el-button>-->
+<!--                        <el-dialog :visible.sync="dialogTableVisible2"-->
+<!--                                   center-->
+<!--                                   size="50%"-->
+<!--                                   top="8vh" lock-scroll-->
+<!--                                   append-to-body>-->
+<!--                          <div style="text-align: center">-->
+<!--                            <el-row style="text-align: center;height: 90%;overflow: hidden">-->
+<!--                              <el-table-->
+<!--                                :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())-->
+<!--                                || data.thecompany.toLowerCase().includes(search2.toLowerCase())-->
+<!--                                )"-->
+<!--                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+<!--                                @row-click="handleClickChange2">-->
+<!--                                <el-table-column property="custchinese"-->
+<!--                                                 :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="prochinese"-->
+<!--                                                 :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="protelephone"-->
+<!--                                                 :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column-->
+<!--                                  align="right" width="230">-->
+<!--                                  <template slot="header" slot-scope="scope">-->
+<!--                                    <el-input-->
+<!--                                      v-model="search2"-->
+<!--                                      size="mini"-->
+<!--                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>-->
+<!--                                  </template>-->
+<!--                                </el-table-column>-->
+<!--                              </el-table>-->
+<!--                            </el-row>-->
+<!--                            <span slot="footer" class="dialog-footer">-->
+<!--                          <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>-->
+<!--                        </span>-->
+<!--                          </div>-->
+<!--                        </el-dialog>-->
+<!--                      </el-container>-->
+<!--                    </div>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '2'">-->
+<!--                    <div>-->
+<!--                      <el-container>-->
+<!--                        <el-input class="content bg"-->
+<!--                                  :disabled="true" size="small"-->
+<!--                                  v-model="scope.row.assignor"></el-input>-->
+<!--                        <el-button :disabled="disabled" icon="el-icon-search"-->
+<!--                                   @click="dialogTableVisible2 = true; handleClick(scope.$index);"-->
+<!--                                   size="small"></el-button>-->
+<!--                        <el-dialog :visible.sync="dialogTableVisible2"-->
+<!--                                   center-->
+<!--                                   size="50%"-->
+<!--                                   top="8vh" lock-scroll-->
+<!--                                   append-to-body>-->
+<!--                          <div style="text-align: center">-->
+<!--                            <el-row style="text-align: center;height: 90%;overflow: hidden">-->
+<!--                              <el-table-->
+<!--                                :data="gridData3.filter(data => !search3 || data.suppliername.toLowerCase().includes(search3.toLowerCase()))"-->
+<!--                                height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
+<!--                                @row-click="handleClickChange3">-->
+<!--                                <el-table-column property="suppliername"-->
+<!--                                                 :label="$t('label.PFANS6001VIEW_SUPPLIERNAME')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="payeename"-->
+<!--                                                 :label="$t('label.PFANS1012VIEW_PAYEENAME')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="vendornum"-->
+<!--                                                 :label="$t('label.PFANS1012VIEW_FOREIGNPAYEECODE')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="payeebankaccountnumber"-->
+<!--                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKNUMBER')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column property="payeebankaccount"-->
+<!--                                                 :label="$t('label.PFANS1012VIEW_PAYEEBANKACCOUNT')"-->
+<!--                                                 width="120" show-overflow-tooltip></el-table-column>-->
+<!--                                <el-table-column-->
+<!--                                  align="right" width="230">-->
+<!--                                  <template slot="header" slot-scope="scope">-->
+<!--                                    <el-input-->
+<!--                                      v-model="search3"-->
+<!--                                      size="mini"-->
+<!--                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME')"/>-->
+<!--                                  </template>-->
+<!--                                </el-table-column>-->
+<!--                              </el-table>-->
+<!--                            </el-row>-->
+<!--                            <span slot="footer" class="dialog-footer">-->
+<!--                          <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>-->
+<!--                        </span>-->
+<!--                          </div>-->
+<!--                        </el-dialog>-->
+<!--                      </el-container>-->
+<!--                    </div>-->
+<!--                  </el-col>-->
+<!--                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '3'">-->
+<!--                    <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"-->
+<!--                         @getOrgids="setToolsorgs($event,scope.row,scope.$index)"-->
+<!--                         style="width:13vw"></org>-->
+<!--                  </el-col>-->
+<!--                </template>-->
+<!--              </el-table-column>-->
               <!--scc upd 委托元不再自动带入，可进行编辑 to-->
 
               <!--通貨種別-->
@@ -1321,7 +1335,7 @@
         //region scc del 契约形式和委托元不再自动带入 from
         // this.tableDataA[this.index].contracttype = val.contract;
         this.tableDataA[this.index].currencytype = val.currency;
-        // this.tableDataA[this.index].assignor = val.toolsorgs;
+        this.tableDataA[this.index].assignor = val.toolsorgs;
         //endregion scc del 契约形式和委托元不再自动带入 to
         this.tableDataA[this.index].remarks = val.remark;
         this.tableDataA[this.index].customerinfor_id = val.customerinfor_id;
@@ -1888,7 +1902,7 @@
       //region scc add 契约形式与委托元相关方法 from
       getcontract(val, row) {//契约形式变更
         row.contracttype = val
-        row.assignor = '';
+        // row.assignor = '';
         this.$forceUpdate();
       },
 
@@ -1993,7 +2007,7 @@
             this.loading = false;
           })
           .catch(error => {
-            Message({
+            this.$message.error({
               message: error,
               type: 'error',
               duration: 5 * 1000,

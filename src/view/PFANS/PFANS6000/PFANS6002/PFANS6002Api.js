@@ -1,9 +1,9 @@
 import request from '../../../../utils/request'
 import requestDownload from "../../../../utils/requestDownload";
 
-export function getcustomerinfor(data) {
+export function getcustomerinforprimary(data) {
   return request({
-    url: 'customerinfor/get',
+    url: 'customerinfor/getcustomerinforprimary',
     method: 'get',
     params: data
   })
@@ -50,3 +50,13 @@ export function download(data) {
     responseType: 'blob'
   })
 }
+//region scc add 人员信息导出 from
+export function downloadExcel(data) {
+  return request({
+    url: '/customerinfor/downloadExcel',
+    method: 'post',
+    data: data,
+    responseType: 'blob'
+  })
+}
+//endregion scc add 人员信息导出 to

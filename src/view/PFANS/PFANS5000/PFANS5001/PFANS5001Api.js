@@ -144,4 +144,14 @@ export function report(data) {
   })
 }
 
+//region scc add 根据合同号，获取构外数据 from
+export function forDetail(data) {
+  return request({
+    url: 'companyprojects/forDetail',
+    method: 'get',
+    params: data
+  })
+}
+//endregion scc add 根据合同号，获取构外数据 to
+
 

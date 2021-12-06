@@ -1422,7 +1422,7 @@
                 this.loading = false;
               });
           }).catch(() => {
-            this.$this.$message.error({
+            this.$message.info({
               type: 'info',
               message: this.$t('normal.confirm_tipis'),
             });

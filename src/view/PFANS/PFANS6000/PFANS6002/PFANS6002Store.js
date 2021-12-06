@@ -1,10 +1,11 @@
 import {
-  getcustomerinfor,
+  getcustomerinforprimary,
   getcustomerinfor2,
   getcustomerinforApplyOne,
   updatecustomerinforApply,
   createcustomerinforApply,
   download,
+  downloadExcel
 } from './PFANS6002Api'
 
 const PFANS6002Store = {
@@ -12,9 +13,9 @@ const PFANS6002Store = {
   state: {},
   mutations: {},
   actions: {
-    getcustomerinfor() {
+    getcustomerinforprimary() {
       return new Promise((resolve, reject) => {
-        getcustomerinfor().then(response => {
+        getcustomerinforprimary().then(response => {
           if (response.code === 0) {
             resolve(response.data);
           } else {
@@ -85,7 +86,24 @@ const PFANS6002Store = {
           reject(error);
         })
       })
-    }
+    },
+
+    //region scc add 人员信息导出 from
+    downloadExcel({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downloadExcel(data).then(response => {
+          if ( response.type.indexOf("json") == -1 ) {
+            resolve(response)
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //endregion scc add 人员信息导出 to
+
   }
 };
 
