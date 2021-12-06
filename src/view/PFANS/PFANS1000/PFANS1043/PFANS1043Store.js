@@ -1,4 +1,6 @@
 import {
+  getlistthemePage,
+  getDiaLogPage,
   createPfans1043,
   getFpans1043List,
   updatePfans1043,
@@ -28,6 +30,36 @@ const PFANS1043store = {
       });
     },
     //add-ws-01/06-禅道任务710
+    //  add  ml  211203  dialog分页  from
+    getDiaLogPage({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getDiaLogPage(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //  add  ml  211203  dialog分页  to
+    //  add  ml  211203  受托theme dialog分页  from
+    getlistthemePage({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getlistthemePage(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message);
+          }
+        }).catch(error => {
+          reject(error);
+        });
+      });
+    },
+    //  add  ml  211203  受托theme dialog分页  to
     getthemename({commit}, data) {
       return new Promise((resolve, reject) => {
         getthemename(data).then(response => {

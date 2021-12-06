@@ -321,6 +321,16 @@
                             </el-table-column>
                           </el-table>
                         </el-row>
+                        <!--                      add  ml  211203  dialog分页   from-->
+                        <div class="pagination-container" style="padding-top: 2rem">
+                          <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
+                                         :page-sizes="[20,30,50,9999]" :total="totalSysm" @current-change="handleCurrentChangeSys"
+                                         @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
+                            <slot><span class="front Content_front"
+                                        style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                          </el-pagination>
+                        </div>
+                        <!--                      add  ml  211203  dialog分页   to-->
                       </div>
                      </el-dialog>
                       </el-container>
@@ -887,6 +897,13 @@
     },
     data() {
       return {
+        // add  ml  211203  dialog分页  from
+        listQuerySys: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalSysm: 0,
+        // add  ml  211203  dialog分页  to
         index: '',
         dialogTableVisible: false,
         gridData: [],
@@ -1091,6 +1108,16 @@
       }
     },
     methods: {
+      //add   ml   211203    dialog分页   from
+      handleCurrentChangeSys(val) {
+        this.listQuerySys.currentPage = val;
+        this.getlisttheme();
+      },
+      handleSizeChangeSys(val) {
+        this.listQuerySys.pageSize = val;
+        this.getlisttheme();
+      },
+      //add   ml   211203    dialog分页   to
       // 添加年间合计 ztc fr
       formatterDir(row, column, cellValue, index) {
         if (column.property === "npersonnel") {
@@ -1205,32 +1232,39 @@
         this.tableDataA[this.index].otherthree = val.otherthree;
         this.dialogTableVisible = false;
       },
+      //  upadte  ml  211203  dialog分页   from
       getlisttheme() {
+        this.gridData = [];
         this.loading = true;
-        let parameters = {
-          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
-          // year :'2021',
-          contract: 0,
+        // let parameters = {
+        //   year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+        //   // year :'2021',
+        //   contract: 0,
+        // };
+        let params = {
+          currentPage: this.listQuerySys.currentPage,
+          pageSize: this.listQuerySys.pageSize,
         };
         this.$store
-          .dispatch('PFANS1043Store/getlisttheme', parameters)
+          .dispatch('PFANS1043Store/getlistthemePage', params)
+          // .dispatch('PFANS1043Store/getlisttheme', parameters)
           .then(response => {
             // response = response.filter(item => (item.contract == 'PJ142001' || item.contract == 'PJ142002' || item.contract == 'PJ142003' || item.contract == 'PJ142004' || item.contract == 'PJ142005') && (item.year = this.refform.year));
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].divide != '' && response[j].divide != null) {
-                let letErrortype = getDictionaryInfo(response[j].divide);
+            for (let j = 0; j < response.resultList.length; j++) {
+              if (response.resultList[j].divide != '' && response.resultList[j].divide != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].divide);
                 if (letErrortype != null) {
                   this.dividevalue1 = letErrortype.value1;
                 }
               }
-              if (response[j].contract != '' && response[j].contract != null) {
-                let letErrortype = getDictionaryInfo(response[j].contract);
+              if (response.resultList[j].contract != '' && response.resultList[j].contract != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].contract);
                 if (letErrortype != null) {
                   this.contractvalue1 = letErrortype.value1;
                 }
               }
-              if (response[j].currency != '' && response[j].currency != null) {
-                let letErrortype = getDictionaryInfo(response[j].currency);
+              if (response.resultList[j].currency != '' && response.resultList[j].currency != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].currency);
                 if (letErrortype != null) {
                   this.currencyvalue1 = letErrortype.value1;
                 }
@@ -1240,23 +1274,23 @@
                   dividevalue1: this.dividevalue1,
                   contractvalue1: this.contractvalue1,
                   currencyvalue1: this.currencyvalue1,
-                  themename: response[j].themename,
+                  themename: response.resultList[j].themename,
                   //add_qhr_20210707  增加将themeinfor_id取出
-                  themeinfor_id: response[j].themeinfor_id,
-                  data: response[j].data,
-                  divide: response[j].divide,
-                  contract: response[j].contract,
-                  currency: response[j].currency,
-                  toolsorgs: response[j].toolsorgs,
-                  remark: response[j].remark,
-                  customerinfor_id: response[j].customerinfor_id,
-                  otherone: response[j].otherone,
-                  othertwo: response[j].othertwo,
-                  otherthree: response[j].otherthree,
+                  themeinfor_id: response.resultList[j].themeinfor_id,
+                  data: response.resultList[j].data,
+                  divide: response.resultList[j].divide,
+                  contract: response.resultList[j].contract,
+                  currency: response.resultList[j].currency,
+                  toolsorgs: response.resultList[j].toolsorgs,
+                  remark: response.resultList[j].remark,
+                  customerinfor_id: response.resultList[j].customerinfor_id,
+                  otherone: response.resultList[j].otherone,
+                  othertwo: response.resultList[j].othertwo,
+                  otherthree: response.resultList[j].otherthree,
                 },
               );
-
             }
+            this.totalSysm = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -1268,6 +1302,7 @@
             this.loading = false;
           });
       },
+      //  upadte  ml  211203  dialog分页   to
       getGroupOptions() {
         this.loading = true;
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 start
@@ -1435,7 +1470,6 @@
         this.$store
           .dispatch('PFANS1040Store/getdataList', parameter)
           .then(response => {
-            debugger;
             this.tableData.push({
               amountwpersonnel: '0',
               amountpersonnel: response['Moneyavg'] != undefined ? response['Moneyavg'][0]  : '0',

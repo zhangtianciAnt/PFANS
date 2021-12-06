@@ -322,6 +322,16 @@
                           </el-table-column>
                         </el-table>
                       </el-row>
+                      <!--                      add  ml  211206  dialog分页   from-->
+                      <div class="pagination-container" style="padding-top: 2rem">
+                        <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
+                                       :page-sizes="[20,30,50,9999]" :total="totalSysm" @current-change="handleCurrentChangeSys"
+                                       @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
+                          <slot><span class="front Content_front"
+                                      style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                        </el-pagination>
+                      </div>
+                      <!--                      add  ml  211206  dialog分页   to-->
                     </div>
                   </el-dialog>
                       </el-container>
@@ -1050,6 +1060,13 @@
     },
     data() {
       return {
+        // add  ml  211206  dialog分页  from
+        listQuerySys: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalSysm: 0,
+        // add  ml  211206  dialog分页  to
         tableData: [],
         tabledatashow: false,
         checkassignor: true,
@@ -1249,6 +1266,16 @@
       }
     },
     methods: {
+      //add   ml   211203    dialog分页   from
+      handleCurrentChangeSys(val) {
+        this.listQuerySys.currentPage = val;
+        this.getlisttheme();
+      },
+      handleSizeChangeSys(val) {
+        this.listQuerySys.pageSize = val;
+        this.getlisttheme();
+      },
+      //add   ml   211203    dialog分页   to
       // 添加年间合计 ztc fr
       formatterDir(row, column, cellValue, index) {
         if (column.property === "npersonnel") {
@@ -1659,70 +1686,77 @@
         //update gbb 20210401 2021组织架构变更-group下拉变为center下拉 end
         this.loading = false;
       },
+      //  upadte  ml  211206  dialog分页   from
       getlisttheme() {
+        this.gridData = [];
         this.loading = true;
-        let parameters = {
-          //todo 年度
-          year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
-          // year:'2021',
-          contract: 1,
+        // let parameters = {
+        //   //todo 年度
+        //   year: parseInt(moment(new Date()).format('MM')) >= 4 ? moment(new Date()).add(1, 'y').format('YYYY') : moment(new Date()).format('YYYY'),
+        //   // year:'2021',
+        //   contract: 1,
+        // };
+        let params = {
+          currentPage: this.listQuerySys.currentPage,
+          pageSize: this.listQuerySys.pageSize,
         };
         this.$store
-          .dispatch('PFANS1043Store/getlisttheme', parameters)
+          .dispatch('PFANS1043Store/getlistthemePage', params)
+          // .dispatch('PFANS1043Store/getlisttheme', parameters)
           .then(response => {
             // response = response.filter(item => (item.contract == 'PJ142006' || item.contract == 'PJ142007' || item.contract == 'PJ142008' || item.contract == 'PJ142009') && (item.year = this.refform.year));
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].divide != '' && response[j].divide != null) {
-                let letErrortype = getDictionaryInfo(response[j].divide);
+            for (let j = 0; j < response.resultList.length; j++) {
+              if (response.resultList[j].divide != '' && response.resultList[j].divide != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].divide);
                 if (letErrortype != null) {
-                  response[j].modifyon = letErrortype.value1;
+                  response.resultList[j].modifyon = letErrortype.value1;
                 }
               }
-              if (response[j].contract != '' && response[j].contract != null) {
-                let letErrortype = getDictionaryInfo(response[j].contract);
+              if (response.resultList[j].contract != '' && response.resultList[j].contract != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].contract);
                 if (letErrortype != null) {
-                  response[j].modifyby = letErrortype.value1;
+                  response.resultList[j].modifyby = letErrortype.value1;
                 }
               }
-              if (response[j].currency != '' && response[j].currency != null) {
-                let letErrortype = getDictionaryInfo(response[j].currency);
+              if (response.resultList[j].currency != '' && response.resultList[j].currency != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].currency);
                 if (letErrortype != null) {
-                  response[j].creatby = letErrortype.value1;
+                  response.resultList[j].creatby = letErrortype.value1;
                 }
               }
-              if (response[j].contract == 'PJ142008' || response[j].contract == 'PJ142009') {
-                if (response[j].toolsorgs != '' && response[j].toolsorgs != null) {
-                  let orgInfo_grp = getOrgInfo(response[j].toolsorgs);
+              if (response.resultList[j].contract == 'PJ142008' || response.resultList[j].contract == 'PJ142009') {
+                if (response.resultList[j].toolsorgs != '' && response.resultList[j].toolsorgs != null) {
+                  let orgInfo_grp = getOrgInfo(response.resultList[j].toolsorgs);
                   if (orgInfo_grp) {
-                    response[j].creaton = orgInfo_grp.companyname;
+                    response.resultList[j].creaton = orgInfo_grp.companyname;
                   }
                 }
               } else {
-                response[j].creaton = response[j].toolsorgs;
+                response.resultList[j].creaton = response.resultList[j].toolsorgs;
               }
               this.gridData.push(
                 {
-                  toolsorgsvalue1: response[j].creaton,
-                  dividevalue1: response[j].modifyon,
-                  contractvalue1: response[j].modifyby,
-                  currencyvalue1: response[j].creatby,
-                  toolsorgs: response[j].toolsorgs,
-                  themename: response[j].themename,
+                  toolsorgsvalue1: response.resultList[j].creaton,
+                  dividevalue1: response.resultList[j].modifyon,
+                  contractvalue1: response.resultList[j].modifyby,
+                  currencyvalue1: response.resultList[j].creatby,
+                  toolsorgs: response.resultList[j].toolsorgs,
+                  themename: response.resultList[j].themename,
                   //add_qhr_20210707  增加将themeinfor_id取出
-                  themeinfor_id: response[j].themeinfor_id,
-                  data: response[j].data,
-                  divide: response[j].divide,
-                  contract: response[j].contract,
-                  currency: response[j].currency,
-                  remark: response[j].remark,
-                  supplierinfor_id: response[j].supplierinfor_id,
-                  otherone: response[j].otherone,
-                  othertwo: response[j].othertwo,
-                  otherthree: response[j].otherthree,
+                  themeinfor_id: response.resultList[j].themeinfor_id,
+                  data: response.resultList[j].data,
+                  divide: response.resultList[j].divide,
+                  contract: response.resultList[j].contract,
+                  currency: response.resultList[j].currency,
+                  remark: response.resultList[j].remark,
+                  supplierinfor_id: response.resultList[j].supplierinfor_id,
+                  otherone: response.resultList[j].otherone,
+                  othertwo: response.resultList[j].othertwo,
+                  otherthree: response.resultList[j].otherthree,
                 },
               );
             }
-
+            this.totalSysm = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -1734,6 +1768,7 @@
             this.loading = false;
           });
       },
+      //  upadte  ml  211206  dialog分页   to
       handleClickA($index, row) {
         this.index = $index;
         this.dialogTableVisible = true;

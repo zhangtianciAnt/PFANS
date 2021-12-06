@@ -17,6 +17,24 @@ export function themenametype(data) {
   })
 }
 //add-ws-01/06-禅道任务710
+//  add  ml  211203  dialog分页  from
+export function getDiaLogPage(data) {
+  return request({
+    url: 'themeplan/getDiaLogPage',
+    method: 'get',
+    params: data,
+  })
+}
+//  add  ml  211203  dialog分页  to
+//  add  ml  211203  受托theme dialog分页  from
+export function getlistthemePage(data) {
+  return request({
+    url: 'themeinfor/getlistthemePage',
+    method: 'get',
+    params: data,
+  })
+}
+//  add  ml  211203  受托theme dialog分页  to
 export function getthemename(data) {
   return request({
     url: 'themeplan/getthemename',

@@ -381,7 +381,16 @@
                         </template>
                       </el-table-column>
                     </el-table>
-
+<!--                      add  ml  211203  dialog分页   from-->
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination :current-page.sync="listQuerySys.currentPage" :page-size="listQuerySys.pageSize"
+                                     :page-sizes="[20,30,50,9999]" :total="totalSysm" @current-change="handleCurrentChangeSys"
+                                     @size-change="handleSizeChangeSys" layout="slot,sizes, ->,prev, pager, next, jumper">
+                        <slot><span class="front Content_front"
+                                    style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                      </el-pagination>
+                    </div>
+                    <!--                      add  ml  211203  dialog分页   to-->
                   </div>
                 </el-dialog>
               </template>
@@ -994,6 +1003,13 @@
         }
       };
       return {
+        // add  ml  211203  dialog分页  from
+        listQuerySys: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalSysm: 0,
+        // add  ml  211203  dialog分页  to
         //add  ml  20210719  审批流程  from
         enableSave: false,
         canStart: false,
@@ -1342,7 +1358,8 @@
         recordDataD: [],
         dialogVisibleD: false,
         //add_qhr_20210707 添加年份参数
-        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ? moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
+        year: (parseInt(moment(new Date()).format('MM')) >= 4 || parseInt(moment(new Date()).format('DD')) >= 10) ?
+               moment(new Date()).format('YYYY') : parseInt(moment(new Date()).format('YYYY')) - 1 + '',
       };
     },
     mounted() {
@@ -1625,6 +1642,17 @@
 //      }
     },
     methods: {
+      //add   ml   211203    dialog分页   from
+      handleCurrentChangeSys(val) {
+        this.listQuerySys.currentPage = val;
+        this.getdata();
+      },
+      handleSizeChangeSys(val) {
+        this.listQuerySys.pageSize = val;
+        this.getdata();
+      },
+      //add   ml   211203    dialog分页   to
+
       //add    ml   20210716  审批状态   from
       workflowState(val) {
         if (val.state === '1') {
@@ -1832,43 +1860,50 @@
       //     this.getdata('0');
       //   }
       // },
+      //  upadte  ml  211203  dialog分页   from
       getdata() {
         this.tableB = [];
+        let params = {
+          currentPage: this.listQuerySys.currentPage,
+          pageSize: this.listQuerySys.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS1043Store/themenametype', {'year': this.year}) //add_qhr_20210707 修改传参
+          .dispatch('PFANS1043Store/getDiaLogPage', params)
+          // .dispatch('PFANS1043Store/themenametype', {'year': this.year}) //add_qhr_20210707 修改传参
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].branch != '' && response[j].branch != null) {
-                let letErrortype = getDictionaryInfo(response[j].branch);
+            for (let j = 0; j < response.resultList.length; j++) {
+              if (response.resultList[j].branch != '' && response.resultList[j].branch != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].branch);
                 if (letErrortype != null) {
-                  response[j].branch = letErrortype.value1;
+                  response.resultList[j].branch = letErrortype.value1;
                 }
               }
-              if (response[j].contracttype != '' && response[j].contracttype != null) {
-                let letErrortype = getDictionaryInfo(response[j].contracttype);
+              if (response.resultList[j].contracttype != '' && response.resultList[j].contracttype != null) {
+                let letErrortype = getDictionaryInfo(response.resultList[j].contracttype);
                 if (letErrortype != null) {
-                  response[j].contracttype = letErrortype.value1;
+                  response.resultList[j].contracttype = letErrortype.value1;
                 }
               }
-              if (response[j].contracttype != '' && response[j].contracttype != null) {
-                let letErrortype = getDictionaryInfo(response[j].contracttype);
-                if (letErrortype != null) {
-                  response[j].contracttype = letErrortype.value1;
-                }
-              }
+              // if (response[j].contracttype != '' && response[j].contracttype != null) {
+              //   let letErrortype = getDictionaryInfo(response[j].contracttype);
+              //   if (letErrortype != null) {
+              //     response[j].contracttype = letErrortype.value1;
+              //   }
+              // }
               this.tableB.push(
                 {
-                  themeplandetail_id: response[j].themeplandetail_id,
+                  themeplandetail_id: response.resultList[j].themeplandetail_id,
                   //add_qhr_20210707 添加字段值
-                  themeinfor_id: response[j].themeinfor_id,
-                  themename: response[j].themename,
-                  divide: response[j].branch,
-                  contract: response[j].contracttype,
-                  currency: response[j].contracttype,
+                  themeinfor_id: response.resultList[j].themeinfor_id,
+                  themename: response.resultList[j].themename,
+                  divide: response.resultList[j].branch,
+                  contract: response.resultList[j].contracttype,
+                  currency: response.resultList[j].contracttype,
                 },
               );
             }
+            this.totalSysm = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -1880,6 +1915,7 @@
             this.loading = false;
           });
       },
+      //  upadte  ml  211203  dialog分页   to
       //upd-ws-01/06-禅道任务710
       //获取供应商列表
       getsupplierinfor() {
