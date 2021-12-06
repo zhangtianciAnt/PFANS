@@ -407,6 +407,16 @@
                                   </template>
                                 </el-table-column>
                               </el-table>
+                              <!--                      add  ml  211206  委托元dialog分页   from-->
+                              <div class="pagination-container" style="padding-top: 2rem">
+                                <el-pagination :current-page.sync="listDelegateCont.currentPage" :page-size="listDelegateCont.pageSize"
+                                               :page-sizes="[20,30,50,9999]" :total="totalDelegate" @current-change="handleCurrentChangeDelegate"
+                                               @size-change="handleSizeChangeDelegate" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                  <slot><span class="front Content_front"
+                                              style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                                </el-pagination>
+                              </div>
+                              <!--                      add  ml  211206  委托元dialog分页   to-->
                             </el-row>
                             <span slot="footer" class="dialog-footer">
                           <el-button type="primary" @click="submit1">{{$t('button.confirm')}}</el-button>
@@ -1564,6 +1574,13 @@
         }
       };
       return {
+        // add  ml  211206  委托元dialog分页  from
+        listDelegateCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalDelegate: 0,
+        // add  ml  211206  委托元dialog分页  to
         // 项目dialog 体制 合同优化添加分页 ztc fr
         listQuerySys: {
           currentPage: 1,
@@ -2391,6 +2408,16 @@
       }
     },
     methods: {
+      // add  ml  211206  委托元dialog分页  from
+      handleSizeChangeDelegate(val) {
+        this.listDelegateCont.pageSize = val;
+        this.getcustomerinfor();
+      },
+      handleCurrentChangeDelegate(val) {
+        this.listDelegateCont.currentPage = val;
+        this.getcustomerinfor();
+      },
+      // add  ml  211206  委托元dialog分页  to
       getContractNumber() {
         this.loading = true;
         for (let h = 0; h < this.tableAnt.length; h++) {
@@ -2586,20 +2613,27 @@
           });
         // 项目dialog 体制 合同优化添加分页 ztc to
       },
+      //  update  ml  211206   dialog分页   from
       getcustomerinfor() {
+        let params = {
+          currentPage: this.listDelegateCont.currentPage,
+          pageSize: this.listDelegateCont.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS6002Store/getcustomerinfor2', {})
+          .dispatch('PFANS6002Store/getCustomerinfor', params)
+          // .dispatch('PFANS6002Store/getcustomerinfor2', {})
           .then(response => {
             this.gridData2 = [];
-            for (let i = 0; i < response.length; i++) {
+            for (let i = 0; i < response.resultList.length; i++) {
               var vote = {};
-              vote.entrust = response[i].custchinese;
-              vote.liableperson = response[i].liableperson;
-              vote.thecompany = response[i].thecompany;
-              vote.remarks = response[i].remarks;
+              vote.entrust = response.resultList[i].custchinese;
+              vote.liableperson = response.resultList[i].liableperson;
+              vote.thecompany = response.resultList[i].thecompany;
+              vote.remarks = response.resultList[i].remarks;
               this.gridData2.push(vote);
             }
+            this.totalDelegate = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -2611,7 +2645,7 @@
             this.loading = false;
           });
       },
-
+      //  update  ml  211206   dialog分页   to
       getCenterId(val) {
         this.form.center_id = val;
         if (!val || this.form.center_id === '') {

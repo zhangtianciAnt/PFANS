@@ -2601,7 +2601,7 @@
           .dispatch('PFANS6002Store/getCustomerinfor', params)
           // .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
+            for (let j = 0; j < response.resultList.length; j++) {
               if (response.resultList[j].custchinese !== null && response.resultList[j].custchinese !== '') {
                 let custchinese = getUserInfo(response.resultList[j].custchinese);
                 if (custchinese) {
