@@ -529,6 +529,7 @@ export default {
         }
       });
     },
+    //  update  ml  211206   dialog分页   from
     getcustomerinfor() {
       let params = {
         currentPage: this.listQueryCont.currentPage,
@@ -602,6 +603,7 @@ export default {
           this.loading = false;
         });
     },
+    //  update  ml  211206   dialog分页   to
     setToolsorgs(val) {
       this.form.toolsorgs = val;
       if (this.form.toolsorgs === '') {

@@ -518,6 +518,16 @@
                         </template>
                       </el-table-column>
                     </el-table>
+                    <!--                      add  ml  211206  dialog分页   from-->
+                    <div class="pagination-container" style="padding-top: 2rem">
+                      <el-pagination :current-page.sync="listQueryCont.currentPage" :page-size="listQueryCont.pageSize"
+                                     :page-sizes="[20,30,50,9999]" :total="totalCont" @current-change="handleCurrentChangeCont"
+                                     @size-change="handleSizeChangeCont" layout="slot,sizes, ->,prev, pager, next, jumper">
+                        <slot><span class="front Content_front"
+                                    style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                      </el-pagination>
+                    </div>
+                    <!--                      add  ml  211206  dialog分页   to-->
                   </el-dialog>
                 </template>
               </el-table-column>
@@ -1385,6 +1395,13 @@
         }
       };
       return {
+        // add  ml  211206  dialog分页  from
+        listQueryCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalCont: 0,
+        // add  ml  211206  dialog分页  to
         //add  ml  20210719  审批流程  from
         enableSave: false,
         canStart: false,
@@ -2152,6 +2169,16 @@
       //     }
       // },
       //add    ml   20210716  审批状态   from
+      // add  ml  211206  委托元dialog分页  from
+      handleSizeChangeCont(val) {
+        this.listQueryCont.pageSize = val;
+        this.getcustomerinfor();
+      },
+      handleCurrentChangeCont(val) {
+        this.listQueryCont.currentPage = val;
+        this.getcustomerinfor();
+      },
+      // add  ml  211206  委托元dialog分页  to
       workflowState(val) {
         if (val.state === '1') {
           this.form.tabledata[0].status = '3';
@@ -2563,62 +2590,69 @@
           });
       },
       //upd-ws-01/06-禅道任务710
+      //  update  ml  211206   dialog分页   from
       getcustomerinfor() {
+        let params = {
+          currentPage: this.listQueryCont.currentPage,
+          pageSize: this.listQueryCont.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS6002Store/getcustomerinfor2')
+          .dispatch('PFANS6002Store/getCustomerinfor', params)
+          // .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
             for (let j = 0; j < response.length; j++) {
-              if (response[j].custchinese !== null && response[j].custchinese !== '') {
-                let custchinese = getUserInfo(response[j].custchinese);
+              if (response.resultList[j].custchinese !== null && response.resultList[j].custchinese !== '') {
+                let custchinese = getUserInfo(response.resultList[j].custchinese);
                 if (custchinese) {
-                  response[j].custchinese = user.userinfo.customername;
+                  response.resultList[j].custchinese = user.userinfo.customername;
                 }
               }
-              if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                let liableperson = getUserInfo(response[j].liableperson);
+              if (response.resultList[j].liableperson !== null && response.resultList[j].liableperson !== '') {
+                let liableperson = getUserInfo(response.resultList[j].liableperson);
                 if (liableperson) {
-                  response[j].liableperson = user.userinfo.customername;
+                  response.resultList[j].liableperson = user.userinfo.customername;
                 }
               }
-              if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                let prochinese = getUserInfo(response[j].prochinese);
+              if (response.resultList[j].prochinese !== null && response.resultList[j].prochinese !== '') {
+                let prochinese = getUserInfo(response.resultList[j].prochinese);
                 if (prochinese) {
-                  response[j].prochinese = user.userinfo.customername;
+                  response.resultList[j].prochinese = user.userinfo.customername;
                 }
               }
-              if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                let protelephone = getUserInfo(response[j].protelephone);
+              if (response.resultList[j].protelephone !== null && response.resultList[j].protelephone !== '') {
+                let protelephone = getUserInfo(response.resultList[j].protelephone);
                 if (protelephone) {
-                  response[j].protelephone = user.userinfo.customername;
+                  response.resultList[j].protelephone = user.userinfo.customername;
                 }
               }
-              if (response[j].commontperson !== null && response[j].commontperson !== '') {
-                let commontperson = getUserInfo(response[j].commontperson);
+              if (response.resultList[j].commontperson !== null && response.resultList[j].commontperson !== '') {
+                let commontperson = getUserInfo(response.resultList[j].commontperson);
                 if (commontperson) {
-                  response[j].commontperson = user.userinfo.customername;
+                  response.resultList[j].commontperson = user.userinfo.customername;
                 }
               }
-              if (response[j].comtelephone !== null && response[j].comtelephone !== '') {
-                let comtelephone = getUserInfo(response[j].comtelephone);
+              if (response.resultList[j].comtelephone !== null && response.resultList[j].comtelephone !== '') {
+                let comtelephone = getUserInfo(response.resultList[j].comtelephone);
                 if (comtelephone) {
-                  response[j].comtelephone = user.userinfo.customername;
+                  response.resultList[j].comtelephone = user.userinfo.customername;
                 }
               }
-              if (response[j].addchinese !== null && response[j].addchinese !== '') {
-                let addchinese = getUserInfo(response[j].addchinese);
+              if (response.resultList[j].addchinese !== null && response.resultList[j].addchinese !== '') {
+                let addchinese = getUserInfo(response.resultList[j].addchinese);
                 if (addchinese) {
-                  response[j].addchinese = user.userinfo.customername;
+                  response.resultList[j].addchinese = user.userinfo.customername;
                 }
               }
-              if (response[j].perscale !== null && response[j].perscale !== '') {
-                let perscale = getDictionaryInfo(response[j].perscale);
+              if (response.resultList[j].perscale !== null && response.resultList[j].perscale !== '') {
+                let perscale = getDictionaryInfo(response.resultList[j].perscale);
                 if (perscale != null) {
-                  response[j].perscale = perscale.value1;
+                  response.resultList[j].perscale = perscale.value1;
                 }
               }
             }
-            this.dataA = response;
+            this.dataA = response.resultList;
+            this.totalCont = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -2630,6 +2664,7 @@
             this.loading = false;
           });
       },
+      //  update  ml  211206   dialog分页   to
       getGroupId(val) {
         this.form1.grouporglist = val;
         this.grouporglist = val;

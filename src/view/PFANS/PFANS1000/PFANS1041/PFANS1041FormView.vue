@@ -1391,7 +1391,7 @@
       }
     },
     methods: {
-      // add  ml  211206  dialog分页  from
+      // add  ml  211206  委托元dialog分页  from
       handleSizeChangeCont(val) {
         this.listQueryCont.pageSize = val;
         this.getcustomerinfor();
@@ -1400,7 +1400,7 @@
         this.listQueryCont.currentPage = val;
         this.getcustomerinfor();
       },
-      // add  ml  211206  dialog分页  to
+      // add  ml  211206  委托元dialog分页  to
       // 添加年间合计 ztc fr
       formatterDir(row, column, cellValue, index) {
         if (column.property === "npersonnel") {
@@ -2201,7 +2201,7 @@
         row.assignor = '';
         this.$forceUpdate();
       },
-
+      //  update  ml  211206   dialog分页   from
       getcustomerinfor() {//获取客户
         let params = {
           currentPage: this.listQueryCont.currentPage,
@@ -2212,7 +2212,6 @@
           .dispatch('PFANS6002Store/getCustomerinfor', params)
           // .dispatch('PFANS6002Store/getcustomerinfor2')
           .then(response => {
-            // gridData2 = [];
             for (let j = 0; j < response.resultList.length; j++) {
               if (response.resultList[j].custchinese !== null && response.resultList[j].custchinese !== '') {
                 let custchinese = getUserInfo(response.resultList[j].custchinese);
@@ -2276,6 +2275,7 @@
             this.loading = false;
           });
       },
+      //  update  ml  211206   dialog分页   to
 
       handleClickChange2(val) {//客户弹窗
         this.currentRow2 = val.custchinese;
