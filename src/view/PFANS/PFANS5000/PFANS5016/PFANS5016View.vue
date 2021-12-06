@@ -157,6 +157,9 @@ export default {
       dictionaryDay:'',
       buttonList: [
         {'key': 'save', 'name': 'button.save', 'disabled': false, icon: 'el-icon-check'},
+        //region scc add 12/6 导出
+        {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+        //endregion scc add 12/6 导出
       ],
       isShow: false,
       tableData: [{
@@ -226,6 +229,9 @@ export default {
             this.tableData = response;
             for (let i = 0; i < this.tableData.length; i++) {
               this.tableData[i].children = this.tableData[i].logpersonstatistics;
+              //region scc add 后台获取工时调整 from
+              this.tableData[i].change = this.tableData[i].adjust;
+              //endregion scc add 后台获取工时调整 to
               this.tableData[i].wai_id = m;
               let sum = 0.00;
               if (this.tableData[i].children !== undefined && this.tableData[i].children !== null) {
@@ -235,14 +241,16 @@ export default {
                   this.tableData[i].children[j].project = this.tableData[i].children[j].project_name;
                   this.tableData[i].children[j].general = this.tableData[i].children[j].duration;
                   // this.tableData[i].change = Number(this.tableData[i].general) + Number(this.tableData[i].children[j].adjust) - Number(this.tableData[i].children[j].duration);
-                  sum = accAdd(sum,Number(this.tableData[i].children[j].adjust));
+                  //12/6 scc del 后台获取工时调整
+                  // sum = accAdd(sum,Number(this.tableData[i].children[j].adjust));
                   this.tableData[i].children[j].wai_id = m + '.' + c;
                   this.tableData[i].children[j].username = '';
                   this.tableData[i].children[j].groupname = '';
                   this.tableData[i].children[j].company = '';
                 }
               }
-              this.tableData[i].change = sum;//保留两位小数
+              //12/6 scc del 后台获取工时调整
+              // this.tableData[i].change = sum;//保留两位小数
               m += 1;
             }
           } else {
@@ -326,6 +334,34 @@ export default {
           });
         }
       }
+      //region scc add 21/12/6 日志人别导出 from
+      else if(val === 'export'){
+        this.loading = true;
+        if(this.tableData.length > 0 && this.tableData != null) {
+          this.$store
+            .dispatch('PFANS5016Store/downloadExcel', {'month':this.month})
+            .then(response => {
+              this.download(response, '日志人别统计');
+              this.loading = false;
+            })
+            .catch(error => {
+              this.$message.error({
+                message: error,
+                type: 'error',
+                duration: 1 * 1000,
+              })
+              this.loading = false;
+            });
+        }else{
+          this.$message.info({
+            message: this.$t('normal.info_16'),
+            type: 'info',
+            duration: 2 * 1000,
+          });
+          this.loading = false;
+        }
+      }
+      //endregion scc add 21/12/6 日志人别导出 to
     },
     inputChange() {
       if (this.filterName) {
@@ -359,6 +395,26 @@ export default {
         return true;
       }
     },
+    //region scc add excle下载 from
+    download(data, filename) {
+      if ('msSaveOrOpenBlob' in navigator) {
+        window.navigator.msSaveOrOpenBlob(
+          new Blob([data], {type: 'application/vnd.ms-excel;charset=utf-8'}),
+          decodeURI(filename) + '.xlsx',
+        );
+      } else {
+        var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+        var downloadElement = document.createElement('a');
+        var href = window.URL.createObjectURL(blob); //创建下载的链接
+        downloadElement.href = href;
+        downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+        document.body.appendChild(downloadElement);
+        downloadElement.click(); //点击下载
+        document.body.removeChild(downloadElement); //下载完成移除元素
+        window.URL.revokeObjectURL(href); //释放掉blob对象
+      }
+    },
+    //endregion scc add excle下载 to
   }
 }
 </script>
