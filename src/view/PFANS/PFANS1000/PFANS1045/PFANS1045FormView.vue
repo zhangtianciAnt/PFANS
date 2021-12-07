@@ -69,6 +69,16 @@
                                   </template>
                                 </el-table-column>
                               </el-table>
+                              <!--                      add  ml  211207  供应商dialog分页   from-->
+                              <div class="pagination-container" style="padding-top: 2rem">
+                                <el-pagination :current-page.sync="listDelegateCont.currentPage" :page-size="listDelegateCont.pageSize"
+                                               :page-sizes="[20,30,50,9999]" :total="totalDelegate" @current-change="handleCurrentChangeDelegate"
+                                               @size-change="handleSizeChangeDelegate" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                  <slot><span class="front Content_front"
+                                              style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                                </el-pagination>
+                              </div>
+                              <!--                      add  ml  211207  供应商dialog分页   to-->
                             </el-row>
                             <span slot="footer" class="dialog-footer">
                           <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
@@ -394,6 +404,13 @@
     },
     data() {
       return {
+        // add  ml  211207  供应商dialog分页  from
+        listDelegateCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalDelegate: 0,
+        // add  ml  211207  供应商dialog分页  to
         defaultStart: false,
         workflowCode: 'W0095',
         //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
@@ -582,6 +599,15 @@
       this.disable2 = this.$route.params.disabled;
     },
     methods: {
+      // add  ml  211206  供应商dialog分页  from
+      handleSizeChangeDelegate(val) {
+        this.listDelegateCont.pageSize = val;
+        this.getsupplierinfor();
+      },
+      handleCurrentChangeDelegate(val) {
+        this.listDelegateCont.currentPage = val;
+        this.getsupplierinfor();
+      },
       //ADD-ws-02/06-PSDCD_PFANS_20210205_XQ_078-from
       filterInfo() {
         this.working = this.getworkinghours(this.form.yearss);
@@ -1135,21 +1161,28 @@
           });
         }
       },
+      //  update   ml   211207   供应商dialog分页  from
       getsupplierinfor() {
+        let params = {
+          currentPage: this.listDelegateCont.currentPage,
+          pageSize: this.listDelegateCont.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor2')
+          .dispatch('PFANS6003Store/getSupplierinfor', params)
+          // .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
             this.gridData = [];
-            for (let i = 0; i < response.length; i++) {
+            for (let i = 0; i < response.resultList.length; i++) {
               var vote = {};
-              vote.suppliername = response[i].supchinese;
-              vote.payeename = response[i].payeename;
-              vote.suppliercode = response[i].suppliercode;
-              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
-              vote.payeebankaccount = response[i].payeebankaccount;
+              vote.suppliername = response.resultList[i].supchinese;
+              vote.payeename = response.resultList[i].payeename;
+              vote.suppliercode = response.resultList[i].suppliercode;
+              vote.payeebankaccountnumber = response.resultList[i].payeebankaccountnumber;
+              vote.payeebankaccount = response.resultList[i].payeebankaccount;
               this.gridData.push(vote);
             }
+            this.totalDelegate = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -1161,6 +1194,7 @@
             this.loading = false;
           });
       },
+      //  update   ml   211207   供应商dialog分页  to
 
       handleClickChange(val) {
         this.currentRow = val.suppliername;
