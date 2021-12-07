@@ -93,61 +93,61 @@
               </dicselect>
             </el-form-item>
           </el-col>
-          <!-- scc del 创建theme管理不在提供委托元 from -->
-<!--          <el-col :span="8">-->
-<!--            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
-<!--                          v-show="show1" prop="toolsorgs">-->
-<!--              <div class="dpSupIndex" style="width: 20vw">-->
-<!--                <el-container>-->
-<!--                  <el-input style="width: 20vw"-->
-<!--                            :disabled="true"-->
-<!--                            v-model="form.toolsorgs">-->
-<!--                  </el-input>-->
-<!--                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"-->
-<!--                             size="small"></el-button>-->
-<!--                  <el-dialog :visible.sync="dialogTableVisible2"-->
-<!--                             center-->
-<!--                             size="50%"-->
-<!--                             top="8vh" lock-scroll-->
-<!--                             append-to-body>-->
-<!--                    <div style="text-align: center">-->
-<!--                      <el-row style="text-align: center;height: 90%;overflow: hidden">-->
-<!--                        <el-table-->
-<!--                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())-->
-<!--                          || data.thecompany.toLowerCase().includes(search2.toLowerCase())-->
-<!--                          )"-->
-<!--                          height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"-->
-<!--                          @row-click="handleClickChange2">-->
-<!--                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"-->
-<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
-<!--                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"-->
-<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
-<!--                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"-->
-<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
-<!--                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"-->
-<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
-<!--                          <el-table-column property="protelephone"-->
-<!--                                           :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"-->
-<!--                                           width="120" show-overflow-tooltip></el-table-column>-->
-<!--                          <el-table-column-->
-<!--                            align="right" width="230">-->
-<!--                            <template slot="header" slot-scope="scope">-->
-<!--                              <el-input-->
-<!--                                v-model="search2"-->
-<!--                                size="mini"-->
-<!--                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>-->
-<!--                            </template>-->
-<!--                          </el-table-column>-->
-<!--                        </el-table>-->
-<!--                      </el-row>-->
-<!--                      <span slot="footer" class="dialog-footer">-->
-<!--                          <el-button type="primary" @click="submit2">{{ $t('button.confirm') }}</el-button>-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                  </el-dialog>-->
-<!--                </el-container>-->
-<!--              </div>-->
-<!--            </el-form-item>-->
+          <!-- scc del 创建theme只提供客户委托元 from -->
+          <el-col :span="8">
+            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
+                           prop="toolsorgs">
+              <div class="dpSupIndex" style="width: 20vw">
+                <el-container>
+                  <el-input style="width: 20vw"
+                            :disabled="true"
+                            v-model="form.toolsorgs">
+                  </el-input>
+                  <el-button :disabled="!disable" icon="el-icon-search" @click="dialogTableVisible2 = true"
+                             size="small"></el-button>
+                  <el-dialog :visible.sync="dialogTableVisible2"
+                             center
+                             size="50%"
+                             top="8vh" lock-scroll
+                             append-to-body>
+                    <div style="text-align: center">
+                      <el-row style="text-align: center;height: 90%;overflow: hidden">
+                        <el-table
+                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
+                          || data.thecompany.toLowerCase().includes(search2.toLowerCase())
+                          )"
+                          height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                          @row-click="handleClickChange2">
+                          <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
+                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
+                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column property="protelephone"
+                                           :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column
+                            align="right" width="230">
+                            <template slot="header" slot-scope="scope">
+                              <el-input
+                                v-model="search2"
+                                size="mini"
+                                :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </el-row>
+                      <span slot="footer" class="dialog-footer">
+                          <el-button type="primary" @click="submit2">{{ $t('button.confirm') }}</el-button>
+                        </span>
+                    </div>
+                  </el-dialog>
+                </el-container>
+              </div>
+            </el-form-item>
 <!--            <el-form-item :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"-->
 <!--                          v-show="show2" prop="toolsorgs">-->
 <!--              <div class="dpSupIndex" style="width: 20vw">-->
@@ -206,8 +206,8 @@
 <!--                   @getOrgids="setToolsorgs"-->
 <!--                   style="width:20vw"></org>-->
 <!--            </el-form-item>-->
-<!--          </el-col>-->
-          <!-- scc del 创建theme管理不在提供委托元 to -->
+          </el-col>
+          <!-- scc del 创建theme只提供客户委托元 to -->
         </el-row>
         <el-row>
           <el-col :span="8">

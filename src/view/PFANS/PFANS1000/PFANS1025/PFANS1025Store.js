@@ -12,6 +12,7 @@ import {
   getRanks,
   getPersonalBm,
   getAwardEntr,
+  awddelete
 } from './PFANS1025Api'
 
 
