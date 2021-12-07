@@ -598,9 +598,9 @@ export default {
               }
             }
             //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
-            response[j].thedep = response[j].thedepC == '' || response[j].thedepC == null ? (response[j].thedepJ == '' || response[j].thedepJ == null ? response[j].thedepE : response[j].thedepJ) : response[j].thedepC;
-            response[j].pro = response[j].prochinese == '' || response[j].prochinese == null ? (response[j].proenglish == '' || response[j].proenglish == null ? response[j].projapanese : response[j].proenglish) : response[j].prochinese;
-            response[j].protelephone = response[j].protelephone;
+            response.resultList[j].thedep = response.resultList[j].thedepC == '' || response.resultList[j].thedepC == null ? (response.resultList[j].thedepJ == '' || response.resultList[j].thedepJ == null ? response.resultList[j].thedepE : response.resultList[j].thedepJ) : response.resultList[j].thedepC;
+            response.resultList[j].pro = response.resultList[j].prochinese == '' || response.resultList[j].prochinese == null ? (response.resultList[j].proenglish == '' || response.resultList[j].proenglish == null ? response.resultList[j].projapanese : response.resultList[j].proenglish) : response.resultList[j].prochinese;
+            response.resultList[j].protelephone = response.resultList[j].protelephone;
             //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
           }
           this.gridData2 = response.resultList;
