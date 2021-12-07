@@ -414,22 +414,23 @@
           spanOneArr.push(1)
           concatOne = concatOne + conlength
           if(list.themename !== '部门共通') {
+            debugger;
             conlength = list.children.length
             list.children.forEach((item, index) => {
               if (index === 0) {
                 spanOneArr.push(1)
               } else {
-                if (this.unmerge.indexOf(item.amount) < 0) {
-                  if (item.moneyplan1 === list.children[index - 1].moneyplan1) {
-                    if(index === 1 && spanOneArr.length > 2){
-                      concatOne++
-                    }
-                    spanOneArr[concatOne] += 1
-                    spanOneArr.push(0)
-                  }
-                }else{
-                  spanOneArr.push(1)
-                }
+                // if (this.unmerge.indexOf(item.amount) < 0) {
+                //   // if (item.moneyplan1 === list.children[index - 1].moneyplan1) {
+                //     if(index === 1 && spanOneArr.length > 2){
+                //       concatOne++
+                //     }
+                //     spanOneArr[concatOne] += 1
+                //     spanOneArr.push(0)
+                //   // }
+                // }else{
+                //   spanOneArr.push(1)
+                // }
               }
             })
           }else{
@@ -443,13 +444,25 @@
       listSpanMethod ({ row, column, rowIndex, columnIndex }) {
         if(!this.mergeAnt)return
         if(this.merge.includes(columnIndex)) {
-          const _row = this.flitterData(this.datatotal)[rowIndex]
-          const _col = _row > 0 ? 1 : 0
+          const _row = this.flitterData(this.datatotal)[rowIndex];
+          const _col = _row > 0 ? 1 : 0;
           return {
             rowspan: _row,
             colspan: _col
           }
         }
+// debugger;
+//         if (column.property.indexOf('moneyplan') !=-1)
+//         {
+//
+//         }
+//         if (columnIndex === 4 || columnIndex === 6 || columnIndex === 8
+//           || columnIndex === 11 || columnIndex === 13 || columnIndex === 15
+//           || columnIndex === 18 || columnIndex === 20 || columnIndex === 22
+//           || columnIndex === 25 || columnIndex === 27 || columnIndex === 29)
+//         {
+//
+//         }
       },
       handleCurrentChange(val) {
         this.currentRow = val;
