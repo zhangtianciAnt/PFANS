@@ -543,6 +543,16 @@
                                               </template>
                                             </el-table-column>
                                           </el-table>
+                                          <!--                      add  ml  211206  氏名dialog分页   from-->
+                                          <div class="pagination-container" style="padding-top: 2rem">
+                                            <el-pagination :current-page.sync="listDelegateCont.currentPage" :page-size="listDelegateCont.pageSize"
+                                                           :page-sizes="[20,30,50,9999]" :total="totalDelegate" @current-change="handleCurrentChangeDelegate"
+                                                           @size-change="handleSizeChangeDelegate" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                              <slot><span class="front Content_front"
+                                                          style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                                            </el-pagination>
+                                          </div>
+                                          <!--                      add  ml  211206  氏名dialog分页   to-->
                                         </el-row>
                                         <span slot="footer" class="dialog-footer">
                                             <el-button type="primary" @click="submit(scope.row)">{{$t('button.confirm')}}</el-button>
@@ -731,6 +741,13 @@
         }
       };
       return {
+        // add  ml  211206  氏名dialog分页  from
+        listDelegateCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalDelegate: 0,
+        // add  ml  211206  氏名dialog分页  to
         // centerorglist: '',
         // grouporglist: '',
         // teamorglist: '',
@@ -1357,6 +1374,16 @@
       }
     },
     methods: {
+      // add  ml  211206  氏名dialog分页  from
+      handleSizeChangeDelegate(val) {
+        this.listDelegateCont.pageSize = val;
+        this.getexpatriatesinfor();
+      },
+      handleCurrentChangeDelegate(val) {
+        this.listDelegateCont.currentPage = val;
+        this.getexpatriatesinfor();
+      },
+      // add  ml  211206  氏名dialog分页  to
       // add-ws共同部署center，group，team添加
       getCenterId(val) {
         this.form.center_id = val;
@@ -1916,28 +1943,34 @@
       //   this.form.estimatedwork = sums;
       //   return sums;
       // },
+      //  update  ml  211206   dialog分页   from
       getexpatriatesinfor() {
+        let params = {
+          currentPage: this.listDelegateCont.currentPage,
+          pageSize: this.listDelegateCont.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getWithoutAuth', {})
+          .dispatch('PFANS6004Store/getforSysDiaLog', params)
+          // .dispatch('PFANS6004Store/getWithoutAuth', {})
           .then(response => {
             this.gridData1 = [];
-            for (let i = 0; i < response.length; i++) {
-              if (response[i].account) {
+            for (let i = 0; i < response.resultList.length; i++) {
+              if (response.resultList[i].account) {
                 var vote1 = {};
-                vote1.number = response[i].number;
-                vote1.name_id = response[i].account;
-                vote1.expname = response[i].expname;
-                vote1.suppliername = response[i].suppliername;
+                vote1.number = response.resultList[i].number;
+                vote1.name_id = response.resultList[i].account;
+                vote1.expname = response.resultList[i].expname;
+                vote1.suppliername = response.resultList[i].suppliername;
                 // vote1.post = response[i].post;
-                if (response[i].post) {
-                  vote1.post = getDictionaryInfo(response[i].post).value1;
+                if (response.resultList[i].post) {
+                  vote1.post = getDictionaryInfo(response.resultList[i].post).value1;
                 }
-                vote1.suppliernameid = response[i].supplierinfor_id;
+                vote1.suppliernameid = response.resultList[i].supplierinfor_id;
                 this.gridData1.push(vote1);
               }
-
             }
+            this.totalDelegate = response.total;
             this.centerorglist = this.form.center_id;
             this.grouporglist = this.form.group_id;
             this.teamorglist = this.form.team_id;
@@ -1949,9 +1982,11 @@
               type: 'error',
               duration: 5 * 1000,
             });
+
             this.loading = false;
           });
       },
+      //  update  ml  211206   dialog分页   to
       //上传附件
       // fileError(err, file, fileList) {
       //     Message({
