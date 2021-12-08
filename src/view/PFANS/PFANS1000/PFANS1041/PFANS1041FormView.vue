@@ -389,7 +389,7 @@
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
               >
                 <template slot-scope="scope">
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1'">
+                  <el-col :span="24" :key="1" v-if="typeOfAssignor(scope.row) === '1'">
                     <div>
                       <el-container>
                         <el-input class="content bg"
@@ -453,7 +453,7 @@
                       </el-container>
                     </div>
                   </el-col>
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '2'">
+                  <el-col :span="24" :key="2" v-if="typeOfAssignor(scope.row) === '2'">
                     <div>
                       <el-container>
                         <el-input class="content bg"
@@ -517,7 +517,7 @@
                       </el-container>
                     </div>
                   </el-col>
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '3'">
+                  <el-col :span="24" :key="3" v-if="typeOfAssignor(scope.row) === '3'">
                     <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"
                          @getOrgids="setToolsorgs($event,scope.row,scope.$index)"
                          style="width:13vw"></org>
