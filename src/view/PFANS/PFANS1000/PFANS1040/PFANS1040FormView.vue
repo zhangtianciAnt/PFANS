@@ -1163,8 +1163,8 @@
       this.getGroupOptions();
       this.getlisttheme();
       //region scc add 获取客户和供应商信息 from
-      this.getcustomerinfor();
-      this.getsupplierinfor();
+      // this.getcustomerinfor();
+      // this.getsupplierinfor();
       //endregion scc add 获取客户和供应商信息 to
       //查看，编辑
       if (this.$route.params._id) {
@@ -1269,6 +1269,19 @@
                   Number(row.personnel10) +
                   Number(row.personnel11) +
                   Number(row.personnel12)).toFixed(2);
+        }else if(column.property === "amount"){
+          return (Number(row.amount1) +
+                  Number(row.amount2) +
+                  Number(row.amount3) +
+                  Number(row.amount4) +
+                  Number(row.amount5) +
+                  Number(row.amount6) +
+                  Number(row.amount7) +
+                  Number(row.amount8) +
+                  Number(row.amount9) +
+                  Number(row.amount10) +
+                  Number(row.amount11) +
+                  Number(row.amount12)).toFixed(2);
         }
       },
       // 添加年间合计 ztc to

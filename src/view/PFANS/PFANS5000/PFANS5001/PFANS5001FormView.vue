@@ -389,8 +389,7 @@
                                 :data="gridData2.filter(dt => !search1
                                 || dt.entrust.toLowerCase().includes(search1.toLowerCase())
                                 || dt.thecompany.toLowerCase().includes(search1.toLowerCase())
-                                || dt.thedep.toLowerCase().includes(search1.toLowerCase())
-                                || dt.pro.toLowerCase().includes(search1.toLowerCase())
+                                || dt.abbreviation.toLowerCase().includes(search1.toLowerCase())
                                 )"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange1">
@@ -400,6 +399,9 @@
                                 <el-table-column show-overflow-tooltip property="thecompany"
                                                  :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
                                                  width="100"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="abbreviation"
+                                                 :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')"
+                                                 width="90" ></el-table-column>
                                 <el-table-column show-overflow-tooltip property="liableperson"
                                                  :label="$t('label.PFANS6002FORMVIEW_LIABLEPERSON')"
                                                  width="100"></el-table-column>
@@ -2653,6 +2655,7 @@
               vote.thedep = response.resultList[i].thedepC == '' || response.resultList[i].thedepC == null ? (response.resultList[i].thedepJ == '' || response.resultList[i].thedepJ == null ? response.resultList[i].thedepE : response.resultList[i].thedepJ) : response.resultList[i].thedepC;
               vote.pro = response.resultList[i].prochinese == '' || response.resultList[i].prochinese == null ? (response.resultList[i].proenglish == '' || response.resultList[i].proenglish == null ? response.resultList[i].projapanese : response.resultList[i].proenglish) : response.resultList[i].prochinese;
               vote.protelephone = response.resultList[i].protelephone;
+              vote.abbreviation = response.resultList[i].abbreviation;
               //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
               this.gridData2.push(vote);
             }
