@@ -1535,7 +1535,6 @@
 
       //get customer
       this.getsupplierinfor();
-      this.getSupplierinforOne();
       //テーマ
       //upd-ws-01/06-禅道任务710
       //add_qhr_20210707 去掉参数
@@ -2011,6 +2010,7 @@
         this.$store
           .dispatch('PFANS1026Store/get2', {'type': '1'})
           .then(response => {
+            debugger
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
