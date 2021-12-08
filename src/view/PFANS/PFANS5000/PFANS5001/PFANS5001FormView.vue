@@ -386,24 +386,39 @@
                           <div style="text-align: center">
                             <el-row style="text-align: center;height: 90%;overflow: hidden">
                               <el-table
-                                :data="gridData2.filter(data => !search || data.entrust.toLowerCase().includes(search.toLowerCase())
-                                || data.thecompany.toLowerCase().includes(search.toLowerCase())
+                                :data="gridData2.filter(dt => !search1
+                                || dt.entrust.toLowerCase().includes(search1.toLowerCase())
+                                || dt.thecompany.toLowerCase().includes(search1.toLowerCase())
+                                || dt.thedep.toLowerCase().includes(search1.toLowerCase())
+                                || dt.pro.toLowerCase().includes(search1.toLowerCase())
                                 )"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange1">
                                 <el-table-column show-overflow-tooltip property="entrust"
                                                  :label="$t('label.PFANS5001FORMVIEW_ENTRUST')"
-                                                 width="240"></el-table-column>
+                                                 width="150"></el-table-column>
                                 <el-table-column show-overflow-tooltip property="thecompany"
                                                  :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                                 width="240"></el-table-column>
+                                                 width="100"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="liableperson"
+                                                 :label="$t('label.PFANS6002FORMVIEW_LIABLEPERSON')"
+                                                 width="100"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="thedep"
+                                                 :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')"
+                                                 width="140"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="pro"
+                                                 :label="$t('label.PFANS6002FORMVIEW_PROJECTNAME')"
+                                                 width="120"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="protelephone"
+                                                 :label="$t('label.PFANS6002FORMVIEW_PROTELEPHONE')"
+                                                 width="120"></el-table-column>
                                 <el-table-column
                                   align="right" width="230">
                                   <template slot="header" slot-scope="scope">
                                     <el-input
-                                      v-model="search"
+                                      v-model="search1"
                                       size="mini"
-                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME2')"/>
+                                      :placeholder="$t('label.PFANS1012FORMVIEW_USERNAME4')"/>
                                   </template>
                                 </el-table-column>
                               </el-table>
@@ -1623,6 +1638,9 @@
         errorgroup1: '',
         errorexpname: '',
         search: '',
+        //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
+        search1: '',
+        //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
         Numbers: '',
         gridData1: [],
         gridData2: [],
@@ -2631,6 +2649,11 @@
               vote.liableperson = response.resultList[i].liableperson;
               vote.thecompany = response.resultList[i].thecompany;
               vote.remarks = response.resultList[i].remarks;
+              //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
+              vote.thedep = response.resultList[i].thedepC == '' || response.resultList[i].thedepC == null ? (response.resultList[i].thedepJ == '' || response.resultList[i].thedepJ == null ? response.resultList[i].thedepE : response.resultList[i].thedepJ) : response.resultList[i].thedepC;
+              vote.pro = response.resultList[i].prochinese == '' || response.resultList[i].prochinese == null ? (response.resultList[i].proenglish == '' || response.resultList[i].proenglish == null ? response.resultList[i].projapanese : response.resultList[i].proenglish) : response.resultList[i].prochinese;
+              vote.protelephone = response.resultList[i].protelephone;
+              //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
               this.gridData2.push(vote);
             }
             this.totalDelegate = response.total;

@@ -1,4 +1,5 @@
 import {
+  getSupplierinfor,
   getsupplierinfor,
   getsupplierinfor2,
   getsupplierinforApplyOne,
@@ -6,6 +7,7 @@ import {
   createsupplierinforApply,
   download
 } from './PFANS6003Api'
+import {getforSysDiaLog} from "../PFANS6004/PFANS6004Api";
 
 
 const PFANS6003Store = {
@@ -39,6 +41,21 @@ const PFANS6003Store = {
         })
       })
     },
+    //  add   ml   211207   供应商dialog分页  from
+    getSupplierinfor({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getSupplierinfor(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+    //  add   ml   211207   供应商dialog分页  to
     getsupplierinforApplyOne({commit}, data) {
       return new Promise((resolve, reject) => {
         getsupplierinforApplyOne(data).then(response => {

@@ -113,8 +113,11 @@
                     <div style="text-align: center">
                       <el-row style="text-align: center;height: 90%;overflow: hidden">
                         <el-table
-                          :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
+                          :data="gridData2.filter(data => !search2
+                          || data.custchinese.toLowerCase().includes(search2.toLowerCase())
                           || data.thecompany.toLowerCase().includes(search2.toLowerCase())
+                          || data.thedep.toLowerCase().includes(search2.toLowerCase())
+                          || data.pro.toLowerCase().includes(search2.toLowerCase())
                           )"
                           height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                           @row-click="handleClickChange2">
@@ -122,13 +125,18 @@
                                            width="120" show-overflow-tooltip></el-table-column>
                           <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
                                            width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="prochinese" :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                           width="120" show-overflow-tooltip></el-table-column>
-                          <el-table-column property="protelephone"
-                                           :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                           width="120" show-overflow-tooltip></el-table-column>
+                          <el-table-column show-overflow-tooltip property="liableperson"
+                                           :label="$t('label.PFANS6002FORMVIEW_LIABLEPERSON')"
+                                           width="100"></el-table-column>
+                          <el-table-column show-overflow-tooltip property="thedep"
+                                           :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')"
+                                           width="140"></el-table-column>
+                          <el-table-column show-overflow-tooltip property="pro"
+                                           :label="$t('label.PFANS6002FORMVIEW_PROJECTNAME')"
+                                           width="120"></el-table-column>
+                          <el-table-column show-overflow-tooltip property="protelephone"
+                                           :label="$t('label.PFANS6002FORMVIEW_PROTELEPHONE')"
+                                           width="120"></el-table-column>
                           <el-table-column
                             align="right" width="230">
                             <template slot="header" slot-scope="scope">
@@ -589,6 +597,11 @@ export default {
                 response.resultList[j].perscale = perscale.value1;
               }
             }
+            //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
+            response.resultList[j].thedep = response.resultList[j].thedepC == '' || response.resultList[j].thedepC == null ? (response.resultList[j].thedepJ == '' || response.resultList[j].thedepJ == null ? response.resultList[j].thedepE : response.resultList[j].thedepJ) : response.resultList[j].thedepC;
+            response.resultList[j].pro = response.resultList[j].prochinese == '' || response.resultList[j].prochinese == null ? (response.resultList[j].proenglish == '' || response.resultList[j].proenglish == null ? response.resultList[j].projapanese : response.resultList[j].proenglish) : response.resultList[j].prochinese;
+            response.resultList[j].protelephone = response.resultList[j].protelephone;
+            //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
           }
           this.gridData2 = response.resultList;
           this.totalCont = response.total;

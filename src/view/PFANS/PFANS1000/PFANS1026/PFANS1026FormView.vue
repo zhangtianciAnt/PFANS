@@ -488,8 +488,11 @@
                              top="8vh"
                              append-to-body>
                     <el-table
-                      :data="dataA.filter(data => !search || data.custchinese.toLowerCase().includes(search.toLowerCase())
+                      :data="dataA.filter(data => !search
+                      || data.custchinese.toLowerCase().includes(search.toLowerCase())
                       || data.thecompany.toLowerCase().includes(search.toLowerCase())
+                      || dt.thedep.toLowerCase().includes(search.toLowerCase())
+                      || dt.pro.toLowerCase().includes(search.toLowerCase())
                       )"
                       :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
                       v-loading='loading'>
@@ -502,11 +505,14 @@
                       <el-table-column show-overflow-tooltip property="liableperson"
                                        :label="$t('label.ASSETS1002VIEW_USERID')"
                                        width="120"></el-table-column>
-                      <el-table-column show-overflow-tooltip property="prochinese"
-                                       :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
+                      <el-table-column show-overflow-tooltip property="thedep"
+                                       :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')"
+                                       width="140"></el-table-column>
+                      <el-table-column show-overflow-tooltip property="pro"
+                                       :label="$t('label.PFANS6002FORMVIEW_PROJECTNAME')"
                                        width="120"></el-table-column>
                       <el-table-column show-overflow-tooltip property="protelephone"
-                                       :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
+                                       :label="$t('label.PFANS6002FORMVIEW_PROTELEPHONE')"
                                        width="120"></el-table-column>
                       <el-table-column
                         align="right" width="205">
@@ -2650,6 +2656,11 @@
                   response.resultList[j].perscale = perscale.value1;
                 }
               }
+              //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
+              response.resultList[j].thedep = response.resultList[j].thedepC == '' || response.resultList[j].thedepC == null ? (response.resultList[j].thedepJ == '' || response.resultList[j].thedepJ == null ? response.resultList[j].thedepE : response.resultList[j].thedepJ) : response.resultList[j].thedepC;
+              response.resultList[j].pro = response.resultList[j].prochinese == '' || response.resultList[j].prochinese == null ? (response.resultList[j].proenglish == '' || response.resultList[j].proenglish == null ? response.resultList[j].projapanese : response.resultList[j].proenglish) : response.resultList[j].prochinese;
+              response.resultList[j].protelephone = response.resultList[j].protelephone;
+              //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
             }
             this.dataA = response.resultList;
             this.totalCont = response.total;

@@ -17,6 +17,16 @@ export function getsupplierinfor2(data) {
   })
 }
 
+//  add   ml   211207   供应商dialog分页  from
+export function getSupplierinfor(data) {
+  return request({
+    url: 'supplierinfor/getSupplierinfor',
+    method: 'get',
+    params: data
+  })
+}
+//  add   ml   211207   供应商dialog分页  to
+
 export function getsupplierinforApplyOne(data) {
   return request({
     url: 'supplierinfor/one',

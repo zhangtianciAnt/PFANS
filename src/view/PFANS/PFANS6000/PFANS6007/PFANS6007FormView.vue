@@ -22,14 +22,14 @@
 
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_BPPLAYER')" prop="bpplayer">
-<!--                <el-select :disabled="!disabled" style="width:20vw" v-model="form.bpplayer">-->
-<!--                  <el-option-->
-<!--                    :key="item.value"-->
-<!--                    :label="item.lable"-->
-<!--                    :value="item.value"-->
-<!--                    v-for="item in gridDatabpplayer">-->
-<!--                  </el-option>-->
-<!--                </el-select>-->
+                <!--                <el-select :disabled="!disabled" style="width:20vw" v-model="form.bpplayer">-->
+                <!--                  <el-option-->
+                <!--                    :key="item.value"-->
+                <!--                    :label="item.lable"-->
+                <!--                    :value="item.value"-->
+                <!--                    v-for="item in gridDatabpplayer">-->
+                <!--                  </el-option>-->
+                <!--                </el-select>-->
                 <div class="dpSupIndex" style="width: 20vw" prop="bpplayer">
                   <el-container>
                     <input class="content bg" v-model="form.bpplayer"
@@ -69,6 +69,19 @@
                               </template>
                             </el-table-column>
                           </el-table>
+                          <!--                      add  ml  211206  BP担当者dialog分页   from-->
+                          <div class="pagination-container" style="padding-top: 2rem">
+                            <el-pagination :current-page.sync="listDelegateCont.currentPage"
+                                           :page-size="listDelegateCont.pageSize"
+                                           :page-sizes="[20,30,50,9999]" :total="totalDelegate"
+                                           @current-change="handleCurrentChangeDelegate"
+                                           @size-change="handleSizeChangeDelegate"
+                                           layout="slot,sizes, ->,prev, pager, next, jumper">
+                              <slot><span class="front Content_front"
+                                          style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                            </el-pagination>
+                          </div>
+                          <!--                      add  ml  211206  BP担当者dialog分页   to-->
                         </el-row>
                         <span slot="footer" class="dialog-footer">
                           <el-button type="primary" @click="submit">{{$t('button.confirm')}}</el-button>
@@ -101,7 +114,7 @@
           <el-row>
             <el-col :span="8">
               <el-form-item :label="$t('label.PFANS6007VIEW_PSDCDWINDOW')">
-<!--                NT_PFANS_20210304_BUG_049 限制最大长度为8-->
+                <!--                NT_PFANS_20210304_BUG_049 限制最大长度为8-->
                 <el-input :disabled="!disabled" style="width:20vw" maxlength="8" v-model="form.psdcdwindow"></el-input>
               </el-form-item>
             </el-col>
@@ -176,7 +189,7 @@
   import {Message} from 'element-ui'
   import moment from "moment";
   import {valfloat} from '@/utils/validate';
-  import {getUserInfo,getOrgInfo,} from '@/utils/customize';
+  import {getUserInfo, getOrgInfo,} from '@/utils/customize';
 
   export default {
     name: 'PFANS6007FormView',
@@ -233,7 +246,7 @@
       };
       var checkpayment = (rule, value, callback) => {
         if (this.form.payment !== null && this.form.payment !== '') {
-          if (valfloat(value) && value!=0) {
+          if (valfloat(value) && value != 0) {
             callback();
           } else {
             callback(new Error(this.$t('normal.error_09') + this.$t('label.effective') + this.$t('label.PFANS6007VIEW_PAYMENT')));
@@ -244,11 +257,18 @@
         }
       };
       return {
+        // add  ml  211206  BP担当者dialog分页  from
+        listDelegateCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalDelegate: 0,
+        // add  ml  211206  BP担当者dialog分页  to
         options1: [],
         loading: false,
         error_pjname: '',
         error_bpclubname: '',
-        error_bpplayer:'',
+        error_bpplayer: '',
         error_year: '',
         error_plmonthplan: '',
         error_typeoffees: '',
@@ -271,7 +291,7 @@
           payment: '',
           remarks: '',
           year: '',
-          groupid:'',
+          groupid: '',
         },
         code2: 'BP013',
         code3: 'BP014',
@@ -322,53 +342,58 @@
         },
       };
     },
+    //  update  ml  211206   dialog分页   from
     mounted() {
+      let params = {
+        currentPage: this.listDelegateCont.currentPage,
+        pageSize: this.listDelegateCont.pageSize,
+      }
       //this.getbpplayerList();
       this.loading = true;
       this.$store
-        .dispatch('PFANS6004Store/getexpatriatesinfor')
+        .dispatch('PFANS6004Store/getforSysDiaLog', params)
+        // .dispatch('PFANS6004Store/getexpatriatesinfor')
         .then(response => {
-
           this.gridDatabpplayer = [];
           //response = response.filter(item => item.result === 'BP003001');
-          for (let i = 0; i < response.length; i++) {
+          for (let i = 0; i < response.resultList.length; i++) {
             var vote = {};
-            vote.suppliername = response[i].suppliername;
-            vote.expname = response[i].expname;
-            vote.account = response[i].account;
-            vote.group_id1 = response[i].group_id;
-            if (response[i].group_id !== null && response[i].group_id !== '') {
-              let group = getOrgInfo(response[i].group_id);
+            vote.suppliername = response.resultList[i].suppliername;
+            vote.expname = response.resultList[i].expname;
+            vote.account = response.resultList[i].account;
+            vote.group_id1 = response.resultList[i].group_id;
+            if (response.resultList[i].group_id !== null && response.resultList[i].group_id !== '') {
+              let group = getOrgInfo(response.resultList[i].group_id);
               if (group) {
                 vote.group_id = group.companyname;
               }
             }
             this.gridDatabpplayer.push(vote);
+            this.totalDelegate = response.total;
           }
           this.loading = false;
           if (this.$route.params._id) {//查看详情
             this.loading = true;
-            let number ='';
+            let number = '';
             this.$store
               .dispatch('PFANS6007Store/getvariousfundsApplyOne', {"variousfunds_id": this.$route.params._id})
               .then(response => {
 
                 this.form = response;
-                for (let i = 0; i < this.gridDatabpplayer.length; i++)
-                {
+                for (let i = 0; i < this.gridDatabpplayer.length; i++) {
                   if (this.gridDatabpplayer[i].expname === this.form.bpplayer) {
                     number = this.gridDatabpplayer[i].account;
                   }
                 }
                 this.loading = false;
                 this.$store
-                  .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer":number})
+                  .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer": number})
                   .then(response => {
                     this.gridData = [];
                     for (let i = 0; i < response.length; i++) {
                       var vote = {};
                       vote.code = response[i].numbers;
-                      vote.value = response[i].numbers +'_'+ response[i].project_name;
+                      vote.value = response[i].numbers + '_' + response[i].project_name;
                       this.gridData.push(vote);
                     }
                     this.loading = false;
@@ -399,29 +424,47 @@
       }
     },
     methods: {
-      setdisabled(val){
-        if(this.$route.params.disabled){
+      // add  ml  211206  dialog分页  from
+      handleSizeChangeDelegate(val) {
+        this.listDelegateCont.pageSize = val;
+        this.getbpplayerList();
+      },
+      handleCurrentChangeDelegate(val) {
+        this.listDelegateCont.currentPage = val;
+        this.getbpplayerList();
+      },
+      // add  ml  211206  dialog分页  to
+      setdisabled(val) {
+        if (this.$route.params.disabled) {
           this.disabled = val;
         }
       },
       getbpplayerList() {
+        let params = {
+          currentPage: this.listDelegateCont.currentPage,
+          pageSize: this.listDelegateCont.pageSize,
+        }
+        this.loading = true;
         this.$store
-          .dispatch('PFANS6004Store/getexpatriatesinfor')
+          .dispatch('PFANS6004Store/getforSysDiaLog', params)
+          // .dispatch('PFANS6004Store/getexpatriatesinfor')
           .then(response => {
             //response = response.filter(item => item.result === 'BP003001');
             this.gridDatabpplayer = [];
-            for (let i = 0; i < response.length; i++) {
-               var vote = {};
-              vote.suppliername = response[i].suppliername;
-              vote.expname = response[i].expname;
-              vote.account = response[i].account;
-              if (response[i].group_id !== null && response[i].group_id !== '') {
-                let group = getOrgInfo(response[i].group_id);
+            for (let i = 0; i < response.resultList.length; i++) {
+              var vote = {};
+              vote.suppliername = response.resultList[i].suppliername;
+              vote.expname = response.resultList[i].expname;
+              vote.account = response.resultList[i].account;
+              vote.group_id1 = response.resultList[i].group_id;
+              if (response.resultList[i].group_id !== null && response.resultList[i].group_id !== '') {
+                let group = getOrgInfo(response.resultList[i].group_id);
                 if (group) {
                   vote.group_id = group.companyname;
                 }
               }
               this.gridDatabpplayer.push(vote);
+              this.totalDelegate = response.total;
             }
             this.loading = false;
           })
@@ -438,15 +481,15 @@
         this.loading = true;
         let id = val;
         this.$store
-          .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer":id})
+          .dispatch('PFANS6007Store/getPjnameList6007', {"bpplayer": id})
           .then(response => {
             this.gridData = [];
-              for (let i = 0; i < response.length; i++) {
-                var vote = {};
-                vote.code = response[i].numbers;
-                vote.value = response[i].numbers +'_'+ response[i].project_name;
-                this.gridData.push(vote);
-              }
+            for (let i = 0; i < response.length; i++) {
+              var vote = {};
+              vote.code = response[i].numbers;
+              vote.value = response[i].numbers + '_' + response[i].project_name;
+              this.gridData.push(vote);
+            }
             this.form.pjname = '';
             this.form.psdcdwindow = '';
             this.loading = false;
@@ -463,7 +506,7 @@
       changeOption(val) {
         //this.form.pjname = val;
         this.loading = true;
-        let number ='';
+        let number = '';
         for (let i = 0; i < this.gridData.length; i++) {
           if (this.gridData[i].value === val) {
             number = this.gridData[i].code;
@@ -476,13 +519,11 @@
         this.$store
           .dispatch('PFANS6007Store/listPsdcd', params)
           .then(response => {
-            for (let j = 0; j < response.length; j++)
-            {
+            for (let j = 0; j < response.length; j++) {
               let leaderid = response[j].leaderid;
-              if (leaderid)
-              {
+              if (leaderid) {
                 let userinfo = getUserInfo(leaderid);
-                if(userinfo){
+                if (userinfo) {
                   this.form.psdcdwindow = userinfo.userinfo.customername;
                 }
               }
@@ -585,13 +626,12 @@
                   this.loading = false;
                 })
             }
-          }
-          else{
-              Message({
-                  message: this.$t("normal.error_12"),
-                  type: 'error',
-                  duration: 5 * 1000
-              });
+          } else {
+            Message({
+              message: this.$t("normal.error_12"),
+              type: 'error',
+              duration: 5 * 1000
+            });
           }
         })
       }
