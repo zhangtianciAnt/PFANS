@@ -73,7 +73,7 @@ const ListApi = [
   "companyprojects/getSiteList4",
   "companyprojects/getList2",
   "comprojects/getList2",
-  "seal/list",
+  "seal/sealList",
   "user/getAccountCustomer3",
   "customerinfor/get",
   "supplierinfor/get",
@@ -83,7 +83,21 @@ const ListApi = [
   "workflow/list",
   "informationdelivery/get",
   "dictionary/getDictionary",
-  "monthlyrate/list"
+  "monthlyrate/list",
+  "coststatistics/getCostBygroupid",
+  "expatriatesinfor/getexpatrFliter",
+  "contractapplication/getPage",
+  "policycontract/get3",
+  "contractapplication/getPages",
+  "contractapplication/getindividualPage",
+  "quotation/getQuotation",
+  "nonjudgment/getPage",
+  "contract/getPage",
+  "award/getPage",
+  "napalm/getPage",
+  "petition/getPage",
+  "award/getVerdict",
+  "user/getCustomerPage",
 ]
 const service = axios.create({
   baseURL: process.env.BASE_API,
@@ -94,7 +108,6 @@ service.interceptors.request.use(config => {
   if (getToken()) {
     config.headers['x-auth-token'] = getToken()
   }
-
   if(ListApi.indexOf(config.url) != -1){
     config.headers['pageNo'] = store.getters.pageNo
     config.headers['pageSize'] = store.getters.pageSize
@@ -170,6 +183,10 @@ service.interceptors.response.use(
           store.commit("global/SET_TOTALSIZE", response.data.totalSize);
           store.commit("global/SET_PAGENO", response.data.pageNo);
           store.commit("global/SET_PAGESIZE", response.data.pageSize);
+        }else{
+          store.commit("global/SET_TOTALSIZE", '');
+          store.commit("global/SET_PAGENO", 1);
+          store.commit("global/SET_PAGESIZE", 50);
         }
         if(response.data.code === 0){
           if(response.config.url.indexOf('file/getToken') == -1){
