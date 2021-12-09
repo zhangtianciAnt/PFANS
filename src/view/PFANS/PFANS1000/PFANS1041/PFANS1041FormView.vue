@@ -389,7 +389,7 @@
               <el-table-column :label="$t('label.PFANS1039FORMVIEW_ASSIGNOR')" align="center" width="210"
               >
                 <template slot-scope="scope">
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '1'">
+                  <el-col :span="24" :key="1" v-if="typeOfAssignor(scope.row) === '1'">
                     <div>
                       <el-container>
                         <el-input class="content bg"
@@ -406,24 +406,31 @@
                           <div style="text-align: center">
                             <el-row style="text-align: center;height: 90%;overflow: hidden">
                               <el-table
-                                :data="gridData2.filter(data => !search2 || data.custchinese.toLowerCase().includes(search2.toLowerCase())
-                                || data.thecompany.toLowerCase().includes(search2.toLowerCase())
-                                )"
+                                :data="gridData2.filter(data => !search2
+                          || data.custchinese.toLowerCase().includes(search2.toLowerCase())
+                          || data.thecompany.toLowerCase().includes(search2.toLowerCase())
+                          || data.abbreviation.toLowerCase().includes(search2.toLowerCase())
+                          )"
                                 height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
                                 @row-click="handleClickChange2">
-                                <el-table-column property="custchinese"
-                                                 :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
+                                <el-table-column property="custchinese" :label="$t('label.PFANS5001FORMVIEW_CUSTOMERNAME')"
                                                  width="120" show-overflow-tooltip></el-table-column>
                                 <el-table-column property="thecompany" :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="liableperson" :label="$t('label.ASSETS1002VIEW_USERID')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="prochinese"
-                                                 :label="$t('label.PFANS6002FORMVIEW_PROJECTPERSON')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
-                                <el-table-column property="protelephone"
-                                                 :label="$t('label.PFANS2003FORMVIEW_CONTACTINFORMATION')"
-                                                 width="120" show-overflow-tooltip></el-table-column>
+                                                 width="90" show-overflow-tooltip></el-table-column>
+                                <el-table-column property="abbreviation" :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')"
+                                                 width="90" show-overflow-tooltip></el-table-column>
+                                <el-table-column show-overflow-tooltip property="liableperson"
+                                                 :label="$t('label.PFANS6002FORMVIEW_LIABLEPERSON')"
+                                                 width="100"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="thedep"
+                                                 :label="$t('label.PFANS1008FORMVIEW_DEPARTMENT')"
+                                                 width="140"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="pro"
+                                                 :label="$t('label.PFANS6002FORMVIEW_PROJECTNAME')"
+                                                 width="120"></el-table-column>
+                                <el-table-column show-overflow-tooltip property="protelephone"
+                                                 :label="$t('label.PFANS6002FORMVIEW_PROTELEPHONE')"
+                                                 width="120"></el-table-column>
                                 <el-table-column
                                   align="right" width="230">
                                   <template slot="header" slot-scope="scope">
@@ -453,7 +460,7 @@
                       </el-container>
                     </div>
                   </el-col>
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '2'">
+                  <el-col :span="24" :key="2" v-if="typeOfAssignor(scope.row) === '2'">
                     <div>
                       <el-container>
                         <el-input class="content bg"
@@ -498,6 +505,16 @@
                                   </template>
                                 </el-table-column>
                               </el-table>
+                              <!--                      add  ml  211207  供应商dialog分页   from-->
+                              <div class="pagination-container" style="padding-top: 2rem">
+                                <el-pagination :current-page.sync="listDelegateCont.currentPage" :page-size="listDelegateCont.pageSize"
+                                               :page-sizes="[20,30,50,9999]" :total="totalDelegate" @current-change="handleCurrentChangeDelegate"
+                                               @size-change="handleSizeChangeDelegate" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                  <slot><span class="front Content_front"
+                                              style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                                </el-pagination>
+                              </div>
+                              <!--                      add  ml  211207  供应商dialog分页   to-->
                             </el-row>
                             <span slot="footer" class="dialog-footer">
                           <el-button type="primary" @click="submit2(scope.row)">{{ $t('button.confirm') }}</el-button>
@@ -507,7 +524,7 @@
                       </el-container>
                     </div>
                   </el-col>
-                  <el-col :span="24" :key="Math.random()" v-if="typeOfAssignor(scope.row) === '3'">
+                  <el-col :span="24" :key="3" v-if="typeOfAssignor(scope.row) === '3'">
                     <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"
                          @getOrgids="setToolsorgs($event,scope.row,scope.$index)"
                          style="width:13vw"></org>
@@ -1173,6 +1190,13 @@
     },
     data() {
       return {
+        // add  ml  211207  供应商dialog分页  from
+        listDelegateCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalDelegate: 0,
+        // add  ml  211207  供应商dialog分页  to
         // add  ml  211206  委托元dialog分页  from
         listQueryCont: {
           currentPage: 1,
@@ -1326,6 +1350,7 @@
       };
     },
     mounted() {
+
       this.getGroupOptions();
       this.getlisttheme();
       //region scc add 获取客户和供应商信息 from
@@ -1391,6 +1416,16 @@
       }
     },
     methods: {
+      // add  ml  211206  供应商dialog分页  from
+      handleSizeChangeDelegate(val) {
+        this.listDelegateCont.pageSize = val;
+        this.getsupplierinfor();
+      },
+      handleCurrentChangeDelegate(val) {
+        this.listDelegateCont.currentPage = val;
+        this.getsupplierinfor();
+      },
+      // add  ml  211206  供应商dialog分页  to
       // add  ml  211206  委托元dialog分页  from
       handleSizeChangeCont(val) {
         this.listQueryCont.pageSize = val;
@@ -2261,6 +2296,11 @@
                   response.resultList[j].perscale = perscale.value1;
                 }
               }
+              //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
+              response.resultList[j].thedep = response.resultList[j].thedepC == '' || response.resultList[j].thedepC == null ? (response.resultList[j].thedepJ == '' || response.resultList[j].thedepJ == null ? response.resultList[j].thedepE : response.resultList[j].thedepJ) : response.resultList[j].thedepC;
+              response.resultList[j].pro = response.resultList[j].prochinese == '' || response.resultList[j].prochinese == null ? (response.resultList[j].proenglish == '' || response.resultList[j].proenglish == null ? response.resultList[j].projapanese : response.resultList[j].proenglish) : response.resultList[j].prochinese;
+              // response.resultList[j].protelephone = response.resultList[j].protelephone;
+              //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
             }
             this.gridData2 = response.resultList;
             this.totalCont = response.total;
@@ -2292,21 +2332,29 @@
         this.dialogTableVisible2 = false;
       },
 
+      //  update   ml   211207   供应商dialog分页  from
       getsupplierinfor() {//获取供应商
+        let params = {
+          currentPage: this.listDelegateCont.currentPage,
+          pageSize: this.listDelegateCont.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor2')
+          .dispatch('PFANS6003Store/getSupplierinfor', params)
+          // .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
-            for (let i = 0; i < response.length; i++) {
+            this.gridData3 = [];
+            for (let i = 0; i < response.resultList.length; i++) {
               var vote = {};
-              vote.supplierinfor_id = response[i].supplierinfor_id;
-              vote.suppliername = response[i].supchinese;
-              vote.payeename = response[i].payeename;
-              vote.suppliercode = response[i].suppliercode;
-              vote.payeebankaccountnumber = response[i].payeebankaccountnumber;
-              vote.payeebankaccount = response[i].payeebankaccount;
+              vote.supplierinfor_id = response.resultList[i].supplierinfor_id;
+              vote.suppliername = response.resultList[i].supchinese;
+              vote.payeename = response.resultList[i].payeename;
+              vote.suppliercode = response.resultList[i].suppliercode;
+              vote.payeebankaccountnumber = response.resultList[i].payeebankaccountnumber;
+              vote.payeebankaccount = response.resultList[i].payeebankaccount;
               this.gridData3.push(vote);
             }
+            this.totalDelegate = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -2318,6 +2366,7 @@
             this.loading = false;
           });
       },
+      //  update   ml   211207   供应商dialog分页  to
 
       setToolsorgs(val, row, $index) {
         this.tableDataA[$index].assignor = val;

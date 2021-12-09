@@ -147,6 +147,16 @@
                   </template>
                 </el-table-column>
               </el-table>
+              <!--                      add  ml  211207  供应商dialog分页   from-->
+              <div class="pagination-container" style="padding-top: 2rem">
+                <el-pagination :current-page.sync="listDelegateCont.currentPage" :page-size="listDelegateCont.pageSize"
+                               :page-sizes="[20,30,50,9999]" :total="totalDelegate" @current-change="handleCurrentChangeDelegate"
+                               @size-change="handleSizeChangeDelegate" layout="slot,sizes, ->,prev, pager, next, jumper">
+                  <slot><span class="front Content_front"
+                              style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                </el-pagination>
+              </div>
+              <!--                      add  ml  211207  供应商dialog分页   to-->
             </el-dialog>
 
             <div class="dialog-footer" align="center">
@@ -994,6 +1004,13 @@
         }
       };
       return {
+        // add  ml  211207  供应商dialog分页  from
+        listDelegateCont: {
+          currentPage: 1,
+          pageSize: 20,
+        },
+        totalDelegate: 0,
+        // add  ml  211207  供应商dialog分页  to
         //add  ml  20210719  审批流程  from
         enableSave: false,
         canStart: false,
@@ -1540,60 +1557,66 @@
             this.dates = this.$route.params.dates,
               this.dialogVisibleC = true;
             this.checknumber = true;
+            let params = {
+              currentPage: this.listDelegateCont.currentPage,
+              pageSize: this.listDelegateCont.pageSize,
+            }
             this.loading = true;
             this.$store
-              .dispatch('PFANS6003Store/getsupplierinfor2')
+              .dispatch('PFANS6003Store/getSupplierinfor', params)
+              // .dispatch('PFANS6003Store/getsupplierinfor2')
               .then(response => {
-                for (let j = 0; j < response.length; j++) {
-                  if (response[j].supplierinfor_id === this.$route.params.supplierinfor_id) {
-                    let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+                for (let j = 0; j < response.resultList.length; j++) {
+                  if (response.resultList[j].supplierinfor_id === this.$route.params.supplierinfor_id) {
+                    let supplierInfo = getSupplierinfor(response.resultList[j].supplierinfor_id);
                     if (supplierInfo) {
-                      response[j].supchinese = supplierInfo.supchinese;
+                      response.resultList[j].supchinese = supplierInfo.supchinese;
                       //        zy-7/6-禅道213任务 start
-                      response[j].supjapanese = supplierInfo.supjapanese;
-                      response[j].supenglish = supplierInfo.supenglish;
-                      response[j].abbreviation = supplierInfo.abbreviation;
+                      response.resultList[j].supjapanese = supplierInfo.supjapanese;
+                      response.resultList[j].supenglish = supplierInfo.supenglish;
+                      response.resultList[j].abbreviation = supplierInfo.abbreviation;
                       //        zy-7/6-禅道213任务 end
                     }
 
-                    if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                      let liableperson = getUserInfo(response[j].liableperson);
+                    if (response.resultList[j].liableperson !== null && response.resultList[j].liableperson !== '') {
+                      let liableperson = getUserInfo(response.resultList[j].liableperson);
                       if (liableperson) {
-                        response[j].liableperson = user.userinfo.customername;
+                        response.resultList[j].liableperson = user.userinfo.customername;
                       }
                     }
-                    if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                      let prochinese = getUserInfo(response[j].prochinese);
+                    if (response.resultList[j].prochinese !== null && response.resultList[j].prochinese !== '') {
+                      let prochinese = getUserInfo(response.resultList[j].prochinese);
                       if (prochinese) {
-                        response[j].prochinese = user.userinfo.customername;
+                        response.resultList[j].prochinese = user.userinfo.customername;
                       }
                     }
-                    if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                      let protelephone = getUserInfo(response[j].protelephone);
+                    if (response.resultList[j].protelephone !== null && response.resultList[j].protelephone !== '') {
+                      let protelephone = getUserInfo(response.resultList[j].protelephone);
                       if (protelephone) {
-                        response[j].protelephone = user.userinfo.customername;
+                        response.resultList[j].protelephone = user.userinfo.customername;
                       }
                     }
-                    this.form1.custojapanese = response[j].supjapanese;
-                    this.formcustomer.custojapanese = response[j].supjapanese;
-                    this.formcustomer.custoenglish = response[j].supenglish;
-                    this.formcustomer.custoabbreviation = response[j].abbreviation;
-                    this.formcustomer.custochinese = response[j].supchinese;
-                    this.formcustomer.suppliercode = response[j].suppliercode;
-                    this.formcustomer.vendornum = response[j].vendornum;
-                    if (!response[j].addjapanese) {
-                      this.formcustomer.placejapanese = response[j].addchinese;
+                    this.form1.custojapanese = response.resultList[j].supjapanese;
+                    this.formcustomer.custojapanese = response.resultList[j].supjapanese;
+                    this.formcustomer.custoenglish = response.resultList[j].supenglish;
+                    this.formcustomer.custoabbreviation = response.resultList[j].abbreviation;
+                    this.formcustomer.custochinese = response.resultList[j].supchinese;
+                    this.formcustomer.suppliercode = response.resultList[j].suppliercode;
+                    this.formcustomer.vendornum = response.resultList[j].vendornum;
+                    if (!response.resultList[j].addjapanese) {
+                      this.formcustomer.placejapanese = response.resultList[j].addchinese;
                     } else {
-                      this.formcustomer.placejapanese = response[j].addjapanese;
+                      this.formcustomer.placejapanese = response.resultList[j].addjapanese;
                     }
-                    this.formcustomer.placeenglish = response[j].addenglish;
-                    this.formcustomer.placechinese = response[j].addchinese;
-                    this.formcustomer.responjapanese = response[j].projapanese;
-                    this.formcustomer.responerglish = response[j].proenglish;
-                    this.formcustomer.responphone = response[j].protelephone;
-                    this.formcustomer.responemail = response[j].protemail;
+                    this.formcustomer.placeenglish = response.resultList[j].addenglish;
+                    this.formcustomer.placechinese = response.resultList[j].addchinese;
+                    this.formcustomer.responjapanese = response.resultList[j].projapanese;
+                    this.formcustomer.responerglish = response.resultList[j].proenglish;
+                    this.formcustomer.responphone = response.resultList[j].protelephone;
+                    this.formcustomer.responemail = response.resultList[j].protemail;
                   }
                 }
+                this.totalDelegate = response.total;
                 this.loading = false;
               })
               .catch(error => {
@@ -1625,6 +1648,16 @@
 //      }
     },
     methods: {
+      // add  ml  211206  供应商dialog分页  from
+      handleSizeChangeDelegate(val) {
+        this.listDelegateCont.pageSize = val;
+        this.getsupplierinfor();
+      },
+      handleCurrentChangeDelegate(val) {
+        this.listDelegateCont.currentPage = val;
+        this.getsupplierinfor();
+      },
+      // add  ml  211206  供应商dialog分页  to
       //add    ml   20210716  审批状态   from
       workflowState(val) {
         if (val.state === '1') {
@@ -1886,38 +1919,43 @@
       //upd-ws-01/06-禅道任务710
       //获取供应商列表
       getsupplierinfor() {
+        let params = {
+          currentPage: this.listDelegateCont.currentPage,
+          pageSize: this.listDelegateCont.pageSize,
+        }
         this.loading = true;
         this.$store
-          .dispatch('PFANS6003Store/getsupplierinfor2')
+          .dispatch('PFANS6003Store/getSupplierinfor', params)
+          // .dispatch('PFANS6003Store/getsupplierinfor2')
           .then(response => {
-            for (let j = 0; j < response.length; j++) {
-              if (response[j].supplierinfor_id !== null && response[j].supplierinfor_id !== '') {
-                let supplierInfo = getSupplierinfor(response[j].supplierinfor_id);
+            for (let j = 0; j < response.resultList.length; j++) {
+              if (response.resultList[j].supplierinfor_id !== null && response.resultList[j].supplierinfor_id !== '') {
+                let supplierInfo = getSupplierinfor(response.resultList[j].supplierinfor_id);
                 if (supplierInfo) {
-                  response[j].supchinese = supplierInfo.supchinese;
+                  response.resultList[j].supchinese = supplierInfo.supchinese;
                   //        zy-7/6-禅道213任务 start
-                  response[j].supjapanese = supplierInfo.supjapanese;
-                  response[j].supenglish = supplierInfo.supenglish;
-                  response[j].abbreviation = supplierInfo.abbreviation;
+                  response.resultList[j].supjapanese = supplierInfo.supjapanese;
+                  response.resultList[j].supenglish = supplierInfo.supenglish;
+                  response.resultList[j].abbreviation = supplierInfo.abbreviation;
                   //        zy-7/6-禅道213任务 end
                 }
               }
-              if (response[j].liableperson !== null && response[j].liableperson !== '') {
-                let liableperson = getUserInfo(response[j].liableperson);
+              if (response.resultList[j].liableperson !== null && response.resultList[j].liableperson !== '') {
+                let liableperson = getUserInfo(response.resultList[j].liableperson);
                 if (liableperson) {
-                  response[j].liableperson = user.userinfo.customername;
+                  response.resultList[j].liableperson = user.userinfo.customername;
                 }
               }
-              if (response[j].prochinese !== null && response[j].prochinese !== '') {
-                let prochinese = getUserInfo(response[j].prochinese);
+              if (response.resultList[j].prochinese !== null && response.resultList[j].prochinese !== '') {
+                let prochinese = getUserInfo(response.resultList[j].prochinese);
                 if (prochinese) {
-                  response[j].prochinese = user.userinfo.customername;
+                  response.resultList[j].prochinese = user.userinfo.customername;
                 }
               }
-              if (response[j].protelephone !== null && response[j].protelephone !== '') {
-                let protelephone = getUserInfo(response[j].protelephone);
+              if (response.resultList[j].protelephone !== null && response.resultList[j].protelephone !== '') {
+                let protelephone = getUserInfo(response.resultList[j].protelephone);
                 if (protelephone) {
-                  response[j].protelephone = user.userinfo.customername;
+                  response.resultList[j].protelephone = user.userinfo.customername;
                 }
               }
               // if (response[j].commontperson !== null && response[j].commontperson !== '') {
@@ -1946,7 +1984,8 @@
               // }
             }
 
-            this.dataA = response;
+            this.dataA = response.resultList;
+            this.totalDelegate = response.total;
             this.loading = false;
           })
           .catch(error => {
@@ -1971,6 +2010,7 @@
         this.$store
           .dispatch('PFANS1026Store/get2', {'type': '1'})
           .then(response => {
+            debugger
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
