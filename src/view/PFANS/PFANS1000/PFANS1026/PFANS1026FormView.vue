@@ -491,8 +491,7 @@
                       :data="dataA.filter(data => !search
                       || data.custchinese.toLowerCase().includes(search.toLowerCase())
                       || data.thecompany.toLowerCase().includes(search.toLowerCase())
-                      || dt.thedep.toLowerCase().includes(search.toLowerCase())
-                      || dt.pro.toLowerCase().includes(search.toLowerCase())
+                      || data.abbreviation.toLowerCase().includes(search.toLowerCase())
                       )"
                       :row-key="rowid" @row-click="rowClick" max-height="400" ref="roletableA"
                       v-loading='loading'>
@@ -501,7 +500,10 @@
                                        width="120"></el-table-column>
                       <el-table-column show-overflow-tooltip property="thecompany"
                                        :label="$t('label.PFANS6003FORMVIEW_THECOMPANY')"
-                                       width="120"></el-table-column>
+                                       width="90"></el-table-column>
+                      <el-table-column show-overflow-tooltip property="abbreviation"
+                                       :label="$t('label.PFANS6002FORMVIEW_ABBREVIATION')"
+                                       width="90" ></el-table-column>
                       <el-table-column show-overflow-tooltip property="liableperson"
                                        :label="$t('label.ASSETS1002VIEW_USERID')"
                                        width="120"></el-table-column>
@@ -2659,7 +2661,7 @@
               //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 fr
               response.resultList[j].thedep = response.resultList[j].thedepC == '' || response.resultList[j].thedepC == null ? (response.resultList[j].thedepJ == '' || response.resultList[j].thedepJ == null ? response.resultList[j].thedepE : response.resultList[j].thedepJ) : response.resultList[j].thedepC;
               response.resultList[j].pro = response.resultList[j].prochinese == '' || response.resultList[j].prochinese == null ? (response.resultList[j].proenglish == '' || response.resultList[j].proenglish == null ? response.resultList[j].projapanese : response.resultList[j].proenglish) : response.resultList[j].prochinese;
-              response.resultList[j].protelephone = response.resultList[j].protelephone;
+              // response.resultList[j].protelephone = response.resultList[j].protelephone;
               //add ccm 20211203 客户信息修改，关联客户信息弹框内容显示修改 to
             }
             this.dataA = response.resultList;
