@@ -115,15 +115,15 @@
                   prop="staffcustactual06">
                 </el-table-column>
               </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
-                prop="workdifferentfirst">
-              </el-table-column>
-              <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentfirst">
-              </el-table-column>
+<!--              <el-table-column-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"-->
+<!--                prop="workdifferentfirst">-->
+<!--              </el-table-column>-->
+<!--              <el-table-column-->
+<!--                width="150"-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"-->
+<!--                prop="rankdifferentfirst">-->
+<!--              </el-table-column>-->
               <el-table-column
                 :label = "$t('label.PFANS1051MONTH7')">
                 <el-table-column
@@ -157,15 +157,15 @@
                   prop="staffcustactual09">
                 </el-table-column>
               </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
-                prop="workdifferentsecond">
-              </el-table-column>
-              <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentsecond">
-              </el-table-column>
+<!--              <el-table-column-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"-->
+<!--                prop="workdifferentsecond">-->
+<!--              </el-table-column>-->
+<!--              <el-table-column-->
+<!--                width="150"-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"-->
+<!--                prop="rankdifferentsecond">-->
+<!--              </el-table-column>-->
               <el-table-column
                 :label = "$t('label.PFANS1051MONTH10')">
                 <el-table-column
@@ -199,15 +199,15 @@
                   prop="staffcustactual12">
                 </el-table-column>
               </el-table-column>
-              <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
-                prop="workdifferentthird">
-              </el-table-column>
-              <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentthird">
-              </el-table-column>
+<!--              <el-table-column-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"-->
+<!--                prop="workdifferentthird">-->
+<!--              </el-table-column>-->
+<!--              <el-table-column-->
+<!--                width="150"-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"-->
+<!--                prop="rankdifferentthird">-->
+<!--              </el-table-column>-->
               <el-table-column
                 :label = "$t('label.PFANS1051MONTH1')">
                 <el-table-column
@@ -241,14 +241,26 @@
                   prop="staffcustactual03">
                 </el-table-column>
               </el-table-column>
+<!--              <el-table-column-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"-->
+<!--                prop="workdifferentfourth">-->
+<!--              </el-table-column>-->
+<!--              <el-table-column-->
+<!--                width="150"-->
+<!--                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"-->
+<!--                prop="rankdifferentfourth">-->
+<!--              </el-table-column>-->
               <el-table-column
-                :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
-                prop="workdifferentfourth">
-              </el-table-column>
-              <el-table-column
-                width="150"
-                :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
-                prop="rankdifferentfourth">
+                :label = "$t('label.PFANS1051OFYEAR')">
+                <el-table-column
+                  :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
+                  prop="workdifferentofyear">
+                </el-table-column>
+                <el-table-column
+                  width="150"
+                  :label = "$t('label.PFANS1052FORMVIEW_RANKDIFFERNT')"
+                  prop="rankdifferentofyear">
+                </el-table-column>
               </el-table-column>
             </el-table>
           </el-row>
@@ -289,7 +301,7 @@ export default {
       mergeLine: {},
       mergeIndex: {},
       buttonList: [
-        {'key': 'export', 'name': 'button.export', 'disabled': false, icon: 'el-icon-download'},
+        {key: 'export', name: 'button.export', disabled: false, icon: 'el-icon-download'},
       ],
       isShow: false,
       //region scc del 8/30 from
@@ -310,32 +322,34 @@ export default {
         staffcustactual05: '—',
         staffcustplan06: '—',
         staffcustactual06: '—',
-        workdifferentfirst: '—',
-        rankdifferentfirst: '—',
+        // workdifferentfirst: '—',
+        // rankdifferentfirst: '—',
         staffcustplan07: '—',
         staffcustactual07: '—',
         staffcustplan08: '—',
         staffcustactual08: '—',
         staffcustplan09: '—',
         staffcustactual09: '—',
-        workdifferentsecond: '—',
-        rankdifferentsecond: '—',
+        // workdifferentsecond: '—',
+        // rankdifferentsecond: '—',
         staffcustplan10: '—',
         staffcustactual10: '—',
         staffcustplan11: '—',
         staffcustactual11: '—',
         staffcustplan12: '—',
         staffcustactual12: '—',
-        workdifferentthird: '—',
-        rankdifferentthird: '—',
+        // workdifferentthird: '—',
+        // rankdifferentthird: '—',
         staffcustplan01: '—',
         staffcustactual01: '—',
         staffcustplan02: '—',
         staffcustactual02: '—',
         staffcustplan03: '—',
         staffcustactual03: '—',
-        workdifferentfourth: '—',
-        rankdifferentfourth: '—',
+        // workdifferentfourth: '—',
+        // rankdifferentfourth: '—',
+        workdifferentofyear: '—',
+        rankdifferentofyear: '—',
         children: [{
           wai_id: '2',
           themename: '',
@@ -351,32 +365,34 @@ export default {
           staffcustactual05: ' ',
           staffcustplan06: ' ',
           staffcustactual06: ' ',
-          workdifferentfirst: ' ',
-          rankdifferentfirst: ' ',
+          // workdifferentfirst: ' ',
+          // rankdifferentfirst: ' ',
           staffcustplan07: ' ',
           staffcustactual07: ' ',
           staffcustplan08: ' ',
           staffcustactual08: ' ',
           staffcustplan09: ' ',
           staffcustactual09: ' ',
-          workdifferentsecond: ' ',
-          rankdifferentsecond: ' ',
+          // workdifferentsecond: ' ',
+          // rankdifferentsecond: ' ',
           staffcustplan10: ' ',
           staffcustactual10: ' ',
           staffcustplan11: ' ',
           staffcustactual11: ' ',
           staffcustplan12: ' ',
           staffcustactual12: ' ',
-          workdifferentthird: ' ',
-          rankdifferentthird: ' ',
+          // workdifferentthird: ' ',
+          // rankdifferentthird: ' ',
           staffcustplan01: ' ',
           staffcustactual01: ' ',
           staffcustplan02: ' ',
           staffcustactual02: ' ',
           staffcustplan03: ' ',
           staffcustactual03: ' ',
-          workdifferentfourth: ' ',
-          rankdifferentfourth: ' ',
+          // workdifferentfourth: ' ',
+          // rankdifferentfourth: ' ',
+          workdifferentofyear: ' ',
+          rankdifferentofyear: ' ',
         }]
       }]
     }
@@ -538,11 +554,12 @@ export default {
     },
     getDepartInfo() {
       this.loading = true;
+      this.tableData = [];
       this.$store
         .dispatch('PFANS1052Store/getDepartmentalInsert',{'year': this.refform.year, 'group_id': this.refform.group_id})
         .then(response => {
           if (response.length > 0) {
-            let m = 1;
+            let m = 0.01;
             // let n = 2;
             let c = 0.1;
             for (let i = 0; i < response.length; i++) {
