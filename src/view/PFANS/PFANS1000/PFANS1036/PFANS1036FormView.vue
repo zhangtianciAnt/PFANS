@@ -4707,7 +4707,7 @@
           let number = 0;
           if (typenumberhead && typenumber)
           {
-            for (let i = 5;i<=16;i++)
+            for (let i = 5;i<=17;i++)
             {
               if (typenumberhead['value'+ i] === this.companyen)
               {
