@@ -3448,12 +3448,12 @@
 
           //構外外注(工数)
           if (this.tableP[52]['money' + this.arr[i]] === undefined || this.tableP[52]['money' + this.arr[i]] === '0.00' || this.tableP[52]['money' + this.arr[i]] === 0) {
-            this.$set(this.tableP[52], 'money' + this.arr[i], this.tablePall[9]['money' + this.arr[i]]);
+            this.$set(this.tableP[52], 'money' + this.arr[i], (this.tablePall[9]['money' + this.arr[i]] === undefined || this.tablePall[9]['money' + this.arr[i]] === '' || this.tablePall[9]['money' + this.arr[i]] === null ? 0 :this.tablePall[9]['money' + this.arr[i]]));
           }
 
           //構内外注（名）
           if (this.tableP[53]['money' + this.arr[i]] === undefined || this.tableP[53]['money' + this.arr[i]] === '0.00' || this.tableP[53]['money' + this.arr[i]] === 0) {
-            this.$set(this.tableP[53], 'money' + this.arr[i], this.tablePall[10]['money' + this.arr[i]]);
+            this.$set(this.tableP[53], 'money' + this.arr[i], (this.tablePall[10]['money' + this.arr[i]] === undefined || this.tablePall[10]['money' + this.arr[i]] === '' || this.tablePall[10]['money' + this.arr[i]] === null ? 0 :this.tablePall[10]['money' + this.arr[i]]));
           }
 
           //外部受託
