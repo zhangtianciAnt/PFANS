@@ -196,7 +196,7 @@
               <el-table-column :label="$t('label.operation')" align="center" width="220" fixed="right">
                 <template slot-scope="scope">
                   <el-button
-                    :disabled="!disabled"
+                    :disabled="scope.row.customerinfor_id == '' || scope.row.customerinfor_id == null ? !disabled : true"
                     @click.native.prevent="deleteRow(scope.$index, tableA)"
                     plain
                     size="small"
