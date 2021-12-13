@@ -178,17 +178,32 @@ export default {
           }
           if(response.personScaleList.length > 0){
             for(let scle of response.personScaleList){
-              this.tableA.push({
-                reportpeople: getUserInfo(scle.reportpeople) === null
-                  ? getCooperinterviewListByAccount(scle.reportpeople).expname : getUserInfo(scle.reportpeople).userinfo.customername,
-                center_id: getDepartmentById(scle.center_id),
-                group_id: getDepartmentById(scle.group_id),
-                type: scle.type === '0' ? '社内' : '外注_构内',
-                ranks: getDictionaryInfo(scle.ranks).value1,
-                project_name: scle.project_name,
-                proportions: scle.proportions,
-                reporters: getUserInfo(scle.reporters).userinfo.customername,
-              })
+              if(scle.type === '2'){
+                this.tableA.push({
+                  // reportpeople: getUserInfo(scle.reportpeople) === null
+                  //   ? getCooperinterviewListByAccount(scle.reportpeople).expname : getUserInfo(scle.reportpeople).userinfo.customername,
+                  // center_id: getDepartmentById(scle.center_id),
+                  // group_id: getDepartmentById(scle.group_id),
+                  reportpeople: scle.reportpeople,
+                  type: '外注_构外',
+                  // ranks: getDictionaryInfo(scle.ranks).value1,
+                  project_name: scle.project_name,
+                  proportions: scle.proportions,
+                  reporters: getUserInfo(scle.reporters).userinfo.customername,
+                })
+              }else{
+                this.tableA.push({
+                  reportpeople: getUserInfo(scle.reportpeople) === null
+                    ? getCooperinterviewListByAccount(scle.reportpeople).expname : getUserInfo(scle.reportpeople).userinfo.customername,
+                  center_id: getDepartmentById(scle.center_id),
+                  group_id: getDepartmentById(scle.group_id),
+                  type: scle.type === '0' ? '社内' : '外注_构内',
+                  ranks: getDictionaryInfo(scle.ranks).value1,
+                  project_name: scle.project_name,
+                  proportions: scle.proportions,
+                  reporters: getUserInfo(scle.reporters).userinfo.customername,
+                })
+              }
             }
           }
           this.loading = false;
