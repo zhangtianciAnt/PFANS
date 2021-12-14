@@ -1149,14 +1149,16 @@
                                 type="danger"
                               >{{$t('button.delete')}}
                               </el-button>
+<!--                              add  ml  211214  构外新建按钮控制   from-->
                               <el-button
-                                :disabled="!disable"
+                                :disabled = "addOrNot(scope.$index)"
                                 @click="addRow4()"
                                 plain
                                 size="small"
                                 type="primary"
                               >{{$t('button.insert')}}
                               </el-button>
+<!--add  ml  211214  构外新建按钮控制   to-->
                             </template>
                           </el-table-column>
                         </el-table>
@@ -2268,6 +2270,9 @@
                     madoguchi: response.projectsystem[i].madoguchi,
                     numberofmonths: response.projectsystem[i].numberofmonths,
                     monthlyscale: response.projectsystem[i].monthlyscale,
+                    //构外添加合同每月平均金额 ztc fr
+                    amountof: response.projectsystem[i].amountof,
+                    //构外添加合同每月平均金额 ztc to
                     contractno: response.projectsystem[i].contractno,
                     totalnumber: response.projectsystem[i].totalnumber,
                   });
@@ -2831,16 +2836,27 @@
             });
             row.reporter = null;
           }
-          //报告者修改 不能报告给本人 1122 ztc to
           let params = {
             user_id: row.name,
             reporter: row.reporter,
         };
-          let resultAnt = this.getBusBalns(params);
+          let resultAnt = this.getReport(params);
 
         }
+        //报告者修改 不能报告给本人 1122 ztc to
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
+      //添加社内报告者互相报告check ztc fr
+      getReport(params){
+        return new Promise((resolve) => {
+          this.$store
+            .dispatch('PFANS5001Store/getReport',params)
+            .then(response => {
+              resolve(response);
+            });
+        })
+      },
+      //添加社内报告者互相报告check ztc to
       checkRoundP(params,tba){
         return new Promise((resolve) => {
           this.$store
@@ -3140,11 +3156,14 @@
                       duration: 5 * 1000,
                     });
                     this.tableD.splice(this.tableD.length - intercept, intercept);
-                    break;
+                    this.loading = false;
+                    return;
+                    // break;
                   }
                   //提示错误信息 scc
                 }
               }
+            this.forDetail(this.contNum);
             this.loading = false;
           });
         for (let a = 0; a < this.tableD.length; a++) {
@@ -3467,6 +3486,9 @@
             company: this.tableE[this.tableE.length - 1].company,//外注公司
             numberofmonths: 0,//人月数
             monthlyscale: 0, //每月管理规模
+            //构外添加合同每月平均金额 ztc fr
+            amountof: this.tableE[this.tableE.length - 1].amountof, //平均委托合同费用
+            //构外添加合同每月平均金额 ztc to
             admissiontime: this.tableE[this.tableE.length - 1].admissiontime,//开始时间
             exittime: this.tableE[this.tableE.length - 1].exittime,//结束时间
             rowindex: '',
@@ -3908,6 +3930,7 @@
                   duration: 5 * 1000,
                 });
                 this.activeName = 'fourth';
+                this.activeName2 = 'third';
                 this.loading = false;
                 return;
               }else if(!this.tableE[i].numberofmonths && (this.tableE[i].company || this.tableE[i].admissiontime || this.tableE[i].exittime)){
@@ -3917,6 +3940,7 @@
                   duration: 5 * 1000,
                 });
                 this.activeName = 'fourth';
+                this.activeName2 = 'third';
                 this.loading = false;
                 return;
               }
@@ -3938,6 +3962,9 @@
                   madoguchi: this.tableE[i].madoguchi,//窗口
                   numberofmonths: this.tableE[i].numberofmonths,//人月数
                   monthlyscale: this.tableE[i].monthlyscale, //每月管理规模
+                  //构外添加合同每月平均金额 ztc fr
+                  amountof: this.tableE[i].amountof, //平均每月委托合同费用
+                  //构外添加合同每月平均金额 ztc to
                   rowindex: this.tableE[i].rowindex,
                   contractno: this.tableE[i].contractno,
                   totalnumber: this.tableE[i].totalnumber,
@@ -4242,28 +4269,48 @@
       },
 
       //region scc add 构外信息带入 from
+      //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
       forDetail(val) {
+        let params = {
+          contractNo: val,
+          centerId: this.form.center_id,
+          groupId: this.form.group_id,
+        }
         this.$store
-          .dispatch('PFANS5001Store/forDetail', {contractNo : val})
+          .dispatch('PFANS5001Store/forDetail', params)
           .then(res => {
-            if(JSON.stringify(res) !== '{}'){
-              let startTime = res.Interval.split("~")[0];
-              let endTime = res.Interval.split("~")[1];
-                this.tableE.push({
-                  projectsystem_id: '',
-                  companyprojects_id :  '',
-                  company : res.Custojapanese,
-                  madoguchi : res.Madoguchi,
-                  admissiontime : startTime,
-                  exittime : endTime,
-                  numberofmonths: 0,
-                  reporter : '',
-                  type : '2',
-                  monthlyscale: 0,
-                  contractno: res.ContractNo,
-                  totalnumber: res.Numberofworkers,
-                  rowindex: '',
-                })
+            if(res != null){
+              res.forEach(item =>{
+                if(JSON.stringify(item) !== '{}'){
+                  let startTime = item.Interval.split("~")[0];
+                  let endTime = item.Interval.split("~")[1];
+
+                  let start = moment(new Date(startTime));
+                  let end = moment(new Date(endTime));
+                  let poor = end.diff(start, 'months');
+                  poor = Number(poor) + 1;
+                  let amount_of = Number(Number(item.Amountof) / Number(poor)).toFixed(2);
+
+
+                  this.tableE.push({
+                    projectsystem_id: '',
+                    companyprojects_id :  '',
+                    company : item.Custojapanese,
+                    madoguchi : item.Madoguchi,
+                    admissiontime : startTime,
+                    exittime : endTime,
+                    numberofmonths: 0,
+                    reporter : '',
+                    type : '2',
+                    monthlyscale: 0,
+                    contractno: item.ContractNo,
+                    totalnumber: item.Numberofworkers,
+                    amountof: amount_of,
+                    rowindex: '',
+                  })
+                }
+              })
+              //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
               this.linkageToDelete();
             }
           })
@@ -4300,21 +4347,35 @@
         let start = moment(new Date(row.admissiontime));
         let end = moment(new Date(row.exittime));
         let poor = end.diff(start, 'months');
-        row.monthlyscale = Number(Number(val) / Number(poor)).toFixed(2)
+        //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
+        poor = Number(poor) + 1;
+        row.monthlyscale = Number(Number(val) / Number(poor)).toFixed(2);
+        //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
       },
       //endregion scc add 人月数change事件，赋值每月管理规模 to
-
+      //region  add  ml  211214  构外新建按钮控制   from
+      addOrNot($index){
+        if(this.tableE.length - 1 === 0){
+          return false;
+        }else{
+          if($index !== this.tableE.length - 1){
+            return true;
+          }
+          return false;
+        }
+      },
+      //endregion  add  ml  211214  构外新建按钮控制   to
     },
     //region scc add 监听选择合同操作，给构外赋值 from
     watch: {
-      contNum:{
-        handler(newVal, oldVal){
-          if(newVal){
-            this.forDetail(newVal);
-          }
-        },
-        deep: true,
-      }
+      // contNum:{
+      //   handler(newVal, oldVal){
+      //     if(newVal){
+      //       this.forDetail(newVal);
+      //     }
+      //   },
+      //   deep: true,
+      // }
     },
     //endregion scc add 监听选择合同操作，给构外赋值 to
   };
