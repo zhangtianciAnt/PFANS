@@ -156,7 +156,6 @@ export default {
       this.$store
         .dispatch('scaleStore/getPeopleInfo', {'personScaleMee_id': this.$route.params._id,'yearMonth': this.$route.params._yearMonth})
         .then(response => {
-          debugger
           if(response.personScaleMee){
             let ppscale = response.personScaleMee;
             if(ppscale.user_id){

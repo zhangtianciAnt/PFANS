@@ -3379,7 +3379,6 @@
           .then(res => {
             if(res != null){
               res.forEach(item => {
-                debugger
                 if (JSON.stringify(item) !== '{}') {
                   let startTime = item.Interval.split("~")[0];
                   let endTime = item.Interval.split("~")[1];

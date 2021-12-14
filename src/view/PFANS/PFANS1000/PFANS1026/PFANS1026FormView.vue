@@ -2206,7 +2206,6 @@
       end() {
         this.form.tabledata[0].status = '0';
         // this.buttonClick("cancellation");
-        // debugger
         //region scc add 撤销时，更新数据 from
         this.buttonClick("save");
         //endregion scc add 撤销时，更新数据 to

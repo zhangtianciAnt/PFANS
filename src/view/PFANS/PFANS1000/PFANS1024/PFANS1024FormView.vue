@@ -2010,7 +2010,6 @@
         this.$store
           .dispatch('PFANS1026Store/get2', {'type': '1'})
           .then(response => {
-            debugger
             let letcontractnumber = [];
             let tabledata = response.contractapplication;
             for (let i = 0; i < tabledata.length; i++) {
