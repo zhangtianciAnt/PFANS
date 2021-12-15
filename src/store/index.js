@@ -7,6 +7,7 @@ import global from './global'
 import orgTreeStore from '../view/orgTree/orgTreeStore'
 import registerStore from '../components/EasyRegister/registerStore'
 import usersStore from '../view/users/usersStore'
+import scaleStore from '../view/users/scaleStore'
 import roleStore from '../view/role/roleStore'
 import personalCenterStore from '../view/personalCenter/personalCenterStore'
 import tableStore from '../components/EasyNormalTable/tableStore'
@@ -120,6 +121,7 @@ const store = new Vuex.Store({
     orgTreeStore,
     registerStore,
     usersStore,
+    scaleStore,
     roleStore,
     personalCenterStore,
     tableStore,
