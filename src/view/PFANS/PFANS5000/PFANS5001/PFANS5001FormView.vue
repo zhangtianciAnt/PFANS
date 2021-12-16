@@ -3078,7 +3078,7 @@
                   //判断上述条件是否为真 scc
                   let e4 = (e1 || e2 || e3);
                   //提示错误信息 scc
-                  if (e4) {
+                  if (e4 && this.tableD.length > 1) {
                     Message({
                       message: this.$t('normal.info_27'),
                       type: 'error',
