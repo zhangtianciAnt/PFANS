@@ -390,8 +390,11 @@
                     <el-input
                       :disabled="true"
                       v-model="scope.row.assignor"
-                      size="small">
+                      size="small" v-if="scope.row.contracttype === 'PJ142001' || scope.row.contracttype === 'PJ142002' || scope.row.contracttype === 'PJ142003'" >
                     </el-input>
+                    <org :disabled="disabled" :orglist="scope.row.assignor" orgtype="4"
+                         @getOrgids="setToolsorgs($event,scope.row,scope.$index)"
+                         style="width:13vw" v-if="scope.row.contracttype === 'PJ142004' || scope.row.contracttype === 'PJ142005'" ></org>
                   </div>
                 </template>
               </el-table-column>
