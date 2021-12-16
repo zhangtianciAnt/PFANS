@@ -2013,6 +2013,40 @@ export function menu() {
               ],
             },
             {
+              '_id': 'personScale',
+              'name': 'menu.PERSONSCALE',
+              'menuvisible': true,
+              'menuurl': '/personScaleView',
+              'menuicon': '',
+              'children': [],
+              'actions': [
+                {
+                  '_id': 'personScale_read',
+                  'actiontype': '0',
+                  'name': 'button.view',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'personScale_new',
+                  'actiontype': 'new',
+                  'name': 'button.insert',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'personScale_edit',
+                  'actiontype': 'edit',
+                  'name': 'button.update',
+                  'auth': 4,
+                },
+                {
+                  '_id': 'personScale_del',
+                  'actiontype': 'del',
+                  'name': 'button.delete',
+                  'auth': 4,
+                },
+              ],
+            },
+            {
               '_id': 'PFANS2036',
               'name': 'menu.PFANS2036',
               'menuvisible': true,
