@@ -2764,32 +2764,39 @@
       getReporter(userlist, row) {
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
         row.reporter = userlist;
-        if (userlist!=null && userlist !='' && userlist !=undefined)
+        if (userlist!=null && userlist !='' && userlist !=undefined  && row.type !== '2')//scc add 不对构外做check
         {
-          if(this.tableB.filter(item => item.name === userlist).length === 0)
-          {
-            if (row.type === '0')
-            {
-              Message({
-                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-            else
-            {
-              Message({
-                message: this.$t(row.name_id || '')
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
+          //报告者修改 不能报告给本人 1122 ztc fr
+          if(row.name === row.reporter){
+            Message({
+              message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+                + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            row.reporter = null;
           }
+          let params = {
+            user_id: row.name,
+            reporter: row.reporter,
+        };
+          let resultAnt = this.getReport(params);
+
         }
+        //报告者修改 不能报告给本人 1122 ztc to
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
+      //添加社内报告者互相报告check ztc fr
+      getReport(params){
+        return new Promise((resolve) => {
+          this.$store
+            .dispatch('PFANS5001Store/getReport',params)
+            .then(response => {
+              resolve(response);
+            });
+        })
+      },
+      //添加社内报告者互相报告check ztc to
       getUseridsInput(val, row) {
         row.name = val;
       },
@@ -3796,8 +3803,8 @@
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
               {
-                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
-                {
+                //报告者修改 不能报告给本人 1122 ztc fr
+                if(this.tableB[i].name === this.tableB[i].reporter){
                   Message({
                     message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
                       + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
@@ -3808,6 +3815,7 @@
                   this.loading = false;
                   return;
                 }
+                //报告者修改 不能报告给本人 1122 ztc to
               }
               //add ccm 20210825 体制报告者在体制中是否存在 to
               //add_fjl 体制人员重复check end
@@ -3851,6 +3859,7 @@
                   duration: 5 * 1000,
                 });
                 this.activeName = 'fourth';
+                this.activeName2 = 'third';
                 this.loading = false;
                 return;
               }else if(!this.tableE[i].numberofmonths && (this.tableE[i].company || this.tableE[i].admissiontime || this.tableE[i].exittime)){
@@ -3860,6 +3869,7 @@
                   duration: 5 * 1000,
                 });
                 this.activeName = 'fourth';
+                this.activeName2 = 'third';
                 this.loading = false;
                 return;
               }
@@ -3881,6 +3891,9 @@
                   madoguchi: this.tableE[i].madoguchi,//窗口
                   numberofmonths: this.tableE[i].numberofmonths,//人月数
                   monthlyscale: this.tableE[i].monthlyscale, //每月管理规模
+                  //构外添加合同每月平均金额 ztc fr
+                  amountof: this.tableE[i].amountof, //平均每月委托合同费用
+                  //构外添加合同每月平均金额 ztc to
                   rowindex: this.tableE[i].rowindex,
                   contractno: this.tableE[i].contractno,
                   totalnumber: this.tableE[i].totalnumber,
@@ -3903,26 +3916,6 @@
                 return;
               }
               //endregion scc add scc 9/27 项目体制社外氏名非空验证 to
-
-              //add ccm 20210825 体制报告者在体制中是否存在 fr
-              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
-              {
-                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
-                {
-                  Message({
-                    message: this.$t(this.tableC[i].name_id || '')
-                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.activeName = 'fourth';
-                  this.loading = false;
-                  return;
-                }
-              }
-              //add ccm 20210825 体制报告者在体制中是否存在 to
-
-
               // 外协员工入场时间&离场时间必须Check
               if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
                 error11 = error11 + 1;

@@ -2766,32 +2766,54 @@
       //add_qhr_20210810 添加rank、报告者字段
       getReporter(userlist, row) {
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
-        row.reporter = userlist;
-        if (userlist!=null && userlist !='' && userlist !=undefined)
-        {
-          if(this.tableB.filter(item => item.name === userlist).length === 0)
-          {
-            if (row.type === '0')
-            {
-              Message({
-                message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-            else
-            {
-              Message({
-                message: this.$t(row.name_id || '')
-                  + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
-                type: 'error',
-                duration: 5 * 1000,
-              });
-            }
-          }
-        }
+        // row.reporter = userlist;
+        // if (userlist!=null && userlist !='' && userlist !=undefined  && row.type !== '2')//scc add 不对构外做check
+        // {
+        //   if(this.tableB.filter(item => item.name === userlist).length === 0)
+        //   {
+        //     if (row.type === '0')
+        //     {
+        //       Message({
+        //         message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+        //           + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+        //         type: 'error',
+        //         duration: 5 * 1000,
+        //       });
+        //     }
+        //     else
+        //     {
+        //       Message({
+        //         message: this.$t(row.name_id || '')
+        //           + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+        //         type: 'error',
+        //         duration: 5 * 1000,
+        //       });
+        //     }
+        //   }
+        // }
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
+        //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check fr
+        row.reporter = userlist;
+        if (userlist!=null && userlist !='' && userlist !=undefined  && row.type !== '2')//scc add 不对构外做check
+        {
+          //报告者修改 不能报告给本人 1122 ztc fr
+          if(row.name === row.reporter){
+            Message({
+              message: this.$t(row.name == null || row.name == '' ? '': getUserInfo(row.name).userinfo.customername)
+                + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            row.reporter = null;
+          }
+          let params = {
+            user_id: row.name,
+            reporter: row.reporter,
+          };
+          let resultAnt = this.getReport(params);
+
+        }
+        //报告者修改 不能报告给本人 1122 ztc to
       },
       getcustomer(val) {
         this.result1.forEach(res => {

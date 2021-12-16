@@ -1,5 +1,5 @@
 import {getFpans5001List,selectById,update,insert,getcustomer,getexpat,select,getPjList,getFpans5001List2,
-        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,selectAll,selectConnumList,report,update1,forDetail,} from './PFANS5001Api'
+        getProjectList,getTimestart,getGroupTimestart,updateTimestart,getList2,selectAll,selectConnumList,report,update1,forDetail,toCompare} from './PFANS5001Api'
 
 
 const PFANS5001Store = {
@@ -265,6 +265,23 @@ const PFANS5001Store = {
       })
     },
     //endregion scc add 根据合同号，获取构外数据 to
+
+    //添加社内报告者互相报告check ztc fr
+    getReport({commit}, data) {
+      return new Promise((resolve, reject) => {
+        getReport(data).then(response => {
+          if (response.code === 0) {
+            resolve(response.data);
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+          //添加社内报告者互相报告check ztc to
+        })
+      })
+    },
+
   }
 };
 

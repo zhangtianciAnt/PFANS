@@ -154,3 +154,13 @@ export function forDetail(data) {
 }
 //endregion scc add 根据合同号，获取构外数据 to
 
+//添加社内报告者互相报告check ztc fr
+export function getReport(data) {
+  return request({
+    url: 'companyprojects/getReport',
+    method: 'get',
+    params: data
+  })
+}
+//添加社内报告者互相报告check ztc to
+
