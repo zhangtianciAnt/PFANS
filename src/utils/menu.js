@@ -4131,6 +4131,58 @@ export function menu() {
                     },
                   ],
                 },
+              ],
+            },
+            {
+              '_id': 'COMMISSIONE',
+              'name': 'menu.COMMISSIONE',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
+                {
+                  '_id': 'PFANS6012',
+                  'name': 'menu.PFANS6012',
+                  'menuvisible': true,
+                  'menuurl': '/PFANS6012View',
+                  'menuicon': '',
+                  'children': [],
+                  'actions': [
+                    {
+                      '_id': 'PFANS6012_read',
+                      'actiontype': '0',
+                      'name': 'button.view',
+                      'auth': 4,
+                    },
+                    {
+                      '_id': 'PFANS6012_new',
+                      'actiontype': 'new',
+                      'name': 'button.insert',
+                      'auth': 4,
+                    },
+                    {
+                      '_id': 'PFANS6012_edit',
+                      'actiontype': 'edit',
+                      'name': 'button.update',
+                      'auth': 4,
+                    },
+                    {
+                      '_id': 'PFANS6012_del',
+                      'actiontype': 'del',
+                      'name': 'button.delete',
+                      'auth': 4,
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              '_id': 'STATISTICALOUT',
+              'name': 'menu.STATISTICALOUT',
+              'menuvisible': true,
+              'menuurl': '',
+              'menuicon': '',
+              'children': [
                 {
                   '_id': 'PFANS6009',
                   'name': 'menu.PFANS6009',

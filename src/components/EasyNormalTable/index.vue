@@ -110,6 +110,22 @@
                          width="130" v-if="handles">
         </el-table-column>
         <!--        add-ws-12/21-印章盖印-->
+        <!--        add scc 请负委托一览，处理状态  from-->
+        <el-table-column :label="$t('label.PFANS6012VIEW_WHETHERHASBEENPROCESSED')" align="center" v-if="whetherProcess"
+                         width="130vw">
+          <template slot-scope="scope">
+            <el-checkbox
+              :disabled="scope.row.modifyby"
+              @change="handleprocessing(scope.$index, scope.row)"
+              v-model="scope.row.processing"
+            ></el-checkbox>
+          </template>
+        </el-table-column>
+        <el-table-column property="undertaker"
+                         :label="$t('label.PFANS6012VIEW_UNDERTAKER')"
+                         width="130" v-if="whetherProcess">
+        </el-table-column>
+        <!--        add scc 请负委托一览，处理状态  end-->
       </el-table>
       <div class="pagination-container" style="padding-top: 20px">
         <el-pagination :current-page.sync="listQuery.page" :page-size="listQuery.limit"
@@ -216,6 +232,12 @@
         default: false,
       },
       //add-ws-12/21-印章盖印
+      //region scc add 请负委托，处理状态，担当着 from
+      whetherProcess: {
+        type: Boolean,
+        default: false,
+      },
+      //endregion scc add 请负委托，处理状态，担当着 to
       hasEditBtn: {
         type: Boolean,
         default: true,
@@ -294,6 +316,10 @@
         this.$emit('handleacceptstate1', row);
       },
       //add-ws-12/21-印章盖印
+      //region scc add 请负委托一览处理状态
+      handleprocessing(index, row){
+        this.$emit('handleprocessing', row);
+      },
       handlsealid(index, row) {
         this.$emit('handlsealid', row);
       },

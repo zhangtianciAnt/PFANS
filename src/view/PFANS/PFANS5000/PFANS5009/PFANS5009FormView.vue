@@ -596,9 +596,9 @@
                           </el-table-column>
                         </el-table>
                       </el-tab-pane>
-                      <!--                社外-->
+                      <!--                构内-->
                       <el-tab-pane
-                        :label="$t('label.PFANS5001FORMVIEW_OUTCOMMUNITY')"
+                        :label="$t('label.PFANS5001FORMVIEW_WITHINSTRUCTURE')"
                         name="second"
                       >
                         <el-table
@@ -845,6 +845,164 @@
                               <el-button
                                 :disabled="!disable"
                                 @click="addRow2()"
+                                plain
+                                size="small"
+                                type="primary"
+                              >{{$t('button.insert')}}
+                              </el-button>
+                            </template>
+                          </el-table-column>
+                        </el-table>
+                      </el-tab-pane>
+
+                      <!--                构外-->
+                      <el-tab-pane :label="$t('label.PFANS5001FORMVIEW_OUTSIDESTRUCTURE')" name="third">
+                        <el-table :data="tableE" stripe border header-cell-class-name="sub_bg_color_blue"
+                                  style="width: 80vw">
+                          <!--       外注公司-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_NOTECOMPANY')"
+                            align="center"
+                            width="220">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.company"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+
+                          <!--          窗口-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_MADOGUCHI')"
+                            align="center"
+                            width="220">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.madoguchi"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+
+                          <!--          人月数-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_NUMBEROFMONTHS')"
+                            align="center"
+                            width="150">
+                            <template slot-scope="scope">
+                              <el-input-number
+                                :disabled="!disable"
+                                :min="0"
+                                :no="scope.row"
+                                :precision="2"
+                                controls-position="right"
+                                style="width: 100%"
+                                v-model="scope.row.numberofmonths"
+                                @change="changeNum($event,scope.row,scope.$index)"
+                              ></el-input-number>
+                            </template>
+                          </el-table-column>
+
+                          <!--       对应合同人月数-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_TOTALNUMBER')"
+                            align="center"
+                            width="120">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.totalnumber"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+
+                          <!--       每月管理规模-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_MONTHLYSCALE')"
+                            align="center"
+                            width="120">
+                            <template slot-scope="scope">
+                              <el-input
+                                :no="scope.row"
+                                :disabled="true"
+                                v-model="scope.row.monthlyscale"
+                                style="width: 100%">
+                              </el-input>
+                            </template>
+                          </el-table-column>
+
+                          <!--          报告者-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_REPORTER')"
+                            align="center"
+                            width="170">
+                            <template slot-scope="scope">
+                              <user
+                                :disabled="!disable"
+                                :no="scope.row"
+                                :userlist="scope.row.reporter"
+                                :multiple="multiple"
+                                @close="getReporter"
+                                style="width: 80%"
+                              ></user>
+                            </template>
+                          </el-table-column>
+
+                          <!--         开始时间-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_STARTTIME')"
+                            align="center"
+                            prop="admissiontime"
+                            width="180">
+                            <template slot-scope="scope">
+                              <el-date-picker
+                                :disabled="true"
+                                type="date"
+                                :no="scope.row"
+                                v-model="scope.row.admissiontime"
+                                style="width: 9rem">
+                              </el-date-picker>
+                            </template>
+                          </el-table-column>
+
+                          <!--          结束时间-->
+                          <el-table-column
+                            :label="$t('label.PFANS5001FORMVIEW_ENDOFTIME')"
+                            align="center"
+                            prop="exittime"
+                            width="180">
+                            <template slot-scope="scope">
+                              <el-date-picker
+                                :disabled="true"
+                                type="date"
+                                :no="scope.row"
+                                v-model="scope.row.exittime"
+                                style="width: 9rem">
+                              </el-date-picker>
+                            </template>
+                          </el-table-column>
+
+                          <!--          操作-->
+                          <el-table-column :label="$t('label.operation')" align="center" width="200">
+                            <template slot-scope="scope">
+                              <el-button
+                                :disabled="scope.row.projectsystem_id ? true : false"
+                                @click.native.prevent="deleteRow4(scope.$index, tableE)"
+                                plain
+                                size="small"
+                                type="danger"
+                              >{{$t('button.delete')}}
+                              </el-button>
+                              <el-button
+                                :disabled="addOrNot(scope.$index)"
+                                @click="addRow4()"
                                 plain
                                 size="small"
                                 type="primary"
@@ -1351,6 +1509,9 @@
         contra: [],
         nowtime: '',
         //合同时间check
+        //region scc add 选择合同时，获取合同号 from
+        contNum: '',
+        //endregion scc add 选择合同时，获取合同号 from
         centerorglist: '',
         grouporglist: '',
         claimamount: '',
@@ -1497,6 +1658,11 @@
             type: '0',
           },
         ],
+
+        //region scc add 构外
+        tableE: [
+        ],
+        //endregion scc add 构外
         //合同分配金额
         tablecompound: [],
         data: [],
@@ -1714,6 +1880,7 @@
               //项目体制
               this.tableB = [];
               this.tableC = [];
+              this.tableE = [];
               for (var i = 0; i < response.projectsystem.length; i++) {
                 if (response.projectsystem[i].type === '0') {
                   let o = {};
@@ -1755,6 +1922,28 @@
                     this.tableC.push(o);
                   }
                 }
+                //region scc add 获取构外 from
+                else if(response.projectsystem[i].type === '2'){
+                  this.tableE.push({
+                    projectsystem_id:  response.projectsystem[i].projectsystem_id,
+                    companyprojects_id: response.projectsystem[i].companyprojects_id,
+                    type: response.projectsystem[i].type,
+                    company: response.projectsystem[i].company,
+                    reporter: response.projectsystem[i].reporter,
+                    admissiontime: response.projectsystem[i].admissiontime,
+                    exittime: response.projectsystem[i].exittime,
+                    rowindex: response.projectsystem[i].rowindex,
+                    madoguchi: response.projectsystem[i].madoguchi,
+                    numberofmonths: response.projectsystem[i].numberofmonths,
+                    monthlyscale: response.projectsystem[i].monthlyscale,
+                    //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
+                    amountof: response.projectsystem[i].amountof,
+                    //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
+                    contractno: response.projectsystem[i].contractno,
+                    totalnumber: response.projectsystem[i].totalnumber,
+                  });
+                }
+                //endregion scc add 获取构外 to
               }
              //add-ws-修改判断tableC没数据的时候添加空行
               if (this.tableC.length === 0) {
@@ -2003,6 +2192,7 @@
             },
           ];
         }
+        this.linkageToDelete();
       },
       //ADD gbb 07-16 ,内采项目在现场管理中不显示合同
       addRowClaim() {
@@ -2234,6 +2424,9 @@
             }
             //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
             let contradeta = response.contractapplication;
+            //region scc add 选择合同时，获取合同号 from
+            this.contNum = contradeta[0].contractnumber;
+            //endregion scc add 选择合同时，获取合同号 to
             if(contradeta.length > 0){
               let timec = "";
               //如果合同没有contractdate，取claimdatetime scc
@@ -2285,11 +2478,13 @@
                     duration: 5 * 1000,
                   });
                   this.tableD.splice(this.tableD.length - intercept, intercept);
-                  break;
+                  this.loading = false;
+                  return;
                 }
                 //提示错误信息 scc
               }
             }
+            this.forDetail(this.contNum);
             this.loading = false;
           });
         for (let a = 0; a < this.tableD.length; a++) {
@@ -2478,6 +2673,64 @@
           ];
         }
       },
+      //region scc add 构外 from
+      addRow4() {
+        if(this.tableE[this.tableE.length - 1].company) {
+          this.tableE.push({
+            projectsystem_id: '',
+            companyprojects_id: this.tableE[this.tableE.length - 1].companyprojects_id,
+            reporter: '',//报告者
+            type: '2',//构外
+            madoguchi: this.tableE[this.tableE.length - 1].madoguchi,//窗口
+            company: this.tableE[this.tableE.length - 1].company,//外注公司
+            numberofmonths: 0,//人月数
+            monthlyscale: 0, //每月管理规模
+            //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
+            amountof: this.tableE[this.tableE.length - 1].amountof, //平均委托合同费用
+            //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
+            admissiontime: this.tableE[this.tableE.length - 1].admissiontime,//开始时间
+            exittime: this.tableE[this.tableE.length - 1].exittime,//结束时间
+            rowindex: '',
+            contractno: this.tableE[this.tableE.length - 1].contractno,
+            totalnumber: this.tableE[this.tableE.length - 1].totalnumber,
+          });
+        }
+      },
+      //region  add  ml  211214  构外新建按钮控制   from
+      addOrNot($index){
+        if(this.tableE.length - 1 === 0){
+          return false;
+        }else{
+          if($index !== this.tableE.length - 1){
+            return true;
+          }
+          return false;
+        }
+      },
+      //endregion  add  ml  211214  构外新建按钮控制   to
+      deleteRow4(index, rows) {
+        if (rows.length > 1) {
+          rows.splice(index, 1);
+        } else {
+          this.$confirm('删除后需要重新关联合同进行构外数据关联, 是否继续?', this.$t('normal.info'), {
+            confirmButtonText: this.$t('button.confirm'),
+            cancelButtonText: this.$t('button.cancel'),
+            type: 'warning'
+          }).then(() => {
+            rows.splice(index, 1);
+            this.$message.success({
+              type: 'success',
+              message: this.$t('normal.info_03'),
+            });
+          }).catch(() => {
+            this.$message.info({
+              type: 'info',
+              message: this.$t('normal.info_04'),
+            });
+          });
+        }
+      },
+      //endregion scc add 构外 to
       getCitationUserid(userlist, row) {
         //upd ccm 20210817 現場管理刪除姓名時清空rank和職務 fr
         // row.name = userlist;
@@ -2878,6 +3131,59 @@
                 });
               }
             }
+
+            for (let i = 0; i < this.tableE.length; i++) {
+              //region scc add scc 9/27 项目体制构外报告者,人月数非空验证 from
+              if(!this.tableE[i].reporter && (this.tableE[i].company || this.tableE[i].admissiontime || this.tableE[i].exittime)){
+                Message({
+                  message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'third';
+                this.activeName2 = 'third';
+                this.loading = false;
+                return;
+              }else if(!this.tableE[i].numberofmonths && (this.tableE[i].company || this.tableE[i].admissiontime || this.tableE[i].exittime)){
+                Message({
+                  message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_NUMBEROFMONTHS'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'third';
+                this.activeName2 = 'third';
+                this.loading = false;
+                return;
+              }
+              //endregion scc add scc 9/27 项目体制构外报告者,人月数非空验证 to
+              //region scc add 保存构外 from
+              if (
+                this.tableE[i].company !== '' ||
+                this.tableE[i].admissiontime !== '' ||
+                this.tableE[i].exittime !== ''
+              ) {
+                this.baseInfo.projectsystem.push({
+                  projectsystem_id: this.tableE[i].projectsystem_id,
+                  companyprojects_id: this.tableE[i].companyprojects_id,
+                  reporter: this.tableE[i].reporter,
+                  type: this.tableE[i].type,
+                  company: this.tableE[i].company,
+                  admissiontime: this.tableE[i].admissiontime,
+                  exittime: this.tableE[i].exittime,
+                  madoguchi: this.tableE[i].madoguchi,//窗口
+                  numberofmonths: this.tableE[i].numberofmonths,//人月数
+                  monthlyscale: this.tableE[i].monthlyscale, //每月管理规模
+                  //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
+                  amountof: this.tableE[i].amountof, //平均每月委托合同费用
+                  //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
+                  rowindex: this.tableE[i].rowindex,
+                  contractno: this.tableE[i].contractno,
+                  totalnumber: this.tableE[i].totalnumber,
+                });
+              }
+              //endregion scc add 保存构外 to
+            }
+
             for (let i = 0; i < this.tableC.length; i++) {
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
@@ -3037,7 +3343,103 @@
           }
         });
       },
+
+      //region scc add 构外信息带入 from
+      forDetail(val) {
+        //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
+        let params = {
+          contractNo: val,
+          centerId: this.form.center_id,
+          groupId: this.form.group_id,
+        }
+        this.$store
+          .dispatch('PFANS5001Store/forDetail', params)
+          .then(res => {
+            if(res != null){
+              res.forEach(item => {
+                if (JSON.stringify(item) !== '{}') {
+                  let startTime = item.Interval.split("~")[0];
+                  let endTime = item.Interval.split("~")[1];
+                  let start = moment(new Date(startTime));
+                  let end = moment(new Date(endTime));
+                  let poor = end.diff(start, 'months');
+                  poor = Number(poor) + 1;
+                  let amount_of = Number(Number(item.Amountof) / Number(poor)).toFixed(2);
+                  this.tableE.push({
+                    projectsystem_id: '',
+                    companyprojects_id: '',
+                    company: item.Custojapanese,
+                    madoguchi: item.Madoguchi,
+                    admissiontime: startTime,
+                    exittime: endTime,
+                    numberofmonths: 0,
+                    reporter: '',
+                    type: '2',
+                    monthlyscale: 0,
+                    contractno: item.ContractNo,
+                    totalnumber: item.Numberofworkers,
+                    amountof: amount_of,
+                    rowindex: '',
+                  })
+                }
+              })
+              //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
+              this.linkageToDelete();
+            }
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+          })
+      },
+      //endregion scc add 构外信息带入 to
+
+      //region scc add 根据合同号，判断构外与合同是否关联，不关联，删除构外条数 from
+      linkageToDelete() {
+        let tableE1 = JSON.parse(JSON.stringify(this.tableE));
+        for(let i = 0; i < tableE1.length; i++){
+          let flag = false;
+          for(let j = 0; j < this.tableD.length; j++){
+            if(tableE1[i].contractno === this.tableD[j].contract){
+              flag = true;
+            }
+          }
+          if(!flag){
+            this.tableE = this.tableE.filter(it => it.contractno !== tableE1[i].contractno);
+          }
+        }
+      },
+      //endregion scc add 根据合同号，判断构外与合同是否关联，不关联，删除构外条数 to
+
+      //region scc add 人月数change事件，赋值每月管理规模 from
+      changeNum(val,row,$index){
+        row.numberofmonths = val;
+        let start = moment(new Date(row.admissiontime));
+        let end = moment(new Date(row.exittime));
+        let poor = end.diff(start, 'months');
+        //构外添加合同每月平均金额,变更获取构外信息方式 ztc fr
+        poor = Number(poor) + 1;
+        //构外添加合同每月平均金额,变更获取构外信息方式 ztc to
+        row.monthlyscale = Number(Number(val) / Number(poor)).toFixed(2)
+      },
+      //endregion scc add 人月数change事件，赋值每月管理规模 to
     },
+    //region scc add 监听选择合同操作，给构外赋值 from
+    watch: {
+      // contNum:{
+      //   handler(newVal, oldVal){
+      //     if(newVal){
+      //       this.forDetail(newVal);
+      //     }
+      //   },
+      //   deep: true,
+      // }
+    },
+    //endregion scc add 监听选择合同操作，给构外赋值 to
+
   };
 </script>
 

@@ -1710,6 +1710,9 @@
               _checkname: true,
               _id: row.award_id,
               disabled: false,
+              //region scc add 11/17 委任，请负区分 from
+              _checkindivdual: this.$route.params._checkindivdual,
+              //endregion scc add 11/17 委任，请负区分 to
             },
           });
           //add-ws-7/22-禅道341任务
@@ -2792,6 +2795,9 @@
                   //region  add_qhr_20210616 委托决裁书-情报2表格带入信息
                   supplierinfor_id: this.form.supplierinfor_id,
                   //endregion  add_qhr_20210616 委托决裁书-情报2表格带入信息
+                  //region scc add 11/17 委任，请负区分 from
+                  _checkindivdual: this.$route.params._checkindivdual,
+                  //endregion scc add 11/17 委任，请负区分 to
                 },
               });
             }
