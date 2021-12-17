@@ -289,20 +289,6 @@
                       <span>{{$t('label.PFANS1004VIEW_OUTER')}}</span>
                     </el-form-item>
                   </el-col>
-                  <!-- scc add 委任，请负区分 from -->
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DISTINGUISHBETWEEN')" prop="distinguishbetween">
-                      <span>{{$t('label.PFANS1025FORMVIEW_APPOINTED')}}</span>
-                      <el-switch
-                        :disabled="true"
-                        v-model="form.distinguishbetween"
-                        active-value="1"
-                        inactive-value="0">
-                      </el-switch>
-                      <span>{{$t('label.PFANS1025FORMVIEW_PLEASEBEAR')}}</span>
-                    </el-form-item>
-                  </el-col>
-                  <!-- scc add 委任，请负区分 end -->
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1004VIEW_CLASSIFICATIONTYPE')" prop="classificationtype"
                                   v-show="showPlan">
@@ -317,9 +303,34 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row v-show="form.distinguishbetween === '1'">
                   <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')">
+                      <dicselect :code="code2"
+                                 :data="form.valuation"
+                                 :disabled="!disable"
+                                 :multiple="multiple"
+                                 @change="getvaluation"
+                                 style="width:20vw">
+                      </dicselect>
+                    </el-form-item>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <!-- scc add 委任，请负区分 from -->
+                  <el-col :span="8">
+                    <el-form-item :label="$t('label.PFANS1025FORMVIEW_DISTINGUISHBETWEEN')" prop="distinguishbetween">
+                      <span>{{$t('label.PFANS1025FORMVIEW_APPOINTED')}}</span>
+                      <el-switch
+                        :disabled="true"
+                        v-model="form.distinguishbetween"
+                        active-value="1"
+                        inactive-value="0">
+                      </el-switch>
+                      <span>{{$t('label.PFANS1025FORMVIEW_PLEASEBEAR')}}</span>
+                    </el-form-item>
+                  </el-col>
+                  <!-- scc add 委任，请负区分 end -->
+                  <el-col :span="8" v-show="form.distinguishbetween === '1'">
                     <el-form-item :label="$t('label.PFANS1025FORMVIEW_UNITPRICE')">
                       <el-input-number
                         :disabled="!disable"
@@ -332,7 +343,7 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                  <el-col :span="8" v-show="form.distinguishbetween === '1'">
                     <el-form-item :label="$t('label.PFANS1025FORMVIEW_NUMBEROFWORKERS')">
                       <el-input-number
                         :disabled="!disable"
@@ -345,7 +356,9 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
+                </el-row>
+                <el-row>
+                  <el-col :span="8" v-show="form.distinguishbetween === '1'">
                     <el-form-item :label="$t('label.PFANS1025FORMVIEW_AMOUNTOF')">
                       <el-input-number
                         :disabled="!disable"
@@ -357,25 +370,14 @@
                       ></el-input-number>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8" v-show="form.distinguishbetween === '1'">
                     <el-form-item :label="$t('label.PFANS1025FORMVIEW_MADOGUCHI')" prop="madoguchi" :rules="[
                   { required: form.distinguishbetween === '1' ? true : false, message: '请输入窓口', trigger: 'blur' }]">
                       <el-input :disabled="!disable" style="width:20vw" v-model="form.madoguchi"></el-input>
                     </el-form-item>
                   </el-col>
-                  <el-col :span="8">
-                    <el-form-item :label="$t('label.PFANS1025VIEW_VALUATION')">
-                      <dicselect :code="code2"
-                                 :data="form.valuation"
-                                 :disabled="!disable"
-                                 :multiple="multiple"
-                                 @change="getvaluation"
-                                 style="width:20vw">
-                      </dicselect>
-                    </el-form-item>
-                  </el-col>
+                </el-row>
+                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_INDIVIDUAL')">
                       <dicselect :code="code2"
@@ -387,8 +389,6 @@
                       </dicselect>
                     </el-form-item>
                   </el-col>
-                </el-row>
-                <el-row>
                   <el-col :span="8">
                     <el-form-item :label="$t('label.PFANS1025VIEW_PLANNUMBER')">
                       <el-input :disabled="!disable" style="width:20vw" v-model="form.plannumber"></el-input>
