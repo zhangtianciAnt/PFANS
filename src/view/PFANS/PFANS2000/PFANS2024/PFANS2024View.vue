@@ -244,7 +244,9 @@
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
           {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
           {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
-          {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          // region  update  ml  211217  数据转结显隐显示  from
+          // {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          // endregion  update  ml  211217  数据转结显隐显示  to
         ],
         rowid: '',
         row: 'talentplan_id',
@@ -255,6 +257,26 @@
       this.init();
     },
     methods: {
+      // region  add  ml  211217  数据转结显隐显示  from
+      getdate(){
+        this.mounth = new Date().getMonth() + 1;
+        this.date = new Date().getDate();
+        if(this.mounth === 4 && this.date >= 10 && this.date <= 30){
+          this.buttonList = [
+            {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+            {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+            {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+            {'key': 'carryforward', 'name': 'button.carryforward', 'disabled': false, 'icon': 'el-icon-edit'}
+          ]
+        } else {
+          this.buttonList = [
+            {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
+            {'key': 'insert', 'name': 'button.insert', 'disabled': false, 'icon': 'el-icon-plus'},
+            {'key': 'edit', 'name': 'button.update', 'disabled': false, 'icon': 'el-icon-edit'},
+          ]
+        }
+      },
+      // endregion  add  ml  211217  数据转结显隐显示  to
       getOrgInformation(id) {
         let org = {};
         let treeCom = this.$store.getters.orgs;
