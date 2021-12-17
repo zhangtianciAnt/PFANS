@@ -77,7 +77,7 @@
                 :label="$t('label.PFANS1050FORMVIEW_NUMBERS')">
               </el-table-column>
               <el-table-column
-                width="80"
+                width="120"
                 align="left"
                 prop="staffrank"
                 :label="$t('label.PFANS1052FORMVIEW_STAFFRANK')">
