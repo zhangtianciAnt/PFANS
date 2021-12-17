@@ -75,10 +75,7 @@
         }
         //共通下拉框添加筛选 ztc 1103 fr
         if(this.fliCode !== ''){
-          console.log(this.options)
           this.options = this.options.filter(opt => opt.value5.indexOf(this.fliCode) !== -1);
-          console.log('------')
-          console.log(this.options)
         }
         //共通下拉框添加筛选 ztc 1103 to
         this.loading = false;
