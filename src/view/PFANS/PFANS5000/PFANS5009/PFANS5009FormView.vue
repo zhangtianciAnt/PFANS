@@ -2556,8 +2556,41 @@
           updOrinsflg:'0',//区分修改还是新建
         });
       },
+      geSystem(val){
+        //变更项目PL\TL，体制明细自动变更方法
+        if (val != '' && val != null && val != undefined
+          && this.tableB.filter(tab => tab.name === val).length === 0)
+        {
+          //region scc add 9/26 PJ起案体制rank自动带出 from
+          let rankAnt = '';
+          let lst1 = getUserInfo(val);
+          if (lst1 && lst1.userinfo.rank) {
+            if(getDictionaryInfo(lst1.userinfo.rank)){
+              rankAnt = getDictionaryInfo(lst1.userinfo.rank).value1;
+            }
+          }
+          //endregion scc add 9/26 PJ起案体制rank自动带出 to
+          this.tableB.push({
+            projectsystem_id: '',
+            companyprojects_id: '',
+            type: '0',
+            number: '',
+            company: '',
+            name: val,
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: rankAnt,
+            reporter: '',
+            position: '',
+            admissiontime: '',
+            exittime: '',
+            rowindex: '',
+            updOrinsflg:'0',//区分修改还是新建
+          })
+        }
+      },
       getUserids(val) {
-        this.tableB[0].name = val;
+        this.geSystem(val);
+        // this.tableB[0].name = val;
         this.userlist = val;
         this.form.leaderid = val;
         let lst = getOrgInfoByUserId(val);
@@ -2575,9 +2608,8 @@
           this.errorLeader = '';
         }
       },
-
       getUserids1(val) {
-        this.tableB[1].name = val;
+        this.geSystem(val);
         this.userlist1 = val;
         this.form.managerid = val;
         if (
@@ -2806,12 +2838,6 @@
             });
             row.reporter = null;
           }
-          let params = {
-            user_id: row.name,
-            reporter: row.reporter,
-          };
-          let resultAnt = this.getReport(params);
-
         }
         //报告者修改 不能报告给本人 1122 ztc to
       },
@@ -3128,7 +3154,7 @@
               //add ccm 20210825 体制报告者在体制中是否存在 fr
               if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
               {
-                if (this.tableB.filter(item => item.name === this.tableB[i].reporter).length === 0)
+                if (this.tableB[i].name === this.tableB[i].reporter)
                 {
                   Message({
                     message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
@@ -3137,9 +3163,20 @@
                     duration: 5 * 1000,
                   });
                   this.activeName = 'third';
+                  this.activeName2 = 'first';
                   this.loading = false;
                   return;
                 }
+              }else{
+                Message({
+                  message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'third';
+                this.activeName2 = 'first';
+                this.loading = false;
+                return;
               }
               // update gbb 20210316 NT_PFANS_20210305_BUG_123 体制人员重复check end
               if (moment(this.tableB[i].admissiontime).format('YYYY-MM-DD') > moment(this.tableB[i].exittime).format('YYYY-MM-DD')) {
@@ -3208,10 +3245,11 @@
 
             for (let i = 0; i < this.tableC.length; i++) {
               //add ccm 20210825 体制报告者在体制中是否存在 fr
-              if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
-              {
-                if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
+              if(this.tableC[i].name != null && this.tableC[i].name != ''){
+                if(this.tableC[i].reporter!=null && this.tableC[i].reporter!='')
                 {
+                  // if (this.tableB.filter(item => item.name === this.tableC[i].reporter).length === 0)
+                  // {
                   Message({
                     message: this.$t(this.tableC[i].name_id || '')
                       + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
@@ -3219,6 +3257,19 @@
                     duration: 5 * 1000,
                   });
                   this.activeName = 'third';
+                  this.activeName2 = 'second';
+                  this.loading = false;
+                  return;
+                  // }
+                }
+                else{
+                  Message({
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'third';
+                  this.activeName2 = 'second';
                   this.loading = false;
                   return;
                 }
