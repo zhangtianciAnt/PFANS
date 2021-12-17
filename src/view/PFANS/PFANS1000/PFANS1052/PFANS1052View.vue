@@ -251,7 +251,7 @@
 <!--                prop="rankdifferentfourth">-->
 <!--              </el-table-column>-->
               <el-table-column
-                :label = "$t('label.PFANS1051OFYEAR')">
+                :label = "$t('label.PFANS1052OFYEAR')">
                 <el-table-column
                   :label = "$t('label.PFANS1052FORMVIEW_WORKDIFFERNT')"
                   prop="workdifferentofyear">
