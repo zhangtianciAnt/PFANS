@@ -2776,38 +2776,48 @@
             });
             row.reporter = null;
           }
-          let params = {
-            user_id: row.name,
-            reporter: row.reporter,
-        };
-          let resultAnt = this.getReport(params);
-
         }
         //报告者修改 不能报告给本人 1122 ztc to
         //upd ccm 20210817 PJ起案体制选择报告者进行体制内人员check to
       },
-      //添加社内报告者互相报告check ztc fr
-      getReport(params){
-        return new Promise((resolve) => {
-          this.$store
-            .dispatch('PFANS5001Store/getReport',params)
-            .then(response => {
-              resolve(response);
-            });
-        })
-      },
-      //添加社内报告者互相报告check ztc to
       getUseridsInput(val, row) {
         row.name = val;
       },
-      getUserids(val) {
-        this.tableB[0].name = val;
-        //region scc add 9/26 PJ起案体制rank自动带出 from
-        let lst1 = getUserInfo(this.tableB[0].name);
-        if (lst1.userinfo.rank) {
-          this.tableB[0].rank = getDictionaryInfo(lst1.userinfo.rank).value1;
+      geSystem(val){
+        //变更项目PL\TL，体制明细自动变更方法
+        if (val != '' && val != null && val != undefined
+          && this.tableB.filter(tab => tab.name === val).length === 0)
+        {
+          //region scc add 9/26 PJ起案体制rank自动带出 from
+          let rankAnt = '';
+          let lst1 = getUserInfo(val);
+          if (lst1 && lst1.userinfo.rank) {
+            if(getDictionaryInfo(lst1.userinfo.rank)){
+              rankAnt = getDictionaryInfo(lst1.userinfo.rank).value1;
+            }
+          }
+          //endregion scc add 9/26 PJ起案体制rank自动带出 to
+          this.tableB.push({
+            projectsystem_id: '',
+            companyprojects_id: '',
+            type: '0',
+            number: '',
+            company: '',
+            name: val,
+            //add_qhr_20210810 添加rank、报告者字段
+            rank: rankAnt,
+            reporter: '',
+            position: '',
+            admissiontime: '',
+            exittime: '',
+            rowindex: '',
+            updOrinsflg:'0',//区分修改还是新建
+          })
         }
-        //endregion scc add 9/26 PJ起案体制rank自动带出 to
+      },
+      getUserids(val) {
+        this.geSystem(val);
+        // this.tableB[0].name = val;
         this.userlist = val;
         this.form.leaderid = val;
         let lst = getOrgInfoByUserId(val);
@@ -2827,8 +2837,9 @@
       },
 
       getUserids1(val) {
-        this.tableB[1].name = val;
-        this.tableB[1].position = 'TL';
+        this.geSystem(val);
+        // this.tableB[1].name = val;
+        // this.tableB[1].position = 'TL';
         this.userlist1 = val;
         this.form.managerid = val;
         if (
@@ -3768,13 +3779,15 @@
             for (let i = 0; i < this.tableB.length; i++) {
 
               //region scc add scc 9/27 项目体制社内氏名非空验证 from
-              if(!this.tableB[i].name && (this.tableB[i].position || this.tableB[i].reporter || this.tableB[i].admissiontime || this.tableB[i].exittime)){
+              if(!this.tableB[i].name
+                && (this.tableB[i].position || this.tableB[i].reporter || this.tableB[i].admissiontime || this.tableB[i].exittime)){
                 Message({
                   message: this.$t('label.PFANS5001FORMVIEW_SNAME'),
                   type: 'error',
                   duration: 5 * 1000,
                 });
                 this.activeName = 'fourth';
+                this.activeName = 'first';
                 this.loading = false;
                 return;
               }
@@ -3812,10 +3825,21 @@
                     duration: 5 * 1000,
                   });
                   this.activeName = 'fourth';
+                  this.activeName2 = 'first';
                   this.loading = false;
                   return;
                 }
                 //报告者修改 不能报告给本人 1122 ztc to
+              }else{
+                Message({
+                  message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
+                  type: 'error',
+                  duration: 5 * 1000,
+                });
+                this.activeName = 'fourth';
+                this.activeName2 = 'first';
+                this.loading = false;
+                return;
               }
               //add ccm 20210825 体制报告者在体制中是否存在 to
               //add_fjl 体制人员重复check end
@@ -3903,21 +3927,37 @@
             }
 
             for (let i = 0; i < this.tableC.length; i++) {
-
               //region scc add scc 9/27 项目体制社外氏名非空验证 from
-              if(!this.tableC[i].name && (this.tableC[i].position || this.tableC[i].reporter || this.tableC[i].admissiontime || this.tableC[i].exittime)){
-                Message({
-                  message: this.$t('label.PFANS5001FORMVIEW_SNAME'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.activeName = 'fourth';
-                this.loading = false;
-                return;
+              if(this.tableC[i].name != null && this.tableC[i].name != undefined && this.tableC[i].name != ''){
+                if(this.tableC[i].reporter == null || this.tableC[i].reporter =='')
+                {
+                  Message({
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'fourth';
+                  this.activeName2 = 'second';
+                  this.loading = false;
+                  return;
+                }
+                if(this.tableC[i].position || this.tableC[i].reporter
+                  || this.tableC[i].admissiontime || this.tableC[i].exittime){
+                  Message({
+                    message: this.$t('label.PFANS5001FORMVIEW_SNAME'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  this.activeName = 'fourth';
+                  this.activeName2 = 'second';
+                  this.loading = false;
+                  return;
+                }
               }
               //endregion scc add scc 9/27 项目体制社外氏名非空验证 to
               // 外协员工入场时间&离场时间必须Check
-              if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === '' || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
+              if ((!this.tableC[i].admissiontime || this.tableC[i].admissiontime === ''
+                || !this.tableC[i].exittime || this.tableC[i].exittime === '') && this.tableC[i].name !== '') {
                 error11 = error11 + 1;
                 break;
               }

@@ -617,6 +617,7 @@
     getUserInfo,
     uploadUrl,
     getOrgInformation,
+    accAdd,
   } from '@/utils/customize';
   import moment from 'moment';
   import {quillEditor} from 'vue-quill-editor';
@@ -768,6 +769,7 @@
           // businessplantype: '',
           classificationtype: '',
           businessplanbalance: 0,
+          initalMoney: '0',
           gist: '',
           purchassupport: '',
           numbers: '',
@@ -1011,6 +1013,7 @@
           .then(response => {
             if (response) {
               this.form = response.judgement;
+              this.initalMoney = this.form.money
               //历史决裁
               this.tableF = response.judgementLoAntList;
               if (this.tableF) {
@@ -1972,7 +1975,7 @@
       },
       checkMess(busVal){
         return new Promise((resolve, reject) => {
-          if(Number(this.form.money) > Number(busVal)){
+          if(Number(this.form.money) > accAdd(Number(busVal),Number(this.initalMoney))){
             Message({
               message: this.$t('label.PFANS1036FORMVIEW_SSJHN'),
               type: 'info',

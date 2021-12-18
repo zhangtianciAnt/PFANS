@@ -321,11 +321,23 @@
                 </template>
               </el-table-column>
               <!--              人件费-->
+<!--              <el-table-column-->
+<!--                prop="summerplanpc"-->
+<!--                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"-->
+<!--                width="180"-->
+<!--                v-if="this.$route.params.type === 0 ? true : false"-->
+<!--                align="center">-->
+<!--              </el-table-column>-->
               <el-table-column
                 prop="summerplanpc"
                 :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
                 width="180"
-                v-if="this.$route.params.type === 0 ? true : false"
+                v-if="false"
+                align="center">
+              </el-table-column>
+              <el-table-column
+                :label="$t('label.PFANS2036VIEW_APTOJUCOST')"
+                width="180"
                 align="center">
               </el-table-column>
               <!--              单价-->

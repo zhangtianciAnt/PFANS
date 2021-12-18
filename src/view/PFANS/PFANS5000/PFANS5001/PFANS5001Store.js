@@ -265,23 +265,6 @@ const PFANS5001Store = {
       })
     },
     //endregion scc add 根据合同号，获取构外数据 to
-
-    //添加社内报告者互相报告check ztc fr
-    getReport({commit}, data) {
-      return new Promise((resolve, reject) => {
-        getReport(data).then(response => {
-          if (response.code === 0) {
-            resolve(response.data);
-          } else {
-            reject(response.message)
-          }
-        }).catch(error => {
-          reject(error);
-          //添加社内报告者互相报告check ztc to
-        })
-      })
-    },
-
   }
 };
 

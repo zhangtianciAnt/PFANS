@@ -9,6 +9,7 @@ import {
   disclickUpdateStates,
   selectAbnomalandOvertime,
   selectAbnomaling,
+  exportReported,
   getabnormalByuseridandDate
 } from './PFANS2010Api'
 
@@ -187,8 +188,22 @@ const PFANS2010Store = {
           reject(error);
         })
       })
-    }
+    },
     //add ccm 0812 考情管理查看当天的异常申请数据
+    exportReported({commit}, data) {
+      return new Promise((resolve, reject) => {
+        exportReported(data).then(response => {
+          if ( response.type.indexOf("json") == -1 ) {
+            resolve(response)
+          } else {
+            reject(response.message)
+          }
+        }).catch(error => {
+          reject(error);
+        })
+      })
+    },
+
   }
 }
 
