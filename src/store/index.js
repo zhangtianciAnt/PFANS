@@ -7,6 +7,7 @@ import global from './global'
 import orgTreeStore from '../view/orgTree/orgTreeStore'
 import registerStore from '../components/EasyRegister/registerStore'
 import usersStore from '../view/users/usersStore'
+import scaleStore from '../view/users/scaleStore'
 import roleStore from '../view/role/roleStore'
 import personalCenterStore from '../view/personalCenter/personalCenterStore'
 import tableStore from '../components/EasyNormalTable/tableStore'
@@ -54,6 +55,7 @@ import PFANS1049Store from '../view/PFANS/PFANS1000/PFANS1049/PFANS1049Store'
 import PFANS1050Store from '../view/PFANS/PFANS1000/PFANS1050/PFANS1050Store'
 import PFANS1051Store from '../view/PFANS/PFANS1000/PFANS1051/PFANS1051Store'
 import PFANS1052Store from '../view/PFANS/PFANS1000/PFANS1052/PFANS1052Store'
+import PFANS1053Store from '../view/PFANS/PFANS1000/PFANS1053/PFANS1053Store'
 import PFANS2001Store from '../view/PFANS/PFANS2000/PFANS2001/PFANS2001Store'
 import PFANS2002Store from '../view/PFANS/PFANS2000/PFANS2002/PFANS2002Store'
 import PFANS2003Store from '../view/PFANS/PFANS2000/PFANS2003/PFANS2003Store'
@@ -102,6 +104,7 @@ import PFANS6007Store from '../view/PFANS/PFANS6000/PFANS6007/PFANS6007Store'
 import PFANS6008Store from '../view/PFANS/PFANS6000/PFANS6008/PFANS6008Store'
 import PFANS6009Store from '../view/PFANS/PFANS6000/PFANS6009/PFANS6009Store'
 import PFANS6011Store from '../view/PFANS/PFANS6000/PFANS6011/PFANS6011Store'
+import PFANS6012Store from '../view/PFANS/PFANS6000/PFANS6012/PFANS6012Store'
 import PFANS5008Store from '../view/PFANS/PFANS5000/PFANS5008/PFANS5008Store'
 import PFANS8001Store from '../view/PFANS/PFANS8000/PFANS8001/PFANS8001Store'
 import PFANS8007Store from '../view/PFANS/PFANS8000/PFANS8007/PFANS8007Store'
@@ -119,6 +122,7 @@ const store = new Vuex.Store({
     orgTreeStore,
     registerStore,
     usersStore,
+    scaleStore,
     roleStore,
     personalCenterStore,
     tableStore,
@@ -165,6 +169,7 @@ const store = new Vuex.Store({
     PFANS1050Store,
     PFANS1051Store,
     PFANS1052Store,
+    PFANS1053Store,
     PFANS2001Store,
     PFANS2002Store,
     PFANS2003Store,
@@ -214,6 +219,7 @@ const store = new Vuex.Store({
     PFANS6008Store,
     PFANS6009Store,
     PFANS6011Store,
+    PFANS6012Store,
     PFANS8001Store,
     PFANS8007Store,
     PFANS8008Store,

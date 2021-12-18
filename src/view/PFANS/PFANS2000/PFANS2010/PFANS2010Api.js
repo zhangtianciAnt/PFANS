@@ -1,4 +1,5 @@
-import request from '../../../../utils/request'
+import request from '../../../../utils/request';
+import requestDownload from '../../../../utils/requestExcel';
 
 //获取列表数据
 export function getlist(data) {
@@ -105,3 +106,12 @@ export function getabnormalByuseridandDate(data) {
   })
 }
 //add ccm 0812 考情管理查看当天的异常申请数据
+
+export function exportReported(data) {
+  return request({
+    url: 'attendance/exportReported',
+    method: 'post',
+    params: data,
+    responseType: 'blob'
+  })
+}

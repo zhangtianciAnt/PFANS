@@ -223,6 +223,24 @@
             rowClick(row) {
                 this.user_id = row.rowid;
             },
+            download(data, filename) {
+              if ('msSaveOrOpenBlob' in navigator) {
+                window.navigator.msSaveOrOpenBlob(
+                  new Blob([data], {type: 'application/vnd.ms-excel;charset=utf-8'}),
+                  decodeURI(filename) + '.xlsx',
+                );
+              } else {
+                var blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8'}); //application/vnd.openxmlformats-officedocument.spreadsheetml.sheet这里表示xlsx类型
+                var downloadElement = document.createElement('a');
+                var href = window.URL.createObjectURL(blob); //创建下载的链接
+                downloadElement.href = href;
+                downloadElement.download = decodeURI(filename) + '.xlsx'; //下载后文件名
+                document.body.appendChild(downloadElement);
+                downloadElement.click(); //点击下载
+                document.body.removeChild(downloadElement); //下载完成移除元素
+                window.URL.revokeObjectURL(href); //释放掉blob对象
+              }
+            },
             buttonClick(val) {
                 this.$store.commit('global/SET_HISTORYURL', this.$route.path);
                 if (val === 'view') {
@@ -246,11 +264,23 @@
                     })
                 }
                 //考勤导出 1125 ztc fr
-                else if (val === 'export')
-                {
-                  let winopen =  'http://10.194.144.208:8085/jmreport/view/a64c32f1d6e64b56926c2728c74638bd?';
-                  winopen = winopen + 'year=' + this.montvalue.substring(0,4) + '&month=' + this.montvalue.substring(5,7)
-                  window.open(winopen,'_blank');
+                else if (val === 'export') {
+                  let params = {
+                    year: this.montvalue.substring(0, 4),
+                    month: this.montvalue.substring(5, 7)
+                  }
+                  this.$store
+                    .dispatch('PFANS2010Store/exportReported', params)
+                    .then(response => {
+                      this.download(response, '考勤管理');
+                    }).catch(error => {
+                    this.$message.error({
+                      message: error,
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.loading = false;
+                  });
                 }
               //考勤导出 1125 ztc to
             },

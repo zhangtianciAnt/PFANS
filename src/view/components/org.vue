@@ -79,7 +79,6 @@
       }
       this.checkedList = this.orglistids;
 
-
       if (this.orgtype === '1') {
         this.defaultProps.disabled = function (data, node) {
           if (node.data.type === '1') {

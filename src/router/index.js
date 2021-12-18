@@ -20,6 +20,8 @@ import usersView from '@/view/users/usersView.vue'
 import usersFormView from '@/view/users/usersFormView.vue'
 import usersView2 from '@/view/users/usersView2.vue'
 import usersFormView2 from '@/view/users/usersFormView2.vue'
+import personScaleView from '@/view/users/personScaleView.vue'
+import personScaleFormView from '@/view/users/personScaleFormView.vue'
 import usersToRoleView from '@/view/users/usersToRoleView.vue'
 import { getToken } from '@/utils/auth'
 import workflowView from '@/view/workflow/workflowView.vue'
@@ -108,6 +110,8 @@ import PFANS1049FormView from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049FormVie
 import PFANS1050View from '@/view/PFANS/PFANS1000/PFANS1050/PFANS1050View.vue'
 import PFANS1051View from '@/view/PFANS/PFANS1000/PFANS1051/PFANS1051View.vue'
 import PFANS1052View from '@/view/PFANS/PFANS1000/PFANS1052/PFANS1052View.vue'
+import PFANS1053View from '@/view/PFANS/PFANS1000/PFANS1053/PFANS1053View.vue'
+import PFANS1054View from '@/view/PFANS/PFANS1000/PFANS1054/PFANS1054View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -218,6 +222,7 @@ import PFANS6009View from '@/view/PFANS/PFANS6000/PFANS6009/PFANS6009View.vue'
 import PFANS6010View from '@/view/PFANS/PFANS6000/PFANS6010/PFANS6010View.vue'
 import PFANS6010FormView from '@/view/PFANS/PFANS6000/PFANS6010/PFANS6010FormView.vue'
 import PFANS6011View from '@/view/PFANS/PFANS6000/PFANS6011/PFANS6011View.vue'
+import PFANS6012View from '@/view/PFANS/PFANS6000/PFANS6012/PFANS6012View.vue'
 import PFANS8001View from '@/view/PFANS/PFANS8000/PFANS8001/PFANS8001View.vue'
 import PFANS8002View from '@/view/PFANS/PFANS8000/PFANS8002/PFANS8002View.vue'
 import PFANS8003View from '@/view/PFANS/PFANS8000/PFANS8003/PFANS8003View.vue'
@@ -351,6 +356,16 @@ const routes = [
         path: '/OnlyusersFormView',
         name: 'OnlyusersFormView',
         component: usersFormView2
+      },
+      {
+        path: '/personScaleView',
+        name: 'personScaleView',
+        component: personScaleView
+      },
+      {
+        path: '/personScaleFormView',
+        name: 'personScaleFormView',
+        component: personScaleFormView
       },
       {
         path: '/usersFormViewByPerson',
@@ -794,6 +809,16 @@ const routes = [
         path: '/PFANS1051View',
         name: 'PFANS1051View',
         component: PFANS1051View,
+      },
+      {
+        path: '/PFANS1053View',
+        name: 'PFANS1053View',
+        component: PFANS1053View
+      },
+      {
+        path: '/PFANS1054View',
+        name: 'PFANS1054View',
+        component: PFANS1054View
       },
       {
         path: '/PFANS2000View',
@@ -1348,6 +1373,11 @@ const routes = [
         path: '/PFANS6011View',
         name: 'PFANS6011View',
         component: PFANS6011View
+      },
+      {
+        path: '/PFANS6012View',
+        name: 'PFANS6012View',
+        component: PFANS6012View
       },
       {
         path: '/PFANS8001View',
