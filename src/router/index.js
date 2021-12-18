@@ -110,8 +110,6 @@ import PFANS1049FormView from '@/view/PFANS/PFANS1000/PFANS1049/PFANS1049FormVie
 import PFANS1050View from '@/view/PFANS/PFANS1000/PFANS1050/PFANS1050View.vue'
 import PFANS1051View from '@/view/PFANS/PFANS1000/PFANS1051/PFANS1051View.vue'
 import PFANS1052View from '@/view/PFANS/PFANS1000/PFANS1052/PFANS1052View.vue'
-import PFANS1053View from '@/view/PFANS/PFANS1000/PFANS1053/PFANS1053View.vue'
-import PFANS1054View from '@/view/PFANS/PFANS1000/PFANS1054/PFANS1054View.vue'
 import PFANS2000View from '@/view/PFANS/PFANS2000/PFANS2000/PFANS2000View.vue'
 import PFANS2001View from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001View.vue'
 import PFANS2001FormView from '@/view/PFANS/PFANS2000/PFANS2001/PFANS2001FormView.vue'
@@ -809,16 +807,6 @@ const routes = [
         path: '/PFANS1051View',
         name: 'PFANS1051View',
         component: PFANS1051View,
-      },
-      {
-        path: '/PFANS1053View',
-        name: 'PFANS1053View',
-        component: PFANS1053View
-      },
-      {
-        path: '/PFANS1054View',
-        name: 'PFANS1054View',
-        component: PFANS1054View
       },
       {
         path: '/PFANS2000View',
