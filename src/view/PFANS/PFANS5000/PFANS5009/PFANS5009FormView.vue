@@ -2471,13 +2471,16 @@
                 //判断上述条件是否为真 scc
                 let e4 = (e1 || e2 || e3);
                 //提示错误信息 scc
-                if (e4 && this.tableD.length > 1) {
-                  Message({
-                    message: this.$t('normal.info_27'),
-                    type: 'error',
-                    duration: 5 * 1000,
-                  });
-                  this.tableD.splice(this.tableD.length - intercept, intercept);
+                if (e4) {
+                  if(this.tableD.length > 1){
+                    Message({
+                      message: this.$t('normal.info_27'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.tableD.splice(this.tableD.length - intercept, intercept);
+                  }
+                  this.linkageToDelete();//删除与合同无关联的数据
                   this.loading = false;
                   return;
                 }
