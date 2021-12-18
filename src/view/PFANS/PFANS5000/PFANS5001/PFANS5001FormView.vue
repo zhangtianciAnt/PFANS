@@ -3114,6 +3114,7 @@
             //获取选取的当前合同是否存在延止日期，如果存在，改变当前合同的截至日期为延止日期 scc
             let contradeta = response.contractapplication;
             //region scc add 选择合同时，获取合同号 from
+            this.contNum = '';
             this.contNum = contradeta[0].contractnumber;
             //endregion scc add 选择合同时，获取合同号 to
             //如果合同没有contractdate，取claimdatetime scc
@@ -3160,13 +3161,16 @@
                   //判断上述条件是否为真 scc
                   let e4 = (e1 || e2 || e3);
                   //提示错误信息 scc
-                  if (e4 && this.tableD.length > 1) {
-                    Message({
-                      message: this.$t('normal.info_27'),
-                      type: 'error',
-                      duration: 5 * 1000,
-                    });
-                    this.tableD.splice(this.tableD.length - intercept, intercept);
+                  if (e4) {
+                    if(this.tableD.length > 1){
+                      Message({
+                        message: this.$t('normal.info_27'),
+                        type: 'error',
+                        duration: 5 * 1000,
+                      });
+                      this.tableD.splice(this.tableD.length - intercept, intercept);
+                    }
+                    this.linkageToDelete();//删除与合同无关联的数据
                     this.loading = false;
                     return;
                     // break;
