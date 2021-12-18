@@ -1503,21 +1503,32 @@
         //ADD_FJL  修改人员预算编码
           // if (getOrgInfo(getOrgInfoByUserId(val).groupId)) {
           if(getOrgInfo(val)){
-              let butinfo = (getOrgInfo(val).encoding).substring(0,3);
+            if(getOrgInfo(val).encoding) {
+              let butinfo = (getOrgInfo(val).encoding).substring(0, 3);
               let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
               if (dic.length > 0) {
-                  for (let i = 0; i < dic.length; i++) {
-                      if (butinfo === (dic[i].value1).substring(0,3)) {
-                          this.options.push({
-                              lable: dic[i].value2 + '_' + dic[i].value3,
-                              value: dic[i].code,
-                          });
-                      }
+                for (let i = 0; i < dic.length; i++) {
+                  if (butinfo === (dic[i].value1).substring(0, 3)) {
+                    this.options.push({
+                      lable: dic[i].value2 + '_' + dic[i].value3,
+                      value: dic[i].code,
+                    });
                   }
+                }
               }
+            }
             if(this.options.length === 0) {
-              if (getOrgInfo(this.form.group_id)) {
-                let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
+              //region scc_upd_12/17 找不到预算编码，赋值人事总务coding from
+              let coding = "";//用于存放coding
+              if (!getOrgInfo(this.form.group_id) || !getOrgInfo(this.form.group_id).encoding) {//如果没有group,或者encoding为空--经营管理
+                coding = "100000";//人事总务coding
+              } else {
+                coding = getOrgInfo(this.form.group_id).encoding;//正常各部门coding
+              }
+              // if (getOrgInfo(this.form.group_id)) {
+              //   let butinfo = (getOrgInfo(this.form.group_id).encoding).substring(0, 3);
+              let butinfo = (coding).substring(0, 3);
+              //endregion scc scc_upd_12/17 找不到预算编码，赋值人事总务coding to
                 let dic = this.$store.getters.dictionaryList.filter(item => item.pcode === 'JY002');
                 if (dic.length > 0) {
                   for (let i = 0; i < dic.length; i++) {
@@ -1529,7 +1540,7 @@
                     }
                   }
                 }
-              }
+              // }
             }
           }
         //ADD_FJL  修改人员预算编码
