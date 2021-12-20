@@ -132,7 +132,7 @@
         loginForm: {
           account: "",
           password: "",
-          version: 22,
+          version: 21,
         },
         loginRules: {
           account: [
