@@ -255,6 +255,9 @@
     },
     mounted() {
       this.init();
+      // region  add  ml  211217  数据转结显隐显示  from
+      this.getdate();
+      // endregion  add  ml  211217  数据转结显隐显示  to
     },
     methods: {
       // region  add  ml  211217  数据转结显隐显示  from
