@@ -2037,10 +2037,11 @@ export default {
               //region scc upd 判断人民币支出 + 外币折算人民币是否大于20000，以此决定流程 from
               // this.form.moneys = Math.round((this.form.rmbexpenditure + this.form.tormb) * 100) / 100;
               let moneytotal = Math.round((Number(this.form.rmbexpenditure || 0) + Number(this.form.tormb || 0)) * 100) / 100;
-              if (role == '1') {
-                //总经理
-                this.workflowCode = 'W0100';
-              } else {
+              //  region  update  ml  211221  删除总经理流程  from
+              // if (role == '1') {
+              //   //总经理
+              //   this.workflowCode = 'W0100';
+              // } else {
                 if (moneytotal >= 20000) {
                   // if (role == '2' || role == '3') { //GM Center
                   //   this.workflowCode = 'W0115';//新流程
@@ -2054,7 +2055,8 @@ export default {
                   this.workflowCode = 'W0016';
                   // }
                 }
-              }
+              // }
+              //  endregion  update  ml  211221  删除总经理流程  to
               //endregion scc upd 判断人民币支出 + 外币折算人民币是否大于20000，以此决定流程 to
               if (this.disable) {
                 if (this.form.paymentmethod === 'PJ004001') {
