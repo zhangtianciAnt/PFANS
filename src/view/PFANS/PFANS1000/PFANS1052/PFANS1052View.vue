@@ -772,18 +772,34 @@ export default {
     },
     buttonClick(val) {
       //region scc 21/9/1 upd 积木报表 from
+      // if (val === 'export') {
+      //   if (this.tableData.length === 0) {
+      //     Message({
+      //       message: this.$t('normal.info_16'),
+      //       type: 'info',
+      //       duration: 2 * 1000,
+      //     });
+      //     return;
+      //   }
+      //   let winopen =  'http://localhost:8085/jmreport/view/592585397002903552?';
+      //   winopen = winopen + 'year=' + this.refform.year + '&group_id=' + this.refform.group_id
+      //   window.open(winopen,'_blank');
+      // }
       if (val === 'export') {
-        if (this.tableData.length === 0) {
-          Message({
-            message: this.$t('normal.info_16'),
-            type: 'info',
-            duration: 2 * 1000,
+        this.loading = true;
+        this.$store
+          .dispatch('PFANS1052Store/downloadExcel', {years: this.refform.year,depart:this.refform.group_id})
+          .then(response => {
+            this.loading = false;
+          })
+          .catch(error => {
+            this.$message.error({
+              message: error,
+              type: 'error',
+              duration: 5 * 1000,
+            });
+            this.loading = false;
           });
-          return;
-        }
-        let winopen =  'http://localhost:8085/jmreport/view/592585397002903552?';
-        winopen = winopen + 'year=' + this.refform.year + '&group_id=' + this.refform.group_id
-        window.open(winopen,'_blank');
       }
       //endregion scc 21/9/1 upd 积木报表 to
     },
