@@ -3817,13 +3817,27 @@
               // }
               // 可以进行重复选择，只需要做进组退组时间不重复的check ztc to
               //add ccm 20210825 体制报告者在体制中是否存在 fr
-              if(this.tableB[i].reporter!=null && this.tableB[i].reporter!='')
-              {
-                //报告者修改 不能报告给本人 1122 ztc fr
-                if(this.tableB[i].name === this.tableB[i].reporter){
+              if (!this.tableB[i].name != null && this.tableB[i].name != '' && this.tableB[i].name != undefined){
+                if(this.tableB[i].reporter != null && this.tableB[i].reporter != '')
+                {
+                  //报告者修改 不能报告给本人 1122 ztc fr
+                  if(this.tableB[i].name === this.tableB[i].reporter){
+                    Message({
+                      message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
+                        + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                      type: 'error',
+                      duration: 5 * 1000,
+                    });
+                    this.activeName = 'fourth';
+                    this.activeName2 = 'first';
+                    this.loading = false;
+                    return;
+                  }
+                  //报告者修改 不能报告给本人 1122 ztc to
+                }
+                else{
                   Message({
-                    message: this.$t(this.tableB[i].name == null || this.tableB[i].name == '' ? '': getUserInfo(this.tableB[i].name).userinfo.customername)
-                      + this.$t(' ') + this.$t('label.PFANS5001FORMVIEW_REPORTERERROR'),
+                    message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -3832,17 +3846,6 @@
                   this.loading = false;
                   return;
                 }
-                //报告者修改 不能报告给本人 1122 ztc to
-              }else{
-                Message({
-                  message: this.$t('normal.error_08') + this.$t('label.PFANS5001FORMVIEW_REPORTER'),
-                  type: 'error',
-                  duration: 5 * 1000,
-                });
-                this.activeName = 'fourth';
-                this.activeName2 = 'first';
-                this.loading = false;
-                return;
               }
               //add ccm 20210825 体制报告者在体制中是否存在 to
               //add_fjl 体制人员重复check end
@@ -3944,10 +3947,10 @@
                   this.loading = false;
                   return;
                 }
-                if(this.tableC[i].position || this.tableC[i].reporter
-                  || this.tableC[i].admissiontime || this.tableC[i].exittime){
+                if(!(this.tableC[i].position || this.tableC[i].reporter
+                  || this.tableC[i].admissiontime || this.tableC[i].exittime)){
                   Message({
-                    message: this.$t('label.PFANS5001FORMVIEW_SNAME'),
+                    message: this.$t('label.PFANS5001FORMVIEW_SOUTINFO'),
                     type: 'error',
                     duration: 5 * 1000,
                   });
@@ -4090,6 +4093,7 @@
               });
             } else if (error8 != 0) {
               this.activeName = 'fourth';
+              this.activeName2 = 'first';
               this.loading = false;
               Message({
                 message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORN'),
@@ -4098,6 +4102,7 @@
               });
             } else if (error10 != 0) {
               this.activeName = 'fourth';
+              this.activeName2 = 'first';
               Message({
                 message: this.$t('normal.error_pfans50011'),
                 type: 'error',
@@ -4106,6 +4111,7 @@
               this.loading = false;
             } else if (error11 != 0) {
               this.activeName = 'fourth';
+              this.activeName2 = 'second';
               Message({
                 message: this.$t('normal.error_pfans5001'),
                 type: 'error',
@@ -4114,6 +4120,7 @@
               this.loading = false;
             } else if (error9 != 0) {
               this.activeName = 'fourth';
+              this.activeName2 = 'second';
               this.loading = false;
               Message({
                 message: this.$t('label.PFANS5001FORMVIEW_CHECKDATAERRORW'),
