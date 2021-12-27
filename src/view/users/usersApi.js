@@ -112,3 +112,12 @@ export function checkPassword(data) {
     params: data
   })
 }
+//  region  add  ml  211224  密码重置  from
+export function resetPassword(data) {
+  return request({
+    url: 'user/resetPassword',
+    method: 'post',
+    data: data
+  })
+}
+//  endregion  add  ml  211224  密码重置  to

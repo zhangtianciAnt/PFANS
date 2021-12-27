@@ -61,7 +61,7 @@
             @change="filterInfo"
           ></el-date-picker>
         </EasyNormalTable>
-        <el-dialog :visible.sync="daoru"  @close="refresh"  width="50%">
+        <el-dialog :visible.sync="daoru" @close="refresh" width="50%">
           <div>
             <div style="margin-top: 1rem;margin-left: 28%">
               <el-upload
@@ -76,16 +76,16 @@
                 multiple
               >
                 <i class="el-icon-upload"></i>
-                <div>{{$t('label.PFANS2005FORMVIEW_MBYQ')}}</div>
+                <div>{{ $t('label.PFANS2005FORMVIEW_MBYQ') }}</div>
               </el-upload>
             </div>
             <el-row>
-              <span v-if="this.resultShow">{{$t('label.PFANS2005FORMVIEW_CG')}}{{this.successCount}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span v-if="this.resultShow">{{ $t('label.PFANS2005FORMVIEW_CG') }}{{ this.successCount }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
               <span
                 v-if="this.resultShow"
-              >{{$t('label.PFANS2005FORMVIEW_SB')}}{{this.errorCount}}</span>
+              >{{ $t('label.PFANS2005FORMVIEW_SB') }}{{ this.errorCount }}</span>
             </el-row>
-            <span v-if="this.Message">{{this.cuowu}}</span>
+            <span v-if="this.Message">{{ this.cuowu }}</span>
             <div v-if="this.result">
               <el-table :data="message">
                 <el-table-column
@@ -109,7 +109,7 @@
 
             <el-table-column :label="$t('label.operation')">
               <template slot-scope="scope">
-                <el-button size="mini" @click="handleDownload(scope.row)">{{$t('button.download2')}}</el-button>
+                <el-button size="mini" @click="handleDownload(scope.row)">{{ $t('button.download2') }}</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -120,12 +120,12 @@
 </template>
 
 <script>
-import { getToken } from "@/utils/auth";
+import {getToken} from "@/utils/auth";
 import EasyTree from "@/components/EasyTree";
 import EasyButtonBar from "@/components/EasyButtonBar";
 import EasyNormalTable from "@/components/EasyNormalTable";
-import { parseTime, getDictionaryInfo,Decrypt } from "@/utils/customize";
-import { Message } from "element-ui";
+import {Decrypt, getDictionaryInfo, parseTime} from "@/utils/customize";
+import {Message} from "element-ui";
 import moment from "moment";
 
 export default {
@@ -137,6 +137,10 @@ export default {
   },
   data() {
     return {
+      //  region  add  ml  211224  密码重置  from
+      userid: '',
+      name: '',
+      //  endregion  add  ml  211224  密码重置  to
       rowid: '',
       _tableList: [],
       TABLEList: [],
@@ -150,10 +154,10 @@ export default {
       successCount: 0,
       errorCount: 0,
       pop_download: false,
-      authHeader: { "x-auth-token": getToken() },
+      authHeader: {"x-auth-token": getToken()},
       postAction: process.env.BASE_API + "/user/importUser",
       resultShow: false,
-      message: [{ hang: "", error: "" }],
+      message: [{hang: "", error: ""}],
       Message: false,
       addActionUrl: "",
       result: false,
@@ -212,13 +216,13 @@ export default {
           fix: false,
           filter: false
         },
-          {
-              code: "post",
-              label: "label.PFANSUSERVIEW_POST",
-              width: 120,
-              fix: false,
-              filter: true
-          },
+        {
+          code: "post",
+          label: "label.PFANSUSERVIEW_POST",
+          width: 120,
+          fix: false,
+          filter: true
+        },
         {
           code: "rank",
           label: "label.PFANSUSERVIEW_RANK",
@@ -307,7 +311,7 @@ export default {
           name: "menu.PFANS1021",
           disabled: false,
           icon: "el-icon-plus"
-        }
+        },
         //add-ws-7/27-禅道298任务
       ],
       //add-ws-7/27-禅道298任务
@@ -317,7 +321,7 @@ export default {
       loading: false,
       currentNodeData: {},
       //ADD-LXX
-        enterOrleave: "0", //默认在职的筛选
+      enterOrleave: "0", //默认在职的筛选
       optionsForel: [
         {
           value: "0",
@@ -333,8 +337,8 @@ export default {
   },
   methods: {
     refresh() {
-        this.getInitData();
-        this.getDataList();
+      this.getInitData();
+      this.getDataList();
     },
     //ADD-LXX
     filterInfo() {
@@ -342,7 +346,7 @@ export default {
       if (this.TABLEList.length > 0) {
         //进行在职离职筛选
         if (this.enterOrleave !== "") {
-            //离职筛选
+          //离职筛选
           if (this.enterOrleave === "0") {
             if (this.workinghours) {
               this.working = this.getworkinghours(this.workinghours);
@@ -356,53 +360,48 @@ export default {
                     && moment(item.enterday).format('YYYY-MM-DD')
                     <= moment(this.endTime).format('YYYY-MM-DD')
                     && (item.resignation_date === null
-                    || item.resignation_date === ""
-                    ||moment(item.resignation_date).format('YYYY-MM-DD')
-                    >=moment(new Date()).format('YYYY-MM-DD'))
+                      || item.resignation_date === ""
+                      || moment(item.resignation_date).format('YYYY-MM-DD')
+                      >= moment(new Date()).format('YYYY-MM-DD'))
                   )
                 });
               }
-            }
-            else {
+            } else {
               this.tableList = this.tableList.filter(item => {
                 return item.resignation_date === null
                   || item.resignation_date === ""
-                  ||moment(item.resignation_date).format('YYYY-MM-DD')
-                  >=moment(new Date()).format('YYYY-MM-DD')
+                  || moment(item.resignation_date).format('YYYY-MM-DD')
+                  >= moment(new Date()).format('YYYY-MM-DD')
               });
             }
-          }
-          else if (this.enterOrleave === "1"){
-            if (this.workinghours)
-            {
+          } else if (this.enterOrleave === "1") {
+            if (this.workinghours) {
               this.working = this.getworkinghours(this.workinghours);
               this.starttime = this.working.substring(0, 10),
                 this.endTime = this.working.substring(13, 23);
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
-                  return(( moment(this.starttime).format('YYYY-MM-DD')
-                    <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                    &&  moment(item.resignation_date).format('YYYY-MM-DD')
+                  return ((moment(this.starttime).format('YYYY-MM-DD')
+                    <= moment(item.resignation_date).format('YYYY-MM-DD')
+                    && moment(item.resignation_date).format('YYYY-MM-DD')
                     <= moment(this.endTime).format('YYYY-MM-DD')
                     && moment(item.resignation_date).format('YYYY-MM-DD')
-                    <moment(new Date()).format('YYYY-MM-DD')))
+                    < moment(new Date()).format('YYYY-MM-DD')))
                     // //待离职
-                    ||  moment(this.starttime).format('YYYY-MM-DD')
-                    <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                    &&  moment(item.resignation_date).format('YYYY-MM-DD')
+                    || moment(this.starttime).format('YYYY-MM-DD')
+                    <= moment(item.resignation_date).format('YYYY-MM-DD')
+                    && moment(item.resignation_date).format('YYYY-MM-DD')
                     <= moment(this.endTime).format('YYYY-MM-DD')
                     && moment(item.resignation_date).format('YYYY-MM-DD')
-                    >moment(new Date()).format('YYYY-MM-DD')
+                    > moment(new Date()).format('YYYY-MM-DD')
                 });
               }
-            }
-            else
-            {
+            } else {
               this.tableList = this.tableList.filter(item => {
                 return item.resignation_date !== null
                   || item.resignation_date !== ""
                   && moment(item.resignation_date).format('YYYY-MM-DD')
-                  <moment(new Date()).format('YYYY-MM-DD')
+                  < moment(new Date()).format('YYYY-MM-DD')
                 // //待离职
                 // || moment(item.resignation_date).format('YYYY-MM-DD')
                 // >=moment(new Date()).format('YYYY-MM-DD')
@@ -410,49 +409,47 @@ export default {
             }
           }
           //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-start
-          else{
+          else {
             if (this.workinghours) {
               this.working = this.getworkinghours(this.workinghours);
               this.starttime = this.working.substring(0, 10),
                 this.endTime = this.working.substring(13, 23);
               if (this.starttime != "" || this.endTime != "") {
                 this.tableList = this.tableList.filter(item => {
-                  return(
-                    ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD')
-                      &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
-                      && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD') )
+                  return (
+                    (moment(this.starttime).format('YYYY-MM-DD') <= moment(item.resignation_date).format('YYYY-MM-DD')
+                      && moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')
+                      && moment(item.resignation_date).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD'))
                     && (item.resignation_date !== null && item.resignation_date !== "")
                   )
 
                 });
               }
-            }
-            else {
+            } else {
               this.tableList = this.tableList.filter(item => {
-                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD')>moment(new Date()).format('YYYY-MM-DD')
+                return item.resignation_date !== null && item.resignation_date !== "" && moment(item.resignation_date).format('YYYY-MM-DD') > moment(new Date()).format('YYYY-MM-DD')
               });
             }
           }
           //add-lyt-21/2/8-PSDCD_PFANS_20210204_XQ_072-end
         }
         //add-lyt-2/4 人员信息判定BUG start
-        else{
-          if(this.workinghours){
+        else {
+          if (this.workinghours) {
             this.working = this.getworkinghours(this.workinghours);
             this.starttime = this.working.substring(0, 10),
               this.endTime = this.working.substring(13, 23);
             if (this.starttime != "" || this.endTime != "") {
               this.tableList = this.tableList.filter(item => {
-                return(
-                  ( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.resignation_date).format('YYYY-MM-DD') &&  moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD') ) && (item.resignation_date !== null && item.resignation_date !== "")
-                  ||( moment(this.starttime).format('YYYY-MM-DD') <=  moment(item.enterday).format('YYYY-MM-DD')&& moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD')&& (item.resignation_date === null || item.resignation_date === ""||moment(item.resignation_date).format('YYYY-MM-DD')>=moment(new Date()).format('YYYY-MM-DD')))
+                return (
+                  (moment(this.starttime).format('YYYY-MM-DD') <= moment(item.resignation_date).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && moment(item.resignation_date).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')) && (item.resignation_date !== null && item.resignation_date !== "")
+                  || (moment(this.starttime).format('YYYY-MM-DD') <= moment(item.enterday).format('YYYY-MM-DD') && moment(item.enterday).format('YYYY-MM-DD') <= moment(this.endTime).format('YYYY-MM-DD') && (item.resignation_date === null || item.resignation_date === "" || moment(item.resignation_date).format('YYYY-MM-DD') >= moment(new Date()).format('YYYY-MM-DD')))
                 )
               });
             }
-          }
-          else{
+          } else {
             this.tableList = this.tableList.filter(item => {
-              return item.resignation_date !== null || item.resignation_date !== "" || moment(item.resignation_date).format('YYYY-MM-DD')<moment(new Date()).format('YYYY-MM-DD')
+              return item.resignation_date !== null || item.resignation_date !== "" || moment(item.resignation_date).format('YYYY-MM-DD') < moment(new Date()).format('YYYY-MM-DD')
             });
           }
         }
@@ -479,7 +476,7 @@ export default {
     handleDownload(row) {
       this.loading = true;
       this.$store
-        .dispatch("usersStore/download", { type: row.type })
+        .dispatch("usersStore/download", {type: row.type})
         .then(response => {
           this.loading = false;
         })
@@ -624,39 +621,39 @@ export default {
         })
       );
     },
-      //ADD_FJL  获取年龄
-      getAge(val) {
-          let birthdays = new Date(val);
-          let d = new Date();
-          let age = 0;
-          let agenew = 0;
-          age = d.getFullYear() - birthdays.getFullYear();
-          agenew = d.getFullYear() - birthdays.getFullYear();
-          if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
-              agenew = age;
-          } else {
-              agenew = age - 1;
-          }
-          return agenew;
-      },
-      //ADD_FJL  获取年龄
-      //ADD_FJL 获取年假信息
-      getDataList() {
-          this.$store
-              .dispatch('PFANS2013Store/getDataList', {})
-              .then(response => {
-                  this._tableList = response;
-              })
-              .catch(error => {
-                  this.$message.error({
-                      message: error,
-                      type: 'error',
-                      duration: 5 * 1000,
-                  });
-                  //this.loading = false;
-              });
-      },
-      //ADD_FJL 获取年假信息
+    //ADD_FJL  获取年龄
+    getAge(val) {
+      let birthdays = new Date(val);
+      let d = new Date();
+      let age = 0;
+      let agenew = 0;
+      age = d.getFullYear() - birthdays.getFullYear();
+      agenew = d.getFullYear() - birthdays.getFullYear();
+      if (d.getMonth() > birthdays.getMonth() || (d.getMonth() == birthdays.getMonth() && d.getDate() > birthdays.getDate())) {
+        agenew = age;
+      } else {
+        agenew = age - 1;
+      }
+      return agenew;
+    },
+    //ADD_FJL  获取年龄
+    //ADD_FJL 获取年假信息
+    getDataList() {
+      this.$store
+        .dispatch('PFANS2013Store/getDataList', {})
+        .then(response => {
+          this._tableList = response;
+        })
+        .catch(error => {
+          this.$message.error({
+            message: error,
+            type: 'error',
+            duration: 5 * 1000,
+          });
+          //this.loading = false;
+        });
+    },
+    //ADD_FJL 获取年假信息
     buttonClick(val) {
       if (val === "export") {
         if (this.$refs.roletable.selectedList.length === 0) {
@@ -668,248 +665,248 @@ export default {
           return;
         }
         this.selectedlist = this.$refs.roletable.selectedList;
-          import("@/vendor/Export2Excel").then(excel => {
-              const tHeader = [
-                  this.$t("label.user_name"),//姓名
-                  this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//登录账号
-                  this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
-                  this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
-                  this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
-                  this.$t("label.PFANSUSERFORMVIEW_SECURITY"),//社会保险号码
-                  this.$t("label.PFANSUSERFORMVIEW_HOUSEFUND"),//住房公积金号码
-                  this.$t("label.sex"),//性别
-                  this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
-                  this.$t("label.PFANSUSERVIEW_BIRTHDAY"),//生年月日
-                  this.$t("label.PFANSUSERVIEW_NATIONALITY"),//国籍
-                  this.$t("label.PFANSUSERFORMVIEW_NATION"),//民族
-                  this.$t("label.PFANSUSERFORMVIEW_REGISTER"),//户籍
-                  this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
-                  this.$t("label.PFANSUSERFORMVIEW_CHILDDALIAN"),//是否大连户籍
-                  this.$t("label.PFANSUSERFORMVIEW_DIFFERENCE"),//奖金记上区分
-                  this.$t("label.PFANSUSERVIEW_ENTERDAY"),//入社时间
-                  this.$t("label.center"),//center
-                  this.$t("label.group"),//group
-                  this.$t("label.team"),//team
-                  this.$t("label.budgetunit"),//预算编码
-                  this.$t("label.PFANSUSERVIEW_POST"),//职务
-                  this.$t("label.PFANSUSERVIEW_RANK"),//RANK
-                  this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),//职级类型
-                  this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
-                  this.$t("label.PFANSUSERFORMVIEW_OFFICIALDATE"),//试用期截止日(转正日-1)
-                  this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
-                  this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),//毕业年月日
-                  this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),//最终毕业学校
-                  this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),//专业
-                  this.$t("label.PFANSUSERFORMVIEW_DEGREE"),//最终学位
-                  // this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
-                  this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),//今年年休数
-                  this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE"),//劳动合同类型
-                  this.$t("label.PFANSUSERFORMVIEW_FIXEDATE"),//固定期限締切日
-                  this.$t("label.PFANSUSERFORMVIEW_UPGRADED"),//升格升号年月日
-                  this.$t("label.PFANSUSERFORMVIEW_CURRENTBASICSALARY"),//现基本工资
-                  this.$t("label.PFANSUSERFORMVIEW_CURRENTDUTYSALARY"),//现职责工资
-                  this.$t("label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY"),//給料変更日
-                  this.$t("label.PFANSUSERFORMVIEW_BEFOREBASICSALARY"),//変更前基本工资
-                  this.$t("label.PFANSUSERFORMVIEW_CHANGEDUTYSALARY"),//変更前职责工资
-                  this.$t("label.PFANSUSERFORMVIEW_YANGLAOINSURANCE"),//养老保险基数
-                  this.$t("label.PFANSUSERFORMVIEW_YILIAOINSURANCE"),//医疗保险基数
-                  this.$t("label.PFANSUSERFORMVIEW_SHIYEINSURANCE"),//失业保险基数
-                  this.$t("label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE"),//工伤保险基数
-                  this.$t("label.PFANSUSERFORMVIEW_SHENGYUINSURANCE"),//生育保险基数
-                  this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),//住房公积金缴纳基数
-                  this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),//银行账号
-                  this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),//住所
+        import("@/vendor/Export2Excel").then(excel => {
+          const tHeader = [
+            this.$t("label.user_name"),//姓名
+            this.$t("label.PFANSUSERFORMVIEW_ADFIELD"),//登录账号
+            this.$t("label.PFANSUSERFORMVIEW_JOBNUMBER"),//卡号
+            this.$t("label.PFANS1012VIEW_PERSONALCODE"),//员工ID
+            this.$t("label.PFANSUSERFORMVIEW_IDNUMBER"),//身份证号码
+            this.$t("label.PFANSUSERFORMVIEW_SECURITY"),//社会保险号码
+            this.$t("label.PFANSUSERFORMVIEW_HOUSEFUND"),//住房公积金号码
+            this.$t("label.sex"),//性别
+            this.$t("label.PFANSUSERFORMVIEW_AGE"),//年龄
+            this.$t("label.PFANSUSERVIEW_BIRTHDAY"),//生年月日
+            this.$t("label.PFANSUSERVIEW_NATIONALITY"),//国籍
+            this.$t("label.PFANSUSERFORMVIEW_NATION"),//民族
+            this.$t("label.PFANSUSERFORMVIEW_REGISTER"),//户籍
+            this.$t("label.PFANSUSERFORMVIEW_CHILDREN"),//是否独生子女
+            this.$t("label.PFANSUSERFORMVIEW_CHILDDALIAN"),//是否大连户籍
+            this.$t("label.PFANSUSERFORMVIEW_DIFFERENCE"),//奖金记上区分
+            this.$t("label.PFANSUSERVIEW_ENTERDAY"),//入社时间
+            this.$t("label.center"),//center
+            this.$t("label.group"),//group
+            this.$t("label.team"),//team
+            this.$t("label.budgetunit"),//预算编码
+            this.$t("label.PFANSUSERVIEW_POST"),//职务
+            this.$t("label.PFANSUSERVIEW_RANK"),//RANK
+            this.$t("label.PFANSUSERFORMVIEW_OCCUPATIONTYPE"),//职级类型
+            this.$t("label.PFANSUSERFORMVIEW_WORKDAY"),//仕事开始年月日
+            this.$t("label.PFANSUSERFORMVIEW_OFFICIALDATE"),//试用期截止日(转正日-1)
+            this.$t("label.PFANSUSERFORMVIEW_EXPERIENCE"),//是否有工作经验
+            this.$t("label.PFANSUSERFORMVIEW_GRADUATIONDAY"),//毕业年月日
+            this.$t("label.PFANSUSERFORMVIEW_GRADUATION"),//最终毕业学校
+            this.$t("label.PFANSUSERFORMVIEW_SPECIALTY"),//专业
+            this.$t("label.PFANSUSERFORMVIEW_DEGREE"),//最终学位
+            // this.$t("label.PFANSUSERFORMVIEW_ANNUALBREAKS"),//今年年休数(残)
+            this.$t("label.PFANSUSERFORMVIEW_ANNUALYEAR"),//今年年休数
+            this.$t("label.PFANSUSERFORMVIEW_LABORCONTRACTTYPE"),//劳动合同类型
+            this.$t("label.PFANSUSERFORMVIEW_FIXEDATE"),//固定期限締切日
+            this.$t("label.PFANSUSERFORMVIEW_UPGRADED"),//升格升号年月日
+            this.$t("label.PFANSUSERFORMVIEW_CURRENTBASICSALARY"),//现基本工资
+            this.$t("label.PFANSUSERFORMVIEW_CURRENTDUTYSALARY"),//现职责工资
+            this.$t("label.PFANSUSERFORMVIEW_FEEDINGCHANGEDAY"),//給料変更日
+            this.$t("label.PFANSUSERFORMVIEW_BEFOREBASICSALARY"),//変更前基本工资
+            this.$t("label.PFANSUSERFORMVIEW_CHANGEDUTYSALARY"),//変更前职责工资
+            this.$t("label.PFANSUSERFORMVIEW_YANGLAOINSURANCE"),//养老保险基数
+            this.$t("label.PFANSUSERFORMVIEW_YILIAOINSURANCE"),//医疗保险基数
+            this.$t("label.PFANSUSERFORMVIEW_SHIYEINSURANCE"),//失业保险基数
+            this.$t("label.PFANSUSERFORMVIEW_GONGSHANGINSURANCE"),//工伤保险基数
+            this.$t("label.PFANSUSERFORMVIEW_SHENGYUINSURANCE"),//生育保险基数
+            this.$t("label.PFANSUSERFORMVIEW_HOUSEINSURANCE"),//住房公积金缴纳基数
+            this.$t("label.PFANSUSERFORMVIEW_SEATNUMBER"),//银行账号
+            this.$t("label.PFANSUSERFORMVIEW_ADDRESS"),//住所
 //        ws-6/28-禅道141任务
-                this.$t("label.USERSVIEW_CLASSIFICATION"),//离职理由分类（可多选）
-                this.$t("label.USERSVIEW_WHERETOLEAVE"),//离职去向(选项)
-                this.$t("label.USERSVIEW_WHERETOLEAVE2"),//离职去向(手动输入)
-                this.$t("label.USERSVIEW_TRANSFERCOMPANY"),//转职公司
-                  //        zy-7/6-禅道207任务 start
-                this.$t("label.PFANS2026VIEW_RESIGNATIONDATE"),//离职时间
-                  //        zy-7/6-禅道207任务 end
-                this.$t("label.PFANS2026VIEW_REASON2"),//离职理由详细
-                this.$t("label.USERSVIEW_OTHER"),//其他
+            this.$t("label.USERSVIEW_CLASSIFICATION"),//离职理由分类（可多选）
+            this.$t("label.USERSVIEW_WHERETOLEAVE"),//离职去向(选项)
+            this.$t("label.USERSVIEW_WHERETOLEAVE2"),//离职去向(手动输入)
+            this.$t("label.USERSVIEW_TRANSFERCOMPANY"),//转职公司
+            //        zy-7/6-禅道207任务 start
+            this.$t("label.PFANS2026VIEW_RESIGNATIONDATE"),//离职时间
+            //        zy-7/6-禅道207任务 end
+            this.$t("label.PFANS2026VIEW_REASON2"),//离职理由详细
+            this.$t("label.USERSVIEW_OTHER"),//其他
 //        ws-6/28-禅道141任务
-              ];
-              const filterVal = [
-                  "customername",//姓名
-                  "adfield",//登录账号
-                  "jobnumber",//卡号
-                  "personalcode",//员工ID
-                  "idnumber",//身份证号码
-                  "security",//社会保险号码
-                  "housefund",//住房公积金号码
-                  "sex",//性别
-                  "age",//年龄
-                  "birthday",//生年月日
-                  "nationality",//国籍
-                  "nation",//民族
-                  "register",//户籍
-                  "children",//是否独生子女
-                  "dlnation",//是否大连户籍
-                  "difference",//奖金记上区分
-                  "enterday",//入社时间
-                  "centername",//center
-                  "groupname",//group
-                  "teamname",//team
-                  "budgetunit",//预算编码
-                  "post",//职务
-                  "rank",//RANK
-                  "occupationtype",//职级类型
-                  "workday",//仕事开始年月日
-                  "enddate",//试用期截止日（转正日）
-                  "experience",//是否有工作经验
-                  "graduationday",//毕业年月日
-                  "graduation",//最终毕业学校
-                  "specialty",//专业
-                  "degree",//最终学位
-                  //"annualyearto",//今年年休数(残)
-                  "annualyear",//今年年休数
-                  "laborcontracttype",//劳动合同类型
-                  "fixedate",//固定期限締切日
-                  "upgraded",//升格升号年月日
-                  "basic",//现基本工资
-                  "duty",//现职责工资
-                  "date",//給料変更日
-                  "after",//変更前基本工资
-                  "before",//変更前职责工资
-                  "yanglaoinsurance",//养老保险基数
-                  "yiliaoinsurance",//医疗保险基数
-                  "shiyeinsurance",//失业保险基数
-                  "gongshanginsurance",//工伤保险基数
-                  "shengyuinsurance",//生育保险基数
-                  "houseinsurance",//住房公积金缴纳基数
-                  "seatnumber",//银行账号
-                  "address",//住所
-                //        ws-6/28-禅道141任务
-                "classification",//离职理由分类（可多选）
-                "wheretoleave",//离职去向(选项)
-                "wheretoleave2",//离职去向(手动输入)
-                "transfercompany",//转职公司
-                  //        zy-7/6-禅道207任务 start
-                "resignation_date",//离职时间
-                  //        zy-7/6-禅道207任务 end
-                "reason2",//离职理由详细
-                "other",//其他
-                //        ws-6/28-禅道141任务
+          ];
+          const filterVal = [
+            "customername",//姓名
+            "adfield",//登录账号
+            "jobnumber",//卡号
+            "personalcode",//员工ID
+            "idnumber",//身份证号码
+            "security",//社会保险号码
+            "housefund",//住房公积金号码
+            "sex",//性别
+            "age",//年龄
+            "birthday",//生年月日
+            "nationality",//国籍
+            "nation",//民族
+            "register",//户籍
+            "children",//是否独生子女
+            "dlnation",//是否大连户籍
+            "difference",//奖金记上区分
+            "enterday",//入社时间
+            "centername",//center
+            "groupname",//group
+            "teamname",//team
+            "budgetunit",//预算编码
+            "post",//职务
+            "rank",//RANK
+            "occupationtype",//职级类型
+            "workday",//仕事开始年月日
+            "enddate",//试用期截止日（转正日）
+            "experience",//是否有工作经验
+            "graduationday",//毕业年月日
+            "graduation",//最终毕业学校
+            "specialty",//专业
+            "degree",//最终学位
+            //"annualyearto",//今年年休数(残)
+            "annualyear",//今年年休数
+            "laborcontracttype",//劳动合同类型
+            "fixedate",//固定期限締切日
+            "upgraded",//升格升号年月日
+            "basic",//现基本工资
+            "duty",//现职责工资
+            "date",//給料変更日
+            "after",//変更前基本工资
+            "before",//変更前职责工资
+            "yanglaoinsurance",//养老保险基数
+            "yiliaoinsurance",//医疗保险基数
+            "shiyeinsurance",//失业保险基数
+            "gongshanginsurance",//工伤保险基数
+            "shengyuinsurance",//生育保险基数
+            "houseinsurance",//住房公积金缴纳基数
+            "seatnumber",//银行账号
+            "address",//住所
+            //        ws-6/28-禅道141任务
+            "classification",//离职理由分类（可多选）
+            "wheretoleave",//离职去向(选项)
+            "wheretoleave2",//离职去向(手动输入)
+            "transfercompany",//转职公司
+            //        zy-7/6-禅道207任务 start
+            "resignation_date",//离职时间
+            //        zy-7/6-禅道207任务 end
+            "reason2",//离职理由详细
+            "other",//其他
+            //        ws-6/28-禅道141任务
           ];
           const list = this.selectedlist;
-            for (let h = 0; h < list.length; h++) {
-              //        ws-6/28-禅道141任务
-              if(list[h].wheretoleave !== '' && list[h].wheretoleave !== null) {
-                let wheretoleaveinfo = getDictionaryInfo(list[h].wheretoleave);
-                if (wheretoleaveinfo) {
-                  list[h].wheretoleave = wheretoleaveinfo.value1;
-                }
+          for (let h = 0; h < list.length; h++) {
+            //        ws-6/28-禅道141任务
+            if (list[h].wheretoleave !== '' && list[h].wheretoleave !== null) {
+              let wheretoleaveinfo = getDictionaryInfo(list[h].wheretoleave);
+              if (wheretoleaveinfo) {
+                list[h].wheretoleave = wheretoleaveinfo.value1;
               }
-              if(list[h].classification !== '' && list[h].classification !== null) {
-                let classificationinfo = getDictionaryInfo(list[h].classification);
-                if (classificationinfo) {
-                  list[h].classification = classificationinfo.value1;
-                }
-              }
-              //        ws-6/28-禅道141任务
-                //劳动合同类型
-                if(list[h].laborcontracttype !== '' && list[h].laborcontracttype !== null){
-                    if(list[h].laborcontracttype === '0'){
-                        list[h].laborcontracttype = this.$t('label.PFANSUSERFORMVIEW_FIXEDTIME');
-                    } else if(list[h].laborcontracttype === '1'){
-                        list[h].laborcontracttype = this.$t('label.PFANSUSERFORMVIEW_NOFIXEDTIME');
-                    }
-                }
-                //升格升号年月日
-                if(list[h].upgraded !== '' && list[h].upgraded !== null){
-                    list[h].upgraded = moment(list[h].upgraded).format('YYYY-MM-DD');
-                }
-                //固定期限締切日
-                if(list[h].fixedate !== '' && list[h].fixedate !== null){
-                    list[h].fixedate = moment(list[h].fixedate).format('YYYY-MM-DD');
-                }
-                //是否独生子女
-                if(list[h].children !== '' && list[h].children !== null) {
-                    if (list[h].children === '1') {
-                        list[h].children = this.$t('label.yes');
-                    } else if (list[h].children === '0') {
-                        list[h].children = this.$t('label.no');
-                    }
-                }
-                //是否大连户籍
-                if (list[h].dlnation !== '' && list[h].dlnation !== null) {
-                    if (list[h].dlnation === '1') {
-                        list[h].dlnation = this.$t('label.yes');
-                    } else if (list[h].dlnation === '0') {
-                        list[h].dlnation = this.$t('label.no');
-                    }
-                }
-                //奖金记上区分
-                if (list[h].difference !== '' && list[h].difference !== null) {
-                  if (list[h].difference === '1') {
-                    list[h].difference = this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
-                  } else if (list[h].difference === '2') {
-                    list[h].difference = this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF');
-                  }
-                }
-                //        zy-7/3-禅道205任务
-                //是否有工作经验
-                if(list[h].experience !== '' && list[h].experience !== null) {
-                    if (list[h].experience === '1') {
-                        list[h].experience = this.$t('label.PFANSUSERFORMVIEW_NO');
-                    } else if (list[h].experience === '0') {
-                        list[h].experience = this.$t('label.PFANSUSERFORMVIEW_YES');
-                    }
-                }
-                //最终学位
-                if(list[h].degree !== '' && list[h].degree !== null) {
-                    let degreeinfo = getDictionaryInfo(list[h].degree);
-                    if (degreeinfo) {
-                        list[h].degree = degreeinfo.value1;
-                    }
-                }
-                //年龄
-                list[h].age = this.getAge(list[h].birthday);
-                //変更前基本工资,変更前职责工资,现基本工资,现职责工资,給料変更日
-                if(list[h].gridData !== '' && list[h].gridData !== null && list[h].gridData !== undefined && list[h].gridData.length > 0 ){
-                    for (let d = 0; d < list[h].gridData.length; d++) {
-                        // add_fjl_05/25  -- 添加工资履历的长度赋值
-                        if (list[h].gridData.length >= 1) {
-                            list[h].after = list[h].gridData[0].basic;
-                            list[h].before = list[h].gridData[0].duty;
-                            list[h].date = list[h].gridData[0].date;
-                        } else {
-                            list[h].after = '';
-                            list[h].before = '';
-                            list[h].date = '';
-                        }
-                        // add_fjl_05/25  -- 添加工资履历的长度赋值
-                        //del_fjl_0922
-                        // list[h].basic = list[h].gridData[0].basic;
-                        // list[h].duty = list[h].gridData[0].duty;
-                        // list[h].date = list[h].gridData[0].date;
-                        //del_fjl_0922
-                    }
-                }
-                //职级类型
-                if(list[h].occupationtype !== '' && list[h].occupationtype !== null) {
-                  let classificationinfo = getDictionaryInfo(list[h].occupationtype);
-                  if (classificationinfo) {
-                    list[h].occupationtype = classificationinfo.value1;
-                  }
-                }
-                //add_fjl_0922
-                //給料変更日
-                // if (list[h].date !== '' && list[h].date !== null && list[h].date !== undefined) {
-                //     list[h].date = moment(list[h].date).format('YYYY-MM-DD');
-                // }
-                //add_fjl_0922
-                //去年年休数(残)
-                for (let t = 0; t < this._tableList.length; t++) {
-                    if(list[h].userid === this._tableList[t].user_id){
-                        list[h].annualyearto = this._tableList[t].remaining_annual_leave_thisyear;
-                    }
-                }
             }
+            if (list[h].classification !== '' && list[h].classification !== null) {
+              let classificationinfo = getDictionaryInfo(list[h].classification);
+              if (classificationinfo) {
+                list[h].classification = classificationinfo.value1;
+              }
+            }
+            //        ws-6/28-禅道141任务
+            //劳动合同类型
+            if (list[h].laborcontracttype !== '' && list[h].laborcontracttype !== null) {
+              if (list[h].laborcontracttype === '0') {
+                list[h].laborcontracttype = this.$t('label.PFANSUSERFORMVIEW_FIXEDTIME');
+              } else if (list[h].laborcontracttype === '1') {
+                list[h].laborcontracttype = this.$t('label.PFANSUSERFORMVIEW_NOFIXEDTIME');
+              }
+            }
+            //升格升号年月日
+            if (list[h].upgraded !== '' && list[h].upgraded !== null) {
+              list[h].upgraded = moment(list[h].upgraded).format('YYYY-MM-DD');
+            }
+            //固定期限締切日
+            if (list[h].fixedate !== '' && list[h].fixedate !== null) {
+              list[h].fixedate = moment(list[h].fixedate).format('YYYY-MM-DD');
+            }
+            //是否独生子女
+            if (list[h].children !== '' && list[h].children !== null) {
+              if (list[h].children === '1') {
+                list[h].children = this.$t('label.yes');
+              } else if (list[h].children === '0') {
+                list[h].children = this.$t('label.no');
+              }
+            }
+            //是否大连户籍
+            if (list[h].dlnation !== '' && list[h].dlnation !== null) {
+              if (list[h].dlnation === '1') {
+                list[h].dlnation = this.$t('label.yes');
+              } else if (list[h].dlnation === '0') {
+                list[h].dlnation = this.$t('label.no');
+              }
+            }
+            //奖金记上区分
+            if (list[h].difference !== '' && list[h].difference !== null) {
+              if (list[h].difference === '1') {
+                list[h].difference = this.$t('label.PFANSUSERFORMVIEW_NEWSTAFF');
+              } else if (list[h].difference === '2') {
+                list[h].difference = this.$t('label.PFANSUSERFORMVIEW_OLDSTAFF');
+              }
+            }
+            //        zy-7/3-禅道205任务
+            //是否有工作经验
+            if (list[h].experience !== '' && list[h].experience !== null) {
+              if (list[h].experience === '1') {
+                list[h].experience = this.$t('label.PFANSUSERFORMVIEW_NO');
+              } else if (list[h].experience === '0') {
+                list[h].experience = this.$t('label.PFANSUSERFORMVIEW_YES');
+              }
+            }
+            //最终学位
+            if (list[h].degree !== '' && list[h].degree !== null) {
+              let degreeinfo = getDictionaryInfo(list[h].degree);
+              if (degreeinfo) {
+                list[h].degree = degreeinfo.value1;
+              }
+            }
+            //年龄
+            list[h].age = this.getAge(list[h].birthday);
+            //変更前基本工资,変更前职责工资,现基本工资,现职责工资,給料変更日
+            if (list[h].gridData !== '' && list[h].gridData !== null && list[h].gridData !== undefined && list[h].gridData.length > 0) {
+              for (let d = 0; d < list[h].gridData.length; d++) {
+                // add_fjl_05/25  -- 添加工资履历的长度赋值
+                if (list[h].gridData.length >= 1) {
+                  list[h].after = list[h].gridData[0].basic;
+                  list[h].before = list[h].gridData[0].duty;
+                  list[h].date = list[h].gridData[0].date;
+                } else {
+                  list[h].after = '';
+                  list[h].before = '';
+                  list[h].date = '';
+                }
+                // add_fjl_05/25  -- 添加工资履历的长度赋值
+                //del_fjl_0922
+                // list[h].basic = list[h].gridData[0].basic;
+                // list[h].duty = list[h].gridData[0].duty;
+                // list[h].date = list[h].gridData[0].date;
+                //del_fjl_0922
+              }
+            }
+            //职级类型
+            if (list[h].occupationtype !== '' && list[h].occupationtype !== null) {
+              let classificationinfo = getDictionaryInfo(list[h].occupationtype);
+              if (classificationinfo) {
+                list[h].occupationtype = classificationinfo.value1;
+              }
+            }
+            //add_fjl_0922
+            //給料変更日
+            // if (list[h].date !== '' && list[h].date !== null && list[h].date !== undefined) {
+            //     list[h].date = moment(list[h].date).format('YYYY-MM-DD');
+            // }
+            //add_fjl_0922
+            //去年年休数(残)
+            for (let t = 0; t < this._tableList.length; t++) {
+              if (list[h].userid === this._tableList[t].user_id) {
+                list[h].annualyearto = this._tableList[t].remaining_annual_leave_thisyear;
+              }
+            }
+          }
           const data = this.formatJson(filterVal, list);
-              excel.export_json_to_excel(tHeader, data, this.$t("menu.PERSONNEL") + '_' + this.$t(moment(new Date()).format("YYYY-MM-DD")));
+          excel.export_json_to_excel(tHeader, data, this.$t("menu.PERSONNEL") + '_' + this.$t(moment(new Date()).format("YYYY-MM-DD")));
         });
       }
       if (val === "import") {
@@ -931,13 +928,13 @@ export default {
             duration: 2 * 1000
           });
           return;
-        }else{
+        } else {
           for (let i = 0; i < this.selectedlist.length; i++) {
-           if(this.selectedlist[i].jobnumber!=null && this.selectedlist[i].jobnumber!=''){
-             error = error + 1;
-             let sealtypeList = this.selectedlist[i].customername;
-             checktableD = checktableD + sealtypeList + ',';
-           }
+            if (this.selectedlist[i].jobnumber != null && this.selectedlist[i].jobnumber != '') {
+              error = error + 1;
+              let sealtypeList = this.selectedlist[i].customername;
+              checktableD = checktableD + sealtypeList + ',';
+            }
           }
           if (error != 0) {
             let img = checktableD.substring(0, checktableD.length - 1);
@@ -1001,6 +998,44 @@ export default {
       } else if (val === "disableUser") {
         this.disableUser();
       }
+      //  region  add  ml  211224  密码重置  from
+      if (val === "reset") {
+        if (this.rowid === '') {
+          Message({
+            message: this.$t("normal.info_01"),
+            type: 'info',
+            duration: 2 * 1000
+          });
+          return;
+        }
+        this.$confirm(this.$t('normal.confirm_resetPassword') + this.name + this.$t('normal.confirm_password'), this.$t('normal.info'), {
+          confirmButtonText: this.$t('button.confirm'),
+          cancelButtonText: this.$t('button.cancel'),
+          type: 'warning',
+        }).then(() => {
+          this.loading = true;
+          let userAccount = {
+            _id: this.userid,
+          };
+          this.$store.dispatch('usersStore/resetPassword', userAccount)
+            .then(response => {
+              Message({
+                message: this.$t('normal.success_08') + this.name,
+                type: 'success',
+                duration: 5 * 1000,
+              });
+              this.loading = false;
+            }).catch(err => {
+            this.$message.error({
+              message: err,
+              type: 'error',
+              duration: 5 * 1000
+            })
+            this.loading = false;
+          })
+        })
+      }
+      //  endregion  add  ml  211224  密码重置  to
     },
     disableUser() {
       this.loading = true;
@@ -1064,11 +1099,11 @@ export default {
               _tableList[j].departmentname = result;
               _tableList[j].status === "0"
                 ? (_tableList[j].statusname = this.$t(
-                    "label.PFANSUSERVIEW_ENABLE"
-                  ))
+                "label.PFANSUSERVIEW_ENABLE"
+                ))
                 : (_tableList[j].statusname = this.$t(
-                    "label.PFANSUSERVIEW_FORBIDDEN"
-                  ));
+                "label.PFANSUSERVIEW_FORBIDDEN"
+                ));
               if (
                 _tableList[j].rank &&
                 getDictionaryInfo(_tableList[j].rank.value1)
@@ -1081,19 +1116,19 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
-                // add_fjl_05/22 --添加退职日
-                if (_tableList[j].resignation_date)
-                    _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
-                        "YYYY-MM-DD"
-                    );
-                // add_fjl_05/22 --添加退职日
+              // add_fjl_05/22 --添加退职日
+              if (_tableList[j].resignation_date)
+                _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                  "YYYY-MM-DD"
+                );
+              // add_fjl_05/22 --添加退职日
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
                 );
               if (_tableList[j].sex === "PR019001") {
                 _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-              } else if (_tableList[j].sex === "PR019002"){
+              } else if (_tableList[j].sex === "PR019002") {
                 _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
               }
             }
@@ -1112,7 +1147,9 @@ export default {
         });
     },
     rowClick(row) {
+      this.userid = row.userid;
       this.rowid = row._id;
+      this.name = row.customername;
       if (row) {
         this.rowData = row;
         this.buttonList[1].disabled = false;
@@ -1191,11 +1228,11 @@ export default {
               if (this.$i18n) {
                 _tableList[j].status === "0"
                   ? (_tableList[j].statusname = this.$t(
-                      "label.PFANSUSERVIEW_ENABLE"
-                    ))
+                  "label.PFANSUSERVIEW_ENABLE"
+                  ))
                   : (_tableList[j].statusname = this.$t(
-                      "label.PFANSUSERVIEW_FORBIDDEN"
-                    ));
+                  "label.PFANSUSERVIEW_FORBIDDEN"
+                  ));
               }
 
               if (_tableList[j].post && getDictionaryInfo(_tableList[j].post))
@@ -1210,12 +1247,12 @@ export default {
                 _tableList[j].enterday = moment(_tableList[j].enterday).format(
                   "YYYY-MM-DD"
                 );
-                // add_fjl_05/22 --添加退职日
-                if (_tableList[j].resignation_date)
-                    _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
-                        "YYYY-MM-DD"
-                    );
-                // add_fjl_05/22 --添加退职日
+              // add_fjl_05/22 --添加退职日
+              if (_tableList[j].resignation_date)
+                _tableList[j].resignation_date = moment(_tableList[j].resignation_date).format(
+                  "YYYY-MM-DD"
+                );
+              // add_fjl_05/22 --添加退职日
               if (_tableList[j].birthday)
                 _tableList[j].birthday = moment(_tableList[j].birthday).format(
                   "YYYY-MM-DD"
@@ -1233,14 +1270,14 @@ export default {
                 );
               //试用期截止日(转正日)
               if (_tableList[j].enddate)
-                _tableList[j].enddate = moment(_tableList[j].enddate).add(1,'days').format(
+                _tableList[j].enddate = moment(_tableList[j].enddate).add(1, 'days').format(
                   "YYYY-MM-DD"
                 );
               //ccm 课题票143 to
               if (this.$i18n) {
                 if (_tableList[j].sex === "PR019001") {
                   _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_BOY");
-                } else if (_tableList[j].sex === "PR019002"){
+                } else if (_tableList[j].sex === "PR019002") {
                   _tableList[j].sex = this.$t("label.PFANS2002FORMVIEW_GRIL");
                 }
               }
@@ -1258,9 +1295,9 @@ export default {
           }
           this.tableList = _tableList;
           this.TABLEList = _tableList;
-            // add_fjl --默认在职的筛选
-             this.filterInfo();
-            // add_fjl
+          // add_fjl --默认在职的筛选
+          this.filterInfo();
+          // add_fjl
           this.loading = false;
         })
         .catch(err => {
@@ -1315,7 +1352,7 @@ export default {
       }
       return select;
     },
-    renderContent(h, { node, data, store }) {
+    renderContent(h, {node, data, store}) {
       return (
         <span style="font-size:0.8rem">
           <el-tooltip content={node.label} placement="top-end" effect="light">
@@ -1325,7 +1362,7 @@ export default {
       );
     }
   },
-  created(){
+  created() {
     if (this.$store.getters.useraccount._id === "5e78b17ef3c8d71e98a2aa30" || this.$store.getters.useraccount._id === "5e78b2034e3b194874180e37") {
       this.buttonList = [
         {
@@ -1369,6 +1406,54 @@ export default {
         }
       ];
     }
+    // region  add  ml  211224  密码重置  from  （人事部长冷美琴可见）
+    if (this.$store.getters.useraccount._id === "5e78b22c4e3b194874180f5f") {
+      this.buttonList = [
+        {
+          key: "new",
+          name: this.$t("label.PFANSUSERVIEW_NEWUSER"),
+          disabled: false,
+          icon: "el-icon-plus"
+        },
+        {
+          key: "update",
+          name: this.$t("label.PFANSUSERVIEW_EDITUSER"),
+          disabled: true,
+          icon: "el-icon-edit"
+        },
+        {
+          key: "import",
+          name: "button.import",
+          disabled: false,
+          icon: "el-icon-download"
+        },
+        {
+          key: "export",
+          name: "button.export",
+          disabled: false,
+          icon: "el-icon-upload2"
+        },
+        {
+          key: "export2",
+          name: "button.download2",
+          disabled: false,
+          icon: "el-icon-download"
+        },
+        {
+          key: "menu",
+          name: "menu.PFANS1021",
+          disabled: false,
+          icon: "el-icon-plus"
+        },
+        {
+          key: "reset",
+          name: "button.resetPassword",
+          disabled: false,
+          icon: "el-icon-edit"
+        }
+      ];
+    }
+    // endregion  add  ml  211224  密码重置  to
   },
   mounted() {
 
@@ -1379,7 +1464,7 @@ export default {
   },
   computed: {
     downtypes() {
-      return [{ name: this.$t("menu.user"), type: 0 }];
+      return [{name: this.$t("menu.user"), type: 0}];
     }
   }
 };
@@ -1402,6 +1487,7 @@ export default {
   .box-card {
     min-height: 28rem;
   }
+
   .el-aside {
     color: rgb(53, 23, 23);
     border-right: 0.1rem solid #ebeef5;
@@ -1413,6 +1499,7 @@ export default {
 
   .invform {
     min-height: 18rem;
+
     .el-form-item {
       margin-bottom: 0;
     }
