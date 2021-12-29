@@ -61,7 +61,7 @@
                     :value="item.themeinforId">
                   </el-option>
                 </el-select>
-                <span v-else>{{ scope.row.themeName }}</span>
+                <span v-else style="text-align: center;display:block;">{{ scope.row.themeName }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -71,7 +71,7 @@
               <template slot-scope="scope">
                 <el-input size="mini" v-model="scope.row.customerName" :placeholder="$t('label.PFANS1053CUSTOMERNAME')"
                           v-if="scope.row.newLine"></el-input>
-                <span v-else>{{ scope.row.customerName }}</span>
+                <span v-else style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -126,7 +126,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.aprilActual || scope.row.aprilForecast) - scope.row.aprilPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -174,7 +176,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.mayActual || scope.row.mayForecast) - scope.row.mayPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -222,7 +226,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.juneActual || scope.row.juneForecast) - scope.row.junePlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -236,7 +242,9 @@
                 :label="$t('label.PFANS2036VIEW_PLAN')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ Number(scope.row.aprilPlan) + Number(scope.row.mayPlan) + Number(scope.row.junePlan) }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -244,11 +252,13 @@
                 :label="$t('label.PFANS2036VIEW_TRUE')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilActual || scope.row.aprilForecast) +
                     Number(scope.row.mayActual || scope.row.mayForecast) +
                     Number(scope.row.juneActual || scope.row.juneForecast)
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -256,12 +266,14 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilActual || scope.row.aprilForecast) +
                     Number(scope.row.mayActual || scope.row.mayForecast) +
                     Number(scope.row.juneActual || scope.row.juneForecast) - scope.row.aprilPlan - scope.row.mayPlan -
                     scope.row.junePlan
                   }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -309,7 +321,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.julyActual || scope.row.julyForecast) - scope.row.julyPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -357,7 +371,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.augustActual || scope.row.augustForecast) - scope.row.augustPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -405,7 +421,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.septemberActual || scope.row.septemberForecast) - scope.row.septemberPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -419,7 +437,9 @@
                 :label="$t('label.PFANS2036VIEW_PLAN')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ Number(scope.row.julyPlan) + Number(scope.row.augustPlan) + Number(scope.row.septemberPlan) }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -427,11 +447,13 @@
                 :label="$t('label.PFANS2036VIEW_TRUE')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.julyActual || scope.row.julyForecast) +
                     Number(scope.row.augustActual || scope.row.augustForecast) +
                     Number(scope.row.septemberActual || scope.row.septemberForecast)
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -439,12 +461,14 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.julyActual || scope.row.julyForecast) +
                     Number(scope.row.augustActual || scope.row.augustForecast) +
                     Number(scope.row.septemberActual || scope.row.septemberForecast) - scope.row.julyPlan -
                     scope.row.augustPlan - scope.row.septemberPlan
                   }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -458,10 +482,12 @@
                 :label="$t('label.PFANS2036VIEW_PLAN')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilPlan) + Number(scope.row.mayPlan) + Number(scope.row.junePlan) +
                     Number(scope.row.julyPlan) + Number(scope.row.augustPlan) + Number(scope.row.septemberPlan)
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -469,6 +495,7 @@
                 :label="$t('label.PFANS2036VIEW_TRUE')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilActual || scope.row.aprilForecast) +
                     Number(scope.row.mayActual || scope.row.mayForecast) +
@@ -477,6 +504,7 @@
                     Number(scope.row.augustActual || scope.row.augustForecast) +
                     Number(scope.row.septemberActual || scope.row.septemberForecast)
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -484,6 +512,7 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilActual || scope.row.aprilForecast) +
                     Number(scope.row.mayActual || scope.row.mayForecast) +
@@ -493,6 +522,7 @@
                       Number(scope.row.septemberActual || scope.row.septemberForecast) - scope.row.julyPlan -
                       scope.row.augustPlan - scope.row.septemberPlan)
                   }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -540,7 +570,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.octoberActual || scope.row.octoberForecast) - scope.row.octoberPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -588,7 +620,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.novemberActual || scope.row.novemberForecast) - scope.row.novemberPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -636,7 +670,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.decemberActual || scope.row.decemberForecast) - scope.row.decemberPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -650,7 +686,9 @@
                 :label="$t('label.PFANS2036VIEW_PLAN')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ Number(scope.row.octoberPlan) + Number(scope.row.novemberPlan) + Number(scope.row.decemberPlan) }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -658,11 +696,13 @@
                 :label="$t('label.PFANS2036VIEW_TRUE')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.octoberActual || scope.row.octoberForecast) +
                     Number(scope.row.novemberActual || scope.row.novemberForecast) +
                     Number(scope.row.decemberActual || scope.row.decemberForecast)
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -670,12 +710,14 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.octoberActual || scope.row.octoberForecast) +
                     Number(scope.row.novemberActual || scope.row.novemberForecast) +
                     Number(scope.row.decemberActual || scope.row.decemberForecast) - scope.row.octoberPlan -
                     scope.row.novemberPlan - scope.row.decemberPlan
                   }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -723,7 +765,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.januaryActual || scope.row.januaryForecast) - scope.row.januaryPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -771,7 +815,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.februaryActual || scope.row.februaryForecast) - scope.row.februaryPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -819,7 +865,9 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ (scope.row.marchActual || scope.row.marchForecast) - scope.row.marchPlan }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -833,7 +881,9 @@
                 :label="$t('label.PFANS2036VIEW_PLAN')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{ Number(scope.row.januaryPlan) + Number(scope.row.februaryPlan) + Number(scope.row.marchPlan) }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -841,11 +891,13 @@
                 :label="$t('label.PFANS2036VIEW_TRUE')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.januaryActual || scope.row.januaryForecast) +
                     Number(scope.row.februaryActual || scope.row.februaryForecast) +
                     Number(scope.row.marchActual || scope.row.marchForecast)
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -853,12 +905,14 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.januaryActual || scope.row.januaryForecast) +
                     Number(scope.row.februaryActual || scope.row.februaryForecast) +
                     Number(scope.row.marchActual || scope.row.marchForecast) - scope.row.januaryPlan -
                     scope.row.februaryPlan - scope.row.marchPlan
                   }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -872,12 +926,14 @@
                 :label="$t('label.PFANS2036VIEW_PLAN')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilPlan) + Number(scope.row.mayPlan) + Number(scope.row.junePlan) +
                     Number(scope.row.julyPlan) + Number(scope.row.augustPlan) + Number(scope.row.septemberPlan) +
                     (Number(scope.row.octoberPlan) + Number(scope.row.novemberPlan) + Number(scope.row.decemberPlan)) +
                     (Number(scope.row.januaryPlan) + Number(scope.row.februaryPlan) + Number(scope.row.marchPlan))
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -885,6 +941,7 @@
                 :label="$t('label.PFANS2036VIEW_TRUE')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilActual || scope.row.aprilForecast) +
                     Number(scope.row.mayActual || scope.row.mayForecast) +
@@ -899,6 +956,7 @@
                       Number(scope.row.februaryActual || scope.row.februaryForecast) +
                       Number(scope.row.marchActual || scope.row.marchForecast))
                   }}
+                  </span>
                 </template>
               </el-table-column>
               <el-table-column
@@ -906,6 +964,7 @@
                 :label="$t('label.PFANS2006VIEW_DIFF')"
                 width="100">
                 <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">
                   {{
                     Number(scope.row.aprilActual || scope.row.aprilForecast) +
                     Number(scope.row.mayActual || scope.row.mayForecast) +
@@ -923,6 +982,7 @@
                       Number(scope.row.marchActual || scope.row.marchForecast) - scope.row.januaryPlan -
                       scope.row.februaryPlan - scope.row.marchPlan)
                   }}
+                  </span>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -931,13 +991,13 @@
               :label="$t('label.operation')"
               width="140">
               <template slot-scope="scope">
+                <el-popconfirm :title="$t('label.PFANS1053CONFIRM')" @onConfirm="handleDelClick(scope.$index)">
+                  <el-button slot="reference" type="danger" plain size="small" :disabled= "!scope.row.newLine">{{ $t('button.delete') }}</el-button>
+                </el-popconfirm>
                 <el-button @click="handleNewClick()" type="primary" plain size="small">{{
                     $t('button.insert')
                   }}
                 </el-button>
-                <el-popconfirm :title="$t('label.PFANS1053CONFIRM')" @onConfirm="handleDelClick(scope.$index)">
-                  <el-button slot="reference" type="primary" plain size="small">{{ $t('button.delete') }}</el-button>
-                </el-popconfirm>
               </template>
             </el-table-column>
           </el-table>
