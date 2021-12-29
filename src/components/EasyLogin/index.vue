@@ -132,7 +132,7 @@
         loginForm: {
           account: "",
           password: "",
-          version: 21,
+          version: this.$store.getters.sysYears,
         },
         loginRules: {
           account: [
@@ -142,7 +142,7 @@
             { required: true, trigger: "change", validator: validatePassword }
           ]
         },
-        versions: [{label: '2020年度', value: 20}, {label: '2021年度', value: 21}, {label: '2022年度', value: 22}],
+        versions: [{label: '2020年度', value: '2020'}, {label: '2021年度', value: '2021'}, {label: '2022年度', value: '2022'}],
         passwordType: "password",
         loading: false
       };
@@ -188,11 +188,11 @@
       },
       changYear()
       {
-        if(this.loginForm.version == '20'){
+        if(this.loginForm.version == '2020'){
           window.location.href = 'http://10.194.144.208:5599/'
-        }else if(this.loginForm.version == '21'){
+        }else if(this.loginForm.version == '2021'){
           window.location.href = 'http://10.194.144.208:80/'
-        }else if(this.loginForm.version == '22'){
+        }else if(this.loginForm.version == '2022'){
           window.location.href = 'http://10.194.144.208:2022/'
         }
       }
