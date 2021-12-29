@@ -34,6 +34,9 @@ const global = {
     pageSize:50,
     totalSize:0,
     axiosConfig:{},
+    //add ztc 添加系统年度 fr
+    sysYears:'2021',
+    //add ztc 添加系统年度 to
   },
   mutations: {
     SET_AXIOSCONFIG(state, axiosConfig) {
