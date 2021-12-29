@@ -66,6 +66,9 @@
       };
     },
     mounted() {
+      //add ztc 添加系统年度 fr
+      this.year = this.$store.getters.sysYears;
+      //add ztc 添加系统年度 to
       this.getlistname(this.year);
     },
     methods: {

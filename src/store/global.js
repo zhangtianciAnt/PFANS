@@ -30,6 +30,9 @@ const global = {
     orgtreeId: "",//树主键
     orguserList:[],//人员选择时树组织隐藏副总经理节点
     //add gbb 20210329 2021组织架构变更 end
+    //add ztc 添加系统年度 fr
+    sysYears:'2021',
+    //add ztc 添加系统年度 to
   },
   mutations: {
     SET_HISTORYURL(state, url) {
