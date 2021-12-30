@@ -95,7 +95,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{ scope.row.hoursPlan4 }}</span>
                   </template>
@@ -111,17 +111,36 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(4)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual4 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual4 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual4 !== null && scope.row.hoursActual4 !== undefined" style="text-align: center;display:block;">{{ scope.row.hoursActual4 }}</span>
                     <el-input-number
                       size="mini"
-                      v-else
-                      :max="9999999999"
                       :disabled = ableOrNot(4)
                       :min="0"
                       :precision="2"
@@ -136,12 +155,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual4 !== null && scope.row.moneyActual4 !== undefined" style="text-align: center;display:block;">{{ scope.row.moneyActual4 }}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(4)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -162,7 +178,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{ scope.row.hoursPlan5 }}</span>
                   </template>
@@ -178,18 +194,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(5)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual5 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual5 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual5 !== null && scope.row.hoursActual5 !== undefined" style="text-align: center;display:block;">{{ scope.row.hoursActual5 }}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(5)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -203,12 +238,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual5 !== null && scope.row.moneyActual5 !== undefined" style="text-align: center;display:block;">{{ scope.row.moneyActual5 }}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(5)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -229,7 +261,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan6}}</span>
                   </template>
@@ -245,18 +277,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(6)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual6 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual6 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual6 !== null && scope.row.hoursActual6 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual6}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(6)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -270,12 +321,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual6 !== null && scope.row.moneyActual6 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual6}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(6)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -296,7 +344,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan7}}</span>
                   </template>
@@ -312,18 +360,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(7)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual7 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual7 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual7 !== null && scope.row.hoursActual7 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual7}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(7)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -337,12 +404,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual7 !== null && scope.row.moneyActual7 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual7}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(7)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -363,7 +427,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan8}}</span>
                   </template>
@@ -379,18 +443,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(8)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual8 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual8 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual8 !== null && scope.row.hoursActual8 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual8}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(8)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -404,12 +487,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual8 !== null && scope.row.moneyActual8 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual8}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(8)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -430,7 +510,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan9}}</span>
                   </template>
@@ -446,18 +526,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(9)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual9 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual9 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual9 !== null && scope.row.hoursActual9 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual9}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(9)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -471,12 +570,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual9 !== null && scope.row.moneyActual9 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual9}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(9)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -498,9 +594,10 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
-                    {{
+                    <span style="text-align: center;display:block;">
+                      {{
                       (Number(scope.row.hoursPlan4 || 0) +
                       Number(scope.row.hoursPlan5 || 0) +
                       Number(scope.row.hoursPlan6 || 0) +
@@ -508,6 +605,7 @@
                       Number(scope.row.hoursPlan8 || 0) +
                       Number(scope.row.hoursPlan9 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -515,6 +613,7 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="120">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.moneyPlan4 || 0) +
                       Number(scope.row.moneyPlan5 || 0) +
@@ -523,6 +622,7 @@
                       Number(scope.row.moneyPlan8 || 0) +
                       Number(scope.row.moneyPlan9 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -534,6 +634,7 @@
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="100">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.hoursActual4 || 0) +
                       Number(scope.row.hoursActual5 || 0) +
@@ -542,6 +643,7 @@
                       Number(scope.row.hoursActual8 || 0) +
                       Number(scope.row.hoursActual9 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -549,6 +651,7 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="120">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.moneyActual4 || 0) +
                       Number(scope.row.moneyActual5 || 0) +
@@ -557,6 +660,7 @@
                       Number(scope.row.moneyActual8 || 0) +
                       Number(scope.row.moneyActual9 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -571,7 +675,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan10}}</span>
                   </template>
@@ -587,18 +691,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(10)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual10 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual10 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual10 !== null && scope.row.hoursActual10 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual10}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(10)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -612,12 +735,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual10 !== null && scope.row.moneyActual10 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual10}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(10)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -638,7 +758,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan11}}</span>
                   </template>
@@ -654,18 +774,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(11)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual11 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual11 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual11 !== null && scope.row.hoursActual11 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual11}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(11)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -679,12 +818,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual11 !== null && scope.row.moneyActual11 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual11}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(11)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -705,7 +841,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan12}}</span>
                   </template>
@@ -721,18 +857,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(12)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual12 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual12 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual12 !== null && scope.row.hoursActual12 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual12}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(12)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -746,12 +901,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual12 !== null && scope.row.moneyActual12 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual12}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(12)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -772,7 +924,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan1}}</span>
                   </template>
@@ -788,18 +940,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(1)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual1 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual1 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual1 !== null && scope.row.hoursActual1 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual1}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(1)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -813,12 +984,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual1 !== null && scope.row.moneyActual1 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual1}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(1)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -839,7 +1007,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan2}}</span>
                   </template>
@@ -855,18 +1023,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(2)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual2 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual2 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual2 !== null && scope.row.hoursActual2 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual2}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(2)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -880,12 +1067,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual2 !== null && scope.row.moneyActual2 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual2}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(2)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -906,7 +1090,7 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
                     <span style="text-align: center;display:block;">{{scope.row.hoursPlan3}}</span>
                   </template>
@@ -922,18 +1106,37 @@
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
-                :label="$t('label.PFANS1054ACTUAL')">
+                :label="$t('label.PFANS1054ACTUAL')"
+                v-if="judge(3)">
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054NUMBEROFWORKERS')"
+                  width="70">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.hoursActual3 }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  show-overflow-tooltip
+                  :label="$t('label.PFANS1054AMOUNTOF')"
+                  width="100">
+                  <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">{{ scope.row.moneyActual3 }}</span>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                v-else>
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="140">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.hoursActual3 !== null && scope.row.hoursActual3 !== undefined" style="text-align: center;display:block;">{{scope.row.hoursActual3}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(3)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -947,12 +1150,9 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="170">
                   <template slot-scope="scope">
-                    <span v-if="scope.row.moneyActual3 !== null && scope.row.moneyActual3 !== undefined" style="text-align: center;display:block;">{{scope.row.moneyActual3}}</span>
                     <el-input-number
                       size="mini"
-                      v-else
                       :disabled = ableOrNot(3)
-                      :max="9999999999"
                       :min="0"
                       :precision="2"
                       controls-position="right"
@@ -974,8 +1174,9 @@
                 <el-table-column
                   show-overflow-tooltip
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
-                  width="100">
+                  width="70">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.hoursPlan4 || 0) +
                       Number(scope.row.hoursPlan5 || 0) +
@@ -990,6 +1191,7 @@
                       Number(scope.row.hoursPlan2 || 0) +
                       Number(scope.row.hoursPlan3 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -997,6 +1199,7 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="120">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.moneyPlan4 || 0) +
                       Number(scope.row.moneyPlan5 || 0) +
@@ -1011,6 +1214,7 @@
                       Number(scope.row.moneyPlan2 || 0) +
                       Number(scope.row.moneyPlan3 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -1022,6 +1226,7 @@
                   :label="$t('label.PFANS1054NUMBEROFWORKERS')"
                   width="100">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.hoursActual4 || 0) +
                       Number(scope.row.hoursActual5 || 0) +
@@ -1036,6 +1241,7 @@
                       Number(scope.row.hoursActual2 || 0) +
                       Number(scope.row.hoursActual3 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -1043,6 +1249,7 @@
                   :label="$t('label.PFANS1054AMOUNTOF')"
                   width="120">
                   <template slot-scope="scope">
+                    <span style="text-align: center;display:block;">
                     {{
                       (Number(scope.row.moneyActual4 || 0) +
                       Number(scope.row.moneyActual5 || 0) +
@@ -1057,6 +1264,7 @@
                       Number(scope.row.moneyActual2 || 0) +
                       Number(scope.row.moneyActual3 || 0)).toFixed(2)
                     }}
+                    </span>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -1067,13 +1275,13 @@
               :label="$t('label.operation')"
               width="140">
               <template slot-scope="scope">
+                <el-popconfirm :title="$t('label.PFANS1053CONFIRM')" @onConfirm="handleDelClick(scope.row)">
+                  <el-button slot="reference" type="danger" plain size="small" :disabled= "!scope.row.newLine">{{ $t('button.delete') }}</el-button>
+                </el-popconfirm>
                 <el-button @click="handleNewClick()" type="primary" plain size="small">{{
                     $t('button.insert')
                   }}
                 </el-button>
-                <el-popconfirm :title="$t('label.PFANS1053CONFIRM')" @onConfirm="handleDelClick(scope.row)">
-                  <el-button slot="reference" type="primary" plain size="small"  :disabled= "!scope.row.newLine">{{ $t('button.delete') }}</el-button>
-                </el-popconfirm>
               </template>
             </el-table-column>
           </el-table>
@@ -1577,16 +1785,6 @@ export default {
     changeDate(val) {
       this.tableData = [];
       this.getData();
-      //保存按钮状态
-      this.buttonList.forEach((item, index) => {
-        if (item.key == 'save') {
-          if (moment(this.formData.saveDate).year() === moment().year() && moment(this.formData.saveDate).month() + 1 === moment().month() + 1 && moment().date() < Number(this.deadlineDate)) {
-            this.buttonList[index].disabled = false;
-          } else {
-            this.buttonList[index].disabled = true;
-          }
-        }
-      });
     },
     // 部门变更
     groupChange() {
@@ -1855,76 +2053,76 @@ export default {
           themeName: '',
           themeinforId: '',
           centerId: this.formData.deptId,
-          hoursPlan4: 0,
-          moneyPlan4: 0,
-          hoursForecast4: 0,
-          moneyForecast4: 0,
+          hoursPlan4: 0.00,
+          moneyPlan4: 0.00,
+          hoursForecast4: 0.00,
+          moneyForecast4: 0.00,
           hoursActual4: null,
           moneyActual4: null,
-          hoursPlan5: 0,
-          moneyPlan5: 0,
-          hoursForecast5: 0,
-          moneyForecast5: 0,
+          hoursPlan5: 0.00,
+          moneyPlan5: 0.00,
+          hoursForecast5: 0.00,
+          moneyForecast5: 0.00,
           hoursActual5: null,
           moneyActual5: null,
-          hoursPlan6: 0,
-          moneyPlan6: 0,
-          hoursForecast6: 0,
-          moneyForecast6: 0,
+          hoursPlan6: 0.00,
+          moneyPlan6: 0.00,
+          hoursForecast6: 0.00,
+          moneyForecast6: 0.00,
           hoursActual6: null,
           moneyActual6: null,
-          hoursPlan7: 0,
-          moneyPlan7: 0,
-          hoursForecast7: 0,
-          moneyForecast7: 0,
+          hoursPlan7: 0.00,
+          moneyPlan7: 0.00,
+          hoursForecast7: 0.00,
+          moneyForecast7: 0.00,
           hoursActual7: null,
           moneyActual7: null,
-          hoursPlan8: 0,
-          moneyPlan8: 0,
-          hoursForecast8: 0,
-          moneyForecast8: 0,
+          hoursPlan8: 0.00,
+          moneyPlan8: 0.00,
+          hoursForecast8: 0.00,
+          moneyForecast8: 0.00,
           hoursActual8: null,
           moneyActual8: null,
-          hoursPlan9: 0,
-          moneyPlan9: 0,
-          hoursForecast9: 0,
-          moneyForecast9: 0,
+          hoursPlan9: 0.00,
+          moneyPlan9: 0.00,
+          hoursForecast9: 0.00,
+          moneyForecast9: 0.00,
           hoursActual9: null,
           moneyActual9: null,
-          hoursPlan10: 0,
-          moneyPlan10: 0,
-          hoursForecast10: 0,
-          moneyForecast10: 0,
+          hoursPlan10: 0.00,
+          moneyPlan10: 0.00,
+          hoursForecast10: 0.00,
+          moneyForecast10: 0.00,
           hoursActual10: null,
           moneyActual10: null,
-          hoursPlan11: 0,
-          moneyPlan11: 0,
-          hoursForecast11: 0,
-          moneyForecast11: 0,
+          hoursPlan11: 0.00,
+          moneyPlan11: 0.00,
+          hoursForecast11: 0.00,
+          moneyForecast11: 0.00,
           hoursActual11: null,
           moneyActual11: null,
-          hoursPlan12: 0,
-          moneyPlan12: 0,
-          hoursForecast12: 0,
-          moneyForecast12: 0,
+          hoursPlan12: 0.00,
+          moneyPlan12: 0.00,
+          hoursForecast12: 0.00,
+          moneyForecast12: 0.00,
           hoursActual12: null,
           moneyActual12: null,
-          hoursPlan1: 0,
-          moneyPlan1: 0,
-          hoursForecast1: 0,
-          moneyForecast1: 0,
+          hoursPlan1: 0.00,
+          moneyPlan1: 0.00,
+          hoursForecast1: 0.00,
+          moneyForecast1: 0.00,
           hoursActual1: null,
           moneyActual1: null,
-          hoursPlan2: 0,
-          moneyPlan2: 0,
-          hoursForecast2: 0,
-          moneyForecast2: 0,
+          hoursPlan2: 0.00,
+          moneyPlan2: 0.00,
+          hoursForecast2: 0.00,
+          moneyForecast2: 0.00,
           hoursActual2: null,
           moneyActual2: null,
-          hoursPlan3: 0,
-          moneyPlan3: 0,
-          hoursForecast3: 0,
-          moneyForecast3: 0,
+          hoursPlan3: 0.00,
+          moneyPlan3: 0.00,
+          hoursForecast3: 0.00,
+          moneyForecast3: 0.00,
           hoursActual3: null,
           moneyActual3: null,
         };
@@ -1959,6 +2157,25 @@ export default {
       }else{
         return true;
       }
+    },
+    //根据选择时间去判断，显示见通或者实际
+    judge(val){
+      let month = Number(moment(this.formData.saveDate).month()) + 1;
+          if (val + 8 < 12) {//table,1-3月份数据
+            if (month >= 4 && month <= 12) {//当前时间4-12月时，1-3月显示见通
+              return false;
+            } else {
+              return val < month ? true : false;//当前时间1-3，小于当前月份显示实际
+            }
+          } else {//table,4-12月份数据
+            if (month >= 4 && month <= 12) {//当前时间4-12
+              return val < month ? true : false;//小于当前月份显示实际
+            } else {//当前时间0-3
+              return true;//显示见通
+            }
+          }
+
+
     },
     //tab切换
     handleDetailClick(tab, event){
@@ -2033,12 +2250,34 @@ export default {
     // 列表初始化
     this.getData();
   },
+  watch: {
+    formData:{
+      handler(){
+        //保存按钮状态
+        this.buttonList.forEach((item, index) => {
+          if (item.key == 'save') {
+            if (moment(this.formData.saveDate).year() === moment().year() && moment(this.formData.saveDate).month() + 1 === moment().month() + 1 && moment().date() < Number(this.deadlineDate)) {
+              this.buttonList[index].disabled = false;
+            } else {
+              this.buttonList[index].disabled = true;
+            }
+          }
+        });
+      },
+      deep: true,
+    }
+
+  },
 };
 </script>
 
-<style lang="scss"   rel="stylesheet/scss">
-/*列锁定之后滚动条拖不动问题处理*/
-.el-table--scrollable-y .el-table__body-wrapper{
-  z-index: 1;
-}
+<!--<style lang="scss"   rel="stylesheet/scss">-->
+<!--/*列锁定之后滚动条拖不动问题处理*/-->
+<!--.el-table&#45;&#45;scrollable-y .el-table__body-wrapper{-->
+<!--  z-index: 1;-->
+<!--}-->
+<!--</style>-->
+<style lang="scss" >
+
+
 </style>
