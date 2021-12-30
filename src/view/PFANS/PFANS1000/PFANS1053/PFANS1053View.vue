@@ -1204,6 +1204,15 @@ export default {
     // 保存按钮点击
     buttonClick(val) {
       if (val === 'save') {
+        if(JSON.stringify(this.tableData) === "[]" || this.tableData.length === 0){
+          this.$message.info({
+            message: this.$t('normal.info_16'),
+            type: 'info',
+            duration: 2 * 1000,
+          })
+          return;
+        }
+        this.tableData = this.tableData.filter(item => item.themeinforId !== "")
         const data = {
           revenueForecastList: this.tableData,
           revenueForecast: {
@@ -1314,10 +1323,10 @@ export default {
   },
   computed: {
     year() {
-      if (this.formData.saveDate.month() > 2) {
-        return this.formData.saveDate.year();
+      if (moment(this.formData.saveDate).month() > 2) {
+        return moment(this.formData.saveDate).year();
       } else {
-        return this.formData.saveDate.year() - 1;
+        return Number(moment(this.formData.saveDate).year()) - 1;
       }
     },
     newLine() {
