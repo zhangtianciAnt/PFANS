@@ -552,7 +552,15 @@
             if (this.form.tubegroup_id != null && this.form.tubegroup_id != '') {
               let groupInfo = getOrgInfo(this.form.tubegroup_id);
               if (groupInfo) {
-                this.userlistLc.push(groupInfo.user);
+                //upd ccm 20211229 流程指定人审批修改 fr
+                // this.userlistLc.push(groupInfo.user);
+                this.userlistLc.push({
+                  type: groupInfo.type,
+                  uid: groupInfo.user,
+                  department:groupInfo._id,
+                  index:'2',
+                });
+                //upd ccm 20211229 流程指定人审批修改 fr
               }
             }
             //PSDCD_PFANS_20210408_XQ_024 新组织变更 ztc start

@@ -106,10 +106,18 @@
         default:true
       },
       userlist: {
-        type: Array,
-        default: function () {
-          return []
-        }
+        type: Array ,
+        //upd ccm 20211229 流程指定人审批修改 fr
+        default:()=>[]
+        // default: function () {
+        //   return {
+        //     type: '',//区分是GM，还是center
+        //     uid:'',//审批人userid
+        //     department:'',//画面选择的部门id
+        //     index:''//同步节点顺序
+        //   }
+        // }
+        //upd ccm 20211229 流程指定人审批修改 to
       },
     },
     methods: {
