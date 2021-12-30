@@ -42,6 +42,7 @@
                     row-key="wai_id" height="650"
                     highlight-current-row>
             <el-table-column
+              fixed="left"
               show-overflow-tooltip
               :label="$t('label.PFANS1050FORMVIEW_THEMENAME')"
               width="160">
@@ -65,9 +66,10 @@
               </template>
             </el-table-column>
             <el-table-column
+              fixed="left"
               show-overflow-tooltip
               :label="$t('label.PFANS1053_CUSTOMER_NAME')"
-              width="120">
+              width="160">
               <template slot-scope="scope">
                 <el-input size="mini" v-model="scope.row.customerName" :placeholder="$t('label.PFANS1053CUSTOMERNAME')"
                           v-if="scope.row.newLine"></el-input>
@@ -79,7 +81,7 @@
               :label="$t('label.PFANS2027VIEW_CATEGORY')"
               width="80">
               <template slot-scope="scope">
-                收入
+                <span style="text-align: center;display:block;">收入</span>
               </template>
             </el-table-column>
             <!--4月-->
@@ -91,32 +93,31 @@
                 show-overflow-tooltip
                 prop="aprilPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(4)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.aprilActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    v-if="scope.row.aprilActual !== null && scope.row.aprilActual !== undefined"
-                    :precision="2"
-                    controls-position="right"
-                    :disabled="true"
-                    style="width:90%"
-                    v-model.trim="scope.row.aprilActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    v-else
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
                     style="width:90%"
+                    :disabled = ableOrNot(4)
                     v-model.trim="scope.row.aprilForecast">
                   </el-input-number>
                 </template>
@@ -141,32 +142,31 @@
                 show-overflow-tooltip
                 prop="mayPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(5)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.mayActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    :disabled="true"
-                    v-if="scope.row.mayActual !== null && scope.row.mayActual !== undefined"
-                    style="width:90%"
-                    v-model.trim="scope.row.mayActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    v-else
                     :min="0"
                     :precision="2"
                     controls-position="right"
                     style="width:90%"
+                    :disabled = ableOrNot(5)
                     v-model.trim="scope.row.mayForecast">
                   </el-input-number>
                 </template>
@@ -191,32 +191,31 @@
                 show-overflow-tooltip
                 prop="junePlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(6)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.juneActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
-                    v-if="scope.row.juneActual !== null && scope.row.juneActual !== undefined"
-                    disabled
                     controls-position="right"
                     style="width:90%"
-                    v-model.trim="scope.row.juneActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    v-else
-                    controls-position="right"
-                    style="width:90%"
+                    :disabled = ableOrNot(6)
                     v-model.trim="scope.row.juneForecast">
                   </el-input-number>
                 </template>
@@ -286,32 +285,31 @@
                 show-overflow-tooltip
                 prop="julyPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(7)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.julyActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.julyActual !== null && scope.row.julyActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.julyActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(7)
                     v-model.trim="scope.row.julyForecast">
                   </el-input-number>
                 </template>
@@ -336,32 +334,31 @@
                 show-overflow-tooltip
                 prop="augustPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(8)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.augustActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.augustActual !== null && scope.row.augustActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.augustActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(8)
                     v-model.trim="scope.row.augustForecast">
                   </el-input-number>
                 </template>
@@ -386,32 +383,31 @@
                 show-overflow-tooltip
                 prop="septemberPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(9)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.septemberActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.septemberActual !== null && scope.row.septemberActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.septemberActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(9)
                     v-model.trim="scope.row.septemberForecast">
                   </el-input-number>
                 </template>
@@ -535,32 +531,31 @@
                 show-overflow-tooltip
                 prop="octoberPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(10)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.octoberActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.octoberActual !== null && scope.row.octoberActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.octoberActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(10)
                     v-model.trim="scope.row.octoberForecast">
                   </el-input-number>
                 </template>
@@ -585,32 +580,31 @@
                 show-overflow-tooltip
                 prop="novemberPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(11)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.novemberActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.novemberActual !== null && scope.row.novemberActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.novemberActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(11)
                     v-model.trim="scope.row.novemberForecast">
                   </el-input-number>
                 </template>
@@ -635,32 +629,31 @@
                 show-overflow-tooltip
                 prop="decemberPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(12)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.decemberActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.decemberActual !== null && scope.row.decemberActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.decemberActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(12)
                     v-model.trim="scope.row.decemberForecast">
                   </el-input-number>
                 </template>
@@ -730,32 +723,31 @@
                 show-overflow-tooltip
                 prop="januaryPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(1)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.januaryActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.januaryActual !== null && scope.row.januaryActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.januaryActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(1)
                     v-model.trim="scope.row.januaryForecast">
                   </el-input-number>
                 </template>
@@ -780,32 +772,31 @@
                 show-overflow-tooltip
                 prop="februaryPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(2)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.februaryActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.februaryActual !== null && scope.row.februaryActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.februaryActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    controls-position="right"
-                    v-else
-                    style="width:90%"
+                    :disabled = ableOrNot(2)
                     v-model.trim="scope.row.februaryForecast">
                   </el-input-number>
                 </template>
@@ -830,32 +821,31 @@
                 show-overflow-tooltip
                 prop="marchPlan"
                 :label="$t('label.PFANS2036VIEW_PLAN')"
-                width="100">
+                width="100"
+                align="center">
               </el-table-column>
               <el-table-column
                 show-overflow-tooltip
                 :label="$t('label.PFANS2036VIEW_TRUE')"
-                width="170">
+                width="100"
+                v-if="judge(3)">
+                <template slot-scope="scope">
+                  <span style="text-align: center;display:block;">{{ scope.row.marchActual }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column
+                show-overflow-tooltip
+                :label="$t('label.PFANS1054SEETHROUGH')"
+                width="170"
+                v-else>
                 <template slot-scope="scope">
                   <el-input-number
                     size="mini"
-                    :max="9999999999"
                     :min="0"
                     :precision="2"
                     controls-position="right"
-                    v-if="scope.row.marchActual !== null && scope.row.marchActual !== undefined"
-                    disabled
                     style="width:90%"
-                    v-model.trim="scope.row.marchActual">
-                  </el-input-number>
-                  <el-input-number
-                    size="mini"
-                    :max="9999999999"
-                    :min="0"
-                    :precision="2"
-                    v-else
-                    controls-position="right"
-                    style="width:90%"
+                    :disabled = ableOrNot(3)
                     v-model.trim="scope.row.marchForecast">
                   </el-input-number>
                 </template>
@@ -1038,10 +1028,12 @@ export default {
   methods: {
     // 保存年月变更
     changeDate() {
+      this.tableData = [];
       this.getData();
     },
     // 部门变更
     groupChange() {
+      this.tableData = [];
       this.getData();
     },
     // 查询
@@ -1260,7 +1252,56 @@ export default {
           return false
         }
       })
-    }
+    },
+    //编辑状态
+    ableOrNot(val){
+      let days = Number(moment().date());
+      let month = Number(moment().month()) + 1;
+      let year = Number(moment().year());
+      if(moment(this.formData.saveDate).year() === moment().year()) {//是否为当年
+        if (Number(days) > Number(this.deadlineDate)) {//当前大于字典截止日，不可填写
+          return true;
+        } else {
+          if (month === 4) {//当前时间4月进行全年见通，可填写
+            return false;
+          }
+          if (val + 8 < 12) {//table,1-3月份数据
+            if (month >= 4 && month <= 12) {//当前时间4-12月时，1-3月可填写
+              return false;
+            } else {
+              return val < month ? true : false;//当前时间1-3，小于当前月份不可填写
+            }
+          } else {//table,4-12月份数据
+            if (month >= 4 && month <= 12) {//当前时间4-12
+              return val < month ? true : false;//小于当前月份不可填写
+            } else {//当前时间0-3
+              return true;//可以填写
+            }
+          }
+        }
+      }else{
+        return true;
+      }
+    },
+    //根据选择时间去判断，显示见通或者实际
+    judge(val){
+      let month = Number(moment(this.formData.saveDate).month()) + 1;
+      if (val + 8 < 12) {//table,1-3月份数据
+        if (month >= 4 && month <= 12) {//当前时间4-12月时，1-3月显示见通
+          return false;
+        } else {
+          return val < month ? true : false;//当前时间1-3，小于当前月份显示实际
+        }
+      } else {//table,4-12月份数据
+        if (month >= 4 && month <= 12) {//当前时间4-12
+          return val < month ? true : false;//小于当前月份显示实际
+        } else {//当前时间0-3
+          return true;//显示见通
+        }
+      }
+
+
+    },
   },
   created() {
     // 获取部门列表
@@ -1326,6 +1367,24 @@ export default {
         };
       }
     },
+  },
+  watch: {
+    formData:{
+      handler(){
+        //保存按钮状态
+        this.buttonList.forEach((item, index) => {
+          if (item.key == 'save') {
+            if (moment(this.formData.saveDate).year() === moment().year() && moment(this.formData.saveDate).month() + 1 === moment().month() + 1 && moment().date() < Number(this.deadlineDate)) {
+              this.buttonList[index].disabled = false;
+            } else {
+              this.buttonList[index].disabled = true;
+            }
+          }
+        });
+      },
+      deep: true,
+    }
+
   },
 };
 </script>

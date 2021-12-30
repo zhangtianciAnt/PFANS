@@ -1785,16 +1785,6 @@ export default {
     changeDate(val) {
       this.tableData = [];
       this.getData();
-      //保存按钮状态
-      this.buttonList.forEach((item, index) => {
-        if (item.key == 'save') {
-          if (moment(this.formData.saveDate).year() === moment().year() && moment(this.formData.saveDate).month() + 1 === moment().month() + 1 && moment().date() < Number(this.deadlineDate)) {
-            this.buttonList[index].disabled = false;
-          } else {
-            this.buttonList[index].disabled = true;
-          }
-        }
-      });
     },
     // 部门变更
     groupChange() {
@@ -2063,76 +2053,76 @@ export default {
           themeName: '',
           themeinforId: '',
           centerId: this.formData.deptId,
-          hoursPlan4: 0,
-          moneyPlan4: 0,
-          hoursForecast4: 0,
-          moneyForecast4: 0,
+          hoursPlan4: 0.00,
+          moneyPlan4: 0.00,
+          hoursForecast4: 0.00,
+          moneyForecast4: 0.00,
           hoursActual4: null,
           moneyActual4: null,
-          hoursPlan5: 0,
-          moneyPlan5: 0,
-          hoursForecast5: 0,
-          moneyForecast5: 0,
+          hoursPlan5: 0.00,
+          moneyPlan5: 0.00,
+          hoursForecast5: 0.00,
+          moneyForecast5: 0.00,
           hoursActual5: null,
           moneyActual5: null,
-          hoursPlan6: 0,
-          moneyPlan6: 0,
-          hoursForecast6: 0,
-          moneyForecast6: 0,
+          hoursPlan6: 0.00,
+          moneyPlan6: 0.00,
+          hoursForecast6: 0.00,
+          moneyForecast6: 0.00,
           hoursActual6: null,
           moneyActual6: null,
-          hoursPlan7: 0,
-          moneyPlan7: 0,
-          hoursForecast7: 0,
-          moneyForecast7: 0,
+          hoursPlan7: 0.00,
+          moneyPlan7: 0.00,
+          hoursForecast7: 0.00,
+          moneyForecast7: 0.00,
           hoursActual7: null,
           moneyActual7: null,
-          hoursPlan8: 0,
-          moneyPlan8: 0,
-          hoursForecast8: 0,
-          moneyForecast8: 0,
+          hoursPlan8: 0.00,
+          moneyPlan8: 0.00,
+          hoursForecast8: 0.00,
+          moneyForecast8: 0.00,
           hoursActual8: null,
           moneyActual8: null,
-          hoursPlan9: 0,
-          moneyPlan9: 0,
-          hoursForecast9: 0,
-          moneyForecast9: 0,
+          hoursPlan9: 0.00,
+          moneyPlan9: 0.00,
+          hoursForecast9: 0.00,
+          moneyForecast9: 0.00,
           hoursActual9: null,
           moneyActual9: null,
-          hoursPlan10: 0,
-          moneyPlan10: 0,
-          hoursForecast10: 0,
-          moneyForecast10: 0,
+          hoursPlan10: 0.00,
+          moneyPlan10: 0.00,
+          hoursForecast10: 0.00,
+          moneyForecast10: 0.00,
           hoursActual10: null,
           moneyActual10: null,
-          hoursPlan11: 0,
-          moneyPlan11: 0,
-          hoursForecast11: 0,
-          moneyForecast11: 0,
+          hoursPlan11: 0.00,
+          moneyPlan11: 0.00,
+          hoursForecast11: 0.00,
+          moneyForecast11: 0.00,
           hoursActual11: null,
           moneyActual11: null,
-          hoursPlan12: 0,
-          moneyPlan12: 0,
-          hoursForecast12: 0,
-          moneyForecast12: 0,
+          hoursPlan12: 0.00,
+          moneyPlan12: 0.00,
+          hoursForecast12: 0.00,
+          moneyForecast12: 0.00,
           hoursActual12: null,
           moneyActual12: null,
-          hoursPlan1: 0,
-          moneyPlan1: 0,
-          hoursForecast1: 0,
-          moneyForecast1: 0,
+          hoursPlan1: 0.00,
+          moneyPlan1: 0.00,
+          hoursForecast1: 0.00,
+          moneyForecast1: 0.00,
           hoursActual1: null,
           moneyActual1: null,
-          hoursPlan2: 0,
-          moneyPlan2: 0,
-          hoursForecast2: 0,
-          moneyForecast2: 0,
+          hoursPlan2: 0.00,
+          moneyPlan2: 0.00,
+          hoursForecast2: 0.00,
+          moneyForecast2: 0.00,
           hoursActual2: null,
           moneyActual2: null,
-          hoursPlan3: 0,
-          moneyPlan3: 0,
-          hoursForecast3: 0,
-          moneyForecast3: 0,
+          hoursPlan3: 0.00,
+          moneyPlan3: 0.00,
+          hoursForecast3: 0.00,
+          moneyForecast3: 0.00,
           hoursActual3: null,
           moneyActual3: null,
         };
@@ -2260,12 +2250,34 @@ export default {
     // 列表初始化
     this.getData();
   },
+  watch: {
+    formData:{
+      handler(){
+        //保存按钮状态
+        this.buttonList.forEach((item, index) => {
+          if (item.key == 'save') {
+            if (moment(this.formData.saveDate).year() === moment().year() && moment(this.formData.saveDate).month() + 1 === moment().month() + 1 && moment().date() < Number(this.deadlineDate)) {
+              this.buttonList[index].disabled = false;
+            } else {
+              this.buttonList[index].disabled = true;
+            }
+          }
+        });
+      },
+      deep: true,
+    }
+
+  },
 };
 </script>
 
-<style lang="scss"   rel="stylesheet/scss">
-/*列锁定之后滚动条拖不动问题处理*/
-.el-table--scrollable-y .el-table__body-wrapper{
-  z-index: 1;
-}
+<!--<style lang="scss"   rel="stylesheet/scss">-->
+<!--/*列锁定之后滚动条拖不动问题处理*/-->
+<!--.el-table&#45;&#45;scrollable-y .el-table__body-wrapper{-->
+<!--  z-index: 1;-->
+<!--}-->
+<!--</style>-->
+<style lang="scss" >
+
+
 </style>
