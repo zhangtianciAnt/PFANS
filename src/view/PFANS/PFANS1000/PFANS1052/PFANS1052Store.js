@@ -1,4 +1,4 @@
-import {getDepartmentalInsert} from './PFANS1052Api';
+import {getDepartmentalInsert,downloadExcel} from './PFANS1052Api';
 
 const PFANS1052Store = {
   namespaced: true,
@@ -17,6 +17,15 @@ const PFANS1052Store = {
           reject(error);
         });
       });
+    },
+    downloadExcel({commit}, data) {
+      return new Promise((resolve, reject) => {
+        downloadExcel(data).then(response => {
+          resolve(response);
+        }).catch(error => {
+          reject(error);
+        })
+      })
     },
   },
 };

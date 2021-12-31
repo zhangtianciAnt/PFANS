@@ -14,12 +14,11 @@
   </div>
 </template>
 <script>
-  import {getToken} from '@/utils/auth';
-  import EasyNormalTable from '@/components/EasyNormalTable';
-  import {Message} from 'element-ui';
-  import {Decrypt} from '@/utils/customize';
+import EasyNormalTable from '@/components/EasyNormalTable';
+import {Message} from 'element-ui';
+import {getDictionaryInfo, getUserInfo} from "../../../../utils/customize";
+let moment = require('moment');
 
-  let moment = require('moment');
   export default {
     name: 'PFANS1043View',
     components: {
@@ -39,13 +38,15 @@
             fix: false,
             filter: true,
           },
-          {
-            code: 'year',
-            label: 'label.PFANS1043FORMVIEW_YEAR',
-            width: 140,
-            fix: false,
-            filter: true,
-          },
+          //theme管理添加列 ztc fr
+          // {
+          //   code: 'year',
+          //   label: 'label.PFANS1043FORMVIEW_YEAR',
+          //   width: 140,
+          //   fix: false,
+          //   filter: true,
+          // },
+          //theme管理添加列 ztc to
           {
             code: 'themename',
             label: 'label.PFANS1043FORMVIEW_NAME',
@@ -53,6 +54,40 @@
             fix: false,
             filter: true,
           },
+          //theme管理添加列 ztc fr
+          // 申请人
+          {
+            code: 'user_id',
+            label: 'label.PFANS1043FORMVIEW_USER',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          // 分野
+          {
+            code: 'divide',
+            label: 'label.PFANS1043FORMVIEW_DIVIDE',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          // 委托元
+          {
+            code: 'toolsorgs',
+            label: 'label.PFANS1043FORMVIEW_COMMOIN',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          // 通货种别
+          {
+            code: 'currency',
+            label: 'label.PFANS1043FORMVIEW_CATEGORY',
+            width: 140,
+            fix: false,
+            filter: true,
+          },
+          //theme管理添加列 ztc to
         ],
         buttonList: [
           {'key': 'view', 'name': 'button.view', 'disabled': false, 'icon': 'el-icon-view'},
@@ -62,6 +97,12 @@
         ],
         row: '',
         themename: '',
+        //theme管理添加列 ztc fr
+        user_id: '',
+        divide: '',
+        toolsorgs: '',
+        currency: '',
+        //theme管理添加列 ztc to
         rowid: 'themeinfor_id',
       };
     },
@@ -85,9 +126,33 @@
           .then(response => {
             const data = [];
             for (let j = 0; j < response.length; j++) {
+              //theme管理添加列 ztc fr
+              let user = getUserInfo(response[j].user_id);
+              if (user) {
+                response[j].user_id = getUserInfo(response[j].user_id).userinfo.customername;
+              }
+              if (response[j].divide !== null && response[j].divide !== '') {
+                let divide = getDictionaryInfo(response[j].divide);
+                if (divide != null) {
+                  response[j].divide = divide.value1;
+                }
+              }
+              if (response[j].currency !== null && response[j].currency !== '') {
+                let currencyInfo = getDictionaryInfo(response[j].currency);
+                if (currencyInfo != null) {
+                  response[j].currency = currencyInfo.value1;
+                }
+              }
+              //theme管理添加列 ztc to
               data.push({
                 themename: response[j].themename,
-                year: response[j].year,
+                //theme管理添加列 ztc fr
+                user_id: response[j].user_id,
+                divide: response[j].divide,
+                toolsorgs: response[j].toolsorgs,
+                currency: response[j].currency,
+                // year: response[j].year,
+                //theme管理添加列 ztc to
                 number: j + 1,
                 themeinfor_id: response[j].themeinfor_id,
               });
@@ -107,7 +172,9 @@
       rowClick(row) {
         this.row = row.themeinfor_id;
         this.themename = row.themename;
-        this.year = row.year;
+        //theme管理添加列 ztc fr
+        // this.year = row.year;
+        //theme管理添加列 ztc to
       },
       buttonClick(val) {
         this.$store.commit('global/SET_HISTORYURL', this.$route.path);
