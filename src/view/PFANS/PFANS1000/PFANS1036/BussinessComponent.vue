@@ -414,12 +414,12 @@
           }
         )
         //解决旅費交通費年间合计没有值bug ztc fr
-        totalExpect.numberfirsthalf = (totalExpect.numberfirsthalf || 0).toFixed(1);
-        totalExpect.numbersecondhalf =(totalExpect.numbersecondhalf || 0).toFixed(1);
+        totalExpect.numberfirsthalf = Number(totalExpect.numberfirsthalf || 0).toFixed(1);
+        totalExpect.numbersecondhalf = Number(totalExpect.numbersecondhalf || 0).toFixed(1);
         totalExpect.numberAnnual = ((parseFloat(totalExpect.numberfirsthalf) + parseFloat(totalExpect.numbersecondhalf))).toFixed(1);
         //解决旅費交通費年间合计没有值bug ztc to
-        totalExpect.moneyfirsthalf = (totalExpect.moneyfirsthalf || 0).toFixed(3);
-        totalExpect.moneysecondhalf =(totalExpect.moneysecondhalf || 0).toFixed(3);
+        totalExpect.moneyfirsthalf = parseFloat(totalExpect.moneyfirsthalf || 0).toFixed(3);
+        totalExpect.moneysecondhalf = parseFloat(totalExpect.moneysecondhalf || 0).toFixed(3);
         totalExpect.moneyAnnual = ((parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf))).toFixed(3);
         for (let k = 1; k <= 12; k++)
         {
