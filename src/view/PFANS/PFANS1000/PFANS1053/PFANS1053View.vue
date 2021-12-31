@@ -72,9 +72,7 @@
               :label="$t('label.PFANS1053_CUSTOMER_NAME')"
               width="160">
               <template slot-scope="scope">
-                <el-input size="mini" v-model="scope.row.customerName" :placeholder="$t('label.PFANS1053CUSTOMERNAME')"
-                          v-if="scope.row.newLine"></el-input>
-                <span v-else style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
+                <span style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
               </template>
             </el-table-column>
             <el-table-column
