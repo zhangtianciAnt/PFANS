@@ -959,7 +959,7 @@
         }
         this.getTableTotal();
       },
-      getSummaries(table) {
+      getSummaries(table) {//设备投资,下月开始
         let totalExpect = {};
         let totalExpectfin = {};
         let totalActual = {};
@@ -1041,7 +1041,7 @@
         this.tableNewYearTotal = [totalExpectfin];
         this.getTableTotal();
       },
-      //region scc add 软件资产table求和 from
+      //region scc add 软件资产table求和 from 【软件资产，当月开始】
       getSummaries1(table) {
         let totalExpect = {};
         let totalExpectfin = {};
@@ -1090,6 +1090,9 @@
           }
           else if (i == 12)
           {
+            // 软件资产，当月开始 ztc upd fr
+            totalExpectfin['money12'] = (totalExpectfin['money12'] || 0) + totalExpect['money' + i];
+            // 软件资产，当月开始 ztc upd to
             for (let j = 1; j <= 3; j++)
             {
               totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
@@ -1097,7 +1100,9 @@
           }
           else
           {
-            for (let j = i + 1; j <= 3; j++)
+            // 软件资产，当月开始 ztc upd fr
+            for (let j = i; j <= 3; j++)
+              // 软件资产，当月开始 ztc upd to
             {
               totalExpectfin['money' + j] = (totalExpectfin['money' + j] || 0) + totalExpect['money' + i];
             }
