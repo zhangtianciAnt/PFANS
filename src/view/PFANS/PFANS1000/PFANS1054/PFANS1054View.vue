@@ -1971,7 +1971,22 @@ export default {
           })
           return;
         }
-        this.tableData = this.tableData.filter(item => item.themeinforId !== "")
+        //填写theme必填项
+        let flag = false;
+        this.tableData.forEach(item => {
+          if (item.themeinforId === '') {
+            flag = true;
+          }
+        });
+        if(flag){
+          this.$message.error({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1043FORMVIEW_NAME'),
+            type: 'error',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        //填写theme必填项
         const data = {
           expenditureForecastList: this.tableData,
           expenditureForecast: {
