@@ -88,19 +88,6 @@
                     </el-select>
                   </el-form-item>
                 </el-col>
-                <!--决裁类型-->
-                <el-col :span="8">
-                  <el-form-item :label="$t('label.PFANS1004FORMVIEW_DECISIVELC')" prop="decision" v-if="showM">
-                    <dicselect
-                      :code="code6"
-                      :data="form.decision"
-                      :disabled="!disabled"
-                      :multiple="multiple"
-                      @change="getDecision"
-                      style="width:20vw">
-                    </dicselect>
-                  </el-form-item>
-                </el-col>
                 <!--多部门决裁-->
                 <el-col :span="8">
                   <el-form-item :label="$t('label.PFANS1012FORMVIEW_MUSECTOSION')" porp="musectosion">
@@ -116,6 +103,20 @@
                     <span style="margin-right: 1vw ">{{$t('label.yes')}}</span>
                   </el-form-item>
                 </el-col>
+                <!--决裁类型-->
+                <el-col :span="8">
+                  <el-form-item :label="$t('label.PFANS1004FORMVIEW_DECISIVELC')" prop="decision" >
+                    <dicselect
+                      :code="code6"
+                      :data="form.decision"
+                      :disabled="!disabled"
+                      :multiple="multiple"
+                      @change="getDecision"
+                      style="width:20vw">
+                    </dicselect>
+                  </el-form-item>
+                </el-col>
+
               </el-row>
               <el-form-item>
                 <el-table :data="tableA" stripe border header-cell-class-name="sub_bg_color_blue"
@@ -128,7 +129,7 @@
                     <template slot-scope="scope">
                       <org :disabled="!disabled" :error="errorgroupM" :orglist="scope.row.group_nameM"
                            @getOrgids="getGroupIdM" :no="scope.row"
-                           orgtype="2" style="width:13vw"></org>
+                           orgtype="4" style="width:13vw"></org>
                     </template>
                   </el-table-column>
                   <!--预算编码-->
@@ -805,7 +806,7 @@
             group_nameM: '',
             thisprojectM: '',
             // businessplantypeM: '',
-            careerplanM: '',
+            careerplanM: '0',
             classificationtypeM: '',
             businessplanbalanceM: '',
             amounttobegivenM: '',
@@ -990,6 +991,7 @@
         find: false,
         fileList: [],
         upload: uploadUrl(),
+        tempNode:0,
       };
     },
 
@@ -1026,6 +1028,60 @@
                   }
                 }
               }
+              if (response.judgement.musectosion == '1') //多部门决裁
+              {
+                //upd ccm 20211220 其他业务决裁多部门审批流程 fr
+                // this.workcode = 'W0091';
+                if (response.judgement.decision == 'PJ146001') {//决裁类型（其他）
+                  this.workcode = 'W0155';
+                } else if (response.judgement.decision == 'PJ146002') {//各种对外发表对应
+                  this.workcode = 'W0156';
+                } else if (response.judgement.decision == 'PJ146003') {//无偿进口设备相关
+                  this.workcode = 'W0157';
+                } else if (response.judgement.decision == 'PJ146004') {//采购服务合同相关
+                  this.workcode = 'W0158';
+                } else if (response.judgement.decision == 'PJ146005') {//基本合同相关
+                  this.workcode = 'W0159';
+                } else if (response.judgement.decision == 'PJ146006') {//银行税务相关  1
+                  this.tempNode = 1;
+                  this.workcode = 'W0160';
+                } else if (response.judgement.decision == 'PJ146007') {//经费支出
+                  this.workcode = 'W0161';
+                } else if (response.judgement.decision == 'PJ146008') {//各种疾病，传染病等  1
+                  this.tempNode = 1;
+                  this.workcode = 'W0162';
+                } else if (response.judgement.decision == 'PJ146009') {//各种体制变更，人员移动等
+                  this.workcode = 'W0163';
+                } else{//全社统一表彰，惩处等决裁、各种晋升、各种培训、制度变更 1
+                  this.tempNode = 1;
+                  this.workcode = 'W0164';
+                }
+                //upd ccm 20211220 其他业务决裁多部门审批流程 to
+              }
+              else //单部门
+              {
+                if (response.judgement.decision == 'PJ146001') {//决裁类型（其他）1
+                  this.workcode = 'W0006';
+                } else if (response.judgement.decision == 'PJ146002') {//各种对外发表对应 1
+                  this.workcode = 'W0007';
+                } else if (response.judgement.decision == 'PJ146003') {//无偿进口设备相关 1
+                  this.workcode = 'W0013';
+                } else if (response.judgement.decision == 'PJ146004') {//采购服务合同相关 1
+                  this.workcode = 'W0020';
+                } else if (response.judgement.decision == 'PJ146005') {//基本合同相关 1
+                  this.workcode = 'W0021';
+                } else if (response.judgement.decision == 'PJ146006') {//银行税务相关 1
+                  this.workcode = 'W0034';
+                } else if (response.judgement.decision == 'PJ146007') {//经费支出
+                  this.workcode = 'W0035';
+                } else if (response.judgement.decision == 'PJ146008') {//各种疾病，传染病等1
+                  this.workcode = 'W0042';
+                } else if (response.judgement.decision == 'PJ146009') {//各种体制变更，人员移动等 1
+                  this.workcode = 'W0044';
+                } else{//全社统一表彰，惩处等决裁、各种晋升、各种培训、制度变更 1
+                  this.workcode = 'W0051';
+                }
+              }
               if (response.judgementdetail.length > 0) {
                 this.tableA = response.judgementdetail;
                 this.showH = true;
@@ -1036,10 +1092,81 @@
                   if (this.tableA[i].group_nameM != null && this.tableA[i].group_nameM != '') {
                     let groupInfo = getOrgInfo(this.tableA[i].group_nameM);
                     if (groupInfo) {
-                      this.userlist.push(groupInfo.user);
+                      //upd ccm 20211229 流程指定人审批修改 fr
+                      // this.userlist.push(groupInfo.user);
                       //NT_PFANS_20210207_BUG_018 ztc 多部门审批 start
-                      this.userlistOrg.push(groupInfo.user)
+                      // this.userlistOrg.push(groupInfo.user)
                       //NT_PFANS_20210207_BUG_018 ztc 多部门审批 end
+                      if(response.judgement.musectosion == '1')
+                      {
+                        //upd ccm 20211220 其他业务决裁多部门审批流程 fr
+                        if (this.tempNode === 1) //只有一个共通节点的流程
+                        {
+                          this.userlistOrg.push({
+                            type: groupInfo.type,
+                            uid: groupInfo.user,
+                            department:groupInfo._id,
+                            index:'1',
+                          });
+                          this.userlist.push({
+                            type: groupInfo.type,
+                            uid: groupInfo.user,
+                            department:groupInfo._id,
+                            index:'1',
+                          });
+                        }
+                        else if (this.tempNode === 0) //有2个共通节点的流程
+                        {
+                          if (groupInfo.type === '2') //GM层
+                          {
+                            this.userlistOrg.push({
+                              type: groupInfo.type,
+                              uid: groupInfo.user,
+                              department:groupInfo._id,
+                              index:'1',
+                            });
+                            this.userlist.push({
+                            type: groupInfo.type,
+                            uid: groupInfo.user,
+                            department:groupInfo._id,
+                            index:'1',
+                          });
+                            let centerInfo = getOrgInfo(groupInfo.parent_id);
+                            if (centerInfo)
+                            {
+                              this.userlistOrg.push({
+                                type: centerInfo.type,
+                                uid: centerInfo.user,
+                                department:groupInfo._id,
+                                index:'2',
+                              });
+                              this.userlist.push({
+                                type: centerInfo.type,
+                                uid: centerInfo.user,
+                                department:groupInfo._id,
+                                index:'2',
+                              });
+                            }
+                          }
+                          else if(groupInfo.type === '1') //CENTER层 或 副总层
+                          {
+                            this.userlistOrg.push({
+                              type: groupInfo.type,
+                              uid: groupInfo.user,
+                              department:groupInfo._id,
+                              index:'2',
+                            });
+                            this.userlist.push({
+                              type: groupInfo.type,
+                              uid: groupInfo.user,
+                              department:groupInfo._id,
+                              index:'2',
+                            });
+                          }
+                        }
+                        //upd ccm 20211220 其他业务决裁多部门审批流程 to
+                      }
+                      //upd ccm 20211229 流程指定人审批修改 to
                     }
                   }
                   //禅道 610 去除数据字典不统一 ztc range
@@ -1082,7 +1209,7 @@
                     if (this.userlistAnt.length > 0) {
                       for (let h = 0; h < this.userlistAnt.length; h++) {
                         for (let v = 0; v < this.userlist.length; v++) {
-                          if (this.userlist[v] === this.userlistAnt[h]) {
+                          if (this.userlist[v].uid === this.userlistAnt[h] && this.userlist[v].index === '2') {
                             this.userlist.splice(v, 1);
                           }
                         }
@@ -1102,63 +1229,18 @@
                 this.getchangeGroup(this.form.group_name);
               }
               //add-ws-4/23-总务担当可用选择部门带出预算编码
-              if (response.judgement.musectosion == '1') {//多部门决裁
-                this.workcode = 'W0091';
-              } else if (response.judgement.decision == 'PJ146001') {//决裁类型（其他）1
-                this.workcode = 'W0006';
-              } else if (response.judgement.decision == 'PJ146002') {//各种对外发表对应 1
-                this.workcode = 'W0007';
-              } else if (response.judgement.decision == 'PJ146003') {//无偿进口设备相关 1
-                this.workcode = 'W0013';
-              } else if (response.judgement.decision == 'PJ146004') {//采购服务合同相关 1
-                this.workcode = 'W0020';
-              } else if (response.judgement.decision == 'PJ146005') {//基本合同相关 1
-                this.workcode = 'W0021';
-              } else if (response.judgement.decision == 'PJ146006') {//银行税务相关 1
-                this.workcode = 'W0034';
-              } else if (response.judgement.decision == 'PJ146007') {//经费支出
-                this.workcode = 'W0035';
-              } else if (response.judgement.decision == 'PJ146008') {//各种疾病，传染病等1
-                this.workcode = 'W0042';
-              } else if (response.judgement.decision == 'PJ146009') {//各种体制变更，人员移动等 1
-                this.workcode = 'W0044';
-              } else{//全社统一表彰，惩处等决裁、各种晋升、各种培训、制度变更 1
-                this.workcode = 'W0051';
-              }
-              // let rst = getOrgInfoByUserId(response.judgement.user_id);
-              // if (rst) {
-              //   //upd_fjl_0927
-              //   if (rst.groupId !== null && rst.groupId !== '' && rst.groupId !== undefined) {
-              //     this.checkGro = true;
-              //   } else {
-              //     this.checkGro = false;
-              //   }
-              //   // this.centerid = rst.centerNmae;
-              //   // this.groupid = rst.groupNmae;
-              //   // this.teamid = rst.teamNmae;
-              //   //upd_fjl_0927
-              //   // this.form.thisproject = rst.personalcode;
-              // }
               this.userlistA = this.form.user_id;
               this.getBudt(this.form.center_id);
               this.getDecisive(this.form.decisive);
-              // this.getBusinessplantype(this.form.businessplantype);
               //add-lyt-2/7-控制此单是否可以申请多次暂借款-start
               this.getEnableduplicateloan(this.form.enableduplicateloan);
               //add-lyt-2/7-控制此单是否可以申请多次暂借款-end
               if (this.form.careerplan === '1') {
                 this.showPlan = true;
-                // this.rules.businessplantype[0].required = true;
-                // this.rules.businessplanbalance[0].required = true;
               } else {
                 this.showPlan = false;
-                // this.show1 = false;
-                // this.rules.businessplantype[0].required = false;
                 this.rules.classificationtype[0].required = false;
               }
-              // if (this.form.businessplantype === 'PR002006') {
-              //   this.show1 = true;
-              // } else
               if (this.form.salequotation === 'PJ013001') {
                 this.show2 = true;
               } else if (this.form.salequotation === 'PJ013003') {
@@ -1681,7 +1763,7 @@
         this.tableA.push({
           group_nameM: '',
           thisprojectM: '',
-          careerplanM: '',
+          careerplanM: '0',
           // businessplantypeM: '',
           classificationtypeM: '',
           businessplanbalanceM: '',
@@ -1764,7 +1846,7 @@
               group_nameM: '',
               thisprojectM: '',
               // businessplantypeM: '',
-              careerplanM: '',
+              careerplanM: '0',
               classificationtypeM: '',
               businessplanbalanceM: '',
               amounttobegivenM: '',
@@ -2660,6 +2742,29 @@
                 });
             }
             else if (this.form.musectosion == '1') {//多部门决裁
+              //add ccm 20211228 多部门决裁，决裁流程相关的选项限制 fr
+              if(this.form.decision == 'PJ146006') {
+                if (this.role15 === '1'&& this.$store.getters.userinfo.userid === this.form.user_id){
+                  Message({
+                    message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_21'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+              else if(this.form.decision == 'PJ146008' || this.form.decision == 'PJ146009' || this.form.decision == 'PJ146010'
+                || this.form.decision == 'PJ146011' || this.form.decision == 'PJ146013'){
+                if(this.role16 === '1'&& this.$store.getters.userinfo.userid === this.form.user_id){
+                  Message({
+                    message: this.$t('label.PFANS1004FORMVIEW_DECISIVELC')+':'+getDictionaryInfo(this.form.decision).value1+','+this.$t('normal.error_22'),
+                    type: 'error',
+                    duration: 5 * 1000,
+                  });
+                  return;
+                }
+              }
+              //add ccm 20211228 多部门决裁，决裁流程相关的选项限制 to
               this.$refs['refform'].validate(valid => {
                 if (valid) {
                   this.loading = true;

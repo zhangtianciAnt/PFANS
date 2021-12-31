@@ -68,11 +68,17 @@
         type: Array
       },
       userlist: {
-        type: Array,
-        default: function () {
-          return []
-        }
-      }
+        type: Array ,
+        default:()=>[]
+        // default: function () {
+        //   return {
+        //     type: '',//区分是GM，还是center
+        //     uid:'',//审批人userid
+        //     department:'',//画面选择的部门id
+        //     index:''//同步节点顺序
+        //   }
+        // }
+      },
     },
     methods: {
       refresh () {
@@ -130,6 +136,11 @@
           this.workflowform.dataUrl = this.$route.path
           this.workflowform.workFlowId = this.selectId
           this.workflowform.userList = this.userlist;
+          if (this.userlist.length === 0)
+          {
+            this.workflowform.userList = [];
+          }
+
 
           this.$store
             .dispatch(

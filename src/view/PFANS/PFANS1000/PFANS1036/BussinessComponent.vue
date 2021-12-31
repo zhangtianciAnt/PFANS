@@ -385,8 +385,10 @@
             scope.numbersecondhalf = ((scope.number10 || 0) + (scope.number11 || 0) + (scope.number12 || 0) + (scope.number1 || 0) + (scope.number2 || 0) + (scope.number3 || 0)).toFixed(1);
             scope.moneysecondhalf = ((Number(scope.money10) || 0) + (Number(scope.money11) || 0) + (Number(scope.money12) || 0) + (Number(scope.money1) || 0) + (Number(scope.money2) || 0) + (Number(scope.money3) || 0)).toFixed(3);
           }
-          scope.numberAnnual = ((scope.numberfirsthalf || 0) + (scope.numbersecondhalf || 0)).toFixed(1);
-          scope.moneyAnnual = (Number((scope.moneyfirsthalf || 0)) + Number((scope.moneysecondhalf || 0))).toFixed(3);
+          //解决旅費交通費年间合计没有值bug ztc fr
+          scope.numberAnnual = (Number(scope.numberfirsthalf || 0) + Number(scope.numbersecondhalf || 0)).toFixed(1);
+          scope.moneyAnnual = (Number(scope.moneyfirsthalf || 0) + Number(scope.moneysecondhalf || 0)).toFixed(3);
+          //解决旅費交通費年间合计没有值bug ztc to
           this.getSummaries(this.tableBusiness);
         }
       },
@@ -411,8 +413,13 @@
             }
           }
         )
-        totalExpect.moneyfirsthalf = (totalExpect.moneyfirsthalf || 0).toFixed(3);
-        totalExpect.moneysecondhalf =(totalExpect.moneysecondhalf || 0).toFixed(3);
+        //解决旅費交通費年间合计没有值bug ztc fr
+        totalExpect.numberfirsthalf = Number(totalExpect.numberfirsthalf || 0).toFixed(1);
+        totalExpect.numbersecondhalf = Number(totalExpect.numbersecondhalf || 0).toFixed(1);
+        totalExpect.numberAnnual = ((parseFloat(totalExpect.numberfirsthalf) + parseFloat(totalExpect.numbersecondhalf))).toFixed(1);
+        //解决旅費交通費年间合计没有值bug ztc to
+        totalExpect.moneyfirsthalf = parseFloat(totalExpect.moneyfirsthalf || 0).toFixed(3);
+        totalExpect.moneysecondhalf = parseFloat(totalExpect.moneysecondhalf || 0).toFixed(3);
         totalExpect.moneyAnnual = ((parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf))).toFixed(3);
         for (let k = 1; k <= 12; k++)
         {

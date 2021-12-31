@@ -1161,12 +1161,28 @@
                             if (this.form.status == '0' || this.form.status == '3') {
                               let groupInfo = getOrgInfo(this.form.group_id);
                               if (groupInfo) {
-                                this.userlist.push(groupInfo.user);
+                                //upd ccm 20211229 流程指定人审批修改 fr
+                                // this.userlist.push(groupInfo.user);
+                                this.userlist.push({
+                                  type: groupInfo.type,
+                                  uid: groupInfo.user,
+                                  department:groupInfo._id,
+                                  index:'1',
+                                });
+                                //upd ccm 20211229 流程指定人审批修改 to
                               }
                             } else {
                               let centerInfo = getOrgInfo(this.form.center_id);
                               if (centerInfo) {
-                                this.userlist.push(centerInfo.user);
+                                //upd ccm 20211229 流程指定人审批修改 fr
+                                // this.userlist.push(centerInfo.user);
+                                this.userlist.push({
+                                  type: centerInfo.type,
+                                  uid: centerInfo.user,
+                                  department:centerInfo._id,
+                                  index:'2',
+                                });
+                                //upd ccm 20211229 流程指定人审批修改 to
                               }
                             }
                           }
