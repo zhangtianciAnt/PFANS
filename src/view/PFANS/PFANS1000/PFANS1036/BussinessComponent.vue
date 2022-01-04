@@ -394,7 +394,6 @@
       },
       getSummaries(table) {
         let totalExpect = {};
-        console.log(table)
         table.forEach(
           row => {
             let sum = 0;
