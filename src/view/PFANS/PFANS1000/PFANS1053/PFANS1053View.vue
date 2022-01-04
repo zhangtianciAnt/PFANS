@@ -18,7 +18,8 @@
                 @change="changeDate"
                 type="month"
                 v-model="formData.saveDate"
-                style="width:10vw">
+                style="width:10vw"
+                :clearable="false">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -71,9 +72,7 @@
               :label="$t('label.PFANS1053_CUSTOMER_NAME')"
               width="160">
               <template slot-scope="scope">
-                <el-input size="mini" v-model="scope.row.customerName" :placeholder="$t('label.PFANS1053CUSTOMERNAME')"
-                          v-if="scope.row.newLine"></el-input>
-                <span v-else style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
+                <span style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -1212,7 +1211,22 @@ export default {
           })
           return;
         }
-        this.tableData = this.tableData.filter(item => item.themeinforId !== "")
+        //填写theme必填项
+        let flag = false;
+        this.tableData.forEach(item => {
+          if (item.themeinforId === '') {
+            flag = true;
+          }
+        });
+        if(flag){
+          this.$message.error({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1043FORMVIEW_NAME'),
+            type: 'error',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        //填写theme必填项
         const data = {
           revenueForecastList: this.tableData,
           revenueForecast: {
