@@ -8,9 +8,14 @@
     :noback="true"
   >
     <div slot="customize">
+      <el-input :placeholder="$t('label.PFANS1054CONDITIONSFORRETRIEVAL')"
+                maxlength="20"
+                style="width: 20vw;margin-left: 75%"
+                v-model="formData.themeName">
+      </el-input>
       <el-form :model="formData" label-position="top" label-width="8vw" employedref="form" ref="form"
                style="padding: 0.5vw">
-        <el-row style="padding-top: 3%">
+        <el-row>
           <el-col :span="6">
             <el-form-item :label="$t('label.PFANS5016VIEW_YEARS')">
               <el-date-picker
@@ -18,7 +23,8 @@
                 @change="changeDate"
                 type="month"
                 v-model="formData.saveDate"
-                style="width:10vw">
+                style="width:10vw"
+                :clearable="false">
               </el-date-picker>
             </el-form-item>
           </el-col>
@@ -47,21 +53,56 @@
               :label="$t('label.PFANS1050FORMVIEW_THEMENAME')"
               width="160">
               <template slot-scope="scope">
-                <el-select
-                  v-model="scope.row.themeinforId"
-                  size="mini"
-                  v-if="scope.row.newLine"
-                  filterable
-                  default-first-option
-                  @change="selectChange(scope.row)"
-                  :placeholder="$t('label.PFANS1053THEMENAME')">
-                  <el-option
-                    v-for="item in themeOptions"
-                    :key="item.themeinforId"
-                    :label="item.themeName"
-                    :value="item.themeinforId">
-                  </el-option>
-                </el-select>
+                <el-col v-if="scope.row.newLine">
+                  <div>
+                    <el-container>
+                      <el-input class="content bg"
+                                :disabled="true" size="small"
+                                v-model="scope.row.themeName"></el-input>
+                      <el-button :disabled="false" icon="el-icon-search"
+                                 @click="dialogTableVisible2 = true"
+                                 size="small"></el-button>
+                      <el-dialog :visible.sync="dialogTableVisible2"
+                                 center
+                                 size="50%"
+                                 top="8vh" lock-scroll
+                                 append-to-body>
+                        <div style="text-align: center">
+                          <el-row style="text-align: center;height: 90%;overflow: hidden">
+                            <el-table
+                              :data="themeOptions.filter(data => !search2 || data.themeName.toLowerCase().includes(search2.toLowerCase()) || data.customerName.toLowerCase().includes(search2.toLowerCase()))"
+                              height="500px" highlight-current-row style="width: 100%" tooltip-effect="dark"
+                              @row-click="handleClickChange2($event,scope)">
+                              <el-table-column property="themeName" :label="$t('label.PFANS1054THEMENAME')"
+                                                show-overflow-tooltip></el-table-column>
+                              <el-table-column property="customerName" :label="$t('label.PFANS1053_CUSTOMER_NAME')"
+                                                show-overflow-tooltip></el-table-column>
+                              <el-table-column
+                                align="right" width="230">
+                                <template slot="header" slot-scope="scope">
+                                  <el-input
+                                    v-model="search2"
+                                    size="mini"
+                                    :placeholder="$t('label.PFANS1054CONDITIONSFORRETRIEVAL')"/>
+                                </template>
+                              </el-table-column>
+                            </el-table>
+                            <!--                      add  ml  211206  委托元dialog分页   from-->
+                            <div class="pagination-container" style="padding-top: 2rem">
+                              <el-pagination :current-page.sync="listQueryCont.currentPage" :page-size="listQueryCont.pageSize"
+                                             :page-sizes="[20,30,50,9999]" :total="totalCont" @current-change="handleCurrentChangeCont"
+                                             @size-change="handleSizeChangeCont" layout="slot,sizes, ->,prev, pager, next, jumper">
+                                <slot><span class="front Content_front"
+                                            style="padding-right: 0.5rem;font-weight: 400"></span></slot>
+                              </el-pagination>
+                            </div>
+                            <!--                      add  ml  211206  委托元dialog分页   to-->
+                          </el-row>
+                        </div>
+                      </el-dialog>
+                    </el-container>
+                  </div>
+                </el-col>
                 <span v-else style="text-align: center;display:block;">{{ scope.row.themeName }}</span>
               </template>
             </el-table-column>
@@ -71,9 +112,7 @@
               :label="$t('label.PFANS1053_CUSTOMER_NAME')"
               width="160">
               <template slot-scope="scope">
-                <el-input size="mini" v-model="scope.row.customerName" :placeholder="$t('label.PFANS1053CUSTOMERNAME')"
-                          v-if="scope.row.newLine"></el-input>
-                <span v-else style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
+                <span style="text-align: center;display:block;">{{ scope.row.customerName }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -1012,12 +1051,22 @@ export default {
       title: 'title.PFANS1053VIEW',
       loading: false,
       themeOptions: [],
+      dialogTableVisible2: false,
+      gridData2: [],
+      search2: '',
+      listQueryCont: {
+        currentPage: 1,
+        pageSize: 20,
+      },
+      totalCont: 0,
       buttonList: [
         {'key': 'save', 'name': 'button.save', 'disabled': false, icon: 'el-icon-check'},
+        {'key': 'search', 'name': 'button.search', 'disabled': false, icon: 'el-icon-search'},
       ],
       formData: {
         saveDate: moment(),
         deptId: '',
+        themeName: '',
       },
       // 见通填写截止日
       deadlineDate: '',
@@ -1042,7 +1091,6 @@ export default {
       this.$store.dispatch('PFANS1053Store/getInfo', this.formData)
       .then(response => {
         this.tableData = response.length === 0 ? [Object.assign({}, this.newLine)] : response;
-        console.log('this.tableData', this.tableData)
         this.loading = false;
       })
       .catch(error => {
@@ -1212,7 +1260,22 @@ export default {
           })
           return;
         }
-        this.tableData = this.tableData.filter(item => item.themeinforId !== "")
+        //填写theme必填项
+        let flag = false;
+        this.tableData.forEach(item => {
+          if (item.themeinforId === '') {
+            flag = true;
+          }
+        });
+        if(flag){
+          this.$message.error({
+            message: this.$t('normal.error_08') + this.$t('label.PFANS1043FORMVIEW_NAME'),
+            type: 'error',
+            duration: 2 * 1000,
+          });
+          return;
+        }
+        //填写theme必填项
         const data = {
           revenueForecastList: this.tableData,
           revenueForecast: {
@@ -1225,6 +1288,8 @@ export default {
         .then(response => {
           this.loading = false
           this.$message.success(this.$t("normal.success_01"))
+          this.tableData = [];
+          this.getData();
         })
         .catch(error => {
           this.$message.error({
@@ -1235,13 +1300,25 @@ export default {
           this.loading = false
         });
       }
+      if(val === 'search'){
+        this.tableData = [];
+        this.getData();
+      }
     },
     // 获取Theme列表
     getThemeOutDepth() {
-      this.$store.dispatch('PFANS1053Store/getThemeOutDepth', this.formData)
+      const datas = {
+        currentPage: this.listQueryCont.currentPage,
+        pageSize: this.listQueryCont.pageSize,
+        revenueForecast: {
+          saveDate: this.formData.saveDate,
+          deptId: this.formData.deptId
+        }
+      }
+      this.$store.dispatch('PFANS1053Store/getThemeOutDepth', datas)
       .then(response => {
-        this.themeOptions = response;
-        console.log(this.themeOptions)
+        this.themeOptions = response.resultList;
+        this.totalCont = response.total;
       })
       .catch(error => {
         this.$message.error({
@@ -1310,6 +1387,23 @@ export default {
       }
 
 
+    },
+    //theme弹窗行点击事件
+    handleClickChange2(val,$scope) {
+      $scope.row.themeName = val.themeName;//theme名赋值
+      $scope.row.themeinforId = val.themeinforId;//themeId赋值
+      $scope.row.customerName = val.customerName;//客户名赋值
+      this.dialogTableVisible2 = false;
+    },
+    //分页
+    handleSizeChangeCont(val) {
+      this.listQueryCont.pageSize = val;
+      this.getThemeOutDepth();
+    },
+    //分页
+    handleCurrentChangeCont(val) {
+      this.listQueryCont.currentPage = val;
+      this.getThemeOutDepth();
     },
   },
   created() {

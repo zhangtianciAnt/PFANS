@@ -1599,14 +1599,30 @@
                 if (response.contractcompound[i].group_id) {
                   let groupInfo = getOrgInformation(response.contractcompound[i].group_id);
                   if (groupInfo.data.type === '2' && groupInfo.data.encoding) {//group
-                    this.userlist.push(groupInfo.parent.data.user);
-                    //region scc add 11/5 同级group,只通知center长一次 from
+                    //region scc upd 复合合同多部门审批,页面指定Center长为第一审批节点 from
+                    // this.userlist.push(groupInfo.parent.data.user);
+                    this.userlist.push({//group时取center作为审批
+                      type: groupInfo.data.type,
+                      uid: groupInfo.parent.data.user,
+                      department:groupInfo.data._id,
+                      index:'1',//center长作为第一个节点
+                    });
+                    //endregion scc upd 复合合同多部门审批，页面指定Center长为第一审批节点 to
+                    //region scc add 11/5 同级多个group,审批节点center长只审批一次 from
                     this.userlist = Array.from(new Set(this.userlist));
                     //endregion scc add 11/5 同级group,只通知center长一次 to
                     this.userlistOrg.push(groupInfo.parent.data.user);
                   }else{
-                    this.userlist.push(groupInfo.data.user);//center
-                    //region scc add 11/5 同级group,只通知center长一次 from
+                    //region scc upd 复合合同多部门审批,页面指定Center长为第一审批节点 from
+                    // this.userlist.push(groupInfo.data.user);//center
+                    this.userlist.push({//center时，取center作为审批
+                      type: groupInfo.data.type,
+                      uid: groupInfo.data.user,
+                      department:groupInfo.data._id,
+                      index:'1',//center长作为第一个节点
+                    });
+                    //endregion scc upd 复合合同多部门审批，页面指定Center长为第一审批节点 to
+                    //region scc add 11/5 同级多个group,审批节点center长只审批一次 from
                     this.userlist = Array.from(new Set(this.userlist));
                     //endregion scc add 11/5 同级group,只通知center长一次 to
                     this.userlistOrg.push(groupInfo.data.user);
@@ -1627,7 +1643,7 @@
                   if (this.userlistAnt.length > 0) {
                     for (let h = 0; h < this.userlistAnt.length; h++) {
                       for (let v = 0; v < this.userlist.length; v++) {
-                        if (this.userlist[v] === this.userlistAnt[h]) {
+                        if (this.userlist[v].uid === this.userlistAnt[h]) {
                           this.userlist.splice(v, 1);
                         }
                       }
