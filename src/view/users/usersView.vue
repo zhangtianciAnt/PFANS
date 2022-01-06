@@ -1020,7 +1020,7 @@ export default {
           this.$store.dispatch('usersStore/resetPassword', userAccount)
             .then(response => {
               Message({
-                message: this.$t('normal.success_08') + this.name,
+                message: this.$t('normal.success_08') + this.name + this.$t('normal.success_09'),
                 type: 'success',
                 duration: 5 * 1000,
               });
