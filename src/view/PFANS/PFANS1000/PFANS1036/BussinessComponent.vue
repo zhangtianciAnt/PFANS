@@ -399,32 +399,32 @@
             let sum = 0;
             for (let i = 1; i <= 12; i++) {
               if (row.assetstype === "0") {
-                totalExpect["money" + i] = (row["money" + i] || 0) + (totalExpect["money" + i] || 0);
-                totalExpect["number" + i] = (row["number" + i] || 0) + (totalExpect["number" + i] || 0);
+                totalExpect["money" + i] = Number(row["money" + i] || 0) + Number(totalExpect["money" + i] || 0);
+                totalExpect["number" + i] = Number(row["number" + i] || 0) + Number(totalExpect["number" + i] || 0);
               }
             }
             if (row.assetstype === "0") {
-              totalExpect.numberfirsthalf = (row.numberfirsthalf||0) + (totalExpect.numberfirsthalf||0);
-              totalExpect.numbersecondhalf = (row.numbersecondhalf||0) + (totalExpect.numbersecondhalf||0);
-              totalExpect.numberAnnual = (row.numberAnnual||0) + (totalExpect.numberAnnual||0);
-              totalExpect.moneyfirsthalf = (row.moneyfirsthalf||0) + (totalExpect.moneyfirsthalf||0);
-              totalExpect.moneysecondhalf = (row.moneysecondhalf||0) + (totalExpect.moneysecondhalf||0);
-              totalExpect.moneyAnnual = (row.moneyAnnual||0) + (totalExpect.moneyAnnual||0);
+              totalExpect.numberfirsthalf = Number(row.numberfirsthalf||0) + Number(totalExpect.numberfirsthalf||0);
+              totalExpect.numbersecondhalf = Number(row.numbersecondhalf||0) + Number(totalExpect.numbersecondhalf||0);
+              totalExpect.numberAnnual = Number(row.numberAnnual||0) + Number(totalExpect.numberAnnual||0);
+              totalExpect.moneyfirsthalf = Number(row.moneyfirsthalf||0) + Number(totalExpect.moneyfirsthalf||0);
+              totalExpect.moneysecondhalf = Number(row.moneysecondhalf||0) + Number(totalExpect.moneysecondhalf||0);
+              totalExpect.moneyAnnual = Number(row.moneyAnnual||0) + Number(totalExpect.moneyAnnual||0);
             }
           }
         )
         //解决旅費交通費年间合计没有值bug ztc fr
-        totalExpect.numberfirsthalf = (totalExpect.numberfirsthalf || 0).toFixed(1);
-        totalExpect.numbersecondhalf =(totalExpect.numbersecondhalf || 0).toFixed(1);
-        totalExpect.numberAnnual = ((parseFloat(totalExpect.numberfirsthalf) + parseFloat(totalExpect.numbersecondhalf))).toFixed(1);
+        totalExpect.numberfirsthalf = Number(totalExpect.numberfirsthalf || 0).toFixed(1);
+        totalExpect.numbersecondhalf = Number(totalExpect.numbersecondhalf || 0).toFixed(1);
+        totalExpect.numberAnnual = ((Number(totalExpect.numberfirsthalf) + Number(totalExpect.numbersecondhalf))).toFixed(1);
         //解决旅費交通費年间合计没有值bug ztc to
-        totalExpect.moneyfirsthalf = (totalExpect.moneyfirsthalf || 0).toFixed(3);
-        totalExpect.moneysecondhalf =(totalExpect.moneysecondhalf || 0).toFixed(3);
-        totalExpect.moneyAnnual = ((parseFloat(totalExpect.moneyfirsthalf) + parseFloat(totalExpect.moneysecondhalf))).toFixed(3);
+        totalExpect.moneyfirsthalf = Number(totalExpect.moneyfirsthalf || 0).toFixed(3);
+        totalExpect.moneysecondhalf = Number(totalExpect.moneysecondhalf || 0).toFixed(3);
+        totalExpect.moneyAnnual = ((Number(totalExpect.moneyfirsthalf) + Number(totalExpect.moneysecondhalf))).toFixed(3);
         for (let k = 1; k <= 12; k++)
         {
-          totalExpect['money' + k] = totalExpect['money' + k].toFixed(3) || 0;
-          totalExpect['number' + k] = totalExpect['number' + k].toFixed(1) || 0;
+          totalExpect['money' + k] = Number(totalExpect['money' + k] || 0).toFixed(3);
+          totalExpect['number' + k] = Number(totalExpect['number' + k] || 0).toFixed(1);
         }
         this.tableNewYearTotal = [totalExpect];
         this.$emit("travel", this.tableNewYearTotal);
