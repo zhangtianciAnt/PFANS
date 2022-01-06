@@ -1030,6 +1030,9 @@
                 this.loading = false;
               });
           }
+          else{
+            resolve(0);
+          }
         });
         //日志管理切换项目 合同过期没有提示bug ztc to
       },
