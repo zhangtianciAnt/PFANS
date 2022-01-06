@@ -1406,8 +1406,8 @@ export default {
         }
       ];
     }
-    // region  add  ml  211224  密码重置  from  （人事部长冷美琴可见）
-    if (this.$store.getters.useraccount._id === "5e78b22c4e3b194874180f5f") {
+    // region  add  ml  211224  密码重置  from  （康奕凝可见）
+    if (this.$store.getters.useraccount._id === "5e78b2034e3b194874180e37") {
       this.buttonList = [
         {
           key: "new",
